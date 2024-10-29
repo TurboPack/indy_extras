@@ -1,0 +1,47 @@
+package dclTaurusTLS290;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'TaurusTLS Design-Time-Only package'}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  dclIndyCore290,
+  dclIndyProtocols290,
+  IndyCore290,
+  IndyProtocols290,
+  IndySystem290,
+  TaurusTLS290;
+
+contains
+  TaurusTLS_Dsn_Register in 'TaurusTLS_Dsn_Register.pas',
+  TaurusTLS_Dsn_ResourceStrings in 'TaurusTLS_Dsn_ResourceStrings.pas',
+  TaurusTLS_Dsn_AboutDlg in 'TaurusTLS_Dsn_AboutDlg.pas',
+  TaurusTLS_Dsn_ComponentEditor in 'TaurusTLS_Dsn_ComponentEditor.pas';
+
+end.

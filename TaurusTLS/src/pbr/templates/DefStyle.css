@@ -1,0 +1,344 @@
+<STYLE TYPE="text/css">
+<!--
+
+  A:link, A:visited
+  {
+      TEXT-DECORATION: none;
+      COLOR: blue;
+  }
+  
+  A:hover
+  {
+      TEXT-DECORATION: underline;
+      FONT-WEIGHT: bold;      
+  }
+
+  BODY
+  {
+      BACKGROUND: white; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small;
+  }
+  
+  H1
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: medium;
+  }
+  
+  H2
+  {
+      BACKGROUND-COLOR: #FFFFFF;
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: medium; 
+      FONT-WEIGHT: bold;
+  }
+
+  H3
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small; 
+      FONT-WEIGHT: bold;
+  }
+    
+  PRE.Dec /* declaration source code */
+  {
+      BACKGROUND-COLOR:#FFFFCC;
+      BORDER:1px solid silver;
+      padding: 5px;
+  }
+    
+  PRE.Code /* source code */
+  {
+      BACKGROUND-COLOR:#FFFFCC;
+      BORDER:1px solid silver;
+      padding: 5px;
+  }
+  
+  PRE.Comment /* comments */
+  {
+      BACKGROUND: white; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small;
+  }
+
+  PRE.OddRowTable /* comments */
+  {
+      BACKGROUND: #FFFFCC;
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small;
+  }  
+  
+  PRE.EvenRowTable /* comments */
+  {
+      BACKGROUND: #D8FFCA;
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small;
+  }  
+  
+  TABLE
+  {
+      BORDER-STYLE: dotted;
+  }
+
+  TH
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small; 
+      FONT-WEIGHT: bold;
+      TEXT-ALIGN: left;
+  }
+  
+  TD
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: x-small;
+      VERTICAL-ALIGN: middle;
+  }
+  
+  .IdHeader    /* for writing identfier on top of page */
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: small;
+      FONT-WEIGHT: bold;
+  }
+  
+  .LetterRow
+  {
+      BACKGROUND: #FFFFCC;
+  }  
+  
+  .BigLetter
+  {
+      COLOR: black; 
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: medium; 
+      FONT-WEIGHT: bold;
+      TEXT-ALIGN: left;
+  }  
+  
+  .HeaderRow
+  {
+      BACKGROUND: #D8FFCA;
+  }  
+    
+  .OddRow
+  {
+      BACKGROUND: #FFFFCC;
+  }
+  
+  .EvenRow
+  {
+      BACKGROUND: #D8FFCA;
+  } 
+
+  .RefHeaderRow /* header for reference table */
+  {
+      BACKGROUND: #D8FFCA;
+  }  
+  
+  .RefOddRow   /* odd row in reference table */
+  {
+      BACKGROUND: #FFFFCC;
+  }
+  
+  .RefEvenRow /* even row in reference table */
+  {
+      BACKGROUND: #D8FFCA;
+  } 
+     
+  .TodoHeaderRow /* header row in todo table */
+  {
+      BACKGROUND: #D8FFCA;
+  }  
+  
+  .TodoOddRow   /* odd row in todo table */
+  {
+      BACKGROUND: #FFFFCC;
+  }
+  
+  .TodoEvenRow  /* even row in todo table */
+  {
+      BACKGROUND: #D8FFCA;
+  } 
+   
+  .Cmt  /* Comment */
+  {
+      COLOR: #008000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+      FONT-WEIGHT: bold;
+  }
+
+  .Const  /* Constant */
+  {
+      COLOR: #008000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+  
+  .Def  /* Conditional define */
+  {
+      COLOR: #FF0000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+  
+  .EId                     /* Exposed Identifier */
+  {
+      COLOR: #008880;
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+      TEXT-DECORATION: overline;
+  }
+
+  .EIdHL                     /* Exposed Identifier */
+  {
+      BACKGROUND-COLOR: yellow;
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+      TEXT-DECORATION: overline;
+  }
+  
+  .HierId                        /* Identifier in Hierarchy tree */
+  {
+      COLOR: #000000; 
+      FONT-FAMILY: "Lucida Console","Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+
+  .HierIdEmp                        /* Identifier with emphasis in Hierarchy tree */
+  {
+      COLOR: #000000; 
+      FONT-FAMILY: "Lucida Console","Courier New",monospace; 
+      FONT-SIZE: x-small;
+      FONT-WEIGHT: bold;
+  }
+    
+  .Id                        /* Identifier */
+  {
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+
+  .IdEmp                     /* Identifier with emphasis*/
+  {
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+      FONT-WEIGHT: bold;      
+  }
+
+  .IdHL                   /* Identifier with highlighted background*/
+  {
+      BACKGROUND-COLOR: yellow;
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+
+  .LineHL
+  {
+      BACKGROUND-COLOR: yellow;
+  }
+  
+  .Line                  
+  {
+      
+  }
+      
+  .XId /* Unused identifier */
+  {
+      COLOR: #008880; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+      TEXT-DECORATION: line-through;
+  }
+
+  .XIdHL /* highlighted Unused identifier */
+  {
+      BACKGROUND-COLOR: yellow;
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+      TEXT-DECORATION: line-through;
+  }
+    
+  .No  /* Invalid code */
+  {
+      COLOR: #008880;
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+      TEXT-DECORATION: line-through;
+  }
+
+  .Kw                             /* Keyword */
+  {
+      COLOR: #000000;
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+      FONT-WEIGHT: bold;
+  }
+
+  .KwHL                             /* Keyword */
+  {
+      BACKGROUND-COLOR: aqua;
+      COLOR: #000000;
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+      FONT-WEIGHT: bold;
+  }
+  
+  .Ln                             /* Line number */
+  {
+      COLOR: #FE0000; 
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+  }
+
+  .Num                            /* Numeric */
+  {
+      COLOR: #FF0000;
+      FONT-FAMILY: "Courier New",monospace;
+      FONT-SIZE: x-small;
+  }
+  
+  .Str                            /* String */
+  {
+      COLOR: #000080; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+
+  .Uh /* Unhandled */  
+  {
+      COLOR: #000000; 
+      FONT-FAMILY: "Courier New",monospace; 
+      FONT-SIZE: x-small;
+  }
+
+  .Footer
+  {
+      COLOR: #000000;
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: xx-small;
+  }   
+  
+  .FooterEmp
+  {
+      COLOR: #000000;
+      FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; 
+      FONT-SIZE: xx-small;
+      FONT-WEIGHT: bold;      
+  }     
+   
+-->
+</STYLE>
