@@ -188,6 +188,8 @@ begin
     mmoIndyLicense.Lines.Add(RSDisclaimerCondOne);
     mmoIndyLicense.Lines.Add('');
     mmoIndyLicense.Lines.Add(RSDisclaimerCondTwo);
+    mmoIndyLicense.Lines.Add('');
+    mmoIndyLicense.Lines.Add(RSIndyDisclaimer);
     mmoIndyLicense.TabOrder := 0;
     btnOk.Name := 'btnOk';
     btnOk.Parent := frmAcknowlegements;
