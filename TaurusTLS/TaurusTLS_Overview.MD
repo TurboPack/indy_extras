@@ -34,7 +34,6 @@ OpenSSL 3.x
 - libcrypto-3.dll
 - libssl-3.dll
 - openssl.exe
-	
 
 For Win64 applications, you need to redistribute the following:
 
