@@ -1,11 +1,8 @@
-The following is located in this repository:
+# A repository of additional add-ins for Indy
 
-/TaurusTLS/TaurusTLS_Overview.MD - an overview of TaurusTLS
+Indy repo is here: https://github.com/IndySockets/Indy
+Main Indy website: https://www.indyproject.org/
+Indy OpenSSL repo: https://github.com/IndySockets/IndyTLS-OpenSSL
 
-/TaurusTLS/What_needs_to_be_done.MD - a TODO list of tasks that I may not be able to do.  Hopefully, someone will do them.
 
-/TaurusTLS/src - The source-code for TaurusTLS
 
-/OpenSSL/binaries - OpenSSL binaries for TaurusTLS
-
-/OpenSSL/build-scripts/ - MSYS2 scripts that build various versions of OpenSSL.
