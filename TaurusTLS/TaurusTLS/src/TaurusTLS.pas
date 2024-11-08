@@ -802,7 +802,6 @@ begin
       var
         LPassword: String;
 {$ENDIF}
-      LPassword := ''; { Do not Localize }
       if Supports(TTaurusTLSContext(userdata).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
       begin
@@ -2187,7 +2186,7 @@ begin
         Lcert_context);
     end;
   finally
-    if CertCloseStore(LWinCertStore, 0) = False then
+    if not CertCloseStore(LWinCertStore, 0) then
     begin
       RaiseLastOSError;
     end;
