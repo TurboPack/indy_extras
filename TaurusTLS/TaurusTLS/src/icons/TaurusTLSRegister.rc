@@ -1,4 +1,0 @@
-/* Taurus IOHandlers */
-TTaurusTLSServerIOHandler              BITMAP "TTaurusTLSServerIOHandler.bmp"
-TTaurusTLSIOHandlerSocket              BITMAP "TTaurusTLSIOHandlerSocket.bmp"
-
