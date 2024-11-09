@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{4E8E3140-D7E3-49E7-A574-B455D5EC17FC}</ProjectGuid>
-        <MainSource>TaurusTLS290.dpk</MainSource>
+        <MainSource>TaurusTLS_RT.dpk</MainSource>
         <ProjectVersion>20.2</ProjectVersion>
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
@@ -9,7 +9,7 @@
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1048579</TargetedPlatforms>
         <AppType>Package</AppType>
-        <ProjectName Condition="'$(ProjectName)'==''">TaurusTLS290</ProjectName>
+        <ProjectName Condition="'$(ProjectName)'==''">TaurusTLS_RT</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -77,12 +77,15 @@
         <GenPackage>true</GenPackage>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
-        <SanitizedProjectName>TaurusTLS290</SanitizedProjectName>
+        <SanitizedProjectName>TaurusTLS_RT</SanitizedProjectName>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=TarusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=$(MSBuildProjectName);LegalCopyright=Copyright (c) 2024 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <DCC_Description>TaurusTLS Run-Time package</DCC_Description>
+        <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
+        <DllSuffix>290</DllSuffix>
+        <DCC_UnitSearchPath>..\..\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_CBuilderOutput>None</DCC_CBuilderOutput>
@@ -141,96 +144,96 @@
         <DCCReference Include="IndyProtocols290.dcp"/>
         <DCCReference Include="IndySystem290.dcp"/>
         <DCCReference Include="IndyCore290.dcp"/>
-        <DCCReference Include="TaurusTLS_ResourceStrings.pas"/>
-        <DCCReference Include="TaurusTLS.pas"/>
-        <DCCReference Include="TaurusTLS_Files.pas"/>
-        <DCCReference Include="TaurusTLS_Utils.pas"/>
-        <DCCReference Include="TaurusTLS_X509.pas"/>
-        <DCCReference Include="TaurusTLSConsts.pas"/>
-        <DCCReference Include="TaurusTLSLoader.pas"/>
-        <DCCReference Include="TaurusTLS_FIPS.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_aes.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_asn1.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_asn1_mac.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_asn1err.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_asn1t.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_async.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_asyncerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_bio.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_bioerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_blowfish.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_bn.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_bnerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_buffer.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_buffererr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_camellia.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cast.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cmac.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cms.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cmserr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_comp.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_comperr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_conf.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_conf_api.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_conferr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_core.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_crypto.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cryptoerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_cterr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_des.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_dh.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_dherr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_dsa.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_dsaerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ebcdic.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ec.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ecerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_engine.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_engineerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_err.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_evp.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_evperr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_hmac.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_idea.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_kdferr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_obj_mac.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_objects.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_objectserr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ocsperr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ossl_typ.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_pem.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_pemerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_pkcs7.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_pkcs7err.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_pkcs12.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_provider.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_rand.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_randerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_rc4.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_rsa.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_rsaerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_safestack.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_sha.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_srtp.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ssl.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ssl3.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_sslerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_stack.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_storeerr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_tls1.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ts.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_tserr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_txt_db.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_ui.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_uierr.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_whrlpool.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_x509.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_x509_vfy.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_x509err.pas"/>
-        <DCCReference Include="TaurusTLSHeaders_x509v3.pas"/>
-        <DCCReference Include="TaurusTLSExceptionHandlers.pas"/>
-        <DCCReference Include="TaurusTLSFIPS.pas"/>
-        <DCCReference Include="ITaurusTLS_NTLM.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS_ResourceStrings.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS_Files.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS_Utils.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS_X509.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSConsts.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSLoader.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLS_FIPS.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_aes.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1_mac.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1err.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1t.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_async.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asyncerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_bio.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_bioerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_blowfish.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_bn.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_bnerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_buffer.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_buffererr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_camellia.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cast.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cmac.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cms.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cmserr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_comp.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_comperr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_conf.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_conf_api.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_conferr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_core.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_crypto.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cryptoerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cterr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_des.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_dh.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_dherr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_dsa.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_dsaerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ebcdic.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ec.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ecerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_engine.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_engineerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_err.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_evp.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_evperr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_hmac.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_idea.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_kdferr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_obj_mac.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_objects.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_objectserr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ocsperr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ossl_typ.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_pem.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_pemerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_pkcs7.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_pkcs7err.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_pkcs12.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_provider.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_rand.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_randerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_rc4.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_rsa.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_rsaerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_safestack.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_sha.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_srtp.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ssl.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ssl3.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_sslerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_stack.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_storeerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_tls1.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ts.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_tserr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_txt_db.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ui.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_uierr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_whrlpool.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_x509.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_x509_vfy.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_x509err.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_x509v3.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSExceptionHandlers.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSFIPS.pas"/>
+        <DCCReference Include="..\..\..\Source\ITaurusTLS_NTLM.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -249,10 +252,10 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">TaurusTLS290.dpk</Source>
+                    <Source Name="MainSource">TaurusTLS_RT.dpk</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS290.bpl">TaurusTLS Run-Time package</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_DT.bpl">TaurusTLS Design-Time-Only package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclemsedge290.bpl">Embarcadero RAD Server Edge Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k290.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp290.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
@@ -276,9 +279,15 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS290.bpl" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_RT.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>TaurusTLS290.bpl</RemoteName>
+                        <RemoteName>TaurusTLS_RT.bpl</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\Win64x\TaurusTLS_RT.bpl" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64x">
+                        <RemoteName>TaurusTLS_RT.bpl</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
