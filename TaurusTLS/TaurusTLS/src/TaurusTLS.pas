@@ -940,10 +940,13 @@ begin
               LError := X509_V_ERR_CERT_CHAIN_TOO_LONG;
             end;
           end;
-          LOk := False;
           if LPreverifyOK = 1 then
           begin
             LOk := true;
+          end
+          else
+          begin
+            LOk := False;
           end;
 {$IFDEF USE_INLINE_VAR}
           var

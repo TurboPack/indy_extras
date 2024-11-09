@@ -346,7 +346,6 @@ begin
     begin
       try
         if X509_print_ex(LMem, AX509,XN_FLAG_COMPAT, X509_FLAG_COMPAT) = 1 then begin
-          LBufPtr := nil;
           LLen := BIO_get_mem_data(LMem, @LBufPtr);
           if (LLen > 0) and (LBufPtr <> nil) then
           begin

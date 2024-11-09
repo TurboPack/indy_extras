@@ -148,7 +148,6 @@ begin
         Exit;
       end;
       try
-        CertChain := nil;
         if PKCS12_parse(P12, LPasswordPtr, LKey, LCert, @CertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
@@ -228,7 +227,6 @@ begin
         Exit;
       end;
       try
-        CertChain := nil;
         if PKCS12_parse(P12, LPasswordPtr, PKey, LCert, @CertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
