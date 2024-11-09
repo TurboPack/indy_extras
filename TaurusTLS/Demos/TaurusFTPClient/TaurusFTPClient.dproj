@@ -71,7 +71,7 @@
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
         <SanitizedProjectName>TaurusFTPClient</SanitizedProjectName>
-        <DCC_UnitSearchPath>C:\msys64\home\jpmugaas\TaurusTLS;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\System;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\Core;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\Protocols;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\Source\;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\System;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\Core;C:\msys64\home\jpmugaas\Indy\Indy-Indy-10.6.3.6\Lib\Protocols;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=Indy Pitt Crew;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=Copyright (c) 2024 Indy Pitt Crew;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>

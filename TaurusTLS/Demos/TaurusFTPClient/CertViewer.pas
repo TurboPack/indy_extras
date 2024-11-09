@@ -1,7 +1,7 @@
 unit CertViewer;
 
 interface
-{$I ..\..\TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
