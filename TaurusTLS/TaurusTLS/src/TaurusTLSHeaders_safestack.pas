@@ -207,7 +207,7 @@ function sk_OPENSSL_STRING_set_cmp_func(sk: PSTACK_OF_OPENSSL_STRING;
   compare: sk_OPENSSL_STRING_compfunc): sk_OPENSSL_STRING_compfunc;   {$IFDEF INLINE}inline;{$ENDIF}
 begin
   Result := sk_OPENSSL_STRING_compfunc
-    (OPENSSL_sk_set_cmp_func(POPENSSL_STACK(sk),
+    (OPENSSL_sk_set_cmp_func(sk,
     TOPENSSL_sk_compfunc(compare)));
 end;
 

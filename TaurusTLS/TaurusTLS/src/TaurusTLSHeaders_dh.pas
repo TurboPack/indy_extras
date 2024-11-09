@@ -1308,7 +1308,7 @@ end;
 
 function d2i_DHparams_bio(bp: PBIO; x: PPDH): PDH;
 begin
-    Result := PDH(ASN1_d2i_bio(pxnew(@DH_new), pd2i_of_void(@d2i_DHparams), bp, PPointer(x)));
+    Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, PPointer(x)));
 end;
 
 {$WARN  NO_RETVAL ON}
