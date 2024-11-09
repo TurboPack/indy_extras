@@ -681,8 +681,8 @@ var
   ENGINE_get_digest: function (e: PENGINE; nid: TIdC_INT): PEVP_MD; cdecl = nil;
   ENGINE_get_pkey_meth: function (e: PENGINE; nid: TIdC_INT): PEVP_PKEY_METHOD; cdecl = nil;
   ENGINE_get_pkey_asn1_meth: function (e: PENGINE; nid: TIdC_INT): PEVP_PKEY_ASN1_METHOD; cdecl = nil;
-  ENGINE_get_pkey_asn1_meth_str: function (e: PENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; cdecl = nil;
-  ENGINE_pkey_asn1_find_str: function (pe: PPENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; cdecl = nil;
+  ENGINE_get_pkey_asn1_meth_str: function (e: PENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; cdecl = nil;
+  ENGINE_pkey_asn1_find_str: function (pe: PPENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; cdecl = nil;
   ENGINE_get_cmd_defns: function (const e: PENGINE): PENGINE_CMD_DEFN; cdecl = nil;
   ENGINE_get_flags: function (const e: PENGINE): TIdC_INT; cdecl = nil;
 
@@ -1014,8 +1014,8 @@ var
   function ENGINE_get_digest(e: PENGINE; nid: TIdC_INT): PEVP_MD cdecl; external CLibCrypto;
   function ENGINE_get_pkey_meth(e: PENGINE; nid: TIdC_INT): PEVP_PKEY_METHOD cdecl; external CLibCrypto;
   function ENGINE_get_pkey_asn1_meth(e: PENGINE; nid: TIdC_INT): PEVP_PKEY_ASN1_METHOD cdecl; external CLibCrypto;
-  function ENGINE_get_pkey_asn1_meth_str(e: PENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD cdecl; external CLibCrypto;
-  function ENGINE_pkey_asn1_find_str(pe: PPENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD cdecl; external CLibCrypto;
+  function ENGINE_get_pkey_asn1_meth_str(e: PENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD cdecl; external CLibCrypto;
+  function ENGINE_pkey_asn1_find_str(pe: PPENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD cdecl; external CLibCrypto;
   function ENGINE_get_cmd_defns(const e: PENGINE): PENGINE_CMD_DEFN cdecl; external CLibCrypto;
   function ENGINE_get_flags(const e: PENGINE): TIdC_INT cdecl; external CLibCrypto;
 
@@ -2135,13 +2135,13 @@ begin
 end;
 
 
-function  ERR_ENGINE_get_pkey_asn1_meth_str(e: PENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; 
+function  ERR_ENGINE_get_pkey_asn1_meth_str(e: PENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_get_pkey_asn1_meth_str_procname);
 end;
 
 
-function  ERR_ENGINE_pkey_asn1_find_str(pe: PPENGINE; const str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; 
+function  ERR_ENGINE_pkey_asn1_find_str(pe: PPENGINE; const _str: PIdAnsiChar; len: TIdC_INT): PEVP_PKEY_ASN1_METHOD; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_pkey_asn1_find_str_procname);
 end;

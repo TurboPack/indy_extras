@@ -275,16 +275,16 @@ function(ui: PUI; const prompt: PIdAnsiChar; const action_desc: PIdAnsiChar;
   result_buf: PIdAnsiChar): TIdC_INT;
 cdecl = nil;
 UI_add_info_string:
-function(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 cdecl = nil;
 UI_dup_info_string:
-function(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 cdecl = nil;
 UI_add_error_string:
-function(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 cdecl = nil;
 UI_dup_error_string:
-function(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 cdecl = nil;
 
 (*
@@ -561,7 +561,7 @@ cdecl = nil;
 
 (* A couple of popular utility functions *)
 UI_UTIL_read_pw_string:
-function(buf: PIdAnsiChar; length: TIdC_INT; const prompt: PIdAnsiChar;
+function(buf: PIdAnsiChar; _length: TIdC_INT; const prompt: PIdAnsiChar;
   verify: TIdC_INT): TIdC_INT;
 cdecl = nil;
 UI_UTIL_read_pw:
@@ -644,13 +644,13 @@ function UI_dup_input_boolean(ui: PUI; const prompt: PIdAnsiChar;
   const action_desc: PIdAnsiChar; const ok_chars: PIdAnsiChar;
   const cancel_chars: PIdAnsiChar; flags: TIdC_INT; result_buf: PIdAnsiChar)
   : TIdC_INT cdecl; external CLibCrypto;
-function UI_add_info_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT cdecl;
+function UI_add_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT cdecl;
   external CLibCrypto;
-function UI_dup_info_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT cdecl;
+function UI_dup_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT cdecl;
   external CLibCrypto;
-function UI_add_error_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT cdecl;
+function UI_add_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT cdecl;
   external CLibCrypto;
-function UI_dup_error_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT cdecl;
+function UI_dup_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT cdecl;
   external CLibCrypto;
 
 (*
@@ -871,7 +871,7 @@ function UI_set_result_ex(ui: PUI; uis: PUI_STRING; const result: PIdAnsiChar;
   len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
 (* A couple of popular utility functions *)
-function UI_UTIL_read_pw_string(buf: PIdAnsiChar; length: TIdC_INT;
+function UI_UTIL_read_pw_string(buf: PIdAnsiChar; _length: TIdC_INT;
   const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT cdecl;
   external CLibCrypto;
 function UI_UTIL_read_pw(buf: PIdAnsiChar; buff: PIdAnsiChar; size: TIdC_INT;
@@ -1241,22 +1241,22 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_input_boolean_procname);
 end;
 
-function ERR_UI_add_info_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_add_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_info_string_procname);
 end;
 
-function ERR_UI_dup_info_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_dup_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_info_string_procname);
 end;
 
-function ERR_UI_add_error_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_add_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_error_string_procname);
 end;
 
-function ERR_UI_dup_error_string(ui: PUI; const text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_dup_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_error_string_procname);
 end;
@@ -1635,7 +1635,7 @@ begin
 end;
 
 (* A couple of popular utility functions *)
-function ERR_UI_UTIL_read_pw_string(buf: PIdAnsiChar; length: TIdC_INT;
+function ERR_UI_UTIL_read_pw_string(buf: PIdAnsiChar; _length: TIdC_INT;
   const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_UTIL_read_pw_string_procname);

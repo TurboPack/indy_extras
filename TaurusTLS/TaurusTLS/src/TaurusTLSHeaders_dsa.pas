@@ -164,7 +164,7 @@ var
   DSA_SIG_new: function : PDSA_SIG; cdecl = nil;
   DSA_SIG_free: procedure (a: PDSA_SIG); cdecl = nil;
   i2d_DSA_SIG: function (const a: PDSA_SIG; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_DSA_SIG: function (v: PPDSA_SIG; const pp: PPByte; length: TIdC_LONG): PDSA_SIG; cdecl = nil;
+  d2i_DSA_SIG: function (v: PPDSA_SIG; const pp: PPByte; _length: TIdC_LONG): PDSA_SIG; cdecl = nil;
   DSA_SIG_get0: procedure (const sig: PDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM); cdecl = nil;
   DSA_SIG_set0: function (sig: PDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT; cdecl = nil;
   
@@ -192,9 +192,9 @@ var
   DSA_set_ex_data: function (d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl = nil;
   DSA_get_ex_data: function (d: PDSA; idx: TIdC_INT): Pointer; cdecl = nil;
   
-  d2i_DSAPublicKey: function (a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; cdecl = nil;
-  d2i_DSAPrivateKey: function (a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; cdecl = nil;
-  d2i_DSAparams: function (a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; cdecl = nil;
+  d2i_DSAPublicKey: function (a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl = nil;
+  d2i_DSAPrivateKey: function (a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl = nil;
+  d2i_DSAparams: function (a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl = nil;
 
   DSA_generate_parameters_ex: function (dsa: PDSA; bits: TIdC_INT; const seed: PByte; seed_len: TIdC_INT; counter_ret: PIdC_INT; h_ret: PIdC_ULONG; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
 
@@ -274,7 +274,7 @@ var
   function DSA_SIG_new: PDSA_SIG cdecl; external CLibCrypto;
   procedure DSA_SIG_free(a: PDSA_SIG) cdecl; external CLibCrypto;
   function i2d_DSA_SIG(const a: PDSA_SIG; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; length: TIdC_LONG): PDSA_SIG cdecl; external CLibCrypto;
+  function d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; _length: TIdC_LONG): PDSA_SIG cdecl; external CLibCrypto;
   procedure DSA_SIG_get0(const sig: PDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM) cdecl; external CLibCrypto;
   function DSA_SIG_set0(sig: PDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
   
@@ -302,9 +302,9 @@ var
   function DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function DSA_get_ex_data(d: PDSA; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
   
-  function d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
-  function d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
-  function d2i_DSAparams(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
+  function d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
+  function d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
+  function d2i_DSAparams(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
 
   function DSA_generate_parameters_ex(dsa: PDSA; bits: TIdC_INT; const seed: PByte; seed_len: TIdC_INT; counter_ret: PIdC_INT; h_ret: PIdC_ULONG; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
 
@@ -529,7 +529,7 @@ begin
 end;
 
 
-function  ERR_d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; length: TIdC_LONG): PDSA_SIG; 
+function  ERR_d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; _length: TIdC_LONG): PDSA_SIG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_SIG_procname);
 end;
@@ -662,19 +662,19 @@ end;
 
 
   
-function  ERR_d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPublicKey_procname);
 end;
 
 
-function  ERR_d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPrivateKey_procname);
 end;
 
 
-function  ERR_d2i_DSAparams(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSAparams(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAparams_procname);
 end;

@@ -38,7 +38,7 @@ const
 
 type
   buf_mem_st = record
-    length: TIdC_SIZET;
+    _length: TIdC_SIZET;
     data: PIdAnsiChar;
     max: TIdC_SIZET;
     flags: TIdC_ULONG;
@@ -61,16 +61,16 @@ var
   BUF_MEM_new: function : PBUF_MEM; cdecl = nil;
   BUF_MEM_new_ex: function (flags: TIdC_ULONG): PBUF_MEM; cdecl = nil;
   BUF_MEM_free: procedure (a: PBUF_MEM); cdecl = nil;
-  BUF_MEM_grow: function (str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
-  BUF_MEM_grow_clean: function (str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
+  BUF_MEM_grow: function (_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
+  BUF_MEM_grow_clean: function (_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
   BUF_reverse: procedure (out_: PByte; const in_: PByte; siz: TIdC_SIZET); cdecl = nil;
 
 {$ELSE}
   function BUF_MEM_new: PBUF_MEM cdecl; external CLibCrypto;
   function BUF_MEM_new_ex(flags: TIdC_ULONG): PBUF_MEM cdecl; external CLibCrypto;
   procedure BUF_MEM_free(a: PBUF_MEM) cdecl; external CLibCrypto;
-  function BUF_MEM_grow(str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto;
-  function BUF_MEM_grow_clean(str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto;
+  function BUF_MEM_grow(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto;
+  function BUF_MEM_grow_clean(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto;
   procedure BUF_reverse(out_: PByte; const in_: PByte; siz: TIdC_SIZET) cdecl; external CLibCrypto;
 
 {$ENDIF}
@@ -115,13 +115,13 @@ begin
 end;
 
 
-function  ERR_BUF_MEM_grow(str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_BUF_MEM_grow(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_grow_procname);
 end;
 
 
-function  ERR_BUF_MEM_grow_clean(str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_BUF_MEM_grow_clean(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_grow_clean_procname);
 end;

@@ -251,7 +251,7 @@ type
   X509_LOOKUP_get_by_fingerprint_fn = function(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE;
     const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl;
   X509_LOOKUP_get_by_alias_fn = function(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE;
-    const str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl;
+    const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl;
 
   //DEFINE_STACK_OF(X509_LOOKUP)
   //DEFINE_STACK_OF(X509_OBJECT)
@@ -598,7 +598,7 @@ var
   X509_LOOKUP_by_subject: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
   X509_LOOKUP_by_issuer_serial: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
   X509_LOOKUP_by_fingerprint: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
-  X509_LOOKUP_by_alias: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
+  X509_LOOKUP_by_alias: function (ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; cdecl = nil;
   X509_LOOKUP_set_method_data: function (ctx: PX509_LOOKUP; data: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_LOOKUP_get_method_data: function (const ctx: PX509_LOOKUP): Pointer; cdecl = nil; {introduced 1.1.0}
   X509_LOOKUP_get_store: function (const ctx: PX509_LOOKUP): PX509_STORE; cdecl = nil; {introduced 1.1.0}
@@ -886,7 +886,7 @@ var
   function X509_LOOKUP_by_subject(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function X509_LOOKUP_by_issuer_serial(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function X509_LOOKUP_by_fingerprint(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
+  function X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function X509_LOOKUP_set_method_data(ctx: PX509_LOOKUP; data: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_LOOKUP_get_method_data(const ctx: PX509_LOOKUP): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1402,14 +1402,14 @@ type
  _X509_LOOKUP_METHOD = record
     name : PIdAnsiChar;
     new_item : function (ctx : PX509_LOOKUP): TIdC_INT; cdecl;
-    free : procedure (ctx : PX509_LOOKUP); cdecl;
+    _free : procedure (ctx : PX509_LOOKUP); cdecl;
     init : function(ctx : PX509_LOOKUP) : TIdC_INT; cdecl;
     shutdown : function(ctx : PX509_LOOKUP) : TIdC_INT; cdecl;
     ctrl: function(ctx : PX509_LOOKUP; cmd : TIdC_INT; const argc : PIdAnsiChar; argl : TIdC_LONG; var ret : PIdAnsiChar ) : TIdC_INT; cdecl;
     get_by_subject: function(ctx : PX509_LOOKUP; _type : TIdC_INT; name : PX509_NAME; ret : PX509_OBJECT ) : TIdC_INT; cdecl;
     get_by_issuer_serial : function(ctx : PX509_LOOKUP; _type : TIdC_INT; name : PX509_NAME; serial : PASN1_INTEGER; ret : PX509_OBJECT) : TIdC_INT; cdecl;
     get_by_fingerprint : function (ctx : PX509_LOOKUP; _type : TIdC_INT; bytes : PIdAnsiChar; len : TIdC_INT; ret : PX509_OBJECT): TIdC_INT; cdecl;
-    get_by_alias : function(ctx : PX509_LOOKUP; _type : TIdC_INT; str : PIdAnsiChar; ret : PX509_OBJECT) : TIdC_INT; cdecl;
+    get_by_alias : function(ctx : PX509_LOOKUP; _type : TIdC_INT; _str : PIdAnsiChar; ret : PX509_OBJECT) : TIdC_INT; cdecl;
   end;
 
 const
@@ -1417,7 +1417,7 @@ const
     (
     name: 'Load file into cache';
     new_item: nil; // * new */
-    free: nil; // * free */
+    _free: nil; // * free */
     init: nil; // * init */
     shutdown: nil; // * shutdown */
     ctrl: nil; // * ctrl */
@@ -2089,7 +2089,7 @@ begin
 end;
 
 
-function  ERR_X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_by_alias_procname);
 end;

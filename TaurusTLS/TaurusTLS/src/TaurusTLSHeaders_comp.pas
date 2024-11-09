@@ -53,7 +53,7 @@ uses
 var
   COMP_CTX_new: function (meth: PCOMP_METHOD): PCOMP_CTX; cdecl = nil;
   COMP_CTX_get_method: function (const ctx: PCOMP_CTX): PCOMP_METHOD; cdecl = nil;
-  COMP_CTX_get_type: function (const comp: PCOMP_CTX): TIdC_INT; cdecl = nil;
+  COMP_CTX_get_type: function (const _comp: PCOMP_CTX): TIdC_INT; cdecl = nil;
   COMP_get_type: function (const meth: PCOMP_METHOD): TIdC_INT; cdecl = nil;
   COMP_get_name: function (const meth: PCOMP_METHOD): PIdAnsiChar; cdecl = nil;
   COMP_CTX_free: procedure (ctx: PCOMP_CTX); cdecl = nil;
@@ -68,7 +68,7 @@ var
 {$ELSE}
   function COMP_CTX_new(meth: PCOMP_METHOD): PCOMP_CTX cdecl; external CLibCrypto;
   function COMP_CTX_get_method(const ctx: PCOMP_CTX): PCOMP_METHOD cdecl; external CLibCrypto;
-  function COMP_CTX_get_type(const comp: PCOMP_CTX): TIdC_INT cdecl; external CLibCrypto;
+  function COMP_CTX_get_type(const _comp: PCOMP_CTX): TIdC_INT cdecl; external CLibCrypto;
   function COMP_get_type(const meth: PCOMP_METHOD): TIdC_INT cdecl; external CLibCrypto;
   function COMP_get_name(const meth: PCOMP_METHOD): PIdAnsiChar cdecl; external CLibCrypto;
   procedure COMP_CTX_free(ctx: PCOMP_CTX) cdecl; external CLibCrypto;
@@ -123,7 +123,7 @@ begin
 end;
 
 
-function  ERR_COMP_CTX_get_type(const comp: PCOMP_CTX): TIdC_INT; 
+function  ERR_COMP_CTX_get_type(const _comp: PCOMP_CTX): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_get_type_procname);
 end;

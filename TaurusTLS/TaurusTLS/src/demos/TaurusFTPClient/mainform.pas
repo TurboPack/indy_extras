@@ -956,8 +956,9 @@ begin
 
   FRemoteColumnToSort := 0;
   FRemoteAscending := True;
-  Self.IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
-  Self.IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
+  Self.IdFTPClient.ClientInfo.ClientName := '';
+//  Self.IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
+//  Self.IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
   LocalClearArrows;
   PopulateLocalFiles;
   RemoteLvClearArrows;

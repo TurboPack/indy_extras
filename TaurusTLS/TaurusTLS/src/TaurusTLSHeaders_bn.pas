@@ -271,7 +271,7 @@ var
    * Digital Signature Standard (DSS), section F.1, page 117.
    * (https://dx.doi.org/10.6028/NIST.FIPS.186-4)
    *
-   * The following magma script was used to generate the output:
+   * The following magma script was used to generate the _output:
    * securitybits:=125;
    * k:=1024;
    * for t:=1 to 65 do
@@ -301,7 +301,7 @@ var
    * It can be run online at:
    * http://magma.maths.usyd.edu.au/calc
    *
-   * And will output:
+   * And will _output:
    * k:  1024, security: 129 bits  (t: 6, M: 23)
    *
    * k is the number of bits of the prime, securitybits is the level we want to
@@ -438,16 +438,16 @@ var
   BN_clear_bit: function (a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl = nil;
   BN_bn2hex: function (a: PBIGNUM): PIdAnsiChar; cdecl = nil;
   BN_bn2dec: function (a: PBIGNUM): PIdAnsiChar; cdecl = nil;
-  BN_hex2bn: function (a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  BN_dec2bn: function (a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  BN_asc2bn: function (a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  BN_hex2bn: function (a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  BN_dec2bn: function (a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  BN_asc2bn: function (a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
   BN_gcd: function (r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
   BN_kronecker: function (a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
 
   BN_mod_inverse: function (ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; cdecl = nil;
   BN_mod_sqrt: function (ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; cdecl = nil;
 
-  BN_consttime_swap: procedure (swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT); cdecl = nil;
+  BN_consttime_swap: procedure (_swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT); cdecl = nil;
 
   BN_generate_prime_ex: function (ret: PBIGNUM; bits: TIdC_INT; safe: TIdC_INT; const add: PBIGNUM; const rem: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
   BN_is_prime_ex: function (const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
@@ -623,7 +623,7 @@ var
    * Digital Signature Standard (DSS), section F.1, page 117.
    * (https://dx.doi.org/10.6028/NIST.FIPS.186-4)
    *
-   * The following magma script was used to generate the output:
+   * The following magma script was used to generate the _output:
    * securitybits:=125;
    * k:=1024;
    * for t:=1 to 65 do
@@ -653,7 +653,7 @@ var
    * It can be run online at:
    * http://magma.maths.usyd.edu.au/calc
    *
-   * And will output:
+   * And will _output:
    * k:  1024, security: 129 bits  (t: 6, M: 23)
    *
    * k is the number of bits of the prime, securitybits is the level we want to
@@ -790,16 +790,16 @@ var
   function BN_clear_bit(a: PBIGNUM; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BN_bn2hex(a: PBIGNUM): PIdAnsiChar cdecl; external CLibCrypto;
   function BN_bn2dec(a: PBIGNUM): PIdAnsiChar cdecl; external CLibCrypto;
-  function BN_hex2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function BN_dec2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function BN_asc2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function BN_hex2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function BN_dec2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function BN_asc2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function BN_gcd(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
   function BN_kronecker(a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
 
   function BN_mod_inverse(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM cdecl; external CLibCrypto;
   function BN_mod_sqrt(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM cdecl; external CLibCrypto;
 
-  procedure BN_consttime_swap(swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT) cdecl; external CLibCrypto;
+  procedure BN_consttime_swap(_swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT) cdecl; external CLibCrypto;
 
   function BN_generate_prime_ex(ret: PBIGNUM; bits: TIdC_INT; safe: TIdC_INT; const add: PBIGNUM; const rem: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
   function BN_is_prime_ex(const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
@@ -989,7 +989,7 @@ const
    * Digital Signature Standard (DSS), section F.1, page 117.
    * (https://dx.doi.org/10.6028/NIST.FIPS.186-4)
    *
-   * The following magma script was used to generate the output:
+   * The following magma script was used to generate the _output:
    * securitybits:=125;
    * k:=1024;
    * for t:=1 to 65 do
@@ -1019,7 +1019,7 @@ const
    * It can be run online at:
    * http://magma.maths.usyd.edu.au/calc
    *
-   * And will output:
+   * And will _output:
    * k:  1024, security: 129 bits  (t: 6, M: 23)
    *
    * k is the number of bits of the prime, securitybits is the level we want to
@@ -1387,7 +1387,7 @@ end;
    * Digital Signature Standard (DSS), section F.1, page 117.
    * (https://dx.doi.org/10.6028/NIST.FIPS.186-4)
    *
-   * The following magma script was used to generate the output:
+   * The following magma script was used to generate the _output:
    * securitybits:=125;
    * k:=1024;
    * for t:=1 to 65 do
@@ -1417,7 +1417,7 @@ end;
    * It can be run online at:
    * http://magma.maths.usyd.edu.au/calc
    *
-   * And will output:
+   * And will _output:
    * k:  1024, security: 129 bits  (t: 6, M: 23)
    *
    * k is the number of bits of the prime, securitybits is the level we want to
@@ -1984,19 +1984,19 @@ begin
 end;
 
 
-function  ERR_BN_hex2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_hex2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_hex2bn_procname);
 end;
 
 
-function  ERR_BN_dec2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_dec2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_dec2bn_procname);
 end;
 
 
-function  ERR_BN_asc2bn(a: PPBIGNUM; str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_asc2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_asc2bn_procname);
 end;
@@ -2028,7 +2028,7 @@ end;
 
 
 
-procedure  ERR_BN_consttime_swap(swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT); 
+procedure  ERR_BN_consttime_swap(_swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_consttime_swap_procname);
 end;

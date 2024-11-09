@@ -73,9 +73,9 @@ var
   BF_decrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = nil;
 
   BF_ecb_encrypt: procedure (const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT); cdecl = nil;
-  BF_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); cdecl = nil;
-  BF_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
-  BF_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
+  BF_cbc_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); cdecl = nil;
+  BF_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
+  BF_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
 
   BF_options: function : PIdAnsiChar; cdecl = nil;
 
@@ -86,9 +86,9 @@ var
   procedure BF_decrypt(data: PBF_LONG; const key: PBF_KEY) cdecl; external CLibCrypto;
 
   procedure BF_ecb_encrypt(const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure BF_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure BF_cfb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure BF_ofb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
+  procedure BF_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure BF_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure BF_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
 
   function BF_options: PIdAnsiChar cdecl; external CLibCrypto;
 
@@ -147,19 +147,19 @@ begin
 end;
 
 
-procedure  ERR_BF_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); 
+procedure  ERR_BF_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_cfb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
+procedure  ERR_BF_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_cfb64_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_ofb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); 
+procedure  ERR_BF_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_ofb64_encrypt_procname);
 end;

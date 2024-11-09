@@ -957,7 +957,7 @@ type
    *)
   GEN_SESSION_CB = function (ssl: PSSL; id: PByte; id_len: PIdC_UINT): TIdC_INT; cdecl;
 
-  SSL_CTX_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; val: TIdC_INT); cdecl;
+  SSL_CTX_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; _val: TIdC_INT); cdecl;
   SSL_CTX_client_cert_cb = function (ssl: PSSL; x509: PPx509; pkey: PPEVP_PKEY): TIdC_INT; cdecl;
 
   SSL_CTX_cookie_verify_cb = function (ssl: PSSL; cookie: PByte; cookie_len: PIdC_UINT): TIdC_INT; cdecl;
@@ -1049,7 +1049,7 @@ type
   SSL_client_hello_cb_fn = function (s: PSSL; al: PIdC_INT; arg: Pointer): TIdC_INT; cdecl;
   SSL_callback_ctrl_v3 = procedure; cdecl;
   SSL_CTX_callback_ctrl_v3 = procedure; cdecl;
-  SSL_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; val: TIdC_INT); cdecl;
+  SSL_info_callback = procedure (const ssl: PSSL; type_: TIdC_INT; _val: TIdC_INT); cdecl;
 
   (* NB: the |keylength| is only applicable when is_export is true *)
   SSL_CTX_set_tmp_dh_callback_dh = function (ssl: PSSL; is_export: TIdC_INT; keylength: TIdC_INT): PDH; cdecl;
@@ -1639,16 +1639,16 @@ var
   SSL_CTX_set1_groups: function (ctx: PSSL_CTX; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_groups_list: function (ctx: PSSL_CTX; s: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_set1_groups: function (s: PSSL; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  SSL_set1_groups_list: function (s: PSSL; str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
+  SSL_set1_groups_list: function (s: PSSL; _str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_get_shared_group: function (s: PSSL; n: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_sigalgs: function (ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_sigalgs_list: function (ctx: PSSL_CTX; s: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_set1_sigalgs: function (s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  SSL_set1_sigalgs_list: function (s: PSSL; str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
+  SSL_set1_sigalgs_list: function (s: PSSL; _str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_client_sigalgs: function (ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_client_sigalgs_list: function (ctx: PSSL_CTX; s: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_set1_client_sigalgs: function (s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  SSL_set1_client_sigalgs_list: function (s: PSSL; str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
+  SSL_set1_client_sigalgs_list: function (s: PSSL; _str: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_get0_certificate_types: function (s: PSSL; clist: PByte): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_CTX_set1_client_certificate_types: function (ctx: PSSL_CTX; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   SSL_set1_client_certificate_types: function (s: PSSL; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; cdecl = nil; {removed 1.0.0}
@@ -1959,7 +1959,7 @@ var
   BIO_new_buffer_ssl_connect: function (ctx: PSSL_CTX): PBIO; cdecl = nil;
   BIO_ssl_copy_session_id: function (to_: PBIO; from: PBIO): TIdC_INT; cdecl = nil;
 
-  SSL_CTX_set_cipher_list: function (v1: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  SSL_CTX_set_cipher_list: function (v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
   SSL_CTX_new: function (const meth: PSSL_METHOD): PSSL_CTX; cdecl = nil;
   SSL_CTX_set_timeout: function (ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
   SSL_CTX_get_timeout: function (const ctx: PSSL_CTX): TIdC_LONG; cdecl = nil;
@@ -2005,9 +2005,9 @@ var
   SSL_set_bio: procedure (s: PSSL; rbio: PBIO; wbio: PBIO); cdecl = nil;
   SSL_get_rbio: function (const s: PSSL): PBIO; cdecl = nil;
   SSL_get_wbio: function (const s: PSSL): PBIO; cdecl = nil;
-  SSL_set_cipher_list: function (s: PSSL; const str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  SSL_CTX_set_ciphersuites: function (ctx: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_set_ciphersuites: function (s: PSSL; const str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_set_cipher_list: function (s: PSSL; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  SSL_CTX_set_ciphersuites: function (ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_set_ciphersuites: function (s: PSSL; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_get_verify_mode: function (const s: PSSL): TIdC_INT; cdecl = nil;
   SSL_get_verify_depth: function (const s: PSSL): TIdC_INT; cdecl = nil;
   SSL_get_verify_callback: function (const s: PSSL): SSL_verify_cb; cdecl = nil;
@@ -2097,7 +2097,7 @@ var
   SSL_CTX_set_generate_session_id: function (ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT; cdecl = nil;
   SSL_set_generate_session_id: function (s: PSSL; cb: GEN_SESSION_CB): TIdC_INT; cdecl = nil;
   SSL_has_matching_session_id: function (const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT; cdecl = nil;
-  d2i_SSL_SESSION: function (a: PPSSL_SESSION; const pp: PPByte; length: TIdC_LONG): PSSL_SESSION; cdecl = nil;
+  d2i_SSL_SESSION: function (a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION; cdecl = nil;
 
   SSL_get_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {removed 3.0.0}
 
@@ -2148,7 +2148,7 @@ var
   SSL_set_hostflags: procedure (s: PSSL; flags: TIdC_UINT); cdecl = nil; {introduced 1.1.0}
 
   SSL_CTX_dane_enable: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_CTX_dane_mtype_set: function (ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; ord: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_CTX_dane_mtype_set: function (ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_dane_enable: function (s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_dane_tlsa_add: function (s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_get0_dane_authority: function (s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -2260,8 +2260,8 @@ var
   SSL_renegotiate: function (s: PSSL): TIdC_INT; cdecl = nil;
   SSL_renegotiate_abbreviated: function (s: PSSL): TIdC_INT; cdecl = nil;
   SSL_shutdown: function (s: PSSL): TIdC_INT; cdecl = nil;
-  SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  SSL_set_post_handshake_auth: procedure (s: PSSL; val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
   SSL_renegotiate_pending: function (const s: PSSL): TIdC_INT; cdecl = nil;
   SSL_verify_client_post_handshake: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -2410,7 +2410,7 @@ var
   //# endif
   //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
 
-  SSL_CIPHER_find: function (ssl: PSSL; const ptr: PByte): PSSL_CIPHER; cdecl = nil;
+  SSL_CIPHER_find: function (ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; cdecl = nil;
   SSL_CIPHER_get_cipher_nid: function (const c: PSSL_CIPHEr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CIPHER_get_digest_nid: function (const c: PSSL_CIPHEr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   //TIdC_INT SSL_bytes_to_cipher_list(s: PSSL, const Byte *bytes, TIdC_SIZET len,
@@ -2908,7 +2908,7 @@ var
   function BIO_new_buffer_ssl_connect(ctx: PSSL_CTX): PBIO cdecl; external CLibSSL;
   function BIO_ssl_copy_session_id(to_: PBIO; from: PBIO): TIdC_INT cdecl; external CLibSSL;
 
-  function SSL_CTX_set_cipher_list(v1: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX cdecl; external CLibSSL;
   function SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG cdecl; external CLibSSL;
@@ -2954,9 +2954,9 @@ var
   procedure SSL_set_bio(s: PSSL; rbio: PBIO; wbio: PBIO) cdecl; external CLibSSL;
   function SSL_get_rbio(const s: PSSL): PBIO cdecl; external CLibSSL;
   function SSL_get_wbio(const s: PSSL): PBIO cdecl; external CLibSSL;
-  function SSL_set_cipher_list(s: PSSL; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
-  function SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_set_ciphersuites(s: PSSL; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_set_cipher_list(s: PSSL; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_set_ciphersuites(s: PSSL; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get_verify_mode(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_get_verify_depth(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_get_verify_callback(const s: PSSL): SSL_verify_cb cdecl; external CLibSSL;
@@ -3045,7 +3045,7 @@ var
   function SSL_CTX_set_generate_session_id(ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT cdecl; external CLibSSL;
   function SSL_set_generate_session_id(s: PSSL; cb: GEN_SESSION_CB): TIdC_INT cdecl; external CLibSSL;
   function SSL_has_matching_session_id(const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
-  function d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; length: TIdC_LONG): PSSL_SESSION cdecl; external CLibSSL;
+  function d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION cdecl; external CLibSSL;
 
 
   //__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const s: PSSL);
@@ -3095,7 +3095,7 @@ var
   procedure SSL_set_hostflags(s: PSSL; flags: TIdC_UINT) cdecl; external CLibSSL; {introduced 1.1.0}
 
   function SSL_CTX_dane_enable(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; ord: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_dane_enable(s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_dane_tlsa_add(s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get0_dane_authority(s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3207,8 +3207,8 @@ var
   function SSL_renegotiate(s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_renegotiate_abbreviated(s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_shutdown(s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
-  procedure SSL_set_post_handshake_auth(s: PSSL; val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
+  procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
+  procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
   function SSL_renegotiate_pending(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_verify_client_post_handshake(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3356,7 +3356,7 @@ var
   //# endif
   //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
 
-  function SSL_CIPHER_find(ssl: PSSL; const ptr: PByte): PSSL_CIPHER cdecl; external CLibSSL;
+  function SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER cdecl; external CLibSSL;
   function SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CIPHER_get_digest_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   //TIdC_INT SSL_bytes_to_cipher_list(s: PSSL, const Byte *bytes, TIdC_SIZET len,
@@ -3583,16 +3583,16 @@ function SSL_get1_groups(s: PSSL; glist: PIdC_INT): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_groups(ctx: PSSL_CTX; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_groups_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_set1_groups(s: PSSL; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
-function SSL_set1_groups_list(s: PSSL; str: PByte): TIdC_LONG; {removed 1.0.0}
+function SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_get_shared_group(s: PSSL; n: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_set1_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
-function SSL_set1_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; {removed 1.0.0}
+function SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_client_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_client_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_set1_client_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
-function SSL_set1_client_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; {removed 1.0.0}
+function SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_get0_certificate_types(s: PSSL; clist: PByte): TIdC_LONG; {removed 1.0.0}
 function SSL_CTX_set1_client_certificate_types(ctx: PSSL_CTX; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
 function SSL_set1_client_certificate_types(s: PSSL; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; {removed 1.0.0}
@@ -5355,9 +5355,9 @@ begin
 end;
 
 //# define SSL_set1_groups_list(s, str)                      SSL_ctrl(s,SSL_CTRL_SET_GROUPS_LIST,0,(char *)(str))
-function  _SSL_set1_groups_list(s: PSSL; str: PByte): TIdC_LONG; cdecl;
+function  _SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG; cdecl;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_GROUPS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_GROUPS_LIST, 0, _str);
 end;
 
 //# define SSL_get_shared_group(s, n)                        SSL_ctrl(s,SSL_CTRL_GET_SHARED_GROUP,n,NULL)
@@ -5385,9 +5385,9 @@ begin
 end;
 
 //# define SSL_set1_sigalgs_list(s, str)                     SSL_ctrl(s,SSL_CTRL_SET_SIGALGS_LIST,0,(char *)(str))
-function  _SSL_set1_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; cdecl;
+function  _SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; cdecl;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_SIGALGS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_SIGALGS_LIST, 0, _str);
 end;
 
 //# define SSL_CTX_set1_client_sigalgs(ctx, slist, slistlen) SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CLIENT_SIGALGS,slistlen,(TIdC_INT *)(slist))
@@ -5409,9 +5409,9 @@ begin
 end;
 
 //# define SSL_set1_client_sigalgs_list(s, str)              SSL_ctrl(s,SSL_CTRL_SET_CLIENT_SIGALGS_LIST,0,(char *)(str))
-function  _SSL_set1_client_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; cdecl;
+function  _SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; cdecl;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_CLIENT_SIGALGS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_CLIENT_SIGALGS_LIST, 0, _str);
 end;
 
 //# define SSL_get0_certificate_types(s, clist)              SSL_ctrl(s, SSL_CTRL_GET_CLIENT_CERT_TYPES, 0, (char *)(clist))
@@ -5581,7 +5581,7 @@ type
     // TaurusTLS will SSL_SESSION_free() it.
     new_session_cb: function (ssl : PSSL; sess: PSSL_SESSION): TIdC_INT; cdecl;
     remove_session_cb: procedure (ctx : PSSL_CTX; sess : PSSL_SESSION); cdecl;
-    get_session_cb: function (ssl : PSSL; data : PByte; len: TIdC_INT; copy : PIdC_INT) : PSSL_SESSION; cdecl;
+    get_session_cb: function (ssl : PSSL; data : PByte; len: TIdC_INT; _copy : PIdC_INT) : PSSL_SESSION; cdecl;
     stats : SSL_CTX_stats;
 
     references: TIdC_INT;
@@ -6146,7 +6146,7 @@ begin
 end;
 
  
-function  ERR_SSL_set1_groups_list(s: PSSL; str: PByte): TIdC_LONG; 
+function  ERR_SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_groups_list_procname);
 end;
@@ -6176,7 +6176,7 @@ begin
 end;
 
  
-function  ERR_SSL_set1_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; 
+function  ERR_SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_sigalgs_list_procname);
 end;
@@ -6200,7 +6200,7 @@ begin
 end;
 
  
-function  ERR_SSL_set1_client_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG; 
+function  ERR_SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_client_sigalgs_list_procname);
 end;
@@ -6821,7 +6821,7 @@ end;
 
 
 
-function  ERR_SSL_CTX_set_cipher_list(v1: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cipher_list_procname);
 end;
@@ -7077,19 +7077,19 @@ begin
 end;
 
 
-function  ERR_SSL_set_cipher_list(s: PSSL; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_cipher_list(s: PSSL; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_cipher_list_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ciphersuites_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_ciphersuites(s: PSSL; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_ciphersuites(s: PSSL; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ciphersuites_procname);
 end;
@@ -7524,7 +7524,7 @@ begin
 end;
 
 
-function  ERR_d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; length: TIdC_LONG): PSSL_SESSION; 
+function  ERR_d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_SSL_SESSION_procname);
 end;
@@ -7770,7 +7770,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; ord: TIdC_UINT8): TIdC_INT; 
+function  ERR_SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_dane_mtype_set_procname);
 end;
@@ -8202,13 +8202,13 @@ begin
 end;
 
 
-procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; val: TIdC_INT); 
+procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_post_handshake_auth_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_post_handshake_auth(s: PSSL; val: TIdC_INT); 
+procedure  ERR_SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_post_handshake_auth_procname);
 end;
@@ -8652,7 +8652,7 @@ end;
   //# endif
   //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
 
-function  ERR_SSL_CIPHER_find(ssl: PSSL; const ptr: PByte): PSSL_CIPHER; 
+function  ERR_SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_find_procname);
 end;
@@ -25276,7 +25276,7 @@ begin
 end;
 
 //# define SSL_set1_groups_list(s, str)                      SSL_ctrl(s,SSL_CTRL_SET_GROUPS_LIST,0,(char *)(str))
-function SSL_set1_groups_list(s: PSSL; str: PByte): TIdC_LONG;
+function SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_GROUPS_LIST, 0, str);
 end;
@@ -25306,7 +25306,7 @@ begin
 end;
 
 //# define SSL_set1_sigalgs_list(s, str)                     SSL_ctrl(s,SSL_CTRL_SET_SIGALGS_LIST,0,(char *)(str))
-function SSL_set1_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG;
+function SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_SIGALGS_LIST, 0, str);
 end;
@@ -25330,7 +25330,7 @@ begin
 end;
 
 //# define SSL_set1_client_sigalgs_list(s, str)              SSL_ctrl(s,SSL_CTRL_SET_CLIENT_SIGALGS_LIST,0,(char *)(str))
-function SSL_set1_client_sigalgs_list(s: PSSL; str: PByte): TIdC_LONG;
+function SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_CLIENT_SIGALGS_LIST, 0, str);
 end;

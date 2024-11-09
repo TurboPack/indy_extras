@@ -396,7 +396,7 @@ var
   TS_REQ_new: function : PTS_REQ; cdecl = nil;
   TS_REQ_free: procedure (a: PTS_REQ); cdecl = nil;
   i2d_TS_REQ: function (a: PTS_REQ; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_REQ: function (a: PPTS_REQ; pp: PPByte; length: TIdC_LONG): PTS_REQ; cdecl = nil;
+  d2i_TS_REQ: function (a: PPTS_REQ; pp: PPByte; _length: TIdC_LONG): PTS_REQ; cdecl = nil;
 
   TS_REQ_dup: function (a: PTS_REQ): PTS_REQ; cdecl = nil;
 
@@ -406,7 +406,7 @@ var
   TS_MSG_IMPRINT_new: function : PTS_MSG_IMPRINT; cdecl = nil;
   TS_MSG_IMPRINT_free: procedure (a: PTS_MSG_IMPRINT); cdecl = nil;
   i2d_TS_MSG_IMPRINT: function (a: PTS_MSG_IMPRINT; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_MSG_IMPRINT: function (a: PPTS_MSG_IMPRINT; pp: PPByte; length: TIdC_LONG): PTS_MSG_IMPRINT; cdecl = nil;
+  d2i_TS_MSG_IMPRINT: function (a: PPTS_MSG_IMPRINT; pp: PPByte; _length: TIdC_LONG): PTS_MSG_IMPRINT; cdecl = nil;
 
   TS_MSG_IMPRINT_dup: function (a: PTS_MSG_IMPRINT): PTS_MSG_IMPRINT; cdecl = nil;
 
@@ -416,7 +416,7 @@ var
   TS_RESP_new: function : PTS_RESP; cdecl = nil;
   TS_RESP_free: procedure (a: PTS_RESP); cdecl = nil;
   i2d_TS_RESP: function (a: PTS_RESP; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_RESP: function (a: PPTS_RESP; pp: PPByte; length: TIdC_LONG): PTS_RESP; cdecl = nil;
+  d2i_TS_RESP: function (a: PPTS_RESP; pp: PPByte; _length: TIdC_LONG): PTS_RESP; cdecl = nil;
   PKCS7_to_TS_TST_INFO: function (token: PPKCS7): PTS_TST_Info; cdecl = nil;
   TS_RESP_dup: function (a: PTS_RESP): PTS_RESP; cdecl = nil;
 
@@ -426,13 +426,13 @@ var
   TS_STATUS_INFO_new: function : PTS_STATUS_INFO; cdecl = nil;
   TS_STATUS_INFO_free: procedure (a: PTS_STATUS_INFO); cdecl = nil;
   i2d_TS_STATUS_INFO: function (a: PTS_STATUS_INFO; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_STATUS_INFO: function (a: PPTS_STATUS_INFO; pp: PPByte; length: TIdC_LONG): PTS_STATUS_INFO; cdecl = nil;
+  d2i_TS_STATUS_INFO: function (a: PPTS_STATUS_INFO; pp: PPByte; _length: TIdC_LONG): PTS_STATUS_INFO; cdecl = nil;
   TS_STATUS_INFO_dup: function (a: PTS_STATUS_INFO): PTS_STATUS_INFO; cdecl = nil;
 
   TS_TST_INFO_new: function : PTS_TST_Info; cdecl = nil;
   TS_TST_INFO_free: procedure (a: PTS_TST_Info); cdecl = nil;
   i2d_TS_TST_INFO: function (a: PTS_TST_Info; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_TST_INFO: function (a: PPTS_TST_Info; pp: PPByte; length: TIdC_LONG): PTS_TST_Info; cdecl = nil;
+  d2i_TS_TST_INFO: function (a: PPTS_TST_Info; pp: PPByte; _length: TIdC_LONG): PTS_TST_Info; cdecl = nil;
   TS_TST_INFO_dup: function (a: PTS_TST_Info): PTS_TST_Info; cdecl = nil;
 
   d2i_TS_TST_INFO_bio: function (bio: PBIO; a: PPTS_TST_Info): PTS_TST_Info; cdecl = nil;
@@ -441,37 +441,37 @@ var
   TS_ACCURACY_new: function : PTS_ACCURACY; cdecl = nil;
   TS_ACCURACY_free: procedure (a: PTS_ACCURACY); cdecl = nil;
   i2d_TS_ACCURACY: function (a: PTS_ACCURACY; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_TS_ACCURACY: function (a: PPTS_ACCURACY; pp: PPByte; length: TIdC_LONG): PTS_ACCURACY; cdecl = nil;
+  d2i_TS_ACCURACY: function (a: PPTS_ACCURACY; pp: PPByte; _length: TIdC_LONG): PTS_ACCURACY; cdecl = nil;
   TS_ACCURACY_dup: function (a: PTS_ACCURACY): PTS_ACCURACY; cdecl = nil;
 
   ESS_ISSUER_SERIAL_new: function : PESS_ISSUER_SERIAL; cdecl = nil;
   ESS_ISSUER_SERIAL_free: procedure (a: PESS_ISSUER_SERIAL); cdecl = nil;
   i2d_ESS_ISSUER_SERIAL: function ( a: PESS_ISSUER_SERIAL; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ESS_ISSUER_SERIAL: function (a: PPESS_ISSUER_SERIAL; pp: PPByte; length: TIdC_LONG): PESS_ISSUER_SERIAL; cdecl = nil;
+  d2i_ESS_ISSUER_SERIAL: function (a: PPESS_ISSUER_SERIAL; pp: PPByte; _length: TIdC_LONG): PESS_ISSUER_SERIAL; cdecl = nil;
   ESS_ISSUER_SERIAL_dup: function (a: PESS_ISSUER_SERIAL): PESS_ISSUER_SERIAL; cdecl = nil;
 
   ESS_CERT_ID_new: function : PESS_CERT_ID; cdecl = nil;
   ESS_CERT_ID_free: procedure (a: PESS_CERT_ID); cdecl = nil;
   i2d_ESS_CERT_ID: function (a: PESS_CERT_ID; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ESS_CERT_ID: function (a: PPESS_CERT_ID; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID; cdecl = nil;
+  d2i_ESS_CERT_ID: function (a: PPESS_CERT_ID; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID; cdecl = nil;
   ESS_CERT_ID_dup: function (a: PESS_CERT_ID): PESS_CERT_ID; cdecl = nil;
 
   ESS_SIGNING_CERT_new: function : PESS_SIGNING_Cert; cdecl = nil;
   ESS_SIGNING_CERT_free: procedure (a: PESS_SIGNING_Cert); cdecl = nil;
   i2d_ESS_SIGNING_CERT: function ( a: PESS_SIGNING_Cert; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ESS_SIGNING_CERT: function (a: PPESS_SIGNING_Cert; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_Cert; cdecl = nil;
+  d2i_ESS_SIGNING_CERT: function (a: PPESS_SIGNING_Cert; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_Cert; cdecl = nil;
   ESS_SIGNING_CERT_dup: function (a: PESS_SIGNING_Cert): PESS_SIGNING_Cert; cdecl = nil;
 
   ESS_CERT_ID_V2_new: function : PESS_CERT_ID_V2; cdecl = nil;
   ESS_CERT_ID_V2_free: procedure (a: PESS_CERT_ID_V2); cdecl = nil;
   i2d_ESS_CERT_ID_V2: function ( a: PESS_CERT_ID_V2; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ESS_CERT_ID_V2: function (a: PPESS_CERT_ID_V2; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID_V2; cdecl = nil;
+  d2i_ESS_CERT_ID_V2: function (a: PPESS_CERT_ID_V2; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID_V2; cdecl = nil;
   ESS_CERT_ID_V2_dup: function (a: PESS_CERT_ID_V2): PESS_CERT_ID_V2; cdecl = nil;
 
   ESS_SIGNING_CERT_V2_new: function : PESS_SIGNING_CERT_V2; cdecl = nil;
   ESS_SIGNING_CERT_V2_free: procedure (a: PESS_SIGNING_CERT_V2); cdecl = nil;
   i2d_ESS_SIGNING_CERT_V2: function (a: PESS_SIGNING_CERT_V2; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ESS_SIGNING_CERT_V2: function (a: PPESS_SIGNING_CERT_V2; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_CERT_V2; cdecl = nil;
+  d2i_ESS_SIGNING_CERT_V2: function (a: PPESS_SIGNING_CERT_V2; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_CERT_V2; cdecl = nil;
   ESS_SIGNING_CERT_V2_dup: function (a: PESS_SIGNING_CERT_V2): PESS_SIGNING_CERT_V2; cdecl = nil;
 
   TS_REQ_set_version: function (a: PTS_REQ; version: TIdC_LONG): TIdC_INT; cdecl = nil;
@@ -637,10 +637,10 @@ var
   TS_RESP_CTX_set_extension_cb: procedure (ctx: PTS_RESP_CTX; cb: TS_extension_cb; data: Pointer); cdecl = nil;
 
   (* The following methods can be used in the callbacks. *)
-  TS_RESP_CTX_set_status_info: function (ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  TS_RESP_CTX_set_status_info: function (ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   (* Sets the status info only if it is still TS_STATUS_GRANTED. *)
-  TS_RESP_CTX_set_status_info_cond: function (ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  TS_RESP_CTX_set_status_info_cond: function (ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
   TS_RESP_CTX_add_failure_info: function (ctx: PTS_RESP_CTX; failure: TIdC_INT): TIdC_INT; cdecl = nil;
 
@@ -745,7 +745,7 @@ var
   function TS_REQ_new: PTS_REQ cdecl; external CLibCrypto;
   procedure TS_REQ_free(a: PTS_REQ) cdecl; external CLibCrypto;
   function i2d_TS_REQ(a: PTS_REQ; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_REQ(a: PPTS_REQ; pp: PPByte; length: TIdC_LONG): PTS_REQ cdecl; external CLibCrypto;
+  function d2i_TS_REQ(a: PPTS_REQ; pp: PPByte; _length: TIdC_LONG): PTS_REQ cdecl; external CLibCrypto;
 
   function TS_REQ_dup(a: PTS_REQ): PTS_REQ cdecl; external CLibCrypto;
 
@@ -755,7 +755,7 @@ var
   function TS_MSG_IMPRINT_new: PTS_MSG_IMPRINT cdecl; external CLibCrypto;
   procedure TS_MSG_IMPRINT_free(a: PTS_MSG_IMPRINT) cdecl; external CLibCrypto;
   function i2d_TS_MSG_IMPRINT(a: PTS_MSG_IMPRINT; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_MSG_IMPRINT(a: PPTS_MSG_IMPRINT; pp: PPByte; length: TIdC_LONG): PTS_MSG_IMPRINT cdecl; external CLibCrypto;
+  function d2i_TS_MSG_IMPRINT(a: PPTS_MSG_IMPRINT; pp: PPByte; _length: TIdC_LONG): PTS_MSG_IMPRINT cdecl; external CLibCrypto;
 
   function TS_MSG_IMPRINT_dup(a: PTS_MSG_IMPRINT): PTS_MSG_IMPRINT cdecl; external CLibCrypto;
 
@@ -765,7 +765,7 @@ var
   function TS_RESP_new: PTS_RESP cdecl; external CLibCrypto;
   procedure TS_RESP_free(a: PTS_RESP) cdecl; external CLibCrypto;
   function i2d_TS_RESP(a: PTS_RESP; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_RESP(a: PPTS_RESP; pp: PPByte; length: TIdC_LONG): PTS_RESP cdecl; external CLibCrypto;
+  function d2i_TS_RESP(a: PPTS_RESP; pp: PPByte; _length: TIdC_LONG): PTS_RESP cdecl; external CLibCrypto;
   function PKCS7_to_TS_TST_INFO(token: PPKCS7): PTS_TST_Info cdecl; external CLibCrypto;
   function TS_RESP_dup(a: PTS_RESP): PTS_RESP cdecl; external CLibCrypto;
 
@@ -775,13 +775,13 @@ var
   function TS_STATUS_INFO_new: PTS_STATUS_INFO cdecl; external CLibCrypto;
   procedure TS_STATUS_INFO_free(a: PTS_STATUS_INFO) cdecl; external CLibCrypto;
   function i2d_TS_STATUS_INFO(a: PTS_STATUS_INFO; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_STATUS_INFO(a: PPTS_STATUS_INFO; pp: PPByte; length: TIdC_LONG): PTS_STATUS_INFO cdecl; external CLibCrypto;
+  function d2i_TS_STATUS_INFO(a: PPTS_STATUS_INFO; pp: PPByte; _length: TIdC_LONG): PTS_STATUS_INFO cdecl; external CLibCrypto;
   function TS_STATUS_INFO_dup(a: PTS_STATUS_INFO): PTS_STATUS_INFO cdecl; external CLibCrypto;
 
   function TS_TST_INFO_new: PTS_TST_Info cdecl; external CLibCrypto;
   procedure TS_TST_INFO_free(a: PTS_TST_Info) cdecl; external CLibCrypto;
   function i2d_TS_TST_INFO(a: PTS_TST_Info; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_TST_INFO(a: PPTS_TST_Info; pp: PPByte; length: TIdC_LONG): PTS_TST_Info cdecl; external CLibCrypto;
+  function d2i_TS_TST_INFO(a: PPTS_TST_Info; pp: PPByte; _length: TIdC_LONG): PTS_TST_Info cdecl; external CLibCrypto;
   function TS_TST_INFO_dup(a: PTS_TST_Info): PTS_TST_Info cdecl; external CLibCrypto;
 
   function d2i_TS_TST_INFO_bio(bio: PBIO; a: PPTS_TST_Info): PTS_TST_Info cdecl; external CLibCrypto;
@@ -790,37 +790,37 @@ var
   function TS_ACCURACY_new: PTS_ACCURACY cdecl; external CLibCrypto;
   procedure TS_ACCURACY_free(a: PTS_ACCURACY) cdecl; external CLibCrypto;
   function i2d_TS_ACCURACY(a: PTS_ACCURACY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_TS_ACCURACY(a: PPTS_ACCURACY; pp: PPByte; length: TIdC_LONG): PTS_ACCURACY cdecl; external CLibCrypto;
+  function d2i_TS_ACCURACY(a: PPTS_ACCURACY; pp: PPByte; _length: TIdC_LONG): PTS_ACCURACY cdecl; external CLibCrypto;
   function TS_ACCURACY_dup(a: PTS_ACCURACY): PTS_ACCURACY cdecl; external CLibCrypto;
 
   function ESS_ISSUER_SERIAL_new: PESS_ISSUER_SERIAL cdecl; external CLibCrypto;
   procedure ESS_ISSUER_SERIAL_free(a: PESS_ISSUER_SERIAL) cdecl; external CLibCrypto;
   function i2d_ESS_ISSUER_SERIAL( a: PESS_ISSUER_SERIAL; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ESS_ISSUER_SERIAL(a: PPESS_ISSUER_SERIAL; pp: PPByte; length: TIdC_LONG): PESS_ISSUER_SERIAL cdecl; external CLibCrypto;
+  function d2i_ESS_ISSUER_SERIAL(a: PPESS_ISSUER_SERIAL; pp: PPByte; _length: TIdC_LONG): PESS_ISSUER_SERIAL cdecl; external CLibCrypto;
   function ESS_ISSUER_SERIAL_dup(a: PESS_ISSUER_SERIAL): PESS_ISSUER_SERIAL cdecl; external CLibCrypto;
 
   function ESS_CERT_ID_new: PESS_CERT_ID cdecl; external CLibCrypto;
   procedure ESS_CERT_ID_free(a: PESS_CERT_ID) cdecl; external CLibCrypto;
   function i2d_ESS_CERT_ID(a: PESS_CERT_ID; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ESS_CERT_ID(a: PPESS_CERT_ID; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID cdecl; external CLibCrypto;
+  function d2i_ESS_CERT_ID(a: PPESS_CERT_ID; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID cdecl; external CLibCrypto;
   function ESS_CERT_ID_dup(a: PESS_CERT_ID): PESS_CERT_ID cdecl; external CLibCrypto;
 
   function ESS_SIGNING_CERT_new: PESS_SIGNING_Cert cdecl; external CLibCrypto;
   procedure ESS_SIGNING_CERT_free(a: PESS_SIGNING_Cert) cdecl; external CLibCrypto;
   function i2d_ESS_SIGNING_CERT( a: PESS_SIGNING_Cert; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ESS_SIGNING_CERT(a: PPESS_SIGNING_Cert; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_Cert cdecl; external CLibCrypto;
+  function d2i_ESS_SIGNING_CERT(a: PPESS_SIGNING_Cert; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_Cert cdecl; external CLibCrypto;
   function ESS_SIGNING_CERT_dup(a: PESS_SIGNING_Cert): PESS_SIGNING_Cert cdecl; external CLibCrypto;
 
   function ESS_CERT_ID_V2_new: PESS_CERT_ID_V2 cdecl; external CLibCrypto;
   procedure ESS_CERT_ID_V2_free(a: PESS_CERT_ID_V2) cdecl; external CLibCrypto;
   function i2d_ESS_CERT_ID_V2( a: PESS_CERT_ID_V2; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ESS_CERT_ID_V2(a: PPESS_CERT_ID_V2; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID_V2 cdecl; external CLibCrypto;
+  function d2i_ESS_CERT_ID_V2(a: PPESS_CERT_ID_V2; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID_V2 cdecl; external CLibCrypto;
   function ESS_CERT_ID_V2_dup(a: PESS_CERT_ID_V2): PESS_CERT_ID_V2 cdecl; external CLibCrypto;
 
   function ESS_SIGNING_CERT_V2_new: PESS_SIGNING_CERT_V2 cdecl; external CLibCrypto;
   procedure ESS_SIGNING_CERT_V2_free(a: PESS_SIGNING_CERT_V2) cdecl; external CLibCrypto;
   function i2d_ESS_SIGNING_CERT_V2(a: PESS_SIGNING_CERT_V2; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ESS_SIGNING_CERT_V2(a: PPESS_SIGNING_CERT_V2; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_CERT_V2 cdecl; external CLibCrypto;
+  function d2i_ESS_SIGNING_CERT_V2(a: PPESS_SIGNING_CERT_V2; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_CERT_V2 cdecl; external CLibCrypto;
   function ESS_SIGNING_CERT_V2_dup(a: PESS_SIGNING_CERT_V2): PESS_SIGNING_CERT_V2 cdecl; external CLibCrypto;
 
   function TS_REQ_set_version(a: PTS_REQ; version: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
@@ -986,10 +986,10 @@ var
   procedure TS_RESP_CTX_set_extension_cb(ctx: PTS_RESP_CTX; cb: TS_extension_cb; data: Pointer) cdecl; external CLibCrypto;
 
   (* The following methods can be used in the callbacks. *)
-  function TS_RESP_CTX_set_status_info(ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function TS_RESP_CTX_set_status_info(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   (* Sets the status info only if it is still TS_STATUS_GRANTED. *)
-  function TS_RESP_CTX_set_status_info_cond(ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function TS_RESP_CTX_set_status_info_cond(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   function TS_RESP_CTX_add_failure_info(ctx: PTS_RESP_CTX; failure: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
@@ -1473,7 +1473,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_REQ(a: PPTS_REQ; pp: PPByte; length: TIdC_LONG): PTS_REQ; 
+function  ERR_d2i_TS_REQ(a: PPTS_REQ; pp: PPByte; _length: TIdC_LONG): PTS_REQ; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_REQ_procname);
 end;
@@ -1518,7 +1518,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_MSG_IMPRINT(a: PPTS_MSG_IMPRINT; pp: PPByte; length: TIdC_LONG): PTS_MSG_IMPRINT; 
+function  ERR_d2i_TS_MSG_IMPRINT(a: PPTS_MSG_IMPRINT; pp: PPByte; _length: TIdC_LONG): PTS_MSG_IMPRINT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_MSG_IMPRINT_procname);
 end;
@@ -1562,7 +1562,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_RESP(a: PPTS_RESP; pp: PPByte; length: TIdC_LONG): PTS_RESP; 
+function  ERR_d2i_TS_RESP(a: PPTS_RESP; pp: PPByte; _length: TIdC_LONG): PTS_RESP; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_RESP_procname);
 end;
@@ -1612,7 +1612,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_STATUS_INFO(a: PPTS_STATUS_INFO; pp: PPByte; length: TIdC_LONG): PTS_STATUS_INFO; 
+function  ERR_d2i_TS_STATUS_INFO(a: PPTS_STATUS_INFO; pp: PPByte; _length: TIdC_LONG): PTS_STATUS_INFO; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_STATUS_INFO_procname);
 end;
@@ -1643,7 +1643,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_TST_INFO(a: PPTS_TST_Info; pp: PPByte; length: TIdC_LONG): PTS_TST_Info; 
+function  ERR_d2i_TS_TST_INFO(a: PPTS_TST_Info; pp: PPByte; _length: TIdC_LONG): PTS_TST_Info; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_TST_INFO_procname);
 end;
@@ -1687,7 +1687,7 @@ begin
 end;
 
 
-function  ERR_d2i_TS_ACCURACY(a: PPTS_ACCURACY; pp: PPByte; length: TIdC_LONG): PTS_ACCURACY; 
+function  ERR_d2i_TS_ACCURACY(a: PPTS_ACCURACY; pp: PPByte; _length: TIdC_LONG): PTS_ACCURACY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_TS_ACCURACY_procname);
 end;
@@ -1718,7 +1718,7 @@ begin
 end;
 
 
-function  ERR_d2i_ESS_ISSUER_SERIAL(a: PPESS_ISSUER_SERIAL; pp: PPByte; length: TIdC_LONG): PESS_ISSUER_SERIAL; 
+function  ERR_d2i_ESS_ISSUER_SERIAL(a: PPESS_ISSUER_SERIAL; pp: PPByte; _length: TIdC_LONG): PESS_ISSUER_SERIAL; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ESS_ISSUER_SERIAL_procname);
 end;
@@ -1749,7 +1749,7 @@ begin
 end;
 
 
-function  ERR_d2i_ESS_CERT_ID(a: PPESS_CERT_ID; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID; 
+function  ERR_d2i_ESS_CERT_ID(a: PPESS_CERT_ID; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ESS_CERT_ID_procname);
 end;
@@ -1780,7 +1780,7 @@ begin
 end;
 
 
-function  ERR_d2i_ESS_SIGNING_CERT(a: PPESS_SIGNING_Cert; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_Cert; 
+function  ERR_d2i_ESS_SIGNING_CERT(a: PPESS_SIGNING_Cert; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_Cert; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ESS_SIGNING_CERT_procname);
 end;
@@ -1811,7 +1811,7 @@ begin
 end;
 
 
-function  ERR_d2i_ESS_CERT_ID_V2(a: PPESS_CERT_ID_V2; pp: PPByte; length: TIdC_LONG): PESS_CERT_ID_V2; 
+function  ERR_d2i_ESS_CERT_ID_V2(a: PPESS_CERT_ID_V2; pp: PPByte; _length: TIdC_LONG): PESS_CERT_ID_V2; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ESS_CERT_ID_V2_procname);
 end;
@@ -1842,7 +1842,7 @@ begin
 end;
 
 
-function  ERR_d2i_ESS_SIGNING_CERT_V2(a: PPESS_SIGNING_CERT_V2; pp: PPByte; length: TIdC_LONG): PESS_SIGNING_CERT_V2; 
+function  ERR_d2i_ESS_SIGNING_CERT_V2(a: PPESS_SIGNING_CERT_V2; pp: PPByte; _length: TIdC_LONG): PESS_SIGNING_CERT_V2; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ESS_SIGNING_CERT_V2_procname);
 end;
@@ -2413,7 +2413,7 @@ end;
 
 
   (* The following methods can be used in the callbacks. *)
-function  ERR_TS_RESP_CTX_set_status_info(ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT; 
+function  ERR_TS_RESP_CTX_set_status_info(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_RESP_CTX_set_status_info_procname);
 end;
@@ -2421,7 +2421,7 @@ end;
 
 
   (* Sets the status info only if it is still TS_STATUS_GRANTED. *)
-function  ERR_TS_RESP_CTX_set_status_info_cond(ctx: PTS_RESP_CTX; status: TIdC_INT; text: PIdAnsiChar): TIdC_INT; 
+function  ERR_TS_RESP_CTX_set_status_info_cond(ctx: PTS_RESP_CTX; status: TIdC_INT; _text: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_RESP_CTX_set_status_info_cond_procname);
 end;

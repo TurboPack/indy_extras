@@ -69,18 +69,18 @@ var
   CAST_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PCast_Key; enc: TIdC_INT); cdecl = nil;
   CAST_encrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = nil;
   CAST_decrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = nil;
-  CAST_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT); cdecl = nil;
-  CAST_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
-  CAST_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT); cdecl = nil;
+  CAST_cbc_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT); cdecl = nil;
+  CAST_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl = nil;
+  CAST_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT); cdecl = nil;
 
 {$ELSE}
   procedure CAST_set_key(key: PCast_Key; len: TIdC_INT; const data: PByte) cdecl; external CLibCrypto;
   procedure CAST_ecb_encrypt(const in_: PByte; out_: PByte; const key: PCast_Key; enc: TIdC_INT) cdecl; external CLibCrypto;
   procedure CAST_encrypt(data: PCAST_LONG; const key: PCast_Key) cdecl; external CLibCrypto;
   procedure CAST_decrypt(data: PCAST_LONG; const key: PCast_Key) cdecl; external CLibCrypto;
-  procedure CAST_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure CAST_cfb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure CAST_ofb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
+  procedure CAST_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure CAST_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure CAST_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
 
 {$ENDIF}
 
@@ -131,19 +131,19 @@ begin
 end;
 
 
-procedure  ERR_CAST_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT); 
+procedure  ERR_CAST_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_cfb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
+procedure  ERR_CAST_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_cfb64_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_ofb64_encrypt(const in_: PByte; out_: PByte; length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT); 
+procedure  ERR_CAST_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_ofb64_encrypt_procname);
 end;

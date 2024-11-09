@@ -138,6 +138,9 @@
         <DCC_RangeChecking>true</DCC_RangeChecking>
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
+        <Icon_MainIcon>bullshead.ico</Icon_MainIcon>
+        <UWP_DelphiLogo44>bullhead_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>bullhead_150.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -210,20 +213,6 @@
             </Delphi.Personality>
             <Deployment Version="5">
                 <DeployFile LocalName="..\..\icon\IndyLogo.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
-                <DeployFile LocalName="IndyFTPClient_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo150x150.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="IndyFTPClient_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\IndyFTPClient.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="Win32\Debug\TaurusFTPClient.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
@@ -240,6 +229,20 @@
                 </DeployFile>
                 <DeployFile LocalName="bull_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win64">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="bullhead_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo150x150.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="bullhead_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>

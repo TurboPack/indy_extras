@@ -95,7 +95,7 @@ uses
       }
       ossl_item_st = record
           id : dword;
-          ptr : pointer;
+          _ptr : pointer;
         end;
 
     {

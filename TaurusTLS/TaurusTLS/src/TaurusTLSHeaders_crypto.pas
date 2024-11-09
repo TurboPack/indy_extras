@@ -114,8 +114,8 @@ const
 
 type
   CRYPTO_THREADID = record {1.0.x only}
-    ptr : Pointer;
-    val : TIdC_ULONG;
+    _ptr : Pointer;
+    _val : TIdC_ULONG;
   end;
   PCRYPTO_THREADID = ^CRYPTO_THREADID;
   CRYPTO_RWLOCK = type Pointer;
@@ -128,7 +128,7 @@ type
   Tthreadid_func = procedure (id : PCRYPTO_THREADID) cdecl;
 
 
-  // CRYPTO_EX_new = procedure(parent: Pointer; ptr: Pointer; CRYPTO_EX_DATA *ad; idx: TIdC_INT; argl: TIdC_LONG; argp: Pointer);
+  // CRYPTO_EX_new = procedure(parent: Pointer; _ptr: Pointer; CRYPTO_EX_DATA *ad; idx: TIdC_INT; argl: TIdC_LONG; argp: Pointer);
   //  CRYPTO_EX_free = procedure(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
   //                             int idx, long argl, void *argp);
   //typedef int CRYPTO_EX_dup (CRYPTO_EX_DATA *to, const CRYPTO_EX_DATA *from,
@@ -137,7 +137,7 @@ type
   //                            CRYPTO_EX_new *new_func, CRYPTO_EX_dup *dup_func,
   //                            CRYPTO_EX_free *free_func);
 
-  CRYPTO_mem_leaks_cb_cb = function(const str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
+  CRYPTO_mem_leaks_cb_cb = function(const _str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
   CRYPTO_THREAD_run_once_init = procedure; cdecl;
 
   CRYPTO_THREAD_LOCAL = type DWORD;
@@ -242,18 +242,18 @@ var
   {$EXTERNALSYM SSLeay} {removed 1.1.0}
   OPENSSL_malloc: function (num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
   OPENSSL_zalloc: function (num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
-  OPENSSL_realloc: function (addr: Pointer; num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
-  OPENSSL_clear_realloc: function (addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
-  OPENSSL_clear_free: procedure (addr: Pointer; num: TIdC_SIZET); cdecl = nil; {removed 1.0.0}
-  OPENSSL_free: procedure (addr: Pointer); cdecl = nil; {removed 1.0.0}
-  OPENSSL_memdup: function (const str: Pointer; s: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
-  OPENSSL_strdup: function (const str: PIdAnsiChar): PIdAnsiChar; cdecl = nil; {removed 1.0.0}
-  OPENSSL_strndup: function (const str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; cdecl = nil; {removed 1.0.0}
+  OPENSSL_realloc: function (address: Pointer; num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
+  OPENSSL_clear_realloc: function (address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
+  OPENSSL_clear_free: procedure (address: Pointer; num: TIdC_SIZET); cdecl = nil; {removed 1.0.0}
+  OPENSSL_free: procedure (address: Pointer); cdecl = nil; {removed 1.0.0}
+  OPENSSL_memdup: function (const _str: Pointer; s: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
+  OPENSSL_strdup: function (const _str: PIdAnsiChar): PIdAnsiChar; cdecl = nil; {removed 1.0.0}
+  OPENSSL_strndup: function (const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; cdecl = nil; {removed 1.0.0}
   OPENSSL_secure_malloc: function (num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
   OPENSSL_secure_zalloc: function (num: TIdC_SIZET): Pointer; cdecl = nil; {removed 1.0.0}
-  OPENSSL_secure_free: procedure (addr: Pointer); cdecl = nil; {removed 1.0.0}
-  OPENSSL_secure_clear_free: procedure (addr: Pointer; num: TIdC_SIZET); cdecl = nil; {removed 1.0.0}
-  OPENSSL_secure_actual_size: function (ptr: Pointer): TIdC_SIZET; cdecl = nil; {removed 1.0.0}
+  OPENSSL_secure_free: procedure (address: Pointer); cdecl = nil; {removed 1.0.0}
+  OPENSSL_secure_clear_free: procedure (address: Pointer; num: TIdC_SIZET); cdecl = nil; {removed 1.0.0}
+  OPENSSL_secure_actual_size: function (_ptr: Pointer): TIdC_SIZET; cdecl = nil; {removed 1.0.0}
 
   CRYPTO_THREAD_lock_new: function : PCRYPTO_RWLOCK; cdecl = nil; {introduced 1.1.0}
   CRYPTO_THREAD_read_lock: function (lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -261,15 +261,15 @@ var
   CRYPTO_THREAD_unlock: function (lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   CRYPTO_THREAD_lock_free: procedure (lock: PCRYPTO_RWLOCK); cdecl = nil; {introduced 1.1.0}
 
-  CRYPTO_atomic_add: function (val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_atomic_add: function (_val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   CRYPTO_mem_ctrl: function (mode: TIdC_INT): TIdC_INT; cdecl = nil; {removed 3.0.0}
 
   OPENSSL_strlcpy: function (dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   OPENSSL_strlcat: function (dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_strnlen: function (const str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_strnlen: function (const _str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   OPENSSL_buf2hexstr: function (const buffer: PByte; len: TIdC_LONG): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_hexstr2buf: function (const str: PIdAnsiChar; len: PIdC_LONG): PByte; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_hexstr2buf: function (const _str: PIdAnsiChar; len: PIdC_LONG): PByte; cdecl = nil; {introduced 1.1.0}
   OPENSSL_hexchar2int: function (c: Byte): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   // # define OPENSSL_MALLOC_MAX_NELEMS(type)  (((1U<<(sizeof(int)*8-1))-1)/sizeof(type))
@@ -295,7 +295,7 @@ var
    * Get/set data in a CRYPTO_EX_DATA variable corresponding to a particular
    * index (relative to the class type involved)
    *)
-  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TIdC_INT; val: Pointer): TIdC_INT; cdecl = nil;
+  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TIdC_INT; _val: Pointer): TIdC_INT; cdecl = nil;
   CRYPTO_get_ex_data: function (const ad: PCRYPTO_EX_DATA; idx: TIdC_INT): Pointer; cdecl = nil;
 
   ///*
@@ -318,7 +318,7 @@ var
 
   ///* Only use CRYPTO_THREADID_set_[numeric|pointer]() within callbacks */
   //#  define CRYPTO_THREADID_set_numeric(id, val)
-  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; val: TIdC_ULONG); cdecl = nil; {removed 1.1.0}
+  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; _val: TIdC_ULONG); cdecl = nil; {removed 1.1.0}
   //#  define CRYPTO_THREADID_set_pointer(id, ptr)
   //#  define CRYPTO_THREADID_set_callback(threadid_func)   (0)
   CRYPTO_THREADID_set_callback: procedure (threadid_func: Tthreadid_func); cdecl = nil; {removed 1.1.0}
@@ -347,26 +347,26 @@ var
 
   CRYPTO_malloc: function (num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil;
   CRYPTO_zalloc: function (num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_memdup: function (const str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_strdup: function (const str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  CRYPTO_strndup: function (const str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_free: procedure (ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil;
-  CRYPTO_clear_free: procedure (ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  CRYPTO_realloc: function (addr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil;
-  CRYPTO_clear_realloc: function (addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_memdup: function (const _str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_strdup: function (const _str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; cdecl = nil;
+  CRYPTO_strndup: function (const _str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_free: procedure (_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil;
+  CRYPTO_clear_free: procedure (_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  CRYPTO_realloc: function (address: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil;
+  CRYPTO_clear_realloc: function (address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
 
   CRYPTO_secure_malloc_init: function (sz: TIdC_SIZET; minsize: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_malloc_done: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_malloc: function (num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_zalloc: function (num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_secure_free: procedure (ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  CRYPTO_secure_clear_free: procedure (ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  CRYPTO_secure_allocated: function (const ptr: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_secure_free: procedure (_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  CRYPTO_secure_clear_free: procedure (_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  CRYPTO_secure_allocated: function (const _ptr: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_malloc_initialized: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_secure_actual_size: function (ptr: Pointer): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_secure_actual_size: function (_ptr: Pointer): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_used: function : TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
 
-  OPENSSL_cleanse: procedure (ptr: Pointer; len: TIdC_SIZET); cdecl = nil;
+  OPENSSL_cleanse: procedure (_ptr: Pointer; len: TIdC_SIZET); cdecl = nil;
 
   (* debug libraries only  *)
 //  function CRYPTO_mem_debug_push(const info: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): TIdC_INT;
@@ -380,9 +380,9 @@ var
    *   1:   called after the actual memory allocation has taken place
    *)
 
-//  procedure CRYPTO_mem_debug_malloc(addr: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_malloc(address: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 //  procedure CRYPTO_mem_debug_realloc(addr1: Pointer; addr2: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
-//  procedure CRYPTO_mem_debug_free(addr: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_free(address: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 
 //  function CRYPTO_mem_leaks_cb(cb: CRYPTO_mem_leaks_cb_cb; u: Pointer): TIdC_INT;
 
@@ -439,7 +439,7 @@ var
   //
   //function CRYPTO_THREAD_init_local(key: PCRYPTO_THREAD_LOCAL; cleanup: CRYPTO_THREAD_init_local_cleanup): TIdC_INT;
   CRYPTO_THREAD_get_local: function (key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl = nil; {introduced 1.1.0}
-  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; val: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; _val: Pointer): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   CRYPTO_THREAD_cleanup_local: function (key: PCRYPTO_THREAD_LOCAL): TidC_INT; cdecl = nil; {introduced 1.1.0}
 
   CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = nil; {introduced 1.1.0}
@@ -456,14 +456,14 @@ var
   function CRYPTO_THREAD_unlock(lock: PCRYPTO_RWLOCK): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure CRYPTO_THREAD_lock_free(lock: PCRYPTO_RWLOCK) cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  function CRYPTO_atomic_add(val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_atomic_add(_val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
 
   function OPENSSL_strlcpy(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_strlcat(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_strnlen(const str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_strnlen(const _str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_buf2hexstr(const buffer: PByte; len: TIdC_LONG): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_hexstr2buf(const str: PIdAnsiChar; len: PIdC_LONG): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_hexstr2buf(const _str: PIdAnsiChar; len: PIdC_LONG): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_hexchar2int(c: Byte): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   // # define OPENSSL_MALLOC_MAX_NELEMS(type)  (((1U<<(sizeof(int)*8-1))-1)/sizeof(type))
@@ -489,7 +489,7 @@ var
    * Get/set data in a CRYPTO_EX_DATA variable corresponding to a particular
    * index (relative to the class type involved)
    *)
-  function CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; val: Pointer): TIdC_INT cdecl; external CLibCrypto;
+  function CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; _val: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function CRYPTO_get_ex_data(const ad: PCRYPTO_EX_DATA; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
 
   ///*
@@ -535,26 +535,26 @@ var
 
   function CRYPTO_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto;
   function CRYPTO_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_memdup(const str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_strdup(const str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
-  function CRYPTO_strndup(const str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure CRYPTO_free(ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto;
-  procedure CRYPTO_clear_free(ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_realloc(addr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto;
-  function CRYPTO_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_memdup(const _str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_strdup(const _str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
+  function CRYPTO_strndup(const _str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure CRYPTO_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto;
+  procedure CRYPTO_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_realloc(address: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto;
+  function CRYPTO_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function CRYPTO_secure_malloc_init(sz: TIdC_SIZET; minsize: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_malloc_done: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure CRYPTO_secure_free(ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure CRYPTO_secure_clear_free(ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_secure_allocated(const ptr: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure CRYPTO_secure_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure CRYPTO_secure_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_secure_allocated(const _ptr: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_malloc_initialized: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_secure_actual_size(ptr: Pointer): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_secure_actual_size(_ptr: Pointer): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_used: TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  procedure OPENSSL_cleanse(ptr: Pointer; len: TIdC_SIZET) cdecl; external CLibCrypto;
+  procedure OPENSSL_cleanse(_ptr: Pointer; len: TIdC_SIZET) cdecl; external CLibCrypto;
 
   (* debug libraries only  *)
 //  function CRYPTO_mem_debug_push(const info: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): TIdC_INT;
@@ -568,9 +568,9 @@ var
    *   1:   called after the actual memory allocation has taken place
    *)
 
-//  procedure CRYPTO_mem_debug_malloc(addr: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_malloc(address: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 //  procedure CRYPTO_mem_debug_realloc(addr1: Pointer; addr2: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
-//  procedure CRYPTO_mem_debug_free(addr: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_free(address: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 
 //  function CRYPTO_mem_leaks_cb(cb: CRYPTO_mem_leaks_cb_cb; u: Pointer): TIdC_INT;
 
@@ -625,7 +625,7 @@ var
   //
   //function CRYPTO_THREAD_init_local(key: PCRYPTO_THREAD_LOCAL; cleanup: CRYPTO_THREAD_init_local_cleanup): TIdC_INT;
   function CRYPTO_THREAD_get_local(key: PCRYPTO_THREAD_LOCAL): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; val: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; _val: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_THREAD_cleanup_local(key: PCRYPTO_THREAD_LOCAL): TidC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function CRYPTO_THREAD_get_current_id: CRYPTO_THREAD_ID cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -634,21 +634,21 @@ var
 
 function OPENSSL_malloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
 function OPENSSL_zalloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
-function OPENSSL_realloc(addr: Pointer; num: TIdC_SIZET): Pointer; {removed 1.0.0}
-function OPENSSL_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; {removed 1.0.0}
-procedure OPENSSL_clear_free(addr: Pointer; num: TIdC_SIZET); {removed 1.0.0}
-procedure OPENSSL_free(addr: Pointer); {removed 1.0.0}
-function OPENSSL_memdup(const str: Pointer; s: TIdC_SIZET): Pointer; {removed 1.0.0}
-function OPENSSL_strdup(const str: PIdAnsiChar): PIdAnsiChar; {removed 1.0.0}
-function OPENSSL_strndup(const str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; {removed 1.0.0}
+function OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; {removed 1.0.0}
+function OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; {removed 1.0.0}
+procedure OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET); {removed 1.0.0}
+procedure OPENSSL_free(address: Pointer); {removed 1.0.0}
+function OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer; {removed 1.0.0}
+function OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar; {removed 1.0.0}
+function OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; {removed 1.0.0}
 function OPENSSL_secure_malloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
 function OPENSSL_secure_zalloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
-procedure OPENSSL_secure_free(addr: Pointer); {removed 1.0.0}
-procedure OPENSSL_secure_clear_free(addr: Pointer; num: TIdC_SIZET); {removed 1.0.0}
-function OPENSSL_secure_actual_size(ptr: Pointer): TIdC_SIZET; {removed 1.0.0}
+procedure OPENSSL_secure_free(address: Pointer); {removed 1.0.0}
+procedure OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET); {removed 1.0.0}
+function OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; {removed 1.0.0}
   function CRYPTO_num_locks: TIdC_INT; {removed 1.1.0}
   procedure CRYPTO_set_locking_callback(func: TIdSslLockingCallback); {removed 1.1.0}
-  procedure CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; val: TIdC_ULONG); {removed 1.1.0}
+  procedure CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); {removed 1.1.0}
   procedure CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); {removed 1.1.0}
   procedure CRYPTO_set_id_callback(func: TIdSslIdCallback); {removed 1.1.0}
   function FIPS_mode: TIdC_INT; {removed 3.0.0}
@@ -883,9 +883,9 @@ const
    *   1:   called after the actual memory allocation has taken place
    *)
 
-//  procedure CRYPTO_mem_debug_malloc(addr: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_malloc(address: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 //  procedure CRYPTO_mem_debug_realloc(addr1: Pointer; addr2: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
-//  procedure CRYPTO_mem_debug_free(addr: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_free(address: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 
 //  function CRYPTO_mem_leaks_cb(cb: CRYPTO_mem_leaks_cb_cb; u: Pointer): TIdC_INT;
 
@@ -969,46 +969,46 @@ begin
   Result := CRYPTO_zalloc(num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_realloc(addr, num) CRYPTO_realloc(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-function  _OPENSSL_realloc(addr: Pointer; num: TIdC_SIZET): Pointer; cdecl;
+//# define OPENSSL_realloc(address, num) CRYPTO_realloc(address, num, OPENSSL_FILE, OPENSSL_LINE)
+function  _OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; cdecl;
 begin
-  Result := CRYPTO_realloc(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_realloc(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_clear_realloc(addr, old_num, num) CRYPTO_clear_realloc(addr, old_num, num, OPENSSL_FILE, OPENSSL_LINE)
-function  _OPENSSL_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; cdecl;
+//# define OPENSSL_clear_realloc(address, old_num, num) CRYPTO_clear_realloc(address, old_num, num, OPENSSL_FILE, OPENSSL_LINE)
+function  _OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; cdecl;
 begin
-  Result := CRYPTO_clear_realloc(addr, old_num, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_clear_realloc(address, old_num, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_clear_free(addr, num) CRYPTO_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-procedure  _OPENSSL_clear_free(addr: Pointer; num: TIdC_SIZET); cdecl;
+//# define OPENSSL_clear_free(address, num) CRYPTO_clear_free(address, num, OPENSSL_FILE, OPENSSL_LINE)
+procedure  _OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET); cdecl;
 begin
-  CRYPTO_clear_free(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_clear_free(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_free(addr) CRYPTO_free(addr, OPENSSL_FILE, OPENSSL_LINE)
-procedure  _OPENSSL_free(addr: Pointer); cdecl;
+//# define OPENSSL_free(addr) CRYPTO_free(address, OPENSSL_FILE, OPENSSL_LINE)
+procedure  _OPENSSL_free(address: Pointer); cdecl;
 begin
-  CRYPTO_free(addr, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_free(address, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_memdup(str, s) CRYPTO_memdup((str), s, OPENSSL_FILE, OPENSSL_LINE)
-function  _OPENSSL_memdup(const str: Pointer; s: TIdC_SIZET): Pointer; cdecl;
+function  _OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer; cdecl;
 begin
-  Result := CRYPTO_memdup(str, s, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_memdup(_str, s, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strdup(str) CRYPTO_strdup(str, OPENSSL_FILE, OPENSSL_LINE)
-function  _OPENSSL_strdup(const str: PIdAnsiChar): PIdAnsiChar; cdecl;
+function  _OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
-  Result := CRYPTO_strdup(str, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_strdup(_str, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strndup(str, n) CRYPTO_strndup(str, n, OPENSSL_FILE, OPENSSL_LINE)
-function  _OPENSSL_strndup(const str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; cdecl;
+function  _OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; cdecl;
 begin
-  Result := CRYPTO_strndup(str, n, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_strndup(_str, n, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_secure_malloc(num) CRYPTO_secure_malloc(num, OPENSSL_FILE, OPENSSL_LINE)
@@ -1023,22 +1023,22 @@ begin
   Result := CRYPTO_secure_zalloc(num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_secure_free(addr) CRYPTO_secure_free(addr, OPENSSL_FILE, OPENSSL_LINE)
-procedure  _OPENSSL_secure_free(addr: Pointer); cdecl;
+//# define OPENSSL_secure_free(addr) CRYPTO_secure_free(address, OPENSSL_FILE, OPENSSL_LINE)
+procedure  _OPENSSL_secure_free(address: Pointer); cdecl;
 begin
-  CRYPTO_secure_free(addr, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_secure_free(address, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_secure_clear_free(addr, num) CRYPTO_secure_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-procedure  _OPENSSL_secure_clear_free(addr: Pointer; num: TIdC_SIZET); cdecl;
+//# define OPENSSL_secure_clear_free(address, num) CRYPTO_secure_clear_free(address, num, OPENSSL_FILE, OPENSSL_LINE)
+procedure  _OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET); cdecl;
 begin
-  CRYPTO_secure_clear_free(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_secure_clear_free(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_secure_actual_size(ptr) CRYPTO_secure_actual_size(ptr)
-function  _OPENSSL_secure_actual_size(ptr: Pointer): TIdC_SIZET; cdecl;
+function  _OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; cdecl;
 begin
-  Result := CRYPTO_secure_actual_size(ptr);
+  Result := CRYPTO_secure_actual_size(_ptr);
 end;
 
 function  _CRYPTO_num_locks: TIdC_INT; cdecl;
@@ -1064,7 +1064,7 @@ begin
   Result := OpenSSL_version_num();
 end;
 
-procedure  _CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; val: TIdC_ULONG); cdecl;
+procedure  _CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); cdecl;
 begin
 end;
 
@@ -1146,43 +1146,43 @@ begin
 end;
 
  
-function  ERR_OPENSSL_realloc(addr: Pointer; num: TIdC_SIZET): Pointer; 
+function  ERR_OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_realloc_procname);
 end;
 
  
-function  ERR_OPENSSL_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; 
+function  ERR_OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_clear_realloc_procname);
 end;
 
  
-procedure  ERR_OPENSSL_clear_free(addr: Pointer; num: TIdC_SIZET); 
+procedure  ERR_OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_clear_free_procname);
 end;
 
  
-procedure  ERR_OPENSSL_free(addr: Pointer); 
+procedure  ERR_OPENSSL_free(address: Pointer); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_free_procname);
 end;
 
  
-function  ERR_OPENSSL_memdup(const str: Pointer; s: TIdC_SIZET): Pointer; 
+function  ERR_OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_memdup_procname);
 end;
 
  
-function  ERR_OPENSSL_strdup(const str: PIdAnsiChar): PIdAnsiChar; 
+function  ERR_OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strdup_procname);
 end;
 
  
-function  ERR_OPENSSL_strndup(const str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; 
+function  ERR_OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strndup_procname);
 end;
@@ -1200,19 +1200,19 @@ begin
 end;
 
  
-procedure  ERR_OPENSSL_secure_free(addr: Pointer); 
+procedure  ERR_OPENSSL_secure_free(address: Pointer); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_free_procname);
 end;
 
  
-procedure  ERR_OPENSSL_secure_clear_free(addr: Pointer; num: TIdC_SIZET); 
+procedure  ERR_OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_clear_free_procname);
 end;
 
  
-function  ERR_OPENSSL_secure_actual_size(ptr: Pointer): TIdC_SIZET; 
+function  ERR_OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_actual_size_procname);
 end;
@@ -1250,7 +1250,7 @@ end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_atomic_add(val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT; 
+function  ERR_CRYPTO_atomic_add(_val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_atomic_add_procname);
 end;
@@ -1276,7 +1276,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_strnlen(const str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_OPENSSL_strnlen(const _str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strnlen_procname);
 end;
@@ -1288,7 +1288,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_hexstr2buf(const str: PIdAnsiChar; len: PIdC_LONG): PByte; 
+function  ERR_OPENSSL_hexstr2buf(const _str: PIdAnsiChar; len: PIdC_LONG): PByte; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_hexstr2buf_procname);
 end;
@@ -1354,7 +1354,7 @@ end;
    * Get/set data in a CRYPTO_EX_DATA variable corresponding to a particular
    * index (relative to the class type involved)
    *)
-function  ERR_CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; val: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; _val: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_ex_data_procname);
 end;
@@ -1397,7 +1397,7 @@ end;
 
   ///* Only use CRYPTO_THREADID_set_[numeric|pointer]() within callbacks */
   //#  define CRYPTO_THREADID_set_numeric(id, val)
-procedure  ERR_CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; val: TIdC_ULONG); 
+procedure  ERR_CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREADID_set_numeric_procname);
 end;
@@ -1461,43 +1461,43 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_memdup(const str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_memdup(const _str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_memdup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_strdup(const str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
+function  ERR_CRYPTO_strdup(const _str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_strdup_procname);
 end;
 
 
-function  ERR_CRYPTO_strndup(const str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
+function  ERR_CRYPTO_strndup(const _str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_strndup_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_free(ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_free_procname);
 end;
 
 
-procedure  ERR_CRYPTO_clear_free(ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_clear_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_realloc(addr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_realloc(address: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_realloc_procname);
 end;
 
 
-function  ERR_CRYPTO_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_clear_realloc_procname);
 end;
@@ -1528,19 +1528,19 @@ begin
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_secure_free(ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_secure_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_free_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_secure_clear_free(ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_secure_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_clear_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_allocated(const ptr: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_secure_allocated(const _ptr: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_allocated_procname);
 end;
@@ -1552,7 +1552,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_actual_size(ptr: Pointer): TIdC_SIZET; 
+function  ERR_CRYPTO_secure_actual_size(_ptr: Pointer): TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_actual_size_procname);
 end;
@@ -1565,7 +1565,7 @@ end;
 
  {introduced 1.1.0}
 
-procedure  ERR_OPENSSL_cleanse(ptr: Pointer; len: TIdC_SIZET); 
+procedure  ERR_OPENSSL_cleanse(_ptr: Pointer; len: TIdC_SIZET); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_cleanse_procname);
 end;
@@ -1584,9 +1584,9 @@ end;
    *   1:   called after the actual memory allocation has taken place
    *)
 
-//  procedure CRYPTO_mem_debug_malloc(addr: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_malloc(address: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 //  procedure CRYPTO_mem_debug_realloc(addr1: Pointer; addr2: Pointer; num: TIdC_SIZET; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
-//  procedure CRYPTO_mem_debug_free(addr: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
+//  procedure CRYPTO_mem_debug_free(address: Pointer; flag: TIdC_INT; const file_: PIdAnsiChar; line: TIdC_INT);
 
 //  function CRYPTO_mem_leaks_cb(cb: CRYPTO_mem_leaks_cb_cb; u: Pointer): TIdC_INT;
 
@@ -1703,7 +1703,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; val: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; _val: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_set_local_procname);
 end;
@@ -4406,44 +4406,44 @@ begin
   Result := CRYPTO_zalloc(num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_realloc(addr, num) CRYPTO_realloc(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-function OPENSSL_realloc(addr: Pointer; num: TIdC_SIZET): Pointer;
+//# define OPENSSL_realloc(address, num) CRYPTO_realloc(address, num, OPENSSL_FILE, OPENSSL_LINE)
+function OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer;
 begin
-  Result := CRYPTO_realloc(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_realloc(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_clear_realloc(addr, old_num, num) CRYPTO_clear_realloc(addr, old_num, num, OPENSSL_FILE, OPENSSL_LINE)
-function OPENSSL_clear_realloc(addr: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer;
+//# define OPENSSL_clear_realloc(address, old_num, num) CRYPTO_clear_realloc(address, old_num, num, OPENSSL_FILE, OPENSSL_LINE)
+function OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer;
 begin
-  Result := CRYPTO_clear_realloc(addr, old_num, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_clear_realloc(address, old_num, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_clear_free(addr, num) CRYPTO_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-procedure OPENSSL_clear_free(addr: Pointer; num: TIdC_SIZET);
+//# define OPENSSL_clear_free(address, num) CRYPTO_clear_free(address, num, OPENSSL_FILE, OPENSSL_LINE)
+procedure OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET);
 begin
-  CRYPTO_clear_free(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_clear_free(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_free(addr) CRYPTO_free(addr, OPENSSL_FILE, OPENSSL_LINE)
-procedure OPENSSL_free(addr: Pointer);
+//# define OPENSSL_free(addr) CRYPTO_free(address, OPENSSL_FILE, OPENSSL_LINE)
+procedure OPENSSL_free(address: Pointer);
 begin
-  CRYPTO_free(addr, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_free(address, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_memdup(str, s) CRYPTO_memdup((str), s, OPENSSL_FILE, OPENSSL_LINE)
-function OPENSSL_memdup(const str: Pointer; s: TIdC_SIZET): Pointer;
+function OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer;
 begin
   Result := CRYPTO_memdup(str, s, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strdup(str) CRYPTO_strdup(str, OPENSSL_FILE, OPENSSL_LINE)
-function OPENSSL_strdup(const str: PIdAnsiChar): PIdAnsiChar;
+function OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar;
 begin
   Result := CRYPTO_strdup(str, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strndup(str, n) CRYPTO_strndup(str, n, OPENSSL_FILE, OPENSSL_LINE)
-function OPENSSL_strndup(const str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar;
+function OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar;
 begin
   Result := CRYPTO_strndup(str, n, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
@@ -4460,20 +4460,20 @@ begin
   Result := CRYPTO_secure_zalloc(num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_secure_free(addr) CRYPTO_secure_free(addr, OPENSSL_FILE, OPENSSL_LINE)
-procedure OPENSSL_secure_free(addr: Pointer);
+//# define OPENSSL_secure_free(addr) CRYPTO_secure_free(address, OPENSSL_FILE, OPENSSL_LINE)
+procedure OPENSSL_secure_free(address: Pointer);
 begin
-  CRYPTO_secure_free(addr, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_secure_free(address, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
-//# define OPENSSL_secure_clear_free(addr, num) CRYPTO_secure_clear_free(addr, num, OPENSSL_FILE, OPENSSL_LINE)
-procedure OPENSSL_secure_clear_free(addr: Pointer; num: TIdC_SIZET);
+//# define OPENSSL_secure_clear_free(address, num) CRYPTO_secure_clear_free(address, num, OPENSSL_FILE, OPENSSL_LINE)
+procedure OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET);
 begin
-  CRYPTO_secure_clear_free(addr, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  CRYPTO_secure_clear_free(address, num, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_secure_actual_size(ptr) CRYPTO_secure_actual_size(ptr)
-function OPENSSL_secure_actual_size(ptr: Pointer): TIdC_SIZET;
+function OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET;
 begin
   Result := CRYPTO_secure_actual_size(ptr);
 end;
@@ -4501,7 +4501,7 @@ begin
   Result := OpenSSL_version_num();
 end;
 
-procedure CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; val: TIdC_ULONG);
+procedure CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG);
 begin
 end;
 

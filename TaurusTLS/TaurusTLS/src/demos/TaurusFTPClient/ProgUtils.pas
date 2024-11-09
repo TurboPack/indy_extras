@@ -8,7 +8,7 @@ procedure ScrollToTop(ARichEdit: TRichEdit);
 procedure ScrollToEnd(ARichEdit: TRichEdit);
 function CertErrorToStr(ACertError: Integer): String;
 function RightJustify(const AText: String; ALen: Integer): String;
-function IsValidIP(const AAddr: String): Boolean;
+function IsValidIP(const Aaddress: String): Boolean;
 function DlgCaptionToFormCaption(const ACaption : String) : String;
 
 function GetProgramVersion : String;
@@ -44,11 +44,11 @@ begin
   end;
 end;
 
-function IsValidIP(const AAddr: String): Boolean;
+function IsValidIP(const Aaddress: String): Boolean;
 var
   LIP: TIdIPAddress;
 begin
-  LIP := TIdIPAddress.MakeAddressObject(AAddr);
+  LIP := TIdIPAddress.MakeAddressObject(Aaddress);
   Result := Assigned(LIP);
   if Result then
   begin
@@ -56,7 +56,7 @@ begin
   end;
 end;
 
-function CertErrorToStr(ACertError: Integer): String;
+function CertErrorToStr(ACertError : Integer): String;
 begin
   { Thuis is stuff from: https://linux.die.net/man/3/x509_store_ctx_get_error
     I found that the error message from  X509_verify_cert_error_string does not
@@ -227,7 +227,7 @@ begin
       begin
         Result := 'The format of the name constraint is not recognised: for example an email address format of a form not mentioned in RFC3280 . This could be caused by a garbage extension or some new feature not currently supported.';
       end;
-    X509_V_ERR_CRL_PATH_VALIDATION_ERROR:
+    X509_V_ERR_CRL_PATH_VALIDATION_error:
       begin
         Result := 'An error occured when attempting to verify the Certificate Revocation List (CRL) path. This error can only happen if extended CRL checking is enabled.';
       end;

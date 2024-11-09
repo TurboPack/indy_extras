@@ -224,9 +224,9 @@ var
   DH_generate_key: function (dh: PDH): TIdC_INT; cdecl = nil;
   DH_compute_key: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; cdecl = nil;
   DH_compute_key_padded: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; cdecl = nil;
-  d2i_DHparams: function (a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH; cdecl = nil;
+  d2i_DHparams: function (a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; cdecl = nil;
   i2d_DHparams: function (const a: PDH; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_DHxparams: function (a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH; cdecl = nil;
+  d2i_DHxparams: function (a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; cdecl = nil;
   i2d_DHxparams: function (const a: PDH; pp: PPByte): TIdC_INT; cdecl = nil;
   DHparams_print: function (bp: PBIO; const x: PDH): TIdC_INT; cdecl = nil;
 
@@ -253,7 +253,7 @@ var
   DH_set_flags: procedure (dh: PDH; flags: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   DH_get0_engine: function (d: PDH): PENGINE; cdecl = nil; {introduced 1.1.0}
   DH_get_length: function (const dh: PDH): TIdC_LONG; cdecl = nil; {introduced 1.1.0}
-  DH_set_length: function (dh: PDH; length: TIdC_LONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  DH_set_length: function (dh: PDH; _length: TIdC_LONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   DH_meth_new: function (const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method; cdecl = nil; {introduced 1.1.0}
   DH_meth_free: procedure (dhm: PDH_Method); cdecl = nil; {introduced 1.1.0}
@@ -398,9 +398,9 @@ var
   function DH_generate_key(dh: PDH): TIdC_INT cdecl; external CLibCrypto;
   function DH_compute_key(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT cdecl; external CLibCrypto;
   function DH_compute_key_padded(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_DHparams(a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH cdecl; external CLibCrypto;
+  function d2i_DHparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH cdecl; external CLibCrypto;
   function i2d_DHparams(const a: PDH; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_DHxparams(a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH cdecl; external CLibCrypto;
+  function d2i_DHxparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH cdecl; external CLibCrypto;
   function i2d_DHxparams(const a: PDH; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function DHparams_print(bp: PBIO; const x: PDH): TIdC_INT cdecl; external CLibCrypto;
 
@@ -427,7 +427,7 @@ var
   procedure DH_set_flags(dh: PDH; flags: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
   function DH_get0_engine(d: PDH): PENGINE cdecl; external CLibCrypto; {introduced 1.1.0}
   function DH_get_length(const dh: PDH): TIdC_LONG cdecl; external CLibCrypto; {introduced 1.1.0}
-  function DH_set_length(dh: PDH; length: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function DH_set_length(dh: PDH; _length: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function DH_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure DH_meth_free(dhm: PDH_Method) cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -927,7 +927,7 @@ begin
 end;
 
 
-function  ERR_d2i_DHparams(a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH; 
+function  ERR_d2i_DHparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DHparams_procname);
 end;
@@ -939,7 +939,7 @@ begin
 end;
 
 
-function  ERR_d2i_DHxparams(a: PPDH; const pp: PPByte; length: TIdC_LONG): PDH; 
+function  ERR_d2i_DHxparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DHxparams_procname);
 end;
@@ -1081,7 +1081,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_set_length(dh: PDH; length: TIdC_LONG): TIdC_INT; 
+function  ERR_DH_set_length(dh: PDH; _length: TIdC_LONG): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_length_procname);
 end;

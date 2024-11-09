@@ -902,7 +902,7 @@ var
   LCertificate: TTaurusTLSX509;
   hSSL: PSSL;
   IdSSLSocket: TTaurusTLSSocket;
-  // str: String;
+  // _str: String;
   LVerifiedOK: Boolean;
   LDepth: Integer;
   LError: Integer;
@@ -986,13 +986,13 @@ begin
   Result := AllocMem(num);
 end;
 
-function IdRealloc(addr: Pointer; num: UInt32): Pointer cdecl;
+function IdRealloc(address: Pointer; num: UInt32): Pointer cdecl;
 begin
   Result := addr;
   ReallocMem(Result, num);
 end;
 
-procedure IdFree(addr: Pointer)cdecl;
+procedure IdFree(address: Pointer)cdecl;
 begin
   FreeMem(addr);
 end;

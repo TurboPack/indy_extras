@@ -1080,7 +1080,7 @@ const
 type
   (* TLS Session Ticket extension struct *)
   tls_session_ticket_ext_st = record
-    length: TIdC_USHORT;
+    _length: TIdC_USHORT;
     data: Pointer;
   end;
 

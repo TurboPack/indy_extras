@@ -51,7 +51,7 @@ type
     data: Pointer; // STACK_OF(OPENSSL_PSTRING) *
     index: Pointer; // LHASH_OF(OPENSSL_STRING) **
     qual: qual_func;
-    error: TIdC_LONG;
+    _error: TIdC_LONG;
     arg1: TIdC_LONG;
     arg2: TIdC_LONG;
     arg_row: POPENSSL_STRING;

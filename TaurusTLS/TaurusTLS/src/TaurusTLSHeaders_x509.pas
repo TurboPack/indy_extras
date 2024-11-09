@@ -852,13 +852,13 @@ type
   Tsk_X509_NAME_value = function (const sk : PSTACK_OF_X509_NAME; i : TIdC_INT) : PX509_NAME cdecl;
   Tsk_X509_NAME_push = function (sk : PSTACK_OF_X509_NAME; st : PX509_NAME) : TIdC_INT cdecl;
   Tsk_X509_NAME_dup = function (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl;
-  Tsk_X509_NAME_find = function (sk : PSTACK_OF_X509_NAME; val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_X509_NAME_find = function (sk : PSTACK_OF_X509_NAME; _val : PX509_NAME) : TIdC_INT cdecl;
   Tsk_X509_NAME_pop_free = procedure (sk : PSTACK_OF_X509_NAME; func: Tsk_pop_free_func) cdecl;
   Tsk_X509_INFO_num = function (const sk : PSTACK_OF_X509_INFO) : TIdC_INT cdecl;
   Tsk_X509_INFO_value = function (const sk : PSTACK_OF_X509_INFO; i : TIdC_INT) : PX509_INFO cdecl;
   Tsk_X509_INFO_push = function (sk : PSTACK_OF_X509_INFO; st : PX509_INFO) : TIdC_INT cdecl;
   Tsk_X509_INFO_dup = function (sk : PSTACK_OF_X509_INFO) : PSTACK_OF_X509_INFO cdecl;
-  Tsk_X509_INFO_find = function (sk : PSTACK_OF_X509_INFO; val : PX509_INFO) : TIdC_INT cdecl;
+  Tsk_X509_INFO_find = function (sk : PSTACK_OF_X509_INFO; _val : PX509_INFO) : TIdC_INT cdecl;
   Tsk_X509_INFO_pop_free = procedure (sk : PSTACK_OF_X509_INFO; func: Tsk_pop_free_func) cdecl;
 
 var
@@ -920,7 +920,7 @@ var
   X509_CRL_verify: function (a: PX509_CRL; r: PEVP_PKEY): TIdC_INT; cdecl = nil;
   NETSCAPE_SPKI_verify: function (a: PNETSCAPE_SPKI; r: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
-  NETSCAPE_SPKI_b64_decode: function (const str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI; cdecl = nil;
+  NETSCAPE_SPKI_b64_decode: function (const _str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI; cdecl = nil;
   NETSCAPE_SPKI_b64_encode: function (x: PNETSCAPE_SPKI): PIdAnsiChar; cdecl = nil;
   NETSCAPE_SPKI_get_pubkey: function (x: PNETSCAPE_SPKI): PEVP_PKEY; cdecl = nil;
   NETSCAPE_SPKI_set_pubkey: function (x: PNETSCAPE_SPKI; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
@@ -1075,16 +1075,16 @@ var
 //  function X509_get_pubkey_parameters(pkey: PEVP_PKEY; chain: P STACK_OF(X509)): TIdC_INT;
   X509_get_pathlen: function (x: PX509): TIdC_LONG; cdecl = nil; {introduced 1.1.0}
   i2d_PUBKEY: function (a: PEVP_PKEY; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_PUBKEY: function (a: PPEVP_PKEY; const pp: PPByte; length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
+  d2i_PUBKEY: function (a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
 
   i2d_RSA_PUBKEY: function (a: PRSA; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_RSA_PUBKEY: function (a: PPRSA; const pp: PPByte; length: TIdC_LONG): PRSA; cdecl = nil;
+  d2i_RSA_PUBKEY: function (a: PPRSA; const pp: PPByte; _length: TIdC_LONG): PRSA; cdecl = nil;
 
   i2d_DSA_PUBKEY: function (a: PDSA; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_DSA_PUBKEY: function (a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; cdecl = nil;
+  d2i_DSA_PUBKEY: function (a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl = nil;
 
   i2d_EC_PUBKEY: function (a: EC_KEY; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_EC_PUBKEY: function (a: PPEC_KEY; const pp: PPByte; length: TIdC_LONG): PEC_KEY; cdecl = nil;
+  d2i_EC_PUBKEY: function (a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY; cdecl = nil;
 
   X509_SIG_new: function : PX509_SIG; cdecl = nil;
   X509_SIG_free: procedure (v1: PX509_SIG); cdecl = nil;
@@ -1141,7 +1141,7 @@ var
   X509_set_ex_data: function (r: PX509; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl = nil;
   X509_get_ex_data: function (r: PX509; idx: TIdC_INT): Pointer; cdecl = nil;
   i2d_X509_AUX: function (a: PX509; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_X509_AUX: function (a: PPX509; const pp: PPByte; length: TIdC_LONG): PX509; cdecl = nil;
+  d2i_X509_AUX: function (a: PPX509; const pp: PPByte; _length: TIdC_LONG): PX509; cdecl = nil;
 
   i2d_re_X509_tbs: function (x: PX509; pp: PPByte): TIdC_INT; cdecl = nil;
 
@@ -1545,7 +1545,7 @@ var
   function X509_CRL_verify(a: PX509_CRL; r: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function NETSCAPE_SPKI_verify(a: PNETSCAPE_SPKI; r: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
 
-  function NETSCAPE_SPKI_b64_decode(const str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI cdecl; external CLibCrypto;
+  function NETSCAPE_SPKI_b64_decode(const _str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI cdecl; external CLibCrypto;
   function NETSCAPE_SPKI_b64_encode(x: PNETSCAPE_SPKI): PIdAnsiChar cdecl; external CLibCrypto;
   function NETSCAPE_SPKI_get_pubkey(x: PNETSCAPE_SPKI): PEVP_PKEY cdecl; external CLibCrypto;
   function NETSCAPE_SPKI_set_pubkey(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
@@ -1698,16 +1698,16 @@ var
 //  function X509_get_pubkey_parameters(pkey: PEVP_PKEY; chain: P STACK_OF(X509)): TIdC_INT;
   function X509_get_pathlen(x: PX509): TIdC_LONG cdecl; external CLibCrypto; {introduced 1.1.0}
   function i2d_PUBKEY(a: PEVP_PKEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
+  function d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
 
   function i2d_RSA_PUBKEY(a: PRSA; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; length: TIdC_LONG): PRSA cdecl; external CLibCrypto;
+  function d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; _length: TIdC_LONG): PRSA cdecl; external CLibCrypto;
 
   function i2d_DSA_PUBKEY(a: PDSA; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
+  function d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
 
   function i2d_EC_PUBKEY(a: EC_KEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; length: TIdC_LONG): PEC_KEY cdecl; external CLibCrypto;
+  function d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY cdecl; external CLibCrypto;
 
   function X509_SIG_new: PX509_SIG cdecl; external CLibCrypto;
   procedure X509_SIG_free(v1: PX509_SIG) cdecl; external CLibCrypto;
@@ -1764,7 +1764,7 @@ var
   function X509_set_ex_data(r: PX509; idx: TIdC_INT; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function X509_get_ex_data(r: PX509; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
   function i2d_X509_AUX(a: PX509; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_X509_AUX(a: PPX509; const pp: PPByte; length: TIdC_LONG): PX509 cdecl; external CLibCrypto;
+  function d2i_X509_AUX(a: PPX509; const pp: PPByte; _length: TIdC_LONG): PX509 cdecl; external CLibCrypto;
 
   function i2d_re_X509_tbs(x: PX509; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
 
@@ -3032,7 +3032,7 @@ end;
 
 
 
-function  ERR_NETSCAPE_SPKI_b64_decode(const str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI; 
+function  ERR_NETSCAPE_SPKI_b64_decode(const _str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_b64_decode_procname);
 end;
@@ -3652,7 +3652,7 @@ begin
 end;
 
 
-function  ERR_d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PUBKEY_procname);
 end;
@@ -3665,7 +3665,7 @@ begin
 end;
 
 
-function  ERR_d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; length: TIdC_LONG): PRSA; 
+function  ERR_d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; _length: TIdC_LONG): PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSA_PUBKEY_procname);
 end;
@@ -3678,7 +3678,7 @@ begin
 end;
 
 
-function  ERR_d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_PUBKEY_procname);
 end;
@@ -3691,7 +3691,7 @@ begin
 end;
 
 
-function  ERR_d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; length: TIdC_LONG): PEC_KEY; 
+function  ERR_d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_EC_PUBKEY_procname);
 end;
@@ -3948,7 +3948,7 @@ begin
 end;
 
 
-function  ERR_d2i_X509_AUX(a: PPX509; const pp: PPByte; length: TIdC_LONG): PX509; 
+function  ERR_d2i_X509_AUX(a: PPX509; const pp: PPByte; _length: TIdC_LONG): PX509; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_AUX_procname);
 end;

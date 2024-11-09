@@ -85,15 +85,15 @@ var
   AES_decrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY); cdecl = nil;
 
   AES_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY; const enc: TIdC_INT); cdecl = nil;
-  AES_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
-  AES_cfb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  AES_cfb1_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  AES_cfb8_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  AES_ofb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
+  AES_cbc_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
+  AES_cfb128_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
+  AES_cfb1_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
+  AES_cfb8_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
+  AES_ofb128_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
   (* NB: the IV is _two_ blocks long *)
-  AES_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
+  AES_ige_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
   (* NB: the IV is _four_ blocks long *)
-  AES_bi_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
+  AES_bi_ige_encrypt: procedure (const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
 
   AES_wrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TIdC_UINT): TIdC_INT; cdecl = nil;
   AES_unwrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TIdC_UINT): TIdC_INT; cdecl = nil;
@@ -108,15 +108,15 @@ var
   procedure AES_decrypt(const in_: PByte; out_: PByte; const key: PAES_KEY) cdecl; external CLibCrypto;
 
   procedure AES_ecb_encrypt(const in_: PByte; out_: PByte; const key: PAES_KEY; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure AES_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure AES_cfb128_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure AES_cfb1_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure AES_cfb8_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure AES_ofb128_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_cfb128_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_cfb1_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_cfb8_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_ofb128_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
   (* NB: the IV is _two_ blocks long *)
-  procedure AES_ige_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_ige_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
   (* NB: the IV is _four_ blocks long *)
-  procedure AES_bi_ige_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
+  procedure AES_bi_ige_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
 
   function AES_wrap_key(key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
   function AES_unwrap_key(key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
@@ -197,45 +197,45 @@ begin
 end;
 
 
-procedure  ERR_AES_cbc_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); 
+procedure  ERR_AES_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_AES_cfb128_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure  ERR_AES_cfb128_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_cfb128_encrypt_procname);
 end;
 
 
-procedure  ERR_AES_cfb1_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure  ERR_AES_cfb1_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_cfb1_encrypt_procname);
 end;
 
 
-procedure  ERR_AES_cfb8_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT);
+procedure  ERR_AES_cfb8_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_cfb8_encrypt_procname);
 end;
 
 
-procedure  ERR_AES_ofb128_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT);
+procedure  ERR_AES_ofb128_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; num: PIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_ofb128_encrypt_procname);
 end;
 
 
   (* NB: the IV is _two_ blocks long *)
-procedure  ERR_AES_ige_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT);
+procedure  ERR_AES_ige_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_ige_encrypt_procname);
 end;
 
 
   (* NB: the IV is _four_ blocks long *)
-procedure  ERR_AES_bi_ige_encrypt(const in_: PByte; out_: PByte; length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT);
+procedure  ERR_AES_bi_ige_encrypt(const in_: PByte; out_: PByte; _length: TIdC_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_bi_ige_encrypt_procname);
 end;

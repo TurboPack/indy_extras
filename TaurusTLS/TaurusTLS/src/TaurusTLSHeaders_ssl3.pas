@@ -168,7 +168,7 @@ const
   SSL_RT_MAX_CIPHER_BLOCK_SIZE = 16;
   SSL3_RT_MAX_EXTRA = 16384;
 
-  (* Maximum plaintext length: defined by SSL/TLS standards *)
+  (* Maximum plaintext _length: defined by SSL/TLS standards *)
   SSL3_RT_MAX_PLAIN_LENGTH = 16384;
   (* Maximum compression overhead: defined by SSL/TLS standards *)
   SSL3_RT_MAX_COMPRESSED_OVERHEAD = 1024;

@@ -255,9 +255,9 @@ type
 //                                  struct v3_ext_ctx *ctx,
 //                                  STACK_OF(CONF_VALUE) *values);
   //X509V3_EXT_I2S = function(method: Pv3_ext_method; ext: Pointer): PIdAnsiChar; cdecl;
-  //X509V3_EXT_S2I = function(method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PIdAnsiChar): Pointer; cdecl;
+  //X509V3_EXT_S2I = function(method: Pv3_ext_method; ctx: Pv3_ext_ctx; const _str: PIdAnsiChar): Pointer; cdecl;
   //X509V3_EXT_I2R = function(const method: Pv3_ext_method; ext: Pointer; out_: PBIO; indent: TIdC_INT): TIdC_INT; cdecl;
-  //X509V3_EXT_R2I = function(const method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PIdAnsiChar): Pointer; cdecl;
+  //X509V3_EXT_R2I = function(const method: Pv3_ext_method; ctx: Pv3_ext_ctx; const _str: PIdAnsiChar): Pointer; cdecl;
 
 //  (* V3 extension structure *)
 //  v3_ext_method = record
@@ -337,7 +337,7 @@ type
 
   GENERAL_NAME_st_union = record
     case TIdC_INT of
-      0: (ptr: PIdAnsiChar);
+      0: (_ptr: PIdAnsiChar);
       1: (otherName: POTHERNAME);   (* otherName *)
       2: (rfc822Name: PASN1_IA5STRING);
       3: (dNSName: PASN1_IA5STRING);
@@ -784,7 +784,7 @@ var
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
 //  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
   //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
+  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
   GENERAL_NAME_print: function (out_: PBIO; gen: PGENERAL_NAME): TIdC_INT; cdecl = nil;
@@ -804,7 +804,7 @@ var
 
   GENERAL_NAMES_free : procedure(a : PGENERAL_NAMES); cdecl =nil;
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
+  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;
 
 //  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
   i2a_ACCESS_DESCRIPTION: function (bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT; cdecl = nil;
@@ -849,7 +849,7 @@ var
 
   //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
+  //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
   X509V3_EXT_nconf_nid: function (conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
   X509V3_EXT_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
@@ -877,7 +877,7 @@ var
 
   X509V3_get_string: function (ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
 //  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  X509V3_string_free: procedure (ctx: PX509V3_CTX; str: PIdAnsiChar); cdecl = nil;
+  X509V3_string_free: procedure (ctx: PX509V3_CTX; _str: PIdAnsiChar); cdecl = nil;
 //  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
   X509V3_set_ctx: procedure (ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT); cdecl = nil;
 
@@ -961,25 +961,25 @@ var
    *)
   //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
   //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
+  //function X509v3_addr_add_inherit(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
+  //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
+  //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  X509v3_addr_get_range: function (aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509v3_addr_get_range: function (aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const _length: TIdC_INT): TIdC_INT; cdecl = nil;
 
   (*
    * Canonical forms.
    *)
   //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_is_canonical(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_canonize(address: PIPAddrBlocks): TIdC_INT;
 
   (*
    * Tests for inheritance and containment.
    *)
   //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_inherits(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
   //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
 
@@ -1013,17 +1013,17 @@ var
   ADMISSIONS_get0_namingAuthority: function (const a: PADMISSIONS): PNAMING_AUTHORITY; cdecl = nil;
   ADMISSIONS_set0_namingAuthority: procedure (a: PADMISSIONS; na: PNAMING_AUTHORITY); cdecl = nil;
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-  PROFESSION_INFO_get0_addProfessionInfo: function (const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl = nil;
-  PROFESSION_INFO_set0_addProfessionInfo: procedure (pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl = nil;
-  PROFESSION_INFO_get0_namingAuthority: function (const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl = nil;
-  PROFESSION_INFO_set0_namingAuthority: procedure (pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl = nil;
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-  PROFESSION_INFO_get0_registrationNumber: function (const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; cdecl = nil;
-  PROFESSION_INFO_set0_registrationNumber: procedure (pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); cdecl = nil;
+  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
+  PROFESSION_INFO_get0_addProfessionInfo: function (const _pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl = nil;
+  PROFESSION_INFO_set0_addProfessionInfo: procedure (_pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl = nil;
+  PROFESSION_INFO_get0_namingAuthority: function (const _pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl = nil;
+  PROFESSION_INFO_set0_namingAuthority: procedure (_pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl = nil;
+//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
+//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionOIDs(_pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
+  PROFESSION_INFO_get0_registrationNumber: function (const _pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; cdecl = nil;
+  PROFESSION_INFO_set0_registrationNumber: procedure (_pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); cdecl = nil;
 
 
 {$ELSE}
@@ -1032,7 +1032,7 @@ var
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
 //  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
   //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
+  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
   function GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
@@ -1052,7 +1052,7 @@ var
   procedure GENERAL_NAMES_free((a : PGENERAL_NAMES); cdecl;  external CLibCrypto;
 
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
+  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;
 
 //  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
   function i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT cdecl; external CLibCrypto;
@@ -1096,7 +1096,7 @@ var
 
   //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
+  //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
   function X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
   function X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
@@ -1124,7 +1124,7 @@ var
 
   function X509V3_get_string(ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
 //  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  procedure X509V3_string_free(ctx: PX509V3_CTX; str: PIdAnsiChar) cdecl; external CLibCrypto;
+  procedure X509V3_string_free(ctx: PX509V3_CTX; _str: PIdAnsiChar) cdecl; external CLibCrypto;
 //  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
   procedure X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT) cdecl; external CLibCrypto;
 
@@ -1208,25 +1208,25 @@ var
    *)
   //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
   //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
+  //function X509v3_addr_add_inherit(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
+  //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
+  //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  function X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const _length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   (*
    * Canonical forms.
    *)
   //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_is_canonical(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_canonize(address: PIPAddrBlocks): TIdC_INT;
 
   (*
    * Tests for inheritance and containment.
    *)
   //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_inherits(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
   //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
 
@@ -1260,17 +1260,17 @@ var
   function ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY cdecl; external CLibCrypto;
   procedure ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-  function PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING) cdecl; external CLibCrypto;
-  function PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-  function PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING) cdecl; external CLibCrypto;
+  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
+  function PROFESSION_INFO_get0_addProfessionInfo(const _pi: PPROFESSION_INFO): PASN1_OCTET_STRING cdecl; external CLibCrypto;
+  procedure PROFESSION_INFO_set0_addProfessionInfo(_pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING) cdecl; external CLibCrypto;
+  function PROFESSION_INFO_get0_namingAuthority(const _pi: PPROFESSION_INFO): PNAMING_AUTHORITY cdecl; external CLibCrypto;
+  procedure PROFESSION_INFO_set0_namingAuthority(_pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
+//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
+//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionOIDs(_pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
+  function PROFESSION_INFO_get0_registrationNumber(const _pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING cdecl; external CLibCrypto;
+  procedure PROFESSION_INFO_set0_registrationNumber(_pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING) cdecl; external CLibCrypto;
 
 
 {$ENDIF}
@@ -1282,7 +1282,7 @@ type
   Tsk_GENERAL_NAME_value = function (const sk : PSTACK_OF_GENERAL_NAME; i : TIdC_INT) : PGENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_push = function (sk : PSTACK_OF_GENERAL_NAME; st : PGENERAL_NAME) : TIdC_INT cdecl;
   Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
-  Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; val : PGENERAL_NAME) : TIdC_INT cdecl;
+  Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PGENERAL_NAME) : TIdC_INT cdecl;
   Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl;
 
 var
@@ -1314,7 +1314,7 @@ const
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
 //  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
   //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
+  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
   GENERAL_NAME_print_procname = 'GENERAL_NAME_print';
@@ -1334,7 +1334,7 @@ const
   GENERAL_NAMES_free_procname = 'GENERAL_NAMES_free';
 
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
+  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;
 
 //  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
   i2a_ACCESS_DESCRIPTION_procname = 'i2a_ACCESS_DESCRIPTION';
@@ -1380,7 +1380,7 @@ const
 
   //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
+  //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
   X509V3_EXT_nconf_nid_procname = 'X509V3_EXT_nconf_nid';
   X509V3_EXT_nconf_procname = 'X509V3_EXT_nconf';
@@ -1492,9 +1492,9 @@ const
    *)
   //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
   //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
+  //function X509v3_addr_add_inherit(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
+  //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
+  //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
   X509v3_addr_get_range_procname = 'X509v3_addr_get_range';
 
@@ -1502,15 +1502,15 @@ const
    * Canonical forms.
    *)
   //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_is_canonical(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_canonize(address: PIPAddrBlocks): TIdC_INT;
 
   (*
    * Tests for inheritance and containment.
    *)
   //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_inherits(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
   //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
 
@@ -1544,15 +1544,15 @@ const
   ADMISSIONS_get0_namingAuthority_procname = 'ADMISSIONS_get0_namingAuthority';
   ADMISSIONS_set0_namingAuthority_procname = 'ADMISSIONS_set0_namingAuthority';
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
+  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
   PROFESSION_INFO_get0_addProfessionInfo_procname = 'PROFESSION_INFO_get0_addProfessionInfo';
   PROFESSION_INFO_set0_addProfessionInfo_procname = 'PROFESSION_INFO_set0_addProfessionInfo';
   PROFESSION_INFO_get0_namingAuthority_procname = 'PROFESSION_INFO_get0_namingAuthority';
   PROFESSION_INFO_set0_namingAuthority_procname = 'PROFESSION_INFO_set0_namingAuthority';
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
+//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
+//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionOIDs(_pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
   PROFESSION_INFO_get0_registrationNumber_procname = 'PROFESSION_INFO_get0_registrationNumber';
   PROFESSION_INFO_set0_registrationNumber_procname = 'PROFESSION_INFO_set0_registrationNumber';
 
@@ -1569,7 +1569,7 @@ end;
 //  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
 //  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
   //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
+  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_IA5STRING;
 
 //  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
 function  ERR_GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TIdC_INT; 
@@ -1621,7 +1621,7 @@ begin
 end;
 
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
+  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;
 
 //  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
 function  ERR_i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT; 
@@ -1693,7 +1693,7 @@ end;
 
   //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
   //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
+  //procedure X509V3_conf_free(_val: PCONF_VALUE);
 
 function  ERR_X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; 
 begin
@@ -1781,7 +1781,7 @@ end;
 
 
 //  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-procedure  ERR_X509V3_string_free(ctx: PX509V3_CTX; str: PIdAnsiChar); 
+procedure  ERR_X509V3_string_free(ctx: PX509V3_CTX; _str: PIdAnsiChar); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509V3_string_free_procname);
 end;
@@ -2077,11 +2077,11 @@ end;
    *)
   //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
   //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
+  //function X509v3_addr_add_inherit(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
+  //function X509v3_addr_add_prefix(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
+  //function X509v3_addr_add_range(address: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
   //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-function  ERR_X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT; 
+function  ERR_X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const _length: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509v3_addr_get_range_procname);
 end;
@@ -2092,15 +2092,15 @@ end;
    * Canonical forms.
    *)
   //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_is_canonical(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_canonize(address: PIPAddrBlocks): TIdC_INT;
 
   (*
    * Tests for inheritance and containment.
    *)
   //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
+  //function X509v3_addr_inherits(address: PIPAddrBlocks): TIdC_INT;
   //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
   //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
 
@@ -2204,42 +2204,42 @@ end;
 
 
   //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-function  ERR_PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; 
+  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; _pi: PPROFESSION_INFOS);
+function  ERR_PROFESSION_INFO_get0_addProfessionInfo(const _pi: PPROFESSION_INFO): PASN1_OCTET_STRING;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_addProfessionInfo_procname);
 end;
 
 
-procedure  ERR_PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); 
+procedure  ERR_PROFESSION_INFO_set0_addProfessionInfo(_pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_addProfessionInfo_procname);
 end;
 
 
-function  ERR_PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; 
+function  ERR_PROFESSION_INFO_get0_namingAuthority(const _pi: PPROFESSION_INFO): PNAMING_AUTHORITY;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_namingAuthority_procname);
 end;
 
 
-procedure  ERR_PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); 
+procedure  ERR_PROFESSION_INFO_set0_namingAuthority(_pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_namingAuthority_procname);
 end;
 
 
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-function  ERR_PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; 
+//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionItems(_pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
+//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const _pi: PPROFESSION_INFO);
+//  void PROFESSION_INFO_set0_professionOIDs(_pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
+function  ERR_PROFESSION_INFO_get0_registrationNumber(const _pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_registrationNumber_procname);
 end;
 
 
-procedure  ERR_PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); 
+procedure  ERR_PROFESSION_INFO_set0_registrationNumber(_pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_registrationNumber_procname);
 end;

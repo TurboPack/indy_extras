@@ -169,7 +169,7 @@ type
 
   pkcs7_st_d = record
     case Integer of
-    0: (ptr: PIdAnsiChar);
+    0: (_ptr: PIdAnsiChar);
     1: (data: PASN1_OCTET_STRING);
     2: (sign: PPKCS7_SIGNED);
     3: (enveloped: PPKCS7_ENVELOPE);
@@ -180,7 +180,7 @@ type
   end;
   pkcs7_st = record
     asn1: PByte;
-    length: TIdC_LONG;
+    _length: TIdC_LONG;
     state: TIdC_INT;
     detached: TIdC_INT;
     type_: PASN1_OBJECT;

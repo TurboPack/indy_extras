@@ -505,13 +505,13 @@ var
 
   EC_KEY_METHOD_new: function (const meth: PEC_KEY_METHOD): PEC_KEY_METHOD; cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_free: procedure (meth: PEC_KEY_METHOD); cdecl = nil; {introduced 1.1.0}
-  EC_KEY_METHOD_set_init: procedure (meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); cdecl = nil; {introduced 1.1.0}
+  EC_KEY_METHOD_set_init: procedure (meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; _copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_set_keygen: procedure (meth: PEC_KEY_METHOD; keygen: EC_KEY_METHOD_keygen_keygen); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_set_compute_key: procedure (meth: PEC_KEY_METHOD; ckey: EC_KEY_METHOD_compute_key_ckey); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_set_sign: procedure (meth: PEC_KEY_METHOD; sign: EC_KEY_METHOD_sign_sign; sign_setup: EC_KEY_METHOD_sign_sign_setup; sign_sig: EC_KEY_METHOD_sign_sign_sig); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_set_verify: procedure (meth: PEC_KEY_METHOD; verify: EC_KEY_METHOD_verify_verify; verify_sig: EC_KEY_METHOD_verify_verify_sig); cdecl = nil; {introduced 1.1.0}
 
-  EC_KEY_METHOD_get_init: procedure (const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; pcopy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); cdecl = nil; {introduced 1.1.0}
+  EC_KEY_METHOD_get_init: procedure (const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; p_copy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_get_keygen: procedure (const meth: PEC_KEY_METHOD; pkeygen: PEC_KEY_METHOD_keygen_keygen); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_get_compute_key: procedure (const meth: PEC_KEY_METHOD; pck: PEC_KEY_METHOD_compute_key_ckey); cdecl = nil; {introduced 1.1.0}
   EC_KEY_METHOD_get_sign: procedure (const meth: PEC_KEY_METHOD; psign: PEC_KEY_METHOD_sign_sign; psign_setup: PEC_KEY_METHOD_sign_sign_setup; psign_sig: PEC_KEY_METHOD_sign_sign_sig); cdecl = nil; {introduced 1.1.0}
@@ -706,13 +706,13 @@ var
 
   function EC_KEY_METHOD_new(const meth: PEC_KEY_METHOD): PEC_KEY_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_free(meth: PEC_KEY_METHOD) cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public) cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; _copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_set_keygen(meth: PEC_KEY_METHOD; keygen: EC_KEY_METHOD_keygen_keygen) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_set_compute_key(meth: PEC_KEY_METHOD; ckey: EC_KEY_METHOD_compute_key_ckey) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_set_sign(meth: PEC_KEY_METHOD; sign: EC_KEY_METHOD_sign_sign; sign_setup: EC_KEY_METHOD_sign_sign_setup; sign_sig: EC_KEY_METHOD_sign_sign_sig) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_set_verify(meth: PEC_KEY_METHOD; verify: EC_KEY_METHOD_verify_verify; verify_sig: EC_KEY_METHOD_verify_verify_sig) cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  procedure EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; pcopy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public) cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; p_copy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_get_keygen(const meth: PEC_KEY_METHOD; pkeygen: PEC_KEY_METHOD_keygen_keygen) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_get_compute_key(const meth: PEC_KEY_METHOD; pck: PEC_KEY_METHOD_compute_key_ckey) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EC_KEY_METHOD_get_sign(const meth: PEC_KEY_METHOD; psign: PEC_KEY_METHOD_sign_sign; psign_setup: PEC_KEY_METHOD_sign_sign_setup; psign_sig: PEC_KEY_METHOD_sign_sign_sig) cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -2003,7 +2003,7 @@ begin
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); 
+procedure  ERR_EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; _copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_init_procname);
 end;
@@ -2034,7 +2034,7 @@ end;
 
  {introduced 1.1.0}
 
-procedure  ERR_EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; pcopy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); 
+procedure  ERR_EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; p_copy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_init_procname);
 end;

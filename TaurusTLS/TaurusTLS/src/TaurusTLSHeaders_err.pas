@@ -168,13 +168,13 @@ type
   PERR_STATE = ^ERR_STATE;
 
   ERR_string_data_st = record
-    error: TIdC_ULONG;
+    _error: TIdC_ULONG;
     string_: PIdAnsiChar;
   end;
   ERR_STRING_DATA = ERR_string_data_st;
   PERR_STRING_DATA = ^ERR_STRING_DATA;
 
-  ERR_print_errors_cb_cb = function(str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
+  ERR_print_errors_cb_cb = function(_str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
 
 // DEFINE_LHASH_OF(ERR_STRING_DATA);
 
@@ -262,9 +262,9 @@ var
   ERR_print_errors: procedure (bp: PBIO); cdecl = nil;
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  ERR_load_strings: function (lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
-  ERR_load_strings_const: function (str: PERR_STRING_DATA): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ERR_unload_strings: function (lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
+  ERR_load_strings: function (lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
+  ERR_load_strings_const: function (_str: PERR_STRING_DATA): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  ERR_unload_strings: function (lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
   ERR_load_ERR_strings: function : TIdC_INT; cdecl = nil;
 
   ERR_get_state: function : PERR_STATE; cdecl = nil;
@@ -315,9 +315,9 @@ var
   procedure ERR_print_errors(bp: PBIO) cdecl; external CLibCrypto;
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  function ERR_load_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
-  function ERR_load_strings_const(str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ERR_unload_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
+  function ERR_load_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
+  function ERR_load_strings_const(_str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function ERR_unload_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
   function ERR_load_ERR_strings: TIdC_INT cdecl; external CLibCrypto;
 
   function ERR_get_state: PERR_STATE cdecl; external CLibCrypto;
@@ -593,19 +593,19 @@ end;
 
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-function  ERR_ERR_load_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_load_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_strings_procname);
 end;
 
 
-function  ERR_ERR_load_strings_const(str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_load_strings_const(_str: PERR_STRING_DATA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_strings_const_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ERR_unload_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_unload_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_unload_strings_procname);
 end;

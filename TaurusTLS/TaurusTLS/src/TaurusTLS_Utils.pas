@@ -86,18 +86,18 @@ begin
   tz_hour := 0;
   tz_min := 0;
   Result := 0; { default is to return with an error indication }
-  if UTCtime^.Length < 12 then
+  if UTCtime^._Length < 12 then
   begin
     Exit;
   end;
 {$IFDEF USE_MARSHALLED_PTRS}
   time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(UTCtime^.data),
-    UTCtime^.Length);
+    UTCtime^._length);
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
-  SetString(time_str, PAnsiChar(UTCtime^.data), UTCtime^.Length);
+  SetString(time_str, PAnsiChar(UTCtime^.data), UTCtime^._length);
 {$ELSE}
-  SetString(LTemp, PAnsiChar(UTCtime^.data), UTCtime^.Length);
+  SetString(LTemp, PAnsiChar(UTCtime^.data), UTCtime^._Length);
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
   // TODO: do we need to use SetCodePage() here?
   time_str := String(LTemp); // explicit convert to Unicode
@@ -270,14 +270,14 @@ var
   i: Integer;
 begin
   Result := '';
-  if a.length = 4 then
+  if a._length = 4 then
   begin
     Result := IntToStr(a.Data[0]) + '.' + IntToStr(a.Data[1]) + '.' +
       IntToStr(a.Data[2]) + '.' + IntToStr(a.Data[3]);
   end
   else
   begin
-    if a.length = 16 then
+    if a._length = 16 then
     begin
 
       for i := 0 to 7 do

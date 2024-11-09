@@ -248,7 +248,7 @@ type
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
 //  asn1_string_st = record
-//    length: TIdC_int;
+//    _length: TIdC_int;
 //    type_: TIdC_int;
 //    data: PByte;
 //    (*
@@ -260,7 +260,7 @@ type
 //  end;
 
   pxnew = function: Pointer; cdecl;
-  pd2i_of_void = function(val_out: PPointer; const der_in: PPByte; length: TIdC_LONG): Pointer; cdecl;
+  pd2i_of_void = function(val_out: PPointer; const der_in: PPByte; _length: TIdC_LONG): Pointer; cdecl;
   (*
    * ASN1_ENCODING structure: this is used to save the received encoding of an
    * ASN1 type. This is useful to get round problems with invalid encodings
@@ -659,9 +659,9 @@ var
   ASN1_OBJECT_new: function : PASN1_OBJECT; cdecl = nil;
   ASN1_OBJECT_free: procedure (a: PASN1_OBJECT); cdecl = nil;
   i2d_ASN1_OBJECT: function (const a: PASN1_OBJECT; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ASN1_OBJECT: function (a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT; cdecl = nil;
+  d2i_ASN1_OBJECT: function (a: PPASN1_OBJECT; const pp: PPByte; _length: TIdC_LONG): PASN1_OBJECT; cdecl = nil;
 
-  d2i_ASN1_BIT_STRING : function(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_BIT_STRING cdecl = nil;
+  d2i_ASN1_BIT_STRING : function(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_BIT_STRING cdecl = nil;
   i2d_ASN1_BIT_STRING : function(val_in : PASN1_BIT_STRING; der_out : PPAnsiChar) : TIdC_long cdecl = nil;
   //DECLARE_ASN1_ITEM(ASN1_OBJECT)
   //
@@ -670,7 +670,7 @@ var
   ASN1_STRING_new: function : PASN1_STRING; cdecl = nil;
   ASN1_STRING_free: procedure (a: PASN1_STRING); cdecl = nil;
   ASN1_STRING_clear_free: procedure (a: PASN1_STRING); cdecl = nil;
-  ASN1_STRING_copy: function (dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT; cdecl = nil;
+  ASN1_STRING_copy: function (dst: PASN1_STRING; const _str: PASN1_STRING): TIdC_INT; cdecl = nil;
   ASN1_STRING_dup: function (const a: PASN1_STRING): PASN1_STRING; cdecl = nil;
   ASN1_STRING_type_new: function (type_: TIdC_INT): PASN1_STRING; cdecl = nil;
   ASN1_STRING_cmp: function (const a: PASN1_STRING; const b: PASN1_STRING): TIdC_INT; cdecl = nil;
@@ -679,15 +679,15 @@ var
    * Since this is used to store all sorts of things, via macros, for now,
    * make its data void *
    *)
-  ASN1_STRING_set: function (str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_STRING_set0: procedure (str: PASN1_STRING; data: Pointer; len: TIdC_INT); cdecl = nil;
+  ASN1_STRING_set: function (_str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; cdecl = nil;
+  ASN1_STRING_set0: procedure (_str: PASN1_STRING; data: Pointer; len: TIdC_INT); cdecl = nil;
   ASN1_STRING_length: function (const x: PASN1_STRING): TIdC_INT; cdecl = nil;
   ASN1_STRING_length_set: procedure (x: PASN1_STRING; n: TIdC_INT); cdecl = nil;
   ASN1_STRING_type: function (const x: PASN1_STRING): TIdC_INT; cdecl = nil;
   ASN1_STRING_get0_data: function (const x: PASN1_STRING): PByte; cdecl = nil; {introduced 1.1.0}
 
   //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-  ASN1_BIT_STRING_set: function (a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT; cdecl = nil;
+  ASN1_BIT_STRING_set: function (a: PASN1_BIT_STRING; d: PByte; _length: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_set_bit: function (a: PASN1_BIT_STRING; n: TIdC_INT; value: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_get_bit: function (const a: PASN1_BIT_STRING; n: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_check: function (const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -701,7 +701,7 @@ var
   d2i_ASN1_INTEGER: function (a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER; cdecl = nil;
   i2d_ASN1_INTEGER: function (a: PASN1_INTEGER; out_: PPByte): TIdC_Int; cdecl = nil;
 
-  d2i_ASN1_UINTEGER: function (a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER; cdecl = nil;
+  d2i_ASN1_UINTEGER: function (a: PPASN1_INTEGER; const pp: PPByte; _length: TIdC_LONG): PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_dup: function (const x: PASN1_INTEGER): PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_cmp: function (const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT; cdecl = nil;
 
@@ -710,21 +710,21 @@ var
   ASN1_UTCTIME_check: function (const a: PASN1_UTCTIME): TIdC_INT; cdecl = nil;
   ASN1_UTCTIME_set: function (s: PASN1_UTCTIME; t: TIdC_TIMET): PASN1_UTCTIME; cdecl = nil;
   ASN1_UTCTIME_adj: function (s: PASN1_UTCTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME; cdecl = nil;
-  ASN1_UTCTIME_set_string: function (s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT; cdecl = nil;
+  ASN1_UTCTIME_set_string: function (s: PASN1_UTCTIME; const _str: PAnsiChar): TIdC_INT; cdecl = nil;
   ASN1_UTCTIME_cmp_time_t: function (const s: PASN1_UTCTIME; t: TIdC_TIMET): TIdC_INT; cdecl = nil;
 
   ASN1_GENERALIZEDTIME_check: function (const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
   ASN1_GENERALIZEDTIME_set: function (s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET): PASN1_GENERALIZEDTIME; cdecl = nil;
   ASN1_GENERALIZEDTIME_adj: function (s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
-  ASN1_GENERALIZEDTIME_set_string: function (s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT; cdecl = nil;
+  ASN1_GENERALIZEDTIME_set_string: function (s: pASN1_GENERALIZEDTIME; const _str: PAnsiChar): TIdC_INT; cdecl = nil;
 
   ASN1_TIME_diff: function (pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT; cdecl = nil;
 
   // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
   ASN1_OCTET_STRING_dup: function (const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING; cdecl = nil;
   ASN1_OCTET_STRING_cmp: function (const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TIdC_INT; cdecl = nil;
-  ASN1_OCTET_STRING_set: function (str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  d2i_ASN1_OCTET_STRING : function(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_OCTET_STRING; cdecl = nil;
+  ASN1_OCTET_STRING_set: function (_str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
+  d2i_ASN1_OCTET_STRING : function(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_OCTET_STRING; cdecl = nil;
   i2d_ASN1_OCTET_STRING : function(val_in : PASN1_OCTET_STRING; der_out : PPAnsiChar) : TIdC_INT; cdecl = nil;
   ASN1_OCTET_STRING_free : procedure(a : PASN1_OCTET_STRING); cdecl = nil;
   //DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
@@ -733,8 +733,8 @@ var
   //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
   //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
 
-  UTF8_getc: function (const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT; cdecl = nil;
-  UTF8_putc: function (str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; cdecl = nil;
+  UTF8_getc: function (const _str: PByte; len: TIdC_INT; _val: PIdC_ULONG): TIdC_INT; cdecl = nil;
+  UTF8_putc: function (_str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; cdecl = nil;
 
   //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
   //
@@ -766,8 +766,8 @@ var
   ASN1_TIME_adj: function (s: PASN1_TIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME; cdecl = nil;
   ASN1_TIME_check: function (const t: PASN1_TIME): TIdC_INT; cdecl = nil;
   ASN1_TIME_to_generalizedtime: function (const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; cdecl = nil;
-  ASN1_TIME_set_string: function (s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  ASN1_TIME_set_string_X509: function (s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  ASN1_TIME_set_string: function (s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  ASN1_TIME_set_string_X509: function (s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_TIME_to_tm: function (const s: PASN1_TIME; tm: PIdC_TM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_TIME_normalize: function (s: PASN1_TIME): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_TIME_cmp_time_t: function (const s: PASN1_TIME; t: TIdC_TIMET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -783,7 +783,7 @@ var
   i2t_ASN1_OBJECT: function (buf: PAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT): TIdC_INT; cdecl = nil;
 
   a2d_ASN1_OBJECT: function (out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_OBJECT_create: function (nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; cdecl = nil;
+  ASN1_OBJECT_create: function (nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const _ln: PAnsiChar): PASN1_OBJECT; cdecl = nil;
 
   ASN1_INTEGER_get_int64: function (pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_INTEGER_set_int64: function (a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -814,9 +814,9 @@ var
   ASN1_get_object: function (const pp: PPByte; plength: PIdC_LONG; ptag: PIdC_INT; pclass: PIdC_INT; omax: TIdC_LONG): TIdC_INT; cdecl = nil;
   ASN1_check_infinite_end: function (p: PPByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   ASN1_const_check_infinite_end: function (const p: PPByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_put_object: procedure (pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); cdecl = nil;
+  ASN1_put_object: procedure (pp: PPByte; constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); cdecl = nil;
   ASN1_put_eoc: function (pp: PPByte): TIdC_INT; cdecl = nil;
-  ASN1_object_size: function (constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT; cdecl = nil;
+  ASN1_object_size: function (constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT): TIdC_INT; cdecl = nil;
 
   (* Used to implement other functions *)
   //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
@@ -862,7 +862,7 @@ var
   //                 CHECKED_PTR_OF(const type, x)))
   //
   //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
+  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
   //# endif
 
   ASN1_STRING_to_UTF8: function (out_: PPByte; const in_: PASN1_STRING): TIdC_INT; cdecl = nil;
@@ -894,7 +894,7 @@ var
   ASN1_GENERALIZEDTIME_print: function (fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
   ASN1_TIME_print: function (fp: PBIO; const a: PASN1_TIME): TIdC_INT; cdecl = nil;
   ASN1_STRING_print: function (bp: PBIO; const v: PASN1_STRING): TIdC_INT; cdecl = nil;
-  ASN1_STRING_print_ex: function (out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
+  ASN1_STRING_print_ex: function (out_: PBIO; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
   ASN1_buf_print: function (bp: PBIO; const buf: PByte; buflen: TIdC_SIZET; off: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   ASN1_bn_print: function (bp: PBIO; const number: PIdAnsiChar; const num: PBIGNUM; buf: PByte; off: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_parse: function (bp: PBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -929,17 +929,17 @@ var
 
   (* Old API compatible functions *)
   ASN1_item_new: function (const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
-  ASN1_item_free: procedure (val: PASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
-  ASN1_item_d2i: function (val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
-  ASN1_item_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  ASN1_item_ndef_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
+  ASN1_item_free: procedure (_val: PASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
+  ASN1_item_d2i: function (_val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
+  ASN1_item_i2d: function (_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
+  ASN1_item_ndef_i2d: function (_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
 
   ASN1_add_oid_module: procedure ; cdecl = nil;
   ASN1_add_stable_module: procedure ; cdecl = nil; {introduced 1.1.0}
 
-  ASN1_generate_nconf: function (const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl = nil;
-  ASN1_generate_v3: function (const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl = nil;
-  ASN1_str2mask: function (const str: PByte; pmask: PIdC_ULONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  ASN1_generate_nconf: function (const _str: PAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl = nil;
+  ASN1_generate_v3: function (const _str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl = nil;
+  ASN1_str2mask: function (const _str: PByte; pmask: PIdC_ULONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   ASN1_item_print: function (out_: PBIO; ifld: PASN1_VALUE; indent: TIdC_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TIdC_INT; cdecl = nil;
   ASN1_PCTX_new: function : PASN1_PCTX; cdecl = nil;
@@ -965,11 +965,11 @@ var
 
   BIO_f_asn1: function : PBIO_METHOD; cdecl = nil;
 
-  BIO_new_NDEF: function (out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; cdecl = nil;
+  BIO_new_NDEF: function (out_: PBIO; _val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; cdecl = nil;
 
-  i2d_ASN1_bio_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  PEM_write_bio_ASN1_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
+  i2d_ASN1_bio_stream: function (out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
+  PEM_write_bio_ASN1_stream: function (out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
+  //function SMIME_write_ASN1(bio: PBIO; _val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
   //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
   //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
   SMIME_read_ASN1: function (bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
@@ -991,8 +991,8 @@ var
   function ASN1_OBJECT_new: PASN1_OBJECT cdecl; external CLibCrypto;
   procedure ASN1_OBJECT_free(a: PASN1_OBJECT) cdecl; external CLibCrypto;
   function i2d_ASN1_OBJECT(const a: PASN1_OBJECT; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT cdecl; external CLibCrypto;
-  function d2i_ASN1_BIT_STRING(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_BIT_STRING cdecl; external CLibCrypto;
+  function d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; _length: TIdC_LONG): PASN1_OBJECT cdecl; external CLibCrypto;
+  function d2i_ASN1_BIT_STRING(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_BIT_STRING cdecl; external CLibCrypto;
   function i2d_ASN1_BIT_STRING(val_in : PASN1_BIT_STRING; der_out : PPAnsiChar) : TIdC_long cdecl; external CLibCrypto;
 
   //DECLARE_ASN1_ITEM(ASN1_OBJECT)
@@ -1002,7 +1002,7 @@ var
   function ASN1_STRING_new: PASN1_STRING cdecl; external CLibCrypto;
   procedure ASN1_STRING_free(a: PASN1_STRING) cdecl; external CLibCrypto;
   procedure ASN1_STRING_clear_free(a: PASN1_STRING) cdecl; external CLibCrypto;
-  function ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_STRING_copy(dst: PASN1_STRING; const _str: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_STRING_dup(const a: PASN1_STRING): PASN1_STRING cdecl; external CLibCrypto;
   function ASN1_STRING_type_new(type_: TIdC_INT): PASN1_STRING cdecl; external CLibCrypto;
   function ASN1_STRING_cmp(const a: PASN1_STRING; const b: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
@@ -1011,15 +1011,15 @@ var
    * Since this is used to store all sorts of things, via macros, for now,
    * make its data void *
    *)
-  function ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TIdC_INT) cdecl; external CLibCrypto;
+  function ASN1_STRING_set(_str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  procedure ASN1_STRING_set0(_str: PASN1_STRING; data: Pointer; len: TIdC_INT) cdecl; external CLibCrypto;
   function ASN1_STRING_length(const x: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
   procedure ASN1_STRING_length_set(x: PASN1_STRING; n: TIdC_INT) cdecl; external CLibCrypto;
   function ASN1_STRING_type(const x: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_STRING_get0_data(const x: PASN1_STRING): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
 
   //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-  function ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; _length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_set_bit(a: PASN1_BIT_STRING; n: TIdC_INT; value: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_get_bit(const a: PASN1_BIT_STRING; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_check(const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1033,7 +1033,7 @@ var
   function d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER cdecl; external CLibCrypto;
   function i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TIdC_Int cdecl; external CLibCrypto;
 
-  function d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER cdecl; external CLibCrypto;
+  function d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; _length: TIdC_LONG): PASN1_INTEGER cdecl; external CLibCrypto;
   function ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER cdecl; external CLibCrypto;
   function ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
 
@@ -1042,21 +1042,21 @@ var
   function ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TIdC_TIMET): PASN1_UTCTIME cdecl; external CLibCrypto;
   function ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const _str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TIdC_TIMET): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
   function ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const _str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_TIME_diff(pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
 
   // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
   function ASN1_OCTET_STRING_dup(const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING cdecl; external CLibCrypto;
   function ASN1_OCTET_STRING_cmp(const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_OCTET_STRING; cdecl;  external CLibCrypto;
+  function ASN1_OCTET_STRING_set(_str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_OCTET_STRING; cdecl;  external CLibCrypto;
   function i2d_ASN1_OCTET_STRING(val_in : PASN1_OCTET_STRING; der_out : PPAnsiChar) : TIdC_INT; cdecl;  external CLibCrypto;
   procedure ASN1_OCTET_STRING_free(a : PASN1_OCTET_STRING); cdecl;  external CLibCrypto;
 
@@ -1066,8 +1066,8 @@ var
   //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
   //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
 
-  function UTF8_getc(const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  function UTF8_putc(str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
+  function UTF8_getc(const _str: PByte; len: TIdC_INT; _val: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
+  function UTF8_putc(_str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
 
   //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
   //
@@ -1099,8 +1099,8 @@ var
   function ASN1_TIME_adj(s: PASN1_TIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME cdecl; external CLibCrypto;
   function ASN1_TIME_check(const t: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function ASN1_TIME_set_string(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function ASN1_TIME_set_string(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_TIME_set_string_X509(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_TIME_to_tm(const s: PASN1_TIME; tm: PIdC_TM): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_TIME_normalize(s: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TIdC_TIMET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1116,7 +1116,7 @@ var
   function i2t_ASN1_OBJECT(buf: PAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
 
   function a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT cdecl; external CLibCrypto;
+  function ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const _ln: PAnsiChar): PASN1_OBJECT cdecl; external CLibCrypto;
 
   function ASN1_INTEGER_get_int64(pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1147,9 +1147,9 @@ var
   function ASN1_get_object(const pp: PPByte; plength: PIdC_LONG; ptag: PIdC_INT; pclass: PIdC_INT; omax: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_check_infinite_end(p: PPByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_const_check_infinite_end(const p: PPByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_put_object(pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT) cdecl; external CLibCrypto;
+  procedure ASN1_put_object(pp: PPByte; constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT) cdecl; external CLibCrypto;
   function ASN1_put_eoc(pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_object_size(constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_object_size(constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   (* Used to implement other functions *)
   //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
@@ -1195,7 +1195,7 @@ var
   //                 CHECKED_PTR_OF(const type, x)))
   //
   //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
+  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
   //# endif
 
   function ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
@@ -1226,7 +1226,7 @@ var
   function ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_STRING_print_ex(out_: PBIO; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_buf_print(bp: PBIO; const buf: PByte; buflen: TIdC_SIZET; off: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function ASN1_bn_print(bp: PBIO; const number: PIdAnsiChar; const num: PBIGNUM; buf: PByte; off: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_parse(bp: PBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1261,17 +1261,17 @@ var
 
   (* Old API compatible functions *)
   function ASN1_item_new(const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
-  procedure ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
-  function ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
-  function ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
+  procedure ASN1_item_free(_val: PASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
+  function ASN1_item_d2i(_val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
+  function ASN1_item_i2d(_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_item_ndef_i2d(_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
 
   procedure ASN1_add_oid_module cdecl; external CLibCrypto;
   procedure ASN1_add_stable_module cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  function ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE cdecl; external CLibCrypto;
-  function ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE cdecl; external CLibCrypto;
-  function ASN1_str2mask(const str: PByte; pmask: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function ASN1_generate_nconf(const _str: PAnsiChar; nconf: PCONF): PASN1_TYPE cdecl; external CLibCrypto;
+  function ASN1_generate_v3(const _str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE cdecl; external CLibCrypto;
+  function ASN1_str2mask(const _str: PByte; pmask: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function ASN1_item_print(out_: PBIO; ifld: PASN1_VALUE; indent: TIdC_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_PCTX_new: PASN1_PCTX cdecl; external CLibCrypto;
@@ -1297,11 +1297,11 @@ var
 
   function BIO_f_asn1: PBIO_METHOD cdecl; external CLibCrypto;
 
-  function BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO cdecl; external CLibCrypto;
+  function BIO_new_NDEF(out_: PBIO; _val: PASN1_VALUE; const it: PASN1_ITEM): PBIO cdecl; external CLibCrypto;
 
-  function i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  function PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
+  function i2d_ASN1_bio_stream(out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
+  function PEM_write_bio_ASN1_stream(out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
+  //function SMIME_write_ASN1(bio: PBIO; _val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
   //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
   //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
   function SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
@@ -1567,7 +1567,7 @@ const
   //                 CHECKED_PTR_OF(const type, x)))
   //
   //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
+  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
   //# endif
 
   ASN1_STRING_to_UTF8_procname = 'ASN1_STRING_to_UTF8';
@@ -1673,7 +1673,7 @@ const
 
   i2d_ASN1_bio_stream_procname = 'i2d_ASN1_bio_stream';
   PEM_write_bio_ASN1_stream_procname = 'PEM_write_bio_ASN1_stream';
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
+  //function SMIME_write_ASN1(bio: PBIO; _val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
   //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
   //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
   SMIME_read_ASN1_procname = 'SMIME_read_ASN1';
@@ -1741,7 +1741,7 @@ begin
 end;
 
 
-function  ERR_d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT; 
+function  ERR_d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; _length: TIdC_LONG): PASN1_OBJECT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ASN1_OBJECT_procname);
 end;
@@ -1751,7 +1751,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ASN1_BIT_STRING_procname);
 end;
 
-function ERR_d2i_ASN1_BIT_STRING(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_BIT_STRING;
+function ERR_d2i_ASN1_BIT_STRING(val_out : PPASN1_BIT_STRING; const der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_BIT_STRING;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ASN1_BIT_STRING_procname);
 end;
@@ -1778,7 +1778,7 @@ begin
 end;
 
 
-function  ERR_ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT; 
+function  ERR_ASN1_STRING_copy(dst: PASN1_STRING; const _str: PASN1_STRING): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_copy_procname);
 end;
@@ -1807,13 +1807,13 @@ end;
    * Since this is used to store all sorts of things, via macros, for now,
    * make its data void *
    *)
-function  ERR_ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; 
+function  ERR_ASN1_STRING_set(_str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_set_procname);
 end;
 
 
-procedure  ERR_ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TIdC_INT); 
+procedure  ERR_ASN1_STRING_set0(_str: PASN1_STRING; data: Pointer; len: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_set0_procname);
 end;
@@ -1845,7 +1845,7 @@ end;
  {introduced 1.1.0}
 
   //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-function  ERR_ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT; 
+function  ERR_ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; _length: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_procname);
 end;
@@ -1914,7 +1914,7 @@ end;
 
 
 
-function  ERR_d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER; 
+function  ERR_d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; _length: TIdC_LONG): PASN1_INTEGER; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ASN1_UINTEGER_procname);
 end;
@@ -1953,7 +1953,7 @@ begin
 end;
 
 
-function  ERR_ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT; 
+function  ERR_ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const _str: PAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_set_string_procname);
 end;
@@ -1984,7 +1984,7 @@ begin
 end;
 
 
-function  ERR_ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT; 
+function  ERR_ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const _str: PAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_set_string_procname);
 end;
@@ -2011,12 +2011,12 @@ begin
 end;
 
 
-function  ERR_ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_ASN1_OCTET_STRING_set(_str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_OCTET_STRING_set_procname);
 end;
 
-function ERR_d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TIdC_LONG) : PASN1_OCTET_STRING;
+function ERR_d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; _length : TIdC_LONG) : PASN1_OCTET_STRING;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ASN1_OCTET_STRING_procname);
 end;
@@ -2037,13 +2037,13 @@ end;
   //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
   //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
 
-function  ERR_UTF8_getc(const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT; 
+function  ERR_UTF8_getc(const _str: PByte; len: TIdC_INT; _val: PIdC_ULONG): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UTF8_getc_procname);
 end;
 
 
-function  ERR_UTF8_putc(str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; 
+function  ERR_UTF8_putc(_str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UTF8_putc_procname);
 end;
@@ -2160,13 +2160,13 @@ begin
 end;
 
 
-function  ERR_ASN1_TIME_set_string(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_ASN1_TIME_set_string(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_string_procname);
 end;
 
 
-function  ERR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; 
+function  ERR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_string_X509_procname);
 end;
@@ -2252,7 +2252,7 @@ begin
 end;
 
 
-function  ERR_ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; 
+function  ERR_ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const _ln: PAnsiChar): PASN1_OBJECT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_OBJECT_create_procname);
 end;
@@ -2383,7 +2383,7 @@ begin
 end;
 
 
-procedure  ERR_ASN1_put_object(pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); 
+procedure  ERR_ASN1_put_object(pp: PPByte; constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_put_object_procname);
 end;
@@ -2395,7 +2395,7 @@ begin
 end;
 
 
-function  ERR_ASN1_object_size(constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT; 
+function  ERR_ASN1_object_size(constructed: TIdC_INT; _length: TIdC_INT; tag: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_object_size_procname);
 end;
@@ -2451,7 +2451,7 @@ end;
   //                 CHECKED_PTR_OF(const type, x)))
   //
   //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
+  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
   //# endif
 
 function  ERR_ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT; 
@@ -2525,7 +2525,7 @@ begin
 end;
 
 
-function  ERR_ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_ASN1_STRING_print_ex(out_: PBIO; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_print_ex_procname);
 end;
@@ -2675,25 +2675,25 @@ begin
 end;
 
 
-procedure  ERR_ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM); 
+procedure  ERR_ASN1_item_free(_val: PASN1_VALUE; const it: PASN1_ITEM); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_free_procname);
 end;
 
 
-function  ERR_ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; 
+function  ERR_ASN1_item_d2i(_val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_d2i_procname);
 end;
 
 
-function  ERR_ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
+function  ERR_ASN1_item_i2d(_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_i2d_procname);
 end;
 
 
-function  ERR_ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
+function  ERR_ASN1_item_ndef_i2d(_val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ndef_i2d_procname);
 end;
@@ -2713,19 +2713,19 @@ end;
 
  {introduced 1.1.0}
 
-function  ERR_ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; 
+function  ERR_ASN1_generate_nconf(const _str: PAnsiChar; nconf: PCONF): PASN1_TYPE; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_generate_nconf_procname);
 end;
 
 
-function  ERR_ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; 
+function  ERR_ASN1_generate_v3(const _str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_generate_v3_procname);
 end;
 
 
-function  ERR_ASN1_str2mask(const str: PByte; pmask: PIdC_ULONG): TIdC_INT; 
+function  ERR_ASN1_str2mask(const _str: PByte; pmask: PIdC_ULONG): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_str2mask_procname);
 end;
@@ -2856,26 +2856,26 @@ end;
 
 
 
-function  ERR_BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; 
+function  ERR_BIO_new_NDEF(out_: PBIO; _val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_NDEF_procname);
 end;
 
 
 
-function  ERR_i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; 
+function  ERR_i2d_ASN1_bio_stream(out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ASN1_bio_stream_procname);
 end;
 
 
-function  ERR_PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; 
+function  ERR_PEM_write_bio_ASN1_stream(out_: PBIO; _val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_ASN1_stream_procname);
 end;
 
 
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
+  //function SMIME_write_ASN1(bio: PBIO; _val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
   //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
   //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
 function  ERR_SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; 

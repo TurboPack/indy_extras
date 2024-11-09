@@ -213,7 +213,7 @@ var
   (* The default pem_password_cb that's used internally *)
   PEM_def_callback: function (buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl = nil;
   PEM_proc_type: procedure (buf: PIdAnsiChar; type_: TIdC_INT); cdecl = nil;
-  PEM_dek_info: procedure (buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; str: PIdAnsiChar); cdecl = nil;
+  PEM_dek_info: procedure (buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar); cdecl = nil;
 
   PEM_read_bio_X509: function (bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; cdecl = nil;
   PEM_write_bio_X509: function (bp: PBIO; x: PX509): TIdC_INT; cdecl = nil;
@@ -297,8 +297,8 @@ var
   PEM_read_bio_Parameters: function (bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY; cdecl = nil;
   PEM_write_bio_Parameters: function (bp: PBIO; x: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
-  b2i_PrivateKey: function (const in_: PPByte; length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
-  b2i_PublicKey: function (const in_: PPByte; length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
+  b2i_PrivateKey: function (const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
+  b2i_PublicKey: function (const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
   b2i_PrivateKey_bio: function (in_: PBIO): PEVP_PKEY; cdecl = nil;
   b2i_PublicKey_bio: function (in_: PBIO): PEVP_PKEY; cdecl = nil;
   i2b_PrivateKey_bio: function (out_: PBIO; pk: PEVP_PKEY): TIdC_INT; cdecl = nil;
@@ -328,7 +328,7 @@ var
   (* The default pem_password_cb that's used internally *)
   function PEM_def_callback(buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT cdecl; external CLibCrypto;
   procedure PEM_proc_type(buf: PIdAnsiChar; type_: TIdC_INT) cdecl; external CLibCrypto;
-  procedure PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; str: PIdAnsiChar) cdecl; external CLibCrypto;
+  procedure PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar) cdecl; external CLibCrypto;
 
   function PEM_read_bio_X509(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509 cdecl; external CLibCrypto;
   function PEM_write_bio_X509(bp: PBIO; x: PX509): TIdC_INT cdecl; external CLibCrypto;
@@ -412,8 +412,8 @@ var
   function PEM_read_bio_Parameters(bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY cdecl; external CLibCrypto;
   function PEM_write_bio_Parameters(bp: PBIO; x: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
 
-  function b2i_PrivateKey(const in_: PPByte; length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
-  function b2i_PublicKey(const in_: PPByte; length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
+  function b2i_PrivateKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
+  function b2i_PublicKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function b2i_PrivateKey_bio(in_: PBIO): PEVP_PKEY cdecl; external CLibCrypto;
   function b2i_PublicKey_bio(in_: PBIO): PEVP_PKEY cdecl; external CLibCrypto;
   function i2b_PrivateKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
@@ -657,7 +657,7 @@ begin
 end;
 
 
-procedure  ERR_PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; str: PIdAnsiChar); 
+procedure  ERR_PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_dek_info_procname);
 end;
@@ -986,13 +986,13 @@ end;
 
 
 
-function  ERR_b2i_PrivateKey(const in_: PPByte; length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_b2i_PrivateKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PrivateKey_procname);
 end;
 
 
-function  ERR_b2i_PublicKey(const in_: PPByte; length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_b2i_PublicKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PublicKey_procname);
 end;

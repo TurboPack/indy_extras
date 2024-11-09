@@ -34,7 +34,7 @@ uses
 type
 // moved from unit "asn1" to prevent circular references
   asn1_string_st = record
-    length: TIdC_INT;
+    _length: TIdC_INT;
     type_: TIdC_INT;
     data: PByte;
     (*
@@ -464,11 +464,11 @@ const
 type
   asn1_type_st = record
     case type_: TIdC_INT of
-//      (ptr: PIdAnsichar);
-      V_ASN1_BOOLEAN: (boolean: ASN1_BOOLEAN);
+//      (_ptr: PIdAnsichar);
+      V_ASN1_BOOLEAN: (_boolean: ASN1_BOOLEAN);
 //      (asn1_string: PASN1_STRING);
       V_ASN1_OBJECT: (object_: PASN1_OBJECT);
-      V_ASN1_INTEGER: (integer: PASN1_INTEGER);
+      V_ASN1_INTEGER: (_integer: PASN1_INTEGER);
       V_ASN1_ENUMERATED: (enumerated: PASN1_ENUMERATED);
       V_ASN1_BIT_STRING: (bit_string: PASN1_BIT_STRING);
       V_ASN1_OCTET_STRING: (octet_string: PASN1_OCTET_STRING);
@@ -481,7 +481,7 @@ type
       V_ASN1_UTCTIME: (utctime: PASN1_UTCTIME);
       V_ASN1_GENERALIZEDTIME: (generalizedtime: PASN1_GENERALIZEDTIME);
       V_ASN1_VISIBLESTRING: (visiblestring: PASN1_VISIBLESTRING);
-      V_ASN1_UTF8STRING: (utf8string: PASN1_UTF8STRING);
+      V_ASN1_UTF8STRING: (_utf8string: PASN1_UTF8STRING);
       (*
        * set and sequence are left complete and still contain the set or
        * sequence bytes

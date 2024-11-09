@@ -191,7 +191,7 @@ var
 
   OBJ_new_nid: function (num: TIdC_INT): TIdC_INT; cdecl = nil;
   OBJ_add_object: function (const obj: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  OBJ_create: function (const oid: PIdAnsiChar; const sn: PIdAnsiChar; const ln: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  OBJ_create: function (const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT; cdecl = nil;
   OBJ_create_objects: function (in_: PBIO): TIdC_INT; cdecl = nil;
 
   OBJ_length: function (const obj: PASN1_OBJECT): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
@@ -316,7 +316,7 @@ var
 
   function OBJ_new_nid(num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function OBJ_add_object(const obj: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  function OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const ln: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function OBJ_create_objects(in_: PBIO): TIdC_INT cdecl; external CLibCrypto;
 
   function OBJ_length(const obj: PASN1_OBJECT): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -674,7 +674,7 @@ begin
 end;
 
 
-function  ERR_OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const ln: PIdAnsiChar): TIdC_INT; 
+function  ERR_OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_create_procname);
 end;

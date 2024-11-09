@@ -401,7 +401,7 @@ begin
     if LProxyPathLen > -1 then
     begin
       redtCertView.Lines.Add('');
-      redtCertView.Lines.Add(RightJustify('Proxy Path Length: ', TAB1) +
+      redtCertView.Lines.Add(RightJustify('Proxy Path _length: ', TAB1) +
         IntToStr(LProxyPathLen));
     end;
     redtCertView.Lines.Add('');

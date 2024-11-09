@@ -303,7 +303,7 @@ type
   BIO_lookup_type = (BIO_LOOKUP_CLIENT, BIO_LOOKUP_SERVER);
 
   BIO_sock_info_u = record
-    addr: PBIO_ADDR;
+    address: PBIO_ADDR;
   end;
   PBIO_sock_info_u = ^BIO_sock_info_u;
 
@@ -679,7 +679,7 @@ var
 //  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
   BIO_new: function (const cType: PBIO_METHOD): PBIO; cdecl = nil;
   BIO_free: function (a: PBIO): TIdC_INT; cdecl = nil;
-  BIO_set_data: procedure (a: PBIO; ptr: Pointer); cdecl = nil; {introduced 1.1.0}
+  BIO_set_data: procedure (a: PBIO; _ptr: Pointer); cdecl = nil; {introduced 1.1.0}
   BIO_get_data: function (a: PBIO): Pointer; cdecl = nil; {introduced 1.1.0}
   BIO_set_init: procedure (a: PBIO; init: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   BIO_get_init: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -698,7 +698,7 @@ var
   BIO_callback_ctrl: function (b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG; cdecl = nil;
   BIO_ptr_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer; cdecl = nil;
   BIO_int_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG; cdecl = nil;
-  BIO_push: function (b: PBIO; append: PBIO): PBIO; cdecl = nil;
+  BIO_push: function (b: PBIO; _append: PBIO): PBIO; cdecl = nil;
   BIO_pop: function (b: PBIO): PBIO; cdecl = nil;
   BIO_free_all: procedure (a: PBIO); cdecl = nil;
   BIO_find_type: function (b: PBIO; bio_type: TIdC_INT): PBIO; cdecl = nil;
@@ -733,7 +733,7 @@ var
   BIO_f_linebuffer: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0}
   BIO_f_nbio_test: function : PBIO_METHOD; cdecl = nil;
   BIO_s_datagram: function : PBIO_METHOD; cdecl = nil;
-  BIO_dgram_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
+  BIO_dgram_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_new_dgram: function (fd: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl = nil;
 
 //  function BIO_s_datagram_sctp: PBIO_METHOD;
@@ -746,10 +746,10 @@ var
 //  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
 
   BIO_sock_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_sock_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
+  BIO_sock_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
 
   BIO_fd_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_fd_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
+  BIO_fd_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
 //  function BIO_dump_cb(
 //    Pointer data: cb(;
 //    len: TIdC_SIZET;
@@ -795,10 +795,10 @@ var
   BIO_sock_info: function (sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   BIO_socket: function (domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_connect: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_bind: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_listen: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_accept_ex: function (accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_connect: function (sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_bind: function (sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_listen: function (sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_accept_ex: function (accept_sock: TIdC_INT; address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_closesocket: function (sock: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   BIO_new_socket: function (sock: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl = nil;
@@ -1056,7 +1056,7 @@ var
 //  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
   function BIO_new(const cType: PBIO_METHOD): PBIO cdecl; external CLibCrypto;
   function BIO_free(a: PBIO): TIdC_INT cdecl; external CLibCrypto;
-  procedure BIO_set_data(a: PBIO; ptr: Pointer) cdecl; external CLibCrypto; {introduced 1.1.0}
+  procedure BIO_set_data(a: PBIO; _ptr: Pointer) cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_get_data(a: PBIO): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure BIO_set_init(a: PBIO; init: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_get_init(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1075,7 +1075,7 @@ var
   function BIO_callback_ctrl(b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG cdecl; external CLibCrypto;
   function BIO_ptr_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer cdecl; external CLibCrypto;
   function BIO_int_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG cdecl; external CLibCrypto;
-  function BIO_push(b: PBIO; append: PBIO): PBIO cdecl; external CLibCrypto;
+  function BIO_push(b: PBIO; _append: PBIO): PBIO cdecl; external CLibCrypto;
   function BIO_pop(b: PBIO): PBIO cdecl; external CLibCrypto;
   procedure BIO_free_all(a: PBIO) cdecl; external CLibCrypto;
   function BIO_find_type(b: PBIO; bio_type: TIdC_INT): PBIO cdecl; external CLibCrypto;
@@ -1110,7 +1110,7 @@ var
   function BIO_f_linebuffer: PBIO_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_f_nbio_test: PBIO_METHOD cdecl; external CLibCrypto;
   function BIO_s_datagram: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_dgram_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function BIO_dgram_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_new_dgram(fd: TIdC_INT; close_flag: TIdC_INT): PBIO cdecl; external CLibCrypto;
 
 //  function BIO_s_datagram_sctp: PBIO_METHOD;
@@ -1123,10 +1123,10 @@ var
 //  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
 
   function BIO_sock_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_sock_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function BIO_sock_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function BIO_fd_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_fd_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function BIO_fd_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 //  function BIO_dump_cb(
 //    Pointer data: cb(;
 //    len: TIdC_SIZET;
@@ -1172,10 +1172,10 @@ var
   function BIO_sock_info(sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function BIO_socket(domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_connect(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_bind(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_listen(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_accept_ex(accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_connect(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_bind(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_listen(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_accept_ex(accept_sock: TIdC_INT; address: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_closesocket(sock: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function BIO_new_socket(sock: TIdC_INT; close_flag: TIdC_INT): PBIO cdecl; external CLibCrypto;
@@ -2269,7 +2269,7 @@ begin
 end;
 
 
-procedure  ERR_BIO_set_data(a: PBIO; ptr: Pointer); 
+procedure  ERR_BIO_set_data(a: PBIO; _ptr: Pointer); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_data_procname);
 end;
@@ -2383,7 +2383,7 @@ begin
 end;
 
 
-function  ERR_BIO_push(b: PBIO; append: PBIO): PBIO; 
+function  ERR_BIO_push(b: PBIO; _append: PBIO): PBIO;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_push_procname);
 end;
@@ -2568,7 +2568,7 @@ begin
 end;
 
 
-function  ERR_BIO_dgram_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_dgram_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_dgram_non_fatal_error_procname);
 end;
@@ -2596,7 +2596,7 @@ begin
 end;
 
 
-function  ERR_BIO_sock_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_sock_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_non_fatal_error_procname);
 end;
@@ -2609,7 +2609,7 @@ begin
 end;
 
 
-function  ERR_BIO_fd_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_fd_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_fd_non_fatal_error_procname);
 end;
@@ -2805,25 +2805,25 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_connect(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_connect(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_connect_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_bind(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_bind(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_bind_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_listen(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_listen(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_listen_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_accept_ex(accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_accept_ex(accept_sock: TIdC_INT; address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_accept_ex_procname);
 end;
