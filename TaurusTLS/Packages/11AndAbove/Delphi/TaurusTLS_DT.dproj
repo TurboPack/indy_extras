@@ -105,7 +105,7 @@
         <DesignOnlyPackage>true</DesignOnlyPackage>
         <DCC_Description>TaurusTLS Design-Time-Only package</DCC_Description>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
-        <DCC_UnitSearchPath>..\..\..\Source\;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\..\Source\;.\$(Platform)\$(Config);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_CBuilderOutput>None</DCC_CBuilderOutput>
@@ -138,13 +138,13 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64x)'!=''">
-        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;TaurusTLS290;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;IndyCore290;IndySystem290;TaurusTLS290;TaurusTLS_RT;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -181,7 +181,7 @@
         <DCCReference Include="IndyCore290.dcp"/>
         <DCCReference Include="IndyProtocols290.dcp"/>
         <DCCReference Include="IndySystem290.dcp"/>
-        <DCCReference Include="TaurusTLS290.dcp"/>
+        <DCCReference Include="TaurusTLS_RT.dcp"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS_Dsn_Register.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS_Dsn_AboutDlg.pas"/>
@@ -207,7 +207,6 @@
                     <Source Name="MainSource">TaurusTLS_DT.dpk</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_DT.bpl">TaurusTLS Design-Time-Only package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclemsedge290.bpl">Embarcadero RAD Server Edge Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k290.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp290.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
