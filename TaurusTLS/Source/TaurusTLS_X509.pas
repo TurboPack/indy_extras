@@ -323,6 +323,7 @@ uses
   IdFIPS,
   TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_asn1,
+  TaurusTLSHeaders_bio,
   TaurusTLSHeaders_bn,
   TaurusTLSHeaders_objects,
   TaurusTLSHeaders_rsa,
@@ -706,11 +707,42 @@ begin
 end;
 
 function TTaurusTLSX509.GetDisplayInfo: TStrings;
+var
+  LMem: PBIO;
+  LLen: TIdC_INT;
+  LBufPtr: PIdAnsiChar;
 begin
   if not Assigned(FDisplayInfo) then
   begin
     FDisplayInfo := TStringList.Create;
-    DumpCert(FDisplayInfo, FX509);
+{$IFNDEF OPENSSL_NO_BIO}
+    LMem := BIO_new(BIO_s_mem);
+    if LMem <> nil then
+    begin
+      try
+        if X509_print_ex(LMem, FX509, XN_FLAG_COMPAT, X509_FLAG_COMPAT) = 1 then begin
+          LLen := BIO_get_mem_data(LMem, @LBufPtr);
+          if (LLen > 0) and (LBufPtr <> nil) then
+          begin
+            FDisplayInfo.Text := IndyTextEncoding_UTF8.GetString(
+{$IFNDEF VCL_6_OR_ABOVE}
+            // RLebeau: for some reason, Delphi 5 causes a "There is no overloaded
+            // version of 'GetString' that can be called with these arguments" compiler
+            // error if the PByte type-cast is used, even though GetString() actually
+            // expects a PByte as input.  Must be a compiler bug, as it compiles fine
+            // in Delphi 6.  So, converting to TIdBytes until I find a better solution...
+            RawToBytes(LBufPtr^, LLen)
+{$ELSE}
+            PByte(LBufPtr), LLen
+{$ENDIF}
+            );
+          end;
+        end;
+      finally
+        BIO_free(LMem);
+      end;
+    end;
+{$ENDIF}
   end;
   Result := FDisplayInfo;
 end;

@@ -34,13 +34,10 @@ function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 function LogicalAnd(a, B: Integer): Boolean;
 function BytesToHexString(APtr: Pointer; ALen: Integer): String;
 function MDAsString(const AMD: TIdSSLEVP_MD): String;
-procedure DumpCert(AOut: TStrings; AX509: PX509);
 function UTCTime2DateTime(UTCtime: PASN1_UTCTIME): TDateTime;
 function UTC_Time_Decode(const UTCtime: PASN1_UTCTIME;
   out year, month, day, hour, min, sec: Word;
   out tz_hour, tz_min: Integer): Integer;
-function AddMins(const DT: TDateTime; const Mins: Extended): TDateTime;
-function AddHrs(const DT: TDateTime; const Hrs: Extended): TDateTime;
 
 function ASN1TimeToDateTime(A : PASN1_TIME) : TDateTime;
 
@@ -52,18 +49,6 @@ implementation
 
 uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
   System.SysUtils;
-
-function AddMins(const DT: TDateTime; const Mins: Extended): TDateTime;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := DT + (Mins / (60 * 24));
-end;
-
-function AddHrs(const DT: TDateTime; const Hrs: Extended): TDateTime;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := DT + (Hrs / 24.0);
-end;
 
 function UTC_Time_Decode(const UTCtime: PASN1_UTCTIME;
   out year, month, day, hour, min, sec: Word;
@@ -226,8 +211,8 @@ begin
   then
   begin
     Result := EncodeDate(year, month, day) + EncodeTime(hour, min, sec, 0);
-    Result := AddMins(Result, tz_m);
-    Result := AddHrs(Result, tz_h);
+    Result := Result + ( tz_m / (60 * 24));
+    Result := Result + ( tz_h / 24.0);
     Result := UTCTimeToLocalTime(Result);
   end;
 end;
@@ -328,54 +313,5 @@ begin
       Result := 'Registered ID: ' + ASN1_OBJECT_ToStr(AGN.d.rid);
   end;
 end;
-
-{$IFNDEF OPENSSL_NO_BIO}
-
-procedure DumpCert(AOut: TStrings; AX509: PX509);
-var
-  LMem: PBIO;
-  LLen: TIdC_INT;
-  LBufPtr: PIdAnsiChar;
-begin
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  if Assigned(X509_print) then
-{$ENDIF}
-  begin
-    LMem := BIO_new(BIO_s_mem);
-    if LMem <> nil then
-    begin
-      try
-        if X509_print_ex(LMem, AX509,XN_FLAG_COMPAT, X509_FLAG_COMPAT) = 1 then begin
-          LLen := BIO_get_mem_data(LMem, @LBufPtr);
-          if (LLen > 0) and (LBufPtr <> nil) then
-          begin
-            AOut.Text := IndyTextEncoding_UTF8.GetString(
-{$IFNDEF VCL_6_OR_ABOVE}
-            // RLebeau: for some reason, Delphi 5 causes a "There is no overloaded
-            // version of 'GetString' that can be called with these arguments" compiler
-            // error if the PByte type-cast is used, even though GetString() actually
-            // expects a PByte as input.  Must be a compiler bug, as it compiles fine
-            // in Delphi 6.  So, converting to TIdBytes until I find a better solution...
-            RawToBytes(LBufPtr^, LLen)
-{$ELSE}
-            PByte(LBufPtr), LLen
-{$ENDIF}
-            );
-          end;
-        end;
-      finally
-        BIO_free(LMem);
-      end;
-    end;
-  end;
-end;
-
-{$ELSE}
-
-procedure DumpCert(AOut: TStrings; AX509: PX509);
-begin
-end;
-
-{$ENDIF}
 
 end.
