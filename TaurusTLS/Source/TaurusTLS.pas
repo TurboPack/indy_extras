@@ -462,12 +462,7 @@ type
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
     procedure SetPassThrough(const Value: Boolean); override;
-    procedure DoBeforeConnect(ASender: TTaurusTLSIOHandlerSocket);
 
-    procedure DoStatusInfo(const AsslSocket: PSSL; const AWhere, Aret: TIdC_INT;
-      const AWhereStr, ARetStr: String);
-    procedure DoGetPassword(var VPassword: String; const AIsWrite: Boolean);
-    procedure DoOnSSLNegotiated;
     function DoVerifyPeer(Certificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     function RecvEnc(var VBuffer: TIdBytes): Integer; override;
@@ -527,11 +522,6 @@ type
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     // procedure CreateSSLContext;
     //
-    procedure DoStatusInfo(const AsslSocket: PSSL; const AWhere, Aret: TIdC_INT;
-      const AWhereStr, ARetStr: String);
-    procedure DoGetPassword(out VPassword: String; const AIsWrite: Boolean);
-    function DoVerifyPeer(Certificate: TTaurusTLSX509; const AOk: Boolean;
-      const ADepth, AError: Integer): Boolean;
     procedure InitComponent; override;
 
     { ITaurusTLSCallbackHelper }
@@ -1452,35 +1442,6 @@ begin
   end;
 end;
 
-procedure TTaurusTLSServerIOHandler.DoStatusInfo(const AsslSocket: PSSL;
-  const AWhere, Aret: TIdC_INT; const AWhereStr, ARetStr: String);
-begin
-  if Assigned(FOnStatusInfo) then
-  begin
-    FOnStatusInfo(Self, AsslSocket, AWhere, Aret, AWhereStr, ARetStr);
-  end;
-end;
-
-procedure TTaurusTLSServerIOHandler.DoGetPassword(out VPassword: String;
-  const AIsWrite: Boolean);
-begin
-  VPassword := '';
-  if Assigned(fOnGetPassword) then
-  begin
-    fOnGetPassword(Self, VPassword, AIsWrite);
-  end;
-end;
-
-function TTaurusTLSServerIOHandler.DoVerifyPeer(Certificate: TTaurusTLSX509;
-  const AOk: Boolean; const ADepth, AError: Integer): Boolean;
-begin
-  Result := true;
-  if Assigned(fOnVerifyPeer) then
-  begin
-    Result := fOnVerifyPeer(Certificate, AOk, ADepth, AError);
-  end;
-end;
-
 function TTaurusTLSServerIOHandler.MakeFTPSvrPort: TIdSSLIOHandlerSocketBase;
 var
   LIO: TTaurusTLSIOHandlerSocket;
@@ -1529,7 +1490,11 @@ end;
 
 function TTaurusTLSServerIOHandler.GetPassword(const AIsWrite: Boolean): string;
 begin
-  DoGetPassword(Result, AIsWrite);
+  Result := '';
+  if Assigned(fOnGetPassword) then
+  begin
+    fOnGetPassword(Self, Result, AIsWrite);
+  end;
 end;
 
 procedure TTaurusTLSServerIOHandler.StatusInfo(const AsslSocket: PSSL;
@@ -1546,14 +1511,18 @@ begin
       LType, LMsg: string;
 {$ENDIF}
     GetStateVars(AsslSocket, AWhere, Aret, LType, LMsg);
-    DoStatusInfo(AsslSocket, AWhere, Aret, LType, LMsg);
+    FOnStatusInfo(Self, AsslSocket, AWhere, Aret, LType, LMsg);
   end;
 end;
 
 function TTaurusTLSServerIOHandler.VerifyPeer(ACertificate: TTaurusTLSX509;
   const AOk: Boolean; const ADepth, AError: Integer): Boolean;
 begin
-  Result := DoVerifyPeer(ACertificate, AOk, ADepth, AError);
+  Result := true;
+  if Assigned(fOnVerifyPeer) then
+  begin
+    Result := fOnVerifyPeer(ACertificate, AOk, ADepth, AError);
+  end;
 end;
 
 function TTaurusTLSServerIOHandler.GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
@@ -1644,7 +1613,10 @@ begin
   finally
     fPassThrough := LPassThrough;
   end;
-  DoBeforeConnect(Self);
+  if Assigned(FOnBeforeConnect) then
+  begin
+    FOnBeforeConnect(Self);
+  end;
   // CreateSSLContext(sslmClient);
   // CreateSSLContext(SSLOptions.fMode);
   StartSSL;
@@ -1803,32 +1775,6 @@ begin
 end;
 // }
 
-procedure TTaurusTLSIOHandlerSocket.DoStatusInfo(const AsslSocket: PSSL;
-  const AWhere, Aret: TIdC_INT; const AWhereStr, ARetStr: String);
-begin
-  if Assigned(FOnStatusInfo) then
-  begin
-    FOnStatusInfo(Self, AsslSocket, AWhere, Aret, AWhereStr, ARetStr);
-  end;
-end;
-
-procedure TTaurusTLSIOHandlerSocket.DoGetPassword(var VPassword: String;
-  const AIsWrite: Boolean);
-begin
-  if Assigned(fOnGetPassword) then
-  begin
-    fOnGetPassword(Self, VPassword, AIsWrite);
-  end;
-end;
-
-procedure TTaurusTLSIOHandlerSocket.DoOnSSLNegotiated;
-begin
-  if Assigned(FOnSSLNegotiated) then
-  begin
-    FOnSSLNegotiated(Self);
-  end;
-end;
-
 function TTaurusTLSIOHandlerSocket.DoVerifyPeer(Certificate: TTaurusTLSX509;
   const AOk: Boolean; const ADepth, AError: Integer): Boolean;
 begin
@@ -1967,17 +1913,11 @@ begin
     fSSLSocket.HostName := '';
     fSSLSocket.Accept(Binding.Handle);
   end;
-  DoOnSSLNegotiated;
-  fPassThrough := False;
-end;
-
-procedure TTaurusTLSIOHandlerSocket.DoBeforeConnect
-  (ASender: TTaurusTLSIOHandlerSocket);
-begin
-  if Assigned(OnBeforeConnect) then
+  if Assigned(FOnSSLNegotiated) then
   begin
-    OnBeforeConnect(Self);
+    FOnSSLNegotiated(Self);
   end;
+  fPassThrough := False;
 end;
 
 // TODO: add an AOwner parameter
@@ -2042,7 +1982,10 @@ end;
 
 function TTaurusTLSIOHandlerSocket.GetPassword(const AIsWrite: Boolean): string;
 begin
-  DoGetPassword(Result, AIsWrite);
+  if Assigned(fOnGetPassword) then
+  begin
+    fOnGetPassword(Self, Result, AIsWrite);
+  end;
 end;
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
@@ -2059,7 +2002,7 @@ begin
   if Assigned(FOnStatusInfo) then
   begin
     GetStateVars(AsslSocket, AWhere, Aret, LType, LMsg);
-    DoStatusInfo(AsslSocket, AWhere, Aret, LType, LMsg);
+    FOnStatusInfo(Self, AsslSocket, AWhere, Aret, LType, LMsg);
   end;
 end;
 
