@@ -352,7 +352,6 @@ type
 
     procedure DestroyContext;
     function GetSSLMethod: PSSL_METHOD;
-    procedure SetVerifyMode(AMode: TIdSSLVerifyModeSet; ACheckRoutine: Boolean);
     function GetVerifyMode: TIdSSLVerifyModeSet;
   public
     constructor Create;
@@ -360,10 +359,6 @@ type
     procedure InitContext(CtxMode: TIdSSLCtxMode);
 
     function Clone: TTaurusTLSContext;
-    function LoadRootCert: Boolean;
-    function LoadCert: Boolean;
-    function LoadKey: Boolean;
-    function LoadDHParams: Boolean;
     property Context: PSSL_CTX read fContext;
     property Parent: TObject read FParent write FParent;
     property StatusInfoOn: Boolean read fStatusInfoOn write fStatusInfoOn;
@@ -418,7 +413,6 @@ type
     function Send(const ABuffer: TIdBytes;
       const AOffset, ALength: Integer): Integer;
     function Recv(var VBuffer: TIdBytes): Integer;
-    function _GetSessionID: TIdSSLByteArray;
     function GetSessionIDAsString: String;
     procedure SetCipherList(CipherList: String);
     //
@@ -2158,6 +2152,8 @@ var
 {$IFDEF USE_MARSHALLED_PTRS}
   M: TMarshaller;
 {$ENDIF}
+  Func: SSL_verify_cb;
+  LRes : Boolean;
 begin
   // Destroy the context first
   DestroyContext;
@@ -2314,28 +2310,68 @@ begin
   // load key and certificate files
   if (RootCertFile <> '') or (VerifyDirs <> '') then
   begin { Do not Localize }
-    if not LoadRootCert then
+    if not IndySSL_CTX_load_verify_locations(fContext, RootCertFile,
+      VerifyDirs) > 0 then
     begin
       ETaurusTLSLoadingRootCertError.RaiseException(RSSSLLoadingRootCertError);
     end;
   end;
+
   if CertFile <> '' then
   begin { Do not Localize }
-    if not LoadCert then
+
+    if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1 then
+    begin
+      LRes := IndySSL_CTX_use_certificate_file_PKCS12(fContext, CertFile) > 0;
+    end
+    else
+    begin
+      // TaurusTLS 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
+      // that handles a chain of certificates in a PEM file.  That is prefered.
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+      if Assigned(SSL_CTX_use_certificate_chain_file) then
+      begin
+        LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
+      end
+      else
+      begin
+        LRes := IndySSL_CTX_use_certificate_file(fContext, CertFile,
+          SSL_FILETYPE_PEM) > 0;
+      end;
+{$ELSE}
+      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
+{$ENDIF}
+    end;
+    if not LRes then
     begin
       ETaurusTLSLoadingCertError.RaiseException(RSSSLLoadingCertError);
     end;
   end;
+
   if KeyFile <> '' then
   begin { Do not Localize }
-    if not LoadKey then
+    if PosInStrArray(ExtractFileExt(KeyFile), ['.p12', '.pfx'], False) <> -1 then
+    begin
+      LRes := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, KeyFile) > 0;
+    end
+    else
+    begin
+      LRes := IndySSL_CTX_use_PrivateKey_file(fContext, KeyFile,
+        SSL_FILETYPE_PEM) > 0;
+    end;
+    if LRes then
+    begin
+      LRes := SSL_CTX_check_private_key(fContext) > 0;
+    end;
+    if not LRes then
     begin
       ETaurusTLSLoadingKeyError.RaiseException(RSSSLLoadingKeyError);
     end;
   end;
   if DHParamsFile <> '' then
   begin { Do not Localize }
-    if not LoadDHParams then
+    if not IndySSL_CTX_use_DHparams_file(fContext, fsDHParamsFile,
+      SSL_FILETYPE_PEM) > 0 then
     begin
       ETaurusTLSLoadingDHParamsError.RaiseException(RSSSLLoadingDHParamsError);
     end;
@@ -2385,7 +2421,21 @@ begin
   end;
   if fVerifyMode <> [] then
   begin
-    SetVerifyMode(fVerifyMode, VerifyOn);
+    if fContext <> nil then
+    begin
+      // SSL_CTX_set_default_verify_paths(fContext);
+      if VerifyOn then
+      begin
+        Func := VerifyCallback;
+      end
+      else
+      begin
+        Func := nil;
+      end;
+
+      SSL_CTX_set_verify(fContext, TranslateInternalVerifyToSSL(fVerifyMode), Func);
+      SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
+    end;
   end;
   if CtxMode = sslCtxServer then
   begin
@@ -2400,28 +2450,6 @@ begin
   end
 
   // TODO: provide an event so users can apply their own settings as needed...
-end;
-
-procedure TTaurusTLSContext.SetVerifyMode(AMode: TIdSSLVerifyModeSet;
-  ACheckRoutine: Boolean);
-var
-  Func: SSL_verify_cb;
-begin
-  if fContext <> nil then
-  begin
-    // SSL_CTX_set_default_verify_paths(fContext);
-    if ACheckRoutine then
-    begin
-      Func := VerifyCallback;
-    end
-    else
-    begin
-      Func := nil;
-    end;
-
-    SSL_CTX_set_verify(fContext, TranslateInternalVerifyToSSL(AMode), Func);
-    SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
-  end;
 end;
 
 function TTaurusTLSContext.GetVerifyMode: TIdSSLVerifyModeSet;
@@ -2505,61 +2533,6 @@ begin
     sslmBoth, sslmUnassigned:
       Result := TLS_Method();
   end;
-end;
-
-function TTaurusTLSContext.LoadRootCert: Boolean;
-begin
-  Result := IndySSL_CTX_load_verify_locations(fContext, RootCertFile,
-    VerifyDirs) > 0;
-end;
-
-function TTaurusTLSContext.LoadCert: Boolean;
-begin
-  if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1 then
-  begin
-    Result := IndySSL_CTX_use_certificate_file_PKCS12(fContext, CertFile) > 0;
-  end
-  else
-  begin
-    // TaurusTLS 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
-    // that handles a chain of certificates in a PEM file.  That is prefered.
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    if Assigned(SSL_CTX_use_certificate_chain_file) then
-    begin
-      Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-    end
-    else
-    begin
-      Result := IndySSL_CTX_use_certificate_file(fContext, CertFile,
-        SSL_FILETYPE_PEM) > 0;
-    end;
-{$ELSE}
-    Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-{$ENDIF}
-  end;
-end;
-
-function TTaurusTLSContext.LoadKey: Boolean;
-begin
-  if PosInStrArray(ExtractFileExt(KeyFile), ['.p12', '.pfx'], False) <> -1 then
-  begin
-    Result := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, KeyFile) > 0;
-  end
-  else
-  begin
-    Result := IndySSL_CTX_use_PrivateKey_file(fContext, KeyFile,
-      SSL_FILETYPE_PEM) > 0;
-  end;
-  if Result then
-  begin
-    Result := SSL_CTX_check_private_key(fContext) > 0;
-  end;
-end;
-
-function TTaurusTLSContext.LoadDHParams: Boolean;
-begin
-  Result := IndySSL_CTX_use_DHparams_file(fContext, fsDHParamsFile,
-    SSL_FILETYPE_PEM) > 0;
 end;
 
 /// ///////////////////////////////////////////////////////////
@@ -2899,12 +2872,17 @@ begin
   Result := fSSLCipher;
 end;
 
-function TTaurusTLSSocket._GetSessionID: TIdSSLByteArray;
+function TTaurusTLSSocket.GetSessionIDAsString: String;
 var
+  LData: TIdSSLByteArray;
+  i: TIdC_UINT;
+  LDataPtr: PByte;
   pSession: PSSL_SESSION;
 begin
-  Result._Length := 0;
-  Result.Data := nil;
+  Result := ''; { Do not Localize }
+
+  LData._Length := 0;
+  LData.Data := nil;
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   if Assigned(SSL_get_session) and Assigned(SSL_SESSION_get_id) then
 {$ENDIF}
@@ -2914,20 +2892,10 @@ begin
       pSession := SSL_get_session(fSSL);
       if pSession <> nil then
       begin
-        Result.Data := SSL_SESSION_get_id(pSession, @Result._Length);
+        LData.Data := SSL_SESSION_get_id(pSession, @LData._Length);
       end;
     end;
   end;
-end;
-
-function TTaurusTLSSocket.GetSessionIDAsString: String;
-var
-  LData: TIdSSLByteArray;
-  i: TIdC_UINT;
-  LDataPtr: PByte;
-begin
-  Result := ''; { Do not Localize }
-  LData := _GetSessionID;
   if LData._Length > 0 then
   begin
     for i := 0 to LData._Length - 1 do
