@@ -1930,6 +1930,7 @@ end;
 
 function TTaurusTLSIOHandlerSocket.GetPassword(const AIsWrite: Boolean): string;
 begin
+  Result := '';
   if Assigned(fOnGetPassword) then
   begin
     fOnGetPassword(Self, Result, AIsWrite);
