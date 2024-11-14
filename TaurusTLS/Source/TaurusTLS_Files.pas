@@ -83,7 +83,7 @@ begin
   Result := X509_NAME_cmp(a^, b^);
 end;
 
-function d2i_DHparams_bio(bp: PBIO; x: PPointer): PDH; inline;
+function d2i_DHparams_bio(bp: PBIO; x: PPointer): PDH; {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, x));
 end;
