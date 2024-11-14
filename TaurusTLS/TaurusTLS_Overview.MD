@@ -58,7 +58,7 @@ This is a FTP Server with TLS enabled that runs in the Windows console.  This pr
 - WinSCP - https://winscp.net/eng/index.php
 - FileZilla - https://filezilla-project.org/
 
-This program requires a certificate to run.  Instructions for creating a self-signed certificate are available at https://www.baeldung.com/openssl-self-signed-cert .  You then need to create a server.ini file in the executable directory that enables the certificate that has the following lines:
+This program requires a certificate to run.  Instructions for creating a self-signed certificate are available at [https://technotes.shemyak.com/posts/min-openssl-cnf/](https://technotes.shemyak.com/posts/min-openssl-cnf/).  You then need to create a server.ini file in the executable directory that enables the certificate that has the following lines:
 
 ```
 [Certificate]
