@@ -3569,6 +3569,7 @@ end;
 {$IFNDEF OPENSSL_NO_MD2}
 function  _EVP_md2: PEVP_MD; cdecl;
 begin
+  Result := nil;
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ROSUnsupported);
 end;
 {$ENDIF}
@@ -3576,6 +3577,7 @@ end;
 {$IFNDEF OPENSSL_NO_MD4}
 function  _EVP_md4: PEVP_MD; cdecl;
 begin
+  Result := nil;
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ROSUnsupported);
 end;
 {$ENDIF}
@@ -3583,6 +3585,7 @@ end;
 {$IFNDEF OPENSSL_NO_MD5}
 function  _EVP_md5: PEVP_MD; cdecl;
 begin
+  Result := nil;
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ROSUnsupported);
 end;
 {$ENDIF}
@@ -12073,7 +12076,9 @@ begin
       {$if declared(_EVP_md2)}
       EVP_md2 := @_EVP_md2;
       {$ifend}
+      {$if not defined(EVP_md2_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(EVP_md2_allownil)}
@@ -12105,7 +12110,9 @@ begin
       {$if declared(_EVP_md4)}
       EVP_md4 := @_EVP_md4;
       {$ifend}
+      {$if not defined(EVP_md4_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(EVP_md4_allownil)}
@@ -12137,7 +12144,9 @@ begin
       {$if declared(_EVP_md5)}
       EVP_md5 := @_EVP_md5;
       {$ifend}
+      {$if not defined(EVP_md5_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(EVP_md5_allownil)}

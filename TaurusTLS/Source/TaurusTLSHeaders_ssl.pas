@@ -23875,7 +23875,9 @@ begin
       {$if declared(_SSLv2_method)}
       SSLv2_method := @_SSLv2_method;
       {$ifend}
+      {$if not defined(SSLv2_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv2_method_allownil)}
@@ -23907,7 +23909,9 @@ begin
       {$if declared(_SSLv2_server_method)}
       SSLv2_server_method := @_SSLv2_server_method;
       {$ifend}
+      {$if not defined(SSLv2_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv2_server_method_allownil)}
@@ -23939,7 +23943,9 @@ begin
       {$if declared(_SSLv2_client_method)}
       SSLv2_client_method := @_SSLv2_client_method;
       {$ifend}
+       {$if not defined(SSLv2_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv2_client_method_allownil)}
@@ -23971,7 +23977,9 @@ begin
       {$if declared(_SSLv3_method)}
       SSLv3_method := @_SSLv3_method;
       {$ifend}
+      {$if not defined(SSLv3_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv3_method_allownil)}
@@ -24003,7 +24011,9 @@ begin
       {$if declared(_SSLv3_server_method)}
       SSLv3_server_method := @_SSLv3_server_method;
       {$ifend}
+      {$if not defined(SSLv3_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv3_server_method_allownil)}
@@ -24035,7 +24045,9 @@ begin
       {$if declared(_SSLv3_client_method)}
       SSLv3_client_method := @_SSLv3_client_method;
       {$ifend}
+      {$if not defined(SSLv3_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv3_client_method_allownil)}
@@ -24067,7 +24079,9 @@ begin
       {$if declared(_SSLv23_method)}
       SSLv23_method := @_SSLv23_method;
       {$ifend}
+      {$if not defined(SSLv23_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv23_method_allownil)}
@@ -24099,7 +24113,9 @@ begin
       {$if declared(_SSLv23_server_method)}
       SSLv23_server_method := @_SSLv23_server_method;
       {$ifend}
+      {$if not defined(SSLv23_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv23_server_method_allownil)}
@@ -24131,7 +24147,9 @@ begin
       {$if declared(_SSLv23_client_method)}
       SSLv23_client_method := @_SSLv23_client_method;
       {$ifend}
+      {$if not defined(SSLv23_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(SSLv23_client_method_allownil)}
@@ -24163,7 +24181,9 @@ begin
       {$if declared(_TLSv1_method)}
       TLSv1_method := @_TLSv1_method;
       {$ifend}
+      {$if not defined(TLSv1_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_method_allownil)}
@@ -24195,7 +24215,9 @@ begin
       {$if declared(_TLSv1_server_method)}
       TLSv1_server_method := @_TLSv1_server_method;
       {$ifend}
+      {$if not defined(TLSv1_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_server_method_allownil)}
@@ -24227,7 +24249,9 @@ begin
       {$if declared(_TLSv1_client_method)}
       TLSv1_client_method := @_TLSv1_client_method;
       {$ifend}
+      {$if not defined(TLSv1_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_client_method_allownil)}
@@ -24259,7 +24283,9 @@ begin
       {$if declared(_TLSv1_1_method)}
       TLSv1_1_method := @_TLSv1_1_method;
       {$ifend}
+      {$if not defined(TLSv1_1_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_1_method_allownil)}
@@ -24291,7 +24317,9 @@ begin
       {$if declared(_TLSv1_1_server_method)}
       TLSv1_1_server_method := @_TLSv1_1_server_method;
       {$ifend}
+      {$if not defined(TLSv1_1_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_1_server_method_allownil)}
@@ -24323,7 +24351,9 @@ begin
       {$if declared(_TLSv1_1_client_method)}
       TLSv1_1_client_method := @_TLSv1_1_client_method;
       {$ifend}
+      {$if not defined(TLSv1_1_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_1_client_method_allownil)}
@@ -24355,7 +24385,9 @@ begin
       {$if declared(_TLSv1_2_method)}
       TLSv1_2_method := @_TLSv1_2_method;
       {$ifend}
+       {$if not defined(TLSv1_2_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_2_method_allownil)}
@@ -24387,7 +24419,9 @@ begin
       {$if declared(_TLSv1_2_server_method)}
       TLSv1_2_server_method := @_TLSv1_2_server_method;
       {$ifend}
+      {$if not defined(TLSv1_2_server_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_2_server_method_allownil)}
@@ -24419,7 +24453,9 @@ begin
       {$if declared(_TLSv1_2_client_method)}
       TLSv1_2_client_method := @_TLSv1_2_client_method;
       {$ifend}
+      {$if not defined(TLSv1_2_client_method_allownil)}
       FuncLoadError := false;
+      {$ifend}
     end;
     {$ifend}
     {$if not defined(TLSv1_2_client_method_allownil)}
