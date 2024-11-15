@@ -254,6 +254,8 @@ uses
   TaurusTLS_X509,
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
+{$I TaurusTLSIndyVers.inc}
+
 type
   TTaurusTLSSSLVersion = (Unknown, SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
@@ -477,7 +479,10 @@ type
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED}protected{$ENDIF}
+    {$IFNDEF GETURIHOST_SUPPORTED}
+    function GetProxyTargetHost: string;
+    function GetURIHost : string;
+    {$ENDIF}
   public
     destructor Destroy; override;
     // TODO: add an AOwner parameter
@@ -618,8 +623,10 @@ uses
   IdExceptionCore,
   IdResourceStrings,
   IdThreadSafe,
+  {$IFNDEF GETURIHOST_SUPPORTED}
   IdCustomTransparentProxy,
   IdURI,
+  {$ENDIF}
   SysUtils,
   SyncObjs,
   TaurusTLSHeaders_obj_mac,
@@ -1936,6 +1943,51 @@ begin
     fOnGetPassword(Self, Result, AIsWrite);
   end;
 end;
+
+{$IFNDEF GETURIHOST_SUPPORTED}
+function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
+var
+  // under ARC, convert a weak reference to a strong reference before working with it
+  LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
+begin
+  Result := '';
+  // RLebeau: not reading from the property as it will create a
+  // default Proxy object if one is not already assigned...
+  LTransparentProxy := FTransparentProxy;
+  if Assigned(LTransparentProxy) then
+  begin
+    if LTransparentProxy.Enabled then
+    begin
+      repeat
+        LNextTransparentProxy := LTransparentProxy.ChainedProxy;
+        if not Assigned(LNextTransparentProxy) then
+          Break;
+        if not LNextTransparentProxy.Enabled then
+          Break;
+        LTransparentProxy := LNextTransparentProxy;
+      until False;
+      Result := LTransparentProxy.Host;
+    end;
+  end;
+
+end;
+
+function TTaurusTLSIOHandlerSocket.GetURIHost: string;
+var
+  LURI: TIdURI;
+begin
+  Result := '';
+  if URIToCheck <> '' then
+  begin
+    LURI := TIdURI.Create(URIToCheck);
+    try
+      Result := LURI.Host;
+    finally
+      LURI.Free;
+    end;
+  end;
+end;
+{$ENDIF}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
   AWhere, Aret: TIdC_INT; const AStatusStr: string);
