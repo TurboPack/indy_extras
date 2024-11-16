@@ -57,8 +57,8 @@ uses
   TaurusTLSHeaders_sslerr,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_x509_vfy,
-  System.Classes,
-  System.SysUtils;
+  Classes,
+  SysUtils;
 
 // ** General certificate loading **//
 function LoadCertificate(const AFileName: String): PX509;

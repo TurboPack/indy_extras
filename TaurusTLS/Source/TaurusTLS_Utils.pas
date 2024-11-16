@@ -21,7 +21,7 @@ uses
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_x509v3,
-  System.Classes;
+  Classes;
 
 type
   TIdSSLEVP_MD = record
@@ -47,7 +47,7 @@ function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 implementation
 
 uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
-  System.SysUtils;
+  SysUtils;
 
 function LogicalAnd(a, B: Integer): Boolean;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
@@ -144,7 +144,7 @@ begin
     UTCtime^._length);
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
-  SetString(time_str, PAnsiChar(UTCtime^.data), UTCtime^._length);
+  SetString(time_str, PAnsiChar(A^.data), A^._length);
 {$ELSE}
   SetString(LTemp, PAnsiChar(A^.data), A^._Length);
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }

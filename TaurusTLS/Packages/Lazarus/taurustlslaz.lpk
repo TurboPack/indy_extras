@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <PathDelim Value="\"/>
+    <Name Value="TaurusTLSLaz"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="TaurusTLS Developers"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="..\..\Source"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Description Value="An attempt to make OpenSSL 1.1.1 and OpenSSL 3.x compatible support for Indy - Internet Direct"/>
+    <License Value="TaurusTLS is dual licensed. You can review which license better suits your needs, and use that license. You can even change your mind later if you have previously chosen one.
+
+1) Modified BSD License - The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution. 
+
+2) MPL Mozilla Public License) License - To make it easier and consistent for JEDI users, we also offer an MPL license v1.1."/>
+    <Version Major="1"/>
+    <Files>
+      <Item>
+        <Filename Value="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="TaurusTLS_Dsn_Register"/>
+      </Item>
+      <Item>
+        <Filename Value="..\..\Source\TaurusTLS_Dsn_AboutDlg.pas"/>
+        <UnitName Value="TaurusTLS_Dsn_AboutDlg"/>
+      </Item>
+      <Item>
+        <Filename Value="..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="TaurusTLS_Dsn_ComponentEditor"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="indylaz"/>
+      </Item>
+      <Item>
+        <PackageName Value="IDEIntf"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

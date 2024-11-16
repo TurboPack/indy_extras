@@ -22,7 +22,7 @@ uses
   TaurusTLSHeaders_x509,
   TaurusTLSHeaders_x509v3,
   TaurusTLS_Utils,
-  System.Classes;
+  Classes;
 
 type
   TIdSSLULong = packed record
@@ -328,7 +328,7 @@ uses
   TaurusTLSHeaders_objects,
   TaurusTLSHeaders_rsa,
   TaurusTLSHeaders_x509_vfy,
-  System.SysUtils;
+  SysUtils;
 /// ////////////////////////////////////////////////////////////
 // X509 Certificate
 /// ////////////////////////////////////////////////////////////

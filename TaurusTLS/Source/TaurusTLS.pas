@@ -287,7 +287,7 @@ type
   { TTaurusTLSSSLOptions }
 
   TTaurusTLSSSLOptions = class(TPersistent)
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fUseSystemRootCertificateStore: Boolean;
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fMode: TTaurusTLSSSLMode;
@@ -297,7 +297,6 @@ type
     fVerifyDirs: String;
     fCipherList: String;
     fVerifyMode: TIdSSLVerifyModeSet;
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     procedure AssignTo(Destination: TPersistent); override;
     procedure SetSSLVersions(const AValue: TTaurusTLSSSLVersions);
     procedure SetMethod(const AValue: TTaurusTLSSSLVersion);
@@ -328,7 +327,7 @@ type
   { TTaurusTLSContext }
 
   TTaurusTLSContext = class(TObject)
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fUseSystemRootCertificateStore: Boolean;
 {$IFDEF USE_OBJECT_ARC}[Weak]
 {$ENDIF} FParent: TObject;
@@ -350,7 +349,6 @@ type
 {$IFDEF USE_WINDOWS_CERT_STORE}
     procedure LoadWindowsCertStore;
 {$ENDIF}
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
 
     procedure DestroyContext;
     function GetSSLMethod: PSSL_METHOD;
@@ -390,19 +388,17 @@ type
   { TTaurusTLSSocket }
 
   TTaurusTLSSocket = class(TObject)
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
-
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
+    {$IFDEF USE_OBJECT_ARC}[Weak]
+    {$ENDIF} FParent: TObject;
+        fPeerCert: TTaurusTLSX509;
+        fSSL: PSSL;
+        fSSLCipher: TTaurusTLSCipher;
+        fSSLContext: TTaurusTLSContext;
+        fHostName: String;
     function GetProtocolVersion: TTaurusTLSSSLVersion;
     function GetSSLProtocolVersionStr: string;
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
-{$IFDEF USE_OBJECT_ARC}[Weak]
-{$ENDIF} FParent: TObject;
-    fPeerCert: TTaurusTLSX509;
-    fSSL: PSSL;
-    fSSLCipher: TTaurusTLSCipher;
-    fSSLContext: TTaurusTLSContext;
-    fHostName: String;
     function GetPeerCert: TTaurusTLSX509;
 
     function GetSSLCipher: TTaurusTLSCipher;
@@ -445,7 +441,7 @@ type
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fSSLContext: TTaurusTLSContext;
-    fxSSLOptions: TTaurusTLSSSLOptions;
+    fSSLOptions: TTaurusTLSSSLOptions;
     fSSLSocket: TTaurusTLSSocket;
     // fPeerCert: TTaurusTLSX509;
     FOnStatusInfo: TCallbackExEvent;
@@ -499,8 +495,8 @@ type
   published
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
-    property SSLOptions: TTaurusTLSSSLOptions read fxSSLOptions
-      write fxSSLOptions;
+    property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
+      write fSSLOptions;
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
     property OnGetPassword: TPasswordEvent read fOnGetPassword
@@ -512,7 +508,7 @@ type
   TTaurusTLSServerIOHandler = class(TIdServerIOHandlerSSLBase,
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
-    fxSSLOptions: TTaurusTLSSSLOptions;
+    fSSLOptions: TTaurusTLSSSLOptions;
     fSSLContext: TTaurusTLSContext;
     FOnStatusInfo: TCallbackExEvent;
     fOnGetPassword: TPasswordEvent;
@@ -546,8 +542,8 @@ type
     //
     property SSLContext: TTaurusTLSContext read fSSLContext;
   published
-    property SSLOptions: TTaurusTLSSSLOptions read fxSSLOptions
-      write fxSSLOptions;
+    property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
+      write fSSLOptions;
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
     property OnGetPassword: TPasswordEvent read fOnGetPassword
@@ -813,8 +809,8 @@ begin
       end;
       Result := Length(LBPassword);
 {$ELSE}
-      StrPLCopy(buf, Password, size);
-      Result := Length(Password);
+      StrPLCopy(buf, LPassword, size);
+      Result := Length(LPassword);
 {$ENDIF}
       buf[size - 1] := #0; // RLebeau: truncate the password if needed
     finally
@@ -1345,13 +1341,13 @@ end;
 procedure TTaurusTLSServerIOHandler.InitComponent;
 begin
   inherited InitComponent;
-  fxSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
-  TTaurusTLSSSLOptions_Internal(fxSSLOptions).FParent := Self;
+  fSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
+  TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent := Self;
 end;
 
 destructor TTaurusTLSServerIOHandler.Destroy;
 begin
-  FreeAndNil(fxSSLOptions);
+  FreeAndNil(fSSLOptions);
   inherited Destroy;
 end;
 
@@ -1406,13 +1402,8 @@ begin
         if (not AListenerThread.Stopped) and LIO.Binding.Accept(ASocket.Handle)
         then
         begin
-          // we need to pass the SSLOptions for the socket from the server
-          // TODO: wouldn't it be easier to just Assign() the server's SSLOptions
-          // here? Do we really need to share ownership of it?
-          // LIO.fxSSLOptions.Assign(fxSSLOptions);
-          FreeAndNil(LIO.SSLOptions);
+          LIO.SSLOptions.Assign(fSSLOptions);
           LIO.IsPeer := true;
-          LIO.SSLOptions := fxSSLOptions;
           LIO.SSLSocket := TTaurusTLSSocket.Create(Self);
           LIO.SSLContext := fSSLContext;
           // TODO: to enable server-side SNI, we need to:
@@ -1564,8 +1555,8 @@ procedure TTaurusTLSIOHandlerSocket.InitComponent;
 begin
   inherited InitComponent;
   IsPeer := False;
-  fxSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
-  TTaurusTLSSSLOptions_Internal(fxSSLOptions).FParent := Self;
+  fSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
+  TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent := Self;
   // fSSLLayerClosed := true;
   fSSLContext := nil;
 end;
@@ -1579,10 +1570,10 @@ begin
   begin
     FreeAndNil(fSSLContext);
   end;
-  if (fxSSLOptions <> nil) and (fxSSLOptions is TTaurusTLSSSLOptions_Internal)
-    and (TTaurusTLSSSLOptions_Internal(fxSSLOptions).FParent = Self) then
+  if (fSSLOptions <> nil) and (fSSLOptions is TTaurusTLSSSLOptions_Internal)
+    and (TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent = Self) then
   begin
-    FreeAndNil(fxSSLOptions);
+    FreeAndNil(fSSLOptions);
   end;
   inherited Destroy;
 end;
@@ -2966,6 +2957,7 @@ end;
 
 function TTaurusTLSCipher.GetBits: TIdC_INT;
 begin
+  Result := 0;
   SSL_CIPHER_get_bits(GetSSLCipher, Result);
 end;
 

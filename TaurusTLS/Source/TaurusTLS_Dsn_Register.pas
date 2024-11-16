@@ -87,7 +87,7 @@ end;
 
 {$IFDEF FPC}
 initialization
-{$i IdRegisterTaurusTLS.lrs}
+{/$i IdRegisterTaurusTLS.lrs}
 {$ENDIF}
 
 end.

@@ -8,10 +8,15 @@ implementation
 
 uses
   IdGlobal,
-  System.Classes, System.SysUtils,
+  Classes, SysUtils,
   TaurusTLS_Dsn_ResourceStrings,
+  {$IFDEF FPC}
+  Controls, Forms, Graphics,
+  StdCtrls;
+  {$ELSE}
   Vcl.Controls, Vcl.Forms, Vcl.Graphics,
   Vcl.StdCtrls;
+  {$ENDIF}
 
 type
   TfrmAbout = class(TForm)
@@ -140,8 +145,13 @@ begin
     btnThirdPartyAcknowlegement.Anchors := [akLeft, akRight, akBottom];
     btnThirdPartyAcknowlegement.Caption := RSThirdPartyAcknowlegements;
     btnThirdPartyAcknowlegement.TabOrder := 1;
+    {$IFDEF FPC}
+    btnThirdPartyAcknowlegement.OnClick :=
+      @frmAbout.btnThirdPartyAcknowlegementClick;
+    {$ELSE}
     btnThirdPartyAcknowlegement.OnClick :=
       frmAbout.btnThirdPartyAcknowlegementClick;
+    {$ENDIF}
     frmAbout.ShowModal;
   finally
     FreeAndNil(frmAbout);
