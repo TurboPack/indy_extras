@@ -2613,7 +2613,7 @@ begin
   LError := SSL_set_app_data(fSSL, Self);
   if LError <= 0 then
   begin
-    ETaurusTLSDataBindingError.RaiseException(fSSL, Error,
+    ETaurusTLSDataBindingError.RaiseException(fSSL, LError,
       RSSSLDataBindingError);
   end;
   // ignore warning about 64-bit value being passed to a 32bit parameter.
@@ -2621,7 +2621,7 @@ begin
   LError := SSL_set_fd(fSSL, pHandle);
   if LError <= 0 then
   begin
-    ETaurusTLSFDSetError.RaiseException(fSSL, Error, RSSSLFDSetError);
+    ETaurusTLSFDSetError.RaiseException(fSSL, LError, RSSSLFDSetError);
   end;
   // RLebeau: if this socket's IOHandler was cloned, no need to reuse the
   // original IOHandler's active session ID, since this is a server socket
@@ -2640,7 +2640,7 @@ begin
   LError := SSL_accept(fSSL);
   if LError <= 0 then
   begin
-    ETaurusTLSAcceptError.RaiseException(fSSL, Error, RSSSLAcceptError);
+    ETaurusTLSAcceptError.RaiseException(fSSL, LError, RSSSLAcceptError);
   end;
   fSession := SSL_get1_session(fSSL);
 end;
