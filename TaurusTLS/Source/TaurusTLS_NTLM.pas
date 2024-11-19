@@ -8,7 +8,7 @@
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
 
-unit ITaurusTLS_NTLM;
+unit TaurusTLS_NTLM;
 
 interface
 

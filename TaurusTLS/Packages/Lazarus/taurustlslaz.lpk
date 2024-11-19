@@ -22,11 +22,6 @@
     <Version Major="1"/>
     <Files>
       <Item>
-        <Filename Value="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
-        <HasRegisterProc Value="True"/>
-        <UnitName Value="TaurusTLS_Dsn_Register"/>
-      </Item>
-      <Item>
         <Filename Value="..\..\Source\TaurusTLS_Dsn_AboutDlg.pas"/>
         <UnitName Value="TaurusTLS_Dsn_AboutDlg"/>
       </Item>
@@ -34,6 +29,11 @@
         <Filename Value="..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="TaurusTLS_Dsn_ComponentEditor"/>
+      </Item>
+      <Item>
+        <Filename Value="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="TaurusTLS_Dsn_Register"/>
       </Item>
     </Files>
     <RequiredPkgs>

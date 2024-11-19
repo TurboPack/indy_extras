@@ -7,7 +7,7 @@
             <Dependencies/>
         </Projects>
         <Projects Include="TaurusTLS_DT.dproj">
-            <Dependencies/>
+            <Dependencies>TaurusTLS_RT.dproj</Dependencies>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -26,13 +26,13 @@
     <Target Name="TaurusTLS_RT:Make">
         <MSBuild Projects="TaurusTLS_RT.dproj" Targets="Make"/>
     </Target>
-    <Target Name="TaurusTLS_DT">
+    <Target Name="TaurusTLS_DT" DependsOnTargets="TaurusTLS_RT">
         <MSBuild Projects="TaurusTLS_DT.dproj"/>
     </Target>
-    <Target Name="TaurusTLS_DT:Clean">
+    <Target Name="TaurusTLS_DT:Clean" DependsOnTargets="TaurusTLS_RT:Clean">
         <MSBuild Projects="TaurusTLS_DT.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="TaurusTLS_DT:Make">
+    <Target Name="TaurusTLS_DT:Make" DependsOnTargets="TaurusTLS_RT:Make">
         <MSBuild Projects="TaurusTLS_DT.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
