@@ -430,8 +430,7 @@ type
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
     function GetPassword(const AIsWrite: Boolean): string;
-    procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT;
-      const AStatusStr: string);
+    procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
@@ -470,8 +469,7 @@ type
 
     { ITaurusTLSCallbackHelper }
     function GetPassword(const AIsWrite: Boolean): string;
-    procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT;
-      const AStatusStr: string);
+    procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
@@ -521,8 +519,7 @@ type
 
     { ITaurusTLSCallbackHelper }
     function GetPassword(const AIsWrite: Boolean): string;
-    procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT;
-      const AStatusStr: string);
+    procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
@@ -824,9 +821,6 @@ end;
 procedure InfoCallback(const SSLSocket: PSSL; where, ret: TIdC_INT); cdecl;
 var
   LSocket: TTaurusTLSSocket;
-{$IFNDEF USE_INLINE_VAR}
-  LStatusStr: String;
-{$ENDIF}
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
 begin
@@ -847,13 +841,7 @@ begin
       if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
       then
       begin
-{$IFDEF USE_INLINE_VAR}
-        var
-          LStatusStr: string;
-{$ENDIF}
-        LStatusStr := IndyFormat(RSOSSLStatusString,
-          [String(SSL_state_string_long(SSLSocket))]);
-        LHelper.StatusInfo(SSLSocket, where, ret, LStatusStr);
+        LHelper.StatusInfo(SSLSocket, where, ret);
         LHelper := nil;
       end;
     finally
@@ -1490,7 +1478,7 @@ begin
 end;
 
 procedure TTaurusTLSServerIOHandler.StatusInfo(const AsslSocket: PSSL;
-  AWhere, Aret: TIdC_INT; const AStatusStr: string);
+  AWhere, Aret: TIdC_INT);
 {$IFNDEF USE_INLINE_VAR}
 var
   LType, LMsg: string;
@@ -1981,7 +1969,7 @@ end;
 {$ENDIF}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
-  AWhere, Aret: TIdC_INT; const AStatusStr: string);
+  AWhere, Aret: TIdC_INT);
 {$IFNDEF USE_INLINE_VAR}
 var
   LType, LMsg: string;
@@ -2597,9 +2585,6 @@ procedure TTaurusTLSSocket.Accept(const pHandle: TIdStackSocketHandle);
 // Accept and Connect have a lot of duplicated code
 var
   LError: Integer;
-{$IFNDEF USE_INLINE_VAR}
-  LStatusStr: String;
-{$ENDIF}
   // LParentIO: TTaurusTLSIOHandlerSocket;
   // LHelper: ITaurusTLSCallbackHelper;
 begin
@@ -2646,12 +2631,8 @@ begin
 end;
 
 procedure TTaurusTLSSocket.Connect(const pHandle: TIdStackSocketHandle);
-
 var
   LError: Integer;
-{$IFNDEF USE_INLINE_VAR}
-  LStatusStr: String;
-{$ENDIF}
   LParentIO: TTaurusTLSIOHandlerSocket;
   LHelper: ITaurusTLSCallbackHelper;
 begin
