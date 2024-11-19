@@ -153,9 +153,9 @@ begin
     {$ELSE}
     // RLebeau: TODO - should this use UTF-16 as well?  This logic will
     // not produce a valid Unicode string if non-ASCII characters are present!
-    SetLength(lPwUnicode, Length(S) * SizeOf(WideChar));
-    for i := 0 to Length(S)-1 do begin
-      lPwUnicode[i*2] := Byte(S[i+1]);
+    SetLength(lPwUnicode, Length(APassword) * SizeOf(WideChar));
+    for i := 0 to Length(APassword)-1 do begin
+      lPwUnicode[i*2] := Byte(APassword[i+1]);
       lPwUnicode[(i*2)+1] := Byte(#0);
     end;
     nt_hpw128 := LMD4.HashBytes(lPwUnicode);
@@ -174,9 +174,9 @@ begin
 end;
 
 initialization
-  IdFIPS.LoadNTLMLibrary := LoadTaurusTLS;
-  IdFIPS.IsNTLMFuncsAvail := IsNTLMFuncsAvail;
-  IdFIPS.NTLMGetLmChallengeResponse := SetupLanManagerPassword;
-  IdFIPS.NTLMGetNtChallengeResponse := CreateNTPassword;
+  IdFIPS.LoadNTLMLibrary := @LoadTaurusTLS;
+  IdFIPS.IsNTLMFuncsAvail := @IsNTLMFuncsAvail;
+  IdFIPS.NTLMGetLmChallengeResponse := @SetupLanManagerPassword;
+  IdFIPS.NTLMGetNtChallengeResponse := @CreateNTPassword;
 
 end.
