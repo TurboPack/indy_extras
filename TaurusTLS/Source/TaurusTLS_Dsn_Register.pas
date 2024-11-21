@@ -9,10 +9,8 @@
 {******************************************************************************}
 unit TaurusTLS_Dsn_Register;
 
-
+{$I TaurusTLSCompilerDefines.inc}
 interface
-
-{$i TaurusTLSCompilerDefines.inc}
 
 uses
   Classes,

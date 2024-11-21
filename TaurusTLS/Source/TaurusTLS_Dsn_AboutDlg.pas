@@ -1,5 +1,7 @@
 unit TaurusTLS_Dsn_AboutDlg;
 
+{$I TaurusTLSCompilerDefines.inc}
+
 interface
 
 procedure AboutDlg(const AVersion: String);

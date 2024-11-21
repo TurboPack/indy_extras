@@ -1,5 +1,7 @@
 unit TaurusTLS_Files;
 
+{$I TaurusTLSCompilerDefines.inc}
+
 interface
 
 { ****************************************************************************** }
@@ -11,7 +13,6 @@ interface
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
-{$I TaurusTLSCompilerDefines.inc}
 {$I TaurusTLSLinkDefines.inc}
 
 uses

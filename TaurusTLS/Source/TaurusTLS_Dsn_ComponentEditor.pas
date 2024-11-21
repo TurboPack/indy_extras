@@ -1,7 +1,8 @@
 unit TaurusTLS_Dsn_ComponentEditor;
 
-interface
 {$I TaurusTLSCompilerDefines.inc}
+interface
+
 uses
   {$IFDEF DOTNET}
   Borland.Vcl.Design.DesignIntF,
