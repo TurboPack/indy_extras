@@ -29,7 +29,6 @@ interface
 uses
   IdCTypes,
   IdGlobal,
-  TaurusTLSConsts,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
 

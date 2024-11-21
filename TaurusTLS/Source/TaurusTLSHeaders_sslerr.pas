@@ -28,8 +28,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSConsts;
+  IdGlobal;
 
 (*
  * SSL function codes.
@@ -797,12 +796,10 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
