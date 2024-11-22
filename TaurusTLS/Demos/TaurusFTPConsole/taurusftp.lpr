@@ -16,6 +16,7 @@ uses
   IdFTPCommon,
   IdGlobal,
   IdLogEvent,
+  IdZLibHeaders,
   TaurusTLS;
 
 type
@@ -25,14 +26,14 @@ type
   TFTPApplication = class(TCustomApplication)
   protected
     FFTP: TIdFTP;
-    FComp : TIdCompressorZLib;
+    FComp: TIdCompressorZLib;
     FIO: TTaurusTLSIOHandlerSocket;
     FLog: TIdLogEvent;
     //log events
     procedure OnReceived(ASender: TComponent; const AText, AData: string);
     procedure OnSent(ASender: TComponent; const AText, AData: string);
     procedure OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
-    //
+
     procedure Open;
     procedure CmdOpen(var VCmd: string);
     procedure CmdDir(var VCmd: string);
@@ -40,8 +41,15 @@ type
     procedure CmdCd(var VCmd: string);
     procedure CmdCdUp;
     procedure CmdPassive(var VCmd: string);
-    procedure CmdGet(var VCmd : string);
-    procedure CmdPut(var VCmd : string);
+    procedure CmdGet(var VCmd: string);
+    procedure CmdPut(var VCmd: string);
+    procedure CmdRename(var VCmd: string);
+    procedure CmdDelete(var VCmd: string);
+    procedure CmdRmdir(var VCmd: string);
+    procedure CmdMkdir(var VCmd: string);
+    procedure CmdLPwd;
+    procedure CmdLCd(var VCmd: string);
+    procedure CmdLDir(var VCmd: string);
     procedure DoCommands;
     procedure DoRun; override;
   public
@@ -71,15 +79,15 @@ type
 
   procedure TFTPApplication.OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
   var
-    LStr : String;
-    LNo : Integer;
+    LStr: string;
+    LNo: integer;
   begin
     if Assigned(ASender.SSLSocket) then
     begin
       LStr := ASender.SSLSocket.SSLProtocolVersionStr;
       if LStr <> '' then
       begin
-        WriteLn('       TLS Version: '+LStr);
+        WriteLn('       TLS Version: ' + LStr);
       end;
       if Assigned(ASender.SSLSocket.Cipher) then
       begin
@@ -153,8 +161,8 @@ type
 
   procedure TFTPApplication.CmdDir(var VCmd: string);
   var
-    LPath : String;
-    i : Integer;
+    LPath: string;
+    i: integer;
   begin
     if FFTP.Connected then
     begin
@@ -167,9 +175,9 @@ type
       begin
         FFTP.List;
       end;
-      for i := 0 to FFTP.ListResult.Count -1 do
+      for i := 0 to FFTP.ListResult.Count - 1 do
       begin
-        WriteLn( FFTP.ListResult[i] );
+        WriteLn(FFTP.ListResult[i]);
       end;
     end
     else
@@ -215,12 +223,13 @@ type
   end;
 
   procedure TFTPApplication.CmdPassive(var VCmd: string);
-  var LSubcommand : String;
+  var
+    LSubcommand: string;
   begin
     LSubcommand := Trim(Fetch(VCmd));
-    case PosInStrArray(LSubcommand,['on','true','off','false']) of
-      0, 1 : FFTP.Passive := True;
-      2, 3 : FFTP.Passive := False;
+    case PosInStrArray(LSubcommand, ['on', 'true', 'off', 'false']) of
+      0, 1: FFTP.Passive := True;
+      2, 3: FFTP.Passive := False;
       else
       begin
         FFTP.Passive := not FFTP.Passive;
@@ -237,16 +246,18 @@ type
   end;
 
   procedure TFTPApplication.CmdGet(var VCmd: string);
-  var LPath : string;
-    LDestFile : TStream;
+  var
+    LPath: string;
+    LDestFile: TStream;
   begin
     LPath := Trim(VCmd);
     try
-      LDestFile := TFileStream.Create(LPath,fmCreate);
+      FFTP.TransferType := ftBinary;
+      LDestFile := TFileStream.Create(LPath, fmCreate);
       try
-        FFTP.Get(ExtractFileName(LPath),LDestFile);
+        FFTP.Get(ExtractFileName(LPath), LDestFile);
       finally
-         FreeAndNil(LDestFile);
+        FreeAndNil(LDestFile);
       end;
       FileSetDate(LPath, DateTimeToFileDate(FFTP.FileDate(ExtractFileName(LPath))));
     except
@@ -255,19 +266,88 @@ type
 
   procedure TFTPApplication.CmdPut(var VCmd: string);
   var
-    LPath : string;
-    LSrcFile : TStream;
+    LPath: string;
+    LSrcFile: TStream;
   begin
     LPath := Trim(VCmd);
     try
-      LSrcFile := TFileStream.Create(LPath,fmOpenRead);
+      FFTP.TransferType := ftBinary;
+      LSrcFile := TFileStream.Create(LPath, fmOpenRead);
       try
-        FFTP.Put(LSrcFile,ExtractFileName(LPath));
+        FFTP.Put(LSrcFile, ExtractFileName(LPath));
       finally
-         FreeAndNil(LSrcFile);
+        FreeAndNil(LSrcFile);
       end;
       FFTP.SetModTime(LPath, FileDateToDateTime(FileAge(LPath)));
     except
+    end;
+  end;
+
+  procedure TFTPApplication.CmdRename(var VCmd: string);
+  var
+    LOldName,
+    LNewName :string;
+  begin
+    LOldName := Fetch(VCmd);
+    LNewName := Fetch(VCmd);
+    FFTP.Rename(LOldName,LNewName);
+  end;
+
+  procedure TFTPApplication.CmdDelete(var VCmd: string);
+  var LPath : String;
+  begin
+    LPath := VCmd;
+    FFTP.delete(LPath);
+  end;
+
+  procedure TFTPApplication.CmdRmdir(var VCmd: string);
+  var
+    LPath : string;
+  begin
+    LPath := VCmd;
+    FFTP.RemoveDir(LPath);
+  end;
+
+  procedure TFTPApplication.CmdMkdir(var VCmd: string);
+  var
+    LPath : string;
+  begin
+      LPath := VCmd;
+    FFTP.makedir(LPath);
+  end;
+
+  procedure TFTPApplication.CmdLPwd;
+  begin
+    WriteLn('Local directory is '+GetCurrentDir);
+  end;
+
+  procedure TFTPApplication.CmdLCd(var VCmd: string);
+  begin
+    SetCurrentDir(VCmd);
+    WriteLn('Local directory now '+GetCurrentDir);
+  end;
+
+  procedure TFTPApplication.CmdLDir(var VCmd: string);
+  var
+    LRec : TSearchRec;
+    LSize, LTime, LDate : string;
+  begin
+    if FindFirst(VCmd+'*.*',faAnyFile,LRec) = 0 then
+    begin
+      repeat
+        LTime := TimeToStr( FileDateToDateTime(LRec.Time) );
+        LDate := DateToStr( FileDateToDateTime(LRec.Time) );
+        if LRec.Attr and faDirectory <> 0 then
+        begin
+          LSize := '<DIR>';
+        end
+        else
+        begin
+          LSize := IntToStr(LRec.Size);
+        end;
+        WriteLn(Format('%10s %10s %20s %s',[LTime,LDate, LSize, LRec.Name]));
+      until FindNext(LRec) <> 0;
+      FindClose(LRec);
     end;
   end;
 
@@ -278,11 +358,13 @@ type
     repeat
       Write('ftp: ');
       ReadLn(LCmd);
-      case IdGlobal.PosInStrArray(Fetch(LCmd), ['exit', 'quit',
-        'open','dir','pwd','cd','cdup',
-        'passive','put','get', 'rename',
-        'delete','mkdir', 'rmdir']) of
-        0,1: break;
+      case IdGlobal.PosInStrArray(Fetch(LCmd),
+          ['exit', 'quit', 'open', 'dir',
+           'pwd', 'cd', 'cdup', 'passive',
+           'put', 'get', 'rename', 'ren',
+           'delete', 'del', 'mkdir', 'rmdir',
+           'lpwd', 'lcd','ldir']) of
+        0, 1: break;
         2: CmdOpen(LCmd);
         3: CmdDir(LCmd);
         4: CmdPwd;
@@ -291,8 +373,15 @@ type
         7: cmdPassive(LCmd);
         8: cmdPut(LCmd);
         9: cmdGet(LCmd);
-      else
-        WriteLn('Bad Command');
+        10, 11: cmdRename(LCmd);
+        12, 13 : cmdDelete(LCmd);
+        14: cmdMkdir(LCmd);
+        15: cmdRmdir(LCmd);
+        16: cmdLPwd;
+        17: cmdLCd(LCmd);
+        18: cmdLDir(LCmd);
+        else
+          WriteLn('Bad Command');
       end;
     until False;
   end;
@@ -300,6 +389,7 @@ type
   procedure TFTPApplication.DoRun;
   var
     ErrorMsg: string;
+
   begin
     // quick check parameters
     ErrorMsg := CheckOptions('h', 'help');
@@ -319,6 +409,10 @@ type
     end;
 
     { add your program here }
+    WriteLn('TaurusFTP Console Demo');
+    WriteLn('Copyright (c) 2024 TaurusTLS Developers');
+    WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
+    WriteLn('    ZLib Version: ' + zlibVersion());
     DoCommands;
     // stop program loop
     Terminate;
@@ -333,7 +427,7 @@ type
     FIO := TTaurusTLSIOHandlerSocket.Create(nil);
     FIO.OnSSLNegotiated := @OnSSLNegotiated;
     FFTP.IOHandler := FIO;
-    FFTP.Passive := true;
+    FFTP.Passive := True;
     FLog := TIdLogEvent.Create(nil);
     FLog.LogTime := False;
     FLog.ReplaceCRLF := False;
