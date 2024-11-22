@@ -16,7 +16,7 @@ uses
   IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL,
   IdIntercept, IdLogBase, IdLogEvent, Vcl.Menus, Vcl.StdActns,
   IdZLibCompressorBase, IdCompressorZLib, IdConnectThroughHttpProxy,
-  IdCustomTransparentProxy, IdSocks, IdThreadSafe,
+  IdCustomTransparentProxy, IdSocks, IdThreadSafe, IdZLibHeaders,
   TaurusTLSHeaders_ossl_typ, TaurusTLS_X509, TaurusTLS;
 
 type
@@ -1060,6 +1060,7 @@ begin
 {$ELSE}
   redtLog.Lines.Add('    Compiled For: Win32');
 {$ENDIF}
+  redtLog.Lines.Add('    ZLib version: ' + zlibVersion);
   redtLog.Lines.Add(' OpenSSL Version: ' + OpenSSLVersion);
   if GetOpenSSLLoader.GetFailedToLoad.Count > 0 then
   begin
