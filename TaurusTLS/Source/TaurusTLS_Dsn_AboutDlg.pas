@@ -147,13 +147,8 @@ begin
     btnThirdPartyAcknowlegement.Anchors := [akLeft, akRight, akBottom];
     btnThirdPartyAcknowlegement.Caption := RSThirdPartyAcknowlegements;
     btnThirdPartyAcknowlegement.TabOrder := 1;
-    {$IFDEF FPC}
-    btnThirdPartyAcknowlegement.OnClick :=
-      @frmAbout.btnThirdPartyAcknowlegementClick;
-    {$ELSE}
     btnThirdPartyAcknowlegement.OnClick :=
       frmAbout.btnThirdPartyAcknowlegementClick;
-    {$ENDIF}
     frmAbout.ShowModal;
   finally
     FreeAndNil(frmAbout);
