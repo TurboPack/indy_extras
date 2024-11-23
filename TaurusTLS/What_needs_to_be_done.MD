@@ -9,5 +9,3 @@ Here are some things that I ask other people for.
 4. Graphics of various sizes that indicate “Build with TaurusTLS” for application developers to use in their software and documentation.  This would also help developers comply with TaurusTLS’s licensing.  This is akin to what Indy (Internet Direct) has at https://www.indyproject.org/license/logos/ .
 
 5. TaurusTLS should have a website.  This will be used to provide information for developers about TaurusTLS, redistribute OpenSSL per-compiled binaries required by various platforms, licensing information, and downloads.  I would suggest the URL http://www.taurustls.org .  I can not afford hosting for such a website especially since TLS is required by many browsers and Google insists on it.
- 
-6. Someone should make a FireMonkey version of the FTP Client demo program.   This demo program would also be a great way to test TaurusTLS functionality on various platforms that I am unable to test.  In other words, eat your dog food.
