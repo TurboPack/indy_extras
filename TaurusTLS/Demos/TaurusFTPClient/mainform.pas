@@ -1752,7 +1752,7 @@ procedure TFTPThread.OnLogReceived(ASender: TComponent;
 var
   LData: String;
 begin
-  LData := Trim(AData);
+  LData := TrimRight(AData);
   if Length(LData) > 0 then
   begin
     if CharInSet(LData[1], ['4', '5']) then
@@ -1789,7 +1789,7 @@ begin
     queue(
       procedure
       begin
-        LogRegularOutput(Trim(AData));
+        LogRegularOutput(TrimRight(AData));
       end);
   end;
 end;
