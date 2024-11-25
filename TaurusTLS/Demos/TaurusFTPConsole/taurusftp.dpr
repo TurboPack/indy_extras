@@ -8,5 +8,4 @@ both Lazaurus and Delphi.}
 uses
   taurusftp_unit;
 
-begin
 end.

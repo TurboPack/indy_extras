@@ -662,9 +662,15 @@ var
 procedure GetStateVars(const SSLSocket: PSSL; const AWhere, Aret: TIdC_INT;
   out VTypeStr, VMsg: String);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
+{$IFNDEF USE_INLINE_VAR}
 var
   LState, LAlert: String;
+{$ENDIF}
 begin
+  {$IFDEF USE_INLINE_VAR}
+  var
+    LState, LAlert: String;
+  {$ENDIF}
   VTypeStr := '';
   VMsg := '';
   LState := String(SSL_state_string_long(SSLSocket));

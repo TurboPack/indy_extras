@@ -44,7 +44,6 @@ contains
   TaurusTLS_X509 in '..\..\..\Source\TaurusTLS_X509.pas',
   TaurusTLSConsts in '..\..\..\Source\TaurusTLSConsts.pas',
   TaurusTLSLoader in '..\..\..\Source\TaurusTLSLoader.pas',
-  TaurusTLS_FIPS in '..\..\..\Source\TaurusTLS_FIPS.pas',
   TaurusTLSHeaders_aes in '..\..\..\Source\TaurusTLSHeaders_aes.pas',
   TaurusTLSHeaders_asn1 in '..\..\..\Source\TaurusTLSHeaders_asn1.pas',
   TaurusTLSHeaders_asn1_mac in '..\..\..\Source\TaurusTLSHeaders_asn1_mac.pas',

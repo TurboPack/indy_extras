@@ -36,7 +36,7 @@
       <Filename Value="bin/$(TargetCPU)-$(TargetOS)/taurusftp"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir);../../Source"/>
       <OtherUnitFiles Value="../../Source;../../../Indy/Indy-Indy-10.6.3.6/Lib/System;../../../Indy/Indy-Indy-10.6.3.6/Lib/Core;../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols;../../../Indy-Indy-10.6.3.6/Lib/System;../../../Indy-Indy-10.6.3.6/Lib/Core;../../../Indy-Indy-10.6.3.6/Lib/Protocols"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>

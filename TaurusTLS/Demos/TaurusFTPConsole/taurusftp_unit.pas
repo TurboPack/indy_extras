@@ -1,10 +1,12 @@
 unit taurusftp_unit;
 
-{$ifdef fpc}{$mode objfpc}{$H+}{$else}{$APPTYPE CONSOLE}{$endif}
+{$I TaurusTLSCompilerDefines.inc}
 interface
 uses
   {$IFDEF UNIX}
+    {$IFDEF FPC}
   cthreads,
+    {$ENDIF}
   {$ENDIF}
   Classes,
   SysUtils,
@@ -41,21 +43,21 @@ type
     procedure OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
 
     procedure Open;
-    procedure CmdOpen(var VCmd: string);
-    procedure CmdDir(var VCmd: string);
+    procedure CmdOpen(const ACmd: string);
+    procedure CmdDir(const ACmd: string);
     procedure CmdPwd;
-    procedure CmdCd(var VCmd: string);
+    procedure CmdCd(const ACmd: string);
     procedure CmdCdUp;
-    procedure CmdPassive(var VCmd: string);
-    procedure CmdGet(var VCmd: string);
-    procedure CmdPut(var VCmd: string);
-    procedure CmdRename(var VCmd: string);
-    procedure CmdDelete(var VCmd: string);
-    procedure CmdRmdir(var VCmd: string);
-    procedure CmdMkdir(var VCmd: string);
+    procedure CmdPassive(const ACmd: string);
+    procedure CmdGet(const ACmd: string);
+    procedure CmdPut(const ACmd: string);
+    procedure CmdRename(const ACmd: string);
+    procedure CmdDelete(const ACmd: string);
+    procedure CmdRmdir(const ACmd: string);
+    procedure CmdMkdir(const ACmd: string);
     procedure CmdLPwd;
-    procedure CmdLCd(var VCmd: string);
-    procedure CmdLDir(var VCmd: string);
+    procedure CmdLCd(const ACmd: string);
+    procedure CmdLDir(const ACmd: string);
     procedure CmdClose;
     procedure DoCommands;
     {$IFDEF FPC}
@@ -97,12 +99,16 @@ type
   end;
 
   procedure TFTPApplication.OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
+    {$IFNDEF USE_INLINE_VAR}
   var
     LStr: string;
-    LNo: integer;
+    {$ENDIF}
   begin
     if Assigned(ASender.SSLSocket) then
     begin
+      {$IFDEF USE_INLINE_VAR}
+      var LStr : string;
+      {$ENDIF}
       LStr := ASender.SSLSocket.SSLProtocolVersionStr;
       if LStr <> '' then
       begin
@@ -125,10 +131,9 @@ type
         begin
           WriteLn('    Cipher Version: ' + LStr);
         end;
-        LNo := ASender.SSLSocket.Cipher.Bits;
-        if LNo > 0 then
+        if ASender.SSLSocket.Cipher.Bits > 0 then
         begin
-          WriteLn('       Cipher Bits: ' + IntToStr(LNo));
+          WriteLn('       Cipher Bits: ' + IntToStr(ASender.SSLSocket.Cipher.Bits));
         end;
       end;
     end;
@@ -143,52 +148,57 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdOpen(var VCmd: string);
+  procedure TFTPApplication.CmdOpen(const ACmd: string);
+  {$IFNDEF USE_INLINE_VAR}
   var
-    LSubcommand: string;
+    LCommand, LSubcommand: string;
+  {$ENDIF}
   begin
-    LSubcommand := Fetch(VCmd);
+  {$IFDEF USE_INLINE_VAR}
+    var
+      LCommand, LSubcommand: string;
+  {$ENDIF}
+    LCommand := ACmd;
+    LSubcommand := Fetch(LCommand);
     if LSubcommand <> '' then
     begin
       case IdGlobal.PosInStrArray(LSubcommand, ['ftp', 'ftps']) of
         0: begin
           FFTP.UseTLS := utNoTLSSupport;
-          FFTP.Host := Fetch(VCmd);
-          FFTP.Username := Fetch(VCmd);
-          FFTP.Password := Fetch(VCmd);
+          FFTP.Host := Fetch(LCommand);
+          FFTP.Username := Fetch(LCommand);
+          FFTP.Password := Fetch(LCommand);
           Open;
         end;
         1: begin
           FFTP.UseTLS := utUseExplicitTLS;
           FFTP.DataPortProtection := ftpdpsPrivate;
-          FFTP.Host := Fetch(VCmd);
-          FFTP.Username := Fetch(VCmd);
-          FFTP.Password := Fetch(VCmd);
+          FFTP.Host := Fetch(LCommand);
+          FFTP.Username := Fetch(LCommand);
+          FFTP.Password := Fetch(LCommand);
           Open;
         end;
         else
         begin
           FFTP.UseTLS := utNoTLSSupport;
           FFTP.Host := LSubcommand;
-          FFTP.Username := Fetch(VCmd);
-          FFTP.Password := Fetch(VCmd);
+          FFTP.Username := Fetch(LCommand);
+          FFTP.Password := Fetch(LCommand);
           Open;
         end;
       end;
     end;
   end;
 
-  procedure TFTPApplication.CmdDir(var VCmd: string);
+  procedure TFTPApplication.CmdDir(const ACmd: string);
   var
-    LPath: string;
     i: integer;
   begin
     if FFTP.Connected then
     begin
-      LPath := Trim(VCmd);
-      if LPath <> '' then
+      if Trim(ACmd) <> '' then
       begin
-        FFTP.List(LPath);
+        FFTP.List(Trim(ACmd));
       end
       else
       begin
@@ -217,11 +227,11 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdCd(var VCmd: string);
+  procedure TFTPApplication.CmdCd(const ACmd: string);
   begin
     if FFTP.Connected then
     begin
-      FFTP.ChangeDir(Trim(VCmd));
+      FFTP.ChangeDir(Trim(ACmd));
     end
     else
     begin
@@ -241,11 +251,17 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdPassive(var VCmd: string);
+  procedure TFTPApplication.CmdPassive(const ACmd: string);
+    {$IFNDEF USE_INLINE_VAR}
   var
     LSubcommand: string;
+    {$ENDIF}
   begin
-    LSubcommand := Trim(Fetch(VCmd));
+    {$IFDEF USE_INLINE_VAR}
+    var LSubcommand: String;
+    {$ENDIF}
+    LSubcommand := Trim(ACmd);
+    LSubcommand := Fetch(LSubcommand);
     case PosInStrArray(LSubcommand, ['on', 'true', 'off', 'false']) of
       0, 1: FFTP.Passive := True;
       2, 3: FFTP.Passive := False;
@@ -264,12 +280,17 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdGet(var VCmd: string);
+  procedure TFTPApplication.CmdGet(const ACmd: string);
   var
+    {$IFNDEF USE_INLINE_VAR}
     LPath: string;
+    {$ENDIF}
     LDestFile: TStream;
   begin
-    LPath := Trim(VCmd);
+    {$IFDEF USE_INLINE_VAR}
+    var LPath : String;
+    {$ENDIF}
+    LPath := Trim(ACmd);
     try
       FFTP.TransferType := ftBinary;
       LDestFile := TFileStream.Create(LPath, fmCreate);
@@ -283,15 +304,20 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdPut(var VCmd: string);
+  procedure TFTPApplication.CmdPut(const ACmd: string);
   var
+    {$IFNDEF USE_INLINE_VAR}
     LPath: string;
+    {$ENDIF}
     LSrcFile: TStream;
     {$IFNDEF FPC}
     LDateTime : TDateTime;
     {$ENDIF}
   begin
-    LPath := Trim(VCmd);
+    {$IFDEF USE_INLINE_VAR}
+    var LPath : string;
+    {$ENDIF}
+    LPath := Trim(ACmd);
     try
       FFTP.TransferType := ftBinary;
       LSrcFile := TFileStream.Create(LPath, fmOpenRead);
@@ -312,37 +338,36 @@ type
     end;
   end;
 
-  procedure TFTPApplication.CmdRename(var VCmd: string);
+  procedure TFTPApplication.CmdRename(const ACmd: string);
+  {$IFNDEF USE_INLINE_VAR}
   var
     LOldName,
-    LNewName :string;
+    LNewName,
+    LSubcommand : String;
+  {$ENDIF}
   begin
-    LOldName := Fetch(VCmd);
-    LNewName := Fetch(VCmd);
+    {$IFDEF USE_INLINE_VAR}
+    var LOldName, LNewName, LSubcommand : String;
+    {$ENDIF}
+    LSubcommand := Trim(ACmd);
+    LOldName := Fetch(LSubcommand);
+    LNewName := Fetch(LSubcommand);
     FFTP.Rename(LOldName,LNewName);
   end;
 
-  procedure TFTPApplication.CmdDelete(var VCmd: string);
-  var LPath : String;
+  procedure TFTPApplication.CmdDelete(const ACmd: string);
   begin
-    LPath := VCmd;
-    FFTP.delete(LPath);
+    FFTP.delete(Trim(ACmd));
   end;
 
-  procedure TFTPApplication.CmdRmdir(var VCmd: string);
-  var
-    LPath : string;
+  procedure TFTPApplication.CmdRmdir(const ACmd: string);
   begin
-    LPath := VCmd;
-    FFTP.RemoveDir(LPath);
+    FFTP.RemoveDir(Trim(ACmd));
   end;
 
-  procedure TFTPApplication.CmdMkdir(var VCmd: string);
-  var
-    LPath : string;
+  procedure TFTPApplication.CmdMkdir(const ACmd: string);
   begin
-      LPath := VCmd;
-    FFTP.makedir(LPath);
+    FFTP.makedir(Trim(ACmd));
   end;
 
   procedure TFTPApplication.CmdLPwd;
@@ -350,27 +375,27 @@ type
     WriteLn('Local directory is '+GetCurrentDir);
   end;
 
-  procedure TFTPApplication.CmdLCd(var VCmd: string);
+  procedure TFTPApplication.CmdLCd(const ACmd: string);
   begin
-    SetCurrentDir(VCmd);
-    WriteLn('Local directory now '+GetCurrentDir);
+    if Trim(ACmd) <> '' then begin
+      SetCurrentDir(Trim(ACmd));
+      WriteLn('Local directory now '+GetCurrentDir);
+    end;
   end;
 
-  procedure TFTPApplication.CmdLDir(var VCmd: string);
+  procedure TFTPApplication.CmdLDir(const ACmd: string);
   var
     LRec : TSearchRec;
-    LSize, LTime, LDate : string;
+    {$IFNDEF USE_INLINE_VAR}
+    LSize : string;
+    {$ENDIF}
   begin
-    if FindFirst(VCmd+'*.*',faAnyFile,LRec) = 0 then
+    if FindFirst(Trim(ACmd)+'*.*',faAnyFile,LRec) = 0 then
     begin
+      {$IFDEF USE_INLINE_VAR}
+      var LSize : string;
+      {$ENDIF}
       repeat
-        {$IFDEF FPC}
-        LTime := TimeToStr( FileDateToDateTime(LRec.Time) );
-        LDate := DateToStr( FileDateToDateTime(LRec.Time) );
-        {$ELSE}
-        LTime := TimeToStr( LRec.TimeStamp  );
-        LDate := TimeToStr( LRec.TimeStamp );
-        {$ENDIF}
         if LRec.Attr and faDirectory <> 0 then
         begin
           LSize := '<DIR>';
@@ -379,7 +404,9 @@ type
         begin
           LSize := IntToStr(LRec.Size);
         end;
-        WriteLn(Format('%10s %10s %20s %s',[LTime,LDate, LSize, LRec.Name]));
+        WriteLn(Format('%10s %10s %20s %s',
+          [TimeToStr( LRec.TimeStamp  ),
+          TimeToStr( LRec.TimeStamp ), LSize, LRec.Name]));
       until FindNext(LRec) <> 0;
       FindClose(LRec);
     end;
@@ -391,9 +418,14 @@ type
   end;
 
   procedure TFTPApplication.DoCommands;
+  {$IFNDEF USE_INLINE_VAR}
   var
     LCmd: string;
+  {$ENDIF}
   begin
+    {$IFDEF USE_INLINE_VAR}
+    var LCmd : string;
+    {$ENDIF}
     repeat
       Write('ftp: ');
       ReadLn(LCmd);
@@ -475,14 +507,14 @@ type
     FComp := TIdCompressorZLib.Create(nil);
     FFTP.Compressor := FComp;
     FIO := TTaurusTLSIOHandlerSocket.Create(nil);
-    FIO.OnSSLNegotiated := {$IFDEF FPC}@{$ENDIF}OnSSLNegotiated;
+    FIO.OnSSLNegotiated := OnSSLNegotiated;
     FFTP.IOHandler := FIO;
     FFTP.Passive := True;
     FLog := TIdLogEvent.Create(nil);
     FLog.LogTime := False;
     FLog.ReplaceCRLF := False;
-    FLog.OnReceived := {$IFDEF FPC}@{$ENDIF}OnReceived;
-    FLog.OnSent := {$IFDEF FPC}@{$ENDIF}OnSent;
+    FLog.OnReceived := OnReceived;
+    FLog.OnSent := OnSent;
     FLog.Active := True;
     FIO.Intercept := FLog;
     {$IFDEF FPC}
@@ -521,7 +553,16 @@ initialization
   Application.Run;
 {$ELSE}
   Application := TFTPApplication.Create;
-  Application.DoRun;
+  try
+
+    Application.DoRun;
+  except
+    on E:Exception do
+    begin
+      WriteLn(E.Message);
+      ReadLn;
+    end;
+  end;
 {$ENDIF}
   Application.Free;
 end.

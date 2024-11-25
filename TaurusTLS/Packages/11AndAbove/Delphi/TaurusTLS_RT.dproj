@@ -170,7 +170,6 @@
         <DCCReference Include="..\..\..\Source\TaurusTLS_X509.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSConsts.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSLoader.pas"/>
-        <DCCReference Include="..\..\..\Source\TaurusTLS_FIPS.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_aes.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_asn1_mac.pas"/>
