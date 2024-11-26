@@ -70,8 +70,10 @@ Password=[password for your private SSL key]
 ## TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
 This is a fully-functional FTP client that is multi threaded using the VCL Framework.   It has been tested with the following servers:
 - CompleteFTP - https://enterprisedt.com/products/completeftp/
-- RaidenFTPD - https://www.raidenftpd.com/
 - Xlight FTP Server - https://www.xlightftpd.com/
+- ProFTPD - http://www.proftpd.org/
+- PureFTPD - https://www.pureftpd.org/
+- vsftpd - https://security.appspot.com/vsftpd.html
 
 No special configuration is required and the program generates it’s own INI files for storing FTP server information and default settings.  You may need to configure the program if you have a firewall/proxy setup or are behind a NAT and wish to use PORT transfers.
 ## TaurusTLS\demos\TaurusFTPConsole\taurusftp.dpr and taurusftp.lpr
@@ -80,6 +82,9 @@ This is a fully functional console FTP client that can be built with both Delphi
 - Xlight FTP Server - https://www.xlightftpd.com/
 - ProFTPD - http://www.proftpd.org/
 - PureFTPD - https://www.pureftpd.org/
+- vsftpd - https://security.appspot.com/vsftpd.html
+
+For help using the client, just use the "help" command.
 
 ## Credits
 
