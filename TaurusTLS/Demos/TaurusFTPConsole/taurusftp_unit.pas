@@ -62,6 +62,7 @@ type
     procedure CmdLDir(const ACmd: string);
     procedure CmdClose;
     procedure CmdHelp(const ACmd: string);
+    procedure CmdStatus;
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -83,9 +84,25 @@ type
 implementation
 
 const
-  Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
-    'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del', 'mkdir',
-    'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?'];
+  Prog_Cmds: array of string = ['exit', 'quit',
+    'open',
+    'dir',
+    'pwd',
+    'cd', 'cwd',
+    'cdup',
+    'passive',
+    'put',
+    'get',
+    'rename', 'ren',
+    'delete', 'del',
+    'md', 'mkdir',
+    'rd','rmdir',
+    'lpwd',
+    'lcd',
+    'ldir',
+    'close',
+    'help', '?',
+    'status'];
 
   { TFTPApplication }
 
@@ -332,200 +349,16 @@ begin
   end;
 end;
 
-procedure TFTPApplication.CmdHelp(const ACmd: string);
-{$IFNDEF USE_INLINE_VAR}
-var
-  LCmd, LSubcommand: String;
-{$ENDIF}
+function LeftJustify(const AText: String; ALen: integer): string;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LCmd, LSubcommand: String;
-{$ENDIF}
-  LCmd := Trim(ACmd);
-  if LCmd = '' then
+  Result := '';
+  if ALen > Length(AText) then
   begin
-    WriteLn('cdup          - Change remote directory up a level');
-    WriteLn('close         - Terminate ftp session');
-    WriteLn('cwd           - Change remote directory');
-    WriteLn('delete        - Delete remote file');
-    WriteLn('dir           - List contents of remote directory');
-    WriteLn('exit or quit  - Terminate ftp session and exit');
-    WriteLn('get           - Receive file');
-    WriteLn('help or ?     - Prints help screen or command syntax');
-    WriteLn('lcd           - Change local working directory');
-    WriteLn('ldir          - List contents of local directory');
-    WriteLn('lpwd          - Print local working directory');
-    WriteLn('mkdir         - Make directory on the remote machine');
-    WriteLn('open          - Connect to remote ftp');
-    WriteLn('passive       - Toggle use of passive transfer mode');
-    WriteLn('put           - Send one file');
-    WriteLn('pwd           - Print working directory on remote machine');
-    WriteLn('rename or ren - Rename remote file');
-    WriteLn('rmdir         - Remove directory on the remote machine');
+    Result := AText + StringOfChar(' ', ALen - Length(AText));
   end
   else
   begin
-    LSubcommand := Fetch(LCmd);
-    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds) of
-      0, 1:
-      begin
-        WriteLn('exit or quit  - Terminate ftp session and exit');
-        WriteLn('');
-        WriteLn('Command Syntax:');
-        WriteLn('');
-        WriteLn('exit');
-      end;
-      2:
-        begin
-          WriteLn('open          - Connect to remote ftp');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('open [protocol] host username password');
-          WriteLn('');
-          WriteLn('the protocol value may be:');
-          WriteLn('');
-          WriteLn('ftp   - File Transfer Protocol');
-          WriteLn('ftps  - File Transfer Protocol with TLS');
-          WriteLn('ftpsi - File Transfer Protocol with Implicit TLS');
-        end;
-      3:
-        begin
-          WriteLn('dir           - List contents of remote directory');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('dir [remote_path]');
-        end;
-      4:
-        begin
-          WriteLn('pwd           - Print working directory on remote machine');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('pwd');
-        end;
-      5:
-        begin
-          WriteLn('cwd           - Change remote directory');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('cd remote_path');
-        end;
-      6:
-        begin
-          WriteLn('cdup          - Change remote directory up a level');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('cdup');
-        end;
-      7:
-        begin
-          WriteLn('passive       - Toggle use of passive transfer mode');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('passive [state]');
-          WriteLn('');
-          WriteLn('The state value may be one of these:');
-          WriteLn('');
-          WriteLn('on    - Passive mode on (use PASV/EPSV data transfers)');
-          WriteLn('off   - Passive mode off (use PORT/EPRT data transfers)');
-          WriteLn('true  - Passive mode on (use PASV/EPSV data transfers)');
-          WriteLn('false - Passive mode off (use PORT/EPRT data transfers)');
-        end;
-      8:
-        begin
-          WriteLn('put           - Send one file');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('put local_filename');
-        end;
-      9:
-        begin
-          WriteLn('get           - Receive file');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('get local_filename');
-        end;
-      10, 11:
-        begin
-          WriteLn('rename or ren - Rename remote file');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('rename old_filename new_filename');
-        end;
-      12, 13:
-        begin
-          WriteLn('delete        - Delete remote file');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('delete remote_filename');
-        end;
-      14:
-        begin
-          WriteLn('mkdir         - Make directory on the remote machine');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('mkdir remote_dirname');
-        end;
-      15:
-        begin
-          WriteLn('rmdir         - Remove directory on the remote machine');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('rmdir remote_dirname');
-        end;
-      16:
-        begin
-          WriteLn('lpwd          - Print local working directory');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('lpwd');
-        end;
-      17:
-        begin
-          WriteLn('lcd           - Change local working directory');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('lcd local_dirname');
-        end;
-      18:
-        begin
-          WriteLn('ldir          - List contents of local directory');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('ldir [local_path]');
-        end;
-      19:
-        begin
-          WriteLn('close         - Terminate ftp session');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('close');
-        end;
-      20, 21:
-        begin
-          WriteLn('help or ?     - Prints help screen or command syntax');
-          WriteLn('');
-          WriteLn('Command Syntax:');
-          WriteLn('');
-          WriteLn('help [command_name]');
-        end;
-    end;
+    Result := AText;
   end;
 end;
 
@@ -590,6 +423,18 @@ begin
   FFTP.RemoveDir(Trim(ACmd));
 end;
 
+procedure TFTPApplication.CmdStatus;
+var LStr : TStrings;
+begin
+  LStr := TStringList.Create;
+  try
+    FFTP.Status(LStr);
+    WriteLn(LStr.Text);
+  finally
+    FreeAndNil(LStr);
+  end;
+end;
+
 procedure TFTPApplication.CmdMkdir(const ACmd: string);
 begin
   FFTP.makedir(Trim(ACmd));
@@ -643,6 +488,168 @@ begin
   FFTP.Disconnect;
 end;
 
+procedure PrintCmdHelp(const ACmd: array of string;
+  const AHelpDescription: string; ASyntaxRef: string = '');
+var
+  i: integer;
+{$IFNDEF USE_INLINE_VAR}
+  LCmds: string;
+{$ENDIF}
+begin
+{$IFDEF USE_INLINE_VAR}
+  var
+    LCmds: string;
+{$ENDIF}
+  for i := 0 to High(ACmd) do
+  begin
+    LCmds := LCmds + ' ' + ACmd[i];
+  end;
+  LCmds := TrimLeft(LCmds);
+  WriteLn(LeftJustify(LCmds, 20) + ' - ' + AHelpDescription);
+  if ASyntaxRef <> '' then
+  begin
+    WriteLn('');
+    WriteLn('Command Syntax:');
+    WriteLn('');
+    WriteLn(ASyntaxRef);
+  end;
+end;
+
+procedure TFTPApplication.CmdHelp(const ACmd: string);
+{$IFNDEF USE_INLINE_VAR}
+var
+  LCmd, LSubcommand: String;
+{$ENDIF}
+begin
+{$IFDEF USE_INLINE_VAR}
+  var
+    LCmd, LSubcommand: String;
+{$ENDIF}
+  LCmd := Trim(ACmd);
+  if LCmd = '' then
+  begin
+    PrintCmdHelp(['?', 'help'], 'Prints help screen or command syntax');
+    PrintCmdHelp(['cd', 'cwd'], 'Change remote directory');
+    PrintCmdHelp(['cdup'], 'Change remote directory up a level');
+    PrintCmdHelp(['close'], 'Terminate ftp session');
+    PrintCmdHelp(['del', 'delete'], 'Delete remote file');
+    PrintCmdHelp(['dir'], 'List contents of remote directory');
+    PrintCmdHelp(['exit', 'quit'], 'Terminate ftp session and exit');
+    PrintCmdHelp(['get'], 'Receive file');
+    PrintCmdHelp(['lcd'], 'Change local working directory');
+    PrintCmdHelp(['ldir'], 'List contents of local directory');
+    PrintCmdHelp(['lpwd'], 'Print local working directory');
+    PrintCmdHelp(['mkdir'],'Make directory on the remote machine');
+    PrintCmdHelp(['open'],'Connect to remote ftp');
+    PrintCmdHelp(['passive'],'Toggle use of passive transfer mode');
+    PrintCmdHelp(['put'],'Send one file');
+    PrintCmdHelp(['pwd'],'Print working directory on remote machine');
+    PrintCmdHelp(['rd','rmdir'],'Remove directory on the remote machine');
+    PrintCmdHelp(['rename','ren'],'Rename remote file');
+    PrintCmdHelp(['status'],'Show current status');
+  end
+  else
+  begin
+    LSubcommand := Fetch(LCmd);
+    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds) of
+      0, 1:
+        begin
+          PrintCmdHelp(['exit', 'quit'],
+            'Terminate ftp session and exit', 'exit');
+        end;
+      2:
+        begin
+          PrintCmdHelp(['open'],'Connect to remote ftp','open [protocol] host username password');
+          WriteLn('');
+          WriteLn('the protocol value may be:');
+          WriteLn('');
+          WriteLn('ftp   - File Transfer Protocol');
+          WriteLn('ftps  - File Transfer Protocol with TLS');
+          WriteLn('ftpsi - File Transfer Protocol with Implicit TLS');
+        end;
+      3:
+        begin
+          PrintCmdHelp(['dir'], 'List contents of remote directory',
+            'dir [remote_path]');
+        end;
+      4:
+        begin
+          PrintCmdHelp(['pwd'],'Print working directory on remote machine','pwd');
+        end;
+      5:
+        begin
+          PrintCmdHelp(['cd', 'cwd'], 'Change remote directory',
+            'cd remote_path');
+        end;
+      7:
+        begin
+          PrintCmdHelp(['cdup'], 'Change remote directory up a level', 'cdup')
+        end;
+      8:
+        begin
+          PrintCmdHelp(['passive'],'Toggle use of passive transfer mode','passive [state]');
+          WriteLn('');
+          WriteLn('The state value may be one of these:');
+          WriteLn('');
+          WriteLn('on    - Passive mode on (use PASV/EPSV data transfers)');
+          WriteLn('off   - Passive mode off (use PORT/EPRT data transfers)');
+          WriteLn('true  - Passive mode on (use PASV/EPSV data transfers)');
+          WriteLn('false - Passive mode off (use PORT/EPRT data transfers)');
+        end;
+      9:
+        begin
+          PrintCmdHelp(['put'],'Send one file','put local_filename');
+        end;
+      10:
+        begin
+          PrintCmdHelp(['get'], 'Receive file', 'get local_filename');
+        end;
+      11, 12:
+        begin
+          PrintCmdHelp(['rename','ren'],'Rename remote file','rename old_filename new_filename');
+        end;
+      13, 14:
+        begin
+          PrintCmdHelp(['del', 'delete'], 'Delete remote file',
+            'delete remote_filename');
+        end;
+      15, 16:
+        begin
+          PrintCmdHelp(['md','mkdir'],'Make directory on the remote machine','mkdir remote_dirname');
+        end;
+      17, 18:
+        begin
+          PrintCmdHelp(['rmdir','rd'],'Remove directory on the remote machine','rmdir remote_dirname');
+        end;
+      19:
+        begin
+          PrintCmdHelp(['lpwd'], 'Print local working directory','lpwd');
+        end;
+      20:
+        begin
+          PrintCmdHelp(['lcd'], 'Change local working directory',
+            'lcd local_dirname');
+        end;
+      21:
+        begin
+          PrintCmdHelp(['ldir'],'List contents of local directory','ldir [local_path]');
+        end;
+      22:
+        begin
+          PrintCmdHelp(['close'], 'Terminate ftp session', 'close');
+        end;
+      23, 24:
+        begin
+          PrintCmdHelp(['?', 'help'], 'Prints help screen or command syntax',
+            'help [command]');
+        end;
+      25 : begin
+        PrintCmdHelp(['status'],'Show current status','status');
+      end;
+    end;
+  end;
+end;
+
 procedure TFTPApplication.DoCommands;
 {$IFNDEF USE_INLINE_VAR}
 var
@@ -657,42 +664,46 @@ begin
     Write('ftp: ');
     ReadLn(LCmd);
     case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds) of
-      0, 1:
-        break;
-      2:
-        CmdOpen(LCmd);
-      3:
-        CmdDir(LCmd);
-      4:
-        CmdPwd;
-      5:
-        CmdCd(LCmd);
-      6:
-        CmdCdUp;
-      7:
-        CmdPassive(LCmd);
-      8:
-        CmdPut(LCmd);
-      9:
-        CmdGet(LCmd);
-      10, 11:
-        CmdRename(LCmd);
-      12, 13:
-        CmdDelete(LCmd);
-      14:
-        CmdMkdir(LCmd);
-      15:
-        CmdRmdir(LCmd);
-      16:
-        CmdLPwd;
-      17:
-        CmdLCd(LCmd);
-      18:
-        CmdLDir(LCmd);
-      19:
-        CmdClose;
-      20, 21:
-        CmdHelp(LCmd);
+      // 'exit', 'quit'
+      0,1: break;
+      // 'open',
+      2: CmdOpen(LCmd);
+      // 'dir',
+      3: CmdDir(LCmd);
+      // 'pwd',
+      4: CmdPwd;
+      // 'cd', 'cwd',
+      5, 6 : CmdCd(LCmd);
+      //'cdup',
+      7 : CmdCdUp;
+      // 'passive',
+      8 : CmdPassive(LCmd);
+      // 'put',
+      9 : CmdPut(LCmd);
+      // 'get',
+      10 : CmdGet(LCmd);
+      // 'rename', 'ren',
+      11, 12 : CmdRename(LCmd);
+      // 'delete', 'del',
+      13, 14 : CmdDelete(LCmd);
+      // 'md', 'mkdir',
+      15, 16 : CmdMkdir(LCmd);
+      // 'rd','rmdir',
+      17, 18 : CmdRmdir(LCmd);
+      // 'lpwd',
+      19 : CmdLPwd;
+      //'lcd',
+      20 : CmdLCd(LCmd);
+      //'ldir',
+      21 : CmdLDir(LCmd);
+      //'close',
+      22 : CmdClose;
+      //'help', '?'];
+      23, 24:
+      CmdHelp(LCmd);
+      //'status'
+      25 :
+      CmdStatus;
     else
       WriteLn('Bad Command');
     end;

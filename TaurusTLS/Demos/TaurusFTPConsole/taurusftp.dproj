@@ -8,7 +8,8 @@
         <AppType>Application</AppType>
         <FrameworkType>None</FrameworkType>
         <ProjectVersion>20.2</ProjectVersion>
-        <Platform Condition="'$(Platform)'==''">Linux64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <ProjectName Condition="'$(ProjectName)'==''">taurusftp</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
