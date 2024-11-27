@@ -167,9 +167,17 @@ function TOpenSSLLoader.FindLibrary(const LibName, LibVersions: string): TIdLibH
 var LibVersionsList: TStringList;
   i: integer;
 begin
+{Important!!!
+
+Do not load something named libcrypt.dll because that will cause
+an access violation.  That is part of the LibreOpenSSL package.}
+  {$IFNDEF WINDOWS}
   Result := DoLoadLibrary(OpenSSLPath + LibName);
   if (Result = NilHandle) and (LibVersions <> '') then
   begin
+  {$ELSE}
+    Result := NilHandle;
+  {$ENDIF}
     LibVersionsList := TStringList.Create;
     try
       LibVersionsList.Delimiter := DirListDelimiter;
@@ -184,7 +192,9 @@ begin
     finally
       LibVersionsList.Free;
     end;
+  {$IFNDEF WINDOWS}
   end;
+  {$ENDIF}
 end;
 
 
