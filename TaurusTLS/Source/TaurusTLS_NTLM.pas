@@ -10,6 +10,8 @@
 
 unit TaurusTLS_NTLM;
 
+{$I TaurusTLSCompilerDefines.inc}
+
 interface
 
 implementation
@@ -20,7 +22,7 @@ uses
   TaurusTLSHeaders_des,
   SysUtils;
 
-{$I TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSIndyVers.inc}
 
 function LoadTaurusTLS: Boolean;
 begin
@@ -174,9 +176,10 @@ begin
 end;
 
 initialization
+{$IFDEF GETURIHOST_SUPPORTED}
   IdFIPS.LoadNTLMLibrary := @LoadTaurusTLS;
   IdFIPS.IsNTLMFuncsAvail := @IsNTLMFuncsAvail;
   IdFIPS.NTLMGetLmChallengeResponse := @SetupLanManagerPassword;
   IdFIPS.NTLMGetNtChallengeResponse := @CreateNTPassword;
-
+{$ENDIF}
 end.

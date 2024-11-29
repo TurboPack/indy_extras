@@ -32,9 +32,9 @@ package TaurusTLS_RT;
 
 requires
   rtl,
-  IndyProtocols290,
-  IndySystem290,
-  IndyCore290;
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
 
 contains
   TaurusTLS_ResourceStrings in '..\..\..\Source\TaurusTLS_ResourceStrings.pas',
@@ -128,4 +128,3 @@ contains
   TaurusTLS_NTLM in '..\..\..\Source\TaurusTLS_NTLM.pas';
 
 end.
-

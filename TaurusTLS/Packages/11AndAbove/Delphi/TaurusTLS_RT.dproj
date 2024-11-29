@@ -160,9 +160,9 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
-        <DCCReference Include="IndyProtocols290.dcp"/>
-        <DCCReference Include="IndySystem290.dcp"/>
-        <DCCReference Include="IndyCore290.dcp"/>
+        <DCCReference Include="IndySystem.dcp"/>
+        <DCCReference Include="IndyProtocols.dcp"/>
+        <DCCReference Include="IndyCore.dcp"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS_ResourceStrings.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLS_Files.pas"/>
