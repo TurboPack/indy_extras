@@ -31,12 +31,11 @@ package TaurusTLS_DT;
 
 requires
   rtl,
-  dclIndyCore290,
-  dclIndyProtocols290,
-  IndyCore290,
-  IndyProtocols290,
-  IndySystem290,
-  TaurusTLS_RT;
+  IndyCore,
+  IndyProtocols,
+  IndySystem,
+  TaurusTLS_RT,
+  designide;
 
 contains
   TaurusTLS_Dsn_Register in '..\..\..\Source\TaurusTLS_Dsn_Register.pas',
