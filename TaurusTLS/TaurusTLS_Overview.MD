@@ -17,6 +17,26 @@ TaurusTLS is dual licensed. You can review which license better suits your needs
 The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution.  Details are available in the Modified_BSD_LICENSE.md file included in the with this source-code.
  
 To make it easier and consistent for JEDI users, we also offer an MPL license v1.1.  Details are available in the LICENSE_MPL_1_1.txt file included with this source-code.
+## RAD Studio Installation
+
+### For Indy Included with Delphi
+
+1. Open TaurusAll.groupproj in the TaurusTLS\Packages\11AndAbove\Delphi folder.
+2. Compile TaurusTLS_RT
+3. Compile TaurusTLS_DT and install it in the IDE.
+
+### For Indy that was Upgraded from the Website
+
+1. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\11AndAbove\Delphi folder.
+2. Compile TaurusTLS_RTForIndy290
+3. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
+
+## Lazarus Installation
+
+1. Open taurustlsldsgn.lpk from the TaurusTLS/Packages/Lazarus
+2. From "Required Packages", open "TaurusTLSRT" and compile it.
+3. Then compile the main package itself and install it in the IDE.
+
 ## Deploying Your Applications
 
 TaurusTLS does require OpenSSL 1.1.1 or OpenSSL 3.x.  
