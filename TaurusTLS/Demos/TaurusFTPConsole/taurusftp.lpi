@@ -12,6 +12,7 @@
       <Title Value="TaurusFTP Console"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
+      <Icon Value="0"/>
     </General>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -56,6 +57,9 @@
       </Item>
       <Item>
         <Name Value="EFOpenError"/>
+      </Item>
+      <Item>
+        <Name Value="EIdConnClosedGracefully"/>
       </Item>
     </Exceptions>
   </Debugging>

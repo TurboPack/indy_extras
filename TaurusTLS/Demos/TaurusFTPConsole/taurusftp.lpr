@@ -8,5 +8,7 @@ both Lazaurus and Delphi.}
 uses
   taurusftp_unit;
 
+{$R *.res}
+
 begin
 end.

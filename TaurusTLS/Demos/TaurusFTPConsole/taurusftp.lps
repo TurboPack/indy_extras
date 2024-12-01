@@ -7,58 +7,52 @@
       <Unit>
         <Filename Value="taurusftp.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
         <CursorPos X="16" Y="9"/>
-        <UsageCount Value="140"/>
+        <UsageCount Value="180"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="2255"/>
-        <CursorPos Y="2279"/>
-        <UsageCount Value="27"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../TaurusTLS.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="473"/>
-        <CursorPos X="29" Y="494"/>
-        <UsageCount Value="2"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="2263"/>
+        <CursorPos X="60" Y="2274"/>
+        <UsageCount Value="26"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSIndyVers.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="30" Y="16"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_dh.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos X="12" Y="32"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_sslerr.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="785"/>
         <CursorPos X="12" Y="802"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_pkcs12.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="25" Y="34"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdFTP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2437"/>
         <CursorPos X="25" Y="2461"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/lazarus/fpc/3.2.2/source/rtl/win/sysutils.pp"/>
@@ -66,35 +60,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="650"/>
         <CursorPos X="10" Y="668"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCompressorZLib.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="249"/>
-        <CursorPos X="11" Y="263"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdZLibHeaders.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1178"/>
-        <CursorPos X="19" Y="1209"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="443"/>
+        <CursorPos X="64" Y="458"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRegister.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="639"/>
         <CursorPos X="22" Y="640"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASL_CRAM_SHA1.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="38"/>
-        <CursorPos Y="61"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdRegisterCore.pas"/>
@@ -102,910 +82,251 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="50" Y="135"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdCompilerDefines.inc"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSMTPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1024"/>
         <CursorPos X="31" Y="1048"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdFTPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="580"/>
-        <CursorPos X="36" Y="606"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdSocks.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="223"/>
         <CursorPos X="35" Y="246"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdDsnPropEdBindingVCL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="444"/>
-        <CursorPos X="3" Y="72"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdAboutVCL.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="18" Y="22"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdAntiFreeze.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="153"/>
         <CursorPos X="24" Y="180"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdSchedulerOfThreadPool.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="53"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdLogStream.pas"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="28"/>
-        <CursorPos X="31" Y="56"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdThreadComponent.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="68"/>
-        <CursorPos X="27" Y="134"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdInterceptSimLog.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="5" Y="81"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIcmpClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="10" Y="73"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdInterceptThrottler.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos X="19" Y="64"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIPMCastBase.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="11" Y="136"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIPMCastClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="283"/>
         <CursorPos X="29" Y="307"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTraceRoute.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2"/>
         <CursorPos Y="24"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdUnixTimeUDP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="27"/>
         <CursorPos X="31" Y="33"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTrivialFTPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="294"/>
         <CursorPos X="60" Y="321"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdRawBase.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="179"/>
         <CursorPos X="48" Y="207"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdVCard.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1489"/>
-        <CursorPos X="45" Y="1517"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTimeUDPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="18"/>
         <CursorPos Y="41"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTelnetServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="69"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSystatUDPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos Y="52"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSysLogServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos Y="54"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSysLog.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos X="10" Y="56"/>
-        <UsageCount Value="10"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTrivialFTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="68"/>
-        <CursorPos X="43" Y="110"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRexec.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="42"/>
-        <CursorPos Y="58"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSNMP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="793"/>
-        <CursorPos X="20" Y="821"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSMTPRelay.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="107"/>
-        <CursorPos X="2" Y="135"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSSLOpenSSL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="188"/>
-        <CursorPos X="11" Y="215"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSysLogMessage.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="159"/>
-        <CursorPos X="88" Y="187"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSMTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="176"/>
-        <CursorPos X="21" Y="267"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSMTPBase.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="71"/>
-        <CursorPos X="10" Y="90"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASL_CRAM_MD5.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="38"/>
-        <CursorPos Y="60"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdHMACMD5.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="23" Y="32"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASL_CRAMBase.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="36"/>
-        <CursorPos X="5" Y="63"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLSKey.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="43"/>
-        <CursorPos X="2" Y="71"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLOTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="15"/>
-        <CursorPos X="5" Y="43"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLAnonymous.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="6"/>
-        <CursorPos X="9" Y="34"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRSHServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="33"/>
-        <CursorPos X="10" Y="59"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRexecServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="25"/>
-        <CursorPos X="63" Y="53"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRemoteCMDServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="24"/>
-        <CursorPos Y="44"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLLogin.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="29"/>
-        <CursorPos X="13" Y="42"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRSH.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="33"/>
-        <CursorPos X="21" Y="70"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdQOTDUDPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="12"/>
-        <CursorPos X="38" Y="14"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdPOP3Server.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="182"/>
-        <CursorPos Y="206"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdPOP3.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="178"/>
-        <CursorPos X="10" Y="191"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIntercept.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="40"/>
-        <CursorPos X="15" Y="71"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLExternal.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="4"/>
-        <CursorPos X="9" Y="32"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASLDigest.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="63" Y="16"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoderYenc.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="104"/>
-        <CursorPos X="5" Y="122"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdNNTPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="117"/>
-        <CursorPos X="13" Y="145"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdNNTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="127"/>
-        <CursorPos X="10" Y="149"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMappedPOP3.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="32"/>
-        <CursorPos Y="52"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMappedTelnet.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="62"/>
-        <CursorPos X="2" Y="90"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMappedFTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="69"/>
-        <CursorPos X="41" Y="166"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMappedPortTCP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="175"/>
-        <CursorPos X="27" Y="202"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCoder.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="81"/>
-        <CursorPos Y="95"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTCPConnection.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="298"/>
-        <CursorPos X="10" Y="313"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdLPR.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="65"/>
-        <CursorPos X="14" Y="79"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdIrcServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="57"/>
-        <CursorPos X="10" Y="73"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdCmdTCPClient.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="146"/>
-        <CursorPos Y="180"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdIMAP4Server.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="202"/>
-        <CursorPos Y="216"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdIMAP4.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="373"/>
-        <CursorPos X="30" Y="397"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdReplyIMAP4.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="100"/>
-        <CursorPos X="10" Y="118"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMailBox.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="29"/>
-        <CursorPos Y="50"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageClient.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="812"/>
-        <CursorPos X="58" Y="840"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoderXXE.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="6"/>
-        <CursorPos X="36" Y="34"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessage.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="508"/>
-        <CursorPos X="2" Y="536"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoderQuotedPrintable.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="41"/>
-        <CursorPos Y="47"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIOHandlerStack.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="186"/>
-        <CursorPos X="3" Y="215"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdEMailAddress.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="95"/>
-        <CursorPos X="10" Y="114"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdNetworkCalculator.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="20" Y="19"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCookie.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="181"/>
-        <CursorPos X="11" Y="209"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoderBinHex4.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos Y="6"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoderMIME.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="190"/>
-        <CursorPos X="24" Y="218"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdHTTP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="660"/>
         <CursorPos X="3" Y="685"/>
-        <UsageCount Value="9"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMessageCoder.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="51"/>
-        <CursorPos X="10" Y="72"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdAttachment.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="72"/>
-        <CursorPos X="17" Y="54"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdHTTPProxyServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="157"/>
-        <CursorPos X="32" Y="178"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTCPStream.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="63"/>
-        <CursorPos X="5" Y="90"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdAuthenticationDigest.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="30"/>
-        <CursorPos X="22" Y="57"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdAuthenticationSSPI.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="407"/>
-        <CursorPos X="5" Y="435"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdNTLM.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="421"/>
-        <CursorPos X="25" Y="433"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdMultipartFormData.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="817"/>
-        <CursorPos X="70" Y="845"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdAuthenticationNTLM.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="145"/>
-        <CursorPos X="16" Y="139"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCoderHeader.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="106"/>
-        <CursorPos X="5" Y="118"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdAuthentication.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="108"/>
-        <CursorPos X="34" Y="122"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdGopher.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="105"/>
-        <CursorPos X="28" Y="119"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdFTPListOutput.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="263"/>
-        <CursorPos X="30" Y="277"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdReplyFTP.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="102"/>
-        <CursorPos X="5" Y="117"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdFTPCommon.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="164"/>
-        <CursorPos Y="174"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDNSServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="280"/>
-        <CursorPos X="28" Y="286"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdEchoUDPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="24"/>
-        <CursorPos Y="39"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDiscardUDPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="14"/>
-        <CursorPos Y="30"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDayTimeUDPServer.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="25"/>
-        <CursorPos X="10" Y="38"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDateTimeStamp.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="466"/>
-        <CursorPos X="21" Y="483"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCookieManager.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="96"/>
-        <CursorPos X="2" Y="115"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdHeaderList.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="56"/>
-        <CursorPos X="10" Y="68"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCompressionIntercept.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="83"/>
-        <CursorPos X="16" Y="100"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSSLOpenSSLHeaders.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="19463"/>
-        <CursorPos X="27" Y="19484"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDsnRegister.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="73"/>
-        <CursorPos X="5" Y="97"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCoderMIME.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="63"/>
-        <CursorPos X="15" Y="84"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdCoder3to4.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="147"/>
-        <CursorPos Y="158"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSASL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="41"/>
-        <CursorPos X="10" Y="58"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdGlobalProtocols.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="307"/>
-        <CursorPos Y="325"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/System/IdStackBSDBase.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="297"/>
-        <CursorPos X="11" Y="360"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/System/IdGlobal.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="493"/>
-        <CursorPos X="60" Y="1919"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdUserAccounts.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="29"/>
-        <CursorPos X="11" Y="50"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdDNSCommon.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="393"/>
-        <CursorPos X="35" Y="171"/>
-        <UsageCount Value="1"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_hmac.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="67"/>
-        <CursorPos X="31" Y="93"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_x509_vfy.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1412"/>
-        <CursorPos X="33" Y="1442"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_rsa.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="4"/>
-        <CursorPos X="12" Y="31"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_bn.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="2299"/>
-        <CursorPos X="67" Y="2342"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_x509v3.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="4"/>
-        <CursorPos X="12" Y="31"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_ssl.pas"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="7302"/>
-        <CursorPos X="48" Y="7330"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_AboutDlg.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="4"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSExceptionHandlers.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_ComponentEditor.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="68" Y="12"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_Register.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos Y="12"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Utils.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="15"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Files.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos Y="16"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSFIPS.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_X509.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdThreadSafe.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="236"/>
         <CursorPos Y="265"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSLoader.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="238"/>
         <CursorPos Y="267"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTCPClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="37" Y="316"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="../../../zlib-1.3.1/contrib/pascal/zlibpas.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="197"/>
         <CursorPos X="10" Y="225"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/ITaurusTLS_NTLM.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="61"/>
         <CursorPos X="65" Y="23"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="390"/>
-        <CursorPos X="69" Y="508"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="769"/>
+        <CursorPos X="93" Y="773"/>
+        <UsageCount Value="30"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="108"/>
+        <CursorPos X="27" Y="108"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <General>
-      <ActiveWindowIndexAtStart Value="-1"/>
-    </General>
     <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -1018,10 +339,12 @@
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="LaunchingApplication" Type="File" Count="3">
+      <List Name="LaunchingApplication" Type="File" Count="5">
         <Item1 Value="/usr/bin/gnome-terminal -t &apos;Lazarus Run Output&apos; -e &apos;$(LazarusDir)/tools/runwait.sh $(TargetCmdLine)&apos;"/>
         <Item2 Value="\usr\bin\gnome-terminal -t &apos;Lazarus Run Output&apos; -e &apos;$(LazarusDir)\tools\runwait.sh $(TargetCmdLine)&apos;"/>
         <Item3 Value="C:\WINDOWS\system32\cmd.exe /C ${TargetCmdLine}"/>
+        <Item4 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item5 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
     </HistoryLists>
   </ProjectSession>
@@ -1033,13 +356,6 @@
         <WatchKind Value="wpkWrite"/>
         <Source Value="taurusftp.lpr"/>
         <Line Value="412"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../../Source/TaurusTLS.pas"/>
-        <Line Value="2279"/>
       </Item>
     </BreakPoints>
   </Debugging>

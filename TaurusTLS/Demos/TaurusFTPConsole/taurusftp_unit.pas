@@ -89,7 +89,45 @@ const
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status'];
 
-  { TFTPApplication }
+procedure ParseArgs(const AArgs: String; AStrings: TStrings);
+var
+{$IFNDEF USE_INLINE_VAR}
+  LBuf, LArg: String;
+{$ENDIF}
+  LOpenQuote: Integer;
+begin
+  AStrings.BeginUpdate;
+  try
+    AStrings.Clear;
+{$IFDEF USE_INLINE_VAR}
+    var
+      LBuf, LArg: String;
+{$ENDIF}
+    LBuf := AArgs;
+    repeat
+      LBuf := TrimLeft(LBuf);
+      if LBuf = '' then
+      begin
+        Break;
+      end;
+      LOpenQuote := IndyPos('"', LBuf);
+      if (LOpenQuote = 1) then
+      begin
+        Fetch(LBuf, '"');
+        LArg := Fetch(LBuf, '"');
+      end
+      else
+      begin
+        LArg := TrimLeft(Fetch(LBuf));
+      end;
+      AStrings.Add(LArg);
+    until False;
+  finally
+    AStrings.EndUpdate;
+  end;
+end;
+
+{ TFTPApplication }
 
 procedure TFTPApplication.OnReceived(ASender: TComponent;
   const AText, AData: string);
@@ -163,80 +201,110 @@ begin
 end;
 
 procedure TFTPApplication.CmdOpen(const ACmd: string);
-{$IFNDEF USE_INLINE_VAR}
 var
-  LCommand, LSubcommand: string;
-{$ENDIF}
+  LCmdParams: TStrings;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LCommand, LSubcommand: string;
-{$ENDIF}
-  LCommand := ACmd;
-  LSubcommand := Fetch(LCommand);
-  if LSubcommand <> '' then
-  begin
-    case IdGlobal.PosInStrArray(LSubcommand, ['ftp', 'ftps', 'ftpsi']) of
-      0:
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count >= 3 then
+    begin
+      case IdGlobal.PosInStrArray(LCmdParams[0], ['ftp', 'ftps', 'ftpsi']) of
+        0:
+          begin
+            FFTP.UseTLS := utNoTLSSupport;
+            if LCmdParams.Count > 3 then
+            begin
+              FFTP.Host := LCmdParams[1];
+              FFTP.Username := LCmdParams[2];
+              FFTP.Password := LCmdParams[3];
+              Open;
+            end
+            else
+            begin
+              WriteLn('Syntax Error');
+            end;
+          end;
+        1:
+          begin
+            FFTP.UseTLS := utUseExplicitTLS;
+            FFTP.DataPortProtection := ftpdpsPrivate;
+            if LCmdParams.Count > 3 then
+            begin
+              FFTP.Host := LCmdParams[1];
+              FFTP.Username := LCmdParams[2];
+              FFTP.Password := LCmdParams[3];
+              Open;
+            end
+            else
+            begin
+              WriteLn('Syntax Error');
+            end;
+          end;
+        2:
+          begin
+            FFTP.UseTLS := utUseImplicitTLS;
+            FFTP.DataPortProtection := ftpdpsPrivate;
+            if LCmdParams.Count > 3 then
+            begin
+              FFTP.Host := LCmdParams[1];
+              FFTP.Username := LCmdParams[2];
+              FFTP.Password := LCmdParams[3];
+              Open;
+            end
+            else
+            begin
+              WriteLn('Syntax Error');
+            end;
+          end
+      else
         begin
           FFTP.UseTLS := utNoTLSSupport;
-          FFTP.Host := Fetch(LCommand);
-          FFTP.Username := Fetch(LCommand);
-          FFTP.Password := Fetch(LCommand);
+          FFTP.Host := LCmdParams[0];
+          FFTP.Username := LCmdParams[1];
+          FFTP.Password := LCmdParams[2];
           Open;
         end;
-      1:
-        begin
-          FFTP.UseTLS := utUseExplicitTLS;
-          FFTP.DataPortProtection := ftpdpsPrivate;
-          FFTP.Host := Fetch(LCommand);
-          FFTP.Username := Fetch(LCommand);
-          FFTP.Password := Fetch(LCommand);
-          Open;
-        end;
-      2:
-        begin
-          FFTP.UseTLS := utUseImplicitTLS;
-          FFTP.DataPortProtection := ftpdpsPrivate;
-          FFTP.Host := Fetch(LCommand);
-          FFTP.Username := Fetch(LCommand);
-          FFTP.Password := Fetch(LCommand);
-          Open;
-        end
-    else
-      begin
-        FFTP.UseTLS := utNoTLSSupport;
-        FFTP.Host := LSubcommand;
-        FFTP.Username := Fetch(LCommand);
-        FFTP.Password := Fetch(LCommand);
-        Open;
       end;
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
     end;
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
 procedure TFTPApplication.CmdDir(const ACmd: string);
 var
-  i: integer;
+  i: Integer;
+  LDir: TStringList;
 begin
-  if FFTP.Connected then
-  begin
-    if Trim(ACmd) <> '' then
+  LDir := TStringList.Create;
+  try
+    ParseArgs(Trim(ACmd), LDir);
+    if FFTP.Connected then
     begin
-      FFTP.List(Trim(ACmd));
+      if LDir.Count > 0 then
+      begin
+        FFTP.List(LDir[0]);
+      end
+      else
+      begin
+        FFTP.List;
+      end;
+      for i := 0 to FFTP.ListResult.Count - 1 do
+      begin
+        WriteLn(FFTP.ListResult[i]);
+      end;
     end
     else
     begin
-      FFTP.List;
+      WriteLn('Must be connected to use this command');
     end;
-    for i := 0 to FFTP.ListResult.Count - 1 do
-    begin
-      WriteLn(FFTP.ListResult[i]);
-    end;
-  end
-  else
-  begin
-    WriteLn('Must be connected to use this command');
+  finally
+    FreeAndNil(LDir);
   end;
 end;
 
@@ -253,14 +321,29 @@ begin
 end;
 
 procedure TFTPApplication.CmdCd(const ACmd: string);
+var
+  LDir: TStringList;
 begin
-  if FFTP.Connected then
-  begin
-    FFTP.ChangeDir(Trim(ACmd));
-  end
-  else
-  begin
-    WriteLn('Must be connected to use this command');
+  LDir := TStringList.Create;
+  try
+    ParseArgs(Trim(ACmd), LDir);
+    if LDir.Count > 0 then
+    begin
+      if FFTP.Connected then
+      begin
+        FFTP.ChangeDir(LDir[0]);
+      end
+      else
+      begin
+        WriteLn('Must be connected to use this command');
+      end;
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LDir);
   end;
 end;
 
@@ -277,64 +360,73 @@ begin
 end;
 
 procedure TFTPApplication.CmdPassive(const ACmd: string);
-{$IFNDEF USE_INLINE_VAR}
 var
-  LSubcommand: string;
-{$ENDIF}
+  LCmdParams: TStrings;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LSubcommand: String;
-{$ENDIF}
-  LSubcommand := Trim(ACmd);
-  LSubcommand := Fetch(LSubcommand);
-  case PosInStrArray(LSubcommand, ['on', 'true', 'off', 'false']) of
-    0, 1:
-      FFTP.Passive := True;
-    2, 3:
-      FFTP.Passive := False;
-  else
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false']) of
+        0, 1:
+          FFTP.Passive := True;
+        2, 3:
+          FFTP.Passive := False;
+      else
+        begin
+          FFTP.Passive := not FFTP.Passive;
+        end;
+      end;
+    end
+    else
     begin
       FFTP.Passive := not FFTP.Passive;
     end;
-  end;
-  if FFTP.Passive then
-  begin
-    WriteLn('Passive: True');
-  end
-  else
-  begin
-    WriteLn('Passive: False');
+    if FFTP.Passive then
+    begin
+      WriteLn('Passive: True');
+    end
+    else
+    begin
+      WriteLn('Passive: False');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
 procedure TFTPApplication.CmdGet(const ACmd: string);
 var
-{$IFNDEF USE_INLINE_VAR}
-  LPath: string;
-{$ENDIF}
+  LCmdParams: TStrings;
   LDestFile: TStream;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LPath: String;
-{$ENDIF}
-  LPath := Trim(ACmd);
+  LCmdParams := TStringList.Create;
   try
-    FFTP.TransferType := ftBinary;
-    LDestFile := TFileStream.Create(LPath, fmCreate);
-    try
-      FFTP.Get(ExtractFileName(LPath), LDestFile);
-    finally
-      FreeAndNil(LDestFile);
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+
+      FFTP.TransferType := ftBinary;
+      LDestFile := TFileStream.Create(LCmdParams[0], fmCreate);
+      try
+        FFTP.Get(ExtractFileName(LCmdParams[0]), LDestFile);
+      finally
+        FreeAndNil(LDestFile);
+      end;
+      FileSetDate(LCmdParams[0],
+        DateTimeToFileDate(FFTP.FileDate(ExtractFileName(LCmdParams[0]))));
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
     end;
-    FileSetDate(LPath,
-      DateTimeToFileDate(FFTP.FileDate(ExtractFileName(LPath))));
-  except
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
-function LeftJustify(const AText: String; ALen: integer): string;
+function LeftJustify(const AText: String; ALen: Integer): string;
 begin
   Result := '';
   if ALen > Length(AText) then
@@ -349,63 +441,98 @@ end;
 
 procedure TFTPApplication.CmdPut(const ACmd: string);
 var
-{$IFNDEF USE_INLINE_VAR}
-  LPath: string;
-{$ENDIF}
   LSrcFile: TStream;
 {$IFNDEF FPC}
   LDateTime: TDateTime;
 {$ENDIF}
+  LCmdParams: TStrings;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LPath: string;
-{$ENDIF}
-  LPath := Trim(ACmd);
+  LCmdParams := TStringList.Create;
   try
-    FFTP.TransferType := ftBinary;
-    LSrcFile := TFileStream.Create(LPath, fmOpenRead);
-    try
-      FFTP.Put(LSrcFile, ExtractFileName(LPath));
-    finally
-      FreeAndNil(LSrcFile);
-    end;
-{$IFDEF FPC}
-    FFTP.SetModTime(ExtractFileName(LPath), FileDateToDateTime(FileAge(LPath)));
-{$ELSE}
-    if FileAge(LPath, LDateTime) then
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
     begin
-      FFTP.SetModTime(ExtractFileName(LPath), LDateTime);
-    end;
+
+      FFTP.TransferType := ftBinary;
+      LSrcFile := TFileStream.Create(LCmdParams[0], fmOpenRead);
+      try
+        FFTP.Put(LSrcFile, ExtractFileName(LCmdParams[0]));
+      finally
+        FreeAndNil(LSrcFile);
+      end;
+{$IFDEF FPC}
+      FFTP.SetModTime(ExtractFileName(LCmdParams[0]),
+        FileDateToDateTime(FileAge(LCmdParams[0])));
+{$ELSE}
+      if FileAge(LCmdParams[0], LDateTime) then
+      begin
+        FFTP.SetModTime(ExtractFileName(LCmdParams[0]), LDateTime);
+      end;
 {$ENDIF}
-  except
+    end;
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
 procedure TFTPApplication.CmdRename(const ACmd: string);
-{$IFNDEF USE_INLINE_VAR}
 var
-  LOldName, LNewName, LSubcommand: String;
-{$ENDIF}
+  LCmdParams: TStrings;
 begin
-{$IFDEF USE_INLINE_VAR}
-  var
-    LOldName, LNewName, LSubcommand: String;
-{$ENDIF}
-  LSubcommand := Trim(ACmd);
-  LOldName := Fetch(LSubcommand);
-  LNewName := Fetch(LSubcommand);
-  FFTP.Rename(LOldName, LNewName);
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 1 then
+    begin
+      FFTP.Rename(LCmdParams[0], LCmdParams[1]);
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
 end;
 
 procedure TFTPApplication.CmdDelete(const ACmd: string);
+var
+  LCmdParams: TStrings;
 begin
-  FFTP.delete(Trim(ACmd));
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      FFTP.delete(LCmdParams[0]);
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
 end;
 
 procedure TFTPApplication.CmdRmdir(const ACmd: string);
+var
+  LCmdParams: TStrings;
 begin
-  FFTP.RemoveDir(Trim(ACmd));
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      FFTP.RemoveDir(LCmdParams[0]);
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
 end;
 
 procedure TFTPApplication.CmdStatus;
@@ -422,8 +549,23 @@ begin
 end;
 
 procedure TFTPApplication.CmdMkdir(const ACmd: string);
+var
+  LCmdParams: TStrings;
 begin
-  FFTP.makedir(Trim(ACmd));
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      FFTP.makedir(LCmdParams[0]);
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
 end;
 
 procedure TFTPApplication.CmdLPwd;
@@ -432,11 +574,23 @@ begin
 end;
 
 procedure TFTPApplication.CmdLCd(const ACmd: string);
+var
+  LCmdParams: TStrings;
 begin
-  if Trim(ACmd) <> '' then
-  begin
-    SetCurrentDir(Trim(ACmd));
-    WriteLn('Local directory now ' + GetCurrentDir);
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      SetCurrentDir(LCmdParams[0]);
+      WriteLn('Local directory now ' + GetCurrentDir);
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
@@ -445,27 +599,49 @@ var
   LRec: TSearchRec;
 {$IFNDEF USE_INLINE_VAR}
   LSize: string;
+  LMask: String;
 {$ENDIF}
+var
+  LCmdParams: TStrings;
 begin
-  if FindFirst(Trim(ACmd) + '*.*', faAnyFile, LRec) = 0 then
-  begin
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
 {$IFDEF USE_INLINE_VAR}
     var
-      LSize: string;
+      LMask: string;
 {$ENDIF}
-    repeat
-      if LRec.Attr and faDirectory <> 0 then
-      begin
-        LSize := '<DIR>';
-      end
-      else
-      begin
-        LSize := IntToStr(LRec.Size);
-      end;
-      WriteLn(Format('%10s %10s %20s %s', [TimeToStr(LRec.TimeStamp),
-        TimeToStr(LRec.TimeStamp), LSize, LRec.Name]));
-    until FindNext(LRec) <> 0;
-    FindClose(LRec);
+    if LCmdParams.Count > 0 then
+    begin
+      LMask := LCmdParams[0] + '*.*';
+    end
+    else
+    begin
+      LMask := '*.*';
+    end;
+
+    if FindFirst(LMask, faAnyFile, LRec) = 0 then
+    begin
+{$IFDEF USE_INLINE_VAR}
+      var
+        LSize: string;
+{$ENDIF}
+      repeat
+        if LRec.Attr and faDirectory <> 0 then
+        begin
+          LSize := '<DIR>';
+        end
+        else
+        begin
+          LSize := IntToStr(LRec.Size);
+        end;
+        WriteLn(Format('%10s %10s %20s %s', [TimeToStr(LRec.TimeStamp),
+          TimeToStr(LRec.TimeStamp), LSize, LRec.Name]));
+      until FindNext(LRec) <> 0;
+      FindClose(LRec);
+    end;
+  finally
+    FreeAndNil(LCmdParams);
   end;
 end;
 
@@ -477,7 +653,7 @@ end;
 procedure PrintCmdHelp(const ACmd: array of string;
   const AHelpDescription: string; ASyntaxRef: string = '');
 var
-  i: integer;
+  i: Integer;
 {$IFNDEF USE_INLINE_VAR}
   LCmds: string;
 {$ENDIF}
@@ -661,7 +837,7 @@ begin
       case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds) of
         // 'exit', 'quit'
         0, 1:
-          break;
+          Break;
         // 'open',
         2:
           CmdOpen(LCmd);
