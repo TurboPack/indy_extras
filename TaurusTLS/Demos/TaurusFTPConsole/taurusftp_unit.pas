@@ -209,7 +209,7 @@ begin
     ParseArgs(ACmd, LCmdParams);
     if LCmdParams.Count >= 3 then
     begin
-      case IdGlobal.PosInStrArray(LCmdParams[0], ['ftp', 'ftps', 'ftpsi']) of
+      case IdGlobal.PosInStrArray(LCmdParams[0], ['ftp', 'ftps', 'ftpsi'],False) of
         0:
           begin
             FFTP.UseTLS := utNoTLSSupport;
@@ -368,7 +368,7 @@ begin
     ParseArgs(ACmd, LCmdParams);
     if LCmdParams.Count > 0 then
     begin
-      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false']) of
+      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false'],False) of
         0, 1:
           FFTP.Passive := True;
         2, 3:
@@ -713,7 +713,7 @@ begin
   else
   begin
     LSubcommand := Fetch(LCmd);
-    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds) of
+    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds,False) of
       0, 1:
         begin
           PrintCmdHelp(['exit', 'quit'],
@@ -834,7 +834,7 @@ begin
     Write('ftp: ');
     ReadLn(LCmd);
     try
-      case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds) of
+      case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds,False) of
         // 'exit', 'quit'
         0, 1:
           Break;
