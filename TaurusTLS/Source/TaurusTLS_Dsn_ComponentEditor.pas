@@ -21,7 +21,6 @@ uses
   {$ENDIF}
   ;
 
-const
 {$i TaurusTLS_Vers.inc}
 
 type

@@ -46,13 +46,63 @@ implementation
 
 uses
   TaurusTLS_Dsn_ResourceStrings, // for RSRegIndyIOHandlers in dclIndyCore package
+  {$IFDEF DCC}
+    {$IFDEF VCL_2005_OR_ABOVE}
+  ToolsAPI,
+  SysUtils,
+    {$ENDIF}
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  Windows,
+  {$ENDIF}
   {$IFDEF FPC}
   LResources,
   {$ENDIF}
   TaurusTLS;
 
+{$I TaurusTLS_Vers.inc}
+
 {$IFNDEF FPC}
   {$R *.dcr}
+{$ENDIF}
+
+{$IFDEF DCC}
+  {$IFDEF VCL_2005_OR_ABOVE}
+var
+  AboutBoxServices: IOTAAboutBoxServices = nil;
+  AboutBoxIndex: Integer = -1;
+
+procedure RegisterAboutBox;
+begin
+  SplashScreenServices.AddPluginBitmap(
+    gsTaurusTLSProductName +': v' + gsTaurusTLSVersion,
+    LoadBitmap(HInstance, 'SPLASH'));
+  if Supports(BorlandIDEServices, IOTAAboutBoxServices, AboutBoxServices) then
+  begin
+    AboutBoxIndex := AboutBoxServices.AddPluginInfo(
+      gsTaurusTLSProductName + ' ' + gsTaurusTLSVersion,
+      RSTaurusTLSDescription + sLineBreak + sLineBreak
+        + RSCopyright + sLineBreak
+        + RSAllRightsReserved + sLineBreak + sLineBreak
+        + RSIndyPortionsOf + RSIndyPortionsOfTwo + sLineBreak
+        + RSIndyRedistributionOf + sLineBreak + sLineBreak
+        + RSDisclaimerCondOne + sLineBreak + slineBreak
+        + RSDisclaimerCondTwo + sLineBreak + sLineBreak
+        + RSIndyDisclaimer,
+      LoadBitmap(HInstance,'SPLASH'),
+      False,
+      RSTAurusAboutBoxLicences);
+  end;
+end;
+
+procedure UnregisterAboutBox;
+begin
+  if (AboutBoxIndex <> -1) and (AboutBoxServices <> nil) then
+  begin
+    AboutBoxServices.RemovePluginInfo(AboutBoxIndex);
+  end;
+end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFDEF HAS_TSelectionEditor}
@@ -83,6 +133,14 @@ begin
   {$ENDIF}
 end;
 
+{$IFDEF DCC}
+  {$IFDEF VCL_2005_OR_ABOVE}
+initialization
+  RegisterAboutBox;
+finalization
+  UnregisterAboutBox;
+  {$ENDIF}
+{$ENDIF}
 {$IFDEF FPC}
 initialization
 {$i TaurusTLS_Dsn_Register.lrs}

@@ -1,14 +1,17 @@
-unit TaurusTLS_Dsn_ResourceStrings;
+﻿unit TaurusTLS_Dsn_ResourceStrings;
 
 interface
 
 resourcestring
   RSTaurusTLS = 'TaurusTLS';
   RSAAboutMenuItemName = 'About T&aurusTLS %s...';
+  RSTaurusTLSDescription = 'An attempt to make OpenSSL 1.1.1 and ' +
+    'OpenSSL 3.x compatible support for Indy - Internet Direct';
+  RSTAurusAboutBoxLicences = 'Taurus Modified BSD License'+#13#10+'Taurus MPL License';
   RSLicense = 'TaurusTLS is dual licensed. You can review which license ' +
     'better suits your needs, and use that license.  See LICENSE.md ' +
     'for details.';
-  RSCopyright = 'Copyright (c) 2024 Taurus Developers';
+  RSCopyright = 'Copyright (c) 2024 TaurusTLS Developers';
   RSAllRightsReserved = 'All Rights Reserved';
   RSThirdPartyAcknowlegements = '&Third-Party Acknowlegements...';
   RSOk = 'OK';

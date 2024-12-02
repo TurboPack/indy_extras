@@ -1,3 +1,4 @@
+const
   gsTaurusTLSVersionMajor = 1;
   {$NODEFINE gsTaurusTLSVersionMajor}
   gsTaurusTLSVersionMinor = 0;
