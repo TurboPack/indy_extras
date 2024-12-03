@@ -932,7 +932,10 @@ begin
   WriteLn('TaurusFTP Console Demo');
   WriteLn('Copyright (c) 2024 TaurusTLS Developers');
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
-  WriteLn('    ZLib Version: ' + zlibVersion());
+  if IdZlibHeaders.Load then
+  begin
+    WriteLn('    ZLib Version: ' + zlibVersion());
+  end;
   DoCommands;
 {$IFDEF FPC}
   // stop program loop
