@@ -931,6 +931,11 @@ begin
   { add your program here }
   WriteLn('TaurusFTP Console Demo');
   WriteLn('Copyright (c) 2024 TaurusTLS Developers');
+  {$IFNDEF FPC}
+  WriteLn('Operating System: ' + TOSVersion.ToString);
+  WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
+    IntToStr(Lo(GetRTLVersion)));
+  {$ENDIF}
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
   if IdZlibHeaders.Load then
   begin

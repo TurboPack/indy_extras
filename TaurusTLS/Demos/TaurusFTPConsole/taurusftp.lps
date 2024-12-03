@@ -65,9 +65,9 @@
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdZLibHeaders.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="443"/>
-        <CursorPos X="64" Y="458"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="761"/>
+        <CursorPos X="81" Y="932"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRegister.pas"/>
@@ -313,21 +313,26 @@
       </Unit>
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="769"/>
-        <CursorPos X="93" Y="773"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="929"/>
+        <CursorPos X="18" Y="937"/>
         <UsageCount Value="30"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="108"/>
-        <CursorPos X="27" Y="108"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="83"/>
+        <CursorPos X="71" Y="124"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="773" Column="93" TopLine="363"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
@@ -346,6 +351,8 @@
         <Item4 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
         <Item5 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
+      <List Name="CommandLineParameters" Count="1"/>
     </HistoryLists>
   </ProjectSession>
   <Debugging>
