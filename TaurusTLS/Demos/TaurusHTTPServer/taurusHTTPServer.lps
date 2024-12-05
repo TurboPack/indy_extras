@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="taurusHTTPServer.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos Y="7"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="taurushttpserver_unit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="taurusHTTPServer_unit"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="21"/>
+        <CursorPos Y="52"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\Source\TaurusTLS.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1050"/>
+        <CursorPos Y="1086"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\Core\IdThreadSafe.pas"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="696"/>
+        <CursorPos Y="723"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="214"/>
+        <CursorPos Y="253"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="4666"/>
+        <CursorPos Y="4696"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\Source\TaurusTLSHeaders_err.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="651"/>
+        <CursorPos X="58" Y="671"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="182" TopLine="163"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="194" TopLine="163"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="193" TopLine="163"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="194" TopLine="163"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="169" TopLine="161"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="198" TopLine="161"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="169" TopLine="161"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="198" TopLine="161"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="219" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="220" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="221" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="224" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="235" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="239" TopLine="194"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4692" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4694" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4696" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="240" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="242" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="245" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="246" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="249" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="252" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSLoader.pas"/>
+        <Caret Line="253" TopLine="214"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSHeaders_err.pas"/>
+        <Caret Line="677" TopLine="651"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSHeaders_err.pas"/>
+        <Caret Line="678" TopLine="651"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4692" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4694" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System\IdGlobal.pas"/>
+        <Caret Line="4696" TopLine="4666"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\Source\TaurusTLSHeaders_err.pas"/>
+        <Caret Line="679" TopLine="651"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="taurushttpserver_unit.pas"/>
+        <Line Value="52"/>
+      </Item>
+    </BreakPoints>
+  </Debugging>
+</CONFIG>
