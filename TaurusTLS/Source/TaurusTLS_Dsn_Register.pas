@@ -63,7 +63,11 @@ uses
 {$I TaurusTLS_Vers.inc}
 
 {$IFNDEF FPC}
-  {$R *.dcr}
+  {$IFDEF Borland}
+  {$R TaurusTLS_Dsn_Register_16.dcr}
+  {$ELSE}
+  {$R TaurusTLS_Dsn_Register.dcr}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFDEF DCC}

@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="5">
     <PathDelim Value="\"/>
-    <Name Value="TaurusTLSLaz"/>
+    <Name Value="TaurusTLSLDsgn"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="TaurusTLS Developers"/>
     <CompilerOptions>
@@ -38,13 +38,10 @@
     </Files>
     <RequiredPkgs>
       <Item>
+        <PackageName Value="TaurusTLSRT"/>
+      </Item>
+      <Item>
         <PackageName Value="indylaz"/>
-      </Item>
-      <Item>
-        <PackageName Value="IDEIntf"/>
-      </Item>
-      <Item>
-        <PackageName Value="FCL"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>
