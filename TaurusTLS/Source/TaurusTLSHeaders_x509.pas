@@ -17898,11 +17898,6 @@ function X509_NAME_hash(x: PX509_NAME): TIdC_ULONG;
 begin
   Result := X509_NAME_hash_ex(x,nil,nil,nil);
 end;
-
-
-
-
-
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
