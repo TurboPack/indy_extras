@@ -57,8 +57,12 @@ const
   
   {$IFDEF UNIX}
   DirListDelimiter = ':';
+    {$IFDEF OSX_OR_IOS}
+  LibSuffix = '.dylib';
+    {$ELSE}
   LibSuffix = '.so';
-  DefaultLibVersions = '.3:.1.1:.1.0.2:.1.0.0:.0.9.9:.0.9.8:.0.9.7:.0.9.6';
+    {$ENDIF}
+  DefaultLibVersions = '.3:.1.1';
   {$ENDIF}
   {$IFDEF WINDOWS}
   DirListDelimiter = ';';
