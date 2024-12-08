@@ -63,6 +63,8 @@ type
     procedure CmdClose;
     procedure CmdHelp(const ACmd: string);
     procedure CmdStatus;
+    procedure CmdDebugInfo;
+    procedure CmdAbout;
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -87,7 +89,7 @@ const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status'];
+    'status','debug-info','about'];
 
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
@@ -320,6 +322,12 @@ begin
   end;
 end;
 
+procedure TFTPApplication.CmdAbout;
+begin
+  WriteLn('TaurusFTP Console Demo');
+  WriteLn('Copyright (c) 2024 TaurusTLS Developers');
+end;
+
 procedure TFTPApplication.CmdCd(const ACmd: string);
 var
   LDir: TStringList;
@@ -492,6 +500,20 @@ begin
     end;
   finally
     FreeAndNil(LCmdParams);
+  end;
+end;
+
+procedure TFTPApplication.CmdDebugInfo;
+begin
+  {$IFNDEF FPC}
+  WriteLn('Operating System: ' + TOSVersion.ToString);
+  WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
+    IntToStr(Lo(GetRTLVersion)));
+  {$ENDIF}
+  WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
+  if IdZlibHeaders.Load then
+  begin
+    WriteLn('    ZLib Version: ' + zlibVersion());
   end;
 end;
 
@@ -691,9 +713,11 @@ begin
   if LCmd = '' then
   begin
     PrintCmdHelp(['?', 'help'], 'Prints help screen or command syntax');
+    PrintCmdHelp(['about'],'Show Information about this program');
     PrintCmdHelp(['cd', 'cwd'], 'Change remote directory');
     PrintCmdHelp(['cdup'], 'Change remote directory up a level');
     PrintCmdHelp(['close'], 'Terminate ftp session');
+    PrintCmdHelp(['debug-info'], 'Show debugging information');
     PrintCmdHelp(['del', 'delete'], 'Delete remote file');
     PrintCmdHelp(['dir'], 'List contents of remote directory');
     PrintCmdHelp(['exit', 'quit'], 'Terminate ftp session and exit');
@@ -816,6 +840,14 @@ begin
         begin
           PrintCmdHelp(['status'], 'Show current status', 'status');
         end;
+      26:
+        begin
+          PrintCmdHelp(['debug-info'], 'Show debugging information','debug-info');
+        end;
+      27:
+        begin
+          PrintCmdHelp(['about'],'Show Information about this program','about');
+        end;
     end;
   end;
 end;
@@ -835,63 +867,69 @@ begin
     ReadLn(LCmd);
     try
       case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds,False) of
-        // 'exit', 'quit'
         0, 1:
+        // 'exit', 'quit'
           Break;
-        // 'open',
         2:
+        // 'open',
           CmdOpen(LCmd);
-        // 'dir',
         3:
+        // 'dir',
           CmdDir(LCmd);
-        // 'pwd',
         4:
+        // 'pwd',
           CmdPwd;
-        // 'cd', 'cwd',
         5, 6:
+        // 'cd', 'cwd',
           CmdCd(LCmd);
-        // 'cdup',
         7:
+        // 'cdup',
           CmdCdUp;
-        // 'passive',
         8:
+        // 'passive',
           CmdPassive(LCmd);
-        // 'put',
         9:
+        // 'put',
           CmdPut(LCmd);
-        // 'get',
         10:
+        // 'get',
           CmdGet(LCmd);
-        // 'rename', 'ren',
         11, 12:
+        // 'rename', 'ren',
           CmdRename(LCmd);
-        // 'delete', 'del',
         13, 14:
+         // 'delete', 'del',
           CmdDelete(LCmd);
-        // 'md', 'mkdir',
         15, 16:
+         // 'md', 'mkdir',
           CmdMkdir(LCmd);
-        // 'rd','rmdir',
         17, 18:
+         // 'rd','rmdir',
           CmdRmdir(LCmd);
-        // 'lpwd',
         19:
+        // 'lpwd',
           CmdLPwd;
-        // 'lcd',
         20:
+        // 'lcd',
           CmdLCd(LCmd);
-        // 'ldir',
         21:
+          // 'ldir',
           CmdLDir(LCmd);
-        // 'close',
         22:
+         // 'close',
           CmdClose;
-        // 'help', '?'];
         23, 24:
+        // 'help', '?'];
           CmdHelp(LCmd);
-        // 'status'
         25:
+         // 'status'
           CmdStatus;
+        26:
+        //'debug-info'
+          CmdDebugInfo;
+        27:
+        //'about'
+          CmdAbout;
       else
         WriteLn('Bad Command');
       end;
@@ -929,18 +967,7 @@ begin
 begin
 {$ENDIF}
   { add your program here }
-  WriteLn('TaurusFTP Console Demo');
-  WriteLn('Copyright (c) 2024 TaurusTLS Developers');
-  {$IFNDEF FPC}
-  WriteLn('Operating System: ' + TOSVersion.ToString);
-  WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
-    IntToStr(Lo(GetRTLVersion)));
-  {$ENDIF}
-  WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
-  if IdZlibHeaders.Load then
-  begin
-    WriteLn('    ZLib Version: ' + zlibVersion());
-  end;
+  CmdAbout;
   DoCommands;
 {$IFDEF FPC}
   // stop program loop
