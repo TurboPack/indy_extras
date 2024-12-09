@@ -1,0 +1,3 @@
+[submodule "TaurusTLS/submodules/DUnitX"]
+	path = TaurusTLS/submodules/DUnitX
+	url = https://github.com/VSoftTechnologies/DUnitX.git
