@@ -30,7 +30,7 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 1. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\11AndAbove\Delphi folder.
 2. Compile TaurusTLS_RTForIndy290
 3. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
-4, Set the INDY_PATH environment variable for your user account to the location where Indy is located._
+4. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
 
 ## Lazarus Installation
 
