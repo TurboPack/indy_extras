@@ -45,7 +45,7 @@ TaurusTLS does require OpenSSL 1.1.1 or OpenSSL 3.x.
 ### Linux
 On Linux, OpenSSL is usually installed by default.  We recommend that developers document this requirement in case users need to install updated versions of OpenSSL.
 
-### NacIS
+### MacOS
 
 On MacOS, the default OpenSSL version is LibreSSL and that may NOT work.  You can install OpenSSL alongside LibreSSL using the instructions at:
 
