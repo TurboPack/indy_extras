@@ -1461,6 +1461,8 @@ begin
   try
     cboRemoteCurrentDir.Text := ACurDir;
     lvRemoteFiles.Items.Clear;
+    cboRemoteCurrentDir.Enabled := True;
+    lblRemotDir.Enabled := True;
     lvRemoteFiles.LargeImages := vimglstMainProgram;
     for i := 0 to IdFTPClient.DirectoryListing.Count - 1 do
     begin
