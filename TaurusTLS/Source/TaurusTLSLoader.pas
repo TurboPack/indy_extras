@@ -10,10 +10,6 @@
 
 unit TaurusTLSLoader;
 
-{$IFDEF MSWINDOWS}
-{$DEFINE WINDOWS}
-{$ENDIF}
-
 {$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
