@@ -257,10 +257,9 @@ type
   { May need to update constants below if adding to this set }
   TTaurusTLSSSLVersions = set of TTaurusTLSSSLVersion;
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
-  TIdSSLVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
-  TIdSSLVerifyModeSet = set of TIdSSLVerifyMode;
-  TIdSSLCtxMode = (sslCtxClient, sslCtxServer);
-  TIdSSLAction = (sslRead, sslWrite);
+  TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
+  TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
+  TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 
 const
   DEF_SSLVERSION = TLSv1_2;
@@ -291,7 +290,7 @@ type
     fMethod: TTaurusTLSSSLVersion;
     fVerifyDirs: String;
     fCipherList: String;
-    fVerifyMode: TIdSSLVerifyModeSet;
+    fVerifyMode: TTaurusTLSVerifyModeSet;
     procedure AssignTo(Destination: TPersistent); override;
     procedure SetSSLVersions(const AValue: TTaurusTLSSSLVersions);
     procedure SetMethod(const AValue: TTaurusTLSSSLVersion);
@@ -309,7 +308,7 @@ type
       write SetSSLVersions default DEF_SSLVERSIONS;
     { SSLVersions is only used to determine min version with TaurusTLS 1.1.0 or later }
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
-    property VerifyMode: TIdSSLVerifyModeSet read fVerifyMode write fVerifyMode;
+    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
     // property VerifyFile: String read fVerifyFile write fVerifyFile;
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
@@ -332,7 +331,7 @@ type
     fMode: TTaurusTLSSSLMode;
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fVerifyDepth: Integer;
-    fVerifyMode: TIdSSLVerifyModeSet;
+    fVerifyMode: TTaurusTLSVerifyModeSet;
     // fVerifyFile: String;
     fVerifyDirs: String;
     fCipherList: String;
@@ -347,11 +346,11 @@ type
 
     procedure DestroyContext;
     function GetSSLMethod: PSSL_METHOD;
-    function GetVerifyMode: TIdSSLVerifyModeSet;
+    function GetVerifyMode: TTaurusTLSVerifyModeSet;
   public
     constructor Create;
     destructor Destroy; override;
-    procedure InitContext(CtxMode: TIdSSLCtxMode);
+    procedure InitContext(CtxMode: TTaurusTLSCtxMode);
 
     function Clone: TTaurusTLSContext;
     property Context: PSSL_CTX read fContext;
@@ -370,12 +369,12 @@ type
     property CipherList: String read fCipherList write fCipherList;
     property KeyFile: String read fsKeyFile write fsKeyFile;
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
-    // property VerifyMode: TIdSSLVerifyModeSet read GetVerifyMode write SetVerifyMode;
+    // property VerifyMode: TTaurusTLSVerifyModeSet read GetVerifyMode write SetVerifyMode;
     // property VerifyFile: String read fVerifyFile write fVerifyFile;
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore;
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
-    property VerifyMode: TIdSSLVerifyModeSet read fVerifyMode write fVerifyMode;
+    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
 
   end;
@@ -846,7 +845,7 @@ begin
   end;
 end;
 
-function TranslateInternalVerifyToSSL(Mode: TIdSSLVerifyModeSet): Integer;
+function TranslateInternalVerifyToSSL(Mode: TTaurusTLSVerifyModeSet): Integer;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := SSL_VERIFY_NONE;
@@ -2116,7 +2115,7 @@ begin
   end;
 end;
 
-procedure TTaurusTLSContext.InitContext(CtxMode: TIdSSLCtxMode);
+procedure TTaurusTLSContext.InitContext(CtxMode: TTaurusTLSCtxMode);
 const
   SSLProtoVersion: array [TTaurusTLSSSLVersion] of TIdC_LONG = (0, 0, 0,
     SSL3_VERSION, { SSLv3 }
@@ -2432,7 +2431,7 @@ begin
   // TODO: provide an event so users can apply their own settings as needed...
 end;
 
-function TTaurusTLSContext.GetVerifyMode: TIdSSLVerifyModeSet;
+function TTaurusTLSContext.GetVerifyMode: TTaurusTLSVerifyModeSet;
 begin
   Result := fVerifyMode;
 end;
