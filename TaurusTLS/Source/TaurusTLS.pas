@@ -251,11 +251,25 @@ uses
 
 {$I TaurusTLSIndyVers.inc}
 
+  {$IFDEF GETURIHOST_SUPPORTED}
+const
+  SSLv2 = sslvSSLv2;
+  SSLv23 = sslvSSLv23;
+  SSLv3 = sslvSSLv3;
+  TLSv1 = sslvTLSv1;
+  TLSv1_1 = sslvTLSv1_1;
+  TLSv1_2 = sslvTLSv1_2;
+  TLSv1_3 = sslvTLSv1_3;
 type
-  TTaurusTLSSSLVersion = (Unknown, SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
+  TTaurusTLSSSLVersion = IdSSL.TIdSSLVersion;
+  TTaurusTLSSSLVersions = IdSSL.TIdSSLVersions;
+  {$ELSE}
+type
+  TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
   { May need to update constants below if adding to this set }
   TTaurusTLSSSLVersions = set of TTaurusTLSSSLVersion;
+  {$ENDIF}
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
   TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
@@ -565,6 +579,8 @@ type
 
   ETaurusTLSCouldNotLoadSSLLibrary = class(ETaurusTLSError);
   ETaurusTLSModeNotSet = class(ETaurusTLSError);
+  ETaurusTLSSessionCanNotBeNul = class(ETaurusTLSError);
+  ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
   ETaurusTLSGetMethodError = class(ETaurusTLSError);
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
@@ -2117,7 +2133,7 @@ end;
 
 procedure TTaurusTLSContext.InitContext(CtxMode: TTaurusTLSCtxMode);
 const
-  SSLProtoVersion: array [TTaurusTLSSSLVersion] of TIdC_LONG = (0, 0, 0,
+  SSLProtoVersion: array [TTaurusTLSSSLVersion] of TIdC_LONG = (0, 0,
     SSL3_VERSION, { SSLv3 }
     TLS1_VERSION, { TLSv1 }
     TLS1_1_VERSION, { TLSv1_1 }
@@ -2778,7 +2794,7 @@ end;
 function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
 begin
   if fSession = nil then
-    Result := Unknown
+    raise  ETaurusTLSSessionCanNotBeNul.Create(RSOSSSessionCanNotBeNul)
   else
     case SSL_SESSION_get_protocol_version(fSession) of
       SSL3_VERSION:
@@ -2792,16 +2808,13 @@ begin
       TLS1_3_VERSION:
         Result := TLSv1_3;
     else
-      Result := Unknown;
+      Raise ETaurusTLSInvalidSessionValue.Create(RSOSSInvalidSessionValue);
     end;
 end;
 
 function TTaurusTLSSocket.GetSSLProtocolVersionStr: string;
 begin
-  Result := 'Unknown';
   case SSLProtocolVersion of
-    Unknown:
-      Result := 'Unknown';
     SSLv23:
       Result := 'SSLv2 or SSLv3';
     SSLv2:

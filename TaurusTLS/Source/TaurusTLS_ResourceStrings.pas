@@ -15,6 +15,8 @@ resourcestring
   {TaurusTLS}
   RSOSSFailedToLoad = 'Failed to load %s.';
   RSOSSFailedToLoad_WithErrCode = 'Failed to load %s (error #%d).';
+  RSOSSSessionCanNotBeNul = 'Session can not be nul.';
+  RSOSSInvalidSessionValue = 'Invalid Session Value.';
   RSOSSMissingExport_WithErrCode = '%s (error #%d)';
   RSOSSUnsupportedVersion = 'Unsupported SSL Library version: %.8x.';
   RSOSSUnsupportedLibrary = 'Unsupported SSL Library: %s.';
