@@ -89,7 +89,7 @@ const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status','debug-info','about'];
+    'status', 'debug-info', 'about'];
 
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
@@ -211,7 +211,8 @@ begin
     ParseArgs(ACmd, LCmdParams);
     if LCmdParams.Count >= 3 then
     begin
-      case IdGlobal.PosInStrArray(LCmdParams[0], ['ftp', 'ftps', 'ftpsi'],False) of
+      case IdGlobal.PosInStrArray(LCmdParams[0],
+        ['ftp', 'ftps', 'ftpsi'], False) of
         0:
           begin
             FFTP.UseTLS := utNoTLSSupport;
@@ -376,7 +377,8 @@ begin
     ParseArgs(ACmd, LCmdParams);
     if LCmdParams.Count > 0 then
     begin
-      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false'],False) of
+      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false'],
+        False) of
         0, 1:
           FFTP.Passive := True;
         2, 3:
@@ -505,13 +507,14 @@ end;
 
 procedure TFTPApplication.CmdDebugInfo;
 begin
-  {$IFNDEF FPC}
+{$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
   WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
     IntToStr(Lo(GetRTLVersion)));
-  {$ENDIF}
+{$ENDIF}
+  WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
-  if IdZlibHeaders.Load then
+  if IdZLibHeaders.Load then
   begin
     WriteLn('    ZLib Version: ' + zlibVersion());
   end;
@@ -713,7 +716,7 @@ begin
   if LCmd = '' then
   begin
     PrintCmdHelp(['?', 'help'], 'Prints help screen or command syntax');
-    PrintCmdHelp(['about'],'Show Information about this program');
+    PrintCmdHelp(['about'], 'Show Information about this program');
     PrintCmdHelp(['cd', 'cwd'], 'Change remote directory');
     PrintCmdHelp(['cdup'], 'Change remote directory up a level');
     PrintCmdHelp(['close'], 'Terminate ftp session');
@@ -737,7 +740,7 @@ begin
   else
   begin
     LSubcommand := Fetch(LCmd);
-    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds,False) of
+    case IdGlobal.PosInStrArray(Fetch(LSubcommand), Prog_Cmds, False) of
       0, 1:
         begin
           PrintCmdHelp(['exit', 'quit'],
@@ -842,11 +845,13 @@ begin
         end;
       26:
         begin
-          PrintCmdHelp(['debug-info'], 'Show debugging information','debug-info');
+          PrintCmdHelp(['debug-info'], 'Show debugging information',
+            'debug-info');
         end;
       27:
         begin
-          PrintCmdHelp(['about'],'Show Information about this program','about');
+          PrintCmdHelp(['about'],
+            'Show Information about this program', 'about');
         end;
     end;
   end;
@@ -866,69 +871,69 @@ begin
     Write('ftp: ');
     ReadLn(LCmd);
     try
-      case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds,False) of
+      case IdGlobal.PosInStrArray(Fetch(LCmd), Prog_Cmds, False) of
         0, 1:
-        // 'exit', 'quit'
+          // 'exit', 'quit'
           Break;
         2:
-        // 'open',
+          // 'open',
           CmdOpen(LCmd);
         3:
-        // 'dir',
+          // 'dir',
           CmdDir(LCmd);
         4:
-        // 'pwd',
+          // 'pwd',
           CmdPwd;
         5, 6:
-        // 'cd', 'cwd',
+          // 'cd', 'cwd',
           CmdCd(LCmd);
         7:
-        // 'cdup',
+          // 'cdup',
           CmdCdUp;
         8:
-        // 'passive',
+          // 'passive',
           CmdPassive(LCmd);
         9:
-        // 'put',
+          // 'put',
           CmdPut(LCmd);
         10:
-        // 'get',
+          // 'get',
           CmdGet(LCmd);
         11, 12:
-        // 'rename', 'ren',
+          // 'rename', 'ren',
           CmdRename(LCmd);
         13, 14:
-         // 'delete', 'del',
+          // 'delete', 'del',
           CmdDelete(LCmd);
         15, 16:
-         // 'md', 'mkdir',
+          // 'md', 'mkdir',
           CmdMkdir(LCmd);
         17, 18:
-         // 'rd','rmdir',
+          // 'rd','rmdir',
           CmdRmdir(LCmd);
         19:
-        // 'lpwd',
+          // 'lpwd',
           CmdLPwd;
         20:
-        // 'lcd',
+          // 'lcd',
           CmdLCd(LCmd);
         21:
           // 'ldir',
           CmdLDir(LCmd);
         22:
-         // 'close',
+          // 'close',
           CmdClose;
         23, 24:
-        // 'help', '?'];
+          // 'help', '?'];
           CmdHelp(LCmd);
         25:
-         // 'status'
+          // 'status'
           CmdStatus;
         26:
-        //'debug-info'
+          // 'debug-info'
           CmdDebugInfo;
         27:
-        //'about'
+          // 'about'
           CmdAbout;
       else
         WriteLn('Bad Command');
