@@ -261,19 +261,21 @@ const
   TLSv1_2 = sslvTLSv1_2;
   TLSv1_3 = sslvTLSv1_3;
 type
-  TTaurusTLSSSLVersion = IdSSL.TIdSSLVersion;
-  TTaurusTLSSSLVersions = IdSSL.TIdSSLVersions;
+  TTaurusTLSSSLVersion = TIdSSLVersion;
+  TTaurusTLSSSLVersions = TIdSSLVersions;
+  TTaurusTLSSSLMode = TIdSSLMode;
+  TTaurusTLSCtxMode = TIdSSLCtxMode;
   {$ELSE}
 type
   TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
   { May need to update constants below if adding to this set }
   TTaurusTLSSSLVersions = set of TTaurusTLSSSLVersion;
-  {$ENDIF}
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
+  TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
+  {$ENDIF}
   TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
-  TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 
 const
   DEF_SSLVERSION = TLSv1_2;
