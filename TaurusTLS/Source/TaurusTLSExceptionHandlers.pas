@@ -44,10 +44,10 @@ type
   end;
   ETaurusTLSUnderlyingCryptoError = class(ETaurusTLSAPICryptoError);
 
-  EIdDigestError = class(ETaurusTLSAPICryptoError);
-  EIdDigestFinalEx = class(EIdDigestError);
-  EIdDigestInitEx = class(EIdDigestError);
-  EIdDigestUpdate = class(EIdDigestError);
+  ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSDigestFinalEx = class(ETaurusTLSDigestError);
+  ETaurusTLSDigestInitEx = class(ETaurusTLSDigestError);
+  ETaurusTLSDigestUpdate = class(ETaurusTLSDigestError);
 
   { ETaurusTLSAPIFunctionNotPresent }
 

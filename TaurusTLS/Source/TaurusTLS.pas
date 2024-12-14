@@ -572,7 +572,7 @@ type
   ETaurusTLSLoadingCertError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSLoadingKeyError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSLoadingDHParamsError = class(ETaurusTLSAPICryptoError);
-  ETaurusTLSSettingCipherError = class(ETaurusTLSError);
+  ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
@@ -2395,8 +2395,7 @@ begin
   end;
   if LError <= 0 then
   begin
-    // TODO: should this be using EIdOSSLSettingCipherError.RaiseException() instead?
-    raise ETaurusTLSSettingCipherError.Create(RSSSLSettingCipherError);
+    ETaurusTLSSettingCipherError.RaiseException(RSSSLSettingCipherError);
   end;
   if fVerifyMode <> [] then
   begin

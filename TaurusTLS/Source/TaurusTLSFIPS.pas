@@ -91,7 +91,7 @@ begin
   Result := EVP_MD_CTX_new;
 
   if EVP_DigestInit_ex(Result, AInst, nil) <> 1 then begin
-    EIdDigestInitEx.RaiseException(RSOSSLEVPDigestExError);
+    ETaurusTLSDigestInitEx.RaiseException(RSOSSLEVPDigestExError);
   end;
 end;
 
@@ -257,7 +257,7 @@ end;
 procedure TaurusTLSUpdateHashInst(ACtx: TIdHashIntCtx; const AIn: TIdBytes);
 begin
   if EVP_DigestUpdate(ACtx, PByte(Ain), Length(AIn)) <> 1 then begin
-    EIdDigestInitEx.RaiseException(RSOSSLEVPDigestUpdateError);
+    ETaurusTLSDigestInitEx.RaiseException(RSOSSLEVPDigestUpdateError);
   end;
 end;
 
@@ -267,7 +267,7 @@ var
 begin
   SetLength(Result,EVP_MAX_MD_SIZE);
   if EVP_DigestFinal_ex(ACtx, PByte(@Result[0]), LLen) <> 1 then begin
-    EIdDigestFinalEx.RaiseException('EVP_DigestFinal_ex error');
+    ETaurusTLSDigestFinalEx.RaiseException('EVP_DigestFinal_ex error');
   end;
   SetLength(Result,LLen);
   EVP_MD_CTX_free(PEVP_MD_CTX(ACtx));
