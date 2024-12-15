@@ -1060,6 +1060,7 @@ begin
 {$ELSE}
   redtLog.Lines.Add('    Compiled For: Win32');
 {$ENDIF}
+  redtLog.Lines.Add('    Indy version: ' + gsIdVersion);
   redtLog.Lines.Add('    ZLib version: ' + zlibVersion);
   redtLog.Lines.Add(' OpenSSL Version: ' + OpenSSLVersion);
   if GetOpenSSLLoader.GetFailedToLoad.Count > 0 then
