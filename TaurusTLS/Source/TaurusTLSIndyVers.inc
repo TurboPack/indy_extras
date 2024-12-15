@@ -18,9 +18,13 @@ FATAL Indy Version Unssupported
       {$DEFINE HAS_TIdSSLVersion}
     {$IFEND}
   {$IFEND}
+{$ELSE}
+  {$IF (gsIdVersionMinor > 6)}
+    {$DEFINE GETURIHOST_SUPPORTED}
+    {$DEFINE HAS_TIdSSLVersion}
+  {$IFEND}
 {$IFEND}
 {$IF (gsIdVersionRelease > 6)}
   {$DEFINE GETURIHOST_SUPPORTED}
-  {$DEFINE HAS_TIdSSLVersion}
 {$IFEND}
 
