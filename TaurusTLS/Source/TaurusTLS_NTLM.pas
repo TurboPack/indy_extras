@@ -51,22 +51,22 @@ type
  * turns a 56 bit key into the 64 bit, odd parity key and sets the key.
  * The key schedule ks is also set.
  */}
-procedure setup_des_key(const key_56: des_cblock; Var ks: des_key_schedule);
+procedure setup_des_key(const Akey_56: des_cblock; Var Vks: des_key_schedule);
 Var
-  key: des_cblock;
+  Lkey: des_cblock;
 begin
-  key[0] := key_56[0];
+  Lkey[0] := Akey_56[0];
 
-  key[1] := ((key_56[0] SHL 7) and $FF) or (key_56[1] SHR 1);
-  key[2] := ((key_56[1] SHL 6) and $FF) or (key_56[2] SHR 2);
-  key[3] := ((key_56[2] SHL 5) and $FF) or (key_56[3] SHR 3);
-  key[4] := ((key_56[3] SHL 4) and $FF) or (key_56[4] SHR 4);
-  key[5] := ((key_56[4] SHL 3) and $FF) or (key_56[5] SHR 5);
-  key[6] := ((key_56[5] SHL 2) and $FF) or (key_56[6] SHR 6);
-  key[7] :=  (key_56[6] SHL 1) and $FF;
+  Lkey[1] := ((Akey_56[0] SHL 7) and $FF) or (Akey_56[1] SHR 1);
+  Lkey[2] := ((Akey_56[1] SHL 6) and $FF) or (Akey_56[2] SHR 2);
+  Lkey[3] := ((Akey_56[2] SHL 5) and $FF) or (Akey_56[3] SHR 3);
+  Lkey[4] := ((Akey_56[3] SHL 4) and $FF) or (Akey_56[4] SHR 4);
+  Lkey[5] := ((Akey_56[4] SHL 3) and $FF) or (Akey_56[5] SHR 5);
+  Lkey[6] := ((Akey_56[5] SHL 2) and $FF) or (Akey_56[6] SHR 6);
+  Lkey[7] :=  (Akey_56[6] SHL 1) and $FF;
 
-  DES_set_odd_parity(@key);
-  DES_set_key(@key, ks);
+  DES_set_odd_parity(@Lkey);
+  DES_set_key(@Lkey, Vks);
 end;
 
 {/*
@@ -74,20 +74,20 @@ end;
  * 8 byte plaintext is encrypted with each key and the resulting 24
  * bytes are stored in the results array.
  */}
-procedure calc_resp(keys: PDES_cblock; const ANonce: TIdBytes; results: Pdes_key_schedule);
+procedure calc_resp(Vkeys: PDES_cblock; const ANonce: TIdBytes; Vresults: Pdes_key_schedule);
 Var
-  ks: DES_key_schedule;
-  nonce: des_cblock;
+  Lks: DES_key_schedule;
+  Lnonce: des_cblock;
 begin
-  setup_des_key(keys^, ks);
-  Move(ANonce[0], nonce, 8);
-  des_ecb_encrypt(@nonce, PDES_cblock(@results^), @ks, DES_ENCRYPT);
+  setup_des_key(Vkeys^, Lks);
+  Move(ANonce[0], Lnonce, 8);
+  des_ecb_encrypt(@Lnonce, PDES_cblock(@Vresults^), @Lks, DES_ENCRYPT);
 
-  setup_des_key(PDES_cblock(PtrUInt(keys) + 7)^, ks);
-  des_ecb_encrypt(@nonce, PDES_cblock(PtrUInt(results) + 8), @ks, DES_ENCRYPT);
+  setup_des_key(PDES_cblock(PtrUInt(Vkeys) + 7)^, Lks);
+  des_ecb_encrypt(@Lnonce, PDES_cblock(PtrUInt(Vresults) + 8), @Lks, DES_ENCRYPT);
 
-  setup_des_key(PDES_cblock(PtrUInt(keys) + 14)^, ks);
-  des_ecb_encrypt(@nonce, PDES_cblock(PtrUInt(results) + 16), @ks, DES_ENCRYPT);
+  setup_des_key(PDES_cblock(PtrUInt(Vkeys) + 14)^, Lks);
+  des_ecb_encrypt(@Lnonce, PDES_cblock(PtrUInt(Vresults) + 16), @Lks, DES_ENCRYPT);
 end;
 
 Const
@@ -98,7 +98,7 @@ function SetupLanManagerPassword(const APassword: String; const ANonce: TIdBytes
 var
   lm_hpw: array[0..20] of Byte;
   lm_pw: array[0..13] of Byte;
-  idx, len: Integer;
+  idx, len : Integer;
   ks: des_key_schedule;
   lm_resp: array [0..23] of Byte;
   lPassword: {$IFDEF STRING_IS_UNICODE}TIdBytes{$ELSE}AnsiString{$ENDIF};
@@ -109,7 +109,7 @@ begin
   lPassword := UpperCase(APassword);
   {$ENDIF}
 
-  len := IndyMin(Length(lPassword), 14);
+  len := Integer(IndyMin(Length(lPassword), 14));
   if len > 0 then begin
     Move(lPassword[{$IFDEF STRING_IS_UNICODE}0{$ELSE}1{$ENDIF}], lm_pw[0], len);
   end;
@@ -138,41 +138,41 @@ end;
 //* create NT hashed password */
 function CreateNTPassword(const APassword: String; const ANonce: TIdBytes): TIdBytes;
 var
-  nt_hpw: array [1..21] of Byte;
-  nt_hpw128: TIdBytes;
-  nt_resp: array [1..24] of Byte;
+  Lnt_hpw: array [1..21] of Byte;
+  Lnt_hpw128: TIdBytes;
+  Lnt_resp: array [1..24] of Byte;
   LMD4: TIdHashMessageDigest4;
   {$IFNDEF STRING_IS_UNICODE}
   i: integer;
-  lPwUnicode: TIdBytes;
+  LPwUnicode: TIdBytes;
   {$ENDIF}
 begin
   CheckMD4Permitted;
   LMD4 := TIdHashMessageDigest4.Create;
   try
     {$IFDEF STRING_IS_UNICODE}
-    nt_hpw128 := LMD4.HashString(APassword, IndyTextEncoding_UTF16LE);
+    Lnt_hpw128 := LMD4.HashString(APassword, IndyTextEncoding_UTF16LE);
     {$ELSE}
     // RLebeau: TODO - should this use UTF-16 as well?  This logic will
     // not produce a valid Unicode string if non-ASCII characters are present!
     SetLength(lPwUnicode, Length(APassword) * SizeOf(WideChar));
     for i := 0 to Length(APassword)-1 do begin
-      lPwUnicode[i*2] := Byte(APassword[i+1]);
-      lPwUnicode[(i*2)+1] := Byte(#0);
+      LPwUnicode[i*2] := Byte(APassword[i+1]);
+      LPwUnicode[(i*2)+1] := Byte(#0);
     end;
-    nt_hpw128 := LMD4.HashBytes(lPwUnicode);
+    Lnt_hpw128 := LMD4.HashBytes(lPwUnicode);
     {$ENDIF}
   finally
     LMD4.Free;
   end;
 
-  Move(nt_hpw128[0], nt_hpw[1], 16);
-  FillChar(nt_hpw[17], 5, 0);
+  Move(Lnt_hpw128[0], Lnt_hpw[1], 16);
+  FillChar(Lnt_hpw[17], 5, 0);
 
-  calc_resp(pdes_cblock(@nt_hpw[1]), ANonce, Pdes_key_schedule(@nt_resp[1]));
+  calc_resp(pdes_cblock(@Lnt_hpw[1]), ANonce, Pdes_key_schedule(@Lnt_resp[1]));
 
-  SetLength(Result, SizeOf(nt_resp));
-  Move(nt_resp[1], Result[0], SizeOf(nt_resp));
+  SetLength(Result, SizeOf(Lnt_resp));
+  Move(Lnt_resp[1], Result[0], SizeOf(Lnt_resp));
 end;
 
 initialization
