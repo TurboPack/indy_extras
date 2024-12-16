@@ -107,7 +107,8 @@ var
   default_passwd_cb: pem_password_cb;
 begin
   Result := 0;
-
+  LKey := nil;
+  LCert := nil;
   LM := TMemoryStream.Create;
   try
     LM.LoadFromFile(AFileName);
@@ -179,14 +180,15 @@ var
   b: PBIO;
   LCert: PX509;
   P12: PPKCS12;
-  PKey: PEVP_PKEY;
+  LKey: PEVP_PKEY;
   CertChain: PSTACK_OF_X509;
   LPassword: array of TIdAnsiChar;
   LPasswordPtr: PIdAnsiChar;
   default_passwd_callback: pem_password_cb;
 begin
   Result := 0;
-
+  LKey := nil;
+  LCert := nil;
   LM := TMemoryStream.Create;
   try
     LM.LoadFromFile(AFileName);
@@ -228,7 +230,7 @@ begin
         Exit;
       end;
       try
-        if PKCS12_parse(P12, LPasswordPtr, PKey, LCert, @CertChain) <> 1 then
+        if PKCS12_parse(P12, LPasswordPtr, LKey, LCert, @CertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
           Exit;
@@ -238,7 +240,7 @@ begin
         finally
           sk_pop_free(CertChain, @X509_free);
           X509_free(LCert);
-          EVP_PKEY_free(PKey);
+          EVP_PKEY_free(LKey);
         end;
       finally
         PKCS12_free(P12);
