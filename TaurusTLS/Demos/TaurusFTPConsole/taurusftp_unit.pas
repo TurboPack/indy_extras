@@ -65,6 +65,7 @@ type
     procedure CmdStatus;
     procedure CmdDebugInfo;
     procedure CmdAbout;
+    procedure CmdQuote(const ACmd: string);
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -89,7 +90,7 @@ const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status', 'debug-info', 'about'];
+    'status', 'debug-info', 'about', 'quote'];
 
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
@@ -320,6 +321,25 @@ begin
   else
   begin
     WriteLn('Must be connected to use this command');
+  end;
+end;
+
+procedure TFTPApplication.CmdQuote(const ACmd: string);
+begin
+  if TrimLeft(ACmd) <> '' then
+  begin
+    if FFTP.Connected then
+    begin
+      FFTP.Quote(TrimLeft(ACmd));
+    end
+    else
+    begin
+      WriteLn('Must be connected to use this command');
+    end;
+  end
+  else
+  begin
+    WriteLn('Syntax Error');
   end;
 end;
 
@@ -736,6 +756,7 @@ begin
     PrintCmdHelp(['rd', 'rmdir'], 'Remove directory on the remote machine');
     PrintCmdHelp(['rename', 'ren'], 'Rename remote file');
     PrintCmdHelp(['status'], 'Show current status');
+    PrintCmdHelp(['quote'], 'Send arbitrary ftp command');
   end
   else
   begin
@@ -853,6 +874,11 @@ begin
           PrintCmdHelp(['about'],
             'Show Information about this program', 'about');
         end;
+      28:
+        begin
+          PrintCmdHelp(['quote'], 'Send arbitrary ftp command',
+            'quote command');
+        end;
     end;
   end;
 end;
@@ -935,6 +961,8 @@ begin
         27:
           // 'about'
           CmdAbout;
+        28:
+          CmdQuote(LCmd);
       else
         WriteLn('Bad Command');
       end;
