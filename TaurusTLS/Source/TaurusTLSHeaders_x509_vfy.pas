@@ -32,7 +32,8 @@ uses
   IdCTypes,
   IdGlobal,
   TaurusTLSHeaders_ssl,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_x509;
 
 const
   X509_L_FILE_LOAD = 1;
@@ -622,8 +623,8 @@ var
 //  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
 //  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
   X509_STORE_CTX_set_cert: procedure (c: PX509_STORE_CTX; x: PX509); cdecl = nil;
-//  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
-//  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
+  X509_STORE_CTX_set0_verified_chain : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl = nil;
+  X509_STORE_CTX_set0_crls : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL); cdecl = nil;
   X509_STORE_CTX_set_purpose: function (ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_STORE_CTX_set_trust: function (ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_STORE_CTX_purpose_inherit: function (ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -910,8 +911,8 @@ var
 //  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
 //  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
   procedure X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto;
-//  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
-//  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
+  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
+  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
   function X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1294,8 +1295,8 @@ const
 //  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
 //  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
   X509_STORE_CTX_set_cert_procname = 'X509_STORE_CTX_set_cert';
-//  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
-//  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
+  X509_STORE_CTX_set0_verified_chain_procname = 'X509_STORE_CTX_set0_verified_chain';
+  X509_STORE_CTX_set0_crls_procname = 'X509_STORE_CTX_set0_crls';
   X509_STORE_CTX_set_purpose_procname = 'X509_STORE_CTX_set_purpose';
   X509_STORE_CTX_set_trust_procname = 'X509_STORE_CTX_set_trust';
   X509_STORE_CTX_purpose_inherit_procname = 'X509_STORE_CTX_purpose_inherit';
@@ -2207,9 +2208,17 @@ begin
 end;
 
 
-//  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
-//  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
-function  ERR_X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT; 
+procedure ERR_X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_verified_chain_procname);
+end;
+
+procedure ERR_X509_STORE_CTX_set0_crls(c : X509_STORE_CTX; sk : PSTACK_OF_X509_CRL);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_crls_procname);
+end;
+
+function  ERR_X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_purpose_procname);
 end;

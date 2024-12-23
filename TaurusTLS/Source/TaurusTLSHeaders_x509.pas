@@ -284,13 +284,13 @@ type
 
   //typedef STACK_OF(X509_EXTENSION) X509_EXTENSIONS;
   //
-  //DEFINE_STACK_OF(X509_EXTENSION)
-
+  PSTACK_OF_X509_EXTENSION = type Pointer;
+  PX509_EXTENSIONS = PSTACK_OF_X509_EXTENSION;
   X509_ATTRIBUTE = type Pointer; // x509_attributes_st
   PX509_ATTRIBUTE = ^X509_ATTRIBUTE;
   PPX509_ATTRIBUTE = ^PX509_ATTRIBUTE;
 
-  //DEFINE_STACK_OF(X509_ATTRIBUTE)
+  PSTACK_OF_X509_ATTRIBUTE = type Pointer;
 
   X509_REQ_INFO = type Pointer; // X509_req_info_st
   PX509_REQ_INFO = ^X509_REQ_INFO;
@@ -316,14 +316,12 @@ type
   X509_TRUST = x509_trust_st;
   PX509_TRUST = ^X509_TRUST;
 
-  //DEFINE_STACK_OF(X509_TRUST)
-
-  //DEFINE_STACK_OF(X509_REVOKED)
+  PSTACK_OF_X509_TRUST = type Pointer;
+  PSTACK_OF_X509_REVOKED = type Pointer;
   X509_CRL_INFO = type Pointer; // X509_crl_info_st
   PX509_CRL_INFO = ^X509_CRL_INFO;
   PPX509_CRL_INFO = ^PX509_CRL_INFO;
-
-  //DEFINE_STACK_OF(X509_CRL)
+  PSTACK_OF_X509_CRL = type Pointer;
 
   private_key_st = record
     version: TIdC_INT;
@@ -352,8 +350,6 @@ type
   end;
   X509_INFO = X509_info_st;
   PX509_INFO = ^X509_INFO;
-
-  //DEFINE_STACK_OF(X509_INFO)
 
   (*
    * The next 2 structures and their 8 routines are used to manipulate Netscape's
@@ -675,6 +671,8 @@ type
   {$EXTERNALSYM X509_CRL_get0_lastUpdate} {introduced 1.1.0}
   {$EXTERNALSYM X509_CRL_get0_nextUpdate} {introduced 1.1.0}
   {$EXTERNALSYM X509_CRL_get_issuer} {introduced 1.1.0}
+  {$EXTERNALSYM X509_CRL_get0_extensions}
+  {$EXTERNALSYM X509_CRL_get_REVOKED}
   {$EXTERNALSYM X509_CRL_get0_signature} {introduced 1.1.0}
   {$EXTERNALSYM X509_CRL_get_signature_nid} {introduced 1.1.0}
   {$EXTERNALSYM i2d_re_X509_CRL_tbs} {introduced 1.1.0}
@@ -682,6 +680,7 @@ type
   {$EXTERNALSYM X509_REVOKED_set_serialNumber}
   {$EXTERNALSYM X509_REVOKED_get0_revocationDate} {introduced 1.1.0}
   {$EXTERNALSYM X509_REVOKED_set_revocationDate}
+  {$EXTERNALSYM X509_REVOKED_get0_extensions}
   {$EXTERNALSYM X509_CRL_diff}
   {$EXTERNALSYM X509_REQ_check_private_key}
   {$EXTERNALSYM X509_check_private_key}
@@ -805,11 +804,7 @@ type
   {$EXTERNALSYM X509_NAME_hash_ex} {introduced 3.0.0}
 {helper_functions}
 type
-{$EXTERNALSYM Tsk_pop_free_func}
-{$EXTERNALSYM Tsk_new_cmp}
 {$EXTERNALSYM PSTACK_OF_X509_INFO}
-  Tsk_new_cmp = function (const a, b : PIdAnsiChar; const c : PIdAnsiChar) : TIdC_INT cdecl;
-  Tsk_pop_free_func = procedure (p : Pointer); cdecl;
   PSTACK_OF_X509_INFO = pointer;
  {$EXTERNALSYM sk_X509_NAME_new}
  {$EXTERNALSYM sk_X509_NAME_new_null}
@@ -843,9 +838,8 @@ type
 {$EXTERNALSYM Tsk_X509_INFO_dup}
 {$EXTERNALSYM Tsk_X509_INFO_find}
 {$EXTERNALSYM Tsk_X509_INFO_pop_free}
-{$EXTERNALSYM Tsk_new_cmp}
 type
-  Tsk_X509_NAME_new = function(cmp : Tsk_new_cmp) : PSTACK_OF_X509_NAME cdecl;
+  Tsk_X509_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_new_null = function : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_free = procedure(st : PSTACK_OF_X509_NAME) cdecl;
   Tsk_X509_NAME_num = function (const sk : PSTACK_OF_X509_NAME) : TIdC_INT cdecl;
@@ -853,13 +847,37 @@ type
   Tsk_X509_NAME_push = function (sk : PSTACK_OF_X509_NAME; st : PX509_NAME) : TIdC_INT cdecl;
   Tsk_X509_NAME_dup = function (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_find = function (sk : PSTACK_OF_X509_NAME; _val : PX509_NAME) : TIdC_INT cdecl;
-  Tsk_X509_NAME_pop_free = procedure (sk : PSTACK_OF_X509_NAME; func: Tsk_pop_free_func) cdecl;
+  Tsk_X509_NAME_pop_free = procedure (sk : PSTACK_OF_X509_NAME; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_X509_INFO_num = function (const sk : PSTACK_OF_X509_INFO) : TIdC_INT cdecl;
   Tsk_X509_INFO_value = function (const sk : PSTACK_OF_X509_INFO; i : TIdC_INT) : PX509_INFO cdecl;
   Tsk_X509_INFO_push = function (sk : PSTACK_OF_X509_INFO; st : PX509_INFO) : TIdC_INT cdecl;
   Tsk_X509_INFO_dup = function (sk : PSTACK_OF_X509_INFO) : PSTACK_OF_X509_INFO cdecl;
   Tsk_X509_INFO_find = function (sk : PSTACK_OF_X509_INFO; _val : PX509_INFO) : TIdC_INT cdecl;
-  Tsk_X509_INFO_pop_free = procedure (sk : PSTACK_OF_X509_INFO; func: Tsk_pop_free_func) cdecl;
+  Tsk_X509_INFO_pop_free = procedure (sk : PSTACK_OF_X509_INFO; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_X509_EXTENSION_num = function (const sk : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl;
+  Tsk_X509_EXTENSION_value = function (const sk : PSTACK_OF_X509_EXTENSION; i : TIdC_INT) : PX509_EXTENSION cdecl;
+  Tsk_X509_EXTENSION_push = function (sk : PSTACK_OF_X509_EXTENSION; st : PX509_EXTENSION) : TIdC_INT cdecl;
+  Tsk_X509_EXTENSION_dup = function (sk : PSTACK_OF_X509_EXTENSION) : PSTACK_OF_X509_EXTENSION cdecl;
+  Tsk_X509_EXTENSION_find = function (sk : PSTACK_OF_X509_EXTENSION; _val : PX509_EXTENSION) : TIdC_INT cdecl;
+  Tsk_X509_EXTENSION_pop_free = procedure (sk : PSTACK_OF_X509_EXTENSION; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_X509_REVOKED_num = function (const sk : PSTACK_OF_X509_REVOKED) : TIdC_INT cdecl;
+  Tsk_X509_REVOKED_value = function (const sk : PSTACK_OF_X509_REVOKED; i : TIdC_INT) : PX509_REVOKED cdecl;
+  Tsk_X509_REVOKED_push = function (sk : PSTACK_OF_X509_REVOKED; st : PX509_REVOKED) : TIdC_INT cdecl;
+  Tsk_X509_REVOKED_dup = function (sk : PSTACK_OF_X509_REVOKED) : PSTACK_OF_X509_REVOKED cdecl;
+  Tsk_X509_REVOKED_find = function (sk : PSTACK_OF_X509_REVOKED; _val : PX509_REVOKED) : TIdC_INT cdecl;
+  Tsk_X509_REVOKED_pop_free = procedure (sk : PSTACK_OF_X509_REVOKED; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_X509_CRL_num = function (const sk : PSTACK_OF_X509_CRL) : TIdC_INT cdecl;
+  Tsk_X509_CRL_value = function (const sk : PSTACK_OF_X509_CRL; i : TIdC_INT) : PX509_CRL cdecl;
+  Tsk_X509_CRL_push = function (sk : PSTACK_OF_X509_CRL; st : PX509_CRL) : TIdC_INT cdecl;
+  Tsk_X509_CRL_dup = function (sk : PSTACK_OF_X509_CRL) : PSTACK_OF_X509_CRL cdecl;
+  Tsk_X509_CRL_find = function (sk : PSTACK_OF_X509_CRL; _val : PX509_CRL) : TIdC_INT cdecl;
+  Tsk_X509_CRL_pop_free = procedure (sk : PSTACK_OF_X509_CRL; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_X509_ATTRIBUTE_num = function (const sk : PSTACK_OF_X509_ATTRIBUTE) : TIdC_INT cdecl;
+  Tsk_X509_ATTRIBUTE_value = function (const sk : PSTACK_OF_X509_ATTRIBUTE; i : TIdC_INT) : PX509_ATTRIBUTE cdecl;
+  Tsk_X509_ATTRIBUTE_push = function (sk : PSTACK_OF_X509_ATTRIBUTE; st : PX509_ATTRIBUTE) : TIdC_INT cdecl;
+  Tsk_X509_ATTRIBUTE_dup = function (sk : PSTACK_OF_X509_ATTRIBUTE) : PSTACK_OF_X509_ATTRIBUTE cdecl;
+  Tsk_X509_ATTRIBUTE_find = function (sk : PSTACK_OF_X509_ATTRIBUTE; _val : PX509_ATTRIBUTE) : TIdC_INT cdecl;
+  Tsk_X509_ATTRIBUTE_pop_free = procedure (sk : PSTACK_OF_X509_ATTRIBUTE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
   sk_X509_NAME_new: Tsk_X509_NAME_new absolute sk_new;
@@ -877,6 +895,30 @@ var
   sk_X509_INFO_dup : Tsk_X509_INFO_dup absolute sk_dup;
   sk_X509_INFO_find : Tsk_X509_INFO_find absolute sk_find;
   sk_X509_INFO_pop_free : Tsk_X509_INFO_pop_free absolute sk_pop_free;
+  sk_X509_EXTENSION_num : Tsk_X509_EXTENSION_num absolute sk_num;
+  sk_X509_EXTENSION_value : Tsk_X509_EXTENSION_value absolute sk_value;
+  sk_X509_EXTENSION_push : Tsk_X509_EXTENSION_push absolute sk_push;
+  sk_X509_EXTENSION_dup : Tsk_X509_EXTENSION_dup absolute sk_dup;
+  sk_X509_EXTENSION_find : Tsk_X509_EXTENSION_find absolute sk_find;
+  sk_X509_EXTENSION_pop_free : Tsk_X509_EXTENSION_pop_free absolute sk_pop_free;
+  sk_X509_REVOKED_num : Tsk_X509_REVOKED_num absolute sk_num;
+  sk_X509_REVOKED_value : Tsk_X509_REVOKED_value absolute sk_value;
+  sk_X509_REVOKED_push : Tsk_X509_REVOKED_push absolute sk_push;
+  sk_X509_REVOKED_dup : Tsk_X509_REVOKED_dup absolute sk_dup;
+  sk_X509_REVOKED_find : Tsk_X509_REVOKED_find absolute sk_find;
+  sk_X509_REVOKED_pop_free : Tsk_X509_REVOKED_pop_free absolute sk_pop_free;
+  sk_X509_CRL_num : Tsk_X509_CRL_num absolute sk_num;
+  sk_X509_CRL_value : Tsk_X509_CRL_value absolute sk_value;
+  sk_X509_CRL_push : Tsk_X509_CRL_push absolute sk_push;
+  sk_X509_CRL_dup : Tsk_X509_CRL_dup absolute sk_dup;
+  sk_X509_CRL_find : Tsk_X509_CRL_find absolute sk_find;
+  sk_X509_CRL_pop_free : Tsk_X509_CRL_pop_free absolute sk_pop_free;
+  sk_X509_ATTRIBUTE_num : Tsk_X509_ATTRIBUTE_num absolute sk_num;
+  sk_X509_ATTRIBUTE_value : Tsk_X509_ATTRIBUTE_value absolute sk_value;
+  sk_X509_ATTRIBUTE_push : Tsk_X509_ATTRIBUTE_push absolute sk_push;
+  sk_X509_ATTRIBUTE_dup : Tsk_X509_ATTRIBUTE_dup absolute sk_dup;
+  sk_X509_ATTRIBUTE_find : Tsk_X509_ATTRIBUTE_find absolute sk_find;
+  sk_X509_ATTRIBUTE_pop_free : Tsk_X509_ATTRIBUTE_pop_free absolute sk_pop_free;
 {$ELSE}
   function sk_X509_NAME_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_NAME_new_null : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -893,7 +935,30 @@ var
   function sk_X509_INFO_dup (sk : PSTACK_OF_X509_INFO) : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_INFO_find (sk : PSTACK_OF_X509_INFO; val : PX509_INFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_INFO_pop_free (sk : PSTACK_OF_X509_INFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-
+  function sk_X509_EXTENSION_num (const sk : PSTACK_OF_X509_EXTENSION) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_EXTENSION_value (const sk : PSTACK_OF_X509_EXTENSION; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_EXTENSION_push (sk : PSTACK_OF_X509_EXTENSION; st : PX509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_X509_EXTENSION_dup (sk : PSTACK_OF_X509_EXTENSION) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_EXTENSION_find (sk : PSTACK_OF_X509_EXTENSION; val : PX509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_EXTENSION_pop_free (sk : PSTACK_OF_X509_EXTENSION; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_X509_REVOKED_num (const sk : PSTACK_OF_X509_REVOKED) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_REVOKED_value (const sk : PSTACK_OF_REVOKED; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_REVOKED_push (sk : PSTACK_OF_X509_REVOKED; st : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_X509_REVOKED_dup (sk : PSTACK_OF_X509_REVOKED) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_REVOKED_find (sk : PSTACK_OF_X509_REVOKED; val : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_REVOKED_pop_free (sk : PSTACK_OF_X509_REVOKED; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_X509_CRL_num (const sk : PSTACK_OF_X509_CRL) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_CRL_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_CRL_push (sk : PSTACK_OF_X509_CRL; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_X509_CRL_dup (sk : PSTACK_OF_X509_CRL) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_CRL_find (sk : PSTACK_OF_X509_CRL; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_CRL_pop_free (sk : PSTACK_OF_X509_CRL; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_X509_ATTRIBUTE_num (const sk : PSTACK_OF_X509_ATTRIBUTE) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_ATTRIBUTE_value (const sk : PSTACK_OF_ATTRIBUTE; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_ATTRIBUTE_push (sk : PSTACK_OF_X509_ATTRIBUTE; st : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_X509_ATTRIBUTE_dup (sk : PSTACK_OF_X509_ATTRIBUTE) : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_ATTRIBUTE_find (sk : PSTACK_OF_X509_ATTRIBUTE; val : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_ATTRIBUTE_pop_free (sk : PSTACK_OF_X509_ATTRIBUTE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 {$ENDIF}
 {/helper_functions}
 
@@ -1261,10 +1326,10 @@ var
   X509_REQ_extension_nid: function (nid: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_REQ_get_extension_nids: function : PIdC_INT; cdecl = nil;
   X509_REQ_set_extension_nids: procedure (nids: PIdC_INT); cdecl = nil;
-//  STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(X509_REQ *req);
-  //TIdC_INT X509_REQ_add_extensions_nid(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts,
-  //                                TIdC_INT nid);
-  //TIdC_INT X509_REQ_add_extensions(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts);
+  X509_REQ_get_extensions : function(req : PX509_REQ) : PSTACK_OF_X509_EXTENSION; cdecl = nil;
+  X509_REQ_add_extensions_nid : function(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION;
+                                         nid : TIdC_INT) : TIdC_INT; cdecl = nil;
+  X509_REQ_add_extensions : function(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT; cdecl = nil;
   X509_REQ_get_attr_count: function (const req: PX509_REQ): TIdC_INT; cdecl = nil;
   X509_REQ_get_attr_by_NID: function (const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_REQ_get_attr_by_OBJ: function (const req: PX509_REQ; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -1286,8 +1351,8 @@ var
   X509_CRL_get0_lastUpdate: function (const crl: PX509_CRL): PASN1_TIME; cdecl = nil; {introduced 1.1.0}
   X509_CRL_get0_nextUpdate: function (const crl: PX509_CRL): PASN1_TIME; cdecl = nil; {introduced 1.1.0}
   X509_CRL_get_issuer: function (const crl: PX509_CRL): PX509_NAME; cdecl = nil; {introduced 1.1.0}
-  //const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
-  //STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);
+  X509_CRL_get0_extensions : function(const crl : PX509_CRL) : PSTACK_OF_X509_EXTENSION; cdecl = nil;
+  X509_CRL_get_REVOKED : function(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED; cdecl = nil;
   X509_CRL_get0_signature: procedure (const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR); cdecl = nil; {introduced 1.1.0}
   X509_CRL_get_signature_nid: function (const crl: PX509_CRL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   i2d_re_X509_CRL_tbs: function (req: PX509_CRL; pp: PPByte): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -1296,8 +1361,7 @@ var
   X509_REVOKED_set_serialNumber: function (x: PX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT; cdecl = nil;
   X509_REVOKED_get0_revocationDate: function (const x: PX509_REVOKED): PASN1_TIME; cdecl = nil; {introduced 1.1.0}
   X509_REVOKED_set_revocationDate: function (r: PX509_REVOKED; tm: PASN1_TIME): TIdC_INT; cdecl = nil;
-  //const STACK_OF(X509_EXTENSION) *
-  //X509_REVOKED_get0_extensions(const X509_REVOKED *r);
+  X509_REVOKED_get0_extensions: function(const r : PX509_REVOKED) : PSTACK_OF_X509_EXTENSION; cdecl = nil;
 
   X509_CRL_diff: function (base: PX509_CRL; newer: PX509_CRL; skey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_UINT): PX509_CRL; cdecl = nil;
 
@@ -1884,10 +1948,10 @@ var
   function X509_REQ_extension_nid(nid: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_extension_nids: PIdC_INT cdecl; external CLibCrypto;
   procedure X509_REQ_set_extension_nids(nids: PIdC_INT) cdecl; external CLibCrypto;
-//  STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(X509_REQ *req);
-  //TIdC_INT X509_REQ_add_extensions_nid(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts,
-  //                                TIdC_INT nid);
-  //TIdC_INT X509_REQ_add_extensions(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts);
+  function X509_REQ_get_extensions(X509_REQ *req) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
+  function X509_REQ_add_extensions_nid(X509_REQ *req; exts : PSTACK_OF_X509_EXTENSION;
+                                       nid : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+  function X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_by_NID(const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1909,8 +1973,8 @@ var
   function X509_CRL_get0_lastUpdate(const crl: PX509_CRL): PASN1_TIME cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get0_nextUpdate(const crl: PX509_CRL): PASN1_TIME cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get_issuer(const crl: PX509_CRL): PX509_NAME cdecl; external CLibCrypto; {introduced 1.1.0}
-  //const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
-  //STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);
+  function X509_CRL_get0_extensions(const X509_CRL *crl) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
+  function X509_CRL_get_REVOKED(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto;
   procedure X509_CRL_get0_signature(const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR) cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get_signature_nid(const crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function i2d_re_X509_CRL_tbs(req: PX509_CRL; pp: PPByte): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1919,8 +1983,7 @@ var
   function X509_REVOKED_set_serialNumber(x: PX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
   function X509_REVOKED_get0_revocationDate(const x: PX509_REVOKED): PASN1_TIME cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_REVOKED_set_revocationDate(r: PX509_REVOKED; tm: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
-  //const STACK_OF(X509_EXTENSION) *
-  //X509_REVOKED_get0_extensions(const X509_REVOKED *r);
+  function X509_REVOKED_get0_extensions(const  r : PX509_REVOKED) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
 
   function X509_CRL_diff(base: PX509_CRL; newer: PX509_CRL; skey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_UINT): PX509_CRL cdecl; external CLibCrypto;
 
@@ -2578,10 +2641,9 @@ const
   X509_REQ_extension_nid_procname = 'X509_REQ_extension_nid';
   X509_REQ_get_extension_nids_procname = 'X509_REQ_get_extension_nids';
   X509_REQ_set_extension_nids_procname = 'X509_REQ_set_extension_nids';
-//  STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(X509_REQ *req);
-  //TIdC_INT X509_REQ_add_extensions_nid(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts,
-  //                                TIdC_INT nid);
-  //TIdC_INT X509_REQ_add_extensions(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts);
+  X509_REQ_get_extensions_procname = 'X509_REQ_get_extensions';
+  X509_REQ_add_extensions_nid_procname = 'X509_REQ_add_extensions_nid';
+  X509_REQ_add_extensions_procname = 'X509_REQ_add_extensions';
   X509_REQ_get_attr_count_procname = 'X509_REQ_get_attr_count';
   X509_REQ_get_attr_by_NID_procname = 'X509_REQ_get_attr_by_NID';
   X509_REQ_get_attr_by_OBJ_procname = 'X509_REQ_get_attr_by_OBJ';
@@ -2603,8 +2665,8 @@ const
   X509_CRL_get0_lastUpdate_procname = 'X509_CRL_get0_lastUpdate'; {introduced 1.1.0}
   X509_CRL_get0_nextUpdate_procname = 'X509_CRL_get0_nextUpdate'; {introduced 1.1.0}
   X509_CRL_get_issuer_procname = 'X509_CRL_get_issuer'; {introduced 1.1.0}
-  //const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
-  //STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);
+  X509_CRL_get0_extensions_procname = 'X509_CRL_get0_extensions';
+  X509_CRL_get_REVOKED_procname = 'X509_CRL_get_REVOKED';
   X509_CRL_get0_signature_procname = 'X509_CRL_get0_signature'; {introduced 1.1.0}
   X509_CRL_get_signature_nid_procname = 'X509_CRL_get_signature_nid'; {introduced 1.1.0}
   i2d_re_X509_CRL_tbs_procname = 'i2d_re_X509_CRL_tbs'; {introduced 1.1.0}
@@ -2613,8 +2675,7 @@ const
   X509_REVOKED_set_serialNumber_procname = 'X509_REVOKED_set_serialNumber';
   X509_REVOKED_get0_revocationDate_procname = 'X509_REVOKED_get0_revocationDate'; {introduced 1.1.0}
   X509_REVOKED_set_revocationDate_procname = 'X509_REVOKED_set_revocationDate';
-  //const STACK_OF(X509_EXTENSION) *
-  //X509_REVOKED_get0_extensions(const X509_REVOKED *r);
+  X509_REVOKED_get0_extensions_procname = 'X509_REVOKED_get0_extensions';
 
   X509_CRL_diff_procname = 'X509_CRL_diff';
 
@@ -2863,8 +2924,6 @@ const
   SHA_DIGEST_LENGTH = 20;
 
 type
-  PSTACK= type pointer;
-  PSTACK_OF_X509_EXTENSION = PSTACK; 
   PX509_CINF = ^_X509_CINF;
   _X509_CINF = record
     version: PASN1_INTEGER;
@@ -2886,11 +2945,11 @@ type
     parameter : PASN1_TYPE;
   end;
 
-  PSTACK_OF_ASIdOrRange = PSTACK;
+  PSTACK_OF_ASIdOrRange = type Pointer;
 
-  PSTACK_OF_DIST_POINT = PSTACK;
-  PSTACK_OF_GENERAL_NAME = PSTACK;
-  PSTACK_OF_IPAddressFamily = PSTACK;
+  PSTACK_OF_DIST_POINT = type Pointer;
+  PSTACK_OF_GENERAL_NAME = type Pointer;
+  PSTACK_OF_IPAddressFamily = type Pointer;
   PASIdOrRanges = PSTACK_OF_ASIdOrRange;
 
   ASIdentifierChoice_union = record
@@ -3069,103 +3128,80 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_signature_dump_procname);
 end;
 
-
-function  ERR_X509_signature_print(bp: PBIO; const alg: PX509_ALGOR; const sig: PASN1_STRING): TIdC_INT; 
+function  ERR_X509_signature_print(bp: PBIO; const alg: PX509_ALGOR; const sig: PASN1_STRING): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_signature_print_procname);
 end;
 
-
-
-function  ERR_X509_sign(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
+function  ERR_X509_sign(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_sign_procname);
 end;
-
 
 function  ERR_X509_sign_ctx(x: PX509; ctx: PEVP_MD_CTX): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_sign_ctx_procname);
 end;
 
-
-
 function  ERR_X509_http_nbio(rctx: POCSP_REQ_CTX; pcert: PPX509): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_http_nbio_procname);
 end;
-
- 
 
 function  ERR_X509_REQ_sign(x: PX509_REQ; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_sign_procname);
 end;
 
-
 function  ERR_X509_REQ_sign_ctx(x: PX509_REQ; ctx: PEVP_MD_CTX): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_sign_ctx_procname);
 end;
-
 
 function  ERR_X509_CRL_sign(x: PX509_CRL; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_sign_procname);
 end;
 
-
 function  ERR_X509_CRL_sign_ctx(x: PX509_CRL; ctx: PEVP_MD_CTX): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_sign_ctx_procname);
 end;
-
-
 
 function  ERR_X509_CRL_http_nbio(rctx: POCSP_REQ_CTX; pcrl: PPX509_CRL): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_http_nbio_procname);
 end;
 
- 
-
 function  ERR_NETSCAPE_SPKI_sign(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_sign_procname);
 end;
-
-
 
 function  ERR_X509_pubkey_digest(const data: PX509; const type_: PEVP_MD; md: PByte; len: PIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_pubkey_digest_procname);
 end;
 
-
 function  ERR_X509_digest(const data: PX509; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_digest_procname);
 end;
-
 
 function  ERR_X509_CRL_digest(const data: PX509_CRL; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_digest_procname);
 end;
 
-
 function  ERR_X509_REQ_digest(const data: PX509_REQ; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_digest_procname);
 end;
 
-
 function  ERR_X509_NAME_digest(const data: PX509_NAME; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_digest_procname);
 end;
-
-
 
   //# ifndef OPENSSL_NO_STDIO
   //X509 *d2i_X509_fp(FILE *fp, X509 **x509);
@@ -3211,111 +3247,90 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_bio_procname);
 end;
 
-
 function  ERR_i2d_X509_bio(bp: PBIO; x509: PX509): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_bio_procname);
 end;
-
 
 function  ERR_d2i_X509_CRL_bio(bp: PBIO; crl: PPX509_CRL): PX509_CRL; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_CRL_bio_procname);
 end;
 
-
 function  ERR_i2d_X509_CRL_bio(bp: PBIO; crl: PX509_CRL): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_CRL_bio_procname);
 end;
-
 
 function  ERR_d2i_X509_REQ_bio(bp: PBIO; req: PPX509_REQ): PX509_REQ; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_REQ_bio_procname);
 end;
 
-
 function  ERR_i2d_X509_REQ_bio(bp: PBIO; req: PX509_REQ): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_REQ_bio_procname);
 end;
-
-
 
 function  ERR_d2i_RSAPrivateKey_bio(bp: PBIO; rsa: PPRSA): PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSAPrivateKey_bio_procname);
 end;
 
-
 function  ERR_i2d_RSAPrivateKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSAPrivateKey_bio_procname);
 end;
-
 
 function  ERR_d2i_RSAPublicKey_bio(bp: PBIO; rsa: PPRSA): PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSAPublicKey_bio_procname);
 end;
 
-
 function  ERR_i2d_RSAPublicKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSAPublicKey_bio_procname);
 end;
-
 
 function  ERR_d2i_RSA_PUBKEY_bio(bp: PBIO; rsa: PPRSA): PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSA_PUBKEY_bio_procname);
 end;
 
-
 function  ERR_i2d_RSA_PUBKEY_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSA_PUBKEY_bio_procname);
 end;
-
-
 
 function  ERR_d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): DSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_PUBKEY_bio_procname);
 end;
 
-
 function  ERR_i2d_DSA_PUBKEY_bio(bp: PBIO; dsa: PDSA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSA_PUBKEY_bio_procname);
 end;
-
 
 function  ERR_d2i_DSAPrivateKey_bio(bp: PBIO; dsa: PPDSA): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPrivateKey_bio_procname);
 end;
 
-
 function  ERR_i2d_DSAPrivateKey_bio(bp: PBIO; dsa: PDSA): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSAPrivateKey_bio_procname);
 end;
-
-
 
 function  ERR_d2i_EC_PUBKEY_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_EC_PUBKEY_bio_procname);
 end;
 
-
 function  ERR_i2d_EC_PUBKEY_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_EC_PUBKEY_bio_procname);
 end;
-
 
 function  ERR_d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): EC_KEY; 
 begin
@@ -4164,8 +4179,6 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PKEY_free_procname);
 end;
 
-
-
   //DECLARE_ASN1_FUNCTIONS(NETSCAPE_SPKI)
   //DECLARE_ASN1_FUNCTIONS(NETSCAPE_SPKAC)
   //DECLARE_ASN1_FUNCTIONS(NETSCAPE_CERT_SEQUENCE)
@@ -4468,11 +4481,23 @@ begin
 end;
 
 
-//  STACK_OF(X509_EXTENSION) *X509_REQ_get_extensions(X509_REQ *req);
-  //TIdC_INT X509_REQ_add_extensions_nid(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts,
-  //                                TIdC_INT nid);
-  //TIdC_INT X509_REQ_add_extensions(X509_REQ *req, STACK_OF(X509_EXTENSION) *exts);
-function  ERR_X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT; 
+function  ERR_X509_REQ_get_extensions(req : PX509_REQ) : PSTACK_OF_X509_EXTENSION;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_extensions_procname);
+end;
+
+function  ERR_X509_REQ_add_extensions_nid(req : PX509_REQ; exts :PSTACK_OF_X509_EXTENSION;
+                                  nid : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add_extensions_nid_procname);
+end;
+
+function ERR_X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add_extensions_procname);
+end;
+
+function  ERR_X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_count_procname);
 end;
@@ -4588,8 +4613,16 @@ begin
 end;
 
  {introduced 1.1.0}
-  //const STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(const X509_CRL *crl);
-  //STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);
+function  ERR_X509_CRL_get0_extensions(const crl : PX509_CRL) : PSTACK_OF_X509_EXTENSION;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_extensions_procname);
+end;
+
+function ERR_X509_CRL_get_REVOKED(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_REVOKED_procname);
+end;
+
 procedure  ERR_X509_CRL_get0_signature(const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_signature_procname);
@@ -4632,9 +4665,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_set_revocationDate_procname);
 end;
 
-
-  //const STACK_OF(X509_EXTENSION) *
-  //X509_REVOKED_get0_extensions(const X509_REVOKED *r);
+function ERR_X509_REVOKED_get0_extensions(const r : PX509_REVOKED) : PSTACK_OF_X509_EXTENSION;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get0_extensions_procname);
+end;
 
 function  ERR_X509_CRL_diff(base: PX509_CRL; newer: PX509_CRL; skey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_UINT): PX509_CRL; 
 begin
@@ -12775,6 +12809,98 @@ begin
     {$ifend}
   end;
 
+  X509_REQ_get_extensions := LoadLibFunction(ADllHandle, X509_REQ_get_extensions_procname);
+  FuncLoadError := not assigned(X509_REQ_get_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_REQ_get_extensions_allownil)}
+    X509_REQ_get_extensions := @ERR_X509_REQ_get_extensions;
+    {$ifend}
+    {$if declared(X509_REQ_get_extensions_introduced)}
+    if LibVersion < X509_REQ_get_extensions_introduced then
+    begin
+      {$if declared(FC_X509_REQ_get_extensions)}
+      X509_REQ_get_extensions := @FC_X509_REQ_get_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_REQ_get_extensions_removed)}
+    if X509_REQ_get_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_X509_REQ_get_extensions)}
+      X509_REQ_get_extensions := @_X509_REQ_get_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_REQ_get_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_REQ_get_extensions');
+    {$ifend}
+  end;
+
+  X509_REQ_add_extensions_nid := LoadLibFunction(ADllHandle, X509_REQ_add_extensions_nid_procname);
+  FuncLoadError := not assigned(X509_REQ_add_extensions_nid);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_REQ_add_extensions_nid_allownil)}
+    X509_REQ_get_extensions := @ERR_X509_REQ_add_extensions_nid;
+    {$ifend}
+    {$if declared(X509_REQ_add_extensions_nid_introduced)}
+    if LibVersion < X509_REQ_add_extensions_nid_introduced then
+    begin
+      {$if declared(FC_X509_REQ_get_extensions)}
+      X509_REQ_add_extensions_nid := @FC_X509_REQ_add_extensions_nid;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_REQ_add_extensions_nid_removed)}
+    if X509_REQ_add_extensions_nid_removed <= LibVersion then
+    begin
+      {$if declared(_X509_REQ_add_extensions_nid)}
+      X509_REQ_get_extensions := @_X509_REQ_get_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_REQ_add_extensions_nid_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_REQ_add_extensions_nid');
+    {$ifend}
+  end;
+
+  X509_REQ_add_extensions := LoadLibFunction(ADllHandle, X509_REQ_add_extensions_procname);
+  FuncLoadError := not assigned(X509_REQ_add_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_REQ_add_extensions_nid_allownil)}
+    X509_REQ_add_extensions := @ERR_X509_REQ_add_extensions;
+    {$ifend}
+    {$if declared(X509_REQ_add_extensions_nid_introduced)}
+    if LibVersion < X509_REQ_add_extensions_introduced then
+    begin
+      {$if declared(FC_X509_REQ_get_extensions)}
+      X509_REQ_add_extensions := @FC_X509_REQ_add_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_REQ_add_extensions_removed)}
+    if X509_REQ_add_extensions_nid_removed <= LibVersion then
+    begin
+      {$if declared(_X509_REQ_add_extensions_nid)}
+      X509_REQ_add_extensions := @_X509_REQ_add_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_REQ_add_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_REQ_add_extensions');
+    {$ifend}
+  end;
 
   X509_REQ_get_attr_count := LoadLibFunction(ADllHandle, X509_REQ_get_attr_count_procname);
   FuncLoadError := not assigned(X509_REQ_get_attr_count);
@@ -13383,6 +13509,68 @@ begin
     {$ifend}
   end;
 
+  X509_CRL_get0_extensions := LoadLibFunction(ADllHandle, X509_CRL_get0_extensions_procname);
+  FuncLoadError := not assigned(X509_CRL_get0_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_CRL_get0_extensions_allownil)}
+    X509_CRL_get0_extensions := @ERR_X509_CRL_get0_extensions;
+    {$ifend}
+    {$if declared(X509_CRL_get0_extensions_introduced)}
+    if LibVersion < X509_CRL_get0_extensions_introduced then
+    begin
+      {$if declared(FC_X509_CRL_get_issuer)}
+      X509_CRL_get0_extensions := @FC_X509_CRL_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_CRL_get0_extensions_removed)}
+    if X509_CRL_get0_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_X509_CRL_get0_extensions)}
+      X509_CRL_get0_extensions := @_X509_CRL_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_CRL_get0_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_CRL_get0_extensions');
+    {$ifend}
+  end;
+
+  X509_CRL_get_REVOKED := LoadLibFunction(ADllHandle, X509_CRL_get_REVOKED_procname);
+  FuncLoadError := not assigned(X509_CRL_get_REVOKED);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_CRL_get_REVOKED_allownil)}
+    X509_CRL_get_REVOKED := @ERR_X509_CRL_get_REVOKED;
+    {$ifend}
+    {$if declared(X509_CRL_get_REVOKED_introduced)}
+    if LibVersion < X509_CRL_get_REVOKED_introduced then
+    begin
+      {$if declared(FC_X509_CRL_get_REVOKED)}
+      X509_CRL_get_REVOKED := @FC_X509_CRL_get_REVOKED;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_CRL_get_REVOKED_removed)}
+    if X509_CRL_get_REVOKED_removed <= LibVersion then
+    begin
+      {$if declared(_X509_CRL_get_REVOKED)}
+      X509_CRL_get_REVOKED := @_X509_CRL_get_REVOKED;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_CRL_get_REVOKED_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_CRL_get_REVOKED');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   X509_CRL_get0_signature := LoadLibFunction(ADllHandle, X509_CRL_get0_signature_procname);
   FuncLoadError := not assigned(X509_CRL_get0_signature);
@@ -13607,6 +13795,36 @@ begin
     {$ifend}
   end;
 
+  X509_REVOKED_get0_extensions := LoadLibFunction(ADllHandle, X509_REVOKED_get0_extensions_procname);
+  FuncLoadError := not assigned(X509_REVOKED_get0_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_REVOKED_get0_extensions_allownil)}
+    X509_REVOKED_get0_extensions := @ERR_X509_REVOKED_get0_extensions;
+    {$ifend}
+    {$if declared(X509_REVOKED_get0_extensions_introduced)}
+    if LibVersion < X509_REVOKED_get0_extensions_introduced then
+    begin
+      {$if declared(FC_X509_REVOKED_get0_extensions)}
+      X509_REVOKED_get0_extensions := @FC_X509_REVOKED_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_REVOKED_get0_extensions_removed)}
+    if X509_REVOKED_get0_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_X509_REVOKED_get0_extensions)}
+      X509_REVOKED_get0_extensions := @_X509_REVOKED_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_REVOKED_get0_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_REVOKED_get0_extensions');
+    {$ifend}
+  end;
 
   X509_CRL_diff := LoadLibFunction(ADllHandle, X509_CRL_diff_procname);
   FuncLoadError := not assigned(X509_CRL_diff);
@@ -17744,6 +17962,9 @@ begin
   X509_REQ_extension_nid := nil;
   X509_REQ_get_extension_nids := nil;
   X509_REQ_set_extension_nids := nil;
+  X509_REQ_get_extensions := nil;
+  X509_REQ_add_extensions_nid := nil;
+  X509_REQ_add_extensions := nil;
   X509_REQ_get_attr_count := nil;
   X509_REQ_get_attr_by_NID := nil;
   X509_REQ_get_attr_by_OBJ := nil;
@@ -17762,7 +17983,9 @@ begin
   X509_CRL_get_version := nil; {introduced 1.1.0}
   X509_CRL_get0_lastUpdate := nil; {introduced 1.1.0}
   X509_CRL_get0_nextUpdate := nil; {introduced 1.1.0}
+  X509_CRL_get0_extensions := nil;
   X509_CRL_get_issuer := nil; {introduced 1.1.0}
+  X509_CRL_get_REVOKED := nil;
   X509_CRL_get0_signature := nil; {introduced 1.1.0}
   X509_CRL_get_signature_nid := nil; {introduced 1.1.0}
   i2d_re_X509_CRL_tbs := nil; {introduced 1.1.0}
@@ -17770,6 +17993,7 @@ begin
   X509_REVOKED_set_serialNumber := nil;
   X509_REVOKED_get0_revocationDate := nil; {introduced 1.1.0}
   X509_REVOKED_set_revocationDate := nil;
+  X509_REVOKED_get0_extensions := nil;
   X509_CRL_diff := nil;
   X509_REQ_check_private_key := nil;
   X509_check_private_key := nil;

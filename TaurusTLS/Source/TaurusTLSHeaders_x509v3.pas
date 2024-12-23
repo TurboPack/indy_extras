@@ -1274,7 +1274,7 @@ var
 
 {$ENDIF}
 type
-  Tsk_GENERAL_NAME_new = function(cmp : Tsk_new_cmp) : PSTACK_OF_GENERAL_NAME cdecl;
+  Tsk_GENERAL_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_new_null = function : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_free = procedure(st : PSTACK_OF_GENERAL_NAME) cdecl;
   Tsk_GENERAL_NAME_num = function (const sk : PSTACK_OF_GENERAL_NAME) : TIdC_INT cdecl;
@@ -1282,7 +1282,7 @@ type
   Tsk_GENERAL_NAME_push = function (sk : PSTACK_OF_GENERAL_NAME; st : PGENERAL_NAME) : TIdC_INT cdecl;
   Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PGENERAL_NAME) : TIdC_INT cdecl;
-  Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl;
+  Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
   sk_GENERAL_NAME_new :  Tsk_GENERAL_NAME_new absolute sk_new;

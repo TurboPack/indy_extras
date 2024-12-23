@@ -3,7 +3,7 @@
      and this file regenerated. TaurusTLSHeaders_asn1.h2pas is distributed with the full Indy
      Distribution.
    *)
-   
+
 {$i TaurusTLSCompilerDefines.inc} 
 {$i TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
@@ -32,7 +32,8 @@ uses
   TaurusTLSConsts,
   TaurusTLSHeaders_asn1t,
   TaurusTLSHeaders_bio,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_stack;
 
 {$MINENUMSIZE 4}
 
@@ -76,9 +77,6 @@ const
   SMIME_OLDMIME = $400;
   SMIME_CRLFEOL = $800;
   SMIME_STREAM = $1000;
-
-//    struct X509_algor_st;
-//DEFINE_STACK_OF(X509_ALGOR)
 
   ASN1_STRING_FLAG_BITS_LEFT = $08;   (* Set if $07 has bits left value *)
   (*
@@ -245,6 +243,7 @@ const
   ASN1_PCTX_FLAGS_NO_STRUCT_NAME = $100;
 
 type
+  PSTACK_OF_X509_ALGOR = type Pointer;
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
 //  asn1_string_st = record
@@ -1312,6 +1311,44 @@ var
   function ASN1_ITEM_get(i: TIdC_SIZET): PASN1_ITEM cdecl; external CLibCrypto; {introduced 1.1.0}
 
 {$ENDIF}
+  {$EXTERNALSYM sk_X509_ALGOR_num}
+  {$EXTERNALSYM sk_X509_ALGOR_value}
+  {$EXTERNALSYM sk_X509_ALGOR_push}
+  {$EXTERNALSYM sk_X509_ALGOR_dup}
+  {$EXTERNALSYM sk_X509_ALGOR_find}
+  {$EXTERNALSYM sk_X509_ALGOR_pop_free}
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$EXTERNALSYM Tsk_X509_ALGOR_num}
+  {$EXTERNALSYM Tsk_X509_ALGOR_value}
+  {$EXTERNALSYM Tsk_X509_ALGOR_push}
+  {$EXTERNALSYM Tsk_X509_ALGOR_dup}
+  {$EXTERNALSYM Tsk_X509_ALGOR_find}
+  {$EXTERNALSYM Tsk_X509_ALGOR_pop_free}
+
+type
+  Tsk_X509_ALGOR_num = function (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT cdecl;
+  Tsk_X509_ALGOR_value = function (const sk : PSTACK_OF_X509_ALGOR; i : TIdC_INT) : PX509_ALGOR cdecl;
+  Tsk_X509_ALGOR_push = function (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl;
+  Tsk_X509_ALGOR_dup = function (sk : PSTACK_OF_X509_ALGOR) : PSTACK_OF_X509_ALGOR cdecl;
+  Tsk_X509_ALGOR_find = function (sk : PSTACK_OF_X509_ALGOR; _val : PX509_ALGOR) : TIdC_INT cdecl;
+  Tsk_X509_ALGOR_pop_free = procedure (sk : PSTACK_OF_X509_ALGOR; func: TOPENSSL_sk_freefunc) cdecl;
+
+var
+  sk_X509_ALGOR_num : Tsk_X509_ALGOR_num absolute sk_num;
+  sk_X509_ALGOR_value : Tsk_X509_ALGOR_value absolute sk_value;
+  sk_X509_ALGOR_push : Tsk_X509_ALGOR_push absolute sk_push;
+  sk_X509_ALGOR_dup : Tsk_X509_ALGOR_dup absolute sk_dup;
+  sk_X509_ALGOR_find : Tsk_X509_ALGOR_find absolute sk_find;
+  sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free absolute sk_pop_free;
+{$ELSE}
+  function sk_X509_ALGOR_num (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_ALGOR_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_ALGOR_push (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_X509_ALGOR_dup (sk : PSTACK_OF_X509_ALGOR) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_ALGOR_find (sk : PSTACK_OF_X509_ALGOR; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_ALGOR_pop_free (sk : PSTACK_OF_X509_ALGOR; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+{$ENDIF}
 
 implementation
 
@@ -1766,7 +1803,7 @@ begin
 end;
 
 
-procedure  ERR_ASN1_STRING_free(a: PASN1_STRING); 
+procedure  ERR_ASN1_STRING_free(a: PASN1_STRING);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_free_procname);
 end;
@@ -1926,7 +1963,7 @@ begin
 end;
 
 
-function  ERR_ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT; 
+function  ERR_ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_cmp_procname);
 end;
@@ -1966,7 +2003,7 @@ end;
 
 
 
-function  ERR_ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT; 
+function  ERR_ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_check_procname);
 end;
@@ -2166,7 +2203,7 @@ begin
 end;
 
 
-function  ERR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const _str: PIdAnsiChar): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_string_X509_procname);
 end;
@@ -2246,7 +2283,7 @@ end;
 
 
 
-function  ERR_a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function  ERR_a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(a2d_ASN1_OBJECT_procname);
 end;
@@ -2706,7 +2743,7 @@ begin
 end;
 
 
-procedure  ERR_ASN1_add_stable_module; 
+procedure  ERR_ASN1_add_stable_module;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_add_stable_module_procname);
 end;
@@ -2786,7 +2823,7 @@ begin
 end;
 
 
-function  ERR_ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+function  ERR_ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TIdC_ULONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_oid_flags_procname);
 end;
