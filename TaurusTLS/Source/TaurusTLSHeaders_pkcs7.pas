@@ -246,6 +246,7 @@ type
   {$EXTERNALSYM PKCS7_set_cipher}
   {$EXTERNALSYM PKCS7_stream}
   {$EXTERNALSYM PKCS7_get_issuer_and_serial}
+  {$EXTERNALSYM PKCS7_digest_from_attributes}
   {$EXTERNALSYM PKCS7_add_signed_attribute}
   {$EXTERNALSYM PKCS7_add_attribute}
   {$EXTERNALSYM PKCS7_get_attribute}
@@ -363,27 +364,27 @@ var
   PKCS7_stream: function (boundary: PPPByte; p7: PPKCS7): TIdC_INT; cdecl = nil;
 
   PKCS7_get_issuer_and_serial: function (p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL; cdecl = nil;
-  //function PKCS7_digest_from_attributes(sk: Pointer{PSTACK_OF_X509_ATTRIBUTE}): PASN1_OCTET_STRING;
+  PKCS7_digest_from_attributes : function(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING; cdecl = nil;
   PKCS7_add_signed_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   PKCS7_add_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT; cdecl = nil;
   PKCS7_get_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; cdecl = nil;
   PKCS7_get_signed_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; cdecl = nil;
-  //function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  //function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+  PKCS7_set_signed_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
+  PKCS7_set_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
 
-  //function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+  PKCS7_sign : function(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
 
   PKCS7_sign_add_signer: function (p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO; cdecl = nil;
 
   PKCS7_final: function (p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
-  //function PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
-  //function PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
-  //function PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
+  PKCS7_verify : function (p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
+  PKCS7_get0_signers : function(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509; cdecl = nil;
+  PKCS7_encrypt : function(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7; cdecl = nil;
   PKCS7_decrypt: function (p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  //function PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
-  //function PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
-  //function PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+  PKCS7_add_attrib_smimecap : function(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
+  PKCS7_get_smimecap : function(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
+  PKCS7_simple_smimecap : function(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
 
   PKCS7_add_attrib_content_type: function (si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   PKCS7_add0_attrib_signing_time: function (si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TIdC_INT; cdecl = nil;
@@ -496,27 +497,27 @@ var
   function PKCS7_stream(boundary: PPPByte; p7: PPKCS7): TIdC_INT cdecl; external CLibCrypto;
 
   function PKCS7_get_issuer_and_serial(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL cdecl; external CLibCrypto;
-  //function PKCS7_digest_from_attributes(sk: Pointer{PSTACK_OF_X509_ATTRIBUTE}): PASN1_OCTET_STRING;
+  function PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
   function PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_add_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_get_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE cdecl; external CLibCrypto;
   function PKCS7_get_signed_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE cdecl; external CLibCrypto;
-  //function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  //function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+  function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
+  function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
 
-  //function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+  function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
 
   function PKCS7_sign_add_signer(p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO cdecl; external CLibCrypto;
 
   function PKCS7_final(p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  //function PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
-  //function PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
-  //function PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
+  function PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509 cdecl; external CLibCrypto;
+  function PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7 cdecl; external CLibCrypto;
   function PKCS7_decrypt(p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
-  //function PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
-  //function PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
-  //function PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+  function PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT cdecl; external CLibCrypto;
+  function PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto;
+  function PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function PKCS7_add_attrib_content_type(si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_add0_attrib_signing_time(si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
@@ -685,27 +686,27 @@ const
   PKCS7_stream_procname = 'PKCS7_stream';
 
   PKCS7_get_issuer_and_serial_procname = 'PKCS7_get_issuer_and_serial';
-  //function PKCS7_digest_from_attributes(sk: Pointer{PSTACK_OF_X509_ATTRIBUTE}): PASN1_OCTET_STRING;
+  PKCS7_digest_from_attributes_procname = 'PKCS7_digest_from_attributes';
   PKCS7_add_signed_attribute_procname = 'PKCS7_add_signed_attribute';
   PKCS7_add_attribute_procname = 'PKCS7_add_attribute';
   PKCS7_get_attribute_procname = 'PKCS7_get_attribute';
   PKCS7_get_signed_attribute_procname = 'PKCS7_get_signed_attribute';
-  //function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  //function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+  PKCS7_set_signed_attributes_procname = 'PKCS7_set_signed_attributes';
+  PKCS7_set_attributes_procname = 'PKCS7_set_attributes';
 
-  //function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+  PKCS7_sign_procname = 'PKCS7_sign';
 
   PKCS7_sign_add_signer_procname = 'PKCS7_sign_add_signer';
 
   PKCS7_final_procname = 'PKCS7_final';
-  //function PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
-  //function PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
-  //function PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
+  PKCS7_verify_procname = 'PKCS7_verify';
+  PKCS7_get0_signers_procname = 'PKCS7_get0_signers';
+  PKCS7_encrypt_procname = 'PKCS7_encrypt';
   PKCS7_decrypt_procname = 'PKCS7_decrypt';
 
-  //function PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
-  //function PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
-  //function PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+  PKCS7_add_attrib_smimecap_procname = 'PKCS7_add_attrib_smimecap';
+  PKCS7_get_smimecap_procname = 'PKCS7_get_smimecap';
+  PKCS7_simple_smimecap_procname = 'PKCS7_simple_smimecap';
 
   PKCS7_add_attrib_content_type_procname = 'PKCS7_add_attrib_content_type';
   PKCS7_add0_attrib_signing_time_procname = 'PKCS7_add0_attrib_signing_time';
@@ -1162,8 +1163,12 @@ begin
 end;
 
 
-  //function PKCS7_digest_from_attributes(sk: Pointer{PSTACK_OF_X509_ATTRIBUTE}): PASN1_OCTET_STRING;
-function  ERR_PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT; 
+function ERR_PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_digest_from_attributes_procname);
+end;
+
+function  ERR_PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_signed_attribute_procname);
 end;
@@ -1187,17 +1192,25 @@ begin
 end;
 
 
-  //function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  //function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+function ERR_PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_signed_attributes_procname);
+end;
 
-  //function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+function ERR_PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_attributes_procname);
+end;
+
+function ERR_PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_sign_procname);
+end;
 
 function  ERR_PKCS7_sign_add_signer(p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_sign_add_signer_procname);
 end;
-
-
 
 function  ERR_PKCS7_final(p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT; 
 begin
@@ -1205,19 +1218,40 @@ begin
 end;
 
 
-  //function PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
-  //function PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
-  //function PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
-function  ERR_PKCS7_decrypt(p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT; 
+function ERR_PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_verify_procname);
+end;
+
+function ERR_PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_get0_signers_procname );
+end;
+
+function ERR_PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_encrypt_procname );
+end;
+
+function  ERR_PKCS7_decrypt(p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_decrypt_procname);
 end;
 
+function ERR_PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_add_attrib_smimecap_procname );
+end;
 
+function ERR_PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_get_smimecap_procname );
+end;
 
-  //function PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
-  //function PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
-  //function PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+function ERR_PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_simple_smimecap_procname );
+end;
 
 function  ERR_PKCS7_add_attrib_content_type(si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT; 
 begin
@@ -3399,6 +3433,36 @@ begin
     {$ifend}
   end;
 
+  PKCS7_set_signed_attributes := LoadLibFunction(ADllHandle, PKCS7_set_signed_attributes_procname);
+  FuncLoadError := not assigned(PKCS7_set_signed_attributes);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_set_signed_attributes_allownil)}
+    PKCS7_set_signed_attributes := @ERR_PKCS7_set_signed_attributes;
+    {$ifend}
+    {$if declared(PKCS7_set_signed_attributes_introduced)}
+    if LibVersion < PKCS7_set_signed_attributes_introduced then
+    begin
+      {$if declared(FC_PKCS7_set_signed_attributes)}
+      PKCS7_set_signed_attributes := @FC_PKCS7_set_signed_attributes;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_set_signed_attributes_removed)}
+    if PKCS7_set_signed_attributes_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_set_signed_attributes)}
+      PKCS7_set_signed_attributes := @_PKCS7_set_signed_attributes;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_set_signed_attributes_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_set_signed_attributes');
+    {$ifend}
+  end;
 
   PKCS7_dataInit := LoadLibFunction(ADllHandle, PKCS7_dataInit_procname);
   FuncLoadError := not assigned(PKCS7_dataInit);
@@ -3877,6 +3941,36 @@ begin
     {$ifend}
   end;
 
+  PKCS7_digest_from_attributes := LoadLibFunction(ADllHandle, PKCS7_digest_from_attributes_procname);
+  FuncLoadError := not assigned(PKCS7_digest_from_attributes);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_digest_from_attributes_allownil)}
+    PKCS7_digest_from_attributes := @ERR_PKCS7_digest_from_attributes;
+    {$ifend}
+    {$if declared(PKCS7_digest_from_attributes_introduced)}
+    if LibVersion < PKCS7_digest_from_attributes_introduced then
+    begin
+      {$if declared(FC_PKCS7_digest_from_attributes)}
+      PKCS7_digest_from_attributes := @FC_PKCS7_digest_from_attributes;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_digest_from_attributes_removed)}
+    if PKCS7_digest_from_attributes_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_digest_from_attributes)}
+      PKCS7_digest_from_attributes := @_PKCS7_digest_from_attributes;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_digest_from_attributes_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_digest_from_attributes');
+    {$ifend}
+  end;
 
   PKCS7_add_signed_attribute := LoadLibFunction(ADllHandle, PKCS7_add_signed_attribute_procname);
   FuncLoadError := not assigned(PKCS7_add_signed_attribute);
@@ -4069,6 +4163,99 @@ begin
     {$ifend}
   end;
 
+  PKCS7_verify := LoadLibFunction(ADllHandle, PKCS7_verify_procname);
+  FuncLoadError := not assigned(PKCS7_verify);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_verify_allownil)}
+    PKCS7_verify := @ERR_PKCS7_verify;
+    {$ifend}
+    {$if declared(PKCS7_verify_introduced)}
+    if LibVersion < PKCS7_verify_introduced then
+    begin
+      {$if declared(FC_PKCS7_verify)}
+      PKCS7_verify := @FC_PKCS7_verify;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_verify_removed)}
+    if PKCS7_verify_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_verify)}
+      PKCS7_verify := @_PKCS7_verify;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_verify_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_verify');
+    {$ifend}
+  end;
+
+  PKCS7_get0_signers := LoadLibFunction(ADllHandle, PKCS7_get0_signers_procname);
+  FuncLoadError := not assigned(PKCS7_get0_signers);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_get0_signers_allownil)}
+    PKCS7_get0_signers := @ERR_PKCS7_get0_signers;
+    {$ifend}
+    {$if declared(PKCS7_get0_signers_introduced)}
+    if LibVersion < PKCS7_get0_signers_introduced then
+    begin
+      {$if declared(FC_PKCS7_get0_signers)}
+      PKCS7_get0_signers := @FC_PKCS7_get0_signers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_get0_signers_removed)}
+    if PKCS7_get0_signers_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_get0_signers)}
+      PKCS7_get0_signers := @_PKCS7_get0_signers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_get0_signers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_get0_signers');
+    {$ifend}
+  end;
+
+
+  PKCS7_encrypt := LoadLibFunction(ADllHandle, PKCS7_encrypt_procname);
+  FuncLoadError := not assigned(PKCS7_encrypt);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_encrypt_allownil)}
+    PKCS7_encrypt := @ERR_PKCS7_encrypt;
+    {$ifend}
+    {$if declared(PKCS7_encrypt_introduced)}
+    if LibVersion < PKCS7_encrypt_introduced then
+    begin
+      {$if declared(FC_PKCS7_encrypt)}
+      PKCS7_encrypt := @FC_PKCS7_encrypt;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_encrypt_removed)}
+    if PKCS7_encrypt_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_encrypt)}
+      PKCS7_encrypt := @_PKCS7_encrypt;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_encrypt_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_encrypt');
+    {$ifend}
+  end;
 
   PKCS7_decrypt := LoadLibFunction(ADllHandle, PKCS7_decrypt_procname);
   FuncLoadError := not assigned(PKCS7_decrypt);
@@ -4101,6 +4288,98 @@ begin
     {$ifend}
   end;
 
+  PKCS7_add_attrib_smimecap  := LoadLibFunction(ADllHandle, PKCS7_add_attrib_smimecap_procname);
+  FuncLoadError := not assigned(PKCS7_add_attrib_smimecap);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_add_attrib_smimecap_allownil)}
+    PKCS7_add_attrib_smimecap := @ERR_PKCS7_add_attrib_smimecap;
+    {$ifend}
+    {$if declared(PKCS7_add_attrib_smimecap_introduced)}
+    if LibVersion < PKCS7_add_attrib_smimecap_introduced then
+    begin
+      {$if declared(FC_PKCS7_add_attrib_smimecap)}
+      PKCS7_add_attrib_smimecap := @FC_PKCS7_add_attrib_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_add_attrib_smimecap_removed)}
+    if PKCS7_add_attrib_smimecap_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_add_attrib_smimecap)}
+      PKCS7_add_attrib_smimecap := @_PKCS7_add_attrib_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_add_attrib_smimecap_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_add_attrib_smimecap');
+    {$ifend}
+  end;
+
+  PKCS7_get_smimecap  := LoadLibFunction(ADllHandle, PKCS7_get_smimecap_procname);
+  FuncLoadError := not assigned(PKCS7_get_smimecap);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_get_smimecap_allownil)}
+    PKCS7_get_smimecap := @ERR_PKCS7_get_smimecap;
+    {$ifend}
+    {$if declared(PKCS7_get_smimecap_introduced)}
+    if LibVersion < PKCS7_get_smimecap_introduced then
+    begin
+      {$if declared(FC_PKCS7_get_smimecap)}
+      PKCS7_get_smimecap := @FC_PKCS7_get_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_get_smimecap_removed)}
+    if PKCS7_get_smimecap_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_get_smimecap)}
+      PKCS7_get_smimecap := @_PKCS7_get_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_get_smimecap_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_get_smimecap');
+    {$ifend}
+  end;
+
+  PKCS7_simple_smimecap  := LoadLibFunction(ADllHandle, PKCS7_simple_smimecap_procname);
+  FuncLoadError := not assigned(PKCS7_simple_smimecap);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_simple_smimecap_allownil)}
+    PKCS7_simple_smimecap := @ERR_PKCS7_simple_smimecap;
+    {$ifend}
+    {$if declared(PKCS7_simple_smimecap_introduced)}
+    if LibVersion < PKCS7_simple_smimecap_introduced then
+    begin
+      {$if declared(FC_PKCS7_simple_smimecap)}
+      PKCS7_simple_smimecap := @FC_PKCS7_simple_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_simple_smimecap_removed)}
+    if PKCS7_simple_smimecap_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_simple_smimecap)}
+      PKCS7_simple_smimecap := @_PKCS7_simple_smimecap;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_simple_smimecap_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_simple_smimecap');
+    {$ifend}
+  end;
 
   PKCS7_add_attrib_content_type := LoadLibFunction(ADllHandle, PKCS7_add_attrib_content_type_procname);
   FuncLoadError := not assigned(PKCS7_add_attrib_content_type);
@@ -4337,6 +4616,7 @@ begin
   PKCS7_content_new := nil;
   PKCS7_dataVerify := nil;
   PKCS7_signatureVerify := nil;
+  PKCS7_set_signed_attributes := nil;
   PKCS7_dataInit := nil;
   PKCS7_dataFinal := nil;
   PKCS7_dataDecode := nil;
@@ -4352,13 +4632,20 @@ begin
   PKCS7_set_cipher := nil;
   PKCS7_stream := nil;
   PKCS7_get_issuer_and_serial := nil;
+  PKCS7_digest_from_attributes := nil;
   PKCS7_add_signed_attribute := nil;
   PKCS7_add_attribute := nil;
   PKCS7_get_attribute := nil;
   PKCS7_get_signed_attribute := nil;
   PKCS7_sign_add_signer := nil;
   PKCS7_final := nil;
+  PKCS7_verify := nil;
+  PKCS7_get0_signers := nil;
   PKCS7_decrypt := nil;
+  PKCS7_encrypt := nil;
+  PKCS7_add_attrib_smimecap := nil;
+  PKCS7_simple_smimecap := nil;
+  PKCS7_get_smimecap := nil;
   PKCS7_add_attrib_content_type := nil;
   PKCS7_add0_attrib_signing_time := nil;
   PKCS7_add1_attrib_digest := nil;
