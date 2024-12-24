@@ -2292,6 +2292,7 @@ implementation
   uses
     classes, 
     TaurusTLSExceptionHandlers,
+    TaurusTLSHeaders_crypto,
     TaurusTLS_ResourceStrings
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
@@ -2981,12 +2982,20 @@ const
 
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 function  _X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; cdecl;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := X509_NAME_hash_ex(x,nil,nil,nil);
 end;
 
+  //#define X509_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef)
 
-
+function X509_get_ex_new_index(l : TIdC_LONG; p : Pointer;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef);
+end;
 
 
 {forward_compatibility}

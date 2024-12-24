@@ -136,6 +136,12 @@ type
   //__owur int CRYPTO_get_ex_new_index(int class_index, long argl, void *argp,
   //                            CRYPTO_EX_new *new_func, CRYPTO_EX_dup *dup_func,
   //                            CRYPTO_EX_free *free_func);
+  CRYPTO_EX_new = procedure(parent, _ptr: Pointer; ad : PCRYPTO_EX_DATA;
+                            idx: TIdC_INT; argl: TIdC_LONG; argp: Pointer); cdecl;
+  CRYPTO_EX_free = procedure(parent, _ptr: Pointer; ad : PCRYPTO_EX_DATA;
+                             idx : TIdC_INT; argl : TIdC_LONG; argp : Pointer); cdecl;
+  CRYPTO_EX_dup = function(_to : PCRYPTO_EX_DATA; const from : PCRYPTO_EX_DATA;
+                           from_d : Pointer; idx : TIdC_INT; argl : TIdC_LONG; argo : Pointer) : TIdC_INT; cdecl;
 
   CRYPTO_mem_leaks_cb_cb = function(const _str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
   CRYPTO_THREAD_run_once_init = procedure; cdecl;
@@ -366,7 +372,12 @@ var
   CRYPTO_secure_actual_size: function (_ptr: Pointer): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   CRYPTO_secure_used: function : TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
 
+  CRYPTO_get_ex_new_index : function(class_index : TIdC_INT; arg1 : TIdC_LONG; argp : Pointer;
+                                     new_func : CRYPTO_EX_new; dup_func : CRYPTO_EX_dup;
+                                     free_func : CRYPTO_EX_FREE) : TIdC_INT cdecl;
+
   OPENSSL_cleanse: procedure (_ptr: Pointer; len: TIdC_SIZET); cdecl = nil;
+
 
   (* debug libraries only  *)
 //  function CRYPTO_mem_debug_push(const info: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): TIdC_INT;
@@ -553,6 +564,10 @@ var
   function CRYPTO_secure_malloc_initialized: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_actual_size(_ptr: Pointer): TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_secure_used: TIdC_SIZET cdecl; external CLibCrypto; {introduced 1.1.0}
+
+  function CRYPTO_get_ex_new_index(class_index : TIdC_INT; arg1 : TIdC_LONG; argp : Pointer;
+                                   new_func : CRYPTO_EX_new; dup_func : CRYPTO_EX_dup;
+                                   free_func : CRYPTO_EX_FREE) : TIdC_INT cdecl; external CLibCrypto;
 
   procedure OPENSSL_cleanse(_ptr: Pointer; len: TIdC_SIZET) cdecl; external CLibCrypto;
 
@@ -868,6 +883,7 @@ const
   CRYPTO_secure_malloc_initialized_procname = 'CRYPTO_secure_malloc_initialized'; {introduced 1.1.0}
   CRYPTO_secure_actual_size_procname = 'CRYPTO_secure_actual_size'; {introduced 1.1.0}
   CRYPTO_secure_used_procname = 'CRYPTO_secure_used'; {introduced 1.1.0}
+  CRYPTO_get_ex_new_index_procname = 'CRYPTO_get_ex_new_index';
 
   OPENSSL_cleanse_procname = 'OPENSSL_cleanse';
 
@@ -1561,6 +1577,13 @@ end;
 function  ERR_CRYPTO_secure_used: TIdC_SIZET; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_used_procname);
+end;
+
+function ERR_CRYPTO_get_ex_new_index(class_index : TIdC_INT; arg1 : TIdC_LONG; argp : Pointer;
+                                 new_func : CRYPTO_EX_new; dup_func : CRYPTO_EX_dup;
+                                 free_func : CRYPTO_EX_FREE) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_get_ex_new_index_procname);
 end;
 
  {introduced 1.1.0}
@@ -3700,6 +3723,37 @@ begin
     {$ifend}
   end;
 
+  CRYPTO_get_ex_new_index := LoadLibFunction(ADllHandle, CRYPTO_get_ex_new_index_procname);
+  FuncLoadError := not assigned(CRYPTO_get_ex_new_index);
+  if FuncLoadError then
+  begin
+    {$if not defined(CRYPTO_get_ex_new_index_allownil)}
+    CRYPTO_get_ex_new_index := @ERR_CRYPTO_get_ex_new_index;
+    {$ifend}
+    {$if declared(CRYPTO_get_ex_new_index_introduced)}
+    if LibVersion < CRYPTO_get_ex_new_index_introduced then
+    begin
+      {$if declared(FC_CRYPTO_get_ex_new_index)}
+      CRYPTO_get_ex_new_index := @FC_CRYPTO_get_ex_new_index;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CRYPTO_get_ex_new_index_removed)}
+    if CRYPTO_get_ex_new_index_removed <= LibVersion then
+    begin
+      {$if declared(_CRYPTO_get_ex_new_index)}
+      CRYPTO_get_ex_new_index := @_CRYPTO_get_ex_new_index;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CRYPTO_get_ex_new_index_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CRYPTO_get_ex_new_index');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   OPENSSL_cleanse := LoadLibFunction(ADllHandle, OPENSSL_cleanse_procname);
   FuncLoadError := not assigned(OPENSSL_cleanse);
@@ -4374,6 +4428,7 @@ begin
   CRYPTO_secure_malloc_initialized := nil; {introduced 1.1.0}
   CRYPTO_secure_actual_size := nil; {introduced 1.1.0}
   CRYPTO_secure_used := nil; {introduced 1.1.0}
+  CRYPTO_get_ex_new_index := nil;
   OPENSSL_cleanse := nil;
   OPENSSL_isservice := nil;
   FIPS_mode := nil; {removed 3.0.0}
