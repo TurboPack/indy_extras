@@ -1327,6 +1327,9 @@ var
   {$EXTERNALSYM Tsk_X509_ALGOR_pop_free}
 
 type
+  Tsk_X509_ALGOR_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl;
+  Tsk_X509_ALGOR_new_null = function : PSTACK_OF_X509_ALGOR cdecl;
+  Tsk_X509_ALGOR_free = procedure(st : PSTACK_OF_X509_ALGOR) cdecl;
   Tsk_X509_ALGOR_num = function (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT cdecl;
   Tsk_X509_ALGOR_value = function (const sk : PSTACK_OF_X509_ALGOR; i : TIdC_INT) : PX509_ALGOR cdecl;
   Tsk_X509_ALGOR_push = function (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl;
@@ -1335,6 +1338,9 @@ type
   Tsk_X509_ALGOR_pop_free = procedure (sk : PSTACK_OF_X509_ALGOR; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
+  sk_X509_ALGOR_new: Tsk_X509_ALGOR_new absolute sk_new;
+  sk_X509_ALGOR_new_null : Tsk_X509_ALGOR_new_null absolute sk_new_null;
+  sk_X509_ALGOR_free : Tsk_X509_ALGOR_free absolute sk_free;
   sk_X509_ALGOR_num : Tsk_X509_ALGOR_num absolute sk_num;
   sk_X509_ALGOR_value : Tsk_X509_ALGOR_value absolute sk_value;
   sk_X509_ALGOR_push : Tsk_X509_ALGOR_push absolute sk_push;
@@ -1342,6 +1348,9 @@ var
   sk_X509_ALGOR_find : Tsk_X509_ALGOR_find absolute sk_find;
   sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free absolute sk_pop_free;
 {$ELSE}
+  function sk_X509_ALGOR_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_ALGOR_new_null : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_ALGOR_free(st : PSTACK_OF_X509_ALGOR) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_X509_ALGOR_num (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
   function sk_X509_ALGOR_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_ALGOR_push (sk : PSTACK_OF_X509_ALGOR; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';

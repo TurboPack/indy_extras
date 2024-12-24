@@ -531,12 +531,18 @@ var
 {$ENDIF}
  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
+  Tsk_PKCS7_RECIP_INFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_PKCS7_RECIP_INFO cdecl;
+  Tsk_PKCS7_RECIP_INFO_new_null = function : PSTACK_OF_PKCS7_RECIP_INFO cdecl;
+  Tsk_PKCS7_RECIP_INFO_free = procedure(st : PSTACK_OF_PKCS7_RECIP_INFO) cdecl;
   Tsk_PKCS7_RECIP_INFO_num = function (const sk : PSTACK_OF_PKCS7_RECIP_INFO) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_value = function (const sk : PSTACK_OF_PKCS7_RECIP_INFO; i : TIdC_INT) : PX509_CRL cdecl;
   Tsk_PKCS7_RECIP_INFO_push = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PX509_CRL) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_dup = function (sk : PSTACK_OF_PKCS7_RECIP_INFO) : PSTACK_OF_PKCS7_RECIP_INFO cdecl;
   Tsk_PKCS7_RECIP_INFO_find = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; _val : PX509_CRL) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_pop_free = procedure (sk : PSTACK_OF_PKCS7_RECIP_INFO; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_PKCS7_SIGNER_INFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl;
+  Tsk_PKCS7_SIGNER_INFO_new_null = function : PSTACK_OF_PKCS7_SIGNER_INFO cdecl;
+  Tsk_PKCS7_SIGNER_INFO_free = procedure(st : PSTACK_OF_PKCS7_SIGNER_INFO) cdecl;
   Tsk_PKCS7_SIGNER_INFO_num = function (const sk : PSTACK_OF_PKCS7_SIGNER_INFO) : TIdC_INT cdecl;
   Tsk_PKCS7_SIGNER_INFO_value = function (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PX509_CRL cdecl;
   Tsk_PKCS7_SIGNER_INFO_push = function (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl;
@@ -545,12 +551,19 @@ type
   Tsk_PKCS7_SIGNER_INFO_pop_free = procedure (sk : PSTACK_OF_PKCS7_SIGNER_INFO; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
+  sk_PKCS7_RECIP_INFO_new: Tsk_PKCS7_RECIP_INFO_new absolute sk_new;
+  sk_PKCS7_RECIP_INFO_new_null : Tsk_PKCS7_RECIP_INFO_new_null absolute sk_new_null;
+  sk_PKCS7_RECIP_INFO_free : Tsk_PKCS7_RECIP_INFO_free absolute sk_free;
   sk_PKCS7_RECIP_INFO_num : Tsk_PKCS7_RECIP_INFO_num absolute sk_num;
   sk_PKCS7_RECIP_INFO_value : Tsk_PKCS7_RECIP_INFO_value absolute sk_value;
   sk_PKCS7_RECIP_INFO_push : Tsk_PKCS7_RECIP_INFO_push absolute sk_push;
   sk_PKCS7_RECIP_INFO_dup : Tsk_PKCS7_RECIP_INFO_dup absolute sk_dup;
   sk_PKCS7_RECIP_INFO_find : Tsk_PKCS7_RECIP_INFO_find absolute sk_find;
   sk_PKCS7_RECIP_INFO_pop_free : Tsk_PKCS7_RECIP_INFO_pop_free absolute sk_pop_free;
+
+  sk_PKCS7_SIGNER_INFO_new: Tsk_PKCS7_SIGNER_INFO_new absolute sk_new;
+  sk_PKCS7_SIGNER_INFO_new_null : Tsk_PKCS7_SIGNER_INFO_new_null absolute sk_new_null;
+  sk_PKCS7_SIGNER_INFO_free : Tsk_PKCS7_SIGNER_INFO_free absolute sk_free;
   sk_PKCS7_SIGNER_INFO_num : Tsk_PKCS7_SIGNER_INFO_num absolute sk_num;
   sk_PKCS7_SIGNER_INFO_value : Tsk_PKCS7_SIGNER_INFO_value absolute sk_value;
   sk_PKCS7_SIGNER_INFO_push : Tsk_PKCS7_SIGNER_INFO_push absolute sk_push;
@@ -558,12 +571,18 @@ var
   sk_PKCS7_SIGNER_INFO_find : Tsk_PKCS7_SIGNER_INFO_find absolute sk_find;
   sk_PKCS7_SIGNER_INFO_pop_free : Tsk_PKCS7_SIGNER_INFO_pop_free absolute sk_pop_free;
 {$ELSE}
+  function sk_PKCS7_RECIP_INFO_new(cmp : Tsk_new_cmp) : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_PKCS7_RECIP_INFO_new_null : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_PKCS7_RECIP_INFO_free(st : PSTACK_OF_PKCS7_RECIP_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_PKCS7_RECIP_INFO_num (const sk : PSTACK_OF_PKCS7_RECIP_INFO) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
   function sk_PKCS7_RECIP_INFO_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_RECIP_INFO_push (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_RECIP_INFO_dup (sk : PSTACK_OF_PKCS7_RECIP_INFO) : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_PKCS7_RECIP_INFO_find (sk : PSTACK_OF_PKCS7_RECIP_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_PKCS7_RECIP_INFO_pop_free (sk : PSTACK_OF_PKCS7_RECIP_INFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_PKCS7_SIGNER_INFO_new(cmp : Tsk_new_cmp) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_PKCS7_SIGNER_INFO_new_null : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_PKCS7_SIGNER_INFO_free(st : PSTACK_OF_PKCS7_SIGNER_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_PKCS7_SIGNER_INFO_num (const sk : PSTACK_OF_PKCS7_SIGNER_INFO) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
   function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_SIGNER_INFO_push (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
