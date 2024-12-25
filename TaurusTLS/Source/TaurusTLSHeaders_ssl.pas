@@ -248,7 +248,7 @@ const
 
   (*
    * Disable SSL 3.0/TLS 1.0 CBC vulnerability workaround that was added in
-   * TaurusTLS 0.9.6d.  Usually (depending on the application protocol) the
+   * OpenSSL 0.9.6d.  Usually (depending on the application protocol) the
    * workaround is not needed.  Unfortunately some broken SSL/TLS
    * implementations cannot handle it at all, which is why we include it in
    * SSL_OP_ALL. Added in 0.9.6e
@@ -276,7 +276,7 @@ const
 
   (*
    * Enable TLSv1.3 Compatibility mode. This is on by default. A future version
-   * of TaurusTLS may have this disabled by default.
+   * of OpenSSL may have this disabled by default.
    *)
   SSL_OP_ENABLE_MIDDLEBOX_COMPAT                  = TIdC_UINT($00100000);
 
@@ -335,44 +335,44 @@ const
 
   (* OBSOLETE OPTIONS: retained for compatibility *)
 
-  (* Removed from TaurusTLS 1.1.0. Was $00000001L *)
+  (* Removed from OpenSSL 1.1.0. Was $00000001L *)
   (* Related to removed SSLv2. *)
   SSL_OP_MICROSOFT_SESS_ID_BUG                    = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00000002L *)
+  (* Removed from OpenSSL 1.1.0. Was $00000002L *)
   (* Related to removed SSLv2. *)
   SSL_OP_NETSCAPE_CHALLENGE_BUG                   = $0;
-  (* Removed from TaurusTLS 0.9.8q and 1.0.0c. Was $00000008L *)
+  (* Removed from OpenSSL 0.9.8q and 1.0.0c. Was $00000008L *)
   (* Dead forever, see CVE-2010-4180 *)
   SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG         = $0;
-  (* Removed from TaurusTLS 1.0.1h and 1.0.2. Was $00000010L *)
+  (* Removed from OpenSSL 1.0.1h and 1.0.2. Was $00000010L *)
   (* Refers to ancient SSLREF and SSLv2. *)
   SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG              = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00000020 *)
+  (* Removed from OpenSSL 1.1.0. Was $00000020 *)
   SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER               = $0;
-  (* Removed from TaurusTLS 0.9.7h and 0.9.8b. Was $00000040L *)
+  (* Removed from OpenSSL 0.9.7h and 0.9.8b. Was $00000040L *)
   SSL_OP_MSIE_SSLV2_RSA_PADDING                   = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00000080 *)
+  (* Removed from OpenSSL 1.1.0. Was $00000080 *)
   (* Ancient SSLeay version. *)
   SSL_OP_SSLEAY_080_CLIENT_DH_BUG                 = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00000100L *)
+  (* Removed from OpenSSL 1.1.0. Was $00000100L *)
   SSL_OP_TLS_D5_BUG                               = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00000200L *)
+  (* Removed from OpenSSL 1.1.0. Was $00000200L *)
   SSL_OP_TLS_BLOCK_PADDING_BUG                    = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00080000L *)
+  (* Removed from OpenSSL 1.1.0. Was $00080000L *)
   SSL_OP_SINGLE_ECDH_USE                          = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $00100000L *)
+  (* Removed from OpenSSL 1.1.0. Was $00100000L *)
   SSL_OP_SINGLE_DH_USE                            = $0;
-  (* Removed from TaurusTLS 1.0.1k and 1.0.2. Was $00200000L *)
+  (* Removed from OpenSSL 1.0.1k and 1.0.2. Was $00200000L *)
   SSL_OP_EPHEMERAL_RSA                            = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $01000000L *)
+  (* Removed from OpenSSL 1.1.0. Was $01000000L *)
   SSL_OP_NO_SSLv2                                 = $0;
-  (* Removed from TaurusTLS 1.0.1. Was $08000000L *)
+  (* Removed from OpenSSL 1.0.1. Was $08000000L *)
   SSL_OP_PKCS1_CHECK_1                            = $0;
-  (* Removed from TaurusTLS 1.0.1. Was $10000000L *)
+  (* Removed from OpenSSL 1.0.1. Was $10000000L *)
   SSL_OP_PKCS1_CHECK_2                            = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $20000000L *)
+  (* Removed from OpenSSL 1.1.0. Was $20000000L *)
   SSL_OP_NETSCAPE_CA_DN_BUG                       = $0;
-  (* Removed from TaurusTLS 1.1.0. Was $40000000L *)
+  (* Removed from OpenSSL 1.1.0. Was $40000000L *)
   SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG          = $0;
 
   (*
@@ -423,12 +423,12 @@ const
    * When using DTLS/SCTP, include the terminating zero in the label
    * used for computing the endpoint-pair shared secret. Required for
    * interoperability with implementations having this bug like these
-   * older version of TaurusTLS:
-   * - TaurusTLS 1.0.0 series
-   * - TaurusTLS 1.0.1 series
-   * - TaurusTLS 1.0.2 series
-   * - TaurusTLS 1.1.0 series
-   * - TaurusTLS 1.1.1 and 1.1.1a
+   * older version of OpenSSL:
+   * - OpenSSL 1.0.0 series
+   * - OpenSSL 1.0.1 series
+   * - OpenSSL 1.0.2 series
+   * - OpenSSL 1.1.0 series
+   * - OpenSSL 1.1.1 and 1.1.1a
    *)
   SSL_MODE_DTLS_SCTP_LABEL_LENGTH_BUG = TIdC_UINT($00000400);
 
@@ -2012,8 +2012,8 @@ var
   SSL_use_PrivateKey_ASN1: function (pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   SSL_use_certificate: function (ssl: PSSL; x: PX509): TIdC_INT; cdecl = nil;
   SSL_use_certificate_ASN1: function (ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  //__owur TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509, EVP_PKEY *privatekey,
-  //                                STACK_OF(X509) *chain, TIdC_INT override);
+  SSL_use_cert_and_key : function(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
+                                  chain : PSTACK_OF_X509; override_ : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   (* Set serverinfo data for the current active cert. *)
   SSL_CTX_use_serverinfo: function (ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; cdecl = nil;
@@ -2238,13 +2238,14 @@ var
   DTLS_client_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
 
   DTLS_get_data_mtu : function (const s: PSSL) : TIdC_SIZET; cdecl = nil;
-  //
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(s: PSSL);
-  //
-  //__owur TIdC_INT SSL_do_handshake(s: PSSL);
+
+  SSL_get_ciphers : function(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
+  SSL_CTX_get_ciphers : function(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
+  SSL_get_client_ciphers : function(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
+  SSL_get1_supported_ciphers : function(s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl = nil;
+
+  SSL_do_handshake: function(s: PSSL) : TIdC_INT; cdecl = nil;
+
   SSL_key_update: function (s: PSSL; updatetype: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_get_key_update_type: function (const s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_renegotiate: function (s: PSSL): TIdC_INT; cdecl = nil;
@@ -2960,8 +2961,8 @@ var
   function SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  //__owur TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509, EVP_PKEY *privatekey,
-  //                                STACK_OF(X509) *chain, TIdC_INT override);
+  function TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509; privatekey : EVP_PKEY;
+                                   chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;
 
   (* Set serverinfo data for the current active cert. *)
   function SSL_CTX_use_serverinfo(ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL;
@@ -3185,12 +3186,12 @@ var
 
   function DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
   //
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(s: PSSL);
+  function SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
+  function SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
+  function SSL_get_client_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
+  function SSL_get1_supported_ciphers(s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
   //
-  //__owur TIdC_INT SSL_do_handshake(s: PSSL);
+  function SSL_do_handshake(s: PSSL) : TIdC_INT cdecl; external CLibSSL;
   function SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get_key_update_type(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_renegotiate(s: PSSL): TIdC_INT cdecl; external CLibSSL;
@@ -4564,8 +4565,7 @@ const
   SSL_use_PrivateKey_ASN1_procname = 'SSL_use_PrivateKey_ASN1';
   SSL_use_certificate_procname = 'SSL_use_certificate';
   SSL_use_certificate_ASN1_procname = 'SSL_use_certificate_ASN1';
-  //__owur TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509, EVP_PKEY *privatekey,
-  //                                STACK_OF(X509) *chain, TIdC_INT override);
+  SSL_use_cert_and_key_procname = 'SSL_use_cert_and_key';
 
   (* Set serverinfo data for the current active cert. *)
   SSL_CTX_use_serverinfo_procname = 'SSL_CTX_use_serverinfo';
@@ -4791,12 +4791,14 @@ const
 
   DTLS_get_data_mtu_procname = 'DTLS_get_data_mtu';
 
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(s: PSSL);
-  //
-  //__owur TIdC_INT SSL_do_handshake(s: PSSL);
+  SSL_get_ciphers_procname = 'SSL_get_ciphers';
+
+  SSL_CTX_get_ciphers_procname = 'SSL_CTX_get_ciphers';
+  SSL_get_client_ciphers_procname = 'SSL_get_client_ciphers';
+  SSL_get1_supported_ciphers_procname = 'SSL_get1_supported_ciphers';
+
+  SSL_do_handshake_procname = 'SSL_do_handshake';
+
   SSL_key_update_procname = 'SSL_key_update'; {introduced 1.1.0}
   SSL_get_key_update_type_procname = 'SSL_get_key_update_type'; {introduced 1.1.0}
   SSL_renegotiate_procname = 'SSL_renegotiate';
@@ -7279,8 +7281,11 @@ begin
 end;
 
 
-  //__owur TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509, EVP_PKEY *privatekey,
-  //                                STACK_OF(X509) *chain, TIdC_INT override);
+function ERR_SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
+                              chain : PSTACK_OF_X509;  _override : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_cert_and_key_procname);
+end;
 
   (* Set serverinfo data for the current active cert. *)
 function  ERR_SSL_CTX_use_serverinfo(ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; 
@@ -8290,14 +8295,33 @@ function ERR_DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_get_data_mtu_procname);
 end;
-  //
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const s: PSSL);
-  //__owur STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(s: PSSL);
-  //
-  //__owur TIdC_INT SSL_do_handshake(s: PSSL);
-function  ERR_SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT; 
+
+function ERR_SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_ciphers_procname);
+end;
+
+function ERR_SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_get_ciphers_procname);
+end;
+
+function ERR_SSL_get_client_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_client_ciphers_procname);
+end;
+
+function ERR_SSL_get1_supported_ciphers(s: PSSL) : PSTACK_OF_SSL_CIPHER;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get1_supported_ciphers_procname);
+end;
+
+function ERR_SSL_do_handshake(s: PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_do_handshake_procname );
+end;
+
+function  ERR_SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_key_update_procname);
 end;
@@ -15115,6 +15139,37 @@ begin
     {$ifend}
   end;
 
+  SSL_use_cert_and_key := LoadLibFunction(ADllHandle, SSL_use_cert_and_key_procname);
+  FuncLoadError := not assigned(SSL_use_cert_and_key);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_use_cert_and_key_allownil)}
+    SSL_use_cert_and_key := @ERR_SSL_use_cert_and_key;
+    {$ifend}
+    {$if declared(SSL_use_cert_and_key_introduced)}
+    if LibVersion < SSL_use_cert_and_key_introduced then
+    begin
+      {$if declared(FC_SSL_use_cert_and_key)}
+      SSL_use_cert_and_key := @FC_SSL_use_cert_and_key;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_use_cert_and_key_removed)}
+    if SSL_use_cert_and_key_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_use_cert_and_key)}
+      SSL_use_cert_and_key := @_SSL_use_cert_and_key;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_use_cert_and_key_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_use_cert_and_key');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_CTX_use_serverinfo_file := LoadLibFunction(ADllHandle, SSL_CTX_use_serverinfo_file_procname);
   FuncLoadError := not assigned(SSL_CTX_use_serverinfo_file);
@@ -20130,6 +20185,158 @@ begin
     {$if not defined(SSL_key_update_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_key_update');
+    {$ifend}
+  end;
+
+  SSL_get_ciphers := LoadLibFunction(ADllHandle, SSL_get_ciphers_procname);
+  FuncLoadError := not assigned(SSL_get_ciphers);
+  if FuncLoadError then
+  begin
+    {$if not defined(DSSL_get_ciphers_allownil)}
+    SSL_get_ciphers := @ERR_SSL_get_ciphers;
+    {$ifend}
+    {$if declared(DSSL_get_ciphers_introduced)}
+    if LibVersion < DSSL_get_ciphers_introduced then
+    begin
+      {$if declared(FC_DSSL_get_ciphers)}
+      SSL_get_ciphers := @FC_SSL_get_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DSSL_get_ciphers_removed)}
+    if DSSL_get_ciphers_removed <= LibVersion then
+    begin
+      {$if declared(_DSSL_get_ciphers)}
+      DSSL_get_ciphers := @_SSL_get_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DSSL_get_ciphers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DSSL_get_ciphers');
+    {$ifend}
+  end;
+  SSL_CTX_get_ciphers := LoadLibFunction(ADllHandle, SSL_CTX_get_ciphers_procname);
+  FuncLoadError := not assigned(SSL_CTX_get_ciphers);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get_ciphers_allownil)}
+    SSL_CTX_get_ciphers := @ERR_SSL_CTX_get_ciphers;
+    {$ifend}
+    {$if declared(SSL_CTX_get_ciphers_introduced)}
+    if LibVersion < SSL_CTX_get_ciphers_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get_ciphers)}
+      SSL_CTX_get_ciphers := @FC_SSL_CTX_get_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get_ciphers_removed)}
+    if SSL_CTX_get_ciphers_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get_ciphers)}
+      SSL_CTX_get_ciphers := @_SSL_CTX_get_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get_ciphers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get_ciphers');
+    {$ifend}
+  end;
+  SSL_get_client_ciphers := LoadLibFunction(ADllHandle, SSL_get_client_ciphers_procname);
+  FuncLoadError := not assigned(SSL_get_client_ciphers);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_client_ciphers_allownil)}
+    SSL_get_client_ciphers := @ERR_SSL_get_client_ciphers;
+    {$ifend}
+    {$if declared(SSL_get_client_ciphers_introduced)}
+    if LibVersion < SSL_get_client_ciphers_introduced then
+    begin
+      {$if declared(FC_SSL_get_client_ciphers)}
+      SSL_get_client_ciphers := @FC_SSL_get_client_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_client_ciphers_removed)}
+    if SSL_get_client_ciphers_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_client_ciphers)}
+      SSL_get_client_ciphers := @_SSL_get_client_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_client_ciphers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_client_ciphers');
+    {$ifend}
+  end;
+  SSL_get1_supported_ciphers := LoadLibFunction(ADllHandle, SSL_get1_supported_ciphers_procname);
+  FuncLoadError := not assigned(SSL_get1_supported_ciphers);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get1_supported_ciphers_allownil)}
+    SSL_get1_supported_ciphers := @ERR_SSL_get1_supported_ciphers;
+    {$ifend}
+    {$if declared(SSL_get1_supported_ciphers_introduced)}
+    if LibVersion < SSL_get1_supported_ciphers_introduced then
+    begin
+      {$if declared(FC_SSL_get1_supported_ciphers)}
+      SSL_get1_supported_ciphers := @FC_SSL_get1_supported_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get1_supported_ciphers_removed)}
+    if SSL_get1_supported_ciphers_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get1_supported_ciphers)}
+      SSL_get1_supported_ciphers := @_SSL_get1_supported_ciphers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get1_supported_ciphers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get1_supported_ciphers');
+    {$ifend}
+  end;
+
+  SSL_do_handshake := LoadLibFunction(ADllHandle, SSL_do_handshake_procname);
+  FuncLoadError := not assigned(SSL_do_handshake);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_do_handshake_allownil)}
+    SSL_do_handshake := @ERR_SSL_do_handshake;
+    {$ifend}
+    {$if declared(SSL_do_handshake_introduced)}
+    if LibVersion < SSL_do_handshake_introduced then
+    begin
+      {$if declared(FC_SSL_do_handshake)}
+      SSL_do_handshake := @FC_SSL_do_handshake;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_do_handshake_removed)}
+    if SSL_do_handshake_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_do_handshake)}
+      SSL_do_handshake := @_SSL_do_handshake;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_do_handshake_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_do_handshake');
     {$ifend}
   end;
 
@@ -25333,6 +25540,7 @@ begin
   SSL_use_certificate_ASN1 := nil;
   SSL_CTX_use_serverinfo := nil;
   SSL_CTX_use_serverinfo_ex := nil; {introduced 1.1.0}
+  SSL_use_cert_and_key := nil;
   SSL_CTX_use_serverinfo_file := nil;
   SSL_use_RSAPrivateKey_file := nil;
   SSL_use_PrivateKey_file := nil;
@@ -25489,6 +25697,11 @@ begin
   DTLS_server_method := nil;
   DTLS_client_method := nil;
   DTLS_get_data_mtu := nil;
+  SSL_get_ciphers := nil;
+  SSL_CTX_get_ciphers := nil;
+  SSL_get_client_ciphers := nil;
+  SSL_get1_supported_ciphers := nil;
+  SSL_do_handshake := nil;
   SSL_key_update := nil; {introduced 1.1.0}
   SSL_get_key_update_type := nil; {introduced 1.1.0}
   SSL_renegotiate := nil;
