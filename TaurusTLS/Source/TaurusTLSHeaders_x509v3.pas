@@ -370,24 +370,20 @@ type
   end;
   ACCESS_DESCRIPTION = ACCESS_DESCRIPTION_st;
   PACCESS_DESCRIPTION = ^ACCESS_DESCRIPTION;
+  PSTACK_OF_ACCESS_DESCRIPTION = type of pointer;
 
-//  AUTHORITY_INFO_ACCESS = PSTACK_OF_ACCESS_DESCRIPTION;
+  AUTHORITY_INFO_ACCESS = PSTACK_OF_ACCESS_DESCRIPTION;
 
 
   EXTENDED_KEY_USAGE = PSTACK_OF_ASN1_OBJECT;
 
   TLS_FEATURE = PSTACK_OF_ASN1_INTEGER;
 
-//  DEFINE_STACK_OF(GENERAL_NAME)
-//  typedef STACK_OF(GENERAL_NAME) GENERAL_NAMES;
-//  DEFINE_STACK_OF(GENERAL_NAMES)
-
-//  DEFINE_STACK_OF(ACCESS_DESCRIPTION)
-//  DIST_POINT_NAME_st_union = record
-//    case TIdC_INT of
-//      0: (GENERAL_NAMES *fullname);
-//      1: (STACK_OF(X509_NAME_ENTRY) *relativename);
-//  end;
+  DIST_POINT_NAME_st_union = record
+    case TIdC_INT of
+      0: (fullname : PGENERAL_NAMES);
+      1: (relativename : PSTACK_OF_X509_NAME_ENTRY);
+  end;
   DIST_POINT_NAME_st = record
     type_: TIdC_INT;
     (* If relativename then this contains the full distribution point name *)
@@ -397,14 +393,14 @@ type
   PDIST_POINT_NAME = ^DIST_POINT_NAME;
 
 
-//  struct DIST_POINT_ST {
-//      DIST_POINT_NAME *distpoint;
-//      ASN1_BIT_STRING *reasons;
-//      GENERAL_NAMES *CRLissuer;
-//      TIdC_INT dp_reasons;
-//  };
+  DIST_POINT_ST = record
+      distpoint : PDIST_POINT_NAME;
+      reasons : PASN1_BIT_STRING;
+      CRLissuer : PGENERAL_NAMES;
+      dp_reasons : TIdC_INT;
+   end;
 
-//  typedef STACK_OF(DIST_POINT) CRL_DIST_POINTS;
+  CRL_DIST_POINTS = PSTACK_OF_DIST_POINT;
 
 //  DEFINE_STACK_OF(DIST_POINT)
 
@@ -423,51 +419,52 @@ type
   end;
   SXNETID = SXNET_ID_st;
   PSXNETID = ^SXNETID;
-//  DEFINE_STACK_OF(SXNETID)
+  PSTACK_OF_SXNETID = type pointer;
 
-//  SXNET_st = record
-//    ASN1_INTEGER *version;
-//    STACK_OF(SXNETID) *ids;
-//  end;
-//  SXNET = SXNET_st;
-//  PSXNET = ^SXNET;
+  SXNET_st = record
+    version : PASN1_INTEGER;
+    ids : PSTACK_OF_SXNETID;
+  end;
+  SXNET = SXNET_st;
+  PSXNET = ^SXNET;
 
-//  NOTICEREF_st = record
-//    ASN1_STRING *organization;
-//    STACK_OF(ASN1_INTEGER) *noticenos;
-//  end;
-//  NOTICEREF = NOTICEREF_st;
-//  PNOTICEREF = ^NOTICEREF;
+  NOTICEREF_st = record
+    organization : PASN1_STRING;
+    noticenos : PSTACK_OF_ASN1_INTEGER;
+  end;
+  NOTICEREF = NOTICEREF_st;
+  PNOTICEREF = ^NOTICEREF;
 
-//  USERNOTICE_st = record
-//    noticeref: PNOTICEREF;
-//    exptext: PASN1_STRING;
-//  end;
-//  USERNOTICE = USERNOTICE_st;
-//  PUSERNOTICE = ^USERNOTICE;
+  USERNOTICE_st = record
+    noticeref: PNOTICEREF;
+    exptext: PASN1_STRING;
+  end;
+  USERNOTICE = USERNOTICE_st;
+  PUSERNOTICE = ^USERNOTICE;
 
-//  POLICYQUALINFO_st_union = record
-//    case TIdC_INT of
-//      0: (cpsuri: PASN1_IA5STRING);
-//      1: (usernotice: PUSERNOTICE);
-//      2: (other: PASN1_TYPE);
-//  end;
-//  POLICYQUALINFO_st = record
-//    pqualid: PASN1_OBJECT;
-//    d: POLICYQUALINFO_st_union;
-//  end;
-//  POLICYQUALINFO = POLICYQUALINFO_st;
-//  PPOLICYQUALINFO = ^POLICYQUALINFO;
-//  DEFINE_STACK_OF(POLICYQUALINFO)
+  POLICYQUALINFO_st_union = record
+    case TIdC_INT of
+      0: (cpsuri: PASN1_IA5STRING);
+      1: (usernotice: PUSERNOTICE);
+      2: (other: PASN1_TYPE);
+  end;
+  POLICYQUALINFO_st = record
+    pqualid: PASN1_OBJECT;
+    d: POLICYQUALINFO_st_union;
+  end;
+  POLICYQUALINFO = POLICYQUALINFO_st;
+  PPOLICYQUALINFO = ^POLICYQUALINFO;
+  PSTACK_OF_POLICYQUALINFO = type pointer;
 
-//  POLICYINFO_st = record
-//    ASN1_OBJECT *policyid;
-//    STACK_OF(POLICYQUALINFO) *qualifiers;
-//  end;
-//  POLICYINFO = POLICYINFO_st;
-//  PPOLICYINFO = ^POLICYINFO;
-//  typedef STACK_OF(POLICYINFO) CERTIFICATEPOLICIES;
-//  DEFINE_STACK_OF(POLICYINFO)
+  POLICYINFO_st = record
+    policyid : PASN1_OBJECT;
+    qualifiers : PSTACK_OF_POLICYQUALINFO;
+  end;
+  POLICYINFO = POLICYINFO_st;
+  PPOLICYINFO = ^POLICYINFO;
+
+  PSTACK_OF_POLICYINFO = type pointer;
+  CERTIFICATEPOLICIES = PSTACK_OF_POLICYINFO;
 
   POLICY_MAPPING_st = record
     issuerDomainPolicy: PASN1_OBJECT;
@@ -475,8 +472,8 @@ type
   end;
   POLICY_MAPPING = POLICY_MAPPING_st;
   PPOLICY_MAPPING = ^POLICY_MAPPING;
-//  DEFINE_STACK_OF(POLICY_MAPPING)
-//  typedef STACK_OF(POLICY_MAPPING) POLICY_MAPPINGS;
+  PSTACK_OF_POLICY_MAPPING = type pointer;
+  POLICY_MAPPINGS = PSTACK_OF_POLICY_MAPPING;
 
   GENERAL_SUBTREE_st = record
     base: PGENERAL_NAME;
@@ -485,12 +482,12 @@ type
   end;
   GENERAL_SUBTREE = GENERAL_SUBTREE_st;
   PGENERAL_SUBTREE = ^GENERAL_SUBTREE;
-//  DEFINE_STACK_OF(GENERAL_SUBTREE)
+  PSTACK_OF_GENERAL_SUBTREE = type pointer;
 
-//  NAME_CONSTRAINTS_st = record
-//    STACK_OF(GENERAL_SUBTREE) *permittedSubtrees;
-//    STACK_OF(GENERAL_SUBTREE) *excludedSubtrees;
-//  end;
+  NAME_CONSTRAINTS_st = record
+    permittedSubtrees : PSTACK_OF_GENERAL_SUBTREE;
+    excludedSubtrees : PSTACK_OF_GENERAL_SUBTREE;
+  end;
 
   POLICY_CONSTRAINTS_st = record
     requireExplicitPolicy: PASN1_INTEGER;
@@ -516,14 +513,15 @@ type
   PPROXY_CERT_INFO_EXTENSION = ^PROXY_CERT_INFO_EXTENSION;
 //  DECLARE_ASN1_FUNCTIONS(PROXY_CERT_INFO_EXTENSION)
 
-//  ISSUING_DIST_POint_st = record
-//    distpoint: PDIST_POINT_NAME;
-//    TIdC_INT onlyuser;
-//    TIdC_INT onlyCA;
-//    onlysomereasons: PASN1_BIT_STRING;
-//    TIdC_INT indirectCRL;
-//    TIdC_INT onlyattr;
-//  end;
+  ISSUING_DIST_POint_st = record
+    distpoint: PDIST_POINT_NAME;
+    onlyuser : TIdC_INT;
+    onlyCA : TIdC_INT;
+    onlysomereasons: PASN1_BIT_STRING;
+    indirectCRL : TIdC_INT;
+    onlyattr : TIdC_INT;
+  end;
+  PSTACK_OF_ASN1_STRING = type pointer;
 
 //  # define X509V3_conf_err(val) ERR_add_error_data(6, \
 //                          "section:", (val)->section, \
@@ -559,7 +557,7 @@ type
     usr_data: Pointer;
   end;
   X509_PURPOSE = x509_purpose_st;
-//  DEFINE_STACK_OF(X509_PURPOSE)
+  PSTACK_OF_X509_PURPOSE = type pointer;
 
 //  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
 
@@ -580,23 +578,22 @@ type
   end;
   ASIdOrRange = ASIdOrRange_st;
   PASIdOrRange = ^ASIdOrRange;
-//  typedef STACK_OF(ASIdOrRange) ASIdOrRanges;
-//  DEFINE_STACK_OF(ASIdOrRange)
+  ASIdOrRanges = PSTACK_OF_ASIdOrRange;
 
-//  ASIdentifierChoice_st = record
-//    type_: TIdC_INT;
-//    case u: TIdC_INT of
-//      0: (inherit: PASN1_NULL);
-//      1: (asIdsOrRanges: PASIdOrRanges);
-//  end;
-//  ASIdentifierChoice = ASIdentifierChoice_st;
-//  PASIdentifierChoice = ^ASIdentifierChoice;
+  ASIdentifierChoice_st = record
+    type_: TIdC_INT;
+    case u: TIdC_INT of
+      0: (inherit: PASN1_NULL);
+      1: (asIdsOrRanges: PASIdOrRanges);
+  end;
+  ASIdentifierChoice = ASIdentifierChoice_st;
+  PASIdentifierChoice = ^ASIdentifierChoice;
 
-//  ASIdentifiers_st = record
-//    asnum, rdi: PASIdentifierChoice;
-//  end;
-//  ASIdentifiers = ASIdentifiers_st;
-//  PASIdentifiers = ^ASIdentifiers;
+  ASIdentifiers_st = record
+    asnum, rdi: PASIdentifierChoice;
+  end;
+  ASIdentifiers = ASIdentifiers_st;
+  PASIdentifiers = ^ASIdentifiers;
 
 //  DECLARE_ASN1_FUNCTIONS(ASRange)
 //  DECLARE_ASN1_FUNCTIONS(ASIdOrRange)
@@ -620,8 +617,6 @@ type
 
   PSTACK_OF_IPAddressOrRange = type pointer;
   PIPAddressOrRanges = PSTACK_OF_IPAddressOrRange;
-//  typedef STACK_OF(IPAddressOrRange) IPAddressOrRanges;
-//  DEFINE_STACK_OF(IPAddressOrRange)
 
   IPAddressChoice_st = record
     type_: TIdC_INT;
@@ -1287,7 +1282,6 @@ type
   Tsk_ASIdOrRange_dup = function (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl;
   Tsk_ASIdOrRange_find = function (sk : PSTACK_OF_ASIdOrRange; _val : PASIdOrRange) : TIdC_INT cdecl;
   Tsk_ASIdOrRange_pop_free = procedure (sk : PSTACK_OF_ASIdOrRange; func: TOPENSSL_sk_freefunc) cdecl;
-
   Tsk_IPAddressOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressOrRange cdecl;
   Tsk_IPAddressOrRange_new_null = function : PSTACK_OF_IPAddressOrRange cdecl;
   Tsk_IPAddressOrRange_free = procedure(st : PSTACK_OF_IPAddressOrRange) cdecl;
@@ -1297,8 +1291,6 @@ type
   Tsk_IPAddressOrRange_dup = function (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl;
   Tsk_IPAddressOrRange_find = function (sk : PSTACK_OF_IPAddressOrRange; _val : PIPAddressOrRange) : TIdC_INT cdecl;
   Tsk_IPAddressOrRange_pop_free = procedure (sk : PSTACK_OF_IPAddressOrRange; func: TOPENSSL_sk_freefunc) cdecl;
-
-
   Tsk_IPAddressFamily_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl;
   Tsk_IPAddressFamily_new_null = function : PSTACK_OF_IPAddressFamily cdecl;
   Tsk_IPAddressFamily_free = procedure(st : PSTACK_OF_IPAddressFamily) cdecl;
@@ -1308,7 +1300,6 @@ type
   Tsk_IPAddressFamily_dup = function (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl;
   Tsk_IPAddressFamily_find = function (sk : PSTACK_OF_IPAddressFamily; _val : PIPAddressFamily) : TIdC_INT cdecl;
   Tsk_IPAddressFamily_pop_free = procedure (sk : PSTACK_OF_IPAddressFamily; func: TOPENSSL_sk_freefunc) cdecl;
-
   Tsk_GENERAL_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_new_null = function : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_free = procedure(st : PSTACK_OF_GENERAL_NAME) cdecl;
@@ -1318,6 +1309,15 @@ type
   Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PGENERAL_NAME) : TIdC_INT cdecl;
   Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ACCESS_DESCRIPTION_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
+  Tsk_ACCESS_DESCRIPTION_new_null = function : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
+  Tsk_ACCESS_DESCRIPTION_free = procedure(st : PSTACK_OF_ACCESS_DESCRIPTION) cdecl;
+  Tsk_ACCESS_DESCRIPTION_num = function (const sk : PSTACK_OF_ACCESS_DESCRIPTION) : TIdC_INT cdecl;
+  Tsk_ACCESS_DESCRIPTION_value = function (const sk : PSTACK_OF_ACCESS_DESCRIPTION; i : TIdC_INT) : PACCESS_DESCRIPTION cdecl;
+  Tsk_ACCESS_DESCRIPTION_push = function (sk : PSTACK_OF_ACCESS_DESCRIPTION; st : PACCESS_DESCRIPTION) : TIdC_INT cdecl;
+  Tsk_ACCESS_DESCRIPTION_dup = function (sk : PSTACK_OF_ACCESS_DESCRIPTION) : PSTACK_OF_ACCESS_DESCRIPTION cdecl;
+  Tsk_ACCESS_DESCRIPTION_find = function (sk : PSTACK_OF_ACCESS_DESCRIPTION; _val : PACCESS_DESCRIPTION) : TIdC_INT cdecl;
+  Tsk_ACCESS_DESCRIPTION_pop_free = procedure (sk : PSTACK_OF_ACCESS_DESCRIPTION; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_DIST_POINT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_DIST_POINT cdecl;
   Tsk_DIST_POINT_new_null = function : PSTACK_OF_DIST_POINT cdecl;
   Tsk_DIST_POINT_free = procedure(st : PSTACK_OF_DIST_POINT) cdecl;
@@ -1327,6 +1327,72 @@ type
   Tsk_DIST_POINT_dup = function (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl;
   Tsk_DIST_POINT_find = function (sk : PSTACK_OF_DIST_POINT; _val : PDIST_POINT) : TIdC_INT cdecl;
   Tsk_DIST_POINT_pop_free = procedure (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_SXNETID_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SXNETID cdecl;
+  Tsk_SXNETID_new_null = function : PSTACK_OF_SXNETID cdecl;
+  Tsk_SXNETID_free = procedure(st : PSTACK_OF_SXNETID) cdecl;
+  Tsk_SXNETID_num = function (const sk : PSTACK_OF_SXNETID) : TIdC_INT cdecl;
+  Tsk_SXNETID_value = function (const sk : PSTACK_OF_SXNETID; i : TIdC_INT) : PSXNETID cdecl;
+  Tsk_SXNETID_push = function (sk : PSTACK_OF_SXNETID; st : PSXNETID) : TIdC_INT cdecl;
+  Tsk_SXNETID_dup = function (sk : PSTACK_OF_SXNETID) : PSTACK_OF_SXNETID cdecl;
+  Tsk_SXNETID_find = function (sk : PSTACK_OF_SXNETID; _val : PSXNETID) : TIdC_INT cdecl;
+  Tsk_SXNETID_pop_free = procedure (sk : PSTACK_OF_SXNETID; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_POLICYQUALINFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYQUALINFO cdecl;
+  Tsk_POLICYQUALINFO_new_null = function : PSTACK_OF_POLICYQUALINFO cdecl;
+  Tsk_POLICYQUALINFO_free = procedure(st : PSTACK_OF_POLICYQUALINFO) cdecl;
+  Tsk_POLICYQUALINFO_num = function (const sk : PSTACK_OF_POLICYQUALINFO) : TIdC_INT cdecl;
+  Tsk_POLICYQUALINFO_value = function (const sk : PSTACK_OF_POLICYQUALINFO; i : TIdC_INT) : PPOLICYQUALINFO cdecl;
+  Tsk_POLICYQUALINFO_push = function (sk : PSTACK_OF_POLICYQUALINFO; st : PPOLICYQUALINFO) : TIdC_INT cdecl;
+  Tsk_POLICYQUALINFO_dup = function (sk : PSTACK_OF_POLICYQUALINFO) : PSTACK_OF_POLICYQUALINFO cdecl;
+  Tsk_POLICYQUALINFO_find = function (sk : PSTACK_OF_POLICYQUALINFO; _val : PPOLICYQUALINFO) : TIdC_INT cdecl;
+  Tsk_POLICYQUALINFO_pop_free = procedure (sk : PSTACK_OF_POLICYQUALINFO; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_POLICYINFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYINFO cdecl;
+  Tsk_POLICYINFO_new_null = function : PSTACK_OF_POLICYINFO cdecl;
+  Tsk_POLICYINFO_free = procedure(st : PSTACK_OF_POLICYINFO) cdecl;
+  Tsk_POLICYINFO_num = function (const sk : PSTACK_OF_POLICYINFO) : TIdC_INT cdecl;
+  Tsk_POLICYINFO_value = function (const sk : PSTACK_OF_POLICYINFO; i : TIdC_INT) : PPOLICYINFO cdecl;
+  Tsk_POLICYINFO_push = function (sk : PSTACK_OF_POLICYINFO; st : PPOLICYINFO) : TIdC_INT cdecl;
+  Tsk_POLICYINFO_dup = function (sk : PSTACK_OF_POLICYINFO) : PSTACK_OF_POLICYINFO cdecl;
+  Tsk_POLICYINFO_find = function (sk : PSTACK_OF_POLICYINFO; _val : PPOLICYINFO) : TIdC_INT cdecl;
+  Tsk_POLICYINFO_pop_free = procedure (sk : PSTACK_OF_POLICYINFO; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_POLICY_MAPPING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICY_MAPPING cdecl;
+  Tsk_POLICY_MAPPING_new_null = function : PSTACK_OF_POLICY_MAPPING cdecl;
+  Tsk_POLICY_MAPPING_free = procedure(st : PSTACK_OF_POLICY_MAPPING) cdecl;
+  Tsk_POLICY_MAPPING_num = function (const sk : PSTACK_OF_POLICY_MAPPING) : TIdC_INT cdecl;
+  Tsk_POLICY_MAPPING_value = function (const sk : PSTACK_OF_POLICY_MAPPING; i : TIdC_INT) : PPOLICY_MAPPING cdecl;
+  Tsk_POLICY_MAPPING_push = function (sk : PSTACK_OF_POLICY_MAPPING; st : PPOLICY_MAPPING) : TIdC_INT cdecl;
+  Tsk_POLICY_MAPPING_dup = function (sk : PSTACK_OF_POLICY_MAPPING) : PSTACK_OF_POLICY_MAPPING cdecl;
+  Tsk_POLICY_MAPPING_find = function (sk : PSTACK_OF_POLICY_MAPPING; _val : PPOLICY_MAPPING) : TIdC_INT cdecl;
+  Tsk_POLICY_MAPPING_pop_free = procedure (sk : PSTACK_OF_POLICY_MAPPING; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_GENERAL_SUBTREE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_SUBTREE cdecl;
+  Tsk_GENERAL_SUBTREE_new_null = function : PSTACK_OF_GENERAL_SUBTREE cdecl;
+  Tsk_GENERAL_SUBTREE_free = procedure(st : PSTACK_OF_GENERAL_SUBTREE) cdecl;
+  Tsk_GENERAL_SUBTREE_num = function (const sk : PSTACK_OF_GENERAL_SUBTREE) : TIdC_INT cdecl;
+  Tsk_GENERAL_SUBTREE_value = function (const sk : PSTACK_OF_GENERAL_SUBTREE; i : TIdC_INT) : PGENERAL_SUBTREE cdecl;
+  Tsk_GENERAL_SUBTREE_push = function (sk : PSTACK_OF_GENERAL_SUBTREE; st : PGENERAL_SUBTREE) : TIdC_INT cdecl;
+  Tsk_GENERAL_SUBTREE_dup = function (sk : PSTACK_OF_GENERAL_SUBTREE) : PSTACK_OF_GENERAL_SUBTREE cdecl;
+  Tsk_GENERAL_SUBTREE_find = function (sk : PSTACK_OF_GENERAL_SUBTREE; _val : PGENERAL_SUBTREE) : TIdC_INT cdecl;
+  Tsk_GENERAL_SUBTREE_pop_free = procedure (sk : PSTACK_OF_GENERAL_SUBTREE; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_ASN1_STRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING cdecl;
+  Tsk_ASN1_STRING_new_null = function : PSTACK_OF_ASN1_STRING cdecl;
+  Tsk_ASN1_STRING_free = procedure(st : PSTACK_OF_ASN1_STRING) cdecl;
+  Tsk_ASN1_STRING_num = function (const sk : PSTACK_OF_ASN1_STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_value = function (const sk : PSTACK_OF_ASN1_STRING; i : TIdC_INT) : PASN1_STRING cdecl;
+  Tsk_ASN1_STRING_push = function (sk : PSTACK_OF_ASN1_STRING; st : PASN1_STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_dup = function (sk : PSTACK_OF_ASN1_STRING) : PSTACK_OF_ASN1_STRING cdecl;
+  Tsk_ASN1_STRING_find = function (sk : PSTACK_OF_ASN1_STRING; _val : PASN1_STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_X509_PURPOSE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_PURPOSE cdecl;
+  Tsk_X509_PURPOSE_new_null = function : PSTACK_OF_X509_PURPOSE cdecl;
+  Tsk_X509_PURPOSE_free = procedure(st : PSTACK_OF_X509_PURPOSE) cdecl;
+  Tsk_X509_PURPOSE_num = function (const sk : PSTACK_OF_X509_PURPOSE) : TIdC_INT cdecl;
+  Tsk_X509_PURPOSE_value = function (const sk : PSTACK_OF_X509_PURPOSE; i : TIdC_INT) : PX509_PURPOSE cdecl;
+  Tsk_X509_PURPOSE_push = function (sk : PSTACK_OF_X509_PURPOSE; st : PX509_PURPOSE) : TIdC_INT cdecl;
+  Tsk_X509_PURPOSE_dup = function (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl;
+  Tsk_X509_PURPOSE_find = function (sk : PSTACK_OF_X509_PURPOSE; _val : PX509_PURPOSE) : TIdC_INT cdecl;
+  Tsk_X509_PURPOSE_pop_free = procedure (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl;
+
 
 var
   sk_ASIdOrRange_new: Tsk_ASIdOrRange_new absolute sk_new;
@@ -1338,7 +1404,6 @@ var
   sk_ASIdOrRange_dup : Tsk_ASIdOrRange_dup absolute sk_dup;
   sk_ASIdOrRange_find : Tsk_ASIdOrRange_find absolute sk_find;
   sk_ASIdOrRange_pop_free :  Tsk_ASIdOrRange_pop_free absolute sk_pop_free;
-
   sk_IPAddressFamily_new: Tsk_IPAddressFamily_new absolute sk_new;
   sk_IPAddressFamily_new_null : Tsk_IPAddressFamily_new_null absolute sk_new_null;
   sk_IPAddressFamily_free : Tsk_IPAddressFamily_free absolute sk_free;
@@ -1348,7 +1413,6 @@ var
   sk_IPAddressFamily_dup : Tsk_IPAddressFamily_dup absolute sk_dup;
   sk_IPAddressFamily_find : Tsk_IPAddressFamily_find absolute sk_find;
   sk_IPAddressFamily_pop_free :  Tsk_IPAddressFamily_pop_free absolute sk_pop_free;
-
   sk_GENERAL_NAME_new :  Tsk_GENERAL_NAME_new absolute sk_new;
   sk_GENERAL_NAME_new_null : Tsk_GENERAL_NAME_new_null absolute sk_new_null;
   sk_GENERAL_NAME_free : Tsk_GENERAL_NAME_free absolute sk_free;
@@ -1358,7 +1422,15 @@ var
   sk_GENERAL_NAME_dup : Tsk_GENERAL_NAME_dup absolute sk_dup;
   sk_GENERAL_NAME_find : Tsk_GENERAL_NAME_find absolute sk_find;
   sk_GENERAL_NAME_pop_free : Tsk_GENERAL_NAME_pop_free absolute sk_pop_free;
-
+  sk_ACCESS_DESCRIPTION_new :  Tsk_ACCESS_DESCRIPTION_new absolute sk_new;
+  sk_ACCESS_DESCRIPTION_new_null : Tsk_ACCESS_DESCRIPTION_new_null absolute sk_new_null;
+  sk_ACCESS_DESCRIPTION_free : Tsk_ACCESS_DESCRIPTION_free absolute sk_free;
+  sk_ACCESS_DESCRIPTION_num :  Tsk_ACCESS_DESCRIPTION_num absolute sk_num;
+  sk_ACCESS_DESCRIPTION_value : Tsk_ACCESS_DESCRIPTION_value absolute sk_value;
+  sk_ACCESS_DESCRIPTION_push : Tsk_ACCESS_DESCRIPTION_push absolute sk_push;
+  sk_ACCESS_DESCRIPTION_dup : Tsk_ACCESS_DESCRIPTION_dup absolute sk_dup;
+  sk_ACCESS_DESCRIPTION_find : Tsk_ACCESS_DESCRIPTION_find absolute sk_find;
+  sk_ACCESS_DESCRIPTION_pop_free : Tsk_ACCESS_DESCRIPTION_pop_free absolute sk_pop_free;
   sk_DIST_POINT_new: Tsk_DIST_POINT_new absolute sk_new;
   sk_DIST_POINT_new_null : Tsk_DIST_POINT_new_null absolute sk_new_null;
   sk_DIST_POINT_free : Tsk_DIST_POINT_free absolute sk_free;
@@ -1368,6 +1440,72 @@ var
   sk_DIST_POINT_dup : Tsk_DIST_POINT_dup absolute sk_dup;
   sk_DIST_POINT_find : Tsk_DIST_POINT_find absolute sk_find;
   sk_DIST_POINT_pop_free :  Tsk_DIST_POINT_pop_free absolute sk_pop_free;
+  sk_SXNETID_new :  Tsk_SXNETID_new absolute sk_new;
+  sk_SXNETID_new_null : Tsk_SXNETID_new_null absolute sk_new_null;
+  sk_SXNETID_free : Tsk_SXNETID_free absolute sk_free;
+  sk_SXNETID_num :  Tsk_SXNETID_num absolute sk_num;
+  sk_SXNETID_value : Tsk_SXNETID_value absolute sk_value;
+  sk_SXNETID_push : Tsk_SXNETID_push absolute sk_push;
+  sk_SXNETID_dup : Tsk_SXNETID_dup absolute sk_dup;
+  sk_SXNETID_find : Tsk_SXNETID_find absolute sk_find;
+  sk_SXNETID_pop_free : Tsk_SXNETID_pop_free absolute sk_pop_free;
+  sk_POLICYQUALINFO_new :  Tsk_POLICYQUALINFO_new absolute sk_new;
+  sk_POLICYQUALINFO_new_null : Tsk_POLICYQUALINFO_new_null absolute sk_new_null;
+  sk_POLICYQUALINFO_free : Tsk_POLICYQUALINFO_free absolute sk_free;
+  sk_POLICYQUALINFO_num :  Tsk_POLICYQUALINFO_num absolute sk_num;
+  sk_POLICYQUALINFO_value : Tsk_POLICYQUALINFO_value absolute sk_value;
+  sk_POLICYQUALINFO_push : Tsk_POLICYQUALINFO_push absolute sk_push;
+  sk_POLICYQUALINFO_dup : Tsk_POLICYQUALINFO_dup absolute sk_dup;
+  sk_POLICYQUALINFO_find : Tsk_POLICYQUALINFO_find absolute sk_find;
+  sk_POLICYQUALINFO_pop_free : Tsk_POLICYQUALINFO_pop_free absolute sk_pop_free;
+  sk_POLICYINFO_new :  Tsk_POLICYINFO_new absolute sk_new;
+  sk_POLICYINFO_new_null : Tsk_POLICYINFO_new_null absolute sk_new_null;
+  sk_POLICYINFO_free : Tsk_POLICYINFO_free absolute sk_free;
+  sk_POLICYINFO_num :  Tsk_POLICYINFO_num absolute sk_num;
+  sk_POLICYINFO_value : Tsk_POLICYINFO_value absolute sk_value;
+  sk_POLICYINFO_push : Tsk_POLICYINFO_push absolute sk_push;
+  sk_POLICYINFO_dup : Tsk_POLICYINFO_dup absolute sk_dup;
+  sk_POLICYINFO_find : Tsk_POLICYINFO_find absolute sk_find;
+  sk_POLICYINFO_pop_free : Tsk_POLICYINFO_pop_free absolute sk_pop_free;
+  sk_POLICY_MAPPING_new :  Tsk_POLICY_MAPPING_new absolute sk_new;
+  sk_POLICY_MAPPING_new_null : Tsk_POLICY_MAPPING_new_null absolute sk_new_null;
+  sk_POLICY_MAPPING_free : Tsk_POLICY_MAPPING_free absolute sk_free;
+  sk_POLICY_MAPPING_num :  Tsk_POLICY_MAPPING_num absolute sk_num;
+  sk_POLICY_MAPPING_value : Tsk_POLICY_MAPPING_value absolute sk_value;
+  sk_POLICY_MAPPING_push : Tsk_POLICY_MAPPING_push absolute sk_push;
+  sk_POLICY_MAPPING_dup : Tsk_POLICY_MAPPING_dup absolute sk_dup;
+  sk_POLICY_MAPPING_find : Tsk_POLICY_MAPPING_find absolute sk_find;
+  sk_POLICY_MAPPING_pop_free : Tsk_POLICY_MAPPING_pop_free absolute sk_pop_free;
+  sk_GENERAL_SUBTREE_new :  Tsk_GENERAL_SUBTREE_new absolute sk_new;
+  sk_GENERAL_SUBTREE_new_null : Tsk_GENERAL_SUBTREE_new_null absolute sk_new_null;
+  sk_GENERAL_SUBTREE_free : Tsk_GENERAL_SUBTREE_free absolute sk_free;
+  sk_GENERAL_SUBTREE_num :  Tsk_GENERAL_SUBTREE_num absolute sk_num;
+  sk_GENERAL_SUBTREE_value : Tsk_GENERAL_SUBTREE_value absolute sk_value;
+  sk_GENERAL_SUBTREE_push : Tsk_GENERAL_SUBTREE_push absolute sk_push;
+  sk_GENERAL_SUBTREE_dup : Tsk_GENERAL_SUBTREE_dup absolute sk_dup;
+  sk_GENERAL_SUBTREE_find : Tsk_GENERAL_SUBTREE_find absolute sk_find;
+  sk_GENERAL_SUBTREE_pop_free : Tsk_GENERAL_SUBTREE_pop_free absolute sk_pop_free;
+
+  sk_ASN1_STRING_new :  Tsk_ASN1_STRING_new absolute sk_new;
+  sk_ASN1_STRING_new_null : Tsk_ASN1_STRING_new_null absolute sk_new_null;
+  sk_ASN1_STRING_free : Tsk_ASN1_STRING_free absolute sk_free;
+  sk_ASN1_STRING_num :  Tsk_ASN1_STRING_num absolute sk_num;
+  sk_ASN1_STRING_value : Tsk_ASN1_STRING_value absolute sk_value;
+  sk_ASN1_STRING_push : Tsk_ASN1_STRING_push absolute sk_push;
+  sk_ASN1_STRING_dup : Tsk_ASN1_STRING_dup absolute sk_dup;
+  sk_ASN1_STRING_find : Tsk_ASN1_STRING_find absolute sk_find;
+  sk_ASN1_STRING_pop_free : Tsk_ASN1_STRING_pop_free absolute sk_pop_free;
+
+  sk_X509_PURPOSE_new :  Tsk_X509_PURPOSE_new absolute sk_new;
+  sk_X509_PURPOSE_new_null : Tsk_X509_PURPOSE_new_null absolute sk_new_null;
+  sk_X509_PURPOSE_free : Tsk_X509_PURPOSE_free absolute sk_free;
+  sk_X509_PURPOSE_num :  Tsk_X509_PURPOSE_num absolute sk_num;
+  sk_X509_PURPOSE_value : Tsk_X509_PURPOSE_value absolute sk_value;
+  sk_X509_PURPOSE_push : Tsk_X509_PURPOSE_push absolute sk_push;
+  sk_X509_PURPOSE_dup : Tsk_X509_PURPOSE_dup absolute sk_dup;
+  sk_X509_PURPOSE_find : Tsk_X509_PURPOSE_find absolute sk_find;
+  sk_X509_PURPOSE_pop_free : Tsk_X509_PURPOSE_pop_free absolute sk_pop_free;
+
 {$ELSE}
   function sk_ASIdOrRange_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASIdOrRange_new_null : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1396,7 +1534,6 @@ var
   function sk_IPAddressFamily_dup (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_IPAddressFamily_find (sk : PSTACK_OF_IPAddressFamily; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_IPAddressFamily_pop_free (sk : PSTACK_OF_IPAddressFamily; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-
   function sk_GENERAL_NAME_new(cmp : Tsk_new_cmp) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_GENERAL_NAME_new_null : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_GENERAL_NAME_free(st : PSTACK_OF_GENERAL_NAME) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1406,6 +1543,15 @@ var
   function sk_GENERAL_NAME_dup (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_GENERAL_NAME_find (sk : PSTACK_OF_GENERAL_NAME; val : PGENERAL_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_GENERAL_NAME_pop_free (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ACCESS_DESCRIPTION_new(cmp : Tsk_new_cmp) : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ACCESS_DESCRIPTION_new_null : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ACCESS_DESCRIPTION_free(st : PSTACK_OF_ACCESS_DESCRIPTION) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ACCESS_DESCRIPTION_num (const sk : PSTACK_OF_ACCESS_DESCRIPTION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ACCESS_DESCRIPTION_value (const sk : PSTACK_OF_ACCESS_DESCRIPTION; i : TIdC_INT): PACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ACCESS_DESCRIPTION_push (sk : PSTACK_OF_ACCESS_DESCRIPTION; st : PACCESS_DESCRIPTION): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_ACCESS_DESCRIPTION_dup (sk : PSTACK_OF_ACCESS_DESCRIPTION) : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ACCESS_DESCRIPTION_find (sk : PSTACK_OF_ACCESS_DESCRIPTION; val : PACCESS_DESCRIPTION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ACCESS_DESCRIPTION_pop_free (sk : PSTACK_OF_ACCESS_DESCRIPTION; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_DIST_POINT_new(cmp : Tsk_new_cmp) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_DIST_POINT_new_null : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_DIST_POINT_free(st : PSTACK_OF_DIST_POINT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1415,6 +1561,75 @@ var
   function sk_DIST_POINT_dup (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_DIST_POINT_find (sk : PSTACK_OF_DIST_POINT; val : PDIST_POINT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_DIST_POINT_pop_free (sk : PSTACK_OF_DIST_POINT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_SXNETID_new(cmp : Tsk_new_cmp) : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SXNETID_new_null : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_SXNETID_free(st : PSTACK_OF_SXNETID) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_SXNETID_num (const sk : PSTACK_OF_SXNETID) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_SXNETID_value (const sk : PSTACK_OF_SXNETID; i : TIdC_INT): PSXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_SXNETID_push (sk : PSTACK_OF_SXNETID; st : PSXNETID): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_SXNETID_dup (sk : PSTACK_OF_SXNETID) : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_SXNETID_find (sk : PSTACK_OF_SXNETID; val : PSXNETID) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_SXNETID_pop_free (sk : PSTACK_OF_SXNETID; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_POLICYQUALINFO_new(cmp : Tsk_new_cmp) : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_POLICYQUALINFO_new_null : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_POLICYQUALINFO_free(st : PSTACK_OF_POLICYQUALINFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_POLICYQUALINFO_num (const sk : PSTACK_OF_POLICYQUALINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_POLICYQUALINFO_value (const sk : PSTACK_OF_POLICYQUALINFO; i : TIdC_INT): PPOLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_POLICYQUALINFO_push (sk : PSTACK_OF_POLICYQUALINFO; st : PPOLICYQUALINFO): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_POLICYQUALINFO_dup (sk : PSTACK_OF_POLICYQUALINFO) : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_POLICYQUALINFO_find (sk : PSTACK_OF_POLICYQUALINFO; val : PPOLICYQUALINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_POLICYQUALINFO_pop_free (sk : PSTACK_OF_POLICYQUALINFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_POLICYINFO_new(cmp : Tsk_new_cmp) : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_POLICYINFO_new_null : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_POLICYINFO_free(st : PSTACK_OF_POLICYINFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_POLICYINFO_num (const sk : PSTACK_OF_POLICYINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_POLICYINFO_value (const sk : PSTACK_OF_POLICYINFO; i : TIdC_INT): PPOLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_POLICYINFO_push (sk : PSTACK_OF_POLICYINFO; st : PPOLICYINFO): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_POLICYINFO_dup (sk : PSTACK_OF_POLICYINFO) : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_POLICYINFO_find (sk : PSTACK_OF_POLICYINFO; val : PPOLICYINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_POLICYINFO_pop_free (sk : PSTACK_OF_POLICYINFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_POLICY_MAPPING_new(cmp : Tsk_new_cmp) : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_POLICY_MAPPING_new_null : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_POLICY_MAPPING_free(st : PSTACK_OF_POLICY_MAPPING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_POLICY_MAPPING_num (const sk : PSTACK_OF_POLICY_MAPPING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_POLICY_MAPPING_value (const sk : PSTACK_OF_POLICY_MAPPING; i : TIdC_INT): PPOLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_POLICY_MAPPING_push (sk : PSTACK_OF_POLICY_MAPPING; st : PPOLICY_MAPPING): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_POLICY_MAPPING_dup (sk : PSTACK_OF_POLICY_MAPPING) : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_POLICY_MAPPING_find (sk : PSTACK_OF_POLICY_MAPPING; val : PPOLICY_MAPPING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_POLICY_MAPPING_pop_free (sk : PSTACK_OF_POLICY_MAPPING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_GENERAL_SUBTREE_new(cmp : Tsk_new_cmp) : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_GENERAL_SUBTREE_new_null : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_GENERAL_SUBTREE_free(st : PSTACK_OF_GENERAL_SUBTREE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_GENERAL_SUBTREE_num (const sk : PSTACK_OF_GENERAL_SUBTREE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_GENERAL_SUBTREE_value (const sk : PSTACK_OF_GENERAL_SUBTREE; i : TIdC_INT): PGENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_GENERAL_SUBTREE_push (sk : PSTACK_OF_GENERAL_SUBTREE; st : PGENERAL_SUBTREE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_GENERAL_SUBTREE_dup (sk : PSTACK_OF_GENERAL_SUBTREE) : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_GENERAL_SUBTREE_find (sk : PSTACK_OF_GENERAL_SUBTREE; val : PGENERAL_SUBTREE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_GENERAL_SUBTREE_pop_free (sk : PSTACK_OF_GENERAL_SUBTREE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_ASN1_STRING_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_STRING_new_null : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_STRING_free(st : PSTACK_OF_ASN1_STRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_STRING_num (const sk : PSTACK_OF_ASN1_STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_STRING_value (const sk : PSTACK_OF_ASN1_STRING; i : TIdC_INT): PASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_STRING_push (sk : PSTACK_OF_ASN1_STRING; st : PASN1_STRING): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_ASN1_STRING_dup (sk : PSTACK_OF_ASN1_STRING) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_STRING_find (sk : PSTACK_OF_ASN1_STRING; val : PASN1_STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_STRING_pop_free (sk : PSTACK_OF_ASN1_STRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_X509_PURPOSE_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_PURPOSE_new_null : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_PURPOSE_free(st : PSTACK_OF_X509_PURPOSE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_PURPOSE_num (const sk : PSTACK_OF_X509_PURPOSE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_PURPOSE_value (const sk : PSTACK_OF_X509_PURPOSE; i : TIdC_INT): PX509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_PURPOSE_push (sk : PSTACK_OF_X509_PURPOSE; st : PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_PURPOSE_dup (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_PURPOSE_find (sk : PSTACK_OF_X509_PURPOSE; val : PX509_PURPOSE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_PURPOSE_pop_free (sk : PSTACK_OF_X509_PURPOSE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
 {$ENDIF}
 
 implementation
