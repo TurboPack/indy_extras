@@ -633,9 +633,7 @@ type
   end;
   IPAddressFamily = IPAddressFamily_st;
   PIPAddressFamily = ^IPAddressFamily;
-
-//  typedef STACK_OF(IPAddressFamily) IPAddrBlocks;
-//  DEFINE_STACK_OF(IPAddressFamily)
+  IPAddrBlocks = PSTACK_OF_IPAddressFamily;
 
 //  DECLARE_ASN1_FUNCTIONS(IPAddressRange)
 //  DECLARE_ASN1_FUNCTIONS(IPAddressOrRange)
