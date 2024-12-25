@@ -34,8 +34,9 @@ uses
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_pem,
-  TaurusTLSHeaders_tls1,
   TaurusTLSHeaders_ssl3,
+  TaurusTLSHeaders_stack,
+  TaurusTLSHeaders_tls1,
   TaurusTLSHeaders_x509;
 
 {$MINENUMSIZE 4}
@@ -897,26 +898,15 @@ type
    *)
   ssl_crock_st = ^ssl_st;
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
-  ssl_method_st = type Pointer;
-  SSL_METHOD = ssl_method_st;
-  PSSL_METHOD = ^SSL_METHOD;
-  ssl_session_st = type Pointer;
-  SSL_CIPHER = ssl_session_st;
-  PSSL_CIPHER = ^SSL_CIPHER;
-  SSL_SESSION = ssl_session_st;
-  PSSL_SESSION = ^SSL_SESSION;
+  PSSL_METHOD = type Pointer;
+  PSSL_CIPHER = type Pointer;
+  PSSL_SESSION = type Pointer;
   PPSSL_SESSION = ^PSSL_SESSION;
-  tls_sigalgs_st = type Pointer;
-  TLS_SIGALGS = tls_sigalgs_st;
-  ssl_conf_ctx_st = type Pointer;
-  SSL_CONF_CTX = ssl_conf_ctx_st;
-  PSSL_CONF_CTX = ^SSL_CONF_CTX;
-  ssl_comp_st = type Pointer;
-  SSL_COMP = ssl_comp_st;
-
-
-  //STACK_OF(SSL_CIPHER);
-  //STACK_OF(SSL_COMP);
+  PTLS_SIGALGS = type Pointer;
+  PSSL_CONF_CTX = type pointer;
+  PSSL_COMP = type pointer;
+  PSTACK_OF_SSL_CIPHER = type pointer;
+  PSTACK_OF_SSL_COMP = type pointer;
 
   (* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*)
   srtp_protection_profile_st = record
@@ -925,6 +915,7 @@ type
   end;
   SRTP_PROTECTION_PROFILE = srtp_protection_profile_st;
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
+  PSTACK_OF_SRTP_PROTECTION_PROFILE = type pointer;
 
   //DEFINE_STACK_OF(SRTP_PROTECTION_PROFILE)
 
@@ -2273,20 +2264,19 @@ var
   SSL_alert_desc_string_long: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
   SSL_alert_desc_string: function (value: TIdC_INT): PIdAnsiChar; cdecl = nil;
 
-  //void SSL_set0_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set0_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_CA_list(const s: PSSL);
-  //__owur const STACK_OF(X509_NAME) *SSL_CTX_get0_CA_list(const ctx: PSSL_CTX);
-  //__owur TIdC_INT SSL_add1_to_CA_list(ssl: PSSL, const X509 *x);
-  //__owur TIdC_INT SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_peer_CA_list(const s: PSSL);
+  SSL_set0_CA_list : procedure(s: PSSL; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
+  SSL_CTX_set0_CA_list : procedure(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
+  SSL_get0_CA_list : function(const s: PSSL) : PSTACK_OF_X509_NAME;  cdecl = nil;
+  SSL_CTX_get0_CA_list : function(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl = nil;
+  SSL_add1_to_CA_list : function(ssl: PSSL; const x : PX509) : TIdC_INT; cdecl = nil;
+  SSL_CTX_add1_to_CA_list : function(ctx: PSSL_CTX; const x : PX509) : TIdC_INT; cdecl = nil;
+  SSL_get0_peer_CA_list : function (const s: PSSL) : PSTACK_OF_X509_NAME; cdecl = nil;
 
-  //void SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur STACK_OF(X509_NAME) *SSL_get_client_CA_list(const s: PSSL);
-  //__owur STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *s);
+  SSL_set_client_CA_list : procedure(s: PSSL; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
+  SSL_CTX_set_client_CA_list : procedure(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl = nil;
+  SSL_get_client_CA_list : function(const s: PSSL) : PSTACK_OF_X509_NAME; cdecl = nil;
+  SSL_CTX_get_client_CA_list : function(const s : PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl = nil;
 
-  SSL_CTX_set_client_CA_list: procedure (ctx: PSSL_CTX; name_list: PSTACK_OF_X509_NAME); cdecl = nil;
   SSL_add_client_CA: function (ssl: PSSL; x: PX509): TIdC_INT; cdecl = nil;
   SSL_CTX_add_client_CA: function (ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl = nil;
 
@@ -3220,18 +3210,18 @@ var
   function SSL_alert_desc_string_long(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
   function SSL_alert_desc_string(value: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
 
-  //void SSL_set0_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set0_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_CA_list(const s: PSSL);
-  //__owur const STACK_OF(X509_NAME) *SSL_CTX_get0_CA_list(const ctx: PSSL_CTX);
-  //__owur TIdC_INT SSL_add1_to_CA_list(ssl: PSSL, const X509 *x);
-  //__owur TIdC_INT SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_peer_CA_list(const s: PSSL);
+  procedure SSL_set0_CA_list(s : PSSL; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
+  procedure SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
+  function SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
+  function SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
+  function SSL_add1_to_CA_list(ssl: PSSL, const X509 *x) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
 
-  //void SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur STACK_OF(X509_NAME) *SSL_get_client_CA_list(const s: PSSL);
-  //__owur STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *s);
+  procedure SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list) cdecl; external CLibSSL;
+  procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list) cdecl; external CLibSSL;
+  function SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
+  function SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : STACK_OF_X509_NAME cdecl; external CLibSSL;
 
   procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list: PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
   function SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
@@ -3527,9 +3517,7 @@ var
   procedure SSL_set_allow_early_data_cb(s: PSSL; cb: SSL_allow_early_data_cb_fN; arg: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
 
 
-  //X509 *SSL_get0_peer_certificate(const SSL *s);
   function SSL_get0_peer_certificate(const s: PSSL): PX509 cdecl; external CLibSSL; {introduced 3.3.0}
-  // X509 *SSL_get1_peer_certificate(const SSL *s);
   function SSL_get1_peer_certificate(const s: PSSL): PX509 cdecl; external CLibSSL; {introduced 3.3.0}
 
 
@@ -3614,6 +3602,102 @@ function SSL_SESSION_get_ex_new_index(l : TIdC_LONG; p : PSSL_SESSION;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+
+ {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+type
+  Tsk_SSL_CIPHER_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_CIPHER cdecl;
+  Tsk_SSL_CIPHER_new_null = function : PSTACK_OF_SSL_CIPHER cdecl;
+  Tsk_SSL_CIPHER_free = procedure(st : PSTACK_OF_SSL_CIPHER) cdecl;
+  Tsk_SSL_CIPHER_num = function (const sk : PSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl;
+  Tsk_SSL_CIPHER_value = function (const sk : PSTACK_OF_SSL_CIPHER; i : TIdC_INT) : PSSL_CIPHER cdecl;
+  Tsk_SSL_CIPHER_push = function (sk : PSTACK_OF_SSL_CIPHER; st : PSSL_CIPHER) : TIdC_INT cdecl;
+  Tsk_SSL_CIPHER_dup = function (sk : PSTACK_OF_SSL_CIPHER) : PSTACK_OF_SSL_CIPHER cdecl;
+  Tsk_SSL_CIPHER_find = function (sk : PSTACK_OF_SSL_CIPHER; _val : PSSL_CIPHER) : TIdC_INT cdecl;
+  Tsk_SSL_CIPHER_pop_free = procedure (sk : PSTACK_OF_SSL_CIPHER; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_SSL_COMP_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_COMP cdecl;
+  Tsk_SSL_COMP_new_null = function : PSTACK_OF_SSL_COMP cdecl;
+  Tsk_SSL_COMP_free = procedure(st : PSTACK_OF_SSL_COMP) cdecl;
+  Tsk_SSL_COMP_num = function (const sk : PSTACK_OF_SSL_COMP) : TIdC_INT cdecl;
+  Tsk_SSL_COMP_value = function (const sk : PSTACK_OF_SSL_COMP; i : TIdC_INT) : PSSL_COMP cdecl;
+  Tsk_SSL_COMP_push = function (sk : PSTACK_OF_SSL_COMP; st : PSSL_COMP) : TIdC_INT cdecl;
+  Tsk_SSL_COMP_dup = function (sk : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl;
+  Tsk_SSL_COMP_find = function (sk : PSTACK_OF_SSL_COMP; _val : PSSL_COMP) : TIdC_INT cdecl;
+  Tsk_SSL_COMP_pop_free = procedure (sk : PSTACK_OF_SSL_COMP; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_SRTP_PROTECTION_PROFILE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_new_null = function : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_free = procedure(st : PSTACK_OF_SRTP_PROTECTION_PROFILE) cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_num = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_value = function (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; i : TIdC_INT) : PSRTP_PROTECTION_PROFILE cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_push = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; st : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_dup = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_find = function (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; _val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl;
+  Tsk_SRTP_PROTECTION_PROFILE_pop_free = procedure (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: TOPENSSL_sk_freefunc) cdecl;
+
+var
+  sk_SSL_CIPHER_new: Tsk_SSL_CIPHER_new absolute sk_new;
+  sk_SSL_CIPHER_new_null : Tsk_SSL_CIPHER_new_null absolute sk_new_null;
+  sk_SSL_CIPHER_free : Tsk_SSL_CIPHER_free absolute sk_free;
+  sk_SSL_CIPHER_num : Tsk_SSL_CIPHER_num absolute sk_num;
+  sk_SSL_CIPHER_value : Tsk_SSL_CIPHER_value absolute sk_value;
+  sk_SSL_CIPHER_push : Tsk_SSL_CIPHER_push absolute sk_push;
+  sk_SSL_CIPHER_dup : Tsk_SSL_CIPHER_dup absolute sk_dup;
+  sk_SSL_CIPHER_find : Tsk_SSL_CIPHER_find absolute sk_find;
+  sk_SSL_CIPHER_pop_free :  Tsk_SSL_CIPHER_pop_free absolute sk_pop_free;
+
+  sk_SSL_COMP_new: Tsk_SSL_COMP_new absolute sk_new;
+  sk_SSL_COMP_new_null : Tsk_SSL_COMP_new_null absolute sk_new_null;
+  sk_SSL_COMP_free : Tsk_SSL_COMP_free absolute sk_free;
+  sk_SSL_COMP_num : Tsk_SSL_COMP_num absolute sk_num;
+  sk_SSL_COMP_value : Tsk_SSL_COMP_value absolute sk_value;
+  sk_SSL_COMP_push : Tsk_SSL_COMP_push absolute sk_push;
+  sk_SSL_COMP_dup : Tsk_SSL_COMP_dup absolute sk_dup;
+  sk_SSL_COMP_find : Tsk_SSL_COMP_find absolute sk_find;
+  sk_SSL_COMP_pop_free :  Tsk_SSL_COMP_pop_free absolute sk_pop_free;
+
+  sk_SRTP_PROTECTION_PROFILE_new: Tsk_SRTP_PROTECTION_PROFILE_new absolute sk_new;
+  sk_SRTP_PROTECTION_PROFILE_new_null : Tsk_SRTP_PROTECTION_PROFILE_new_null absolute sk_new_null;
+  sk_SRTP_PROTECTION_PROFILE_free : Tsk_SRTP_PROTECTION_PROFILE_free absolute sk_free;
+  sk_SRTP_PROTECTION_PROFILE_num : Tsk_SRTP_PROTECTION_PROFILE_num absolute sk_num;
+  sk_SRTP_PROTECTION_PROFILE_value : Tsk_SRTP_PROTECTION_PROFILE_value absolute sk_value;
+  sk_SRTP_PROTECTION_PROFILE_push : Tsk_SRTP_PROTECTION_PROFILE_push absolute sk_push;
+  sk_SRTP_PROTECTION_PROFILE_dup : Tsk_SRTP_PROTECTION_PROFILE_dup absolute sk_dup;
+  sk_SRTP_PROTECTION_PROFILE_find : Tsk_SRTP_PROTECTION_PROFILE_find absolute sk_find;
+  sk_SRTP_PROTECTION_PROFILE_pop_free :  Tsk_SRTP_PROTECTION_PROFILE_pop_free absolute sk_pop_free;
+{$ELSE}
+  function sk_SSL_CIPHER_new(cmp : Tsk_new_cmp) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SSL_CIPHER_new_null : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_SSL_CIPHER_free(st : PSTACK_OF_SSL_CIPHER) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_SSL_CIPHER_num (const sk : PSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_SSL_CIPHER_value (const sk : PSTACK_OF_SSL_CIPHER; i : TIdC_INT): PSSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_SSL_CIPHER_push (sk : PSTACK_OF_SSL_CIPHER; st : PSSL_CIPHER): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_SSL_CIPHER_dup (sk : PSTACK_OF_SSL_CIPHER) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_SSL_CIPHER_find (sk : PSTACK_OF_SSL_CIPHER; val : PSSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_SSL_CIPHER_pop_free (sk : PSTACK_OF_SSL_CIPHER; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_SSL_COMP_new(cmp : Tsk_new_cmp) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SSL_COMP_new_null : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_SSL_COMP_free(st : PSTACK_OF_SSL_COMP) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_SSL_COMP_num (const sk : PSTACK_OF_SSL_COMP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_SSL_COMP_value (const sk : PSTACK_OF_SSL_COMP; i : TIdC_INT): PSSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_SSL_COMP_push (sk : PSTACK_OF_SSL_COMP; st : PSSL_COMP): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_SSL_COMP_dup (sk : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_SSL_COMP_find (sk : PSTACK_OF_SSL_COMP; val : PSSL_COMP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_SSL_COMP_pop_free (sk : PSTACK_OF_SSL_COMP; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+
+  function sk_SRTP_PROTECTION_PROFILE_new(cmp : Tsk_new_cmp) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SRTP_PROTECTION_PROFILE_new_null : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_SRTP_PROTECTION_PROFILE_free(st : PSTACK_OF_SRTP_PROTECTION_PROFILE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_SRTP_PROTECTION_PROFILE_num (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_SRTP_PROTECTION_PROFILE_value (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; i : TIdC_INT): PSRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_SRTP_PROTECTION_PROFILE_push (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; st : PSRTP_PROTECTION_PROFILE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_SRTP_PROTECTION_PROFILE_dup (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_SRTP_PROTECTION_PROFILE_find (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_SRTP_PROTECTION_PROFILE_pop_free (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+{$ENDIF}
 
 implementation
 
@@ -4732,20 +4816,19 @@ const
   SSL_alert_desc_string_long_procname = 'SSL_alert_desc_string_long';
   SSL_alert_desc_string_procname = 'SSL_alert_desc_string';
 
-  //void SSL_set0_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set0_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_CA_list(const s: PSSL);
-  //__owur const STACK_OF(X509_NAME) *SSL_CTX_get0_CA_list(const ctx: PSSL_CTX);
-  //__owur TIdC_INT SSL_add1_to_CA_list(ssl: PSSL, const X509 *x);
-  //__owur TIdC_INT SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_peer_CA_list(const s: PSSL);
+  SSL_set0_CA_list_procname = 'SSL_set0_CA_list';
+  SSL_CTX_set0_CA_list_procname = 'SSL_CTX_set0_CA_list';
+  SSL_get0_CA_list_procname = 'SSL_get0_CA_list';
+  SSL_CTX_get0_CA_list_procname = 'SSL_CTX_get0_CA_list';
+  SSL_add1_to_CA_list_procname  = 'SSL_add1_to_CA_list';
+  SSL_CTX_add1_to_CA_list_procname = 'SSL_CTX_add1_to_CA_list';
+  SSL_get0_peer_CA_list_procname = 'SSL_get0_peer_CA_list';
 
-  //void SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur STACK_OF(X509_NAME) *SSL_get_client_CA_list(const s: PSSL);
-  //__owur STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *s);
-
+  SSL_set_client_CA_list_procname = 'SSL_set_client_CA_list';
   SSL_CTX_set_client_CA_list_procname = 'SSL_CTX_set_client_CA_list';
+  SSL_get_client_CA_list_procname = 'SSL_get_client_CA_list';
+  SSL_CTX_get_client_CA_list_procname = 'SSL_CTX_get_client_CA_list';
+
   SSL_add_client_CA_procname = 'SSL_add_client_CA';
   SSL_CTX_add_client_CA_procname = 'SSL_CTX_add_client_CA';
 
@@ -5527,7 +5610,6 @@ end;
 {forward_compatibility}
 
 type
-  PSTACK_OF_SSL_CIPHER = pointer;
   Plash_of_SSL_SESSION = pointer;
   SSL_CTX_stats = record
     sess_connect: TIdC_INT;  // SSL new conn - started
@@ -5577,7 +5659,6 @@ type
 	  strength : TIdC_INT;
     srp_Mask : TIdC_ULONG;
 	end;
-  PSTACK_OF_SRTP_PROTECTION_PROFILE = pointer;
 
   _PSSL_CTX = ^SSL_CTX;
   SSL_CTX = record
@@ -8298,26 +8379,60 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alert_desc_string_procname);
 end;
 
-
-
-  //void SSL_set0_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set0_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_CA_list(const s: PSSL);
-  //__owur const STACK_OF(X509_NAME) *SSL_CTX_get0_CA_list(const ctx: PSSL_CTX);
-  //__owur TIdC_INT SSL_add1_to_CA_list(ssl: PSSL, const X509 *x);
-  //__owur TIdC_INT SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x);
-  //__owur const STACK_OF(X509_NAME) *SSL_get0_peer_CA_list(const s: PSSL);
-
-  //void SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list);
-  //void SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list);
-  //__owur STACK_OF(X509_NAME) *SSL_get_client_CA_list(const s: PSSL);
-  //__owur STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *s);
-
-procedure  ERR_SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list: PSTACK_OF_X509_NAME); 
+procedure ERR_SSL_set0_CA_list(s : PSSL; name_list : PSTACK_OF_X509_NAME);
 begin
-  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_client_CA_list_procname);
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_CA_list_procname);
 end;
 
+procedure ERR_SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_set0_CA_list_procname);
+end;
+
+function ERR_SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get0_CA_list_procname);
+end;
+
+function ERR_SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_CA_list_procname);
+end;
+
+function ERR_SSL_add1_to_CA_list(ssl: PSSL; const x : PX509) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add1_to_CA_list_procname);
+end;
+
+function ERR_SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX; const x : PX509) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_add1_to_CA_list_procname);
+end;
+
+function ERR_SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peer_CA_list_procname);
+end;
+
+procedure ERR_SSL_set_client_CA_list(s: PSSL;  name_list : PSTACK_OF_X509_NAME);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_set_client_CA_list_procname );
+end;
+
+procedure ERR_SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_set_client_CA_list_procname );
+end;
+
+function ERR_SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_client_CA_list_procname);
+end;
+
+function ERR_SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : PSTACK_OF_X509_NAME;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_get_client_CA_list_procname );
+end;
 
 function  ERR_SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT; 
 begin
@@ -20361,6 +20476,192 @@ begin
     {$ifend}
   end;
 
+  SSL_set0_CA_list := LoadLibFunction(ADllHandle, SSL_set0_CA_list_procname);
+  FuncLoadError := not assigned(SSL_set0_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set0_CA_list_allownil)}
+    SSL_set0_CA_list := @ERR_SSL_set0_CA_list;
+    {$ifend}
+    {$if declared(SSL_set0_CA_list_introduced)}
+    if LibVersion < SSL_set0_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_set0_CA_list)}
+      SSL_set0_CA_list := @FC_SSL_set0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set0_CA_list_removed)}
+    if SSL_set0_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set0_CA_list)}
+      SSL_set0_CA_list := @_SSL_set0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set0_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set0_CA_list');
+    {$ifend}
+  end;
+
+  SSL_CTX_set0_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_set0_CA_list_procname);
+  FuncLoadError := not assigned(SSL_CTX_set0_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set0_CA_list_allownil)}
+    SSL_CTX_set0_CA_list := @ERR_SSL_CTX_set0_CA_list;
+    {$ifend}
+    {$if declared(SSL_CTX_set0_CA_list_introduced)}
+    if LibVersion < SSL_CTX_set0_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set0_CA_list)}
+      SSL_CTX_set0_CA_list := @FC_SSL_CTX_set0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set0_CA_list_removed)}
+    if SSL_CTX_set0_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set0_CA_list)}
+      SSL_CTX_set0_CA_list := @_SSL_CTX_set0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set0_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set0_CA_list');
+    {$ifend}
+  end;
+
+  SSL_get0_CA_list := LoadLibFunction(ADllHandle, SSL_get0_CA_list_procname);
+  FuncLoadError := not assigned(SSL_get0_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_CA_list_allownil)}
+    SSL_get0_CA_list := @ERR_SSL_get0_CA_list;
+    {$ifend}
+    {$if declared(SSL_get0_CA_list_introduced)}
+    if LibVersion < SSL_get0_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_get0_CA_list)}
+      SSL_get0_CA_list := @FC_SSL_get0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_CA_list_removed)}
+    if SSL_get0_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_CA_list)}
+      SSL_get0_CA_list := @_SSL_get0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_CA_list');
+    {$ifend}
+  end;
+
+  SSL_CTX_get0_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_get0_CA_list_procname);
+  FuncLoadError := not assigned(SSL_CTX_get0_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get0_CA_list_allownil)}
+    SSL_CTX_get0_CA_list := @ERR_SSL_CTX_get0_CA_list;
+    {$ifend}
+    {$if declared(SSL_CTX_get0_CA_list_introduced)}
+    if LibVersion < SSL_CTX_get0_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get0_CA_list)}
+      SSL_CTX_get0_CA_list := @FC_SSL_CTX_get0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get0_CA_list_removed)}
+    if SSL_CTX_get0_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get0_CA_list)}
+      SSL_CTX_get0_CA_list := @_SSL_CTX_get0_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get0_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get0_CA_list');
+    {$ifend}
+  end;
+
+  SSL_add1_to_CA_list := LoadLibFunction(ADllHandle, SSL_add1_to_CA_list_procname);
+  FuncLoadError := not assigned(SSL_add1_to_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_add1_to_CA_list_allownil)}
+    SSL_add1_to_CA_list := @ERR_SSL_add1_to_CA_list;
+    {$ifend}
+    {$if declared(SSL_add1_to_CA_list_introduced)}
+    if LibVersion < SSL_add1_to_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_add1_to_CA_list)}
+      SSL_add1_to_CA_list := @FC_SSL_add1_to_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_add1_to_CA_list_removed)}
+    if SSL_add1_to_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_add1_to_CA_list)}
+      SSL_add1_to_CA_list := @_SSL_add1_to_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_add1_to_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_add1_to_CA_list');
+    {$ifend}
+  end;
+
+  SSL_CTX_add1_to_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_add1_to_CA_list_procname);
+  FuncLoadError := not assigned(SSL_CTX_add1_to_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_add1_to_CA_list_allownil)}
+    SSL_CTX_add1_to_CA_list := @ERR_SSL_CTX_add1_to_CA_list;
+    {$ifend}
+    {$if declared(SSL_CTX_add1_to_CA_list_introduced)}
+    if LibVersion < SSL_CTX_add1_to_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_add1_to_CA_list)}
+      SSL_CTX_add1_to_CA_list := @FC_SSL_CTX_add1_to_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_add1_to_CA_list_removed)}
+    if SSL_CTX_add1_to_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_add1_to_CA_list)}
+      SSL_CTX_add1_to_CA_list := @_SSL_CTX_add1_to_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_add1_to_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_add1_to_CA_list');
+    {$ifend}
+  end;
+
 
   SSL_CTX_set_client_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_set_client_CA_list_procname);
   FuncLoadError := not assigned(SSL_CTX_set_client_CA_list);
@@ -20393,6 +20694,161 @@ begin
     {$ifend}
   end;
 
+  SSL_get0_peer_CA_list := LoadLibFunction(ADllHandle,SSL_get0_peer_CA_list_procname);
+  FuncLoadError := not assigned(SSL_get0_peer_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_peer_CA_list_allownil)}
+   SSL_get0_peer_CA_list := @ERR_SSL_get0_peer_CA_list;
+    {$ifend}
+    {$if declared(SSL_get0_peer_CA_list_introduced)}
+    if LibVersion <SSL_get0_peer_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_get0_peer_CA_list)}
+     SSL_get0_peer_CA_list := @FC_SSL_get0_peer_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_peer_CA_list_removed)}
+    ifSSL_get0_peer_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_peer_CA_list)}
+     SSL_get0_peer_CA_list := @_SSL_get0_peer_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_peer_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_peer_CA_list');
+    {$ifend}
+  end;
+
+  SSL_set_client_CA_list := LoadLibFunction(ADllHandle, SSL_set_client_CA_list_procname);
+  FuncLoadError := not assigned(SSL_set_client_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_client_CA_list_allownil)}
+    SSL_set_client_CA_list := @ERR_SSL_set_client_CA_list;
+    {$ifend}
+    {$if declared(SSL_set_client_CA_list_introduced)}
+    if LibVersion < SSL_set_client_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_set_client_CA_list)}
+      SSL_set_client_CA_list := @FC_SSL_set_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_client_CA_list_removed)}
+    if SSL_set_client_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_client_CA_list)}
+      SSL_set_client_CA_list := @_SSL_set_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_client_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_client_CA_list');
+    {$ifend}
+  end;
+
+  SSL_CTX_set_client_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_set_client_CA_list_procname);
+  FuncLoadError := not assigned(SSL_CTX_set_client_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set_client_CA_list_allownil)}
+    SSL_CTX_set_client_CA_list := @ERR_SSL_CTX_set_client_CA_list;
+    {$ifend}
+    {$if declared(SSL_CTX_set_client_CA_list_introduced)}
+    if LibVersion < SSL_CTX_set_client_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set_client_CA_list)}
+      SSL_CTX_set_client_CA_list := @FC_SSL_CTX_set_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set_client_CA_list_removed)}
+    if SSL_CTX_set_client_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set_client_CA_list)}
+      SSL_CTX_set_client_CA_list := @_SSL_CTX_set_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set_client_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set_client_CA_list');
+    {$ifend}
+  end;
+
+  SSL_get_client_CA_list := LoadLibFunction(ADllHandle, SSL_get_client_CA_list_procname);
+  FuncLoadError := not assigned(SSL_get_client_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_client_CA_list_allownil)}
+    SSL_get_client_CA_list := @ERR_SSL_get_client_CA_list;
+    {$ifend}
+    {$if declared(SSL_get_client_CA_list_introduced)}
+    if LibVersion < SSL_get_client_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_get_client_CA_list)}
+      SSL_get_client_CA_list := @FC_SSL_get_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_client_CA_list_removed)}
+    if SSL_get_client_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_client_CA_list)}
+      SSL_get_client_CA_list := @_SSL_get_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_client_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_client_CA_list');
+    {$ifend}
+  end;
+
+
+  SSL_CTX_get_client_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_get_client_CA_list_procname);
+  FuncLoadError := not assigned(SSL_CTX_get_client_CA_list);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get_client_CA_list_allownil)}
+    SSL_CTX_get_client_CA_list := @ERR_SSL_CTX_get_client_CA_list;
+    {$ifend}
+    {$if declared(SSL_CTX_get_client_CA_list_introduced)}
+    if LibVersion < SSL_CTX_get_client_CA_list_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get_client_CA_list)}
+      SSL_CTX_get_client_CA_list := @FC_SSL_CTX_get_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get_client_CA_list_removed)}
+    if SSL_CTX_get_client_CA_list_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get_client_CA_list)}
+      SSL_CTX_get_client_CA_list := @_SSL_CTX_get_client_CA_list;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get_client_CA_list_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get_client_CA_list');
+    {$ifend}
+  end;
 
   SSL_add_client_CA := LoadLibFunction(ADllHandle, SSL_add_client_CA_procname);
   FuncLoadError := not assigned(SSL_add_client_CA);
@@ -24908,8 +25364,18 @@ begin
   SSL_alert_type_string := nil;
   SSL_alert_desc_string_long := nil;
   SSL_alert_desc_string := nil;
+  SSL_set0_CA_list := nil;
+  SSL_CTX_set0_CA_list := nil;
+  SSL_get0_CA_list := nil;
+  SSL_CTX_get0_CA_list := nil;
+
+  SSL_set_client_CA_list := nil;
   SSL_CTX_set_client_CA_list := nil;
+  SSL_get_client_CA_list := nil;
+  SSL_CTX_get_client_CA_list := nil;
+
   SSL_add_client_CA := nil;
+  SSL_get0_peer_CA_list := nil;
   SSL_CTX_add_client_CA := nil;
   SSL_set_connect_state := nil;
   SSL_set_accept_state := nil;
