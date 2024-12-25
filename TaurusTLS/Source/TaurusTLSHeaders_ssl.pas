@@ -2233,11 +2233,11 @@ var
   TLS_server_method: function : PSSL_METHOD; cdecl = nil; {introduced 1.1.0}
   TLS_client_method: function : PSSL_METHOD; cdecl = nil; {introduced 1.1.0}
 
-  //__owur const SSL_METHOD *DTLS_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_server_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_client_method(void); /* DTLS 1.0 and 1.2 */
-  //
-  //__owur TIdC_SIZET DTLS_get_data_mtu(const s: PSSL);
+  DTLS_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
+  DTLS_server_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
+  DTLS_client_method: function : PSSL_METHOD; cdecl = nil; //* DTLS 1.0 and 1.2 */
+
+  DTLS_get_data_mtu : function (const s: PSSL) : TIdC_SIZET; cdecl = nil;
   //
   //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
   //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
@@ -3179,11 +3179,11 @@ var
   function TLS_server_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
   function TLS_client_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
 
-  //__owur const SSL_METHOD *DTLS_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_server_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_client_method(void); /* DTLS 1.0 and 1.2 */
-  //
-  //__owur TIdC_SIZET DTLS_get_data_mtu(const s: PSSL);
+  function DTLS_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
+  function DTLS_server_method : SSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
+  function DTLS_client_method : SSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
+
+  function DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
   //
   //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
   //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
@@ -4785,12 +4785,12 @@ const
   TLS_server_method_procname = 'TLS_server_method'; {introduced 1.1.0}
   TLS_client_method_procname = 'TLS_client_method'; {introduced 1.1.0}
 
-  //__owur const SSL_METHOD *DTLS_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_server_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_client_method(void); /* DTLS 1.0 and 1.2 */
-  //
-  //__owur TIdC_SIZET DTLS_get_data_mtu(const s: PSSL);
-  //
+  DTLS_method_procname = 'DTLS_method';
+  DTLS_server_method_procname = 'DTLS_server_method';
+  DTLS_client_method_procname = 'DTLS_client_method';
+
+  DTLS_get_data_mtu_procname = 'DTLS_get_data_mtu';
+
   //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
   //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
   //__owur STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const s: PSSL);
@@ -8270,11 +8270,26 @@ end;
 
  {introduced 1.1.0}
 
-  //__owur const SSL_METHOD *DTLS_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_server_method(void); /* DTLS 1.0 and 1.2 */
-  //__owur const SSL_METHOD *DTLS_client_method(void); /* DTLS 1.0 and 1.2 */
-  //
-  //__owur TIdC_SIZET DTLS_get_data_mtu(const s: PSSL);
+function ERR_DTLS_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_method_procname);
+end;
+
+function ERR_DTLS_server_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_server_method_procname);
+end;
+
+function ERR_DTLS_client_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_client_method_procname);
+end;
+
+
+function ERR_DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_get_data_mtu_procname);
+end;
   //
   //__owur STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const s: PSSL);
   //__owur STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const ctx: PSSL_CTX);
@@ -19964,6 +19979,128 @@ begin
     {$ifend}
   end;
 
+  DTLS_method := LoadLibFunction(ADllHandle, DTLS_method_procname);
+  FuncLoadError := not assigned(DTLS_method);
+  if FuncLoadError then
+  begin
+    {$if not defined(DTLS_method_allownil)}
+    DTLS_method := @ERR_DTLS_method;
+    {$ifend}
+    {$if declared(DTLS_method_introduced)}
+    if LibVersion < DTLS_method_introduced then
+    begin
+      {$if declared(FC_DTLS_method)}
+      DTLS_method := @FC_DTLS_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DTLS_method_removed)}
+    if DTLS_method_removed <= LibVersion then
+    begin
+      {$if declared(_DTLS_method)}
+      DTLS_method := @_DTLS_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DTLS_method_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DTLS_method');
+    {$ifend}
+  end;
+  DTLS_server_method := LoadLibFunction(ADllHandle, DTLS_server_method_procname);
+  FuncLoadError := not assigned(DTLS_server_method);
+  if FuncLoadError then
+  begin
+    {$if not defined(DTLS_server_method_allownil)}
+    DTLS_server_method := @ERR_DTLS_server_method;
+    {$ifend}
+    {$if declared(DTLS_server_method_introduced)}
+    if LibVersion < DTLS_server_method_introduced then
+    begin
+      {$if declared(FC_DTLS_server_method)}
+      DTLS_server_method := @FC_DTLS_server_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DTLS_server_method_removed)}
+    if DTLS_server_method_removed <= LibVersion then
+    begin
+      {$if declared(_DTLS_server_method)}
+      DTLS_server_method := @_DTLS_server_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DTLS_server_method_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DTLS_server_method');
+    {$ifend}
+  end;
+  DTLS_client_method := LoadLibFunction(ADllHandle, DTLS_client_method_procname);
+  FuncLoadError := not assigned(DTLS_client_method);
+  if FuncLoadError then
+  begin
+    {$if not defined(DTLS_client_method_allownil)}
+    DTLS_client_method := @ERR_DTLS_client_method;
+    {$ifend}
+    {$if declared(DTLS_client_method_introduced)}
+    if LibVersion < DTLS_client_method_introduced then
+    begin
+      {$if declared(FC_DTLS_client_method)}
+      DTLS_client_method := @FC_DTLS_client_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DTLS_client_method_removed)}
+    if DTLS_client_method_removed <= LibVersion then
+    begin
+      {$if declared(_DTLS_client_method)}
+      DTLS_client_method := @_DTLS_client_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DTLS_client_method_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DTLS_client_method');
+    {$ifend}
+  end;
+
+  DTLS_get_data_mtu := LoadLibFunction(ADllHandle, DTLS_get_data_mtu_procname);
+  FuncLoadError := not assigned(DTLS_get_data_mtu);
+  if FuncLoadError then
+  begin
+    {$if not defined(DTLS_get_data_mtu_allownil)}
+    DTLS_get_data_mtu := @ERR_DTLS_get_data_mtu;
+    {$ifend}
+    {$if declared(DTLS_get_data_mtu_introduced)}
+    if LibVersion < DTLS_get_data_mtu_introduced then
+    begin
+      {$if declared(FC_DTLS_get_data_mtu)}
+      DTLS_get_data_mtu := @FC_DTLS_get_data_mtu;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DTLS_get_data_mtu_removed)}
+    if DTLS_get_data_mtu_removed <= LibVersion then
+    begin
+      {$if declared(_DTLS_get_data_mtu)}
+      DTLS_get_data_mtu := @_DTLS_get_data_mtu;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DTLS_get_data_mtu_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DTLS_get_data_mtu');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_key_update := LoadLibFunction(ADllHandle, SSL_key_update_procname);
   FuncLoadError := not assigned(SSL_key_update);
@@ -25348,6 +25485,10 @@ begin
   TLS_method := nil; {introduced 1.1.0}
   TLS_server_method := nil; {introduced 1.1.0}
   TLS_client_method := nil; {introduced 1.1.0}
+  DTLS_method := nil;
+  DTLS_server_method := nil;
+  DTLS_client_method := nil;
+  DTLS_get_data_mtu := nil;
   SSL_key_update := nil; {introduced 1.1.0}
   SSL_get_key_update_type := nil; {introduced 1.1.0}
   SSL_renegotiate := nil;
