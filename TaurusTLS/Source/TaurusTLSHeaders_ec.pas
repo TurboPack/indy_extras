@@ -30,6 +30,7 @@ uses
   IdCTypes,
   IdGlobal,
   TaurusTLSConsts,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
 
@@ -720,6 +721,9 @@ var
 
 {$ENDIF}
 
+function EC_KEY_get_ex_new_index(l : TIdC_LONG; p : PEC_KEY;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+
 implementation
 
   uses
@@ -729,7 +733,16 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+//#  define EC_KEY_get_ex_new_index(l, p, newf, dupf, freef) \
+//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_EC_KEY, l, p, newf, dupf, freef)
+function EC_KEY_get_ex_new_index(l : TIdC_LONG; p : PEC_KEY;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_EC_KEY, l, p, newf, dupf, freef);
+end;
+
 const
   EC_GFp_nistp224_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_GFp_nistp256_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

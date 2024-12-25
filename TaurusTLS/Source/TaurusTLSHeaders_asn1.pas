@@ -243,6 +243,7 @@ const
   ASN1_PCTX_FLAGS_NO_STRUCT_NAME = $100;
 
 type
+  PSTACK_OF_ASN1_OBJECT = type Pointer;
   PSTACK_OF_X509_ALGOR = type Pointer;
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
@@ -282,7 +283,7 @@ type
   end;
   ASN1_STRING_TABLE = asn1_string_table_st;
   PASN1_STRING_TABLE = ^ASN1_STRING_TABLE;
-
+  PSTACK_OF_ASN1_STRING_TABLE = type Pointer;
 // DEFINE_STACK_OF(ASN1_STRING_TABLE)
 
   (*                  !!!
@@ -430,13 +431,10 @@ type
 //
 //# endif
 
-//DEFINE_STACK_OF(ASN1_INTEGER)
-//
-//DEFINE_STACK_OF(ASN1_GENERALSTRING)
-//
-//DEFINE_STACK_OF(ASN1_UTF8STRING)
-
-//DEFINE_STACK_OF(ASN1_TYPE)
+  PSTACK_OF_ASN1_INTEGER = type pointer;
+  PSTACK_OF_ASN1_GENERALSTRING = type pointer;
+  PSTACK_OF_ASN1_UTF8STRING = type pointer;
+  PSTACK_OF_ASN1_TYPE = type pointer;
 //
 //typedef STACK_OF(ASN1_TYPE) ASN1_SEQUENCE_ANY;
 //
@@ -1327,6 +1325,51 @@ var
   {$EXTERNALSYM Tsk_X509_ALGOR_pop_free}
 
 type
+  Tsk_ASN1_OBJECT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl;
+  Tsk_ASN1_OBJECT_new_null = function : PSTACK_OF_ASN1_OBJECT cdecl;
+  Tsk_ASN1_OBJECT_free = procedure(st : PSTACK_OF_ASN1_OBJECT) cdecl;
+  Tsk_ASN1_OBJECT_num = function (const sk : PSTACK_OF_ASN1_OBJECT) : TIdC_INT cdecl;
+  Tsk_ASN1_OBJECT_value = function (const sk : PSTACK_OF_ASN1_OBJECT; i : TIdC_INT) : PASN1_OBJECT cdecl;
+  Tsk_ASN1_OBJECT_push = function (sk : PSTACK_OF_ASN1_OBJECT; st : PASN1_OBJECT) : TIdC_INT cdecl;
+  Tsk_ASN1_OBJECT_dup = function (sk : PSTACK_OF_ASN1_OBJECT) : PSTACK_OF_ASN1_OBJECT cdecl;
+  Tsk_ASN1_OBJECT_find = function (sk : PSTACK_OF_ASN1_OBJECT; _val : PASN1_OBJECT) : TIdC_INT cdecl;
+  Tsk_ASN1_OBJECT_pop_free = procedure (sk : PSTACK_OF_ASN1_OBJECT; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASN1_INTEGER_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_INTEGER cdecl;
+  Tsk_ASN1_INTEGER_new_null = function : PSTACK_OF_ASN1_INTEGER cdecl;
+  Tsk_ASN1_INTEGER_free = procedure(st : PSTACK_OF_ASN1_INTEGER) cdecl;
+  Tsk_ASN1_INTEGER_num = function (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT cdecl;
+  Tsk_ASN1_INTEGER_value = function (const sk : PSTACK_OF_ASN1_INTEGER; i : TIdC_INT) : PASN1_INTEGER cdecl;
+  Tsk_ASN1_INTEGER_push = function (sk : PSTACK_OF_ASN1_INTEGER; st : PASN1_INTEGER) : TIdC_INT cdecl;
+  Tsk_ASN1_INTEGER_dup = function (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl;
+  Tsk_ASN1_INTEGER_find = function (sk : PSTACK_OF_ASN1_INTEGER; _val : PASN1_INTEGER) : TIdC_INT cdecl;
+  Tsk_ASN1_INTEGER_pop_free = procedure (sk : PSTACK_OF_ASN1_INTEGER; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASN1_GENERALSTRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
+  Tsk_ASN1_GENERALSTRING_new_null = function : PSTACK_OF_ASN1_GENERALSTRING cdecl;
+  Tsk_ASN1_GENERALSTRING_free = procedure(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl;
+  Tsk_ASN1_GENERALSTRING_num = function (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT cdecl;
+  Tsk_ASN1_GENERALSTRING_value = function (const sk : PSTACK_OF_ASN1_GENERALSTRING; i : TIdC_INT) : PASN1_GENERALSTRING cdecl;
+  Tsk_ASN1_GENERALSTRING_push = function (sk : PSTACK_OF_ASN1_GENERALSTRING; st : PASN1_GENERALSTRING) : TIdC_INT cdecl;
+  Tsk_ASN1_GENERALSTRING_dup = function (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl;
+  Tsk_ASN1_GENERALSTRING_find = function (sk : PSTACK_OF_ASN1_GENERALSTRING; _val : PASN1_GENERALSTRING) : TIdC_INT cdecl;
+  Tsk_ASN1_GENERALSTRING_pop_free = procedure (sk : PSTACK_OF_ASN1_GENERALSTRING; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASN1_UTF8STRING_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_UTF8STRING cdecl;
+  Tsk_ASN1_UTF8STRING_new_null = function : PSTACK_OF_ASN1_UTF8STRING cdecl;
+  Tsk_ASN1_UTF8STRING_free = procedure(st : PSTACK_OF_ASN1_UTF8STRING) cdecl;
+  Tsk_ASN1_UTF8STRING_num = function (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_UTF8STRING_value = function (const sk : PSTACK_OF_ASN1_UTF8STRING; i : TIdC_INT) : PASN1_UTF8STRING cdecl;
+  Tsk_ASN1_UTF8STRING_push = function (sk : PSTACK_OF_ASN1_UTF8STRING; st : PASN1_UTF8STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_UTF8STRING_dup = function (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl;
+  Tsk_ASN1_UTF8STRING_find = function (sk : PSTACK_OF_ASN1_UTF8STRING; _val : PASN1_UTF8STRING) : TIdC_INT cdecl;
+  Tsk_ASN1_UTF8STRING_pop_free = procedure (sk : PSTACK_OF_ASN1_UTF8STRING; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASN1_TYPE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_TYPE cdecl;
+  Tsk_ASN1_TYPE_new_null = function : PSTACK_OF_ASN1_TYPE cdecl;
+  Tsk_ASN1_TYPE_free = procedure(st : PSTACK_OF_ASN1_TYPE) cdecl;
+  Tsk_ASN1_TYPE_num = function (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT cdecl;
+  Tsk_ASN1_TYPE_value = function (const sk : PSTACK_OF_ASN1_TYPE; i : TIdC_INT) : PASN1_TYPE cdecl;
+  Tsk_ASN1_TYPE_push = function (sk : PSTACK_OF_ASN1_TYPE; st : PASN1_TYPE) : TIdC_INT cdecl;
+  Tsk_ASN1_TYPE_dup = function (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl;
+  Tsk_ASN1_TYPE_find = function (sk : PSTACK_OF_ASN1_TYPE; _val : PASN1_TYPE) : TIdC_INT cdecl;
+  Tsk_ASN1_TYPE_pop_free = procedure (sk : PSTACK_OF_ASN1_TYPE; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_X509_ALGOR_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl;
   Tsk_X509_ALGOR_new_null = function : PSTACK_OF_X509_ALGOR cdecl;
   Tsk_X509_ALGOR_free = procedure(st : PSTACK_OF_X509_ALGOR) cdecl;
@@ -1336,8 +1379,62 @@ type
   Tsk_X509_ALGOR_dup = function (sk : PSTACK_OF_X509_ALGOR) : PSTACK_OF_X509_ALGOR cdecl;
   Tsk_X509_ALGOR_find = function (sk : PSTACK_OF_X509_ALGOR; _val : PX509_ALGOR) : TIdC_INT cdecl;
   Tsk_X509_ALGOR_pop_free = procedure (sk : PSTACK_OF_X509_ALGOR; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASN1_STRING_TABLE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING_TABLE cdecl;
+  Tsk_ASN1_STRING_TABLE_new_null = function : PSTACK_OF_ASN1_STRING_TABLE cdecl;
+  Tsk_ASN1_STRING_TABLE_free = procedure(st : PSTACK_OF_ASN1_STRING_TABLE) cdecl;
+  Tsk_ASN1_STRING_TABLE_num = function (const sk : PSTACK_OF_ASN1_STRING_TABLE) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_TABLE_value = function (const sk : PSTACK_OF_ASN1_STRING_TABLE; i : TIdC_INT) : PASN1_STRING_TABLE cdecl;
+  Tsk_ASN1_STRING_TABLE_push = function (sk : PSTACK_OF_ASN1_STRING_TABLE; st : PASN1_STRING_TABLE) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_TABLE_dup = function (sk : PSTACK_OF_ASN1_STRING_TABLE) : PSTACK_OF_ASN1_STRING_TABLE cdecl;
+  Tsk_ASN1_STRING_TABLE_find = function (sk : PSTACK_OF_ASN1_STRING_TABLE; _val : PASN1_STRING_TABLE) : TIdC_INT cdecl;
+  Tsk_ASN1_STRING_TABLE_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING_TABLE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
+  sk_ASN1_OBJECT_new: Tsk_ASN1_OBJECT_new absolute sk_new;
+  sk_ASN1_OBJECT_new_null : Tsk_ASN1_OBJECT_new_null absolute sk_new_null;
+  sk_ASN1_OBJECT_free : Tsk_ASN1_OBJECT_free absolute sk_free;
+  sk_ASN1_OBJECT_num : Tsk_ASN1_OBJECT_num absolute sk_num;
+  sk_ASN1_OBJECT_value : Tsk_ASN1_OBJECT_value absolute sk_value;
+  sk_ASN1_OBJECT_push : Tsk_ASN1_OBJECT_push absolute sk_push;
+  sk_ASN1_OBJECT_dup : Tsk_ASN1_OBJECT_dup absolute sk_dup;
+  sk_ASN1_OBJECT_find : Tsk_ASN1_OBJECT_find absolute sk_find;
+  sk_ASN1_OBJECT_pop_free : Tsk_ASN1_OBJECT_pop_free absolute sk_pop_free;
+  sk_ASN1_INTEGER_new: Tsk_ASN1_INTEGER_new absolute sk_new;
+  sk_ASN1_INTEGER_new_null : Tsk_ASN1_INTEGER_new_null absolute sk_new_null;
+  sk_ASN1_INTEGER_free : Tsk_ASN1_INTEGER_free absolute sk_free;
+  sk_ASN1_INTEGER_num : Tsk_ASN1_INTEGER_num absolute sk_num;
+  sk_ASN1_INTEGER_value : Tsk_ASN1_INTEGER_value absolute sk_value;
+  sk_ASN1_INTEGER_push : Tsk_ASN1_INTEGER_push absolute sk_push;
+  sk_ASN1_INTEGER_dup : Tsk_ASN1_INTEGER_dup absolute sk_dup;
+  sk_ASN1_INTEGER_find : Tsk_ASN1_INTEGER_find absolute sk_find;
+  sk_ASN1_INTEGER_pop_free : Tsk_ASN1_INTEGER_pop_free absolute sk_pop_free;
+  sk_ASN1_GENERALSTRING_new: Tsk_ASN1_GENERALSTRING_new absolute sk_new;
+  sk_ASN1_GENERALSTRING_new_null : Tsk_ASN1_GENERALSTRING_new_null absolute sk_new_null;
+  sk_ASN1_GENERALSTRING_free : Tsk_ASN1_GENERALSTRING_free absolute sk_free;
+  sk_ASN1_GENERALSTRING_num : Tsk_ASN1_GENERALSTRING_num absolute sk_num;
+  sk_ASN1_GENERALSTRING_value : Tsk_ASN1_GENERALSTRING_value absolute sk_value;
+  sk_ASN1_GENERALSTRING_push : Tsk_ASN1_GENERALSTRING_push absolute sk_push;
+  sk_ASN1_GENERALSTRING_dup : Tsk_ASN1_GENERALSTRING_dup absolute sk_dup;
+  sk_ASN1_GENERALSTRING_find : Tsk_ASN1_GENERALSTRING_find absolute sk_find;
+  sk_ASN1_GENERALSTRING_pop_free : Tsk_ASN1_GENERALSTRING_pop_free absolute sk_pop_free;
+  sk_ASN1_UTF8STRING_new: Tsk_ASN1_UTF8STRING_new absolute sk_new;
+  sk_ASN1_UTF8STRING_new_null : Tsk_ASN1_UTF8STRING_new_null absolute sk_new_null;
+  sk_ASN1_UTF8STRING_free : Tsk_ASN1_UTF8STRING_free absolute sk_free;
+  sk_ASN1_UTF8STRING_num : Tsk_ASN1_UTF8STRING_num absolute sk_num;
+  sk_ASN1_UTF8STRING_value : Tsk_ASN1_UTF8STRING_value absolute sk_value;
+  sk_ASN1_UTF8STRING_push : Tsk_ASN1_UTF8STRING_push absolute sk_push;
+  sk_ASN1_UTF8STRING_dup : Tsk_ASN1_UTF8STRING_dup absolute sk_dup;
+  sk_ASN1_UTF8STRING_find : Tsk_ASN1_UTF8STRING_find absolute sk_find;
+  sk_ASN1_UTF8STRING_pop_free : Tsk_ASN1_UTF8STRING_pop_free absolute sk_pop_free;
+  sk_ASN1_TYPE_new: Tsk_ASN1_TYPE_new absolute sk_new;
+  sk_ASN1_TYPE_new_null : Tsk_ASN1_TYPE_new_null absolute sk_new_null;
+  sk_ASN1_TYPE_free : Tsk_ASN1_TYPE_free absolute sk_free;
+  sk_ASN1_TYPE_num : Tsk_ASN1_TYPE_num absolute sk_num;
+  sk_ASN1_TYPE_value : Tsk_ASN1_TYPE_value absolute sk_value;
+  sk_ASN1_TYPE_push : Tsk_ASN1_TYPE_push absolute sk_push;
+  sk_ASN1_TYPE_dup : Tsk_ASN1_TYPE_dup absolute sk_dup;
+  sk_ASN1_TYPE_find : Tsk_ASN1_TYPE_find absolute sk_find;
+  sk_ASN1_TYPE_pop_free : Tsk_ASN1_TYPE_pop_free absolute sk_pop_free;
   sk_X509_ALGOR_new: Tsk_X509_ALGOR_new absolute sk_new;
   sk_X509_ALGOR_new_null : Tsk_X509_ALGOR_new_null absolute sk_new_null;
   sk_X509_ALGOR_free : Tsk_X509_ALGOR_free absolute sk_free;
@@ -1348,6 +1445,51 @@ var
   sk_X509_ALGOR_find : Tsk_X509_ALGOR_find absolute sk_find;
   sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free absolute sk_pop_free;
 {$ELSE}
+  function sk_ASN1_OBJECT_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_OBJECT_new_null : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_OBJECT_free(st : PSTACK_OF_ASN1_OBJECT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_OBJECT_num (const sk : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_OBJECT_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_OBJECT_push (sk : PSTACK_OF_ASN1_OBJECT; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_ASN1_OBJECT_dup (sk : PSTACK_OF_ASN1_OBJECT) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_OBJECT_find (sk : PSTACK_OF_ASN1_OBJECT; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_OBJECT_pop_free (sk : PSTACK_OF_ASN1_OBJECT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ASN1_INTEGER_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_INTEGER_new_null : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_INTEGER_free(st : PSTACK_OF_ASN1_INTEGER) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_INTEGER_num (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_INTEGER_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_INTEGER_push (sk : PSTACK_OF_ASN1_INTEGER; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_ASN1_INTEGER_dup (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_INTEGER_find (sk : PSTACK_OF_ASN1_INTEGER; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_INTEGER_pop_free (sk : PSTACK_OF_ASN1_INTEGER; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ASN1_GENERALSTRING_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_GENERALSTRING_new_null : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_GENERALSTRING_free(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_GENERALSTRING_num (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_GENERALSTRING_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_GENERALSTRING_push (sk : PSTACK_OF_ASN1_GENERALSTRING; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_ASN1_GENERALSTRING_dup (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_GENERALSTRING_find (sk : PSTACK_OF_ASN1_GENERALSTRING; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_GENERALSTRING_pop_free (sk : PSTACK_OF_ASN1_GENERALSTRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ASN1_UTF8STRING_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_UTF8STRING_new_null : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_UTF8STRING_free(st : PSTACK_OF_ASN1_UTF8STRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_UTF8STRING_num (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_UTF8STRING_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_UTF8STRING_push (sk : PSTACK_OF_ASN1_UTF8STRING; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_ASN1_UTF8STRING_dup (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_UTF8STRING_find (sk : PSTACK_OF_ASN1_UTF8STRING; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_UTF8STRING_pop_free (sk : PSTACK_OF_ASN1_UTF8STRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ASN1_TYPE_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_TYPE_new_null : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASN1_TYPE_free(st : PSTACK_OF_ASN1_TYPE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASN1_TYPE_num (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASN1_TYPE_value (const sk : PSTACK_OF_ALGOR; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASN1_TYPE_push (sk : PSTACK_OF_ASN1_TYPE; st : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
+  function sk_ASN1_TYPE_dup (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASN1_TYPE_find (sk : PSTACK_OF_ASN1_TYPE; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASN1_TYPE_pop_free (sk : PSTACK_OF_ASN1_TYPE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_ALGOR_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_ALGOR_new_null : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_ALGOR_free(st : PSTACK_OF_X509_ALGOR) cdecl; external CLibCrypto name 'OPENSSL_sk_free';

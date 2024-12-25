@@ -30,6 +30,7 @@ uses
   IdCTypes,
   IdGlobal,
   TaurusTLSConsts,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
 
@@ -381,6 +382,10 @@ var
 
 {$ENDIF}
 
+function DSA_get_ex_new_index(l : TIdC_LONG; p : PDSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+
+
 implementation
 
   uses
@@ -649,7 +654,14 @@ end;
 
   //#define DSA_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef)
-function  ERR_DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function DSA_get_ex_new_index(l : TIdC_LONG; p : PDSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef);
+end;
+
+function  ERR_DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set_ex_data_procname);
 end;

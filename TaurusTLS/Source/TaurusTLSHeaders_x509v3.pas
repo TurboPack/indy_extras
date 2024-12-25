@@ -371,11 +371,12 @@ type
   ACCESS_DESCRIPTION = ACCESS_DESCRIPTION_st;
   PACCESS_DESCRIPTION = ^ACCESS_DESCRIPTION;
 
-//  typedef STACK_OF(ACCESS_DESCRIPTION) AUTHORITY_INFO_ACCESS;
+//  AUTHORITY_INFO_ACCESS = PSTACK_OF_ACCESS_DESCRIPTION;
 
-//  typedef STACK_OF(ASN1_OBJECT) EXTENDED_KEY_USAGE;
 
-//  typedef STACK_OF(ASN1_INTEGER) TLS_FEATURE;
+  EXTENDED_KEY_USAGE = PSTACK_OF_ASN1_OBJECT;
+
+  TLS_FEATURE = PSTACK_OF_ASN1_INTEGER;
 
 //  DEFINE_STACK_OF(GENERAL_NAME)
 //  typedef STACK_OF(GENERAL_NAME) GENERAL_NAMES;
@@ -617,24 +618,26 @@ type
   IPAddressOrRange = IPAddressOrRange_st;
   PIPAddressOrRange = ^IPAddressOrRange;
 
+  PSTACK_OF_IPAddressOrRange = type pointer;
+  PIPAddressOrRanges = PSTACK_OF_IPAddressOrRange;
 //  typedef STACK_OF(IPAddressOrRange) IPAddressOrRanges;
 //  DEFINE_STACK_OF(IPAddressOrRange)
 
-//  IPAddressChoice_st = record
-//    type_: TIdC_INT;
-//    case u: TIdC_INT of
-//      0: (inherit: PASN1_NULL);
-//      1: (addressesOrRanges: PIPAddressOrRanges);
-//  end;
-//  IPAddressChoice = IPAddressChoice_st;
-//  PIPAddressChoice = ^IPAddressChoice;
+  IPAddressChoice_st = record
+    type_: TIdC_INT;
+    case u: TIdC_INT of
+      0: (inherit: PASN1_NULL);
+      1: (addressesOrRanges: PIPAddressOrRanges);
+  end;
+  IPAddressChoice = IPAddressChoice_st;
+  PIPAddressChoice = ^IPAddressChoice;
 
-//  IPAddressFamily_st = record
-//    addressFamily: PASN1_OCTET_STRING;
-//    ipAddressChoice: PIPAddressChoice;
-//  end;
-//  IPAddressFamily = IPAddressFamily_st;
-//  PIPAddressFamily = ^IPAddressFamily;
+  IPAddressFamily_st = record
+    addressFamily: PASN1_OCTET_STRING;
+    ipAddressChoice: PIPAddressChoice;
+  end;
+  IPAddressFamily = IPAddressFamily_st;
+  PIPAddressFamily = ^IPAddressFamily;
 
 //  typedef STACK_OF(IPAddressFamily) IPAddrBlocks;
 //  DEFINE_STACK_OF(IPAddressFamily)
@@ -1273,7 +1276,39 @@ var
 
 
 {$ENDIF}
+ {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
+  Tsk_ASIdOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_new_null = function : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_free = procedure(st : PSTACK_OF_ASIdOrRange) cdecl;
+  Tsk_ASIdOrRange_num = function (const sk : PSTACK_OF_ASIdOrRange) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_value = function (const sk : PSTACK_OF_ASIdOrRange; i : TIdC_INT) : PASIdOrRange cdecl;
+  Tsk_ASIdOrRange_push = function (sk : PSTACK_OF_ASIdOrRange; st : PASIdOrRange) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_dup = function (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_find = function (sk : PSTACK_OF_ASIdOrRange; _val : PASIdOrRange) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_pop_free = procedure (sk : PSTACK_OF_ASIdOrRange; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_IPAddressOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressOrRange cdecl;
+  Tsk_IPAddressOrRange_new_null = function : PSTACK_OF_IPAddressOrRange cdecl;
+  Tsk_IPAddressOrRange_free = procedure(st : PSTACK_OF_IPAddressOrRange) cdecl;
+  Tsk_IPAddressOrRange_num = function (const sk : PSTACK_OF_IPAddressOrRange) : TIdC_INT cdecl;
+  Tsk_IPAddressOrRange_value = function (const sk : PSTACK_OF_IPAddressOrRange; i : TIdC_INT) : PIPAddressOrRange cdecl;
+  Tsk_IPAddressOrRange_push = function (sk : PSTACK_OF_IPAddressOrRange; st : PIPAddressOrRange) : TIdC_INT cdecl;
+  Tsk_IPAddressOrRange_dup = function (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl;
+  Tsk_IPAddressOrRange_find = function (sk : PSTACK_OF_IPAddressOrRange; _val : PIPAddressOrRange) : TIdC_INT cdecl;
+  Tsk_IPAddressOrRange_pop_free = procedure (sk : PSTACK_OF_IPAddressOrRange; func: TOPENSSL_sk_freefunc) cdecl;
+
+
+  Tsk_IPAddressFamily_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_new_null = function : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_free = procedure(st : PSTACK_OF_IPAddressFamily) cdecl;
+  Tsk_IPAddressFamily_num = function (const sk : PSTACK_OF_IPAddressFamily) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_value = function (const sk : PSTACK_OF_IPAddressFamily; i : TIdC_INT) : PIPAddressFamily cdecl;
+  Tsk_IPAddressFamily_push = function (sk : PSTACK_OF_IPAddressFamily; st : PIPAddressFamily) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_dup = function (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_find = function (sk : PSTACK_OF_IPAddressFamily; _val : PIPAddressFamily) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_pop_free = procedure (sk : PSTACK_OF_IPAddressFamily; func: TOPENSSL_sk_freefunc) cdecl;
+
   Tsk_GENERAL_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_new_null = function : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_free = procedure(st : PSTACK_OF_GENERAL_NAME) cdecl;
@@ -1283,8 +1318,37 @@ type
   Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
   Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PGENERAL_NAME) : TIdC_INT cdecl;
   Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_DIST_POINT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_new_null = function : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_free = procedure(st : PSTACK_OF_DIST_POINT) cdecl;
+  Tsk_DIST_POINT_num = function (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_value = function (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT) : PDIST_POINT cdecl;
+  Tsk_DIST_POINT_push = function (sk : PSTACK_OF_DIST_POINT; st : PDIST_POINT) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_dup = function (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_find = function (sk : PSTACK_OF_DIST_POINT; _val : PDIST_POINT) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_pop_free = procedure (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
+  sk_ASIdOrRange_new: Tsk_ASIdOrRange_new absolute sk_new;
+  sk_ASIdOrRange_new_null : Tsk_ASIdOrRange_new_null absolute sk_new_null;
+  sk_ASIdOrRange_free : Tsk_ASIdOrRange_free absolute sk_free;
+  sk_ASIdOrRange_num : Tsk_ASIdOrRange_num absolute sk_num;
+  sk_ASIdOrRange_value : Tsk_ASIdOrRange_value absolute sk_value;
+  sk_ASIdOrRange_push : Tsk_ASIdOrRange_push absolute sk_push;
+  sk_ASIdOrRange_dup : Tsk_ASIdOrRange_dup absolute sk_dup;
+  sk_ASIdOrRange_find : Tsk_ASIdOrRange_find absolute sk_find;
+  sk_ASIdOrRange_pop_free :  Tsk_ASIdOrRange_pop_free absolute sk_pop_free;
+
+  sk_IPAddressFamily_new: Tsk_IPAddressFamily_new absolute sk_new;
+  sk_IPAddressFamily_new_null : Tsk_IPAddressFamily_new_null absolute sk_new_null;
+  sk_IPAddressFamily_free : Tsk_IPAddressFamily_free absolute sk_free;
+  sk_IPAddressFamily_num : Tsk_IPAddressFamily_num absolute sk_num;
+  sk_IPAddressFamily_value : Tsk_IPAddressFamily_value absolute sk_value;
+  sk_IPAddressFamily_push : Tsk_IPAddressFamily_push absolute sk_push;
+  sk_IPAddressFamily_dup : Tsk_IPAddressFamily_dup absolute sk_dup;
+  sk_IPAddressFamily_find : Tsk_IPAddressFamily_find absolute sk_find;
+  sk_IPAddressFamily_pop_free :  Tsk_IPAddressFamily_pop_free absolute sk_pop_free;
+
   sk_GENERAL_NAME_new :  Tsk_GENERAL_NAME_new absolute sk_new;
   sk_GENERAL_NAME_new_null : Tsk_GENERAL_NAME_new_null absolute sk_new_null;
   sk_GENERAL_NAME_free : Tsk_GENERAL_NAME_free absolute sk_free;
@@ -1294,6 +1358,64 @@ var
   sk_GENERAL_NAME_dup : Tsk_GENERAL_NAME_dup absolute sk_dup;
   sk_GENERAL_NAME_find : Tsk_GENERAL_NAME_find absolute sk_find;
   sk_GENERAL_NAME_pop_free : Tsk_GENERAL_NAME_pop_free absolute sk_pop_free;
+
+  sk_DIST_POINT_new: Tsk_DIST_POINT_new absolute sk_new;
+  sk_DIST_POINT_new_null : Tsk_DIST_POINT_new_null absolute sk_new_null;
+  sk_DIST_POINT_free : Tsk_DIST_POINT_free absolute sk_free;
+  sk_DIST_POINT_num : Tsk_DIST_POINT_num absolute sk_num;
+  sk_DIST_POINT_value : Tsk_DIST_POINT_value absolute sk_value;
+  sk_DIST_POINT_push : Tsk_DIST_POINT_push absolute sk_push;
+  sk_DIST_POINT_dup : Tsk_DIST_POINT_dup absolute sk_dup;
+  sk_DIST_POINT_find : Tsk_DIST_POINT_find absolute sk_find;
+  sk_DIST_POINT_pop_free :  Tsk_DIST_POINT_pop_free absolute sk_pop_free;
+{$ELSE}
+  function sk_ASIdOrRange_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASIdOrRange_new_null : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASIdOrRange_free(st : PSTACK_OF_ASIdOrRange) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASIdOrRange_num (const sk : PSTACK_OF_ASIdOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASIdOrRange_value (const sk : PSTACK_OF_ASIdOrRange; i : TIdC_INT): PASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASIdOrRange_push (sk : PSTACK_OF_ASIdOrRange; st : PASIdOrRange): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_ASIdOrRange_dup (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASIdOrRange_find (sk : PSTACK_OF_ASIdOrRange; val : PASIdOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASIdOrRange_pop_free (sk : PSTACK_OF_ASIdOrRange; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_IPAddressOrRange_new(cmp : Tsk_new_cmp) : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_IPAddressOrRange_new_null : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_IPAddressOrRange_free(st : PSTACK_OF_IPAddressOrRange) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_IPAddressOrRange_num (const sk : PSTACK_OF_IPAddressOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_IPAddressOrRange_value (const sk : PSTACK_OF_IPAddressOrRange; i : TIdC_INT): PIPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_IPAddressOrRange_push (sk : PSTACK_OF_IPAddressOrRange; st : PIPAddressOrRange): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_IPAddressOrRange_dup (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_IPAddressOrRange_find (sk : PSTACK_OF_IPAddressOrRange; val : PIPAddressOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_IPAddressOrRange_pop_free (sk : PSTACK_OF_IPAddressOrRange; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_IPAddressFamily_new(cmp : Tsk_new_cmp) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_IPAddressFamily_new_null : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_IPAddressFamily_free(st : PSTACK_OF_IPAddressFamily) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_IPAddressFamily_num (const sk : PSTACK_OF_IPAddressFamily) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_IPAddressFamily_value (const sk : PSTACK_OF_IPAddressFamily; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_IPAddressFamily_push (sk : PSTACK_OF_IPAddressFamily; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_IPAddressFamily_dup (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_IPAddressFamily_find (sk : PSTACK_OF_IPAddressFamily; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_IPAddressFamily_pop_free (sk : PSTACK_OF_IPAddressFamily; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_GENERAL_NAME_new(cmp : Tsk_new_cmp) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_GENERAL_NAME_new_null : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_GENERAL_NAME_free(st : PSTACK_OF_GENERAL_NAME) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_GENERAL_NAME_num (const sk : PSTACK_OF_GENERAL_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_GENERAL_NAME_value (const sk : PSTACK_OF_GENERAL_NAME; i : TIdC_INT): PGENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_GENERAL_NAME_push (sk : PSTACK_OF_GENERAL_NAME; st : PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_GENERAL_NAME_dup (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_GENERAL_NAME_find (sk : PSTACK_OF_GENERAL_NAME; val : PGENERAL_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_GENERAL_NAME_pop_free (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_DIST_POINT_new(cmp : Tsk_new_cmp) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_DIST_POINT_new_null : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_DIST_POINT_free(st : PSTACK_OF_DIST_POINT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_DIST_POINT_num (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_DIST_POINT_value (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT): PDIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_DIST_POINT_push (sk : PSTACK_OF_DIST_POINT; st : PDIST_POINT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_DIST_POINT_dup (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_DIST_POINT_find (sk : PSTACK_OF_DIST_POINT; val : PDIST_POINT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_DIST_POINT_pop_free (sk : PSTACK_OF_DIST_POINT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+{$ENDIF}
 
 implementation
 

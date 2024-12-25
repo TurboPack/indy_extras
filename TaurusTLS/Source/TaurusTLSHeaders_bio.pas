@@ -1526,8 +1526,6 @@ const
 //  {$HPPEMIT '# define BIO_dgram_get_mtu_overhead(b)'}
 //           (Cardinal)BIO_ctrl((b), BIO_CTRL_DGRAM_GET_MTU_OVERHEAD, 0, 0)
 
-//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
 
   BIO_set_ex_data_procname = 'BIO_set_ex_data';
   BIO_get_ex_data_procname = 'BIO_get_ex_data';

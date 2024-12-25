@@ -30,6 +30,7 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
 
@@ -544,6 +545,8 @@ var
 {$ENDIF}
 
 function d2i_DHparams_bio(bp: PBIO; x: PPDH): PDH;
+function DH_get_ex_new_index(l : TIdC_LONG; p : PDH;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -554,6 +557,16 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
+
+//#   define DH_get_ex_new_index(l, p, newf, dupf, freef) \
+//        CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DH, l, p, newf, dupf, freef)
+
+function DH_get_ex_new_index(l : TIdC_LONG; p : PDH;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DH, l, p, newf, dupf, freef);
+end;
 
 const
   DH_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

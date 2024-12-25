@@ -30,6 +30,7 @@ uses
   IdCTypes,
   IdGlobal,
   TaurusTLSConsts,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_ec;
 
@@ -1160,6 +1161,8 @@ var
   function ENGINE_get_static_state: Pointer cdecl; external CLibCrypto;
 
 {$ENDIF}
+function ENGINE_get_ex_new_index(l : TIdC_LONG; p : PENGINE;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -1988,7 +1991,14 @@ end;
 
   // These functions allow control over any per-structure ENGINE data. */
   //#define ENGINE_get_ex_new_index(l, p, newf, dupf, freef) CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef)
-function  ERR_ENGINE_set_ex_data(e: PENGINE; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function ENGINE_get_ex_new_index(l : TIdC_LONG; p : PENGINE;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef);
+end;
+
+function  ERR_ENGINE_set_ex_data(e: PENGINE; idx: TIdC_INT; arg: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_set_ex_data_procname);
 end;

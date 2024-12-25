@@ -672,6 +672,10 @@ function OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; {removed 1.0.0}
   function SSLeay: TIdC_ULONG; {removed 1.1.0}
 {$ENDIF}
 
+//Moved here to prevent circular unit depedency
+function BIO_get_ex_new_index(l : TIdC_LONG; p : PBIO;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+
 implementation
 
   uses
@@ -681,7 +685,17 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
+//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
+
+function BIO_get_ex_new_index(l : TIdC_LONG; p : PBIO;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef);
+end;
+
 const
   CRYPTO_THREAD_lock_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   CRYPTO_THREAD_read_lock_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

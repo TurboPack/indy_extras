@@ -2536,8 +2536,8 @@ uses
   {$ENDIF}
   TaurusTLSExceptionHandlers,
   TaurusTLS_ResourceStrings,
- TaurusTLSHeaders_crypto;
-  
+  TaurusTLSHeaders_crypto;
+
 const
   EVP_MD_meth_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_MD_meth_dup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
