@@ -2004,7 +2004,7 @@ var
   SSL_set_read_ahead: procedure (s: PSSL; yes: TIdC_INT); cdecl = nil;
   SSL_set_verify: procedure (s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb); cdecl = nil;
   SSL_set_verify_depth: procedure (s: PSSL; depth: TIdC_INT); cdecl = nil;
-  //void SSL_set_cert_cb(s: PSSL, TIdC_INT (*cb) (ssl: PSSL, void *arg), void *arg);
+  SSL_set_cert_cb : procedure(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer); cdecl = nil;
 
   SSL_use_RSAPrivateKey: function (ssl: PSSL; rsa: PRSA): TIdC_INT; cdecl = nil;
   SSL_use_RSAPrivateKey_ASN1: function (ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
@@ -2953,7 +2953,7 @@ var
   procedure SSL_set_read_ahead(s: PSSL; yes: TIdC_INT) cdecl; external CLibSSL;
   procedure SSL_set_verify(s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb) cdecl; external CLibSSL;
   procedure SSL_set_verify_depth(s: PSSL; depth: TIdC_INT) cdecl; external CLibSSL;
-  //void SSL_set_cert_cb(s: PSSL, TIdC_INT (*cb) (ssl: PSSL, void *arg), void *arg);
+  procedure SSL_set_cert_cb(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer) cdecl; external CLibSSL;
 
   function SSL_use_RSAPrivateKey(ssl: PSSL; rsa: PRSA): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_RSAPrivateKey_ASN1(ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
@@ -4557,8 +4557,7 @@ const
   SSL_set_read_ahead_procname = 'SSL_set_read_ahead';
   SSL_set_verify_procname = 'SSL_set_verify';
   SSL_set_verify_depth_procname = 'SSL_set_verify_depth';
-  //void SSL_set_cert_cb(s: PSSL, TIdC_INT (*cb) (ssl: PSSL, void *arg), void *arg);
-
+  SSL_set_cert_cb_procname = 'SSL_set_cert_cb';
   SSL_use_RSAPrivateKey_procname = 'SSL_use_RSAPrivateKey';
   SSL_use_RSAPrivateKey_ASN1_procname = 'SSL_use_RSAPrivateKey_ASN1';
   SSL_use_PrivateKey_procname = 'SSL_use_PrivateKey';
@@ -7243,7 +7242,10 @@ begin
 end;
 
 
-  //void SSL_set_cert_cb(s: PSSL, TIdC_INT (*cb) (ssl: PSSL, void *arg), void *arg);
+procedure ERR_SSL_set_cert_cb(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_cert_cb_procname);
+end;
 
 function  ERR_SSL_use_RSAPrivateKey(ssl: PSSL; rsa: PRSA): TIdC_INT; 
 begin
@@ -14883,6 +14885,36 @@ begin
     {$ifend}
   end;
 
+  SSL_set_cert_cb := LoadLibFunction(ADllHandle, SSL_set_cert_cb_procname);
+  FuncLoadError := not assigned(SSL_set_cert_cb);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_cert_cb_allownil)}
+    SSL_set_cert_cb := @ERR_SSL_set_cert_cb;
+    {$ifend}
+    {$if declared(SSL_set_cert_cb_introduced)}
+    if LibVersion < SSL_set_cert_cb_introduced then
+    begin
+      {$if declared(FC_SSL_set_cert_cb)}
+      SSL_set_cert_cb := @FC_SSL_set_cert_cb;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_cert_cb_removed)}
+    if SSL_set_cert_cb_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_cert_cb)}
+      SSL_set_cert_cb := @_SSL_set_cert_cb;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_cert_cb_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_cert_cb');
+    {$ifend}
+  end;
 
   SSL_use_RSAPrivateKey := LoadLibFunction(ADllHandle, SSL_use_RSAPrivateKey_procname);
   FuncLoadError := not assigned(SSL_use_RSAPrivateKey);
@@ -25532,6 +25564,7 @@ begin
   SSL_set_read_ahead := nil;
   SSL_set_verify := nil;
   SSL_set_verify_depth := nil;
+  SSL_set_cert_cb := nil;
   SSL_use_RSAPrivateKey := nil;
   SSL_use_RSAPrivateKey_ASN1 := nil;
   SSL_use_PrivateKey := nil;
