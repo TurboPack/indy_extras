@@ -32,6 +32,7 @@ uses
   TaurusTLSConsts,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_objects,
@@ -2531,12 +2532,14 @@ var
   function X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; {removed 3.0.0}
 {$ENDIF}
 
+function X509_get_ex_new_index(l : TIdC_LONG; p : PX509;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+
 implementation
 
   uses
     classes, 
     TaurusTLSExceptionHandlers,
-    TaurusTLSHeaders_crypto,
     TaurusTLS_ResourceStrings
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
@@ -3233,8 +3236,7 @@ end;
 
   //#define X509_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef)
-
-function X509_get_ex_new_index(l : TIdC_LONG; p : Pointer;
+function X509_get_ex_new_index(l : TIdC_LONG; p : PX509;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin

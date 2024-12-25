@@ -29,6 +29,7 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
 
@@ -708,6 +709,8 @@ var
   function RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT cdecl; external CLibCrypto;
 
 {$ENDIF}
+function RSA_get_ex_new_index(l : TIdC_LONG; p : PRSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -1374,10 +1377,14 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_mgf1_procname);
 end;
 
-
-
   //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
+function RSA_get_ex_new_index(l : TIdC_LONG; p : PRSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef);
+end;
 
 function  ERR_RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
 begin

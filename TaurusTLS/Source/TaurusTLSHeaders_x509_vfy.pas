@@ -31,6 +31,7 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_x509;
@@ -1006,6 +1007,10 @@ var
 
 function X509_STORE_CTX_get_app_data(ctx: PX509_STORE_CTX): Pointer; {removed 1.0.0}
 {$ENDIF}
+function X509_STORE_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+function X509_STORE_CTX_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE_CTX;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -1015,7 +1020,25 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+  //#define X509_STORE_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE, l, p, newf, dupf, freef)
+function X509_STORE_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE, l, p, newf, dupf, freef);
+end;
+
+  //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
+function X509_STORE_CTX_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE_CTX;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef);
+end;
+
 const
   X509_OBJECT_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_OBJECT_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

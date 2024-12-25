@@ -881,6 +881,8 @@ function UI_UTIL_wrap_read_pem_callback(cb: pem_password_cb; rwflag: TIdC_INT)
   : PUI_Method cdecl; external CLibCrypto;
 
 {$ENDIF}
+function UI_get_ex_new_index(l : TIdC_LONG; p : PUI;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -891,6 +893,15 @@ uses
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     , TaurusTLSLoader
 {$ENDIF};
+
+// # define UI_get_ex_new_index(l, p, newf, dupf, freef) \
+// CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_UI, l, p, newf, dupf, freef)
+function UI_get_ex_new_index(l : TIdC_LONG; p : PUI;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_UI, l, p, newf, dupf, freef);
+end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 

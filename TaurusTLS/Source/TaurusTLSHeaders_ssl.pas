@@ -2113,7 +2113,7 @@ var
   SSL_CTX_use_RSAPrivateKey_ASN1: function (ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   SSL_CTX_use_PrivateKey: function (ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
   SSL_CTX_use_PrivateKey_ASN1: function (pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  SSL_CTX_use_certificate: function (ctx: PSSL_CTX; x: X509): TIdC_INT; cdecl = nil;
+  SSL_CTX_use_certificate: function (ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl = nil;
   SSL_CTX_use_certificate_ASN1: function (ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT; cdecl = nil;
   //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
 
@@ -3060,7 +3060,7 @@ var
   function SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
-  function SSL_CTX_use_certificate(ctx: PSSL_CTX; x: X509): TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT cdecl; external CLibSSL;
   //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
 
@@ -3608,6 +3608,12 @@ function SSL_get0_ec_point_formats(s: PSSL; plst: Pointer): TIdC_LONG; {removed 
   function SSL_get_peer_certificate(const s: PSSL): PX509; {removed 3.0.0}
   function SSL_library_init: TIdC_INT; {removed 1.1.0}
 {$ENDIF}
+function SSL_get_ex_new_index(l : TIdC_LONG; p : PSSL;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+function SSL_SESSION_get_ex_new_index(l : TIdC_LONG; p : PSSL_SESSION;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
 implementation
 
@@ -3617,7 +3623,34 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
+function SSL_get_ex_new_index(l : TIdC_LONG; p : PSSL;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef);
+end;
+
+  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
+function SSL_SESSION_get_ex_new_index(l : TIdC_LONG; p : PSSL_SESSION;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef);
+end;
+
+  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
+function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef);
+end;
+
 const
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4773,8 +4806,6 @@ const
   SSL_SESSION_set1_master_key_procname = 'SSL_SESSION_set1_master_key'; {introduced 1.1.0}
   SSL_SESSION_get_max_fragment_length_procname = 'SSL_SESSION_get_max_fragment_length'; {introduced 1.1.0}
 
-  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
   SSL_set_ex_data_procname = 'SSL_set_ex_data';
   SSL_get_ex_data_procname = 'SSL_get_ex_data';
   //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
@@ -7604,7 +7635,7 @@ begin
 end;
 
 
-function  ERR_SSL_CTX_use_certificate(ctx: PSSL_CTX; x: X509): TIdC_INT; 
+function  ERR_SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_certificate_procname);
 end;
