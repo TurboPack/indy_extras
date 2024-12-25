@@ -421,6 +421,95 @@ type
   //# define         X509_name_cmp(a,b)      X509_NAME_cmp((a),(b))
   //
 
+{forward_compatibility}
+
+const
+  ASIdentifierChoice_inherit = 0;
+  ASIdentifierChoice_asIdsOrRanges = 1;
+  SHA_DIGEST_LENGTH = 20;
+
+type
+  PX509_CINF = ^_X509_CINF;
+  _X509_CINF = record
+    version: PASN1_INTEGER;
+    serialNumber: PASN1_INTEGER;
+    signature: PX509_ALGOR;
+    issuer: PX509_NAME;
+    validity: PX509_VAL;
+    subject: PX509_NAME;
+    key: PX509_PUBKEY;
+    issuerUID: PASN1_BIT_STRING; // [ 1 ] optional in v2
+    subjectUID: PASN1_BIT_STRING; // [ 2 ] optional in v2
+    extensions: PSTACK_OF_X509_EXTENSION;
+    enc : ASN1_ENCODING;
+  end;
+
+  PX509_ALGOR  = ^X509_ALGOR;
+  X509_ALGOR = record
+    algorithm : PASN1_OBJECT;
+    parameter : PASN1_TYPE;
+  end;
+
+  PSTACK_OF_ASIdOrRange = type Pointer;
+
+  PSTACK_OF_DIST_POINT = type Pointer;
+  PSTACK_OF_GENERAL_NAME = type Pointer;
+  PSTACK_OF_IPAddressFamily = type Pointer;
+  PASIdOrRanges = PSTACK_OF_ASIdOrRange;
+
+  ASIdentifierChoice_union = record
+  case byte of
+   ASIdentifierChoice_inherit : (inherit : PASN1_NULL);
+   ASIdentifierChoice_asIdsOrRanges : (asIdsOrRanges : PASIdOrRanges);
+  end;
+
+  PASIdentifierChoice = ^ASIdentifierChoice;
+  ASIdentifierChoice = record
+    _type : TIdC_INT;
+    u : ASIdentifierChoice_union;
+  end;
+
+  PASIdentifiers = ^ASIdentifiers;
+  ASIdentifiers = record
+    asnum : PASIdentifierChoice;
+    rdi : PASIdentifierChoice;
+  end;
+
+  PX509_CERT_AUX = pointer;
+
+   _PX509 = ^X509;
+
+X509 = record
+    cert_info: PX509_CINF;
+    sig_alg : PX509_ALGOR;
+    signature : PASN1_BIT_STRING;
+    valid : TIdC_INT;
+    references : TIdC_INT;
+    name : PIdAnsiChar;
+    ex_data : CRYPTO_EX_DATA;
+    // These contain copies of various extension values
+    ex_pathlen : TIdC_LONG;
+    ex_pcpathlen : TIdC_LONG;
+    ex_flags : TIdC_ULONG;
+    ex_kusage : TIdC_ULONG;
+    ex_xkusage : TIdC_ULONG;
+    ex_nscert : TIdC_ULONG;
+    skid : PASN1_OCTET_STRING;
+    akid : PAUTHORITY_KEYID;
+    policy_cache : PX509_POLICY_CACHE;
+    crldp : PSTACK_OF_DIST_POINT;
+    altname : PSTACK_OF_GENERAL_NAME;
+    nc : PNAME_CONSTRAINTS;
+    {$IFNDEF OPENSSL_NO_RFC3779}
+    rfc3779_addr : PSTACK_OF_IPAddressFamily;
+    rfc3779_asid : PASIdentifiers;
+    {$ENDIF}
+    {$IFNDEF OPENSSL_NO_SHA}
+    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of TIdAnsiChar;
+    {$ENDIF}
+    aux : PX509_CERT_AUX;
+  end;
+
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		
   	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
@@ -839,6 +928,42 @@ type
 {$EXTERNALSYM Tsk_X509_INFO_find}
 {$EXTERNALSYM Tsk_X509_INFO_pop_free}
 type
+  Tsk_DIST_POINT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_new_null = function : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_free = procedure(st : PSTACK_OF_DIST_POINT) cdecl;
+  Tsk_DIST_POINT_num = function (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_value = function (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_DIST_POINT_push = function (sk : PSTACK_OF_DIST_POINT; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_dup = function (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl;
+  Tsk_DIST_POINT_find = function (sk : PSTACK_OF_DIST_POINT; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_DIST_POINT_pop_free = procedure (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_ASIdOrRange_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_new_null = function : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_free = procedure(st : PSTACK_OF_ASIdOrRange) cdecl;
+  Tsk_ASIdOrRange_num = function (const sk : PSTACK_OF_ASIdOrRange) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_value = function (const sk : PSTACK_OF_ASIdOrRange; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_ASIdOrRange_push = function (sk : PSTACK_OF_ASIdOrRange; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_dup = function (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl;
+  Tsk_ASIdOrRange_find = function (sk : PSTACK_OF_ASIdOrRange; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_ASIdOrRange_pop_free = procedure (sk : PSTACK_OF_ASIdOrRange; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_IPAddressFamily_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_new_null = function : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_free = procedure(st : PSTACK_OF_IPAddressFamily) cdecl;
+  Tsk_IPAddressFamily_num = function (const sk : PSTACK_OF_IPAddressFamily) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_value = function (const sk : PSTACK_OF_IPAddressFamily; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_IPAddressFamily_push = function (sk : PSTACK_OF_IPAddressFamily; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_dup = function (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl;
+  Tsk_IPAddressFamily_find = function (sk : PSTACK_OF_IPAddressFamily; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_IPAddressFamily_pop_free = procedure (sk : PSTACK_OF_IPAddressFamily; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_GENERAL_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl;
+  Tsk_GENERAL_NAME_new_null = function : PSTACK_OF_GENERAL_NAME cdecl;
+  Tsk_GENERAL_NAME_free = procedure(st : PSTACK_OF_GENERAL_NAME) cdecl;
+  Tsk_GENERAL_NAME_num = function (const sk : PSTACK_OF_GENERAL_NAME) : TIdC_INT cdecl;
+  Tsk_GENERAL_NAME_value = function (const sk : PSTACK_OF_GENERAL_NAME; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_GENERAL_NAME_push = function (sk : PSTACK_OF_GENERAL_NAME; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_GENERAL_NAME_dup = function (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl;
+  Tsk_GENERAL_NAME_find = function (sk : PSTACK_OF_GENERAL_NAME; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_GENERAL_NAME_pop_free = procedure (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_X509_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509 cdecl;
   Tsk_X509_new_null = function : PSTACK_OF_X509 cdecl;
   Tsk_X509_free = procedure(st : PSTACK_OF_X509) cdecl;
@@ -848,7 +973,6 @@ type
   Tsk_X509_dup = function (sk : PSTACK_OF_X509) : PSTACK_OF_X509 cdecl;
   Tsk_X509_find = function (sk : PSTACK_OF_X509; _val : PX509_NAME) : TIdC_INT cdecl;
   Tsk_X509_pop_free = procedure (sk : PSTACK_OF_X509; func: TOPENSSL_sk_freefunc) cdecl;
-
   Tsk_X509_NAME_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_new_null = function : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_free = procedure(st : PSTACK_OF_X509_NAME) cdecl;
@@ -858,6 +982,16 @@ type
   Tsk_X509_NAME_dup = function (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl;
   Tsk_X509_NAME_find = function (sk : PSTACK_OF_X509_NAME; _val : PX509_NAME) : TIdC_INT cdecl;
   Tsk_X509_NAME_pop_free = procedure (sk : PSTACK_OF_X509_NAME; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_X509_NAME_ENTRY_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_NAME_ENTRY cdecl;
+  Tsk_X509_NAME_ENTRY_new_null = function : PSTACK_OF_X509_NAME_ENTRY cdecl;
+  Tsk_X509_NAME_ENTRY_free = procedure(st : PSTACK_OF_X509_NAME_ENTRY) cdecl;
+  Tsk_X509_NAME_ENTRY_num = function (const sk : PSTACK_OF_X509_NAME_ENTRY) : TIdC_INT cdecl;
+  Tsk_X509_NAME_ENTRY_value = function (const sk : PSTACK_OF_X509_NAME_ENTRY; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_X509_NAME_ENTRY_push = function (sk : PSTACK_OF_X509_NAME_ENTRY; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_X509_NAME_ENTRY_dup = function (sk : PSTACK_OF_X509_NAME_ENTRY) : PSTACK_OF_X509_NAME_ENTRY cdecl;
+  Tsk_X509_NAME_ENTRY_find = function (sk : PSTACK_OF_X509_NAME_ENTRY; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_X509_NAME_ENTRY_pop_free = procedure (sk : PSTACK_OF_X509_NAME_ENTRY; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_X509_INFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_INFO cdecl;
   Tsk_X509_INFO_new_null = function : PSTACK_OF_X509_INFO cdecl;
   Tsk_X509_INFO_free = procedure(st : PSTACK_OF_X509_INFO) cdecl;
@@ -876,6 +1010,16 @@ type
   Tsk_X509_EXTENSION_dup = function (sk : PSTACK_OF_X509_EXTENSION) : PSTACK_OF_X509_EXTENSION cdecl;
   Tsk_X509_EXTENSION_find = function (sk : PSTACK_OF_X509_EXTENSION; _val : PX509_EXTENSION) : TIdC_INT cdecl;
   Tsk_X509_EXTENSION_pop_free = procedure (sk : PSTACK_OF_X509_EXTENSION; func: TOPENSSL_sk_freefunc) cdecl;
+  Tsk_X509_TRUST_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_TRUST cdecl;
+  Tsk_X509_TRUST_new_null = function : PSTACK_OF_X509_TRUST cdecl;
+  Tsk_X509_TRUST_free = procedure(st : PSTACK_OF_X509_TRUST) cdecl;
+  Tsk_X509_TRUST_num = function (const sk : PSTACK_OF_X509_TRUST) : TIdC_INT cdecl;
+  Tsk_X509_TRUST_value = function (const sk : PSTACK_OF_X509_TRUST; i : TIdC_INT) : PX509_NAME cdecl;
+  Tsk_X509_TRUST_push = function (sk : PSTACK_OF_X509_TRUST; st : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_X509_TRUST_dup = function (sk : PSTACK_OF_X509_TRUST) : PSTACK_OF_X509_TRUST cdecl;
+  Tsk_X509_TRUST_find = function (sk : PSTACK_OF_X509_TRUST; _val : PX509_NAME) : TIdC_INT cdecl;
+  Tsk_X509_TRUST_pop_free = procedure (sk : PSTACK_OF_X509_TRUST; func: TOPENSSL_sk_freefunc) cdecl;
+
   Tsk_X509_REVOKED_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_REVOKED cdecl;
   Tsk_X509_REVOKED_new_null = function : PSTACK_OF_X509_REVOKED cdecl;
   Tsk_X509_REVOKED_free = procedure(st : PSTACK_OF_X509_REVOKED) cdecl;
@@ -905,6 +1049,43 @@ type
   Tsk_X509_ATTRIBUTE_pop_free = procedure (sk : PSTACK_OF_X509_ATTRIBUTE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
+  sk_DIST_POINT_new: Tsk_DIST_POINT_new absolute sk_new;
+  sk_DIST_POINT_new_null : Tsk_DIST_POINT_new_null absolute sk_new_null;
+  sk_DIST_POINT_free : Tsk_DIST_POINT_free absolute sk_free;
+  sk_DIST_POINT_num : Tsk_DIST_POINT_num absolute sk_num;
+  sk_DIST_POINT_value : Tsk_DIST_POINT_value absolute sk_value;
+  sk_DIST_POINT_push : Tsk_DIST_POINT_push absolute sk_push;
+  sk_DIST_POINT_dup : Tsk_DIST_POINT_dup absolute sk_dup;
+  sk_DIST_POINT_find : Tsk_DIST_POINT_find absolute sk_find;
+  sk_DIST_POINT_pop_free :  Tsk_DIST_POINT_pop_free absolute sk_pop_free;
+  sk_ASIdOrRange_new: Tsk_ASIdOrRange_new absolute sk_new;
+  sk_ASIdOrRange_new_null : Tsk_ASIdOrRange_new_null absolute sk_new_null;
+  sk_ASIdOrRange_free : Tsk_ASIdOrRange_free absolute sk_free;
+  sk_ASIdOrRange_num : Tsk_ASIdOrRange_num absolute sk_num;
+  sk_ASIdOrRange_value : Tsk_ASIdOrRange_value absolute sk_value;
+  sk_ASIdOrRange_push : Tsk_ASIdOrRange_push absolute sk_push;
+  sk_ASIdOrRange_dup : Tsk_ASIdOrRange_dup absolute sk_dup;
+  sk_ASIdOrRange_find : Tsk_ASIdOrRange_find absolute sk_find;
+  sk_ASIdOrRange_pop_free :  Tsk_ASIdOrRange_pop_free absolute sk_pop_free;
+  sk_IPAddressFamily_new: Tsk_IPAddressFamily_new absolute sk_new;
+  sk_IPAddressFamily_new_null : Tsk_IPAddressFamily_new_null absolute sk_new_null;
+  sk_IPAddressFamily_free : Tsk_IPAddressFamily_free absolute sk_free;
+  sk_IPAddressFamily_num : Tsk_IPAddressFamily_num absolute sk_num;
+  sk_IPAddressFamily_value : Tsk_IPAddressFamily_value absolute sk_value;
+  sk_IPAddressFamily_push : Tsk_IPAddressFamily_push absolute sk_push;
+  sk_IPAddressFamily_dup : Tsk_IPAddressFamily_dup absolute sk_dup;
+  sk_IPAddressFamily_find : Tsk_IPAddressFamily_find absolute sk_find;
+  sk_IPAddressFamily_pop_free :  Tsk_IPAddressFamily_pop_free absolute sk_pop_free;
+  sk_GENERAL_NAME_new: Tsk_GENERAL_NAME_new absolute sk_new;
+  sk_GENERAL_NAME_new_null : Tsk_GENERAL_NAME_new_null absolute sk_new_null;
+  sk_GENERAL_NAME_free : Tsk_GENERAL_NAME_free absolute sk_free;
+  sk_GENERAL_NAME_num : Tsk_GENERAL_NAME_num absolute sk_num;
+  sk_GENERAL_NAME_value : Tsk_GENERAL_NAME_value absolute sk_value;
+  sk_GENERAL_NAME_push : Tsk_GENERAL_NAME_push absolute sk_push;
+  sk_GENERAL_NAME_dup : Tsk_GENERAL_NAME_dup absolute sk_dup;
+  sk_GENERAL_NAME_find : Tsk_GENERAL_NAME_find absolute sk_find;
+  sk_GENERAL_NAME_pop_free :  Tsk_GENERAL_NAME_pop_free absolute sk_pop_free;
+
   sk_X509_new: Tsk_X509_new absolute sk_new;
   sk_X509_new_null : Tsk_X509_new_null absolute sk_new_null;
   sk_X509_free : Tsk_X509_free absolute sk_free;
@@ -923,6 +1104,15 @@ var
   sk_X509_NAME_dup : Tsk_X509_NAME_dup absolute sk_dup;
   sk_X509_NAME_find : Tsk_X509_NAME_find absolute sk_find;
   sk_X509_NAME_pop_free :  Tsk_X509_NAME_pop_free absolute sk_pop_free;
+  sk_X509_NAME_ENTRY_new: Tsk_X509_NAME_ENTRY_new absolute sk_new;
+  sk_X509_NAME_ENTRY_new_null : Tsk_X509_NAME_ENTRY_new_null absolute sk_new_null;
+  sk_X509_NAME_ENTRY_free : Tsk_X509_NAME_ENTRY_free absolute sk_free;
+  sk_X509_NAME_ENTRY_num : Tsk_X509_NAME_ENTRY_num absolute sk_num;
+  sk_X509_NAME_ENTRY_value : Tsk_X509_NAME_ENTRY_value absolute sk_value;
+  sk_X509_NAME_ENTRY_push : Tsk_X509_NAME_ENTRY_push absolute sk_push;
+  sk_X509_NAME_ENTRY_dup : Tsk_X509_NAME_ENTRY_dup absolute sk_dup;
+  sk_X509_NAME_ENTRY_find : Tsk_X509_NAME_ENTRY_find absolute sk_find;
+  sk_X509_NAME_ENTRY_pop_free :  Tsk_X509_NAME_ENTRY_pop_free absolute sk_pop_free;
   sk_X509_INFO_new: Tsk_X509_INFO_new absolute sk_new;
   sk_X509_INFO_new_null : Tsk_X509_INFO_new_null absolute sk_new_null;
   sk_X509_INFO_free : Tsk_X509_INFO_free absolute sk_free;
@@ -941,6 +1131,15 @@ var
   sk_X509_EXTENSION_dup : Tsk_X509_EXTENSION_dup absolute sk_dup;
   sk_X509_EXTENSION_find : Tsk_X509_EXTENSION_find absolute sk_find;
   sk_X509_EXTENSION_pop_free : Tsk_X509_EXTENSION_pop_free absolute sk_pop_free;
+  sk_X509_TRUST_new: Tsk_X509_TRUST_new absolute sk_new;
+  sk_X509_TRUST_new_null : Tsk_X509_TRUST_new_null absolute sk_new_null;
+  sk_X509_TRUST_free : Tsk_X509_TRUST_free absolute sk_free;
+  sk_X509_TRUST_num : Tsk_X509_TRUST_num absolute sk_num;
+  sk_X509_TRUST_value : Tsk_X509_TRUST_value absolute sk_value;
+  sk_X509_TRUST_push : Tsk_X509_TRUST_push absolute sk_push;
+  sk_X509_TRUST_dup : Tsk_X509_TRUST_dup absolute sk_dup;
+  sk_X509_TRUST_find : Tsk_X509_TRUST_find absolute sk_find;
+  sk_X509_TRUST_pop_free :  Tsk_X509_TRUST_pop_free absolute sk_pop_free;
   sk_X509_REVOKED_new: Tsk_X509_REVOKED_new absolute sk_new;
   sk_X509_REVOKED_new_null : Tsk_X509_REVOKED_new_null absolute sk_new_null;
   sk_X509_REVOKED_free : Tsk_X509_REVOKED_free absolute sk_free;
@@ -969,6 +1168,42 @@ var
   sk_X509_ATTRIBUTE_find : Tsk_X509_ATTRIBUTE_find absolute sk_find;
   sk_X509_ATTRIBUTE_pop_free : Tsk_X509_ATTRIBUTE_pop_free absolute sk_pop_free;
 {$ELSE}
+  function sk_DIST_POINT_new(cmp : Tsk_new_cmp) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_DIST_POINT_new_null : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_DIST_POINT_free(st : PSTACK_OF_DIST_POINT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_DIST_POINT_num (const sk : PSTACK_OF_DIST_POINT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_DIST_POINT_value (const sk : PSTACK_OF_DIST_POINT; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_DIST_POINT_push (sk : PSTACK_OF_DIST_POINT; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_DIST_POINT_dup (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_DIST_POINT_find (sk : PSTACK_OF_DIST_POINT; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_DIST_POINT_pop_free (sk : PSTACK_OF_DIST_POINT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_ASIdOrRange_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASIdOrRange_new_null : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_ASIdOrRange_free(st : PSTACK_OF_ASIdOrRange) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_ASIdOrRange_num (const sk : PSTACK_OF_ASIdOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_ASIdOrRange_value (const sk : PSTACK_OF_ASIdOrRange; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_ASIdOrRange_push (sk : PSTACK_OF_ASIdOrRange; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_ASIdOrRange_dup (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_ASIdOrRange_find (sk : PSTACK_OF_ASIdOrRange; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_ASIdOrRange_pop_free (sk : PSTACK_OF_ASIdOrRange; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_IPAddressFamily_new(cmp : Tsk_new_cmp) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_IPAddressFamily_new_null : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_IPAddressFamily_free(st : PSTACK_OF_IPAddressFamily) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_IPAddressFamily_num (const sk : PSTACK_OF_IPAddressFamily) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_IPAddressFamily_value (const sk : PSTACK_OF_IPAddressFamily; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_IPAddressFamily_push (sk : PSTACK_OF_IPAddressFamily; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_IPAddressFamily_dup (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_IPAddressFamily_find (sk : PSTACK_OF_IPAddressFamily; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_IPAddressFamily_pop_free (sk : PSTACK_OF_IPAddressFamily; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_GENERAL_NAME_new(cmp : Tsk_new_cmp) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_GENERAL_NAME_new_null : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_GENERAL_NAME_free(st : PSTACK_OF_GENERAL_NAME) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_GENERAL_NAME_num (const sk : PSTACK_OF_GENERAL_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_GENERAL_NAME_value (const sk : PSTACK_OF_GENERAL_NAME; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_GENERAL_NAME_push (sk : PSTACK_OF_GENERAL_NAME; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_GENERAL_NAME_dup (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_GENERAL_NAME_find (sk : PSTACK_OF_GENERAL_NAME; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_GENERAL_NAME_pop_free (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509 cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_new_null : PSTACK_OF_X509 cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_free(st : PSTACK_OF_X509) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -987,6 +1222,15 @@ var
   function sk_X509_NAME_dup (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_NAME_find (sk : PSTACK_OF_X509_NAME; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_NAME_pop_free (sk : PSTACK_OF_X509_NAME; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  function sk_X509_TRUST_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_TRUST_new_null : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_TRUST_free(st : PSTACK_OF_X509_TRUST) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_TRUST_num (const sk : PSTACK_OF_X509_TRUST) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_TRUST_value (const sk : PSTACK_OF_X509_TRUST; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_TRUST_push (sk : PSTACK_OF_X509_TRUST; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_TRUST_dup (sk : PSTACK_OF_X509_TRUST) : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_TRUST_find (sk : PSTACK_OF_X509_TRUST; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_TRUST_pop_free (sk : PSTACK_OF_X509_TRUST; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_INFO_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_INFO_new_null : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_INFO_free(st : PSTACK_OF_X509_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -2997,96 +3241,6 @@ begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef);
 end;
 
-
-{forward_compatibility}
-
-const
-  ASIdentifierChoice_inherit = 0;
-  ASIdentifierChoice_asIdsOrRanges = 1;
-  SHA_DIGEST_LENGTH = 20;
-
-type
-  PX509_CINF = ^_X509_CINF;
-  _X509_CINF = record
-    version: PASN1_INTEGER;
-    serialNumber: PASN1_INTEGER;
-    signature: PX509_ALGOR;
-    issuer: PX509_NAME;
-    validity: PX509_VAL;
-    subject: PX509_NAME;
-    key: PX509_PUBKEY;
-    issuerUID: PASN1_BIT_STRING; // [ 1 ] optional in v2
-    subjectUID: PASN1_BIT_STRING; // [ 2 ] optional in v2
-    extensions: PSTACK_OF_X509_EXTENSION;
-    enc : ASN1_ENCODING;
-  end;
-
-  PX509_ALGOR  = ^X509_ALGOR;
-  X509_ALGOR = record
-    algorithm : PASN1_OBJECT;
-    parameter : PASN1_TYPE;
-  end;
-
-  PSTACK_OF_ASIdOrRange = type Pointer;
-
-  PSTACK_OF_DIST_POINT = type Pointer;
-  PSTACK_OF_GENERAL_NAME = type Pointer;
-  PSTACK_OF_IPAddressFamily = type Pointer;
-  PASIdOrRanges = PSTACK_OF_ASIdOrRange;
-
-  ASIdentifierChoice_union = record
-  case byte of
-   ASIdentifierChoice_inherit : (inherit : PASN1_NULL);
-   ASIdentifierChoice_asIdsOrRanges : (asIdsOrRanges : PASIdOrRanges);
-  end;
-
-  PASIdentifierChoice = ^ASIdentifierChoice;
-  ASIdentifierChoice = record
-    _type : TIdC_INT;
-    u : ASIdentifierChoice_union;
-  end;
-
-  PASIdentifiers = ^ASIdentifiers;
-  ASIdentifiers = record
-    asnum : PASIdentifierChoice;
-    rdi : PASIdentifierChoice;
-  end;
-
-  PX509_CERT_AUX = pointer;
-  
-   _PX509 = ^X509;
-
-X509 = record
-    cert_info: PX509_CINF;
-    sig_alg : PX509_ALGOR;
-    signature : PASN1_BIT_STRING;
-    valid : TIdC_INT;
-    references : TIdC_INT;
-    name : PIdAnsiChar;
-    ex_data : CRYPTO_EX_DATA;
-    // These contain copies of various extension values
-    ex_pathlen : TIdC_LONG;
-    ex_pcpathlen : TIdC_LONG;
-    ex_flags : TIdC_ULONG;
-    ex_kusage : TIdC_ULONG;
-    ex_xkusage : TIdC_ULONG;
-    ex_nscert : TIdC_ULONG;
-    skid : PASN1_OCTET_STRING;
-    akid : PAUTHORITY_KEYID;
-    policy_cache : PX509_POLICY_CACHE;
-    crldp : PSTACK_OF_DIST_POINT;
-    altname : PSTACK_OF_GENERAL_NAME;
-    nc : PNAME_CONSTRAINTS;
-    {$IFNDEF OPENSSL_NO_RFC3779}
-    rfc3779_addr : PSTACK_OF_IPAddressFamily;
-    rfc3779_asid : PASIdentifiers;
-    {$ENDIF}
-    {$IFNDEF OPENSSL_NO_SHA}
-    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of TIdAnsiChar;
-    {$ENDIF}
-    aux : PX509_CERT_AUX;
-  end;   
-
 procedure  FC_X509_get0_signature(out sig: PASN1_BIT_STRING; out alg: PX509_ALGOR; const x: PX509); cdecl;
 begin
   sig := _PX509(x)^.signature;
@@ -3562,7 +3716,7 @@ end;
 
 
 
-function  ERR_X509_cmp_time(const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT; 
+function  ERR_X509_cmp_time(const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_time_procname);
 end;
