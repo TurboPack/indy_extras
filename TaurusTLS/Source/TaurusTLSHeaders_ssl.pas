@@ -1667,20 +1667,12 @@ var
   //
   //
   //
-  //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
-  //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                          TIdC_INT content_type, const void *buf,
-  //                                          TIdC_SIZET len, ssl: PSSL, void *arg));
-  //void SSL_set_msg_callback(ssl: PSSL,
-  //                          void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                      TIdC_INT content_type, const void *buf,
-  //                                      TIdC_SIZET len, ssl: PSSL, void *arg));
-  //# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //
-  //# define SSL_get_extms_support(s) \
-  //        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
-  //
+type
+  Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT; const buf : Pointer; len : TIdC_SIZET; ssl : PSSL; arg : Pointer); cdecl;
+var
+  SSL_CTX_set_msg_callback : procedure (ctx: PSSL_CTX; cb : Tmsg_callback); cdecl = nil;
+  SSL_set_msg_callback : procedure (ssl: PSSL; cb : Tmsg_callback); cdecl = nil;
+
   //# ifndef OPENSSL_NO_SRP
 
   ///* see tls_srp.c */
@@ -2554,20 +2546,10 @@ var
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
-  //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                          TIdC_INT content_type, const void *buf,
-  //                                          TIdC_SIZET len, ssl: PSSL, void *arg));
-  //void SSL_set_msg_callback(ssl: PSSL,
-  //                          void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                      TIdC_INT content_type, const void *buf,
-  //                                      TIdC_SIZET len, ssl: PSSL, void *arg));
-  //# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //
-  //# define SSL_get_extms_support(s) \
-  //        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
-  //
+
+  procedure SSL_CTX_set_msg_callback(ctx: PSSL_CTX; cb : Tmsg_callback) cdecl; external CLibSSL;
+  procedure SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback) cdecl; external CLibSSL;
+
   //# ifndef OPENSSL_NO_SRP
 
   ///* see tls_srp.c */
@@ -3574,7 +3556,9 @@ var
   procedure sk_SRTP_PROTECTION_PROFILE_pop_free (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
-
+function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
+function SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer) : TIdC_LONG;
+function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
 function SSL_CTX_get_mode(ctx : PSSL_CTX) : TIdC_LONG;
 function SSL_clear_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
 function SSL_set_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
@@ -3606,11 +3590,28 @@ function SSL_CTX_sess_cache_full(ctx : PSSL_CTX): TIdC_LONG;
 implementation
 
   uses
-    classes, 
+    classes,
     TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
+
+function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+end;
+
+function SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+end;
+
+function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
+begin
+  Result := SSL_ctrl(s,SSL_CTRL_GET_EXTMS_SUPPORT,0,nil);
+end;
 
 function SSL_get_ex_new_index(l : TIdC_LONG; p : PSSL;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
@@ -4266,20 +4267,8 @@ const
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
-  //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                          TIdC_INT content_type, const void *buf,
-  //                                          TIdC_SIZET len, ssl: PSSL, void *arg));
-  //void SSL_set_msg_callback(ssl: PSSL,
-  //                          void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                      TIdC_INT content_type, const void *buf,
-  //                                      TIdC_SIZET len, ssl: PSSL, void *arg));
-  //# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //
-  //# define SSL_get_extms_support(s) \
-  //        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
-  //
+  SSL_CTX_set_msg_callback_procname = 'SSL_CTX_set_msg_callback';
+  SSL_set_msg_callback_procname = 'SSL_set_msg_callback';
   //# ifndef OPENSSL_NO_SRP
 
   ///* see tls_srp.c */
@@ -5622,7 +5611,6 @@ type
   PSSL_CTX_info_callback = pointer;
   PX509_VERIFY_PARAM = pointer;
   PCERT = pointer;
-  size_t = type integer;
   PGEN_SESSION_CB = pointer;
   PSSL_CTEX_tlsext_servername_callback = pointer;
   Ptlsext_status_cb = pointer;
@@ -5715,7 +5703,7 @@ type
     cert : PCERT;
     read_ahead : TIdC_INT;
     // callback that allows applications to peek at protocol messages
-    msg_callback : procedure (write_p, version, content_type : TIdC_INT; const buf : Pointer; len : size_t; ssl : PSSL; arg : Pointer); cdecl;
+    msg_callback : Tmsg_callback;
     msg_callback_arg : Pointer;
     verify_mode : TIdC_INT;
     sid_ctx_length : TIdC_UINT;
@@ -5761,8 +5749,8 @@ type
 	  tlsext_status_arg : Pointer;
     {$ENDIF}
 	//* draft-rescorla-tls-opaque-prf-input-00.txt information */
-     tlsext_opaque_prf_input_callback : function(para1 : PSSL; peerinput : Pointer; len : size_t; arg : Pointer ) : TIdC_INT cdecl;
-	//int (*tlsext_opaque_prf_input_callback)(SSL *, void *peerinput, size_t len, void *arg);
+     tlsext_opaque_prf_input_callback : function(para1 : PSSL; peerinput : Pointer; len : TIdC_SIZET; arg : Pointer ) : TIdC_INT cdecl;
+	//int (*tlsext_opaque_prf_input_callback)(SSL *, void *peerinput, TIdC_SIZET len, void *arg);
      tlsext_opaque_prf_input_callback_arg : Pointer;
 
 {$ifndef OPENSSL_NO_PSK}
@@ -5924,15 +5912,15 @@ type
     {$IFNDEF OPENSSL_NO_TLSEXT}
     tlsext_hostname : PIdAnsiChar;
       {$IFDEF OPENSSL_NO_EC}
-	  tlsext_ecpointformatlist_length : size_t;
+	  tlsext_ecpointformatlist_length : TIdC_SIZET;
 	  tlsext_ecpointformatlist : PIdAnsiChar; //* peer's list */
-	  tlsext_ellipticcurvelist_length : size_t;
+	  tlsext_ellipticcurvelist_length : TIdC_SIZET;
 	  tlsext_ellipticcurvelist : PIdAnsiChar; //* peer's list */
       {$ENDIF} //* OPENSSL_NO_EC */
 
  //* RFC4507 info */
     tlsext_tick : PIdAnsiChar;//* Session ticket */
-    tlsext_ticklen : size_t;//* Session ticket length */
+    tlsext_ticklen : TIdC_SIZET;//* Session ticket length */
     tlsext_tick_lifetime_hint : TIdC_LONG;//* Session lifetime hint in seconds */
     {$ENDIF}
 {$ifndef OPENSSL_NO_SRP}
@@ -6388,13 +6376,13 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_set_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_options_procname);
 end;
@@ -6405,20 +6393,17 @@ end;
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
-  //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                          TIdC_INT content_type, const void *buf,
-  //                                          TIdC_SIZET len, ssl: PSSL, void *arg));
-  //void SSL_set_msg_callback(ssl: PSSL,
-  //                          void (*cb) (TIdC_INT write_p, TIdC_INT version,
-  //                                      TIdC_INT content_type, const void *buf,
-  //                                      TIdC_SIZET len, ssl: PSSL, void *arg));
-  //# define SSL_CTX_set_msg_callback_arg(ctx, arg) SSL_CTX_ctrl((ctx), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //# define SSL_set_msg_callback_arg(ssl, arg) SSL_ctrl((ssl), SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, (arg))
-  //
-  //# define SSL_get_extms_support(s) \
-  //        SSL_ctrl((s),SSL_CTRL_GET_EXTMS_SUPPORT,0,NULL)
-  //
+
+procedure ERR_SSL_CTX_set_msg_callback(ctx: PSSL_CTX; cb : Tmsg_callback);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_msg_callback_procname);
+end;
+
+procedure ERR_SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_msg_callback_procname);
+end;
+
   //# ifndef OPENSSL_NO_SRP
 
   ///* see tls_srp.c */
@@ -11742,6 +11727,67 @@ begin
     {$if not defined(SSL_set_options_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_set_options');
+    {$ifend}
+  end;
+
+  SSL_CTX_set_msg_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_msg_callback_procname);
+  FuncLoadError := not assigned(SSL_CTX_set_msg_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set_msg_callback_allownil)}
+    SSL_CTX_set_msg_callback := @ERR_SSL_CTX_set_msg_callback;
+    {$ifend}
+    {$if declared(SSL_CTX_set_msg_callback_introduced)}
+    if LibVersion < SSL_CTX_set_msg_callback_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set_msg_callback)}
+      SSL_CTX_set_msg_callback := @FC_SSL_CTX_set_msg_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set_msg_callback_removed)}
+    if SSL_CTX_set_msg_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set_msg_callback)}
+      SSL_CTX_set_msg_callback := @_SSL_CTX_set_msg_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set_msg_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set_msg_callback');
+    {$ifend}
+  end;
+  SSL_set_msg_callback := LoadLibFunction(ADllHandle, SSL_set_msg_callback_procname);
+  FuncLoadError := not assigned(SSL_set_msg_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_msg_callback_allownil)}
+    SSL_set_msg_callback := @ERR_SSL_set_msg_callback;
+    {$ifend}
+    {$if declared(SSL_set_msg_callback_introduced)}
+    if LibVersion < SSL_set_msg_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_msg_callback)}
+      SSL_set_msg_callback := @FC_SSL_set_msg_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_msg_callback_removed)}
+    if SSL_set_msg_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_msg_callback)}
+      SSL_set_msg_callback := @_SSL_set_msg_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_msg_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_msg_callback');
     {$ifend}
   end;
 
@@ -25732,6 +25778,8 @@ begin
   SSL_clear_options := nil; {introduced 1.1.0}
   SSL_CTX_set_options := nil; {introduced 1.1.0}
   SSL_set_options := nil; {introduced 1.1.0}
+  SSL_CTX_set_msg_callback := nil;
+  SSL_set_msg_callback := nil;
   SSL_CTX_sessions := nil;
   SSL_CTX_sess_set_new_cb := nil;
   SSL_CTX_sess_get_new_cb := nil;
