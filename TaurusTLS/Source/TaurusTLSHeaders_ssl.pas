@@ -917,8 +917,6 @@ type
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
   PSTACK_OF_SRTP_PROTECTION_PROFILE = type pointer;
 
-  //DEFINE_STACK_OF(SRTP_PROTECTION_PROFILE)
-
   (* Typedefs for handling custom extensions *)
   custom_ext_add_cb = function (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; outlen: PIdC_SIZET; al: PIdC_INT; add_arg: Pointer): TIdC_INT; cdecl;
   custom_ext_free_cb = procedure (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; add_arg: Pointer); cdecl;

@@ -59,14 +59,14 @@ var
   SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
   SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+  SSL_get_srtp_profiles : function(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
   SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = nil;
 
 {$ELSE}
   function SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+  function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
   function SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE cdecl; external CLibCrypto;
 
 {$ENDIF}
@@ -87,7 +87,7 @@ const
   SSL_CTX_set_tlsext_use_srtp_procname = 'SSL_CTX_set_tlsext_use_srtp';
   SSL_set_tlsext_use_srtp_procname = 'SSL_set_tlsext_use_srtp';
 
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+  SSL_get_srtp_profiles_procname = 'SSL_get_srtp_profiles';
   SSL_get_selected_srtp_profile_procname = 'SSL_get_selected_srtp_profile';
 
 
@@ -103,15 +103,15 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_use_srtp_procname);
 end;
 
+function ERR_SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_srtp_profiles_procname);
+end;
 
-
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
-function  ERR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE; 
+function  ERR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_selected_srtp_profile_procname);
 end;
-
-
 
 {$WARN  NO_RETVAL ON}
 
@@ -183,6 +183,36 @@ begin
     {$ifend}
   end;
 
+  SSL_get_srtp_profiles := LoadLibFunction(ADllHandle, SSL_get_srtp_profiles_procname);
+  FuncLoadError := not assigned(SSL_get_srtp_profiles);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_srtp_profiles_allownil)}
+    SSL_get_srtp_profiles := @ERR_SSL_get_srtp_profiles;
+    {$ifend}
+    {$if declared(SSL_get_srtp_profiles_introduced)}
+    if LibVersion < SSL_get_srtp_profiles_introduced then
+    begin
+      {$if declared(FC_SSL_get_srtp_profiles)}
+      SSL_get_srtp_profiles := @FC_SSL_get_srtp_profiles;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_srtp_profiles_removed)}
+    if SSL_get_srtp_profiles_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_srtp_profiles)}
+      SSL_get_srtp_profiles := @_SSL_get_srtp_profiles;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_srtp_profiles_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_srtp_profiles');
+    {$ifend}
+  end;
 
   SSL_get_selected_srtp_profile := LoadLibFunction(ADllHandle, SSL_get_selected_srtp_profile_procname);
   FuncLoadError := not assigned(SSL_get_selected_srtp_profile);
@@ -222,6 +252,7 @@ procedure Unload;
 begin
   SSL_CTX_set_tlsext_use_srtp := nil;
   SSL_set_tlsext_use_srtp := nil;
+  SSL_get_srtp_profiles := nil;
   SSL_get_selected_srtp_profile := nil;
 end;
 {$ELSE}
