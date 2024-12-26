@@ -1858,8 +1858,7 @@ var
   // * These need to be after the above set of includes due to a compiler bug
   // * in_ VisualStudio 2015
   // */
-  //DEFINE_STACK_OF_CONST(SSL_CIPHER)
-  //DEFINE_STACK_OF(SSL_COMP)
+
 
   ///* compatibility */
   //# define SSL_set_app_data(s,arg)         (SSL_set_ex_data(s,0,(PIdAnsiChar *)(arg)))
@@ -2385,18 +2384,17 @@ var
   SSL_CTX_set_tmp_dh_callback: procedure (ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh); cdecl = nil;
   SSL_set_tmp_dh_callback: procedure (ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh); cdecl = nil;
 
-  //__owur const COMP_METHOD *SSL_get_current_compression(const s: PSSL);
-  //__owur const COMP_METHOD *SSL_get_current_expansion(const s: PSSL);
-  //__owur const PIdAnsiChar *SSL_COMP_get_name(const COMP_METHOD *comp);
-  //__owur const PIdAnsiChar *SSL_COMP_get0_name(const SSL_COMP *comp);
-  //__owur TIdC_INT SSL_COMP_get_id(const SSL_COMP *comp);
-  //STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
-  //__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
-  //                                                             *meths);
+  SSL_get_current_compression : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
+  SSL_get_current_expansion : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
+  SSL_COMP_get_name : function(const comp : PCOMP_METHOD) : PIdAnsiChar; cdecl = nil;
+  SSL_COMP_get0_name : function(const comp : PSSL_COMP) : PIdAnsiChar; cdecl = nil;
+  SSL_COMP_get_id : function(const comp : PSSL_COMP) : TIdC_INT; cdecl = nil;
+  SSL_COMP_get_compression_methods : function : PSTACK_OF_SSL_COMP; cdecl = nil;
+  SSL_COMP_set0_compression_methods : function (meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP; cdecl = nil;
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
+  SSL_COMP_add_compression_method : function(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT; cdecl = nil;
 
   SSL_CIPHER_find: function (ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; cdecl = nil;
   SSL_CIPHER_get_cipher_nid: function (const c: PSSL_CIPHEr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -3331,18 +3329,18 @@ var
   procedure SSL_CTX_set_tmp_dh_callback(ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh) cdecl; external CLibSSL;
   procedure SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh) cdecl; external CLibSSL;
 
-  //__owur const COMP_METHOD *SSL_get_current_compression(const s: PSSL);
-  //__owur const COMP_METHOD *SSL_get_current_expansion(const s: PSSL);
-  //__owur const PIdAnsiChar *SSL_COMP_get_name(const COMP_METHOD *comp);
-  //__owur const PIdAnsiChar *SSL_COMP_get0_name(const SSL_COMP *comp);
-  //__owur TIdC_INT SSL_COMP_get_id(const SSL_COMP *comp);
-  //STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
-  //__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
-  //                                                             *meths);
+  function SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
+  function SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
+  function SSL_COMP_get_name(const comp : PCOMP_METHOD) : PIdAnsiChar cdecl; external CLibSSL;
+  function SSL_COMP_get0_name(const comp : PSSL_COMP) : PIdAnsiChar cdecl; external CLibSSL;
+  function SSL_COMP_get_id(const comp : PSSL_COMP) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP cdecl; external CLibSSL;
+  function SSL_COMP_set0_compression_methods(meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl; external CLibSSL;
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
+  function SSL_COMP_add_compression_method(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT cdecl; external CLibSSL;
+
 
   function SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER cdecl; external CLibSSL;
   function SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
@@ -4935,18 +4933,18 @@ const
   SSL_CTX_set_tmp_dh_callback_procname = 'SSL_CTX_set_tmp_dh_callback';
   SSL_set_tmp_dh_callback_procname = 'SSL_set_tmp_dh_callback';
 
-  //__owur const COMP_METHOD *SSL_get_current_compression(const s: PSSL);
-  //__owur const COMP_METHOD *SSL_get_current_expansion(const s: PSSL);
-  //__owur const PIdAnsiChar *SSL_COMP_get_name(const COMP_METHOD *comp);
-  //__owur const PIdAnsiChar *SSL_COMP_get0_name(const SSL_COMP *comp);
-  //__owur TIdC_INT SSL_COMP_get_id(const SSL_COMP *comp);
-  //STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
-  //__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
+  SSL_get_current_compression_procname = 'SSL_get_current_compression';
+  SSL_get_current_expansion_procname = 'SSL_get_current_expansion';
+  SSL_COMP_get_name_procname = 'SSL_COMP_get_name';
+  SSL_COMP_get0_name_procname = 'SSL_COMP_get0_name';
+  SSL_COMP_get_id_procname = 'SSL_COMP_get_id';
+  SSL_COMP_get_compression_methods_procname = 'SSL_COMP_get_compression_methods';
+  SSL_COMP_set0_compression_methods_procname = 'SSL_COMP_set0_compression_methods';
   //                                                             *meths);
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
+  SSL_COMP_add_compression_method_procname = 'SSL_COMP_add_compression_method';
 
   SSL_CIPHER_find_procname = 'SSL_CIPHER_find';
   SSL_CIPHER_get_cipher_nid_procname = 'SSL_CIPHER_get_cipher_nid'; {introduced 1.1.0}
@@ -8815,27 +8813,56 @@ begin
 end;
 
 
-procedure  ERR_SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh); 
+procedure  ERR_SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tmp_dh_callback_procname);
 end;
 
+function ERR_SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_current_compression_procname);
+end;
 
+function ERR_SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_current_expansion_procname);
+end;
 
-  //__owur const COMP_METHOD *SSL_get_current_compression(const s: PSSL);
-  //__owur const COMP_METHOD *SSL_get_current_expansion(const s: PSSL);
-  //__owur const PIdAnsiChar *SSL_COMP_get_name(const COMP_METHOD *comp);
-  //__owur const PIdAnsiChar *SSL_COMP_get0_name(const SSL_COMP *comp);
-  //__owur TIdC_INT SSL_COMP_get_id(const SSL_COMP *comp);
-  //STACK_OF(SSL_COMP) *SSL_COMP_get_compression_methods(void);
-  //__owur STACK_OF(SSL_COMP) *SSL_COMP_set0_compression_methods(STACK_OF(SSL_COMP)
-  //                                                             *meths);
+function ERR_SSL_COMP_get_name(const comp : PCOMP_METHOD) : PIdAnsiChar;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_name_procname);
+end;
+
+function ERR_SSL_COMP_get0_name(const comp : PSSL_COMP) : PIdAnsiChar;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get0_name_procname);
+end;
+
+function ERR_SSL_COMP_get_id(const comp : PSSL_COMP) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_id_procname);
+end;
+
+function ERR_SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_compression_methods_procname );
+end;
+
+function ERR_SSL_COMP_set0_compression_methods(meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_set0_compression_methods_procname );
+end;
+
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
-  //__owur TIdC_INT SSL_COMP_add_compression_method(TIdC_INT id, COMP_METHOD *cm);
 
-function  ERR_SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; 
+function ERR_SSL_COMP_add_compression_method(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_add_compression_method_procname);
+end;
+
+function ERR_SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_find_procname);
 end;
@@ -22759,6 +22786,246 @@ begin
     {$ifend}
   end;
 
+  SSL_get_current_compression := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
+  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_introduced)}
+    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_removed)}
+    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_tmp_dh_callback');
+    {$ifend}
+  end;
+  SSL_get_current_expansion := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
+  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_introduced)}
+    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_removed)}
+    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_tmp_dh_callback');
+    {$ifend}
+  end;
+  SSL_COMP_get_name := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
+  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_introduced)}
+    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_removed)}
+    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_tmp_dh_callback');
+    {$ifend}
+  end;
+  SSL_COMP_get0_name := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
+  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_introduced)}
+    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_removed)}
+    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_tmp_dh_callback');
+    {$ifend}
+  end;
+  SSL_COMP_get_id := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
+  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_introduced)}
+    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    begin
+      {$if declared(FC_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_tmp_dh_callback_removed)}
+    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_tmp_dh_callback)}
+      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_tmp_dh_callback');
+    {$ifend}
+  end;
+  SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_get_current_compression_procname);
+  FuncLoadError := not assigned(SSL_get_current_compression);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_current_compression_allownil)}
+    SSL_get_current_compression := @ERR_SSL_get_current_compression;
+    {$ifend}
+    {$if declared(SSL_get_current_compression_introduced)}
+    if LibVersion < SSL_get_current_compression_introduced then
+    begin
+      {$if declared(FC_SSL_get_current_compression)}
+      SSL_get_current_compression := @FC_SSL_get_current_compression;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_current_compression_removed)}
+    if SSL_get_current_compression_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_current_compression)}
+      SSL_get_current_compression := @_SSL_get_current_compression;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_current_compression_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_current_compression');
+    {$ifend}
+  end;
+  SSL_COMP_set0_compression_methods := LoadLibFunction(ADllHandle, SSL_COMP_set0_compression_methods_procname);
+  FuncLoadError := not assigned(SSL_COMP_set0_compression_methods);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_COMP_set0_compression_methods_allownil)}
+    SSL_COMP_set0_compression_methods := @ERR_SSL_COMP_set0_compression_methods;
+    {$ifend}
+    {$if declared(SSL_COMP_set0_compression_methods_introduced)}
+    if LibVersion < SSL_COMP_set0_compression_methods_introduced then
+    begin
+      {$if declared(FC_SSL_COMP_set0_compression_methods)}
+      SSL_COMP_set0_compression_methods := @FC_SSL_COMP_set0_compression_methods;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_COMP_set0_compression_methods_removed)}
+    if SSL_COMP_set0_compression_methods_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_COMP_set0_compression_methods)}
+      SSL_COMP_set0_compression_methods := @_SSL_COMP_set0_compression_methods;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_COMP_set0_compression_methods_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_COMP_set0_compression_methods');
+    {$ifend}
+  end;
+  SSL_COMP_add_compression_method := LoadLibFunction(ADllHandle, SSL_COMP_add_compression_method_procname);
+  FuncLoadError := not assigned(SSL_COMP_add_compression_method);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_COMP_add_compression_method_allownil)}
+    SSL_COMP_add_compression_method := @ERR_SSL_COMP_add_compression_method;
+    {$ifend}
+    {$if declared(SSL_COMP_add_compression_method_introduced)}
+    if LibVersion < SSL_COMP_add_compression_method_introduced then
+    begin
+      {$if declared(FC_SSL_COMP_add_compression_method)}
+      SSL_COMP_add_compression_method := @FC_SSL_COMP_add_compression_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_COMP_add_compression_method_removed)}
+    if SSL_COMP_add_compression_method_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_COMP_add_compression_method)}
+      SSL_COMP_add_compression_method := @_SSL_COMP_add_compression_method;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_COMP_add_compression_method_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_COMP_add_compression_method');
+    {$ifend}
+  end;
 
   SSL_CIPHER_find := LoadLibFunction(ADllHandle, SSL_CIPHER_find_procname);
   FuncLoadError := not assigned(SSL_CIPHER_find);
@@ -25808,6 +26075,14 @@ begin
   SSL_set_default_read_buffer_len := nil; {introduced 1.1.0}
   SSL_CTX_set_tmp_dh_callback := nil;
   SSL_set_tmp_dh_callback := nil;
+  SSL_get_current_compression := nil;
+  SSL_get_current_expansion := nil;
+  SSL_COMP_get_name := nil;
+  SSL_COMP_get0_name := nil;
+  SSL_COMP_get_id := nil;
+  SSL_COMP_get_compression_methods := nil;
+  SSL_COMP_set0_compression_methods := nil;
+  SSL_COMP_add_compression_method := nil;
   SSL_CIPHER_find := nil;
   SSL_CIPHER_get_cipher_nid := nil; {introduced 1.1.0}
   SSL_CIPHER_get_digest_nid := nil; {introduced 1.1.0}
