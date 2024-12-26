@@ -898,11 +898,12 @@ type
    *)
   ssl_crock_st = ^ssl_st;
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
-  PSSL_METHOD = type Pointer;
-  PSSL_CIPHER = type Pointer;
-  PSSL_SESSION = type Pointer;
+  PSSL_METHOD = type pointer;
+  PSSL_CIPHER = type pointer;
+  PSSL_SESSION = type pointer;
   PPSSL_SESSION = ^PSSL_SESSION;
-  PTLS_SIGALGS = type Pointer;
+  Plhash_st_SSL_SESSION = type pointer;
+  PTLS_SIGALGS = type pointer;
   PSSL_CONF_CTX = type pointer;
   PSSL_COMP = type pointer;
   PSTACK_OF_SSL_CIPHER = type pointer;
@@ -1719,32 +1720,7 @@ var
   //__owur TIdC_INT SRP_Calc_A_param(s: PSSL);
 
   // # endif
-
-  // LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(ctx: PSSL_CTX);
-  //# define SSL_CTX_sess_number(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
-  //# define SSL_CTX_sess_connect(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
-  //# define SSL_CTX_sess_connect_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_connect_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
-  //# define SSL_CTX_sess_accept_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
-  //# define SSL_CTX_sess_cb_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
-  //# define SSL_CTX_sess_misses(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
-  //# define SSL_CTX_sess_timeouts(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
-  //# define SSL_CTX_sess_cache_full(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
+  SSL_CTX_sessions : function(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION; cdecl = nil;
 
   SSL_CTX_sess_set_new_cb: procedure (ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb); cdecl = nil;
   SSL_CTX_sess_get_new_cb: function (ctx: PSSL_CTX): SSL_CTX_sess_new_cb; cdecl = nil;
@@ -2327,7 +2303,7 @@ var
 
   SSL_set_verify_result: procedure (ssl: PSSL; v: TIdC_LONG); cdecl = nil;
   SSL_get_verify_result: function (const ssl: PSSL): TIdC_LONG; cdecl = nil;
-  //__owur STACK_OF(X509) *SSL_get0_verified_chain(const s: PSSL);
+  SSL_get0_verified_chain : function(const s: PSSL) : PSTACK_OF_X509; cdecl = nil;
 
   SSL_get_client_random: function (const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
   SSL_get_server_random: function (const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
@@ -2335,16 +2311,10 @@ var
   SSL_SESSION_set1_master_key: function (sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_SESSION_get_max_fragment_length: function (const sess: PSSL_SESSION): TIdC_UINT8; cdecl = nil; {introduced 1.1.0}
 
-  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
   SSL_set_ex_data: function (ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   SSL_get_ex_data: function (const ssl: PSSL; idx: TIdC_INT): Pointer; cdecl = nil;
-  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
   SSL_SESSION_set_ex_data: function (ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   SSL_SESSION_get_ex_data: function (const ss: PSSL_SESSION; idx: TIdC_INT): Pointer; cdecl = nil;
-  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
   SSL_CTX_set_ex_data: function (ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   SSL_CTX_get_ex_data: function (const ssl: PSSL_CTX; idx: TIdC_INT): Pointer; cdecl = nil;
 
@@ -2669,32 +2639,7 @@ var
   //__owur TIdC_INT SRP_Calc_A_param(s: PSSL);
 
   // # endif
-
-  // LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(ctx: PSSL_CTX);
-  //# define SSL_CTX_sess_number(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
-  //# define SSL_CTX_sess_connect(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
-  //# define SSL_CTX_sess_connect_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_connect_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
-  //# define SSL_CTX_sess_accept_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
-  //# define SSL_CTX_sess_cb_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
-  //# define SSL_CTX_sess_misses(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
-  //# define SSL_CTX_sess_timeouts(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
-  //# define SSL_CTX_sess_cache_full(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
+  function SSL_CTX_sessions(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION cdecl; external CLibSSL;
 
   procedure SSL_CTX_sess_set_new_cb(ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb) cdecl; external CLibSSL;
   function SSL_CTX_sess_get_new_cb(ctx: PSSL_CTX): SSL_CTX_sess_new_cb cdecl; external CLibSSL;
@@ -3272,7 +3217,7 @@ var
 
   procedure SSL_set_verify_result(ssl: PSSL; v: TIdC_LONG) cdecl; external CLibSSL;
   function SSL_get_verify_result(const ssl: PSSL): TIdC_LONG cdecl; external CLibSSL;
-  //__owur STACK_OF(X509) *SSL_get0_verified_chain(const s: PSSL);
+  function SSL_get0_verified_chain(const s: PSSL) : PSTACK_OF_X509 cdecl; external CLibSSL;
 
   function SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get_server_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3280,16 +3225,10 @@ var
   function SSL_SESSION_set1_master_key(sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_SESSION_get_max_fragment_length(const sess: PSSL_SESSION): TIdC_UINT8 cdecl; external CLibSSL; {introduced 1.1.0}
 
-  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
   function SSL_set_ex_data(ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
   function SSL_get_ex_data(const ssl: PSSL; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
-  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
   function SSL_SESSION_set_ex_data(ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
   function SSL_SESSION_get_ex_data(const ss: PSSL_SESSION; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
-  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
   function SSL_CTX_set_ex_data(ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_get_ex_data(const ssl: PSSL_CTX; idx: TIdC_INT): Pointer cdecl; external CLibSSL;
 
@@ -3696,6 +3635,19 @@ var
 
 {$ENDIF}
 
+function SSL_CTX_sess_number(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_connect(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_connect_good(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_connect_renegotiate(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_accept(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_accept_renegotiate(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_accept_good(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_hits(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_cb_hits(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_misses(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_timeouts(ctx : PSSL_CTX): TIdC_LONG;
+function SSL_CTX_sess_cache_full(ctx : PSSL_CTX): TIdC_LONG;
+
 implementation
 
   uses
@@ -3723,13 +3675,85 @@ begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef);
 end;
 
-  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
+//#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
+//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
 function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef);
+end;
+
+function SSL_CTX_sess_number(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_NUMBER, 0, nil);
+end;
+
+function SSL_CTX_sess_connect(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CONNECT, 0, nil);
+end;
+
+function SSL_CTX_sess_connect_good(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CONNECT_GOOD, 0, nil);
+end;
+
+function SSL_CTX_sess_connect_renegotiate(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CONNECT_RENEGOTIATE, 0, nil);
+end;
+
+function SSL_CTX_sess_accept(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_ACCEPT, 0, nil);
+end;
+
+function SSL_CTX_sess_accept_renegotiate(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_ACCEPT_RENEGOTIATE, 0, nil);
+end;
+
+function SSL_CTX_sess_accept_good(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_ACCEPT_GOOD, 0, nil);
+end;
+
+function SSL_CTX_sess_hits(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_HIT, 0, nil);
+end;
+
+function SSL_CTX_sess_cb_hits(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CB_HIT, 0, nil);
+end;
+
+function SSL_CTX_sess_misses(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_MISSES, 0, nil);
+end;
+
+function SSL_CTX_sess_timeouts(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_TIMEOUTS, 0, nil);
+end;
+
+function SSL_CTX_sess_cache_full(ctx : PSSL_CTX): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CACHE_FULL, 0, nil);
 end;
 
 const
@@ -4271,32 +4295,7 @@ const
 
   // # endif
 
-  // LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(ctx: PSSL_CTX);
-  //# define SSL_CTX_sess_number(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
-  //# define SSL_CTX_sess_connect(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
-  //# define SSL_CTX_sess_connect_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_connect_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
-  //# define SSL_CTX_sess_accept_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
-  //# define SSL_CTX_sess_cb_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
-  //# define SSL_CTX_sess_misses(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
-  //# define SSL_CTX_sess_timeouts(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
-  //# define SSL_CTX_sess_cache_full(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
-
+  SSL_CTX_sessions_procname = 'SSL_CTX_sessions';
   SSL_CTX_sess_set_new_cb_procname = 'SSL_CTX_sess_set_new_cb';
   SSL_CTX_sess_get_new_cb_procname = 'SSL_CTX_sess_get_new_cb';
   SSL_CTX_sess_set_remove_cb_procname = 'SSL_CTX_sess_set_remove_cb';
@@ -4878,7 +4877,7 @@ const
 
   SSL_set_verify_result_procname = 'SSL_set_verify_result';
   SSL_get_verify_result_procname = 'SSL_get_verify_result';
-  //__owur STACK_OF(X509) *SSL_get0_verified_chain(const s: PSSL);
+  SSL_get0_verified_chain_procname = 'SSL_get0_verified_chain';
 
   SSL_get_client_random_procname = 'SSL_get_client_random'; {introduced 1.1.0}
   SSL_get_server_random_procname = 'SSL_get_server_random'; {introduced 1.1.0}
@@ -4888,12 +4887,8 @@ const
 
   SSL_set_ex_data_procname = 'SSL_set_ex_data';
   SSL_get_ex_data_procname = 'SSL_get_ex_data';
-  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
   SSL_SESSION_set_ex_data_procname = 'SSL_SESSION_set_ex_data';
   SSL_SESSION_get_ex_data_procname = 'SSL_SESSION_get_ex_data';
-  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
   SSL_CTX_set_ex_data_procname = 'SSL_CTX_set_ex_data';
   SSL_CTX_get_ex_data_procname = 'SSL_CTX_get_ex_data';
 
@@ -6471,31 +6466,10 @@ end;
 
   // # endif
 
-  // LHASH_OF(SSL_SESSION) *SSL_CTX_sessions(ctx: PSSL_CTX);
-  //# define SSL_CTX_sess_number(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_NUMBER,0,NULL)
-  //# define SSL_CTX_sess_connect(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT,0,NULL)
-  //# define SSL_CTX_sess_connect_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_connect_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CONNECT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT,0,NULL)
-  //# define SSL_CTX_sess_accept_renegotiate(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_RENEGOTIATE,0,NULL)
-  //# define SSL_CTX_sess_accept_good(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_ACCEPT_GOOD,0,NULL)
-  //# define SSL_CTX_sess_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_HIT,0,NULL)
-  //# define SSL_CTX_sess_cb_hits(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CB_HIT,0,NULL)
-  //# define SSL_CTX_sess_misses(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_MISSES,0,NULL)
-  //# define SSL_CTX_sess_timeouts(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_TIMEOUTS,0,NULL)
-  //# define SSL_CTX_sess_cache_full(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SESS_CACHE_FULL,0,NULL)
+function ERR_SSL_CTX_sessions(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_sessions_procname);
+end;
 
 procedure  ERR_SSL_CTX_sess_set_new_cb(ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb); 
 begin
@@ -8682,10 +8656,12 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_verify_result_procname);
 end;
 
+function ERR_SSL_get0_verified_chain(const s: PSSL) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_verified_chain_procname);
+end;
 
-  //__owur STACK_OF(X509) *SSL_get0_verified_chain(const s: PSSL);
-
-function  ERR_SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_client_random_procname);
 end;
@@ -8744,8 +8720,6 @@ begin
 end;
 
 
-  //#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
 function  ERR_SSL_CTX_set_ex_data(ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ex_data_procname);
@@ -11803,6 +11777,37 @@ begin
     {$if not defined(SSL_set_options_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_set_options');
+    {$ifend}
+  end;
+
+  SSL_CTX_sessions := LoadLibFunction(ADllHandle, SSL_CTX_sessions_procname);
+  FuncLoadError := not assigned(SSL_CTX_sessions);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_sessions_allownil)}
+    SSL_CTX_sessions := @ERR_SSL_CTX_sessions;
+    {$ifend}
+    {$if declared(SSL_CTX_sessions_introduced)}
+    if LibVersion < SSL_CTX_sessions_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_sessions)}
+      SSL_CTX_sessions := @FC_SSL_CTX_sessions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_sessions_removed)}
+    if SSL_CTX_sessions_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_sessions)}
+      SSL_CTX_sessions := @_SSL_CTX_sessions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_sessions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_sessions');
     {$ifend}
   end;
 
@@ -22274,6 +22279,36 @@ begin
     {$ifend}
   end;
 
+  SSL_get0_verified_chain := LoadLibFunction(ADllHandle, SSL_get0_verified_chain_procname);
+  FuncLoadError := not assigned(SSL_get0_verified_chain);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_verified_chain_allownil)}
+    SSL_get0_verified_chain := @ERR_SSL_get0_verified_chain;
+    {$ifend}
+    {$if declared(SSL_get0_verified_chain_introduced)}
+    if LibVersion < SSL_get0_verified_chain_introduced then
+    begin
+      {$if declared(FC_SSL_get0_verified_chain)}
+      SSL_get0_verified_chain := @FC_SSL_get0_verified_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_verified_chain_removed)}
+    if SSL_get0_verified_chain_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_verified_chain)}
+      SSL_get0_verified_chain := @_SSL_get0_verified_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_verified_chain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_verified_chain');
+    {$ifend}
+  end;
 
   SSL_get_client_random := LoadLibFunction(ADllHandle, SSL_get_client_random_procname);
   FuncLoadError := not assigned(SSL_get_client_random);
@@ -25732,6 +25767,7 @@ begin
   SSL_clear_options := nil; {introduced 1.1.0}
   SSL_CTX_set_options := nil; {introduced 1.1.0}
   SSL_set_options := nil; {introduced 1.1.0}
+  SSL_CTX_sessions := nil;
   SSL_CTX_sess_set_new_cb := nil;
   SSL_CTX_sess_get_new_cb := nil;
   SSL_CTX_sess_set_remove_cb := nil;
@@ -26059,6 +26095,7 @@ begin
   SSL_get_state := nil; {introduced 1.1.0}
   SSL_set_verify_result := nil;
   SSL_get_verify_result := nil;
+  SSL_get0_verified_chain := nil;
   SSL_get_client_random := nil; {introduced 1.1.0}
   SSL_get_server_random := nil; {introduced 1.1.0}
   SSL_SESSION_get_master_key := nil; {introduced 1.1.0}
