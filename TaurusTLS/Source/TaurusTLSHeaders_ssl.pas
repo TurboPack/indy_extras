@@ -1663,10 +1663,7 @@ var
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //
-  //
-  //
-  //
+
 type
   Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT; const buf : Pointer; len : TIdC_SIZET; ssl : PSSL; arg : Pointer); cdecl;
 var
@@ -2284,34 +2281,6 @@ var
 
   SSL_get_ex_data_X509_STORE_CTX_idx: function : TIdC_INT; cdecl = nil;
 
-  //# define SSL_CTX_get_default_read_ahead(ctx) SSL_CTX_get_read_ahead(ctx)
-  //# define SSL_CTX_set_default_read_ahead(ctx,m) SSL_CTX_set_read_ahead(ctx,m)
-  //# define SSL_CTX_get_read_ahead(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_READ_AHEAD,0,NULL)
-  //# define SSL_CTX_set_read_ahead(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_READ_AHEAD,m,NULL)
-  //# define SSL_CTX_get_max_cert_list(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
-  //# define SSL_CTX_set_max_cert_list(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
-  //# define SSL_get_max_cert_list(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
-  //# define SSL_set_max_cert_list(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
-  //
-  //# define SSL_CTX_set_max_send_fragment(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
-  //# define SSL_set_max_send_fragment(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
-  //# define SSL_CTX_set_split_send_fragment(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
-  //# define SSL_set_split_send_fragment(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
-  //# define SSL_CTX_set_max_pipelines(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
-  //# define SSL_set_max_pipelines(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
-
   SSL_CTX_set_default_read_buffer_len: procedure (ctx: PSSL_CTX; len: TIdC_SIZET); cdecl = nil; {introduced 1.1.0}
   SSL_set_default_read_buffer_len: procedure (s: PSSL; len: TIdC_SIZET); cdecl = nil; {introduced 1.1.0}
 
@@ -2388,7 +2357,7 @@ var
   SSL_config: function (s: PSSL; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_config: function (ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-//  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+  SSL_trace : procedure(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer); cdecl = nil;
 
   DTLSv1_listen: function (s: PSSL; client: PBIO_ADDr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
@@ -3156,34 +3125,6 @@ var
 
   function SSL_get_ex_data_X509_STORE_CTX_idx: TIdC_INT cdecl; external CLibSSL;
 
-  //# define SSL_CTX_get_default_read_ahead(ctx) SSL_CTX_get_read_ahead(ctx)
-  //# define SSL_CTX_set_default_read_ahead(ctx,m) SSL_CTX_set_read_ahead(ctx,m)
-  //# define SSL_CTX_get_read_ahead(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_READ_AHEAD,0,NULL)
-  //# define SSL_CTX_set_read_ahead(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_READ_AHEAD,m,NULL)
-  //# define SSL_CTX_get_max_cert_list(ctx) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
-  //# define SSL_CTX_set_max_cert_list(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
-  //# define SSL_get_max_cert_list(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_MAX_CERT_LIST,0,NULL)
-  //# define SSL_set_max_cert_list(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_CERT_LIST,m,NULL)
-  //
-  //# define SSL_CTX_set_max_send_fragment(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
-  //# define SSL_set_max_send_fragment(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
-  //# define SSL_CTX_set_split_send_fragment(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
-  //# define SSL_set_split_send_fragment(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
-  //# define SSL_CTX_set_max_pipelines(ctx,m) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
-  //# define SSL_set_max_pipelines(ssl,m) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
-
   procedure SSL_CTX_set_default_read_buffer_len(ctx: PSSL_CTX; len: TIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_default_read_buffer_len(s: PSSL; len: TIdC_SIZET) cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -3206,9 +3147,9 @@ var
   function SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER cdecl; external CLibSSL;
   function SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CIPHER_get_digest_nid(const c: PSSL_CIPHEr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  //TIdC_INT SSL_bytes_to_cipher_list(s: PSSL, const Byte *bytes, TIdC_SIZET len,
-  //                             TIdC_INT isv2format, STACK_OF(SSL_CIPHER) **sk,
-  //                             STACK_OF(SSL_CIPHER) **scsvs);
+  function SSL_bytes_to_cipher_list(s: PSSL; const bytes : PByte;  len : TIdC_SIZET;
+                                    isv2format : TIdC_INT; sk : PPSTACK_OF_SSL_CIPHER;
+                                    scsvs : PPSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl; external CLibSSL;
 
   (* TLS extensions functions *)
   function SSL_set_session_ticket_ext(s: PSSL; ext_data: Pointer; ext_len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
@@ -3261,7 +3202,7 @@ var
   function SSL_config(s: PSSL; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_config(ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-//  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer) cdecl; external CLibSSL;
 
   function DTLSv1_listen(s: PSSL; client: PBIO_ADDr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -3556,6 +3497,21 @@ var
   procedure sk_SRTP_PROTECTION_PROFILE_pop_free (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
+function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
+function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
+function SSL_CTX_set_default_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG): TIdC_LONG;
+function SSL_CTX_set_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+function SSL_CTX_get_max_cert_list(ctx : PSSL_CTX) : TIdC_LONG;
+function SSL_CTX_set_max_cert_list(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+function SSL_get_max_cert_list(ctx : PSSL_CTX) : TIdC_LONG;
+function SSL_set_max_cert_list(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+
+function SSL_CTX_set_max_send_fragment(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+function SSL_set_max_send_fragment(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+function SSL_CTX_set_split_send_fragment(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+function SSL_set_split_send_fragment(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+function SSL_CTX_set_max_pipelines(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+function SSL_set_max_pipelines(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
 function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
 function SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer) : TIdC_LONG;
 function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
@@ -3596,6 +3552,93 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
 
+function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_get_default_read_ahead(ctx);
+end;
+
+function SSL_CTX_set_default_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG): TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_set_read_ahead(ctx, m);
+end;
+
+function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_GET_READ_AHEAD, 0, nil);
+end;
+
+function SSL_CTX_set_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_READ_AHEAD, m, nil);
+end;
+
+//===
+function SSL_CTX_get_max_cert_list(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_GET_MAX_CERT_LIST, 0, nil);
+end;
+
+function SSL_CTX_set_max_cert_list(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_CERT_LIST, m, nil);
+end;
+
+function SSL_get_max_cert_list(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_GET_MAX_CERT_LIST, 0, nil);
+end;
+
+function SSL_set_max_cert_list(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl, SSL_CTRL_SET_MAX_CERT_LIST, m, nil);
+end;
+
+
+function SSL_CTX_set_max_send_fragment(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_SEND_FRAGMENT, m, nil);
+end;
+
+function SSL_set_max_send_fragment(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl, SSL_CTRL_SET_MAX_SEND_FRAGMENT, m, nil);
+end;
+
+function SSL_CTX_set_split_send_fragment(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_SPLIT_SEND_FRAGMENT, m, nil);
+end;
+
+function SSL_set_split_send_fragment(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl, SSL_CTRL_SET_SPLIT_SEND_FRAGMENT, m, nil);
+end;
+
+function SSL_CTX_set_max_pipelines(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MAX_PIPELINES, m, nil);
+end;
+
+function SSL_set_max_pipelines(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl, SSL_CTRL_SET_MAX_PIPELINES, m, nil);
+end;
+
+//===
 function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
@@ -4985,7 +5028,7 @@ const
   SSL_config_procname = 'SSL_config'; {introduced 1.1.0}
   SSL_CTX_config_procname = 'SSL_CTX_config'; {introduced 1.1.0}
 
-//  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+  SSL_trace_procname = 'SSL_trace';
 
   DTLSv1_listen_procname = 'DTLSv1_listen'; {introduced 1.1.0}
 
@@ -8920,7 +8963,7 @@ end;
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
   //# endif
 
-function  ERR_SSL_session_reused(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_session_reused(const s: PSSL): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_session_reused_procname);
 end;
@@ -9019,7 +9062,10 @@ end;
 
  {introduced 1.1.0}
 
-//  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+procedure ERR_SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_trace_procname);
+end;
 
 function  ERR_DTLSv1_listen(s: PSSL; client: PBIO_ADDr): TIdC_INT; 
 begin
@@ -24192,35 +24238,65 @@ begin
     {$ifend}
   end;
 
- {introduced 1.1.0}
-  DTLSv1_listen := LoadLibFunction(ADllHandle, DTLSv1_listen_procname);
-  FuncLoadError := not assigned(DTLSv1_listen);
+  SSL_trace := LoadLibFunction(ADllHandle, SSL_trace_procname);
+  FuncLoadError := not assigned(SSL_trace);
   if FuncLoadError then
   begin
-    {$if not defined(DTLSv1_listen_allownil)}
-    DTLSv1_listen := @ERR_DTLSv1_listen;
+    {$if not defined(SSL_trace_allownil)}
+    SSL_trace := @ERR_SSL_trace;
     {$ifend}
-    {$if declared(DTLSv1_listen_introduced)}
-    if LibVersion < DTLSv1_listen_introduced then
+    {$if declared(SSL_trace_introduced)}
+    if LibVersion < SSL_trace_introduced then
     begin
-      {$if declared(FC_DTLSv1_listen)}
-      DTLSv1_listen := @FC_DTLSv1_listen;
+      {$if declared(FC_SSL_trace)}
+      SSL_trace := @FC_SSL_trace;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(DTLSv1_listen_removed)}
-    if DTLSv1_listen_removed <= LibVersion then
+    {$if declared(SSL_trace_removed)}
+    if SSL_trace_removed <= LibVersion then
     begin
-      {$if declared(_DTLSv1_listen)}
-      DTLSv1_listen := @_DTLSv1_listen;
+      {$if declared(_SSL_trace)}
+      SSL_trace := @_SSL_trace;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(DTLSv1_listen_allownil)}
+    {$if not defined(SSL_trace_allownil)}
     if FuncLoadError then
-      AFailed.Add('DTLSv1_listen');
+      AFailed.Add('SSL_trace');
+    {$ifend}
+  end;
+ {introduced 1.1.0}
+  SSL_trace := LoadLibFunction(ADllHandle, SSL_trace_procname);
+  FuncLoadError := not assigned(SSL_trace);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_trace_allownil)}
+    SSL_trace := @ERR_SSL_trace;
+    {$ifend}
+    {$if declared(SSL_trace_introduced)}
+    if LibVersion < SSL_trace_introduced then
+    begin
+      {$if declared(FC_SSL_trace)}
+      SSL_trace := @FC_SSL_trace;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_trace_removed)}
+    if SSL_trace_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_trace)}
+      SSL_trace := @_SSL_trace;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_trace_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_trace');
     {$ifend}
   end;
 
