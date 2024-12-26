@@ -1663,37 +1663,9 @@ var
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_CTX_get_mode(ctx) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_clear_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_set_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
-  //# define SSL_get_mode(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_set_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
-  //# define DTLS_set_link_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
-  //# define DTLS_get_link_min_mtu(ssl) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
   //
-  //# define SSL_get_secure_renegotiation_support(ssl) \
-  //        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
   //
-  //# ifndef OPENSSL_NO_HEARTBEATS
-  //#  define SSL_heartbeat(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
-  //# endif
   //
-  //# define SSL_CTX_set_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_set_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_CTX_clear_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //# define SSL_clear_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
   //
   //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
   //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
@@ -2582,38 +2554,6 @@ var
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_CTX_get_mode(ctx) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_clear_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_set_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
-  //# define SSL_get_mode(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_set_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
-  //# define DTLS_set_link_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
-  //# define DTLS_get_link_min_mtu(ssl) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
-  //
-  //# define SSL_get_secure_renegotiation_support(ssl) \
-  //        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
-  //
-  //# ifndef OPENSSL_NO_HEARTBEATS
-  //#  define SSL_heartbeat(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
-  //# endif
-  //
-  //# define SSL_CTX_set_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_set_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_CTX_clear_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //# define SSL_clear_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //
   //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
   //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
   //                                          TIdC_INT content_type, const void *buf,
@@ -3635,6 +3575,21 @@ var
 
 {$ENDIF}
 
+function SSL_CTX_get_mode(ctx : PSSL_CTX) : TIdC_LONG;
+function SSL_clear_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+function SSL_set_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+function SSL_get_mode(ssl : PSSL) : TIdC_LONG;
+function SSL_set_mtu(ssl : PSSL; mtu : TIdC_LONG) : TIdC_LONG;
+function DTLS_set_link_mtu(ssl : PSSL; mtu : TIdC_LONG) : TIdC_LONG;
+function DTLS_get_link_min_mtu(ssl : PSSL) : TIdC_LONG;
+function SSL_get_secure_renegotiation_support(ssl : PSSL) : TIdC_LONG;
+{$ifndef OPENSSL_NO_HEARTBEATS}
+function SSL_heartbeat(ssl : PSSL) : TIdC_LONG;
+{$endif}
+function SSL_CTX_set_cert_flags(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+function SSL_set_cert_flags(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+function SSL_CTX_clear_cert_flags(ctx : PSSL_CTX; op : TIdC_LONG) : TIdC_LONG;
+function SSL_clear_cert_flags(s : PSSL; op : TIdC_LONG) : TIdC_LONG;
 function SSL_CTX_sess_number(ctx : PSSL_CTX): TIdC_LONG;
 function SSL_CTX_sess_connect(ctx : PSSL_CTX): TIdC_LONG;
 function SSL_CTX_sess_connect_good(ctx : PSSL_CTX): TIdC_LONG;
@@ -3657,8 +3612,6 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
 
-  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
 function SSL_get_ex_new_index(l : TIdC_LONG; p : PSSL;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3666,8 +3619,6 @@ begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef);
 end;
 
-  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
 function SSL_SESSION_get_ex_new_index(l : TIdC_LONG; p : PSSL_SESSION;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3675,13 +3626,91 @@ begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef);
 end;
 
-//#define SSL_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef)
 function SSL_CTX_get_ex_new_index(l : TIdC_LONG; p : PSSL_CTX;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_CTX, l, p, newf, dupf, freef);
+end;
+
+function SSL_CTX_get_mode(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx,SSL_CTRL_MODE, 0, nil);
+end;
+
+function SSL_clear_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_CLEAR_MODE, op, nil);
+end;
+
+function SSL_set_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_MODE, op, nil);
+end;
+
+function SSL_get_mode(ssl : PSSL) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_MODE, 0, nil);
+end;
+
+function SSL_set_mtu(ssl : PSSL; mtu : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_SET_MTU, mtu, nil);
+end;
+
+function DTLS_set_link_mtu(ssl : PSSL; mtu : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,DTLS_CTRL_SET_LINK_MTU, mtu, nil);
+end;
+
+function DTLS_get_link_min_mtu(ssl : PSSL) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,DTLS_CTRL_GET_LINK_MIN_MTU, 0, nil);
+end;
+
+function SSL_get_secure_renegotiation_support(ssl : PSSL) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_GET_RI_SUPPORT, 0, nil);
+end;
+
+{$ifndef OPENSSL_NO_HEARTBEATS}
+function SSL_heartbeat(ssl : PSSL) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT, 0, nil);
+end;
+{$endif}
+
+function SSL_CTX_set_cert_flags(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_CERT_FLAGS, op, nil);
+end;
+
+function SSL_set_cert_flags(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,SSL_CTRL_CERT_FLAGS, op, nil);
+end;
+
+function SSL_CTX_clear_cert_flags(ctx : PSSL_CTX; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx,SSL_CTRL_CLEAR_CERT_FLAGS, op, nil);
+end;
+
+function SSL_clear_cert_flags(s : PSSL; op : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(s,SSL_CTRL_CLEAR_CERT_FLAGS, op, nil);
 end;
 
 function SSL_CTX_sess_number(ctx : PSSL_CTX): TIdC_LONG;
@@ -4237,38 +4266,6 @@ const
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_CTX_get_mode(ctx) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_clear_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_set_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
-  //# define SSL_get_mode(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_set_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
-  //# define DTLS_set_link_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
-  //# define DTLS_get_link_min_mtu(ssl) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
-  //
-  //# define SSL_get_secure_renegotiation_support(ssl) \
-  //        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
-  //
-  //# ifndef OPENSSL_NO_HEARTBEATS
-  //#  define SSL_heartbeat(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
-  //# endif
-  //
-  //# define SSL_CTX_set_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_set_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_CTX_clear_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //# define SSL_clear_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //
   //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
   //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
   //                                          TIdC_INT content_type, const void *buf,
@@ -6408,38 +6405,6 @@ end;
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,(op),NULL)
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_CTX_get_mode(ctx) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_clear_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_CLEAR_MODE,(op),NULL)
-  //# define SSL_set_mode(ssl,op) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,(op),NULL)
-  //# define SSL_get_mode(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_MODE,0,NULL)
-  //# define SSL_set_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),SSL_CTRL_SET_MTU,(mtu),NULL)
-  //# define DTLS_set_link_mtu(ssl, mtu) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_SET_LINK_MTU,(mtu),NULL)
-  //# define DTLS_get_link_min_mtu(ssl) \
-  //        SSL_ctrl((ssl),DTLS_CTRL_GET_LINK_MIN_MTU,0,NULL)
-  //
-  //# define SSL_get_secure_renegotiation_support(ssl) \
-  //        SSL_ctrl((ssl), SSL_CTRL_GET_RI_SUPPORT, 0, NULL)
-  //
-  //# ifndef OPENSSL_NO_HEARTBEATS
-  //#  define SSL_heartbeat(ssl) \
-  //        SSL_ctrl((ssl),SSL_CTRL_DTLS_EXT_SEND_HEARTBEAT,0,NULL)
-  //# endif
-  //
-  //# define SSL_CTX_set_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_set_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CERT_FLAGS,(op),NULL)
-  //# define SSL_CTX_clear_cert_flags(ctx,op) \
-  //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //# define SSL_clear_cert_flags(s,op) \
-  //        SSL_ctrl((s),SSL_CTRL_CLEAR_CERT_FLAGS,(op),NULL)
-  //
   //void SSL_CTX_set_msg_callback(ctx: PSSL_CTX,
   //                              void (*cb) (TIdC_INT write_p, TIdC_INT version,
   //                                          TIdC_INT content_type, const void *buf,
