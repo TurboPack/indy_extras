@@ -2025,8 +2025,8 @@ var
 
   SSL_get_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {removed 3.0.0}
 
-  //__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const s: PSSL);
-  //
+  SSL_get_peer_cert_chain : function(const s: PSSL) : PSTACK_OF_X509;
+
   SSL_CTX_get_verify_mode: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
   SSL_CTX_get_verify_depth: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
   SSL_CTX_get_verify_callback: function (const ctx: PSSL_CTX): SSL_verify_cb; cdecl = nil;
@@ -2869,9 +2869,8 @@ var
   function SSL_has_matching_session_id(const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT cdecl; external CLibSSL;
   function d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION cdecl; external CLibSSL;
 
+  function SSL_get_peer_cert_chain(const s: PSSL) : PSTACK_OF_X509 cdecl; external CLibSSL;
 
-  //__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const s: PSSL);
-  //
   function SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_get_verify_depth(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_get_verify_callback(const ctx: PSSL_CTX): SSL_verify_cb cdecl; external CLibSSL;
@@ -4666,8 +4665,8 @@ const
 
   SSL_get_peer_certificate_procname = 'SSL_get_peer_certificate'; {removed 3.0.0}
 
-  //__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const s: PSSL);
-  //
+  SSL_get_peer_cert_chain_procname = 'SSL_get_peer_cert_chain';
+
   SSL_CTX_get_verify_mode_procname = 'SSL_CTX_get_verify_mode';
   SSL_CTX_get_verify_depth_procname = 'SSL_CTX_get_verify_depth';
   SSL_CTX_get_verify_callback_procname = 'SSL_CTX_get_verify_callback';
@@ -7616,11 +7615,12 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_certificate_procname);
 end;
 
- 
+function ERR_SSL_get_peer_cert_chain(const s: PSSL) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_peer_cert_chain_procname);
+end;
 
-  //__owur STACK_OF(X509) *SSL_get_peer_cert_chain(const s: PSSL);
-  //
-function  ERR_SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_verify_mode_procname);
 end;
@@ -17081,7 +17081,38 @@ begin
     {$ifend}
   end;
 
- 
+  SSL_get_peer_cert_chain := LoadLibFunction(ADllHandle, SSL_get_peer_cert_chain_procname);
+  FuncLoadError := not assigned(SSL_get_peer_cert_chain);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_peer_cert_chain_allownil)}
+    SSL_get_peer_cert_chain := @ERR_SSL_get_peer_cert_chain;
+    {$ifend}
+    {$if declared(SSL_get_peer_cert_chain_introduced)}
+    if LibVersion < SSL_get_peer_cert_chain_introduced then
+    begin
+      {$if declared(FC_SSL_get_peer_cert_chain)}
+      SSL_get_peer_cert_chain := @FC_SSL_get_peer_cert_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_peer_cert_chain_removed)}
+    if SSL_get_peer_cert_chain_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_peer_cert_chain)}
+      SSL_get_peer_cert_chain := @_SSL_get_peer_cert_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_peer_cert_chain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_peer_cert_chain');
+    {$ifend}
+  end;
+
+
   SSL_CTX_get_verify_mode := LoadLibFunction(ADllHandle, SSL_CTX_get_verify_mode_procname);
   FuncLoadError := not assigned(SSL_CTX_get_verify_mode);
   if FuncLoadError then
@@ -26020,6 +26051,7 @@ begin
   SSL_has_matching_session_id := nil;
   d2i_SSL_SESSION := nil;
   SSL_get_peer_certificate := nil; {removed 3.0.0}
+  SSL_get_peer_cert_chain := nil;
   SSL_CTX_get_verify_mode := nil;
   SSL_CTX_get_verify_depth := nil;
   SSL_CTX_get_verify_callback := nil;
