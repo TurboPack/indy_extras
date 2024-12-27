@@ -1454,6 +1454,9 @@ type
   {$EXTERNALSYM SSL_get0_security_ex_data} {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set_security_level} {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_get_security_level} {introduced 1.1.0}
+  {$EXTERNALSYM SSL_CTX_set_security_callback}
+  {$EXTERNALSYM SSL_CTX_get_security_callback}
+
   {$EXTERNALSYM SSL_CTX_get0_security_ex_data} {introduced 1.1.0}
   {$EXTERNALSYM SSL_CTX_set0_security_ex_data} {introduced 1.1.0}
   {$EXTERNALSYM OPENSSL_init_ssl} {introduced 1.1.0}
@@ -1671,7 +1674,7 @@ var
   SSL_set_msg_callback : procedure (ssl: PSSL; cb : Tmsg_callback); cdecl = nil;
 
   //# ifndef OPENSSL_NO_SRP
-
+  // Do not translate these to PASCAL.  They are depreciated in OpenSSL 3.x.
   ///* see tls_srp.c */
   //__owur TIdC_INT SSL_SRP_CTX_init(s: PSSL);
   //__owur TIdC_INT SSL_CTX_SRP_CTX_init(ctx: PSSL_CTX);
@@ -2428,23 +2431,15 @@ var
 
   SSL_set_security_level: procedure (s: PSSL; level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
-  ////__owur TIdC_INT SSL_get_security_level(const s: PSSL);
+  SSL_get_security_level : function(const s: PSSL) : TIdC_INT; cdecl = nil;
   SSL_set_security_callback: procedure (s: PSSL; cb: SSL_security_callback); cdecl = nil; {introduced 1.1.0}
   SSL_get_security_callback: function (const s: PSSL): SSL_security_callback; cdecl = nil; {introduced 1.1.0}
   SSL_set0_security_ex_data: procedure (s: PSSL; ex: Pointer); cdecl = nil; {introduced 1.1.0}
   SSL_get0_security_ex_data: function (const s: PSSL): Pointer; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_set_security_level: procedure (ctx: PSSL_CTX; level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_CTX_get_security_level: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  //void SSL_CTX_set_security_callback(ctx: PSSL_CTX,
-  //                                   TIdC_INT (*cb) (const s: PSSL, const ctx: PSSL_CTX,
-  //                                              TIdC_INT op, TIdC_INT bits, TIdC_INT nid,
-  //                                              void *other, void *ex));
-  //TIdC_INT (*SSL_CTX_get_security_callback(const ctx: PSSL_CTX)) (const s: PSSL,
-  //                                                          const ctx: PSSL_CTX,
-  //                                                          TIdC_INT op, TIdC_INT bits,
-  //                                                          TIdC_INT nid,
-  //                                                          void *other,
-  //                                                          void *ex);
+  SSL_CTX_set_security_callback : procedure(ctx: PSSL_CTX; cb: SSL_security_callback); cdecl = nil;
+  SSL_CTX_get_security_callback : function(const ctx: PSSL_CTX) : SSL_security_callback; cdecl = nil;
 
   SSL_CTX_get0_security_ex_data: function (const ctx: PSSL_CTX): Pointer; cdecl = nil; {introduced 1.1.0}
 
@@ -2520,6 +2515,7 @@ var
   procedure SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback) cdecl; external CLibSSL;
 
   //# ifndef OPENSSL_NO_SRP
+  // Do not translate these to PASCAL.  They are depreciated in OpenSSL 3.x.
 
   ///* see tls_srp.c */
   //__owur TIdC_INT SSL_SRP_CTX_init(s: PSSL);
@@ -3272,24 +3268,15 @@ var
 
   procedure SSL_set_security_level(s: PSSL; level: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  ////__owur TIdC_INT SSL_get_security_level(const s: PSSL);
+  function SSL_get_security_level(const s: PSSL) : TIdC_INT cdecl; external CLibSSL;
   procedure SSL_set_security_callback(s: PSSL; cb: SSL_security_callback) cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get_security_callback(const s: PSSL): SSL_security_callback cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set0_security_ex_data(s: PSSL; ex: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get0_security_ex_data(const s: PSSL): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_CTX_set_security_level(ctx: PSSL_CTX; level: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_get_security_level(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  //void SSL_CTX_set_security_callback(ctx: PSSL_CTX,
-  //                                   TIdC_INT (*cb) (const s: PSSL, const ctx: PSSL_CTX,
-  //                                              TIdC_INT op, TIdC_INT bits, TIdC_INT nid,
-  //                                              void *other, void *ex));
-  //TIdC_INT (*SSL_CTX_get_security_callback(const ctx: PSSL_CTX)) (const s: PSSL,
-  //                                                          const ctx: PSSL_CTX,
-  //                                                          TIdC_INT op, TIdC_INT bits,
-  //                                                          TIdC_INT nid,
-  //                                                          void *other,
-  //                                                          void *ex);
-
+  procedure SSL_CTX_set_security_callback(ctx: PSSL_CTX, cb: SSL_security_callback) cdecl; external CLibSSL;
+  function SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback cdecl; external CLibSSL;
   function SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
 
   procedure SSL_CTX_set0_security_ex_data(ctx: PSSL_CTX; ex: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3982,6 +3969,7 @@ const
   SSL_CTX_set_ctlog_list_file_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_set0_ctlog_store_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_set_security_level_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  SSL_get_security_level_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_set_security_callback_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_security_callback_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_set0_security_ex_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4312,6 +4300,7 @@ const
   SSL_CTX_set_msg_callback_procname = 'SSL_CTX_set_msg_callback';
   SSL_set_msg_callback_procname = 'SSL_set_msg_callback';
   //# ifndef OPENSSL_NO_SRP
+  // Do not translate these to PASCAL.  They are depreciated in OpenSSL 3.x.
 
   ///* see tls_srp.c */
   //__owur TIdC_INT SSL_SRP_CTX_init(s: PSSL);
@@ -5097,25 +5086,15 @@ const
   // # endif /* OPENSSL_NO_CT */
 
   SSL_set_security_level_procname = 'SSL_set_security_level'; {introduced 1.1.0}
-
-  ////__owur TIdC_INT SSL_get_security_level(const s: PSSL);
+  SSL_get_security_level_procname = 'SSL_get_security_level';
   SSL_set_security_callback_procname = 'SSL_set_security_callback'; {introduced 1.1.0}
   SSL_get_security_callback_procname = 'SSL_get_security_callback'; {introduced 1.1.0}
   SSL_set0_security_ex_data_procname = 'SSL_set0_security_ex_data'; {introduced 1.1.0}
   SSL_get0_security_ex_data_procname = 'SSL_get0_security_ex_data'; {introduced 1.1.0}
   SSL_CTX_set_security_level_procname = 'SSL_CTX_set_security_level'; {introduced 1.1.0}
   SSL_CTX_get_security_level_procname = 'SSL_CTX_get_security_level'; {introduced 1.1.0}
-  //void SSL_CTX_set_security_callback(ctx: PSSL_CTX,
-  //                                   TIdC_INT (*cb) (const s: PSSL, const ctx: PSSL_CTX,
-  //                                              TIdC_INT op, TIdC_INT bits, TIdC_INT nid,
-  //                                              void *other, void *ex));
-  //TIdC_INT (*SSL_CTX_get_security_callback(const ctx: PSSL_CTX)) (const s: PSSL,
-  //                                                          const ctx: PSSL_CTX,
-  //                                                          TIdC_INT op, TIdC_INT bits,
-  //                                                          TIdC_INT nid,
-  //                                                          void *other,
-  //                                                          void *ex);
-
+  SSL_CTX_set_security_callback_procname = 'SSL_CTX_set_security_callback';
+  SSL_CTX_get_security_callback_procname = 'SSL_CTX_get_security_callback';
   SSL_CTX_get0_security_ex_data_procname = 'SSL_CTX_get0_security_ex_data'; {introduced 1.1.0}
 
   SSL_CTX_set0_security_ex_data_procname = 'SSL_CTX_set0_security_ex_data'; {introduced 1.1.0}
@@ -6447,6 +6426,7 @@ begin
 end;
 
   //# ifndef OPENSSL_NO_SRP
+  // Do not translate these to PASCAL.  They are depreciated in OpenSSL 3.x.
 
   ///* see tls_srp.c */
   //__owur TIdC_INT SSL_SRP_CTX_init(s: PSSL);
@@ -9181,7 +9161,11 @@ end;
 
  {introduced 1.1.0}
 
-  ////__owur TIdC_INT SSL_get_security_level(const s: PSSL);
+function ERR_SSL_get_security_level(const s: PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_security_level_procname);
+end;
+
 procedure  ERR_SSL_set_security_callback(s: PSSL; cb: SSL_security_callback); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_security_callback_procname);
@@ -9218,16 +9202,16 @@ begin
 end;
 
  {introduced 1.1.0}
-  //void SSL_CTX_set_security_callback(ctx: PSSL_CTX,
-  //                                   TIdC_INT (*cb) (const s: PSSL, const ctx: PSSL_CTX,
-  //                                              TIdC_INT op, TIdC_INT bits, TIdC_INT nid,
-  //                                              void *other, void *ex));
-  //TIdC_INT (*SSL_CTX_get_security_callback(const ctx: PSSL_CTX)) (const s: PSSL,
-  //                                                          const ctx: PSSL_CTX,
-  //                                                          TIdC_INT op, TIdC_INT bits,
-  //                                                          TIdC_INT nid,
-  //                                                          void *other,
-  //                                                          void *ex);
+
+procedure ERR_SSL_CTX_set_security_callback(ctx: PSSL_CTX; cb: SSL_security_callback);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_security_callback_procname);
+end;
+
+function ERR_SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_security_callback_procname);
+end;
 
 function  ERR_SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer; 
 begin
@@ -24587,6 +24571,37 @@ begin
     {$ifend}
   end;
 
+  SSL_get_security_level := LoadLibFunction(ADllHandle, SSL_get_security_level_procname);
+  FuncLoadError := not assigned(SSL_get_security_level);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_security_level_allownil)}
+    SSL_get_security_level := @ERR_SSL_get_security_level;
+    {$ifend}
+    {$if declared(SSL_get_security_level_introduced)}
+    if LibVersion < SSL_get_security_level_introduced then
+    begin
+      {$if declared(FC_SSL_get_security_level)}
+      SSL_get_security_level := @FC_SSL_get_security_level;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_security_level_removed)}
+    if SSL_get_security_level_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_security_level)}
+      SSL_get_security_level := @_SSL_get_security_level;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_security_level_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_security_level');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_set_security_callback := LoadLibFunction(ADllHandle, SSL_set_security_callback_procname);
   FuncLoadError := not assigned(SSL_set_security_callback);
@@ -24648,6 +24663,68 @@ begin
     {$if not defined(SSL_get_security_callback_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_get_security_callback');
+    {$ifend}
+  end;
+
+  SSL_CTX_set_security_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_security_callback_procname);
+  FuncLoadError := not assigned(SSL_CTX_set_security_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set_security_callback_allownil)}
+    SSL_CTX_set_security_callback := @ERR_SSL_CTX_set_security_callback;
+    {$ifend}
+    {$if declared(SSL_CTX_set_security_callback_introduced)}
+    if LibVersion < SSL_CTX_set_security_callback_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set_security_callback)}
+      SSL_CTX_set_security_callback := @FC_SSL_CTX_set_security_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set_security_callback_removed)}
+    if SSL_CTX_set_security_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set_security_callback)}
+      SSL_CTX_set_security_callback := @_SSL_CTX_set_security_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set_security_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set_security_callback');
+    {$ifend}
+  end;
+  
+  SSL_CTX_get_security_callback := LoadLibFunction(ADllHandle, SSL_CTX_get_security_callback_procname);
+  FuncLoadError := not assigned(SSL_CTX_get_security_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get_security_callback_allownil)}
+    SSL_CTX_get_security_callback := @ERR_SSL_CTX_get_security_callback;
+    {$ifend}
+    {$if declared(SSL_CTX_get_security_callback_introduced)}
+    if LibVersion < SSL_CTX_get_security_callback_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get_security_callback)}
+      SSL_CTX_get_security_callback := @FC_SSL_CTX_get_security_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get_security_callback_removed)}
+    if SSL_CTX_get_security_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get_security_callback)}
+      SSL_CTX_get_security_callback := @_SSL_CTX_get_security_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get_security_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get_security_callback');
     {$ifend}
   end;
 
@@ -26285,12 +26362,15 @@ begin
   SSL_CTX_set_ctlog_list_file := nil; {introduced 1.1.0}
   SSL_CTX_set0_ctlog_store := nil; {introduced 1.1.0}
   SSL_set_security_level := nil; {introduced 1.1.0}
+  SSL_get_security_level := nil; {introduced 1.1.0}
   SSL_set_security_callback := nil; {introduced 1.1.0}
   SSL_get_security_callback := nil; {introduced 1.1.0}
   SSL_set0_security_ex_data := nil; {introduced 1.1.0}
   SSL_get0_security_ex_data := nil; {introduced 1.1.0}
   SSL_CTX_set_security_level := nil; {introduced 1.1.0}
   SSL_CTX_get_security_level := nil; {introduced 1.1.0}
+  SSL_CTX_set_security_callback := nil;
+  SSL_CTX_get_security_callback := nil;
   SSL_CTX_get0_security_ex_data := nil; {introduced 1.1.0}
   SSL_CTX_set0_security_ex_data := nil; {introduced 1.1.0}
   OPENSSL_init_ssl := nil; {introduced 1.1.0}
