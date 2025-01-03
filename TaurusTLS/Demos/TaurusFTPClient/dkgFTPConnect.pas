@@ -49,6 +49,8 @@ type
     edtCAKey: TEdit;
     lblCAKey: TLabel;
     odlgCAKey: TOpenDialog;
+    cboSecurityLevel: TComboBox;
+    lblSecurityLevel: TLabel;
     procedure chkAnonymousFTPClick(Sender: TObject);
     procedure edtProfileNameChange(Sender: TObject);
     procedure edtHostnameChange(Sender: TObject);

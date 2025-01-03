@@ -21,7 +21,7 @@ object frmFTPSites: TfrmFTPSites
   object lblFTPSites: TLabel
     Left = 8
     Top = 11
-    Width = 46
+    Width = 47
     Height = 15
     Caption = '&FTP Sites'
     FocusControl = lbxFTPSites

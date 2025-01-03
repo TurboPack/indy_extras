@@ -25,6 +25,7 @@ type
     FPrivateKey : String;
     FPublicKey : String;
     FCAKey : String;
+    FSecurityLevel : Integer;
   public
     constructor Create(const AName: String); overload;
     constructor Create(const AName: String; AIni: TIniFile); overload;
@@ -41,6 +42,7 @@ type
     property PrivateKey : String read FPrivateKey write FPrivateKey;
     property PublicKey : String read FPublicKey write FPublicKey;
     property CAKey : String read FCAKey write FCAKey;
+    property SecurityLevel : Integer read fSecurityLevel write fSecurityLevel;
   end;
 
   TfrmFTPSites = class(TForm)
@@ -128,6 +130,7 @@ begin
     LFrm.edtPrivateKeyFile.Text := LFTP.PrivateKey;
     LFrm.edtPublicKey.Text := LFTP.PublicKey;
     LFrm.edtCAKey.Text := LFTP.CAKey;
+    LFrm.cboSecurityLevel.ItemIndex := LFTP.SecurityLevel;
     if LFrm.ShowModal = mrOk then
     begin
       LFTP.SiteName := LFrm.edtProfileName.Text;
@@ -142,6 +145,7 @@ begin
       LFTP.PrivateKey := LFrm.edtPrivateKeyFile.Text;
       LFTP.PublicKey := LFrm.edtPublicKey.Text;
       LFTP.CAKey := LFrm.edtCAKey.Text;
+      LFTP.SecurityLevel := LFrm.cboSecurityLevel.ItemIndex;
     end;
   finally
     FreeAndNil(LFrm);
@@ -177,6 +181,7 @@ begin
       LFTP.PrivateKey := LFrm.edtPrivateKeyFile.Text;
       LFTP.PublicKey := LFrm.edtPublicKey.Text;
       LFTP.CAKey := LFrm.edtCAKey.Text;
+      LFTP.SecurityLevel := LFrm.cboSecurityLevel.ItemIndex;
       FFTPSites.Add(LFTP);
     end;
   finally
@@ -243,6 +248,7 @@ begin
   FPrivateKey := AIni.ReadString(AName, 'Private_Key', '');
   FPublicKey := AIni.ReadString(AName,'Public_Key','');
   FCAKey := AIni.ReadString(AName,'Certificate_Authority_Key','');
+  FSecurityLevel := AIni.ReadInteger(AName,'Security_Level',1);
 end;
 
 procedure TFTPSite.Save(AIni: TIniFile);
@@ -258,6 +264,7 @@ begin
   AIni.WriteString(FSiteName, 'Private_Key', FPrivateKey);
   AIni.WriteString(FSiteName,'Public_Key',FPublicKey);
   AIni.WriteString(FSiteName,'Certificate_Authority_Key',FCAKey);
+  AIni.WriteInteger(FSiteName,'Security_Level', FSecurityLevel);
 end;
 
 constructor TFTPSite.Create(const AName: String);

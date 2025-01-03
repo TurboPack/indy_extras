@@ -274,9 +274,9 @@ object frmConnect: TfrmConnect
           409
           226)
         object lblTransferType: TLabel
-          Left = 19
+          Left = 17
           Top = 45
-          Width = 71
+          Width = 73
           Height = 15
           Alignment = taRightJustify
           Caption = '&Transfer Type:'
@@ -300,6 +300,13 @@ object frmConnect: TfrmConnect
           Alignment = taRightJustify
           Caption = 'Po&rt:'
           FocusControl = spnedtPort
+        end
+        object lblSecurityLevel: TLabel
+          Left = 15
+          Top = 107
+          Width = 75
+          Height = 15
+          Caption = 'Security &Level:'
         end
         object cboTransferTypes: TComboBox
           Left = 96
@@ -332,6 +339,23 @@ object frmConnect: TfrmConnect
           MinValue = 1
           TabOrder = 2
           Value = 21
+        end
+        object cboSecurityLevel: TComboBox
+          Left = 96
+          Top = 104
+          Width = 301
+          Height = 23
+          Style = csDropDownList
+          ItemIndex = 1
+          TabOrder = 3
+          Text = '1 - Accept only 80 security bits or greater'
+          Items.Strings = (
+            '0 - Accept everything'
+            '1 - Accept only 80 security bits or greater'
+            '2 - Accept only 112 security bits or greater'
+            '3 - Accept only 238 security bits or greater'
+            '4 - Accept only 192 security bits or greater'
+            '5 - Accept only 256 security bits or greater')
         end
       end
     end

@@ -424,6 +424,7 @@ begin
         Self.iosslFTP.SSLOptions.CertFile := LFTPSite.PublicKey;
         Self.iosslFTP.SSLOptions.KeyFile := LFTPSite.PrivateKey;
         Self.iosslFTP.SSLOptions.RootCertFile := LFTPSite.CAKey;
+        Self.iosslFTP.SSLOptions.SecurityLevel := LFTPSite.SecurityLevel;
         ConnectFTP;
       end;
     end;
@@ -919,6 +920,7 @@ begin
       iosslFTP.SSLOptions.KeyFile := LFrm.edtPrivateKeyFile.Text;
       iosslFTP.SSLOptions.CertFile := LFrm.edtPublicKey.Text;
       iosslFTP.SSLOptions.RootCertFile := LFrm.edtCAKey.Text;
+      iosslFTP.SSLOptions.SecurityLevel := LFrm.cboSecurityLevel.ItemIndex;
       ConnectFTP;
     end;
   finally
