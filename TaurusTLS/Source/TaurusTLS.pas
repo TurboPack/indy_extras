@@ -250,8 +250,8 @@ uses
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
 {$I TaurusTLSIndyVers.inc}
+{$IFDEF GETURIHOST_SUPPORTED}
 
-  {$IFDEF GETURIHOST_SUPPORTED}
 const
   SSLv2 = sslvSSLv2;
   SSLv23 = sslvSSLv23;
@@ -260,12 +260,14 @@ const
   TLSv1_1 = sslvTLSv1_1;
   TLSv1_2 = sslvTLSv1_2;
   TLSv1_3 = sslvTLSv1_3;
+
 type
   TTaurusTLSSSLVersion = TIdSSLVersion;
   TTaurusTLSSSLVersions = TIdSSLVersions;
   TTaurusTLSSSLMode = TIdSSLMode;
   TTaurusTLSCtxMode = TIdSSLCtxMode;
-  {$ELSE}
+{$ELSE}
+
 type
   TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
@@ -273,21 +275,26 @@ type
   TTaurusTLSSSLVersions = set of TTaurusTLSSSLVersion;
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
   TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
-  {$ENDIF}
+{$ENDIF}
   TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
+  TTaurusTLSSecurityLevel = 0 .. 5;
 
 const
   DEF_SSLVERSION = TLSv1_2;
   DEF_SSLVERSIONS = [TLSv1_2, TLSv1_3];
   MAX_SSLVERSION = TLSv1_3;
   P12_FILETYPE = 3;
+  DEF_SECURITY_LEVEL = 1;
 
 type
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
+  TSecurityEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
+    ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipher: String;
+    out VAccepted: Boolean) of object;
   TPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
   TVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
@@ -303,6 +310,7 @@ type
     fMode: TTaurusTLSSSLMode;
     fSSLVersions: TTaurusTLSSSLVersions;
     fVerifyDepth: Integer;
+    FSecurityLevel: TTaurusTLSSecurityLevel;
     fMethod: TTaurusTLSSSLVersion;
     fVerifyDirs: String;
     fCipherList: String;
@@ -310,6 +318,7 @@ type
     procedure AssignTo(Destination: TPersistent); override;
     procedure SetSSLVersions(const AValue: TTaurusTLSSSLVersions);
     procedure SetMethod(const AValue: TTaurusTLSSSLVersion);
+    procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
     constructor Create;
     // procedure Assign(ASource: TPersistent); override;
@@ -322,9 +331,12 @@ type
       default DEF_SSLVERSION; { ignored with TaurusTLS 1.1.0 or later }
     property SSLVersions: TTaurusTLSSSLVersions read fSSLVersions
       write SetSSLVersions default DEF_SSLVERSIONS;
+    property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
+      write SetSecurityLevel default DEF_SECURITY_LEVEL;
     { SSLVersions is only used to determine min version with TaurusTLS 1.1.0 or later }
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
-    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode write fVerifyMode;
+    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
+      write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
     // property VerifyFile: String read fVerifyFile write fVerifyFile;
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
@@ -337,6 +349,8 @@ type
   { TTaurusTLSContext }
 
   TTaurusTLSContext = class(TObject)
+  private
+    procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fUseSystemRootCertificateStore: Boolean;
 {$IFDEF USE_OBJECT_ARC}[Weak]
@@ -348,18 +362,19 @@ type
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fVerifyDepth: Integer;
     fVerifyMode: TTaurusTLSVerifyModeSet;
+    FSecurityLevel: TTaurusTLSSecurityLevel;
     // fVerifyFile: String;
     fVerifyDirs: String;
     fCipherList: String;
     fContext: PSSL_CTX;
     fStatusInfoOn: Boolean;
+    fSecurityLevelCBOn: Boolean;
     // fPasswordRoutineOn: Boolean;
     fVerifyOn: Boolean;
     fSessionId: Integer;
 {$IFDEF USE_WINDOWS_CERT_STORE}
     procedure LoadWindowsCertStore;
 {$ENDIF}
-
     procedure DestroyContext;
     function GetSSLMethod: PSSL_METHOD;
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
@@ -374,12 +389,16 @@ type
     property StatusInfoOn: Boolean read fStatusInfoOn write fStatusInfoOn;
     // property PasswordRoutineOn: Boolean read fPasswordRoutineOn write fPasswordRoutineOn;
     property VerifyOn: Boolean read fVerifyOn write fVerifyOn;
+    property SecurityLevelCBOn: Boolean read fSecurityLevelCBOn
+      write fSecurityLevelCBOn;
     // THese can't be published in a TObject without a compiler warning.
     // published
     property SSLVersions: TTaurusTLSSSLVersions read fSSLVersions
       write fSSLVersions;
     property Method: TTaurusTLSSSLVersion read fMethod write fMethod;
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
+    property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
+      write SetSecurityLevel;
     property RootCertFile: String read fsRootCertFile write fsRootCertFile;
     property CertFile: String read fsCertFile write fsCertFile;
     property CipherList: String read fCipherList write fCipherList;
@@ -390,7 +409,8 @@ type
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore;
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
-    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode write fVerifyMode;
+    property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
+      write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
 
   end;
@@ -400,13 +420,13 @@ type
   TTaurusTLSSocket = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
-    {$IFDEF USE_OBJECT_ARC}[Weak]
-    {$ENDIF} FParent: TObject;
-        fPeerCert: TTaurusTLSX509;
-        fSSL: PSSL;
-        fSSLCipher: TTaurusTLSCipher;
-        fSSLContext: TTaurusTLSContext;
-        fHostName: String;
+{$IFDEF USE_OBJECT_ARC}[Weak]
+{$ENDIF} FParent: TObject;
+    fPeerCert: TTaurusTLSX509;
+    fSSL: PSSL;
+    fSSLCipher: TTaurusTLSCipher;
+    fSSLContext: TTaurusTLSContext;
+    fHostName: String;
     function GetProtocolVersion: TTaurusTLSSSLVersion;
     function GetSSLProtocolVersionStr: string;
     function GetPeerCert: TTaurusTLSX509;
@@ -443,6 +463,8 @@ type
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
+    procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
+      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
   end;
 
@@ -455,6 +477,7 @@ type
     // fPeerCert: TTaurusTLSX509;
     FOnStatusInfo: TCallbackExEvent;
     fOnGetPassword: TPasswordEvent;
+    fOnSecurityLevel: TSecurityEvent;
     fOnVerifyPeer: TVerifyPeerEvent;
     // fSSLLayerClosed: Boolean;
     fOnBeforeConnect: TIOHandlerNotify;
@@ -482,11 +505,13 @@ type
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
+    procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
+      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-    {$IFNDEF GETURIHOST_SUPPORTED}
+{$IFNDEF GETURIHOST_SUPPORTED}
     function GetProxyTargetHost: string;
-    function GetURIHost : string;
-    {$ENDIF}
+    function GetURIHost: string;
+{$ENDIF}
   public
     destructor Destroy; override;
     // TODO: add an AOwner parameter
@@ -509,6 +534,8 @@ type
       write FOnStatusInfo;
     property OnGetPassword: TPasswordEvent read fOnGetPassword
       write fOnGetPassword;
+    property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
+      write fOnSecurityLevel;
     property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
@@ -519,6 +546,7 @@ type
     fSSLOptions: TTaurusTLSSSLOptions;
     fSSLContext: TTaurusTLSContext;
     FOnStatusInfo: TCallbackExEvent;
+    fOnSecurityLevel: TSecurityEvent;
     fOnGetPassword: TPasswordEvent;
     fOnVerifyPeer: TVerifyPeerEvent;
     //
@@ -532,6 +560,8 @@ type
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
+    procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
+      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 
   public
@@ -555,6 +585,8 @@ type
       write FOnStatusInfo;
     property OnGetPassword: TPasswordEvent read fOnGetPassword
       write fOnGetPassword;
+    property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
+      write fOnSecurityLevel;
     property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
@@ -575,7 +607,7 @@ type
     // published
     property Description: String read GetDescription;
     property Name: String read GetName;
-    property Bits: Integer read GetBits;
+    property bits: Integer read GetBits;
     property Version: String read GetVersion;
   end;
 
@@ -623,10 +655,10 @@ uses
   TaurusTLS_ResourceStrings,
   IdStack,
   IdThreadSafe,
-  {$IFNDEF GETURIHOST_SUPPORTED}
+{$IFNDEF GETURIHOST_SUPPORTED}
   IdCustomTransparentProxy,
   IdURI,
-  {$ENDIF}
+{$ENDIF}
   SysUtils,
   SyncObjs,
   TaurusTLSHeaders_asn1,
@@ -684,10 +716,10 @@ var
   LState, LAlert: String;
 {$ENDIF}
 begin
-  {$IFDEF USE_INLINE_VAR}
+{$IFDEF USE_INLINE_VAR}
   var
     LState, LAlert: String;
-  {$ENDIF}
+{$ENDIF}
   VTypeStr := '';
   VMsg := '';
   LState := String(SSL_state_string_long(SSLSocket));
@@ -771,6 +803,42 @@ begin
   end;
 end;
 
+function SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
+  bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
+var
+  LErr: Integer;
+  LHelper: ITaurusTLSCallbackHelper;
+  LRes: Boolean;
+
+begin
+  // Preserve last error just in case TaurusTLS is using it and we do something that
+  // clobers it.  CYA.
+  LErr := GStack.WSGetLastError;
+  try
+    LockInfoCB.Enter;
+    try
+      if Supports(TTaurusTLSContext(ex).Parent, ITaurusTLSCallbackHelper,
+        IInterface(LHelper)) then
+      begin
+        LHelper.SecurityLevelCB(s, ctx, op, bits,
+          String(OBJ_nid2ln(nid)), LRes);
+      end;
+      if LRes then
+      begin
+        Result := 1;
+      end
+      else
+      begin
+        Result := 0;
+      end;
+    finally
+      LockPassCB.Leave;
+    end;
+  finally
+    GStack.WSSetLastError(LErr);
+  end;
+end;
+
 function PasswordCallback(var buf: PIdAnsiChar; size: TIdC_INT;
   rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 {$IFDEF USE_MARSHALLED_PTRS}
@@ -787,7 +855,7 @@ var
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
 begin
-  // Preserve last eror just in case TaurusTLS is using it and we do something that
+  // Preserve last error just in case TaurusTLS is using it and we do something that
   // clobers it.  CYA.
   LErr := GStack.WSGetLastError;
   try
@@ -1245,6 +1313,7 @@ begin
   fMethod := DEF_SSLVERSION;
   fSSLVersions := DEF_SSLVERSIONS;
   fUseSystemRootCertificateStore := true;
+  Self.FSecurityLevel := DEF_SECURITY_LEVEL;
 end;
 
 procedure TTaurusTLSSSLOptions.SetMethod(const AValue: TTaurusTLSSSLVersion);
@@ -1258,6 +1327,12 @@ begin
   begin
     fSSLVersions := [AValue];
   end;
+end;
+
+procedure TTaurusTLSSSLOptions.SetSecurityLevel(const AValue
+  : TTaurusTLSSecurityLevel);
+begin
+  FSecurityLevel := AValue;
 end;
 
 procedure TTaurusTLSSSLOptions.SetSSLVersions(const AValue
@@ -1318,6 +1393,7 @@ begin
     LDest.DHParamsFile := DHParamsFile;
     LDest.Method := Method;
     LDest.SSLVersions := SSLVersions;
+    LDest.SecurityLevel := SecurityLevel;
     LDest.Mode := Mode;
     LDest.VerifyMode := VerifyMode;
     LDest.VerifyDepth := VerifyDepth;
@@ -1370,11 +1446,12 @@ begin
   fSSLContext.CipherList := SSLOptions.CipherList;
   fSSLContext.VerifyOn := Assigned(fOnVerifyPeer);
   fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
+  fSSLContext.SecurityLevelCBOn := False;
   // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
   fSSLContext.Method := SSLOptions.Method;
   fSSLContext.Mode := SSLOptions.Mode;
   fSSLContext.SSLVersions := SSLOptions.SSLVersions;
-
+  fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
   fSSLContext.InitContext(sslCtxServer);
 end;
 
@@ -1516,6 +1593,18 @@ begin
   end;
 end;
 
+procedure TTaurusTLSServerIOHandler.SecurityLevelCB(const AsslSocket: PSSL;
+  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipher: String;
+  out VAccepted: Boolean);
+begin
+  VAccepted := False;
+  if Assigned(fOnSecurityLevel) then
+  begin
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipher, VAccepted);
+  end;
+
+end;
+
 function TTaurusTLSServerIOHandler.GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 begin
   Result := nil;
@@ -1569,8 +1658,8 @@ begin
   begin
     FreeAndNil(fSSLContext);
   end;
-  if (fSSLOptions <> nil) and (fSSLOptions is TTaurusTLSSSLOptions_Internal)
-    and (TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent = Self) then
+  if (fSSLOptions <> nil) and (fSSLOptions is TTaurusTLSSSLOptions_Internal) and
+    (TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent = Self) then
   begin
     FreeAndNil(fSSLOptions);
   end;
@@ -1604,9 +1693,9 @@ begin
   finally
     fPassThrough := LPassThrough;
   end;
-  if Assigned(FOnBeforeConnect) then
+  if Assigned(fOnBeforeConnect) then
   begin
-    FOnBeforeConnect(Self);
+    fOnBeforeConnect(Self);
   end;
   // CreateSSLContext(sslmClient);
   // CreateSSLContext(SSLOptions.fMode);
@@ -1710,6 +1799,17 @@ begin
   Result := fSSLSocket.Recv(VBuffer);
 end;
 
+procedure TTaurusTLSIOHandlerSocket.SecurityLevelCB(const AsslSocket: PSSL;
+  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipher: String;
+  out VAccepted: Boolean);
+begin
+  VAccepted := False;
+  if Assigned(fOnSecurityLevel) then
+  begin
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipher, VAccepted);
+  end;
+end;
+
 function TTaurusTLSIOHandlerSocket.SendEnc(const ABuffer: TIdBytes;
   const AOffset, ALength: Integer): Integer;
 begin
@@ -1757,10 +1857,12 @@ begin
     fSSLContext.CipherList := SSLOptions.CipherList;
     fSSLContext.VerifyOn := Assigned(fOnVerifyPeer);
     fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
+    fSSLContext.SecurityLevelCBOn := False;
     // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
     fSSLContext.Method := SSLOptions.Method;
     fSSLContext.SSLVersions := SSLOptions.SSLVersions;
     fSSLContext.Mode := SSLOptions.Mode;
+    fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
     fSSLContext.InitContext(sslCtxClient);
   end;
 end;
@@ -1935,6 +2037,7 @@ begin
 end;
 
 {$IFNDEF GETURIHOST_SUPPORTED}
+
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
 var
   // under ARC, convert a weak reference to a strong reference before working with it
@@ -2150,7 +2253,7 @@ var
   M: TMarshaller;
 {$ENDIF}
   Func: SSL_verify_cb;
-  LRes : Boolean;
+  LRes: Boolean;
 begin
   // Destroy the context first
   DestroyContext;
@@ -2317,7 +2420,8 @@ begin
   if CertFile <> '' then
   begin { Do not Localize }
 
-    if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1 then
+    if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1
+    then
     begin
       LRes := IndySSL_CTX_use_certificate_file_PKCS12(fContext, CertFile) > 0;
     end
@@ -2347,7 +2451,8 @@ begin
 
   if KeyFile <> '' then
   begin { Do not Localize }
-    if PosInStrArray(ExtractFileExt(KeyFile), ['.p12', '.pfx'], False) <> -1 then
+    if PosInStrArray(ExtractFileExt(KeyFile), ['.p12', '.pfx'], False) <> -1
+    then
     begin
       LRes := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, KeyFile) > 0;
     end
@@ -2373,9 +2478,15 @@ begin
       ETaurusTLSLoadingDHParamsError.RaiseException(RSSSLLoadingDHParamsError);
     end;
   end;
+  SSL_CTX_set_security_level(fContext, FSecurityLevel);
   if StatusInfoOn then
   begin
     SSL_CTX_set_info_callback(fContext, InfoCallback);
+  end;
+  if SecurityLevelCBOn then
+  begin
+    SSL_CTX_set_security_callback(fContext, SecurityLevelCallback);
+    SSL_CTX_set0_security_ex_data(fContext, Self);
   end;
   // if_SSL_CTX_set_tmp_rsa_callback(hSSLContext, @RSACallback);
   if fCipherList <> '' then
@@ -2429,7 +2540,8 @@ begin
         Func := nil;
       end;
 
-      SSL_CTX_set_verify(fContext, TranslateInternalVerifyToSSL(fVerifyMode), Func);
+      SSL_CTX_set_verify(fContext,
+        TranslateInternalVerifyToSSL(fVerifyMode), Func);
       SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
     end;
   end;
@@ -2446,6 +2558,12 @@ begin
   end
 
   // TODO: provide an event so users can apply their own settings as needed...
+end;
+
+procedure TTaurusTLSContext.SetSecurityLevel(const AValue
+  : TTaurusTLSSecurityLevel);
+begin
+  FSecurityLevel := AValue;
 end;
 
 function TTaurusTLSContext.GetVerifyMode: TTaurusTLSVerifyModeSet;
@@ -2543,6 +2661,7 @@ begin
   Result.SSLVersions := SSLVersions;
   Result.Mode := Mode;
   Result.RootCertFile := RootCertFile;
+  Result.SecurityLevel := SecurityLevel;
   Result.CertFile := CertFile;
   Result.KeyFile := KeyFile;
   Result.VerifyMode := VerifyMode;
@@ -2796,7 +2915,7 @@ end;
 function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
 begin
   if fSession = nil then
-    raise  ETaurusTLSSessionCanNotBeNul.Create(RSOSSSessionCanNotBeNul)
+    raise ETaurusTLSSessionCanNotBeNul.Create(RSOSSSessionCanNotBeNul)
   else
     case SSL_SESSION_get_protocol_version(fSession) of
       SSL3_VERSION:
