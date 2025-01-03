@@ -2043,7 +2043,7 @@ var
   SSL_CTX_use_PrivateKey_ASN1: function (pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   SSL_CTX_use_certificate: function (ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl = nil;
   SSL_CTX_use_certificate_ASN1: function (ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT; cdecl = nil;
-  //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
+  SSL_CTX_use_cert_and_key : function(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   SSL_CTX_set_default_passwd_cb: procedure (ctx: PSSL_CTX; cb: pem_password_cb); cdecl = nil; {introduced 1.1.0}
   SSL_CTX_set_default_passwd_cb_userdata: procedure (ctx: PSSL_CTX; u: Pointer); cdecl = nil; {introduced 1.1.0}
@@ -2292,9 +2292,9 @@ var
 
   SSL_get_current_compression : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
   SSL_get_current_expansion : function (const s: PSSL) : PCOMP_METHOD; cdecl = nil;
-  SSL_COMP_get_name : function(const comp : PCOMP_METHOD) : PIdAnsiChar; cdecl = nil;
-  SSL_COMP_get0_name : function(const comp : PSSL_COMP) : PIdAnsiChar; cdecl = nil;
-  SSL_COMP_get_id : function(const comp : PSSL_COMP) : TIdC_INT; cdecl = nil;
+  SSL_COMP_get_name : function(const _comp : PCOMP_METHOD) : PIdAnsiChar; cdecl = nil;
+  SSL_COMP_get0_name : function(const _comp : PSSL_COMP) : PIdAnsiChar; cdecl = nil;
+  SSL_COMP_get_id : function(const _comp : PSSL_COMP) : TIdC_INT; cdecl = nil;
   SSL_COMP_get_compression_methods : function : PSTACK_OF_SSL_COMP; cdecl = nil;
   SSL_COMP_set0_compression_methods : function (meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP; cdecl = nil;
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -2877,10 +2877,10 @@ var
   function SSL_CTX_use_RSAPrivateKey(ctx: PSSL_CTX; rsa: PRSA): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibSSL;
-  function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT;
   function SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT cdecl; external CLibSSL;
-  //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
+  function SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT  cdecl; external CLibSSL;
 
   procedure SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer) cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3128,9 +3128,9 @@ var
 
   function SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
   function SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD cdecl; external CLibSSL;
-  function SSL_COMP_get_name(const comp : PCOMP_METHOD) : PIdAnsiChar cdecl; external CLibSSL;
-  function SSL_COMP_get0_name(const comp : PSSL_COMP) : PIdAnsiChar cdecl; external CLibSSL;
-  function SSL_COMP_get_id(const comp : PSSL_COMP) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_COMP_get_name(const _comp : PCOMP_METHOD) : PIdAnsiChar cdecl; external CLibSSL;
+  function SSL_COMP_get0_name(const _comp : PSSL_COMP) : PIdAnsiChar cdecl; external CLibSSL;
+  function SSL_COMP_get_id(const _comp : PSSL_COMP) : TIdC_INT cdecl; external CLibSSL;
   function SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP cdecl; external CLibSSL;
   function SSL_COMP_set0_compression_methods(meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl; external CLibSSL;
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -3541,7 +3541,7 @@ implementation
 function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := SSL_CTX_get_default_read_ahead(ctx);
+  Result := SSL_CTX_get_read_ahead(ctx);
 end;
 
 function SSL_CTX_set_default_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG): TIdC_LONG;
@@ -4669,7 +4669,7 @@ const
   SSL_CTX_use_PrivateKey_ASN1_procname = 'SSL_CTX_use_PrivateKey_ASN1';
   SSL_CTX_use_certificate_procname = 'SSL_CTX_use_certificate';
   SSL_CTX_use_certificate_ASN1_procname = 'SSL_CTX_use_certificate_ASN1';
-  //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
+  SSL_CTX_use_cert_and_key_procname = 'SSL_CTX_use_cert_and_key';
 
   SSL_CTX_set_default_passwd_cb_procname = 'SSL_CTX_set_default_passwd_cb'; {introduced 1.1.0}
   SSL_CTX_set_default_passwd_cb_userdata_procname = 'SSL_CTX_set_default_passwd_cb_userdata'; {introduced 1.1.0}
@@ -7678,7 +7678,10 @@ begin
 end;
 
 
-  //function TIdC_INT SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; EVP_PKEY *privatekey; STACK_OF(X509) *chain; TIdC_INT override);
+function ERR_SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_cert_and_key_procname);
+end;
 
 procedure  ERR_SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb); 
 begin
@@ -8775,17 +8778,17 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_current_expansion_procname);
 end;
 
-function ERR_SSL_COMP_get_name(const comp : PCOMP_METHOD) : PIdAnsiChar;
+function ERR_SSL_COMP_get_name(const _comp : PCOMP_METHOD) : PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_name_procname);
 end;
 
-function ERR_SSL_COMP_get0_name(const comp : PSSL_COMP) : PIdAnsiChar;
+function ERR_SSL_COMP_get0_name(const _comp : PSSL_COMP) : PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get0_name_procname);
 end;
 
-function ERR_SSL_COMP_get_id(const comp : PSSL_COMP) : TIdC_INT;
+function ERR_SSL_COMP_get_id(const _comp : PSSL_COMP) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_id_procname);
 end;
@@ -17512,6 +17515,37 @@ begin
     {$ifend}
   end;
 
+  SSL_CTX_use_cert_and_key := LoadLibFunction(ADllHandle, SSL_CTX_use_cert_and_key_procname);
+  FuncLoadError := not assigned(SSL_CTX_use_cert_and_key);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_use_cert_and_key_allownil)}
+    SSL_CTX_use_cert_and_key := @ERR_SSL_CTX_use_cert_and_key;
+    {$ifend}
+    {$if declared(SSL_CTX_use_cert_and_key_introduced)}
+    if LibVersion < SSL_CTX_use_cert_and_key_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_use_cert_and_key)}
+      SSL_CTX_use_cert_and_key := @FC_SSL_CTX_use_cert_and_key;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_use_cert_and_key_removed)}
+    if SSL_CTX_use_cert_and_key_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_use_cert_and_key)}
+      SSL_CTX_use_cert_and_key := @_SSL_CTX_use_cert_and_key;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_use_cert_and_key_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_use_cert_and_key');
+    {$ifend}
+  end;
+
 
   SSL_CTX_set_default_passwd_cb := LoadLibFunction(ADllHandle, SSL_CTX_set_default_passwd_cb_procname);
   FuncLoadError := not assigned(SSL_CTX_set_default_passwd_cb);
@@ -26142,6 +26176,7 @@ begin
   SSL_CTX_use_PrivateKey_ASN1 := nil;
   SSL_CTX_use_certificate := nil;
   SSL_CTX_use_certificate_ASN1 := nil;
+  SSL_CTX_use_cert_and_key := nil;
   SSL_CTX_set_default_passwd_cb := nil; {introduced 1.1.0}
   SSL_CTX_set_default_passwd_cb_userdata := nil; {introduced 1.1.0}
   SSL_CTX_get_default_passwd_cb := nil;  {introduced 1.1.0}
