@@ -900,6 +900,7 @@ type
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
   PSSL_METHOD = type pointer;
   PSSL_CIPHER = type pointer;
+  PPSSL_CIPHER = ^PSSL_CIPHER;
   PSSL_SESSION = type pointer;
   PPSSL_SESSION = ^PSSL_SESSION;
   Plhash_st_SSL_SESSION = type pointer;
@@ -931,6 +932,10 @@ type
   SSL_verify_cb = function (const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
 
   tls_session_ticket_ext_cb_fn = function (s: PSSL; const data: PByte; len: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
+
+  tls_session_secret_cb_fn = function(s : PSSL; secret : Pointer; secret_len : PIdC_INT;
+                                      peer_ciphers : PSTACK_OF_SSL_CIPHER;
+                                      const  cipher : PPSSL_CIPHER; arg : Pointer) : TIdC_INT; cdecl;
 
   (*
    * This callback type is used inside SSL_CTX, SSL, and in_ the functions that
@@ -2316,9 +2321,9 @@ var
   SSL_set_session_ticket_ext_cb: function (s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT; cdecl = nil;
 
   ///* Pre-shared secret session resumption functions */
-  //__owur TIdC_INT SSL_set_session_secret_cb(s: PSSL,
-  //                                     tls_session_secret_cb_fn session_secret_cb,
-  //                                     void *arg);
+  SSL_set_session_secret_cb: function(s: PSSL;
+                                      session_secret_cb : tls_session_secret_cb_fn;
+                                      arg : Pointer) : TIdC_INT; cdecl = nil;
 
   SSL_CTX_set_not_resumable_session_callback: procedure (ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb); cdecl = nil; {introduced 1.1.0}
   SSL_set_not_resumable_session_callback: procedure (ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb); cdecl = nil; {introduced 1.1.0}
@@ -3153,9 +3158,9 @@ var
   function SSL_set_session_ticket_ext_cb(s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
 
   ///* Pre-shared secret session resumption functions */
-  //__owur TIdC_INT SSL_set_session_secret_cb(s: PSSL,
-  //                                     tls_session_secret_cb_fn session_secret_cb,
-  //                                     void *arg);
+  function  SSL_set_session_secret_cb(s: PSSL;
+                                       session_secret_cb : tls_session_secret_cb_fn;
+                                       arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
   procedure SSL_CTX_set_not_resumable_session_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_not_resumable_session_callback(ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb) cdecl; external CLibSSL; {introduced 1.1.0}
@@ -4283,9 +4288,6 @@ const
   SSL_get0_raw_cipherlist_procname = 'SSL_get0_raw_cipherlist'; {removed 1.0.0}
   SSL_get0_ec_point_formats_procname = 'SSL_get0_ec_point_formats'; {removed 1.0.0}
 
-  //typedef TIdC_INT (*tls_session_secret_cb_fn)(s: PSSL, void *secret, TIdC_INT *secret_len,
-  //                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
-  //                                        const SSL_CIPHER **cipher, void *arg);
 
   SSL_CTX_get_options_procname = 'SSL_CTX_get_options'; {introduced 1.1.0}
   SSL_get_options_procname = 'SSL_get_options'; {introduced 1.1.0}
@@ -4953,9 +4955,7 @@ const
   SSL_set_session_ticket_ext_cb_procname = 'SSL_set_session_ticket_ext_cb';
 
   ///* Pre-shared secret session resumption functions */
-  //__owur TIdC_INT SSL_set_session_secret_cb(s: PSSL,
-  //                                     tls_session_secret_cb_fn session_secret_cb,
-  //                                     void *arg);
+  SSL_set_session_secret_cb_procname = 'SSL_set_session_secret_cb';
 
   SSL_CTX_set_not_resumable_session_callback_procname = 'SSL_CTX_set_not_resumable_session_callback'; {introduced 1.1.0}
   SSL_set_not_resumable_session_callback_procname = 'SSL_set_not_resumable_session_callback'; {introduced 1.1.0}
@@ -8847,9 +8847,12 @@ end;
 
 
   ///* Pre-shared secret session resumption functions */
-  //__owur TIdC_INT SSL_set_session_secret_cb(s: PSSL,
-  //                                     tls_session_secret_cb_fn session_secret_cb,
-  //                                     void *arg);
+function ERR_SSL_set_session_secret_cb(s: PSSL;
+                                       session_secret_cb : tls_session_secret_cb_fn;
+                                       arg : Pointer) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_secret_cb_procname);
+end;
 
 procedure  ERR_SSL_CTX_set_not_resumable_session_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb); 
 begin
@@ -23509,6 +23512,36 @@ begin
     {$ifend}
   end;
 
+  SSL_set_session_secret_cb := LoadLibFunction(ADllHandle, SSL_set_session_secret_cb_procname);
+  FuncLoadError := not assigned(SSL_set_session_secret_cb);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_session_secret_cb_allownil)}
+    SSL_set_session_secret_cb := @ERR_SSL_set_session_secret_cb;
+    {$ifend}
+    {$if declared(SSL_set_session_secret_cb_introduced)}
+    if LibVersion < SSL_set_session_secret_cb_introduced then
+    begin
+      {$if declared(FC_SSL_set_session_secret_cb)}
+      SSL_set_session_secret_cb := @FC_SSL_set_session_secret_cb;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_session_secret_cb_removed)}
+    if SSL_set_session_secret_cb_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_session_secret_cb)}
+      SSL_set_session_secret_cb := @_SSL_set_session_secret_cb;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_session_secret_cb_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_session_secret_cb');
+    {$ifend}
+  end;
 
   SSL_CTX_set_not_resumable_session_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_not_resumable_session_callback_procname);
   FuncLoadError := not assigned(SSL_CTX_set_not_resumable_session_callback);
@@ -26546,6 +26579,7 @@ begin
   SSL_CIPHER_get_digest_nid := nil; {introduced 1.1.0}
   SSL_set_session_ticket_ext := nil;
   SSL_set_session_ticket_ext_cb := nil;
+  SSL_set_session_secret_cb := nil;
   SSL_CTX_set_not_resumable_session_callback := nil; {introduced 1.1.0}
   SSL_set_not_resumable_session_callback := nil; {introduced 1.1.0}
   SSL_CTX_set_record_padding_callback := nil; {introduced 1.1.0}
