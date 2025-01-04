@@ -8668,8 +8668,6 @@ end;
 
  {introduced 1.1.0}
 
-  //#define SSL_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL, l, p, newf, dupf, freef)
 function  ERR_SSL_set_ex_data(ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ex_data_procname);
@@ -8682,8 +8680,6 @@ begin
 end;
 
 
-  //#define SSL_SESSION_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_SSL_SESSION, l, p, newf, dupf, freef)
 function  ERR_SSL_SESSION_set_ex_data(ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_ex_data_procname);
