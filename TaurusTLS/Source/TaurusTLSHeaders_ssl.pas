@@ -1735,34 +1735,35 @@ var
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  //__owur TIdC_INT SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type);
-  //
-  //__owur TIdC_INT SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_custom_ext(ctx: PSSL_CTX, TIdC_UINT ext_type,
-  //                                  TIdC_UINT context,
-  //                                  SSL_custom_ext_add_cb_ex add_cb,
-  //                                  SSL_custom_ext_free_cb_ex free_cb,
-  //                                  void *add_arg,
-  //                                  SSL_custom_ext_parse_cb_ex parse_cb,
-  //                                  void *parse_arg);
+   SSL_CTX_has_client_custom_ext : function(const ctx: PSSL_CTX;
+                                            ext_type : TIdC_UINT) : TIdC_INT; cdecl = nil;
 
-  //__owur TIdC_INT SSL_extension_supported(TIdC_UINT ext_type);
+  SSL_CTX_add_client_custom_ext : function(ctx: PSSL_CTX;
+                                           ext_type : TIdC_UINT;
+                                           add_cb : custom_ext_add_cb;
+                                           free_cb : custom_ext_free_cb;
+                                           add_arg : Pointer;
+                                           parse_cb : custom_ext_parse_cb;
+                                           parse_arg : Pointer) : TIdC_INT; cdecl = nil;
+
+  SSL_CTX_add_server_custom_ext : function(ctx: PSSL_CTX;
+                                         ext_type : TIdC_UINT;
+                                         add_cb : custom_ext_add_cb;
+                                         free_cb : custom_ext_free_cb;
+                                         add_arg : Pointer;
+                                         parse_cb : custom_ext_parse_cb;
+                                         parse_arg : Pointer) : TIdC_INT; cdecl = nil;
+
+  SSL_CTX_add_custom_ext : function(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
+                                   context : TIdC_UINT;
+                                   add_cb : SSL_custom_ext_add_cb_ex;
+                                   free_cb : SSL_custom_ext_free_cb_ex;
+                                   add_arg : Pointer;
+                                   parse_cb : SSL_custom_ext_parse_cb_ex;
+                                   parse_arg : Pointer) : TIdC_INT; cdecl = nil;
+
+  SSL_extension_supported : function( ext_type : TIdC_UINT) : TIdC_INT; cdecl = nil;
+
 
 
   ///* These will only be used when doing non-blocking IO */
@@ -2017,7 +2018,7 @@ var
   SSL_SESSION_print_keylog: function (bp: PBIO; const x: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_SESSION_up_ref: function (ses: PSSL_SESSION): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_SESSION_free: procedure (ses: PSSL_SESSION); cdecl = nil;
-  //__owur TIdC_INT i2d_SSL_SESSION(SSL_SESSION *in_, Byte **pp);
+  i2d_SSL_SESSION : function(in_ : PSSL_SESSION;  pp : PPByte) : TIdC_INT; cdecl = nil;
   SSL_set_session: function (to_: PSSL; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
   SSL_CTX_add_session: function (ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
   SSL_CTX_remove_session: function (ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; cdecl = nil;
@@ -2577,34 +2578,34 @@ var
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  //__owur TIdC_INT SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type);
-  //
-  //__owur TIdC_INT SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_custom_ext(ctx: PSSL_CTX, TIdC_UINT ext_type,
-  //                                  TIdC_UINT context,
-  //                                  SSL_custom_ext_add_cb_ex add_cb,
-  //                                  SSL_custom_ext_free_cb_ex free_cb,
-  //                                  void *add_arg,
-  //                                  SSL_custom_ext_parse_cb_ex parse_cb,
-  //                                  void *parse_arg);
+  function SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
+              ext_type : TIdC_UINT) : TIdC_INT cdecl; external CLibSSL;
 
-  //__owur TIdC_INT SSL_extension_supported(TIdC_UINT ext_type);
+  function SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX;
+                                           ext_type : TIdC_UINT;
+                                           add_cb : custom_ext_add_cb;
+                                           free_cb : custom_ext_free_cb;
+                                           add_arg : Pointer;
+                                           parse_cb : custom_ext_parse_cb;
+                                           parse_arg : Pointere) : TIdC_INT cdecl; external CLibSSL;
+
+  function SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX;
+                                         ext_type : TIdC_UINT;
+                                         add_cb : custom_ext_add_cb;
+                                         free_cb : custom_ext_free_cb;
+                                         add_arg : Pointer;
+                                         parse_cb : custom_ext_parse_cb;
+                                         parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
+
+  function  SSL_CTX_add_custom_ext(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
+                                   context : TIdC_UINT;
+                                   add_cb : SSL_custom_ext_add_cb_ex;
+                                   free_cb : SSL_custom_ext_free_cb_ex;
+                                   add_arg : Pointer;
+                                   parse_cb : SSL_custom_ext_parse_cb_ex;
+                                   parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
+
+  function SSL_extension_supported( ext_type : TIdC_UINT) : TIdC_INT cdecl; external CLibSSL;
 
 
   ///* These will only be used when doing non-blocking IO */
@@ -2856,7 +2857,7 @@ var
   function SSL_SESSION_print_keylog(bp: PBIO; const x: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_SESSION_up_ref(ses: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_SESSION_free(ses: PSSL_SESSION) cdecl; external CLibSSL;
-  //__owur TIdC_INT i2d_SSL_SESSION(SSL_SESSION *in_, Byte **pp);
+  function i2d_SSL_SESSION(in_ : PSSL_SESSION; pp : PPByte) : TIdC_INT cdecl; external CLibSSL;
   function SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_add_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_remove_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT cdecl; external CLibSSL;
@@ -4362,34 +4363,15 @@ const
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  //__owur TIdC_INT SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type);
-  //
-  //__owur TIdC_INT SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_custom_ext(ctx: PSSL_CTX, TIdC_UINT ext_type,
-  //                                  TIdC_UINT context,
-  //                                  SSL_custom_ext_add_cb_ex add_cb,
-  //                                  SSL_custom_ext_free_cb_ex free_cb,
-  //                                  void *add_arg,
-  //                                  SSL_custom_ext_parse_cb_ex parse_cb,
-  //                                  void *parse_arg);
+  SSL_CTX_has_client_custom_ext_procname = 'SSL_CTX_has_client_custom_ext';
 
-  //__owur TIdC_INT SSL_extension_supported(TIdC_UINT ext_type);
+  SSL_CTX_add_client_custom_ext_procname = 'SSL_CTX_add_client_custom_ext';
+
+  SSL_CTX_add_server_custom_ext_procname = 'SSL_CTX_add_server_custom_ext';
+
+  SSL_CTX_add_custom_ext_procname = 'SSL_CTX_add_custom_ext';
+
+  SSL_extension_supported_procname = 'SSL_extension_supported';
 
 
   ///* These will only be used when doing non-blocking IO */
@@ -4643,7 +4625,7 @@ const
   SSL_SESSION_print_keylog_procname = 'SSL_SESSION_print_keylog'; {introduced 1.1.0}
   SSL_SESSION_up_ref_procname = 'SSL_SESSION_up_ref'; {introduced 1.1.0}
   SSL_SESSION_free_procname = 'SSL_SESSION_free';
-  //__owur TIdC_INT i2d_SSL_SESSION(SSL_SESSION *in_, Byte **pp);
+  i2d_SSL_SESSION_procname = 'i2d_SSL_SESSION';
   SSL_set_session_procname = 'SSL_set_session';
   SSL_CTX_add_session_procname = 'SSL_CTX_add_session';
   SSL_CTX_remove_session_procname = 'SSL_CTX_remove_session';
@@ -6607,34 +6589,49 @@ end;
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  //__owur TIdC_INT SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type);
-  //
-  //__owur TIdC_INT SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX,
-  //                                         TIdC_UINT ext_type,
-  //                                         custom_ext_add_cb add_cb,
-  //                                         custom_ext_free_cb free_cb,
-  //                                         void *add_arg,
-  //                                         custom_ext_parse_cb parse_cb,
-  //                                         void *parse_arg);
-  //
-  //__owur TIdC_INT SSL_CTX_add_custom_ext(ctx: PSSL_CTX, TIdC_UINT ext_type,
-  //                                  TIdC_UINT context,
-  //                                  SSL_custom_ext_add_cb_ex add_cb,
-  //                                  SSL_custom_ext_free_cb_ex free_cb,
-  //                                  void *add_arg,
-  //                                  SSL_custom_ext_parse_cb_ex parse_cb,
-  //                                  void *parse_arg);
+function ERR_SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX;
+              ext_type : TIdC_UINT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_has_client_custom_ext_procname);
+end;
 
-  //__owur TIdC_INT SSL_extension_supported(TIdC_UINT ext_type);
+function ERR_SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX;
+                                           ext_type : TIdC_UINT;
+                                           add_cb : custom_ext_add_cb;
+                                           free_cb : custom_ext_free_cb;
+                                           add_arg : Pointer;
+                                           parse_cb : custom_ext_parse_cb;
+                                           parse_arg : Pointer) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_add_client_custom_ext_procname);
+end;
+
+function ERR_SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX;
+                                         ext_type : TIdC_UINT;
+                                         add_cb : custom_ext_add_cb;
+                                         free_cb : custom_ext_free_cb;
+                                         add_arg : Pointer;
+                                         parse_cb : custom_ext_parse_cb;
+                                         parse_arg : Pointer) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_server_custom_ext_procname);
+end;
+
+function ERR_SSL_CTX_add_custom_ext(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
+                                   context : TIdC_UINT;
+                                   add_cb : SSL_custom_ext_add_cb_ex;
+                                   free_cb : SSL_custom_ext_free_cb_ex;
+                                   add_arg : Pointer;
+                                   parse_cb : SSL_custom_ext_parse_cb_ex;
+                                   parse_arg : Pointer) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_custom_ext_procname);
+end;
+
+function ERR_SSL_extension_supported( ext_type : TIdC_UINT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_extension_supported_procname);
+end;
 
 
   ///* These will only be used when doing non-blocking IO */
@@ -7546,8 +7543,12 @@ begin
 end;
 
 
-  //__owur TIdC_INT i2d_SSL_SESSION(SSL_SESSION *in_, Byte **pp);
-function  ERR_SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT; 
+function ERR_i2d_SSL_SESSION(in_ : PSSL_SESSION; pp : PPByte) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_SSL_SESSION_procname);
+end;
+
+function  ERR_SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_procname);
 end;
@@ -12587,6 +12588,161 @@ begin
     {$ifend}
   end;
 
+  SSL_CTX_has_client_custom_ext := LoadLibFunction(ADllHandle, SSL_CTX_has_client_custom_ext_procname);
+  FuncLoadError := not assigned(SSL_CTX_has_client_custom_ext);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_has_client_custom_ext_allownil)}
+    SSL_CTX_has_client_custom_ext := @ERR_SSL_CTX_has_client_custom_ext;
+    {$ifend}
+    {$if declared(SSL_CTX_has_client_custom_ext_introduced)}
+    if LibVersion < SSL_CTX_has_client_custom_ext_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_has_client_custom_ext)}
+      SSL_CTX_has_client_custom_ext := @FC_SSL_CTX_has_client_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_has_client_custom_ext_removed)}
+    if SSL_CTX_has_client_custom_ext_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_has_client_custom_ext)}
+      SSL_CTX_has_client_custom_ext := @_SSL_CTX_has_client_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_has_client_custom_ext_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_has_client_custom_ext');
+    {$ifend}
+  end;
+
+  SSL_CTX_add_client_custom_ext := LoadLibFunction(ADllHandle, SSL_CTX_add_client_custom_ext_procname);
+  FuncLoadError := not assigned(SSL_CTX_add_client_custom_ext);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_add_client_custom_ext_allownil)}
+    SSL_CTX_add_client_custom_ext := @ERR_SSL_CTX_add_client_custom_ext;
+    {$ifend}
+    {$if declared(SSL_CTX_add_client_custom_ext_introduced)}
+    if LibVersion < SSL_CTX_add_client_custom_ext_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_add_client_custom_ext)}
+      SSL_CTX_add_client_custom_ext := @FC_SSL_CTX_add_client_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_add_client_custom_ext_removed)}
+    if SSL_CTX_add_client_custom_ext_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_add_client_custom_ext)}
+      SSL_CTX_add_client_custom_ext := @_SSL_CTX_add_client_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_add_client_custom_ext_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_add_client_custom_ext');
+    {$ifend}
+  end;
+
+  SSL_CTX_add_server_custom_ext := LoadLibFunction(ADllHandle, SSL_CTX_add_server_custom_ext_procname);
+  FuncLoadError := not assigned(SSL_CTX_add_server_custom_ext);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_add_server_custom_ext_allownil)}
+    SSL_CTX_add_server_custom_ext := @ERR_SSL_CTX_add_server_custom_ext;
+    {$ifend}
+    {$if declared(SSL_CTX_add_server_custom_ext_introduced)}
+    if LibVersion < SSL_CTX_add_server_custom_ext_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_add_server_custom_ext)}
+      SSL_CTX_add_server_custom_ext := @FC_SSL_CTX_add_server_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_add_server_custom_ext_removed)}
+    if SSL_CTX_add_server_custom_ext_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_add_server_custom_ext)}
+      SSL_CTX_add_server_custom_ext := @_SSL_CTX_add_server_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_add_server_custom_ext_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_add_server_custom_ext');
+    {$ifend}
+  end;
+
+  SSL_CTX_add_custom_ext := LoadLibFunction(ADllHandle, SSL_CTX_add_custom_ext_procname);
+  FuncLoadError := not assigned(SSL_CTX_add_custom_ext);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_add_custom_ext_allownil)}
+    SSL_CTX_add_custom_ext := @ERR_SSL_CTX_add_custom_ext;
+    {$ifend}
+    {$if declared(SSL_CTX_add_custom_ext_introduced)}
+    if LibVersion < SSL_CTX_add_custom_ext_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_add_custom_ext)}
+      SSL_CTX_add_custom_ext := @FC_SSL_CTX_add_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_add_custom_ext_removed)}
+    if SSL_CTX_add_custom_ext_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_add_custom_ext)}
+      SSL_CTX_add_custom_ext := @_SSL_CTX_add_custom_ext;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_add_custom_ext_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_add_custom_ext');
+    {$ifend}
+  end;
+
+  SSL_extension_supported := LoadLibFunction(ADllHandle, SSL_extension_supported_procname);
+  FuncLoadError := not assigned(SSL_extension_supported);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_extension_supported_allownil)}
+    SSL_extension_supported := @ERR_SSL_extension_supported;
+    {$ifend}
+    {$if declared(SSL_extension_supported_introduced)}
+    if LibVersion < SSL_extension_supported_introduced then
+    begin
+      {$if declared(FC_SSL_extension_supported)}
+      SSL_extension_supported := @FC_SSL_extension_supported;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_extension_supported_removed)}
+    if SSL_extension_supported_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_extension_supported)}
+      SSL_extension_supported := @_SSL_extension_supported;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_extension_supported_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_extension_supported');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_CTX_set_keylog_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_keylog_callback_procname);
   FuncLoadError := not assigned(SSL_CTX_set_keylog_callback);
@@ -16808,6 +16964,36 @@ begin
     {$ifend}
   end;
 
+  i2d_SSL_SESSION := LoadLibFunction(ADllHandle, i2d_SSL_SESSION_procname);
+  FuncLoadError := not assigned(i2d_SSL_SESSION);
+  if FuncLoadError then
+  begin
+    {$if not defined(i2d_SSL_SESSION_allownil)}
+    i2d_SSL_SESSION := @ERR_i2d_SSL_SESSION;
+    {$ifend}
+    {$if declared(i2d_SSL_SESSION_introduced)}
+    if LibVersion < i2d_SSL_SESSION_introduced then
+    begin
+      {$if declared(FC_i2d_SSL_SESSION)}
+      i2d_SSL_SESSION := @FC_i2d_SSL_SESSION;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(i2d_SSL_SESSION_removed)}
+    if i2d_SSL_SESSION_removed <= LibVersion then
+    begin
+      {$if declared(_i2d_SSL_SESSION)}
+      i2d_SSL_SESSION := @_i2d_SSL_SESSION;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(i2d_SSL_SESSION_allownil)}
+    if FuncLoadError then
+      AFailed.Add('i2d_SSL_SESSION');
+    {$ifend}
+  end;
 
   SSL_set_session := LoadLibFunction(ADllHandle, SSL_set_session_procname);
   FuncLoadError := not assigned(SSL_set_session);
@@ -26018,6 +26204,11 @@ begin
   SSL_CTX_set_psk_find_session_callback := nil; {introduced 1.1.0}
   SSL_set_psk_use_session_callback := nil; {introduced 1.1.0}
   SSL_CTX_set_psk_use_session_callback := nil; {introduced 1.1.0}
+  SSL_CTX_has_client_custom_ext := nil;
+  SSL_CTX_add_client_custom_ext := nil;
+  SSL_CTX_add_server_custom_ext := nil;
+  SSL_CTX_add_custom_ext := nil;
+  SSL_extension_supported := nil;
   SSL_CTX_set_keylog_callback := nil; {introduced 1.1.0}
   SSL_CTX_get_keylog_callback := nil; {introduced 1.1.0}
   SSL_CTX_set_max_early_data := nil; {introduced 1.1.0}
@@ -26150,6 +26341,7 @@ begin
   SSL_SESSION_print_keylog := nil; {introduced 1.1.0}
   SSL_SESSION_up_ref := nil; {introduced 1.1.0}
   SSL_SESSION_free := nil;
+  i2d_SSL_SESSION := nil;
   SSL_set_session := nil;
   SSL_CTX_add_session := nil;
   SSL_CTX_remove_session := nil;
