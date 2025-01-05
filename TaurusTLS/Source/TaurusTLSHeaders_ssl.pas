@@ -3493,6 +3493,9 @@ var
   procedure sk_SRTP_PROTECTION_PROFILE_pop_free (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
+procedure SSL_disable_ct(s : PSSL);
+procedure SSL_CTX_disable_ct(ctx : PSSL_CTX);
+
 function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
 function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
 function SSL_CTX_set_default_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG): TIdC_LONG;
@@ -3547,6 +3550,19 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
+
+procedure SSL_disable_ct(s : PSSL);
+begin
+  //        ((void) SSL_set_validation_callback((s), NULL, NULL))
+  SSL_set_ct_validation_callback(s,nil,nil);
+end;
+
+procedure SSL_CTX_disable_ct(ctx : PSSL_CTX);
+begin
+  //        ((void) SSL_CTX_set_validation_callback((ctx), NULL, NULL))
+  SSL_CTX_set_ct_validation_callback(ctx,nil,nil);
+end;
+
 
 function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3634,7 +3650,6 @@ begin
   Result := SSL_ctrl(ssl, SSL_CTRL_SET_MAX_PIPELINES, m, nil);
 end;
 
-//===
 function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
@@ -9093,6 +9108,7 @@ function ERR_SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ct_validation_callback_procname);
 end;
+
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -24519,34 +24535,34 @@ begin
     {$ifend}
   end;
 
-  SSL_set_ct_validation_callback := LoadLibFunction(ADllHandle, SSL_trace_procname);
-  FuncLoadError := not assigned(SSL_trace);
+  SSL_set_ct_validation_callback := LoadLibFunction(ADllHandle, SSL_set_ct_validation_callback_procname);
+  FuncLoadError := not assigned(SSL_set_ct_validation_callback);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_trace_allownil)}
-    SSL_trace := @ERR_SSL_trace;
+    {$if not defined(SSL_set_ct_validation_callback_allownil)}
+    SSL_set_ct_validation_callback := @ERR_SSL_set_ct_validation_callback;
     {$ifend}
-    {$if declared(SSL_trace_introduced)}
-    if LibVersion < SSL_trace_introduced then
+    {$if declared(SSL_set_ct_validation_callback_introduced)}
+    if LibVersion < SSL_set_ct_validation_callback_introduced then
     begin
-      {$if declared(FC_SSL_trace)}
-      SSL_trace := @FC_SSL_trace;
+      {$if declared(FC_SSL_set_ct_validation_callback)}
+      SSL_set_ct_validation_callback := @FC_SSL_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_trace_removed)}
-    if SSL_trace_removed <= LibVersion then
+    {$if declared(SSL_set_ct_validation_callback_removed)}
+    if SSL_set_ct_validation_callback_removed <= LibVersion then
     begin
-      {$if declared(_SSL_trace)}
-      SSL_trace := @_SSL_trace;
+      {$if declared(_SSL_set_ct_validation_callback)}
+      SSL_set_ct_validation_callback := @_SSL_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_trace_allownil)}
+    {$if not defined(SSL_set_ct_validation_callback_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_trace');
+      AFailed.Add('SSL_set_ct_validation_callback');
     {$ifend}
   end;
   SSL_CTX_set_ct_validation_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_ct_validation_callback_procname);
