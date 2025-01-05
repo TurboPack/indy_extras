@@ -1063,6 +1063,9 @@ type
     SSL_CT_VALIDATION_PERMISSIVE = 0,
     SSL_CT_VALIDATION_STRICT
   );
+  ssl_ct_validation_cb = function(const ctx : PCT_POLICY_EVAL_CTX;
+                                  const scts : PSTACK_OF_SCT; arg : Pointer) : TIdC_INT; cdecl;
+
   SSL_security_callback = function (const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
 
   (* Status codes passed to the decrypt session ticket callback. Some of these
@@ -1816,7 +1819,7 @@ var
   //# define SSL_CTX_get_app_data(ctx)       (SSL_CTX_get_ex_data(ctx,0))
   //# define SSL_CTX_set_app_data(ctx,arg)   (SSL_CTX_set_ex_data(ctx,0, \
   //                                                            (PIdAnsiChar *)(arg)))
-  SSL_get_app_data: function (const ssl: PSSL): Pointer ; cdecl = nil; {removed 1.0.0} 
+  SSL_get_app_data: function (const ssl: PSSL): Pointer ; cdecl = nil; {removed 1.0.0}
   SSL_set_app_data: function (ssl: PSSL; data: Pointer): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
   ///* Is the SSL_connection established? */
@@ -2394,8 +2397,8 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  //function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  //function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  SSL_set_ct_validation_callback : function(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  SSL_CTX_set_ct_validation_callback : function(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -3231,8 +3234,8 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  //function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  //function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -5026,8 +5029,8 @@ const
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  //function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  //function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  SSL_set_ct_validation_callback_procname = 'SSL_set_ct_validation_callback';
+  SSL_CTX_set_ct_validation_callback_procname = 'SSL_CTX_set_ct_validation_callback';
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -9081,8 +9084,15 @@ end;
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  //function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  //function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+function ERR_SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ct_validation_callback_procname);
+end;
+
+function ERR_SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ct_validation_callback_procname);
+end;
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -24509,7 +24519,7 @@ begin
     {$ifend}
   end;
 
-  SSL_trace := LoadLibFunction(ADllHandle, SSL_trace_procname);
+  SSL_set_ct_validation_callback := LoadLibFunction(ADllHandle, SSL_trace_procname);
   FuncLoadError := not assigned(SSL_trace);
   if FuncLoadError then
   begin
@@ -24539,6 +24549,68 @@ begin
       AFailed.Add('SSL_trace');
     {$ifend}
   end;
+  SSL_CTX_set_ct_validation_callback := LoadLibFunction(ADllHandle, SSL_CTX_set_ct_validation_callback_procname);
+  FuncLoadError := not assigned(SSL_CTX_set_ct_validation_callback);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set_ct_validation_callback_allownil)}
+    SSL_CTX_set_ct_validation_callback := @ERR_SSL_CTX_set_ct_validation_callback;
+    {$ifend}
+    {$if declared(SSL_CTX_set_ct_validation_callback_introduced)}
+    if LibVersion < SSL_CTX_set_ct_validation_callback_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set_ct_validation_callback)}
+      SSL_CTX_set_ct_validation_callback := @FC_SSL_CTX_set_ct_validation_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set_ct_validation_callback_removed)}
+    if SSL_CTX_set_ct_validation_callback_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set_ct_validation_callback)}
+      SSL_CTX_set_ct_validation_callback := @_SSL_CTX_set_ct_validation_callback;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set_ct_validation_callback_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set_ct_validation_callback');
+    {$ifend}
+  end;
+
+  DTLSv1_listen := LoadLibFunction(ADllHandle, DTLSv1_listen_procname);
+  FuncLoadError := not assigned(DTLSv1_listen);
+  if FuncLoadError then
+  begin
+    {$if not defined(DTLSv1_listen_allownil)}
+    DTLSv1_listen := @ERR_DTLSv1_listen;
+    {$ifend}
+    {$if declared(DTLSv1_listen_introduced)}
+    if LibVersion < DTLSv1_listen_introduced then
+    begin
+      {$if declared(FC_DTLSv1_listen)}
+      DTLSv1_listen := @FC_DTLSv1_listen;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(DTLSv1_listen_removed)}
+    if DTLSv1_listen_removed <= LibVersion then
+    begin
+      {$if declared(_DTLSv1_listen)}
+      DTLSv1_listen := @_DTLSv1_listen;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(DTLSv1_listen_allownil)}
+    if FuncLoadError then
+      AFailed.Add('DTLSv1_listen');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_trace := LoadLibFunction(ADllHandle, SSL_trace_procname);
   FuncLoadError := not assigned(SSL_trace);
@@ -26680,6 +26752,8 @@ begin
   SSL_add_ssl_module := nil; {introduced 1.1.0}
   SSL_config := nil; {introduced 1.1.0}
   SSL_CTX_config := nil; {introduced 1.1.0}
+  SSL_set_ct_validation_callback := nil;
+  SSL_CTX_set_ct_validation_callback := nil;
   DTLSv1_listen := nil; {introduced 1.1.0}
   SSL_enable_ct := nil; {introduced 1.1.0}
   SSL_CTX_enable_ct := nil; {introduced 1.1.0}
