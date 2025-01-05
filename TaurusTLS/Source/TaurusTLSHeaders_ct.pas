@@ -32,6 +32,53 @@ const
 //* All hashes are SHA256 in v1 of Certificate Transparency */
    CT_V1_HASHLEN = SHA256_DIGEST_LENGTH;
 
+  CT_F_CTLOG_NEW                                  = 117;
+  CT_F_CTLOG_NEW_FROM_BASE64                      = 118;
+  CT_F_CTLOG_NEW_FROM_CONF                        = 119;
+  CT_F_CTLOG_STORE_LOAD_CTX_NEW                   = 122;
+  CT_F_CTLOG_STORE_LOAD_FILE                      = 123;
+  CT_F_CTLOG_STORE_LOAD_LOG                       = 130;
+  CT_F_CTLOG_STORE_NEW                            = 131;
+  CT_F_CT_BASE64_DECODE                           = 124;
+  CT_F_CT_POLICY_EVAL_CTX_NEW                     = 133;
+  CT_F_CT_V1_LOG_ID_FROM_PKEY                     = 125;
+  CT_F_I2O_SCT                                    = 107;
+  CT_F_I2O_SCT_LIST                               = 108;
+  CT_F_I2O_SCT_SIGNATURE                          = 109;
+  CT_F_O2I_SCT                                    = 110;
+  CT_F_O2I_SCT_LIST                               = 111;
+  CT_F_O2I_SCT_SIGNATURE                          = 112;
+  CT_F_SCT_CTX_NEW                                = 126;
+  CT_F_SCT_CTX_VERIFY                             = 128;
+  CT_F_SCT_NEW                                    = 100;
+  CT_F_SCT_NEW_FROM_BASE64                        = 127;
+  CT_F_SCT_SET0_LOG_ID                            = 101;
+  CT_F_SCT_SET1_EXTENSIONS                        = 114;
+  CT_F_SCT_SET1_LOG_ID                            = 115;
+  CT_F_SCT_SET1_SIGNATURE                         = 116;
+  CT_F_SCT_SET_LOG_ENTRY_TYPE                     = 102;
+  CT_F_SCT_SET_SIGNATURE_NID                      = 103;
+  CT_F_SCT_SET_VERSION                            = 104;
+
+//* Reason codes. */
+  CT_R_BASE64_DECODE_ERROR                        = 108;
+  CT_R_INVALID_LOG_ID_LENGTH                      = 100;
+  CT_R_LOG_CONF_INVALID                           = 109;
+  CT_R_LOG_CONF_INVALID_KEY                       = 110;
+  CT_R_LOG_CONF_MISSING_DESCRIPTION               = 111;
+  CT_R_LOG_CONF_MISSING_KEY                       = 112;
+  CT_R_LOG_KEY_INVALID                            = 113;
+  CT_R_SCT_FUTURE_TIMESTAMP                       = 116;
+  CT_R_SCT_INVALID                                = 104;
+  CT_R_SCT_INVALID_SIGNATURE                      = 107;
+  CT_R_SCT_LIST_INVALID                           = 105;
+  CT_R_SCT_LOG_ID_MISMATCH                        = 114;
+  CT_R_SCT_NOT_SET                                = 106;
+  CT_R_SCT_UNSUPPORTED_VERSION                    = 115;
+  CT_R_UNRECOGNIZED_SIGNATURE_NID                 = 101;
+  CT_R_UNSUPPORTED_ENTRY_TYPE                     = 102;
+  CT_R_UNSUPPORTED_VERSION                        = 103;
+
 type
   PSTACK_OF_SCT = type pointer;
   PSTACK_OF_CTLOG = type pointer;
@@ -59,6 +106,43 @@ var
                                                         log_store : PCTLOG_STORE); cdecl = nil;
   CT_POLICY_EVAL_CTX_get_time : function(const ctx : PCT_POLICY_EVAL_CTX) : TIdC_UINT64; cdecl = nil;
   CT_POLICY_EVAL_CTX_set_time : procedure(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64); cdecl = nil;
+
+  SCT_new : function : PSCT; cdecl = nil;
+  SCT_new_from_base64 : function(version : TIdAnsiChar;
+                                 logid_base64 : PIdAnsiChar;
+                                 entry_type : ct_log_entry_type_t;
+                                 timestamp : TIdC_UINT64;
+                                 extensions_base64,
+                                 signature_base64 : PIdAnsiChar) : PSCT; cdecl = nil;
+  SCT_free : procedure(sct : PSCT); cdecl = nil;
+  SCT_LIST_free : procedure(a : PSTACK_OF_SCT); cdecl = nil;
+  SCT_get_version : function(const sct : PSCT) : sct_version_t; cdecl = nil;
+  SCT_set_version : function(sct : PSCT;  version : sct_version_t) : TIdC_INT; cdecl = nil;
+  SCT_get_log_entry_type : function(const sct : PSCT) : ct_log_entry_type_t; cdecl = nil;
+  SCT_set_log_entry_type : function(sct : PSCT; entry_type : ct_log_entry_type_t) : TIdC_INT; cdecl = nil;
+  SCT_get0_log_id : function(const sct : PSCT; log_id : PPIdAnsiChar) : TIdC_SIZET; cdecl = nil;
+  SCT_set0_log_id : function(sct : PSCT; log_id : PIdAnsiChar; log_id_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  SCT_set1_log_id : function(sct : PSCT; const log_id : PIdAnsiChar;
+                             log_id_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  SCT_get_timestamp : function(const sct : PSCT) : TIdC_UINT64; cdecl = nil;
+  SCT_set_timestamp : procedure(sct : PSCT; timestamp : TIdC_UINT64); cdecl = nil;
+  SCT_get_signature_nid : function(const sct : PSCT) : TIdC_INT; cdecl = nil;
+  SCT_set_signature_nid : function(sct : PSCT; nid : TIdC_INT) : TIdC_INT; cdecl = nil;
+  SCT_get0_extensions : function(const sct : PSCT; ext : PPIdAnsiChar) : TIdC_SIZET; cdecl = nil;
+  SCT_set0_extensions : procedure(sct : PSCT; ext : PIdAnsiChar; ext_len : TIdC_SIZET); cdecl = nil;
+  SCT_set1_extensions : function(sct : PSCT; const ext : PIdAnsiChar; ext_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  SCT_get0_signature : function(const sct : PSCT; sig : PPIdAnsiChar) : TIdC_SIZET; cdecl = nil;
+  SCT_set0_signature : procedure(sct : PSCT; sig : PIdAnsiChar; sig_len : TIdC_SIZET); cdecl = nil;
+  SCT_set1_signature : function(sct : PSCT; const sig : PIdAnsiChar; sig_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  SCT_get_source : function(const sct : PSCT) : sct_source_t; cdecl = nil;
+  SCT_set_source : function(sct : PSCT; source : sct_source_t) : TIdC_INT; cdecl = nil;
+  SCT_validation_status_string : function(const sct : PSCT) : PIdAnsiChar; cdecl = nil;
+  SCT_print : procedure(const sct : PSCT; _out : PBIO; indent : TIdC_INT; const logs : PCTLOG_STORE); cdecl = nil;
+  SCT_LIST_print : procedure(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : TIdC_INT;
+                    const separator : PIdAnsiChar; const logs : PCTLOG_STORE); cdecl = nil;
+   SCT_get_validation_status : function(const sct : PSCT) : sct_validation_status_t; cdecl = nil;
+   SCT_validate : function(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
+   SCT_LIST_validate : function(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
 {$ELSE}
 function CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX cdecl; external CLibCrypto;
 procedure CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX) cdeckl; external CLibCrypto;
@@ -71,6 +155,43 @@ procedure CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE(ctx : PCT_POLICY_EVAL_CTX;
                                                     log_store : PCTLOG_STORE) cdecl; external CLibCrypto;
 function CT_POLICY_EVAL_CTX_get_time(const ctx : PCT_POLICY_EVAL_CTX) : TIdC_UINT64 cdecl; external CLibCrypto;
 procedure CT_POLICY_EVAL_CTX_set_time(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64) cdecl; external CLibCrypto;
+
+function SCT_new(void) : PSCT cdecl; external CLibCrypto;
+function SCT_new_from_base64(version : TIdAnsiChar;
+                             logid_base64 : PIdAnsiChar;
+                             entry_type : ct_log_entry_type_t;
+                             timestamp : TIdC_UINT64;
+                             extensions_base64,
+                             signature_base64 : PIdAnsiChar) : PSCT cdecl; external CLibCrypto;
+procedure SCT_free(sct : PSCT) cdecl; external CLibCrypto;
+procedure SCT_LIST_free(a : PSTACK_OF_SCT) cdecl; external CLibCrypto;
+function SCT_get_version(const sct : PSCT) : sct_version_t cdecl; external CLibCrypto;
+function SCT_set_version(sct : PSCT; version : sct_version_t) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get_log_entry_type(const sct : PSCT) : ct_log_entry_type_t cdecl; external CLibCrypto;
+function SCT_set_log_entry_type(sct : PSCT; entry_type : ct_log_entry_type_t) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get0_log_id(const sct : PSCT; log_id : PPIdAnsiChar) : TIdC_SIZET cdecl; external CLibCrypto;
+function SCT_set0_log_id(sct : PSCT; log_id : PIdAnsiChar; log_id_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_set1_log_id(sct : PSCT; const log_id : PIdAnsiChar;
+                         log_id_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get_timestamp(const sct : PSCT) : TIdC_UINT64 cdecl; external CLibCrypto;
+procedure SCT_set_timestamp(sct : PSCT; timestamp : TIdC_UINT64) cdecl; external CLibCrypto;
+function SCT_get_signature_nid(const sct : PSCT) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_set_signature_nid(sct : PSCT; nid : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get0_extensions(const sct : PSCT; ext : PPIdAnsiChar) : TIdC_SIZET cdecl; external CLibCrypto;
+procedure SCT_set0_extensions(sct : PSCT; ext : PIdAnsiChar; ext_len : TIdC_SIZET) cdecl; external CLibCrypto;
+function SCT_set1_extensions(sct : PSCT; const ext : PIdAnsiChar;  ext_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get0_signature(const sct : PSCT; sig : PPIdAnsiChar) : TIdC_SIZET cdecl; external CLibCrypto;
+procedure SCT_set0_signature(sct : PSCT; sig : PIdAnsiChar; sig_len : TIdC_SIZET) cdecl; external CLibCrypto;
+function SCT_set1_signature(sct : PSCT; const sig : PIdAnsiChar; sig_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_get_source(const sct : PSCT) : sct_source_t cdecl; external CLibCrypto;
+function SCT_set_source(sct : PSCT;  source : sct_source_t) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_validation_status_string(const sct : PSCT) : PIdAnsiChar cdecl; external CLibCrypto;
+procedure SCT_print(const sct : PSCT; _out : PBIO; indent : TIdC_INT; const logs : PCTLOG_STORE)  cdecl; external CLibCrypto;
+procedure SCT_LIST_print(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : TIdC_INT;
+                         separator : PIdAnsiChar; const logs : PCTLOG_STORE) cdecl; external CLibCrypto;
+function SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t cdecl; external CLibCrypto;
+function SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
+function SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -136,7 +257,6 @@ function sk_CTLOG_push(sk: PSTACK_OF_CTLOG; st: PCTLOG): TIdC_INT cdecl; externa
 function sk_CTLOG_dup(sk: PSTACK_OF_CTLOG): PSTACK_OF_CTLOG cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
 function sk_CTLOG_find(sk: PSTACK_OF_CTLOG; val: PCTLOG): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
 procedure sk_CTLOG_pop_free(sk: PSTACK_OF_CTLOG; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-
 {$ENDIF}
 
 implementation
@@ -161,6 +281,36 @@ const
   CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_procname = 'CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE';
   CT_POLICY_EVAL_CTX_get_time_procname = 'CT_POLICY_EVAL_CTX_get_time';
   CT_POLICY_EVAL_CTX_set_time_procname = 'CT_POLICY_EVAL_CTX_set_time';
+
+  SCT_new_procname = 'SCT_new';
+  SCT_new_from_base64_procname = 'SCT_new_from_base64';
+  SCT_free_procname = 'SCT_free';
+  SCT_LIST_free_procname = 'SCT_LIST_free';
+  SCT_get_version_procname = 'SCT_get_version';
+  SCT_set_version_procname = 'SCT_set_version';
+  SCT_get_log_entry_type_procname = 'SCT_get_log_entry_type';
+  SCT_set_log_entry_type_procname = 'SCT_set_log_entry_type';
+  SCT_get0_log_id_procname = 'SCT_get0_log_id';
+  SCT_set0_log_id_procname = 'SCT_set0_log_id';
+  SCT_set1_log_id_procname = 'SCT_set1_log_id';
+  SCT_get_timestamp_procname = 'SCT_get_timestamp';
+  SCT_set_timestamp_procname = 'SCT_set_timestamp';
+  SCT_get_signature_nid_procname = 'SCT_get_signature_nid';
+  SCT_set_signature_nid_procname = 'SCT_set_signature_nid';
+  SCT_get0_extensions_procname = 'SCT_get0_extensions';
+  SCT_set0_extensions_procname = 'SCT_set0_extensions';
+  SCT_set1_extensions_procname = 'SCT_set1_extensions';
+  SCT_get0_signature_procname = 'SCT_get0_signature';
+  SCT_set0_signature_procname = 'SCT_set0_signature';
+  SCT_set1_signature_procname = 'SCT_set1_signature';
+  SCT_get_source_procname = 'SCT_get_source';
+  SCT_set_source_procname = 'SCT_set_source';
+  SCT_validation_status_string_procname = 'SCT_validation_status_string';
+  SCT_print_procname = 'SCT_print';
+  SCT_LIST_print_procname = 'SCT_LIST_print';
+  SCT_get_validation_status_procname = 'SCT_get_validation_status';
+  SCT_validate_procname = 'SCT_validate';
+  SCT_LIST_validate_procname = 'SCT_LIST_validate';
 
 {$WARN  NO_RETVAL OFF}
 
@@ -216,6 +366,158 @@ end;
 procedure ERR_CT_POLICY_EVAL_CTX_set_time(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_set_time_procname);
+end;
+
+function ERR_SCT_new : PSCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_new_procname);
+end;
+
+function ERR_SCT_new_from_base64(version : TIdAnsiChar;
+                             logid_base64 : PIdAnsiChar;
+                             entry_type : ct_log_entry_type_t;
+                             timestamp : TIdC_UINT64;
+                             extensions_base64,
+                             signature_base64 : PIdAnsiChar) : PSCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_new_from_base64_procname);
+end;
+
+procedure ERR_SCT_free(sct : PSCT);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_free_procname);
+end;
+
+procedure ERR_SCT_LIST_free(a : PSTACK_OF_SCT);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_free_procname );
+end;
+
+function ERR_SCT_get_version(const sct : PSCT) : sct_version_t;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_version_procname);
+end;
+
+function ERR_SCT_set_version(sct : PSCT; version : sct_version_t) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_version_procname);
+end;
+
+function ERR_SCT_get_log_entry_type(const sct : PSCT) : ct_log_entry_type_t;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_log_entry_type_procname);
+end;
+
+function ERR_SCT_set_log_entry_type(sct : PSCT; entry_type : ct_log_entry_type_t) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_log_entry_type_procname);
+end;
+
+function ERR_SCT_get0_log_id(const sct : PSCT; log_id : PPIdAnsiChar) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get0_log_id_procname);
+end;
+
+function ERR_SCT_set0_log_id(sct : PSCT; log_id : PIdAnsiChar; log_id_len : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set0_log_id_procname);
+end;
+
+function ERR_SCT_set1_log_id(sct : PSCT; const log_id : PIdAnsiChar;
+                         log_id_len : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set1_log_id_procname);
+end;
+
+function ERR_SCT_get_timestamp(const sct : PSCT) : TIdC_UINT64;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get_timestamp_procname);
+end;
+
+procedure ERR_SCT_set_timestamp(sct : PSCT; timestamp : TIdC_UINT64);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set_timestamp_procname);
+end;
+
+function ERR_SCT_get_signature_nid(const sct : PSCT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get_signature_nid_procname);
+end;
+
+function ERR_SCT_set_signature_nid(sct : PSCT; nid : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_signature_nid_procname);
+end;
+
+function ERR_SCT_get0_extensions(const sct : PSCT; ext : PPIdAnsiChar) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get0_extensions_procname);
+end;
+
+procedure ERR_SCT_set0_extensions(sct : PSCT; ext : PIdAnsiChar; ext_len : TIdC_SIZET);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set0_extensions_procname);
+end;
+
+function ERR_SCT_set1_extensions(sct : PSCT; const ext : PIdAnsiChar;  ext_len : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set1_extensions_procname);
+end;
+
+function ERR_SCT_get0_signature(const sct : PSCT; sig : PPIdAnsiChar) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get0_signature_procname);
+end;
+
+procedure ERR_SCT_set0_signature(sct : PSCT; sig : PIdAnsiChar; sig_len : TIdC_SIZET);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set0_signature_procname);
+end;
+
+function ERR_SCT_set1_signature(sct : PSCT; const sig : PIdAnsiChar; sig_len : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set1_signature_procname);
+end;
+
+function ERR_SCT_get_source(const sct : PSCT) : sct_source_t;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_source_procname);
+end;
+
+function ERR_SCT_set_source(sct : PSCT;  source : sct_source_t) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_source_procname);
+end;
+
+function ERR_SCT_validation_status_string(const sct : PSCT) : PIdAnsiChar;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_validation_status_string_procname);
+end;
+
+procedure ERR_SCT_print(const sct : PSCT; _out : PBIO; indent : TIdC_INT; const logs : PCTLOG_STORE);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_print_procname );
+end;
+
+procedure ERR_SCT_LIST_print(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : TIdC_INT;
+                         separator : PIdAnsiChar; const logs : PCTLOG_STORE);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_LIST_print_procname);
+end;
+
+function ERR_SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_validation_status_procname);
+end;
+
+function ERR_SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_validate_procname);
+end;
+
+function ERR_SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_validate_procname);
 end;
 
 {$WARN  NO_RETVAL ON}
@@ -544,6 +846,894 @@ begin
     {$ifend}
   end;
 
+  SCT_new := LoadLibFunction(ADllHandle, SCT_new_procname);
+  FuncLoadError := not assigned(SCT_new);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_new_allownil)}
+    SCT_new := @ERR_SCT_new;
+    {$ifend}
+    {$if declared(SCT_new_introduced)}
+    if LibVersion < SCT_new_introduced then
+    begin
+      {$if declared(FC_SCT_new)}
+      SCT_new := @FC_SCT_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_new_removed)}
+    if SCT_new_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_new)}
+      SCT_new := @_SCT_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_new_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_new');
+    {$ifend}
+  end;
+
+  SCT_new_from_base64 := LoadLibFunction(ADllHandle, SCT_new_from_base64_procname);
+  FuncLoadError := not assigned(SCT_new_from_base64);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_new_from_base64_allownil)}
+    SCT_new_from_base64 := @ERR_SCT_new_from_base64;
+    {$ifend}
+    {$if declared(SCT_new_from_base64_introduced)}
+    if LibVersion < SCT_new_from_base64_introduced then
+    begin
+      {$if declared(FC_SCT_new_from_base64)}
+      SCT_new_from_base64 := @FC_SCT_new_from_base64;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_new_from_base64_removed)}
+    if SCT_new_from_base64_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_new_from_base64)}
+      SCT_new_from_base64 := @_SCT_new_from_base64;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_new_from_base64_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_new_from_base64');
+    {$ifend}
+  end;
+
+  SCT_free := LoadLibFunction(ADllHandle, SCT_free_procname);
+  FuncLoadError := not assigned(SCT_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_free_allownil)}
+    SCT_free := @ERR_SCT_free;
+    {$ifend}
+    {$if declared(SCT_free_introduced)}
+    if LibVersion < SCT_free_introduced then
+    begin
+      {$if declared(FC_SCT_free)}
+      SCT_free := @FC_SCT_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_free_removed)}
+    if SCT_free_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_free)}
+      SCT_free := @_SCT_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_free');
+    {$ifend}
+  end;
+
+  SCT_LIST_free := LoadLibFunction(ADllHandle, SCT_LIST_free_procname);
+  FuncLoadError := not assigned(SCT_LIST_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_LIST_free_allownil)}
+    SCT_LIST_free := @ERR_SCT_LIST_free;
+    {$ifend}
+    {$if declared(SCT_LIST_free_introduced)}
+    if LibVersion < SCT_LIST_free_introduced then
+    begin
+      {$if declared(FC_SCT_LIST_free)}
+      SCT_LIST_free := @FC_SCT_LIST_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_LIST_free_removed)}
+    if SCT_LIST_free_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_LIST_free)}
+      SCT_LIST_free := @_SCT_LIST_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_LIST_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_LIST_free');
+    {$ifend}
+  end;
+
+  SCT_get_version := LoadLibFunction(ADllHandle, SCT_get_version_procname);
+  FuncLoadError := not assigned(SCT_get_version);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_version_allownil)}
+    SCT_get_version := @ERR_SCT_get_version;
+    {$ifend}
+    {$if declared(SCT_get_version_introduced)}
+    if LibVersion < SCT_get_version_introduced then
+    begin
+      {$if declared(FC_SCT_get_version)}
+      SCT_get_version := @FC_SCT_get_version;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_version_removed)}
+    if SCT_get_version_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_version)}
+      SCT_get_version := @_SCT_get_version;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_version_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_version');
+    {$ifend}
+  end;
+
+  SCT_set_version := LoadLibFunction(ADllHandle, SCT_set_version_procname);
+  FuncLoadError := not assigned(SCT_set_version);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set_version_allownil)}
+    SCT_set_version := @ERR_SCT_set_version;
+    {$ifend}
+    {$if declared(SCT_set_version_introduced)}
+    if LibVersion < SCT_set_version_introduced then
+    begin
+      {$if declared(FC_SCT_set_version)}
+      SCT_set_version := @FC_SCT_set_version;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set_version_removed)}
+    if SCT_set_version_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set_version)}
+      SCT_set_version := @_SCT_set_version;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set_version_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set_version');
+    {$ifend}
+  end;
+
+  SCT_get_log_entry_type := LoadLibFunction(ADllHandle, SCT_get_log_entry_type_procname);
+  FuncLoadError := not assigned(SCT_get_log_entry_type);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_log_entry_type_allownil)}
+    SCT_get_log_entry_type := @ERR_SCT_get_log_entry_type;
+    {$ifend}
+    {$if declared(SCT_get_log_entry_type_introduced)}
+    if LibVersion < SCT_get_log_entry_type_introduced then
+    begin
+      {$if declared(FC_SCT_get_log_entry_type)}
+      SCT_get_log_entry_type := @FC_SCT_get_log_entry_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_log_entry_type_removed)}
+    if SCT_get_log_entry_type_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_log_entry_type)}
+      SCT_get_log_entry_type := @_SCT_get_log_entry_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_log_entry_type_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_log_entry_type');
+    {$ifend}
+  end;
+
+  SCT_set_log_entry_type := LoadLibFunction(ADllHandle, SCT_set_log_entry_type_procname);
+  FuncLoadError := not assigned(SCT_set_log_entry_type);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set_log_entry_type_allownil)}
+    SCT_set_log_entry_type := @ERR_SCT_set_log_entry_type;
+    {$ifend}
+    {$if declared(SCT_set_log_entry_type_introduced)}
+    if LibVersion < SCT_set_log_entry_type_introduced then
+    begin
+      {$if declared(FC_SCT_set_log_entry_type)}
+      SCT_set_log_entry_type := @FC_SCT_set_log_entry_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set_log_entry_type_removed)}
+    if SCT_set_log_entry_type_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set_log_entry_type)}
+      SCT_set_log_entry_type := @_SCT_set_log_entry_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set_log_entry_type_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set_log_entry_type');
+    {$ifend}
+  end;
+
+  SCT_get0_log_id := LoadLibFunction(ADllHandle, SCT_get0_log_id_procname);
+  FuncLoadError := not assigned(SCT_get0_log_id);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get0_log_id_allownil)}
+    SCT_get0_log_id := @ERR_SCT_get0_log_id;
+    {$ifend}
+    {$if declared(SCT_get0_log_id_introduced)}
+    if LibVersion < SCT_get0_log_id_introduced then
+    begin
+      {$if declared(FC_SCT_get0_log_id)}
+      SCT_get0_log_id := @FC_SCT_get0_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get0_log_id_removed)}
+    if SCT_get0_log_id_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get0_log_id)}
+      SCT_get0_log_id := @_SCT_get0_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get0_log_id_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get0_log_id');
+    {$ifend}
+  end;
+
+  SCT_set0_log_id := LoadLibFunction(ADllHandle, SCT_set0_log_id_procname);
+  FuncLoadError := not assigned(SCT_set0_log_id);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set0_log_id_allownil)}
+    SCT_set0_log_id := @ERR_SCT_set0_log_id;
+    {$ifend}
+    {$if declared(SCT_set0_log_id_introduced)}
+    if LibVersion < SCT_set0_log_id_introduced then
+    begin
+      {$if declared(FC_SCT_set0_log_id)}
+      SCT_set0_log_id := @FC_SCT_set0_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set0_log_id_removed)}
+    if SCT_set0_log_id_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set0_log_id)}
+      SCT_set0_log_id := @_SCT_set0_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set0_log_id_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set0_log_id');
+    {$ifend}
+  end;
+
+  SCT_set1_log_id := LoadLibFunction(ADllHandle, SCT_set1_log_id_procname);
+  FuncLoadError := not assigned(SCT_set1_log_id);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set1_log_id_allownil)}
+    SCT_set1_log_id := @ERR_SCT_set1_log_id;
+    {$ifend}
+    {$if declared(SCT_set1_log_id_introduced)}
+    if LibVersion < SCT_set1_log_id_introduced then
+    begin
+      {$if declared(FC_SCT_set1_log_id)}
+      SCT_set1_log_id := @FC_SCT_set1_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set1_log_id_removed)}
+    if SCT_set1_log_id_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set1_log_id)}
+      SCT_set1_log_id := @_SCT_set1_log_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set1_log_id_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set1_log_id');
+    {$ifend}
+  end;
+  SCT_get_timestamp := LoadLibFunction(ADllHandle, SCT_get_timestamp_procname);
+  FuncLoadError := not assigned(SCT_get_timestamp);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_timestamp_allownil)}
+    SCT_get_timestamp := @ERR_SCT_get_timestamp;
+    {$ifend}
+    {$if declared(SCT_get_timestamp_introduced)}
+    if LibVersion < SCT_get_timestamp_introduced then
+    begin
+      {$if declared(FC_SCT_get_timestamp)}
+      SCT_get_timestamp := @FC_SCT_get_timestamp;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_timestamp_removed)}
+    if SCT_get_timestamp_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_timestamp)}
+      SCT_get_timestamp := @_SCT_get_timestamp;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_timestamp_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_timestamp');
+    {$ifend}
+  end;
+
+  SCT_set_timestamp := LoadLibFunction(ADllHandle, SCT_set_timestamp_procname);
+  FuncLoadError := not assigned(SCT_set_timestamp);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set_timestamp_allownil)}
+    SCT_set_timestamp := @ERR_SCT_set_timestamp;
+    {$ifend}
+    {$if declared(SCT_set_timestamp_introduced)}
+    if LibVersion < SCT_set_timestamp_introduced then
+    begin
+      {$if declared(FC_SCT_set_timestamp)}
+      SCT_set_timestamp := @FC_SCT_set_timestamp;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set_timestamp_removed)}
+    if SCT_set_timestamp_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set_timestamp)}
+      SCT_set_timestamp := @_SCT_set_timestamp;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set_timestamp_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set_timestamp');
+    {$ifend}
+  end;
+
+  SCT_get_signature_nid := LoadLibFunction(ADllHandle, SCT_get_signature_nid_procname);
+  FuncLoadError := not assigned(SCT_get_signature_nid);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_signature_nid_allownil)}
+    SCT_get_signature_nid := @ERR_SCT_get_signature_nid;
+    {$ifend}
+    {$if declared(SCT_get_signature_nid_introduced)}
+    if LibVersion < SCT_get_signature_nid_introduced then
+    begin
+      {$if declared(FC_SCT_get_signature_nid)}
+      SCT_get_signature_nid := @FC_SCT_get_signature_nid;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_signature_nid_removed)}
+    if SCT_get_signature_nid_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_signature_nid)}
+      SCT_get_signature_nid := @_SCT_get_signature_nid;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_signature_nid_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_signature_nid');
+    {$ifend}
+  end;
+
+  SCT_set_signature_nid := LoadLibFunction(ADllHandle, SCT_set_signature_nid_procname);
+  FuncLoadError := not assigned(SCT_set_signature_nid);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set_signature_nid_allownil)}
+    SCT_set_signature_nid := @ERR_SCT_set_signature_nid;
+    {$ifend}
+    {$if declared(SCT_set_signature_nid_introduced)}
+    if LibVersion < SCT_set_signature_nid_introduced then
+    begin
+      {$if declared(FC_SCT_set_signature_nid)}
+      SCT_set_signature_nid := @FC_SCT_set_signature_nid;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set_signature_nid_removed)}
+    if SCT_set_signature_nid_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set_signature_nid)}
+      SCT_set_signature_nid := @_SCT_set_signature_nid;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set_signature_nid_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set_signature_nid');
+    {$ifend}
+  end;
+
+  SCT_get0_extensions := LoadLibFunction(ADllHandle, SCT_get0_extensions_procname);
+  FuncLoadError := not assigned(SCT_get0_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get0_extensions_allownil)}
+    SCT_get0_extensions := @ERR_SCT_get0_extensions;
+    {$ifend}
+    {$if declared(SCT_get0_extensions_introduced)}
+    if LibVersion < SCT_get0_extensions_introduced then
+    begin
+      {$if declared(FC_SCT_get0_extensions)}
+      SCT_get0_extensions := @FC_SCT_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get0_extensions_removed)}
+    if SCT_get0_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get0_extensions)}
+      SCT_get0_extensions := @_SCT_get0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get0_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get0_extensions');
+    {$ifend}
+  end;
+  SCT_set0_extensions := LoadLibFunction(ADllHandle, SCT_set0_extensions_procname);
+  FuncLoadError := not assigned(SCT_set0_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set0_extensions_allownil)}
+    SCT_set0_extensions := @ERR_SCT_set0_extensions;
+    {$ifend}
+    {$if declared(SCT_set0_extensions_introduced)}
+    if LibVersion < SCT_set0_extensions_introduced then
+    begin
+      {$if declared(FC_SCT_set0_extensions)}
+      SCT_set0_extensions := @FC_SCT_set0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set0_extensions_removed)}
+    if SCT_set0_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set0_extensions)}
+      SCT_set0_extensions := @_SCT_set0_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set0_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set0_extensions');
+    {$ifend}
+  end;
+  SCT_set1_extensions := LoadLibFunction(ADllHandle, SCT_set1_extensions_procname);
+  FuncLoadError := not assigned(SCT_set1_extensions);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set1_extensions_allownil)}
+    SCT_set1_extensions := @ERR_SCT_set1_extensions;
+    {$ifend}
+    {$if declared(SCT_set1_extensions_introduced)}
+    if LibVersion < SCT_set1_extensions_introduced then
+    begin
+      {$if declared(FC_SCT_set1_extensions)}
+      SCT_set1_extensions := @FC_SCT_set1_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set1_extensions_removed)}
+    if SCT_set1_extensions_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set1_extensions)}
+      SCT_set1_extensions := @_SCT_set1_extensions;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set1_extensions_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set1_extensions');
+    {$ifend}
+  end;
+  SCT_get0_signature := LoadLibFunction(ADllHandle, SCT_get0_signature_procname);
+  FuncLoadError := not assigned(SCT_get0_signature);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get0_signature_allownil)}
+    SCT_get0_signature := @ERR_SCT_get0_signature;
+    {$ifend}
+    {$if declared(SCT_get0_signature_introduced)}
+    if LibVersion < SCT_get0_signature_introduced then
+    begin
+      {$if declared(FC_SCT_get0_signature)}
+      SCT_get0_signature := @FC_SCT_get0_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get0_signature_removed)}
+    if SCT_get0_signature_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get0_signature)}
+      SCT_get0_signature := @_SCT_get0_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get0_signature_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get0_signature');
+    {$ifend}
+  end;
+  SCT_set0_signature := LoadLibFunction(ADllHandle, SCT_set0_signature_procname);
+  FuncLoadError := not assigned(SCT_set0_signature);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set0_signature_allownil)}
+    SCT_set0_signature := @ERR_SCT_set0_signature;
+    {$ifend}
+    {$if declared(SCT_set0_signature_introduced)}
+    if LibVersion < SCT_set0_signature_introduced then
+    begin
+      {$if declared(FC_SCT_set0_signature)}
+      SCT_set0_signature := @FC_SCT_set0_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set0_signature_removed)}
+    if SCT_set0_signature_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set0_signature)}
+      SCT_set0_signature := @_SCT_set0_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set0_signature_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set0_signature');
+    {$ifend}
+  end;
+  SCT_set1_signature := LoadLibFunction(ADllHandle, SCT_set1_signature_procname);
+  FuncLoadError := not assigned(SCT_set1_signature);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set1_signature_allownil)}
+    SCT_set1_signature := @ERR_SCT_set1_signature;
+    {$ifend}
+    {$if declared(SCT_set1_signature_introduced)}
+    if LibVersion < SCT_set1_signature_introduced then
+    begin
+      {$if declared(FC_SCT_set1_signature)}
+      SCT_set1_signature := @FC_SCT_set1_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set1_signature_removed)}
+    if SCT_set1_signature_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set1_signature)}
+      SCT_set1_signature := @_SCT_set1_signature;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set1_signature_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set1_signature');
+    {$ifend}
+  end;
+
+  SCT_get_source := LoadLibFunction(ADllHandle, SCT_get_source_procname);
+  FuncLoadError := not assigned(SCT_get_source);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_source_allownil)}
+    SCT_get_source := @ERR_SCT_get_source;
+    {$ifend}
+    {$if declared(SCT_get_source_introduced)}
+    if LibVersion < SCT_get_source_introduced then
+    begin
+      {$if declared(FC_SCT_get_source)}
+      SCT_get_source := @FC_SCT_get_source;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_source_removed)}
+    if SCT_get_source_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_source)}
+      SCT_get_source := @_SCT_get_source;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_source_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_source');
+    {$ifend}
+  end;
+  SCT_set_source := LoadLibFunction(ADllHandle, SCT_set_source_procname);
+  FuncLoadError := not assigned(SCT_set_source);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_set_source_allownil)}
+    SCT_set_source := @ERR_SCT_set_source;
+    {$ifend}
+    {$if declared(SCT_set_source_introduced)}
+    if LibVersion < SCT_set_source_introduced then
+    begin
+      {$if declared(FC_SCT_set_source)}
+      SCT_set_source := @FC_SCT_set_source;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_set_source_removed)}
+    if SCT_set_source_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_set_source)}
+      SCT_set_source := @_SCT_set_source;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_set_source_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_set_source');
+    {$ifend}
+  end;
+
+  SCT_validation_status_string := LoadLibFunction(ADllHandle, SCT_validation_status_string_procname);
+  FuncLoadError := not assigned(SCT_validation_status_string);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_validation_status_string_allownil)}
+    SCT_validation_status_string := @ERR_SCT_validation_status_string;
+    {$ifend}
+    {$if declared(SCT_validation_status_string_introduced)}
+    if LibVersion < SCT_validation_status_string_introduced then
+    begin
+      {$if declared(FC_SCT_validation_status_string)}
+      SCT_validation_status_string := @FC_SCT_validation_status_string;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_validation_status_string_removed)}
+    if SCT_validation_status_string_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_validation_status_string)}
+      SCT_validation_status_string := @_SCT_validation_status_string;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_validation_status_string_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_validation_status_string');
+    {$ifend}
+  end;
+  SCT_print := LoadLibFunction(ADllHandle, SCT_print_procname);
+  FuncLoadError := not assigned(SCT_print);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_print_allownil)}
+    SCT_print := @ERR_SCT_print;
+    {$ifend}
+    {$if declared(SCT_print_introduced)}
+    if LibVersion < SCT_print_introduced then
+    begin
+      {$if declared(FC_SCT_print)}
+      SCT_print := @FC_SCT_print;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_print_removed)}
+    if SCT_print_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_print)}
+      SCT_print := @_SCT_print;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_print_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_print');
+    {$ifend}
+  end;
+
+  SCT_LIST_print := LoadLibFunction(ADllHandle, SCT_LIST_print_procname);
+  FuncLoadError := not assigned(SCT_LIST_print);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_LIST_print_allownil)}
+    SCT_LIST_print := @ERR_SCT_LIST_print;
+    {$ifend}
+    {$if declared(SCT_LIST_print_introduced)}
+    if LibVersion < SCT_LIST_print_introduced then
+    begin
+      {$if declared(FC_SCT_LIST_print)}
+      SCT_LIST_print := @FC_SCT_LIST_print;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_LIST_print_removed)}
+    if SCT_LIST_print_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_LIST_print)}
+      SCT_LIST_print := @_SCT_LIST_print;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_LIST_print_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_LIST_print');
+    {$ifend}
+  end;
+  SCT_get_validation_status := LoadLibFunction(ADllHandle, SCT_get_validation_status_procname);
+  FuncLoadError := not assigned(SCT_get_validation_status);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_get_validation_status_allownil)}
+    SCT_get_validation_status := @ERR_SCT_get_validation_status;
+    {$ifend}
+    {$if declared(SCT_get_validation_status_introduced)}
+    if LibVersion < SCT_get_validation_status_introduced then
+    begin
+      {$if declared(FC_SCT_get_validation_status)}
+      SCT_get_validation_status := @FC_SCT_get_validation_status;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_get_validation_status_removed)}
+    if SCT_get_validation_status_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_get_validation_status)}
+      SCT_get_validation_status := @_SCT_get_validation_status;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_get_validation_status_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_get_validation_status');
+    {$ifend}
+  end;
+  SCT_validate := LoadLibFunction(ADllHandle, SCT_validate_procname);
+  FuncLoadError := not assigned(SCT_validate);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_validate_allownil)}
+    SCT_validate := @ERR_SCT_validate;
+    {$ifend}
+    {$if declared(SCT_validate_introduced)}
+    if LibVersion < SCT_validate_introduced then
+    begin
+      {$if declared(FC_SCT_validate)}
+      SCT_validate := @FC_SCT_validate;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_validate_removed)}
+    if SCT_validate_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_validate)}
+      SCT_validate := @_SCT_validate;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_validate_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_validate');
+    {$ifend}
+  end;
+
+  SCT_LIST_validate := LoadLibFunction(ADllHandle, SCT_LIST_validate_procname);
+  FuncLoadError := not assigned(SCT_LIST_validate);
+  if FuncLoadError then
+  begin
+    {$if not defined(SCT_LIST_validate_allownil)}
+    SCT_LIST_validate := @ERR_SCT_LIST_validate;
+    {$ifend}
+    {$if declared(SCT_LIST_validate_introduced)}
+    if LibVersion < SCT_LIST_validate_introduced then
+    begin
+      {$if declared(FC_SCT_LIST_validate)}
+      SCT_LIST_validate := @FC_SCT_LIST_validate;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SCT_LIST_validate_removed)}
+    if SCT_LIST_validate_removed <= LibVersion then
+    begin
+      {$if declared(_SCT_LIST_validate)}
+      SCT_LIST_validate := @_SCT_LIST_validate;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SCT_LIST_validate_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SCT_LIST_validate');
+    {$ifend}
+  end;
 end;
 
 procedure Unload;
@@ -558,6 +1748,36 @@ begin
   CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := nil;
   CT_POLICY_EVAL_CTX_get_time := nil;
   CT_POLICY_EVAL_CTX_set_time := nil;
+
+  SCT_new := nil;
+  SCT_new_from_base64 := nil;
+  SCT_free := nil;
+  SCT_LIST_free := nil;
+  SCT_get_version := nil;
+  SCT_set_version := nil;
+  SCT_get_log_entry_type := nil;
+  SCT_set_log_entry_type := nil;
+  SCT_get0_log_id := nil;
+  SCT_set0_log_id := nil;
+  SCT_set1_log_id := nil;
+  SCT_get_timestamp := nil;
+  SCT_set_timestamp := nil;
+  SCT_get_signature_nid := nil;
+  SCT_set_signature_nid := nil;
+  SCT_get0_extensions := nil;
+  SCT_set0_extensions := nil;
+  SCT_set1_extensions := nil;
+  SCT_get0_signature := nil;
+  SCT_set0_signature := nil;
+  SCT_set1_signature := nil;
+  SCT_get_source := nil;
+  SCT_set_source := nil;
+  SCT_validation_status_string := nil;
+  SCT_print := nil;
+  SCT_LIST_print := nil;
+  SCT_get_validation_status := nil;
+  SCT_validate := nil;
+  SCT_LIST_validate := nil;
 end;
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
