@@ -71,6 +71,7 @@ contains
   TaurusTLSHeaders_core in '..\..\..\Source\TaurusTLSHeaders_core.pas',
   TaurusTLSHeaders_crypto in '..\..\..\Source\TaurusTLSHeaders_crypto.pas',
   TaurusTLSHeaders_cryptoerr in '..\..\..\Source\TaurusTLSHeaders_cryptoerr.pas',
+  TaurusTLSHeaders_ct in '..\..\..\Source\TaurusTLSHeaders_ct.pas',
   TaurusTLSHeaders_cterr in '..\..\..\Source\TaurusTLSHeaders_cterr.pas',
   TaurusTLSHeaders_des in '..\..\..\Source\TaurusTLSHeaders_des.pas',
   TaurusTLSHeaders_dh in '..\..\..\Source\TaurusTLSHeaders_dh.pas',

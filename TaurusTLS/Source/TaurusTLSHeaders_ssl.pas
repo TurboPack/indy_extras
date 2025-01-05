@@ -33,6 +33,7 @@ uses
   TaurusTLSHeaders_async,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_crypto,
+  TaurusTLSHeaders_ct,
   TaurusTLSHeaders_pem,
   TaurusTLSHeaders_ssl3,
   TaurusTLSHeaders_stack,
@@ -2425,13 +2426,13 @@ var
   SSL_CTX_ct_is_enabled: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  //const STACK_OF(SCT) *SSL_get0_peer_scts(s: PSSL);
+  SSL_get0_peer_scts: function(s: PSSL) : PSTACK_OF_SCT; cdecl = nil;
 
   SSL_CTX_set_default_ctlog_list_file: function (ctx: PSSL_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_set_ctlog_list_file: function (ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_set0_ctlog_store: procedure (ctx: PSSL_CTX; logs: PCTLOG_STORE); cdecl = nil; {introduced 1.1.0}
 
-  // const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX);
+  SSL_CTX_get0_ctlog_store: function(const ctx: PSSL_CTX) : PCTLOG_STORE; cdecl = nil;
 
   // # endif /* OPENSSL_NO_CT */
 
@@ -3262,13 +3263,13 @@ var
   function SSL_CTX_ct_is_enabled(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  //const STACK_OF(SCT) *SSL_get0_peer_scts(s: PSSL);
+  function SSL_get0_peer_scts(s: PSSL) : PSTACK_OF_SCT cdecl; external CLibSSL;
 
   function SSL_CTX_set_default_ctlog_list_file(ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_set_ctlog_list_file(ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_CTX_set0_ctlog_store(ctx: PSSL_CTX; logs: PCTLOG_STORE) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  // const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX);
+  function SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : CTLOG_STORE cdecl; external CLibSSL;
 
   // # endif /* OPENSSL_NO_CT */
 
@@ -5057,13 +5058,13 @@ const
   SSL_CTX_ct_is_enabled_procname = 'SSL_CTX_ct_is_enabled'; {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  //const STACK_OF(SCT) *SSL_get0_peer_scts(s: PSSL);
+  SSL_get0_peer_scts_procname = 'SSL_get0_peer_scts';
 
   SSL_CTX_set_default_ctlog_list_file_procname = 'SSL_CTX_set_default_ctlog_list_file'; {introduced 1.1.0}
   SSL_CTX_set_ctlog_list_file_procname = 'SSL_CTX_set_ctlog_list_file'; {introduced 1.1.0}
   SSL_CTX_set0_ctlog_store_procname = 'SSL_CTX_set0_ctlog_store'; {introduced 1.1.0}
 
-  // const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX);
+  SSL_CTX_get0_ctlog_store_procname = 'SSL_CTX_get0_ctlog_store';
 
   // # endif /* OPENSSL_NO_CT */
 
@@ -9132,7 +9133,10 @@ end;
  {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-  //const STACK_OF(SCT) *SSL_get0_peer_scts(s: PSSL);
+function ERR_SSL_get0_peer_scts(s: PSSL) : PSTACK_OF_SCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peer_scts_procname);
+end;
 
 function  ERR_SSL_CTX_set_default_ctlog_list_file(ctx: PSSL_CTX): TIdC_INT; 
 begin
@@ -9153,7 +9157,10 @@ end;
 
  {introduced 1.1.0}
 
-  // const CTLOG_STORE *SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX);
+function ERR_SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : PCTLOG_STORE;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_ctlog_store_procname);
+end;
 
   // # endif /* OPENSSL_NO_CT */
 
@@ -24692,6 +24699,37 @@ begin
     {$ifend}
   end;
 
+  SSL_get0_peer_scts := LoadLibFunction(ADllHandle, SSL_get0_peer_scts_procname);
+  FuncLoadError := not assigned(SSL_get0_peer_scts);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_peer_scts_allownil)}
+    SSL_get0_peer_scts := @ERR_SSL_get0_peer_scts;
+    {$ifend}
+    {$if declared(SSL_get0_peer_scts_introduced)}
+    if LibVersion < SSL_get0_peer_scts_introduced then
+    begin
+      {$if declared(FC_SSL_get0_peer_scts)}
+      SSL_get0_peer_scts := @FC_SSL_get0_peer_scts;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_peer_scts_removed)}
+    if SSL_get0_peer_scts_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_peer_scts)}
+      SSL_get0_peer_scts := @_SSL_get0_peer_scts;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_peer_scts_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_peer_scts');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_CTX_set_default_ctlog_list_file := LoadLibFunction(ADllHandle, SSL_CTX_set_default_ctlog_list_file_procname);
   FuncLoadError := not assigned(SSL_CTX_set_default_ctlog_list_file);
@@ -24756,6 +24794,7 @@ begin
     {$ifend}
   end;
 
+
  {introduced 1.1.0}
   SSL_CTX_set0_ctlog_store := LoadLibFunction(ADllHandle, SSL_CTX_set0_ctlog_store_procname);
   FuncLoadError := not assigned(SSL_CTX_set0_ctlog_store);
@@ -24785,6 +24824,37 @@ begin
     {$if not defined(SSL_CTX_set0_ctlog_store_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_CTX_set0_ctlog_store');
+    {$ifend}
+  end;
+
+  SSL_CTX_get0_ctlog_store := LoadLibFunction(ADllHandle, SSL_CTX_get0_ctlog_store_procname);
+  FuncLoadError := not assigned(SSL_CTX_get0_ctlog_store);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get0_ctlog_store_allownil)}
+    SSL_CTX_get0_ctlog_store := @ERR_SSL_CTX_get0_ctlog_store;
+    {$ifend}
+    {$if declared(SSL_CTX_get0_ctlog_store_introduced)}
+    if LibVersion < SSL_CTX_get0_ctlog_store_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get0_ctlog_store)}
+      SSL_CTX_get0_ctlog_store := @FC_SSL_CTX_get0_ctlog_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get0_ctlog_store_removed)}
+    if SSL_CTX_get0_ctlog_store_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get0_ctlog_store)}
+      SSL_CTX_get0_ctlog_store := @_SSL_CTX_get0_ctlog_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get0_ctlog_store_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get0_ctlog_store');
     {$ifend}
   end;
 
@@ -26615,9 +26685,11 @@ begin
   SSL_CTX_enable_ct := nil; {introduced 1.1.0}
   SSL_ct_is_enabled := nil; {introduced 1.1.0}
   SSL_CTX_ct_is_enabled := nil; {introduced 1.1.0}
+  SSL_get0_peer_scts := nil;
   SSL_CTX_set_default_ctlog_list_file := nil; {introduced 1.1.0}
   SSL_CTX_set_ctlog_list_file := nil; {introduced 1.1.0}
   SSL_CTX_set0_ctlog_store := nil; {introduced 1.1.0}
+  SSL_CTX_get0_ctlog_store := nil;
   SSL_set_security_level := nil; {introduced 1.1.0}
   SSL_get_security_level := nil; {introduced 1.1.0}
   SSL_set_security_callback := nil; {introduced 1.1.0}

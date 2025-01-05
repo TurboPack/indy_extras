@@ -202,6 +202,7 @@
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_core.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_crypto.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cryptoerr.pas"/>
+        <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_ct.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_cterr.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_des.pas"/>
         <DCCReference Include="..\..\..\Source\TaurusTLSHeaders_dh.pas"/>
@@ -295,7 +296,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_RTForIndy290.bpl" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_RTForIndy290290.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>TaurusTLS_RTForIndy290.bpl</RemoteName>
                         <Overwrite>true</Overwrite>
