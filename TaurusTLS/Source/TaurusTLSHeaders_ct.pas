@@ -143,6 +143,16 @@ var
    SCT_get_validation_status : function(const sct : PSCT) : sct_validation_status_t; cdecl = nil;
    SCT_validate : function(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
    SCT_LIST_validate : function(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
+
+   CTLOG_STORE_new : function : PCTLOG_STORE; cdecl = nil;
+   CTLOG_STORE_free : procedure(store : PCTLOG_STORE); cdecl = nil;
+   CTLOG_STORE_get0_log_by_id : function(const store : PCTLOG_STORE;
+                                         const log_id : PIdAnsiChar;
+                                         log_id_len : TIdC_SIZET) : PCTLOG;
+   CTLOG_STORE_load_file : function(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+   CTLOG_STORE_load_default_file : function(store : PCTLOG_STORE) : TIdC_INT; cdecl = nil;
+
+   ERR_load_CT_strings : function : TIdC_INT; cdecl = nil;
 {$ELSE}
 function CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX cdecl; external CLibCrypto;
 procedure CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX) cdeckl; external CLibCrypto;
@@ -192,6 +202,16 @@ procedure SCT_LIST_print(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : T
 function SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t cdecl; external CLibCrypto;
 function SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
 function SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
+
+function CTLOG_STORE_new : PCTLOG_STORE cdecl; external CLibCrypto;
+procedure CTLOG_STORE_free(store : PCTLOG_STORE) cdecl; external CLibCrypto;
+function CTLOG_STORE_get0_log_by_id(const store : PCTLOG_STORE;
+                                    const log_id : PIdAnsiChar;
+                                    log_id_len : TIdC_SIZET) : PCTLOG  cdecl; external CLibCrypto;
+function CTLOG_STORE_load_file(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+function CTLOG_STORE_load_default_file(store : PCTLOG_STORE) : TIdC_INT cdecl; external CLibCrypto;
+
+function ERR_load_CT_strings : TIdC_INT cdecl; external CLibCrypto;
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -312,6 +332,13 @@ const
   SCT_validate_procname = 'SCT_validate';
   SCT_LIST_validate_procname = 'SCT_LIST_validate';
 
+  CTLOG_STORE_new_procname = 'CTLOG_STORE_new';
+  CTLOG_STORE_free_procname = 'CTLOG_STORE_free';
+  CTLOG_STORE_get0_log_by_id_procname = 'CTLOG_STORE_get0_log_by_id';
+  CTLOG_STORE_load_file_procname = 'CTLOG_STORE_load_file';
+  CTLOG_STORE_load_default_file_procname = 'CTLOG_STORE_load_default_file';
+
+  ERR_load_CT_strings_procname = 'ERR_load_CT_strings';
 {$WARN  NO_RETVAL OFF}
 
 function ERR_CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX;
@@ -518,6 +545,38 @@ end;
 function ERR_SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_validate_procname);
+end;
+
+function ERR_CTLOG_STORE_new : PCTLOG_STORE;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_new_procname);
+end;
+
+procedure ERR_CTLOG_STORE_free(store : PCTLOG_STORE);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_free_procname);
+end;
+
+function ERR_CTLOG_STORE_get0_log_by_id(const store : PCTLOG_STORE;
+                                    const log_id : PIdAnsiChar;
+                                    log_id_len : TIdC_SIZET) : PCTLOG;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_get0_log_by_id_procname);
+end;
+
+function ERR_CTLOG_STORE_load_file(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_load_file_procname);
+end;
+
+function ERR_CTLOG_STORE_load_default_file(store : PCTLOG_STORE) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_STORE_load_default_file_procname);
+end;
+
+function ERR_ERR_load_CT_strings : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_CT_strings_procname);
 end;
 
 {$WARN  NO_RETVAL ON}
@@ -1734,6 +1793,186 @@ begin
       AFailed.Add('SCT_LIST_validate');
     {$ifend}
   end;
+  CTLOG_STORE_new := LoadLibFunction(ADllHandle, CTLOG_STORE_new_procname);
+  FuncLoadError := not assigned(CTLOG_STORE_new);
+  if FuncLoadError then
+  begin
+    {$if not defined(CTLOG_STORE_new_allownil)}
+    CTLOG_STORE_new := @ERR_CTLOG_STORE_new;
+    {$ifend}
+    {$if declared(CTLOG_STORE_new_introduced)}
+    if LibVersion < CTLOG_STORE_new_introduced then
+    begin
+      {$if declared(FC_CTLOG_STORE_new)}
+      CTLOG_STORE_new := @FC_CTLOG_STORE_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CTLOG_STORE_new_removed)}
+    if CTLOG_STORE_new_removed <= LibVersion then
+    begin
+      {$if declared(_CTLOG_STORE_new)}
+      CTLOG_STORE_new := @_CTLOG_STORE_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CTLOG_STORE_new_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CTLOG_STORE_new');
+    {$ifend}
+  end;
+  CTLOG_STORE_free := LoadLibFunction(ADllHandle, CTLOG_STORE_free_procname);
+  FuncLoadError := not assigned(CTLOG_STORE_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(CTLOG_STORE_free_allownil)}
+    CTLOG_STORE_free := @ERR_CTLOG_STORE_free;
+    {$ifend}
+    {$if declared(CTLOG_STORE_free_introduced)}
+    if LibVersion < CTLOG_STORE_free_introduced then
+    begin
+      {$if declared(FC_CTLOG_STORE_free)}
+      CTLOG_STORE_free := @FC_CTLOG_STORE_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CTLOG_STORE_free_removed)}
+    if CTLOG_STORE_free_removed <= LibVersion then
+    begin
+      {$if declared(_CTLOG_STORE_free)}
+      CTLOG_STORE_free := @_CTLOG_STORE_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CTLOG_STORE_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CTLOG_STORE_free');
+    {$ifend}
+  end;
+  CTLOG_STORE_get0_log_by_id := LoadLibFunction(ADllHandle, CTLOG_STORE_get0_log_by_id_procname);
+  FuncLoadError := not assigned(CTLOG_STORE_get0_log_by_id);
+  if FuncLoadError then
+  begin
+    {$if not defined(CTLOG_STORE_get0_log_by_id_allownil)}
+    CTLOG_STORE_get0_log_by_id := @ERR_CTLOG_STORE_get0_log_by_id;
+    {$ifend}
+    {$if declared(CTLOG_STORE_get0_log_by_id_introduced)}
+    if LibVersion < CTLOG_STORE_get0_log_by_id_introduced then
+    begin
+      {$if declared(FC_CTLOG_STORE_get0_log_by_id)}
+      CTLOG_STORE_get0_log_by_id := @FC_CTLOG_STORE_get0_log_by_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CTLOG_STORE_get0_log_by_id_removed)}
+    if CTLOG_STORE_get0_log_by_id_removed <= LibVersion then
+    begin
+      {$if declared(_CTLOG_STORE_get0_log_by_id)}
+      CTLOG_STORE_get0_log_by_id := @_CTLOG_STORE_get0_log_by_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CTLOG_STORE_get0_log_by_id_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CTLOG_STORE_get0_log_by_id');
+    {$ifend}
+  end;
+  CTLOG_STORE_load_file := LoadLibFunction(ADllHandle, CTLOG_STORE_load_file_procname);
+  FuncLoadError := not assigned(CTLOG_STORE_load_file);
+  if FuncLoadError then
+  begin
+    {$if not defined(CTLOG_STORE_load_file_allownil)}
+    CTLOG_STORE_load_file := @ERR_CTLOG_STORE_load_file;
+    {$ifend}
+    {$if declared(CTLOG_STORE_load_file_introduced)}
+    if LibVersion < CTLOG_STORE_load_file_introduced then
+    begin
+      {$if declared(FC_CTLOG_STORE_load_file)}
+      CTLOG_STORE_load_file := @FC_CTLOG_STORE_load_file;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CTLOG_STORE_load_file_removed)}
+    if CTLOG_STORE_load_file_removed <= LibVersion then
+    begin
+      {$if declared(_CTLOG_STORE_load_file)}
+      CTLOG_STORE_load_file := @_CTLOG_STORE_load_file;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CTLOG_STORE_load_file_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CTLOG_STORE_load_file');
+    {$ifend}
+  end;
+  CTLOG_STORE_load_default_file := LoadLibFunction(ADllHandle, CTLOG_STORE_load_default_file_procname);
+  FuncLoadError := not assigned(CTLOG_STORE_load_default_file);
+  if FuncLoadError then
+  begin
+    {$if not defined(CTLOG_STORE_load_default_file_allownil)}
+    CTLOG_STORE_load_default_file := @ERR_CTLOG_STORE_load_default_file;
+    {$ifend}
+    {$if declared(CTLOG_STORE_load_default_file_introduced)}
+    if LibVersion < CTLOG_STORE_load_default_file_introduced then
+    begin
+      {$if declared(FC_CTLOG_STORE_load_default_file)}
+      CTLOG_STORE_load_default_file := @FC_CTLOG_STORE_load_default_file;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(CTLOG_STORE_load_default_file_removed)}
+    if CTLOG_STORE_load_default_file_removed <= LibVersion then
+    begin
+      {$if declared(_CTLOG_STORE_load_default_file)}
+      CTLOG_STORE_load_default_file := @_CTLOG_STORE_load_default_file;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(CTLOG_STORE_load_default_file_allownil)}
+    if FuncLoadError then
+      AFailed.Add('CTLOG_STORE_load_default_file');
+    {$ifend}
+  end;
+  ERR_load_CT_strings := LoadLibFunction(ADllHandle, ERR_load_CT_strings_procname);
+  FuncLoadError := not assigned(ERR_load_CT_strings);
+  if FuncLoadError then
+  begin
+    {$if not defined(ERR_load_CT_strings_allownil)}
+    ERR_load_CT_strings := @ERR_ERR_load_CT_strings;
+    {$ifend}
+    {$if declared(ERR_load_CT_strings_introduced)}
+    if LibVersion < ERR_load_CT_strings_introduced then
+    begin
+      {$if declared(FC_ERR_load_CT_strings)}
+      ERR_load_CT_strings := @FC_ERR_load_CT_strings;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(ERR_load_CT_strings_removed)}
+    if ERR_load_CT_strings_removed <= LibVersion then
+    begin
+      {$if declared(_ERR_load_CT_strings)}
+      ERR_load_CT_strings := @_ERR_load_CT_strings;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(ERR_load_CT_strings_allownil)}
+    if FuncLoadError then
+      AFailed.Add('ERR_load_CT_strings');
+    {$ifend}
+  end;
 end;
 
 procedure Unload;
@@ -1778,6 +2017,14 @@ begin
   SCT_get_validation_status := nil;
   SCT_validate := nil;
   SCT_LIST_validate := nil;
+
+  CTLOG_STORE_new := nil;
+  CTLOG_STORE_free := nil;
+  CTLOG_STORE_get0_log_by_id := nil;
+  CTLOG_STORE_load_file := nil;
+  CTLOG_STORE_load_default_file := nil;
+
+  ERR_load_CT_strings := nil;
 end;
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
