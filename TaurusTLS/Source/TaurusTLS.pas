@@ -439,8 +439,8 @@ type
     procedure Accept(const pHandle: TIdStackSocketHandle);
     procedure Connect(const pHandle: TIdStackSocketHandle);
     function Send(const ABuffer: TIdBytes;
-      const AOffset, ALength: Integer): Integer;
-    function Recv(var VBuffer: TIdBytes): Integer;
+      const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
+    function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
     function GetSessionIDAsString: String;
     procedure SetCipherList(CipherList: String);
     //
@@ -2849,16 +2849,17 @@ begin
   }
 end;
 
-function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): Integer;
+function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): TIdC_SIZET;
 var
   Lret, LErr: Integer;
+  LRead : TIdC_SIZET;
 begin
   Result := 0;
   repeat
-    Lret := SSL_read(fSSL, PByte(VBuffer), Length(VBuffer));
+    Lret := SSL_read_ex(fSSL, PByte(VBuffer), Length(VBuffer), @LRead);
     if Lret > 0 then
     begin
-      Result := Lret;
+      Result := LRead;
       Break;
     end;
     LErr := GetSSLError(Lret);
@@ -2868,27 +2869,28 @@ begin
     end;
     if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      Result := Lret;
+      Result := LRead;
     end;
     Break;
   until False;
 end;
 
 function TTaurusTLSSocket.Send(const ABuffer: TIdBytes;
-  const AOffset, ALength: Integer): Integer;
+  const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
 var
-  Lret, LErr, LOffset, LLength: Integer;
+  Lret, LErr : Integer;
+  LOffset, LLength, LWritten: TIdC_SIZET;
 begin
   Result := 0;
   LOffset := AOffset;
   LLength := ALength;
   repeat
-    Lret := SSL_write(fSSL, @ABuffer[LOffset], LLength);
+    Lret := SSL_write_ex(fSSL, @ABuffer[LOffset], LLength, @LWritten);
     if Lret > 0 then
     begin
-      Inc(Result, Lret);
-      Inc(LOffset, Lret);
-      Dec(LLength, Lret);
+      Inc(Result, LWritten);
+      Inc(LOffset, LWritten);
+      Dec(LLength, LWritten);
       if LLength < 1 then
       begin
         Break;
@@ -2906,7 +2908,7 @@ begin
     end
     else
     begin
-      Result := Lret;
+      Result := LWritten;
     end;
     Break;
   until False;
