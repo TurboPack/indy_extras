@@ -23145,154 +23145,154 @@ begin
     {$ifend}
   end;
 
-  SSL_get_current_compression := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_get_current_compression := LoadLibFunction(ADllHandle, SSL_COMP_get_compression_methods_procname);
+  FuncLoadError := not assigned(SSL_COMP_get_compression_methods);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_COMP_get_compression_methods_allownil)}
+    SSL_COMP_get_compression_methods := @ERR_SSL_COMP_get_compression_methods;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_COMP_get_compression_methods_introduced)}
+    if LibVersion < SSL_COMP_get_compression_methods_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_COMP_get_compression_methods)}
+      SSL_COMP_get_compression_methods := @FC_SSL_COMP_get_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_COMP_get_compression_methods_removed)}
+    if SSL_COMP_get_compression_methods_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_COMP_get_compression_methods)}
+      SSL_COMP_get_compression_methods := @_SSL_COMP_get_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_COMP_get_compression_methods_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_COMP_get_compression_methods');
     {$ifend}
   end;
-  SSL_get_current_expansion := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_get_current_expansion := LoadLibFunction(ADllHandle, SSL_get_current_expansion_procname);
+  FuncLoadError := not assigned(SSL_get_current_expansion);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_get_current_expansion_allownil)}
+    SSL_get_current_expansion := @ERR_SSL_get_current_expansion;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_get_current_expansion_introduced)}
+    if LibVersion < SSL_get_current_expansion_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_get_current_expansion)}
+      SSL_get_current_expansion := @FC_SSL_get_current_expansion;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_get_current_expansion_removed)}
+    if SSL_get_current_expansion_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_get_current_expansion)}
+      SSL_get_current_expansion := @_SSL_get_current_expansion;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_get_current_expansion_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_get_current_expansion');
     {$ifend}
   end;
-  SSL_COMP_get_name := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_COMP_get_name := LoadLibFunction(ADllHandle, SSL_COMP_get_name_procname);
+  FuncLoadError := not assigned(SSL_COMP_get_name);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_COMP_get_name_allownil)}
+    SSL_COMP_get_name := @ERR_SSL_COMP_get_name;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_COMP_get_name_introduced)}
+    if LibVersion < SSL_COMP_get_name_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_COMP_get_name)}
+      SSL_COMP_get_name := @FC_SSL_COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_COMP_get_name_removed)}
+    if SSL_COMP_get_name_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_COMP_get_name)}
+      SSL_COMP_get_name := @_SSL_COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_COMP_get_name_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_COMP_get_name');
     {$ifend}
   end;
-  SSL_COMP_get0_name := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_COMP_get0_name := LoadLibFunction(ADllHandle, SSL_COMP_get0_name_procname);
+  FuncLoadError := not assigned(SSL_COMP_get0_name);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_COMP_get0_name_allownil)}
+    SSL_COMP_get0_name := @ERR_SSL_COMP_get0_name;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_COMP_get0_name_introduced)}
+    if LibVersion < SSL_COMP_get0_name_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_COMP_get0_name)}
+      SSL_COMP_get0_name := @FC_SSL_COMP_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_COMP_get0_name_removed)}
+    if SSL_COMP_get0_name_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_COMP_get0_name)}
+      SSL_COMP_get0_name := @_SSL_COMP_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_COMP_get0_name_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_COMP_get0_name');
     {$ifend}
   end;
-  SSL_COMP_get_id := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_COMP_get_id := LoadLibFunction(ADllHandle, SSL_COMP_get_id_procname);
+  FuncLoadError := not assigned(SSL_COMP_get_id);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_COMP_get_id_allownil)}
+    SSL_COMP_get_id := @ERR_SSL_COMP_get_id;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_COMP_get_id_introduced)}
+    if LibVersion < SSL_COMP_get_id_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_COMP_get_id)}
+      SSL_COMP_get_id := @FC_SSL_COMP_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_COMP_get_id_removed)}
+    if SSL_COMP_get_id_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_COMP_get_id)}
+      SSL_COMP_get_id := @_SSL_COMP_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_COMP_get_id_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_COMP_get_id');
     {$ifend}
   end;
   SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_get_current_compression_procname);
