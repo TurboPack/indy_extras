@@ -794,6 +794,8 @@ const
   SSL_READ_EARLY_DATA_SUCCESS = 1;
   SSL_READ_EARLY_DATA_FINISH = 2;
 
+  SSL_WRITE_FLAG_CONCLUDE : TIdC_UINT = (1 shl 0);
+
   SSL_EARLY_DATA_NOT_SENT = 0;
   SSL_EARLY_DATA_REJECTED = 1;
   SSL_EARLY_DATA_ACCEPTED = 2;
@@ -1910,6 +1912,7 @@ var
   SSL_CTX_set_cert_store: procedure (v1: PSSL_CTX; v2: PX509_STORE); cdecl = nil;
   SSL_CTX_set1_cert_store: procedure (v1: PSSL_CTX; v2: PX509_STORE); cdecl = nil; {introduced 1.1.0}
 
+  SSL_CTX_flush_sessions_ex: procedure(ctx : PSSL_CTX; tm : TIdC_TIMET); cdecl = nil; {introduced 3.4.0}
   SSL_CTX_flush_sessions: procedure (ctx: PSSL_CTX; tm: TIdC_LONG); cdecl = nil;
 
   SSL_get_current_cipher: function (const s: PSSL): PSSL_CIPHER; cdecl = nil;
@@ -1994,6 +1997,8 @@ var
   SSL_rstate_string: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
   SSL_state_string_long: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
   SSL_rstate_string_long: function (const s: PSSL): PIdAnsiChar; cdecl = nil;
+  SSL_SESSION_get_time_ex: function (const s : PSSL_SESSION) : TIdC_TIMET; cdecl = nil; {introduced 3.3.0}
+  SSL_SESSION_set_time_ex: function(s : PSSL_SESSION; t : TIdC_TIMET) : TIdC_TIMET; cdecl = nil; {introduced 3.3.0}
   SSL_SESSION_get_time: function (const s: PSSL_SESSION): TIdC_LONG; cdecl = nil;
   SSL_SESSION_set_time: function (s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
   SSL_SESSION_get_timeout: function (const s: PSSL_SESSION): TIdC_LONG; cdecl = nil;
@@ -2160,6 +2165,8 @@ var
   SSL_peek_ex: function (ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_write: function (ssl: PSSL; const buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl = nil;
   SSL_write_ex: function (s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_write_ex2: function (s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
+
   SSL_write_early_data: function (s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_callback_ctrl: function (v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG; cdecl = nil;
 
@@ -2750,6 +2757,7 @@ var
   procedure SSL_CTX_set_cert_store(v1: PSSL_CTX; v2: PX509_STORE) cdecl; external CLibSSL;
   procedure SSL_CTX_set1_cert_store(v1: PSSL_CTX; v2: PX509_STORE) cdecl; external CLibSSL; {introduced 1.1.0}
 
+  procedure SSL_CTX_flush_sessions_ex(ctx : PSSL_CTX; tm : TIdC_TIMET); cdecl; external CLibSSL; {introduced 3.4.0}
   procedure SSL_CTX_flush_sessions(ctx: PSSL_CTX; tm: TIdC_LONG) cdecl; external CLibSSL;
 
   function SSL_get_current_cipher(const s: PSSL): PSSL_CIPHER cdecl; external CLibSSL;
@@ -2833,6 +2841,8 @@ var
   function SSL_rstate_string(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
   function SSL_state_string_long(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
   function SSL_rstate_string_long(const s: PSSL): PIdAnsiChar cdecl; external CLibSSL;
+  function SSL_SESSION_get_time_ex(const s : PSSL_SESSION) : TIdC_TIMET cdecl; external CLibSSL;
+  function SSL_SESSION_set_time_ex(s : PSSL_SESSION; t : TIdC_TIMET) : TIdC_TIMET cdecl; external CLibSSL;
   function SSL_SESSION_get_time(const s: PSSL_SESSION): TIdC_LONG cdecl; external CLibSSL;
   function SSL_SESSION_set_time(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
   function SSL_SESSION_get_timeout(const s: PSSL_SESSION): TIdC_LONG cdecl; external CLibSSL;
@@ -2997,6 +3007,7 @@ var
   function SSL_peek_ex(ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_write(ssl: PSSL; const buf: Pointer; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
   function SSL_write_ex(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
   function SSL_write_early_data(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_callback_ctrl(v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
 
@@ -3944,6 +3955,8 @@ const
   SSL_read_early_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_peek_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_write_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  SSL_write_ex2_introduced = (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
+
   SSL_write_early_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_early_data_status_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   TLS_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -3960,6 +3973,8 @@ const
   SSL_get_state_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_client_random_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_server_random_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  SSL_SESSION_get_time_ex_introduced = (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
+  SSL_SESSION_set_time_ex_introduced = (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
   SSL_SESSION_get_master_key_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_SESSION_set1_master_key_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_SESSION_get_max_fragment_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4003,6 +4018,7 @@ const
   SSL_CTX_get_security_level_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_get0_security_ex_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_set0_security_ex_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  SSL_CTX_flush_sessions_ex_introduced = (byte(3) shl 8 or byte(4)) shl 8 or byte(0);
   OPENSSL_init_ssl_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_free_buffers_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_alloc_buffers_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4531,6 +4547,7 @@ const
   SSL_CTX_set_cert_store_procname = 'SSL_CTX_set_cert_store';
   SSL_CTX_set1_cert_store_procname = 'SSL_CTX_set1_cert_store'; {introduced 1.1.0}
 
+  SSL_CTX_flush_sessions_ex_procname = 'SSL_CTX_flush_sessions_ex';
   SSL_CTX_flush_sessions_procname = 'SSL_CTX_flush_sessions';
 
   SSL_get_current_cipher_procname = 'SSL_get_current_cipher';
@@ -4613,6 +4630,8 @@ const
   SSL_rstate_string_procname = 'SSL_rstate_string';
   SSL_state_string_long_procname = 'SSL_state_string_long';
   SSL_rstate_string_long_procname = 'SSL_rstate_string_long';
+  SSL_SESSION_get_time_ex_procname = 'SSL_SESSION_get_time_ex';
+  SSL_SESSION_set_time_ex_procname = 'SSL_SESSION_set_time_ex';
   SSL_SESSION_get_time_procname = 'SSL_SESSION_get_time';
   SSL_SESSION_set_time_procname = 'SSL_SESSION_set_time';
   SSL_SESSION_get_timeout_procname = 'SSL_SESSION_get_timeout';
@@ -4779,6 +4798,7 @@ const
   SSL_peek_ex_procname = 'SSL_peek_ex'; {introduced 1.1.0}
   SSL_write_procname = 'SSL_write';
   SSL_write_ex_procname = 'SSL_write_ex'; {introduced 1.1.0}
+  SSL_write_ex2_procname = 'ERR_SSL_write_ex2'; {introduced 3.3.0}
   SSL_write_early_data_procname = 'SSL_write_early_data'; {introduced 1.1.0}
   SSL_callback_ctrl_procname = 'SSL_callback_ctrl';
 
@@ -6962,6 +6982,12 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_cert_store_procname);
 end;
 
+ {introduced 3.4.0}
+procedure ERR_SSL_CTX_flush_sessions_ex(ctx : PSSL_CTX; tm : TIdC_TIMET);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_flush_sessions_ex_procname);
+end;
+
  {introduced 1.1.0}
 
 procedure  ERR_SSL_CTX_flush_sessions(ctx: PSSL_CTX; tm: TIdC_LONG); 
@@ -7371,6 +7397,16 @@ end;
 function  ERR_SSL_rstate_string_long(const s: PSSL): PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_rstate_string_long_procname);
+end;
+
+function ERR_SSL_SESSION_get_time_ex(const s : PSSL_SESSION) : TIdC_TIMET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_time_ex_procname);
+end;
+
+function ERR_SSL_SESSION_set_time_ex(s : PSSL_SESSION; t : TIdC_TIMET) : TIdC_TIMET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_time_ex_procname);
 end;
 
 
@@ -8157,9 +8193,15 @@ begin
 end;
 
 
-function  ERR_SSL_write_ex(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_write_ex(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex_procname);
+end;
+
+ {introduced 3.3.0}
+function ERR_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex2_procname);
 end;
 
  {introduced 1.1.0}
@@ -9449,9 +9491,6 @@ function  ERR_SSL_get1_peer_certificate(const s: PSSL): PX509;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get1_peer_certificate_procname);
 end;
-
- {introduced 3.3.0}
-
 
 
 {$WARN  NO_RETVAL ON}
@@ -13899,6 +13938,37 @@ begin
     {$ifend}
   end;
 
+  SSL_CTX_flush_sessions_ex := LoadLibFunction(ADllHandle, SSL_CTX_flush_sessions_ex_procname);
+  FuncLoadError := not assigned(SSL_CTX_flush_sessions_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_flush_sessions_ex_allownil)}
+    SSL_CTX_flush_sessions_ex := @ERR_SSL_CTX_flush_sessions_ex;
+    {$ifend}
+    {$if declared(SSL_CTX_flush_sessions_ex_introduced)}
+    if LibVersion < SSL_CTX_flush_sessions_ex_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_flush_sessions_ex)}
+      SSL_CTX_flush_sessions_ex := @FC_SSL_CTX_flush_sessions_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_flush_sessions_ex_removed)}
+    if SSL_CTX_flush_sessions_ex_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_flush_sessions_ex)}
+      SSL_CTX_flush_sessions_ex := @_SSL_CTX_flush_sessions_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_flush_sessions_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_flush_sessions_ex');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_CTX_flush_sessions := LoadLibFunction(ADllHandle, SSL_CTX_flush_sessions_procname);
   FuncLoadError := not assigned(SSL_CTX_flush_sessions);
@@ -16008,6 +16078,69 @@ begin
     {$ifend}
   end;
 
+  {Introduced 3.3}
+  SSL_SESSION_get_time_ex := LoadLibFunction(ADllHandle, SSL_SESSION_get_time_ex_procname);
+  FuncLoadError := not assigned(SSL_SESSION_get_time_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_SESSION_get_time_ex_allownil)}
+    SSL_SESSION_get_time_ex := @ERR_SSL_SESSION_get_time_ex;
+    {$ifend}
+    {$if declared(SSL_SESSION_get_time_ex_introduced)}
+    if LibVersion < SSL_SESSION_get_time_ex_introduced then
+    begin
+      {$if declared(FC_SSL_SESSION_get_time_ex)}
+      SSL_SESSION_get_time_ex := @FC_SSL_SESSION_get_time_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_SESSION_get_time_ex_removed)}
+    if SSL_SESSION_get_time_ex_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_SESSION_get_time_ex)}
+      SSL_SESSION_get_time_ex := @_SSL_SESSION_get_time_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_SESSION_get_time_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_SESSION_get_time_ex');
+    {$ifend}
+  end;
+
+  {Introduced 3.3}
+  SSL_SESSION_set_time_ex := LoadLibFunction(ADllHandle, SSL_SESSION_set_time_ex_procname);
+  FuncLoadError := not assigned(SSL_SESSION_set_time_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_SESSION_set_time_ex_allownil)}
+    SSL_SESSION_set_time_ex := @ERR_SSL_SESSION_set_time_ex;
+    {$ifend}
+    {$if declared(SSL_SESSION_set_time_ex_introduced)}
+    if LibVersion < SSL_SESSION_set_time_ex_introduced then
+    begin
+      {$if declared(FC_SSL_SESSION_set_time_ex)}
+      SSL_SESSION_set_time_ex := @FC_SSL_SESSION_set_time_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_SESSION_set_time_ex_removed)}
+    if SSL_SESSION_set_time_ex_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_SESSION_set_time_ex)}
+      SSL_SESSION_set_time_ex := @_SSL_SESSION_set_time_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_SESSION_set_time_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_SESSION_set_time_ex');
+    {$ifend}
+  end;
 
   SSL_SESSION_get_time := LoadLibFunction(ADllHandle, SSL_SESSION_get_time_procname);
   FuncLoadError := not assigned(SSL_SESSION_get_time);
@@ -20036,6 +20169,38 @@ begin
     {$ifend}
   end;
 
+ {introduced 3.3.0}
+  SSL_write_ex2 := LoadLibFunction(ADllHandle, SSL_write_ex2_procname);
+  FuncLoadError := not assigned(SSL_write_ex2);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_write_ex2_allownil)}
+    SSL_write_ex2 := @ERR_SSL_write_ex2;
+    {$ifend}
+    {$if declared(SSL_write_ex2_introduced)}
+    if LibVersion < SSL_write_ex2_introduced then
+    begin
+      {$if declared(FC_SSL_write_ex2)}
+      SSL_write_ex2 := @FC_SSL_write_ex2;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_write_ex2_removed)}
+    if SSL_write_ex2_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_write_ex2)}
+      SSL_write_ex2 := @_SSL_write_ex2;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_write_ex2_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_write_ex2');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_write_early_data := LoadLibFunction(ADllHandle, SSL_write_early_data_procname);
   FuncLoadError := not assigned(SSL_write_early_data);
@@ -23113,39 +23278,38 @@ begin
     {$ifend}
   end;
 
-
-  SSL_set_tmp_dh_callback := LoadLibFunction(ADllHandle, SSL_set_tmp_dh_callback_procname);
-  FuncLoadError := not assigned(SSL_set_tmp_dh_callback);
+  SSL_get_current_compression := LoadLibFunction(ADllHandle, SSL_get_current_compression_procname);
+  FuncLoadError := not assigned(SSL_get_current_compression);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    {$if not defined(SSL_get_current_compression_allownil)}
+    SSL_get_current_compression := @ERR_SSL_get_current_compression;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_introduced)}
-    if LibVersion < SSL_set_tmp_dh_callback_introduced then
+    {$if declared(SSL_get_current_compression_introduced)}
+    if LibVersion < SSL_get_current_compression_introduced then
     begin
-      {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      {$if declared(FC_SSL_get_current_compression)}
+      SSL_get_current_compression := @FC_SSL_get_current_compression;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_set_tmp_dh_callback_removed)}
-    if SSL_set_tmp_dh_callback_removed <= LibVersion then
+    {$if declared(SSL_get_current_compression_removed)}
+    if SSL_get_current_compression_removed <= LibVersion then
     begin
-      {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      {$if declared(_SSL_get_current_compression)}
+      SSL_get_current_compression := @_SSL_get_current_compression;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_set_tmp_dh_callback_allownil)}
+    {$if not defined(SSL_get_current_compression_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_set_tmp_dh_callback');
+      AFailed.Add('SSL_get_current_compression');
     {$ifend}
   end;
 
-  SSL_get_current_compression := LoadLibFunction(ADllHandle, SSL_COMP_get_compression_methods_procname);
+  SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_COMP_get_compression_methods_procname);
   FuncLoadError := not assigned(SSL_COMP_get_compression_methods);
   if FuncLoadError then
   begin
@@ -26435,6 +26599,7 @@ begin
   SSL_CTX_free := nil;
   SSL_CTX_set_cert_store := nil;
   SSL_CTX_set1_cert_store := nil; {introduced 1.1.0}
+  SSL_CTX_flush_sessions_ex := nil; {introduced 3.4.0}
   SSL_CTX_flush_sessions := nil;
   SSL_get_current_cipher := nil;
   SSL_get_pending_cipher := nil; {introduced 1.1.0}
@@ -26501,6 +26666,8 @@ begin
   SSL_rstate_string := nil;
   SSL_state_string_long := nil;
   SSL_rstate_string_long := nil;
+  SSL_SESSION_get_time_ex := nil;
+  SSL_SESSION_set_time_ex := nil;
   SSL_SESSION_get_time := nil;
   SSL_SESSION_set_time := nil;
   SSL_SESSION_get_timeout := nil;
@@ -26627,6 +26794,7 @@ begin
   SSL_peek_ex := nil; {introduced 1.1.0}
   SSL_write := nil;
   SSL_write_ex := nil; {introduced 1.1.0}
+  SSL_write_ex2 := nil; {introduced 3.3.0}
   SSL_write_early_data := nil; {introduced 1.1.0}
   SSL_callback_ctrl := nil;
   SSL_ctrl := nil;
