@@ -151,7 +151,7 @@ var
    i2d_SCT_LIST : function(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
    d2i_SCT_LIST : function(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
                       len : TIdC_LONG) : PSTACK_OF_SCT;
-   i2o_SCT : function(const sct : PSCT; out : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
+   i2o_SCT : function(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
    o2i_SCT : function(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT; cdecl = nil;
    CTLOG_new : function(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG;
    CTLOG_new_from_base64 : function(ct_log : PPCTLOG;
@@ -225,7 +225,7 @@ function o2i_SCT_LIST(a : PSTACK_OF_SCT; const pp : PIdAnsiChar;
 function i2d_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 function d2i_SCT_LIST(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
                       len : TIdC_LONG) : PSTACK_OF_SCT cdecl; external CLibCrypto;
-function i2o_SCT(const sct : PSCT; out : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+function i2o_SCT(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 function o2i_SCT(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT cdecl; external CLibCrypto;
 function CTLOG_new(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG cdecl; external CLibCrypto;
 function CTLOG_new_from_base64(ct_log : PPCTLOG;
