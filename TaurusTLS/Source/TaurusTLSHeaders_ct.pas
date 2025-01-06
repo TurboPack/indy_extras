@@ -81,6 +81,7 @@ const
 
 type
   PSTACK_OF_SCT = type pointer;
+  PPSTACK_OF_SCT = ^PSTACK_OF_SCT;
   PSTACK_OF_CTLOG = type pointer;
   ct_log_entry_type_t = (CT_LOG_ENTRY_TYPE_NOT_SET = -1,
     CT_LOG_ENTRY_TYPE_X509 = 0, CT_LOG_ENTRY_TYPE_PRECERT = 1);
@@ -144,6 +145,14 @@ var
    SCT_validate : function(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
    SCT_LIST_validate : function(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl = nil;
 
+   i2o_SCT_LIST : function(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
+   o2i_SCT_LIST : function(a : PSTACK_OF_SCT; const pp : PIdAnsiChar;
+                            len : TIdC_SIZET) : PSTACK_OF_SCT; cdecl = nil;
+   i2d_SCT_LIST : function(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
+   d2i_SCT_LIST : function(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
+                      len : TIdC_LONG) : PSTACK_OF_SCT;
+   i2o_SCT : function(const sct : PSCT; out : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
+   o2i_SCT : function(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT; cdecl = nil;
    CTLOG_new : function(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG;
    CTLOG_new_from_base64 : function(ct_log : PPCTLOG;
                           const pkey_base64, name : PIdAnsiChar) : TIdC_INT; cdecl = nil;
@@ -152,8 +161,6 @@ var
    CTLOG_get0_log_id : procedure(const log : PCTLOG; const log_id : PPIdAnsiChar;
                                  log_id_len : TIdC_SIZET); cdecl = nil;
    CTLOG_get0_public_key : function(const log : PCTLOG) : PEVP_PKEY; cdecl = nil;
-
-
    CTLOG_STORE_new : function : PCTLOG_STORE; cdecl = nil;
    CTLOG_STORE_free : procedure(store : PCTLOG_STORE); cdecl = nil;
    CTLOG_STORE_get0_log_by_id : function(const store : PCTLOG_STORE;
@@ -212,7 +219,14 @@ procedure SCT_LIST_print(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : T
 function SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t cdecl; external CLibCrypto;
 function SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
 function SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT cdecl; external CLibCrypto;
-
+function i2o_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+function o2i_SCT_LIST(a : PSTACK_OF_SCT; const pp : PIdAnsiChar;
+                            len : TIdC_SIZET) : PSTACK_OF_SCT  cdecl; external CLibCrypto;
+function i2d_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+function d2i_SCT_LIST(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
+                      len : TIdC_LONG) : PSTACK_OF_SCT cdecl; external CLibCrypto;
+function i2o_SCT(const sct : PSCT; out : PPIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+function o2i_SCT(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT cdecl; external CLibCrypto;
 function CTLOG_new(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG cdecl; external CLibCrypto;
 function CTLOG_new_from_base64(ct_log : PPCTLOG;
                           const pkey_base64, name : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
@@ -350,6 +364,13 @@ const
   SCT_get_validation_status_procname = 'SCT_get_validation_status';
   SCT_validate_procname = 'SCT_validate';
   SCT_LIST_validate_procname = 'SCT_LIST_validate';
+
+  i2o_SCT_LIST_procname = 'i2o_SCT_LIST';
+  o2i_SCT_LIST_procname = 'o2i_SCT_LIST';
+  i2d_SCT_LIST_procname = 'i2d_SCT_LIST';
+  d2i_SCT_LIST_procname = 'd2i_SCT_LIST';
+  i2o_SCT_procname = 'i2o_SCT';
+  o2i_SCT_procname = 'o2i_SCT';
 
   CTLOG_new_procname = 'CTLOG_new';
   CTLOG_new_from_base64_procname = 'CTLOG_new_from_base64';
@@ -573,7 +594,38 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_validate_procname);
 end;
 
-//===
+function ERR_i2o_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(i2o_SCT_LIST_procname);
+end;
+
+function ERR_o2i_SCT_LIST(a : PSTACK_OF_SCT; const pp : PIdAnsiChar;
+                            len : TIdC_SIZET) : PSTACK_OF_SCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(o2i_SCT_LIST_procname);
+end;
+
+function ERR_i2d_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_SCT_LIST_procname);
+end;
+
+function ERR_d2i_SCT_LIST(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
+                      len : TIdC_LONG) : PSTACK_OF_SCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_SCT_LIST_procname);
+end;
+
+function ERR_i2o_SCT(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( i2o_SCT_procname);
+end;
+
+function ERR_o2i_SCT(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(o2i_SCT_procname);
+end;
+
 function ERR_CTLOG_new(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_new_procname);
@@ -605,8 +657,6 @@ function ERR_CTLOG_get0_public_key(const log : PCTLOG) : PEVP_PKEY;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_get0_public_key_procname);
 end;
-
-//===
 
 function ERR_CTLOG_STORE_new : PCTLOG_STORE;
 begin
@@ -1857,7 +1907,187 @@ begin
     {$ifend}
   end;
 
- //=====
+  i2o_SCT_LIST := LoadLibFunction(ADllHandle, i2o_SCT_LIST_procname);
+  FuncLoadError := not assigned(i2o_SCT_LIST);
+  if FuncLoadError then
+  begin
+    {$if not defined(i2o_SCT_LIST_allownil)}
+    i2o_SCT_LIST := @ERR_i2o_SCT_LIST;
+    {$ifend}
+    {$if declared(i2o_SCT_LIST_introduced)}
+    if LibVersion < i2o_SCT_LIST_introduced then
+    begin
+      {$if declared(FC_i2o_SCT_LIST)}
+      i2o_SCT_LIST := @FC_i2o_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(i2o_SCT_LIST_removed)}
+    if i2o_SCT_LIST_removed <= LibVersion then
+    begin
+      {$if declared(_i2o_SCT_LIST)}
+      i2o_SCT_LIST := @_i2o_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(i2o_SCT_LIST_allownil)}
+    if FuncLoadError then
+      AFailed.Add('i2o_SCT_LIST');
+    {$ifend}
+  end;
+  o2i_SCT_LIST := LoadLibFunction(ADllHandle, o2i_SCT_LIST_procname);
+  FuncLoadError := not assigned(o2i_SCT_LIST);
+  if FuncLoadError then
+  begin
+    {$if not defined(o2i_SCT_LIST_allownil)}
+    o2i_SCT_LIST := @ERR_o2i_SCT_LIST;
+    {$ifend}
+    {$if declared(o2i_SCT_LIST_introduced)}
+    if LibVersion < o2i_SCT_LIST_introduced then
+    begin
+      {$if declared(FC_o2i_SCT_LIST)}
+      o2i_SCT_LIST := @FC_o2i_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(o2i_SCT_LIST_removed)}
+    if o2i_SCT_LIST_removed <= LibVersion then
+    begin
+      {$if declared(_o2i_SCT_LIST)}
+      o2i_SCT_LIST := @_o2i_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(o2i_SCT_LIST_allownil)}
+    if FuncLoadError then
+      AFailed.Add('o2i_SCT_LIST');
+    {$ifend}
+  end;
+  i2d_SCT_LIST := LoadLibFunction(ADllHandle, i2d_SCT_LIST_procname);
+  FuncLoadError := not assigned(i2d_SCT_LIST);
+  if FuncLoadError then
+  begin
+    {$if not defined(i2d_SCT_LIST_allownil)}
+    i2d_SCT_LIST := @ERR_i2d_SCT_LIST;
+    {$ifend}
+    {$if declared(i2d_SCT_LIST_introduced)}
+    if LibVersion < i2d_SCT_LIST_introduced then
+    begin
+      {$if declared(FC_i2d_SCT_LIST)}
+      i2d_SCT_LIST := @FC_i2d_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(i2d_SCT_LIST_removed)}
+    if i2d_SCT_LIST_removed <= LibVersion then
+    begin
+      {$if declared(_i2d_SCT_LIST)}
+      i2d_SCT_LIST := @_i2d_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(i2d_SCT_LIST_allownil)}
+    if FuncLoadError then
+      AFailed.Add('i2d_SCT_LIST');
+    {$ifend}
+  end;
+  d2i_SCT_LIST := LoadLibFunction(ADllHandle, d2i_SCT_LIST_procname);
+  FuncLoadError := not assigned(d2i_SCT_LIST);
+  if FuncLoadError then
+  begin
+    {$if not defined(d2i_SCT_LIST_allownil)}
+    d2i_SCT_LIST := @ERR_d2i_SCT_LIST;
+    {$ifend}
+    {$if declared(d2i_SCT_LIST_introduced)}
+    if LibVersion < d2i_SCT_LIST_introduced then
+    begin
+      {$if declared(FC_d2i_SCT_LIST)}
+      d2i_SCT_LIST := @FC_d2i_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(d2i_SCT_LIST_removed)}
+    if d2i_SCT_LIST_removed <= LibVersion then
+    begin
+      {$if declared(_d2i_SCT_LIST)}
+      d2i_SCT_LIST := @_d2i_SCT_LIST;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(d2i_SCT_LIST_allownil)}
+    if FuncLoadError then
+      AFailed.Add('d2i_SCT_LIST');
+    {$ifend}
+  end;
+  i2o_SCT := LoadLibFunction(ADllHandle, i2o_SCT_procname);
+  FuncLoadError := not assigned(i2o_SCT);
+  if FuncLoadError then
+  begin
+    {$if not defined(i2o_SCT_allownil)}
+    i2o_SCT := @ERR_i2o_SCT;
+    {$ifend}
+    {$if declared(i2o_SCT_introduced)}
+    if LibVersion < i2o_SCT_introduced then
+    begin
+      {$if declared(FC_i2o_SCT)}
+      i2o_SCT := @FC_i2o_SCT;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(i2o_SCT_removed)}
+    if i2o_SCT_removed <= LibVersion then
+    begin
+      {$if declared(_i2o_SCT)}
+      i2o_SCT := @_i2o_SCT;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(i2o_SCT_allownil)}
+    if FuncLoadError then
+      AFailed.Add('i2o_SCT');
+    {$ifend}
+  end;
+  o2i_SCT := LoadLibFunction(ADllHandle, o2i_SCT_procname);
+  FuncLoadError := not assigned(o2i_SCT);
+  if FuncLoadError then
+  begin
+    {$if not defined(o2i_SCT_allownil)}
+    o2i_SCT := @ERR_o2i_SCT;
+    {$ifend}
+    {$if declared(o2i_SCT_introduced)}
+    if LibVersion < o2i_SCT_introduced then
+    begin
+      {$if declared(FC_o2i_SCT)}
+      o2i_SCT := @FC_o2i_SCT;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(o2i_SCT_removed)}
+    if o2i_SCT_removed <= LibVersion then
+    begin
+      {$if declared(_o2i_SCT)}
+      o2i_SCT := @_o2i_SCT;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(o2i_SCT_allownil)}
+    if FuncLoadError then
+      AFailed.Add('o2i_SCT');
+    {$ifend}
+  end;
+
   CTLOG_new := LoadLibFunction(ADllHandle, CTLOG_new_procname);
   FuncLoadError := not assigned(CTLOG_new);
   if FuncLoadError then
@@ -1978,34 +2208,34 @@ begin
       AFailed.Add('CTLOG_get0_name');
     {$ifend}
   end;
-  CTLOG_get0_log_id := LoadLibFunction(ADllHandle, get0_log_id_procname);
-  FuncLoadError := not assigned(get0_log_id);
+  CTLOG_get0_log_id := LoadLibFunction(ADllHandle, CTLOG_get0_log_id_procname);
+  FuncLoadError := not assigned(CTLOG_get0_log_id);
   if FuncLoadError then
   begin
-    {$if not defined(get0_log_id_allownil)}
-    get0_log_id := @ERR_get0_log_id;
+    {$if not defined(CTLOG_get0_log_id_allownil)}
+    CTLOG_get0_log_id := @ERR_CTLOG_get0_log_id;
     {$ifend}
-    {$if declared(get0_log_id_introduced)}
-    if LibVersion < get0_log_id_introduced then
+    {$if declared(CTLOG_get0_log_id_introduced)}
+    if LibVersion < CTLOG_get0_log_id_introduced then
     begin
-      {$if declared(FC_get0_log_id)}
-      get0_log_id := @FC_get0_log_id;
+      {$if declared(FC_CTLOG_get0_log_id)}
+      CTLOG_get0_log_id := @FC_CTLOG_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
     {$if declared(get0_log_id_removed)}
-    if get0_log_id_removed <= LibVersion then
+    if CTLOG_get0_log_id_removed <= LibVersion then
     begin
       {$if declared(_get0_log_id)}
-      get0_log_id := @_get0_log_id;
+      CTLOG_get0_log_id := @_CTLOG_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
     {$if not defined(get0_log_id_allownil)}
     if FuncLoadError then
-      AFailed.Add('get0_log_id');
+      AFailed.Add('CTLOG_get0_log_id');
     {$ifend}
   end;
   CTLOG_get0_public_key := LoadLibFunction(ADllHandle, CTLOG_get0_public_key_procname);
@@ -2038,7 +2268,7 @@ begin
       AFailed.Add('CTLOG_get0_public_key');
     {$ifend}
   end;
- //=====
+
   CTLOG_STORE_new := LoadLibFunction(ADllHandle, CTLOG_STORE_new_procname);
   FuncLoadError := not assigned(CTLOG_STORE_new);
   if FuncLoadError then
@@ -2263,6 +2493,13 @@ begin
   SCT_get_validation_status := nil;
   SCT_validate := nil;
   SCT_LIST_validate := nil;
+
+  i2o_SCT_LIST := nil;
+  o2i_SCT_LIST := nil;
+  i2d_SCT_LIST := nil;
+  d2i_SCT_LIST := nil;
+  i2o_SCT := nil;
+  o2i_SCT := nil;
 
   CTLOG_new := nil;
   CTLOG_new_from_base64 := nil;

@@ -396,12 +396,14 @@ type
   sct_st = type Pointer;
   SCT = sct_st;
   PSCT = ^SCT;
+  PPSCT = ^PSCT;
   sct_ctx_st = type Pointer;
   SCT_CTX = sct_ctx_st;
   PSCT_CTX = ^SCT_CTX;
   ctlog_st = type Pointer;
   CTLOG = ctlog_st;
   PCTLOG = ^CTLOG;
+  PPCTLOG = ^PCTLOG;
   ctlog_store_st = type Pointer;
   CTLOG_STORE = ctlog_store_st;
   PCTLOG_STORE = ^CTLOG_STORE;
