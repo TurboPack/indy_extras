@@ -1900,6 +1900,8 @@ var
 
   SSL_CTX_set_cipher_list: function (v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; cdecl = nil;
   SSL_CTX_new: function (const meth: PSSL_METHOD): PSSL_CTX; cdecl = nil;
+  SSL_CTX_new_ex: function(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
+                           const meth : PSSL_METHOD) : PSSL_CTX; cdecl = nil; {introduced 3.0.0}
   SSL_CTX_set_timeout: function (ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; cdecl = nil;
   SSL_CTX_get_timeout: function (const ctx: PSSL_CTX): TIdC_LONG; cdecl = nil;
   SSL_CTX_get_cert_store: function (const v1: PSSL_CTX): PX509_STORE; cdecl = nil;
@@ -2745,6 +2747,8 @@ var
 
   function SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX cdecl; external CLibSSL;
+  function SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
+                          const meth : PSSL_METHOD) : PSSL_CTX; cdecl = nil; cdecl; external CLibSSL; {introduced 3.0.0}
   function SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_get_cert_store(const v1: PSSL_CTX): PX509_STORE cdecl; external CLibSSL;
@@ -3852,6 +3856,7 @@ begin
 end;
 
 const
+  SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_clear_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4535,6 +4540,7 @@ const
 
   SSL_CTX_set_cipher_list_procname = 'SSL_CTX_set_cipher_list';
   SSL_CTX_new_procname = 'SSL_CTX_new';
+  SSL_CTX_new_ex_procname = 'SSL_CTX_new_ex';
   SSL_CTX_set_timeout_procname = 'SSL_CTX_set_timeout';
   SSL_CTX_get_timeout_procname = 'SSL_CTX_get_timeout';
   SSL_CTX_get_cert_store_procname = 'SSL_CTX_get_cert_store';
@@ -5872,6 +5878,12 @@ begin
   _PSSL_CTX(ctx)^.default_passwd_callback_userdata := u;
 end;
 
+function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
+                        const meth : PSSL_METHOD) : PSSL_CTX; cdecl; {introduced 3.0.0}
+begin
+  Result := SSL_CTX_new(meth);
+end;
+
 //* Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value,
 // * they cannot be used to clear bits. */
 
@@ -6921,6 +6933,11 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_new_procname);
 end;
 
+function ERR_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
+                            const meth : PSSL_METHOD) : PSSL_CTX;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_new_ex_procname);
+end;
 
 function  ERR_SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; 
 begin
@@ -13618,6 +13635,36 @@ begin
     {$ifend}
   end;
 
+  SSL_CTX_new_ex := LoadLibFunction(ADllHandle, SSL_CTX_new_ex_procname);
+  FuncLoadError := not assigned(SSL_CTX_new_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_new_ex_allownil)}
+    SSL_CTX_new_ex := @ERR_SSL_CTX_new_ex;
+    {$ifend}
+    {$if declared(SSL_CTX_new_ex_introduced)}
+    if LibVersion < SSL_CTX_new_ex_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_new_ex)}
+      SSL_CTX_new_ex := @FC_SSL_CTX_new_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_new_ex_removed)}
+    if SSL_CTX_new_ex_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_new_ex)}
+      SSL_CTX_new_ex := @_SSL_CTX_new_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_new_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_new_ex');
+    {$ifend}
+  end;
 
   SSL_CTX_set_timeout := LoadLibFunction(ADllHandle, SSL_CTX_set_timeout_procname);
   FuncLoadError := not assigned(SSL_CTX_set_timeout);
@@ -26589,6 +26636,7 @@ begin
   BIO_ssl_copy_session_id := nil;
   SSL_CTX_set_cipher_list := nil;
   SSL_CTX_new := nil;
+  SSL_CTX_new_ex := nil;
   SSL_CTX_set_timeout := nil;
   SSL_CTX_get_timeout := nil;
   SSL_CTX_get_cert_store := nil;

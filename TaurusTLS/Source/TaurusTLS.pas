@@ -2270,7 +2270,7 @@ begin
   end;
 
   // create new SSL context
-  fContext := SSL_CTX_new(GetSSLMethod);
+  fContext := SSL_CTX_new_ex(nil,nil,GetSSLMethod);
   if fContext = nil then
   begin
     ETaurusTLSCreatingContextError.RaiseException(RSSSLCreatingContextError);
