@@ -442,7 +442,6 @@ type
       const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
     function GetSessionIDAsString: String;
-    procedure SetCipherList(CipherList: String);
     //
     property SSL: PSSL read fSSL;
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
@@ -3013,18 +3012,6 @@ begin
       Result := Result + IndyFormat('%.2x', [LDataPtr^]); { do not localize }
     end;
   end;
-end;
-
-procedure TTaurusTLSSocket.SetCipherList(CipherList: String);
-// var
-// tmpPStr: PAnsiChar;
-begin
-  {
-    fCipherList := CipherList;
-    fCipherList_Ch := True;
-    aCipherList := aCipherList+#0;
-    if hSSL <> nil then f_SSL_set_cipher_list(hSSL, @aCipherList[1]);
-  }
 end;
 
 /// ////////////////////////////////////////////////////////////
