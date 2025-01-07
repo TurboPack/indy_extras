@@ -34,7 +34,13 @@ uses
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_stack,
   TaurusTLSHeaders_x509;
+
+type
+  PSTACK_OF_X509_OBJECT = type pointer;
+  PSTACK_OF_X509_LOOKUP = type pointer;
+  PSTACK_OF_X509_VERIFY_PARAM = type pointer;
 
 const
   X509_L_FILE_LOAD = 1;
@@ -465,10 +471,11 @@ var
   X509_STORE_lock: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_STORE_unlock: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_STORE_up_ref: function (v: PX509_STORE): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  //STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *v);
+  X509_STORE_get1_objects: function(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl = nil;
+  X509_STORE_get0_objects: function(v : PX509_STORE) : PSTACK_OF_X509_OBJECT; cdecl = nil;
 
-  //STACK_OF(X509) *X509_STORE_CTX_get1_certs(X509_STORE_CTX *st, X509_NAME *nm);
-  //STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *st, X509_NAME *nm);
+  X509_STORE_CTX_get1_certs : function(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509; cdecl = nil;
+  X509_STORE_CTX_get1_crls : function(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL; cdecl = nil;
   X509_STORE_set_flags: function (ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
   X509_STORE_set_purpose: function (ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_STORE_set_trust: function (ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -753,10 +760,11 @@ var
   function X509_STORE_lock(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_unlock(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_up_ref(v: PX509_STORE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  //STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *v);
+  function X509_STORE_get1_objects(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto;
+  function X509_STORE_get0_objects(v : PX509_STORE) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto;
 
-  //STACK_OF(X509) *X509_STORE_CTX_get1_certs(X509_STORE_CTX *st, X509_NAME *nm);
-  //STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *st, X509_NAME *nm);
+  function X509_STORE_CTX_get1_certs(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509 cdecl; external CLibCrypto;
+  function X509_STORE_CTX_get1_crls(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto;
   function X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_purpose(ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_trust(ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1012,6 +1020,102 @@ function X509_STORE_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE;
 function X509_STORE_CTX_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE_CTX;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 
+ {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+type
+  Tsk_X509_OBJECT_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_OBJECT cdecl;
+  Tsk_X509_OBJECT_new_null = function : PSTACK_OF_X509_OBJECT cdecl;
+  Tsk_X509_OBJECT_free = procedure(st : PSTACK_OF_X509_OBJECT) cdecl;
+  Tsk_X509_OBJECT_num = function (const sk : PSTACK_OF_X509_OBJECT) : TIdC_INT cdecl;
+  Tsk_X509_OBJECT_value = function (const sk : PSTACK_OF_X509_OBJECT; i : TIdC_INT) : PX509_OBJECT cdecl;
+  Tsk_X509_OBJECT_push = function (sk : PSTACK_OF_X509_OBJECT; st : PX509_OBJECT) : TIdC_INT cdecl;
+  Tsk_X509_OBJECT_dup = function (sk : PSTACK_OF_X509_OBJECT) : PSTACK_OF_X509_OBJECT cdecl;
+  Tsk_X509_OBJECT_find = function (sk : PSTACK_OF_X509_OBJECT; _val : PX509_OBJECT) : TIdC_INT cdecl;
+  Tsk_X509_OBJECT_pop_free = procedure (sk : PSTACK_OF_X509_OBJECT; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_X509_LOOKUP_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_LOOKUP cdecl;
+  Tsk_X509_LOOKUP_new_null = function : PSTACK_OF_X509_LOOKUP cdecl;
+  Tsk_X509_LOOKUP_free = procedure(st : PSTACK_OF_X509_LOOKUP) cdecl;
+  Tsk_X509_LOOKUP_num = function (const sk : PSTACK_OF_X509_LOOKUP) : TIdC_INT cdecl;
+  Tsk_X509_LOOKUP_value = function (const sk : PSTACK_OF_X509_LOOKUP; i : TIdC_INT) : PX509_LOOKUP cdecl;
+  Tsk_X509_LOOKUP_push = function (sk : PSTACK_OF_X509_LOOKUP; st : PX509_LOOKUP) : TIdC_INT cdecl;
+  Tsk_X509_LOOKUP_dup = function (sk : PSTACK_OF_X509_LOOKUP) : PSTACK_OF_X509_LOOKUP cdecl;
+  Tsk_X509_LOOKUP_find = function (sk : PSTACK_OF_X509_LOOKUP; _val : PX509_LOOKUP) : TIdC_INT cdecl;
+  Tsk_X509_LOOKUP_pop_free = procedure (sk : PSTACK_OF_X509_LOOKUP; func: TOPENSSL_sk_freefunc) cdecl;
+
+  Tsk_X509_VERIFY_PARAM_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_VERIFY_PARAM cdecl;
+  Tsk_X509_VERIFY_PARAM_new_null = function : PSTACK_OF_X509_VERIFY_PARAM cdecl;
+  Tsk_X509_VERIFY_PARAM_free = procedure(st : PSTACK_OF_X509_VERIFY_PARAM) cdecl;
+  Tsk_X509_VERIFY_PARAM_num = function (const sk : PSTACK_OF_X509_VERIFY_PARAM) : TIdC_INT cdecl;
+  Tsk_X509_VERIFY_PARAM_value = function (const sk : PSTACK_OF_X509_VERIFY_PARAM; i : TIdC_INT) : PX509_VERIFY_PARAM cdecl;
+  Tsk_X509_VERIFY_PARAM_push = function (sk : PSTACK_OF_X509_VERIFY_PARAM; st : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
+  Tsk_X509_VERIFY_PARAM_dup = function (sk : PSTACK_OF_X509_VERIFY_PARAM) : PSTACK_OF_X509_VERIFY_PARAM cdecl;
+  Tsk_X509_VERIFY_PARAM_find = function (sk : PSTACK_OF_X509_VERIFY_PARAM; _val : PX509_VERIFY_PARAM) : TIdC_INT cdecl;
+  Tsk_X509_VERIFY_PARAM_pop_free = procedure (sk : PSTACK_OF_X509_VERIFY_PARAM; func: TOPENSSL_sk_freefunc) cdecl;
+
+var
+  sk_X509_OBJECT_new: Tsk_X509_OBJECT_new absolute sk_new;
+  sk_X509_OBJECT_new_null : Tsk_X509_OBJECT_new_null absolute sk_new_null;
+  sk_X509_OBJECT_free : Tsk_X509_OBJECT_free absolute sk_free;
+  sk_X509_OBJECT_num : Tsk_X509_OBJECT_num absolute sk_num;
+  sk_X509_OBJECT_value : Tsk_X509_OBJECT_value absolute sk_value;
+  sk_X509_OBJECT_push : Tsk_X509_OBJECT_push absolute sk_push;
+  sk_X509_OBJECT_dup : Tsk_X509_OBJECT_dup absolute sk_dup;
+  sk_X509_OBJECT_find : Tsk_X509_OBJECT_find absolute sk_find;
+  sk_X509_OBJECT_pop_free :  Tsk_X509_OBJECT_pop_free absolute sk_pop_free;
+
+  sk_X509_LOOKUP_new: Tsk_X509_LOOKUP_new absolute sk_new;
+  sk_X509_LOOKUP_new_null : Tsk_X509_LOOKUP_new_null absolute sk_new_null;
+  sk_X509_LOOKUP_free : Tsk_X509_LOOKUP_free absolute sk_free;
+  sk_X509_LOOKUP_num : Tsk_X509_LOOKUP_num absolute sk_num;
+  sk_X509_LOOKUP_value : Tsk_X509_LOOKUP_value absolute sk_value;
+  sk_X509_LOOKUP_push : Tsk_X509_LOOKUP_push absolute sk_push;
+  sk_X509_LOOKUP_dup : Tsk_X509_LOOKUP_dup absolute sk_dup;
+  sk_X509_LOOKUP_find : Tsk_X509_LOOKUP_find absolute sk_find;
+  sk_X509_LOOKUP_pop_free :  Tsk_X509_LOOKUP_pop_free absolute sk_pop_free;
+
+  sk_X509_VERIFY_PARAM_new: Tsk_X509_VERIFY_PARAM_new absolute sk_new;
+  sk_X509_VERIFY_PARAM_new_null : Tsk_X509_VERIFY_PARAM_new_null absolute sk_new_null;
+  sk_X509_VERIFY_PARAM_free : Tsk_X509_VERIFY_PARAM_free absolute sk_free;
+  sk_X509_VERIFY_PARAM_num : Tsk_X509_VERIFY_PARAM_num absolute sk_num;
+  sk_X509_VERIFY_PARAM_value : Tsk_X509_VERIFY_PARAM_value absolute sk_value;
+  sk_X509_VERIFY_PARAM_push : Tsk_X509_VERIFY_PARAM_push absolute sk_push;
+  sk_X509_VERIFY_PARAM_dup : Tsk_X509_VERIFY_PARAM_dup absolute sk_dup;
+  sk_X509_VERIFY_PARAM_find : Tsk_X509_VERIFY_PARAM_find absolute sk_find;
+  sk_X509_VERIFY_PARAM_pop_free :  Tsk_X509_VERIFY_PARAM_pop_free absolute sk_pop_free;
+
+{$ELSE}
+  function sk_X509_OBJECT_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_OBJECT_new_null : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_OBJECT_free(st : PSTACK_OF_X509_OBJECT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_OBJECT_num (const sk : PSTACK_OF_X509_OBJECT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_OBJECT_value (const sk : PSTACK_OF_X509_OBJECT; i : TIdC_INT): PX509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_OBJECT_push (sk : PSTACK_OF_X509_OBJECT; st : PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_OBJECT_dup (sk : PSTACK_OF_X509_OBJECT) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_OBJECT_find (sk : PSTACK_OF_X509_OBJECT; val : PX509_OBJECT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_OBJECT_pop_free (sk : PSTACK_OF_X509_OBJECT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_X509_LOOKUP_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_LOOKUP_new_null : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_LOOKUP_free(st : PSTACK_OF_X509_LOOKUP) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_LOOKUP_num (const sk : PSTACK_OF_X509_LOOKUP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_LOOKUP_value (const sk : PSTACK_OF_X509_LOOKUP; i : TIdC_INT): PX509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_LOOKUP_push (sk : PSTACK_OF_X509_LOOKUP; st : PX509_LOOKUP): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_LOOKUP_dup (sk : PSTACK_OF_X509_LOOKUP) : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_LOOKUP_find (sk : PSTACK_OF_X509_LOOKUP; val : PX509_LOOKUP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_LOOKUP_pop_free (sk : PSTACK_OF_X509_LOOKUP; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_X509_VERIFY_PARAM_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_VERIFY_PARAM_new_null : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_VERIFY_PARAM_free(st : PSTACK_OF_X509_VERIFY_PARAM) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_VERIFY_PARAM_num (const sk : PSTACK_OF_X509_VERIFY_PARAM) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_VERIFY_PARAM_value (const sk : PSTACK_OF_X509_VERIFY_PARAM; i : TIdC_INT): PX509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_VERIFY_PARAM_push (sk : PSTACK_OF_X509_VERIFY_PARAM; st : PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_VERIFY_PARAM_dup (sk : PSTACK_OF_X509_VERIFY_PARAM) : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_VERIFY_PARAM_find (sk : PSTACK_OF_X509_VERIFY_PARAM; val : PX509_VERIFY_PARAM) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_VERIFY_PARAM_pop_free (sk : PSTACK_OF_X509_VERIFY_PARAM; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+{$ENDIF}
+
 implementation
 
   uses
@@ -1098,6 +1202,7 @@ const
   X509_LOOKUP_meth_get_get_by_alias_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_STORE_CTX_get_by_subject_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_STORE_CTX_get_obj_by_subject_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  X509_STORE_get1_objects_introduced = (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
   X509_LOOKUP_set_method_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_LOOKUP_get_method_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_LOOKUP_get_store_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1159,10 +1264,12 @@ const
   X509_STORE_lock_procname = 'X509_STORE_lock'; {introduced 1.1.0}
   X509_STORE_unlock_procname = 'X509_STORE_unlock'; {introduced 1.1.0}
   X509_STORE_up_ref_procname = 'X509_STORE_up_ref'; {introduced 1.1.0}
-  //STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *v);
 
-  //STACK_OF(X509) *X509_STORE_CTX_get1_certs(X509_STORE_CTX *st, X509_NAME *nm);
-  //STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *st, X509_NAME *nm);
+  X509_STORE_get1_objects_procname = 'X509_STORE_get1_objects';
+  X509_STORE_get0_objects_procname = 'X509_STORE_get0_objects';
+
+  X509_STORE_CTX_get1_certs_procname = 'X509_STORE_CTX_get1_certs';
+  X509_STORE_CTX_get1_crls_procname = 'X509_STORE_CTX_get1_crls';
   X509_STORE_set_flags_procname = 'X509_STORE_set_flags';
   X509_STORE_set_purpose_procname = 'X509_STORE_set_purpose';
   X509_STORE_set_trust_procname = 'X509_STORE_set_trust';
@@ -1606,12 +1713,29 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_up_ref_procname);
 end;
 
- {introduced 1.1.0}
-  //STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *v);
+ {introduced 3.3.0}
+function ERR_X509_STORE_get1_objects(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_get1_objects_procname);
+end;
 
-  //STACK_OF(X509) *X509_STORE_CTX_get1_certs(X509_STORE_CTX *st, X509_NAME *nm);
-  //STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *st, X509_NAME *nm);
-function  ERR_X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT; 
+ {introduced 1.1.0}
+function ERR_X509_STORE_get0_objects(v : PX509_STORE) : PSTACK_OF_X509_OBJECT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_get0_objects_procname);
+end;
+
+function ERR_X509_STORE_CTX_get1_certs(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_CTX_get1_certs_procname);
+end;
+
+function ERR_X509_STORE_CTX_get1_crls(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_CTX_get1_crls_procname);
+end;
+
+function  ERR_X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_flags_procname);
 end;
@@ -3388,6 +3512,126 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_get1_objects := LoadLibFunction(ADllHandle, X509_STORE_get1_objects_procname);
+  FuncLoadError := not assigned(X509_STORE_get1_objects);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_get1_objects_allownil)}
+    X509_STORE_get1_objects := @ERR_X509_STORE_get1_objects;
+    {$ifend}
+    {$if declared(X509_STORE_get1_objects_introduced)}
+    if LibVersion < X509_STORE_get1_objects_introduced then
+    begin
+      {$if declared(FC_X509_STORE_get1_objects)}
+      X509_STORE_get1_objects := @FC_X509_STORE_get1_objects;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_get1_objects_removed)}
+    if X509_STORE_get1_objects_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_get1_objects)}
+      X509_STORE_get1_objects := @_X509_STORE_get1_objects;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_get1_objects_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_get1_objects');
+    {$ifend}
+  end;
+  X509_STORE_get0_objects := LoadLibFunction(ADllHandle, X509_STORE_get0_objects_procname);
+  FuncLoadError := not assigned(X509_STORE_get0_objects);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_get0_objects_allownil)}
+    X509_STORE_get0_objects := @ERR_X509_STORE_get0_objects;
+    {$ifend}
+    {$if declared(X509_STORE_get0_objects_introduced)}
+    if LibVersion < X509_STORE_get0_objects_introduced then
+    begin
+      {$if declared(FC_X509_STORE_get0_objects)}
+      X509_STORE_get0_objects := @FC_X509_STORE_get0_objects;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_get0_objects_removed)}
+    if X509_STORE_get0_objects_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_get0_objects)}
+      X509_STORE_get0_objects := @_X509_STORE_get0_objects;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_get0_objects_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_get0_objects');
+    {$ifend}
+  end;
+  X509_STORE_CTX_get1_certs := LoadLibFunction(ADllHandle, X509_STORE_CTX_get1_certs_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get1_certs);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get1_certs_allownil)}
+    X509_STORE_CTX_get1_certs := @ERR_X509_STORE_CTX_get1_certs;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_certs_introduced)}
+    if LibVersion < X509_STORE_CTX_get1_certs_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get1_certs)}
+      X509_STORE_CTX_get1_certs := @FC_X509_STORE_CTX_get1_certs;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_certs_removed)}
+    if X509_STORE_CTX_get1_certs_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get1_certs)}
+      X509_STORE_CTX_get1_certs := @_X509_STORE_CTX_get1_certs;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get1_certs_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get1_certs');
+    {$ifend}
+  end;
+  X509_STORE_CTX_get1_crls := LoadLibFunction(ADllHandle, X509_STORE_CTX_get1_crls_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get1_crls);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get1_crls_allownil)}
+    X509_STORE_CTX_get1_crls := @ERR_X509_STORE_CTX_get1_crls;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_crls_introduced)}
+    if LibVersion < X509_STORE_CTX_get1_crls_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get1_crls)}
+      X509_STORE_CTX_get1_crls := @FC_X509_STORE_CTX_get1_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_crls_removed)}
+    if X509_STORE_CTX_get1_crls_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get1_crls)}
+      X509_STORE_CTX_get1_crls := @_X509_STORE_CTX_get1_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get1_crls_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get1_crls');
+    {$ifend}
+  end;
 
   X509_STORE_get_verify_cb := LoadLibFunction(ADllHandle, X509_STORE_get_verify_cb_procname);
   FuncLoadError := not assigned(X509_STORE_get_verify_cb);
