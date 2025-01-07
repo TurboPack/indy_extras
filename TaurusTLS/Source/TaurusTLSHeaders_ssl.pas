@@ -913,6 +913,13 @@ type
   PSTACK_OF_SSL_CIPHER = type pointer;
   PSTACK_OF_SSL_COMP = type pointer;
 
+  ssl_shutdown_ex_args_st = record
+    quic_error_code : TIdC_UINT64;
+    quic_reason : PIdAnsiChar;
+  end;
+  SSL_SHUTDOWN_EX_ARGS = ssl_shutdown_ex_args_st;
+  PSSL_SHUTDOWN_EX_ARGS = ^SSL_SHUTDOWN_EX_ARGS;
+
   (* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*)
   srtp_protection_profile_st = record
     name: PIdAnsiChar;
@@ -2207,6 +2214,10 @@ var
   SSL_renegotiate: function (s: PSSL): TIdC_INT; cdecl = nil;
   SSL_renegotiate_abbreviated: function (s: PSSL): TIdC_INT; cdecl = nil;
   SSL_shutdown: function (s: PSSL): TIdC_INT; cdecl = nil;
+  SSL_shutdown_ex: function(ssl : PSSL; flags : TIdC_UINT64;
+                           const args : PSSL_SHUTDOWN_EX_ARGS;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl = nil;
+
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
@@ -3049,6 +3060,9 @@ var
   function SSL_renegotiate(s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_renegotiate_abbreviated(s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_shutdown(s: PSSL): TIdC_INT cdecl; external CLibSSL;
+  function SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
+                           const args : PSSL_SHUTDOWN_EX_ARGS;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL;
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -3856,6 +3870,7 @@ begin
 end;
 
 const
+  SSL_shutdown_ex_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -4844,6 +4859,7 @@ const
   SSL_renegotiate_procname = 'SSL_renegotiate';
   SSL_renegotiate_abbreviated_procname = 'SSL_renegotiate_abbreviated';
   SSL_shutdown_procname = 'SSL_shutdown';
+  SSL_shutdown_ex_procname = 'SSL_shutdown_ex';
   SSL_CTX_set_post_handshake_auth_procname = 'SSL_CTX_set_post_handshake_auth'; {introduced 1.1.0}
   SSL_set_post_handshake_auth_procname = 'SSL_set_post_handshake_auth'; {introduced 1.1.0}
 
@@ -5879,9 +5895,14 @@ begin
 end;
 
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
-                        const meth : PSSL_METHOD) : PSSL_CTX; cdecl; {introduced 3.0.0}
+                        const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
 begin
   Result := SSL_CTX_new(meth);
+end;
+
+function FC_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0}
+begin
+  Result := SSL_write_ex(s,buf,num,written);
 end;
 
 //* Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value,
@@ -5993,6 +6014,13 @@ begin
     SSL_load_error_strings;
   SSL_library_init;
   Result := OPENSSL_init_crypto(opts,settings);
+end;
+
+function FC_SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
+                           const args : PSSL_SHUTDOWN_EX_ARGS;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl;
+begin
+  Result := SSL_shutdown(ssl);
 end;
 
 {/forward_compatibility}
@@ -6970,13 +6998,13 @@ end;
 
 
 
-procedure  ERR_BIO_ssl_shutdown(ssl_bio: PBIO); 
+procedure  ERR_BIO_ssl_shutdown(ssl_bio: PBIO);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ssl_shutdown_procname);
 end;
 
 
-function  ERR_SSL_CTX_up_ref(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_up_ref(ctx: PSSL_CTX): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_up_ref_procname);
 end;
@@ -8372,11 +8400,17 @@ begin
 end;
 
 
-function  ERR_SSL_shutdown(s: PSSL): TIdC_INT; 
+function  ERR_SSL_shutdown(s: PSSL): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_shutdown_procname);
 end;
 
+function ERR_SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
+                           const args : PSSL_SHUTDOWN_EX_ARGS;
+                           args_len : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(ssl_shutdown_ex_procname);
+end;
 
 procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT); 
 begin
@@ -21066,6 +21100,37 @@ begin
     {$ifend}
   end;
 
+  { introduced 3.2.0}
+  SSL_shutdown_ex := LoadLibFunction(ADllHandle, SSL_shutdown_ex_procname);
+  FuncLoadError := not assigned(SSL_shutdown_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_shutdown_ex_allownil)}
+    SSL_shutdown_ex := @ERR_SSL_shutdown_ex;
+    {$ifend}
+    {$if declared(SSL_shutdown_ex_introduced)}
+    if LibVersion < SSL_shutdown_ex_introduced then
+    begin
+      {$if declared(FC_SSL_shutdown_ex)}
+      SSL_shutdown_ex := @FC_SSL_shutdown_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_shutdown_ex_removed)}
+    if SSL_shutdown_ex_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_shutdown_ex)}
+      SSL_shutdown_ex := @_SSL_shutdown_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_shutdown_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_shutdown_ex');
+    {$ifend}
+  end;
 
   SSL_CTX_set_post_handshake_auth := LoadLibFunction(ADllHandle, SSL_CTX_set_post_handshake_auth_procname);
   FuncLoadError := not assigned(SSL_CTX_set_post_handshake_auth);
