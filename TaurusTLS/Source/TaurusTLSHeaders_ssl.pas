@@ -4819,7 +4819,7 @@ const
   SSL_peek_ex_procname = 'SSL_peek_ex'; {introduced 1.1.0}
   SSL_write_procname = 'SSL_write';
   SSL_write_ex_procname = 'SSL_write_ex'; {introduced 1.1.0}
-  SSL_write_ex2_procname = 'ERR_SSL_write_ex2'; {introduced 3.3.0}
+  SSL_write_ex2_procname = 'SSL_write_ex2'; {introduced 3.3.0}
   SSL_write_early_data_procname = 'SSL_write_early_data'; {introduced 1.1.0}
   SSL_callback_ctrl_procname = 'SSL_callback_ctrl';
 
