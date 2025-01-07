@@ -119,7 +119,8 @@ begin
   //for new callback event
   Proc('IdCTypes'); {Do not localize}
   Proc('TaurusTLSHeaders_ossl_typ'); {Do not localize}
-  Proc('TaurusTLS_X509');
+  Proc('TaurusTLSHeaders_ssl'); {Do not localize}
+  Proc('TaurusTLS_X509');  {Do not localize}
 end;
 
 {$ENDIF}

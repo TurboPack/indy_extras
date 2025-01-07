@@ -599,7 +599,6 @@ type
     property SSLContext: TTaurusTLSContext read fSSLContext;
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
-
   published
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
