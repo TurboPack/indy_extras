@@ -40,7 +40,12 @@ const
   TLS1_1_VERSION = $0302;
   TLS1_2_VERSION = $0303;
   TLS1_3_VERSION = $0304;
-  TLS_MAX_VERSION = TLS1_3_VERSION;
+  DTLS1_VERSION = $FEFF;
+  DTLS1_2_VERSION = $FEFD;
+  DTLS1_BAD_VER = $0100;
+
+///* QUIC uses a 4 byte unsigned version number */
+  OSSL_QUIC1_VERSION = $0000001;
 
   (* Special value for method supporting multiple versions *)
   TLS_ANY_VERSION = $10000;

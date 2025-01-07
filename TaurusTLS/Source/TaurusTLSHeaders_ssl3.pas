@@ -226,6 +226,13 @@ const
   SSL3_RT_HEADER = $100;
   SSL3_RT_INNER_CONTENT_TYPE = $101;
 
+  //* Pseudo content types for QUIC */
+  SSL3_RT_QUIC_DATAGRAM           = $200;
+  SSL3_RT_QUIC_PACKET             = $201;
+  SSL3_RT_QUIC_FRAME_FULL         = $202;
+  SSL3_RT_QUIC_FRAME_HEADER       = $203;
+  SSL3_RT_QUIC_FRAME_PADDING      = $204;
+
   SSL3_AL_WARNING = 1;
   SSL3_AL_FATAL = 2;
 

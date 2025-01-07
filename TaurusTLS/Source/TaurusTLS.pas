@@ -246,6 +246,8 @@ uses
   TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_ssl,
+  TaurusTLSHeaders_ssl3,
+  TaurusTLSHeaders_tls1,
   TaurusTLS_X509,
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
@@ -288,8 +290,13 @@ const
   DEF_SECURITY_LEVEL = 1;
 
 type
+  TTaurusMsgCBVer = (verSSL3Header, verTLS1, verTLS1_1, verTLS1_2, verDTLS1,
+    verDTLS1_2, verTLS1_3, verDTLSBadVer, verQUIC, verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
+  TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
+    AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL)
+    of object;
   TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
   TSecurityEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
@@ -368,6 +375,7 @@ type
     fCipherList: String;
     fContext: PSSL_CTX;
     fStatusInfoOn: Boolean;
+    fMessageCBOn: Boolean;
     fSecurityLevelCBOn: Boolean;
     // fPasswordRoutineOn: Boolean;
     fVerifyOn: Boolean;
@@ -386,6 +394,7 @@ type
     function Clone: TTaurusTLSContext;
     property Context: PSSL_CTX read fContext;
     property Parent: TObject read FParent write FParent;
+    property MessageCBOn: Boolean read fMessageCBOn write fMessageCBOn;
     property StatusInfoOn: Boolean read fStatusInfoOn write fStatusInfoOn;
     // property PasswordRoutineOn: Boolean read fPasswordRoutineOn write fPasswordRoutineOn;
     property VerifyOn: Boolean read fVerifyOn write fVerifyOn;
@@ -438,8 +447,8 @@ type
     function GetSSLError(retCode: Integer): Integer;
     procedure Accept(const pHandle: TIdStackSocketHandle);
     procedure Connect(const pHandle: TIdStackSocketHandle);
-    function Send(const ABuffer: TIdBytes;
-      const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
+    function Send(const ABuffer: TIdBytes; const AOffset, ALength: TIdC_SIZET)
+      : TIdC_SIZET;
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
     function GetSessionIDAsString: String;
     //
@@ -458,6 +467,8 @@ type
   // bridge the gap...
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
+    procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
+      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -474,6 +485,7 @@ type
     fSSLOptions: TTaurusTLSSSLOptions;
     fSSLSocket: TTaurusTLSSocket;
     // fPeerCert: TTaurusTLSX509;
+    FOnDebugMessage: TMsgCallbackEvent;
     FOnStatusInfo: TCallbackExEvent;
     fOnGetPassword: TPasswordEvent;
     fOnSecurityLevel: TSecurityEvent;
@@ -500,6 +512,8 @@ type
     procedure RaiseError(AError: Integer); override;
 
     { ITaurusTLSCallbackHelper }
+    procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
+      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -524,6 +538,8 @@ type
     property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
+    property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
+      write FOnDebugMessage;
   published
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
@@ -544,9 +560,11 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fSSLOptions: TTaurusTLSSSLOptions;
     fSSLContext: TTaurusTLSContext;
+    FOnSSLNegotiated: TIOHandlerNotify;
     FOnStatusInfo: TCallbackExEvent;
     fOnSecurityLevel: TSecurityEvent;
     fOnGetPassword: TPasswordEvent;
+    FOnDebugMessage: TMsgCallbackEvent;
     fOnVerifyPeer: TVerifyPeerEvent;
     //
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
@@ -555,6 +573,8 @@ type
     procedure InitComponent; override;
 
     { ITaurusTLSCallbackHelper }
+    procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
+      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -577,9 +597,14 @@ type
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
     //
     property SSLContext: TTaurusTLSContext read fSSLContext;
+    property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
+      write FOnDebugMessage;
+
   published
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
+    property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
+      write FOnSSLNegotiated;
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
     property OnGetPassword: TPasswordEvent read fOnGetPassword
@@ -671,9 +696,7 @@ uses
   TaurusTLSHeaders_pem,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_crypto,
-  TaurusTLSHeaders_tls1,
   TaurusTLSHeaders_objects,
-  TaurusTLSHeaders_ssl3,
   TaurusTLSHeaders_x509,
   TaurusTLS_Files,
   TaurusTLSLoader;
@@ -924,6 +947,66 @@ begin
       end;
     finally
       LockInfoCB.Leave;
+    end;
+  finally
+    GStack.WSSetLastError(LErr);
+  end;
+end;
+
+procedure MsgCallback(write_p, Version, content_type: TIdC_INT;
+  const buf: Pointer; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
+var
+  LErr: Integer;
+  LSocket: TTaurusTLSSocket;
+  LHelper: ITaurusTLSCallbackHelper;
+  LBytes: TIdBytes;
+  LVer: TTaurusMsgCBVer;
+begin
+  {
+    You have to save the value of WSGetLastError as some Operating System API
+    function calls will reset that value and we can't know what a programmer will
+    do in this event.  We need the value of WSGetLastError so we can report
+    an underlying socket error when the OpenSSL function returns.
+
+    Keep LErr even if it is referenced once.
+    JPM.
+  }
+  LErr := GStack.WSGetLastError;
+  try
+    LockVerifyCB.Enter;
+    try
+      LSocket := TTaurusTLSSocket(arg);
+      if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
+      then
+      begin
+        LBytes := RawToBytes(buf, len);
+        case Version of
+          SSL3_VERSION:
+            LVer := verSSL3Header;
+          TLS1_VERSION:
+            LVer := verTLS1;
+          TLS1_1_VERSION:
+            LVer := verTLS1_1;
+          TLS1_2_VERSION:
+            LVer := verTLS1_2;
+          TLS1_3_VERSION:
+            LVer := verTLS1_3;
+          DTLS1_VERSION:
+            LVer := verDTLS1;
+          DTLS1_2_VERSION:
+            LVer := verDTLS1_2;
+          DTLS1_BAD_VER:
+            LVer := verDTLSBadVer;
+          OSSL_QUIC1_VERSION:
+            LVer := verQUIC;
+        else
+          LVer := verDTLSBadVer;
+        end;
+        LHelper.DoOnDebugMessage(write_p > 0, LVer, content_type, LBytes, SSL);
+        LHelper := nil;
+      end;
+    finally
+      LockVerifyCB.Leave;
     end;
   finally
     GStack.WSSetLastError(LErr);
@@ -1425,6 +1508,15 @@ begin
   inherited Destroy;
 end;
 
+procedure TTaurusTLSServerIOHandler.DoOnDebugMessage(const AWrite: Boolean;
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+begin
+  if Assigned(FOnDebugMessage) then
+  begin
+    FOnDebugMessage(Self, AWrite, AVersion, AContentType, buf, SSL);
+  end;
+end;
+
 procedure TTaurusTLSServerIOHandler.Init;
 // see also TTaurusTLSIOHandlerSocket.Init
 begin
@@ -1445,7 +1537,8 @@ begin
   fSSLContext.CipherList := SSLOptions.CipherList;
   fSSLContext.VerifyOn := Assigned(fOnVerifyPeer);
   fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
-  fSSLContext.SecurityLevelCBOn := False;
+  fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
+  fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
   // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
   fSSLContext.Method := SSLOptions.Method;
   fSSLContext.Mode := SSLOptions.Mode;
@@ -1517,6 +1610,10 @@ begin
   try
     LIO.PassThrough := true;
     LIO.OnGetPassword := fOnGetPassword;
+    LIO.OnDebugMessage := FOnDebugMessage;
+    LIO.OnStatusInfo := FOnStatusInfo;
+    LIO.OnSSLNegotiated := FOnSSLNegotiated;
+    LIO.OnSecurityLevel := FOnSecurityLevel;
     LIO.IsPeer := true; // RLebeau 1/24/2019: is this still needed now?
     LIO.SSLOptions.Assign(SSLOptions);
     LIO.SSLOptions.Mode := sslmBoth; { or sslmClient }{ doesn't really matter }
@@ -1856,13 +1953,24 @@ begin
     fSSLContext.CipherList := SSLOptions.CipherList;
     fSSLContext.VerifyOn := Assigned(fOnVerifyPeer);
     fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
-    fSSLContext.SecurityLevelCBOn := False;
+    fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
+    fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
+
     // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
     fSSLContext.Method := SSLOptions.Method;
     fSSLContext.SSLVersions := SSLOptions.SSLVersions;
     fSSLContext.Mode := SSLOptions.Mode;
     fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
     fSSLContext.InitContext(sslCtxClient);
+  end;
+end;
+
+procedure TTaurusTLSIOHandlerSocket.DoOnDebugMessage(const AWrite: Boolean;
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+begin
+  if Assigned(FOnDebugMessage) then
+  begin
+    FOnDebugMessage(Self, AWrite, AVersion, AContentType, buf, SSL);
   end;
 end;
 // }
@@ -1975,6 +2083,7 @@ begin
   try
     LIO.SSLOptions.Assign(SSLOptions);
     LIO.OnStatusInfo := FOnStatusInfo;
+    LIO.OnDebugMessage := FOnDebugMessage;
     LIO.OnGetPassword := fOnGetPassword;
     LIO.OnVerifyPeer := DoVerifyPeer;
     LIO.OnSSLNegotiated := OnSSLNegotiated;
@@ -2269,7 +2378,7 @@ begin
   end;
 
   // create new SSL context
-  fContext := SSL_CTX_new_ex(nil,nil,GetSSLMethod);
+  fContext := SSL_CTX_new_ex(nil, nil, GetSSLMethod);
   if fContext = nil then
   begin
     ETaurusTLSCreatingContextError.RaiseException(RSSSLCreatingContextError);
@@ -2486,6 +2595,11 @@ begin
   begin
     SSL_CTX_set_security_callback(fContext, SecurityLevelCallback);
     SSL_CTX_set0_security_ex_data(fContext, Self);
+  end;
+  if MessageCBOn then
+  begin
+    SSL_CTX_set_msg_callback(fContext, MsgCallback);
+    SSL_CTX_set_msg_callback_arg(fContext, Self);
   end;
   // if_SSL_CTX_set_tmp_rsa_callback(hSSLContext, @RSACallback);
   if fCipherList <> '' then
@@ -2851,7 +2965,7 @@ end;
 function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): TIdC_SIZET;
 var
   Lret, LErr: Integer;
-  LRead : TIdC_SIZET;
+  LRead: TIdC_SIZET;
 begin
   Result := 0;
   repeat
@@ -2877,7 +2991,7 @@ end;
 function TTaurusTLSSocket.Send(const ABuffer: TIdBytes;
   const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
 var
-  Lret, LErr : Integer;
+  Lret, LErr: Integer;
   LOffset, LLength, LWritten: TIdC_SIZET;
 begin
   Result := 0;
