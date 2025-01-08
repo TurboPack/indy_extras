@@ -100,6 +100,32 @@ const
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status', 'debug-info', 'about', 'quote', 'debug-trace'];
 
+function RightJustify(const AText: String; ALen: Integer): string;
+begin
+  Result := '';
+  if ALen > Length(AText) then
+  begin
+    Result := StringOfChar(' ', ALen - Length(AText)) + AText;
+  end
+  else
+  begin
+    Result := AText;
+  end;
+end;
+
+function LeftJustify(const AText: String; ALen: Integer): string;
+begin
+  Result := '';
+  if ALen > Length(AText) then
+  begin
+    Result := AText + StringOfChar(' ', ALen - Length(AText));
+  end
+  else
+  begin
+    Result := AText;
+  end;
+end;
+
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
 {$IFNDEF USE_INLINE_VAR}
@@ -161,80 +187,81 @@ begin
   end;
   case AVersion of
     verSSL3Header:
-      LOutput := LOutput + 'SSL3     - ';
+      LOutput := LOutput + LeftJustify('SSL3', 9) + ' - ';
     verTLS1:
-      LOutput := LOutput + 'TLS1     - ';
+      LOutput := LOutput + LeftJustify('TLS1', 9) + ' - ';
     verTLS1_1:
-      LOutput := LOutput + 'TLS1.1   - ';
+      LOutput := LOutput + LeftJustify('TLS1.1', 9) + ' - ';
     verTLS1_2:
-      LOutput := LOutput + 'TLS1.2   - ';
+      LOutput := LOutput + LeftJustify('TLS1.2', 9) + ' - ';
     verTLS1_3:
-      LOutput := LOutput + 'TLS1.3   - ';
+      LOutput := LOutput + LeftJustify('TLS1.3', 9) + ' - ';
     verDTLS1:
-      LOutput := LOutput + 'DTLS1.1  - ';
+      LOutput := LOutput + LeftJustify('DTLS1.1', 9) + ' - ';
     verDTLS1_2:
-      LOutput := LOutput + 'DTLS1.2  - ';
+      LOutput := LOutput + LeftJustify('DTLS1.2', 9) + ' - ';
     verDTLSBadVer:
-      LOutput := LOutput + 'Bad DTLS - ';
+      LOutput := LOutput + LeftJustify('Bad DTLS', 9) + ' - ';
     verQUIC:
-      LOutput := LOutput + 'QUIC     - ';
+      LOutput := LOutput + LeftJustify('QUIC', 9) + ' - ';
     verTLSAny:
-      LOutput := LOutput + 'Any TLS  - ';
+      LOutput := LOutput + LeftJustify('Any TLS', 9) + ' - ';
   end;
   case AContentType of
     SSL3_RT_CHANGE_CIPHER_SPEC:
-      LOutput := LOutput + 'Change Cipher Spec    - ';
+      LOutput := LOutput + LeftJustify('Change Cipher Spec', 22) + ' - ';
     SSL3_RT_ALERT:
-      LOutput := LOutput + 'Alert                 - ';
+      LOutput := LOutput + LeftJustify('Alert', 22) + ' - ';
     SSL3_RT_HANDSHAKE:
-      LOutput := LOutput + 'Handshake             - ';
+      LOutput := LOutput + LeftJustify('Handshake', 22) + ' - ';
     SSL3_RT_APPLICATION_DATA:
-      LOutput := LOutput + 'Application Data      - ';
+      LOutput := LOutput + LeftJustify('Application Data', 22) + ' - ';
     DTLS1_RT_HEARTBEAT:
-      LOutput := LOutput + 'Heartbeat             - ';
+      LOutput := LOutput + LeftJustify('Heartbeat', 22) + ' - ';
     (* Pseudo content types to indicate additional parameters *)
     TLS1_RT_CRYPTO:
-      LOutput := LOutput + 'Crypto                - ';
+      LOutput := LOutput + LeftJustify('Crypto', 22) + ' - ';
     TLS1_RT_CRYPTO_PREMASTER:
-      LOutput := LOutput + 'Crypto Premaster      - ';
+      LOutput := LOutput + LeftJustify('Crypto Premaster', 22) + ' - ';
     TLS1_RT_CRYPTO_CLIENT_RANDOM:
-      LOutput := LOutput + 'Crypto Client Random  - ';
+      LOutput := LOutput + LeftJustify('Crypto Client Random', 22) + ' - ';
     TLS1_RT_CRYPTO_SERVER_RANDOM:
-      LOutput := LOutput + 'Crypto Server Random  - ';
+      LOutput := LOutput + LeftJustify('Crypto Server Random', 22) + ' - ';
     TLS1_RT_CRYPTO_MASTER:
-      LOutput := LOutput + 'Crypto Master         - ';
-//    TLS1_RT_CRYPTO_READ:
-//      LOutput := LOutput + 'Crypto Read         - ';
-//    TLS1_RT_CRYPTO_WRITE:
-//      LOutput := LOutput + 'Crypto Write        - ';
+      LOutput := LOutput + LeftJustify('Crypto Master', 22) + ' - ';
+    // TLS1_RT_CRYPTO_READ:
+    // LOutput := LOutput + LeftJustify('Crypto Read',22)+' - ';
+    // TLS1_RT_CRYPTO_WRITE:
+    // LOutput := LOutput + LeftJustify('Crypto Write',22)+' - ';
     TLS1_RT_CRYPTO_MAC:
-      LOutput := LOutput + 'Crypto MAC            - ';
+      LOutput := LOutput + LeftJustify('Crypto MAC', 22) + ' - ';
     TLS1_RT_CRYPTO_KEY:
-      LOutput := LOutput + 'Crypto Key            - ';
+      LOutput := LOutput + LeftJustify('Crypto Key', 22) + ' - ';
     TLS1_RT_CRYPTO_IV:
-      LOutput := LOutput + 'Crypto IV             - ';
+      LOutput := LOutput + LeftJustify('Crypto IV', 22) + ' - ';
     TLS1_RT_CRYPTO_FIXED_IV:
-      LOutput := LOutput + 'Crypto Fixed IV       - ';
+      LOutput := LOutput + LeftJustify('Crypto Fixed IV', 22) + ' - ';
 
     (* Pseudo content types for SSL/TLS header info *)
     SSL3_RT_HEADER:
-      LOutput := LOutput + 'Header                - ';
+      LOutput := LOutput + LeftJustify('Header',22)+' - ';
     SSL3_RT_INNER_CONTENT_TYPE:
-      LOutput := LOutput + 'Inner Content Type ' + IntToHex(buf[0]) + ' - ';
+      LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),22) + ' - ';
 
     // * Pseudo content types for QUIC */
     SSL3_RT_QUIC_DATAGRAM:
-      LOutput := LOutput + 'QUIC Datagram          - ';
+      LOutput := LOutput + LeftJustify('QUIC Datagram', 22) + ' - ';
     SSL3_RT_QUIC_PACKET:
-      LOutput := LOutput + 'QUIC Packet            - ';
+      LOutput := LOutput + LeftJustify('QUIC Packet', 22) + ' - ';
     SSL3_RT_QUIC_FRAME_FULL:
-      LOutput := LOutput + 'QUIC Frame Full        - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Full',22)+' - ';
     SSL3_RT_QUIC_FRAME_HEADER:
-      LOutput := LOutput + 'QUIC Frame Header      - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Header',22)+' - ';
     SSL3_RT_QUIC_FRAME_PADDING:
-      LOutput := LOutput + 'QUIC Frame Padding     - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Padding',22)+' - ';
   end;
-  LOutput := LOutput + IntToStr(Length(Buf));
+  LOutput := LOutput + RightJustify(IntToStr(Length(buf)),10) + ' - ';
+  LOutput := LOutput + ToHex(Buf,20,0);
   WriteLn(LOutput);
 end;
 
@@ -559,19 +586,6 @@ begin
     end;
   finally
     FreeAndNil(LCmdParams);
-  end;
-end;
-
-function LeftJustify(const AText: String; ALen: Integer): string;
-begin
-  Result := '';
-  if ALen > Length(AText) then
-  begin
-    Result := AText + StringOfChar(' ', ALen - Length(AText));
-  end
-  else
-  begin
-    Result := AText;
   end;
 end;
 
