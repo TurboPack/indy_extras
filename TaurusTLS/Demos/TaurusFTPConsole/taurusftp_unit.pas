@@ -16,6 +16,7 @@ uses
   CustApp,
 {$ENDIF}
   {you can add units after this}
+  IdCTypes,
   IdCompressorZLib,
   IdExplicitTLSClientServerBase,
   IdFTP,
@@ -23,7 +24,8 @@ uses
   IdGlobal,
   IdLogEvent,
   IdZLibHeaders,
-  TaurusTLS;
+  TaurusTLS,
+  TaurusTLSHeaders_ossl_typ;
 
 type
 
@@ -43,7 +45,9 @@ type
     procedure OnReceived(ASender: TComponent; const AText, AData: string);
     procedure OnSent(ASender: TComponent; const AText, AData: string);
     procedure OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
-
+    procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
+      AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes;
+      SSL: PSSL);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
     procedure CmdDir(const ACmd: string);
@@ -66,6 +70,7 @@ type
     procedure CmdDebugInfo;
     procedure CmdAbout;
     procedure CmdQuote(const ACmd: string);
+    procedure CmdDebugTrace(const ACmd: string);
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -86,11 +91,14 @@ type
 
 implementation
 
+uses
+  TaurusTLSHeaders_ssl3;
+
 const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status', 'debug-info', 'about', 'quote'];
+    'status', 'debug-info', 'about', 'quote', 'debug-trace'];
 
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
@@ -131,6 +139,104 @@ begin
 end;
 
 { TFTPApplication }
+
+procedure TFTPApplication.OnDebugMsg(ASender: TObject; const AWrite: Boolean;
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+{$IFNDEF USE_INLINE_VAR}
+LOutput:
+String;
+{$ENDIF}
+begin
+{$IFDEF USE_INLINE_VAR}
+  var
+    LOutput: String;
+{$ENDIF}
+  if AWrite then
+  begin
+    LOutput := 'Read  - ';
+  end
+  else
+  begin
+    LOutput := 'Write - ';
+  end;
+  case AVersion of
+    verSSL3Header:
+      LOutput := LOutput + 'SSL3     - ';
+    verTLS1:
+      LOutput := LOutput + 'TLS1     - ';
+    verTLS1_1:
+      LOutput := LOutput + 'TLS1.1   - ';
+    verTLS1_2:
+      LOutput := LOutput + 'TLS1.2   - ';
+    verTLS1_3:
+      LOutput := LOutput + 'TLS1.3   - ';
+    verDTLS1:
+      LOutput := LOutput + 'DTLS1.1  - ';
+    verDTLS1_2:
+      LOutput := LOutput + 'DTLS1.2  - ';
+    verDTLSBadVer:
+      LOutput := LOutput + 'Bad DTLS - ';
+    verQUIC:
+      LOutput := LOutput + 'QUIC     - ';
+    verTLSAny:
+      LOutput := LOutput + 'Any TLS  - ';
+  end;
+  case AContentType of
+    SSL3_RT_CHANGE_CIPHER_SPEC:
+      LOutput := LOutput + 'Change Cipher Spec    - ';
+    SSL3_RT_ALERT:
+      LOutput := LOutput + 'Alert                 - ';
+    SSL3_RT_HANDSHAKE:
+      LOutput := LOutput + 'Handshake             - ';
+    SSL3_RT_APPLICATION_DATA:
+      LOutput := LOutput + 'Application Data      - ';
+    DTLS1_RT_HEARTBEAT:
+      LOutput := LOutput + 'Heartbeat             - ';
+    (* Pseudo content types to indicate additional parameters *)
+    TLS1_RT_CRYPTO:
+      LOutput := LOutput + 'Crypto                - ';
+    TLS1_RT_CRYPTO_PREMASTER:
+      LOutput := LOutput + 'Crypto Premaster      - ';
+    TLS1_RT_CRYPTO_CLIENT_RANDOM:
+      LOutput := LOutput + 'Crypto Client Random  - ';
+    TLS1_RT_CRYPTO_SERVER_RANDOM:
+      LOutput := LOutput + 'Crypto Server Random  - ';
+    TLS1_RT_CRYPTO_MASTER:
+      LOutput := LOutput + 'Crypto Master         - ';
+//    TLS1_RT_CRYPTO_READ:
+//      LOutput := LOutput + 'Crypto Read         - ';
+//    TLS1_RT_CRYPTO_WRITE:
+//      LOutput := LOutput + 'Crypto Write        - ';
+    TLS1_RT_CRYPTO_MAC:
+      LOutput := LOutput + 'Crypto MAC            - ';
+    TLS1_RT_CRYPTO_KEY:
+      LOutput := LOutput + 'Crypto Key            - ';
+    TLS1_RT_CRYPTO_IV:
+      LOutput := LOutput + 'Crypto IV             - ';
+    TLS1_RT_CRYPTO_FIXED_IV:
+      LOutput := LOutput + 'Crypto Fixed IV       - ';
+
+    (* Pseudo content types for SSL/TLS header info *)
+    SSL3_RT_HEADER:
+      LOutput := LOutput + 'Header                - ';
+    SSL3_RT_INNER_CONTENT_TYPE:
+      LOutput := LOutput + 'Inner Content Type ' + IntToHex(buf[0]) + ' - ';
+
+    // * Pseudo content types for QUIC */
+    SSL3_RT_QUIC_DATAGRAM:
+      LOutput := LOutput + 'QUIC Datagram          - ';
+    SSL3_RT_QUIC_PACKET:
+      LOutput := LOutput + 'QUIC Packet            - ';
+    SSL3_RT_QUIC_FRAME_FULL:
+      LOutput := LOutput + 'QUIC Frame Full        - ';
+    SSL3_RT_QUIC_FRAME_HEADER:
+      LOutput := LOutput + 'QUIC Frame Header      - ';
+    SSL3_RT_QUIC_FRAME_PADDING:
+      LOutput := LOutput + 'QUIC Frame Padding     - ';
+  end;
+  LOutput := LOutput + IntToStr(Length(Buf));
+  WriteLn(LOutput);
+end;
 
 procedure TFTPApplication.OnReceived(ASender: TComponent;
   const AText, AData: string);
@@ -540,6 +646,60 @@ begin
   end;
 end;
 
+procedure TFTPApplication.CmdDebugTrace(const ACmd: string);
+var
+  LCmdParams: TStrings;
+begin
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false'],
+        False) of
+        0, 1:
+          FIO.OnDebugMessage := OnDebugMsg;
+
+        2, 3:
+          FIO.OnDebugMessage := nil;
+      else
+        begin
+          if Assigned(FIO.OnDebugMessage) then
+          begin
+            FIO.OnDebugMessage := nil
+          end
+          else
+          begin
+            FIO.OnDebugMessage := OnDebugMsg;
+          end;
+        end;
+      end;
+    end
+    else
+    begin
+      if Assigned(FIO.OnDebugMessage) then
+      begin
+        FIO.OnDebugMessage := nil
+      end
+      else
+      begin
+        FIO.OnDebugMessage := OnDebugMsg;
+      end;
+    end;
+    if Assigned(FIO.OnDebugMessage) then
+    begin
+      WriteLn('Debug-trace: True');
+    end
+    else
+    begin
+      WriteLn('Debug-trace: False');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
+
+end;
+
 procedure TFTPApplication.CmdDelete(const ACmd: string);
 var
   LCmdParams: TStrings;
@@ -757,6 +917,7 @@ begin
     PrintCmdHelp(['rename', 'ren'], 'Rename remote file');
     PrintCmdHelp(['status'], 'Show current status');
     PrintCmdHelp(['quote'], 'Send arbitrary ftp command');
+    PrintCmdHelp(['debug-trace'], 'Show Debug TLS trace information');
   end
   else
   begin
@@ -879,6 +1040,19 @@ begin
           PrintCmdHelp(['quote'], 'Send arbitrary ftp command',
             'quote command');
         end;
+      29:
+        begin
+          PrintCmdHelp(['debug-trace'], 'Show debug TLS trace information',
+            'debug-trace [state]');
+          WriteLn('');
+          WriteLn('The state value may be one of these:');
+          WriteLn('');
+          WriteLn('on    - Turn on TLS debug trace information (extremely verbose)');
+          WriteLn('off   - Turn off TLS debug trace information');
+          WriteLn('true  - Turn on TLS debug trace information (extremely verbose)');
+          WriteLn('false - Turn off TLS debug trace information');
+
+        end;
     end;
   end;
 end;
@@ -963,6 +1137,8 @@ begin
           CmdAbout;
         28:
           CmdQuote(LCmd);
+        29:
+          CmdDebugTrace(LCmd);
       else
         WriteLn('Bad Command');
       end;

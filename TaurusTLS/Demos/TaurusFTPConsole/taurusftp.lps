@@ -313,26 +313,24 @@
       </Unit>
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
-        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="929"/>
-        <CursorPos X="18" Y="937"/>
+        <CursorPos X="12" Y="929"/>
         <UsageCount Value="30"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="83"/>
-        <CursorPos X="71" Y="124"/>
+        <TopLine Value="128"/>
+        <CursorPos X="71" Y="165"/>
         <UsageCount Value="11"/>
       </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="taurusftp_unit.pas"/>
-        <Caret Line="773" Column="93" TopLine="363"/>
-      </Position>
-    </JumpHistory>
+    <General>
+      <ActiveWindowIndexAtStart Value="-1"/>
+    </General>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
@@ -351,8 +349,6 @@
         <Item4 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
         <Item5 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
-      <List Name="WorkingDirectory" Type="File" Count="1"/>
-      <List Name="CommandLineParameters" Count="1"/>
     </HistoryLists>
   </ProjectSession>
   <Debugging>
