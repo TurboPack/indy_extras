@@ -71,6 +71,7 @@ type
     procedure CmdAbout;
     procedure CmdQuote(const ACmd: string);
     procedure CmdDebugTrace(const ACmd: string);
+    procedure CmdSecurityLevel(const ACmd: string);
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -98,7 +99,7 @@ const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status', 'debug-info', 'about', 'quote', 'debug-trace'];
+    'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
 begin
@@ -169,8 +170,8 @@ end;
 procedure TFTPApplication.OnDebugMsg(ASender: TObject; const AWrite: Boolean;
   AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
 {$IFNDEF USE_INLINE_VAR}
-LOutput:
-String;
+var
+  LOutput: String;
 {$ENDIF}
 begin
 {$IFDEF USE_INLINE_VAR}
@@ -244,9 +245,10 @@ begin
 
     (* Pseudo content types for SSL/TLS header info *)
     SSL3_RT_HEADER:
-      LOutput := LOutput + LeftJustify('Header',22)+' - ';
+      LOutput := LOutput + LeftJustify('Header', 22) + ' - ';
     SSL3_RT_INNER_CONTENT_TYPE:
-      LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),22) + ' - ';
+      LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),
+        22) + ' - ';
 
     // * Pseudo content types for QUIC */
     SSL3_RT_QUIC_DATAGRAM:
@@ -254,14 +256,14 @@ begin
     SSL3_RT_QUIC_PACKET:
       LOutput := LOutput + LeftJustify('QUIC Packet', 22) + ' - ';
     SSL3_RT_QUIC_FRAME_FULL:
-      LOutput := LOutput + LeftJustify('QUIC Frame Full',22)+' - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Full', 22) + ' - ';
     SSL3_RT_QUIC_FRAME_HEADER:
-      LOutput := LOutput + LeftJustify('QUIC Frame Header',22)+' - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Header', 22) + ' - ';
     SSL3_RT_QUIC_FRAME_PADDING:
-      LOutput := LOutput + LeftJustify('QUIC Frame Padding',22)+' - ';
+      LOutput := LOutput + LeftJustify('QUIC Frame Padding', 22) + ' - ';
   end;
-  LOutput := LOutput + RightJustify(IntToStr(Length(buf)),10) + ' - ';
-  LOutput := LOutput + ToHex(Buf,20,0);
+  LOutput := LOutput + RightJustify(IntToStr(Length(buf)), 10) + ' - ';
+  LOutput := LOutput + ToHex(buf, 20, 0);
   WriteLn(LOutput);
 end;
 
@@ -754,6 +756,40 @@ begin
   end;
 end;
 
+procedure TFTPApplication.CmdSecurityLevel(const ACmd: string);
+var
+  LCmdParams: TStrings;
+begin
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      if PosInStrArray(LCmdParams[0], ['0', '1', '2', '3', '4', '5']) > -1 then
+      begin
+        FIO.SSLOptions.SecurityLevel := StrToInt(LCmdParams[0]);
+      end;
+    end;
+    Write('Security level is ');
+    case FIO.SSLOptions.SecurityLevel of
+      0:
+        WriteLn('0. Everything is permitted. ');
+      1:
+        WriteLn('1. A minimum of 80 security bits is permitted.');
+      2:
+        WriteLn('2. A minimum of 112 security bits is permitted.');
+      3:
+        WriteLn('3. A minimum of 128 security bits is permitted.');
+      4:
+        WriteLn('4. A minimum of 192 security bits is permitted.');
+      5:
+        WriteLn('5. A minimum of 256 security bits is permitted.');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
+end;
+
 procedure TFTPApplication.CmdStatus;
 var
   LStr: TStrings;
@@ -932,6 +968,7 @@ begin
     PrintCmdHelp(['status'], 'Show current status');
     PrintCmdHelp(['quote'], 'Send arbitrary ftp command');
     PrintCmdHelp(['debug-trace'], 'Show Debug TLS trace information');
+    PrintCmdHelp(['security-level'], 'Show or set security level');
   end
   else
   begin
@@ -1055,6 +1092,7 @@ begin
             'quote command');
         end;
       29:
+
         begin
           PrintCmdHelp(['debug-trace'], 'Show debug TLS trace information',
             'debug-trace [state]');
@@ -1065,7 +1103,20 @@ begin
           WriteLn('off   - Turn off TLS debug trace information');
           WriteLn('true  - Turn on TLS debug trace information (extremely verbose)');
           WriteLn('false - Turn off TLS debug trace information');
-
+        end;
+      30:
+        begin
+          PrintCmdHelp(['security-level'], 'Show or set security level',
+            'security-level [level]');
+          WriteLn('');
+          WriteLn('The level value may be one of these:');
+          WriteLn('');
+          WriteLn('0    - Everything is permitted. ');
+          WriteLn('1    - A minimum of 80 security bits is permitted.');
+          WriteLn('2    - A minimum of 112 security bits is permitted.');
+          WriteLn('3    - A minimum of 128 security bits is permitted.');
+          WriteLn('4    - A minimum of 192 security bits is permitted.');
+          WriteLn('5    - A minimum of 256 security bits is permitted.');
         end;
     end;
   end;
@@ -1150,9 +1201,14 @@ begin
           // 'about'
           CmdAbout;
         28:
+          // 'quote'
           CmdQuote(LCmd);
         29:
+          // 'debug-trace'
           CmdDebugTrace(LCmd);
+        30:
+          // 'security-level'
+          CmdSecurityLevel(LCmd);
       else
         WriteLn('Bad Command');
       end;
