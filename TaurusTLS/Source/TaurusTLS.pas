@@ -290,8 +290,8 @@ const
   DEF_SECURITY_LEVEL = 1;
 
 type
-  TTaurusMsgCBVer = (verSSL3Header, verTLS1, verTLS1_1, verTLS1_2, verDTLS1,
-    verDTLS1_2, verTLS1_3, verDTLSBadVer, verQUIC, verTLSAny);
+  TTaurusMsgCBVer = (verSSL3Header, verTLS1, verTLS1_1, verTLS1_2, verTLS1_3,
+    verDTLS1, verDTLS1_2, verDTLSBadVer, verQUIC, verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
@@ -1612,7 +1612,7 @@ begin
     LIO.OnDebugMessage := FOnDebugMessage;
     LIO.OnStatusInfo := FOnStatusInfo;
     LIO.OnSSLNegotiated := FOnSSLNegotiated;
-    LIO.OnSecurityLevel := FOnSecurityLevel;
+    LIO.OnSecurityLevel := fOnSecurityLevel;
     LIO.IsPeer := true; // RLebeau 1/24/2019: is this still needed now?
     LIO.SSLOptions.Assign(SSLOptions);
     LIO.SSLOptions.Mode := sslmBoth; { or sslmClient }{ doesn't really matter }
