@@ -252,7 +252,7 @@ uses
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
 {$I TaurusTLSIndyVers.inc}
-{$IFDEF GETURIHOST_SUPPORTED}
+{$IFDEF HAS_TIdSSLVersion}
 
 const
   SSLv2 = sslvSSLv2;
@@ -265,7 +265,6 @@ const
 
 type
   TTaurusTLSSSLVersion = TIdSSLVersion;
-  TTaurusTLSSSLVersions = TIdSSLVersions;
   TTaurusTLSSSLMode = TIdSSLMode;
   TTaurusTLSCtxMode = TIdSSLCtxMode;
 {$ELSE}
@@ -274,7 +273,6 @@ type
   TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
   { May need to update constants below if adding to this set }
-  TTaurusTLSSSLVersions = set of TTaurusTLSSSLVersion;
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
   TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 {$ENDIF}
@@ -284,7 +282,7 @@ type
 
 const
   DEF_SSLVERSION = TLSv1_2;
-  DEF_SSLVERSIONS = [TLSv1_2, TLSv1_3];
+  DEF_MIN_TLSVERSION = TLSv1_2;
   MAX_SSLVERSION = TLSv1_3;
   P12_FILETYPE = 3;
   DEF_SECURITY_LEVEL = 1;
@@ -315,7 +313,7 @@ type
     fUseSystemRootCertificateStore: Boolean;
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fMode: TTaurusTLSSSLMode;
-    fSSLVersions: TTaurusTLSSSLVersions;
+    fMinTLSVersion : TTaurusTLSSSLVersion;
     fVerifyDepth: Integer;
     FSecurityLevel: TTaurusTLSSecurityLevel;
     fMethod: TTaurusTLSSSLVersion;
@@ -323,8 +321,7 @@ type
     fCipherList: String;
     fVerifyMode: TTaurusTLSVerifyModeSet;
     procedure AssignTo(Destination: TPersistent); override;
-    procedure SetSSLVersions(const AValue: TTaurusTLSSSLVersions);
-    procedure SetMethod(const AValue: TTaurusTLSSSLVersion);
+    procedure SetMinTLSVersion(const AValue : TTaurusTLSSSLVersion);
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
     constructor Create;
@@ -334,10 +331,8 @@ type
     property CertFile: String read fsCertFile write fsCertFile;
     property KeyFile: String read fsKeyFile write fsKeyFile;
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
-    property Method: TTaurusTLSSSLVersion read fMethod write SetMethod
-      default DEF_SSLVERSION; { ignored with TaurusTLS 1.1.0 or later }
-    property SSLVersions: TTaurusTLSSSLVersions read fSSLVersions
-      write SetSSLVersions default DEF_SSLVERSIONS;
+    property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion
+      default DEF_MIN_TLSVERSION;
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
     { SSLVersions is only used to determine min version with TaurusTLS 1.1.0 or later }
@@ -363,13 +358,13 @@ type
 {$IFDEF USE_OBJECT_ARC}[Weak]
 {$ENDIF} FParent: TObject;
 
-    fMethod: TTaurusTLSSSLVersion;
-    fSSLVersions: TTaurusTLSSSLVersions;
     fMode: TTaurusTLSSSLMode;
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fVerifyDepth: Integer;
     fVerifyMode: TTaurusTLSVerifyModeSet;
     FSecurityLevel: TTaurusTLSSecurityLevel;
+    fMinTLSVersion : TTaurusTLSSSLVersion;
+
     // fVerifyFile: String;
     fVerifyDirs: String;
     fCipherList: String;
@@ -402,9 +397,7 @@ type
       write fSecurityLevelCBOn;
     // THese can't be published in a TObject without a compiler warning.
     // published
-    property SSLVersions: TTaurusTLSSSLVersions read fSSLVersions
-      write fSSLVersions;
-    property Method: TTaurusTLSSSLVersion read fMethod write fMethod;
+    property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion;
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel;
@@ -1391,74 +1384,21 @@ end;
 constructor TTaurusTLSSSLOptions.Create;
 begin
   inherited Create;
-  fMethod := DEF_SSLVERSION;
-  fSSLVersions := DEF_SSLVERSIONS;
+  fMinTLSVersion := DEF_MIN_TLSVERSION;
   fUseSystemRootCertificateStore := true;
   Self.FSecurityLevel := DEF_SECURITY_LEVEL;
 end;
 
-procedure TTaurusTLSSSLOptions.SetMethod(const AValue: TTaurusTLSSSLVersion);
+procedure TTaurusTLSSSLOptions.SetMinTLSVersion(
+  const AValue: TTaurusTLSSSLVersion);
 begin
-  fMethod := AValue;
-  if AValue = SSLv23 then
-  begin
-    fSSLVersions := [SSLv2, SSLv3, TLSv1, TLSv1_1, TLSv1_2];
-  end
-  else
-  begin
-    fSSLVersions := [AValue];
-  end;
+  fMinTLSVersion := AValue;
 end;
 
 procedure TTaurusTLSSSLOptions.SetSecurityLevel(const AValue
   : TTaurusTLSSecurityLevel);
 begin
   FSecurityLevel := AValue;
-end;
-
-procedure TTaurusTLSSSLOptions.SetSSLVersions(const AValue
-  : TTaurusTLSSSLVersions);
-begin
-  fSSLVersions := AValue;
-  if fSSLVersions = [SSLv2] then
-  begin
-    fMethod := SSLv2;
-  end
-  else if fSSLVersions = [SSLv3] then
-  begin
-    fMethod := SSLv3;
-  end
-  else if fSSLVersions = [TLSv1] then
-  begin
-    fMethod := TLSv1;
-  end
-  else if fSSLVersions = [TLSv1_1] then
-  begin
-    fMethod := TLSv1_1;
-  end
-  else if fSSLVersions = [TLSv1_2] then
-  begin
-    fMethod := TLSv1_2;
-  end
-  else if fSSLVersions = [TLSv1_3] then
-  begin
-    if HasTLS_method then
-      fMethod := TLSv1_3
-    else
-      fMethod := TLSv1_2;
-  end
-  else
-  begin
-    fMethod := SSLv23;
-    if SSLv23 in fSSLVersions then
-    begin
-      Exclude(fSSLVersions, SSLv23);
-      if fSSLVersions = [] then
-      begin
-        fSSLVersions := [SSLv2, SSLv3, TLSv1, TLSv1_1, TLSv1_2, TLSv1_3];
-      end;
-    end;
-  end;
 end;
 
 procedure TTaurusTLSSSLOptions.AssignTo(Destination: TPersistent);
@@ -1472,9 +1412,8 @@ begin
     LDest.CertFile := CertFile;
     LDest.KeyFile := KeyFile;
     LDest.DHParamsFile := DHParamsFile;
-    LDest.Method := Method;
-    LDest.SSLVersions := SSLVersions;
     LDest.SecurityLevel := SecurityLevel;
+    LDest.MinTLSVersion := MinTLSVersion;
     LDest.Mode := Mode;
     LDest.VerifyMode := VerifyMode;
     LDest.VerifyDepth := VerifyDepth;
@@ -1539,9 +1478,8 @@ begin
   fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
   fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
   // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
-  fSSLContext.Method := SSLOptions.Method;
+  fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
   fSSLContext.Mode := SSLOptions.Mode;
-  fSSLContext.SSLVersions := SSLOptions.SSLVersions;
   fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
   fSSLContext.InitContext(sslCtxServer);
 end;
@@ -1956,8 +1894,7 @@ begin
     fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
 
     // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
-    fSSLContext.Method := SSLOptions.Method;
-    fSSLContext.SSLVersions := SSLOptions.SSLVersions;
+    fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
     fSSLContext.Mode := SSLOptions.Mode;
     fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
     fSSLContext.InitContext(sslCtxClient);
@@ -2354,7 +2291,6 @@ const
 
 var
   LError: TIdC_INT;
-  v: TTaurusTLSSSLVersion;
   // pCAname: PSTACK_X509_NAME;
 {$IFDEF USE_MARSHALLED_PTRS}
   M: TMarshaller;
@@ -2386,119 +2322,19 @@ begin
   // set SSL Versions we will use
   if HasTLS_method then
   begin
-    if SSLVersions <> [] then
+    if SSL_CTX_set_min_proto_version(fContext, SSLProtoVersion[fMinTLSVersion]) = 0
+    then
     begin
-      for v := SSLv3 to MAX_SSLVERSION do
-      begin
-        if v in SSLVersions then
-        begin
-          if SSL_CTX_set_min_proto_version(fContext, SSLProtoVersion[v]) = 0
-          then
-          begin
-            ETaurusTLSSettingMinProtocolError.RaiseException
-              (RSOSSLMinProtocolError);
-          end;
-          Break;
-        end;
-      end;
-      for v := MAX_SSLVERSION downto SSLv3 do
-      begin
-        if v in SSLVersions then
-        begin
-          if SSL_CTX_set_max_proto_version(fContext, SSLProtoVersion[v]) = 0
-          then
-          begin
-            ETaurusTLSSettingMaxProtocolError.RaiseException
-              (RSOSSLMaxProtocolError);
-          end;
-          Break;
-        end;
-      end;
-    end
-    else
+      ETaurusTLSSettingMinProtocolError.RaiseException
+        (RSOSSLMinProtocolError);
+    end;
+    //Maximum version is always TLS 1.3.
+    if SSL_CTX_set_max_proto_version(fContext, TLS1_3_VERSION) = 0 then
     begin
-      if SSL_CTX_set_min_proto_version(fContext, SSL3_VERSION) = 0 then
-      begin
-        ETaurusTLSSettingMinProtocolError.RaiseException
-          (RSOSSLMinProtocolError);
-      end;
-      if SSL_CTX_set_max_proto_version(fContext,
-        SSLProtoVersion[high(TTaurusTLSSSLVersion)]) = 0 then
-      begin
         ETaurusTLSSettingMaxProtocolError.RaiseException
           (RSOSSLMaxProtocolError);
-      end;
     end;
-  end
-  else
-  begin
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    { legacy code 1.0.2 and earlier }
-
-    if IsTaurusTLS_SSLv2_Available then
-    begin
-      if not(SSLv2 in SSLVersions) then
-      begin
-        SSL_CTX_set_options(fContext, SSL_OP_NO_SSLv2);
-      end
-      else if fMethod = SSLv23 then
-      begin
-        SSL_CTX_clear_options(fContext, SSL_OP_NO_SSLv2);
-      end;
-    end;
-    // SSLv3 might also be disabled as well..
-    if IsTaurusTLS_SSLv3_Available then
-    begin
-      if not(SSLv3 in SSLVersions) then
-      begin
-        SSL_CTX_set_options(fContext, SSL_OP_NO_SSLv3);
-      end
-      else if fMethod = SSLv23 then
-      begin
-        SSL_CTX_clear_options(fContext, SSL_OP_NO_SSLv3);
-      end;
-    end;
-    // may as well do the same for all of them...
-    if IsTaurusTLS_TLSv1_0_Available then
-    begin
-      if not(TLSv1 in SSLVersions) then
-      begin
-        SSL_CTX_set_options(fContext, SSL_OP_NO_TLSv1);
-      end
-      else if fMethod = SSLv23 then
-      begin
-        SSL_CTX_clear_options(fContext, SSL_OP_NO_TLSv1);
-      end;
-    end;
-    { IMPORTANT!!!  Do not set SSL_CTX_set_options SSL_OP_NO_TLSv1_1 and
-      SSL_OP_NO_TLSv1_2 if that functionality is not available.  TaurusTLS 1.0 and
-      earlier do not support those flags.  Those flags would only cause
-      an invalid MAC when doing SSL. }
-    if IsTaurusTLS_TLSv1_1_Available then
-    begin
-      if not(TLSv1_1 in SSLVersions) then
-      begin
-        SSL_CTX_set_options(fContext, SSL_OP_NO_TLSv1_1);
-      end
-      else if fMethod = SSLv23 then
-      begin
-        SSL_CTX_clear_options(fContext, SSL_OP_NO_TLSv1_1);
-      end;
-    end;
-    if IsTaurusTLS_TLSv1_2_Available then
-    begin
-      if not(TLSv1_2 in SSLVersions) then
-      begin
-        SSL_CTX_set_options(fContext, SSL_OP_NO_TLSv1_2);
-      end
-      else if fMethod = SSLv23 then
-      begin
-        SSL_CTX_clear_options(fContext, SSL_OP_NO_TLSv1_2);
-      end;
-    end;
-{$ENDIF}
   end;
-
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
   // assign a password lookup routine
   // if PasswordRoutineOn then begin
@@ -2769,8 +2605,7 @@ begin
   Result.StatusInfoOn := StatusInfoOn;
   // property PasswordRoutineOn: Boolean read fPasswordRoutineOn write fPasswordRoutineOn;
   Result.VerifyOn := VerifyOn;
-  Result.Method := Method;
-  Result.SSLVersions := SSLVersions;
+  Result.MinTLSVersion := MinTLSVersion;
   Result.Mode := Mode;
   Result.RootCertFile := RootCertFile;
   Result.SecurityLevel := SecurityLevel;
