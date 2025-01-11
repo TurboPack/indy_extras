@@ -1,4 +1,4 @@
-{$IF gsIdVersionMajor < 10}
+{$IF (gsIdVersionMajor < 10)}
 FATAL Indy Version Unssupported
 {$IFEND}
 //is GetURIHost and GetProxyTargetHost supported by Indy's TIdSSLIOHandlerSocketBase
