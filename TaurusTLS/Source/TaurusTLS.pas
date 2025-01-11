@@ -680,6 +680,7 @@ uses
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bn,
   TaurusTLSHeaders_x509_vfy,
+  TaurusTLSHeaders_x509v3,
   TaurusTLSHeaders_pkcs12,
   TaurusTLSHeaders_sslerr,
   TaurusTLSHeaders_err,
@@ -1386,7 +1387,7 @@ begin
   inherited Create;
   fMinTLSVersion := DEF_MIN_TLSVERSION;
   fUseSystemRootCertificateStore := true;
-  Self.FSecurityLevel := DEF_SECURITY_LEVEL;
+  FSecurityLevel := DEF_SECURITY_LEVEL;
 end;
 
 procedure TTaurusTLSSSLOptions.SetMinTLSVersion(
@@ -2370,7 +2371,7 @@ begin
     end
     else
     begin
-      // TaurusTLS 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
+      // OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
       // that handles a chain of certificates in a PEM file.  That is prefered.
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
       if Assigned(SSL_CTX_use_certificate_chain_file) then
@@ -2711,6 +2712,10 @@ var
   LError: Integer;
   LParentIO: TTaurusTLSIOHandlerSocket;
   LHelper: ITaurusTLSCallbackHelper;
+
+//  peercert: PX509;
+//  lHostName: AnsiString;
+
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
