@@ -1,5 +1,6 @@
 {$IF (gsIdVersionMajor < 10)}
-FATAL Indy Version Unssupported
+//The above line does not work in Lazarus, TODO:  Figure out why.
+//FATAL Indy Version Unssupported
 {$IFEND}
 //is GetURIHost and GetProxyTargetHost supported by Indy's TIdSSLIOHandlerSocketBase
 {$UNDEF GETURIHOST_SUPPORTED}
