@@ -3,7 +3,7 @@
   <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="TaurusTLSLDsgn"/>
-    <Type Value="RunAndDesignTime"/>
+    <Type Value="DesignTime"/>
     <Author Value="TaurusTLS Developers"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -19,7 +19,7 @@
 1) Modified BSD License - The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution. 
 
 2) MPL Mozilla Public License) License - To make it easier and consistent for JEDI users, we also offer an MPL license v1.1."/>
-    <Version Major="1"/>
+    <Version Major="1" Build="2"/>
     <Files>
       <Item>
         <Filename Value="..\..\Source\TaurusTLS_Dsn_AboutDlg.pas"/>
@@ -34,6 +34,10 @@
         <Filename Value="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="TaurusTLS_Dsn_Register"/>
+      </Item>
+      <Item>
+        <Filename Value="..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas"/>
+        <UnitName Value="TaurusTLS_Dsn_ResourceStrings"/>
       </Item>
     </Files>
     <RequiredPkgs>

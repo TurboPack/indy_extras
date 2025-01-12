@@ -6,6 +6,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
+        <IncludeFiles Value="../../Source"/>
         <OtherUnitFiles Value="../../Source"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
@@ -16,6 +17,7 @@
 1) Modified BSD License - The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution. 
 
 2) MPL Mozilla Public License) License - To make it easier and consistent for JEDI users, we also offer an MPL license v1.1."/>
+    <Version Major="1" Build="2"/>
     <Files>
       <Item>
         <Filename Value="../../Source/TaurusTLS.pas"/>
@@ -372,6 +374,10 @@
       <Item>
         <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
         <UnitName Value="TaurusTLS_NTLM"/>
+      </Item>
+      <Item>
+        <Filename Value="../../Source/TaurusTLSHeaders_ct.pas"/>
+        <UnitName Value="TaurusTLSHeaders_ct"/>
       </Item>
     </Files>
     <RequiredPkgs>
