@@ -29,7 +29,6 @@ interface
 uses
   IdCTypes,
   IdGlobal,
-  TaurusTLSConsts,
   TaurusTLSHeaders_ossl_typ;
 
 const
@@ -1311,7 +1310,6 @@ uses
   TaurusTLSLoader,
   {$ENDIF}
   TaurusTLSExceptionHandlers,
-  TaurusTLS_ResourceStrings,
   TaurusTLSHeaders_ssl;
   
 const

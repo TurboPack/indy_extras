@@ -29,7 +29,6 @@ interface
 uses
   IdCTypes,
   IdGlobal,
-  TaurusTLSConsts,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_ossl_typ;
@@ -2529,13 +2528,13 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
 
 implementation
 
-uses 
+uses
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   classes,
   TaurusTLSLoader,
   {$ENDIF}
-  TaurusTLSExceptionHandlers,
   TaurusTLS_ResourceStrings,
+  TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_crypto;
 
 const

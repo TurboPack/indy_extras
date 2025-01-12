@@ -29,7 +29,6 @@ interface
 uses
   IdCTypes,
   IdGlobal,
-  TaurusTLSConsts,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
@@ -390,8 +389,7 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};

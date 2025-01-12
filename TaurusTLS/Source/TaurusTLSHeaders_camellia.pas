@@ -29,8 +29,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSConsts;
+  IdGlobal;
 
 const
   // Added '_CONST' to avoid name clashes
@@ -113,8 +112,7 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};

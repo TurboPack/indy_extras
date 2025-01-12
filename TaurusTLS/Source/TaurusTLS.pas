@@ -233,7 +233,6 @@ uses
   Classes,
   IdCTypes,
   IdGlobal,
-  IdException,
   IdStackConsts,
   IdSocketHandle,
   IdComponent,

@@ -29,7 +29,6 @@ interface
 uses
   IdCTypes,
   IdGlobal,
-  TaurusTLSConsts,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_stack;
@@ -46,6 +45,7 @@ type
 
   PSTACK_OF_CONF_VALUE = type pointer;
 //DEFINE_STACK_OF(CONF_VALUE)
+  Plhash_st_CONF_VALUE = type pointer;
 //DEFINE_LHASH_OF(CONF_VALUE);
 
   conf_st = type Pointer;
@@ -393,8 +393,7 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};

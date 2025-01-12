@@ -24,8 +24,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSConsts;
+  IdGlobal;
 
 {
   Automatically converted by H2Pas 1.0.0 from des.h
@@ -545,8 +544,7 @@ implementation
 
 uses
   classes,
-  TaurusTLSExceptionHandlers,
-  TaurusTLS_ResourceStrings
+  TaurusTLSExceptionHandlers
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     , TaurusTLSLoader
 {$ENDIF};
