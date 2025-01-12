@@ -46,7 +46,7 @@ type
     procedure OnSent(ASender: TComponent; const AText, AData: string);
     procedure OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
     procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
-      AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes;
+      AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
@@ -168,7 +168,8 @@ end;
 { TFTPApplication }
 
 procedure TFTPApplication.OnDebugMsg(ASender: TObject; const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+  SSL: PSSL);
 {$IFNDEF USE_INLINE_VAR}
 var
   LOutput: String;

@@ -10,7 +10,7 @@
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <CursorPos X="16" Y="9"/>
-        <UsageCount Value="180"/>
+        <UsageCount Value="181"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
@@ -320,11 +320,34 @@
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
         <TopLine Value="128"/>
         <CursorPos X="71" Y="165"/>
         <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_x509v3.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="367"/>
+        <CursorPos X="38" Y="373"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_tls1.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="26"/>
+        <CursorPos X="3" Y="32"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Packages/Lazarus/taurustlsrt.pas"/>
+        <UnitName Value="TaurusTLSRT"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="49" Y="8"/>
+        <UsageCount Value="10"/>
       </Unit>
     </Units>
     <General>

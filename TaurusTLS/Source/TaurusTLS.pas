@@ -292,7 +292,7 @@ type
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
-    AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL)
+    AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL)
     of object;
   TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
@@ -460,7 +460,7 @@ type
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
-      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+      AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -505,7 +505,7 @@ type
 
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
-      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+      AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -566,7 +566,7 @@ type
 
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
-      AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+      AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
     function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
@@ -951,7 +951,9 @@ var
   LErr: Integer;
   LSocket: TTaurusTLSSocket;
   LHelper: ITaurusTLSCallbackHelper;
+{$IFNDEF USE_INLINE_VAR}
   LBytes: TIdBytes;
+{$ENDIF}
   LVer: TTaurusMsgCBVer;
 begin
   {
@@ -971,6 +973,9 @@ begin
       if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
       then
       begin
+        {$IFDEF USE_INLINE_VAR}
+        var LBytes : TIdBytes;
+        {$ENDIF}
         LBytes := RawToBytes(buf, len);
         case Version of
           SSL3_VERSION:
@@ -1447,7 +1452,7 @@ begin
 end;
 
 procedure TTaurusTLSServerIOHandler.DoOnDebugMessage(const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
 begin
   if Assigned(FOnDebugMessage) then
   begin
@@ -1902,7 +1907,7 @@ begin
 end;
 
 procedure TTaurusTLSIOHandlerSocket.DoOnDebugMessage(const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; buf: TIdBytes; SSL: PSSL);
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
 begin
   if Assigned(FOnDebugMessage) then
   begin
