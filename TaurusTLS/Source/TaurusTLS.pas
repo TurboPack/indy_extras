@@ -1855,6 +1855,7 @@ end;
 function TTaurusTLSIOHandlerSocket.SendEnc(const ABuffer: TIdBytes;
   const AOffset, ALength: Integer): Integer;
 begin
+  //This can not be altered because it inherits from Indy.
   Result := fSSLSocket.Send(ABuffer, AOffset, ALength);
 end;
 
@@ -2848,9 +2849,9 @@ begin
     Lret := SSL_write_ex2(fSSL, @ABuffer[LOffset], LLength, 0, @LWritten);
     if Lret > 0 then
     begin
-      Inc(Result, LWritten);
-      Inc(LOffset, LWritten);
-      Dec(LLength, LWritten);
+      Result := Result + LWritten;
+      LOffset := LOffset + LWritten;
+      LLength := LLength - LWritten;
       if LLength < 1 then
       begin
         Break;
