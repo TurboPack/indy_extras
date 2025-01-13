@@ -45,10 +45,21 @@ function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 function DirName(const ADirName: PX509_NAME): String;
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
+function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
+
 implementation
 
 uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
   SysUtils;
+
+function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
+{$IFDEF USE_INLINE}inline;{$ENDIF}
+begin
+  SetLength(Result, ASize);
+  if ASize > 0 then begin
+    Move(AValue, Result[0], ASize);
+  end;
+end;
 
 function LogicalAnd(a, B: Integer): Boolean;
 {$IFDEF USE_INLINE} inline; {$ENDIF}

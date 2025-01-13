@@ -247,6 +247,7 @@ uses
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_ssl3,
   TaurusTLSHeaders_tls1,
+  TaurusTLS_Utils,
   TaurusTLS_X509,
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
@@ -980,7 +981,7 @@ begin
         {$IFDEF USE_INLINE_VAR}
         var LBytes : TIdBytes;
         {$ENDIF}
-        LBytes := RawToBytes(buf, len);
+        LBytes := TaurusTLSRawToBytes(buf, len);
         case Version of
           SSL3_VERSION:
             LVer := verSSL3Header;
