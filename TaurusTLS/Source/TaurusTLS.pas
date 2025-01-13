@@ -836,6 +836,10 @@ begin
       begin
         LHelper.SecurityLevelCB(s, ctx, op, bits,
           String(OBJ_nid2ln(nid)), LRes);
+      end
+      else
+      begin
+        LRes := True;
       end;
       if LRes then
       begin
