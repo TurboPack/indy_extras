@@ -276,7 +276,8 @@ type
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
   TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 {$ENDIF}
-  TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
+  TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce,
+    sslvrfPostHandshake);
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
   TTaurusTLSSecurityLevel = 0 .. 5;
 
@@ -1022,6 +1023,9 @@ begin
   if sslvrfPeer in Mode then
   begin
     Result := Result or SSL_VERIFY_PEER;
+    if sslvrfPostHandshake in Mode then begin
+      Result := Result or SSL_VERIFY_POST_HANDSHAKE;
+    end;
   end;
   if sslvrfFailIfNoPeerCert in Mode then
   begin
