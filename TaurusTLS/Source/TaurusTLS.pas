@@ -1026,15 +1026,16 @@ begin
     if sslvrfPostHandshake in Mode then begin
       Result := Result or SSL_VERIFY_POST_HANDSHAKE;
     end;
+    if sslvrfFailIfNoPeerCert in Mode then
+    begin
+      Result := Result or SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
+    end;
+    if sslvrfClientOnce in Mode then
+    begin
+      Result := Result or SSL_VERIFY_CLIENT_ONCE;
+    end;
   end;
-  if sslvrfFailIfNoPeerCert in Mode then
-  begin
-    Result := Result or SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
-  end;
-  if sslvrfClientOnce in Mode then
-  begin
-    Result := Result or SSL_VERIFY_CLIENT_ONCE;
-  end;
+
 end;
 
 function VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX)
