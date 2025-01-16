@@ -300,25 +300,30 @@ type
   /// </remarks>
   TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 {$ENDIF}
-  /// <summary>Can be one of the following values</summary>
-  /// <remarks>
+  /// <summary>Can be one of the following values
   ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
   ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
   ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
   ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
-  /// </remarks>
+  /// </summary>
   TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce,
     sslvrfPostHandshake);
-  /// <summary>Controls the peer verification.</summary>
+  /// <summary>Controls the peer verification.  Can contain the following:
+  ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
+  ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
+  ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
+  ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+  /// </summary>
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
-  /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)</summary>
-  /// <remarks>
+  /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)
   ///  <para><c>0</c> Permit anything</para>
   ///  <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
   ///  <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
   ///  <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
   ///  <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
   ///  <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
+  ///  </summary>
+  ///  <remarks>
   ///  <para>See <see href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour</see> for more details</para>
   ///  </remarks>
   TTaurusTLSSecurityLevel = 0 .. 5;
@@ -331,8 +336,8 @@ const
   DEF_SECURITY_LEVEL = 1;
 
 type
-  /// <summary>TLS version indicated in the <see href="TMsgCallbackEvent">TMsgCallbackEvent</see></summary>
-  /// <remarks>
+  /// <summary>
+  /// TLS version indicated in the <see href="TMsgCallbackEvent">TMsgCallbackEvent</see>
   ///  <para>Can be one of the folowing values:</para>
   ///  <para><c>verSSL3Header</c> SSL 3.0 header</para>
   ///  <para><c>verTLS1</c> TLS 1.0</para>
@@ -344,7 +349,7 @@ type
   ///  <para><c>verDTLSBadVer</c> DTLS Bad Version</para>
   ///  <para><c>verQUIC</c> QUIC</para>
   ///  <para><c>verTLSAny</c> TLS Any Version</para>
-  /// </remarks>
+  /// </summary>
   TTaurusMsgCBVer = (verSSL3Header, verTLS1, verTLS1_1, verTLS1_2, verTLS1_3,
     verDTLS1, verDTLS1_2, verDTLSBadVer, verQUIC, verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
@@ -393,25 +398,52 @@ type
   published
     /// <summary>Root certificate file.</summary>
     property RootCertFile: String read fsRootCertFile write fsRootCertFile;
+    /// <summary>Client or Server certificate file.</summary>
     property CertFile: String read fsCertFile write fsCertFile;
+    /// <summary>Private Key file.</summary>
     property KeyFile: String read fsKeyFile write fsKeyFile;
+    /// <summary>DH Parameters file.</summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
     /// <summary>The Minimum TLS version you will accept.</summary>
     property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion
       default DEF_MIN_TLSVERSION;
-    /// <summary>OpenSSL Security Level</summary>
+  /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)
+  ///  <para><c>0</c> Permit anything</para>
+  ///  <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
+  ///  <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
+  ///  <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
+  ///  <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
+  ///  <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
+  ///  </summary>
+  ///  <remarks>
+  ///  <para>See <see href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour</see> for more details</para>
+  ///  </remarks>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
     { SSLVersions is only used to determine min version with TaurusTLS 1.1.0 or later }
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
+  /// <summary>Controls the peer verification.  Can contain the following:
+  ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
+  ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
+  ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
+  ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+  /// </summary>
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
+    /// <summary>The maximum depth for the certificate chain verification allowed.</summary>
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
     // property VerifyFile: String read fVerifyFile write fVerifyFile;
+    /// <summary>Directories where to load root certificates from separated by colons.</summary>
+    /// <remarks>Only the PEM files in the directories are loaded.</remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
+    /// <summary>Use system's certificate store to verify certificates.</summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
       default true;
+    /// <summary>The list of available ciphers</summary>
+    /// <remarks>
+    ///  <para>Leave empty to use all available ciphers.</para>
+    /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
   end;
 
@@ -597,22 +629,67 @@ type
     procedure Open; override;
     function Readable(AMSec: Integer = IdTimeoutDefault): Boolean; override;
     property SSLSocket: TTaurusTLSSocket read fSSLSocket write fSSLSocket;
+    /// <summary>
+    /// Occurs before TLS negotiation begins.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    ///
     property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
+    /// <summary>
+    /// Occurs when TLS negotiation is concluded.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    ///
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
+  /// <summary>Properties that effect TLS.
+  ///</summary>
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
+    /// <summary>
+    /// Occurs when there is a status message.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="AsslSocket">The PSSL value associated with the event.</param>
+    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
+    /// <param name="Aret">A value indicating a particular message</param>
+    /// <param name="AType">The AWhere value represented as a string</param>
+    /// <param name="AMsg">The Aret value represented as a string/param>
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
+    /// <summary>
+    /// Occurs when a password is required.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="VPassword">Return value indicating the password.</param>
+    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
     property OnGetPassword: TPasswordEvent read fOnGetPassword
       write fOnGetPassword;
+    /// <summary>
+    /// Occurs when a connection attempt is made.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
+    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
+    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
+    /// <param name="bits">Number of security bits the cipher has.</param>
+    /// <param name="ACipher">The name of the cipher.</param>
+    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
       write fOnSecurityLevel;
+    /// <summary>
+    /// Occurs when a certificate is presented for validation.
+    /// </summary>
+    /// <param name="Certificate">The certificate to be validated.</param>
+    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
+    /// <param name="ADepth">The maximum depth of.</param>
+    /// <param name="AError">The validation error if the certificate failed validation.</param>
+    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
     property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
@@ -639,7 +716,7 @@ type
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
-    function GetPassword(const AIsWrite: Boolean): string;
+   function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
@@ -664,16 +741,56 @@ type
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
+    /// <summary>Properties that effect TLS.
+    /// </summary>
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
+    /// <summary>
+    /// Occurs when TLS negotiation is concluded.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    ///
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
+    /// <summary>
+    /// Occurs when there is a status message.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="AsslSocket">The PSSL value associated with the event.</param>
+    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
+    /// <param name="Aret">A value indicating a particular message</param>
+    /// <param name="AType">The AWhere value represented as a string</param>
+    /// <param name="AMsg">The Aret value represented as a string/param>
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
+    /// <summary>
+    /// Occurs when a password is required.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="VPassword">Return value indicating the password.</param>
+    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
     property OnGetPassword: TPasswordEvent read fOnGetPassword
       write fOnGetPassword;
+    /// <summary>
+    /// Occurs when a connection attempt is made.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
+    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
+    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
+    /// <param name="bits">Number of security bits the cipher has.</param>
+    /// <param name="ACipher">The name of the cipher.</param>
+    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
       write fOnSecurityLevel;
+    /// <summary>
+    /// Occurs when a certificate is presented for validation.
+    /// </summary>
+    /// <param name="Certificate">The certificate to be validated.</param>
+    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
+    /// <param name="ADepth">The maximum depth of.</param>
+    /// <param name="AError">The validation error if the certificate failed validation.</param>
+    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
     property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
