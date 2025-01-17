@@ -637,6 +637,15 @@ type
     property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
+    /// <summary>
+    /// Occurs when a TLS packet is read or sent.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+  	/// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+    /// <param name="AVersion">TLS version of packet.</param>
+  	/// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+  	/// <param name="buf">The contents of the packet.</param>
+  	/// <param name="SSL">The SSL object where the event occurred.</param>	
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
@@ -738,6 +747,15 @@ type
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
     //
     property SSLContext: TTaurusTLSContext read fSSLContext;
+    /// <summary>
+    /// Occurs when a TLS packet is read or sent.
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
+  	/// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+    /// <param name="AVersion">TLS version of packet.</param>
+  	/// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+  	/// <param name="buf">The contents of the packet.</param>
+  	/// <param name="SSL">The SSL object where the event occurred.</param>
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
@@ -747,9 +765,8 @@ type
       write fSSLOptions;
     /// <summary>
     /// Occurs when TLS negotiation is concluded.
-    /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    ///
+  	/// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>   
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
     /// <summary>
