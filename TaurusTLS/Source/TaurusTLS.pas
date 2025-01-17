@@ -2337,11 +2337,13 @@ var
 begin
 {$ELSE}
 begin
-  var
-    LType, LMsg: string;
 {$ENDIF}
   if Assigned(FOnStatusInfo) then
   begin
+  {$IFDEF USE_INLINE_VAR}
+    var
+      LType, LMsg: string;
+  {$ENDIF}
     GetStateVars(AsslSocket, AWhere, Aret, LType, LMsg);
     FOnStatusInfo(Self, AsslSocket, AWhere, Aret, LType, LMsg);
   end;
