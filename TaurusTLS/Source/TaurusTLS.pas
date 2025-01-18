@@ -1186,7 +1186,11 @@ begin
         {$IFDEF USE_INLINE_VAR}
         var LBytes : TIdBytes;
         {$ENDIF}
+        {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
         LBytes := TaurusTLSRawToBytes(buf, len);
+        {$ELSE}
+        LBytes := RawToBytes(buf, len);
+        {$ENDIF}
         case Version of
           SSL3_VERSION:
             LVer := verSSL3Header;

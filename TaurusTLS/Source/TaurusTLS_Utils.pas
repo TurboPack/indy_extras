@@ -24,6 +24,8 @@ uses
   TaurusTLSHeaders_x509v3,
   Classes;
 
+  {$I TaurusTLSIndyVers.inc}
+
 type
   TIdSSLEVP_MD = record
     _Length: TIdC_UINT;
@@ -45,13 +47,16 @@ function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 function DirName(const ADirName: PX509_NAME): String;
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
+{$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
+{$ENDIF}
 
 implementation
 
 uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
   SysUtils;
 
+{$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 {$IFDEF USE_INLINE}inline;{$ENDIF}
 begin
@@ -60,6 +65,7 @@ begin
     Move(AValue, Result[0], ASize);
   end;
 end;
+{$ENDIF}
 
 function LogicalAnd(a, B: Integer): Boolean;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
