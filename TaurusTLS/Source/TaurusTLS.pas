@@ -334,6 +334,7 @@ const
   MAX_SSLVERSION = TLSv1_3;
   P12_FILETYPE = 3;
   DEF_SECURITY_LEVEL = 1;
+  DEF_VERIFY_HOSTNAME = False;
 
 type
   /// <summary>
@@ -386,6 +387,7 @@ type
     fVerifyDepth: Integer;
     FSecurityLevel: TTaurusTLSSecurityLevel;
     fMethod: TTaurusTLSSSLVersion;
+    fVerifyHostname : Boolean;
     fVerifyDirs: String;
     fCipherList: String;
     fVerifyMode: TTaurusTLSVerifyModeSet;
@@ -436,6 +438,9 @@ type
     /// <summary>Directories where to load root certificates from separated by colons.</summary>
     /// <remarks>Only the PEM files in the directories are loaded.</remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
+    /// <summary>Peer Certificate must match hostname</summary>
+    property VerifyHostname : Boolean read fVerifyHostname write fVerifyHostname
+      default DEF_VERIFY_HOSTNAME;
     /// <summary>Use system's certificate store to verify certificates.</summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
@@ -474,6 +479,7 @@ type
     // fPasswordRoutineOn: Boolean;
     fVerifyOn: Boolean;
     fSessionId: Integer;
+    fVerifyHostname : Boolean;
 {$IFDEF USE_WINDOWS_CERT_STORE}
     procedure LoadWindowsCertStore;
 {$ENDIF}
@@ -513,7 +519,7 @@ type
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
-
+    property VerifyHostname : Boolean read fVerifyHostname write fVerifyHostname;
   end;
 
   { TTaurusTLSSocket }
@@ -528,6 +534,7 @@ type
     fSSLCipher: TTaurusTLSCipher;
     fSSLContext: TTaurusTLSContext;
     fHostName: String;
+    fVerifyHostname : Boolean;
     function GetProtocolVersion: TTaurusTLSSSLVersion;
     function GetSSLProtocolVersionStr: string;
     function GetPeerCert: TTaurusTLSX509;
@@ -837,6 +844,7 @@ type
   ETaurusTLSSessionCanNotBeNul = class(ETaurusTLSError);
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
   ETaurusTLSGetMethodError = class(ETaurusTLSError);
+
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSLoadingRootCertError = class(ETaurusTLSAPICryptoError);
@@ -844,10 +852,12 @@ type
   ETaurusTLSLoadingKeyError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSLoadingDHParamsError = class(ETaurusTLSAPICryptoError);
   ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
+
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
+    ETaurusTLSCertificateError = class(ETaurusTLSAPISSLError);
 {$IFNDEF OPENSSL_NO_TLSEXT}
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
@@ -1610,6 +1620,7 @@ begin
   fMinTLSVersion := DEF_MIN_TLSVERSION;
   fUseSystemRootCertificateStore := true;
   FSecurityLevel := DEF_SECURITY_LEVEL;
+  fVerifyHostname := DEF_VERIFY_HOSTNAME;
 end;
 
 procedure TTaurusTLSSSLOptions.SetMinTLSVersion(
@@ -1640,6 +1651,7 @@ begin
     LDest.Mode := Mode;
     LDest.VerifyMode := VerifyMode;
     LDest.VerifyDepth := VerifyDepth;
+    LDest.VerifyHostname := VerifyHostname;
     LDest.fUseSystemRootCertificateStore := fUseSystemRootCertificateStore;
     LDest.VerifyDirs := VerifyDirs;
     LDest.CipherList := CipherList;
@@ -1695,6 +1707,7 @@ begin
   fSSLContext.UseSystemRootCertificateStore :=
     SSLOptions.UseSystemRootCertificateStore;
   fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
+  fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
   fSSLContext.CipherList := SSLOptions.CipherList;
   fSSLContext.VerifyOn := Assigned(fOnVerifyPeer);
   fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
@@ -2839,6 +2852,7 @@ begin
   Result.KeyFile := KeyFile;
   Result.VerifyMode := VerifyMode;
   Result.VerifyDepth := VerifyDepth;
+  Result.VerifyHostname := VerifyHostname;
 end;
 
 { TTaurusTLSSocket }
@@ -2938,8 +2952,11 @@ var
   LParentIO: TTaurusTLSIOHandlerSocket;
   LHelper: ITaurusTLSCallbackHelper;
 
-//  peercert: PX509;
-//  lHostName: AnsiString;
+  peercert: PX509;
+
+  {$IFNDEF  USE_INLINE_VAR}
+  lHostName: AnsiString;
+  {$ENDIF}
 
 begin
   Assert(fSSL = nil);
@@ -3005,22 +3022,24 @@ begin
   // to make sure...
 
   // TODO: enable this
-  {
-    var
-    peercert: PX509;
-    lHostName: AnsiString;
-    peercert := SSL_get_peer_certificate(fSSL);
-    try
-    lHostName := AnsiString(fHostName);
-    if (X509_check_host(peercert, PByte(PAnsiChar(lHostName)), Length(lHostName), 0) != 1) and
-    (not certificate_host_name_override(peercert, PAnsiChar(lHostName)) then
+    if fSSLContext.VerifyHostname then
     begin
-    EIdOSSLCertificateError.RaiseException(fSSL, error, 'SSL certificate does not match host name');
+      peercert := SSL_get_peer_certificate(fSSL);
+      try
+        {$IFDEF  USE_INLINE_VAR}
+        var lHostName: AnsiString;
+        {$ENDIF}
+        lHostName := AnsiString(fHostName);
+        if (X509_check_host(peercert,PAnsiChar(lHostName), Length(lHostName), 0,
+          nil) <> 1) then
+        begin
+          ETaurusTLSCertificateError.RaiseException(fSSL, error, 'SSL certificate does not match host name');
+        end;
+
+      finally
+        X509_free(peercert);
+      end;
     end;
-    finally
-    X509_free(peercert);
-    end;
-  }
 end;
 
 function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): TIdC_SIZET;
