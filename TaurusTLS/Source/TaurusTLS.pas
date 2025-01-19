@@ -265,19 +265,17 @@ const
 
 type
   TTaurusTLSSSLVersion = TIdSSLVersion;
-  /// <summary>Can be one of the following values</summary>
-  /// <remarks>
+  /// <summary>Can be one of the following values
   ///  <para><c>sslmUnassigned</c> Initial default value</para>
   ///  <para><c>sslmClient</c> Use Client method</para>
   ///  <para><c>sslmServer</c> Use Server method</para>
   ///  <para><c>sslmBoth</c> Use Client/Server method</para>
-  /// </remarks>
+  /// </summary>
   TTaurusTLSSSLMode = TIdSSLMode;
-  /// <summary>Can be one of the following values</summary>
-  /// <remarks>
+  /// <summary>Can be one of the following values
   ///  <para><c>sslCtxClient</c></para>
   ///  <para><c>sslCtxServer</c></para>
-  /// </remarks>
+  /// </summary>
   TTaurusTLSCtxMode = TIdSSLCtxMode;
 {$ELSE}
 
@@ -285,19 +283,25 @@ type
   TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
     TLSv1_2, TLSv1_3);
   { May need to update constants below if adding to this set }
-  /// <summary>Can be one of the following values</summary>
-  /// <remarks>
-  ///  <para><c>sslmUnassigned</c> Initial default value</para>
-  ///  <para><c>sslmClient</c> Use Client method</para>
-  ///  <para><c>sslmServer</c> Use Server method</para>
-  ///  <para><c>sslmBoth</c> Use Client/Server method</para>
-  /// </remarks>
+  /// <summary>
+  ///   Can be one of the following values<para>
+  ///     <c>sslmUnassigned</c> Initial default value
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmClient</c> Use Client method
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmServer</c> Use Server method
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmBoth</c> Use Client/Server method
+  ///   </para>
+  /// </summary>
   TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
-  /// <summary>Can be one of the following values</summary>
-  /// <remarks>
+  /// <summary>Can be one of the following values:
   ///  <para><c>sslCtxClient</c></para>
   ///  <para><c>sslCtxServer</c></para>
-  /// </remarks>
+  /// </summary>
   TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
 {$ENDIF}
   /// <summary>Can be one of the following values
@@ -409,20 +413,40 @@ type
     /// <summary>The Minimum TLS version you will accept.</summary>
     property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion
       default DEF_MIN_TLSVERSION;
-  /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)
-  ///  <para><c>0</c> Permit anything</para>
-  ///  <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
-  ///  <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
-  ///  <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
-  ///  <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
-  ///  <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
-  ///  </summary>
-  ///  <remarks>
-  ///  <para>See <see href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour</see> for more details</para>
-  ///  </remarks>
+  /// <summary>
+  ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
+  ///   restrictive), It may be one of the following values:<para>
+  ///     <c>0</c> Permit anything
+  ///   </para>
+  ///   <para>
+  ///     <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+  ///     security bits.
+  ///   </para>
+  ///   <para>
+  ///     <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
+  ///     security bits. Compression is disabled.
+  ///   </para>
+  ///   <para>
+  ///     <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
+  ///     security bits. Session tickets are disabled.
+  ///   </para>
+  ///   <para>
+  ///     <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
+  ///     security bits.
+  ///   </para>
+  ///   <para>
+  ///     <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
+  ///     security bits.
+  ///   </para>
+  /// </summary>
+  /// <remarks>
+  ///   See <see
+  ///   href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour" />
+  ///   for more details
+  /// </remarks>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
-    { SSLVersions is only used to determine min version with TaurusTLS 1.1.0 or later }
+  /// <summary>Determines which OpenSSL method should be callled.</summary>
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
   /// <summary>Controls the peer verification.  Can contain the following:
   ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
@@ -523,7 +547,7 @@ type
   end;
 
   { TTaurusTLSSocket }
-
+  /// <summary>Properties and methods for dealing with a TLS Socket.</summary>
   TTaurusTLSSocket = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
@@ -543,21 +567,44 @@ type
   public
     constructor Create(AParent: TObject);
     destructor Destroy; override;
+    /// <summary>Return an error code for the previous I/O operation.</summary>
+    /// <param name="retCode">Return code from the previous function.</param>
+    /// <returns>The error code</returns>
     function GetSSLError(retCode: Integer): Integer;
+    /// <summary>Accept a TLS connection.</summary>
+    /// <param name="pHandle">The connection to negotiate TLS with.</param>
     procedure Accept(const pHandle: TIdStackSocketHandle);
+    /// <summary>Make a TLS connection.</summary>
+    /// <param name="pHandle">The connection to negotiate TLS with.</param>
     procedure Connect(const pHandle: TIdStackSocketHandle);
+    /// <summary>Encrypt bytes and send them to the peer.</summary>
+    /// <param name="ABuffer">Buffer to encrypt and send.</param>
+    /// <param name="AOffset">Offset into buffer.</param>
+    /// <param name="ALength">number of bytes to send.</param>
     function Send(const ABuffer: TIdBytes; const AOffset, ALength: TIdC_SIZET)
       : TIdC_SIZET;
+    /// <summary>Receives bytes that after they have been decrypted.</summary>
+    /// <param name="VBuffer">The buffer for bytes read</param>
+    /// <returns>The number of bytes read.</returns>
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
+    /// <summary>Session ID as a string</summary>
     function GetSessionIDAsString: String;
-    //
+    /// <summary>OpenSSL SSL object.</summary>
     property SSL: PSSL read fSSL;
+    /// <summary>SSL Context for this connection.</summary>
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
+    /// <summary>The TTaurusTLSIOHandlerSocket or TTaurusTLSServerIOHandler that owns this object.</summary>
     property Parent: TObject read FParent;
+    /// <summary>The peer's certificate encapsolated in a TTaurusTLSX509 object.</summary>
     property PeerCert: TTaurusTLSX509 read GetPeerCert;
+    /// <summary>TLS Cipher information.</summary>
     property Cipher: TTaurusTLSCipher read GetSSLCipher;
+    /// <summary>Name of peer you are connected to.</summary>
+    /// <remarks>Used to verify that the Peer Certificate matches the HostName.</remarks>
     property HostName: String read fHostName write fHostName;
+    /// <summary>TLS Protocol version in use.</summary>
     property SSLProtocolVersion: TTaurusTLSSSLVersion read GetProtocolVersion;
+    /// <summary>TLS Protocol version in use as a string.</summary>
     property SSLProtocolVersionStr: string read GetSSLProtocolVersionStr;
   end;
 
@@ -635,6 +682,7 @@ type
     procedure Close; override;
     procedure Open; override;
     function Readable(AMSec: Integer = IdTimeoutDefault): Boolean; override;
+    /// <summary>Properties and methods for dealing with the TLS Connection.</summary>
     property SSLSocket: TTaurusTLSSocket read fSSLSocket write fSSLSocket;
     /// <summary>
     /// Occurs before TLS negotiation begins.
@@ -675,7 +723,7 @@ type
     /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
     /// <param name="Aret">A value indicating a particular message</param>
     /// <param name="AType">The AWhere value represented as a string</param>
-    /// <param name="AMsg">The Aret value represented as a string/param>
+    /// <param name="AMsg">The Aret value represented as a string</param>
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
@@ -784,7 +832,7 @@ type
     /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
     /// <param name="Aret">A value indicating a particular message</param>
     /// <param name="AType">The AWhere value represented as a string</param>
-    /// <param name="AMsg">The Aret value represented as a string/param>
+    /// <param name="AMsg">The Aret value represented as a string</param>
     property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
@@ -819,6 +867,7 @@ type
       write fOnVerifyPeer;
   end;
 
+  /// <summary>TLS Cipher information.</summary>
   TTaurusTLSCipher = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     fSSLSocket: TTaurusTLSSocket;
@@ -833,9 +882,13 @@ type
     destructor Destroy; override;
     // These can't be published without a compiler warning.
     // published
+    /// <summary>Description of cipher.</summary>
     property Description: String read GetDescription;
+    /// <summary>Name of cipher.</summary>
     property Name: String read GetName;
+    /// <summary>Number of bits in cipher.</summary>
     property bits: Integer read GetBits;
+    /// <summary>Version of cipher.</summary>
     property Version: String read GetVersion;
   end;
 
