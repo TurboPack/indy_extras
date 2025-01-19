@@ -2983,10 +2983,7 @@ begin
   LError := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(AnsiString(fHostName)));
   if LError <= 0 then
   begin
-    // RLebeau: for the time being, not raising an exception on error, as I don't
-    // know which OpenSSL versions support this extension, and which error code(s)
-    // are safe to ignore on those versions...
-    // EIdOSSLSettingTLSHostNameError.RaiseException(fSSL, error, RSSSLSettingTLSHostNameError);
+     ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, error, RSSSLSettingTLSHostNameError);
   end;
 {$ENDIF}
   LError := SSL_connect(fSSL);
