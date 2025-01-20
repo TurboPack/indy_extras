@@ -3010,7 +3010,7 @@ var
   LParentIO: TTaurusTLSIOHandlerSocket;
   LHelper: ITaurusTLSCallbackHelper;
 
-  peercert: PX509;
+  Lpeercert: PX509;
 
   {$IFNDEF  USE_INLINE_VAR}
   lHostName: AnsiString;
@@ -3082,20 +3082,20 @@ begin
   // TODO: enable this
     if fSSLContext.VerifyHostname then
     begin
-      peercert := SSL_get_peer_certificate(fSSL);
+      Lpeercert := SSL_get_peer_certificate(fSSL);
       try
         {$IFDEF  USE_INLINE_VAR}
         var lHostName: AnsiString;
         {$ENDIF}
         lHostName := AnsiString(fHostName);
-        if (X509_check_host(peercert,PAnsiChar(lHostName), Length(lHostName), 0,
+        if (X509_check_host(Lpeercert,PAnsiChar(lHostName), Length(lHostName), 0,
           nil) <> 1) then
         begin
           ETaurusTLSCertificateError.RaiseException(fSSL, error, 'SSL certificate does not match host name');
         end;
 
       finally
-        X509_free(peercert);
+        X509_free(Lpeercert);
       end;
     end;
 end;

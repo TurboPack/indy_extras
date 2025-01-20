@@ -308,10 +308,10 @@ begin
     redtCertView.Lines.Add('');
     redtCertView.Lines.Add('Subject');
     DumpX509Name(FX509.Subject);
-    redtCertView.Lines.Add('');
 
     if not FX509.Warnings.SubjectAndIssuerMatch then
     begin
+      redtCertView.Lines.Add('');
       redtCertView.Lines.Add('Issuer');
       DumpX509Name(FX509.Issuer);
     end;
@@ -388,12 +388,14 @@ begin
     end;
     redtCertView.Lines.Add(RightJustify('Has Basic Constraints: ',
         TAB1) + LStr);
-    LStr := X509.CertificateAuthorityFlag;
-    if LStr <> '' then
+    if X509.CertificateAuthorityFlag then
     begin
       redtCertView.Lines.Add(RightJustify('X509v3 Certificate Authority Flag: ',
-        TAB1) + LStr);
+        TAB1) + 'yes');
+      redtCertView.Lines.Add(RightJustify('Certificate Authority Path Length: ',
+        TAB1) + IntToStr(X509.CertificateAuthorityPathLen));
     end;
+
     if X509.HasFreshestCRL then
     begin
       LStr := 'yes';
