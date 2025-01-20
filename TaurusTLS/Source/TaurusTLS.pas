@@ -1,11 +1,11 @@
-{ ****************************************************************************** }
+﻿{ ****************************************************************************** }
 { *  TaurusTLS                                                                 * }
 { *           https://github.com/JPeterMugaas/TaurusTLS                        * }
 { *                                                                            * }
 { *  Copyright (c) 2024 TaurusTLS Developers, All Rights Reserved              * }
 { *                                                                            * }
-{ * Portions of this software are Copyright (c) 1993 � 2018,                   * }
-{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew � http://www.IndyProject.org/  * }
+{ * Portions of this software are Copyright (c) 1993 – 2018,                   * }
+{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 {
   Rev 1.41    22/02/2024 AWhyman
@@ -415,7 +415,8 @@ type
       default DEF_MIN_TLSVERSION;
   /// <summary>
   ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
-  ///   restrictive), It may be one of the following values:<para>
+  ///   restrictive), It may be one of the following values: <br />
+  ///   <para>
   ///     <c>0</c> Permit anything
   ///   </para>
   ///   <para>
@@ -478,9 +479,10 @@ type
 
   { TTaurusTLSContext }
 
+  /// <summary>
+  ///   The TLS Context encapsolated into an object.
+  /// </summary>
   TTaurusTLSContext = class(TObject)
-  private
-    procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fUseSystemRootCertificateStore: Boolean;
 {$IFDEF USE_OBJECT_ARC}[Weak]
@@ -507,6 +509,7 @@ type
 {$IFDEF USE_WINDOWS_CERT_STORE}
     procedure LoadWindowsCertStore;
 {$ENDIF}
+    procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
     procedure DestroyContext;
     function GetSSLMethod: PSSL_METHOD;
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
@@ -688,7 +691,6 @@ type
     /// Occurs before TLS negotiation begins.
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
-    ///
     property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
@@ -800,7 +802,10 @@ type
     //
     function MakeFTPSvrPort: TIdSSLIOHandlerSocketBase; override;
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
-    //
+
+    /// <summary>
+    ///   The SSL Context for the TTaurus​TLSServer​IOHandler​.
+    /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext;
     /// <summary>
     /// Occurs when a TLS packet is read or sent.
@@ -3227,7 +3232,7 @@ end;
 
 function TTaurusTLSSocket.GetSessionIDAsString: String;
 var
-  LData: TIdSSLByteArray;
+  LData: TTaurusTLSByteArray;
   i: TIdC_UINT;
   LDataPtr: PByte;
   pSession: PSSL_SESSION;

@@ -378,12 +378,33 @@ begin
           IntToHex(FX509.AuthorityKeyID.Serial));
       end;
     end;
-    LStr := X509.BasicConstraints;
+    if X509.HasBasicConstraints then
+    begin
+      LStr := 'yes';
+    end
+    else
+    begin
+      LStr := 'no';
+    end;
+    redtCertView.Lines.Add(RightJustify('Has Basic Constraints: ',
+        TAB1) + LStr);
+    LStr := X509.CertificateAuthorityFlag;
     if LStr <> '' then
     begin
-      redtCertView.Lines.Add(RightJustify('X509v3 Basic Constraints: ',
+      redtCertView.Lines.Add(RightJustify('X509v3 Certificate Authority Flag: ',
         TAB1) + LStr);
     end;
+    if X509.HasFreshestCRL then
+    begin
+      LStr := 'yes';
+    end
+    else
+    begin
+      LStr := 'no';
+    end;
+    redtCertView.Lines.Add(RightJustify('Has Freshest CRL Extension: ',
+        TAB1) + LStr);
+
     if X509.AltSubjectNames.ItemsCount > -1 then
     begin
       redtCertView.Lines.Add('');

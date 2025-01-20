@@ -27,7 +27,10 @@ uses
   {$I TaurusTLSIndyVers.inc}
 
 type
-  TIdSSLEVP_MD = record
+  /// <summary>
+  ///   Message Digest.
+  /// </summary>
+  TTaurusTLSLEVP_MD = record
     _Length: TIdC_UINT;
     MD: Array [0 .. EVP_MAX_MD_SIZE - 1] of TIdAnsiChar;
   end;
@@ -36,7 +39,7 @@ function ANS1_STRING_ToHexStr(a : PASN1_STRING) : String;
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 function LogicalAnd(a, B: Integer): Boolean;
 function BytesToHexString(APtr: Pointer; ALen: Integer): String;
-function MDAsString(const AMD: TIdSSLEVP_MD): String;
+function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
 function ASN1_Time_Decode(const A: PASN1_TIME;
   out year, month, day, hour, min, sec: Word;
   out tz_hour, tz_min: Integer): Boolean;
@@ -107,7 +110,7 @@ begin
   end;
 end;
 
-function MDAsString(const AMD: TIdSSLEVP_MD): String;
+function MDAsString(const AMD: TTaurusTLSLEVP_MD) : String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
   i: TIdC_UINT;
