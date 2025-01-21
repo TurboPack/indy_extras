@@ -19,9 +19,18 @@ uses
 
 type
 //moved from IdSSLTaurusTLS so we can use these classes in other places
-  ETaurusTLSError               = class(EIdException);
-  TTaurusTLSAPISSLError = class of ETaurusTLSAPISSLError;
 
+  /// <remarks>
+  ///   Anscestor for all exceptions that are raised in TaurusTLS.
+  /// </remarks>
+  ETaurusTLSError               = class(EIdException);
+
+  /// <summary>
+  ///   The return code returned by the function that failed.
+  /// </summary>
+  /// <remarks>
+  ///   Anscestor of exceptions that are raised when a LibSSL function fails.
+  /// </remarks>
   ETaurusTLSAPISSLError = class(ETaurusTLSError)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FErrorCode : TIdC_INT;
@@ -29,30 +38,72 @@ type
   public
     class procedure RaiseException(ASSL: Pointer; const ARetCode : TIdC_INT; const AMsg : String = '');
     class procedure RaiseExceptionCode(const AErrCode, ARetCode : TIdC_INT; const AMsg : String = '');
+    /// <summary>
+    ///   Error Code returned by the ERR_get_error() function.
+    /// </summary>
     property ErrorCode : TIdC_INT read FErrorCode;
+    /// <summary>
+    ///   The value returned by the function that failed.
+    /// </summary>
     property RetCode : TIdC_INT read FRetCode;
   end;
 
-  TTaurusTLSAPICryptoError = class of ETaurusTLSAPICryptoError;
+  /// <summary>
+  ///   Anscestor of exceptions that are raised when a LibCrypto API call fails.
+  /// </summary>
   ETaurusTLSAPICryptoError = class(ETaurusTLSError)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FErrorCode : TIdC_ULONG;
   public
+    /// <summary>
+    ///   Raises the ETaurusTLSAPICryptoError with an error code.
+    /// </summary>
+    /// <param name="AErrCode">
+    ///   Error Code returned by ERR_get_error.
+    /// </param>
+    /// <param name="AMsg">
+    ///   Message to display.
+    /// </param>
     class procedure RaiseExceptionCode(const AErrCode : TIdC_ULONG; const AMsg : String = '');
     class procedure RaiseException(const AMsg : String = '');
     property ErrorCode : TIdC_ULONG read FErrorCode;
   end;
+  /// <summary>
+  ///   Raised when there is an underlying error in the error Queue.
+  /// </summary>
   ETaurusTLSUnderlyingCryptoError = class(ETaurusTLSAPICryptoError);
 
+  /// <summary>
+  ///   Anscestor of exceptions that are raised if Digest functions fail.
+  /// </summary>
   ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
+  /// <remarks>
+  ///   Raised when the EVP_DigestFinal_ex function failed. <br />
+  /// </remarks>
   ETaurusTLSDigestFinalEx = class(ETaurusTLSDigestError);
+  /// <summary>
+  ///   Raised when the EVP_DigestInit_ex function failed.
+  /// </summary>
   ETaurusTLSDigestInitEx = class(ETaurusTLSDigestError);
+  /// <summary>
+  ///   Raised when the EVP_DigestUpdate function failed.
+  /// </summary>
   ETaurusTLSDigestUpdate = class(ETaurusTLSDigestError);
 
   { ETaurusTLSAPIFunctionNotPresent }
 
+  /// <summary>
+  ///   Raised when a function failed to load and an attempt to call the
+  ///   function is made.
+  /// </summary>
   ETaurusTLSAPIFunctionNotPresent = class(ETaurusTLSError)
   public
+    /// <summary>
+    ///   Raises the ETaurusTLSAPIFunctionNotPresent exception.
+    /// </summary>
+    /// <param name="functionName">
+    ///   The name of the function that was called.
+    /// </param>
     class procedure RaiseException(const functionName: string);
   end;
 

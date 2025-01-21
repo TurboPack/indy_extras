@@ -257,7 +257,7 @@ end;
 procedure TaurusTLSUpdateHashInst(ACtx: TIdHashIntCtx; const AIn: TIdBytes);
 begin
   if EVP_DigestUpdate(ACtx, PByte(Ain), Length(AIn)) <> 1 then begin
-    ETaurusTLSDigestInitEx.RaiseException(RSOSSLEVPDigestUpdateError);
+    ETaurusTLSDigestUpdate.RaiseException(RSOSSLEVPDigestUpdateError);
   end;
 end;
 

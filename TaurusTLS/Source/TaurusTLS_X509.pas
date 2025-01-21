@@ -133,6 +133,13 @@ type
     // to the X509 or something else.
     FX509: PX509;
   public
+
+    /// <summary>
+    ///   Constructor for TTaurus?TLSX509Info.
+    /// </summary>
+    /// <param name="aX509">
+    ///   Associated OpenSSL X509 Object.
+    /// </param>
     constructor Create(aX509: PX509); virtual;
     /// <summary>
     /// The OpenSSL X509 object associated with this object.
@@ -358,7 +365,7 @@ type
     /// </param>
     property Issuer[const AIndex: TIdC_INT]: String read GetIssuer;
     /// <summary>
-    /// The numbeer of issuers.
+    /// The number of issuers.
     /// </summary>
     property IssuerCount: TIdC_INT read GetIssuerCount;
   end;

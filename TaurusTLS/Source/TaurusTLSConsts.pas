@@ -1,3 +1,4 @@
+/// <exclude />
 {******************************************************************************}
 {*  TaurusTLS                                                                 *}
 {*           https://github.com/JPeterMugaas/TaurusTLS                        *}
