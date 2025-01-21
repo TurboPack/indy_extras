@@ -25,11 +25,11 @@
   <Outputs>
     <Output Type="HTML">
       <Active>true</Active>
-      <OutputDirectory>build\docs\html</OutputDirectory>
+      <OutputDirectory>..\..\..\Help\html</OutputDirectory>
     </Output>
     <Output Type="CHM">
       <Active>true</Active>
-      <OutputFileName>build\docs\chm\TaurusForIndy290All.chm</OutputFileName>
+      <OutputFileName>..\..\..\Help\chm\TaurusForIndy290All.chm</OutputFileName>
     </Output>
     <Output Type="MSHELP2">
       <Active>false</Active>
