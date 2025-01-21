@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{C5F917B6-75DB-4463-81A1-8CEF1AD6AA6D}</ProjectGuid>
         <MainSource>TaurusTLS_DTForIndy290.dpk</MainSource>
-        <ProjectVersion>20.2</ProjectVersion>
+        <ProjectVersion>20.3</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>

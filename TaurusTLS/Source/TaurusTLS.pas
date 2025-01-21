@@ -992,10 +992,37 @@ type
   /// </summary>
   ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSAPICryptoError);
 
+/// <summary>
+///   Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
+///   TaurusTLS statically.
+/// </summary>
+/// <returns>
+///   True if successful or False if it failed.
+/// </returns>
+/// <remarks>
+///   The OpenSSL library is only loaded once. If it is already loaded, True is
+///   returned. True is also returned if the library is statically loaded by
+///   TaurusTLS.
+/// </remarks>
 function LoadOpenSSLLibrary: Boolean;
+/// <summary>
+///   Unloads the OpenSSL libaries. Called when the program terminates. Ignored
+///   if TaurusTLS loaded the OpenSSL libraries statically.
+/// </summary>
 procedure UnLoadOpenSSLLibrary;
 
+/// <summary>
+///   The version of OpenSSL that was loaded.
+/// </summary>
 function OpenSSLVersion: string;
+/// <summary>
+///   The OpenSSL directory. This is the directory that was configured when
+///   OpenSSL was built.
+/// </summary>
+/// <returns>
+///   The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+///   where the library was loaded from.
+/// </returns>
 function OpenSSLDir: string;
 
 implementation
