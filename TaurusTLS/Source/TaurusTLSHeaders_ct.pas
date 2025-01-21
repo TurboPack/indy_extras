@@ -1,3 +1,4 @@
+/// <exclude />
 unit TaurusTLSHeaders_ct;
 
 {$i TaurusTLSCompilerDefines.inc}

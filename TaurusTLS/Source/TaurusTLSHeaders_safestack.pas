@@ -1,3 +1,4 @@
+/// <exclude />
 unit TaurusTLSHeaders_safestack;
 
 {$i TaurusTLSCompilerDefines.inc}

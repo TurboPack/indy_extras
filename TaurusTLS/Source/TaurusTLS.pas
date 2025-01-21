@@ -280,37 +280,46 @@ type
 {$ELSE}
 
 type
-  TTaurusTLSSSLVersion = (SSLv2, SSLv23, SSLv3, TLSv1, TLSv1_1,
-    TLSv1_2, TLSv1_3);
+  TTaurusTLSSSLVersion = (
+  ///<summary>SSL 2.0</summary>
+    SSLv2,
+  ///<summary>SSL 2.0 or 3.0</summary>
+    SSLv23,
+  ///<summary>SSL 3.0</summary>
+    SSLv3,
+  ///<summary>TLS 1.0</summary>
+    TLSv1,
+  ///<summary>TLS 1.1</summary>
+    TLSv1_1,
+  ///<summary>TLS 1.2</summary>
+    TLSv1_2,
+  ///<summary>TLS 1.3</summary>
+    TLSv1_3);
   { May need to update constants below if adding to this set }
-  /// <summary>
-  ///   Can be one of the following values<para>
-  ///     <c>sslmUnassigned</c> Initial default value
-  ///   </para>
-  ///   <para>
-  ///     <c>sslmClient</c> Use Client method
-  ///   </para>
-  ///   <para>
-  ///     <c>sslmServer</c> Use Server method
-  ///   </para>
-  ///   <para>
-  ///     <c>sslmBoth</c> Use Client/Server method
-  ///   </para>
-  /// </summary>
-  TTaurusTLSSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
-  /// <summary>Can be one of the following values:
-  ///  <para><c>sslCtxClient</c></para>
-  ///  <para><c>sslCtxServer</c></para>
-  /// </summary>
-  TTaurusTLSCtxMode = (sslCtxClient, sslCtxServer);
+  TTaurusTLSSSLMode = (
+  /// <summary>Initial default value</summary>
+    sslmUnassigned,
+  /// <summary>Use Client method</summary>
+    sslmClient,
+  /// <summary>Use Server method</summary>
+    sslmServer,
+  /// <summary>Use Client/Server method</summary>
+    sslmBoth);
+
+  TTaurusTLSCtxMode = (
+  /// <summary>Client</summary>
+    sslCtxClient,
+  /// <summary>Server</summary>
+    sslCtxServer);
 {$ENDIF}
-  /// <summary>Can be one of the following values
-  ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-  ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-  ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-  ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
-  /// </summary>
-  TTaurusTLSVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce,
+  TTaurusTLSVerifyMode = (
+  /// <summary>For servers, send certificate.  For clients, verify server certificate.</summary>
+    sslvrfPeer,
+  /// <summary>For servers, require client certificate</summary>
+    sslvrfFailIfNoPeerCert,
+  /// <summary>For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</summary>
+    sslvrfClientOnce,
+  /// <summary>For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</summary>
     sslvrfPostHandshake);
   /// <summary>Controls the peer verification.  Can contain the following:
   ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
@@ -327,36 +336,40 @@ type
   ///  <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
   ///  <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
   ///  </summary>
-  ///  <remarks>
-  ///  <para>See <see href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour</see> for more details</para>
-  ///  </remarks>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
+  ///   default-callback-behaviour
+  /// </seealso>
   TTaurusTLSSecurityLevel = 0 .. 5;
 
 const
-  DEF_SSLVERSION = TLSv1_2;
   DEF_MIN_TLSVERSION = TLSv1_2;
   MAX_SSLVERSION = TLSv1_3;
-  P12_FILETYPE = 3;
   DEF_SECURITY_LEVEL = 1;
   DEF_VERIFY_HOSTNAME = False;
 
 type
-  /// <summary>
-  /// TLS version indicated in the <see href="TMsgCallbackEvent">TMsgCallbackEvent</see>
-  ///  <para>Can be one of the folowing values:</para>
-  ///  <para><c>verSSL3Header</c> SSL 3.0 header</para>
-  ///  <para><c>verTLS1</c> TLS 1.0</para>
-  ///  <para><c>verTLS1_1</c> TLS 1.1</para>
-  ///  <para><c>verTLS1_2</c> TLS 1.2</para>
-  ///  <para><c>verTLS1_3</c> TLS 1.3</para>
-  ///  <para><c>verDTLS1</c> DTLS 1.0</para>
-  ///  <para><c>verDTLS1_2</c> DTLS 1.2</para>
-  ///  <para><c>verDTLSBadVer</c> DTLS Bad Version</para>
-  ///  <para><c>verQUIC</c> QUIC</para>
-  ///  <para><c>verTLSAny</c> TLS Any Version</para>
-  /// </summary>
-  TTaurusMsgCBVer = (verSSL3Header, verTLS1, verTLS1_1, verTLS1_2, verTLS1_3,
-    verDTLS1, verDTLS1_2, verDTLSBadVer, verQUIC, verTLSAny);
+  TTaurusMsgCBVer = (
+  /// <summary>SSL 3.0 header</summary>
+    verSSL3Header,
+  /// <summary>TLS 1.0</summary>
+    verTLS1,
+  /// <summary>TLS 1.1</summary>
+    verTLS1_1,
+  /// <summary>TLS 1.2</summary>
+    verTLS1_2,
+  /// <summary>TLS 1.3</summary>
+    verTLS1_3,
+  /// <summary>DTLS 1.0</summary>
+    verDTLS1,
+  /// <summary>DTLS 1.2</summary>
+    verDTLS1_2,
+  /// <summary>DTLS Bad Version</summary>
+    verDTLSBadVer,
+  /// <summary>QUIC</summary>
+    verQUIC,
+  /// <summary>TLS Any Version</summary>
+    verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   /// <summary><c>OnDebugMessage</c> event</summary>
@@ -440,11 +453,10 @@ type
   ///     security bits.
   ///   </para>
   /// </summary>
-  /// <remarks>
-  ///   See <see
-  ///   href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour" />
-  ///   for more details
-  /// </remarks>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
+  ///   default-callback-behaviour
+  /// </seealso>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
   /// <summary>Determines which OpenSSL method should be callled.</summary>
@@ -897,29 +909,87 @@ type
     property Version: String read GetVersion;
   end;
 
+  /// <summary>
+  ///   Raised if the OpenSSL library failed to load.
+  /// </summary>
   ETaurusTLSCouldNotLoadSSLLibrary = class(ETaurusTLSError);
+  /// <summary>
+  ///   Raised if the Mode property is sslmUnassigned when the GetSSLMethod is
+  ///   called.
+  /// </summary>
   ETaurusTLSModeNotSet = class(ETaurusTLSError);
-  ETaurusTLSSessionCanNotBeNul = class(ETaurusTLSError);
+  /// <summary>
+  ///   Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
+  /// </summary>
+  ETaurusTLSSessionCanNotBeNil = class(ETaurusTLSError);
+  /// <summary>
+  ///   Raised if SSL_SESSION_get_protocol_version returned in invalid value.
+  /// </summary>
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
-  ETaurusTLSGetMethodError = class(ETaurusTLSError);
 
+  /// <summary>
+  ///   Raised if SSL_new failed.
+  /// </summary>
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
+  /// <summary>
+  ///   Raised if SSL_CTX_new_ex failed.
+  /// </summary>
   ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the Root Certificate files failed to load.
+  /// </summary>
   ETaurusTLSLoadingRootCertError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the Certificate failed to load.
+  /// </summary>
   ETaurusTLSLoadingCertError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the private key failed to load.
+  /// </summary>
   ETaurusTLSLoadingKeyError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if DH parameters file failed to load.
+  /// </summary>
   ETaurusTLSLoadingDHParamsError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if SSL_CTX_set_cipher_list failed.
+  /// </summary>
   ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
 
+  /// <summary>
+  ///   Raised if SSL_set_fd failed.
+  /// </summary>
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
+  /// <summary>
+  ///   Raised if SSL_set_app_data failed.
+  /// </summary>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
+  /// <summary>
+  ///   Raised if SSL_accept fails.
+  /// </summary>
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
+  /// <summary>
+  ///   Raised if the SSL_Connect fails.
+  /// </summary>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
-    ETaurusTLSCertificateError = class(ETaurusTLSAPISSLError);
+  /// <summary>
+  ///   Raised if the Certificate Common Name does not match the specified
+  ///   hostname.
+  /// </summary>
+  ETaurusTLSCertificateError = class(ETaurusTLSAPISSLError);
 {$IFNDEF OPENSSL_NO_TLSEXT}
+  /// <summary>
+  ///   Raised if SSL_set_tlsext_host_name failed.
+  /// </summary>
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
+  /// <summary>
+  ///   Raised if SSL_CTX_set_min_proto_version failed.
+  /// </summary>
   ETaurusTLSSettingMinProtocolError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if SSL_CTX_set_max_proto_version failed.
+  /// </summary>
   ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSAPICryptoError);
 
 function LoadOpenSSLLibrary: Boolean;
@@ -3168,7 +3238,7 @@ end;
 function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
 begin
   if fSession = nil then
-    raise ETaurusTLSSessionCanNotBeNul.Create(RSOSSSessionCanNotBeNul)
+    raise ETaurusTLSSessionCanNotBeNil.Create(RSOSSSessionCanNotBeNul)
   else
     case SSL_SESSION_get_protocol_version(fSession) of
       SSL3_VERSION:

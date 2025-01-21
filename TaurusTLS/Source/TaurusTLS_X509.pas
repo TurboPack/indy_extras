@@ -141,7 +141,7 @@ type
   end;
 
   /// <summary>
-  /// Fingerprint expressed using several different hashing algorithms.
+  /// Fingerprint expressed using several different cryptographic hashing algorithms.
   /// </summary>
   TTaurusTLSX509Fingerprints = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -244,7 +244,7 @@ type
     /// </summary>
     property Algorithm: String read GetAlgorithm;
     /// <summary>
-    /// signature algorithm numerical identifier (NID) for the signature type.
+    /// signature algorithm Numerical Identifier (NID) for the signature type.
     /// </summary>
     property SigType: TIdC_INT read GetSigType;
     /// <summary>
@@ -421,8 +421,24 @@ type
     property ItemsCount: TIdC_INT read GetItemsCount;
   end;
 
-  TTaurusTLSX509KeyUse = (DigitalSignature, NonRepudiation, KeyEncipherment,
-    DataEncipherment, KeyAgreement, CertSign, CRLSign, EncipherOnly,
+  TTaurusTLSX509KeyUse = (
+  /// <summary>Digital signatures</summary>
+    DigitalSignature,
+  /// <summary>Prove Integrety and ownership of data.</summary>
+    NonRepudiation,
+  /// <summary>Encrypting a key</summary>
+    KeyEncipherment,
+  /// <summary>Encrypting data</summary>
+    DataEncipherment,
+  /// <summary>Can be used in a key agreement protocol</summary>
+    KeyAgreement,
+  /// <summary>Certificate Signing</summary>
+    CertSign,
+  /// <summary>Certificate Revocation List Signing</summary>
+    CRLSign,
+  /// <summary>Encryption only.</summary>
+    EncipherOnly,
+  /// <summary>Deciphering only.</summary>
     DecipherOnly);
   /// <summary>
   /// This describes what the key can be used for. It can contain the
@@ -456,35 +472,49 @@ type
   /// </para>
   /// </summary>
   TTaurusTLSX509KeyUsage = set of TTaurusTLSX509KeyUse;
-  TTaurusTLSX509ExtKeyUse = (Server, Client, SMIME, CodeSign, OCSPSign,
-    TimeStamp, DVCS, AnyEKU);
+  TTaurusTLSX509ExtKeyUse = (
+  /// <summary>Server</summary>
+    Server,
+  /// <summary>Client</summary>
+    Client,
+  /// <summary>Secure Multipurpose Internet Mail Extensions</summary>
+    SMIME,
+  /// <summary>Code Signing</summary>
+    CodeSign,
+  /// <summary>Online Certificate Status Protocol Signing</summary>
+    OCSPSign,
+  /// <summary>Time Stamp</summary>
+    TimeStamp,
+  /// <summary>Distributed version control</summary>
+    DVCS,
+  /// <summary>Any Extended Key Usage</summary>
+    AnyEKU);
   /// <summary>
-  /// Extended Key Usage information.<list type="bullet">
-  /// <item>
+  /// Extended Key Usage.  Can include the following values:
+  /// <para>
   /// <c>Server</c> - Server
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// <c>Client</c> - Client
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// S/MIME - Secure Multipurpose Internet Mail Extensions
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// <c>CodeSign</c> - Code Signing
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// <c>OCSPSign</c> - Online Certificate Status Protocol Signing
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// <c>TimeStamp</c> - time stamp
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// <c>DVCS</c> - Distributed version control
-  /// </item>
-  /// <item>
+  /// </para>
+  /// <para>
   /// AnyEKU - Any Extended Key Usage <br />
-  /// </item>
-  /// </list>
+  /// </para>
   /// </summary>
   TTaurusTLSX509ExtKeyUsage = set of TTaurusTLSX509ExtKeyUse;
 
@@ -603,11 +633,11 @@ type
     /// </summary>
     property CertificateAuthorityFlag: Boolean read GetCertificateAuthorityFlag;
     /// <summary>
-    ///   Maximum Certificate Chain Length that may be issued by Certificate
-    ///   Authority.
+    /// Maximum Certificate Chain Length that may be issued by Certificate
+    /// Authority.
     /// </summary>
     /// <remarks>
-    ///   This may be -1 if the certificate authority flag is not set.
+    /// This may be -1 if the certificate authority flag is not set.
     /// </remarks>
     property CertificateAuthorityPathLen: TIdC_LONG
       read GetCertificateAuthorityPathLen;
@@ -1053,7 +1083,8 @@ end;
 
 function TTaurusTLSX509.GetCertificateAuthorityPathLen: TIdC_LONG;
 begin
-  if CertificateAuthorityFlag then begin
+  if CertificateAuthorityFlag then
+  begin
     Result := X509_get_pathlen(FX509);
   end
   else
@@ -1399,17 +1430,20 @@ end;
 
 function TTaurusTLSX509PublicKey.GetBits: TIdC_INT;
 begin
+  // no need to reference EVP_PKEY_get_bits.  The headers load that as an alternative.
   Result := EVP_PKEY_bits(X509_PUBKEY_get0(X509_get_X509_PUBKEY(FX509)));
 end;
 
 function TTaurusTLSX509PublicKey.GetSecurityBits: TIdC_INT;
 begin
+  /// / no need to reference EVP_PKEY_get_security_bits.  The headers load that as an alternative.
   Result := EVP_PKEY_security_bits
     (X509_PUBKEY_get0(X509_get_X509_PUBKEY(FX509)));
 end;
 
 function TTaurusTLSX509PublicKey.GetSize: TIdC_INT;
 begin
+  /// no need to reference EVP_PKEY_get_size.  The headers load it as an alternative.
   Result := EVP_PKEY_size(X509_PUBKEY_get0(X509_get_X509_PUBKEY(FX509)));
 end;
 

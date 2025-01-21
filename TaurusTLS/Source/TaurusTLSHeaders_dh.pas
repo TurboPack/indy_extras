@@ -1,3 +1,4 @@
+/// <exclude />
   (* This unit was generated using the script genTaurusTLSHdrs.sh from the source file TaurusTLSHeaders_dh.h2pas
      It should not be modified directly. All changes should be made to TaurusTLSHeaders_dh.h2pas
      and this file regenerated. TaurusTLSHeaders_dh.h2pas is distributed with the full Indy
