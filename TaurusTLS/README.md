@@ -79,8 +79,7 @@ OpenSSL 3.x
 
 ## Component Reference
 
-Taurus includes a component reference in "Compiled HTML Help file (.chm)" format in the Help\chm directory.
-
+TaurusTLS includes a component reference in "Compiled HTML Help file (.chm)" format in the Help\chm directory.
 
 ## Demo Programs
 
