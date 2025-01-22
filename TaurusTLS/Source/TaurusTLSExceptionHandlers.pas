@@ -21,9 +21,9 @@ uses
 type
 //moved from IdSSLTaurusTLS so we can use these classes in other places
 
-  /// <remarks>
+  /// <summary>
   ///   Anscestor for all exceptions that are raised in TaurusTLS.
-  /// </remarks>
+  /// </summary>
   ETaurusTLSError               = class(EIdException);
 
   /// <summary>
@@ -78,9 +78,9 @@ type
   ///   Anscestor of exceptions that are raised if Digest functions fail.
   /// </summary>
   ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
-  /// <remarks>
+  /// <summary>
   ///   Raised when the EVP_DigestFinal_ex function failed. <br />
-  /// </remarks>
+  /// </summary>
   ETaurusTLSDigestFinalEx = class(ETaurusTLSDigestError);
   /// <summary>
   ///   Raised when the EVP_DigestInit_ex function failed.

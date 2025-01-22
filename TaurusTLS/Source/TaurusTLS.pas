@@ -273,6 +273,7 @@ const
   TLSv1_3 = sslvTLSv1_3;
 
 type
+  /// <summary>Type for specifying a version of the TLS Protocol.</summary>
   TTaurusTLSSSLVersion = TIdSSLVersion;
   /// <summary>Can be one of the following values
   /// <para><c>sslmUnassigned</c> Initial default value</para>
@@ -289,6 +290,7 @@ type
 {$ELSE}
 
 type
+   /// <summary>Type for specifying a version of the TLS Protocol.</summary>
   TTaurusTLSSSLVersion = (
     /// <summary>SSL 2.0</summary>
     SSLv2,
@@ -305,6 +307,9 @@ type
     /// <summary>TLS 1.3</summary>
     TLSv1_3);
   { May need to update constants below if adding to this set }
+  /// <summary>
+  /// Type that determines which OpenSSL method should be callled.
+  /// </summary>
   TTaurusTLSSSLMode = (
     /// <summary>Initial default value</summary>
     sslmUnassigned,
@@ -325,6 +330,7 @@ type
     /// <summary>Server</summary>
     sslCtxServer);
 {$ENDIF}
+  /// <summary>Type used to specify a peer verification value.</summary>
   TTaurusTLSVerifyMode = (
     /// <summary>For servers, send certificate.  For clients, verify server certificate.</summary>
     sslvrfPeer,
@@ -366,6 +372,7 @@ const
   DEF_VERIFY_HOSTNAME = False;
 
 type
+  /// <summary>TLS version reported in the TMsgCallbackEvent callback type.</summary>
   TTaurusMsgCBVer = (
     /// <summary>SSL 3.0 header</summary>
     verSSL3Header,
@@ -641,9 +648,11 @@ type
     property SSLProtocolVersionStr: string read GetSSLProtocolVersionStr;
   end;
 
-  // TTaurusTLSIOHandlerSocket and TTaurusTLSServerIOHandler have some common
-  // functions, but they do not have a common ancestor, so this interface helps
-  // bridge the gap...
+  ///<summary>
+  ///TTaurusTLSIOHandlerSocket and TTaurusTLSServerIOHandler common interface.
+  ///  This is here because both classes do not share a common anscestor.  This
+  ///  bridges the gap.
+  ///</summary>
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;

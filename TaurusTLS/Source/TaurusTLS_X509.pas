@@ -370,7 +370,10 @@ type
     /// </summary>
     property IssuerCount: TIdC_INT read GetIssuerCount;
   end;
-
+  /// <summary>
+  ///   Warnings from OpenSSL about the X509 Certificate. Such warnings
+  ///   sometimes are reasons for rejecting the certificate.
+  /// </summary>
   TTaurusTLSX509Warnings = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     function GetObsoleteV1: Boolean;
@@ -384,7 +387,10 @@ type
     /// <summary>The subject and issuer names match and extension values imply it is self signed.</summary>
     property SubjectAndIssuerMatch: Boolean read GetSubjectAndIssuerMatch;
   end;
-
+  ///<summary>
+  /// Errors from OpenSSL about the X509 Certificate.  Such certificates should
+  /// be rejected.
+  ///</summary>
   TTaurusTLSX509Errors = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     function GetInvalidInconsistantValues: Boolean;
@@ -428,7 +434,7 @@ type
     /// </summary>
     property ItemsCount: TIdC_INT read GetItemsCount;
   end;
-
+  /// <summary>Type used to specify a Key Usage value.</summary>
   TTaurusTLSX509KeyUse = (
   /// <summary>Digital signatures</summary>
     DigitalSignature,
@@ -449,7 +455,7 @@ type
   /// <summary>Deciphering only.</summary>
     DecipherOnly);
   /// <summary>
-  /// This describes what the key can be used for. It can contain the
+  /// Key Usage values. It can contain the
   /// following values:
   /// <para>
   /// <c>DigitalSignature</c> - Digital signatures
@@ -480,6 +486,9 @@ type
   /// </para>
   /// </summary>
   TTaurusTLSX509KeyUsage = set of TTaurusTLSX509KeyUse;
+  /// <summary>
+  /// Type used to specify an Extended Key Usage value.
+  /// </summary>
   TTaurusTLSX509ExtKeyUse = (
   /// <summary>Server</summary>
     Server,
