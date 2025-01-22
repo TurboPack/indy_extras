@@ -23,23 +23,156 @@ uses
 const
   MAX_SSL_PASSWORD_LENGTH = 128;
 
+/// <summary>
+///   Load a certificate in PEM format into an OpenSSL X509 Certificate Object.
+/// </summary>
+/// <param name="AFileName">
+///   The file to load the certificate from.
+/// </param>
+/// <returns>
+///   The OpenSSL X509 Certificate object.
+/// </returns>
 function LoadCertificate(const AFileName: String): PX509;
+/// <summary>
+///   Load a pfx or .p12 certificate file into an OpenSSL SSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   Context to load file into.
+/// </param>
+/// <param name="AFileName">
+///   The certificate file to load.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
+/// <summary>
+///   Load a .pfx or .p12 private key file into an OpenSSL SSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   Context to load file into.
+/// </param>
+/// <param name="AFileName">
+///   The private key file to load.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
+/// <summary>
+///   Load a private key into an OpenSSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   Context to load file into.
+/// </param>
+/// <param name="AFileName">
+///   Private Key file.
+/// </param>
+/// <param name="AType">
+///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
+///   the TaurusTLSHeaders_ssl unit.
+/// </param>
+/// <returns>
+///   Returns 1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
+/// <summary>
+///   Load Root certificates into an OpenSSL SSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   The Context where the root certificates should be loaded.
+/// </param>
+/// <param name="ACAFile">
+///   Root certificate file.
+/// </param>
+/// <param name="ACAPath">
+///   Directories where to load root certificates from separated by colons.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
+/// <summary>
+///   Loads a certificate chain from a PEM file into an OpenSSL SSL Context
+///   Object.
+/// </summary>
+/// <param name="ctx">
+///   The context where the certificate chain should be loaded.
+/// </param>
+/// <param name="AFileName">
+///   The .PEM file containing the certificate chain.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
+/// <summary>
+///   Loads a certificate from a PEM file into an OpenSSL SSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   The context where the certificate should be loaded.
+/// </param>
+/// <param name="AFileName">
+///   The .PEM file containing the certificate.
+/// </param>
+/// <param name="AType">
+///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
+///   the TaurusTLSHeaders_ssl unit.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_certificate_file(ctx: PSSL_CTX;
   const AFileName: String; AType: Integer): TIdC_INT;
+/// <summary>
+///   Load a list of client Certificate Authority names.
+/// </summary>
+/// <param name="AFileName">
+///   The file to load the list from.
+/// </param>
+/// <returns>
+///   The list of Certificate Authorities.
+/// </returns>
 function IndySSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
+/// <summary>
+///   Loads a DH parameters file into an OpenSSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   The context where the DH parameters should be loaded.
+/// </param>
+/// <param name="AFileName">
+///   The file to load the DH parameters from.
+/// </param>
+/// <param name="AType">
+///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
+///   the TaurusTLSHeaders_ssl unit.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
+/// <summary>
+///   Load Root certificates into an OpenSSL SSL Context Object.
+/// </summary>
+/// <param name="ctx">
+///   The Context where the root certificates should be loaded.
+/// </param>
+/// <param name="AFileName">
+///   Root certificate file.
+/// </param>
+/// <param name="APathName">
+///   Directories where to load root certificates from separated by colons.
+/// </param>
+/// <returns>
+///   1 if successful or 0 if failed.
+/// </returns>
 function IndyX509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
 
@@ -113,8 +246,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -193,8 +326,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -259,7 +392,7 @@ end;
   TaurusTLS can not handle Unicode file names at all.  On Posix systems, UTF8 File
   names can be used with TaurusTLS.  The Windows operating system does not accept
   UTF8 file names at all so we have our own routines that will handle Unicode
-  filenames.   Most of this section of code is based on code in the TaurusTLS .DLL
+  filenames.   Most of this section of code is based on code in the OpenSSL .DLL
   which is copyrighted by the TaurusTLS developers.  Some of it is translated into
   Pascal and made some modifications so that it will handle Unicode filenames.
 }
@@ -298,7 +431,7 @@ begin
           // thing to do.  The thing is that the TaurusTLS API is based on PAnsiChar, and
           // we are writing this function just for Unicode filenames.  argc is actually
           // a PWideChar that has been coerced into a PAnsiChar so it can pass through
-          // TaurusTLS APIs...
+          // OpenSSL APIs...
         case argl of
           X509_FILETYPE_DEFAULT:
             begin
@@ -352,8 +485,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     X509err(X509_F_X509_LOAD_CERT_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -445,8 +578,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     X509err(X509_F_X509_LOAD_CERT_CRL_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -524,8 +657,8 @@ begin
       try
         LM.LoadFromFile(AFileName);
       except
-        // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-        // Follow the TaurusTLS .DLL Error conventions.
+        // Surpress exception here since it's going to be called by the OpenSSL .DLL
+        // Follow the OpenSSL .DLL Error conventions.
         SSLerr(SSL_F_SSL_LOAD_CLIENT_CA_FILE, ERR_R_SYS_LIB);
         LM.Free;
         Exit;
@@ -631,8 +764,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -692,8 +825,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -760,8 +893,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_CHAIN_FILE, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
@@ -907,8 +1040,8 @@ begin
   try
     LM.LoadFromFile(AFileName);
   except
-    // Surpress exception here since it's going to be called by the TaurusTLS .DLL
-    // Follow the TaurusTLS .DLL Error conventions.
+    // Surpress exception here since it's going to be called by the OpenSSL .DLL
+    // Follow the OpenSSL .DLL Error conventions.
     SSLerr(SSL_F_SSL3_CTRL, ERR_R_SYS_LIB);
     LM.Free;
     Exit;
