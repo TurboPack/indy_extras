@@ -221,7 +221,7 @@ begin
     FFTPServ.PASVBoundPortMax := Lini.ReadInteger('Server',
       'PASV_Bound_Port_Maximum', 0);
     WriteLn('Default Data Port: ' + IntToStr(FFTPServ.DefaultPort));
-    FIO.SSLOptions.SSLVersions := [TLSv1_1, TLSv1_2, TLSv1_3];
+    FIO.SSLOptions.MinTLSVersion := TLSv1_2;
     // FIO.SSLOptions.Method := TLSv1_3;
     FIO.SSLOptions.CertFile := Lini.ReadString('Certificate', 'CertificateFile',
       GetCurrentDir + '\localhost.crt');
