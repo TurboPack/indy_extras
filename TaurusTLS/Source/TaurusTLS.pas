@@ -257,127 +257,142 @@ uses
 {$IFDEF HAS_TIdSSLVersion}
 
 const
+  /// <summary>SSL 2.0</summary>
   SSLv2 = sslvSSLv2;
+  /// <summary>SSL 2.0 or 3.0</summary>
   SSLv23 = sslvSSLv23;
+  /// <summary>SSL 3.0</summary>
   SSLv3 = sslvSSLv3;
+  /// <summary>TLS 1.0</summary>
   TLSv1 = sslvTLSv1;
+  /// <summary>TLS 1.1</summary>
   TLSv1_1 = sslvTLSv1_1;
+  /// <summary>TLS 1.2</summary>
   TLSv1_2 = sslvTLSv1_2;
+  /// <summary>TLS 1.3</summary>
   TLSv1_3 = sslvTLSv1_3;
 
 type
   TTaurusTLSSSLVersion = TIdSSLVersion;
   /// <summary>Can be one of the following values
-  ///  <para><c>sslmUnassigned</c> Initial default value</para>
-  ///  <para><c>sslmClient</c> Use Client method</para>
-  ///  <para><c>sslmServer</c> Use Server method</para>
-  ///  <para><c>sslmBoth</c> Use Client/Server method</para>
+  /// <para><c>sslmUnassigned</c> Initial default value</para>
+  /// <para><c>sslmClient</c> Use Client method</para>
+  /// <para><c>sslmServer</c> Use Server method</para>
+  /// <para><c>sslmBoth</c> Use Client/Server method</para>
   /// </summary>
   TTaurusTLSSSLMode = TIdSSLMode;
   /// <summary>Can be one of the following values
-  ///  <para><c>sslCtxClient</c></para>
-  ///  <para><c>sslCtxServer</c></para>
+  /// <para><c>sslCtxClient</c></para>
+  /// <para><c>sslCtxServer</c></para>
   /// </summary>
   TTaurusTLSCtxMode = TIdSSLCtxMode;
 {$ELSE}
 
 type
   TTaurusTLSSSLVersion = (
-  ///<summary>SSL 2.0</summary>
+    /// <summary>SSL 2.0</summary>
     SSLv2,
-  ///<summary>SSL 2.0 or 3.0</summary>
+    /// <summary>SSL 2.0 or 3.0</summary>
     SSLv23,
-  ///<summary>SSL 3.0</summary>
+    /// <summary>SSL 3.0</summary>
     SSLv3,
-  ///<summary>TLS 1.0</summary>
+    /// <summary>TLS 1.0</summary>
     TLSv1,
-  ///<summary>TLS 1.1</summary>
+    /// <summary>TLS 1.1</summary>
     TLSv1_1,
-  ///<summary>TLS 1.2</summary>
+    /// <summary>TLS 1.2</summary>
     TLSv1_2,
-  ///<summary>TLS 1.3</summary>
+    /// <summary>TLS 1.3</summary>
     TLSv1_3);
   { May need to update constants below if adding to this set }
   TTaurusTLSSSLMode = (
-  /// <summary>Initial default value</summary>
+    /// <summary>Initial default value</summary>
     sslmUnassigned,
-  /// <summary>Use Client method</summary>
+    /// <summary>Use Client method</summary>
     sslmClient,
-  /// <summary>Use Server method</summary>
+    /// <summary>Use Server method</summary>
     sslmServer,
-  /// <summary>Use Client/Server method</summary>
+    /// <summary>Use Client/Server method</summary>
     sslmBoth);
 
+  /// <summary>Can be one of the following values
+  /// <para><c>sslCtxClient</c></para>
+  /// <para><c>sslCtxServer</c></para>
+  /// </summary>
   TTaurusTLSCtxMode = (
-  /// <summary>Client</summary>
+    /// <summary>Client</summary>
     sslCtxClient,
-  /// <summary>Server</summary>
+    /// <summary>Server</summary>
     sslCtxServer);
 {$ENDIF}
   TTaurusTLSVerifyMode = (
-  /// <summary>For servers, send certificate.  For clients, verify server certificate.</summary>
+    /// <summary>For servers, send certificate.  For clients, verify server certificate.</summary>
     sslvrfPeer,
-  /// <summary>For servers, require client certificate</summary>
+    /// <summary>For servers, require client certificate</summary>
     sslvrfFailIfNoPeerCert,
-  /// <summary>For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</summary>
+    /// <summary>For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</summary>
     sslvrfClientOnce,
-  /// <summary>For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</summary>
+    /// <summary>For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</summary>
     sslvrfPostHandshake);
   /// <summary>Controls the peer verification.  Can contain the following:
-  ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-  ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-  ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-  ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+  /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
+  /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
+  /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
+  /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
   /// </summary>
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
   /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)
-  ///  <para><c>0</c> Permit anything</para>
-  ///  <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
-  ///  <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
-  ///  <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
-  ///  <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
-  ///  <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
-  ///  </summary>
+  /// <para><c>0</c> Permit anything</para>
+  /// <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
+  /// <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
+  /// <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
+  /// <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
+  /// <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
+  /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-  ///   default-callback-behaviour
+  /// default-callback-behaviour
   /// </seealso>
   TTaurusTLSSecurityLevel = 0 .. 5;
 
 const
+  /// <summary>The default value for the TSSLOptions.MinTLSVersion property</summary>
   DEF_MIN_TLSVERSION = TLSv1_2;
+  /// <summary>The maximum TLS version supported by this library.</summary>
   MAX_SSLVERSION = TLSv1_3;
+  /// <summary>The default OpenSSL security level.</summary>
   DEF_SECURITY_LEVEL = 1;
+  /// <summary>The default value for TSLLOptions.SecurityLevel property.</summary>
   DEF_VERIFY_HOSTNAME = False;
 
 type
   TTaurusMsgCBVer = (
-  /// <summary>SSL 3.0 header</summary>
+    /// <summary>SSL 3.0 header</summary>
     verSSL3Header,
-  /// <summary>TLS 1.0</summary>
+    /// <summary>TLS 1.0</summary>
     verTLS1,
-  /// <summary>TLS 1.1</summary>
+    /// <summary>TLS 1.1</summary>
     verTLS1_1,
-  /// <summary>TLS 1.2</summary>
+    /// <summary>TLS 1.2</summary>
     verTLS1_2,
-  /// <summary>TLS 1.3</summary>
+    /// <summary>TLS 1.3</summary>
     verTLS1_3,
-  /// <summary>DTLS 1.0</summary>
+    /// <summary>DTLS 1.0</summary>
     verDTLS1,
-  /// <summary>DTLS 1.2</summary>
+    /// <summary>DTLS 1.2</summary>
     verDTLS1_2,
-  /// <summary>DTLS Bad Version</summary>
+    /// <summary>DTLS Bad Version</summary>
     verDTLSBadVer,
-  /// <summary>QUIC</summary>
+    /// <summary>QUIC</summary>
     verQUIC,
-  /// <summary>TLS Any Version</summary>
+    /// <summary>TLS Any Version</summary>
     verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   /// <summary><c>OnDebugMessage</c> event</summary>
   TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
-    AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL)
-    of object;
+    AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+    SSL: PSSL) of object;
   /// <summary><c>OnStatusInfo</c> event</summary>
   TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
@@ -396,22 +411,22 @@ type
 
   { TTaurusTLSSSLOptions }
   /// <summary>Class that provides properties that effect TLS.
-  ///</summary>
+  /// </summary>
   TTaurusTLSSSLOptions = class(TPersistent)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fUseSystemRootCertificateStore: Boolean;
     fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
     fMode: TTaurusTLSSSLMode;
-    fMinTLSVersion : TTaurusTLSSSLVersion;
+    fMinTLSVersion: TTaurusTLSSSLVersion;
     fVerifyDepth: Integer;
     FSecurityLevel: TTaurusTLSSecurityLevel;
     fMethod: TTaurusTLSSSLVersion;
-    fVerifyHostname : Boolean;
+    fVerifyHostname: Boolean;
     fVerifyDirs: String;
     fCipherList: String;
     fVerifyMode: TTaurusTLSVerifyModeSet;
     procedure AssignTo(Destination: TPersistent); override;
-    procedure SetMinTLSVersion(const AValue : TTaurusTLSSSLVersion);
+    procedure SetMinTLSVersion(const AValue: TTaurusTLSSSLVersion);
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
     constructor Create;
@@ -426,49 +441,49 @@ type
     /// <summary>DH Parameters file.</summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
     /// <summary>The Minimum TLS version you will accept.</summary>
-    property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion
-      default DEF_MIN_TLSVERSION;
-  /// <summary>
-  ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
-  ///   restrictive), It may be one of the following values: <br />
-  ///   <para>
-  ///     <c>0</c> Permit anything
-  ///   </para>
-  ///   <para>
-  ///     <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
-  ///     security bits.
-  ///   </para>
-  ///   <para>
-  ///     <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
-  ///     security bits. Compression is disabled.
-  ///   </para>
-  ///   <para>
-  ///     <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
-  ///     security bits. Session tickets are disabled.
-  ///   </para>
-  ///   <para>
-  ///     <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
-  ///     security bits.
-  ///   </para>
-  ///   <para>
-  ///     <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
-  ///     security bits.
-  ///   </para>
-  /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-  ///   default-callback-behaviour
-  /// </seealso>
+    property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
+      write fMinTLSVersion default DEF_MIN_TLSVERSION;
+    /// <summary>
+    /// OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
+    /// restrictive), It may be one of the following values: <br />
+    /// <para>
+    /// <c>0</c> Permit anything
+    /// </para>
+    /// <para>
+    /// <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+    /// security bits.
+    /// </para>
+    /// <para>
+    /// <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
+    /// security bits. Compression is disabled.
+    /// </para>
+    /// <para>
+    /// <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
+    /// security bits. Session tickets are disabled.
+    /// </para>
+    /// <para>
+    /// <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
+    /// security bits.
+    /// </para>
+    /// <para>
+    /// <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
+    /// security bits.
+    /// </para>
+    /// </summary>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
+    /// default-callback-behaviour
+    /// </seealso>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
-  /// <summary>Determines which OpenSSL method should be callled.</summary>
+    /// <summary>Determines which OpenSSL method should be callled.</summary>
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
-  /// <summary>Controls the peer verification.  Can contain the following:
-  ///  <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-  ///  <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-  ///  <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-  ///  <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
-  /// </summary>
+    /// <summary>Controls the peer verification.  Can contain the following:
+    /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
+    /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
+    /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
+    /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+    /// </summary>
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
     /// <summary>The maximum depth for the certificate chain verification allowed.</summary>
@@ -478,7 +493,7 @@ type
     /// <remarks>Only the PEM files in the directories are loaded.</remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
     /// <summary>Peer Certificate must match hostname</summary>
-    property VerifyHostname : Boolean read fVerifyHostname write fVerifyHostname
+    property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname
       default DEF_VERIFY_HOSTNAME;
     /// <summary>Use system's certificate store to verify certificates.</summary>
     property UseSystemRootCertificateStore: Boolean
@@ -486,7 +501,7 @@ type
       default true;
     /// <summary>The list of available ciphers</summary>
     /// <remarks>
-    ///  <para>Leave empty to use all available ciphers.</para>
+    /// <para>Leave empty to use all available ciphers.</para>
     /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
   end;
@@ -494,7 +509,7 @@ type
   { TTaurusTLSContext }
 
   /// <summary>
-  ///   The TLS Context encapsolated into an object.
+  /// The TLS Context encapsolated into an object.
   /// </summary>
   TTaurusTLSContext = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -507,7 +522,7 @@ type
     fVerifyDepth: Integer;
     fVerifyMode: TTaurusTLSVerifyModeSet;
     FSecurityLevel: TTaurusTLSSecurityLevel;
-    fMinTLSVersion : TTaurusTLSSSLVersion;
+    fMinTLSVersion: TTaurusTLSSSLVersion;
 
     // fVerifyFile: String;
     fVerifyDirs: String;
@@ -519,7 +534,7 @@ type
     // fPasswordRoutineOn: Boolean;
     fVerifyOn: Boolean;
     fSessionId: Integer;
-    fVerifyHostname : Boolean;
+    fVerifyHostname: Boolean;
 {$IFDEF USE_WINDOWS_CERT_STORE}
     procedure LoadWindowsCertStore;
 {$ENDIF}
@@ -543,7 +558,8 @@ type
       write fSecurityLevelCBOn;
     // THese can't be published in a TObject without a compiler warning.
     // published
-    property MinTLSVersion : TTaurusTLSSSLVersion read fMinTLSVersion write fMinTLSVersion;
+    property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
+      write fMinTLSVersion;
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel;
@@ -560,7 +576,7 @@ type
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
-    property VerifyHostname : Boolean read fVerifyHostname write fVerifyHostname;
+    property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname;
   end;
 
   { TTaurusTLSSocket }
@@ -575,7 +591,7 @@ type
     fSSLCipher: TTaurusTLSCipher;
     fSSLContext: TTaurusTLSContext;
     fHostName: String;
-    fVerifyHostname : Boolean;
+    fVerifyHostname: Boolean;
     function GetProtocolVersion: TTaurusTLSSSLVersion;
     function GetSSLProtocolVersionStr: string;
     function GetPeerCert: TTaurusTLSX509;
@@ -641,8 +657,8 @@ type
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
   end;
 
-  ///  <summary>TaurusTLS component that enables TLS in a TIdTCPClientCustom descendant.
-  ///  </summary>
+  /// <summary>TaurusTLS component that enables TLS in a TIdTCPClientCustom descendant.
+  /// </summary>
   TTaurusTLSIOHandlerSocket = class(TIdSSLIOHandlerSocketBase,
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -712,11 +728,11 @@ type
     /// Occurs when a TLS packet is read or sent.
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
-  	/// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
     /// <param name="AVersion">TLS version of packet.</param>
-  	/// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-  	/// <param name="buf">The contents of the packet.</param>
-  	/// <param name="SSL">The SSL object where the event occurred.</param>	
+    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+    /// <param name="buf">The contents of the packet.</param>
+    /// <param name="SSL">The SSL object where the event occurred.</param>
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
@@ -727,8 +743,8 @@ type
     ///
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
-  /// <summary>Properties that effect TLS.
-  ///</summary>
+    /// <summary>Properties that effect TLS.
+    /// </summary>
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
     /// <summary>
@@ -774,8 +790,8 @@ type
       write fOnVerifyPeer;
   end;
 
-  ///  <summary>TaurusTLS component that enables TLS in a TIdCustomTCPServer descendant
-  ///  </summary>
+  /// <summary>TaurusTLS component that enables TLS in a TIdCustomTCPServer descendant
+  /// </summary>
   TTaurusTLSServerIOHandler = class(TIdServerIOHandlerSSLBase,
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -796,7 +812,7 @@ type
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
-   function GetPassword(const AIsWrite: Boolean): string;
+    function GetPassword(const AIsWrite: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
@@ -818,18 +834,18 @@ type
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
 
     /// <summary>
-    ///   The SSL Context for the TTaurus​TLSServer​IOHandler​.
+    /// The SSL Context for the TTaurus​TLSServer​IOHandler​.
     /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext;
     /// <summary>
     /// Occurs when a TLS packet is read or sent.
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
-  	/// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
     /// <param name="AVersion">TLS version of packet.</param>
-  	/// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-  	/// <param name="buf">The contents of the packet.</param>
-  	/// <param name="SSL">The SSL object where the event occurred.</param>
+    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+    /// <param name="buf">The contents of the packet.</param>
+    /// <param name="SSL">The SSL object where the event occurred.</param>
     property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
@@ -839,8 +855,8 @@ type
       write fSSLOptions;
     /// <summary>
     /// Occurs when TLS negotiation is concluded.
-  	/// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>   
+    /// </summary>
+    /// <param name="ASender">The object that triggers the event.</param>
     property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
     /// <summary>
@@ -912,118 +928,118 @@ type
   end;
 
   /// <summary>
-  ///   Raised if the OpenSSL library failed to load.
+  /// Raised if the OpenSSL library failed to load.
   /// </summary>
   ETaurusTLSCouldNotLoadSSLLibrary = class(ETaurusTLSError);
   /// <summary>
-  ///   Raised if the Mode property is sslmUnassigned when the GetSSLMethod is
-  ///   called.
+  /// Raised if the Mode property is sslmUnassigned when the GetSSLMethod is
+  /// called.
   /// </summary>
   ETaurusTLSModeNotSet = class(ETaurusTLSError);
   /// <summary>
-  ///   Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
+  /// Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
   /// </summary>
   ETaurusTLSSessionCanNotBeNil = class(ETaurusTLSError);
   /// <summary>
-  ///   Raised if SSL_SESSION_get_protocol_version returned in invalid value.
+  /// Raised if SSL_SESSION_get_protocol_version returned in invalid value.
   /// </summary>
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
 
   /// <summary>
-  ///   Raised if SSL_new failed.
+  /// Raised if SSL_new failed.
   /// </summary>
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   /// <summary>
-  ///   Raised if SSL_CTX_new_ex failed.
+  /// Raised if SSL_CTX_new_ex failed.
   /// </summary>
   ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if the Root Certificate files failed to load.
+  /// Raised if the Root Certificate files failed to load.
   /// </summary>
   ETaurusTLSLoadingRootCertError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if the Certificate failed to load.
+  /// Raised if the Certificate failed to load.
   /// </summary>
   ETaurusTLSLoadingCertError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if the private key failed to load.
+  /// Raised if the private key failed to load.
   /// </summary>
   ETaurusTLSLoadingKeyError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if DH parameters file failed to load.
+  /// Raised if DH parameters file failed to load.
   /// </summary>
   ETaurusTLSLoadingDHParamsError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if SSL_CTX_set_cipher_list failed.
+  /// Raised if SSL_CTX_set_cipher_list failed.
   /// </summary>
   ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
 
   /// <summary>
-  ///   Raised if SSL_set_fd failed.
+  /// Raised if SSL_set_fd failed.
   /// </summary>
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///   Raised if SSL_set_app_data failed.
+  /// Raised if SSL_set_app_data failed.
   /// </summary>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///   Raised if SSL_accept fails.
+  /// Raised if SSL_accept fails.
   /// </summary>
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///   Raised if the SSL_Connect fails.
+  /// Raised if the SSL_Connect fails.
   /// </summary>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///   Raised if the Certificate Common Name does not match the specified
-  ///   hostname.
+  /// Raised if the Certificate Common Name does not match the specified
+  /// hostname.
   /// </summary>
   ETaurusTLSCertificateError = class(ETaurusTLSAPISSLError);
 {$IFNDEF OPENSSL_NO_TLSEXT}
   /// <summary>
-  ///   Raised if SSL_set_tlsext_host_name failed.
+  /// Raised if SSL_set_tlsext_host_name failed.
   /// </summary>
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
   /// <summary>
-  ///   Raised if SSL_CTX_set_min_proto_version failed.
+  /// Raised if SSL_CTX_set_min_proto_version failed.
   /// </summary>
   ETaurusTLSSettingMinProtocolError = class(ETaurusTLSAPICryptoError);
   /// <summary>
-  ///   Raised if SSL_CTX_set_max_proto_version failed.
+  /// Raised if SSL_CTX_set_max_proto_version failed.
   /// </summary>
   ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSAPICryptoError);
 
-/// <summary>
-///   Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
-///   TaurusTLS statically.
-/// </summary>
-/// <returns>
-///   True if successful or False if it failed.
-/// </returns>
-/// <remarks>
-///   The OpenSSL library is only loaded once. If it is already loaded, True is
-///   returned. True is also returned if the library is statically loaded by
-///   TaurusTLS.
-/// </remarks>
+  /// <summary>
+  /// Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
+  /// TaurusTLS statically.
+  /// </summary>
+  /// <returns>
+  /// True if successful or False if it failed.
+  /// </returns>
+  /// <remarks>
+  /// The OpenSSL library is only loaded once. If it is already loaded, True is
+  /// returned. True is also returned if the library is statically loaded by
+  /// TaurusTLS.
+  /// </remarks>
 function LoadOpenSSLLibrary: Boolean;
 /// <summary>
-///   Unloads the OpenSSL libaries. Called when the program terminates. Ignored
-///   if TaurusTLS loaded the OpenSSL libraries statically.
+/// Unloads the OpenSSL libaries. Called when the program terminates. Ignored
+/// if TaurusTLS loaded the OpenSSL libraries statically.
 /// </summary>
 procedure UnLoadOpenSSLLibrary;
 
 /// <summary>
-///   The version of OpenSSL that was loaded.
+/// The version of OpenSSL that was loaded.
 /// </summary>
 function OpenSSLVersion: string;
 /// <summary>
-///   The OpenSSL directory. This is the directory that was configured when
-///   OpenSSL was built.
+/// The OpenSSL directory. This is the directory that was configured when
+/// OpenSSL was built.
 /// </summary>
 /// <returns>
-///   The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
-///   where the library was loaded from.
+/// The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+/// where the library was loaded from.
 /// </returns>
 function OpenSSLDir: string;
 
@@ -1212,7 +1228,7 @@ begin
       end
       else
       begin
-        LRes := True;
+        LRes := true;
       end;
       if LRes then
       begin
@@ -1350,14 +1366,15 @@ begin
       if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
       then
       begin
-        {$IFDEF USE_INLINE_VAR}
-        var LBytes : TIdBytes;
-        {$ENDIF}
-        {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
+{$IFDEF USE_INLINE_VAR}
+        var
+          LBytes: TIdBytes;
+{$ENDIF}
+{$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
         LBytes := TaurusTLSRawToBytes(buf, len);
-        {$ELSE}
+{$ELSE}
         LBytes := RawToBytes(buf, len);
-        {$ENDIF}
+{$ENDIF}
         case Version of
           SSL3_VERSION:
             LVer := verSSL3Header;
@@ -1398,7 +1415,8 @@ begin
   if sslvrfPeer in Mode then
   begin
     Result := Result or SSL_VERIFY_PEER;
-    if sslvrfPostHandshake in Mode then begin
+    if sslvrfPostHandshake in Mode then
+    begin
       Result := Result or SSL_VERIFY_POST_HANDSHAKE;
     end;
     if sslvrfFailIfNoPeerCert in Mode then
@@ -1780,8 +1798,8 @@ begin
   fVerifyHostname := DEF_VERIFY_HOSTNAME;
 end;
 
-procedure TTaurusTLSSSLOptions.SetMinTLSVersion(
-  const AValue: TTaurusTLSSSLVersion);
+procedure TTaurusTLSSSLOptions.SetMinTLSVersion(const AValue
+  : TTaurusTLSSSLVersion);
 begin
   fMinTLSVersion := AValue;
 end;
@@ -1839,7 +1857,8 @@ begin
 end;
 
 procedure TTaurusTLSServerIOHandler.DoOnDebugMessage(const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+  SSL: PSSL);
 begin
   if Assigned(FOnDebugMessage) then
   begin
@@ -2239,7 +2258,7 @@ end;
 function TTaurusTLSIOHandlerSocket.SendEnc(const ABuffer: TIdBytes;
   const AOffset, ALength: Integer): Integer;
 begin
-  //This can not be altered because it inherits from Indy.
+  // This can not be altered because it inherits from Indy.
   Result := fSSLSocket.Send(ABuffer, AOffset, ALength);
 end;
 
@@ -2296,7 +2315,8 @@ begin
 end;
 
 procedure TTaurusTLSIOHandlerSocket.DoOnDebugMessage(const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+  SSL: PSSL);
 begin
   if Assigned(FOnDebugMessage) then
   begin
@@ -2531,10 +2551,10 @@ begin
 {$ENDIF}
   if Assigned(FOnStatusInfo) then
   begin
-  {$IFDEF USE_INLINE_VAR}
+{$IFDEF USE_INLINE_VAR}
     var
       LType, LMsg: string;
-  {$ENDIF}
+{$ENDIF}
     GetStateVars(AsslSocket, AWhere, Aret, LType, LMsg);
     FOnStatusInfo(Self, AsslSocket, AWhere, Aret, LType, LMsg);
   end;
@@ -2718,17 +2738,15 @@ begin
   // set SSL Versions we will use
   if HasTLS_method then
   begin
-    if SSL_CTX_set_min_proto_version(fContext, SSLProtoVersion[fMinTLSVersion]) = 0
-    then
+    if SSL_CTX_set_min_proto_version(fContext, SSLProtoVersion[fMinTLSVersion]
+      ) = 0 then
     begin
-      ETaurusTLSSettingMinProtocolError.RaiseException
-        (RSOSSLMinProtocolError);
+      ETaurusTLSSettingMinProtocolError.RaiseException(RSOSSLMinProtocolError);
     end;
-    //Maximum version is always TLS 1.3.
+    // Maximum version is always TLS 1.3.
     if SSL_CTX_set_max_proto_version(fContext, TLS1_3_VERSION) = 0 then
     begin
-        ETaurusTLSSettingMaxProtocolError.RaiseException
-          (RSOSSLMaxProtocolError);
+      ETaurusTLSSettingMaxProtocolError.RaiseException(RSOSSLMaxProtocolError);
     end;
   end;
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
@@ -3111,10 +3129,9 @@ var
 
   Lpeercert: PX509;
 
-  {$IFNDEF  USE_INLINE_VAR}
+{$IFNDEF  USE_INLINE_VAR}
   lHostName: AnsiString;
-  {$ENDIF}
-
+{$ENDIF}
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
@@ -3157,7 +3174,8 @@ begin
   LError := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(AnsiString(fHostName)));
   if LError <= 0 then
   begin
-     ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, error, RSSSLSettingTLSHostNameError);
+    ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, error,
+      RSSSLSettingTLSHostNameError);
   end;
 {$ENDIF}
   LError := SSL_connect(fSSL);
@@ -3179,24 +3197,26 @@ begin
   // to make sure...
 
   // TODO: enable this
-    if fSSLContext.VerifyHostname then
-    begin
-      Lpeercert := SSL_get_peer_certificate(fSSL);
-      try
-        {$IFDEF  USE_INLINE_VAR}
-        var lHostName: AnsiString;
-        {$ENDIF}
-        lHostName := AnsiString(fHostName);
-        if (X509_check_host(Lpeercert,PAnsiChar(lHostName), Length(lHostName), 0,
-          nil) <> 1) then
-        begin
-          ETaurusTLSCertificateError.RaiseException(fSSL, error, 'SSL certificate does not match host name');
-        end;
-
-      finally
-        X509_free(Lpeercert);
+  if fSSLContext.VerifyHostname then
+  begin
+    Lpeercert := SSL_get_peer_certificate(fSSL);
+    try
+{$IFDEF  USE_INLINE_VAR}
+      var
+        lHostName: AnsiString;
+{$ENDIF}
+      lHostName := AnsiString(fHostName);
+      if (X509_check_host(Lpeercert, PAnsiChar(lHostName), Length(lHostName), 0,
+        nil) <> 1) then
+      begin
+        ETaurusTLSCertificateError.RaiseException(fSSL, error,
+          'SSL certificate does not match host name');
       end;
+
+    finally
+      X509_free(Lpeercert);
     end;
+  end;
 end;
 
 function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): TIdC_SIZET;

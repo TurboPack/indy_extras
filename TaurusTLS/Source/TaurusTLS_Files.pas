@@ -23,6 +23,7 @@ uses
   TaurusTLSHeaders_x509;
 
 const
+/// <summary>Maximum password length.</summary>
   MAX_SSL_PASSWORD_LENGTH = 128;
 
 /// <summary>
