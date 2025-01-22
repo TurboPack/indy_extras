@@ -3,16 +3,17 @@ unit TaurusTLS_Utils;
 {$I TaurusTLSCompilerDefines.inc}
 
 interface
-{******************************************************************************}
-{*  TaurusTLS                                                                 *}
-{*           https://github.com/JPeterMugaas/TaurusTLS                        *}
-{*                                                                            *}
-{*  Copyright (c) 2024 TaurusTLS Developers, All Rights Reserved              *}
-{*                                                                            *}
-{* Portions of this software are Copyright (c) 1993 – 2018,                   *}
-{* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
-{******************************************************************************}
-{$i TaurusTLSLinkDefines.inc}
+
+{ ****************************************************************************** }
+{ *  TaurusTLS                                                                 * }
+{ *           https://github.com/JPeterMugaas/TaurusTLS                        * }
+{ *                                                                            * }
+{ *  Copyright (c) 2024 TaurusTLS Developers, All Rights Reserved              * }
+{ *                                                                            * }
+{ * Portions of this software are Copyright (c) 1993 – 2018,                   * }
+{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
+{ ****************************************************************************** }
+{$I TaurusTLSLinkDefines.inc}
 
 uses
   IdCTypes,
@@ -24,33 +25,167 @@ uses
   TaurusTLSHeaders_x509v3,
   Classes;
 
-  {$I TaurusTLSIndyVers.inc}
+{$I TaurusTLSIndyVers.inc}
 
 type
   /// <summary>
-  ///   Message Digest.
+  /// Message Digest.
   /// </summary>
   TTaurusTLSLEVP_MD = record
     _Length: TIdC_UINT;
     MD: Array [0 .. EVP_MAX_MD_SIZE - 1] of TIdAnsiChar;
   end;
 
-function ANS1_STRING_ToHexStr(a : PASN1_STRING) : String;
+  /// <summary>
+  /// Converts an OpenSSL ASN1 String to a hexidecimal representation.
+  /// </summary>
+  /// <param name="a">
+  /// Pointer to the OpenSSL ASN1_STRING to convert.
+  /// </param>
+  /// <returns>
+  /// Hexidecimal representation of the value of the string.
+  /// </returns>
+  /// <remarks>
+  /// The function returns an empty string if the A parameter is nil.
+  /// </remarks>
+function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;
+/// <summary>
+/// Converts an OpenSSL ASN1_OBJECT value to a string.
+/// </summary>
+/// <param name="a">
+/// Pointer to the ASN1_OBJECT.
+/// </param>
+/// <returns>
+/// The textual representation of the ASN1_OBJECT's value.
+/// </returns>
+/// <remarks>
+/// May return an empty string if the a parameter is nil.
+/// </remarks>
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
-function LogicalAnd(a, B: Integer): Boolean;
-function BytesToHexString(APtr: Pointer; ALen: Integer): String;
+/// <summary>
+/// Converts a series of bytes to their hexidecimal representation.
+/// </summary>
+/// <param name="APtr">
+/// Pointer to the bytes to convert.
+/// </param>
+/// <param name="ALen">
+/// number of bytes to convert.
+/// </param>
+/// <returns>
+/// Hexidecimal representation of the bytes.
+/// </returns>
+/// <remarks>
+/// An empty string may be returned if APtr is nil or the ALen parameter is 0.
+/// </remarks>
+function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
+/// <summary>
+/// Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
+/// </summary>
+/// <param name="AMD">
+/// The TTaurusTLSLEVP_MD to convert.
+/// </param>
+/// <returns>
+/// The hexidecimal representation.
+/// </returns>
 function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
-function ASN1_Time_Decode(const A: PASN1_TIME;
-  out year, month, day, hour, min, sec: Word;
-  out tz_hour, tz_min: Integer): Boolean;
+/// <summary>
+/// Parses an ASN1_TIME into a time stamp.
+/// </summary>
+/// <param name="a">
+/// Pointer to the OpenSSL ASN1_TIME object to parse.
+/// </param>
+/// <param name="year">
+/// Returns the year
+/// </param>
+/// <param name="month">
+/// Returns the month
+/// </param>
+/// <param name="day">
+/// Returns the day of the month.
+/// </param>
+/// <param name="hour">
+/// Returns the Hour of the day.
+/// </param>
+/// <param name="min">
+/// Returns the minute of the hour.
+/// </param>
+/// <param name="sec">
+/// Returns the second of the minute.
+/// </param>
+/// <param name="tz_hour">
+/// Returns the Time Zone offset hour
+/// </param>
+/// <param name="tz_min">
+/// Returns the Time Zone offset minute.
+/// </param>
+/// <returns>
+/// True if parsing was successful or False if failed.
+/// </returns>
+function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
+  sec: Word; out tz_hour, tz_min: Integer): Boolean;
 
-function ASN1TimeToDateTime(A : PASN1_TIME) : TDateTime;
+/// <summary>
+/// Converts a ASN1_TIME to a TDateTime time stamp.
+/// </summary>
+/// <param name="a">
+/// The Pointer to the OpenSSL ASN1_TIME to convert.
+/// </param>
+/// <returns>
+/// The value as a TDateTime.
+/// </returns>
+/// <remarks>
+/// The return value may be 0 if the conversion failed.
+/// </remarks>
+function ASN1TimeToDateTime(a: PASN1_TIME): TDateTime;
 
+/// <summary>
+///   Convert an OpenSSL ASN1_OCTET_STRING to an IP address.
+/// </summary>
+/// <param name="a">
+///   Pointer to the ASN1_OCTET_STRING to convert.
+/// </param>
+/// <returns>
+///   The IP address or an empty string if the a parameter is nil or the value
+///   is not a valid IP address.
+/// </returns>
 function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
+/// <summary>
+///   Converts an OpenSSL X509_NAME object to a string representation.
+/// </summary>
+/// <param name="ADirName">
+///   Pointer to an OpenSSL X509_NAME object.
+/// </param>
+/// <returns>
+///   The value as a textual representation or an empty string if the ADirName parameter is nil.
+/// </returns>
 function DirName(const ADirName: PX509_NAME): String;
+/// <summary>
+///   Converts an OpenSSL GENERAL_NAME object to a string representation.
+/// </summary>
+/// <param name="ADirName">
+///   Pointer to an OpenSSL GENERAL_NAME object.
+/// </param>
+/// <returns>
+///   The value as a textual representation or an empty string if the ADirName parameter is nil.
+/// </returns>
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
+/// <summary>
+/// Converts to series ot bytes to a TIdBytes.
+/// </summary>
+/// <param name="AValue">
+/// Pointer to the bytes to convert.
+/// </param>
+/// <param name="ASize">
+/// The number of bytes to convert.
+/// </param>
+/// <returns>
+/// The TIdBytes.
+/// </returns>
+/// <remarks>
+/// The function may not be present if the Indy version is greater than 10.6.
+/// </remarks>
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 {$ENDIF}
 
@@ -60,23 +195,19 @@ uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
   SysUtils;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
+
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
-{$IFDEF USE_INLINE}inline;{$ENDIF}
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   SetLength(Result, ASize);
-  if ASize > 0 then begin
+  if ASize > 0 then
+  begin
     Move(AValue, Result[0], ASize);
   end;
 end;
 {$ENDIF}
 
-function LogicalAnd(a, B: Integer): Boolean;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := (a and B) = B;
-end;
-
-function ANS1_STRING_ToHexStr(a : PASN1_STRING) : String;
+function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
   LPtr: PAnsiChar;
@@ -91,26 +222,29 @@ begin
   end;
 end;
 
-function BytesToHexString(APtr: Pointer; ALen: Integer): String;
+function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
-  i: Integer;
+  i: TIdC_SIZET;
   LPtr: PByte;
 begin
   Result := '';
-  LPtr := PByte(APtr);
-  for i := 0 to ALen - 1 do
+  if Assigned(APtr) then
   begin
-    if i <> 0 then
+    LPtr := PByte(APtr);
+    for i := 0 to ALen - 1 do
     begin
-      Result := Result + ':'; { Do not Localize }
+      if i <> 0 then
+      begin
+        Result := Result + ':'; { Do not Localize }
+      end;
+      Result := Result + IndyFormat('%.2x', [LPtr^]);
+      Inc(LPtr);
     end;
-    Result := Result + IndyFormat('%.2x', [LPtr^]);
-    Inc(LPtr);
   end;
 end;
 
-function MDAsString(const AMD: TTaurusTLSLEVP_MD) : String;
+function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
   i: TIdC_UINT;
@@ -128,16 +262,28 @@ begin
 end;
 
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
+{$IFNDEF USE_INLINE_VAR}
 var
   LBuf: array [0 .. 1024] of TIdAnsiChar;
+{$ENDIF}
 begin
-  OBJ_obj2txt(@LBuf[0], 1024, a, 0);
-  Result := String(LBuf);
+  if Assigned(a) then
+  begin
+{$IFDEF USE_INLINE_VAR}
+    var
+      LBuf: array [0 .. 1024] of TIdAnsiChar;
+{$ENDIF}
+    OBJ_obj2txt(@LBuf[0], 1024, a, 0);
+    Result := String(LBuf);
+  end
+  else
+  begin
+    Result := '';
+  end;
 end;
 
-function ASN1_Time_Decode(const A: PASN1_TIME;
-  out year, month, day, hour, min, sec: Word;
-  out tz_hour, tz_min: Integer): Boolean;
+function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
+  sec: Word; out tz_hour, tz_min: Integer): Boolean;
 var
   i, tz_dir: Integer;
   time_str: string;
@@ -156,18 +302,18 @@ begin
   tz_hour := 0;
   tz_min := 0;
   Result := False; { default is to return with an error indication }
-  if A^._Length < 12 then
+  if a^._Length < 12 then
   begin
     Exit;
   end;
 {$IFDEF USE_MARSHALLED_PTRS}
   time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(UTCtime^.data),
-    UTCtime^._length);
+    UTCtime^._Length);
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
-  SetString(time_str, PAnsiChar(A^.data), A^._length);
+  SetString(time_str, PAnsiChar(a^.data), a^._Length);
 {$ELSE}
-  SetString(LTemp, PAnsiChar(A^.data), A^._Length);
+  SetString(LTemp, PAnsiChar(a^.data), a^._Length);
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
   // TODO: do we need to use SetCodePage() here?
   time_str := String(LTemp); // explicit convert to Unicode
@@ -213,7 +359,7 @@ begin
   Result := True; { everthing OK }
 end;
 
-function ASN1TimeToDateTime(A : PASN1_TIME) : TDateTime;
+function ASN1TimeToDateTime(a: PASN1_TIME): TDateTime;
 var
   year: Word;
   month: Word;
@@ -225,11 +371,11 @@ var
   tz_m: Integer;
 begin
   Result := 0;
-  if ASN1_Time_Decode(A, year, month, day, hour, min, sec, tz_h, tz_m) then
+  if ASN1_Time_Decode(a, year, month, day, hour, min, sec, tz_h, tz_m) then
   begin
     Result := EncodeDate(year, month, day) + EncodeTime(hour, min, sec, 0);
-    Result := Result + ( tz_m / (60 * 24));
-    Result := Result + ( tz_h / 24.0);
+    Result := Result + (tz_m / (60 * 24));
+    Result := Result + (tz_h / 24.0);
     Result := UTCTimeToLocalTime(Result);
   end;
 end;
@@ -264,21 +410,24 @@ var
   i: Integer;
 begin
   Result := '';
-  if a._length = 4 then
+  if Assigned(a) then
   begin
-    Result := IntToStr(a.Data[0]) + '.' + IntToStr(a.Data[1]) + '.' +
-      IntToStr(a.Data[2]) + '.' + IntToStr(a.Data[3]);
-  end
-  else
-  begin
-    if a._length = 16 then
+    if a._Length = 4 then
     begin
-
-      for i := 0 to 7 do
+      Result := IntToStr(a.data[0]) + '.' + IntToStr(a.data[1]) + '.' +
+        IntToStr(a.data[2]) + '.' + IntToStr(a.data[3]);
+    end
+    else
+    begin
+      if a._Length = 16 then
       begin
-        LIPv6[i] := (a.Data[i * 2] shl 8) + (a.Data[(i * 2) + 1]);
+
+        for i := 0 to 7 do
+        begin
+          LIPv6[i] := (a.data[i * 2] shl 8) + (a.data[(i * 2) + 1]);
+        end;
+        Result := IdGlobal.IPv6AddressToStr(LIPv6);
       end;
-      Result := IdGlobal.IPv6AddressToStr(LIPv6);
     end;
   end;
 end;
@@ -291,11 +440,11 @@ begin
       Result := 'Other Name';
     GEN_EMAIL:
       begin
-        Result := 'E-Mail: ' + String(PAnsiChar(AGN.d.rfc822Name.Data));
+        Result := 'E-Mail: ' + String(PAnsiChar(AGN.d.rfc822Name.data));
       end;
     GEN_DNS:
       begin
-        Result := 'DNS: ' + String(PAnsiChar(AGN.d.dNSName.Data));
+        Result := 'DNS: ' + String(PAnsiChar(AGN.d.dNSName.data));
       end;
     GEN_X400:
       begin
@@ -312,7 +461,7 @@ begin
     GEN_URI:
       begin
         Result := 'URI: ' +
-          String(PIdAnsiChar(AGN.d.uniformResourceIdentifier.Data));
+          String(PIdAnsiChar(AGN.d.uniformResourceIdentifier.data));
       end;
     GEN_IPADD:
       begin
