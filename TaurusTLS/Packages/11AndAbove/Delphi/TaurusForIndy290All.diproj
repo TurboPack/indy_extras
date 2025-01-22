@@ -9,7 +9,10 @@
   <Language>1033</Language>
   <Charset>1</Charset>
   <HeaderHtml>&lt;%TopicTitle%&gt;</HeaderHtml>
-  <FooterHtml>Powered by &lt;a href="https://devjetsoftware.com/products/documentation-insight/" target="_blank"&gt;DocInsight&lt;/a&gt;</FooterHtml>
+  <FooterHtml>&lt;center&gt;&lt;b&gt;TaurusTLS&lt;/b&gt;&lt;/center&gt;&lt;br /&gt;
+&lt;center&gt;Copyright (c) 2025 TaurusTLS Developers&lt;/center&gt;&lt;br /&gt;
+&lt;br /&gt;
+Powered by &lt;a href="https://devjetsoftware.com/products/documentation-insight/" target="_blank"&gt;DocInsight&lt;/a&gt;</FooterHtml>
   <CustomDefines/>
   <ShowImplementationSection>false</ShowImplementationSection>
   <ShowPrivateMembers>false</ShowPrivateMembers>
