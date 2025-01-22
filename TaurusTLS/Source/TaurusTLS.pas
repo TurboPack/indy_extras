@@ -160,6 +160,8 @@
 
   Rev 1.0    11/13/2002 08:01:24 AM  JPMugaas
 }
+/// <summary>This unit contains the TTaurusTLSIOHandlerSocket and
+/// TTaurusTLSServerIOHandler classes plus helper classes.</summary>
 unit TaurusTLS;
 {
   Author: Gregor Ibic (gregor.ibic@intelicom.si)

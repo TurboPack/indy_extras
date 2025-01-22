@@ -8,6 +8,14 @@
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
 
+/// <summary>
+/// Self-registrated NT LAN Manager (NTLM) Protocol Implementation for Indy -
+/// Internet Direct.
+/// </summary>
+/// <remarks>
+/// The NT LAN Manager (NTLM) Protocol is not considered secure.  It has been
+/// depreciated even by Microsoft.
+/// </remarks>
 unit TaurusTLS_NTLM;
 
 {$I TaurusTLSCompilerDefines.inc}

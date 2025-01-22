@@ -1,4 +1,3 @@
-unit TaurusTLS_X509;
 { ****************************************************************************** }
 { *  TaurusTLS                                                                 * }
 { *           https://github.com/JPeterMugaas/TaurusTLS                        * }
@@ -8,6 +7,8 @@ unit TaurusTLS_X509;
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
+/// <summary>X509 Certificate classes.</summary>
+unit TaurusTLS_X509;
 {$I TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
