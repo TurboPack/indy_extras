@@ -166,7 +166,8 @@ function DirName(const ADirName: PX509_NAME): String;
 ///   Pointer to an OpenSSL GENERAL_NAME object.
 /// </param>
 /// <returns>
-///   The value as a textual representation or an empty string if the ADirName parameter is nil.
+///   The value as a textual representation or an empty string if the AGN
+///   parameter is nil.
 /// </returns>
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
