@@ -1381,9 +1381,15 @@ function TTaurusTLSX509PublicKey.GetAlgorithm: String;
 var
   lalgorithm: PASN1_OBJECT;
 begin
-  X509_PUBKEY_get0_param(@lalgorithm, nil, nil, nil,
-    X509_get_X509_PUBKEY(FX509));
-  Result := ASN1_OBJECT_ToStr(lalgorithm);
+  if X509_PUBKEY_get0_param(@lalgorithm, nil, nil, nil,
+    X509_get_X509_PUBKEY(FX509)) <> 0 then
+  begin
+    Result := ASN1_OBJECT_ToStr(lalgorithm);
+  end
+  else
+  begin
+    Result := '';
+  end;
 end;
 
 function TTaurusTLSX509PublicKey.GetEncoding: String;
@@ -1391,9 +1397,15 @@ var
   LLen: TIdC_INT;
   LKey: array [0 .. 2048] of TIdAnsiChar;
 begin
-  X509_PUBKEY_get0_param(nil, @LKey[0], @LLen, nil,
-    X509_get_X509_PUBKEY(FX509));
-  Result := BytesToHexString(@LKey[0], LLen);
+  if X509_PUBKEY_get0_param(nil, @LKey[0], @LLen, nil,
+    X509_get_X509_PUBKEY(FX509)) <> 0 then
+  begin
+    Result := BytesToHexString(@LKey[0], LLen);
+  end
+  else
+  begin
+    Result := '';
+  end;
 end;
 
 function TTaurusTLSX509PublicKey.GetEncodingSize: TIdC_INT;
@@ -1401,7 +1413,7 @@ var
   LKey: array [0 .. 2048] of TIdAnsiChar;
 begin
   if X509_PUBKEY_get0_param(nil, @LKey[0], @Result, nil,
-    X509_get_X509_PUBKEY(FX509)) <> 1 then
+    X509_get_X509_PUBKEY(FX509)) <> 0 then
   begin
     Result := 0;
   end;
