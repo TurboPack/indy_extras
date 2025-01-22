@@ -1080,7 +1080,7 @@ end;
 
 function TTaurusTLSX509.GetSubjectKeyIdentifier: String;
 begin
-  Result := ANS1_STRING_ToHexStr(PASN1_STRING(X509_get0_subject_key_id(FX509)));
+  Result := ASN1_STRING_ToHexStr(PASN1_STRING(X509_get0_subject_key_id(FX509)));
 end;
 
 function TTaurusTLSX509.GetCertificateAuthorityFlag: Boolean;
@@ -1186,7 +1186,7 @@ begin
     LASN1 := PASN1_STRING(X509_EXTENSION_get_data(LExt));
     if Assigned(LASN1) then
     begin
-      Result := ANS1_STRING_ToHexStr(LASN1);
+      Result := ASN1_STRING_ToHexStr(LASN1);
     end;
   end;
 end;
@@ -1514,12 +1514,13 @@ end;
 
 function TTaurusTLSX509AuthorityKeyID.GetKeyId: String;
 begin
-  Result := ANS1_STRING_ToHexStr
+  Result := ASN1_STRING_ToHexStr
     (PASN1_STRING(X509_get0_authority_key_id(FX509)));
 end;
 
 function TTaurusTLSX509AuthorityKeyID.GetSerial: TIdC_INT64;
 begin
+  Result := 0;
   ASN1_INTEGER_get_int64(@Result, X509_get0_authority_serial(FX509));
 end;
 

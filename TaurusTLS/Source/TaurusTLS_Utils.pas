@@ -162,7 +162,7 @@ function DirName(const ADirName: PX509_NAME): String;
 /// <summary>
 ///   Converts an OpenSSL GENERAL_NAME object to a string representation.
 /// </summary>
-/// <param name="ADirName">
+/// <param name="AGN">
 ///   Pointer to an OpenSSL GENERAL_NAME object.
 /// </param>
 /// <returns>

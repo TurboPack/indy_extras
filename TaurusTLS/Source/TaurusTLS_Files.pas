@@ -236,7 +236,6 @@ var
   P12: PPKCS12;
   CertChain: PSTACK_OF_X509;
   LPassword: array of TIdAnsiChar;
-  LPasswordPtr: PIdAnsiChar;
   default_passwd_cb: pem_password_cb;
 begin
   Result := 0;
@@ -263,11 +262,10 @@ begin
     try
       SetLength(LPassword, MAX_SSL_PASSWORD_LENGTH + 1);
       LPassword[MAX_SSL_PASSWORD_LENGTH] := TIdAnsiChar(0);
-      LPasswordPtr := @LPassword[0];
       default_passwd_cb := SSL_CTX_get_default_passwd_cb(ctx);
       if Assigned(default_passwd_cb) then
       begin
-        default_passwd_cb(LPasswordPtr, MAX_SSL_PASSWORD_LENGTH, 0,
+        default_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx));
         // TODO: check return value for failure
       end
@@ -283,7 +281,7 @@ begin
         Exit;
       end;
       try
-        if PKCS12_parse(P12, LPasswordPtr, LKey, LCert, @CertChain) <> 1 then
+        if PKCS12_parse(P12, @LPassword[0], LKey, LCert, @CertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
           Exit;
@@ -316,7 +314,6 @@ var
   LKey: PEVP_PKEY;
   CertChain: PSTACK_OF_X509;
   LPassword: array of TIdAnsiChar;
-  LPasswordPtr: PIdAnsiChar;
   default_passwd_callback: pem_password_cb;
 begin
   Result := 0;
@@ -343,11 +340,10 @@ begin
     try
       SetLength(LPassword, MAX_SSL_PASSWORD_LENGTH + 1);
       LPassword[MAX_SSL_PASSWORD_LENGTH] := TIdAnsiChar(0);
-      LPasswordPtr := @LPassword[0];
       default_passwd_callback := SSL_CTX_get_default_passwd_cb(ctx);
       if Assigned(default_passwd_callback) then
       begin
-        default_passwd_callback(LPasswordPtr, MAX_SSL_PASSWORD_LENGTH, 0,
+        default_passwd_callback(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx));
         // TODO: check return value for failure
       end
@@ -363,7 +359,7 @@ begin
         Exit;
       end;
       try
-        if PKCS12_parse(P12, LPasswordPtr, LKey, LCert, @CertChain) <> 1 then
+        if PKCS12_parse(P12, @LPassword[0], LKey, LCert, @CertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
           Exit;
