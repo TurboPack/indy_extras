@@ -436,6 +436,7 @@ type
     procedure SetMinTLSVersion(const AValue: TTaurusTLSSSLVersion);
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
+    /// <summary>Creates a new instance of TTaurusTLSSSLOptions.</summary>
     constructor Create;
     // procedure Assign(ASource: TPersistent); override;
   published
@@ -516,7 +517,8 @@ type
   { TTaurusTLSContext }
 
   /// <summary>
-  /// The TLS Context encapsolated into an object.
+  ///   The TLS Context encapsolated into an object. This object is for internal
+  ///   use only. You should not be using it directly.
   /// </summary>
   TTaurusTLSContext = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -550,39 +552,108 @@ type
     function GetSSLMethod: PSSL_METHOD;
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
   public
+    /// <summary>Creates a new instance of TTaurusTLSContext.</summary>
     constructor Create;
+    /// <summary>Frees resources and destroys the current instance.</summary>
     destructor Destroy; override;
+    ///<summary>Initializes this TTaurusTLSContext after the properties have been set.</summary>
     procedure InitContext(CtxMode: TTaurusTLSCtxMode);
-
+    ///<summary>Makes a copy of this TTaurusTLSContext.</summary>
     function Clone: TTaurusTLSContext;
+
+    /// <summary>
+    ///   The OpenSSL SSL_CTX Object associated with this TTaurusTLSContext
+    /// </summary>
     property Context: PSSL_CTX read fContext;
+    /// <summary>
+    ///   The object that owns this one.
+    /// </summary>
     property Parent: TObject read FParent write FParent;
+    /// <summary>
+    ///   Set to True to set the Message callback.
+    /// </summary>
     property MessageCBOn: Boolean read fMessageCBOn write fMessageCBOn;
+    /// <summary>
+    ///   Set to True to set the StatusInfo callback.
+    /// </summary>
     property StatusInfoOn: Boolean read fStatusInfoOn write fStatusInfoOn;
-    // property PasswordRoutineOn: Boolean read fPasswordRoutineOn write fPasswordRoutineOn;
+    /// <summary>Set to True to set the Verify callback.</summary>
     property VerifyOn: Boolean read fVerifyOn write fVerifyOn;
+    /// <summary>
+    ///   Set to true to set the SecurityLevel callback.
+    /// </summary>
     property SecurityLevelCBOn: Boolean read fSecurityLevelCBOn
       write fSecurityLevelCBOn;
     // THese can't be published in a TObject without a compiler warning.
     // published
+    /// <summary>The Minimum TLS version you will accept.</summary>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion;
+    /// <summary>Determines which OpenSSL method should be callled.</summary>
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
+    /// <summary>
+    /// OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
+    /// restrictive), It may be one of the following values: <br />
+    /// <para>
+    /// <c>0</c> Permit anything
+    /// </para>
+    /// <para>
+    /// <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+    /// security bits.
+    /// </para>
+    /// <para>
+    /// <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
+    /// security bits. Compression is disabled.
+    /// </para>
+    /// <para>
+    /// <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
+    /// security bits. Session tickets are disabled.
+    /// </para>
+    /// <para>
+    /// <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
+    /// security bits.
+    /// </para>
+    /// <para>
+    /// <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
+    /// security bits.
+    /// </para>
+    /// </summary>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
+    /// default-callback-behaviour
+    /// </seealso>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel;
+    /// <summary>Root certificate file.</summary>
     property RootCertFile: String read fsRootCertFile write fsRootCertFile;
+    /// <summary>Client or Server certificate file.</summary>
     property CertFile: String read fsCertFile write fsCertFile;
+    /// <summary>The list of available ciphers</summary>
+    /// <remarks>
+    /// <para>Leave empty to use all available ciphers.</para>
+    /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
+    /// <summary>Private Key file.</summary>
     property KeyFile: String read fsKeyFile write fsKeyFile;
+    /// <summary>DH Parameters file.</summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
-    // property VerifyMode: TTaurusTLSVerifyModeSet read GetVerifyMode write SetVerifyMode;
-    // property VerifyFile: String read fVerifyFile write fVerifyFile;
+    /// <summary>Use system's certificate store to verify certificates.</summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore;
+     /// <summary>Directories where to load root certificates from separated by colons.</summary>
+    /// <remarks>Only the PEM files in the directories are loaded.</remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
+    /// <summary>Controls the peer verification.  Can contain the following:
+    /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
+    /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
+    /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
+    /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+    /// </summary>
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
+    /// <summary>The maximum depth for the certificate chain verification allowed.</summary>
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
+    /// <summary>Peer Certificate must match hostname</summary>
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname;
   end;
 
@@ -605,7 +676,14 @@ type
 
     function GetSSLCipher: TTaurusTLSCipher;
   public
+    /// <summary>
+    ///   Creates a new instance of TTaurusTLSSocket.
+    /// </summary>
+    /// <param name="AParent">
+    ///   The TObject that will own the new instance.
+    /// </param>
     constructor Create(AParent: TObject);
+    /// <summary>Frees resources and destroys the current instance.</summary>
     destructor Destroy; override;
     /// <summary>Return an error code for the previous I/O operation.</summary>
     /// <param name="retCode">Return code from the previous function.</param>
@@ -655,14 +733,33 @@ type
   ///</summary>
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
+    /// <summary>
+    ///   Called when the Debug Message Callback is invoked.
+    /// </summary>
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
+    /// <summary>
+    ///   Called when the GetPassword callback is invoked.
+    /// </summary>
     function GetPassword(const AIsWrite: Boolean): string;
+    /// <summary>
+    ///   Called when the StatusInfo callback is invoked.
+    /// </summary>
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
+    /// <summary>
+    ///   Called when the VerifyPeer callback is invoked.
+    /// </summary>
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
+    /// <summary>
+    ///   Called when the SecurityLevel callback is invoked.
+    /// </summary>
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
+    /// <summary>
+    ///   Gets the Self as a TIdIOHandlerSocket or nil if Self is not a
+    ///   TIdIOHandlerSocket.
+    /// </summary>
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
   end;
 
@@ -716,13 +813,67 @@ type
     function GetURIHost: string;
 {$ENDIF}
   public
+    /// <summary>Frees resources and destroys the current instance.</summary>
     destructor Destroy; override;
     // TODO: add an AOwner parameter
+    /// <summary>
+    ///   Called by Indy (Internet Direct) and make another
+    ///   TTaurusTLSIOHandlerSocket with the same property values as this
+    ///   TTaurusTLSIOHandlerSocket.
+    /// </summary>
+    /// <returns>
+    ///   The TTaurusTLSIOHandlerSocket that was created.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this directly.
+    /// </remarks>
     function Clone: TIdSSLIOHandlerSocketBase; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) or this component and starts the TLS
+    ///   negotiation.
+    /// </summary>
+    /// <remarks>
+    ///   You should not call this directly.
+    /// </remarks>
     procedure StartSSL; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) after a connection is accepted. This
+    ///   initiates the TLS handshake sequemce if Passthrough is False by
+    ///   calling the StartSSL method.
+    /// </summary>
+    /// <remarks>
+    ///   You should not call this directly.
+    /// </remarks>
     procedure AfterAccept; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) and closes the Connection.
+    /// </summary>
+    /// <remarks>
+    ///   You should not call this directly.
+    /// </remarks>
     procedure Close; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) and establishes the cconnection.
+    /// </summary>
+    /// <remarks>
+    ///   You should not call this directly.
+    /// </remarks>
     procedure Open; override;
+    /// <summary>
+    ///   Called by Indy. If the Passthrough property is False, the SSL
+    ///   connection is checked for pending decrypted data before calling the
+    ///   inherited Readable method.
+    /// </summary>
+    /// <param name="AMSec">
+    ///   The number of millaseconds to wait.
+    /// </param>
+    /// <returns>
+    ///   True if there was decrypted data or the inherited Readable method
+    ///   returned true.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     function Readable(AMSec: Integer = IdTimeoutDefault): Boolean; override;
     /// <summary>Properties and methods for dealing with the TLS Connection.</summary>
     property SSLSocket: TTaurusTLSSocket read fSSLSocket write fSSLSocket;
@@ -732,6 +883,13 @@ type
     /// <param name="ASender">The object that triggers the event.</param>
     property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
+    /// <summary>
+    ///   The SSL Context for the TTaurusTLSIOHandlerSocket.
+    /// </summary>
+    /// <remarks>
+    ///   The SSL Context is for internal use only. You should not be using it
+    ///   directly.
+    /// </remarks>
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
     /// <summary>
     /// Occurs when a TLS packet is read or sent.
@@ -830,20 +988,77 @@ type
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 
   public
+    /// <summary>
+    ///   Called by Indy (Internet Direct) and makes a TTaurusTLSContext for this TTaurusTLSServerIOHandler.
+    /// </summary>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     procedure Init; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) and destroys the TTaurusTLSContext for the TTaurusTLSServerIOHandler.
+    /// </summary>
     procedure Shutdown; override;
     // AListenerThread is a thread and not a yarn. Its the listener thread.
+    /// <summary>
+    ///   Called by Indy (Internet Direct) when the server accepts a connection.
+    /// </summary>
+    /// <param name="ASocket">
+    ///   The server Biding that accepted the connection.
+    /// </param>
+    /// <param name="AListenerThread">
+    ///   The listening thread.
+    /// </param>
+    /// <param name="AYarn">
+    ///   The associated yarn.
+    /// </param>
+    /// <returns>
+    ///   The new IOHandler for the connection.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     function Accept(ASocket: TIdSocketHandle; AListenerThread: TIdThread;
       AYarn: TIdYarn): TIdIOHandler; override;
     // function Accept(ASocket: TIdSocketHandle; AThread: TIdThread) : TIdIOHandler;  override;
+    /// <summary>Frees resources and destroys the current instance.</summary>
     destructor Destroy; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket with Passsthrough set to
+    ///   True.
+    /// </summary>
+    /// <returns>
+    ///   The TTaurusTLSIOHandlerSocket that was created.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     function MakeClientIOHandler: TIdSSLIOHandlerSocketBase; override;
-    //
+    /// <summary>
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket for the TIdFTPServer's PORT
+    ///   connection.
+    /// </summary>
+    /// <returns>
+    ///   The TTaurusTLSIOHandlerSocket that was created.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     function MakeFTPSvrPort: TIdSSLIOHandlerSocketBase; override;
+    /// <summary>
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket for the TIdFTPServer's PASV
+    ///   connection.
+    /// </summary>
+    /// <returns>
+    ///   The TTaurusTLSIOHandlerSocket that was created.
+    /// </returns>
+    /// <remarks>
+    ///   You should not call this method directly.
+    /// </remarks>
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
 
     /// <summary>
-    /// The SSL Context for the TTaurus​TLSServer​IOHandler​.
+    /// The SSL Context for the TTaurusTLSServerIOHandler​.
     /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext;
     /// <summary>
@@ -922,7 +1137,14 @@ type
     function GetBits: Integer;
     function GetVersion: String;
   public
+    /// <summary>
+    ///   Creates a new instance of TTaurusTLSCipher.
+    /// </summary>
+    /// <param name="AOwner">
+    ///   The TTaurusTLSSocket that owns the new instance.
+    /// </param>
     constructor Create(AOwner: TTaurusTLSSocket);
+    /// <summary>Frees resources and destroys the current instance.</summary>
     destructor Destroy; override;
     // These can't be published without a compiler warning.
     // published

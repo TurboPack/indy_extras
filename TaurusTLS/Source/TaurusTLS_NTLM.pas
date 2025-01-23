@@ -10,7 +10,9 @@
 
 /// <summary>
 /// Self-registrated NT LAN Manager (NTLM) Protocol Implementation for Indy -
-/// Internet Direct.
+/// Internet Direct.  Indy itself will call
+/// routines from the implementation section of the unit if you include this
+/// unit.
 /// </summary>
 /// <remarks>
 /// The NT LAN Manager (NTLM) Protocol is not considered secure.  It has been

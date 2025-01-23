@@ -1,11 +1,11 @@
-{ ****************************************************************************** }
+﻿{ ****************************************************************************** }
 { *  TaurusTLS                                                                 * }
 { *           https://github.com/JPeterMugaas/TaurusTLS                        * }
 { *                                                                            * }
 { *  Copyright (c) 2024 TaurusTLS Developers, All Rights Reserved              * }
 { *                                                                            * }
-{ * Portions of this software are Copyright (c) 1993 � 2018,                   * }
-{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew � http://www.IndyProject.org/  * }
+{ * Portions of this software are Copyright (c) 1993 – 2018,                   * }
+{ * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 /// <summary>X509 Certificate classes.</summary>
 unit TaurusTLS_X509;
@@ -53,7 +53,7 @@ type
   TTaurusTLSX509 = class;
 
   /// <summary>
-  /// A X509 name encapsolated in an object for information.
+  ///   A X509 name encapsolated in an object for information.
   /// </summary>
   TTaurusTLSX509Name = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -71,6 +71,13 @@ type
     function GetProvidence: String;
     function GetStreetAddress: String;
   public
+    /// <summary>
+    ///   Creates a new instance of TTaurusTLSX509Name.
+    /// </summary>
+    /// <param name="aX509Name">
+    ///   The associated OpenSSL X509_NAME object associated with the new
+    ///   instance.
+    /// </param>
     constructor Create(aX509Name: PX509_NAME);
     //
     /// <summary>
@@ -242,6 +249,12 @@ type
     function GetSigTypeAsString: String;
     function GetAlgorithm: String;
   public
+    /// <summary>
+    ///   Creates a new instance of the object.
+    /// </summary>
+    /// <param name="aX509">
+    ///   The OpenSSL X509 Certificate object associated with it.
+    /// </param>
     constructor Create(aX509: PX509); override;
     /// <summary>
     /// Signature expressed in hexidecimal.
@@ -577,7 +590,18 @@ type
     function GetCertificateAuthorityPathLen: TIdC_LONG;
     function GetHasFreshestCRL: Boolean;
   public
+    /// <summary>
+    ///   Creates a new instance of TTaurus​TLSX509.
+    /// </summary>
+    /// <param name="aX509">
+    ///   The OpenSSL X509 object associated with the new instance.
+    /// </param>
+    /// <param name="aCanFreeX509">
+    ///   True if the OpenSSL X509 Certificate object associated with the new
+    ///   instance can be freed by the destructor.
+    /// </param>
     Constructor Create(aX509: PX509; aCanFreeX509: Boolean = True); virtual;
+    /// <summary>Frees resources and destroys the current instance.</summary>
     Destructor Destroy; override;
     /// <summary>
     /// The number of X509 certificate extensions.

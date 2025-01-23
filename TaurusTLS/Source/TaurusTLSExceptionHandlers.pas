@@ -16,7 +16,7 @@ unit TaurusTLSExceptionHandlers;
 interface
 
 uses
-  Classes, SysUtils, IdException, IdCTypes;
+  Classes, SysUtils, IdException, IdCTypes, TaurusTLSHeaders_ossl_typ;
 
 type
 //moved from IdSSLTaurusTLS so we can use these classes in other places
@@ -27,28 +27,50 @@ type
   ETaurusTLSError               = class(EIdException);
 
   /// <summary>
-  ///   The return code returned by the function that failed.
-  /// </summary>
-  /// <remarks>
   ///   Anscestor of exceptions that are raised when a LibSSL function fails.
-  /// </remarks>
+  /// </summary>
   ETaurusTLSAPISSLError = class(ETaurusTLSError)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FErrorCode : TIdC_INT;
     FRetCode : TIdC_INT;
   public
-    class procedure RaiseException(ASSL: Pointer; const ARetCode : TIdC_INT; const AMsg : String = '');
+    /// <summary>
+    ///   Raises an instance of the class.
+    /// </summary>
+    /// <param name="ASSL">
+    ///   The OpenSSL SSL Object where the failure occurred.
+    /// </param>
+    /// <param name="ARetCode">
+    ///   The return code for the failure.
+    /// </param>
+    /// <param name="AMsg">
+    ///   The error message to display.
+    /// </param>
+    class procedure RaiseException(ASSL: PSSL; const ARetCode : TIdC_INT; const AMsg : String = '');
+    /// <summary>
+    ///   Raises the exception class.
+    /// </summary>
+    /// <param name="AErrCode">
+    ///   The error code for the failure.
+    /// </param>
+    /// <param name="ARetCode">
+    ///   The return code for the failure.
+    /// </param>
+    /// <param name="AMsg">
+    ///   The message to display.
+    /// </param>
     class procedure RaiseExceptionCode(const AErrCode, ARetCode : TIdC_INT; const AMsg : String = '');
     /// <summary>
-    ///   Error Code returned by the ERR_get_error() function.
+    ///   Error Code returned by the failure.
     /// </summary>
     property ErrorCode : TIdC_INT read FErrorCode;
     /// <summary>
-    ///   The value returned by the function that failed.
+    ///   The return code returned by the failure.
     /// </summary>
     property RetCode : TIdC_INT read FRetCode;
   end;
 
+  ETaurusTLSUnderlyingCryptoError = class;
   /// <summary>
   ///   Anscestor of exceptions that are raised when a LibCrypto API call fails.
   /// </summary>
@@ -57,16 +79,28 @@ type
     FErrorCode : TIdC_ULONG;
   public
     /// <summary>
-    ///   Raises the ETaurusTLSAPICryptoError with an error code.
+    ///   Raises the exception class with an error code.
     /// </summary>
     /// <param name="AErrCode">
-    ///   Error Code returned by ERR_get_error.
+    ///   Error Code returned by the failure.
     /// </param>
     /// <param name="AMsg">
     ///   Message to display.
     /// </param>
+    /// <exception cref="ETaurusTLSUnderlyingCryptoError">
+    ///   If there was an underlying error.
+    /// </exception>
     class procedure RaiseExceptionCode(const AErrCode : TIdC_ULONG; const AMsg : String = '');
+    /// <summary>
+    ///   Raises the exception class.
+    /// </summary>
+    /// <param name="AMsg">
+    ///   Message to display.
+    /// </param>
     class procedure RaiseException(const AMsg : String = '');
+    /// <summary>
+    ///   The error code from the failure.
+    /// </summary>
     property ErrorCode : TIdC_ULONG read FErrorCode;
   end;
   /// <summary>
@@ -111,8 +145,7 @@ type
 implementation
 
 uses TaurusTLSHeaders_err, IdGlobal, TaurusTLSHeaders_ssl,
-  TaurusTLSHeaders_ossl_typ, IdResourceStringsProtocols,
-  IdStack, TaurusTLS_ResourceStrings;
+  IdResourceStringsProtocols, IdStack, TaurusTLS_ResourceStrings;
 
 function GetErrorMessage(const AErr : TIdC_ULONG) : String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
@@ -179,7 +212,7 @@ end;
 
 { ETaurusTLSAPISSLError }
 
-class procedure ETaurusTLSAPISSLError.RaiseException(ASSL: Pointer; const ARetCode: TIdC_INT;
+class procedure ETaurusTLSAPISSLError.RaiseException(ASSL: PSSL; const ARetCode: TIdC_INT;
   const AMsg: String);
 begin
   RaiseExceptionCode(SSL_get_error(PSSL(ASSL), ARetCode), ARetCode, AMsg);

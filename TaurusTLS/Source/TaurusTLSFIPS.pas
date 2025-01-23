@@ -10,7 +10,9 @@
 /// <summary>
 /// Self-registering unit that provides MD2, MD4, MD5, SHA1, SHA224, SHA256,
 /// SHA384, SHA512, HMAC-MD5, HMAC-SHA-1, HMAC-SHA-224, HMAC-SHA-384, and
-/// HMAC-SHA-512 Support for Indy - Internet Direct.
+/// HMAC-SHA-512 Support for Indy - Internet Direct.  Indy itself will call
+/// routines from the implementation section of the unit if you include this
+/// unit.
 /// </summary>
 /// <remarks>
 /// <para>MD2, MD4, MD5, and SHA1 are depreciated in favor of more secure
