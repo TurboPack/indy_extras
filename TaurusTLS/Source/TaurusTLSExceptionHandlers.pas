@@ -109,23 +109,33 @@ type
   ETaurusTLSUnderlyingCryptoError = class(ETaurusTLSAPICryptoError);
 
   /// <summary>
-  ///   Anscestor of exceptions that are raised if Digest functions fail.
+  ///   Anscestor of exceptions that are raised if an EVP_Digest* functions fail.
   /// </summary>
   ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
   /// <summary>
   ///   Raised when the EVP_DigestFinal_ex function failed. <br />
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  /// EVP_DigestInit_ex
+  /// </seealso>
   ETaurusTLSDigestFinalEx = class(ETaurusTLSDigestError);
   /// <summary>
   ///   Raised when the EVP_DigestInit_ex function failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  /// EVP_DigestInit_ex
+  /// </seealso>
   ETaurusTLSDigestInitEx = class(ETaurusTLSDigestError);
   /// <summary>
   ///   Raised when the EVP_DigestUpdate function failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  /// EVP_DigestUpdate
+  /// </seealso>
   ETaurusTLSDigestUpdate = class(ETaurusTLSDigestError);
-
-  { ETaurusTLSAPIFunctionNotPresent }
 
   /// <summary>
   ///   Raised when a function failed to load and an attempt to call the

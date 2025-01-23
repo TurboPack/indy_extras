@@ -736,30 +736,54 @@ type
     /// <summary>
     ///   Called when the Debug Message Callback is invoked.
     /// </summary>
+    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+    /// <param name="AVersion">TLS version of packet.</param>
+    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+    /// <param name="buf">The contents of the packet.</param>
+    /// <param name="SSL">The SSL object where the event occurred.</param>
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
     /// <summary>
     ///   Called when the GetPassword callback is invoked.
     /// </summary>
+    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
+    /// <returns>The password the event handler returned.</returns>
     function GetPassword(const AIsWrite: Boolean): string;
     /// <summary>
     ///   Called when the StatusInfo callback is invoked.
     /// </summary>
+    /// <param name="ASSL">The PSSL value associated with the event.</param>
+    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
+    /// <param name="Aret">A value indicating a particular message</param>
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     /// <summary>
     ///   Called when the VerifyPeer callback is invoked.
     /// </summary>
+    /// <param name="ACertificate">The certificate to be validated.</param>
+    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
+    /// <param name="ADepth">The maximum depth of.</param>
+    /// <param name="AError">The validation error if the certificate failed validation.</param>
+    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     /// <summary>
     ///   Called when the SecurityLevel callback is invoked.
     /// </summary>
+    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
+    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
+    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
+    /// <param name="bits">Number of security bits the cipher has.</param>
+    /// <param name="ACipher">The name of the cipher.</param>
+    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
     /// <summary>
-    ///   Gets the Self as a TIdIOHandlerSocket or nil if Self is not a
-    ///   TIdIOHandlerSocket.
+    ///   Called to obtain this instance as a TTaurusTLSIOHandlerSocket.
     /// </summary>
+    /// <returns>
+    ///   The object instance as a TTaurusTLSIOHandlerSocket or nil if this
+    ///   not a TTaurusTLSIOHandlerSocket.
+    /// </returns>
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
   end;
 
@@ -1174,15 +1198,26 @@ type
   /// <summary>
   /// Raised if SSL_SESSION_get_protocol_version returned in invalid value.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_SESSION_get_protocol_version/">
+  /// SSL_SESSION_get_protocol_version
+  /// </seealso>
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
 
   /// <summary>
   /// Raised if SSL_new failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_new/">
+  /// SSL_new
+  /// </seealso>
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   /// <summary>
   /// Raised if SSL_CTX_new_ex failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_new/">SSL_CTX_new_ex
+  /// </seealso>
   ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
   /// <summary>
   /// Raised if the Root Certificate files failed to load.
@@ -1203,23 +1238,41 @@ type
   /// <summary>
   /// Raised if SSL_CTX_set_cipher_list failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_cipher_list/">
+  /// SSL_CTX_set_cipher_list
+  /// </seealso>
   ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
 
   /// <summary>
   /// Raised if SSL_set_fd failed.
   /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_set_fd/">
+  /// SSL_set_fd
+  /// </seealso>
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   /// <summary>
   /// Raised if SSL_set_app_data failed.
   /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/BIO_get_ex_new_index/">
+  /// SSL_set_app_data
+  /// </seealso>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
   /// Raised if SSL_accept fails.
   /// </summary>
+ /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_accept/">
+  /// SSL_accept
+  /// </seealso>
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
   /// <summary>
   /// Raised if the SSL_Connect fails.
   /// </summary>
+ /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_connect/">
+  /// SSL_connect
+  /// </seealso>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
   /// Raised if the Certificate Common Name does not match the specified
@@ -1230,15 +1283,27 @@ type
   /// <summary>
   /// Raised if SSL_set_tlsext_host_name failed.
   /// </summary>
+ /// <seealso
+  /// href="https://docs.openssl.org/master/man3/SSL_CTX_set_tlsext_servername_callback/#description">
+  /// SSL_set_tlsext_host_name
+  /// </seealso>
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
   /// <summary>
   /// Raised if SSL_CTX_set_min_proto_version failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
+  /// SSL_CTX_set_max_proto_version
+  /// </seealso>
   ETaurusTLSSettingMinProtocolError = class(ETaurusTLSAPICryptoError);
   /// <summary>
   /// Raised if SSL_CTX_set_max_proto_version failed.
   /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
+  /// SSL_CTX_set_min_proto_version
+  /// </seealso>
   ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSAPICryptoError);
 
   /// <summary>
