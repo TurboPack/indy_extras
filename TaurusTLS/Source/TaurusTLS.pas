@@ -397,23 +397,51 @@ type
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   /// <summary><c>OnDebugMessage</c> event</summary>
+  /// <param name="ASender">The object that triggers the event.</param>
+  /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
+  /// <param name="AVersion">TLS version of packet.</param>
+  /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
+  /// <param name="buf">The contents of the packet.</param>
+  /// <param name="SSL">The SSL object where the event occurred.</param>
   TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
     AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
     SSL: PSSL) of object;
   /// <summary><c>OnStatusInfo</c> event</summary>
+  /// <param name="ASender">The object that triggers the event.</param>
+  /// <param name="AsslSocket">The PSSL value associated with the event.</param>
+  /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
+  /// <param name="Aret">A value indicating a particular message</param>
+  /// <param name="AType">The AWhere value represented as a string</param>
+  /// <param name="AMsg">The Aret value represented as a string</param>
   TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
   /// <summary><c>OnSecurityLevel</c> event</summary>
+  /// <param name="ASender">The object that triggers the event.</param>
+  /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
+  /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
+  /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
+  /// <param name="bits">Number of security bits the cipher has.</param>
+  /// <param name="ACipher">The name of the cipher.</param>
+  /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
   TSecurityEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipher: String;
     out VAccepted: Boolean) of object;
   /// <summary><c>OnGetPassword</c> event</summary>
+  /// <param name="ASender">The object that triggers the event.</param>
+  /// <param name="VPassword">Return value indicating the password.</param>
+  /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
   TPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
   /// <summary><c>OnVerifyPeer</c> event</summary>
+  /// <param name="Certificate">The certificate to be validated.</param>
+  /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
+  /// <param name="ADepth">The maximum depth of.</param>
+  /// <param name="AError">The validation error if the certificate failed validation.</param>
+  /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
   TVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
     const ADepth, AError: Integer): Boolean of object;
   /// <summary><c>OnBeforeConnectz</c> and <c>OnSSLNegotiated</c> events</summary>
+  /// <param name="ASender">The object that triggers the event.</param>
   TIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
 
   { TTaurusTLSSSLOptions }
