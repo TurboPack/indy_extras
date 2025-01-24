@@ -372,7 +372,7 @@ const
   DEF_VERIFY_HOSTNAME = False;
 
 type
-  /// <summary>TLS version reported in the TMsgCallbackEvent callback type.</summary>
+  /// <summary>TLS version reported in the TOnDebugMessageEvent callback type.</summary>
   TTaurusMsgCBVer = (
     /// <summary>SSL 3.0 header</summary>
     verSSL3Header,
@@ -403,7 +403,7 @@ type
   /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
   /// <param name="buf">The contents of the packet.</param>
   /// <param name="SSL">The SSL object where the event occurred.</param>
-  TMsgCallbackEvent = procedure(ASender: TObject; const AWrite: Boolean;
+  TOnDebugMessageEvent = procedure(ASender: TObject; const AWrite: Boolean;
     AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
     SSL: PSSL) of object;
   /// <summary><c>OnStatusInfo</c> event</summary>
@@ -413,7 +413,7 @@ type
   /// <param name="Aret">A value indicating a particular message</param>
   /// <param name="AType">The AWhere value represented as a string</param>
   /// <param name="AMsg">The Aret value represented as a string</param>
-  TCallbackExEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
+  TOnStatusEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
   /// <summary><c>OnSecurityLevel</c> event</summary>
   /// <param name="ASender">The object that triggers the event.</param>
@@ -423,14 +423,14 @@ type
   /// <param name="bits">Number of security bits the cipher has.</param>
   /// <param name="ACipher">The name of the cipher.</param>
   /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
-  TSecurityEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
+  TOnSecurityLevelEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipher: String;
     out VAccepted: Boolean) of object;
   /// <summary><c>OnGetPassword</c> event</summary>
   /// <param name="ASender">The object that triggers the event.</param>
   /// <param name="VPassword">Return value indicating the password.</param>
   /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
-  TPasswordEvent = procedure(ASender: TObject; var VPassword: String;
+  TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
   /// <summary><c>OnVerifyPeer</c> event</summary>
   /// <param name="Certificate">The certificate to be validated.</param>
@@ -438,11 +438,11 @@ type
   /// <param name="ADepth">The maximum depth of.</param>
   /// <param name="AError">The validation error if the certificate failed validation.</param>
   /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
-  TVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
+  TOnVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
     const ADepth, AError: Integer): Boolean of object;
   /// <summary><c>OnBeforeConnectz</c> and <c>OnSSLNegotiated</c> events</summary>
   /// <param name="ASender">The object that triggers the event.</param>
-  TIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
+  TOnIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
 
   { TTaurusTLSSSLOptions }
   /// <summary>Class that provides properties that effect TLS.
@@ -824,14 +824,14 @@ type
     fSSLOptions: TTaurusTLSSSLOptions;
     fSSLSocket: TTaurusTLSSocket;
     // fPeerCert: TTaurusTLSX509;
-    FOnDebugMessage: TMsgCallbackEvent;
-    FOnStatusInfo: TCallbackExEvent;
-    fOnGetPassword: TPasswordEvent;
-    fOnSecurityLevel: TSecurityEvent;
-    fOnVerifyPeer: TVerifyPeerEvent;
+    FOnDebugMessage: TOnDebugMessageEvent;
+    FOnStatusInfo: TOnStatusEvent;
+    fOnGetPassword: TOnGetPasswordEvent;
+    fOnSecurityLevel: TOnSecurityLevelEvent;
+    fOnVerifyPeer: TOnVerifyPeerEvent;
     // fSSLLayerClosed: Boolean;
-    fOnBeforeConnect: TIOHandlerNotify;
-    FOnSSLNegotiated: TIOHandlerNotify;
+    fOnBeforeConnect: TOnIOHandlerNotify;
+    FOnSSLNegotiated: TOnIOHandlerNotify;
     // function GetPeerCert: TTaurusTLSX509;
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
@@ -933,7 +933,7 @@ type
     /// Occurs before TLS negotiation begins.
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
-    property OnBeforeConnect: TIOHandlerNotify read fOnBeforeConnect
+    property OnBeforeConnect: TOnIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     /// <summary>
     ///   The SSL Context for the TTaurusTLSIOHandlerSocket.
@@ -952,7 +952,7 @@ type
     /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
     /// <param name="buf">The contents of the packet.</param>
     /// <param name="SSL">The SSL object where the event occurred.</param>
-    property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
+    property OnDebugMessage: TOnDebugMessageEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
     /// <summary>
@@ -960,7 +960,7 @@ type
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
     ///
-    property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
+    property OnSSLNegotiated: TOnIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
     /// <summary>Properties that effect TLS.
     /// </summary>
@@ -975,7 +975,7 @@ type
     /// <param name="Aret">A value indicating a particular message</param>
     /// <param name="AType">The AWhere value represented as a string</param>
     /// <param name="AMsg">The Aret value represented as a string</param>
-    property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
+    property OnStatusInfo: TOnStatusEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
     /// Occurs when a password is required.
@@ -983,7 +983,7 @@ type
     /// <param name="ASender">The object that triggers the event.</param>
     /// <param name="VPassword">Return value indicating the password.</param>
     /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
-    property OnGetPassword: TPasswordEvent read fOnGetPassword
+    property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
     /// Occurs when a connection attempt is made.
@@ -995,7 +995,7 @@ type
     /// <param name="bits">Number of security bits the cipher has.</param>
     /// <param name="ACipher">The name of the cipher.</param>
     /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
-    property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
+    property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
     /// Occurs when a certificate is presented for validation.
@@ -1005,7 +1005,7 @@ type
     /// <param name="ADepth">The maximum depth of.</param>
     /// <param name="AError">The validation error if the certificate failed validation.</param>
     /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
-    property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
+    property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
 
@@ -1016,12 +1016,12 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fSSLOptions: TTaurusTLSSSLOptions;
     fSSLContext: TTaurusTLSContext;
-    FOnSSLNegotiated: TIOHandlerNotify;
-    FOnStatusInfo: TCallbackExEvent;
-    fOnSecurityLevel: TSecurityEvent;
-    fOnGetPassword: TPasswordEvent;
-    FOnDebugMessage: TMsgCallbackEvent;
-    fOnVerifyPeer: TVerifyPeerEvent;
+    FOnSSLNegotiated: TOnIOHandlerNotify;
+    FOnStatusInfo: TOnStatusEvent;
+    fOnSecurityLevel: TOnSecurityLevelEvent;
+    fOnGetPassword: TOnGetPasswordEvent;
+    FOnDebugMessage: TOnDebugMessageEvent;
+    fOnVerifyPeer: TOnVerifyPeerEvent;
     //
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     // procedure CreateSSLContext;
@@ -1122,7 +1122,7 @@ type
     /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
     /// <param name="buf">The contents of the packet.</param>
     /// <param name="SSL">The SSL object where the event occurred.</param>
-    property OnDebugMessage: TMsgCallbackEvent read FOnDebugMessage
+    property OnDebugMessage: TOnDebugMessageEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
     /// <summary>Properties that effect TLS.
@@ -1133,7 +1133,7 @@ type
     /// Occurs when TLS negotiation is concluded.
     /// </summary>
     /// <param name="ASender">The object that triggers the event.</param>
-    property OnSSLNegotiated: TIOHandlerNotify read FOnSSLNegotiated
+    property OnSSLNegotiated: TOnIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
     /// <summary>
     /// Occurs when there is a status message.
@@ -1144,7 +1144,7 @@ type
     /// <param name="Aret">A value indicating a particular message</param>
     /// <param name="AType">The AWhere value represented as a string</param>
     /// <param name="AMsg">The Aret value represented as a string</param>
-    property OnStatusInfo: TCallbackExEvent read FOnStatusInfo
+    property OnStatusInfo: TOnStatusEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
     /// Occurs when a password is required.
@@ -1152,7 +1152,7 @@ type
     /// <param name="ASender">The object that triggers the event.</param>
     /// <param name="VPassword">Return value indicating the password.</param>
     /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
-    property OnGetPassword: TPasswordEvent read fOnGetPassword
+    property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
     /// Occurs when a connection attempt is made.
@@ -1164,7 +1164,7 @@ type
     /// <param name="bits">Number of security bits the cipher has.</param>
     /// <param name="ACipher">The name of the cipher.</param>
     /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
-    property OnSecurityLevel: TSecurityEvent read fOnSecurityLevel
+    property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
     /// Occurs when a certificate is presented for validation.
@@ -1174,7 +1174,7 @@ type
     /// <param name="ADepth">The maximum depth of.</param>
     /// <param name="AError">The validation error if the certificate failed validation.</param>
     /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
-    property OnVerifyPeer: TVerifyPeerEvent read fOnVerifyPeer
+    property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
 
