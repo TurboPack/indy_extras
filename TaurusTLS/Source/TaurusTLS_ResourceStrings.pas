@@ -31,6 +31,8 @@ resourcestring
   ROSSLAPIFunctionNotPresent = 'TaurusTLS API Function/Procedure %s not found in SSL Library';
   ROSUnrecognisedLibName = 'Unrecognised SSL Library name (%s)';
   ROSCertificateNotAddedToStore = 'Unable to add X.509 Certificate to cert store';
+  RSOSSLMinProtocolError = 'SSL_CTX_set_min_proto_version error';
+  RSOSSLMaxProtocolError = 'SSL_CTX_set_max_proto_version error';
   ROSUnsupported = 'Not Supported';
   //callback where strings
   RSOSSLAlert =  '%s Alert';
@@ -49,8 +51,10 @@ resourcestring
   {IdSSLTaurusTLSFIPS}
   RSOSSLEVPDigestExError = 'EVP_DigestInit_ex error';
   RSOSSLEVPDigestUpdateError = 'EVP_DigestUpdate error';
-  RSOSSLMinProtocolError = 'SSL_CTX_set_min_proto_version error';
-  RSOSSLMaxProtocolError = 'SSL_CTX_set_max_proto_version error';
+  RSOSSLEVPDigestError = 'EVP_DigestFinal_ex error';
+  RSOSSLHMACInitExError = 'HMAC_Init_ex error';
+  RSOSSLHMACUpdateError = 'HMAC_Update error';
+  RSOSSLHMACFinalError = 'HMAC_Final error';
 
 implementation
 

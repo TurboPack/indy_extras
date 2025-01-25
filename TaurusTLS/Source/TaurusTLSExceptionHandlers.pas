@@ -152,6 +152,35 @@ type
     class procedure RaiseException(const functionName: string);
   end;
 
+  /// <summary>
+  ///   Anscestor of exceptions that are raised if an HMAC* functions fail.
+  /// </summary>
+  ETaurusTLSHMACError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the HMAC_Init_ex function failed.
+  /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
+  /// HMAC_Init_ex
+  /// </seealso>
+  ETaurusTLSHMACInitEx = class(ETaurusTLSHMACError);
+  /// <summary>
+  ///   Raised if the HMAC_Update function failed.
+  /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
+  /// HMAC_Update
+  /// </seealso>
+  ETaurusTLSHMACUpdate = class(ETaurusTLSHMACError);
+  /// <summary>
+  ///   Raised if the HMAC_Final function failed.
+  /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
+  /// HMAC_Final
+  /// </seealso>
+  ETaurusTLSHMACFinal = class(ETaurusTLSHMACError);
+
 implementation
 
 uses TaurusTLSHeaders_err, IdGlobal, TaurusTLSHeaders_ssl,

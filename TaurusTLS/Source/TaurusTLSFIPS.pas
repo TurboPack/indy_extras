@@ -69,6 +69,29 @@ begin
   {$ENDIF}
 end;
 
+//**************** Digest Common Code *********************
+
+function TaurusTLSGetDigestCtx( AInst : PEVP_MD) : TIdHashIntCtx;
+  {$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+  Result := EVP_MD_CTX_new;
+
+  if EVP_DigestInit_ex(Result, AInst, nil) <> 1 then begin
+    ETaurusTLSDigestInitEx.RaiseException(RSOSSLEVPDigestExError);
+  end;
+end;
+
+//**************** HMAC Common Code ***********************
+
+function TaurusTLSHMACInit(const AKey : TIdBytes; AInst : PEVP_MD) : TIdHMACIntCtx;
+  {$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+  Result := HMAC_CTX_new;
+  if HMAC_Init_ex(Result, PByte(AKey), Length(AKey), AInst, nil) <> 1 then begin
+    ETaurusTLSHMACInitEx.RaiseException(RSOSSLHMACInitExError);
+  end;
+end;
+
 //**************** FIPS Support backend *******************
 
 function TaurusTLSIsHashingIntfAvail : Boolean;
@@ -94,16 +117,6 @@ begin
     Result := FIPS_mode_set(1) = 1;
   end else begin
     Result := FIPS_mode_set(0) = 1;
-  end;
-end;
-
-function TaurusTLSGetDigestCtx( AInst : PEVP_MD) : TIdHashIntCtx;
-  {$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := EVP_MD_CTX_new;
-
-  if EVP_DigestInit_ex(Result, AInst, nil) <> 1 then begin
-    ETaurusTLSDigestInitEx.RaiseException(RSOSSLEVPDigestExError);
   end;
 end;
 
