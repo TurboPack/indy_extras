@@ -1308,6 +1308,22 @@ type
   /// </seealso>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
+  ///  Raised if <c>SSL_write_ex2</c> fails.
+  /// </summary>
+ /// <seealso
+  /// href="https://docs.openssl.org/3.3/man3/SSL_write/">
+  /// SSL_write_ex2
+  /// </seealso>
+  ETaurusTLSWriteEx2Error = class(ETaurusTLSAPISSLError);
+  /// <summary>
+  ///  Raised if <c>SSL_read_ex</c> fails.
+  /// </summary>
+ /// <seealso
+  /// href="https://docs.openssl.org/3.0/man3/SSL_read/">
+  /// SSL_read_ex
+  /// </seealso>
+  ETaurusTLSReadExError = class(ETaurusTLSAPISSLError);
+  /// <summary>
   /// Raised if the Certificate Common Name does not match the specified
   /// hostname.
   /// </summary>
@@ -3578,9 +3594,9 @@ begin
     end;
     if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      Result := LRead;
+      ETaurusTLSReadExError.RaiseExceptionCode(LErr,LRet,'SSL_read_ex failed');
     end;
-    Break;
+    break;
   until False;
 end;
 
@@ -3617,9 +3633,9 @@ begin
     end
     else
     begin
-      Result := LWritten;
+      ETaurusTLSWriteEx2Error.RaiseExceptionCode(LErr,LRet,'SSL_write_ex2 failed');
     end;
-    Break;
+    break;
   until False;
 end;
 
