@@ -727,13 +727,15 @@ type
     /// <param name="ABuffer">Buffer to encrypt and send.</param>
     /// <param name="AOffset">Offset into buffer.</param>
     /// <param name="ALength">number of bytes to send.</param>
+    /// <returns>Number of bytes sent.</returns>
     function Send(const ABuffer: TIdBytes; const AOffset, ALength: TIdC_SIZET)
       : TIdC_SIZET;
     /// <summary>Receives bytes that after they have been decrypted.</summary>
     /// <param name="VBuffer">The buffer for bytes read</param>
     /// <returns>The number of bytes read.</returns>
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
-    /// <summary>Session ID as a string</summary>
+    /// <summary>The Session ID as a string</summary>
+    /// <returns>Session ID</returns>
     function GetSessionIDAsString: String;
     /// <summary>OpenSSL SSL object.</summary>
     property SSL: PSSL read fSSL;
@@ -2175,10 +2177,6 @@ begin
     inherited AssignTo(Destination);
   end;
 end;
-
-/// ////////////////////////////////////////////////////
-// TTaurusTLSServerIOHandler
-/// ////////////////////////////////////////////////////
 
 { TTaurusTLSServerIOHandler }
 
