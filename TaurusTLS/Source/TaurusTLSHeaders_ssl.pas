@@ -3541,8 +3541,8 @@ function SSL_CTX_set_split_send_fragment(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_L
 function SSL_set_split_send_fragment(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
 function SSL_CTX_set_max_pipelines(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
 function SSL_set_max_pipelines(ssl : PSSL; m : TIdC_LONG) : TIdC_LONG;
-function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
-function SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer) : TIdC_LONG;
+procedure SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer);
+procedure SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer);
 function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
 function SSL_CTX_get_mode(ctx : PSSL_CTX) : TIdC_LONG;
 function SSL_clear_mode(ssl : PSSL; op : TIdC_LONG) : TIdC_LONG;
@@ -3680,16 +3680,16 @@ begin
   Result := SSL_ctrl(ssl, SSL_CTRL_SET_MAX_PIPELINES, m, nil);
 end;
 
-function SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer) : TIdC_LONG;
+procedure SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
 end;
 
-function SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer) : TIdC_LONG;
+procedure SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := SSL_ctrl(ssl, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+  SSL_ctrl(ssl, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
 end;
 
 function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
