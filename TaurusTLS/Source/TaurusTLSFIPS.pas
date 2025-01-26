@@ -292,7 +292,7 @@ var
 begin
   SetLength(Result,EVP_MAX_MD_SIZE);
   if EVP_DigestFinal_ex(ACtx, PByte(@Result[0]), LLen) <> 1 then begin
-    ETaurusTLSDigestFinalEx.RaiseException('EVP_DigestFinal_ex error');
+    ETaurusTLSDigestFinalEx.RaiseException(RSOSSLEVPDigestError);
   end;
   SetLength(Result,LLen);
   EVP_MD_CTX_free(PEVP_MD_CTX(ACtx));
@@ -333,8 +333,7 @@ begin
   {$IFDEF OPENSSL_NO_MD5}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_md5, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_md5);
   {$ENDIF}
 end;
 
@@ -356,8 +355,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_sha1, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_sha1);
   {$ENDIF}
 end;
 
@@ -380,8 +378,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_sha224, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_sha224);
   {$ENDIF}
 end;
 
@@ -403,8 +400,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_sha256, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_sha256);
   {$ENDIF}
 end;
 
@@ -426,8 +422,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_sha384, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_sha384);
   {$ENDIF}
 end;
 
@@ -449,14 +444,15 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  Result := HMAC_CTX_new;
-  HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_sha512, nil);
+  Result := TaurusTLSHMACInit(AKey, EVP_sha512);
   {$ENDIF}
 end;
 
 procedure TaurusTLSUpdateHMACInst(ACtx : TIdHMACIntCtx; const AIn: TIdBytes);
 begin
-  HMAC_Update(ACtx, PByte(AIn), Length(AIn));
+  if HMAC_Update(ACtx, PByte(AIn), Length(AIn)) <> 1 then begin
+    ETaurusTLSHMACUpdate.RaiseException(RSOSSLHMACUpdateError);
+  end;
 end;
 
 function TaurusTLSFinalHMACInst(ACtx: TIdHMACIntCtx): TIdBytes;
@@ -465,7 +461,9 @@ var
 begin
   LLen := EVP_MAX_MD_SIZE;
   SetLength(Result,LLen);
-  HMAC_Final(ACtx, PByte(@Result[0]), @LLen);
+  if HMAC_Final(ACtx, PByte(@Result[0]), @LLen) <> 1 then begin
+   ETaurusTLSHMACFinal.RaiseException(RSOSSLHMACFinalError);
+  end;
   SetLength(Result,LLen);
   HMAC_CTX_free(ACtx);
 end;

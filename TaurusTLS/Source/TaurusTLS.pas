@@ -1224,7 +1224,7 @@ type
   /// </summary>
   ETaurusTLSSessionCanNotBeNil = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if SSL_SESSION_get_protocol_version returned in invalid value.
+  /// Raised if <c>SSL_SESSION_get_protocol_version</c> returned in invalid value.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_SESSION_get_protocol_version/">
@@ -1233,7 +1233,7 @@ type
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
 
   /// <summary>
-  /// Raised if SSL_new failed.
+  /// Raised if <c>SSL_new</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_new/">
@@ -1241,53 +1241,53 @@ type
   /// </seealso>
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if SSL_CTX_new_ex failed.
+  /// Raised if <c>SSL_CTX_new_ex</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_new/">SSL_CTX_new_ex
   /// </seealso>
-  ETaurusTLSCreatingContextError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSCreatingContextError = class(ETaurusTLSError);
   /// <summary>
   /// Raised if the Root Certificate files failed to load.
   /// </summary>
-  ETaurusTLSLoadingRootCertError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSLoadingRootCertError = class(ETaurusTLSError);
   /// <summary>
   /// Raised if the Certificate failed to load.
   /// </summary>
-  ETaurusTLSLoadingCertError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSLoadingCertError = class(ETaurusTLSError);
   /// <summary>
   /// Raised if the private key failed to load.
   /// </summary>
-  ETaurusTLSLoadingKeyError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSLoadingKeyError = class(ETaurusTLSError);
   /// <summary>
   /// Raised if DH parameters file failed to load.
   /// </summary>
-  ETaurusTLSLoadingDHParamsError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSLoadingDHParamsError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if SSL_CTX_set_cipher_list failed.
+  /// Raised if <c>SSL_CTX_set_cipher_list</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_cipher_list/">
   /// SSL_CTX_set_cipher_list
   /// </seealso>
-  ETaurusTLSSettingCipherError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSSettingCipherError = class(ETaurusTLSError);
 
   /// <summary>
-  /// Raised if SSL_set_fd failed.
+  /// Raised if <c>SSL_set_fd</c> failed.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_set_fd/">
   /// SSL_set_fd
   /// </seealso>
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if SSL_set_app_data failed.
+  /// Raised if <c>SSL_set_app_data</c> failed.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/BIO_get_ex_new_index/">
   /// SSL_set_app_data
   /// </seealso>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if SSL_accept fails.
+  /// Raised if <c>SSL_accept</c> fails.
   /// </summary>
  /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_accept/">
@@ -1295,7 +1295,7 @@ type
   /// </seealso>
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if the SSL_Connect fails.
+  /// Raised if the <c>SSL_Connect</c> fails.
   /// </summary>
  /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_connect/">
@@ -1306,10 +1306,10 @@ type
   /// Raised if the Certificate Common Name does not match the specified
   /// hostname.
   /// </summary>
-  ETaurusTLSCertificateError = class(ETaurusTLSAPISSLError);
+  ETaurusTLSCertificateError = class(ETaurusTLSError);
 {$IFNDEF OPENSSL_NO_TLSEXT}
   /// <summary>
-  /// Raised if SSL_set_tlsext_host_name failed.
+  /// Raised if <c>SSL_set_tlsext_host_name</c> failed.
   /// </summary>
  /// <seealso
   /// href="https://docs.openssl.org/master/man3/SSL_CTX_set_tlsext_servername_callback/#description">
@@ -1318,22 +1318,37 @@ type
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
   /// <summary>
-  /// Raised if SSL_CTX_set_min_proto_version failed.
+  /// Raised if <c>SSL_CTX_set_min_proto_version</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
   /// SSL_CTX_set_max_proto_version
   /// </seealso>
-  ETaurusTLSSettingMinProtocolError = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSSettingMinProtocolError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if SSL_CTX_set_max_proto_version failed.
+  /// Raised if <c>SSL_CTX_set_max_proto_version</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
   /// SSL_CTX_set_min_proto_version
   /// </seealso>
-  ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSAPICryptoError);
-
+  ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSError);
+  /// <summary>
+  ///  Raised if <c>X509_STORE_add_cert</c> failed.
+  ///</summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/master/man3/X509_STORE_add_cert/">
+  /// X509_STORE_add_cert
+  /// </seealso>
+  ETaurusTLSCertNotAddedToStore = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if <c>SSL_copy_session_id</c> failed.
+  /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.0/man7/ssl/">
+  /// SSL_copy_session_id
+  ///  </seealso>
+  ETaurusTLSSSLCopySessionId = class(ETaurusTLSError);
   /// <summary>
   /// Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
   /// TaurusTLS statically.
@@ -2994,8 +3009,7 @@ begin
           (ERR_GET_REASON(ERR_get_error) <> X509_R_CERT_ALREADY_IN_HASH_TABLE)
         then
         begin
-          ETaurusTLSAPICryptoError.RaiseException
-            (ROSCertificateNotAddedToStore);
+          ETaurusTLSCertNotAddedToStore.RaiseExceptionCode(Lerror,ROSCertificateNotAddedToStore);
         end;
         X509_free(LX509Cert);
       end;
@@ -3056,7 +3070,7 @@ begin
   fContext := SSL_CTX_new_ex(nil, nil, GetSSLMethod);
   if fContext = nil then
   begin
-    ETaurusTLSCreatingContextError.RaiseException(RSSSLCreatingContextError);
+    ETaurusTLSCreatingContextError.RaiseWithMessage(RSSSLCreatingContextError);
   end;
 
   // set SSL Versions we will use
@@ -3065,12 +3079,12 @@ begin
     if SSL_CTX_set_min_proto_version(fContext, SSLProtoVersion[fMinTLSVersion]
       ) = 0 then
     begin
-      ETaurusTLSSettingMinProtocolError.RaiseException(RSOSSLMinProtocolError);
+      ETaurusTLSSettingMinProtocolError.RaiseWithMessage(RSOSSLMinProtocolError);
     end;
     // Maximum version is always TLS 1.3.
     if SSL_CTX_set_max_proto_version(fContext, TLS1_3_VERSION) = 0 then
     begin
-      ETaurusTLSSettingMaxProtocolError.RaiseException(RSOSSLMaxProtocolError);
+      ETaurusTLSSettingMaxProtocolError.RaiseWithMessage(RSOSSLMaxProtocolError);
     end;
   end;
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
@@ -3094,7 +3108,7 @@ begin
     if not IndySSL_CTX_load_verify_locations(fContext, RootCertFile,
       VerifyDirs) > 0 then
     begin
-      ETaurusTLSLoadingRootCertError.RaiseException(RSSSLLoadingRootCertError);
+      ETaurusTLSLoadingRootCertError.RaiseWithMessage(RSSSLLoadingRootCertError);
     end;
   end;
 
@@ -3126,7 +3140,7 @@ begin
     end;
     if not LRes then
     begin
-      ETaurusTLSLoadingCertError.RaiseException(RSSSLLoadingCertError);
+      ETaurusTLSLoadingCertError.RaiseWithMessage(RSSSLLoadingCertError);
     end;
   end;
 
@@ -3148,7 +3162,7 @@ begin
     end;
     if not LRes then
     begin
-      ETaurusTLSLoadingKeyError.RaiseException(RSSSLLoadingKeyError);
+      ETaurusTLSLoadingKeyError.RaiseWithMessage(RSSSLLoadingKeyError);
     end;
   end;
   if DHParamsFile <> '' then
@@ -3156,7 +3170,7 @@ begin
     if not IndySSL_CTX_use_DHparams_file(fContext, fsDHParamsFile,
       SSL_FILETYPE_PEM) > 0 then
     begin
-      ETaurusTLSLoadingDHParamsError.RaiseException(RSSSLLoadingDHParamsError);
+      ETaurusTLSLoadingDHParamsError.RaiseWithMessage(RSSSLLoadingDHParamsError);
     end;
   end;
   SSL_CTX_set_security_level(fContext, FSecurityLevel);
@@ -3210,7 +3224,7 @@ begin
   end;
   if LError <= 0 then
   begin
-    ETaurusTLSSettingCipherError.RaiseException(RSSSLSettingCipherError);
+    ETaurusTLSSettingCipherError.RaiseWithMessage(RSSSLSettingCipherError);
   end;
   if fVerifyMode <> [] then
   begin
@@ -3399,7 +3413,7 @@ procedure TTaurusTLSSocket.Accept(const pHandle: TIdStackSocketHandle);
 
 // Accept and Connect have a lot of duplicated code
 var
-  LError: Integer;
+  LRetCode: Integer;
   // LParentIO: TTaurusTLSIOHandlerSocket;
   // LHelper: ITaurusTLSCallbackHelper;
 begin
@@ -3410,18 +3424,18 @@ begin
   begin
     raise ETaurusTLSCreatingSessionError.Create(RSSSLCreatingSessionError);
   end;
-  LError := SSL_set_app_data(fSSL, Self);
-  if LError <= 0 then
+  LRetCode := SSL_set_app_data(fSSL, Self);
+  if LRetCode <= 0 then
   begin
-    ETaurusTLSDataBindingError.RaiseException(fSSL, LError,
+    ETaurusTLSDataBindingError.RaiseException(fSSL, LRetCode,
       RSSSLDataBindingError);
   end;
   // ignore warning about 64-bit value being passed to a 32bit parameter.
   // See: https://docs.openssl.org/3.0/man3/SSL_set_fd/#return-values
-  LError := SSL_set_fd(fSSL, pHandle);
-  if LError <= 0 then
+  LRetCode := SSL_set_fd(fSSL, pHandle);
+  if LRetCode <= 0 then
   begin
-    ETaurusTLSFDSetError.RaiseException(fSSL, LError, RSSSLFDSetError);
+    ETaurusTLSFDSetError.RaiseException(fSSL, LRetCode, RSSSLFDSetError);
   end;
   // RLebeau: if this socket's IOHandler was cloned, no need to reuse the
   // original IOHandler's active session ID, since this is a server socket
@@ -3437,17 +3451,17 @@ begin
     SSL_copy_session_id(fSSL, LParentIO.fSSLSocket.fSSL);
     end;
   }
-  LError := SSL_accept(fSSL);
-  if LError <= 0 then
+  LRetCode := SSL_accept(fSSL);
+  if LRetCode <= 0 then
   begin
-    ETaurusTLSAcceptError.RaiseException(fSSL, LError, RSSSLAcceptError);
+    ETaurusTLSAcceptError.RaiseException(fSSL, LRetCode, RSSSLAcceptError);
   end;
   fSession := SSL_get1_session(fSSL);
 end;
 
 procedure TTaurusTLSSocket.Connect(const pHandle: TIdStackSocketHandle);
 var
-  LError: Integer;
+  LRetCode: Integer;
   LParentIO: TTaurusTLSIOHandlerSocket;
   LHelper: ITaurusTLSCallbackHelper;
 
@@ -3472,45 +3486,47 @@ begin
   begin
     raise ETaurusTLSCreatingSessionError.Create(RSSSLCreatingSessionError);
   end;
-  LError := SSL_set_app_data(fSSL, Self);
-  if LError <= 0 then
+  LRetCode := SSL_set_app_data(fSSL, Self);
+  if LRetCode <= 0 then
   begin
-    ETaurusTLSDataBindingError.RaiseException(fSSL, LError,
+    ETaurusTLSDataBindingError.RaiseException(fSSL, LRetCode,
       RSSSLDataBindingError);
   end;
   // ignore 64 value passed to 32bit parameter.
   // see: https://docs.openssl.org/3.0/man3/SSL_set_fd/#return-values
-  LError := SSL_set_fd(fSSL, pHandle);
-  if LError <= 0 then
+  LRetCode := SSL_set_fd(fSSL, pHandle);
+  if LRetCode <= 0 then
   begin
-    ETaurusTLSFDSetError.RaiseException(fSSL, LError, RSSSLFDSetError);
+    ETaurusTLSFDSetError.RaiseException(fSSL, LRetCode, RSSSLFDSetError);
   end;
   // RLebeau: if this socket's IOHandler was cloned, reuse the
   // original IOHandler's active session ID...
   if (LParentIO <> nil) and (LParentIO.SSLSocket <> nil) and
     (LParentIO.SSLSocket <> Self) then
   begin
-    SSL_copy_session_id(fSSL, LParentIO.SSLSocket.SSL);
+    if SSL_copy_session_id(fSSL, LParentIO.SSLSocket.SSL) <> 1 then
+    begin
+      ETaurusTLSSSLCopySessionId.RaiseWithMessage(RSOSSLCopySessionIdError);
+    end;
   end;
 {$IFNDEF OPENSSL_NO_TLSEXT}
   { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
     first character to the hostname is passed }
-  LError := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(AnsiString(fHostName)));
-  if LError <= 0 then
+  LRetCode := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(AnsiString(fHostName)));
+  if LRetCode <= 0 then
   begin
     ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, error,
       RSSSLSettingTLSHostNameError);
   end;
 {$ENDIF}
-  LError := SSL_connect(fSSL);
-  if LError <= 0 then
+  LRetCode := SSL_connect(fSSL);
+  if LRetCode <= 0 then
   begin
     // TODO: if sslv23 is being used, but sslv23 is not being used on the
     // remote side, SSL_connect() will fail. In that case, before giving up,
     // try re-connecting using a version-specific method for each enabled
     // version, maybe one will succeed...
-    LError := SSL_get_error(fSSL, LError);
-    ETaurusTLSConnectError.RaiseException(fSSL, LError, RSSSLConnectError);
+    ETaurusTLSConnectError.RaiseException(fSSL, LRetCode, RSSSLConnectError);
   end;
   fSession := SSL_get1_session(fSSL);
   // TODO: even if SSL_connect() returns success, the connection might
@@ -3533,8 +3549,7 @@ begin
       if (X509_check_host(Lpeercert, PAnsiChar(lHostName), Length(lHostName), 0,
         nil) <> 1) then
       begin
-        ETaurusTLSCertificateError.RaiseException(fSSL, error,
-          'SSL certificate does not match host name');
+        ETaurusTLSCertificateError.RaiseWithMessage(RSOSSLCertificateDoesNotMatch);
       end;
 
     finally

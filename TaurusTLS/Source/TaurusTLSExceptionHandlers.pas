@@ -24,7 +24,14 @@ type
   /// <summary>
   ///   Anscestor for all exceptions that are raised in TaurusTLS.
   /// </summary>
-  ETaurusTLSError               = class(EIdException);
+  ETaurusTLSError               = class(EIdException)
+  public
+    /// <summary>Raises the exception class.</summary>
+    /// <param name="AMsg">
+    ///   The error message to display.
+    /// </param>
+    class procedure RaiseWithMessage(const AMsg : String);
+  end;
 
   /// <summary>
   ///   Anscestor of exceptions that are raised when a LibSSL function fails.
@@ -303,6 +310,15 @@ begin
   LException := Create(LErrStr + String(GetErrorMessage(AErrCode)));
   LException.FErrorCode := AErrCode;
   LException.FRetCode := ARetCode;
+  raise LException;
+end;
+
+{ ETaurusTLSError }
+
+class procedure ETaurusTLSError.RaiseWithMessage(const AMsg: String);
+var LException : ETaurusTLSError;
+begin
+  LException := Create(AMsg);
   raise LException;
 end;
 
