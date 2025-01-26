@@ -276,6 +276,7 @@ begin
     var
       LBuf: array [0 .. 1024] of TIdAnsiChar;
 {$ENDIF}
+    FillChar(LBuf, 1024, 0);
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
     Result := String(LBuf);
   end

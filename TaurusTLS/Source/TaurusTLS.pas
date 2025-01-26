@@ -996,6 +996,7 @@ type
     /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
     /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
     /// <param name="bits">Number of security bits the cipher has.</param>
+      /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
     /// <param name="ACipher">The name of the cipher.</param>
     /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
@@ -1165,6 +1166,7 @@ type
     /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
     /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
     /// <param name="bits">Number of security bits the cipher has.</param>
+      /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
     /// <param name="ACipher">The name of the cipher.</param>
     /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel

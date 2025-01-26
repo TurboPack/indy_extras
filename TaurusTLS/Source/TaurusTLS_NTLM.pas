@@ -139,6 +139,7 @@ begin
 
   FillChar(lm_hpw[16], 5, 0);
 
+  FillChar(lm_resp[0], 23, 0);
   calc_resp(PDes_cblock(@lm_hpw[0]), ANonce, Pdes_key_schedule(@lm_resp[0]));
 
   SetLength(Result, SizeOf(lm_resp));
@@ -179,6 +180,7 @@ begin
   Move(Lnt_hpw128[0], Lnt_hpw[1], 16);
   FillChar(Lnt_hpw[17], 5, 0);
 
+  FillChar(Lnt_resp[1],20,0);
   calc_resp(pdes_cblock(@Lnt_hpw[1]), ANonce, Pdes_key_schedule(@Lnt_resp[1]));
 
   SetLength(Result, SizeOf(Lnt_resp));

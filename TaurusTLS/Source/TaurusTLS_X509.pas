@@ -1045,6 +1045,7 @@ begin
   begin
     X509_get0_signature(Fsignature, Fsig_alg, FX509);
   end;
+  lalgorithm := nil;
   X509_ALGOR_get0(@lalgorithm, nil, nil, Fsig_alg);
   Result := ASN1_OBJECT_ToStr(lalgorithm);
 end;
