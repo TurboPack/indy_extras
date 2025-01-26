@@ -421,10 +421,11 @@ type
   /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
   /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
   /// <param name="bits">Number of security bits the cipher has.</param>
+  /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
   /// <param name="ACipher">The name of the cipher.</param>
   /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
   TOnSecurityLevelEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
-    ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipher: String;
+    ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid : TIdC_INT; const ACipher: String;
     out VAccepted: Boolean) of object;
   /// <summary><c>OnGetPassword</c> event</summary>
   /// <param name="ASender">The object that triggers the event.</param>
@@ -803,10 +804,10 @@ type
     /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
     /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
     /// <param name="bits">Number of security bits the cipher has.</param>
-    /// <param name="ACipher">The name of the cipher.</param>
+    /// <param name="ACipherNid">The Numberic Identifier (NID) of the cipher.</param>
     /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
-      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
+      const op, bits: TIdC_INT; const ACipherNid: TIdC_INT; out VAccepted: Boolean);
     /// <summary>
     ///   Called to obtain this instance as a TTaurusTLSIOHandlerSocket.
     /// </summary>
@@ -860,7 +861,7 @@ type
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
-      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
+      const op, bits: TIdC_INT; const ACipherNid: TIdC_INT; out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 {$IFNDEF GETURIHOST_SUPPORTED}
     function GetProxyTargetHost: string;
@@ -1038,7 +1039,7 @@ type
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
-      const op, bits: TIdC_INT; const ACipher: String; out VAccepted: Boolean);
+      const op, bits: TIdC_INT; const ACipherNid: TIdC_INT; out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 
   public
@@ -1564,8 +1565,7 @@ begin
       if Supports(TTaurusTLSContext(ex).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
       begin
-        LHelper.SecurityLevelCB(s, ctx, op, bits,
-          String(OBJ_nid2ln(nid)), LRes);
+        LHelper.SecurityLevelCB(s, ctx, op, bits, nid, LRes);
       end
       else
       begin
@@ -2376,13 +2376,13 @@ begin
 end;
 
 procedure TTaurusTLSServerIOHandler.SecurityLevelCB(const AsslSocket: PSSL;
-  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipher: String;
+  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
   out VAccepted: Boolean);
 begin
   VAccepted := False;
   if Assigned(fOnSecurityLevel) then
   begin
-    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipher, VAccepted);
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNid, String(OBJ_nid2ln(ACipherNid)), VAccepted);
   end;
 
 end;
@@ -2582,13 +2582,13 @@ begin
 end;
 
 procedure TTaurusTLSIOHandlerSocket.SecurityLevelCB(const AsslSocket: PSSL;
-  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipher: String;
+  ACtx: PSSL_CTX; const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
   out VAccepted: Boolean);
 begin
   VAccepted := False;
   if Assigned(fOnSecurityLevel) then
   begin
-    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipher, VAccepted);
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNID, String(OBJ_nid2ln(ACipherNid)), VAccepted);
   end;
 end;
 
