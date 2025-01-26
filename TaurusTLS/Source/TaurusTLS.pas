@@ -3546,8 +3546,8 @@ begin
         lHostName: AnsiString;
 {$ENDIF}
       lHostName := AnsiString(fHostName);
-      if (X509_check_host(Lpeercert, PAnsiChar(lHostName), Length(lHostName), 0,
-        nil) <> 1) then
+      if X509_check_host(Lpeercert, PAnsiChar(lHostName), Length(lHostName), 0,
+        nil) <> 1 then
       begin
         ETaurusTLSCertificateError.RaiseWithMessage(RSOSSLCertificateDoesNotMatch);
       end;

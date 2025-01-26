@@ -316,10 +316,8 @@ end;
 { ETaurusTLSError }
 
 class procedure ETaurusTLSError.RaiseWithMessage(const AMsg: String);
-var LException : ETaurusTLSError;
 begin
-  LException := Create(AMsg);
-  raise LException;
+  raise Create(AMsg);
 end;
 
 end.

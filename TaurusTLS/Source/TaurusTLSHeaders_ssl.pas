@@ -21764,37 +21764,6 @@ begin
     {$ifend}
   end;
 
-  SSL_CTX_set_client_CA_list := LoadLibFunction(ADllHandle, SSL_CTX_set_client_CA_list_procname);
-  FuncLoadError := not assigned(SSL_CTX_set_client_CA_list);
-  if FuncLoadError then
-  begin
-    {$if not defined(SSL_CTX_set_client_CA_list_allownil)}
-    SSL_CTX_set_client_CA_list := @ERR_SSL_CTX_set_client_CA_list;
-    {$ifend}
-    {$if declared(SSL_CTX_set_client_CA_list_introduced)}
-    if LibVersion < SSL_CTX_set_client_CA_list_introduced then
-    begin
-      {$if declared(FC_SSL_CTX_set_client_CA_list)}
-      SSL_CTX_set_client_CA_list := @FC_SSL_CTX_set_client_CA_list;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_CTX_set_client_CA_list_removed)}
-    if SSL_CTX_set_client_CA_list_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_CTX_set_client_CA_list)}
-      SSL_CTX_set_client_CA_list := @_SSL_CTX_set_client_CA_list;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_CTX_set_client_CA_list_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_CTX_set_client_CA_list');
-    {$ifend}
-  end;
-
   SSL_get_client_CA_list := LoadLibFunction(ADllHandle, SSL_get_client_CA_list_procname);
   FuncLoadError := not assigned(SSL_get_client_CA_list);
   if FuncLoadError then
@@ -23604,7 +23573,7 @@ begin
     {$ifend}
   end;
 
-  SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_get_current_compression_procname);
+  SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_COMP_get_compression_methods_procname);
   FuncLoadError := not assigned(SSL_get_current_compression);
   if FuncLoadError then
   begin
