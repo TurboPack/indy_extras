@@ -412,13 +412,11 @@ function Indy_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
 
 function by_Indy_unicode_file_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT;
   const argc: PAnsiChar; argl: TIdC_LONG; var ret: PAnsiChar): TIdC_INT; cdecl;
-var
-  LOk: TIdC_INT;
 {$IFNDEF USE_INLINE_VAR}
+var
   LFileName: String;
 {$ENDIF}
 begin
-  LOk := 0;
   case cmd of
     X509_L_FILE_LOAD:
       begin
@@ -459,8 +457,9 @@ begin
             TIdC_INT(argl)) <> 0);
         end;
       end;
+  else
+    Result := 0;
   end;
-  Result := LOk;
 end;
 
 function Indy_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
