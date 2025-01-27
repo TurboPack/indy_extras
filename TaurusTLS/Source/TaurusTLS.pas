@@ -426,7 +426,7 @@ type
   /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
   TOnSecurityLevelEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid : TIdC_INT; const ACipher: String;
-    out VAccepted: Boolean) of object;
+    var VAccepted: Boolean) of object;
   /// <summary><c>OnGetPassword</c> event</summary>
   /// <param name="ASender">The object that triggers the event.</param>
   /// <param name="VPassword">Return value indicating the password.</param>
@@ -1806,7 +1806,6 @@ var
   hSSL: PSSL;
   IdSSLSocket: TTaurusTLSSocket;
   // _str: String;
-  LVerifiedOK: Boolean;
   LDepth: Integer;
   LError: Integer;
   LPreverifyOK: TIdC_INT;
@@ -1822,7 +1821,6 @@ begin
   Result := preverify_ok;
   LockVerifyCB.Enter;
   try
-    LVerifiedOK := true;
     try
       hSSL := X509_STORE_CTX_get_app_data(x509_ctx);
       if Assigned(hSSL) then
@@ -1851,23 +1849,20 @@ begin
           if Supports(IdSSLSocket.Parent, ITaurusTLSCallbackHelper,
             IInterface(LHelper)) then
           begin
-            LVerifiedOK := LHelper.VerifyPeer(LCertificate, LOk,
-              LDepth, LError);
+            if LHelper.VerifyPeer(LCertificate, LOk,
+              LDepth, LError) then
+            begin
+              Result := 1;
+            end
+            else
+            begin
+              Result := 0;
+            end;
             LHelper := nil;
           end;
         finally
           FreeAndNil(LCertificate);
         end;
-        // if VerifiedOK and (Ok > 0) then begin
-        if LVerifiedOK { and (Ok > 0) } then
-        begin
-          Result := 1;
-        end
-        else
-        begin
-          Result := 0;
-        end;
-        // Result := Ok; // testing
       end;
     except
       // indicate failed
