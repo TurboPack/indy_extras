@@ -23573,36 +23573,6 @@ begin
     {$ifend}
   end;
 
-  SSL_COMP_get_compression_methods := LoadLibFunction(ADllHandle, SSL_COMP_get_compression_methods_procname);
-  FuncLoadError := not assigned(SSL_get_current_compression);
-  if FuncLoadError then
-  begin
-    {$if not defined(SSL_get_current_compression_allownil)}
-    SSL_get_current_compression := @ERR_SSL_get_current_compression;
-    {$ifend}
-    {$if declared(SSL_get_current_compression_introduced)}
-    if LibVersion < SSL_get_current_compression_introduced then
-    begin
-      {$if declared(FC_SSL_get_current_compression)}
-      SSL_get_current_compression := @FC_SSL_get_current_compression;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_current_compression_removed)}
-    if SSL_get_current_compression_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_current_compression)}
-      SSL_get_current_compression := @_SSL_get_current_compression;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_current_compression_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_current_compression');
-    {$ifend}
-  end;
   SSL_COMP_set0_compression_methods := LoadLibFunction(ADllHandle, SSL_COMP_set0_compression_methods_procname);
   FuncLoadError := not assigned(SSL_COMP_set0_compression_methods);
   if FuncLoadError then
