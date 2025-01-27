@@ -1628,8 +1628,7 @@ begin
     LockPassCB.Enter;
     try
 {$IFDEF USE_INLINE_VAR}
-      var
-        LPassword: String;
+      var LPassword: String;
 {$ENDIF}
       if Supports(TTaurusTLSContext(userdata).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
@@ -1665,7 +1664,6 @@ end;
 
 procedure InfoCallback(const SSLSocket: PSSL; where, ret: TIdC_INT); cdecl;
 var
-  LSocket: TTaurusTLSSocket;
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
 begin
@@ -1682,8 +1680,7 @@ begin
   try
     LockInfoCB.Enter;
     try
-      LSocket := TTaurusTLSSocket(SSL_get_app_data(SSLSocket));
-      if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
+      if Supports(TTaurusTLSSocket(SSL_get_app_data(SSLSocket)).Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
       then
       begin
         LHelper.StatusInfo(SSLSocket, where, ret);
@@ -1701,7 +1698,6 @@ procedure MsgCallback(write_p, Version, content_type: TIdC_INT;
   const buf: Pointer; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
 var
   LErr: Integer;
-  LSocket: TTaurusTLSSocket;
   LHelper: ITaurusTLSCallbackHelper;
 {$IFNDEF USE_INLINE_VAR}
   LBytes: TIdBytes;
@@ -1721,8 +1717,7 @@ begin
   try
     LockVerifyCB.Enter;
     try
-      LSocket := TTaurusTLSSocket(arg);
-      if Supports(LSocket.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
+      if Supports(TTaurusTLSSocket(arg).Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
       then
       begin
 {$IFDEF USE_INLINE_VAR}
