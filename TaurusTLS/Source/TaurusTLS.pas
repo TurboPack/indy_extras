@@ -1308,11 +1308,15 @@ type
   /// </seealso>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///  Raised if <c>SSL_write_ex2</c> fails.
+  ///  Raised if <c>SSL_write_ex2</c> or <c>SSL_write_ex</c> fails.
   /// </summary>
  /// <seealso
   /// href="https://docs.openssl.org/3.3/man3/SSL_write/">
   /// SSL_write_ex2
+  /// </seealso>
+ /// <seealso
+  /// href="https://docs.openssl.org/3.3/man3/SSL_write/">
+  /// SSL_write_ex
   /// </seealso>
   ETaurusTLSWriteEx2Error = class(ETaurusTLSAPISSLError);
   /// <summary>
