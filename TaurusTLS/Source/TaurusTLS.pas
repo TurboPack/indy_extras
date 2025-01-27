@@ -1612,11 +1612,12 @@ type
   TBytesPtr = ^TBytes;
 {$ENDIF}
 var
-{$IFNDEF USE_INLINE_VAR}
-  LPassword: String;
-{$ENDIF}
 {$IFDEF STRING_IS_UNICODE}
+  {$IFNDEF USE_INLINE_VAR}
   LBPassword: TIdBytes;
+  {$ENDIF}
+{$ELSE}
+  LPassword : String;
 {$ENDIF}
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
@@ -1627,32 +1628,40 @@ begin
   try
     LockPassCB.Enter;
     try
+      FillChar(buf^, size, 0);
 {$IFDEF USE_INLINE_VAR}
-      var LPassword: String;
+      var LBPassword: TIdBytes;
 {$ENDIF}
       if Supports(TTaurusTLSContext(userdata).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
       begin
+{$IFDEF STRING_IS_UNICODE}
+        LBPassword := IndyTextEncoding_OSDefault.GetBytes(LHelper.GetPassword(rwflag > 0));
+        LHelper := nil;
+        if Length(LBPassword) > 0 then
+        begin
+{$IFDEF USE_MARSHALLED_PTRS}
+          TMarshal.Copy(TBytesPtr(@LBPassword)^, 0, TPtrWrapper.Create(buf),
+            IndyMin(Length(LBPassword), size));
+{$ELSE}
+          Move(LBPassword[0], buf^, IndyMin(Length(LBPassword), size));
+{$ENDIF}
+        end;
+        Result := Length(LBPassword);
+{$ELSE}
+      {$IFDEF USE_INLINE_VAR}
+        var LPassword: String;
+      {$ENDIF}
         LPassword := LHelper.GetPassword(rwflag > 0);
         LHelper := nil;
-      end;
-      FillChar(buf^, size, 0);
-{$IFDEF STRING_IS_UNICODE}
-      LBPassword := IndyTextEncoding_OSDefault.GetBytes(LPassword);
-      if Length(LBPassword) > 0 then
+        StrPLCopy(buf, LPassword, size);
+        Result := Length(LPassword);
+{$ENDIF}
+      end
+      else
       begin
-{$IFDEF USE_MARSHALLED_PTRS}
-        TMarshal.Copy(TBytesPtr(@LBPassword)^, 0, TPtrWrapper.Create(buf),
-          IndyMin(Length(LBPassword), size));
-{$ELSE}
-        Move(LBPassword[0], buf^, IndyMin(Length(LBPassword), size));
-{$ENDIF}
+        Result := 0;
       end;
-      Result := Length(LBPassword);
-{$ELSE}
-      StrPLCopy(buf, LPassword, size);
-      Result := Length(LPassword);
-{$ENDIF}
       buf[size - 1] := #0; // RLebeau: truncate the password if needed
     finally
       LockPassCB.Leave;
