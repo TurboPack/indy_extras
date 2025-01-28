@@ -248,7 +248,7 @@ begin
   FPrivateKey := AIni.ReadString(AName, 'Private_Key', '');
   FPublicKey := AIni.ReadString(AName,'Public_Key','');
   FCAKey := AIni.ReadString(AName,'Certificate_Authority_Key','');
-  FSecurityLevel := AIni.ReadInteger(AName,'Security_Level',1);
+  FSecurityLevel := AIni.ReadInteger(AName,'Security_Level',2);
 end;
 
 procedure TFTPSite.Save(AIni: TIniFile);

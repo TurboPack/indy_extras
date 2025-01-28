@@ -346,9 +346,9 @@ object frmConnect: TfrmConnect
           Width = 301
           Height = 23
           Style = csDropDownList
-          ItemIndex = 1
+          ItemIndex = 2
           TabOrder = 3
-          Text = '1 - Accept only 80 security bits or greater'
+          Text = '2 - Accept only 112 security bits or greater'
           Items.Strings = (
             '0 - Accept everything'
             '1 - Accept only 80 security bits or greater'
