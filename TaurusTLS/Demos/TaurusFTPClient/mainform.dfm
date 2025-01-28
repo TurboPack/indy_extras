@@ -3184,8 +3184,9 @@ object frmMainForm: TfrmMainForm
     DefaultPort = 0
     ReadTimeout = 60000
     SSLOptions.Mode = sslmUnassigned
-    SSLOptions.VerifyMode = [sslvrfPeer, sslvrfClientOnce]
+    SSLOptions.VerifyMode = [sslvrfPeer]
     SSLOptions.VerifyDepth = 2
+    SSLOptions.VerifyHostname = True
     Left = 624
     Top = 306
   end
