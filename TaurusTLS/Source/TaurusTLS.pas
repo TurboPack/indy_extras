@@ -366,8 +366,14 @@ const
   DEF_MIN_TLSVERSION = TLSv1_2;
   /// <summary>The maximum TLS version supported by this library.</summary>
   MAX_SSLVERSION = TLSv1_3;
-  /// <summary>The default value for TSLLOptions.SecurityLevel property.</summary>
-  DEF_SECURITY_LEVEL = 1;
+  /// <summary>
+  ///   The default value for TSLLOptions.SecurityLevel property.
+  /// </summary>
+  /// <seealso
+  /// cref="https://docs.openssl.org/3.2/man3/SSL_CTX_set_security_level/#notes">
+  ///   https://docs.openssl.org/3.2/man3/SSL_CTX_set_security_level/#notes
+  /// </seealso>
+  DEF_SECURITY_LEVEL = 2;
   /// <summary>The default value for TSLLOptions.VerifyHostname property.</summary>
   DEF_VERIFY_HOSTNAME = False;
 
