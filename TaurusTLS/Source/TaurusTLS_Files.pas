@@ -438,9 +438,9 @@ begin
               begin
                 LFileName := String(X509_get_default_cert_file);
               end;
-              LOk := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
+              Result := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
                 X509_FILETYPE_PEM) <> 0);
-              if LOk = 0 then
+              if Result = 0 then
               begin
                 X509err(X509_F_BY_FILE_CTRL, X509_R_LOADING_DEFAULTS);
               end;
@@ -448,12 +448,12 @@ begin
           X509_FILETYPE_PEM:
             begin
               LFileName := PWideChar(Pointer(argc));
-              LOk := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
+              Result := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
                 X509_FILETYPE_PEM) <> 0);
             end;
         else
           LFileName := PWideChar(Pointer(argc));
-          LOk := Ord(Indy_unicode_X509_load_cert_file(ctx, LFileName,
+          Result := Ord(Indy_unicode_X509_load_cert_file(ctx, LFileName,
             TIdC_INT(argl)) <> 0);
         end;
       end;
