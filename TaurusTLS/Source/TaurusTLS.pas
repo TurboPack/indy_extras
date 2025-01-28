@@ -366,9 +366,9 @@ const
   DEF_MIN_TLSVERSION = TLSv1_2;
   /// <summary>The maximum TLS version supported by this library.</summary>
   MAX_SSLVERSION = TLSv1_3;
-  /// <summary>The default OpenSSL security level.</summary>
-  DEF_SECURITY_LEVEL = 1;
   /// <summary>The default value for TSLLOptions.SecurityLevel property.</summary>
+  DEF_SECURITY_LEVEL = 1;
+  /// <summary>The default value for TSLLOptions.VerifyHostname property.</summary>
   DEF_VERIFY_HOSTNAME = False;
 
 type
@@ -3800,7 +3800,7 @@ SSLIsLoaded := TIdThreadSafeBoolean.Create;
 
 {$I TaurusTLSSymbolDeprecatedOff.inc}
 RegisterSSL('TaurusTLS', 'TaurusTLS Developers', { do not localize }
-  'Copyright ' + Char(169) + ' 2014'#10#13 + { do not localize }
+  'Copyright ' + Char(169) + ' 2025'#10#13 + { do not localize }
   'TaurusTLS Developers. All rights reserved.', { do not localize }
   'Open SSL 1.1.1 and 3.x DLL Delphi and C++Builder interface',
   { do not localize }
