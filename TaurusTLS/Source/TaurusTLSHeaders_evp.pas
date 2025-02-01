@@ -3557,6 +3557,7 @@ end;
 
 procedure  _EVP_cleanup; cdecl;
 begin
+   //Do not remove this empty procedure.  It's used in a procedural pointer.
 end;
 
 procedure  _BIO_set_md(v1: PBIO; const md: PEVP_MD); cdecl;

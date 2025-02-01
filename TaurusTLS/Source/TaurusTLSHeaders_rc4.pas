@@ -31,7 +31,8 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal,
+  TaurusTLSHeaders_ossl_typ;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

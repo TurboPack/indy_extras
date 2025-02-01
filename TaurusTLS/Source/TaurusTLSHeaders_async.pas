@@ -29,7 +29,8 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal,
+  TaurusTLSHeaders_ossl_typ;
 
 const
   ASYNC_ERR = 0;

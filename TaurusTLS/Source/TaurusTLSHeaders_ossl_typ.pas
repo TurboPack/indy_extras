@@ -23,6 +23,9 @@ unit TaurusTLSHeaders_ossl_typ;
 
 interface
 
+{$i TaurusTLSCompilerDefines.inc}
+{$i TaurusTLSLinkDefines.inc}
+
 // Headers for OpenSSL 1.1.1
 // ossl_typ.h
 
@@ -31,6 +34,93 @@ uses
   IdCTypes,
   IdGlobal;
 
+{$I TaurusTLSIndyVers.inc}
+{$IFDEF TIdC_SIZET_UNDEF}
+type
+  {$IFDEF HAS_SIZE_T}
+  TIdC_SIZET = size_t;
+  {$ELSE}
+    {$IFDEF HAS_PtrUInt}
+  TIdC_SIZET = PtrUInt;
+    {$ELSE}
+      {$IFDEF CPU32}
+  TIdC_SIZET = TIdC_UINT32;
+      {$ENDIF}
+      {$IFDEF CPU64}
+  TIdC_SIZET = TIdC_UINT64;
+      {$ENDIF}
+    {$ENDIF}
+  {$ENDIF}
+  {$IFDEF HAS_PSIZE_T}
+  PIdC_SIZET = psize_t;
+  {$ELSE}
+  PIdC_SIZET = ^TIdC_SIZET;
+  {$ENDIF}
+  {$IFDEF HAS_SSIZE_T}
+  TIdC_SSIZET = ssize_t;
+  {$ELSE}
+    {$IFDEF HAS_PtrInt}
+  TIdC_SSIZET = PtrInt;
+    {$ELSE}
+      {$IFDEF CPU32}
+  TIdC_SSIZET = TIdC_INT32;
+      {$ENDIF}
+      {$IFDEF CPU64}
+  TIdC_SSIZET = TIdC_INT64;
+      {$ENDIF}
+    {$ENDIF}
+  {$ENDIF}
+  {$IFDEF HAS_PSSIZE_T}
+  // in ptypes.inc, pssize_t is missing, but pSSize is present, and it is defined as ^ssize_t...
+  PIdC_SSIZET = {pssize_t}pSSize;
+  {$ELSE}
+  PIdC_SSIZET = ^TIdC_SSIZET;
+  {$ENDIF}
+  {$IFDEF HAS_TIME_T}
+  TIdC_TIMET = time_t;
+  {$ELSE}
+    {$IFDEF HAS_PtrInt}
+  TIdC_TIMET = PtrInt;
+    {$ELSE}
+      {$IFDEF CPU32}
+  TIdC_TIMET = TIdC_INT32;
+      {$ENDIF}
+      {$IFDEF CPU64}
+  TIdC_TIMET = TIdC_INT64;
+      {$ENDIF}
+    {$ENDIF}
+  {$ENDIF}
+  {$IFDEF HAS_PTIME_T}
+  PIdC_TIMET = ptime_t;
+  {$ELSE}
+  PIdC_TIMET = ^TIdC_TIMET;
+  {$ENDIF}
+  {$IFNDEF HAS_PByte}PByte = ^Byte;{$ENDIF}
+    PPByte = ^PByte;
+  PPPByte = ^PPByte;
+  PPIdC_INT = ^PIdC_INT;
+
+  {$IFDEF HAS_PPAnsiChar}
+  PPIdAnsiChar = PPAnsiChar;
+  {$ELSE}
+  PPIdAnsiChar = ^PIdAnsiChar;
+  {$ENDIF}
+  PPPIdAnsiChar = ^PPIdAnsiChar;
+
+  TIdC_TM = record
+    tm_sec: TIdC_INT;         (* seconds,  range 0 to 59          *)
+    tm_min: TIdC_INT;         (* minutes, range 0 to 59           *)
+    tm_hour: TIdC_INT;        (* hours, range 0 to 23             *)
+    tm_mday: TIdC_INT;        (* day of the month, range 1 to 31  *)
+    tm_mon: TIdC_INT;         (* month, range 0 to 11             *)
+    tm_year: TIdC_INT;        (* The number of years since 1900   *)
+    tm_wday: TIdC_INT;        (* day of the week, range 0 to 6    *)
+    tm_yday: TIdC_INT;        (* day in the year, range 0 to 365  *)
+    tm_isdst: TIdC_INT;       (* daylight saving time             *)
+  end;
+  PIdC_TM = ^TIdC_TM;
+  PPIdC_TM = ^PIdC_TM;
+{$ENDIF}
 type
 // moved from unit "asn1" to prevent circular references
   asn1_string_st = record

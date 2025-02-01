@@ -225,6 +225,21 @@ begin
   end;
 end;
 
+{$IFDEF UTCTimeToLocalTime_UNDEF}
+function UTCTimeToLocalTime(const Value: TDateTime): TDateTime;
+begin
+  {$IFDEF HAS_UniversalTimeToLocal}
+  Result := UniversalTimeToLocal(Value);
+  {$ELSE}
+    {$IFDEF HAS_DateUtils_TTimeZone}
+  Result := TTimeZone.Local.ToLocalTime(Value);
+    {$ELSE}
+  Result := Value + OffsetFromUTC;
+    {$ENDIF}
+  {$ENDIF}
+end;
+{$ENDIF}
+
 function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
@@ -265,16 +280,18 @@ begin
 end;
 
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
+type
+  TBa = array [0..1024] of TIdAnsiChar;
 {$IFNDEF USE_INLINE_VAR}
 var
-  LBuf: array [0 .. 1024] of TIdAnsiChar;
+  LBuf: TBa;
 {$ENDIF}
 begin
   if Assigned(a) then
   begin
 {$IFDEF USE_INLINE_VAR}
     var
-      LBuf: array [0 .. 1024] of TIdAnsiChar;
+      LBuf: TBa;
 {$ENDIF}
     FillChar(LBuf, 1024, 0);
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
@@ -412,14 +429,16 @@ function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 var
   LIPv6: TIdIPv6Address;
   i: Integer;
+type
+  TBa = array of byte;
 begin
   Result := '';
   if Assigned(a) then
   begin
     if a._Length = 4 then
     begin
-      Result := IntToStr(a.data[0]) + '.' + IntToStr(a.data[1]) + '.' +
-        IntToStr(a.data[2]) + '.' + IntToStr(a.data[3]);
+      Result := IntToStr(TBa(a.data)[0]) + '.' + IntToStr(TBa(a.data)[1]) + '.' +
+        IntToStr(TBa(a.data)[2]) + '.' + IntToStr(TBa(a.data)[3]);
     end
     else
     begin
@@ -428,7 +447,7 @@ begin
 
         for i := 0 to 7 do
         begin
-          LIPv6[i] := (a.data[i * 2] shl 8) + (a.data[(i * 2) + 1]);
+          LIPv6[i] := (TBa(a.data)[i * 2] shl 8) + (TBa(a.data)[(i * 2) + 1]);
         end;
         Result := IdGlobal.IPv6AddressToStr(LIPv6);
       end;

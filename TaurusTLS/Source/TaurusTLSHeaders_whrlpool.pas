@@ -29,7 +29,8 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal,
+  TaurusTLSHeaders_ossl_typ;
 
 const
   WHIRLPOOL_DIGEST_LENGTH = 512 div 8;

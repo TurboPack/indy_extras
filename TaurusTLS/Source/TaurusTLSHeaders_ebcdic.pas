@@ -30,7 +30,8 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal,
+  TaurusTLSHeaders_ossl_typ;
 
 
   //extern const unsigned char os_toascii[256];

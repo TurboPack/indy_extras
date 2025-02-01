@@ -30,7 +30,8 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal,
+  TaurusTLSHeaders_ossl_typ;
 
 const
 // Added '_CONST' to avoid name clashes

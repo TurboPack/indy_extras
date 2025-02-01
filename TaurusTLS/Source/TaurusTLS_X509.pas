@@ -1139,7 +1139,8 @@ function TTaurusTLSX509.GetDisplayInfo: TStrings;
 var
   LMem: PBIO;
   LLen: TIdC_INT;
-  LBufPtr: PIdAnsiChar;
+  LBufPtr : Pointer;
+//  LBufPtr: PIdAnsiChar;
 begin
   if not Assigned(FDisplayInfo) then
   begin
@@ -1163,7 +1164,7 @@ begin
               // in Delphi 6.  So, converting to TIdBytes until I find a better solution...
               RawToBytes(LBufPtr^, LLen)
 {$ELSE}
-              PByte(LBufPtr), LLen
+              LBufPtr, LLen
 {$ENDIF}
               );
           end;

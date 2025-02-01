@@ -19,6 +19,33 @@ interface
 uses
   Classes, IdGlobal, IdCTypes;
 
+{$I TaurusTLSIndyVers.inc}
+{$IFDEF TIdC_SIZET_UNDEF}
+type
+  {$IFDEF FPC}
+  // TODO: use the THANDLE_(32|64|CPUBITS) defines in IdCompilerDefines.inc to decide
+  // how to define TIdLibHandle when not using the DynLibs unit?
+  TIdLibHandle = {DynLibs.TLibHandle}{$IFDEF WINDOWS}PtrUInt{$ELSE}PtrInt{$ENDIF};
+  {$ELSE}
+  TIdLibHandle = THandle;
+  {$ENDIF}
+
+  {$IFDEF WINCE}
+  TIdLibFuncName = TIdUnicodeString;
+  PIdLibFuncNameChar = PWideChar;
+  {$ELSE}
+  TIdLibFuncName = String;
+  PIdLibFuncNameChar = PChar;
+  {$ENDIF}
+
+const
+  {$IFDEF FPC}
+  IdNilHandle = {DynLibs.NilHandle}{$IFDEF WINDOWS}PtrUInt(0){$ELSE}PtrInt(0){$ENDIF};
+  {$ELSE}
+  IdNilHandle = THandle(0);
+  {$ENDIF}
+{$ENDIF}
+
 type
   { IOpenSSLLoader }
 
@@ -129,6 +156,10 @@ procedure Register_SSLLoader(LoadProc: TOpenSSLLoadProc;
 /// </remarks>
 procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 
+{$IFDEF TIdLibHandle_UNDEF}
+function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
+{$ENDIF}
+
 implementation
 
 uses
@@ -185,6 +216,13 @@ begin
 end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+
+{$IFDEF TIdLibHandle_UNDEF}
+function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
+begin
+  Result := {$IFDEF WINDOWS}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
+end;
+{$ENDIF}
 
 type
 
