@@ -35,7 +35,7 @@ requires
   vcl;
 
 contains
-  TaurusTLS_Dsn_ResourceStrings in '..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas',
-  TaurusTLS_Dsn_AboutDlg in '..\..\Source\TaurusTLS_Dsn_AboutDlg.pas';
+  TaurusTLS_Dsn_AboutDlg in '..\..\..\Source\TaurusTLS_Dsn_AboutDlg.pas',
+  TaurusTLS_Dsn_ResourceStrings in '..\..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas';
 
 end.
