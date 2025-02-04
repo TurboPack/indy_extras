@@ -119,20 +119,20 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.3;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.4;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>4</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.3;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.4;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>4</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64x)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.3;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.4;InternalName=;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>4</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
@@ -284,11 +284,8 @@
                     <Source Name="MainSource">TaurusTLS_RTForIndy290.dpk</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k290.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp290.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclIPIndyImpl290.bpl">IP Abstraction Indy Implementation Design Time</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclemsedge290.bpl">Embarcadero RAD Server Edge Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="5">
@@ -432,6 +429,16 @@
                     </Platform>
                     <Platform Name="Android64">
                         <RemoteDir>res\values-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV35">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v35</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v35</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
