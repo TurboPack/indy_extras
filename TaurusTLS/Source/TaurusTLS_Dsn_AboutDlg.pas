@@ -104,17 +104,6 @@ begin
     lblCopyright.Caption := RSCopyright;
     lblCopyright.ParentFont := False;
     lblCopyright.Layout := tlCenter;
-    lblAllRightsReserved.Name := 'lblAllRightsReserved';
-    lblAllRightsReserved.Parent := frmAbout;
-    lblAllRightsReserved.Left := 8;
-    lblAllRightsReserved.Top := 117;
-    lblAllRightsReserved.Width := LLabelWidth;
-    lblAllRightsReserved.Height := 17;
-    lblAllRightsReserved.Alignment := taCenter;
-    lblAllRightsReserved.Anchors := [akLeft, akTop, akRight];
-    lblAllRightsReserved.AutoSize := False;
-    lblAllRightsReserved.Caption := RSAllRightsReserved;
-    lblAllRightsReserved.ParentFont := False;
     btnOk.Name := 'btnOk';
     btnOk.Parent := frmAbout;
     btnOk.Left := 347;

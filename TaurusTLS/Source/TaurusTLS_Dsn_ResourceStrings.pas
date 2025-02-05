@@ -13,7 +13,7 @@ interface
 
 resourcestring
   RSTaurusTLS = 'TaurusTLS';
-  RSAAboutMenuItemName = 'About T&aurusTLS %s...';
+  RSAAboutMenuItemName = '&About TaurusTLS %s...';
   RSTaurusTLSDescription =
     'TaurusTLS provides OpenSSL 1.1 and 3.x support for Indy - Internet Direct.';
   RSTAurusAboutBoxLicences = 'Taurus Modified BSD License' + #13#10 +
@@ -21,8 +21,7 @@ resourcestring
   RSLicense = 'TaurusTLS is dual licensed. You can review which license ' +
     'better suits your needs, and use that license.  See LICENSE.md ' +
     'for details.';
-  RSCopyright = 'Copyright (c) 2024 TaurusTLS Developers';
-  RSAllRightsReserved = 'All Rights Reserved';
+  RSCopyright = 'Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.';
   RSThirdPartyAcknowlegements = '&Third-Party Acknowlegements...';
   RSOk = 'OK';
 

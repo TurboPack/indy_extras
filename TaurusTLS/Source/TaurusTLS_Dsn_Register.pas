@@ -86,8 +86,7 @@ begin
     AboutBoxIndex := AboutBoxServices.AddPluginInfo(
       gsTaurusTLSProductName + ' ' + gsTaurusTLSVersion,
       RSTaurusTLSDescription + sLineBreak + sLineBreak
-        + RSCopyright + sLineBreak
-        + RSAllRightsReserved + sLineBreak + sLineBreak
+        + RSCopyright + sLineBreak + sLineBreak
         + RSIndyPortionsOf + RSIndyPortionsOfTwo + sLineBreak
         + RSIndyRedistributionOf + sLineBreak + sLineBreak
         + RSDisclaimerCondOne + sLineBreak + slineBreak
