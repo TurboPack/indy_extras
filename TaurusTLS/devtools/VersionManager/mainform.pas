@@ -1,5 +1,9 @@
 unit mainform;
+{
+Copyright (c) 2025 J. Peter Mugaas.  All Rights Reserved.
 
+Licensed under the Modified TaurusTLS BSD Licence or MPL 1.1.
+}
 interface
 
 uses
@@ -14,21 +18,19 @@ type
     spnedtRelease: TSpinEdit;
     spnedtBuild: TSpinEdit;
     lblMajorVersion: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
+    lblMinorVersion: TLabel;
+    lblRelease: TLabel;
+    lblBuild: TLabel;
     edtCompanyName: TEdit;
-    Label1: TLabel;
+    lblCompanyName: TLabel;
     edtCopyright: TEdit;
     lblCopyright: TLabel;
     btnGenerateFiles: TButton;
     edtProductName: TEdit;
-    Label5: TLabel;
+    lblProductName: TLabel;
     procedure btnGenerateFilesClick(Sender: TObject);
   private
     { Private declarations }
-    procedure ReadIniFile;
-    procedure WriteIniFile;
   public
     { Public declarations }
     constructor Create(AOwner : TComponent);  override;
@@ -57,26 +59,14 @@ begin
     spnMinorVersion.Value,
     spnedtRelease.Value,
     spnedtBuild.Value,
-    edtProductName.Text,
     edtCompanyName.Text,
     edtCopyright.Text);
 end;
 
 constructor TfrmMainForm.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  ReadIniFile;
-end;
-
-destructor TfrmMainForm.Destroy;
-begin
-  WriteIniFile;
-  inherited;
-end;
-
-procedure TfrmMainForm.ReadIniFile;
 var LIni : TIniFile;
 begin
+  inherited Create(AOwner);
    Lini := TIniFile.Create( ChangeFileExt(ParamStr(0),'.ini'));
    try
      spnMajorVersion.Value := Lini.ReadInteger('Version','major',1);
@@ -91,7 +81,7 @@ begin
    end;
 end;
 
-procedure TfrmMainForm.WriteIniFile;
+destructor TfrmMainForm.Destroy;
 var LIni : TIniFile;
 begin
    Lini := TIniFile.Create( ChangeFileExt(ParamStr(0),'.ini'));
@@ -106,7 +96,7 @@ begin
    finally
      FreeAndNil(Lini);
    end;
-
+  inherited;
 end;
 
 end.

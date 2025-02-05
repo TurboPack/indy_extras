@@ -446,7 +446,7 @@
   // is largely not UnicodeString-enabled yet.  Maybe we should enable
   // {$MODE DelphiUnicode} anyway, and then deal with any RTL function issues
   // on an as-needed basis...
-  {$MODE Delphi}
+{/$MODE Delphi}
   {$IFDEF FPC_2_7_1_OR_ABOVE}
     {.$MODE DelphiUnicode}
     {.$MODESWITCH UnicodeStrings}

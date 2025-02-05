@@ -2,7 +2,7 @@ object frmMainForm: TfrmMainForm
   Left = 0
   Top = 0
   Caption = 'frmMainForm'
-  ClientHeight = 441
+  ClientHeight = 280
   ClientWidth = 624
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,41 +12,41 @@ object frmMainForm: TfrmMainForm
   Font.Style = []
   DesignSize = (
     624
-    441)
+    280)
   TextHeight = 15
   object lblMajorVersion: TLabel
     Left = 16
     Top = 16
-    Width = 72
+    Width = 75
     Height = 15
-    Caption = 'Ma&jor Version'
+    Caption = 'Ma&jor Version:'
     FocusControl = spnMajorVersion
   end
-  object Label2: TLabel
+  object lblMinorVersion: TLabel
     Left = 168
     Top = 16
-    Width = 73
+    Width = 76
     Height = 15
-    Caption = 'M&inor Version'
+    Caption = 'M&inor Version:'
     FocusControl = spnMinorVersion
   end
-  object Label3: TLabel
+  object lblRelease: TLabel
     Left = 320
     Top = 16
-    Width = 39
+    Width = 42
     Height = 15
-    Caption = '&Release'
+    Caption = '&Release:'
     FocusControl = spnedtRelease
   end
-  object Label4: TLabel
+  object lblBuild: TLabel
     Left = 472
     Top = 16
-    Width = 27
+    Width = 30
     Height = 15
-    Caption = '&Build'
+    Caption = '&Build:'
     FocusControl = spnedtBuild
   end
-  object Label1: TLabel
+  object lblCompanyName: TLabel
     Left = 16
     Top = 144
     Width = 90
@@ -57,17 +57,17 @@ object frmMainForm: TfrmMainForm
   object lblCopyright: TLabel
     Left = 16
     Top = 200
-    Width = 53
+    Width = 56
     Height = 15
-    Caption = '&Copyright'
+    Caption = '&Copyright:'
     FocusControl = edtCopyright
   end
-  object Label5: TLabel
+  object lblProductName: TLabel
     Left = 16
     Top = 83
-    Width = 87
+    Width = 90
     Height = 15
-    Caption = 'lblProductName'
+    Caption = 'lblProductName:'
   end
   object spnMajorVersion: TSpinEdit
     Left = 16
@@ -116,6 +116,7 @@ object frmMainForm: TfrmMainForm
     Height = 23
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 5
+    ExplicitWidth = 575
   end
   object edtCopyright: TEdit
     Left = 16
@@ -124,15 +125,18 @@ object frmMainForm: TfrmMainForm
     Height = 23
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 6
+    ExplicitWidth = 575
   end
   object btnGenerateFiles: TButton
     Left = 16
     Top = 248
     Width = 153
     Height = 25
+    Anchors = [akLeft, akBottom]
     Caption = '&Generate Files'
     TabOrder = 7
     OnClick = btnGenerateFilesClick
+    ExplicitTop = 240
   end
   object edtProductName: TEdit
     Left = 16
@@ -140,6 +144,5 @@ object frmMainForm: TfrmMainForm
     Width = 577
     Height = 23
     TabOrder = 4
-    Text = 'edtProductName'
   end
 end
