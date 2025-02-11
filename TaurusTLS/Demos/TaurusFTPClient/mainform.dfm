@@ -1770,6 +1770,8 @@ object frmMainForm: TfrmMainForm
       item
         Width = 50
       end>
+    ExplicitTop = 372
+    ExplicitWidth = 735
   end
   object pnlLog: TPanel
     Left = 0
@@ -1779,6 +1781,8 @@ object frmMainForm: TfrmMainForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 281
+    ExplicitWidth = 735
     object redtLog: TRichEdit
       Left = 0
       Top = 0
@@ -1797,6 +1801,7 @@ object frmMainForm: TfrmMainForm
       TabOrder = 0
       WantReturns = False
       WordWrap = False
+      ExplicitWidth = 735
     end
   end
   object tbrMainProgram: TToolBar
@@ -1810,6 +1815,7 @@ object frmMainForm: TfrmMainForm
     GradientEndColor = 1182475
     Images = vimglstMainProgram
     TabOrder = 0
+    ExplicitWidth = 735
     object ToolButton5: TToolButton
       Left = 0
       Top = 0
@@ -1862,6 +1868,8 @@ object frmMainForm: TfrmMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 735
+    ExplicitHeight = 189
     object Splitter1: TSplitter
       Left = 286
       Top = 0
@@ -1883,6 +1891,7 @@ object frmMainForm: TfrmMainForm
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      ExplicitHeight = 189
       DesignSize = (
         286
         198)
@@ -1949,6 +1958,8 @@ object frmMainForm: TfrmMainForm
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitWidth = 438
+      ExplicitHeight = 189
       DesignSize = (
         444
         198)
@@ -2009,6 +2020,7 @@ object frmMainForm: TfrmMainForm
         Enabled = False
         TabOrder = 0
         OnKeyDown = cboRemoteCurrentDirKeyDown
+        ExplicitWidth = 367
       end
     end
   end

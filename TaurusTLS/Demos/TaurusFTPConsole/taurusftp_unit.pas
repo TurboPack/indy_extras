@@ -652,8 +652,8 @@ procedure TFTPApplication.CmdDebugInfo;
 begin
 {$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
-  WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
-    IntToStr(Lo(GetRTLVersion)));
+ // WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
+ //   IntToStr(Lo(GetRTLVersion)));
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);

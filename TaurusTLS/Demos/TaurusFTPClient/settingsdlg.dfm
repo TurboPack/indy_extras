@@ -3,8 +3,8 @@ object frmSettings: TfrmSettings
   Top = 108
   BorderStyle = bsDialog
   Caption = 'Settings'
-  ClientHeight = 382
-  ClientWidth = 508
+  ClientHeight = 373
+  ClientWidth = 502
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBtnText
@@ -18,13 +18,15 @@ object frmSettings: TfrmSettings
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 508
-    Height = 348
+    Width = 502
+    Height = 339
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 5
     ParentColor = True
     TabOrder = 0
+    ExplicitWidth = 508
+    ExplicitHeight = 348
     object PageControl1: TPageControl
       Left = 5
       Top = 5
@@ -34,18 +36,19 @@ object frmSettings: TfrmSettings
       Align = alClient
       Images = VirtualImageList1
       TabOrder = 0
+      ExplicitWidth = 504
       object tbshtFont: TTabSheet
         Caption = 'F&ont'
         ImageIndex = 1
         ImageName = 'libre-gui-font'
         DesignSize = (
-          490
-          308)
+          484
+          299)
         object redtLog: TRichEdit
           Left = 13
           Top = 55
-          Width = 458
-          Height = 94
+          Width = 446
+          Height = 85
           TabStop = False
           Anchors = [akLeft, akTop, akRight, akBottom]
           Font.Charset = ANSI_CHARSET
@@ -71,7 +74,7 @@ object frmSettings: TfrmSettings
         end
         object redtTextSamples: TRichEdit
           Left = 13
-          Top = 155
+          Top = 146
           Width = 156
           Height = 150
           TabStop = False
@@ -90,12 +93,14 @@ object frmSettings: TfrmSettings
         end
         object ScrollBox1: TScrollBox
           Left = 175
-          Top = 155
-          Width = 296
+          Top = 146
+          Width = 284
           Height = 150
           VertScrollBar.Position = 13
           Anchors = [akLeft, akRight, akBottom]
           TabOrder = 3
+          ExplicitTop = 155
+          ExplicitWidth = 296
           object lblErrors: TLabel
             Left = 16
             Top = 26
@@ -216,8 +221,8 @@ object frmSettings: TfrmSettings
         Caption = '&FTP Settings'
         ImageName = 'libre-gui-idea'
         DesignSize = (
-          490
-          308)
+          484
+          299)
         object lblTransferType: TLabel
           Left = 18
           Top = 13
@@ -243,7 +248,7 @@ object frmSettings: TfrmSettings
         object cboTransferTypes: TComboBox
           Left = 92
           Top = 13
-          Width = 382
+          Width = 370
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -255,7 +260,7 @@ object frmSettings: TfrmSettings
         object chklbAdvancedOptions: TCheckListBox
           Left = 92
           Top = 51
-          Width = 382
+          Width = 370
           Height = 97
           Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
@@ -325,8 +330,8 @@ object frmSettings: TfrmSettings
   end
   object Panel2: TPanel
     Left = 0
-    Top = 348
-    Width = 508
+    Top = 339
+    Width = 502
     Height = 34
     Align = alBottom
     BevelOuter = bvNone
@@ -338,11 +343,13 @@ object frmSettings: TfrmSettings
     ParentColor = True
     ParentFont = False
     TabOrder = 1
+    ExplicitTop = 348
+    ExplicitWidth = 508
     DesignSize = (
-      508
+      502
       34)
     object OKBtn: TButton
-      Left = 347
+      Left = 335
       Top = 2
       Width = 75
       Height = 25
@@ -351,9 +358,10 @@ object frmSettings: TfrmSettings
       Default = True
       ModalResult = 1
       TabOrder = 0
+      ExplicitLeft = 347
     end
     object CancelBtn: TButton
-      Left = 428
+      Left = 416
       Top = 2
       Width = 75
       Height = 25
@@ -362,6 +370,7 @@ object frmSettings: TfrmSettings
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 1
+      ExplicitLeft = 428
     end
   end
   object ImageCollection1: TImageCollection

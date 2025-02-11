@@ -10,21 +10,21 @@
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <CursorPos X="16" Y="9"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="183"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="2263"/>
-        <CursorPos X="60" Y="2274"/>
+        <TopLine Value="202"/>
+        <CursorPos X="30" Y="223"/>
         <UsageCount Value="26"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSIndyVers.inc"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="30" Y="16"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="8"/>
+        <CursorPos X="19" Y="37"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_dh.pas"/>
@@ -230,15 +230,17 @@
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_AboutDlg.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos Y="4"/>
-        <UsageCount Value="1"/>
+        <TopLine Value="33"/>
+        <CursorPos X="45" Y="49"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSExceptionHandlers.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="7"/>
-        <UsageCount Value="1"/>
+        <CursorPos X="2" Y="13"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_ComponentEditor.pas"/>
@@ -264,7 +266,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos Y="16"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSFIPS.pas"/>
@@ -286,9 +288,9 @@
       <Unit>
         <Filename Value="../../Source/TaurusTLSLoader.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="238"/>
-        <CursorPos Y="267"/>
-        <UsageCount Value="3"/>
+        <TopLine Value="345"/>
+        <CursorPos X="30" Y="361"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTCPClient.pas"/>
@@ -321,9 +323,8 @@
       <Unit>
         <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="128"/>
-        <CursorPos X="71" Y="165"/>
+        <TopLine Value="160"/>
+        <CursorPos X="25" Y="176"/>
         <UsageCount Value="11"/>
       </Unit>
       <Unit>
@@ -344,9 +345,46 @@
       <Unit>
         <Filename Value="../../Packages/Lazarus/taurustlsrt.pas"/>
         <UnitName Value="TaurusTLSRT"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
         <CursorPos X="49" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSCompilerDefines.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="432"/>
+        <CursorPos X="3" Y="449"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_aes.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="12" Y="25"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_asn1err.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="26"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_asn1_mac.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="25"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_asn1t.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="14" Y="29"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_asyncerr.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="12" Y="23"/>
         <UsageCount Value="10"/>
       </Unit>
     </Units>

@@ -332,8 +332,7 @@ procedure TfrmSettings.FormCreate(Sender: TObject);
 begin
   redtLog.Lines.Clear;
   redtLog.Lines.Add('Operating System: ' + TOSVersion.ToString);
-  redtLog.Lines.Add('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
-    IntToStr(Lo(GetRTLVersion)));
+
 {$IFDEF WIN64}
   redtLog.Lines.Add('    Compiled For: Win64');
 {$ELSE}

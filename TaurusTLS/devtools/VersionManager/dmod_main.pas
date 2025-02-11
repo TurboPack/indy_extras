@@ -173,6 +173,12 @@ begin
   UpdatePackage('..\..\..\..\Packages\12AndAbove\Delphi\TaurusTLS_DT.dproj',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Alexandria\Delphi\TaurusTLS_RTForIndy280.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Alexandria\Delphi\TaurusTLS_DTForIndy280.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
   UpdatePackage('..\..\..\..\Packages\Alexandria\Delphi\TaurusTLS_RT.dproj',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);

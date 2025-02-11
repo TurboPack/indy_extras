@@ -173,15 +173,18 @@ begin
       end;
     X509_V_ERR_SUBJECT_ISSUER_MISMATCH:
       begin
-        Result := 'The current candidate issuer certificate was rejected because its subject name did not match the issuer name of the current certificate. This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
+        Result := 'The current candidate issuer certificate was rejected because its subject name did not match the issuer name of the current certificate. '+
+          'This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
       end;
     X509_V_ERR_AKID_SKID_MISMATCH:
       begin
-        Result := 'The current candidate issuer certificate was rejected because its subject key identifier was present and did not match the authority key identifier current certificate. This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
+        Result := 'The current candidate issuer certificate was rejected because its subject key identifier was present and did not match the authority key identifier current certificate. '+
+          'This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
       end;
     X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH:
       begin
-        Result := 'The current candidate issuer certificate was rejected because its issuer name and serial number was present and did not match the authority key identifier of the current certificate. This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
+        Result := 'The current candidate issuer certificate was rejected because its issuer name and serial number was present and did not match the authority key identifier of the current certificate. '+
+          'This is only set if issuer check debugging is enabled it is used for status notification and is not in itself an error. ';
       end;
     X509_V_ERR_KEYUSAGE_NO_CERTSIGN:
       begin
