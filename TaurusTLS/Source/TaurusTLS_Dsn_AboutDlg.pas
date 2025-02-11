@@ -47,7 +47,6 @@ begin
     lblProductName := TLabel.Create(frmAbout);
     lblVersion := TLabel.Create(frmAbout);
     lblCopyright := TLabel.Create(frmAbout);
-    lblAllRightsReserved := TLabel.Create(frmAbout);
     btnOk := TButton.Create(frmAbout);
     mmoLicense := TMemo.Create(frmAbout);
     btnThirdPartyAcknowlegement := TButton.Create(frmAbout);
