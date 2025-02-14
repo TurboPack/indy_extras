@@ -7,7 +7,9 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
-/// <summary>X509 Certificate classes.</summary>
+/// <summary>
+///   X509 Certificate classes.
+/// </summary>
 unit TaurusTLS_X509;
 {$I TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
@@ -27,8 +29,8 @@ uses
 
 type
   /// <summary>
-  /// A 4-byte value for retreiving a value as 4 bytes, 2 words, an integer,
-  /// and as an unsigned integer.
+  ///   A 4-byte value for retreiving a value as 4 bytes, 2 words, an integer,
+  ///   and as an unsigned integer.
   /// </summary>
   TTaurusTLSULong = packed record
     case Byte of
@@ -43,7 +45,7 @@ type
   end;
 
   /// <summary>
-  /// A record that includes a length and pointer to bytes.
+  ///   A record that includes a length and pointer to bytes.
   /// </summary>
   TTaurusTLSByteArray = record
     _Length: TIdC_UINT;
@@ -81,59 +83,59 @@ type
     constructor Create(aX509Name: PX509_NAME);
     //
     /// <summary>
-    /// A hash of the X509 name.
+    ///   A hash of the X509 name.
     /// </summary>
     property Hash: TTaurusTLSULong read GetHash;
     /// <summary>
-    /// A hash of the X509 name as a hexidecimal string.
+    ///   A hash of the X509 name as a hexidecimal string.
     /// </summary>
     property HashAsString: string read GetHashAsString;
     /// <summary>
-    /// Prints information about the X509 Name.
+    ///   Prints information about the X509 Name.
     /// </summary>
     property OneLine: string read GetOneLine;
     /// <summary>
-    /// Common name for X509 Name. Usuuually, this is the hostname but can be
-    /// an E-Mail address.
+    ///   Common name for X509 Name. Usuuually, this is the hostname but can be
+    ///   an E-Mail address.
     /// </summary>
     property CommonName: String read GetCommonName;
     /// <summary>
-    /// The name of the organization of the Common Name.
+    ///   The name of the organization of the Common Name.
     /// </summary>
     property Organization: String read GetOrginization;
     /// <summary>
-    /// The organizational unit for the Common Name.
+    ///   The organizational unit for the Common Name.
     /// </summary>
     property _Unit: String read GetUnit;
     /// <summary>
-    /// E-Mail address for the Common Name.
+    ///   E-Mail address for the Common Name.
     /// </summary>
     property EMail: String read GetEMail;
     /// <summary>
-    /// Street Address for the Common Name.
+    ///   Street Address for the Common Name.
     /// </summary>
     property StreetAddress: String read GetStreetAddress;
     /// <summary>
-    /// City, Town, or Village of the Common Name.
+    ///   City, Town, or Village of the Common Name.
     /// </summary>
     property City: String read GetCity;
     /// <summary>
-    /// State or Providence of the Common Name.
+    ///   State or Providence of the Common Name.
     /// </summary>
     property Providence: String read GetProvidence;
     /// <summary>
-    /// The nation of the Common Name.
+    ///   The nation of the Common Name.
     /// </summary>
     property Country: String read GetCountry;
     //
     /// <summary>
-    /// The associated OpenSSL Object for the X509_NAME.
+    ///   The associated OpenSSL Object for the X509_NAME.
     /// </summary>
     property CertificateName: PX509_NAME read fX509Name;
   end;
 
   /// <summary>
-  /// The anscestor of most of the X509 Information objects.
+  ///   The anscestor of most of the X509 Information objects.
   /// </summary>
   TTaurusTLSX509Info = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -150,13 +152,14 @@ type
     /// </param>
     constructor Create(aX509: PX509); virtual;
     /// <summary>
-    /// The OpenSSL X509 object associated with this object.
+    ///   The OpenSSL X509 object associated with this object.
     /// </summary>
     property Certificate: PX509 read FX509;
   end;
 
   /// <summary>
-  /// Fingerprint expressed using several different cryptographic hashing algorithms.
+  ///   Fingerprint expressed using several different cryptographic hashing
+  ///   algorithms.
   /// </summary>
   TTaurusTLSX509Fingerprints = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -174,13 +177,13 @@ type
     function GetSHA512AsString: String;
   public
     /// <summary>
-    /// Fingerprint expressed as a binary MD-5 checksum. The MD-5 algorithm
-    /// should not be used for cryptographic purposes.
+    ///   Fingerprint expressed as a binary MD-5 checksum. The MD-5 algorithm
+    ///   should not be used for cryptographic purposes.
     /// </summary>
     property MD5: TTaurusTLSLEVP_MD read GetMD5;
     /// <summary>
-    /// Fingerprint expressed as a hexidecimal MD-5 checksum. The MD-5
-    /// algorithm should not be used for cryptographic purposes.
+    ///   Fingerprint expressed as a hexidecimal MD-5 checksum. The MD-5
+    ///   algorithm should not be used for cryptographic purposes.
     /// </summary>
     property MD5AsString: String read GetMD5AsString;
     { IMPORTANT!!!
@@ -194,51 +197,51 @@ type
       http://csrc.nist.gov/CryptoToolkit/tkhash.html
     }
     /// <summary>
-    /// Fingerprint expressed as a binary SHA-1 checksum. The SHA-1 algorithm
-    /// should not be used for cryptographic purposes.
+    ///   Fingerprint expressed as a binary SHA-1 checksum. The SHA-1 algorithm
+    ///   should not be used for cryptographic purposes.
     /// </summary>
     property SHA1: TTaurusTLSLEVP_MD read GetSHA1;
     /// <summary>
-    /// Fingerprint expressed as a hexidecimal SHA-1 checksum. The SHA-1
-    /// algorithm should not be used for cryptographic purposes.
+    ///   Fingerprint expressed as a hexidecimal SHA-1 checksum. The SHA-1
+    ///   algorithm should not be used for cryptographic purposes.
     /// </summary>
     property SHA1AsString: String read GetSHA1AsString;
     /// <summary>
-    /// Fingerprint expressed as a binary SHA-224 checksum.
+    ///   Fingerprint expressed as a binary SHA-224 checksum.
     /// </summary>
     property SHA224: TTaurusTLSLEVP_MD read GetSHA224;
     /// <summary>
-    /// Fingerpint expressed as a hexidecimal SHA-224 checksum.
+    ///   Fingerpint expressed as a hexidecimal SHA-224 checksum.
     /// </summary>
     property SHA224AsString: String read GetSHA224AsString;
     /// <summary>
-    /// Fingerprint expressed as a binary SHA-256 checksum.
+    ///   Fingerprint expressed as a binary SHA-256 checksum.
     /// </summary>
     property SHA256: TTaurusTLSLEVP_MD read GetSHA256;
     /// <summary>
-    /// Fingerprint expressed as a hexidecimal SHA-256 checksum.
+    ///   Fingerprint expressed as a hexidecimal SHA-256 checksum.
     /// </summary>
     property SHA256AsString: String read GetSHA256AsString;
     /// <summary>
-    /// Fingerprint expressed as a binary SHA-384 checksum.
+    ///   Fingerprint expressed as a binary SHA-384 checksum.
     /// </summary>
     property SHA384: TTaurusTLSLEVP_MD read GetSHA384;
     /// <summary>
-    /// Fingerprint expressed as a hexidecimal SHA-384 checksum.
+    ///   Fingerprint expressed as a hexidecimal SHA-384 checksum.
     /// </summary>
     property SHA384AsString: String read GetSHA384AsString;
     /// <summary>
-    /// Fingerprint expressed as a binary SHA-512 checksum.
+    ///   Fingerprint expressed as a binary SHA-512 checksum.
     /// </summary>
     property SHA512: TTaurusTLSLEVP_MD read GetSHA512;
     /// <summary>
-    /// Fingerprint expressed as a hexidecimal SHA-512 checksum.
+    ///   Fingerprint expressed as a hexidecimal SHA-512 checksum.
     /// </summary>
     property SHA512AsString: String read GetSHA512AsString;
   end;
 
   /// <summary>
-  /// X509 Signature information.
+  ///   X509 Signature information.
   /// </summary>
   TTaurusTLSX509SigInfo = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -257,25 +260,25 @@ type
     /// </param>
     constructor Create(aX509: PX509); override;
     /// <summary>
-    /// Signature expressed in hexidecimal.
+    ///   Signature expressed in hexidecimal.
     /// </summary>
     property Signature: String read GetSignature;
     /// <summary>
-    /// The Object Identifier (OID) for the signature's algorithm.
+    ///   The Object Identifier (OID) for the signature's algorithm.
     /// </summary>
     property Algorithm: String read GetAlgorithm;
     /// <summary>
-    /// signature algorithm Numerical Identifier (NID) for the signature type.
+    ///   signature algorithm Numerical Identifier (NID) for the signature type.
     /// </summary>
     property SigType: TIdC_INT read GetSigType;
     /// <summary>
-    /// Signature type expressed as a string.
+    ///   Signature type expressed as a string.
     /// </summary>
     property SigTypeAsString: String read GetSigTypeAsString;
   end;
 
   /// <summary>
-  /// Information about the X509 Public Key.
+  ///   Information about the X509 Public Key.
   /// </summary>
   TTaurusTLSX509PublicKey = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -289,47 +292,47 @@ type
     function GetEncodingSize: TIdC_INT;
   public
     /// <summary>
-    /// Algorithm for the X509 Public Key.
+    ///   Algorithm for the X509 Public Key.
     /// </summary>
     property Algorithm: String read GetAlgorithm;
     /// <summary>
-    /// Number of bits in the signature algorithm.
+    ///   Number of bits in the signature algorithm.
     /// </summary>
     property Bits: TIdC_INT read GetBits;
     /// <summary>
-    /// Number of security bits in the algorithm.
+    ///   Number of security bits in the algorithm.
     /// </summary>
     property SecurityBits: TIdC_INT read GetSecurityBits;
     /// <summary>
-    /// maximum suitable size for the output buffers for the algorithm.
+    ///   maximum suitable size for the output buffers for the algorithm.
     /// </summary>
     property Size: TIdC_INT read GetSize;
     /// <summary>
-    /// Public key encoding as a hexidecimal string.
+    ///   Public key encoding as a hexidecimal string.
     /// </summary>
     property Encoding: String read GetEncoding;
     /// <summary>
-    /// Size of the public key encoding.
+    ///   Size of the public key encoding.
     /// </summary>
     property EncodingSize: TIdC_INT read GetEncodingSize;
     /// <summary>
-    /// RSA Modulus expressed as a hexidecimal string.
+    ///   RSA Modulus expressed as a hexidecimal string.
     /// </summary>
     /// <remarks>
-    /// This may be empty if the public key is not a RSA key.
+    ///   This may be empty if the public key is not a RSA key.
     /// </remarks>
     property Modulus: String read GetModulus;
     /// <summary>
-    /// RSA Exponent expressed as a hexidecimal string.
+    ///   RSA Exponent expressed as a hexidecimal string.
     /// </summary>
     /// <remarks>
-    /// This may be empty if the public key is not a RSA key.
+    ///   This may be empty if the public key is not a RSA key.
     /// </remarks>
     property Exponent_: String read GetExponent;
   end;
 
   /// <summary>
-  /// X509 Certificate extensions list for internal use.
+  ///   X509 Certificate extensions list for internal use.
   /// </summary>
   TTaurusTLSX509Exts = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -339,25 +342,27 @@ type
     function GetCount: TIdC_INT;
   public
     /// <summary>
-    /// OpenSSL X509 Extention object by numeric identifier (NID).
+    ///   OpenSSL X509 Extention object by numeric identifier (NID).
     /// </summary>
     /// <param name="ANid">
-    /// Numeric Identifier (NID) of the extention.
+    ///   Numeric Identifier (NID) of the extention.
     /// </param>
     property ExtensionByNid[const ANid: TIdC_INT]: PX509_EXTENSION
       read GetExtensionByNid;
     /// <summary>
-    /// OpenSSL Extension object by position.
+    ///   OpenSSL Extension object by position.
     /// </summary>
     property Extensions[const AIndex: TIdC_INT]: PX509_EXTENSION
       read GetExtension; default;
     /// <summary>
-    /// Number of X509 Extentions in Certificcate.
+    ///   Number of X509 Extentions in Certificcate.
     /// </summary>
     property Count: TIdC_INT read GetCount;
   end;
 
-  /// <summary>Authority Key ID information.</summary>
+  /// <summary>
+  ///   Authority Key ID information.
+  /// </summary>
   TTaurusTLSX509AuthorityKeyID = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     function GetIssuer(const AIndex: TIdC_INT): String;
@@ -365,21 +370,23 @@ type
     function GetSerial: TIdC_INT64;
     function GetIssuerCount: TIdC_INT;
   public
-    /// <summary>authority key identifier.</summary>
+    /// <summary>
+    ///   authority key identifier.
+    /// </summary>
     property KeyID: String read GetKeyId;
     /// <summary>
-    /// authority certificate serial number.
+    ///   authority certificate serial number.
     /// </summary>
     property Serial: TIdC_INT64 read GetSerial;
     /// <summary>
-    /// Issuer name.
+    ///   Issuer name.
     /// </summary>
     /// <param name="AIndex">
-    /// Position of the issuer in the list.
+    ///   Position of the issuer in the list.
     /// </param>
     property Issuer[const AIndex: TIdC_INT]: String read GetIssuer;
     /// <summary>
-    /// The number of issuers.
+    ///   The number of issuers.
     /// </summary>
     property IssuerCount: TIdC_INT read GetIssuerCount;
   end;
@@ -393,17 +400,25 @@ type
     function GetSelfSigned: Boolean;
     function GetSubjectAndIssuerMatch: Boolean;
   public
-    /// <summary>The certificate is an obsolete version 1 certificate.</summary>
+    /// <summary>
+    ///   The certificate is an obsolete version 1 certificate.
+    /// </summary>
     property ObsoleteV1: Boolean read GetObsoleteV1;
-    /// <summary>The certificate is self issued (that is subject and issuer names match).</summary>
+    /// <summary>
+    ///   The certificate is self issued (that is subject and issuer names
+    ///   match).
+    /// </summary>
     property SelfSigned: Boolean read GetSelfSigned;
-    /// <summary>The subject and issuer names match and extension values imply it is self signed.</summary>
+    /// <summary>
+    ///   The subject and issuer names match and extension values imply it is
+    ///   self signed.
+    /// </summary>
     property SubjectAndIssuerMatch: Boolean read GetSubjectAndIssuerMatch;
   end;
-  ///<summary>
-  /// Errors from OpenSSL about the X509 Certificate.  Such certificates should
-  /// be rejected.
-  ///</summary>
+  /// <summary>
+  ///   Errors from OpenSSL about the X509 Certificate. Such certificates should
+  ///   be rejected.
+  /// </summary>
   TTaurusTLSX509Errors = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     function GetInvalidInconsistantValues: Boolean;
@@ -411,20 +426,31 @@ type
     function GetUnhandledCriticalExtension: Boolean;
     function GetNoFingerprint: Boolean;
   public
-    /// <summary>Failed to compute the internal SHA1 hash value of the certificate or CRL. </summary>
+    /// <summary>
+    ///   Failed to compute the internal SHA1 hash value of the certificate or
+    ///   CRL.
+    /// </summary>
     property NoFingerprint: Boolean read GetNoFingerprint;
-    /// <summary>Some certificate extension values are invalid or inconsistent. The certificate should be rejected.</summary>
+    /// <summary>
+    ///   Some certificate extension values are invalid or inconsistent. The
+    ///   certificate should be rejected.
+    /// </summary>
     property InvalidInconsistantValues: Boolean
       read GetInvalidInconsistantValues;
-    /// <summary>The NID_certificate_policies certificate extension is invalid or inconsistent. The certificate should be rejected. </summary>
+    /// <summary>
+    ///   The NID_certificate_policies certificate extension is invalid or
+    ///   inconsistent. The certificate should be rejected.
+    /// </summary>
     property InvalidPolicy: Boolean read GetInvalidPolicy;
-    /// <summary>The certificate contains an unhandled critical extension.</summary>
+    /// <summary>
+    ///   The certificate contains an unhandled critical extension.
+    /// </summary>
     property UnhandledCriticalExtention: Boolean
       read GetUnhandledCriticalExtension;
   end;
 
   /// <summary>
-  /// Encapsolation of X509 Alternative Subject Names.
+  ///   Encapsolation of X509 Alternative Subject Names.
   /// </summary>
   TTaurusTLSX509AltSubjectNames = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -436,119 +462,154 @@ type
     constructor Create(aX509: PX509); override;
     destructor Destroy; override;
     /// <summary>
-    /// Alternative Subject Name in list.
+    ///   Alternative Subject Name in list.
     /// </summary>
     /// <param name="AIndex">
-    /// Position of the Alternative Subject Name in the list.
+    ///   Position of the Alternative Subject Name in the list.
     /// </param>
     property Items[const AIndex: TIdC_INT]: string read GetItems; default;
     /// <summary>
-    /// Number of Alternative Subject Names in list.
+    ///   Number of Alternative Subject Names in list.
     /// </summary>
     property ItemsCount: TIdC_INT read GetItemsCount;
   end;
-  /// <summary>Type used to specify a Key Usage value.</summary>
+  /// <summary>
+  ///   Type used to specify a Key Usage value.
+  /// </summary>
   TTaurusTLSX509KeyUse = (
-  /// <summary>Digital signatures</summary>
+  /// <summary>
+  ///   Digital signatures
+  /// </summary>
     DigitalSignature,
-  /// <summary>Prove Integrety and ownership of data.</summary>
+  /// <summary>
+  ///   Prove Integrety and ownership of data.
+  /// </summary>
     NonRepudiation,
-  /// <summary>Encrypting a key</summary>
+  /// <summary>
+  ///   Encrypting a key
+  /// </summary>
     KeyEncipherment,
-  /// <summary>Encrypting data</summary>
+  /// <summary>
+  ///   Encrypting data
+  /// </summary>
     DataEncipherment,
-  /// <summary>Can be used in a key agreement protocol</summary>
+  /// <summary>
+  ///   Can be used in a key agreement protocol
+  /// </summary>
     KeyAgreement,
-  /// <summary>Certificate Signing</summary>
+  /// <summary>
+  ///   Certificate Signing
+  /// </summary>
     CertSign,
-  /// <summary>Certificate Revocation List Signing</summary>
+  /// <summary>
+  ///   Certificate Revocation List Signing
+  /// </summary>
     CRLSign,
-  /// <summary>Encryption only.</summary>
+  /// <summary>
+  ///   Encryption only.
+  /// </summary>
     EncipherOnly,
-  /// <summary>Deciphering only.</summary>
+  /// <summary>
+  ///   Deciphering only.
+  /// </summary>
     DecipherOnly);
   /// <summary>
-  /// Key Usage values. It can contain the
-  /// following values:
-  /// <para>
-  /// <c>DigitalSignature</c> - Digital signatures
-  /// </para>
-  /// <para>
-  /// <c>NonRepudiation</c> - proving the integrety and ownership of data.
-  /// </para>
-  /// <para>
-  /// <c>KeyEncipherment</c> - Encrypting a key
-  /// </para>
-  /// <para>
-  /// <c>DataEncipherment</c> - Encrypting data
-  /// </para>
-  /// <para>
-  /// <c>KeyAgreement</c> - can be used in a key agreement protocol
-  /// </para>
-  /// <para>
-  /// <c>CertSign</c> - Certificate Signing
-  /// </para>
-  /// <para>
-  /// <c>CRLSign</c> - Certificate Revocation List Signing
-  /// </para>
-  /// <para>
-  /// <c>EncipherOnly</c> - Encryption only.
-  /// </para>
-  /// <para>
-  /// <c>DecipherOnly</c> - Deciphering only. <br />
-  /// </para>
+  ///   Key Usage values. It can contain the following values:<para>
+  ///     <c>DigitalSignature</c> - Digital signatures
+  ///   </para>
+  ///   <para>
+  ///     <c>NonRepudiation</c> - proving the integrety and ownership of data.
+  ///   </para>
+  ///   <para>
+  ///     <c>KeyEncipherment</c> - Encrypting a key
+  ///   </para>
+  ///   <para>
+  ///     <c>DataEncipherment</c> - Encrypting data
+  ///   </para>
+  ///   <para>
+  ///     <c>KeyAgreement</c> - can be used in a key agreement protocol
+  ///   </para>
+  ///   <para>
+  ///     <c>CertSign</c> - Certificate Signing
+  ///   </para>
+  ///   <para>
+  ///     <c>CRLSign</c> - Certificate Revocation List Signing
+  ///   </para>
+  ///   <para>
+  ///     <c>EncipherOnly</c> - Encryption only.
+  ///   </para>
+  ///   <para>
+  ///     <c>DecipherOnly</c> - Deciphering only. <br />
+  ///   </para>
   /// </summary>
   TTaurusTLSX509KeyUsage = set of TTaurusTLSX509KeyUse;
   /// <summary>
-  /// Type used to specify an Extended Key Usage value.
+  ///   Type used to specify an Extended Key Usage value.
   /// </summary>
   TTaurusTLSX509ExtKeyUse = (
-  /// <summary>Server</summary>
+  /// <summary>
+  ///   Server
+  /// </summary>
     Server,
-  /// <summary>Client</summary>
+  /// <summary>
+  ///   Client
+  /// </summary>
     Client,
-  /// <summary>Secure Multipurpose Internet Mail Extensions</summary>
+  /// <summary>
+  ///   Secure Multipurpose Internet Mail Extensions
+  /// </summary>
     SMIME,
-  /// <summary>Code Signing</summary>
+  /// <summary>
+  ///   Code Signing
+  /// </summary>
     CodeSign,
-  /// <summary>Online Certificate Status Protocol Signing</summary>
+  /// <summary>
+  ///   Online Certificate Status Protocol Signing
+  /// </summary>
     OCSPSign,
-  /// <summary>Time Stamp</summary>
+  /// <summary>
+  ///   Time Stamp
+  /// </summary>
     TimeStamp,
-  /// <summary>Distributed version control</summary>
+  /// <summary>
+  ///   Distributed version control
+  /// </summary>
     DVCS,
-  /// <summary>Any Extended Key Usage</summary>
+  /// <summary>
+  ///   Any Extended Key Usage
+  /// </summary>
     AnyEKU);
   /// <summary>
-  /// Extended Key Usage.  Can include the following values:
-  /// <para>
-  /// <c>Server</c> - Server
-  /// </para>
-  /// <para>
-  /// <c>Client</c> - Client
-  /// </para>
-  /// <para>
-  /// S/MIME - Secure Multipurpose Internet Mail Extensions
-  /// </para>
-  /// <para>
-  /// <c>CodeSign</c> - Code Signing
-  /// </para>
-  /// <para>
-  /// <c>OCSPSign</c> - Online Certificate Status Protocol Signing
-  /// </para>
-  /// <para>
-  /// <c>TimeStamp</c> - time stamp
-  /// </para>
-  /// <para>
-  /// <c>DVCS</c> - Distributed version control
-  /// </para>
-  /// <para>
-  /// AnyEKU - Any Extended Key Usage <br />
-  /// </para>
+  ///   Extended Key Usage. Can include the following values:<para>
+  ///     <c>Server</c> - Server
+  ///   </para>
+  ///   <para>
+  ///     <c>Client</c> - Client
+  ///   </para>
+  ///   <para>
+  ///     S/MIME - Secure Multipurpose Internet Mail Extensions
+  ///   </para>
+  ///   <para>
+  ///     <c>CodeSign</c> - Code Signing
+  ///   </para>
+  ///   <para>
+  ///     <c>OCSPSign</c> - Online Certificate Status Protocol Signing
+  ///   </para>
+  ///   <para>
+  ///     <c>TimeStamp</c> - time stamp
+  ///   </para>
+  ///   <para>
+  ///     <c>DVCS</c> - Distributed version control
+  ///   </para>
+  ///   <para>
+  ///     AnyEKU - Any Extended Key Usage <br />
+  ///   </para>
   /// </summary>
   TTaurusTLSX509ExtKeyUsage = set of TTaurusTLSX509ExtKeyUse;
 
-  /// <summary>Am encapsolation of a X509 Certificate.</summary>
+  /// <summary>
+  ///   Am encapsolation of a X509 Certificate.
+  /// </summary>
   TTaurusTLSX509 = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FErrors: TTaurusTLSX509Errors;
@@ -601,145 +662,149 @@ type
     ///   instance can be freed by the destructor.
     /// </param>
     Constructor Create(aX509: PX509; aCanFreeX509: Boolean = True); virtual;
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     Destructor Destroy; override;
     /// <summary>
-    /// The number of X509 certificate extensions.
+    ///   The number of X509 certificate extensions.
     /// </summary>
     property ExtensionCount: TIdC_LONG read GetExtensionCount;
     /// <summary>
-    /// Numerical value of the Version feild in the certificate.
+    ///   Numerical value of the Version feild in the certificate.
     /// </summary>
     property Version: TIdC_LONG read GetVersion;
     /// <summary>
-    /// Information about the certificate's signature.
+    ///   Information about the certificate's signature.
     /// </summary>
     property SigInfo: TTaurusTLSX509SigInfo read FSigInfo;
     /// <summary>
-    /// Fingerprints for certificate using various hashing algorithms.
+    ///   Fingerprints for certificate using various hashing algorithms.
     /// </summary>
     property Fingerprints: TTaurusTLSX509Fingerprints read FFingerprints;
     /// <summary>
-    /// Certificate fingerprint in binary format.
+    ///   Certificate fingerprint in binary format.
     /// </summary>
     property Fingerprint: TTaurusTLSLEVP_MD read GetFingerprint;
     /// <summary>
-    /// Certificate Fingerprint expressed as a hexidecimal sequence.
+    ///   Certificate Fingerprint expressed as a hexidecimal sequence.
     /// </summary>
     property FingerprintAsString: String read GetFingerprintAsString;
     /// <summary>
-    /// Subject name of the certificate. Usually, that is the hostname but
-    /// could also be an E-Mail address.
+    ///   Subject name of the certificate. Usually, that is the hostname but
+    ///   could also be an E-Mail address.
     /// </summary>
     property Subject: TTaurusTLSX509Name read GetSubject;
     /// <summary>
-    /// Alternative Subject names.
+    ///   Alternative Subject names.
     /// </summary>
     property AltSubjectNames: TTaurusTLSX509AltSubjectNames
       read FAltSubjectNames;
     /// <summary>
-    /// Certificate issuer name.
+    ///   Certificate issuer name.
     /// </summary>
     property Issuer: TTaurusTLSX509Name read GetIssuer;
     /// <summary>
-    /// Returns the notBefore feild of the certificate as a TDateTime.
+    ///   Returns the notBefore feild of the certificate as a TDateTime.
     /// </summary>
     property notBefore: TDateTime read GetnotBefore;
     /// <summary>
-    /// Returns the notAfter feild of the certificate as a TDateTime.
+    ///   Returns the notAfter feild of the certificate as a TDateTime.
     /// </summary>
     property notAfter: TDateTime read GetnotAfter;
     /// <summary>
-    /// Certificate's Serial Number expressed as hexidecimal string.
+    ///   Certificate's Serial Number expressed as hexidecimal string.
     /// </summary>
     property SerialNumber: string read GetSerialNumber;
     /// <summary>
-    /// Details about a certificate in a freeform manner. Use this information
-    /// in text-prompts abou the certificate.
+    ///   Details about a certificate in a freeform manner. Use this information
+    ///   in text-prompts abou the certificate.
     /// </summary>
     property DisplayInfo: TStrings read GetDisplayInfo;
 
-    /// <summary>An OpenSSL X509 certificate object.</summary>
+    /// <summary>
+    ///   An OpenSSL X509 certificate object.
+    /// </summary>
     property Certificate: PX509 read FX509;
     /// <summary>
-    /// Public key.
+    ///   Public key.
     /// </summary>
     property PublicKey: TTaurusTLSX509PublicKey read FPublicKey;
     /// <summary>
-    /// Subject key identifier expressed as a hexidecimal string.
+    ///   Subject key identifier expressed as a hexidecimal string.
     /// </summary>
     property SubjectKeyIdentifier: String read GetSubjectKeyIdentifier;
     /// <summary>
-    /// Certificate authority flag
+    ///   Certificate authority flag
     /// </summary>
     property CertificateAuthorityFlag: Boolean read GetCertificateAuthorityFlag;
     /// <summary>
-    /// Maximum Certificate Chain Length that may be issued by Certificate
-    /// Authority.
+    ///   Maximum Certificate Chain Length that may be issued by Certificate
+    ///   Authority.
     /// </summary>
     /// <remarks>
-    /// This may be -1 if the certificate authority flag is not set.
+    ///   This may be -1 if the certificate authority flag is not set.
     /// </remarks>
     property CertificateAuthorityPathLen: TIdC_LONG
       read GetCertificateAuthorityPathLen;
     /// <summary>
-    /// Extention name
+    ///   Extention name
     /// </summary>
     /// <param name="AIndex">
-    /// Position of the extention in the list.
+    ///   Position of the extention in the list.
     /// </param>
     property ExtentionName[const AIndex: TIdC_INT]: string
       read GetExtentionName;
     /// <summary>
-    /// True if the extention is critical or False if it is not critical.
+    ///   True if the extention is critical or False if it is not critical.
     /// </summary>
     /// <param name="AIndex">
-    /// Position of the extention in the list.
+    ///   Position of the extention in the list.
     /// </param>
     property ExtentionCritical[const AIndex: TIdC_INT]: Boolean
       read GetExtentionCritical;
     /// <summary>
-    /// Value of the extension expressed as a hexidecimal string.
+    ///   Value of the extension expressed as a hexidecimal string.
     /// </summary>
     /// <param name="AIndex">
-    /// Position of the extention in the list.
+    ///   Position of the extention in the list.
     /// </param>
     property ExtensionValues[const AIndex: TIdC_INT]: string
       read GetExtentionValues;
     /// <summary>
-    /// The certificate has the Freshest Certificate Revocation List (CRL)
-    /// extention.
+    ///   The certificate has the Freshest Certificate Revocation List (CRL)
+    ///   extention.
     /// </summary>
     property HasFreshestCRL: Boolean read GetHasFreshestCRL;
     /// <summary>
-    /// The certificate has the Basic Constraints extension.
+    ///   The certificate has the Basic Constraints extension.
     /// </summary>
     property HasBasicConstraints: Boolean read GetHasBasicConstaints;
     /// <summary>
-    /// Authority Key Identifier.
+    ///   Authority Key Identifier.
     /// </summary>
     property AuthorityKeyID: TTaurusTLSX509AuthorityKeyID read FAuthorityKeyID;
     /// <summary>
-    /// Key Usage X509 Extension information.
+    ///   Key Usage X509 Extension information.
     /// </summary>
     property KeyUsage: TTaurusTLSX509KeyUsage read GetKeyUsage;
     /// <summary>
-    /// Extended Key Usage Exention information.
+    ///   Extended Key Usage Exention information.
     /// </summary>
     property ExtendedKeyUsage: TTaurusTLSX509ExtKeyUsage read GetExtKeyUsage;
     /// <summary>
-    /// Proxy certificate path length
+    ///   Proxy certificate path length
     /// </summary>
     /// <remark>
-    /// May be -1 if it is not a proxy certificate.
+    ///   May be -1 if it is not a proxy certificate.
     /// </remark>
     property ProxyPathLen: TIdC_LONG read GetProxyPathLen;
     /// <summary>
-    /// Certificate errors.
+    ///   Certificate errors.
     /// </summary>
     property Errors: TTaurusTLSX509Errors read FErrors;
     /// <summary>
-    /// Certificate warnings.
+    ///   Certificate warnings.
     /// </summary>
     property Warnings: TTaurusTLSX509Warnings read FWarnings;
   end;

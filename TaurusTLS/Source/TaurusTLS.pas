@@ -160,8 +160,10 @@
 
   Rev 1.0    11/13/2002 08:01:24 AM  JPMugaas
 }
-/// <summary>This unit contains the TTaurusTLSIOHandlerSocket and
-/// TTaurusTLSServerIOHandler classes plus helper classes.</summary>
+/// <summary>
+///   This unit contains the TTaurusTLSIOHandlerSocket and
+///   TTaurusTLSServerIOHandler classes plus helper classes.
+/// </summary>
 unit TaurusTLS;
 {
   Author: Gregor Ibic (gregor.ibic@intelicom.si)
@@ -257,34 +259,62 @@ uses
 {$IFDEF HAS_TIdSSLVersion}
 
 const
-  /// <summary>SSL 2.0</summary>
+  /// <summary>
+  ///   SSL 2.0
+  /// </summary>
   SSLv2 = sslvSSLv2;
-  /// <summary>SSL 2.0 or 3.0</summary>
+  /// <summary>
+  ///   SSL 2.0 or 3.0
+  /// </summary>
   SSLv23 = sslvSSLv23;
-  /// <summary>SSL 3.0</summary>
+  /// <summary>
+  ///   SSL 3.0
+  /// </summary>
   SSLv3 = sslvSSLv3;
-  /// <summary>TLS 1.0</summary>
+  /// <summary>
+  ///   TLS 1.0
+  /// </summary>
   TLSv1 = sslvTLSv1;
-  /// <summary>TLS 1.1</summary>
+  /// <summary>
+  ///   TLS 1.1
+  /// </summary>
   TLSv1_1 = sslvTLSv1_1;
-  /// <summary>TLS 1.2</summary>
+  /// <summary>
+  ///   TLS 1.2
+  /// </summary>
   TLSv1_2 = sslvTLSv1_2;
-  /// <summary>TLS 1.3</summary>
+  /// <summary>
+  ///   TLS 1.3
+  /// </summary>
   TLSv1_3 = sslvTLSv1_3;
 
 type
-  /// <summary>Type for specifying a version of the TLS Protocol.</summary>
+  /// <summary>
+  ///   Type for specifying a version of the TLS Protocol.
+  /// </summary>
   TTaurusTLSSSLVersion = TIdSSLVersion;
-  /// <summary>Can be one of the following values
-  /// <para><c>sslmUnassigned</c> Initial default value</para>
-  /// <para><c>sslmClient</c> Use Client method</para>
-  /// <para><c>sslmServer</c> Use Server method</para>
-  /// <para><c>sslmBoth</c> Use Client/Server method</para>
+  /// <summary>
+  ///   Can be one of the following values<para>
+  ///     <c>sslmUnassigned</c> Initial default value
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmClient</c> Use Client method
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmServer</c> Use Server method
+  ///   </para>
+  ///   <para>
+  ///     <c>sslmBoth</c> Use Client/Server method
+  ///   </para>
   /// </summary>
   TTaurusTLSSSLMode = TIdSSLMode;
-  /// <summary>Can be one of the following values
-  /// <para><c>sslCtxClient</c></para>
-  /// <para><c>sslCtxServer</c></para>
+  /// <summary>
+  ///   Can be one of the following values<para>
+  ///     <c>sslCtxClient</c>
+  ///   </para>
+  ///   <para>
+  ///     <c>sslCtxServer</c>
+  ///   </para>
   /// </summary>
   TTaurusTLSCtxMode = TIdSSLCtxMode;
 {$ELSE}
@@ -330,129 +360,276 @@ type
     /// <summary>Server</summary>
     sslCtxServer);
 {$ENDIF}
-  /// <summary>Type used to specify a peer verification value.</summary>
+  /// <summary>
+  ///   Type used to specify a peer verification value.
+  /// </summary>
   TTaurusTLSVerifyMode = (
-    /// <summary>For servers, send certificate.  For clients, verify server certificate.</summary>
+    /// <summary>
+    ///   For servers, send certificate. For clients, verify server certificate.
+    /// </summary>
     sslvrfPeer,
-    /// <summary>For servers, require client certificate</summary>
+    /// <summary>
+    ///   For servers, require client certificate
+    /// </summary>
     sslvrfFailIfNoPeerCert,
-    /// <summary>For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</summary>
+    /// <summary>
+    ///   For servers, request client certificate only at initial handshake. Do
+    ///   not ask for certificate during renegotiation.
+    /// </summary>
     sslvrfClientOnce,
-    /// <summary>For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</summary>
+    /// <summary>
+    ///   For servers, server will not send client certificate request during
+    ///   initial handshake. Send the request during the
+    ///   SSL_verify_client_post_handshake call.
+    /// </summary>
     sslvrfPostHandshake);
-  /// <summary>Controls the peer verification.  Can contain the following:
-  /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-  /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-  /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-  /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+  /// <summary>
+  ///   Controls the peer verification. Can contain the following:<para>
+  ///     <c>sslvrfPeer</c> For servers, send certificate. For clients, verify
+  ///     server certificate.
+  ///   </para>
+  ///   <para>
+  ///     <c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate
+  ///   </para>
+  ///   <para>
+  ///     <c>sslvrfClientOnce</c> For servers, request client certificate only
+  ///     at initial handshake. Do not ask for certificate during renegotiation.
+  ///   </para>
+  ///   <para>
+  ///     <c>sslvrfPostHandshake</c> For servers, server will not send client
+  ///     certificate request during initial handshake. Send the request during
+  ///     the SSL_verify_client_post_handshake call.
+  ///   </para>
   /// </summary>
   TTaurusTLSVerifyModeSet = set of TTaurusTLSVerifyMode;
-  /// <summary>OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most restrictive)
-  /// <para><c>0</c> Permit anything</para>
-  /// <para><c>1</c> SSL 3.0 or later required.  Cipher must have a minimum of 80 security bits.</para>
-  /// <para><c>2</c> TLS 1.0 or later required.  Cipher must have a minimum of 112 security bits.  Compression is disabled.</para>
-  /// <para><c>3</c> TLS 1.1 or later required.  Cipher must have a minimum of 128 security bits.  Session tickets are disabled.</para>
-  /// <para><c>4</c> TLS 1.2 or later required.  Cipher must have a minimum of 192 security bits.</para>
-  /// <para><c>5</c> TLS 1.2 or later required.  Cipher must have a minimum of 256 security bits.</para>
+  /// <summary>
+  ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
+  ///   restrictive)<para>
+  ///     <c>0</c> Permit anything
+  ///   </para>
+  ///   <para>
+  ///     <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+  ///     security bits.
+  ///   </para>
+  ///   <para>
+  ///     <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
+  ///     security bits. Compression is disabled.
+  ///   </para>
+  ///   <para>
+  ///     <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
+  ///     security bits. Session tickets are disabled.
+  ///   </para>
+  ///   <para>
+  ///     <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
+  ///     security bits.
+  ///   </para>
+  ///   <para>
+  ///     <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
+  ///     security bits.
+  ///   </para>
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-  /// default-callback-behaviour
+  ///   default-callback-behaviour
   /// </seealso>
   TTaurusTLSSecurityLevel = 0 .. 5;
 
 const
-  /// <summary>The default value for the TSSLOptions.MinTLSVersion property</summary>
+  /// <summary>
+  ///   The default value for the TSSLOptions.MinTLSVersion property
+  /// </summary>
   DEF_MIN_TLSVERSION = TLSv1_2;
-  /// <summary>The maximum TLS version supported by this library.</summary>
+  /// <summary>
+  ///   The maximum TLS version supported by this library.
+  /// </summary>
   MAX_SSLVERSION = TLSv1_3;
   /// <summary>
   ///   The default value for TSLLOptions.SecurityLevel property.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-  /// default-callback-behaviour
+  ///   default-callback-behaviour
   /// </seealso>
   DEF_SECURITY_LEVEL = 2;
-  /// <summary>The default value for TSLLOptions.VerifyHostname property.</summary>
+  /// <summary>
+  ///   The default value for TSLLOptions.VerifyHostname property.
+  /// </summary>
   DEF_VERIFY_HOSTNAME = False;
 
 type
-  /// <summary>TLS version reported in the TOnDebugMessageEvent callback type.</summary>
+  /// <summary>
+  ///   TLS version reported in the TOnDebugMessageEvent callback type.
+  /// </summary>
   TTaurusMsgCBVer = (
-    /// <summary>SSL 3.0 header</summary>
+    /// <summary>
+    ///   SSL 3.0 header
+    /// </summary>
     verSSL3Header,
-    /// <summary>TLS 1.0</summary>
+    /// <summary>
+    ///   TLS 1.0
+    /// </summary>
     verTLS1,
-    /// <summary>TLS 1.1</summary>
+    /// <summary>
+    ///   TLS 1.1
+    /// </summary>
     verTLS1_1,
-    /// <summary>TLS 1.2</summary>
+    /// <summary>
+    ///   TLS 1.2
+    /// </summary>
     verTLS1_2,
-    /// <summary>TLS 1.3</summary>
+    /// <summary>
+    ///   TLS 1.3
+    /// </summary>
     verTLS1_3,
-    /// <summary>DTLS 1.0</summary>
+    /// <summary>
+    ///   DTLS 1.0
+    /// </summary>
     verDTLS1,
-    /// <summary>DTLS 1.2</summary>
+    /// <summary>
+    ///   DTLS 1.2
+    /// </summary>
     verDTLS1_2,
-    /// <summary>DTLS Bad Version</summary>
+    /// <summary>
+    ///   DTLS Bad Version
+    /// </summary>
     verDTLSBadVer,
-    /// <summary>QUIC</summary>
+    /// <summary>
+    ///   QUIC
+    /// </summary>
     verQUIC,
-    /// <summary>TLS Any Version</summary>
+    /// <summary>
+    ///   TLS Any Version
+    /// </summary>
     verTLSAny);
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
-  /// <summary><c>OnDebugMessage</c> event</summary>
-  /// <param name="ASender">The object that triggers the event.</param>
-  /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
-  /// <param name="AVersion">TLS version of packet.</param>
-  /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-  /// <param name="buf">The contents of the packet.</param>
-  /// <param name="SSL">The SSL object where the event occurred.</param>
+  /// <summary>
+  ///   <c>OnDebugMessage</c> event
+  /// </summary>
+  /// <param name="ASender">
+  ///   The object that triggers the event.
+  /// </param>
+  /// <param name="AWrite">
+  ///   True if packet was written. False if packet was read.
+  /// </param>
+  /// <param name="AVersion">
+  ///   TLS version of packet.
+  /// </param>
+  /// <param name="AContentType">
+  ///   Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type
+  ///   constants
+  /// </param>
+  /// <param name="buf">
+  ///   The contents of the packet.
+  /// </param>
+  /// <param name="SSL">
+  ///   The SSL object where the event occurred.
+  /// </param>
   TOnDebugMessageEvent = procedure(ASender: TObject; const AWrite: Boolean;
     AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
     SSL: PSSL) of object;
-  /// <summary><c>OnStatusInfo</c> event</summary>
-  /// <param name="ASender">The object that triggers the event.</param>
-  /// <param name="AsslSocket">The PSSL value associated with the event.</param>
-  /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
-  /// <param name="Aret">A value indicating a particular message</param>
-  /// <param name="AType">The AWhere value represented as a string</param>
-  /// <param name="AMsg">The Aret value represented as a string</param>
+  /// <summary>
+  ///   <c>OnStatusInfo</c> event
+  /// </summary>
+  /// <param name="ASender">
+  ///   The object that triggers the event.
+  /// </param>
+  /// <param name="AsslSocket">
+  ///   The PSSL value associated with the event.
+  /// </param>
+  /// <param name="AWhere">
+  ///   A set of bitmasks that indicate where the event was called
+  /// </param>
+  /// <param name="Aret">
+  ///   A value indicating a particular message
+  /// </param>
+  /// <param name="AType">
+  ///   The AWhere value represented as a string
+  /// </param>
+  /// <param name="AMsg">
+  ///   The Aret value represented as a string
+  /// </param>
   TOnStatusEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
-  /// <summary><c>OnSecurityLevel</c> event</summary>
-  /// <param name="ASender">The object that triggers the event.</param>
-  /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
-  /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
-  /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
-  /// <param name="bits">Number of security bits the cipher has.</param>
-  /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
-  /// <param name="ACipher">The name of the cipher.</param>
-  /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
+  /// <summary>
+  ///   <c>OnSecurityLevel</c> event
+  /// </summary>
+  /// <param name="ASender">
+  ///   The object that triggers the event.
+  /// </param>
+  /// <param name="AsslSocket">
+  ///   The SSL socket where the event occurred.
+  /// </param>
+  /// <param name="ACtx">
+  ///   The SSL_CTX object where the event occurred.
+  /// </param>
+  /// <param name="op">
+  ///   The operation expressed as an integer. This is one of the SSL_SECOP_*
+  ///   values.
+  /// </param>
+  /// <param name="bits">
+  ///   Number of security bits the cipher has.
+  /// </param>
+  /// <param name="ACipherNid">
+  ///   The Numeric Identifier (NID) of the cipher.
+  /// </param>
+  /// <param name="ACipher">
+  ///   The name of the cipher.
+  /// </param>
+  /// <param name="VAccepted">
+  ///   Return true if you will accept the connection attempt.
+  /// </param>
   TOnSecurityLevelEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid : TIdC_INT; const ACipher: String;
     var VAccepted: Boolean) of object;
-  /// <summary><c>OnGetPassword</c> event</summary>
-  /// <param name="ASender">The object that triggers the event.</param>
-  /// <param name="VPassword">Return value indicating the password.</param>
-  /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
+  /// <summary>
+  ///   <c>OnGetPassword</c> event
+  /// </summary>
+  /// <param name="ASender">
+  ///   The object that triggers the event.
+  /// </param>
+  /// <param name="VPassword">
+  ///   Return value indicating the password.
+  /// </param>
+  /// <param name="AIsWrite">
+  ///   True if the password is written/encrypted and typically the password is
+  ///   prompted for twice to prevent entry error.
+  /// </param>
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
-  /// <summary><c>OnVerifyPeer</c> event</summary>
-  /// <param name="Certificate">The certificate to be validated.</param>
-  /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
-  /// <param name="ADepth">The maximum depth of.</param>
-  /// <param name="AError">The validation error if the certificate failed validation.</param>
-  /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
+  /// <summary>
+  ///   <c>OnVerifyPeer</c> event
+  /// </summary>
+  /// <param name="Certificate">
+  ///   The certificate to be validated.
+  /// </param>
+  /// <param name="AOk">
+  ///   True if the certificat passed validation or False if it failed
+  ///   validation.
+  /// </param>
+  /// <param name="ADepth">
+  ///   The maximum depth of.
+  /// </param>
+  /// <param name="AError">
+  ///   The validation error if the certificate failed validation.
+  /// </param>
+  /// <returns>
+  ///   True if the certificate if you wish to accept the certificate or false
+  ///   if you wish to reject it.
+  /// </returns>
   TOnVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
     const ADepth, AError: Integer): Boolean of object;
-  /// <summary><c>OnBeforeConnectz</c> and <c>OnSSLNegotiated</c> events</summary>
-  /// <param name="ASender">The object that triggers the event.</param>
+  /// <summary>
+  ///   <c>OnBeforeConnectz</c> and <c>OnSSLNegotiated</c> events
+  /// </summary>
+  /// <param name="ASender">
+  ///   The object that triggers the event.
+  /// </param>
   TOnIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
 
   { TTaurusTLSSSLOptions }
-  /// <summary>Class that provides properties that effect TLS.
+  /// <summary>
+  ///   Class that provides properties that effect TLS.
   /// </summary>
   TTaurusTLSSSLOptions = class(TPersistent)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -471,80 +648,122 @@ type
     procedure SetMinTLSVersion(const AValue: TTaurusTLSSSLVersion);
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
-    /// <summary>Creates a new instance of TTaurusTLSSSLOptions.</summary>
+    /// <summary>
+    ///   Creates a new instance of TTaurusTLSSSLOptions.
+    /// </summary>
     constructor Create;
     // procedure Assign(ASource: TPersistent); override;
   published
-    /// <summary>Root certificate file.</summary>
+    /// <summary>
+    ///   Root certificate file.
+    /// </summary>
     property RootCertFile: String read fsRootCertFile write fsRootCertFile;
-    /// <summary>Client or Server certificate file.</summary>
+    /// <summary>
+    ///   Client or Server certificate file.
+    /// </summary>
     property CertFile: String read fsCertFile write fsCertFile;
-    /// <summary>Private Key file.</summary>
+    /// <summary>
+    ///   Private Key file.
+    /// </summary>
     property KeyFile: String read fsKeyFile write fsKeyFile;
-    /// <summary>DH Parameters file.</summary>
+    /// <summary>
+    ///   DH Parameters file.
+    /// </summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
-    /// <summary>The Minimum TLS version you will accept.</summary>
+    /// <summary>
+    ///   The Minimum TLS version you will accept.
+    /// </summary>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion default DEF_MIN_TLSVERSION;
     /// <summary>
-    /// OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
-    /// restrictive), It may be one of the following values: <br />
-    /// <para>
-    /// <c>0</c> Permit anything
-    /// </para>
-    /// <para>
-    /// <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
-    /// security bits.
-    /// </para>
-    /// <para>
-    /// <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
-    /// security bits. Compression is disabled.
-    /// </para>
-    /// <para>
-    /// <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
-    /// security bits. Session tickets are disabled.
-    /// </para>
-    /// <para>
-    /// <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
-    /// security bits.
-    /// </para>
-    /// <para>
-    /// <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
-    /// security bits.
-    /// </para>
+    ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c>
+    ///   (most restrictive), It may be one of the following values: <br />
+    ///   <para>
+    ///     <c>0</c> Permit anything
+    ///   </para>
+    ///   <para>
+    ///     <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+    ///     security bits.
+    ///   </para>
+    ///   <para>
+    ///     <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of
+    ///     112 security bits. Compression is disabled.
+    ///   </para>
+    ///   <para>
+    ///     <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of
+    ///     128 security bits. Session tickets are disabled.
+    ///   </para>
+    ///   <para>
+    ///     <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of
+    ///     192 security bits.
+    ///   </para>
+    ///   <para>
+    ///     <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of
+    ///     256 security bits.
+    ///   </para>
     /// </summary>
     /// <seealso
     /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-    /// default-callback-behaviour
+    ///   default-callback-behaviour
     /// </seealso>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel default DEF_SECURITY_LEVEL;
-    /// <summary>Determines which OpenSSL method should be callled.</summary>
+    /// <summary>
+    ///   Determines which OpenSSL method should be callled.
+    /// </summary>
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
-    /// <summary>Controls the peer verification.  Can contain the following:
-    /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-    /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-    /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-    /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+    /// <summary>
+    ///   Controls the peer verification. Can contain the following:<para>
+    ///     <c>sslvrfPeer</c> For servers, send certificate. For clients, verify
+    ///     server certificate.
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfFailIfNoPeerCert</c> For servers, require client
+    ///     certificate
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfClientOnce</c> For servers, request client certificate only
+    ///     at initial handshake. Do not ask for certificate during
+    ///     renegotiation.
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfPostHandshake</c> For servers, server will not send client
+    ///     certificate request during initial handshake. Send the request
+    ///     during the SSL_verify_client_post_handshake call.
+    ///   </para>
     /// </summary>
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
-    /// <summary>The maximum depth for the certificate chain verification allowed.</summary>
+    /// <summary>
+    ///   The maximum depth for the certificate chain verification allowed.
+    /// </summary>
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
     // property VerifyFile: String read fVerifyFile write fVerifyFile;
-    /// <summary>Directories where to load root certificates from separated by colons.</summary>
-    /// <remarks>Only the PEM files in the directories are loaded.</remarks>
+    /// <summary>
+    ///   Directories where to load root certificates from separated by colons.
+    /// </summary>
+    /// <remarks>
+    ///   Only the PEM files in the directories are loaded.
+    /// </remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
-    /// <summary>Peer Certificate must match hostname</summary>
+    /// <summary>
+    ///   Peer Certificate must match hostname
+    /// </summary>
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname
       default DEF_VERIFY_HOSTNAME;
-    /// <summary>Use system's certificate store to verify certificates.</summary>
+    /// <summary>
+    ///   Use system's certificate store to verify certificates.
+    /// </summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
       default true;
-    /// <summary>The list of available ciphers</summary>
+    /// <summary>
+    ///   The list of available ciphers
+    /// </summary>
     /// <remarks>
-    /// <para>Leave empty to use all available ciphers.</para>
+    ///   <para>
+    ///     Leave empty to use all available ciphers.
+    ///   </para>
     /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
   end;
@@ -587,13 +806,21 @@ type
     function GetSSLMethod: PSSL_METHOD;
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
   public
-    /// <summary>Creates a new instance of TTaurusTLSContext.</summary>
+    /// <summary>
+    ///   Creates a new instance of TTaurusTLSContext.
+    /// </summary>
     constructor Create;
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     destructor Destroy; override;
-    ///<summary>Initializes this TTaurusTLSContext after the properties have been set.</summary>
+    /// <summary>
+    ///   Initializes this TTaurusTLSContext after the properties have been set.
+    /// </summary>
     procedure InitContext(CtxMode: TTaurusTLSCtxMode);
-    ///<summary>Makes a copy of this TTaurusTLSContext.</summary>
+    /// <summary>
+    ///   Makes a copy of this TTaurusTLSContext.
+    /// </summary>
     function Clone: TTaurusTLSContext;
 
     /// <summary>
@@ -612,7 +839,9 @@ type
     ///   Set to True to set the StatusInfo callback.
     /// </summary>
     property StatusInfoOn: Boolean read fStatusInfoOn write fStatusInfoOn;
-    /// <summary>Set to True to set the Verify callback.</summary>
+    /// <summary>
+    ///   Set to True to set the Verify callback.
+    /// </summary>
     property VerifyOn: Boolean read fVerifyOn write fVerifyOn;
     /// <summary>
     ///   Set to true to set the SecurityLevel callback.
@@ -621,79 +850,121 @@ type
       write fSecurityLevelCBOn;
     // THese can't be published in a TObject without a compiler warning.
     // published
-    /// <summary>The Minimum TLS version you will accept.</summary>
+    /// <summary>
+    ///   The Minimum TLS version you will accept.
+    /// </summary>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion;
-    /// <summary>Determines which OpenSSL method should be callled.</summary>
+    /// <summary>
+    ///   Determines which OpenSSL method should be callled.
+    /// </summary>
     property Mode: TTaurusTLSSSLMode read fMode write fMode;
     /// <summary>
-    /// OpenSSL security level from <c>0</c> (permit anything) to <c>5</c> (most
-    /// restrictive), It may be one of the following values: <br />
-    /// <para>
-    /// <c>0</c> Permit anything
-    /// </para>
-    /// <para>
-    /// <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
-    /// security bits.
-    /// </para>
-    /// <para>
-    /// <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of 112
-    /// security bits. Compression is disabled.
-    /// </para>
-    /// <para>
-    /// <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of 128
-    /// security bits. Session tickets are disabled.
-    /// </para>
-    /// <para>
-    /// <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of 192
-    /// security bits.
-    /// </para>
-    /// <para>
-    /// <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of 256
-    /// security bits.
-    /// </para>
+    ///   OpenSSL security level from <c>0</c> (permit anything) to <c>5</c>
+    ///   (most restrictive), It may be one of the following values: <br />
+    ///   <para>
+    ///     <c>0</c> Permit anything
+    ///   </para>
+    ///   <para>
+    ///     <c>1</c> SSL 3.0 or later required. Cipher must have a minimum of 80
+    ///     security bits.
+    ///   </para>
+    ///   <para>
+    ///     <c>2</c> TLS 1.0 or later required. Cipher must have a minimum of
+    ///     112 security bits. Compression is disabled.
+    ///   </para>
+    ///   <para>
+    ///     <c>3</c> TLS 1.1 or later required. Cipher must have a minimum of
+    ///     128 security bits. Session tickets are disabled.
+    ///   </para>
+    ///   <para>
+    ///     <c>4</c> TLS 1.2 or later required. Cipher must have a minimum of
+    ///     192 security bits.
+    ///   </para>
+    ///   <para>
+    ///     <c>5</c> TLS 1.2 or later required. Cipher must have a minimum of
+    ///     256 security bits.
+    ///   </para>
     /// </summary>
     /// <seealso
     /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
-    /// default-callback-behaviour
+    ///   default-callback-behaviour
     /// </seealso>
     property SecurityLevel: TTaurusTLSSecurityLevel read FSecurityLevel
       write SetSecurityLevel;
-    /// <summary>Root certificate file.</summary>
+    /// <summary>
+    ///   Root certificate file.
+    /// </summary>
     property RootCertFile: String read fsRootCertFile write fsRootCertFile;
-    /// <summary>Client or Server certificate file.</summary>
+    /// <summary>
+    ///   Client or Server certificate file.
+    /// </summary>
     property CertFile: String read fsCertFile write fsCertFile;
-    /// <summary>The list of available ciphers</summary>
+    /// <summary>
+    ///   The list of available ciphers
+    /// </summary>
     /// <remarks>
-    /// <para>Leave empty to use all available ciphers.</para>
+    ///   <para>
+    ///     Leave empty to use all available ciphers.
+    ///   </para>
     /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
-    /// <summary>Private Key file.</summary>
+    /// <summary>
+    ///   Private Key file.
+    /// </summary>
     property KeyFile: String read fsKeyFile write fsKeyFile;
-    /// <summary>DH Parameters file.</summary>
+    /// <summary>
+    ///   DH Parameters file.
+    /// </summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
-    /// <summary>Use system's certificate store to verify certificates.</summary>
+    /// <summary>
+    ///   Use system's certificate store to verify certificates.
+    /// </summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore;
-     /// <summary>Directories where to load root certificates from separated by colons.</summary>
-    /// <remarks>Only the PEM files in the directories are loaded.</remarks>
+     /// <summary>
+     ///   Directories where to load root certificates from separated by colons.
+     /// </summary>
+     /// <remarks>
+     ///   Only the PEM files in the directories are loaded.
+     /// </remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
-    /// <summary>Controls the peer verification.  Can contain the following:
-    /// <para><c>sslvrfPeer</c> For servers, send certificate.  For clients, verify server certificate.</para>
-    /// <para><c>sslvrfFailIfNoPeerCert</c> For servers, require client certificate</para>
-    /// <para><c>sslvrfClientOnce</c> For servers, request client certificate only at initial handshake.  Do not ask for certificate during renegotiation.</para>
-    /// <para><c>sslvrfPostHandshake</c> For servers, server will not send client certificate request during initial handshake.  Send the request during the SSL_verify_client_post_handshake call.</para>
+    /// <summary>
+    ///   Controls the peer verification. Can contain the following:<para>
+    ///     <c>sslvrfPeer</c> For servers, send certificate. For clients, verify
+    ///     server certificate.
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfFailIfNoPeerCert</c> For servers, require client
+    ///     certificate
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfClientOnce</c> For servers, request client certificate only
+    ///     at initial handshake. Do not ask for certificate during
+    ///     renegotiation.
+    ///   </para>
+    ///   <para>
+    ///     <c>sslvrfPostHandshake</c> For servers, server will not send client
+    ///     certificate request during initial handshake. Send the request
+    ///     during the SSL_verify_client_post_handshake call.
+    ///   </para>
     /// </summary>
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
-    /// <summary>The maximum depth for the certificate chain verification allowed.</summary>
+    /// <summary>
+    ///   The maximum depth for the certificate chain verification allowed.
+    /// </summary>
     property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
-    /// <summary>Peer Certificate must match hostname</summary>
+    /// <summary>
+    ///   Peer Certificate must match hostname
+    /// </summary>
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname;
   end;
 
   { TTaurusTLSSocket }
-  /// <summary>Properties and methods for dealing with a TLS Socket.</summary>
+  /// <summary>
+  ///   Properties and methods for dealing with a TLS Socket.
+  /// </summary>
   TTaurusTLSSocket = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
@@ -718,113 +989,216 @@ type
     ///   The TObject that will own the new instance.
     /// </param>
     constructor Create(AParent: TObject);
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     destructor Destroy; override;
-    /// <summary>Return an error code for the previous I/O operation.</summary>
-    /// <param name="retCode">Return code from the previous function.</param>
-    /// <returns>The error code</returns>
+    /// <summary>
+    ///   Return an error code for the previous I/O operation.
+    /// </summary>
+    /// <param name="retCode">
+    ///   Return code from the previous function.
+    /// </param>
+    /// <returns>
+    ///   The error code
+    /// </returns>
     function GetSSLError(retCode: Integer): Integer;
-    /// <summary>Accept a TLS connection.</summary>
-    /// <param name="pHandle">The connection to negotiate TLS with.</param>
+    /// <summary>
+    ///   Accept a TLS connection.
+    /// </summary>
+    /// <param name="pHandle">
+    ///   The connection to negotiate TLS with.
+    /// </param>
     procedure Accept(const pHandle: TIdStackSocketHandle);
-    /// <summary>Make a TLS connection.</summary>
-    /// <param name="pHandle">The connection to negotiate TLS with.</param>
+    /// <summary>
+    ///   Make a TLS connection.
+    /// </summary>
+    /// <param name="pHandle">
+    ///   The connection to negotiate TLS with.
+    /// </param>
     procedure Connect(const pHandle: TIdStackSocketHandle);
-    /// <summary>Encrypt bytes and send them to the peer.</summary>
-    /// <param name="ABuffer">Buffer to encrypt and send.</param>
-    /// <param name="AOffset">Offset into buffer.</param>
-    /// <param name="ALength">number of bytes to send.</param>
-    /// <returns>Number of bytes sent.</returns>
+    /// <summary>
+    ///   Encrypt bytes and send them to the peer.
+    /// </summary>
+    /// <param name="ABuffer">
+    ///   Buffer to encrypt and send.
+    /// </param>
+    /// <param name="AOffset">
+    ///   Offset into buffer.
+    /// </param>
+    /// <param name="ALength">
+    ///   number of bytes to send.
+    /// </param>
+    /// <returns>
+    ///   Number of bytes sent.
+    /// </returns>
     function Send(const ABuffer: TIdBytes; const AOffset, ALength: TIdC_SIZET)
       : TIdC_SIZET;
-    /// <summary>Receives bytes that after they have been decrypted.</summary>
-    /// <param name="VBuffer">The buffer for bytes read</param>
-    /// <returns>The number of bytes read.</returns>
+    /// <summary>
+    ///   Receives bytes that after they have been decrypted.
+    /// </summary>
+    /// <param name="VBuffer">
+    ///   The buffer for bytes read
+    /// </param>
+    /// <returns>
+    ///   The number of bytes read.
+    /// </returns>
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
-    /// <summary>The Session ID as a string</summary>
-    /// <returns>Session ID</returns>
+    /// <summary>
+    ///   The Session ID as a string
+    /// </summary>
+    /// <returns>
+    ///   Session ID
+    /// </returns>
     function GetSessionIDAsString: String;
-    /// <summary>OpenSSL SSL object.</summary>
+    /// <summary>
+    ///   OpenSSL SSL object.
+    /// </summary>
     property SSL: PSSL read fSSL;
-    /// <summary>SSL Context for this connection.</summary>
+    /// <summary>
+    ///   SSL Context for this connection.
+    /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
-    /// <summary>The TTaurusTLSIOHandlerSocket or TTaurusTLSServerIOHandler that owns this object.</summary>
+    /// <summary>
+    ///   The TTaurusTLSIOHandlerSocket or TTaurusTLSServerIOHandler that owns
+    ///   this object.
+    /// </summary>
     property Parent: TObject read FParent;
-    /// <summary>The peer's certificate encapsolated in a TTaurusTLSX509 object.</summary>
+    /// <summary>
+    ///   The peer's certificate encapsolated in a TTaurusTLSX509 object.
+    /// </summary>
     property PeerCert: TTaurusTLSX509 read GetPeerCert;
-    /// <summary>TLS Cipher information.</summary>
+    /// <summary>
+    ///   TLS Cipher information.
+    /// </summary>
     property Cipher: TTaurusTLSCipher read GetSSLCipher;
-    /// <summary>Name of peer you are connected to.</summary>
-    /// <remarks>Used to verify that the Peer Certificate matches the HostName.</remarks>
+    /// <summary>
+    ///   Name of peer you are connected to.
+    /// </summary>
+    /// <remarks>
+    ///   Used to verify that the Peer Certificate matches the HostName.
+    /// </remarks>
     property HostName: String read fHostName write fHostName;
-    /// <summary>TLS Protocol version in use.</summary>
+    /// <summary>
+    ///   TLS Protocol version in use.
+    /// </summary>
     property SSLProtocolVersion: TTaurusTLSSSLVersion read GetProtocolVersion;
-    /// <summary>TLS Protocol version in use as a string.</summary>
+    /// <summary>
+    ///   TLS Protocol version in use as a string.
+    /// </summary>
     property SSLProtocolVersionStr: string read GetSSLProtocolVersionStr;
   end;
 
-  ///<summary>
-  ///TTaurusTLSIOHandlerSocket and TTaurusTLSServerIOHandler common interface.
-  ///  This is here because both classes do not share a common anscestor.  This
-  ///  bridges the gap.
-  ///</summary>
+  /// <summary>
+  ///   TTaurusTLSIOHandlerSocket and TTaurusTLSServerIOHandler common
+  ///   interface. This is here because both classes do not share a common
+  ///   anscestor. This bridges the gap.
+  /// </summary>
   ITaurusTLSCallbackHelper = interface(IInterface)
     ['{F79BDC4C-4B26-446A-8EF1-9B0818321FAF}']
     /// <summary>
     ///   Called when the Debug Message Callback is invoked.
     /// </summary>
-    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
-    /// <param name="AVersion">TLS version of packet.</param>
-    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-    /// <param name="buf">The contents of the packet.</param>
-    /// <param name="SSL">The SSL object where the event occurred.</param>
+    /// <param name="AWrite">
+    ///   True if packet was written. False if packet was read.
+    /// </param>
+    /// <param name="AVersion">
+    ///   TLS version of packet.
+    /// </param>
+    /// <param name="AContentType">
+    ///   Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type
+    ///   constants
+    /// </param>
+    /// <param name="buf">
+    ///   The contents of the packet.
+    /// </param>
+    /// <param name="SSL">
+    ///   The SSL object where the event occurred.
+    /// </param>
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
     /// <summary>
     ///   Called when the GetPassword callback is invoked.
     /// </summary>
-    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
-    /// <returns>The password the event handler returned.</returns>
+    /// <param name="AIsWrite">
+    ///   True if the password is written/encrypted and typically the password
+    ///   is prompted for twice to prevent entry error.
+    /// </param>
+    /// <returns>
+    ///   The password the event handler returned.
+    /// </returns>
     function GetPassword(const AIsWrite: Boolean): string;
     /// <summary>
     ///   Called when the StatusInfo callback is invoked.
     /// </summary>
-    /// <param name="ASSL">The PSSL value associated with the event.</param>
-    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
-    /// <param name="Aret">A value indicating a particular message</param>
+    /// <param name="ASSL">
+    ///   The PSSL value associated with the event.
+    /// </param>
+    /// <param name="AWhere">
+    ///   A set of bitmasks that indicate where the event was called
+    /// </param>
+    /// <param name="Aret">
+    ///   A value indicating a particular message
+    /// </param>
     procedure StatusInfo(const ASSL: PSSL; AWhere, Aret: TIdC_INT);
     /// <summary>
     ///   Called when the VerifyPeer callback is invoked.
     /// </summary>
-    /// <param name="ACertificate">The certificate to be validated.</param>
-    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
-    /// <param name="ADepth">The maximum depth of.</param>
-    /// <param name="AError">The validation error if the certificate failed validation.</param>
-    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
+    /// <param name="ACertificate">
+    ///   The certificate to be validated.
+    /// </param>
+    /// <param name="AOk">
+    ///   True if the certificat passed validation or False if it failed
+    ///   validation.
+    /// </param>
+    /// <param name="ADepth">
+    ///   The maximum depth of.
+    /// </param>
+    /// <param name="AError">
+    ///   The validation error if the certificate failed validation.
+    /// </param>
+    /// <returns>
+    ///   True if the certificate if you wish to accept the certificate or false
+    ///   if you wish to reject it.
+    /// </returns>
     function VerifyPeer(ACertificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
     /// <summary>
     ///   Called when the SecurityLevel callback is invoked.
     /// </summary>
-    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
-    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
-    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
-    /// <param name="bits">Number of security bits the cipher has.</param>
-    /// <param name="ACipherNid">The Numberic Identifier (NID) of the cipher.</param>
-    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
+    /// <param name="AsslSocket">
+    ///   The SSL socket where the event occurred.
+    /// </param>
+    /// <param name="ACtx">
+    ///   The SSL_CTX object where the event occurred.
+    /// </param>
+    /// <param name="op">
+    ///   The operation expressed as an integer. This is one of the SSL_SECOP_*
+    ///   values.
+    /// </param>
+    /// <param name="bits">
+    ///   Number of security bits the cipher has.
+    /// </param>
+    /// <param name="ACipherNid">
+    ///   The Numberic Identifier (NID) of the cipher.
+    /// </param>
+    /// <param name="VAccepted">
+    ///   Return true if you will accept the connection attempt.
+    /// </param>
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT; out VAccepted: Boolean);
     /// <summary>
     ///   Called to obtain this instance as a TTaurusTLSIOHandlerSocket.
     /// </summary>
     /// <returns>
-    ///   The object instance as a TTaurusTLSIOHandlerSocket or nil if this
-    ///   not a TTaurusTLSIOHandlerSocket.
+    ///   The object instance as a TTaurusTLSIOHandlerSocket or nil if this not
+    ///   a TTaurusTLSIOHandlerSocket.
     /// </returns>
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
   end;
 
-  /// <summary>TaurusTLS component that enables TLS in a TIdTCPClientCustom descendant.
+  /// <summary>
+  ///   TaurusTLS component that enables TLS in a TIdTCPClientCustom descendant.
   /// </summary>
   TTaurusTLSIOHandlerSocket = class(TIdSSLIOHandlerSocketBase,
     ITaurusTLSCallbackHelper)
@@ -874,7 +1248,9 @@ type
     function GetURIHost: string;
 {$ENDIF}
   public
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     destructor Destroy; override;
     // TODO: add an AOwner parameter
     /// <summary>
@@ -936,12 +1312,16 @@ type
     ///   You should not call this method directly.
     /// </remarks>
     function Readable(AMSec: Integer = IdTimeoutDefault): Boolean; override;
-    /// <summary>Properties and methods for dealing with the TLS Connection.</summary>
+    /// <summary>
+    ///   Properties and methods for dealing with the TLS Connection.
+    /// </summary>
     property SSLSocket: TTaurusTLSSocket read fSSLSocket write fSSLSocket;
     /// <summary>
-    /// Occurs before TLS negotiation begins.
+    ///   Occurs before TLS negotiation begins.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
     property OnBeforeConnect: TOnIOHandlerNotify read fOnBeforeConnect
       write fOnBeforeConnect;
     /// <summary>
@@ -953,73 +1333,137 @@ type
     /// </remarks>
     property SSLContext: TTaurusTLSContext read fSSLContext write fSSLContext;
     /// <summary>
-    /// Occurs when a TLS packet is read or sent.
+    ///   Occurs when a TLS packet is read or sent.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
-    /// <param name="AVersion">TLS version of packet.</param>
-    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-    /// <param name="buf">The contents of the packet.</param>
-    /// <param name="SSL">The SSL object where the event occurred.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AWrite">
+    ///   True if packet was written. False if packet was read.
+    /// </param>
+    /// <param name="AVersion">
+    ///   TLS version of packet.
+    /// </param>
+    /// <param name="AContentType">
+    ///   Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type
+    ///   constants
+    /// </param>
+    /// <param name="buf">
+    ///   The contents of the packet.
+    /// </param>
+    /// <param name="SSL">
+    ///   The SSL object where the event occurred.
+    /// </param>
     property OnDebugMessage: TOnDebugMessageEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
     /// <summary>
-    /// Occurs when TLS negotiation is concluded.
+    ///   Occurs when TLS negotiation is concluded.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    ///
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
     property OnSSLNegotiated: TOnIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
-    /// <summary>Properties that effect TLS.
+    /// <summary>
+    ///   Properties that effect TLS.
     /// </summary>
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
     /// <summary>
-    /// Occurs when there is a status message.
+    ///   Occurs when there is a status message.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AsslSocket">The PSSL value associated with the event.</param>
-    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
-    /// <param name="Aret">A value indicating a particular message</param>
-    /// <param name="AType">The AWhere value represented as a string</param>
-    /// <param name="AMsg">The Aret value represented as a string</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AsslSocket">
+    ///   The PSSL value associated with the event.
+    /// </param>
+    /// <param name="AWhere">
+    ///   A set of bitmasks that indicate where the event was called
+    /// </param>
+    /// <param name="Aret">
+    ///   A value indicating a particular message
+    /// </param>
+    /// <param name="AType">
+    ///   The AWhere value represented as a string
+    /// </param>
+    /// <param name="AMsg">
+    ///   The Aret value represented as a string
+    /// </param>
     property OnStatusInfo: TOnStatusEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
-    /// Occurs when a password is required.
+    ///   Occurs when a password is required.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="VPassword">Return value indicating the password.</param>
-    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="VPassword">
+    ///   Return value indicating the password.
+    /// </param>
+    /// <param name="AIsWrite">
+    ///   True if the password is written/encrypted and typically the password
+    ///   is prompted for twice to prevent entry error.
+    /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
-    /// Occurs when a connection attempt is made.
+    ///   Occurs when a connection attempt is made.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
-    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
-    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
-    /// <param name="bits">Number of security bits the cipher has.</param>
-      /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
-    /// <param name="ACipher">The name of the cipher.</param>
-    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AsslSocket">
+    ///   The SSL socket where the event occurred.
+    /// </param>
+    /// <param name="ACtx">
+    ///   The SSL_CTX object where the event occurred.
+    /// </param>
+    /// <param name="op">
+    ///   The operation expressed as an integer. This is one of the SSL_SECOP_*
+    ///   values.
+    /// </param>
+    /// <param name="bits">
+    ///   Number of security bits the cipher has.
+    /// </param>
+    /// <param name="ACipherNid">
+    ///   The Numeric Identifier (NID) of the cipher.
+    /// </param>
+    /// <param name="ACipher">
+    ///   The name of the cipher.
+    /// </param>
+    /// <param name="VAccepted">
+    ///   Return true if you will accept the connection attempt.
+    /// </param>
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
-    /// Occurs when a certificate is presented for validation.
+    ///   Occurs when a certificate is presented for validation.
     /// </summary>
-    /// <param name="Certificate">The certificate to be validated.</param>
-    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
-    /// <param name="ADepth">The maximum depth of.</param>
-    /// <param name="AError">The validation error if the certificate failed validation.</param>
-    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
+    /// <param name="Certificate">
+    ///   The certificate to be validated.
+    /// </param>
+    /// <param name="AOk">
+    ///   True if the certificat passed validation or False if it failed
+    ///   validation.
+    /// </param>
+    /// <param name="ADepth">
+    ///   The maximum depth of.
+    /// </param>
+    /// <param name="AError">
+    ///   The validation error if the certificate failed validation.
+    /// </param>
+    /// <returns>
+    ///   True if the certificate if you wish to accept the certificate or false
+    ///   if you wish to reject it.
+    /// </returns>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
 
-  /// <summary>TaurusTLS component that enables TLS in a TIdCustomTCPServer descendant
+  /// <summary>
+  ///   TaurusTLS component that enables TLS in a TIdCustomTCPServer descendant
   /// </summary>
   TTaurusTLSServerIOHandler = class(TIdServerIOHandlerSSLBase,
     ITaurusTLSCallbackHelper)
@@ -1051,14 +1495,16 @@ type
 
   public
     /// <summary>
-    ///   Called by Indy (Internet Direct) and makes a TTaurusTLSContext for this TTaurusTLSServerIOHandler.
+    ///   Called by Indy (Internet Direct) and makes a TTaurusTLSContext for
+    ///   this TTaurusTLSServerIOHandler.
     /// </summary>
     /// <remarks>
     ///   You should not call this method directly.
     /// </remarks>
     procedure Init; override;
     /// <summary>
-    ///   Called by Indy (Internet Direct) and destroys the TTaurusTLSContext for the TTaurusTLSServerIOHandler.
+    ///   Called by Indy (Internet Direct) and destroys the TTaurusTLSContext
+    ///   for the TTaurusTLSServerIOHandler.
     /// </summary>
     procedure Shutdown; override;
     // AListenerThread is a thread and not a yarn. Its the listener thread.
@@ -1083,11 +1529,13 @@ type
     function Accept(ASocket: TIdSocketHandle; AListenerThread: TIdThread;
       AYarn: TIdYarn): TIdIOHandler; override;
     // function Accept(ASocket: TIdSocketHandle; AThread: TIdThread) : TIdIOHandler;  override;
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     destructor Destroy; override;
     /// <summary>
-    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket with Passsthrough set to
-    ///   True.
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket
+    ///   with Passsthrough set to True.
     /// </summary>
     /// <returns>
     ///   The TTaurusTLSIOHandlerSocket that was created.
@@ -1097,8 +1545,8 @@ type
     /// </remarks>
     function MakeClientIOHandler: TIdSSLIOHandlerSocketBase; override;
     /// <summary>
-    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket for the TIdFTPServer's PORT
-    ///   connection.
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket
+    ///   for the TIdFTPServer's PORT connection.
     /// </summary>
     /// <returns>
     ///   The TTaurusTLSIOHandlerSocket that was created.
@@ -1108,8 +1556,8 @@ type
     /// </remarks>
     function MakeFTPSvrPort: TIdSSLIOHandlerSocketBase; override;
     /// <summary>
-    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket for the TIdFTPServer's PASV
-    ///   connection.
+    ///   Called by Indy (Internet Direct) to make a TTaurusTLSIOHandlerSocket
+    ///   for the TIdFTPServer's PASV connection.
     /// </summary>
     /// <returns>
     ///   The TTaurusTLSIOHandlerSocket that was created.
@@ -1120,76 +1568,142 @@ type
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
 
     /// <summary>
-    /// The SSL Context for the TTaurusTLSServerIOHandler​.
+    ///   The SSL Context for the TTaurusTLSServerIOHandler​.
     /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext;
     /// <summary>
-    /// Occurs when a TLS packet is read or sent.
+    ///   Occurs when a TLS packet is read or sent.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AWrite">True if packet was written.  False if packet was read.</param>
-    /// <param name="AVersion">TLS version of packet.</param>
-    /// <param name="AContentType">Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type constants</param>
-    /// <param name="buf">The contents of the packet.</param>
-    /// <param name="SSL">The SSL object where the event occurred.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AWrite">
+    ///   True if packet was written. False if packet was read.
+    /// </param>
+    /// <param name="AVersion">
+    ///   TLS version of packet.
+    /// </param>
+    /// <param name="AContentType">
+    ///   Integer value may be one of the SSL3_RT_ and TLS1_RT_ content-type
+    ///   constants
+    /// </param>
+    /// <param name="buf">
+    ///   The contents of the packet.
+    /// </param>
+    /// <param name="SSL">
+    ///   The SSL object where the event occurred.
+    /// </param>
     property OnDebugMessage: TOnDebugMessageEvent read FOnDebugMessage
       write FOnDebugMessage;
   published
-    /// <summary>Properties that effect TLS.
+    /// <summary>
+    ///   Properties that effect TLS.
     /// </summary>
     property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
       write fSSLOptions;
     /// <summary>
-    /// Occurs when TLS negotiation is concluded.
+    ///   Occurs when TLS negotiation is concluded.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
     property OnSSLNegotiated: TOnIOHandlerNotify read FOnSSLNegotiated
       write FOnSSLNegotiated;
     /// <summary>
-    /// Occurs when there is a status message.
+    ///   Occurs when there is a status message.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AsslSocket">The PSSL value associated with the event.</param>
-    /// <param name="AWhere">A set of bitmasks that indicate where the event was called</param>
-    /// <param name="Aret">A value indicating a particular message</param>
-    /// <param name="AType">The AWhere value represented as a string</param>
-    /// <param name="AMsg">The Aret value represented as a string</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AsslSocket">
+    ///   The PSSL value associated with the event.
+    /// </param>
+    /// <param name="AWhere">
+    ///   A set of bitmasks that indicate where the event was called
+    /// </param>
+    /// <param name="Aret">
+    ///   A value indicating a particular message
+    /// </param>
+    /// <param name="AType">
+    ///   The AWhere value represented as a string
+    /// </param>
+    /// <param name="AMsg">
+    ///   The Aret value represented as a string
+    /// </param>
     property OnStatusInfo: TOnStatusEvent read FOnStatusInfo
       write FOnStatusInfo;
     /// <summary>
-    /// Occurs when a password is required.
+    ///   Occurs when a password is required.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="VPassword">Return value indicating the password.</param>
-    /// <param name="AIsWrite">True if the password is written/encrypted and typically the password is prompted for twice to prevent entry error.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="VPassword">
+    ///   Return value indicating the password.
+    /// </param>
+    /// <param name="AIsWrite">
+    ///   True if the password is written/encrypted and typically the password
+    ///   is prompted for twice to prevent entry error.
+    /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
-    /// Occurs when a connection attempt is made.
+    ///   Occurs when a connection attempt is made.
     /// </summary>
-    /// <param name="ASender">The object that triggers the event.</param>
-    /// <param name="AsslSocket">The SSL socket where the event occurred.</param>
-    /// <param name="ACtx">The SSL_CTX object where the event occurred.</param>
-    /// <param name="op">The operation expressed as an integer.  This is one of the SSL_SECOP_* values.</param>
-    /// <param name="bits">Number of security bits the cipher has.</param>
-      /// <param name="ACipherNid">The Numeric Identifier (NID) of the cipher.</param>
-    /// <param name="ACipher">The name of the cipher.</param>
-    /// <param name="VAccepted">Return true if you will accept the connection attempt.</param>
+    /// <param name="ASender">
+    ///   The object that triggers the event.
+    /// </param>
+    /// <param name="AsslSocket">
+    ///   The SSL socket where the event occurred.
+    /// </param>
+    /// <param name="ACtx">
+    ///   The SSL_CTX object where the event occurred.
+    /// </param>
+    /// <param name="op">
+    ///   The operation expressed as an integer. This is one of the SSL_SECOP_*
+    ///   values.
+    /// </param>
+    /// <param name="bits">
+    ///   Number of security bits the cipher has.
+    /// </param>
+    /// <param name="ACipherNid">
+    ///   The Numeric Identifier (NID) of the cipher.
+    /// </param>
+    /// <param name="ACipher">
+    ///   The name of the cipher.
+    /// </param>
+    /// <param name="VAccepted">
+    ///   Return true if you will accept the connection attempt.
+    /// </param>
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
-    /// Occurs when a certificate is presented for validation.
+    ///   Occurs when a certificate is presented for validation.
     /// </summary>
-    /// <param name="Certificate">The certificate to be validated.</param>
-    /// <param name="AOk">True if the certificat passed validation or False if it failed validation.</param>
-    /// <param name="ADepth">The maximum depth of.</param>
-    /// <param name="AError">The validation error if the certificate failed validation.</param>
-    /// <returns>True if the certificate if you wish to accept the certificate or false if you wish to reject it.</returns>
+    /// <param name="Certificate">
+    ///   The certificate to be validated.
+    /// </param>
+    /// <param name="AOk">
+    ///   True if the certificat passed validation or False if it failed
+    ///   validation.
+    /// </param>
+    /// <param name="ADepth">
+    ///   The maximum depth of.
+    /// </param>
+    /// <param name="AError">
+    ///   The validation error if the certificate failed validation.
+    /// </param>
+    /// <returns>
+    ///   True if the certificate if you wish to accept the certificate or false
+    ///   if you wish to reject it.
+    /// </returns>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
 
-  /// <summary>TLS Cipher information.</summary>
+  /// <summary>
+  ///   TLS Cipher information.
+  /// </summary>
   TTaurusTLSCipher = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     fSSLSocket: TTaurusTLSSocket;
@@ -1207,209 +1721,211 @@ type
     ///   The TTaurusTLSSocket that owns the new instance.
     /// </param>
     constructor Create(AOwner: TTaurusTLSSocket);
-    /// <summary>Frees resources and destroys the current instance.</summary>
+    /// <summary>
+    ///   Frees resources and destroys the current instance.
+    /// </summary>
     destructor Destroy; override;
     // These can't be published without a compiler warning.
     // published
-    /// <summary>Description of cipher.</summary>
+    /// <summary>
+    ///   Description of cipher.
+    /// </summary>
     property Description: String read GetDescription;
-    /// <summary>Name of cipher.</summary>
+    /// <summary>
+    ///   Name of cipher.
+    /// </summary>
     property Name: String read GetName;
-    /// <summary>Number of bits in cipher.</summary>
+    /// <summary>
+    ///   Number of bits in cipher.
+    /// </summary>
     property bits: Integer read GetBits;
-    /// <summary>Version of cipher.</summary>
+    /// <summary>
+    ///   Version of cipher.
+    /// </summary>
     property Version: String read GetVersion;
   end;
 
   /// <summary>
-  /// Raised if the OpenSSL library failed to load.
+  ///   Raised if the OpenSSL library failed to load.
   /// </summary>
   ETaurusTLSCouldNotLoadSSLLibrary = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the Mode property is sslmUnassigned when the GetSSLMethod is
-  /// called.
+  ///   Raised if the Mode property is sslmUnassigned when the GetSSLMethod is
+  ///   called.
   /// </summary>
   ETaurusTLSModeNotSet = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
+  ///   Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
   /// </summary>
   ETaurusTLSSessionCanNotBeNil = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if <c>SSL_SESSION_get_protocol_version</c> returned in invalid value.
+  ///   Raised if <c>SSL_SESSION_get_protocol_version</c> returned in invalid
+  ///   value.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_SESSION_get_protocol_version/">
-  /// SSL_SESSION_get_protocol_version
+  ///   SSL_SESSION_get_protocol_version
   /// </seealso>
   ETaurusTLSInvalidSessionValue = class(ETaurusTLSError);
 
   /// <summary>
-  /// Raised if <c>SSL_new</c> failed.
+  ///   Raised if <c>SSL_new</c> failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_new/">
-  /// SSL_new
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_new/">
+  ///   SSL_new
   /// </seealso>
   ETaurusTLSCreatingSessionError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if <c>SSL_CTX_new_ex</c> failed.
+  ///   Raised if <c>SSL_CTX_new_ex</c> failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_new/">SSL_CTX_new_ex
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_CTX_new/">
+  ///   SSL_CTX_new_ex
   /// </seealso>
   ETaurusTLSCreatingContextError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the Root Certificate files failed to load.
+  ///   Raised if the Root Certificate files failed to load.
   /// </summary>
   ETaurusTLSLoadingRootCertError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the Certificate failed to load.
+  ///   Raised if the Certificate failed to load.
   /// </summary>
   ETaurusTLSLoadingCertError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the private key failed to load.
+  ///   Raised if the private key failed to load.
   /// </summary>
   ETaurusTLSLoadingKeyError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if DH parameters file failed to load.
+  ///   Raised if DH parameters file failed to load.
   /// </summary>
   ETaurusTLSLoadingDHParamsError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if <c>SSL_CTX_set_cipher_list</c> failed.
+  ///   Raised if <c>SSL_CTX_set_cipher_list</c> failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_cipher_list/">
-  /// SSL_CTX_set_cipher_list
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_cipher_list/">
+  ///   SSL_CTX_set_cipher_list
   /// </seealso>
   ETaurusTLSSettingCipherError = class(ETaurusTLSError);
 
   /// <summary>
-  /// Raised if <c>SSL_set_fd</c> failed.
+  ///   Raised if <c>SSL_set_fd</c> failed.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_set_fd/">
-  /// SSL_set_fd
+  ///   SSL_set_fd
   /// </seealso>
   ETaurusTLSFDSetError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if <c>SSL_set_app_data</c> failed.
+  ///   Raised if <c>SSL_set_app_data</c> failed.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/BIO_get_ex_new_index/">
-  /// SSL_set_app_data
+  ///   SSL_set_app_data
   /// </seealso>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if <c>SSL_accept</c> fails.
+  ///   Raised if <c>SSL_accept</c> fails.
   /// </summary>
- /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_accept/">
-  /// SSL_accept
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_accept/">
+  ///   SSL_accept
   /// </seealso>
   ETaurusTLSAcceptError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if the <c>SSL_Connect</c> fails.
+  ///   Raised if the <c>SSL_Connect</c> fails.
   /// </summary>
- /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_connect/">
-  /// SSL_connect
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_connect/">
+  ///   SSL_connect
   /// </seealso>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///  Raised if <c>SSL_write_ex2</c> or <c>SSL_write_ex</c> fails.
+  ///   Raised if <c>SSL_write_ex2</c> or <c>SSL_write_ex</c> fails.
   /// </summary>
- /// <seealso
-  /// href="https://docs.openssl.org/3.3/man3/SSL_write/">
-  /// SSL_write_ex2
+  /// <seealso href="https://docs.openssl.org/3.3/man3/SSL_write/">
+  ///   SSL_write_ex2
   /// </seealso>
- /// <seealso
-  /// href="https://docs.openssl.org/3.3/man3/SSL_write/">
-  /// SSL_write_ex
+  /// <seealso href="https://docs.openssl.org/3.3/man3/SSL_write/">
+  ///   SSL_write_ex
   /// </seealso>
   ETaurusTLSWriteEx2Error = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///  Raised if <c>SSL_read_ex</c> fails.
+  ///   Raised if <c>SSL_read_ex</c> fails.
   /// </summary>
- /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/SSL_read/">
-  /// SSL_read_ex
+  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_read/">
+  ///   SSL_read_ex
   /// </seealso>
   ETaurusTLSReadExError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if the Certificate Common Name does not match the specified
-  /// hostname.
+  ///   Raised if the Certificate Common Name does not match the specified
+  ///   hostname.
   /// </summary>
   ETaurusTLSCertificateError = class(ETaurusTLSError);
 {$IFNDEF OPENSSL_NO_TLSEXT}
   /// <summary>
-  /// Raised if <c>SSL_set_tlsext_host_name</c> failed.
+  ///   Raised if <c>SSL_set_tlsext_host_name</c> failed.
   /// </summary>
- /// <seealso
+  /// <seealso
   /// href="https://docs.openssl.org/master/man3/SSL_CTX_set_tlsext_servername_callback/#description">
-  /// SSL_set_tlsext_host_name
+  ///   SSL_set_tlsext_host_name
   /// </seealso>
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
 {$ENDIF}
   /// <summary>
-  /// Raised if <c>SSL_CTX_set_min_proto_version</c> failed.
+  ///   Raised if <c>SSL_CTX_set_min_proto_version</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
-  /// SSL_CTX_set_max_proto_version
+  ///   SSL_CTX_set_max_proto_version
   /// </seealso>
   ETaurusTLSSettingMinProtocolError = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if <c>SSL_CTX_set_max_proto_version</c> failed.
+  ///   Raised if <c>SSL_CTX_set_max_proto_version</c> failed.
   /// </summary>
   /// <seealso
   /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_min_proto_version/">
-  /// SSL_CTX_set_min_proto_version
+  ///   SSL_CTX_set_min_proto_version
   /// </seealso>
   ETaurusTLSSettingMaxProtocolError = class(ETaurusTLSError);
   /// <summary>
-  ///  Raised if <c>X509_STORE_add_cert</c> failed.
-  ///</summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/master/man3/X509_STORE_add_cert/">
-  /// X509_STORE_add_cert
+  ///   Raised if <c>X509_STORE_add_cert</c> failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/master/man3/X509_STORE_add_cert/">
+  ///   X509_STORE_add_cert
   /// </seealso>
   ETaurusTLSCertNotAddedToStore = class(ETaurusTLSAPICryptoError);
   /// <summary>
   ///   Raised if <c>SSL_copy_session_id</c> failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man7/ssl/">
-  /// SSL_copy_session_id
-  ///  </seealso>
+  /// <seealso href="https://docs.openssl.org/3.0/man7/ssl/">
+  ///   SSL_copy_session_id
+  /// </seealso>
   ETaurusTLSSSLCopySessionId = class(ETaurusTLSError);
   /// <summary>
-  /// Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
-  /// TaurusTLS statically.
+  ///   Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
+  ///   TaurusTLS statically.
   /// </summary>
   /// <returns>
-  /// True if successful or False if it failed.
+  ///   True if successful or False if it failed.
   /// </returns>
   /// <remarks>
-  /// The OpenSSL library is only loaded once. If it is already loaded, True is
-  /// returned. True is also returned if the library is statically loaded by
-  /// TaurusTLS.
+  ///   The OpenSSL library is only loaded once. If it is already loaded, True
+  ///   is returned. True is also returned if the library is statically loaded
+  ///   by TaurusTLS.
   /// </remarks>
 function LoadOpenSSLLibrary: Boolean;
 /// <summary>
-/// Unloads the OpenSSL libaries. Called when the program terminates. Ignored
-/// if TaurusTLS loaded the OpenSSL libraries statically.
+///   Unloads the OpenSSL libaries. Called when the program terminates. Ignored
+///   if TaurusTLS loaded the OpenSSL libraries statically.
 /// </summary>
 procedure UnLoadOpenSSLLibrary;
 
 /// <summary>
-/// The version of OpenSSL that was loaded.
+///   The version of OpenSSL that was loaded.
 /// </summary>
 function OpenSSLVersion: string;
 /// <summary>
-/// The OpenSSL directory. This is the directory that was configured when
-/// OpenSSL was built.
+///   The OpenSSL directory. This is the directory that was configured when
+///   OpenSSL was built.
 /// </summary>
 /// <returns>
-/// The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
-/// where the library was loaded from.
+///   The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+///   where the library was loaded from.
 /// </returns>
 function OpenSSLDir: string;
 

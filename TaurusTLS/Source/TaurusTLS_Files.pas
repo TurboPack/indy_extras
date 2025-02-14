@@ -8,7 +8,9 @@
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 
-/// <summary>File routines for the TaurusTLS library.</summary>
+/// <summary>
+///   File routines for the TaurusTLS library.
+/// </summary>
 unit TaurusTLS_Files;
 
 {$I TaurusTLSCompilerDefines.inc}
@@ -23,7 +25,9 @@ uses
   TaurusTLSHeaders_x509;
 
 const
-/// <summary>Maximum password length.</summary>
+/// <summary>
+///   Maximum password length.
+/// </summary>
   MAX_SSL_PASSWORD_LENGTH = 128;
 
 /// <summary>

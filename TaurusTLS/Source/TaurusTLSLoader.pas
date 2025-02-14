@@ -7,8 +7,10 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
-/// <summary>Functionality for loading the OpenSSL library including registration
-/// mechanism for the TaurusTLSHeader_ units.</summary>
+/// <summary>
+///   Functionality for loading the OpenSSL library including registration
+///   mechanism for the TaurusTLSHeader_ units.
+/// </summary>
 unit TaurusTLSLoader;
 
 {$i TaurusTLSCompilerDefines.inc}
@@ -50,17 +52,25 @@ type
   { IOpenSSLLoader }
 
   /// <summary>
-  /// Library Loader for TaurusTLS.
+  ///   Library Loader for TaurusTLS.
   /// </summary>
   IOpenSSLLoader = interface
     ['{BBB0F670-CC26-42BC-A9E0-33647361941A}']
-    /// <summary>Property get function for OpenSSLPath.</summary>
+    /// <summary>
+    ///   Property get function for OpenSSLPath.
+    /// </summary>
     function GetOpenSSLPath: string;
-    /// <summary>Property get function for SSLLibVersions.</summary>
+    /// <summary>
+    ///   Property get function for SSLLibVersions.
+    /// </summary>
     function GetSSLLibVersions: string;
-    /// <summary>Property set procedure for OpenSSLPath.</summary>
+    /// <summary>
+    ///   Property set procedure for OpenSSLPath.
+    /// </summary>
     procedure SetOpenSSLPath(const Value: string);
-    /// <summary>Property get function for FailedToLoad.</summary>
+    /// <summary>
+    ///   Property get function for FailedToLoad.
+    /// </summary>
     function GetFailedToLoad: TStringList;
 
     /// <summary>
@@ -70,7 +80,9 @@ type
     ///   True if loaded or already loaded. False if failed to load.
     /// </returns>
     function Load: Boolean;
-    /// <summary>Property set procedure for SSLLibVersions.</summary>
+    /// <summary>
+    ///   Property set procedure for SSLLibVersions.
+    /// </summary>
     procedure SetSSLLibVersions(const AValue: string);
     /// <summary>
     ///   Unloads the OpenSSL library.
@@ -108,43 +120,47 @@ type
   end;
 
   /// <summary>
-  ///   Definition for the Loader procedure.  The procedure will obtain the
+  ///   Definition for the Loader procedure. The procedure will obtain the
   ///   address of the functions in the header.
   /// </summary>
-  ///  <param name="ADllHandle">
-  ///     The handle for the library where the function should be loaded from.
-  ///  </param>
-  ///  <param name="LibVersion">
-  ///     The OpenSSL version in numerical form.
-  ///  </param>
-  ///  <param name="AFailed">
-  ///  The TStringList for tracking which functions failed to load.
-  ///  </param>
+  /// <param name="ADllHandle">
+  ///   The handle for the library where the function should be loaded from.
+  /// </param>
+  /// <param name="LibVersion">
+  ///   The OpenSSL version in numerical form.
+  /// </param>
+  /// <param name="AFailed">
+  ///   The TStringList for tracking which functions failed to load.
+  /// </param>
   TOpenSSLLoadProc = procedure(const ADllHandle: TIdLibHandle;
     LibVersion: TIdC_UINT; const AFailed: TStringList);
-  ///  <summary>
-  ///    Definition for the unloader procedure.  This procedure will set the
-  ///    address of the functions in the header back to nil.
-  ///  </summary>
+  /// <summary>
+  ///   Definition for the unloader procedure. This procedure will set the
+  ///   address of the functions in the header back to nil.
+  /// </summary>
   TOpenSSLUnloadProc = procedure;
 
   /// <summary>
-  /// Creates the library loader interface if it was not already created.
+  ///   Creates the library loader interface if it was not already created.
   /// </summary>
   /// <returns>
-  /// Library loader for TaurusTLS.
+  ///   Library loader for TaurusTLS.
   /// </returns>
 function GetOpenSSLLoader: IOpenSSLLoader;
 
-/// <summary>Registers a loader procedure that is responsible for obtaining the address of the functions</summary>
+/// <summary>
+///   Registers a loader procedure that is responsible for obtaining the address
+///   of the functions
+/// </summary>
 /// <param name="LoadProc">
-/// The procedure that will obtain the address of the functions in the header.
+///   The procedure that will obtain the address of the functions in the header.
 /// </param>
 /// <param name="module_name">
-///  The library that is loaded.  Is either, "LibCrypto" or "LibSSL".
+///   The library that is loaded. Is either, "LibCrypto" or "LibSSL".
 /// </param>
 /// <remarks>
-///   Developers should not directly call this procedure.  The TaurusTLS OpenSSL headers call this procedure.
+///   Developers should not directly call this procedure. The TaurusTLS OpenSSL
+///   headers call this procedure.
 /// </remarks>
 procedure Register_SSLLoader(LoadProc: TOpenSSLLoadProc;
   const module_name: string);
@@ -152,7 +168,8 @@ procedure Register_SSLLoader(LoadProc: TOpenSSLLoadProc;
 ///   Regosters an unloader procedure that sets the function pointers to nil.
 /// </summary>
 /// <remarks>
-///   Developers should not directly call this procedure.  The TaurusTLS OpenSSL headers call this procedure.
+///   Developers should not directly call this procedure. The TaurusTLS OpenSSL
+///   headers call this procedure.
 /// </remarks>
 procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 

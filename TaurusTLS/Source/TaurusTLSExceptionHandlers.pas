@@ -7,7 +7,9 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
-/// <summary>Exception classes for TaurusTLS.</summary>
+/// <summary>
+///   Exception classes for TaurusTLS.
+/// </summary>
 unit TaurusTLSExceptionHandlers;
 
 {$I TaurusTLSCompilerDefines.inc}
@@ -26,7 +28,9 @@ type
   /// </summary>
   ETaurusTLSError               = class(EIdException)
   public
-    /// <summary>Raises the exception class.</summary>
+    /// <summary>
+    ///   Raises the exception class.
+    /// </summary>
     /// <param name="AMsg">
     ///   The error message to display.
     /// </param>
@@ -116,31 +120,29 @@ type
   ETaurusTLSUnderlyingCryptoError = class(ETaurusTLSAPICryptoError);
 
   /// <summary>
-  ///   Anscestor of exceptions that are raised if an EVP_Digest* functions fail.
+  ///   Anscestor of exceptions that are raised if an EVP_Digest* functions
+  ///   fail.
   /// </summary>
   ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
   /// <summary>
   ///   Raised when the EVP_DigestFinal_ex function failed. <br />
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
-  /// EVP_DigestInit_ex
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  ///   EVP_DigestInit_ex
   /// </seealso>
   ETaurusTLSDigestFinalEx = class(ETaurusTLSDigestError);
   /// <summary>
   ///   Raised when the EVP_DigestInit_ex function failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
-  /// EVP_DigestInit_ex
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  ///   EVP_DigestInit_ex
   /// </seealso>
   ETaurusTLSDigestInitEx = class(ETaurusTLSDigestError);
   /// <summary>
   ///   Raised when the EVP_DigestUpdate function failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
-  /// EVP_DigestUpdate
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  ///   EVP_DigestUpdate
   /// </seealso>
   ETaurusTLSDigestUpdate = class(ETaurusTLSDigestError);
 
@@ -166,25 +168,22 @@ type
   /// <summary>
   ///   Raised if the HMAC_Init_ex function failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
-  /// HMAC_Init_ex
+  /// <seealso href="https://docs.openssl.org/3.0/man3/HMAC/">
+  ///   HMAC_Init_ex
   /// </seealso>
   ETaurusTLSHMACInitEx = class(ETaurusTLSHMACError);
   /// <summary>
   ///   Raised if the HMAC_Update function failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
-  /// HMAC_Update
+  /// <seealso href="https://docs.openssl.org/3.0/man3/HMAC/">
+  ///   HMAC_Update
   /// </seealso>
   ETaurusTLSHMACUpdate = class(ETaurusTLSHMACError);
   /// <summary>
   ///   Raised if the HMAC_Final function failed.
   /// </summary>
-  /// <seealso
-  /// href="https://docs.openssl.org/3.0/man3/HMAC/">
-  /// HMAC_Final
+  /// <seealso href="https://docs.openssl.org/3.0/man3/HMAC/">
+  ///   HMAC_Final
   /// </seealso>
   ETaurusTLSHMACFinal = class(ETaurusTLSHMACError);
 

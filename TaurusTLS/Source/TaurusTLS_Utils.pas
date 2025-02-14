@@ -8,7 +8,9 @@
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 
-/// <summary>Various utility functions used in the TaurusTLS library.</summary>
+/// <summary>
+///   Various utility functions used in the TaurusTLS library.
+/// </summary>
 unit TaurusTLS_Utils;
 
 {$I TaurusTLSCompilerDefines.inc}
@@ -31,7 +33,7 @@ uses
 
 type
   /// <summary>
-  /// Message Digest.
+  ///   Message Digest.
   /// </summary>
   TTaurusTLSLEVP_MD = record
     _Length: TIdC_UINT;
@@ -39,104 +41,104 @@ type
   end;
 
   /// <summary>
-  /// Converts an OpenSSL ASN1 String to a hexidecimal representation.
+  ///   Converts an OpenSSL ASN1 String to a hexidecimal representation.
   /// </summary>
   /// <param name="a">
-  /// Pointer to the OpenSSL ASN1_STRING to convert.
+  ///   Pointer to the OpenSSL ASN1_STRING to convert.
   /// </param>
   /// <returns>
-  /// Hexidecimal representation of the value of the string.
+  ///   Hexidecimal representation of the value of the string.
   /// </returns>
   /// <remarks>
-  /// The function returns an empty string if the A parameter is nil.
+  ///   The function returns an empty string if the A parameter is nil.
   /// </remarks>
 function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;
 /// <summary>
-/// Converts an OpenSSL ASN1_OBJECT value to a string.
+///   Converts an OpenSSL ASN1_OBJECT value to a string.
 /// </summary>
 /// <param name="a">
-/// Pointer to the ASN1_OBJECT.
+///   Pointer to the ASN1_OBJECT.
 /// </param>
 /// <returns>
-/// The textual representation of the ASN1_OBJECT's value.
+///   The textual representation of the ASN1_OBJECT's value.
 /// </returns>
 /// <remarks>
-/// May return an empty string if the a parameter is nil.
+///   May return an empty string if the a parameter is nil.
 /// </remarks>
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 /// <summary>
-/// Converts a series of bytes to their hexidecimal representation.
+///   Converts a series of bytes to their hexidecimal representation.
 /// </summary>
 /// <param name="APtr">
-/// Pointer to the bytes to convert.
+///   Pointer to the bytes to convert.
 /// </param>
 /// <param name="ALen">
-/// number of bytes to convert.
+///   number of bytes to convert.
 /// </param>
 /// <returns>
-/// Hexidecimal representation of the bytes.
+///   Hexidecimal representation of the bytes.
 /// </returns>
 /// <remarks>
-/// An empty string may be returned if APtr is nil or the ALen parameter is 0.
+///   An empty string may be returned if APtr is nil or the ALen parameter is 0.
 /// </remarks>
 function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
 /// <summary>
-/// Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
+///   Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
 /// </summary>
 /// <param name="AMD">
-/// The TTaurusTLSLEVP_MD to convert.
+///   The TTaurusTLSLEVP_MD to convert.
 /// </param>
 /// <returns>
-/// The hexidecimal representation.
+///   The hexidecimal representation.
 /// </returns>
 function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
 /// <summary>
-/// Parses an ASN1_TIME into a time stamp.
+///   Parses an ASN1_TIME into a time stamp.
 /// </summary>
 /// <param name="a">
-/// Pointer to the OpenSSL ASN1_TIME object to parse.
+///   Pointer to the OpenSSL ASN1_TIME object to parse.
 /// </param>
 /// <param name="year">
-/// Returns the year
+///   Returns the year
 /// </param>
 /// <param name="month">
-/// Returns the month
+///   Returns the month
 /// </param>
 /// <param name="day">
-/// Returns the day of the month.
+///   Returns the day of the month.
 /// </param>
 /// <param name="hour">
-/// Returns the Hour of the day.
+///   Returns the Hour of the day.
 /// </param>
 /// <param name="min">
-/// Returns the minute of the hour.
+///   Returns the minute of the hour.
 /// </param>
 /// <param name="sec">
-/// Returns the second of the minute.
+///   Returns the second of the minute.
 /// </param>
 /// <param name="tz_hour">
-/// Returns the Time Zone offset hour
+///   Returns the Time Zone offset hour
 /// </param>
 /// <param name="tz_min">
-/// Returns the Time Zone offset minute.
+///   Returns the Time Zone offset minute.
 /// </param>
 /// <returns>
-/// True if parsing was successful or False if failed.
+///   True if parsing was successful or False if failed.
 /// </returns>
 function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
   sec: Word; out tz_hour, tz_min: Integer): Boolean;
 
 /// <summary>
-/// Converts a ASN1_TIME to a TDateTime time stamp.
+///   Converts a ASN1_TIME to a TDateTime time stamp.
 /// </summary>
 /// <param name="a">
-/// The Pointer to the OpenSSL ASN1_TIME to convert.
+///   The Pointer to the OpenSSL ASN1_TIME to convert.
 /// </param>
 /// <returns>
-/// The value as a TDateTime.
+///   The value as a TDateTime.
 /// </returns>
 /// <remarks>
-/// The return value may be 0 if the conversion failed.
+///   The return value may be 0 if the conversion failed.
 /// </remarks>
 function ASN1TimeToDateTime(a: PASN1_TIME): TDateTime;
 
@@ -158,7 +160,8 @@ function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 ///   Pointer to an OpenSSL X509_NAME object.
 /// </param>
 /// <returns>
-///   The value as a textual representation or an empty string if the ADirName parameter is nil.
+///   The value as a textual representation or an empty string if the ADirName
+///   parameter is nil.
 /// </returns>
 function DirName(const ADirName: PX509_NAME): String;
 /// <summary>
@@ -175,19 +178,19 @@ function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 /// <summary>
-/// Converts to series ot bytes to a TIdBytes.
+///   Converts to series ot bytes to a TIdBytes.
 /// </summary>
 /// <param name="AValue">
-/// Pointer to the bytes to convert.
+///   Pointer to the bytes to convert.
 /// </param>
 /// <param name="ASize">
-/// The number of bytes to convert.
+///   The number of bytes to convert.
 /// </param>
 /// <returns>
-/// The TIdBytes.
+///   The TIdBytes.
 /// </returns>
 /// <remarks>
-/// The function may not be present if the Indy version is greater than 10.6.
+///   The function may not be present if the Indy version is greater than 10.6.
 /// </remarks>
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 {$ENDIF}
