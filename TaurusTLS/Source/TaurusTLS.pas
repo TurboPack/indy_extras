@@ -370,8 +370,8 @@ const
   ///   The default value for TSLLOptions.SecurityLevel property.
   /// </summary>
   /// <seealso
-  /// cref="https://docs.openssl.org/3.2/man3/SSL_CTX_set_security_level/#notes">
-  ///   https://docs.openssl.org/3.2/man3/SSL_CTX_set_security_level/#notes
+  /// href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">
+  /// default-callback-behaviour
   /// </seealso>
   DEF_SECURITY_LEVEL = 2;
   /// <summary>The default value for TSLLOptions.VerifyHostname property.</summary>
