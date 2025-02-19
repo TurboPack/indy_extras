@@ -4056,7 +4056,7 @@ begin
   LRetCode := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(AnsiString(fHostName)));
   if LRetCode <= 0 then
   begin
-    ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, error,
+    ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
       RSSSLSettingTLSHostNameError);
   end;
 {$ENDIF}
