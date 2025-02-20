@@ -181,11 +181,13 @@ implementation
 
 uses
   TaurusTLSExceptionHandlers,
+  {$IFDEF FPC}
+  IdGlobalProtocols,
+  {$ENDIF}
   TaurusTLS_ResourceStrings
-
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFDEF WINDOWS}, Windows{$ENDIF}
-{$IFDEF FPC}, dynlibs{$ENDIF}
+{$IFDEF FPC}, dynlibs{$ELSE}, System.IOUtils{$ENDIF}
     , TaurusTLSConsts,
   IdThreadSafe,
   SysUtils
@@ -298,11 +300,39 @@ begin
     {$ELSE} 0 {$ENDIF});
 end;
 
+Function ExtractFileNameWithoutExt(const libname:String) : String;
+Begin
+  {$IFDEF FPC}
+  if ExtractFileExt(libname) <> '' then
+  begin
+    Result := ExtractFilename(copy(libname,1,rpos(ExtractFileExt(libname),libname)-1))
+  end
+  else
+  begin
+    Result := ExtractFilename(libname);
+  end;
+  {$ELSE}
+  Result := TPath.GetFileNameWithoutExtension(LibName);
+  {$ENDIF}
+End;
+
+function ExtractFileExt(const LibName: String): String;
+begin
+  {$IFDEF FPC}
+  Result := ExtractFileExt(LibName);
+  {$ELSE}
+  Result := TPath.GetExtension(LibName);
+  {$ENDIF}
+end;
+
 function TOpenSSLLoader.FindLibrary(const LibName, LibVersions: string)
   : TIdLibHandle;
 var
   LibVersionsList: TStringList;
   i: integer;
+  {$IFDEF OSX}
+  LFileName, LExt: string; // <---- New local vars
+  {$ENDIF}
 begin
   { Important!!!
 
@@ -315,6 +345,10 @@ begin
 {$ELSE}
   Result := NilHandle;
 {$ENDIF}
+  {$IFDEF OSX}
+  LFileName := ExtractFileNameWithoutExt(LibName);
+  LExt := ExtractFileExt(LibName);
+  {$ENDIF}
   LibVersionsList := TStringList.Create;
   try
     LibVersionsList.Delimiter := DirListDelimiter;
@@ -322,7 +356,13 @@ begin
     LibVersionsList.DelimitedText := LibVersions; { Split list on delimiter }
     for i := 0 to LibVersionsList.Count - 1 do
     begin
+      {$IFDEF OSX}
+       // Complete filename based on version being embedded into the name, eg: libcrypto.3.dylib
+      Result := DoLoadLibrary(OpenSSLPath + LFileName + LibVersionsList[i] + LExt);
+      {$ELSE}
+      // Complete filename based on version being the last part of the name, eg: libcrypto.so.3
       Result := DoLoadLibrary(OpenSSLPath + LibName + LibVersionsList[i]);
+      {$ENDIF}
       if Result <> NilHandle then
         break;
     end;
