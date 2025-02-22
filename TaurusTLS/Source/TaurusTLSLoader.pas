@@ -300,7 +300,8 @@ begin
     {$ELSE} 0 {$ENDIF});
 end;
 
-Function ExtractFileNameWithoutExt(const libname:String) : String;
+Function TaurusTLSExtractFileNameWithoutExt(const libname:String) : String;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 Begin
   {$IFDEF FPC}
   if ExtractFileExt(libname) <> '' then
@@ -316,7 +317,8 @@ Begin
   {$ENDIF}
 End;
 
-function ExtractFileExt(const LibName: String): String;
+function TaurusTLSExtractFileExt(const LibName: String): String;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   {$IFDEF FPC}
   Result := ExtractFileExt(LibName);
@@ -346,8 +348,8 @@ begin
   Result := NilHandle;
 {$ENDIF}
   {$IFDEF OSX}
-  LFileName := ExtractFileNameWithoutExt(LibName);
-  LExt := ExtractFileExt(LibName);
+  LFileName := TaurusTLSExtractFileNameWithoutExt(LibName);
+  LExt := TaurusTLSExtractFileExt(LibName);
   {$ENDIF}
   LibVersionsList := TStringList.Create;
   try
