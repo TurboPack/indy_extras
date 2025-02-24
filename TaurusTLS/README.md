@@ -40,7 +40,7 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 
 ## Deploying Your Applications
 
-TaurusTLS does require OpenSSL 1.1.1 or OpenSSL 3.x.  
+TaurusTLS requires OpenSSL 1.1.1 or OpenSSL 3.x.  
 
 ### Linux
 On Linux, OpenSSL is usually installed by default.  We recommend that developers document this requirement in case users need to install updated versions of OpenSSL.
@@ -53,7 +53,7 @@ https://secdops.com/blog/using-openssl-alongside-the-default-libressl-on-macos/
 
 ### Windows
 
-On Windows, OpenSSL is not installed by default so you have to redistribute it along with your software.   You can choose to either deploy OpenSSL 1.1.1 or an OpenSSL 3.x version.  As of this writing, the 3.x versions are 3.0.15, 3.1.7, 3.2.3, 3.3.2, and 3.4.0.  Pre-compiled .DLL’s for these versions are available at https://github.com/JPeterMugaas/TaurusTLS/tree/main/OpenSSL/binaries .  For Win32 applications, you need to redistribute the following:
+On Windows, OpenSSL is not installed by default so you have to redistribute it along with your software.   You can choose to either deploy OpenSSL 1.1.1 or an OpenSSL 3.x version.  As of this writing, the 3.x versions are 3.0.16, 3.1.8, 3.2.4, 3.3.3, and 3.4.1.  Pre-compiled .DLL’s for these versions are available at https://github.com/JPeterMugaas/TaurusTLS/tree/main/OpenSSL/binaries .  For Win32 applications, you need to redistribute the following:
 
 OpenSSL 1.1.1
 - libcrypto-1_1.dll	
