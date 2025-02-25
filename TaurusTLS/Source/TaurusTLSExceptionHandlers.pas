@@ -189,8 +189,9 @@ type
 
 implementation
 
-uses TaurusTLSHeaders_err, IdGlobal, TaurusTLSHeaders_ssl,
-  IdResourceStringsProtocols, IdStack, TaurusTLS_ResourceStrings;
+uses IdGlobal, IdStack, IdResourceStringsProtocols,
+   TaurusTLSHeaders_err, TaurusTLSHeaders_ssl,
+   TaurusTLS_ResourceStrings, TaurusTLS_Utils;
 
 function GetErrorMessage(const AErr : TIdC_ULONG) : String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
@@ -215,7 +216,7 @@ begin
   {$IFDEF USE_MARSHALLED_PTRS}
   Result := TMarshal.ReadStringAsAnsi(LErrMsgPtr);
   {$ELSE}
-  Result := String(LErrMsg);
+  Result := AnsiStringToString(LErrMsg);
   {$ENDIF}
 end;
 
@@ -306,7 +307,7 @@ begin
     end
   end;
   // everything else...
-  LException := Create(LErrStr + String(GetErrorMessage(AErrCode)));
+  LException := Create(LErrStr + GetErrorMessage(AErrCode));
   LException.FErrorCode := AErrCode;
   LException.FRetCode := ARetCode;
   raise LException;

@@ -186,7 +186,9 @@ function IndyX509_STORE_load_locations(ctx: PX509_STORE;
 implementation
 
 uses
+  Classes,
   IdGlobal,
+  SysUtils,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_dh,
@@ -198,8 +200,7 @@ uses
   TaurusTLSHeaders_sslerr,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_x509_vfy,
-  Classes,
-  SysUtils;
+  TaurusTLS_Utils;
 
 // ** General certificate loading **//
 function LoadCertificate(const AFileName: String): PX509;
@@ -224,10 +225,6 @@ begin
   Result := X509_NAME_cmp(a^, b^);
 end;
 
-function d2i_DHparams_bio(bp: PBIO; x: PPointer): PDH; {$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, x));
-end;
 
 // SSL_CTX_use_PrivateKey_file() and SSL_CTX_use_certificate_file() do not
 // natively support PKCS12 certificates/keys, only PEM/ASN1, so load them
@@ -437,10 +434,10 @@ begin
           X509_FILETYPE_DEFAULT:
             begin
               LFileName := GetEnvironmentVariable
-                (String(X509_get_default_cert_file_env));
+                (AnsiStringToString(X509_get_default_cert_file_env));
               if LFileName = '' then
               begin
-                LFileName := String(X509_get_default_cert_file);
+                LFileName := AnsiStringToString(X509_get_default_cert_file);
               end;
               Result := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
                 X509_FILETYPE_PEM) <> 0);

@@ -44,15 +44,29 @@ type
   ///   Converts an OpenSSL ASN1 String to a hexidecimal representation.
   /// </summary>
   /// <param name="a">
-  ///   Pointer to the OpenSSL ASN1_STRING to convert.
+  ///   Pointer to the OpenSSL PASN1_STRING to convert.
   /// </param>
   /// <returns>
   ///   Hexidecimal representation of the value of the string.
   /// </returns>
   /// <remarks>
-  ///   The function returns an empty string if the A parameter is nil.
+  ///   The function returns an empty string if the a parameter is nil.
   /// </remarks>
-function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;
+function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;  overload;
+  /// <summary>
+  ///   Converts an OpenSSL ASN1 Octet String to a hexidecimal representation.
+  /// </summary>
+  /// <param name="a">
+  ///   Pointer to the OpenSSL PASN1_OCTET_STRING to convert.
+  /// </param>
+  /// <returns>
+  ///   Hexidecimal representation of the value of the string.
+  /// </returns>
+  /// <remarks>
+  ///   The function returns an empty string if the a parameter is nil.
+  /// </remarks>
+function ASN1_STRING_ToHexStr(a: PASN1_OCTET_STRING): String; overload;
+
 /// <summary>
 ///   Converts an OpenSSL ASN1_OBJECT value to a string.
 /// </summary>
@@ -195,10 +209,25 @@ function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 {$ENDIF}
 
+
+/// <summary>
+///   Converts a PIdAnsiChar to a standard Unicode string.
+/// </summary>
+/// <param name="AStr">
+///   Pointer to the string to convert.
+/// </param>
+function AnsiStringToString(const AStr : PIdAnsiChar) : String;
+
 implementation
 
 uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
   SysUtils;
+
+function AnsiStringToString(const AStr : PIdAnsiChar) : String;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := UTF8ToString(UTF8Encode(AStr));
+end;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 
@@ -216,14 +245,29 @@ end;
 function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 var
-  LPtr: PAnsiChar;
+  LPtr: PByte;
   LLen: TIdC_INT;
 begin
   Result := '';
   if Assigned(a) then
   begin
-    LPtr := PAnsiChar(ASN1_STRING_get0_data(a));
+    LPtr := ASN1_STRING_get0_data(a);
     LLen := ASN1_STRING_length(a);
+    Result := BytesToHexString(LPtr, LLen);
+  end;
+end;
+
+function ASN1_STRING_ToHexStr(a: PASN1_OCTET_STRING): String;
+{$IFDEF USE_INLINE} inline; {$ENDIF}
+var
+  LPtr: PByte;
+  LLen: TIdC_INT;
+begin
+  Result := '';
+  if Assigned(a) then
+  begin
+    LPtr := ASN1_STRING_get0_data(PASN1_STRING(a));
+    LLen := ASN1_STRING_length(PASN1_STRING(a));
     Result := BytesToHexString(LPtr, LLen);
   end;
 end;
@@ -310,7 +354,11 @@ function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
   sec: Word; out tz_hour, tz_min: Integer): Boolean;
 var
   i, tz_dir: Integer;
+  {$IFDEF FPC}
+  time_str: AnsiString;
+  {$ELSE}
   time_str: string;
+  {$ENDIF}
 {$IFNDEF USE_MARSHALLED_PTRS}
 {$IFNDEF STRING_IS_ANSI}
   LTemp: AnsiString;

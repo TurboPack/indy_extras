@@ -2011,8 +2011,8 @@ begin
 {$ENDIF}
   VTypeStr := '';
   VMsg := '';
-  LState := String(SSL_state_string_long(SSLSocket));
-  LAlert := String(SSL_alert_type_string_long(Aret));
+  LState := AnsiStringToString(SSL_state_string_long(SSLSocket));
+  LAlert := AnsiStringToString(SSL_alert_type_string_long(Aret));
 
   case AWhere of
     SSL_CB_ALERT:
@@ -2029,7 +2029,7 @@ begin
     SSL_CB_WRITE_ALERT:
       begin
         VTypeStr := IndyFormat(RSOSSLWriteAlert, [LAlert]);
-        VMsg := String(SSL_alert_desc_string_long(Aret));
+        VMsg := AnsiStringToString(SSL_alert_desc_string_long(Aret));
       end;
     SSL_CB_ACCEPT_LOOP:
       begin
@@ -2641,7 +2641,7 @@ begin
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   if Assigned(SSLeay_version) then
 {$ENDIF}
-    Result := String(SSLeay_version(SSLEAY_VERSION_CONST));
+    Result := AnsiStringToString(SSLeay_version(SSLEAY_VERSION_CONST));
 end;
 
 function OpenSSLDir: string;
@@ -2653,7 +2653,7 @@ begin
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   if Assigned(SSLeay_version) then
 {$ENDIF}
-    Result := String(SSLeay_version(OPENSSL_DIR));
+    Result := AnsiStringToString(SSLeay_version(OPENSSL_DIR));
   { assumed format is 'OPENSSLDIR: "<dir>"' }
   i := Pos('"', Result);
   if i < 0 then
@@ -2925,7 +2925,7 @@ begin
   VAccepted := False;
   if Assigned(fOnSecurityLevel) then
   begin
-    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNid, String(OBJ_nid2ln(ACipherNid)), VAccepted);
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNid, AnsiStringToString(OBJ_nid2ln(ACipherNid)), VAccepted);
   end;
 
 end;
@@ -3131,7 +3131,7 @@ begin
   VAccepted := False;
   if Assigned(fOnSecurityLevel) then
   begin
-    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNID, String(OBJ_nid2ln(ACipherNid)), VAccepted);
+    fOnSecurityLevel(Self, AsslSocket, ACtx, op, bits, ACipherNID, AnsiStringToString(OBJ_nid2ln(ACipherNid)), VAccepted);
   end;
 end;
 
@@ -4284,13 +4284,13 @@ function TTaurusTLSCipher.GetDescription;
 var
   buf: array [0 .. 1024] of TIdAnsiChar;
 begin
-  Result := String(SSL_CIPHER_description(GetSSLCipher, @buf[0],
+  Result := AnsiStringToString(SSL_CIPHER_description(GetSSLCipher, @buf[0],
     SizeOf(buf) - 1));
 end;
 
 function TTaurusTLSCipher.GetName: String;
 begin
-  Result := String(SSL_CIPHER_get_name(GetSSLCipher));
+  Result := AnsiStringToString(SSL_CIPHER_get_name(GetSSLCipher));
 end;
 
 function TTaurusTLSCipher.GetSSLCipher: PSSL_CIPHER;
@@ -4310,7 +4310,7 @@ end;
 
 function TTaurusTLSCipher.GetVersion: String;
 begin
-  Result := String(SSL_CIPHER_get_version(GetSSLCipher));
+  Result := AnsiStringToString(SSL_CIPHER_get_version(GetSSLCipher));
 end;
 
 {$I TaurusTLSSymbolDeprecatedOff.inc}

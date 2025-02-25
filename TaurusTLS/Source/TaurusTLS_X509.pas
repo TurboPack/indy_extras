@@ -1131,7 +1131,7 @@ end;
 
 function TTaurusTLSX509SigInfo.GetSigTypeAsString: String;
 begin
-  Result := String(OBJ_nid2ln(SigType));
+  Result := AnsiStringToString(OBJ_nid2ln(SigType));
 end;
 
 { TTaurusTLSX509 }
@@ -1180,7 +1180,7 @@ end;
 
 function TTaurusTLSX509.GetSubjectKeyIdentifier: String;
 begin
-  Result := ASN1_STRING_ToHexStr(PASN1_STRING(X509_get0_subject_key_id(FX509)));
+  Result := ASN1_STRING_ToHexStr(X509_get0_subject_key_id(FX509));
 end;
 
 function TTaurusTLSX509.GetCertificateAuthorityFlag: Boolean;
@@ -1278,13 +1278,13 @@ end;
 function TTaurusTLSX509.GetExtentionValues(const AIndex: TIdC_INT): string;
 var
   LExt: PX509_EXTENSION;
-  LASN1: PASN1_STRING;
+  LASN1: PASN1_OCTET_STRING;
 begin
   Result := '';
   if AIndex > -1 then
   begin
     LExt := X509_get_ext(FX509, AIndex);
-    LASN1 := PASN1_STRING(X509_EXTENSION_get_data(LExt));
+    LASN1 := X509_EXTENSION_get_data(LExt);
     if Assigned(LASN1) then
     begin
       Result := ASN1_STRING_ToHexStr(LASN1);
@@ -1397,7 +1397,7 @@ begin
   begin
     LSN := X509_get_serialNumber(FX509);
     LBN := ASN1_INTEGER_to_BN(LSN, nil);
-    Result := String(BN_bn2hex(LBN));
+    Result := AnsiStringToString(BN_bn2hex(LBN));
     bn_free(LBN);
   end
   else
@@ -1530,7 +1530,7 @@ begin
   if EVP_PKEY_base_id(LKey) = EVP_PKEY_RSA then
   begin
     RSA_get0_key(EVP_PKEY_get0_RSA(LKey), nil, @LBN, nil);
-    Result := String(BN_bn2hex(LBN));
+    Result := AnsiStringToString(BN_bn2hex(LBN));
   end;
 end;
 
@@ -1544,7 +1544,7 @@ begin
   if EVP_PKEY_base_id(LKey) = EVP_PKEY_RSA then
   begin
     RSA_get0_key(EVP_PKEY_get0_RSA(LKey), @LBN, nil, nil);
-    Result := String(BN_bn2hex(LBN));
+    Result := AnsiStringToString(BN_bn2hex(LBN));
   end;
 end;
 
@@ -1628,7 +1628,7 @@ end;
 function TTaurusTLSX509AuthorityKeyID.GetKeyId: String;
 begin
   Result := ASN1_STRING_ToHexStr
-    (PASN1_STRING(X509_get0_authority_key_id(FX509)));
+    (X509_get0_authority_key_id(FX509));
 end;
 
 function TTaurusTLSX509AuthorityKeyID.GetSerial: TIdC_INT64;
