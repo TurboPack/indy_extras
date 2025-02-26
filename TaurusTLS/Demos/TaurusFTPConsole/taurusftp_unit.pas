@@ -97,7 +97,7 @@ uses
   TaurusTLSHeaders_ssl3;
 
 const
-  Prog_Cmds: array of {$IFDEF FPC} AnsiString{$ELSE}string{$ENDIF} = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
+  Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level'];
@@ -131,11 +131,7 @@ end;
 procedure ParseArgs(const AArgs: String; AStrings: TStrings);
 var
 {$IFNDEF USE_INLINE_VAR}
-  {$IFDEF FPC}
-  LBuf, LArg: AnsiString;
-  {$ELSE}
   LBuf, LArg: String;
-  {$ENDIF}
 {$ENDIF}
   LOpenQuote: Integer;
 begin

@@ -9,49 +9,49 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="3"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="197"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="202"/>
         <CursorPos X="30" Y="223"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="24"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSIndyVers.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="19" Y="37"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_dh.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos X="12" Y="32"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_sslerr.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="785"/>
         <CursorPos X="12" Y="802"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_pkcs12.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="25" Y="34"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdFTP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2437"/>
         <CursorPos X="25" Y="2461"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/lazarus/fpc/3.2.2/source/rtl/win/sysutils.pp"/>
@@ -59,21 +59,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="650"/>
         <CursorPos X="10" Y="668"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdZLibHeaders.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="761"/>
         <CursorPos X="81" Y="932"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdRegister.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="639"/>
         <CursorPos X="22" Y="640"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdRegisterCore.pas"/>
@@ -81,151 +81,151 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="50" Y="135"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdCompilerDefines.inc"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSMTPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1024"/>
         <CursorPos X="31" Y="1048"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdSocks.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="223"/>
         <CursorPos X="35" Y="246"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdAboutVCL.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="18" Y="22"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdAntiFreeze.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="153"/>
         <CursorPos X="24" Y="180"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdSchedulerOfThreadPool.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="53"/>
         <CursorPos Y="72"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdInterceptSimLog.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="5" Y="81"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIcmpClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="10" Y="73"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdInterceptThrottler.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos X="19" Y="64"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIPMCastBase.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="11" Y="136"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdIPMCastClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="283"/>
         <CursorPos X="29" Y="307"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTraceRoute.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2"/>
         <CursorPos Y="24"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdUnixTimeUDP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="27"/>
         <CursorPos X="31" Y="33"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTrivialFTPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="294"/>
         <CursorPos X="60" Y="321"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdRawBase.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="179"/>
         <CursorPos X="48" Y="207"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTimeUDPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="18"/>
         <CursorPos Y="41"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdTelnetServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="69"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSystatUDPServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos Y="52"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSysLogServer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos Y="54"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdSysLog.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos X="10" Y="56"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols/IdHTTP.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="660"/>
         <CursorPos X="3" Y="685"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_AboutDlg.pas"/>
@@ -233,91 +233,92 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="45" Y="49"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSExceptionHandlers.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="2" Y="13"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_ComponentEditor.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="68" Y="12"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Dsn_Register.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos Y="12"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Utils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="308"/>
         <CursorPos X="24" Y="322"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Files.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos Y="16"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSFIPS.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_X509.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdThreadSafe.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="236"/>
         <CursorPos Y="265"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSLoader.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="345"/>
         <CursorPos X="30" Y="361"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdTCPClient.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="118"/>
         <CursorPos X="37" Y="316"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../../zlib-1.3.1/contrib/pascal/zlibpas.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="197"/>
         <CursorPos X="10" Y="225"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/ITaurusTLS_NTLM.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="61"/>
         <CursorPos X="65" Y="23"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="60" Y="11"/>
-        <UsageCount Value="33"/>
+        <TopLine Value="350"/>
+        <CursorPos X="34" Y="363"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -325,14 +326,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="160"/>
         <CursorPos X="25" Y="176"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_x509v3.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="367"/>
         <CursorPos X="38" Y="373"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_tls1.pas"/>
@@ -340,7 +341,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos X="3" Y="32"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Packages/Lazarus/taurustlsrt.pas"/>
@@ -348,51 +349,51 @@
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <CursorPos X="49" Y="8"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSCompilerDefines.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="432"/>
         <CursorPos X="3" Y="449"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_aes.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="12" Y="25"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_asn1err.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_asn1_mac.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="25"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_asn1t.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="14" Y="29"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_asyncerr.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="12" Y="23"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/System/IdGlobal.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="6551"/>
         <CursorPos X="10" Y="6568"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit>
     </Units>
     <JumpHistory>
@@ -437,7 +438,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="taurusftp_unit.pas"/>
-        <Line Value="996"/>
+        <Line Value="992"/>
       </Item>
     </BreakPoints>
   </Debugging>
