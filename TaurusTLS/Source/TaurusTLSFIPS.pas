@@ -8,16 +8,20 @@
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
 /// <summary>
-/// Self-registering unit that provides MD2, MD4, MD5, SHA1, SHA224, SHA256,
-/// SHA384, SHA512, HMAC-MD5, HMAC-SHA-1, HMAC-SHA-224, HMAC-SHA-384, and
-/// HMAC-SHA-512 Support for Indy - Internet Direct.  Indy itself will call
-/// routines from the implementation section of the unit if you include this
-/// unit.
+///   Self-registering unit that provides MD2, MD4, MD5, SHA1, SHA224, SHA256,
+///   SHA384, SHA512, HMAC-MD5, HMAC-SHA-1, HMAC-SHA-224, HMAC-SHA-384, and
+///   HMAC-SHA-512 Support for Indy - Internet Direct. Indy itself will call
+///   routines from the implementation section of the unit if you include this
+///   unit.
 /// </summary>
 /// <remarks>
-/// <para>MD2, MD4, MD5, and SHA1 are depreciated in favor of more secure
-/// algorithms.</para>
-/// <para>Some algorithms may not be provided by the OpenSSL library.</para>
+///   <para>
+///     MD2, MD4, MD5, and SHA1 are depreciated in favor of more secure
+///     algorithms.
+///   </para>
+///   <para>
+///     Some depreciated algorithms may not be provided by the OpenSSL library.
+///   </para>
 /// </remarks>
 unit TaurusTLSFIPS;
 

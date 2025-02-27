@@ -161,8 +161,8 @@
   Rev 1.0    11/13/2002 08:01:24 AM  JPMugaas
 }
 /// <summary>
-///   This unit contains the TTaurusTLSIOHandlerSocket and
-///   TTaurusTLSServerIOHandler classes plus helper classes.
+///   This unit contains the <see cref="TTaurusTLSIOHandlerSocket" /> and
+///   <see cref="TTaurusTLSServerIOHandler" /> classes plus helper classes.
 /// </summary>
 unit TaurusTLS;
 {
@@ -1065,7 +1065,7 @@ type
     /// </summary>
     property Parent: TObject read FParent;
     /// <summary>
-    ///   The peer's certificate encapsolated in a TTaurusTLSX509 object.
+    ///   The peer's certificate encapsolated in a <see cref="TTaurusTLSX509" /> object.
     /// </summary>
     property PeerCert: TTaurusTLSX509 read GetPeerCert;
     /// <summary>
@@ -1145,7 +1145,7 @@ type
     ///   Called when the VerifyPeer callback is invoked.
     /// </summary>
     /// <param name="ACertificate">
-    ///   The certificate to be validated.
+    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
     /// </param>
     /// <param name="AOk">
     ///   True if the certificat passed validation or False if it failed
@@ -1442,7 +1442,7 @@ type
     ///   Occurs when a certificate is presented for validation.
     /// </summary>
     /// <param name="Certificate">
-    ///   The certificate to be validated.
+    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
     /// </param>
     /// <param name="AOk">
     ///   True if the certificat passed validation or False if it failed
@@ -1681,7 +1681,7 @@ type
     ///   Occurs when a certificate is presented for validation.
     /// </summary>
     /// <param name="Certificate">
-    ///   The certificate to be validated.
+    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />.
     /// </param>
     /// <param name="AOk">
     ///   True if the certificat passed validation or False if it failed

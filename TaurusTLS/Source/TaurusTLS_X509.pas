@@ -718,7 +718,7 @@ type
     property SerialNumber: string read GetSerialNumber;
     /// <summary>
     ///   Details about a certificate in a freeform manner. Use this information
-    ///   in text-prompts abou the certificate.
+    ///   in text-prompts about the certificate.
     /// </summary>
     property DisplayInfo: TStrings read GetDisplayInfo;
 
