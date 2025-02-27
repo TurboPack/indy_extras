@@ -186,6 +186,12 @@ begin
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);
 
+  UpdatePackage('..\..\..\..\Packages\Rio\Delphi\TaurusTLS_RTForIndy260.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Rio\Delphi\TaurusTLS_DTForIndy260.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
    UpdatePackage('..\..\..\..\Packages\Rio\Delphi\TaurusTLS_RT.dproj',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);
