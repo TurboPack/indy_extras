@@ -8,15 +8,13 @@ TaurusTLS provides OpenSSL 1.1 and 3.x support for Indy - Internet Direct.  It i
 - TTaurusTLSIOHandlerSocket - Enables TLS in a TIdTCPClientCustom descendant. 
 - TTaurusTLSServerIOHandler - Enables TLS in a TIdCustomTCPServer descendant.
 
-Both components are in the TaurusTLS.pas unit and the components are available on the IDE palette page, 
+Both components are in the TaurusTLS.pas unit and the components are available on the IDE palette page, “TaurusTLS”.
 
 TaurusTLS supports the following operating systems:
 
 1) Linux
 2) MacOS
 3) Windows
-
-“TaurusTLS”.
 
 ## License
 TaurusTLS is dual licensed. You can review which license better suits your needs, and use that license.  You can even change your mind later if you have previously chosen one.
