@@ -26,15 +26,11 @@
         {$IF ( gsIdVersionBuild > 6)}
   	      {$DEFINE GETURIHOST_SUPPORTED}
         {$IFEND}
-        {$IF ( gsIdVersionBuild > 7)}
-          {$DEFINE HAS_TIdSSLVersion}
-        {$ELSE}
            {$IF (gsIdVersionMinor > 6)}
              {$DEFINE GETURIHOST_SUPPORTED}
              {$DEFINE HAS_TIdSSLVersion}
              {$DEFINE HAS_RAW_TO_BYTES_64_BIT}
            {$IFEND}
-          {$IFEND}
        {$IFEND}
     {$IFEND}
   {$IFEND}
