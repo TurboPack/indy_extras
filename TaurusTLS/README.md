@@ -58,7 +58,7 @@ https://secdops.com/blog/using-openssl-alongside-the-default-libressl-on-macos/
 
 ### Windows
 
-On Windows, OpenSSL is not installed by default so you have to redistribute it along with your software.   You can choose to either deploy OpenSSL 1.1.1 or an OpenSSL 3.x version.  As of this writing, the current 3.x versions are 3.0.16, 3.1.8, 3.2.4, 3.3.3, and 3.4.1.  Pre-compiled .DLL’s for these versions are available at https://github.com/JPeterMugaas/TaurusTLS/tree/main/OpenSSL/binaries .  For Win32 applications, you need to redistribute the following:
+On Windows, OpenSSL is not installed by default so you have to redistribute it along with your software by placing the library files in the same directory as your executable.   You can choose to either deploy OpenSSL 1.1.1 or an OpenSSL 3.x version.  As of this writing, the current OpenSSL 3.x versions are 3.0.16, 3.1.8, 3.2.4, 3.3.3, and 3.4.1.  Pre-compiled .DLL’s for these versions are available at https://github.com/JPeterMugaas/TaurusTLS/tree/main/OpenSSL/binaries .  For Win32 applications, you need to redistribute the following:
 
 OpenSSL 1.1.1
 - libcrypto-1_1.dll	
