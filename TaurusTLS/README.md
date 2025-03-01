@@ -6,9 +6,16 @@ All Rights Reserved
 TaurusTLS provides OpenSSL 1.1 and 3.x support for Indy - Internet Direct.  It includes headers plus two components for Delphi and C++Builder.  Those components are:
 
 - TTaurusTLSIOHandlerSocket - Enables TLS in a TIdTCPClientCustom descendant. 
-- TTaurusTLSServerIOHandler - Enables TLS in a TIdCustomTCPServer descendant
+- TTaurusTLSServerIOHandler - Enables TLS in a TIdCustomTCPServer descendant.
 
 Both components are in the TaurusTLS.pas unit and the components are available on the IDE palette page, 
+
+TaurusTLS supports the following operating systems:
+
+1) Linux
+2) MacOS
+3) Windows
+
 “TaurusTLS”.
 
 ## License
@@ -22,19 +29,19 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 ### For Indy Included with Delphi
 
 1. Open TaurusAll.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
-2. Compile TaurusTLS_RT
+2. Compile TaurusTLS_RT.
 3. Compile TaurusTLS_DT and install it in the IDE.
 
 ### For Indy that was Upgraded from the Website
 
 1. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
-2. Compile TaurusTLS_RTForIndy290
+2. Compile TaurusTLS_RTForIndy290.
 3. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
 4. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
 
 ## Lazarus Installation
 
-1. Open taurustlsldsgn.lpk from the TaurusTLS/Packages/Lazarus
+1. Open taurustlsldsgn.lpk from the TaurusTLS/Packages/Lazarus.
 2. From "Required Packages", open "TaurusTLSRT" and compile it.
 3. Then compile the main package itself and install it in the IDE.
 
