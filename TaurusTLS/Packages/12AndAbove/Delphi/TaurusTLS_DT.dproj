@@ -139,13 +139,13 @@
 		<DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.7;InternalName=TaurusTLS_DT.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DT.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.7;Comments=</VerInfo_Keys>
-		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
+		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win64)'!=''">
-		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
+		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win64x)'!=''">
-		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;TaurusTLS290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
+		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;TaurusTLS_RT;IndySystem;IndyProtocols;IndyCore;$(DCC_UsePackage)</DCC_UsePackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1)'!=''">
 		<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
