@@ -450,6 +450,7 @@ begin
   if (ARec.Attr and faDirectory) = faDirectory then
   begin
     AFTPItem.ItemType := ditDirectory;
+    AFTPItem.SizeAvail := False;
   end
   else
   begin
