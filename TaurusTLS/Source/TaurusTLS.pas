@@ -506,7 +506,8 @@ type
   TTaurusTLSIOHandlerSocket = class;
   TTaurusTLSCipher = class;
   /// <summary>
-  ///   <c>OnDebugMessage</c> event
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnDebugMessage" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnDebugMessage" /> events
   /// </summary>
   /// <param name="ASender">
   ///   The object that triggers the event.
@@ -531,7 +532,8 @@ type
     AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
     SSL: PSSL) of object;
   /// <summary>
-  ///   <c>OnStatusInfo</c> event
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnStatusInfo" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnStatusInfo" /> events
   /// </summary>
   /// <param name="ASender">
   ///   The object that triggers the event.
@@ -554,7 +556,8 @@ type
   TOnStatusEvent = procedure(ASender: TObject; const AsslSocket: PSSL;
     const AWhere, Aret: TIdC_INT; const AType, AMsg: String) of object;
   /// <summary>
-  ///   <c>OnSecurityLevel</c> event
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnSecurityLevel" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnSecurityLevel" /> events
   /// </summary>
   /// <param name="ASender">
   ///   The object that triggers the event.
@@ -585,7 +588,8 @@ type
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid : TIdC_INT; const ACipher: String;
     var VAccepted: Boolean) of object;
   /// <summary>
-  ///   <c>OnGetPassword</c> event
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnGetPassword" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnGetPassword" /> events
   /// </summary>
   /// <param name="ASender">
   ///   The object that triggers the event.
@@ -600,7 +604,8 @@ type
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
   /// <summary>
-  ///   <c>OnVerifyPeer</c> event
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnVerifyPeer" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnVerifyPeer" /> events
   /// </summary>
   /// <param name="Certificate">
   ///   The certificate to be validated.
@@ -622,7 +627,9 @@ type
   TOnVerifyPeerEvent = function(Certificate: TTaurusTLSX509; const AOk: Boolean;
     const ADepth, AError: Integer): Boolean of object;
   /// <summary>
-  ///   <c>OnBeforeConnectz</c> and <c>OnSSLNegotiated</c> events
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnBeforeConnect" />, <see
+  ///   cref="TTaurusTLSIOHandlerSocket.OnSSLNegotiated" />, and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnSSLNegotiated" /> events
   /// </summary>
   /// <param name="ASender">
   ///   The object that triggers the event.
