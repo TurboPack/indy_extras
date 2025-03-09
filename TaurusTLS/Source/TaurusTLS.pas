@@ -163,6 +163,8 @@
 /// <summary>
 ///   This unit contains the <see cref="TTaurusTLSIOHandlerSocket" /> and
 ///   <see cref="TTaurusTLSServerIOHandler" /> classes plus helper classes.
+///   The <see cref="TaurusTLSFIPS" /> unit is registered meaning hash
+///   support routines are called by Indy - Internet Direct.
 /// </summary>
 unit TaurusTLS;
 {
@@ -1409,7 +1411,8 @@ type
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
-    ///   Occurs when a connection attempt is made.
+    ///   Occurs when a connection attempt is made to a server and allows you to
+    ///   accept or reject a server based on your own criteria.
     /// </summary>
     /// <param name="ASender">
     ///   The object that triggers the event.
@@ -1648,7 +1651,8 @@ type
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
-    ///   Occurs when a connection attempt is made.
+    ///   Occurs when a connection attempt is made and allows you to accept or
+    ///   reject connection attempts based upon your own criteria.
     /// </summary>
     /// <param name="ASender">
     ///   The object that triggers the event.
