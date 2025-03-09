@@ -96,7 +96,6 @@
         <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <DCC_Description>TaurusTLS Run-Time package</DCC_Description>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
-        <DllSuffix>290</DllSuffix>
         <DCC_UnitSearchPath>..\..\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcpOutput>.\$(Platform)\$(Config)</DCC_DcpOutput>
     </PropertyGroup>
