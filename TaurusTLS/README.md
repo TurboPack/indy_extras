@@ -80,8 +80,8 @@ OpenSSL 1.1.1
 - openssl.exe
 
 OpenSSL 3.x
-- libcrypto-1_1-x64.dll
-- libssl-1_1-x64.dll
+- libcrypto-3-x64.dll
+- libssl-3-x64.dll
 - openssl.exe
 
 ## Component Reference
