@@ -20,15 +20,17 @@ object AboutBox: TAboutBox
   object Panel1: TPanel
     Left = 9
     Top = 8
-    Width = 306
+    Width = 304
     Height = 230
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentColor = True
     TabOrder = 0
+    ExplicitWidth = 302
+    ExplicitHeight = 222
     DesignSize = (
-      306
+      304
       230)
     object ProductName: TLabel
       Left = 119
@@ -52,14 +54,13 @@ object AboutBox: TAboutBox
       Width = 199
       Height = 13
       Anchors = [akLeft, akBottom]
-      Caption = 'Copyright (c) 2024 TaurusTLS Developers'
+      Caption = 'Copyright (c) 2025 TaurusTLS Developers'
       IsControl = True
-      ExplicitTop = 123
     end
     object Comments: TLabel
       Left = 8
       Top = 150
-      Width = 282
+      Width = 280
       Height = 43
       Anchors = [akLeft, akRight, akBottom]
       AutoSize = False
@@ -97,7 +98,7 @@ object AboutBox: TAboutBox
     object LinkLabel1: TLinkLabel
       Left = 8
       Top = 199
-      Width = 226
+      Width = 228
       Height = 17
       Hint = 'https://github.com/DennisSuitters/LibreICONS'
       Anchors = [akLeft, akRight, akBottom]
@@ -106,18 +107,22 @@ object AboutBox: TAboutBox
         'ithub.com/DennisSuitters/LibreICONS</a>'
       TabOrder = 0
       OnClick = LinkLabel1Click
+      ExplicitTop = 191
+      ExplicitWidth = 226
     end
   end
   object OKButton: TButton
     Left = 111
     Top = 242
-    Width = 100
+    Width = 98
     Height = 25
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'OK'
     Default = True
     ModalResult = 1
     TabOrder = 1
+    ExplicitTop = 234
+    ExplicitWidth = 96
   end
   object ImageCollection1: TImageCollection
     Images = <

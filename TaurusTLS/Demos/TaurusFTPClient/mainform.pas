@@ -12,7 +12,7 @@ uses
   Vcl.VirtualImageList,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ToolWin, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
-  IdExplicitTLSClientServerBase, IdFTP, IdCTypes,
+  IdExplicitTLSClientServerBase, IdFTP, IdCTypes, IdGlobal,
   IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL,
   IdIntercept, IdLogBase, IdLogEvent, Vcl.Menus, Vcl.StdActns,
   IdZLibCompressorBase, IdCompressorZLib, IdConnectThroughHttpProxy,
@@ -165,6 +165,7 @@ type
     FDebugForeground: TColor;
     FDebugBackground: TColor;
     FLogDebugOutput: Boolean;
+    FLogSSLDebugInfo: Boolean;
     FLogDirOutput: Boolean;
 
     FProgressIndicator: TfrmFileProgress;
@@ -205,6 +206,7 @@ type
     //
     property LogDirOutput: Boolean read FLogDirOutput write FLogDirOutput;
     property LogDebugOutput: Boolean read FLogDebugOutput write FLogDebugOutput;
+    property LogSSLDebugInfo : Boolean read FLogSSLDebugInfo write FLogSSLDebugInfo;
     property ThreadRunning: Boolean read GetThreadRunning
       write SetThreadRunning;
     property ErrorForeground: TColor read FErrorForeground
@@ -242,6 +244,7 @@ type
     procedure LogCipherEvent(const AStr: String);
     procedure LogFTPError(const AStr: String);
     procedure LogSSLEvent(const AStr: String);
+    procedure LogSSLDebugInfo(const AStr : String);
     procedure LogDirListing(AListing: TStrings);
     procedure OnLogSent(ASender: TComponent; const AText, AData: string);
     procedure OnLogReceived(ASender: TComponent; const AText, AData: string);
@@ -258,6 +261,9 @@ type
       const AIsWrite: Boolean);
     function OnVerifyPeer(Certificate: TTaurusTLSX509; const AOk: Boolean;
       const ADepth, AError: Integer): Boolean;
+    procedure DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
+      AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+      SSL: PSSL);
   public
     constructor Create(AFTP: TIdFTP);
     destructor Destroy; override;
@@ -337,7 +343,8 @@ uses dkgFTPConnect, settingsdlg, frmAbout, frmBookmarks, CertViewer,
   IdException,
   IdAllFTPListParsers,
   IdFTPCommon,
-  IdFTPList, IdGlobal, IdGlobalProtocols, IdReplyRFC, TaurusTLSLoader,
+  IdFTPList, IdGlobalProtocols, IdReplyRFC, TaurusTLSLoader,
+  TaurusTLSHeaders_ssl3, //for SSL3_RT_ constants
   System.IOUtils, System.IniFiles, System.UITypes,
   Winapi.CommCtrl, ProgUtils, AcceptableCerts;
 
@@ -743,6 +750,7 @@ begin
       begin
         FLogDebugOutput := LFrm.chkLogDebug.Checked;
         FLogDirOutput := LFrm.chkDirOutput.Checked;
+        FLogSSLDebugInfo := LFrm.chkDebugSSLInfo.Checked;
         FErrorForeground := LFrm.ErrorForeground;
         FErrorBackground := LFrm.ErrorBackground;
         FSSLMessageForeground := LFrm.SSLMessageForeground;
@@ -782,6 +790,7 @@ begin
           LFrm.chklbAdvancedOptions.Checked[1]);
         IdFTPClient.Passive := not LFrm.UsePortTransferType;
         LIni.WriteBool('Debug', 'Log_Debug_Output', FLogDebugOutput);
+        LIni.WriteBool('Debug','SSL_Packet_Info',FLogSSLDebugInfo);
         LIni.WriteBool('Debug', 'Log_Directory_Output', FLogDirOutput);
         redtLog.Font := LFrm.redtLog.Font;
         LIni.WriteString('Log_Font', 'Name', redtLog.Font.Name);
@@ -976,6 +985,7 @@ begin
     IdFTPClient.Passive := not LIni.ReadBool('Transfers',
       'Use_PORT_Transfers', False);
     FLogDebugOutput := LIni.ReadBool('Debug', 'Log_Debug_Output', False);
+    FLogSSLDebugInfo := LIni.ReadBool('Debug','SSL_Packet_Info',False);
     FLogDirOutput := LIni.ReadBool('Debug', 'Log_Directory_Output', False);
     redtLog.Font.Name := LIni.ReadString('Log_Font', 'Name', redtLog.Font.Name);
     redtLog.Font.Charset := LIni.ReadInteger('Log_Font', 'CharSet',
@@ -1654,6 +1664,7 @@ begin
   FIO.OnGetPassword := OnGetPassword;
   FIO.OnStatusInfo := OnStatusInfo;
   FIO.OnSSLNegotiated := OnSSLNegotiated;
+  FIO.OnDebugMessage := DoOnDebugMsg;
   FLog := FIO.Intercept as TIdLogEvent;
   FLog.OnReceived := Self.OnLogReceived;
   FLog.OnSent := Self.OnLogSent;
@@ -1662,6 +1673,7 @@ end;
 
 destructor TFTPThread.Destroy;
 begin
+  FIO.OnDebugMessage := nil;
   FIO.OnVerifyPeer := nil;
   FIO.OnGetPassword := nil;
   FLog.OnReceived := nil;
@@ -1738,6 +1750,16 @@ procedure TFTPThread.LogRegularOutput(const AStr: String);
 begin
   frmMainForm.redtLog.Lines.Add(AStr);
   ScrollToEnd(frmMainForm.redtLog);
+end;
+
+procedure TFTPThread.LogSSLDebugInfo(const AStr: String);
+begin
+  if frmMainForm.LogSSLDebugInfo then
+  begin
+    frmMainForm.redtLog.SelAttributes.Color := frmMainForm.DebugForeground;
+    frmMainForm.redtLog.SelAttributes.BackColor := frmMainForm.DebugBackground;
+    LogRegularOutput(AStr);
+  end;
 end;
 
 procedure TFTPThread.LogSSLEvent(const AStr: String);
@@ -1837,6 +1859,113 @@ begin
           end;
         end;
       end;
+    end);
+end;
+
+procedure TFTPThread.DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
+  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+  SSL: PSSL);
+{$IFNDEF USE_INLINE_VAR}
+var
+  LOutput: String;
+{$ENDIF}
+begin
+//use synchronize to prevent an AV
+  Queue(
+    procedure
+    begin
+{$IFDEF USE_INLINE_VAR}
+        var
+          LOutput: String;
+{$ENDIF}
+      if AWrite then
+      begin
+        LOutput := 'Read  - ';
+      end
+      else
+      begin
+        LOutput := 'Write - ';
+      end;
+      case AVersion of
+      verSSL3Header:
+        LOutput := LOutput + LeftJustify('SSL3', 9) + ' - ';
+      verTLS1:
+        LOutput := LOutput + LeftJustify('TLS1', 9) + ' - ';
+      verTLS1_1:
+        LOutput := LOutput + LeftJustify('TLS1.1', 9) + ' - ';
+      verTLS1_2:
+         LOutput := LOutput + LeftJustify('TLS1.2', 9) + ' - ';
+      verTLS1_3:
+        LOutput := LOutput + LeftJustify('TLS1.3', 9) + ' - ';
+      verDTLS1:
+        LOutput := LOutput + LeftJustify('DTLS1.1', 9) + ' - ';
+      verDTLS1_2:
+        LOutput := LOutput + LeftJustify('DTLS1.2', 9) + ' - ';
+      verDTLSBadVer:
+        LOutput := LOutput + LeftJustify('Bad DTLS', 9) + ' - ';
+      verQUIC:
+        LOutput := LOutput + LeftJustify('QUIC', 9) + ' - ';
+      verTLSAny:
+        LOutput := LOutput + LeftJustify('Any TLS', 9) + ' - ';
+      end;
+      LogSSLDebugInfo(LOutput);
+      case AContentType of
+      SSL3_RT_CHANGE_CIPHER_SPEC:
+        LOutput := LOutput + LeftJustify('Change Cipher Spec', 22) + ' - ';
+      SSL3_RT_ALERT:
+        LOutput := LOutput + LeftJustify('Alert', 22) + ' - ';
+      SSL3_RT_HANDSHAKE:
+        LOutput := LOutput + LeftJustify('Handshake', 22) + ' - ';
+      SSL3_RT_APPLICATION_DATA:
+        LOutput := LOutput + LeftJustify('Application Data', 22) + ' - ';
+      DTLS1_RT_HEARTBEAT:
+        LOutput := LOutput + LeftJustify('Heartbeat', 22) + ' - ';
+      (* Pseudo content types to indicate additional parameters *)
+      TLS1_RT_CRYPTO:
+        LOutput := LOutput + LeftJustify('Crypto', 22) + ' - ';
+      TLS1_RT_CRYPTO_PREMASTER:
+        LOutput := LOutput + LeftJustify('Crypto Premaster', 22) + ' - ';
+      TLS1_RT_CRYPTO_CLIENT_RANDOM:
+        LOutput := LOutput + LeftJustify('Crypto Client Random', 22) + ' - ';
+      TLS1_RT_CRYPTO_SERVER_RANDOM:
+        LOutput := LOutput + LeftJustify('Crypto Server Random', 22) + ' - ';
+      TLS1_RT_CRYPTO_MASTER:
+        LOutput := LOutput + LeftJustify('Crypto Master', 22) + ' - ';
+      // TLS1_RT_CRYPTO_READ:
+      // LOutput := LOutput + LeftJustify('Crypto Read',22)+' - ';
+      // TLS1_RT_CRYPTO_WRITE:
+      // LOutput := LOutput + LeftJustify('Crypto Write',22)+' - ';
+      TLS1_RT_CRYPTO_MAC:
+        LOutput := LOutput + LeftJustify('Crypto MAC', 22) + ' - ';
+      TLS1_RT_CRYPTO_KEY:
+        LOutput := LOutput + LeftJustify('Crypto Key', 22) + ' - ';
+      TLS1_RT_CRYPTO_IV:
+        LOutput := LOutput + LeftJustify('Crypto IV', 22) + ' - ';
+      TLS1_RT_CRYPTO_FIXED_IV:
+        LOutput := LOutput + LeftJustify('Crypto Fixed IV', 22) + ' - ';
+
+      (* Pseudo content types for SSL/TLS header info *)
+      SSL3_RT_HEADER:
+        LOutput := LOutput + LeftJustify('Header', 22) + ' - ';
+      SSL3_RT_INNER_CONTENT_TYPE:
+        LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),
+          22) + ' - ';
+
+      // * Pseudo content types for QUIC */
+      SSL3_RT_QUIC_DATAGRAM:
+      LOutput := LOutput + LeftJustify('QUIC Datagram', 22) + ' - ';
+      SSL3_RT_QUIC_PACKET:
+        LOutput := LOutput + LeftJustify('QUIC Packet', 22) + ' - ';
+      SSL3_RT_QUIC_FRAME_FULL:
+        LOutput := LOutput + LeftJustify('QUIC Frame Full', 22) + ' - ';
+      SSL3_RT_QUIC_FRAME_HEADER:
+        LOutput := LOutput + LeftJustify('QUIC Frame Header', 22) + ' - ';
+      SSL3_RT_QUIC_FRAME_PADDING:
+        LOutput := LOutput + LeftJustify('QUIC Frame Padding', 22) + ' - ';
+      end;
+      LOutput := LOutput + RightJustify(IntToStr(Length(buf)), 10) + ' - ';
+      LOutput := LOutput + ToHex(buf, 20, 0);
+       LogSSLDebugInfo(LOutput);
     end);
 end;
 

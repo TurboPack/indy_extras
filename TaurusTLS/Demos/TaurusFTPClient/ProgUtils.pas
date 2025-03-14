@@ -7,6 +7,7 @@ uses Vcl.ComCtrls;
 procedure ScrollToTop(ARichEdit: TRichEdit);
 procedure ScrollToEnd(ARichEdit: TRichEdit);
 function CertErrorToStr(ACertError: Integer): String;
+function LeftJustify(const AText: String; ALen: Integer): string;
 function RightJustify(const AText: String; ALen: Integer): String;
 function IsValidIP(const Aaddress: String): Boolean;
 function DlgCaptionToFormCaption(const ACaption : String) : String;
@@ -241,6 +242,19 @@ begin
   else
     Result := string(X509_verify_cert_error_string(ACertError));
 
+  end;
+end;
+
+function LeftJustify(const AText: String; ALen: Integer): string;
+begin
+  Result := '';
+  if ALen > Length(AText) then
+  begin
+    Result := AText + StringOfChar(' ', ALen - Length(AText));
+  end
+  else
+  begin
+    Result := AText;
   end;
 end;
 

@@ -25,18 +25,19 @@ object frmSettings: TfrmSettings
     BorderWidth = 5
     ParentColor = True
     TabOrder = 0
-    ExplicitWidth = 508
-    ExplicitHeight = 348
+    ExplicitWidth = 500
+    ExplicitHeight = 331
     object PageControl1: TPageControl
       Left = 5
       Top = 5
-      Width = 498
-      Height = 338
+      Width = 492
+      Height = 329
       ActivePage = tbshtFont
       Align = alClient
       Images = VirtualImageList1
       TabOrder = 0
-      ExplicitWidth = 504
+      ExplicitWidth = 490
+      ExplicitHeight = 321
       object tbshtFont: TTabSheet
         Caption = 'F&ont'
         ImageIndex = 1
@@ -47,7 +48,7 @@ object frmSettings: TfrmSettings
         object redtLog: TRichEdit
           Left = 13
           Top = 55
-          Width = 446
+          Width = 444
           Height = 85
           TabStop = False
           Anchors = [akLeft, akTop, akRight, akBottom]
@@ -62,6 +63,8 @@ object frmSettings: TfrmSettings
           TabOrder = 1
           WantReturns = False
           WordWrap = False
+          ExplicitWidth = 442
+          ExplicitHeight = 77
         end
         object btnFontSelect: TButton
           Left = 178
@@ -90,17 +93,18 @@ object frmSettings: TfrmSettings
           TabOrder = 2
           WantReturns = False
           WordWrap = False
+          ExplicitTop = 138
         end
         object ScrollBox1: TScrollBox
           Left = 175
           Top = 146
-          Width = 284
+          Width = 282
           Height = 150
           VertScrollBar.Position = 13
           Anchors = [akLeft, akRight, akBottom]
           TabOrder = 3
-          ExplicitTop = 155
-          ExplicitWidth = 296
+          ExplicitTop = 138
+          ExplicitWidth = 280
           object lblErrors: TLabel
             Left = 16
             Top = 26
@@ -248,7 +252,7 @@ object frmSettings: TfrmSettings
         object cboTransferTypes: TComboBox
           Left = 92
           Top = 13
-          Width = 370
+          Width = 368
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -260,7 +264,7 @@ object frmSettings: TfrmSettings
         object chklbAdvancedOptions: TCheckListBox
           Left = 92
           Top = 51
-          Width = 370
+          Width = 368
           Height = 97
           Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
@@ -325,6 +329,14 @@ object frmSettings: TfrmSettings
           Caption = 'Log Directory Output'
           TabOrder = 1
         end
+        object chkDebugSSLInfo: TCheckBox
+          Left = 97
+          Top = 77
+          Width = 280
+          Height = 17
+          Caption = 'Log SSL &Packet Info'
+          TabOrder = 2
+        end
       end
     end
   end
@@ -343,13 +355,13 @@ object frmSettings: TfrmSettings
     ParentColor = True
     ParentFont = False
     TabOrder = 1
-    ExplicitTop = 348
-    ExplicitWidth = 508
+    ExplicitTop = 331
+    ExplicitWidth = 500
     DesignSize = (
       502
       34)
     object OKBtn: TButton
-      Left = 335
+      Left = 333
       Top = 2
       Width = 75
       Height = 25
@@ -358,10 +370,10 @@ object frmSettings: TfrmSettings
       Default = True
       ModalResult = 1
       TabOrder = 0
-      ExplicitLeft = 347
+      ExplicitLeft = 331
     end
     object CancelBtn: TButton
-      Left = 416
+      Left = 414
       Top = 2
       Width = 75
       Height = 25
@@ -370,7 +382,7 @@ object frmSettings: TfrmSettings
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 1
-      ExplicitLeft = 428
+      ExplicitLeft = 412
     end
   end
   object ImageCollection1: TImageCollection
