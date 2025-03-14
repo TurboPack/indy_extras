@@ -1915,7 +1915,6 @@ begin
       verTLSAny:
         LOutput := LOutput + LeftJustify('Any TLS', 9) + ' - ';
       end;
-      LogSSLDebugInfo(LOutput);
       case AContentType of
       SSL3_RT_CHANGE_CIPHER_SPEC:
         LOutput := LOutput + LeftJustify('Change Cipher Spec', 22) + ' - ';
@@ -1969,6 +1968,8 @@ begin
         LOutput := LOutput + LeftJustify('QUIC Frame Header', 22) + ' - ';
       SSL3_RT_QUIC_FRAME_PADDING:
         LOutput := LOutput + LeftJustify('QUIC Frame Padding', 22) + ' - ';
+      else
+        LOutput := LOutput + LeftJustify(IntToHex(AContentType),22);
       end;
       LOutput := LOutput + RightJustify(IntToStr(Length(buf)), 10) + ' - ';
       LOutput := LOutput + ToHex(buf, 20, 0);
