@@ -273,7 +273,9 @@ type
   public
     procedure Execute(); override;
   end;
-
+  TDisconnectThread = class(TFTPThread)
+    procedure Execute(); override;
+  end;
   TRemoteChangeDirThread = class(TFTPThread)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FNewDir: String;
@@ -358,9 +360,7 @@ const
 
 procedure TfrmMainForm.actFileDisconnectExecute(Sender: TObject);
 begin
-  IdFTPClient.Disconnect;
-  lvRemoteFiles.Items.Clear;
-  lvRemoteFiles.Enabled := False;
+  TDisconnectThread.Create( Self.IdFTPClient)
 end;
 
 procedure TfrmMainForm.actFileDisconnectUpdate(Sender: TObject);
@@ -950,7 +950,14 @@ begin
   end
   else
   begin
-    IdFTPClient.Disconnect;
+    TDisconnectThread.Create( IdFTPClient);
+    repeat
+       Application.ProcessMessages;
+       if Not ThreadRunning then
+       begin
+         break;
+       end;
+    until False;
   end;
 end;
 
@@ -2055,6 +2062,32 @@ begin
         end);
   end;
   Synchronize(DummySync);
+  frmMainForm.ThreadRunning := False;
+end;
+
+
+{ TDisconnectThread }
+
+procedure TDisconnectThread.Execute;
+begin
+  frmMainForm.ThreadRunning := True;
+  try
+    Self.FFTP.Disconnect;
+    queue(procedure
+    begin
+      frmMainForm.lvRemoteFiles.Items.Clear;
+      frmMainForm.lvRemoteFiles.Enabled := False;
+    end);
+  except
+    // This is already reported in the FTP log Window
+    on E: EIdReplyRFCError do;
+    on E: Exception do
+      queue(
+        procedure
+        begin
+          LogFTPError(E.Message);
+        end);
+  end;
   frmMainForm.ThreadRunning := False;
 end;
 
