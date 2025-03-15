@@ -36,7 +36,8 @@ requires
   IndyCore290,
   IndyProtocols290,
   IndySystem290,
-  TaurusTLS_RTForIndy290;
+  TaurusTLS_RTForIndy290,
+  designide;
 
 contains
   TaurusTLS_Dsn_Register in '..\..\..\Source\TaurusTLS_Dsn_Register.pas',
