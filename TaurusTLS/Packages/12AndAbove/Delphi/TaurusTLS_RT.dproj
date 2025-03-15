@@ -162,6 +162,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <VerInfo_Build>8</VerInfo_Build>
+        <DCC_BpiOutput>..\Output\BPI\$(Platform)\$(Config)</DCC_BpiOutput>
+        <DCC_HppOutput>..\Output\BPI\$(Platform)\$(Config)</DCC_HppOutput>
+        <DCC_ObjOutput>..\Output\BPI\$(Platform)\$(Config)</DCC_ObjOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64x)'!=''">
         <VerInfo_Build>8</VerInfo_Build>
