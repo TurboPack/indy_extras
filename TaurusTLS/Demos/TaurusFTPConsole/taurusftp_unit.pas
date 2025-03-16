@@ -786,6 +786,7 @@ begin
    try
       Lini.WriteBool('debug','trace', Assigned(FIO.OnDebugMessage));
       Lini.WriteInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
+      Lini.WriteBool('ftp','passive', FFTP.Passive);
    finally
      FreeAndNil(LIni);
    end;
@@ -1321,6 +1322,7 @@ begin
        FIO.OnDebugMessage := nil;
      end;
      FIO.SSLOptions.SecurityLevel := Lini.ReadInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
+     FFTP.Passive := Lini.ReadBool('ftp','passive', FFTP.Passive);
    finally
      FreeAndNil(LIni);
    end;
