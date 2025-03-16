@@ -42,6 +42,7 @@ type
     FComp: TIdCompressorZLib;
     FIO: TTaurusTLSIOHandlerSocket;
     FLog: TIdLogEvent;
+    procedure LoadConfig;
     // log events
     procedure OnReceived(ASender: TComponent; const AText, AData: string);
     procedure OnSent(ASender: TComponent; const AText, AData: string);
@@ -73,6 +74,7 @@ type
     procedure CmdQuote(const ACmd: string);
     procedure CmdDebugTrace(const ACmd: string);
     procedure CmdSecurityLevel(const ACmd: string);
+    procedure CmdSaveConfig;
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -94,13 +96,18 @@ type
 implementation
 
 uses
+  IniFiles,
+  {$IFNDEF FPC}
+  System.IOUtils,
+  {$ENDIF}
   TaurusTLSHeaders_ssl3;
 
 const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
-    'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level'];
+    'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level',
+    'save-config'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
 begin
@@ -164,6 +171,19 @@ begin
   finally
     AStrings.EndUpdate;
   end;
+end;
+
+function CreateAndGetCOnfigDir : String;
+begin
+  {$IFNDEF FPC}
+   Result := TPath.GetHomePath() + TPath.DirectorySeparatorChar + 'taurustls' +
+     TPath.DirectorySeparatorChar;
+  {$ELSE}
+   Result := GetAppConfigDir(False);
+   {$ENDIF}
+   if not DirectoryExists(Result) then begin
+     SysUtils.CreateDir(Result);
+   end;
 end;
 
 { TFTPApplication }
@@ -758,6 +778,19 @@ begin
   end;
 end;
 
+
+procedure TFTPApplication.CmdSaveConfig;
+var LIni : TIniFile;
+begin
+   LIni := TIniFile.Create(CreateAndGetCOnfigDir+'taurusftp.ini');
+   try
+      Lini.WriteBool('debug','trace', Assigned(FIO.OnDebugMessage));
+      Lini.WriteInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
+   finally
+     FreeAndNil(LIni);
+   end;
+end;
+
 procedure TFTPApplication.CmdSecurityLevel(const ACmd: string);
 var
   LCmdParams: TStrings;
@@ -976,6 +1009,7 @@ begin
     PrintCmdHelp(['quote'], 'Send arbitrary ftp command');
     PrintCmdHelp(['debug-trace'], 'Show Debug TLS trace information');
     PrintCmdHelp(['security-level'], 'Show or set security level');
+    PrintCmdHelp(['save-config'],'Save configuration');
   end
   else
   begin
@@ -1125,6 +1159,10 @@ begin
           WriteLn('4    - A minimum of 192 security bits is permitted.');
           WriteLn('5    - A minimum of 256 security bits is permitted.');
         end;
+      31 :
+        begin
+          PrintCmdHelp(['save-config'],'Save configuration','save-config');
+        end;
     end;
   end;
 end;
@@ -1221,6 +1259,9 @@ begin
         30:
           // 'security-level'
           CmdSecurityLevel(LCmd);
+        31:
+          // 'save-config'
+          CmdSaveConfig;
       else
         WriteLn('Bad Command');
       end;
@@ -1266,6 +1307,25 @@ begin
 {$ENDIF}
 end;
 
+procedure TFTPApplication.LoadConfig;
+var LIni : TIniFile;
+begin
+   LIni := TIniFile.Create(CreateAndGetCOnfigDir+'taurusftp.ini');
+   try
+     if  Lini.ReadBool('debug','trace', Assigned(FIO.OnDebugMessage)) then
+     begin
+       FIO.OnDebugMessage := OnDebugMsg;
+     end
+     else
+     begin
+       FIO.OnDebugMessage := nil;
+     end;
+     FIO.SSLOptions.SecurityLevel := Lini.ReadInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
+   finally
+     FreeAndNil(LIni);
+   end;
+end;
+
 {$IFDEF FPC}
 
 constructor TFTPApplication.Create(TheOwner: TComponent);
@@ -1293,6 +1353,7 @@ begin
 {$IFDEF FPC}
   StopOnException := True;
 {$ENDIF}
+  LoadConfig;
 end;
 
 destructor TFTPApplication.Destroy;

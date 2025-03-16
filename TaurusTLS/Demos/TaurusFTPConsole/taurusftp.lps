@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="3"/>
-        <UsageCount Value="197"/>
+        <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
@@ -316,9 +316,9 @@
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="350"/>
-        <CursorPos X="34" Y="363"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="186"/>
+        <CursorPos X="56" Y="186"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -396,10 +396,122 @@
         <UsageCount Value="11"/>
       </Unit>
     </Units>
-    <JumpHistory>
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="taurusftp_unit.pas"/>
         <Caret Line="1289" Column="39" TopLine="1273"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="363" Column="34" TopLine="765"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="766" Column="45" TopLine="749"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="770" Column="51" TopLine="676"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="776" Column="43" TopLine="767"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="790" Column="47" TopLine="767"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="805" Column="45" TopLine="780"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="1253" Column="25" TopLine="1235"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="92" Column="28" TopLine="83"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="775" Column="30" TopLine="758"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="1240" Column="24" TopLine="1214"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="74" Column="28" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="702" Column="51" TopLine="683"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="769" Column="58" TopLine="746"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="766" Column="47" TopLine="753"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="769" Column="59" TopLine="753"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="842" Column="43" TopLine="840"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="1240" Column="24" TopLine="1214"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="74" Column="28" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="670" Column="40" TopLine="690"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="769" Column="67" TopLine="752"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="770" Column="12" TopLine="754"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="772" Column="46" TopLine="918"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="993" TopLine="978"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="1225" TopLine="1209"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="764" TopLine="419"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="807" Column="38" TopLine="796"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="1242" Column="24" TopLine="1216"/>
+      </Position>
+      <Position>
+        <Filename Value="taurusftp_unit.pas"/>
+        <Caret Line="75" Column="28" TopLine="60"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -420,8 +532,6 @@
         <Item4 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
         <Item5 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
-      <List Name="WorkingDirectory" Type="File" Count="1"/>
-      <List Name="CommandLineParameters" Count="1"/>
     </HistoryLists>
   </ProjectSession>
   <Debugging>
@@ -432,13 +542,6 @@
         <WatchKind Value="wpkWrite"/>
         <Source Value="taurusftp.lpr"/>
         <Line Value="412"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="taurusftp_unit.pas"/>
-        <Line Value="992"/>
       </Item>
     </BreakPoints>
   </Debugging>
