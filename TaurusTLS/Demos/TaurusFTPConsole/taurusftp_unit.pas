@@ -503,7 +503,7 @@ end;
 procedure TFTPApplication.CmdAbout;
 begin
   WriteLn('TaurusFTP Console Demo');
-  WriteLn('Copyright (c) 2024 TaurusTLS Developers');
+  WriteLn('Copyright (c) 2025 TaurusTLS Developers');
 end;
 
 procedure TFTPApplication.CmdCd(const ACmd: string);
