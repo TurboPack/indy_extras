@@ -113,7 +113,7 @@ Password=[password for your private SSL key]
 ```
 
 ### TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
-This is a fully-functional FTP client that is multi threaded using the VCL Framework.   It has been tested with the following servers:
+This is a fully-functional Delphi-only FTP client that is multi threaded using the VCL Framework.  It has been tested with the following servers:
 - CompleteFTP - https://enterprisedt.com/products/completeftp/
 - FileZilla Server - https://filezilla-project.org/ 
 - ProFTPD - http://www.proftpd.org/
@@ -123,7 +123,7 @@ This is a fully-functional FTP client that is multi threaded using the VCL Frame
 
 No special configuration is required and the program generates it’s own INI files for storing FTP server information and default settings.  You may need to configure the program if you have a firewall/proxy setup or are behind a NAT and wish to use PORT transfers.
 ### TaurusTLS\demos\TaurusFTPConsole\taurusftp.dpr and taurusftp.lpr
-This is a fully functional console FTP client that can be built with both Delphi and Lazaurus.  It has been tested with the following servers:
+This is a fully functional cross-platform console FTP client that can be built with both Delphi and Lazaurus.  It has been tested with the following servers:
 - CompleteFTP - https://enterprisedt.com/products/completeftp/
 - FileZilla Server - https://filezilla-project.org/
 - ProFTPD - http://www.proftpd.org/
