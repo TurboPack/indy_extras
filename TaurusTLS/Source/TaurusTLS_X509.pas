@@ -96,7 +96,10 @@ type
     property OneLine: string read GetOneLine;
     /// <summary>
     ///   Common name for X509 Name. Usuuually, this is the hostname but can be
-    ///   an E-Mail address.
+    ///   an E-Mail address. TaurusTLS checks this value to see that it matches
+    ///   the hostname you specified for the connection if the <see
+    ///   cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname">VerifyHostname
+    ///   </see> property is true.
     /// </summary>
     property CommonName: String read GetCommonName;
     /// <summary>

@@ -680,7 +680,8 @@ type
     /// </summary>
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
     /// <summary>
-    ///   The Minimum TLS version you will accept.
+    ///   The Minimum TLS version you will accept. The maximum TLS version that
+    ///   is accepted is TLS version 1.3.
     /// </summary>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion default DEF_MIN_TLSVERSION;
@@ -728,7 +729,7 @@ type
     ///   </para>
     ///   <para>
     ///     <c>sslvrfFailIfNoPeerCert</c> For servers, require client
-    ///     certificate
+    ///     certificate.
     ///   </para>
     ///   <para>
     ///     <c>sslvrfClientOnce</c> For servers, request client certificate only
@@ -756,24 +757,38 @@ type
     /// </remarks>
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
     /// <summary>
-    ///   Peer Certificate must match hostname
+    ///   The peer certificate ( <see cref="TaurusTLS|TTaurusTLSSocket.PeerCert" />)
+    ///   common name ( <see cref="TaurusTLS_X509|TTaurusTLSX509Name.CommonName" />)
+    ///   must match the hostname provided to the TaurusTLS component.
     /// </summary>
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname
       default DEF_VERIFY_HOSTNAME;
     /// <summary>
-    ///   Use system's certificate store to verify certificates.
+    ///   Use the system's certificate store to verify certificates.
     /// </summary>
     property UseSystemRootCertificateStore: Boolean
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
       default true;
     /// <summary>
-    ///   The list of available ciphers
+    ///   The list of ciphers you wish to use or left empty to use the default
+    ///   ciphers. The list should only contain ciphers that were:<list
+    ///   type="bullet">
+    ///     <item>
+    ///       Were compiled into the OpenSSL library.
+    ///     </item>
+    ///     <item>
+    ///       Are availble for the particular security level you set with the
+    ///       <see cref="TaurusTLS|TTaurusTLSSSLOptions.SecurityLevel" />
+    ///       property
+    ///     </item>
+    ///     <item>
+    ///       Are avaiable with the TLS version used in the session. That can be
+    ///       between the <see
+    ///       cref="TaurusTLS|TTaurusTLSSSLOptions.MinTLSVersion" /> property
+    ///       and TLS 1.3.
+    ///     </item>
+    ///   </list>
     /// </summary>
-    /// <remarks>
-    ///   <para>
-    ///     Leave empty to use all available ciphers.
-    ///   </para>
-    /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
   end;
 
@@ -860,7 +875,8 @@ type
     // THese can't be published in a TObject without a compiler warning.
     // published
     /// <summary>
-    ///   The Minimum TLS version you will accept.
+    ///   The Minimum TLS version you will accept. The maximum TLS version that
+    ///   is accepted is TLS version 1.3.
     /// </summary>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion;
@@ -910,13 +926,25 @@ type
     /// </summary>
     property CertFile: String read fsCertFile write fsCertFile;
     /// <summary>
-    ///   The list of available ciphers
+    ///   The list of ciphers you wish to use or left empty to use the default
+    ///   ciphers. The list should only contain ciphers that were:<list
+    ///   type="bullet">
+    ///     <item>
+    ///       Were compiled into the OpenSSL library.
+    ///     </item>
+    ///     <item>
+    ///       Are availble for the particular security level you set with the
+    ///       <see cref="TaurusTLS|TTaurusTLSSSLOptions.SecurityLevel" />
+    ///       property
+    ///     </item>
+    ///     <item>
+    ///       Are avaiable with the TLS version used in the session. That can be
+    ///       between the <see
+    ///       cref="TaurusTLS|TTaurusTLSSSLOptions.MinTLSVersion" /> property
+    ///       and TLS 1.3.
+    ///     </item>
+    ///   </list>
     /// </summary>
-    /// <remarks>
-    ///   <para>
-    ///     Leave empty to use all available ciphers.
-    ///   </para>
-    /// </remarks>
     property CipherList: String read fCipherList write fCipherList;
     /// <summary>
     ///   Private Key file.
