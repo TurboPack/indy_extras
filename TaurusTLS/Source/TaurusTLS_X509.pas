@@ -96,8 +96,9 @@ type
     property OneLine: string read GetOneLine;
     /// <summary>
     ///   Common name for X509 Name. Usuuually, this is the hostname but can be
-    ///   an E-Mail address. TaurusTLS checks this value to see that it matches
-    ///   the hostname you specified for the connection if the <see
+    ///   an E-Mail address. TaurusTLS checks this value in the <see
+    ///   cref="TaurusTLS_X509|TTaurusTLSX509.Subject" /> property to see that
+    ///   it matches the hostname you specified for the connection if the <see
     ///   cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname">VerifyHostname
     ///   </see> property is true.
     /// </summary>
@@ -695,7 +696,11 @@ type
     property FingerprintAsString: String read GetFingerprintAsString;
     /// <summary>
     ///   Subject name of the certificate. Usually, that is the hostname but
-    ///   could also be an E-Mail address.
+    ///   could also be an E-Mail address. If the <see
+    ///   cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname" /> is true,
+    ///   TaurusTLS will check the Common Name ( <see
+    ///   cref="TaurusTLS_X509|TTaurusTLSX509Name.CommonName" />) to see that it
+    ///   matches the provided value.
     /// </summary>
     property Subject: TTaurusTLSX509Name read GetSubject;
     /// <summary>

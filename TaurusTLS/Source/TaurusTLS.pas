@@ -758,6 +758,7 @@ type
     property VerifyDirs: String read fVerifyDirs write fVerifyDirs;
     /// <summary>
     ///   The peer certificate ( <see cref="TaurusTLS|TTaurusTLSSocket.PeerCert" />)
+    ///   subject's ( <see cref="TaurusTLS_X509|TTaurusTLSX509.Subject" />)
     ///   common name ( <see cref="TaurusTLS_X509|TTaurusTLSX509Name.CommonName" />)
     ///   must match the hostname provided to the TaurusTLS component.
     /// </summary>
@@ -1891,7 +1892,7 @@ type
   /// </seealso>
   ETaurusTLSReadExError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  ///   Raised if the Certificate Common Name does not match the specified
+  ///   Raised if the Certificate Subject's Common Name does not match the specified
   ///   hostname.
   /// </summary>
   ETaurusTLSCertificateError = class(ETaurusTLSError);
