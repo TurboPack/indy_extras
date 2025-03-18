@@ -771,9 +771,9 @@ type
       read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
       default true;
     /// <summary>
-    ///   The list of ciphers you wish to use or left empty to use the default
-    ///   ciphers. The list should only contain ciphers that were:<list
-    ///   type="bullet">
+    ///   The colon-separated (:) list of ciphersuits you wish to use or left
+    ///   empty to use the default ciphers. The list should only contain ciphers
+    ///   that were:<list type="bullet">
     ///     <item>
     ///       Were compiled into the OpenSSL library.
     ///     </item>
@@ -790,6 +790,10 @@ type
     ///     </item>
     ///   </list>
     /// </summary>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.1/man3/SSL_CTX_set_cipher_list/">
+    ///   SSL_CTX_set_cipher_list
+    /// </seealso>
     property CipherList: String read fCipherList write fCipherList;
   end;
 
@@ -927,9 +931,9 @@ type
     /// </summary>
     property CertFile: String read fsCertFile write fsCertFile;
     /// <summary>
-    ///   The list of ciphers you wish to use or left empty to use the default
-    ///   ciphers. The list should only contain ciphers that were:<list
-    ///   type="bullet">
+    ///   The colon-separated (:) list of ciphersuits you wish to use or left
+    ///   empty to use the default ciphers. The list should only contain ciphers
+    ///   that were:<list type="bullet">
     ///     <item>
     ///       Were compiled into the OpenSSL library.
     ///     </item>
@@ -946,6 +950,10 @@ type
     ///     </item>
     ///   </list>
     /// </summary>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.1/man3/SSL_CTX_set_cipher_list/">
+    ///   SSL_CTX_set_cipher_list
+    /// </seealso>
     property CipherList: String read fCipherList write fCipherList;
     /// <summary>
     ///   Private Key file.
@@ -1335,7 +1343,7 @@ type
     /// </remarks>
     procedure Open; override;
     /// <summary>
-    ///   Called by Indy. If the Passthrough property is False, the SSL
+    ///   Called by Indy. If the Passthrough property is False, the TLS
     ///   connection is checked for pending decrypted data before calling the
     ///   inherited Readable method.
     /// </summary>
