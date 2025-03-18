@@ -361,7 +361,9 @@ type
   {$EXTERNALSYM TS_VERIFY_CTX_set_flags}
   {$EXTERNALSYM TS_VERIFY_CTX_add_flags}
   {$EXTERNALSYM TS_VERIFY_CTX_set_data}
+  {$EXTERNALSYM TS_VERIFY_CTX_set0_data}
   {$EXTERNALSYM TS_VERIFY_CTX_set_imprint}
+  {$EXTERNALSYM TS_VERIFY_CTX_set0_imprint}
   {$EXTERNALSYM TS_VERIFY_CTX_set_store}
   {$EXTERNALSYM TS_VERIFY_CTS_set_certs}
   {$EXTERNALSYM TS_REQ_to_TS_VERIFY_CTX}
@@ -680,9 +682,13 @@ var
   TS_VERIFY_CTX_set_flags: function (ctx: PTS_VERIFY_CTX; f: TIdC_INT): TIdC_INT; cdecl = nil;
   TS_VERIFY_CTX_add_flags: function (ctx: PTS_VERIFY_CTX; f: TIdC_INT): TIdC_INT; cdecl = nil;
   TS_VERIFY_CTX_set_data: function (ctx: PTS_VERIFY_CTX; b: PBIO): PBIO; cdecl = nil;
+  TS_VERIFY_CTX_set0_data: function (ctx: PTS_VERIFY_CTX; b: PBIO) : TIdC_INT; cdecl = nil;
   TS_VERIFY_CTX_set_imprint: function (ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): PByte; cdecl = nil;
+  TS_VERIFY_CTX_set0_imprint : function(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
   TS_VERIFY_CTX_set_store: function (ctx: PTS_VERIFY_CTX; s: PX509_Store): PX509_Store; cdecl = nil;
-  TS_VERIFY_CTS_set_certs: function(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509;
+  TS_VERIFY_CTX_set0_store: function (ctx: PTS_VERIFY_CTX; s: PX509_Store): TIdC_INT; cdecl = nil;
+  TS_VERIFY_CTS_set_certs: function(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509; cdecl = nil;
+  TS_VERIFY_CTS_set0_certs: function(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : TIdC_INT; cdecl = nil;
 
   (*-
    * If ctx is NULL, it allocates and returns a new object, otherwise
@@ -1029,9 +1035,13 @@ var
   function TS_VERIFY_CTX_set_flags(ctx: PTS_VERIFY_CTX; f: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function TS_VERIFY_CTX_add_flags(ctx: PTS_VERIFY_CTX; f: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function TS_VERIFY_CTX_set_data(ctx: PTS_VERIFY_CTX; b: PBIO): PBIO cdecl; external CLibCrypto;
+  function TS_VERIFY_CTX_set0_data(ctx : PTS_VERIFY_CTX; b: PBIO): TIdC_INT cdecl;  external CLibCrypto;
   function TS_VERIFY_CTX_set_imprint(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): PByte cdecl; external CLibCrypto;
+  function TS_VERIFY_CTX_set0_imprint(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function TS_VERIFY_CTX_set_store(ctx: PTS_VERIFY_CTX; s: PX509_Store): PX509_Store cdecl; external CLibCrypto;
-  function TS_VERIFY_CTS_set_certs(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509 cdecl; external CLibCrypto;
+  function TS_VERIFY_CTX_set0_store(ctx: PTS_VERIFY_CTX; s: PX509_Store): TIdC_INT; cdecl; external CLibCrypto;
+  function TS_VERIFY_CTS_set_certs(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509; cdecl; external CLibCrypto;
+  function TS_VERIFY_CTS_set0_certs(ctx : TS_VERIFY_CTX; certs : PSTACK_OF_X509) : TIdC_INT; cdecl; external CLibCrypto;
 
   (*-
    * If ctx is NULL, it allocates and returns a new object, otherwise
@@ -1101,7 +1111,12 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+const
+  TS_VERIFY_CTX_set0_data_introduced = (byte(3) shl 8 or byte(4)) shl 8 or byte(0);
+  TS_VERIFY_CTX_set0_imprint_introduced = (byte(3) shl 8 or byte(4)) shl 8 or byte(0);
+  TS_VERIFY_CTX_set0_store_introduced = (byte(3) shl 8 or byte(4)) shl 8 or byte(0);
+  TS_VERIFY_CTX_set0_certs_introduced = (byte(3) shl 8 or byte(4)) shl 8 or byte(0);
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -1391,10 +1406,13 @@ const
   TS_VERIFY_CTX_set_flags_procname = 'TS_VERIFY_CTX_set_flags';
   TS_VERIFY_CTX_add_flags_procname = 'TS_VERIFY_CTX_add_flags';
   TS_VERIFY_CTX_set_data_procname = 'TS_VERIFY_CTX_set_data';
+  TS_VERIFY_CTX_set0_data_procname = 'TS_VERIFY_CTX_set0_data';
   TS_VERIFY_CTX_set_imprint_procname = 'TS_VERIFY_CTX_set_imprint';
+  TS_VERIFY_CTX_set0_imprint_procname = 'TS_VERIFY_CTX_set0_imprint';
   TS_VERIFY_CTX_set_store_procname = 'TS_VERIFY_CTX_set_store';
+  TS_VERIFY_CTX_set0_store_procname = 'TS_VERIFY_CTX_set0_store';
   TS_VERIFY_CTS_set_certs_procname = 'TS_VERIFY_CTS_set_certs';
-
+  TS_VERIFY_CTS_set0_certs_procname = 'TS_VERIFY_CTS_set0_certs';
   (*-
    * If ctx is NULL, it allocates and returns a new object, otherwise
    * it returns ctx. It initialises all the members as follows:
@@ -2530,9 +2548,21 @@ begin
 end;
 
 
+function ERR_TS_VERIFY_CTX_set0_data(ctx : PTS_VERIFY_CTX; b : PBIO) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTX_set0_data_procname);
+end;
+
+
 function  ERR_TS_VERIFY_CTX_set_imprint(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): PByte; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTX_set_imprint_procname);
+end;
+
+
+function  ERR_TS_VERIFY_CTX_set0_imprint(ctx: PTS_VERIFY_CTX; hexstr: PByte; len: TIdC_LONG): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTX_set0_imprint_procname);
 end;
 
 
@@ -2542,10 +2572,22 @@ begin
 end;
 
 
+function ERR_TS_VERIFY_CTX_set0_store(ctx: PTS_VERIFY_CTX; s: PX509_Store): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTX_set0_store_procname);
+end;
+
+
 function ERR_TS_VERIFY_CTS_set_certs(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : PSTACK_OF_X509;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTS_set_certs_procname);
 end;
+
+function ERR_TS_VERIFY_CTS_set0_certs(ctx : PTS_VERIFY_CTX; certs : PSTACK_OF_X509) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_VERIFY_CTS_set_certs_procname);
+end;
+
   (*-
    * If ctx is NULL, it allocates and returns a new object, otherwise
    * it returns ctx. It initialises all the members as follows:
@@ -7802,6 +7844,38 @@ begin
   end;
 
 
+  TS_VERIFY_CTX_set0_data := LoadLibFunction(ADllHandle, TS_VERIFY_CTX_set0_data_procname);
+  FuncLoadError := not assigned(TS_VERIFY_CTX_set0_data);
+  if FuncLoadError then
+  begin
+    {$if not defined(TS_VERIFY_CTX_set0_data_allownil)}
+    TS_VERIFY_CTX_set0_data := @ERR_TS_VERIFY_CTX_set0_data;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_data_introduced)}
+    if LibVersion < TS_VERIFY_CTX_set0_data_introduced then
+    begin
+      {$if declared(FC_TS_VERIFY_CTX_set0_data)}
+      TS_VERIFY_CTX_set0_data := @FC_TS_VERIFY_CTX_set0_data;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_data_removed)}
+    if TS_VERIFY_CTX_set0_data_removed <= LibVersion then
+    begin
+      {$if declared(_TS_VERIFY_CTX_set0_data)}
+      TS_VERIFY_CTX_set0_data := @_TS_VERIFY_CTX_set0_data;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(TS_VERIFY_CTX_set0_data_allownil)}
+    if FuncLoadError then
+      AFailed.Add('TS_VERIFY_CTX_set0_data');
+    {$ifend}
+  end;
+
+
   TS_VERIFY_CTX_set_imprint := LoadLibFunction(ADllHandle, TS_VERIFY_CTX_set_imprint_procname);
   FuncLoadError := not assigned(TS_VERIFY_CTX_set_imprint);
   if FuncLoadError then
@@ -7830,6 +7904,38 @@ begin
     {$if not defined(TS_VERIFY_CTX_set_imprint_allownil)}
     if FuncLoadError then
       AFailed.Add('TS_VERIFY_CTX_set_imprint');
+    {$ifend}
+  end;
+
+
+  TS_VERIFY_CTX_set0_imprint := LoadLibFunction(ADllHandle, TS_VERIFY_CTX_set0_imprint_procname);
+  FuncLoadError := not assigned(TS_VERIFY_CTX_set0_imprint);
+  if FuncLoadError then
+  begin
+    {$if not defined(TS_VERIFY_CTX_set0_imprint_allownil)}
+    TS_VERIFY_CTX_set0_imprint := @ERR_TS_VERIFY_CTX_set0_imprint;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_imprint_introduced)}
+    if LibVersion < TS_VERIFY_CTX_set0_imprint_introduced then
+    begin
+      {$if declared(FC_TS_VERIFY_CTX_set0_imprint)}
+      TS_VERIFY_CTX_set0_imprint := @FC_TS_VERIFY_CTX_set0_imprint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_imprint_removed)}
+    if TS_VERIFY_CTX_set0_imprint_removed <= LibVersion then
+    begin
+      {$if declared(_TS_VERIFY_CTX_set0_imprint)}
+      TS_VERIFY_CTX_set0_imprint := @_TS_VERIFY_CTX_set0_imprint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(TS_VERIFY_CTX_set0_imprint_allownil)}
+    if FuncLoadError then
+      AFailed.Add('TS_VERIFY_CTX_set0_imprint');
     {$ifend}
   end;
 
@@ -7867,33 +7973,65 @@ begin
 
 
   TS_VERIFY_CTS_set_certs := LoadLibFunction(ADllHandle,TS_VERIFY_CTS_set_certs_procname);
-  FuncLoadError := not assigned(TS_VERIFY_CTX_set_store);
+  FuncLoadError := not assigned(TS_VERIFY_CTS_set_certs);
   if FuncLoadError then
   begin
-    {$if not defined(TS_VERIFY_CTX_set_store_allownil)}
-   TS_VERIFY_CTS_set_certs := @ERR_TS_VERIFY_CTX_set_store;
+    {$if not defined(TS_VERIFY_CTS_set_certs_allownil)}
+   TS_VERIFY_CTS_set_certs := @ERR_TS_VERIFY_CTS_set_certs;
     {$ifend}
-    {$if declared(TS_VERIFY_CTX_set_store_introduced)}
-    if LibVersion <TS_VERIFY_CTS_set_certs_introduced then
+    {$if declared(TS_VERIFY_CTS_set_certsintroduced)}
+    if LibVersion < TS_VERIFY_CTS_set_certs_introduced then
     begin
-      {$if declared(FC_TS_VERIFY_CTX_set_store)}
-     TS_VERIFY_CTS_set_certs := @FC_TS_VERIFY_CTX_set_store;
+      {$if declared(FC_TS_VERIFY_CTS_set_certs)}
+      TS_VERIFY_CTS_set_certs := @FC_TS_VERIFY_CTS_set_certs;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(TS_VERIFY_CTX_set_store_removed)}
+    {$if declared(TS_VERIFY_CTS_set_certs_removed)}
     ifTS_VERIFY_CTS_set_certs_removed <= LibVersion then
     begin
-      {$if declared(_TS_VERIFY_CTX_set_store)}
-     TS_VERIFY_CTS_set_certs := @_TS_VERIFY_CTX_set_store;
+      {$if declared(_TS_VERIFY_CTS_set_certs)}
+     TS_VERIFY_CTS_set_certs := @_TS_VERIFY_CTS_set_certs;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(TS_VERIFY_CTX_set_store_allownil)}
+    {$if not defined(TS_VERIFY_CTS_set_certs_allownil)}
     if FuncLoadError then
-      AFailed.Add('TS_VERIFY_CTX_set_store');
+      AFailed.Add('TS_VERIFY_CTS_set_certs');
+    {$ifend}
+  end;
+
+
+  TS_VERIFY_CTS_set0_certs := LoadLibFunction(ADllHandle,TS_VERIFY_CTS_set0_certs_procname);
+  FuncLoadError := not assigned(TS_VERIFY_CTS_set0_certs);
+  if FuncLoadError then
+  begin
+    {$if not defined(TS_VERIFY_CTS_set0_certs_allownil)}
+   TS_VERIFY_CTS_set0_certs := @ERR_TS_VERIFY_CTS_set0_certs;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_certs_introduced)}
+    if LibVersion < TS_VERIFY_CTX_set0_certs_introduced then
+    begin
+      {$if declared(FC_TS_VERIFY_CTS_set0_certs)}
+      TS_VERIFY_CTS_set0_certs := @FC_TS_VERIFY_CTS_set0_certs;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTS_set0_certs_removed)}
+    ifTS_VERIFY_CTS_set0_certs_removed <= LibVersion then
+    begin
+      {$if declared(_TS_VERIFY_CTS_set0_certs)}
+     TS_VERIFY_CTS_set0_certs := @_TS_VERIFY_CTS_set0_certs;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(TS_VERIFY_CTS_set0_certs_allownil)}
+    if FuncLoadError then
+      AFailed.Add('TS_VERIFY_CTS_set0_certs');
     {$ifend}
   end;
 
@@ -8924,9 +9062,13 @@ begin
   TS_VERIFY_CTX_set_flags := nil;
   TS_VERIFY_CTX_add_flags := nil;
   TS_VERIFY_CTX_set_data := nil;
+  TS_VERIFY_CTX_set0_data := nil;
   TS_VERIFY_CTX_set_imprint := nil;
+  TS_VERIFY_CTX_set0_imprint := nil;
   TS_VERIFY_CTX_set_store := nil;
+  TS_VERIFY_CTX_set0_store := nil;
   TS_VERIFY_CTS_set_certs := nil;
+  TS_VERIFY_CTS_set0_certs := nil;
   TS_REQ_to_TS_VERIFY_CTX := nil;
   TS_RESP_print_bio := nil;
   TS_STATUS_INFO_print_bio := nil;
