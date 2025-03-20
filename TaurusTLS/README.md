@@ -66,7 +66,7 @@ On Windows, OpenSSL is not installed by default so you have to redistribute it a
 
 For Win32 applications, you need to redistribute the following:
 
-OpenSSL 1.1.1
+OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of life)
 - libcrypto-1_1.dll	
 - libssl-1_1.dll
 - openssl.exe
@@ -78,7 +78,7 @@ OpenSSL 3.x
 
 For Win64 applications, you need to redistribute the following:
 
-OpenSSL 1.1.1	
+OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of life)
 - libcrypto-1_1-x64.dll	
 - libssl-1_1-x64.dll
 - openssl.exe
