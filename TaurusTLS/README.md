@@ -3,7 +3,7 @@ Copyright (c) 2025 TaurusTLS Developers
 All Rights Reserved
 ## General Information
 
-TaurusTLS provides OpenSSL 1.1 and 3.x support for Indy - Internet Direct.  It includes headers plus two components for Delphi and C++Builder.  Those components are:
+TaurusTLS provides OpenSSL 1.1.1 and 3.x support for Indy - Internet Direct.  It includes headers plus two components for Delphi and C++Builder.  Those components are:
 
 - TTaurusTLSIOHandlerSocket - Enables TLS in a TIdTCPClientCustom descendant. 
 - TTaurusTLSServerIOHandler - Enables TLS in a TIdCustomTCPServer descendant.
