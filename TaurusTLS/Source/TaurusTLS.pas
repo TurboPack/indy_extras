@@ -456,7 +456,7 @@ const
   /// <summary>
   ///   The default value for TSLLOptions.VerifyHostname property.
   /// </summary>
-  DEF_VERIFY_HOSTNAME = False;
+  DEF_VERIFY_HOSTNAME = True;
 
 type
   /// <summary>
