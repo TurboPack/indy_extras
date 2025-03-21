@@ -3224,6 +3224,7 @@ begin
     fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
     fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
     fSSLContext.VerifyMode := SSLOptions.VerifyMode;
+    fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
     // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
     fSSLContext.UseSystemRootCertificateStore :=
       SSLOptions.UseSystemRootCertificateStore;
@@ -4125,7 +4126,6 @@ begin
   // returning an error code, so we should call SSL_get_verify_result() here
   // to make sure...
 
-  // TODO: enable this
   if fSSLContext.VerifyHostname then
   begin
     Lpeercert := SSL_get_peer_certificate(fSSL);
