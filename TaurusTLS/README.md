@@ -34,10 +34,10 @@ You may install TaurusTLS into the 64-bit Integrated Development Environment (ID
 
 ### For Indy that was Upgraded from the Website
 
-1. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
-2. Compile TaurusTLS_RTForIndy290.
-3. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
-4. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
+1. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
+2. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
+3. Compile TaurusTLS_RTForIndy290.
+4. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
 
