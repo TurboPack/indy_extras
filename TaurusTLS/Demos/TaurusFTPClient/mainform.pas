@@ -252,7 +252,7 @@ type
       const AWhere, Aret: TIdC_INT; const AType, AMsg: string);
     procedure OnSSLNegotiated(ASender: TTaurusTLSIOHandlerSocket);
     //
-    // Dumy method to ensure all queued items are comopleted
+    // Dumy method to ensure all synchronized items are comopleted
     procedure DummySync;
     //
     procedure PromptVerifyCert;
@@ -1695,7 +1695,7 @@ procedure TFTPThread.DummySync;
 begin
   // You don't need to do anything here. It's just used
   // as a fence to stop the thread ending before all the
-  // Queued messages are processed.
+  // synchronized messages are processed.
 end;
 
 procedure TFTPThread.OnGetPassword(ASender: TObject; var VPassword: String;
@@ -1789,7 +1789,7 @@ begin
   begin
     if CharInSet(LData[1], ['4', '5']) then
     begin
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(LData);
@@ -1797,7 +1797,7 @@ begin
     end
     else
     begin
-      queue(
+      synchronize(
         procedure
         begin
           LogRegularOutput(LData);
@@ -1810,7 +1810,7 @@ procedure TFTPThread.OnLogSent(ASender: TComponent; const AText, AData: string);
 begin
   if IndyPos('PASS ', AData) > 0 then
   begin
-    queue(
+    synchronize(
       procedure
       begin
         LogRegularOutput('PASS ***');
@@ -1818,7 +1818,7 @@ begin
   end
   else
   begin
-    queue(
+    synchronize(
       procedure
       begin
         LogRegularOutput(TrimRight(AData));
@@ -1878,7 +1878,7 @@ var
 {$ENDIF}
 begin
 //use synchronize to prevent an AV
-  Queue(
+  synchronize(
     procedure
     begin
 {$IFDEF USE_INLINE_VAR}
@@ -2042,12 +2042,12 @@ begin
     end;
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2056,7 +2056,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2074,7 +2074,7 @@ begin
   frmMainForm.ThreadRunning := True;
   try
     Self.FFTP.Disconnect;
-    queue(procedure
+    synchronize(procedure
     begin
       frmMainForm.lvRemoteFiles.Items.Clear;
       frmMainForm.lvRemoteFiles.Enabled := False;
@@ -2083,7 +2083,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2109,12 +2109,12 @@ begin
     FFTP.ChangeDir(FNewDir);
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2123,7 +2123,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2154,7 +2154,7 @@ end;
 procedure TFileOnWorkThread.OnWork(ASender: TObject; AWorkMode: TWorkMode;
 AWorkCount: Int64);
 begin
-  queue(
+  synchronize(
     procedure
     begin
       frmMainForm.UpdateProgressIndicator(FFile, AWorkMode, AWorkCount, FSize);
@@ -2173,7 +2173,7 @@ procedure TFileOnWorkThread.OnWorkBegin(ASender: TObject; AWorkMode: TWorkMode;
 AWorkCountMax: Int64);
 begin
 
-  queue(
+  synchronize(
     procedure
     begin
       frmMainForm.SetupPRogressIndicator(Self.FFile, AWorkMode, 0, FSize);
@@ -2182,7 +2182,7 @@ end;
 
 procedure TFileOnWorkThread.OnWorkEnd(ASender: TObject; AWorkMode: TWorkMode);
 begin
-  queue(
+  synchronize(
     procedure
     begin
       frmMainForm.CloseProgressIndicator;
@@ -2207,7 +2207,7 @@ begin
       FreeAndNil(LFile);
     end;
     TFile.SetLastWriteTime(FFile, FFTP.FileDate(FFile));
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateLocalFiles;
@@ -2216,7 +2216,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2252,12 +2252,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2266,7 +2266,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2294,12 +2294,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2308,7 +2308,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2335,12 +2335,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2349,7 +2349,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2383,12 +2383,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2397,7 +2397,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2424,12 +2424,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    queue(
+    synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    queue(
+    synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2438,7 +2438,7 @@ begin
     // EIdReplyRFCError exceptions reported in log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      queue(
+      synchronize(
         procedure
         begin
           LogFTPError(E.Message);

@@ -1801,7 +1801,6 @@ object frmMainForm: TfrmMainForm
       TabOrder = 0
       WantReturns = False
       WordWrap = False
-      ExplicitWidth = 735
     end
   end
   object tbrMainProgram: TToolBar
@@ -1815,7 +1814,7 @@ object frmMainForm: TfrmMainForm
     GradientEndColor = 1182475
     Images = vimglstMainProgram
     TabOrder = 0
-    ExplicitWidth = 735
+    ExplicitWidth = 743
     object ToolButton5: TToolButton
       Left = 0
       Top = 0
@@ -2020,7 +2019,6 @@ object frmMainForm: TfrmMainForm
         Enabled = False
         TabOrder = 0
         OnKeyDown = cboRemoteCurrentDirKeyDown
-        ExplicitWidth = 367
       end
     end
   end
@@ -3198,7 +3196,6 @@ object frmMainForm: TfrmMainForm
     SSLOptions.Mode = sslmUnassigned
     SSLOptions.VerifyMode = [sslvrfPeer]
     SSLOptions.VerifyDepth = 2
-    SSLOptions.VerifyHostname = True
     Left = 624
     Top = 306
   end
