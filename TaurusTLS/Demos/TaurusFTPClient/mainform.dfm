@@ -1770,8 +1770,8 @@ object frmMainForm: TfrmMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 372
-    ExplicitWidth = 735
+    ExplicitTop = 373
+    ExplicitWidth = 739
   end
   object pnlLog: TPanel
     Left = 0
@@ -1781,8 +1781,8 @@ object frmMainForm: TfrmMainForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 281
-    ExplicitWidth = 735
+    ExplicitTop = 282
+    ExplicitWidth = 739
     object redtLog: TRichEdit
       Left = 0
       Top = 0
@@ -1801,6 +1801,7 @@ object frmMainForm: TfrmMainForm
       TabOrder = 0
       WantReturns = False
       WordWrap = False
+      ExplicitWidth = 739
     end
   end
   object tbrMainProgram: TToolBar
@@ -1814,7 +1815,7 @@ object frmMainForm: TfrmMainForm
     GradientEndColor = 1182475
     Images = vimglstMainProgram
     TabOrder = 0
-    ExplicitWidth = 743
+    ExplicitWidth = 739
     object ToolButton5: TToolButton
       Left = 0
       Top = 0
@@ -1867,8 +1868,8 @@ object frmMainForm: TfrmMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 735
-    ExplicitHeight = 189
+    ExplicitWidth = 739
+    ExplicitHeight = 190
     object Splitter1: TSplitter
       Left = 286
       Top = 0
@@ -1890,7 +1891,7 @@ object frmMainForm: TfrmMainForm
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      ExplicitHeight = 189
+      ExplicitHeight = 190
       DesignSize = (
         286
         198)
@@ -1957,8 +1958,8 @@ object frmMainForm: TfrmMainForm
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitWidth = 438
-      ExplicitHeight = 189
+      ExplicitWidth = 442
+      ExplicitHeight = 190
       DesignSize = (
         444
         198)
@@ -2019,6 +2020,7 @@ object frmMainForm: TfrmMainForm
         Enabled = False
         TabOrder = 0
         OnKeyDown = cboRemoteCurrentDirKeyDown
+        ExplicitWidth = 371
       end
     end
   end
@@ -2953,6 +2955,7 @@ object frmMainForm: TfrmMainForm
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
     ClientInfo.ClientName = 'TaurusFTP'
+    OnDataChannelCreate = IdFTPClientDataChannelCreate
     Left = 168
     Top = 169
   end

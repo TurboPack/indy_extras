@@ -145,6 +145,8 @@ type
     procedure actFileLocalMakeDirectoryExecute(Sender: TObject);
     procedure actFileLocalMakeDirectoryUpdate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure IdFTPClientDataChannelCreate(ASender: TObject; ADataChannel:
+        TIdTCPConnection);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} private
     { Private declarations }
     FLocalColumnToSort: Integer;
@@ -1658,6 +1660,18 @@ end;
 procedure TfrmMainForm.CloseProgressIndicator;
 begin
   FreeAndNil(FProgressIndicator);
+end;
+
+procedure TfrmMainForm.IdFTPClientDataChannelCreate(ASender: TObject;
+    ADataChannel: TIdTCPConnection);
+begin
+  //The IOHandler for this should not check the hostname against the
+  //certificate in this case because the HostName property will be
+  //an IP address, not a hostname.
+  if ADataChannel.IOHandler is TTaurusTLSIOHandlerSocket  then
+  begin
+     (ADataChannel.IOHandler as TTaurusTLSIOHandlerSocket).SSLOptions.VerifyHostname := False;
+  end;
 end;
 
 { TFTPThread }
