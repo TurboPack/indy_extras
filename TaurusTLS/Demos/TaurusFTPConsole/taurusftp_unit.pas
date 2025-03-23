@@ -24,6 +24,7 @@ uses
   IdFTPCommon,
   IdGlobal,
   IdLogEvent,
+  IdTCPConnection,
   IdZLibHeaders,
   TaurusTLS,
   TaurusTLSHeaders_ossl_typ;
@@ -50,6 +51,8 @@ type
     procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
+    procedure DoOnClientDataChannelCreate(ASender: TObject;
+    ADataChannel: TIdTCPConnection);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
     procedure CmdDir(const ACmd: string);
@@ -1273,6 +1276,18 @@ begin
   until False;
 end;
 
+procedure TFTPApplication.DoOnClientDataChannelCreate(ASender: TObject;
+  ADataChannel: TIdTCPConnection);
+begin
+  //The IOHandler for this should not check the hostname against the
+  //certificate in this case because the HostName property will be
+  //an IP address, not a hostname.
+  if ADataChannel.IOHandler is TTaurusTLSIOHandlerSocket  then
+  begin
+     (ADataChannel.IOHandler as TTaurusTLSIOHandlerSocket).SSLOptions.VerifyHostname := False;
+  end;
+end;
+
 procedure TFTPApplication.DoRun;
 {$IFDEF FPC}
 var
@@ -1345,6 +1360,7 @@ begin
   FIO.OnSSLNegotiated := OnSSLNegotiated;
   FFTP.IOHandler := FIO;
   FFTP.Passive := True;
+  FFTP.OnDataChannelCreate := DoOnClientDataChannelCreate;
   FLog := TIdLogEvent.Create(nil);
   FLog.LogTime := False;
   FLog.ReplaceCRLF := False;
