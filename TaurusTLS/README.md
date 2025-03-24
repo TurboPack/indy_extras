@@ -92,6 +92,27 @@ OpenSSL 3.x
 
 TaurusTLS includes a component reference in "Compiled HTML Help file (.chm)" format in the Help\chm directory.
 
+## Issues You Need to Know About
+
+In FTP, there is an issue using TLS with data channels. That issue is that TaurusTLS now checks the certificate against the hostname passed to Indy's connect method. Normally, that works well, however with FTP data channels, a DNS hostname is NOT passed to Indy's connect method, rather it is an IP address. Since the DNS name is not passed with the PASV command, the name in the certificate probably will NOT match the IP address of the host.
+
+There is a workaround that I use in the demo FTP clients:
+
+In the TIdFTP.OnDataChannelCreate event, I have the following code:
+
+```
+procedure TfrmMainForm.IdFTPClientDataChannelCreate(ASender: TObject;
+    ADataChannel: TIdTCPConnection);
+begin
+  //The IOHandler for this should not check the hostname against the
+  //certificate in this case because the HostName property will be
+  //an IP address, not a hostname.
+  if ADataChannel.IOHandler is TTaurusTLSIOHandlerSocket  then
+  begin
+     (ADataChannel.IOHandler as TTaurusTLSIOHandlerSocket).SSLOptions.VerifyHostname := False;
+  end;
+end;
+```
 ## Demo Programs
 
 Taurus TLS includes 4 demo programs.  
