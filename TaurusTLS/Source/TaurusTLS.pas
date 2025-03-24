@@ -1300,9 +1300,12 @@ type
     destructor Destroy; override;
     // TODO: add an AOwner parameter
     /// <summary>
-    ///   Called by Indy (Internet Direct) and make another
-    ///   TTaurusTLSIOHandlerSocket with the same property values as this
-    ///   TTaurusTLSIOHandlerSocket.
+    ///   Called by Indy (Internet Direct) to make an IOHandler for TIdFTP
+    ///   data channel connection. The new IOHandler has similar properties
+    ///   except that <see cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname">
+    ///   VerifyHostname</see> is false to prevent a certificate check that is
+    ///   likely to fail with the FTP data channel because the FTP PASV/EPSV
+    ///   command returns an IP address instead of a DNS hostname.
     /// </summary>
     /// <returns>
     ///   The TTaurusTLSIOHandlerSocket that was created.
