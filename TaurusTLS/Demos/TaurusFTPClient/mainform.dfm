@@ -2955,7 +2955,6 @@ object frmMainForm: TfrmMainForm
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
     ClientInfo.ClientName = 'TaurusFTP'
-    OnDataChannelCreate = IdFTPClientDataChannelCreate
     Left = 168
     Top = 169
   end

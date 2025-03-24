@@ -3367,6 +3367,10 @@ begin
     LIO.OnVerifyPeer := DoVerifyPeer;
     LIO.OnSSLNegotiated := OnSSLNegotiated;
     LIO.fSSLSocket := TTaurusTLSSocket.Create(Self);
+    // For FTP Data channels, we do NOT want to Verify that the hostname
+    // matches what's in the certificate because an IP address is passed
+    // instead of a DNS hostname.  Such a check is likely to fail.
+    LIO.SSLOptions.VerifyHostname := False;
   except
     LIO.Free;
     raise;
