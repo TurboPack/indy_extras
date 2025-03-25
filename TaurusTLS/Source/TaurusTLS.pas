@@ -3374,6 +3374,10 @@ begin
     // matches what's in the certificate because an IP address is passed
     // instead of a DNS hostname.  Such a check is likely to fail.
     LIO.SSLOptions.VerifyHostname := False;
+    //We probably don't want to verify the certificate for the data channel
+    //connection since that's negotiated in an encrypted control connection.
+    LIO.SSLOptions.VerifyMode := [];
+    LIO.OnVerifyPeer := nil;
   except
     LIO.Free;
     raise;
