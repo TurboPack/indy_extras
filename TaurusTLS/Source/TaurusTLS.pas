@@ -4069,12 +4069,12 @@ begin
       ETaurusTLSSSLCopySessionId.RaiseWithMessage(RSOSSLCopySessionIdError);
     end;
   end;
-{$IFNDEF OPENSSL_NO_TLSEXT}
+
   { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
     first character to the hostname is passed }
   if fHostName <> '' then
   begin
-    LRetCode := SSL_set_tlsext_host_name(fSSL,
+    LRetCode := SSL_set1_host(fSSL,
       PIdAnsiChar(AnsiString(fHostName)));
     if LRetCode <= 0 then
     begin
@@ -4082,7 +4082,7 @@ begin
         RSSSLSettingTLSHostNameError);
     end;
   end;
-{$ENDIF}
+
   LRetCode := SSL_connect(fSSL);
   if LRetCode <= 0 then
   begin
