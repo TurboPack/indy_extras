@@ -206,7 +206,8 @@ type
     //
     property LogDirOutput: Boolean read FLogDirOutput write FLogDirOutput;
     property LogDebugOutput: Boolean read FLogDebugOutput write FLogDebugOutput;
-    property LogSSLDebugInfo : Boolean read FLogSSLDebugInfo write FLogSSLDebugInfo;
+    property LogSSLDebugInfo: Boolean read FLogSSLDebugInfo
+      write FLogSSLDebugInfo;
     property ThreadRunning: Boolean read GetThreadRunning
       write SetThreadRunning;
     property ErrorForeground: TColor read FErrorForeground
@@ -235,7 +236,8 @@ type
     FKeyPassword: String;
     FError: TIdC_LONG;
     FDepth: Integer;
-    FMsg : String;
+    FMsg: String;
+    FDescr: String;
     FX509: TTaurusTLSX509;
     FFTP: TIdFTP;
     FLog: TIdLogEvent;
@@ -245,7 +247,7 @@ type
     procedure LogCipherEvent(const AStr: String);
     procedure LogFTPError(const AStr: String);
     procedure LogSSLEvent(const AStr: String);
-    procedure LogSSLDebugInfo(const AStr : String);
+    procedure LogSSLDebugInfo(const AStr: String);
     procedure LogDirListing(AListing: TStrings);
     procedure OnLogSent(ASender: TComponent; const AText, AData: string);
     procedure OnLogReceived(ASender: TComponent; const AText, AData: string);
@@ -260,8 +262,9 @@ type
     procedure PromptPassword;
     procedure OnGetPassword(ASender: TObject; var VPassword: String;
       const AIsWrite: Boolean);
-    procedure OnVerifyPeer(Certificate: TTaurusTLSX509;
-      const ADepth : Integer; const AError: TIdC_LONG; const AMsg : String; var VOk : Boolean);
+    procedure OnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
+      const ADepth: Integer; const AError: TIdC_LONG;
+      const AMsg, ADescr: String; var VOk: Boolean);
     procedure DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
@@ -274,9 +277,11 @@ type
   public
     procedure Execute(); override;
   end;
+
   TDisconnectThread = class(TFTPThread)
     procedure Execute(); override;
   end;
+
   TRemoteChangeDirThread = class(TFTPThread)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FNewDir: String;
@@ -347,7 +352,7 @@ uses dkgFTPConnect, settingsdlg, frmAbout, frmBookmarks, CertViewer,
   IdAllFTPListParsers,
   IdFTPCommon,
   IdFTPList, IdGlobalProtocols, IdReplyRFC, TaurusTLSLoader,
-  TaurusTLSHeaders_ssl3, //for SSL3_RT_ constants
+  TaurusTLSHeaders_ssl3, // for SSL3_RT_ constants
   System.IOUtils, System.IniFiles, System.UITypes,
   Winapi.CommCtrl, ProgUtils, AcceptableCerts;
 
@@ -361,7 +366,7 @@ const
 
 procedure TfrmMainForm.actFileDisconnectExecute(Sender: TObject);
 begin
-  TDisconnectThread.Create( Self.IdFTPClient)
+  TDisconnectThread.Create(Self.IdFTPClient)
 end;
 
 procedure TfrmMainForm.actFileDisconnectUpdate(Sender: TObject);
@@ -791,7 +796,7 @@ begin
           LFrm.chklbAdvancedOptions.Checked[1]);
         IdFTPClient.Passive := not LFrm.UsePortTransferType;
         LIni.WriteBool('Debug', 'Log_Debug_Output', FLogDebugOutput);
-        LIni.WriteBool('Debug','SSL_Packet_Info',FLogSSLDebugInfo);
+        LIni.WriteBool('Debug', 'SSL_Packet_Info', FLogSSLDebugInfo);
         LIni.WriteBool('Debug', 'Log_Directory_Output', FLogDirOutput);
         redtLog.Font := LFrm.redtLog.Font;
         LIni.WriteString('Log_Font', 'Name', redtLog.Font.Name);
@@ -951,13 +956,13 @@ begin
   end
   else
   begin
-    TDisconnectThread.Create( IdFTPClient);
+    TDisconnectThread.Create(IdFTPClient);
     repeat
-       Application.ProcessMessages;
-       if Not ThreadRunning then
-       begin
-         break;
-       end;
+      Application.ProcessMessages;
+      if Not ThreadRunning then
+      begin
+        break;
+      end;
     until False;
   end;
 end;
@@ -976,8 +981,8 @@ begin
   FRemoteColumnToSort := 0;
   FRemoteAscending := True;
   Self.IdFTPClient.ClientInfo.ClientName := '';
-//  Self.IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
-//  Self.IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
+  // Self.IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
+  // Self.IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
   LocalClearArrows;
   PopulateLocalFiles;
   RemoteLvClearArrows;
@@ -993,7 +998,7 @@ begin
     IdFTPClient.Passive := not LIni.ReadBool('Transfers',
       'Use_PORT_Transfers', False);
     FLogDebugOutput := LIni.ReadBool('Debug', 'Log_Debug_Output', False);
-    FLogSSLDebugInfo := LIni.ReadBool('Debug','SSL_Packet_Info',False);
+    FLogSSLDebugInfo := LIni.ReadBool('Debug', 'SSL_Packet_Info', False);
     FLogDirOutput := LIni.ReadBool('Debug', 'Log_Directory_Output', False);
     redtLog.Font.Name := LIni.ReadString('Log_Font', 'Name', redtLog.Font.Name);
     redtLog.Font.Charset := LIni.ReadInteger('Log_Font', 'CharSet',
@@ -1706,13 +1711,15 @@ begin
   VPassword := FKeyPassword;
 end;
 
-procedure TFTPThread.OnVerifyPeer(Certificate: TTaurusTLSX509;
-  const ADepth : Integer; const AError: TIdC_LONG; const AMsg : String; var VOk : Boolean);
+procedure TFTPThread.OnVerifyPeer(ASender: TObject;
+  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+  const AMsg, ADescr: String; var VOk: Boolean);
 begin
-  FX509 := Certificate;
+  FX509 := ACertificate;
   FError := AError;
   FDepth := ADepth;
   FMsg := AMsg;
+  FDescr := ADescr;
   Synchronize(Self, PromptVerifyCert);
   VOk := FVerifyResult;
 end;
@@ -1791,7 +1798,7 @@ begin
   begin
     if CharInSet(LData[1], ['4', '5']) then
     begin
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(LData);
@@ -1799,7 +1806,7 @@ begin
     end
     else
     begin
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogRegularOutput(LData);
@@ -1812,7 +1819,7 @@ procedure TFTPThread.OnLogSent(ASender: TComponent; const AText, AData: string);
 begin
   if IndyPos('PASS ', AData) > 0 then
   begin
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogRegularOutput('PASS ***');
@@ -1820,7 +1827,7 @@ begin
   end
   else
   begin
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogRegularOutput(TrimRight(AData));
@@ -1835,7 +1842,7 @@ var
 {$ENDIF}
   LNo: Integer;
 begin
-//use synchronize to prevent an AV
+  // use synchronize to prevent an AV
   Synchronize(
     procedure
     begin
@@ -1872,20 +1879,20 @@ begin
 end;
 
 procedure TFTPThread.DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
-  AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
-  SSL: PSSL);
+AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
+SSL: PSSL);
 {$IFNDEF USE_INLINE_VAR}
 var
   LOutput: String;
 {$ENDIF}
 begin
-//use synchronize to prevent an AV
-  synchronize(
+  // use synchronize to prevent an AV
+  Synchronize(
     procedure
     begin
 {$IFDEF USE_INLINE_VAR}
-        var
-          LOutput: String;
+      var
+        LOutput: String;
 {$ENDIF}
       if AWrite then
       begin
@@ -1896,86 +1903,86 @@ begin
         LOutput := 'Write - ';
       end;
       case AVersion of
-      verSSL3Header:
-        LOutput := LOutput + LeftJustify('SSL3', 9) + ' - ';
-      verTLS1:
-        LOutput := LOutput + LeftJustify('TLS1', 9) + ' - ';
-      verTLS1_1:
-        LOutput := LOutput + LeftJustify('TLS1.1', 9) + ' - ';
-      verTLS1_2:
-         LOutput := LOutput + LeftJustify('TLS1.2', 9) + ' - ';
-      verTLS1_3:
-        LOutput := LOutput + LeftJustify('TLS1.3', 9) + ' - ';
-      verDTLS1:
-        LOutput := LOutput + LeftJustify('DTLS1.1', 9) + ' - ';
-      verDTLS1_2:
-        LOutput := LOutput + LeftJustify('DTLS1.2', 9) + ' - ';
-      verDTLSBadVer:
-        LOutput := LOutput + LeftJustify('Bad DTLS', 9) + ' - ';
-      verQUIC:
-        LOutput := LOutput + LeftJustify('QUIC', 9) + ' - ';
-      verTLSAny:
-        LOutput := LOutput + LeftJustify('Any TLS', 9) + ' - ';
+        verSSL3Header:
+          LOutput := LOutput + LeftJustify('SSL3', 9) + ' - ';
+        verTLS1:
+          LOutput := LOutput + LeftJustify('TLS1', 9) + ' - ';
+        verTLS1_1:
+          LOutput := LOutput + LeftJustify('TLS1.1', 9) + ' - ';
+        verTLS1_2:
+          LOutput := LOutput + LeftJustify('TLS1.2', 9) + ' - ';
+        verTLS1_3:
+          LOutput := LOutput + LeftJustify('TLS1.3', 9) + ' - ';
+        verDTLS1:
+          LOutput := LOutput + LeftJustify('DTLS1.1', 9) + ' - ';
+        verDTLS1_2:
+          LOutput := LOutput + LeftJustify('DTLS1.2', 9) + ' - ';
+        verDTLSBadVer:
+          LOutput := LOutput + LeftJustify('Bad DTLS', 9) + ' - ';
+        verQUIC:
+          LOutput := LOutput + LeftJustify('QUIC', 9) + ' - ';
+        verTLSAny:
+          LOutput := LOutput + LeftJustify('Any TLS', 9) + ' - ';
       end;
       case AContentType of
-      SSL3_RT_CHANGE_CIPHER_SPEC:
-        LOutput := LOutput + LeftJustify('Change Cipher Spec', 22) + ' - ';
-      SSL3_RT_ALERT:
-        LOutput := LOutput + LeftJustify('Alert', 22) + ' - ';
-      SSL3_RT_HANDSHAKE:
-        LOutput := LOutput + LeftJustify('Handshake', 22) + ' - ';
-      SSL3_RT_APPLICATION_DATA:
-        LOutput := LOutput + LeftJustify('Application Data', 22) + ' - ';
-      DTLS1_RT_HEARTBEAT:
-        LOutput := LOutput + LeftJustify('Heartbeat', 22) + ' - ';
-      (* Pseudo content types to indicate additional parameters *)
-      TLS1_RT_CRYPTO:
-        LOutput := LOutput + LeftJustify('Crypto', 22) + ' - ';
-      TLS1_RT_CRYPTO_PREMASTER:
-        LOutput := LOutput + LeftJustify('Crypto Premaster', 22) + ' - ';
-      TLS1_RT_CRYPTO_CLIENT_RANDOM:
-        LOutput := LOutput + LeftJustify('Crypto Client Random', 22) + ' - ';
-      TLS1_RT_CRYPTO_SERVER_RANDOM:
-        LOutput := LOutput + LeftJustify('Crypto Server Random', 22) + ' - ';
-      TLS1_RT_CRYPTO_MASTER:
-        LOutput := LOutput + LeftJustify('Crypto Master', 22) + ' - ';
-      // TLS1_RT_CRYPTO_READ:
-      // LOutput := LOutput + LeftJustify('Crypto Read',22)+' - ';
-      // TLS1_RT_CRYPTO_WRITE:
-      // LOutput := LOutput + LeftJustify('Crypto Write',22)+' - ';
-      TLS1_RT_CRYPTO_MAC:
-        LOutput := LOutput + LeftJustify('Crypto MAC', 22) + ' - ';
-      TLS1_RT_CRYPTO_KEY:
-        LOutput := LOutput + LeftJustify('Crypto Key', 22) + ' - ';
-      TLS1_RT_CRYPTO_IV:
-        LOutput := LOutput + LeftJustify('Crypto IV', 22) + ' - ';
-      TLS1_RT_CRYPTO_FIXED_IV:
-        LOutput := LOutput + LeftJustify('Crypto Fixed IV', 22) + ' - ';
+        SSL3_RT_CHANGE_CIPHER_SPEC:
+          LOutput := LOutput + LeftJustify('Change Cipher Spec', 22) + ' - ';
+        SSL3_RT_ALERT:
+          LOutput := LOutput + LeftJustify('Alert', 22) + ' - ';
+        SSL3_RT_HANDSHAKE:
+          LOutput := LOutput + LeftJustify('Handshake', 22) + ' - ';
+        SSL3_RT_APPLICATION_DATA:
+          LOutput := LOutput + LeftJustify('Application Data', 22) + ' - ';
+        DTLS1_RT_HEARTBEAT:
+          LOutput := LOutput + LeftJustify('Heartbeat', 22) + ' - ';
+        (* Pseudo content types to indicate additional parameters *)
+        TLS1_RT_CRYPTO:
+          LOutput := LOutput + LeftJustify('Crypto', 22) + ' - ';
+        TLS1_RT_CRYPTO_PREMASTER:
+          LOutput := LOutput + LeftJustify('Crypto Premaster', 22) + ' - ';
+        TLS1_RT_CRYPTO_CLIENT_RANDOM:
+          LOutput := LOutput + LeftJustify('Crypto Client Random', 22) + ' - ';
+        TLS1_RT_CRYPTO_SERVER_RANDOM:
+          LOutput := LOutput + LeftJustify('Crypto Server Random', 22) + ' - ';
+        TLS1_RT_CRYPTO_MASTER:
+          LOutput := LOutput + LeftJustify('Crypto Master', 22) + ' - ';
+        // TLS1_RT_CRYPTO_READ:
+        // LOutput := LOutput + LeftJustify('Crypto Read',22)+' - ';
+        // TLS1_RT_CRYPTO_WRITE:
+        // LOutput := LOutput + LeftJustify('Crypto Write',22)+' - ';
+        TLS1_RT_CRYPTO_MAC:
+          LOutput := LOutput + LeftJustify('Crypto MAC', 22) + ' - ';
+        TLS1_RT_CRYPTO_KEY:
+          LOutput := LOutput + LeftJustify('Crypto Key', 22) + ' - ';
+        TLS1_RT_CRYPTO_IV:
+          LOutput := LOutput + LeftJustify('Crypto IV', 22) + ' - ';
+        TLS1_RT_CRYPTO_FIXED_IV:
+          LOutput := LOutput + LeftJustify('Crypto Fixed IV', 22) + ' - ';
 
-      (* Pseudo content types for SSL/TLS header info *)
-      SSL3_RT_HEADER:
-        LOutput := LOutput + LeftJustify('Header', 22) + ' - ';
-      SSL3_RT_INNER_CONTENT_TYPE:
-        LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),
-          22) + ' - ';
+        (* Pseudo content types for SSL/TLS header info *)
+        SSL3_RT_HEADER:
+          LOutput := LOutput + LeftJustify('Header', 22) + ' - ';
+        SSL3_RT_INNER_CONTENT_TYPE:
+          LOutput := LOutput + LeftJustify('Inner Content Type ' +
+            IntToHex(buf[0]), 22) + ' - ';
 
-      // * Pseudo content types for QUIC */
-      SSL3_RT_QUIC_DATAGRAM:
-      LOutput := LOutput + LeftJustify('QUIC Datagram', 22) + ' - ';
-      SSL3_RT_QUIC_PACKET:
-        LOutput := LOutput + LeftJustify('QUIC Packet', 22) + ' - ';
-      SSL3_RT_QUIC_FRAME_FULL:
-        LOutput := LOutput + LeftJustify('QUIC Frame Full', 22) + ' - ';
-      SSL3_RT_QUIC_FRAME_HEADER:
-        LOutput := LOutput + LeftJustify('QUIC Frame Header', 22) + ' - ';
-      SSL3_RT_QUIC_FRAME_PADDING:
-        LOutput := LOutput + LeftJustify('QUIC Frame Padding', 22) + ' - ';
+        // * Pseudo content types for QUIC */
+        SSL3_RT_QUIC_DATAGRAM:
+          LOutput := LOutput + LeftJustify('QUIC Datagram', 22) + ' - ';
+        SSL3_RT_QUIC_PACKET:
+          LOutput := LOutput + LeftJustify('QUIC Packet', 22) + ' - ';
+        SSL3_RT_QUIC_FRAME_FULL:
+          LOutput := LOutput + LeftJustify('QUIC Frame Full', 22) + ' - ';
+        SSL3_RT_QUIC_FRAME_HEADER:
+          LOutput := LOutput + LeftJustify('QUIC Frame Header', 22) + ' - ';
+        SSL3_RT_QUIC_FRAME_PADDING:
+          LOutput := LOutput + LeftJustify('QUIC Frame Padding', 22) + ' - ';
       else
-        LOutput := LOutput + LeftJustify(IntToHex(AContentType),22);
+        LOutput := LOutput + LeftJustify(IntToHex(AContentType), 22);
       end;
       LOutput := LOutput + RightJustify(IntToStr(Length(buf)), 10) + ' - ';
       LOutput := LOutput + ToHex(buf, 20, 0);
-       LogSSLDebugInfo(LOutput);
+      LogSSLDebugInfo(LOutput);
     end);
 end;
 
@@ -2004,8 +2011,8 @@ begin
         LFrm.ErrorForeground := frmMainForm.ErrorForeground;
         LFrm.ErrorBackground := frmMainForm.ErrorBackground;
         LFrm.X509 := FX509;
-        LFrm.ErrorCode := FError;
         LFrm.Caption := FMsg;
+        LFrm.lblErrorMessage.Caption := FDescr;
         FVerifyResult := LFrm.ShowModal = mrYes;
         if FVerifyResult and (LFrm.chkacceptOnlyOnce.Checked = False) then
         begin
@@ -2044,12 +2051,12 @@ begin
     end;
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2058,7 +2065,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2068,7 +2075,6 @@ begin
   frmMainForm.ThreadRunning := False;
 end;
 
-
 { TDisconnectThread }
 
 procedure TDisconnectThread.Execute;
@@ -2076,16 +2082,17 @@ begin
   frmMainForm.ThreadRunning := True;
   try
     Self.FFTP.Disconnect;
-    synchronize(procedure
-    begin
-      frmMainForm.lvRemoteFiles.Items.Clear;
-      frmMainForm.lvRemoteFiles.Enabled := False;
-    end);
+    Synchronize(
+      procedure
+      begin
+        frmMainForm.lvRemoteFiles.Items.Clear;
+        frmMainForm.lvRemoteFiles.Enabled := False;
+      end);
   except
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2111,12 +2118,12 @@ begin
     FFTP.ChangeDir(FNewDir);
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2125,7 +2132,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2156,7 +2163,7 @@ end;
 procedure TFileOnWorkThread.OnWork(ASender: TObject; AWorkMode: TWorkMode;
 AWorkCount: Int64);
 begin
-  synchronize(
+  Synchronize(
     procedure
     begin
       frmMainForm.UpdateProgressIndicator(FFile, AWorkMode, AWorkCount, FSize);
@@ -2175,7 +2182,7 @@ procedure TFileOnWorkThread.OnWorkBegin(ASender: TObject; AWorkMode: TWorkMode;
 AWorkCountMax: Int64);
 begin
 
-  synchronize(
+  Synchronize(
     procedure
     begin
       frmMainForm.SetupPRogressIndicator(Self.FFile, AWorkMode, 0, FSize);
@@ -2184,7 +2191,7 @@ end;
 
 procedure TFileOnWorkThread.OnWorkEnd(ASender: TObject; AWorkMode: TWorkMode);
 begin
-  synchronize(
+  Synchronize(
     procedure
     begin
       frmMainForm.CloseProgressIndicator;
@@ -2209,7 +2216,7 @@ begin
       FreeAndNil(LFile);
     end;
     TFile.SetLastWriteTime(FFile, FFTP.FileDate(FFile));
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateLocalFiles;
@@ -2218,7 +2225,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2254,12 +2261,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2268,7 +2275,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2296,12 +2303,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2310,7 +2317,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2337,12 +2344,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2351,7 +2358,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2385,12 +2392,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2399,7 +2406,7 @@ begin
     // This is already reported in the FTP log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);
@@ -2426,12 +2433,12 @@ begin
 {$ENDIF}
     LCurDir := FFTP.RetrieveCurrentDir;
     FFTP.List;
-    synchronize(
+    Synchronize(
       procedure
       begin
         LogDirListing(FFTP.ListResult);
       end);
-    synchronize(
+    Synchronize(
       procedure
       begin
         frmMainForm.PopulateRemoteFiles(LCurDir);
@@ -2440,7 +2447,7 @@ begin
     // EIdReplyRFCError exceptions reported in log Window
     on E: EIdReplyRFCError do;
     on E: Exception do
-      synchronize(
+      Synchronize(
         procedure
         begin
           LogFTPError(E.Message);

@@ -604,27 +604,33 @@ type
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean) of object;
   /// <summary>
-  ///   <see cref="TTaurusTLSIOHandlerSocket.OnVerifyPeer" /> and <see
-  ///   cref="TTaurusTLSServerIOHandler.OnVerifyPeer" /> events
+  /// <see cref="TTaurusTLSIOHandlerSocket.OnVerifyPeer" /> and <see
+  /// cref="TTaurusTLSServerIOHandler.OnVerifyPeer" /> events
   /// </summary>
-  /// <param name="Certificate">
-  ///   The certificate to be validated.
+  ///  <param name="ASender">
+  /// The object that triggers the event.
+  ///  </param>
+  /// <param name="ACertificate">
+  /// The certificate to be validated.
   /// </param>
   /// <param name="ADepth">
-  ///   The maximum length of certificate validation chain.
+  /// The maximum length of certificate validation chain.
   /// </param>
   /// <param name="AError">
-  ///   The validation error if the certificate failed validation.
+  /// The validation error if the certificate failed validation.
   /// </param>
   /// <param name="AMsg">
-  ///   The message string OpenSSL returned describing the failure breifly.
+  /// The message string OpenSSL returned describing the failure breifly.
+  /// </param>
+  /// <param name="ADescr">
+  ///   A description of the failure in a long form for display to user in something such as a message-box.
   /// </param>
   /// <param name="VOk">
-  ///   Set to True if you wish to certificate to pass validation or False if
-  ///   you want it to fail validation.
+  /// Set to True if you wish to certificate to pass validation or False if
+  /// you want it to fail validation.
   /// </param>
-  TOnVerifyPeerEvent = procedure(Certificate: TTaurusTLSX509;
-    const ADepth: Integer; const AError: TIdC_LONG; const AMsg: String;
+  TOnVerifyPeerEvent = procedure(ASender: TObject; ACertificate: TTaurusTLSX509;
+    const ADepth: Integer; const AError: TIdC_LONG; const AMsg, ADescr: String;
     var VOk: Boolean) of object;
   /// <summary>
   /// <see cref="TTaurusTLSIOHandlerSocket.OnBeforeConnect" />, <see
@@ -1489,7 +1495,10 @@ type
     /// <summary>
     ///   Occurs when a certificate is presented for validation.
     /// </summary>
-    /// <param name="Certificate">
+    ///  <param name="ASender">
+    /// The object that triggers the event.
+    ///  </param>
+    /// <param name="ACertificate">
     ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
     /// </param>
     /// <param name="ADepth">
@@ -1500,6 +1509,10 @@ type
     /// </param>
     /// <param name="AMsg">
     ///   The message string OpenSSL returned describing the failure breifly.
+    /// </param>
+    /// <param name="ADescr">
+    ///   A description of the failure in a long form for display to user in
+    ///   something such as a message-box.
     /// </param>
     /// <param name="VOk">
     ///   Set to True if you wish to certificate to pass validation or False if
@@ -1727,12 +1740,31 @@ type
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
-    /// Occurs when a certificate is presented for validation.
+    ///   Occurs when a certificate is presented for validation.
     /// </summary>
-    /// <returns>
-    /// True if the certificate if you wish to accept the certificate or false
-    /// if you wish to reject it.
-    /// </returns>
+    ///  <param name="ASender">
+    /// The object that triggers the event.
+    ///  </param>
+    /// <param name="ACertificate">
+    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
+    /// </param>
+    /// <param name="ADepth">
+    ///   The maximum depth of.
+    /// </param>
+    /// <param name="AError">
+    ///   The validation error if the certificate failed validation.
+    /// </param>
+    /// <param name="AMsg">
+    ///   The message string OpenSSL returned describing the failure breifly.
+    /// </param>
+    /// <param name="ADescr">
+    ///   A description of the failure in a long form for display to user in
+    ///   something such as a message-box.
+    /// </param>
+    /// <param name="VOk">
+    ///   Set to True if you wish to certificate to pass validation or False if
+    ///   you want it to fail validation.
+    /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
   end;
@@ -2883,8 +2915,9 @@ function TTaurusTLSServerIOHandler.VerifyPeer(ACertificate: TTaurusTLSX509;
 begin
   if Assigned(fOnVerifyPeer) then
   begin
-    fOnVerifyPeer(ACertificate, ADepth, AError,
-      AnsiStringToString(X509_verify_cert_error_string(AError)), Result);
+    fOnVerifyPeer(Self,ACertificate, ADepth, AError,
+      AnsiStringToString(X509_verify_cert_error_string(AError)),
+      CertErrorToLongDescr(AError), Result);
   end;
 end;
 
@@ -3184,8 +3217,9 @@ begin
   VOk := True;
   if Assigned(fOnVerifyPeer) then
   begin
-    fOnVerifyPeer(Certificate, ADepth, AError,
-      AnsiStringToString(X509_verify_cert_error_string(AError)), VOk);
+    fOnVerifyPeer(Self,Certificate, ADepth, AError,
+      AnsiStringToString(X509_verify_cert_error_string(AError)),
+      CertErrorToLongDescr(AError), VOk);
   end;
 end;
 
@@ -4098,7 +4132,8 @@ begin
             if not LHelper.VerifyPeer(LCertificate, 0, LVerifyResult) then
             begin
               ETaurusTLSCertValidationError.RaiseWithMessage
-                (AnsiStringToString(X509_verify_cert_error_string(LVerifyResult)));
+                (AnsiStringToString(X509_verify_cert_error_string
+                (LVerifyResult)));
             end;
           finally
             FreeAndNil(LCertificate);
@@ -4353,4 +4388,3 @@ UnLoadOpenSSLLibrary;
 FreeAndNil(SSLIsLoaded);
 
 end.
-

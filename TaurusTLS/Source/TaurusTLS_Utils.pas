@@ -9,7 +9,7 @@
 { ****************************************************************************** }
 
 /// <summary>
-///   Various utility functions used in the TaurusTLS library.
+/// Various utility functions used in the TaurusTLS library.
 /// </summary>
 unit TaurusTLS_Utils;
 
@@ -33,7 +33,7 @@ uses
 
 type
   /// <summary>
-  ///   Message Digest.
+  /// Message Digest.
   /// </summary>
   TTaurusTLSLEVP_MD = record
     _Length: TIdC_UINT;
@@ -41,192 +41,383 @@ type
   end;
 
   /// <summary>
-  ///   Converts an OpenSSL ASN1 String to a hexidecimal representation.
+  /// Converts an OpenSSL ASN1 String to a hexidecimal representation.
   /// </summary>
   /// <param name="a">
-  ///   Pointer to the OpenSSL PASN1_STRING to convert.
+  /// Pointer to the OpenSSL PASN1_STRING to convert.
   /// </param>
   /// <returns>
-  ///   Hexidecimal representation of the value of the string.
+  /// Hexidecimal representation of the value of the string.
   /// </returns>
   /// <remarks>
-  ///   The function returns an empty string if the a parameter is nil.
+  /// The function returns an empty string if the a parameter is nil.
   /// </remarks>
-function ASN1_STRING_ToHexStr(a: PASN1_STRING): String;  overload;
-  /// <summary>
-  ///   Converts an OpenSSL ASN1 Octet String to a hexidecimal representation.
-  /// </summary>
-  /// <param name="a">
-  ///   Pointer to the OpenSSL PASN1_OCTET_STRING to convert.
-  /// </param>
-  /// <returns>
-  ///   Hexidecimal representation of the value of the string.
-  /// </returns>
-  /// <remarks>
-  ///   The function returns an empty string if the a parameter is nil.
-  /// </remarks>
+function ASN1_STRING_ToHexStr(a: PASN1_STRING): String; overload;
+/// <summary>
+/// Converts an OpenSSL ASN1 Octet String to a hexidecimal representation.
+/// </summary>
+/// <param name="a">
+/// Pointer to the OpenSSL PASN1_OCTET_STRING to convert.
+/// </param>
+/// <returns>
+/// Hexidecimal representation of the value of the string.
+/// </returns>
+/// <remarks>
+/// The function returns an empty string if the a parameter is nil.
+/// </remarks>
 function ASN1_STRING_ToHexStr(a: PASN1_OCTET_STRING): String; overload;
 
 /// <summary>
-///   Converts an OpenSSL ASN1_OBJECT value to a string.
+/// Converts an OpenSSL ASN1_OBJECT value to a string.
 /// </summary>
 /// <param name="a">
-///   Pointer to the ASN1_OBJECT.
+/// Pointer to the ASN1_OBJECT.
 /// </param>
 /// <returns>
-///   The textual representation of the ASN1_OBJECT's value.
+/// The textual representation of the ASN1_OBJECT's value.
 /// </returns>
 /// <remarks>
-///   May return an empty string if the a parameter is nil.
+/// May return an empty string if the a parameter is nil.
 /// </remarks>
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 /// <summary>
-///   Converts a series of bytes to their hexidecimal representation.
+/// Converts a series of bytes to their hexidecimal representation.
 /// </summary>
 /// <param name="APtr">
-///   Pointer to the bytes to convert.
+/// Pointer to the bytes to convert.
 /// </param>
 /// <param name="ALen">
-///   number of bytes to convert.
+/// number of bytes to convert.
 /// </param>
 /// <returns>
-///   Hexidecimal representation of the bytes.
+/// Hexidecimal representation of the bytes.
 /// </returns>
 /// <remarks>
-///   An empty string may be returned if APtr is nil or the ALen parameter is 0.
+/// An empty string may be returned if APtr is nil or the ALen parameter is 0.
 /// </remarks>
 function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
 /// <summary>
-///   Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
+/// Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
 /// </summary>
 /// <param name="AMD">
-///   The TTaurusTLSLEVP_MD to convert.
+/// The TTaurusTLSLEVP_MD to convert.
 /// </param>
 /// <returns>
-///   The hexidecimal representation.
+/// The hexidecimal representation.
 /// </returns>
 function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
 /// <summary>
-///   Parses an ASN1_TIME into a time stamp.
+/// Parses an ASN1_TIME into a time stamp.
 /// </summary>
 /// <param name="a">
-///   Pointer to the OpenSSL ASN1_TIME object to parse.
+/// Pointer to the OpenSSL ASN1_TIME object to parse.
 /// </param>
 /// <param name="year">
-///   Returns the year
+/// Returns the year
 /// </param>
 /// <param name="month">
-///   Returns the month
+/// Returns the month
 /// </param>
 /// <param name="day">
-///   Returns the day of the month.
+/// Returns the day of the month.
 /// </param>
 /// <param name="hour">
-///   Returns the Hour of the day.
+/// Returns the Hour of the day.
 /// </param>
 /// <param name="min">
-///   Returns the minute of the hour.
+/// Returns the minute of the hour.
 /// </param>
 /// <param name="sec">
-///   Returns the second of the minute.
+/// Returns the second of the minute.
 /// </param>
 /// <param name="tz_hour">
-///   Returns the Time Zone offset hour
+/// Returns the Time Zone offset hour
 /// </param>
 /// <param name="tz_min">
-///   Returns the Time Zone offset minute.
+/// Returns the Time Zone offset minute.
 /// </param>
 /// <returns>
-///   True if parsing was successful or False if failed.
+/// True if parsing was successful or False if failed.
 /// </returns>
 function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
   sec: Word; out tz_hour, tz_min: Integer): Boolean;
 
 /// <summary>
-///   Converts a ASN1_TIME to a TDateTime time stamp.
+/// Converts a ASN1_TIME to a TDateTime time stamp.
 /// </summary>
 /// <param name="a">
-///   The Pointer to the OpenSSL ASN1_TIME to convert.
+/// The Pointer to the OpenSSL ASN1_TIME to convert.
 /// </param>
 /// <returns>
-///   The value as a TDateTime.
+/// The value as a TDateTime.
 /// </returns>
 /// <remarks>
-///   The return value may be 0 if the conversion failed.
+/// The return value may be 0 if the conversion failed.
 /// </remarks>
 function ASN1TimeToDateTime(a: PASN1_TIME): TDateTime;
 
 /// <summary>
-///   Convert an OpenSSL ASN1_OCTET_STRING to an IP address.
+/// Convert an OpenSSL ASN1_OCTET_STRING to an IP address.
 /// </summary>
 /// <param name="a">
-///   Pointer to the ASN1_OCTET_STRING to convert.
+/// Pointer to the ASN1_OCTET_STRING to convert.
 /// </param>
 /// <returns>
-///   The IP address or an empty string if the a parameter is nil or the value
-///   is not a valid IP address.
+/// The IP address or an empty string if the a parameter is nil or the value
+/// is not a valid IP address.
 /// </returns>
 function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 /// <summary>
-///   Converts an OpenSSL X509_NAME object to a string representation.
+/// Converts an OpenSSL X509_NAME object to a string representation.
 /// </summary>
 /// <param name="ADirName">
-///   Pointer to an OpenSSL X509_NAME object.
+/// Pointer to an OpenSSL X509_NAME object.
 /// </param>
 /// <returns>
-///   The value as a textual representation or an empty string if the ADirName
-///   parameter is nil.
+/// The value as a textual representation or an empty string if the ADirName
+/// parameter is nil.
 /// </returns>
 function DirName(const ADirName: PX509_NAME): String;
 /// <summary>
-///   Converts an OpenSSL GENERAL_NAME object to a string representation.
+/// Converts an OpenSSL GENERAL_NAME object to a string representation.
 /// </summary>
 /// <param name="AGN">
-///   Pointer to an OpenSSL GENERAL_NAME object.
+/// Pointer to an OpenSSL GENERAL_NAME object.
 /// </param>
 /// <returns>
-///   The value as a textual representation or an empty string if the AGN
-///   parameter is nil.
+/// The value as a textual representation or an empty string if the AGN
+/// parameter is nil.
 /// </returns>
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 /// <summary>
-///   Converts to series ot bytes to a TIdBytes.
+/// Converts to series ot bytes to a TIdBytes.
 /// </summary>
 /// <param name="AValue">
-///   Pointer to the bytes to convert.
+/// Pointer to the bytes to convert.
 /// </param>
 /// <param name="ASize">
-///   The number of bytes to convert.
+/// The number of bytes to convert.
 /// </param>
 /// <returns>
-///   The TIdBytes.
+/// The TIdBytes.
 /// </returns>
 /// <remarks>
-///   The function may not be present if the Indy version is greater than 10.6.
+/// The function may not be present if the Indy version is greater than 10.6.
 /// </remarks>
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 {$ENDIF}
-
-
 /// <summary>
-///   Converts a PIdAnsiChar to a standard Unicode string.
+/// Converts a PIdAnsiChar to a standard Unicode string.
 /// </summary>
 /// <param name="AStr">
-///   Pointer to the string to convert.
+/// Pointer to the string to convert.
 /// </param>
-function AnsiStringToString(const AStr : PIdAnsiChar) : String;
+function AnsiStringToString(const AStr: PIdAnsiChar): String;
+
+/// <summary>
+///   Returns a descriptive mssage for a certificate validation error.
+/// </summary>
+/// <param name="ACertError">
+///   The certificae validation error code.
+/// </param>
+function CertErrorToLongDescr(ACertError: TIdC_LONG): String;
 
 implementation
 
-uses TaurusTLSHeaders_bio, TaurusTLSHeaders_objects, TaurusTLSHeaders_x509,
-  SysUtils;
+uses TaurusTLS_ResourceStrings, TaurusTLSHeaders_bio, TaurusTLSHeaders_objects,
+  TaurusTLSHeaders_x509, TaurusTLSHeaders_x509_vfy, SysUtils;
 
-function AnsiStringToString(const AStr : PIdAnsiChar) : String;
+function AnsiStringToString(const AStr: PIdAnsiChar): String;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := UTF8ToString(UTF8Encode(AStr));
+end;
+
+function CertErrorToLongDescr(ACertError: TIdC_LONG): String;
+begin
+  { Thuis is stuff from: https://linux.die.net/man/3/x509_store_ctx_get_error
+    I found that the error message from  X509_verify_cert_error_string does not
+    always accurately describe the issue involved. }
+  case ACertError of
+    X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT:
+      begin
+        Result := RSMSG_X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT;
+      end;
+    X509_V_ERR_UNABLE_TO_GET_CRL:
+      begin
+        Result := RSMSG_X509_V_ERR_UNABLE_TO_GET_CRL;
+      end;
+    X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE:
+      begin
+        Result := RSMSG_X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE;
+      end;
+    X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE:
+      begin
+        Result := RSMSG_X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE;
+      end;
+    X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY:
+      begin
+        Result :=  RSMSG_X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY;
+      end;
+    X509_V_ERR_CERT_SIGNATURE_FAILURE:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_SIGNATURE_FAILURE;
+      end;
+    X509_V_ERR_CRL_SIGNATURE_FAILURE:
+      begin
+        Result := RSMSG_X509_V_ERR_CRL_SIGNATURE_FAILURE;
+      end;
+    X509_V_ERR_CERT_NOT_YET_VALID:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_NOT_YET_VALID;
+      end;
+    X509_V_ERR_CERT_HAS_EXPIRED:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_HAS_EXPIRED;
+      end;
+    X509_V_ERR_CRL_NOT_YET_VALID:
+      begin
+        Result := RSMSG_X509_V_ERR_CRL_NOT_YET_VALID;
+      end;
+    X509_V_ERR_CRL_HAS_EXPIRED:
+      begin
+        Result := RSMSG_X509_V_ERR_CRL_HAS_EXPIRED;
+      end;
+    X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD:
+      begin
+        Result := RSMSG_X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD;
+      end;
+    X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD:
+      begin
+        Result := RSMSG_X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD;
+      end;
+    X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD:
+      begin
+        Result := RSMSG_X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD ;
+      end;
+    X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD:
+      begin
+        Result := RSMSG_X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD;
+      end;
+    X509_V_ERR_OUT_OF_MEM:
+      begin
+        Result := RSMSG_X509_V_ERR_OUT_OF_MEM;
+      end;
+
+    X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT:
+      begin
+        Result := RSMSG_X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT;
+      end;
+    X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN:
+      begin
+        Result := RSMSG_X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN;
+      end;
+    X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY:
+      begin
+        Result := RSNSG_X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY;
+      end;
+    X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE:
+      begin
+        Result := RSMSG_X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE;
+      end;
+    X509_V_ERR_CERT_CHAIN_TOO_LONG:
+      begin
+        Result :=RSMSG_X509_V_ERR_CERT_CHAIN_TOO_LONG;
+      end;
+    X509_V_ERR_CERT_REVOKED:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_REVOKED;
+      end;
+    X509_V_ERR_INVALID_CA:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_CA;
+      end;
+    X509_V_ERR_PATH_LENGTH_EXCEEDED:
+      begin
+        Result := RSMSG_X509_V_ERR_PATH_LENGTH_EXCEEDED;
+      end;
+    X509_V_ERR_INVALID_PURPOSE:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_PURPOSE;
+      end;
+    X509_V_ERR_CERT_UNTRUSTED:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_UNTRUSTED;
+      end;
+    X509_V_ERR_CERT_REJECTED:
+      begin
+        Result := RSMSG_X509_V_ERR_CERT_REJECTED;
+      end;
+    X509_V_ERR_SUBJECT_ISSUER_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_SUBJECT_ISSUER_MISMATCH;
+      end;
+    X509_V_ERR_AKID_SKID_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_AKID_SKID_MISMATCH;
+      end;
+    X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH;
+      end;
+    X509_V_ERR_KEYUSAGE_NO_CERTSIGN:
+      begin
+        Result := RSMSG_X509_V_ERR_KEYUSAGE_NO_CERTSIGN;
+      end;
+    X509_V_ERR_INVALID_EXTENSION:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_EXTENSION;
+      end;
+    X509_V_ERR_INVALID_POLICY_EXTENSION:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_POLICY_EXTENSION;
+      end;
+    X509_V_ERR_NO_EXPLICIT_POLICY:
+      begin
+        Result := RSMSG_X509_V_ERR_NO_EXPLICIT_POLICY;
+      end;
+    X509_V_ERR_DIFFERENT_CRL_SCOPE:
+      begin
+        Result := RSMSG_X509_V_ERR_DIFFERENT_CRL_SCOPE;
+      end;
+    X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE:
+      begin
+        Result := RSMSG_X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE;
+      end;
+    X509_V_ERR_PERMITTED_VIOLATION:
+      begin
+        Result := RSMSG_X509_V_ERR_PERMITTED_VIOLATION;
+      end;
+    X509_V_ERR_EXCLUDED_VIOLATION:
+      begin
+        Result := RSMSG_X509_V_ERR_EXCLUDED_VIOLATION;
+      end;
+    X509_V_ERR_SUBTREE_MINMAX:
+      begin
+        Result := RSMSG_X509_V_ERR_SUBTREE_MINMAX;
+      end;
+    X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE:
+      begin
+        Result := RSMSG_X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE;
+      end;
+    X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX:
+      begin
+        Result := RSMSG_X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX;
+      end;
+    X509_V_ERR_CRL_PATH_VALIDATION_error:
+      begin
+        Result := RSMSG_X509_V_ERR_CRL_PATH_VALIDATION_error;
+      end;
+    X509_V_ERR_APPLICATION_VERIFICATION:
+      begin
+        Result := RSMSG_X509_V_ERR_APPLICATION_VERIFICATION;
+      end
+  else
+    Result := string(X509_verify_cert_error_string(ACertError));
+
+  end;
 end;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
@@ -273,17 +464,18 @@ begin
 end;
 
 {$IFDEF UTCTimeToLocalTime_UNDEF}
+
 function UTCTimeToLocalTime(const Value: TDateTime): TDateTime;
 begin
-  {$IFDEF HAS_UniversalTimeToLocal}
+{$IFDEF HAS_UniversalTimeToLocal}
   Result := UniversalTimeToLocal(Value);
-  {$ELSE}
-    {$IFDEF HAS_DateUtils_TTimeZone}
+{$ELSE}
+{$IFDEF HAS_DateUtils_TTimeZone}
   Result := TTimeZone.Local.ToLocalTime(Value);
-    {$ELSE}
+{$ELSE}
   Result := Value + OffsetFromUTC;
-    {$ENDIF}
-  {$ENDIF}
+{$ENDIF}
+{$ENDIF}
 end;
 {$ENDIF}
 
@@ -328,7 +520,7 @@ end;
 
 function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 type
-  TBa = array [0..1024] of TIdAnsiChar;
+  TBa = array [0 .. 1024] of TIdAnsiChar;
 {$IFNDEF USE_INLINE_VAR}
 var
   LBuf: TBa;
@@ -354,11 +546,11 @@ function ASN1_Time_Decode(const a: PASN1_TIME; out year, month, day, hour, min,
   sec: Word; out tz_hour, tz_min: Integer): Boolean;
 var
   i, tz_dir: Integer;
-  {$IFDEF FPC}
+{$IFDEF FPC}
   time_str: AnsiString;
-  {$ELSE}
+{$ELSE}
   time_str: string;
-  {$ENDIF}
+{$ENDIF}
 {$IFNDEF USE_MARSHALLED_PTRS}
 {$IFNDEF STRING_IS_ANSI}
   LTemp: AnsiString;
@@ -481,15 +673,15 @@ var
   LIPv6: TIdIPv6Address;
   i: Integer;
 type
-  TBa = array of byte;
+  TBa = array of Byte;
 begin
   Result := '';
   if Assigned(a) then
   begin
     if a._Length = 4 then
     begin
-      Result := IntToStr(TBa(a.data)[0]) + '.' + IntToStr(TBa(a.data)[1]) + '.' +
-        IntToStr(TBa(a.data)[2]) + '.' + IntToStr(TBa(a.data)[3]);
+      Result := IntToStr(TBa(a.data)[0]) + '.' + IntToStr(TBa(a.data)[1]) + '.'
+        + IntToStr(TBa(a.data)[2]) + '.' + IntToStr(TBa(a.data)[3]);
     end
     else
     begin
@@ -547,4 +739,3 @@ begin
 end;
 
 end.
-

@@ -28,7 +28,6 @@ type
   {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     { Private declarations }
     FX509: TTaurusTLSX509;
-    FErrorCode: Integer;
     FErrorForeground : TColor;
     FErrorBackground : TColor;
     function GetX509: TTaurusTLSX509;
@@ -39,11 +38,9 @@ type
     procedure DumpX509Name(AX509Name: TTaurusTLSX509Name);
     procedure DumpX509KeyUsage(AX509: TTaurusTLSX509);
     procedure DumpX509ExtKeyUsage(AX509: TTaurusTLSX509);
-    procedure SetErrorCode(const Value: TIdC_LONG);
   public
     { Public declarations }
     property X509: TTaurusTLSX509 read GetX509 write SetX509;
-    property ErrorCode: TIdC_LONG read FErrorCode write SetErrorCode;
     property ErrorForeground : TColor read GetErrorForeground write SetErrorForeground;
     property ErrorBackground : TColor read GetErrorBackground write SetErrorBackground;
   end;
@@ -451,12 +448,6 @@ begin
   end;
   ScrollToTop(redtCertView);
 
-end;
-
-procedure TfrmCertViewer.SetErrorCode(const Value: Integer);
-begin
-  FErrorCode := Value;
-  lblErrorMessage.Caption := ProgUtils.CertErrorToStr(Value);
 end;
 
 procedure TfrmCertViewer.SetErrorBackground(const Value: TColor);
