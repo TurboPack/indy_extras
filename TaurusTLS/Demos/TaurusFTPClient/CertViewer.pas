@@ -7,6 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ComCtrls,
+  IdCTypes,
   TaurusTLS_X509;
 
 type
@@ -38,11 +39,11 @@ type
     procedure DumpX509Name(AX509Name: TTaurusTLSX509Name);
     procedure DumpX509KeyUsage(AX509: TTaurusTLSX509);
     procedure DumpX509ExtKeyUsage(AX509: TTaurusTLSX509);
-    procedure SetErrorCode(const Value: Integer);
+    procedure SetErrorCode(const Value: TIdC_LONG);
   public
     { Public declarations }
     property X509: TTaurusTLSX509 read GetX509 write SetX509;
-    property ErrorCode: Integer read FErrorCode write SetErrorCode;
+    property ErrorCode: TIdC_LONG read FErrorCode write SetErrorCode;
     property ErrorForeground : TColor read GetErrorForeground write SetErrorForeground;
     property ErrorBackground : TColor read GetErrorBackground write SetErrorBackground;
   end;
@@ -54,7 +55,7 @@ implementation
 
 {$R *.dfm}
 
-uses mainform, dkgFTPConnect, IdCTypes, IniFiles,
+uses mainform, dkgFTPConnect, IniFiles,
   ProgUtils, System.UITypes, System.IOUtils,
   TaurusTLSHeaders_x509;
 
@@ -455,7 +456,6 @@ end;
 procedure TfrmCertViewer.SetErrorCode(const Value: Integer);
 begin
   FErrorCode := Value;
-  Caption := string(X509_verify_cert_error_string(FErrorCode));
   lblErrorMessage.Caption := ProgUtils.CertErrorToStr(Value);
 end;
 

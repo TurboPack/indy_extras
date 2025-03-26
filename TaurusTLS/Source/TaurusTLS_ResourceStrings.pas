@@ -22,6 +22,8 @@ resourcestring
   RSOSSUnsupportedVersion = 'Unsupported SSL Library version: %.8x.';
   RSOSSUnsupportedLibrary = 'Unsupported SSL Library: %s.';
   RSOSSLModeNotSet = 'Mode has not been set.';
+  RSDSSLWriteExFailed = 'SSL_write_ex2 failed';
+  RSDSSLReadExFailed = 'SSL_read_ex failed';
   RSOSSLCouldNotLoadSSLLibrary = 'Could not load SSL library.';
   RSOSSLStatusString = 'SSL status: "%s"';
   RSOSSLConnectionDropped = 'SSL connection has dropped.';

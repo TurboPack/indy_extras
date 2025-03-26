@@ -3,8 +3,8 @@ object frmCertViewer: TfrmCertViewer
   Top = 0
   BorderStyle = bsDialog
   Caption = 'frmCertViewer'
-  ClientHeight = 385
-  ClientWidth = 558
+  ClientHeight = 377
+  ClientWidth = 556
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBtnText
@@ -14,18 +14,19 @@ object frmCertViewer: TfrmCertViewer
   Position = poDesktopCenter
   OnCreate = FormCreate
   DesignSize = (
-    558
-    385)
+    556
+    377)
   TextHeight = 15
   object lblErrorMessage: TLabel
     Left = 8
     Top = 8
-    Width = 542
+    Width = 536
     Height = 74
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
     FocusControl = redtCertView
     WordWrap = True
+    ExplicitWidth = 542
   end
   object lblAcceptThisCertificate: TLabel
     Left = 8
@@ -37,8 +38,8 @@ object frmCertViewer: TfrmCertViewer
   end
   object Panel2: TPanel
     Left = 0
-    Top = 351
-    Width = 558
+    Top = 343
+    Width = 556
     Height = 34
     Align = alBottom
     BevelOuter = bvNone
@@ -50,11 +51,13 @@ object frmCertViewer: TfrmCertViewer
     ParentColor = True
     ParentFont = False
     TabOrder = 2
+    ExplicitTop = 335
+    ExplicitWidth = 554
     DesignSize = (
-      558
+      556
       34)
     object OKBtn: TButton
-      Left = 397
+      Left = 391
       Top = 2
       Width = 75
       Height = 25
@@ -63,9 +66,10 @@ object frmCertViewer: TfrmCertViewer
       Default = True
       ModalResult = 6
       TabOrder = 0
+      ExplicitLeft = 389
     end
     object CancelBtn: TButton
-      Left = 478
+      Left = 472
       Top = 2
       Width = 75
       Height = 25
@@ -74,13 +78,14 @@ object frmCertViewer: TfrmCertViewer
       Caption = '&No'
       ModalResult = 7
       TabOrder = 1
+      ExplicitLeft = 470
     end
   end
   object redtCertView: TRichEdit
     Left = 8
     Top = 104
-    Width = 542
-    Height = 217
+    Width = 536
+    Height = 209
     TabStop = False
     Anchors = [akLeft, akTop, akRight, akBottom]
     Font.Charset = ANSI_CHARSET
@@ -97,16 +102,20 @@ object frmCertViewer: TfrmCertViewer
     WantTabs = True
     WantReturns = False
     WordWrap = False
+    ExplicitWidth = 534
+    ExplicitHeight = 201
   end
   object chkacceptOnlyOnce: TCheckBox
     Left = 8
-    Top = 328
-    Width = 542
+    Top = 320
+    Width = 536
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
     Caption = '&Accept Certificate Only Once'
     Checked = True
     State = cbChecked
     TabOrder = 1
+    ExplicitTop = 312
+    ExplicitWidth = 534
   end
 end

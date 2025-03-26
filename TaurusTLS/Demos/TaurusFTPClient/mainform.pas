@@ -233,8 +233,9 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FVerifyResult: Boolean;
     FKeyPassword: String;
-    FError: Integer;
+    FError: TIdC_LONG;
     FDepth: Integer;
+    FMsg : String;
     FX509: TTaurusTLSX509;
     FFTP: TIdFTP;
     FLog: TIdLogEvent;
@@ -259,8 +260,8 @@ type
     procedure PromptPassword;
     procedure OnGetPassword(ASender: TObject; var VPassword: String;
       const AIsWrite: Boolean);
-    function OnVerifyPeer(Certificate: TTaurusTLSX509; const AOk: Boolean;
-      const ADepth, AError: Integer): Boolean;
+    procedure OnVerifyPeer(Certificate: TTaurusTLSX509;
+      const ADepth : Integer; const AError: TIdC_LONG; const AMsg : String; var VOk : Boolean);
     procedure DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
@@ -1705,14 +1706,15 @@ begin
   VPassword := FKeyPassword;
 end;
 
-function TFTPThread.OnVerifyPeer(Certificate: TTaurusTLSX509;
-  const AOk: Boolean; const ADepth, AError: Integer): Boolean;
+procedure TFTPThread.OnVerifyPeer(Certificate: TTaurusTLSX509;
+  const ADepth : Integer; const AError: TIdC_LONG; const AMsg : String; var VOk : Boolean);
 begin
   FX509 := Certificate;
   FError := AError;
   FDepth := ADepth;
+  FMsg := AMsg;
   Synchronize(Self, PromptVerifyCert);
-  Result := FVerifyResult;
+  VOk := FVerifyResult;
 end;
 
 procedure TFTPThread.LogCipherEvent(const AStr: String);
@@ -2003,6 +2005,7 @@ begin
         LFrm.ErrorBackground := frmMainForm.ErrorBackground;
         LFrm.X509 := FX509;
         LFrm.ErrorCode := FError;
+        LFrm.Caption := FMsg;
         FVerifyResult := LFrm.ShowModal = mrYes;
         if FVerifyResult and (LFrm.chkacceptOnlyOnce.Checked = False) then
         begin
@@ -2016,7 +2019,6 @@ begin
     begin
       FVerifyResult := True;
     end;
-    (FFTP.IOHandler as TTaurusTLSIOHandlerSocket).OnVerifyPeer := nil;
   except
     FVerifyResult := False;
   end;
