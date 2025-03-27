@@ -3645,12 +3645,20 @@ begin
     end;
   end;
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
+
+  //set security level before loading certificates.
+  SSL_CTX_set_security_level(fContext, FSecurityLevel);
+  if SecurityLevelCBOn then
+  begin
+    SSL_CTX_set_security_callback(fContext, SecurityLevelCallback);
+    SSL_CTX_set0_security_ex_data(fContext, Self);
+  end;
+
   // assign a password lookup routine
   // if PasswordRoutineOn then begin
   SSL_CTX_set_default_passwd_cb(fContext, @PasswordCallback);
   SSL_CTX_set_default_passwd_cb_userdata(fContext, Self);
   // end;
-
   if fUseSystemRootCertificateStore then
   begin
 {$IFDEF USE_WINDOWS_CERT_STORE}
@@ -3732,16 +3740,12 @@ begin
         (RSSSLLoadingDHParamsError);
     end;
   end;
-  SSL_CTX_set_security_level(fContext, FSecurityLevel);
+
   if StatusInfoOn then
   begin
     SSL_CTX_set_info_callback(fContext, InfoCallback);
   end;
-  if SecurityLevelCBOn then
-  begin
-    SSL_CTX_set_security_callback(fContext, SecurityLevelCallback);
-    SSL_CTX_set0_security_ex_data(fContext, Self);
-  end;
+
   if MessageCBOn then
   begin
     SSL_CTX_set_msg_callback(fContext, MsgCallback);
