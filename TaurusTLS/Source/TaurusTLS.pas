@@ -626,7 +626,7 @@ type
   ///   A description of the failure in a long form for display to user in something such as a message-box.
   /// </param>
   /// <param name="VOk">
-  /// Set to True if you wish to certificate to pass validation or False if
+  /// Set to True if you wish the certificate to pass validation or False if
   /// you want it to fail validation.
   /// </param>
   TOnVerifyPeerEvent = procedure(ASender: TObject; ACertificate: TTaurusTLSX509;
@@ -1515,7 +1515,7 @@ type
     ///   something such as a message-box.
     /// </param>
     /// <param name="VOk">
-    ///   Set to True if you wish to certificate to pass validation or False if
+    ///   Set to True if you wish the certificate to pass validation or False if
     ///   you want it to fail validation.
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
@@ -1762,7 +1762,7 @@ type
     ///   something such as a message-box.
     /// </param>
     /// <param name="VOk">
-    ///   Set to True if you wish to certificate to pass validation or False if
+    ///   Set to True if you wish the certificate to pass validation or False if
     ///   you want it to fail validation.
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
