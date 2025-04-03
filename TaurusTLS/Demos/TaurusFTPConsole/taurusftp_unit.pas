@@ -26,6 +26,7 @@ uses
   IdLogEvent,
   IdZLibHeaders,
   TaurusTLS,
+  TaurusTLS_X509,
   TaurusTLSHeaders_ossl_typ;
 
 type
@@ -50,6 +51,9 @@ type
     procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
+    procedure DoOnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
+      const ADepth: Integer; const AError: TIdC_LONG; const AMsg, ADescr: String;
+      var VOk: Boolean);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
     procedure CmdDir(const ACmd: string);
@@ -1273,6 +1277,20 @@ begin
   until False;
 end;
 
+procedure TFTPApplication.DoOnVerifyPeer(ASender: TObject;
+  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+  const AMsg, ADescr: String; var VOk: Boolean);
+var LRsp : String;
+begin
+  WriteLn(ADescr);
+  WriteLn('');
+  WriteLn(ACertificate.DisplayInfo.Text);
+  WriteLn('');
+  Write('Accept this certificate?');
+  ReadLn(LRsp);
+  VOk := PosInStrArray(LRsp,['Y','YES'],false) > -1;
+end;
+
 procedure TFTPApplication.DoRun;
 {$IFDEF FPC}
 var
@@ -1343,6 +1361,7 @@ begin
   FFTP.Compressor := FComp;
   FIO := TTaurusTLSIOHandlerSocket.Create(nil);
   FIO.OnSSLNegotiated := OnSSLNegotiated;
+  FIO.OnVerifyPeer := DoOnVerifyPeer;
   FFTP.IOHandler := FIO;
   FFTP.Passive := True;
   FLog := TIdLogEvent.Create(nil);
