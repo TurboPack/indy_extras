@@ -23,6 +23,8 @@ object frmConnect: TfrmConnect
     BorderWidth = 5
     ParentColor = True
     TabOrder = 0
+    ExplicitWidth = 425
+    ExplicitHeight = 258
     object PageControl1: TPageControl
       Left = 5
       Top = 5
@@ -32,6 +34,8 @@ object frmConnect: TfrmConnect
       Align = alClient
       Images = VirtualImageList1
       TabOrder = 0
+      ExplicitWidth = 415
+      ExplicitHeight = 248
       object TabSheet1: TTabSheet
         Caption = 'C&onnection'
         ImageName = 'libre-gui-server'
@@ -92,10 +96,21 @@ object frmConnect: TfrmConnect
           FocusControl = cboConnectionType
           Layout = tlCenter
         end
+        object spdShowPassword: TSpeedButton
+          Left = 367
+          Top = 161
+          Width = 23
+          Height = 23
+          GroupIndex = 1
+          ImageIndex = 4
+          ImageName = 'libre-gui-unlock'
+          Images = VirtualImageList1
+          OnClick = spdShowPasswordClick
+        end
         object edtHostname: TEdit
           Left = 96
           Top = 50
-          Width = 301
+          Width = 297
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           Font.Charset = DEFAULT_CHARSET
@@ -106,21 +121,23 @@ object frmConnect: TfrmConnect
           ParentFont = False
           TabOrder = 1
           OnChange = edtHostnameChange
+          ExplicitWidth = 295
         end
         object chkAnonymousFTP: TCheckBox
           Left = 96
           Top = 87
-          Width = 185
+          Width = 181
           Height = 17
           Anchors = [akLeft, akTop, akRight]
           Caption = '&Anonymous FTP'
           TabOrder = 2
           OnClick = chkAnonymousFTPClick
+          ExplicitWidth = 179
         end
         object edtUsername: TEdit
           Left = 96
           Top = 124
-          Width = 301
+          Width = 297
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           Font.Charset = DEFAULT_CHARSET
@@ -131,11 +148,12 @@ object frmConnect: TfrmConnect
           ParentFont = False
           TabOrder = 3
           OnChange = edtUsernameChange
+          ExplicitWidth = 295
         end
         object edtPassword: TEdit
           Left = 96
           Top = 161
-          Width = 301
+          Width = 265
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           PasswordChar = '*'
@@ -145,7 +163,7 @@ object frmConnect: TfrmConnect
         object cboConnectionType: TComboBox
           Left = 96
           Top = 198
-          Width = 301
+          Width = 297
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -158,6 +176,7 @@ object frmConnect: TfrmConnect
             'Use Explicit FTP TLS (FTPS) if Available'
             'Require Explicit FTP TLS (FTPS)'
             'Implicit TLS FTP Connection (FTPS)')
+          ExplicitWidth = 295
         end
         object edtProfileName: TEdit
           Left = 96
@@ -196,7 +215,7 @@ object frmConnect: TfrmConnect
           FocusControl = edtPublicKey
         end
         object spdbtnPrivateKeyFile: TSpeedButton
-          Left = 368
+          Left = 364
           Top = 16
           Width = 23
           Height = 22
@@ -205,9 +224,10 @@ object frmConnect: TfrmConnect
           ImageName = 'libre-gui-key'
           Images = VirtualImageList1
           OnClick = spdbtnPrivateKeyFileClick
+          ExplicitLeft = 368
         end
         object spdbtnPublicKey: TSpeedButton
-          Left = 368
+          Left = 364
           Top = 45
           Width = 23
           Height = 22
@@ -216,9 +236,10 @@ object frmConnect: TfrmConnect
           ImageName = 'libre-gui-key'
           Images = VirtualImageList1
           OnClick = spdbtnPublicKeyClick
+          ExplicitLeft = 368
         end
         object spdbtnCAKey: TSpeedButton
-          Left = 368
+          Left = 364
           Top = 75
           Width = 23
           Height = 22
@@ -227,6 +248,7 @@ object frmConnect: TfrmConnect
           ImageName = 'libre-gui-key'
           Images = VirtualImageList1
           OnClick = spdbtnCAKeyClick
+          ExplicitLeft = 368
         end
         object lblCAKey: TLabel
           Left = 18
@@ -241,7 +263,7 @@ object frmConnect: TfrmConnect
         object edtPublicKey: TEdit
           Left = 96
           Top = 43
-          Width = 265
+          Width = 261
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
@@ -250,7 +272,7 @@ object frmConnect: TfrmConnect
         object edtPrivateKeyFile: TEdit
           Left = 96
           Top = 13
-          Width = 265
+          Width = 261
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
@@ -259,7 +281,7 @@ object frmConnect: TfrmConnect
         object edtCAKey: TEdit
           Left = 96
           Top = 73
-          Width = 265
+          Width = 261
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
@@ -311,7 +333,7 @@ object frmConnect: TfrmConnect
         object cboTransferTypes: TComboBox
           Left = 96
           Top = 42
-          Width = 301
+          Width = 297
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -375,6 +397,8 @@ object frmConnect: TfrmConnect
     ParentColor = True
     ParentFont = False
     TabOrder = 1
+    ExplicitTop = 258
+    ExplicitWidth = 425
     object OKBtn: TButton
       Left = 266
       Top = 2
@@ -595,6 +619,53 @@ object frmConnect: TfrmConnect
               80251160490458120196640AC01FA72A35BDA3CFF86B0000000049454E44AE42
               6082}
           end>
+      end
+      item
+        Name = 'libre-gui-unlock'
+        SourceImages = <
+          item
+            Image.Data = {
+              89504E470D0A1A0A0000000D494844520000004900000049080600000071730B
+              DC000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              049749444154785EED9B4F6C0C511CC77FB37F588DB2FE17078D0415170E124E
+              AAED81133D11276E1C2425449CB4271C4413174EB8D01B4E1CDAAA5B13975E44
+              FD49F4820A92FAD318ECEEF8FEEC0F55B3BBEF8D7933B3EDFB249BFDBD37DB9D
+              99CFBCDF6FDE74671CCFF3C8529D94BC5BAA60252960252960252960252910EB
+              D9ADB5B5359F4EA777611BF6388EB30D5DCDE525BF19C3B2112CBB532C16EF0D
+              0D0D8D4B7FA4C42209729A52A9D419ECFC61E95202DB7ABB542A1D83AC31E98A
+              84C825B5B5B57543CE2984B9728F3ED8E6CB22CB952EA3442689530BA3E72A04
+              ED95AEFF650429D819C5A88A4492D49EFB0837977B42631CA27643D488B48D60
+              5C1204E520E82E87E59ED01983A8ED268BBAF1290052EC22DE6A091AC5C1EA45
+              2AEE9CFA42DF692CAB354A9A71106EF1C19076E8181D491D1D1DADF87E4EB34A
+              B858DE333838784EDABEB4B7B71FC41BCBCEFFECF0E7D8C0C040AFC4A1627424
+              4100EF58258691265B6A0962B0F3D7F0D98DF8BE7BD2E5C729AE7D12878A3149
+              38FA7C16AB54A8B9E0F2996954DA35E19A83D37E27C24AE9C773AF2E8943C598
+              241CF57D12FAC1731CED428BBF7121F71042DFF911EA58B57506C688242EA2D8
+              E05DD2FC0BC8EB43FAF449531B881AC1779C97E6745AB0EE168943C3D448E234
+              F3AD0F48892B12060669C705DA7734F1B5A084A161441236B4D2D19CE8EFEF1F
+              923830184D13781B2EB7FE6185BC8786114948872609A7A35CA86B8175F85E8E
+              545977604CA59BEFD1C40E84362B46DA5EC7F7F54C7FA1163E908F848691C924
+              AEF4F9429627807F81755DC3BC88CF4E7585A99134A3B09214B09214B0921408
+              A770F73AF942E1CF75DAA547EB0FBC77E76E95E66F96E4BE3E3CBAE9E90D6946
+              42214363B92EFFE9822AC125753BB9C27C3A430EED476BFAAF1C8902BB38E138
+              D49749D369EAF27822AA4520496EAFD39C29D05D080AFD3AC924D8D3716C7367
+              F6B85769B6EE4BA09A942ED2D57A13C438444D8E4737390BA44B096D49DF2E38
+              07B13253FFAF8E82E642239D9558096D492987764858CF681D64FD74F342FF59
+              280E36EBA45C909A341324919B27E5FF16042ADCB30D2B49012B49012B49012B
+              49012B49012B49012B498144499AFC4AF4FA23D1AB0F449F10278544482A9488
+              9EBD257AFC86E8E54459D213C4DC76BFCB87622411925EBC27FAF0451A53E091
+              F5FC1D5129FC5FBDB4885D12CBF113F40B1E496F3F4B2326629734F94D822A7C
+              8EB93EC52EA9887A548B599F6E0D7325A84243568298885DD2A27944B92A1232
+              D8C2E58DD28889D825A51CA2B54B89B269E998020B5AB3D87F5994C42E89E174
+              DAB49268759E68214656638E68D5C272DFA206F9508C244212C3A366E502A275
+              CB88362C2F4B8A7B04FD223192928C95A48095A48095A48095A48095A48095A4
+              8095A4401049913E6E6E0A4CEA95EF78D396E478351FF74C3E1E8DEADC16A82D
+              A9E451E88F25444EAAE2C33BBE684BCA4ED2E59F47A24EE19B4C3345E207A095
+              D1AF49DD9EEBA5E810AF4C7AEA068FC8C5EB089DD47B102848E126BE7B35EBD1
+              46ACB0DA83C3C9C2A3E112D19639273CEDA736FFFF66F73F37BA27F36653C8C9
+              F0C3CD9AA3672A461EE59A69044AB7D98695A480955413A21FC0309661EED6E4
+              110000000049454E44AE426082}
+          end>
       end>
     Left = 225
     Top = 205
@@ -620,6 +691,11 @@ object frmConnect: TfrmConnect
         CollectionIndex = 3
         CollectionName = 'libre-gui-certificate'
         Name = 'libre-gui-certificate'
+      end
+      item
+        CollectionIndex = 4
+        CollectionName = 'libre-gui-unlock'
+        Name = 'libre-gui-unlock'
       end>
     ImageCollection = ImageCollection1
     Left = 177

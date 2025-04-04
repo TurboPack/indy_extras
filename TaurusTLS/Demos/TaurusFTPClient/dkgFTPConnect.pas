@@ -51,6 +51,7 @@ type
     odlgCAKey: TOpenDialog;
     cboSecurityLevel: TComboBox;
     lblSecurityLevel: TLabel;
+    spdShowPassword: TSpeedButton;
     procedure chkAnonymousFTPClick(Sender: TObject);
     procedure edtProfileNameChange(Sender: TObject);
     procedure edtHostnameChange(Sender: TObject);
@@ -60,6 +61,7 @@ type
     procedure spdbtnPrivateKeyFileClick(Sender: TObject);
     procedure spdbtnPublicKeyClick(Sender: TObject);
     procedure spdbtnCAKeyClick(Sender: TObject);
+    procedure spdShowPasswordClick(Sender: TObject);
   private
     FQuickConnect: Boolean;
     function GetHost: String;
@@ -326,6 +328,21 @@ begin
   if odlgCAKey.Execute then
   begin
     Self.edtCAKey.Text := odlgCAKey.FileName;
+  end;
+end;
+
+procedure TfrmConnect.spdShowPasswordClick(Sender: TObject);
+begin
+  if( spdShowPassword.AllowAllUp ) then
+  begin
+    spdShowPassword.AllowAllUp := False;
+    spdShowPassword.Down := True;
+    edtPassword.PasswordChar := #0;
+  end else
+  begin
+    spdShowPassword.AllowAllUp := True;
+    spdShowPassword.Down := False;
+    edtPassword.PasswordChar := '*';
   end;
 end;
 
