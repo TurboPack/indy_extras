@@ -79,6 +79,7 @@ type
     procedure CmdDebugTrace(const ACmd: string);
     procedure CmdSecurityLevel(const ACmd: string);
     procedure CmdSaveConfig;
+    procedure CmdCertInfo;
     procedure DoCommands;
 {$IFDEF FPC}
     procedure DoRun; override;
@@ -111,7 +112,7 @@ const
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level',
-    'save-config'];
+    'save-config','cert-info'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
 begin
@@ -547,6 +548,11 @@ begin
   begin
     WriteLn('Must be connected to use this command');
   end;
+end;
+
+procedure TFTPApplication.CmdCertInfo;
+begin
+  WriteLn(FIO.SSLSocket.PeerCert.DisplayInfo.Text);
 end;
 
 procedure TFTPApplication.CmdPassive(const ACmd: string);
@@ -1015,6 +1021,7 @@ begin
     PrintCmdHelp(['debug-trace'], 'Show Debug TLS trace information');
     PrintCmdHelp(['security-level'], 'Show or set security level');
     PrintCmdHelp(['save-config'],'Save configuration');
+    PrintCmdHelp(['cert-info'],'Show certificate information');
   end
   else
   begin
@@ -1168,6 +1175,10 @@ begin
         begin
           PrintCmdHelp(['save-config'],'Save configuration','save-config');
         end;
+      32 :
+        begin
+          PrintCmdHelp(['cert-info'],'Certificate information','cert-info');
+        end;
     end;
   end;
 end;
@@ -1267,6 +1278,8 @@ begin
         31:
           // 'save-config'
           CmdSaveConfig;
+        32:
+          CmdCertInfo;
       else
         WriteLn('Bad Command');
       end;
