@@ -19,8 +19,10 @@
       {$DEFINE TIdLibHandle_UNDEF}
       {$DEFINE UTCTimeToLocalTime_UNDEF}
     {$ELSE}
-      {$IF (gsIdVersionRelease > 3)}
+      {$IF (gsIdVersionRelease > 2)}
         {$DEFINE GETURIHOST_SUPPORTED}
+      {$IFEND}
+      {$IF (gsIdVersionRelease > 3)}
         {$DEFINE HAS_TIdSSLVersion}
       {$ELSE}
         {$IF ( gsIdVersionBuild > 6)}
