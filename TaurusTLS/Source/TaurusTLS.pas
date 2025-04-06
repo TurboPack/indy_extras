@@ -1270,7 +1270,7 @@ type
     procedure SetPassThrough(const Value: Boolean); override;
 
     procedure DoVerifyPeer(Certificate: TTaurusTLSX509; const ADepth: Integer;
-      const AError: TIdC_LONG; var VOk: Boolean);
+      const AError: TIdC_LONG; out VOk: Boolean);
     function RecvEnc(var VBuffer: TIdBytes): Integer; override;
     function SendEnc(const ABuffer: TIdBytes; const AOffset, ALength: Integer)
       : Integer; override;
@@ -2918,6 +2918,10 @@ begin
     fOnVerifyPeer(Self,ACertificate, ADepth, AError,
       AnsiStringToString(X509_verify_cert_error_string(AError)),
       CertErrorToLongDescr(AError), Result);
+  end
+  else
+  begin
+    Result := False;
   end;
 end;
 
@@ -3212,7 +3216,7 @@ end;
 // }
 
 procedure TTaurusTLSIOHandlerSocket.DoVerifyPeer(Certificate: TTaurusTLSX509;
-  const ADepth: Integer; const AError: TIdC_LONG; var VOk: Boolean);
+  const ADepth: Integer; const AError: TIdC_LONG; out VOk: Boolean);
 begin
   VOk := True;
   if Assigned(fOnVerifyPeer) then
