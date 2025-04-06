@@ -7974,6 +7974,38 @@ begin
   end;
 
 
+  TS_VERIFY_CTX_set0_store := LoadLibFunction(ADllHandle, TS_VERIFY_CTX_set0_store_procname);
+  FuncLoadError := not assigned(TS_VERIFY_CTX_set0_store);
+  if FuncLoadError then
+  begin
+    {$if not defined(TS_VERIFY_CTX_set0_store_allownil)}
+    TS_VERIFY_CTX_set0_store := @ERR_TS_VERIFY_CTX_set0_store;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_store_introduced)}
+    if LibVersion < TS_VERIFY_CTX_set0_store_introduced then
+    begin
+      {$if declared(FC_TS_VERIFY_CTX_set0_store)}
+      TS_VERIFY_CTX_set0_store := @FC_TS_VERIFY_CTX_set0_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(TS_VERIFY_CTX_set0_store_removed)}
+    if TS_VERIFY_CTX_set0_store_removed <= LibVersion then
+    begin
+      {$if declared(_TS_VERIFY_CTX_set0_store)}
+      TS_VERIFY_CTX_set0_store := @_TS_VERIFY_CTX_set0_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(TS_VERIFY_CTX_set0_store_allownil)}
+    if FuncLoadError then
+      AFailed.Add('TS_VERIFY_CTX_set0_store');
+    {$ifend}
+  end;
+
+
   TS_VERIFY_CTS_set_certs := LoadLibFunction(ADllHandle,TS_VERIFY_CTS_set_certs_procname);
   FuncLoadError := not assigned(TS_VERIFY_CTS_set_certs);
   if FuncLoadError then
