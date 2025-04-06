@@ -415,7 +415,7 @@ begin
         Result := RSMSG_X509_V_ERR_APPLICATION_VERIFICATION;
       end
   else
-    Result := string(X509_verify_cert_error_string(ACertError));
+    Result := AnsiStringToString(X509_verify_cert_error_string(ACertError));
 
   end;
 end;
