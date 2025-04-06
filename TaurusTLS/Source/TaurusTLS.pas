@@ -2293,7 +2293,7 @@ begin
     LockInfoCB.Enter;
     try
       if Supports(TTaurusTLSSocket(SSL_get_app_data(SSLSocket)).Parent,
-        ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+        ITaurusTLSCallbackHelper, LHelper) then
       begin
         LHelper.StatusInfo(SSLSocket, where, ret);
         LHelper := nil;
