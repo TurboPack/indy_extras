@@ -2639,11 +2639,19 @@ begin
   // RLebeau 9/7/2015: even if LoadOpenSSLLibrary() fails, _SSLeay_version()
   // might have been loaded OK before the failure occured. LoadOpenSSLLibrary()
   // does not unload ..
-  LoadOpenSSLLibrary;
+  if not LoadOpenSSLLibrary then
+  begin
+  //redundant but here to avoid PAL warning about functions called as procedures.
+    Result := '';
+  end;
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   if Assigned(SSLeay_version) then
+  begin
 {$ENDIF}
     Result := AnsiStringToString(SSLeay_version(SSLEAY_VERSION_CONST));
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  end;
+{$ENDIF}
 end;
 
 function OpenSSLDir: string;
@@ -2651,11 +2659,19 @@ var
   i: Integer;
 begin
   Result := '';
-  LoadOpenSSLLibrary;
+  if LoadOpenSSLLibrary then
+  begin
+    //redundant but here to avoid PAL warning about functions called as procedures.
+    Result := '';
+  end;
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   if Assigned(SSLeay_version) then
+  begin
 {$ENDIF}
     Result := AnsiStringToString(SSLeay_version(OPENSSL_DIR));
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  end;
+{$ENDIF}
   { assumed format is 'OPENSSLDIR: "<dir>"' }
   i := Pos('"', Result);
   if i < 0 then
