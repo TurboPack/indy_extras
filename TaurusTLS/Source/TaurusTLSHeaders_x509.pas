@@ -12974,7 +12974,7 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add_extensions_nid_allownil)}
-    X509_REQ_get_extensions := @ERR_X509_REQ_add_extensions_nid;
+    X509_REQ_add_extensions_nid := @ERR_X509_REQ_add_extensions_nid;
     {$ifend}
     {$if declared(X509_REQ_add_extensions_nid_introduced)}
     if LibVersion < X509_REQ_add_extensions_nid_introduced then
@@ -12989,7 +12989,7 @@ begin
     if X509_REQ_add_extensions_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add_extensions_nid)}
-      X509_REQ_get_extensions := @_X509_REQ_get_extensions;
+      X509_REQ_add_extensions_nid := @_X509_REQ_add_extensions_nid;
       {$ifend}
       FuncLoadError := false;
     end;
