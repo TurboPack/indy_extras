@@ -269,14 +269,19 @@ begin
       default_passwd_cb := SSL_CTX_get_default_passwd_cb(ctx);
       if Assigned(default_passwd_cb) then
       begin
-        default_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
-          SSL_CTX_get_default_passwd_cb_userdata(ctx));
-        // TODO: check return value for failure
+        if default_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
+          SSL_CTX_get_default_passwd_cb_userdata(ctx)) > -1 then
+          begin
+            SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_PKCS12_LIB);
+            Exit;
+          end;
       end
       else
       begin
-        // TODO: call PEM_def_callback(), like PEM_read_bio_X509() does
-        // when default_passwd_callback is nil
+        // We could call  PEM_def_callback(), but I'm not sure how well
+        // that works with console apps or some GUI's.  Fail the call.
+        SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_PKCS12_LIB);
+        Exit;
       end;
       P12 := d2i_PKCS12_bio(b, nil);
       if not Assigned(P12) then
