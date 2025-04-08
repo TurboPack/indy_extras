@@ -234,6 +234,7 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FVerifyResult: Boolean;
     FKeyPassword: String;
+    FKeyPasswordOk : Boolean;
     FError: TIdC_LONG;
     FDepth: Integer;
     FMsg: String;
@@ -261,7 +262,7 @@ type
     procedure PromptVerifyCert;
     procedure PromptPassword;
     procedure OnGetPassword(ASender: TObject; var VPassword: String;
-      const AIsWrite: Boolean);
+      const AIsWrite: Boolean; var VOk : Boolean);
     procedure OnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
       const ADepth: Integer; const AError: TIdC_LONG;
       const AMsg, ADescr: String; var VOk: Boolean);
@@ -1705,10 +1706,11 @@ begin
 end;
 
 procedure TFTPThread.OnGetPassword(ASender: TObject; var VPassword: String;
-  const AIsWrite: Boolean);
+  const AIsWrite: Boolean; var VOk : Boolean);
 begin
   Synchronize(Self, PromptPassword);
   VPassword := FKeyPassword;
+  VOk := FKeyPasswordOk;
 end;
 
 procedure TFTPThread.OnVerifyPeer(ASender: TObject;
@@ -1995,7 +1997,7 @@ end;
 
 procedure TFTPThread.PromptPassword;
 begin
-  InputQuery('Key Password', 'Enter Key Password:', FKeyPassword);
+  FKeyPasswordOk := InputQuery('Key Password', 'Enter Key Password:', FKeyPassword);
 end;
 
 procedure TFTPThread.PromptVerifyCert;

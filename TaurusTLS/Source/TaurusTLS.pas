@@ -588,28 +588,32 @@ type
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid: TIdC_INT;
     const ACipher: String; var VAccepted: Boolean) of object;
   /// <summary>
-  /// <see cref="TTaurusTLSIOHandlerSocket.OnGetPassword" /> and <see
-  /// cref="TTaurusTLSServerIOHandler.OnGetPassword" /> events
+  ///   <see cref="TTaurusTLSIOHandlerSocket.OnGetPassword" /> and <see
+  ///   cref="TTaurusTLSServerIOHandler.OnGetPassword" /> events
   /// </summary>
   /// <param name="ASender">
-  /// The object that triggers the event.
+  ///   The object that triggers the event.
   /// </param>
   /// <param name="VPassword">
-  /// Return value indicating the password.
+  ///   Return value indicating the password.
   /// </param>
   /// <param name="AIsWrite">
-  /// True if the password is written/encrypted and typically the password is
-  /// prompted for twice to prevent entry error.
+  ///   True if the password is written/encrypted and typically the password is
+  ///   prompted for twice to prevent entry error.
+  /// </param>
+  /// <param name="VOk">
+  ///   Set this value to true if a password was retreived or false if password
+  ///   retreival failed (for example, the user clicked a cancel button).
   /// </param>
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
-    const AIsWrite: Boolean) of object;
+    const AIsWrite: Boolean; var VOk: Boolean) of object;
   /// <summary>
   /// <see cref="TTaurusTLSIOHandlerSocket.OnVerifyPeer" /> and <see
   /// cref="TTaurusTLSServerIOHandler.OnVerifyPeer" /> events
   /// </summary>
-  ///  <param name="ASender">
+  /// <param name="ASender">
   /// The object that triggers the event.
-  ///  </param>
+  /// </param>
   /// <param name="ACertificate">
   /// The certificate to be validated.
   /// </param>
@@ -623,7 +627,7 @@ type
   /// The message string OpenSSL returned describing the failure breifly.
   /// </param>
   /// <param name="ADescr">
-  ///   A description of the failure in a long form for display to user in something such as a message-box.
+  /// A description of the failure in a long form for display to user in something such as a message-box.
   /// </param>
   /// <param name="VOk">
   /// Set to True if you wish the certificate to pass validation or False if
@@ -1176,10 +1180,14 @@ type
     /// True if the password is written/encrypted and typically the password
     /// is prompted for twice to prevent entry error.
     /// </param>
+    /// <param name="VOk">
+    ///   Set this value to true if a password was retreived or false if password
+    ///   retreival failed (for example, the user clicked a cancel button).
+    /// </param>
     /// <returns>
     /// The password the event handler returned.
     /// </returns>
-    function GetPassword(const AIsWrite: Boolean): string;
+    function GetPassword(const AIsWrite: Boolean; out VOk: Boolean): string;
     /// <summary>
     /// Called when the StatusInfo callback is invoked.
     /// </summary>
@@ -1285,7 +1293,7 @@ type
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
-    function GetPassword(const AIsWrite: Boolean): string;
+    function GetPassword(const AIsWrite: Boolean; out VOk: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const ADepth: Integer;
       const AError: TIdC_LONG): Boolean;
@@ -1459,6 +1467,10 @@ type
     /// True if the password is written/encrypted and typically the password
     /// is prompted for twice to prevent entry error.
     /// </param>
+    /// <param name="VOk">
+    ///   Set this value to true if a password was retreived or false if password
+    ///   retreival failed (for example, the user clicked a cancel button).
+    /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
@@ -1493,30 +1505,30 @@ type
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
-    ///   Occurs when a certificate is presented for validation.
+    /// Occurs when a certificate is presented for validation.
     /// </summary>
-    ///  <param name="ASender">
+    /// <param name="ASender">
     /// The object that triggers the event.
-    ///  </param>
+    /// </param>
     /// <param name="ACertificate">
-    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
+    /// The certificate to be validated as a <see cref="TTaurusTLSX509" />
     /// </param>
     /// <param name="ADepth">
-    ///   The maximum depth of.
+    /// The maximum depth of.
     /// </param>
     /// <param name="AError">
-    ///   The validation error if the certificate failed validation.
+    /// The validation error if the certificate failed validation.
     /// </param>
     /// <param name="AMsg">
-    ///   The message string OpenSSL returned describing the failure breifly.
+    /// The message string OpenSSL returned describing the failure breifly.
     /// </param>
     /// <param name="ADescr">
-    ///   A description of the failure in a long form for display to user in
-    ///   something such as a message-box.
+    /// A description of the failure in a long form for display to user in
+    /// something such as a message-box.
     /// </param>
     /// <param name="VOk">
-    ///   Set to True if you wish the certificate to pass validation or False if
-    ///   you want it to fail validation.
+    /// Set to True if you wish the certificate to pass validation or False if
+    /// you want it to fail validation.
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
@@ -1545,7 +1557,7 @@ type
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
-    function GetPassword(const AIsWrite: Boolean): string;
+    function GetPassword(const AIsWrite: Boolean; out VOk: Boolean): string;
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const ADepth: Integer;
       const AError: TIdC_LONG): Boolean;
@@ -1706,6 +1718,10 @@ type
     /// True if the password is written/encrypted and typically the password
     /// is prompted for twice to prevent entry error.
     /// </param>
+    /// <param name="VOk">
+    ///   Set this value to true if a password was retreived or false if password
+    ///   retreival failed (for example, the user clicked a cancel button).
+    /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
     /// <summary>
@@ -1740,30 +1756,30 @@ type
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
     /// <summary>
-    ///   Occurs when a certificate is presented for validation.
+    /// Occurs when a certificate is presented for validation.
     /// </summary>
-    ///  <param name="ASender">
+    /// <param name="ASender">
     /// The object that triggers the event.
-    ///  </param>
+    /// </param>
     /// <param name="ACertificate">
-    ///   The certificate to be validated as a <see cref="TTaurusTLSX509" />
+    /// The certificate to be validated as a <see cref="TTaurusTLSX509" />
     /// </param>
     /// <param name="ADepth">
-    ///   The maximum depth of.
+    /// The maximum depth of.
     /// </param>
     /// <param name="AError">
-    ///   The validation error if the certificate failed validation.
+    /// The validation error if the certificate failed validation.
     /// </param>
     /// <param name="AMsg">
-    ///   The message string OpenSSL returned describing the failure breifly.
+    /// The message string OpenSSL returned describing the failure breifly.
     /// </param>
     /// <param name="ADescr">
-    ///   A description of the failure in a long form for display to user in
-    ///   something such as a message-box.
+    /// A description of the failure in a long form for display to user in
+    /// something such as a message-box.
     /// </param>
     /// <param name="VOk">
-    ///   Set to True if you wish the certificate to pass validation or False if
-    ///   you want it to fail validation.
+    /// Set to True if you wish the certificate to pass validation or False if
+    /// you want it to fail validation.
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
@@ -2220,6 +2236,7 @@ var
   LPassword: String;
 {$ENDIF}
   LErr: Integer;
+  LOk : Boolean;
   LHelper: ITaurusTLSCallbackHelper;
 begin
   // Preserve last error just in case TaurusTLS is using it and we do something that
@@ -2238,7 +2255,7 @@ begin
       begin
 {$IFDEF STRING_IS_UNICODE}
         LBPassword := IndyTextEncoding_OSDefault.GetBytes
-          (LHelper.GetPassword(rwflag > 0));
+          (LHelper.GetPassword(rwflag > 0, LOk));
         LHelper := nil;
         if Length(LBPassword) > 0 then
         begin
@@ -2255,7 +2272,7 @@ begin
         var
           LPassword: String;
 {$ENDIF}
-        LPassword := LHelper.GetPassword(rwflag > 0);
+        LPassword := LHelper.GetPassword(rwflag > 0, LOk);
         LHelper := nil;
         StrPLCopy(buf, LPassword, size);
         Result := Length(LPassword);
@@ -2266,6 +2283,11 @@ begin
         Result := 0;
       end;
       buf[size - 1] := #0; // RLebeau: truncate the password if needed
+      if not LOk then
+      begin
+        //indicate failure
+        Result := -1;
+      end;
     finally
       LockPassCB.Leave;
     end;
@@ -2641,7 +2663,7 @@ begin
   // does not unload ..
   if not LoadOpenSSLLibrary then
   begin
-  //redundant but here to avoid PAL warning about functions called as procedures.
+    // redundant but here to avoid PAL warning about functions called as procedures.
     Result := '';
   end;
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -2661,7 +2683,7 @@ begin
   Result := '';
   if LoadOpenSSLLibrary then
   begin
-    //redundant but here to avoid PAL warning about functions called as procedures.
+    // redundant but here to avoid PAL warning about functions called as procedures.
     Result := '';
   end;
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -2899,12 +2921,17 @@ end;
 
 { ITaurusTLSCallbackHelper }
 
-function TTaurusTLSServerIOHandler.GetPassword(const AIsWrite: Boolean): string;
+function TTaurusTLSServerIOHandler.GetPassword(const AIsWrite: Boolean;
+  out VOk: Boolean): string;
 begin
   Result := '';
   if Assigned(fOnGetPassword) then
   begin
-    fOnGetPassword(Self, Result, AIsWrite);
+    fOnGetPassword(Self, Result, AIsWrite, VOk);
+  end
+  else
+  begin
+    VOk := False;
   end;
 end;
 
@@ -2931,7 +2958,7 @@ function TTaurusTLSServerIOHandler.VerifyPeer(ACertificate: TTaurusTLSX509;
 begin
   if Assigned(fOnVerifyPeer) then
   begin
-    fOnVerifyPeer(Self,ACertificate, ADepth, AError,
+    fOnVerifyPeer(Self, ACertificate, ADepth, AError,
       AnsiStringToString(X509_verify_cert_error_string(AError)),
       CertErrorToLongDescr(AError), Result);
   end
@@ -3237,7 +3264,7 @@ begin
   VOk := True;
   if Assigned(fOnVerifyPeer) then
   begin
-    fOnVerifyPeer(Self,Certificate, ADepth, AError,
+    fOnVerifyPeer(Self, Certificate, ADepth, AError,
       AnsiStringToString(X509_verify_cert_error_string(AError)),
       CertErrorToLongDescr(AError), VOk);
   end;
@@ -3399,12 +3426,17 @@ end;
 
 { ITaurusTLSCallbackHelper }
 
-function TTaurusTLSIOHandlerSocket.GetPassword(const AIsWrite: Boolean): string;
+function TTaurusTLSIOHandlerSocket.GetPassword(const AIsWrite: Boolean;
+  out VOk: Boolean): string;
 begin
   Result := '';
   if Assigned(fOnGetPassword) then
   begin
-    fOnGetPassword(Self, Result, AIsWrite);
+    fOnGetPassword(Self, Result, AIsWrite, VOk);
+  end
+  else
+  begin
+    VOk := False;
   end;
 end;
 
@@ -3666,7 +3698,7 @@ begin
   end;
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
 
-  //set security level before loading certificates.
+  // set security level before loading certificates.
   SSL_CTX_set_security_level(fContext, FSecurityLevel);
   if SecurityLevelCBOn then
   begin
@@ -4098,8 +4130,7 @@ begin
     first character to the hostname is passed }
   if fHostName <> '' then
   begin
-    LRetCode := SSL_set1_host(fSSL,
-      PIdAnsiChar(AnsiString(fHostName)));
+    LRetCode := SSL_set1_host(fSSL, PIdAnsiChar(AnsiString(fHostName)));
     if LRetCode <= 0 then
     begin
       ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
