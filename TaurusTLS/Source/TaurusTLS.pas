@@ -2280,6 +2280,7 @@ begin
       end
       else
       begin
+        LOk := False;
         Result := 0;
       end;
       buf[size - 1] := #0; // RLebeau: truncate the password if needed
