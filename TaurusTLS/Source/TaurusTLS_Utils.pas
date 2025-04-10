@@ -95,7 +95,23 @@ function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 /// <remarks>
 /// An empty string may be returned if APtr is nil or the ALen parameter is 0.
 /// </remarks>
-function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
+function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;  overload;
+/// <summary>
+/// Converts a series of bytes to their hexidecimal representation.
+/// </summary>
+/// <param name="APtr">
+/// Pointer to the bytes to convert.
+/// </param>
+/// <param name="ALen">
+/// number of bytes to convert.
+/// </param>
+/// <returns>
+/// Hexidecimal representation of the bytes.
+/// </returns>
+/// <remarks>
+/// An empty string may be returned if APtr is nil or the ALen parameter is 0.
+/// </remarks>
+function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String; overload;
 /// <summary>
 /// Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
 /// </summary>
@@ -499,6 +515,12 @@ begin
       Inc(LPtr);
     end;
   end;
+end;
+
+function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String;
+{$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));
 end;
 
 function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
