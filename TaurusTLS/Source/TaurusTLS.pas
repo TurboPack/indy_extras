@@ -3744,15 +3744,8 @@ begin
       // OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
       // that handles a chain of certificates in a PEM file.  That is prefered.
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-      if Assigned(SSL_CTX_use_certificate_chain_file) then
-      begin
+
         LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-      end
-      else
-      begin
-        LRes := IndySSL_CTX_use_certificate_file(fContext, CertFile,
-          SSL_FILETYPE_PEM) > 0;
-      end;
 {$ELSE}
       LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
 {$ENDIF}

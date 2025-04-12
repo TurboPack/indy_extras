@@ -118,24 +118,7 @@ function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
 /// </returns>
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
-/// <summary>
-///   Loads a certificate from a PEM file into an OpenSSL SSL Context Object.
-/// </summary>
-/// <param name="ctx">
-///   The context where the certificate should be loaded.
-/// </param>
-/// <param name="AFileName">
-///   The .PEM file containing the certificate.
-/// </param>
-/// <param name="AType">
-///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
-///   the TaurusTLSHeaders_ssl unit.
-/// </param>
-/// <returns>
-///   1 if successful or 0 if failed.
-/// </returns>
-function IndySSL_CTX_use_certificate_file(ctx: PSSL_CTX;
-  const AFileName: String; AType: Integer): TIdC_INT;
+//  const AFileName: String; AType: Integer): TIdC_INT;
 /// <summary>
 ///   Load a list of client Certificate Authority names.
 /// </summary>
@@ -818,68 +801,6 @@ begin
   end;
 end;
 
-function IndySSL_CTX_use_certificate_file(ctx: PSSL_CTX;
-  const AFileName: String; AType: Integer): TIdC_INT;
-var
-  LM: TMemoryStream;
-  b: PBIO;
-  LX: PX509;
-  j: TIdC_INT;
-begin
-  Result := 0;
-
-  LM := TMemoryStream.Create;
-  try
-    LM.LoadFromFile(AFileName);
-  except
-    // Surpress exception here since it's going to be called by the OpenSSL .DLL
-    // Follow the OpenSSL .DLL Error conventions.
-    SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_SYS_LIB);
-    LM.Free;
-    Exit;
-  end;
-
-  try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
-    if not Assigned(b) then
-    begin
-      SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_BUF_LIB);
-      Exit;
-    end;
-    try
-      case AType of
-        SSL_FILETYPE_ASN1:
-          begin
-            j := ERR_R_ASN1_LIB;
-            LX := d2i_X509_bio(b, nil);
-          end;
-        SSL_FILETYPE_PEM:
-          begin
-            j := ERR_R_PEM_LIB;
-            LX := PEM_read_bio_X509(b, nil, SSL_CTX_get_default_passwd_cb(ctx),
-              SSL_CTX_get_default_passwd_cb_userdata(ctx));
-          end
-      else
-        begin
-          SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, SSL_R_BAD_SSL_FILETYPE);
-          Exit;
-        end;
-      end;
-      if not Assigned(LX) then
-      begin
-        SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, j);
-        Exit;
-      end;
-      Result := SSL_CTX_use_certificate(ctx, LX);
-      X509_free(LX);
-    finally
-      BIO_free(b);
-    end;
-  finally
-    FreeAndNil(LM);
-  end;
-end;
-
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
@@ -1133,22 +1054,6 @@ begin
     , AType);
 end;
 
-function IndySSL_CTX_use_certificate_file(ctx: PSSL_CTX;
-  const AFileName: String; AType: Integer): TIdC_INT;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-{$IFDEF USE_MARSHALLED_PTRS}
-var
-  M: TMarshaller;
-{$ENDIF}
-begin
-  Result := SSL_CTX_use_certificate_file(ctx,
-{$IFDEF USE_MARSHALLED_PTRS}
-    M.AsUtf8(AFileName).ToPointer
-{$ELSE}
-    PAnsiChar(UTF8String(AFileName))
-{$ENDIF}
-    , AType);
-end;
 
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
@@ -1303,13 +1208,6 @@ function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := SSL_CTX_use_PrivateKey_file(ctx, PAnsiChar(AFileName), AType);
-end;
-
-function IndySSL_CTX_use_certificate_file(ctx: PSSL_CTX;
-  const AFileName: String; AType: Integer): TIdC_INT;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := SSL_CTX_use_certificate_file(ctx, PAnsiChar(AFileName), AType);
 end;
 
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
