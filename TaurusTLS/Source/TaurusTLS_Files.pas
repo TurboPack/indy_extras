@@ -9,7 +9,7 @@
 { ****************************************************************************** }
 
 /// <summary>
-///   File routines for the TaurusTLS library.
+/// File routines for the TaurusTLS library.
 /// </summary>
 unit TaurusTLS_Files;
 
@@ -25,143 +25,143 @@ uses
   TaurusTLSHeaders_x509;
 
 const
-/// <summary>
-///   Maximum password length.
-/// </summary>
+  /// <summary>
+  /// Maximum password length.
+  /// </summary>
   MAX_SSL_PASSWORD_LENGTH = 128;
 
-/// <summary>
-///   Load a certificate in PEM format into an OpenSSL X509 Certificate Object.
-/// </summary>
-/// <param name="AFileName">
-///   The file to load the certificate from.
-/// </param>
-/// <returns>
-///   The OpenSSL X509 Certificate object.
-/// </returns>
+  /// <summary>
+  /// Load a certificate in PEM format into an OpenSSL X509 Certificate Object.
+  /// </summary>
+  /// <param name="AFileName">
+  /// The file to load the certificate from.
+  /// </param>
+  /// <returns>
+  /// The OpenSSL X509 Certificate object.
+  /// </returns>
 function LoadCertificate(const AFileName: String): PX509;
 /// <summary>
-///   Load a pfx or .p12 certificate file into an OpenSSL SSL Context Object.
+/// Load a pfx or .p12 certificate file into an OpenSSL SSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   Context to load file into.
+/// Context to load file into.
 /// </param>
 /// <param name="AFileName">
-///   The certificate file to load.
+/// The certificate file to load.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 /// <summary>
-///   Load a .pfx or .p12 private key file into an OpenSSL SSL Context Object.
+/// Load a .pfx or .p12 private key file into an OpenSSL SSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   Context to load file into.
+/// Context to load file into.
 /// </param>
 /// <param name="AFileName">
-///   The private key file to load.
+/// The private key file to load.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 /// <summary>
-///   Load a private key into an OpenSSL Context Object.
+/// Load a private key into an OpenSSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   Context to load file into.
+/// Context to load file into.
 /// </param>
 /// <param name="AFileName">
-///   Private Key file.
+/// Private Key file.
 /// </param>
 /// <param name="AType">
-///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
-///   the TaurusTLSHeaders_ssl unit.
+/// The format of the file. Usually one of the SSL_FILETYPE_ constants from
+/// the TaurusTLSHeaders_ssl unit.
 /// </param>
 /// <returns>
-///   Returns 1 if successful or 0 if failed.
+/// Returns 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 /// <summary>
-///   Load Root certificates into an OpenSSL SSL Context Object.
+/// Load Root certificates into an OpenSSL SSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   The Context where the root certificates should be loaded.
+/// The Context where the root certificates should be loaded.
 /// </param>
 /// <param name="ACAFile">
-///   Root certificate file.
+/// Root certificate file.
 /// </param>
 /// <param name="ACAPath">
-///   Directories where to load root certificates from separated by colons.
+/// Directories where to load root certificates from separated by colons.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
 /// <summary>
-///   Loads a certificate chain from a PEM file into an OpenSSL SSL Context
-///   Object.
+/// Loads a certificate chain from a PEM file into an OpenSSL SSL Context
+/// Object.
 /// </summary>
 /// <param name="ctx">
-///   The context where the certificate chain should be loaded.
+/// The context where the certificate chain should be loaded.
 /// </param>
 /// <param name="AFileName">
-///   The .PEM file containing the certificate chain.
+/// The .PEM file containing the certificate chain.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
-//  const AFileName: String; AType: Integer): TIdC_INT;
+// const AFileName: String; AType: Integer): TIdC_INT;
 /// <summary>
-///   Load a list of client Certificate Authority names.
+/// Load a list of client Certificate Authority names.
 /// </summary>
 /// <param name="AFileName">
-///   The file to load the list from.
+/// The file to load the list from.
 /// </param>
 /// <returns>
-///   The list of Certificate Authorities.
+/// The list of Certificate Authorities.
 /// </returns>
 function IndySSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 /// <summary>
-///   Loads a DH parameters file into an OpenSSL Context Object.
+/// Loads a DH parameters file into an OpenSSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   The context where the DH parameters should be loaded.
+/// The context where the DH parameters should be loaded.
 /// </param>
 /// <param name="AFileName">
-///   The file to load the DH parameters from.
+/// The file to load the DH parameters from.
 /// </param>
 /// <param name="AType">
-///   The format of the file. Usually one of the SSL_FILETYPE_ constants from
-///   the TaurusTLSHeaders_ssl unit.
+/// The format of the file. Usually one of the SSL_FILETYPE_ constants from
+/// the TaurusTLSHeaders_ssl unit.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 /// <summary>
-///   Load Root certificates into an OpenSSL SSL Context Object.
+/// Load Root certificates into an OpenSSL SSL Context Object.
 /// </summary>
 /// <param name="ctx">
-///   The Context where the root certificates should be loaded.
+/// The Context where the root certificates should be loaded.
 /// </param>
 /// <param name="AFileName">
-///   Root certificate file.
+/// Root certificate file.
 /// </param>
 /// <param name="APathName">
-///   Directories where to load root certificates from separated by colons.
+/// Directories where to load root certificates from separated by colons.
 /// </param>
 /// <returns>
-///   1 if successful or 0 if failed.
+/// 1 if successful or 0 if failed.
 /// </returns>
 function IndyX509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
@@ -254,10 +254,10 @@ begin
       begin
         if default_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
-          begin
-            ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
-            Exit;
-          end;
+        begin
+          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+          Exit;
+        end;
       end
       else
       begin
@@ -337,15 +337,15 @@ begin
       begin
         if default_passwd_callback(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
-          begin
-            ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
-            Exit;
-          end;
+        begin
+          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+          Exit;
+        end;
       end
       else
       begin
-            ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
-            Exit;
+        ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+        Exit;
       end;
       P12 := d2i_PKCS12_bio(b, nil);
       if not Assigned(P12) then
@@ -389,7 +389,6 @@ end;
 }
 
 {$IFDEF STRING_IS_UNICODE} { UCS-2 implied }
-
 {$IFDEF WINDOWS}
 function Indy_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
   const AFileName: String; const _type: TIdC_INT): TIdC_INT; forward;
@@ -497,8 +496,8 @@ begin
               LX := PEM_read_bio_X509_AUX(Lin, nil, nil, nil);
               if not Assigned(LX) then
               begin
-                if (ERR_GET_REASON(ERR_peek_last_error())
-                  = PEM_R_NO_START_LINE) and (count > 0) then
+                if (ERR_GET_REASON(ERR_peek_last_error()) = PEM_R_NO_START_LINE)
+                  and (count > 0) then
                 begin
                   ERR_clear_error();
                   Break;
@@ -810,7 +809,8 @@ var
   ca: PX509;
   r: TIdC_INT;
   LErr: TIdC_ULONG;
-  LUserData : Pointer;
+  LPasswordCallback: pem_password_cb;
+  LUserData: Pointer;
 begin
   Result := 0;
 
@@ -835,9 +835,9 @@ begin
       Exit;
     end;
     try
+      LPasswordCallback := SSL_CTX_get_default_passwd_cb(ctx);
       LUserData := SSL_CTX_get_default_passwd_cb_userdata(ctx);
-      LX := PEM_read_bio_X509_AUX(b, nil, SSL_CTX_get_default_passwd_cb(ctx),
-        LUserData);
+      LX := PEM_read_bio_X509_AUX(b, nil, LPasswordCallback, LUserData);
       if LX = nil then
       begin
         SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_CHAIN_FILE, ERR_R_PEM_LIB);
@@ -854,8 +854,7 @@ begin
         begin
           SSL_CTX_clear_chain_certs(ctx);
           repeat
-            ca := PEM_read_bio_X509(b, nil, SSL_CTX_get_default_passwd_cb(ctx),
-              LUserData);
+            ca := PEM_read_bio_X509(b, nil, LPasswordCallback, LUserData);
             if ca = nil then
             begin
               Break;
@@ -933,8 +932,8 @@ begin
   if APathName <> '' then
   begin
     { TODO: Figure out how to do the hash dir lookup with a Unicode path. }
-    if X509_STORE_load_locations(ctx, nil, PAnsiChar(AnsiString(APathName)))
-      <> 1 then
+    if X509_STORE_load_locations(ctx, nil, PAnsiChar(AnsiString(APathName))) <> 1
+    then
     begin
       Exit;
     end;
@@ -1053,7 +1052,6 @@ begin
 {$ENDIF}
     , AType);
 end;
-
 
 function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
