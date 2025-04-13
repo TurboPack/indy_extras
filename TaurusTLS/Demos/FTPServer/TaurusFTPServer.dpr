@@ -30,7 +30,7 @@ type
     FFTPServExplicit: TIdFTPServer;
     FFTPServImplicit: TIdFTPServer;
     procedure ioOnGetPasswordEx(ASender: TObject; var VPassword: String;
-      const AIsWrite: Boolean);
+      const AIsWrite: Boolean; var VOk : Boolean);
     procedure ftpsrvOnHostCheck(ASender: TIdFTPServerContext;
       const AHost: String; var VAccepted: Boolean);
     procedure ftpsrvOnLogin(ASender: TIdFTPServerContext;
@@ -752,13 +752,14 @@ begin
 end;
 
 procedure TFTPServerApp.ioOnGetPasswordEx(ASender: TObject;
-  var VPassword: String; const AIsWrite: Boolean);
+  var VPassword: String; const AIsWrite: Boolean; var VOk : Boolean);
 var
   Lini: TIniFile;
 begin
   Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
   try
     VPassword := Lini.ReadString('Certificate', 'Password', 'testinfg');
+    VOk := VPassword <> '';
   finally
     FreeAndNil(Lini);
   end;
