@@ -836,7 +836,7 @@ begin
     end;
     try
       LUserData := SSL_CTX_get_default_passwd_cb_userdata(ctx);
-      LX := PEM_read_bio_X509_AUX(b, nil, SSL_CTX_get_default_passwd_cb_userdata(ctx),
+      LX := PEM_read_bio_X509_AUX(b, nil, SSL_CTX_get_default_passwd_cb(ctx),
         LUserData);
       if LX = nil then
       begin
