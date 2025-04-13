@@ -220,10 +220,10 @@ var
   b: PBIO;
   LKey: PEVP_PKEY;
   LCert: PX509;
-  P12: PPKCS12;
-  CertChain: PSTACK_OF_X509;
+  LP12: PPKCS12;
+  LCertChain: PSTACK_OF_X509;
   LPassword: array of TIdAnsiChar;
-  default_passwd_cb: pem_password_cb;
+  Ldefault_passwd_cb: pem_password_cb;
 begin
   Result := 0;
   LKey := nil;
@@ -249,10 +249,10 @@ begin
     try
       SetLength(LPassword, MAX_SSL_PASSWORD_LENGTH + 1);
       LPassword[MAX_SSL_PASSWORD_LENGTH] := TIdAnsiChar(0);
-      default_passwd_cb := SSL_CTX_get_default_passwd_cb(ctx);
-      if Assigned(default_passwd_cb) then
+      Ldefault_passwd_cb := SSL_CTX_get_default_passwd_cb(ctx);
+      if Assigned(Ldefault_passwd_cb) then
       begin
-        if default_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
+        if Ldefault_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
         begin
           ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
@@ -266,14 +266,14 @@ begin
         ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
         Exit;
       end;
-      P12 := d2i_PKCS12_bio(b, nil);
-      if not Assigned(P12) then
+      LP12 := d2i_PKCS12_bio(b, nil);
+      if not Assigned(LP12) then
       begin
         SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_PKCS12_LIB);
         Exit;
       end;
       try
-        if PKCS12_parse(P12, @LPassword[0], LKey, LCert, @CertChain) <> 1 then
+        if PKCS12_parse(LP12, @LPassword[0], LKey, LCert, @LCertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
           Exit;
@@ -281,12 +281,12 @@ begin
         try
           Result := SSL_CTX_use_PrivateKey(ctx, LKey);
         finally
-          sk_pop_free(CertChain, @X509_free);
+          sk_pop_free(LCertChain, @X509_free);
           X509_free(LCert);
           EVP_PKEY_free(LKey);
         end;
       finally
-        PKCS12_free(P12);
+        PKCS12_free(LP12);
       end;
     finally
       BIO_free(b);
@@ -300,13 +300,13 @@ function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
   LM: TMemoryStream;
-  b: PBIO;
+  Lb: PBIO;
   LCert: PX509;
-  P12: PPKCS12;
+  LP12: PPKCS12;
   LKey: PEVP_PKEY;
-  CertChain: PSTACK_OF_X509;
+  LCertChain: PSTACK_OF_X509;
   LPassword: array of TIdAnsiChar;
-  default_passwd_callback: pem_password_cb;
+  Ldefault_passwd_callback: pem_password_cb;
 begin
   Result := 0;
   LKey := nil;
@@ -323,8 +323,8 @@ begin
   end;
 
   try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
-    if not Assigned(b) then
+    Lb := BIO_new_mem_buf(LM.Memory, LM.Size);
+    if not Assigned(Lb) then
     begin
       SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_BUF_LIB);
       Exit;
@@ -332,10 +332,10 @@ begin
     try
       SetLength(LPassword, MAX_SSL_PASSWORD_LENGTH + 1);
       LPassword[MAX_SSL_PASSWORD_LENGTH] := TIdAnsiChar(0);
-      default_passwd_callback := SSL_CTX_get_default_passwd_cb(ctx);
-      if Assigned(default_passwd_callback) then
+      Ldefault_passwd_callback := SSL_CTX_get_default_passwd_cb(ctx);
+      if Assigned(Ldefault_passwd_callback) then
       begin
-        if default_passwd_callback(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
+        if Ldefault_passwd_callback(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
         begin
           ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
@@ -347,14 +347,14 @@ begin
         ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
         Exit;
       end;
-      P12 := d2i_PKCS12_bio(b, nil);
-      if not Assigned(P12) then
+      LP12 := d2i_PKCS12_bio(Lb, nil);
+      if not Assigned(LP12) then
       begin
         SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
         Exit;
       end;
       try
-        if PKCS12_parse(P12, @LPassword[0], LKey, LCert, @CertChain) <> 1 then
+        if PKCS12_parse(LP12, @LPassword[0], LKey, LCert, @LCertChain) <> 1 then
         begin
           SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_PKCS12_LIB);
           Exit;
@@ -362,15 +362,15 @@ begin
         try
           Result := SSL_CTX_use_certificate(ctx, LCert);
         finally
-          sk_pop_free(CertChain, @X509_free);
+          sk_pop_free(LCertChain, @X509_free);
           X509_free(LCert);
           EVP_PKEY_free(LKey);
         end;
       finally
-        PKCS12_free(P12);
+        PKCS12_free(LP12);
       end;
     finally
-      BIO_free(b);
+      BIO_free(Lb);
     end;
   finally
     FreeAndNil(LM);
