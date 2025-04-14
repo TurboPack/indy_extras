@@ -174,9 +174,9 @@ begin
     Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
     try
       Lini.WriteString('Certificate', 'CertificateFile',
-        GetCurrentDir + '\localhost.crt');
+        GetCurrentDir + '\ca.pem');
       Lini.WriteString('Certificate', 'KeyFile',
-        GetCurrentDir + '\localhost.key');
+        GetCurrentDir + '\privkey.pem');
       Lini.WriteString('Certificate', 'RootCertFile', '');
       Lini.WriteString('Certificate', 'DH_Parameters', '');
       Lini.WriteString('Certificate', 'Password', 'testinfg');

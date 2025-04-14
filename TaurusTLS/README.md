@@ -111,6 +111,11 @@ CertificateFile=[path to your public certificate file]
 KeyFile=[path to your private SSL key]
 Password=[password for your private SSL key]
 ```
+You can also do the following:
+
+1. Copy the OpenSSL .dll's to the directory where the .exe is built.
+2. run the makecert.bat.
+3. Run the FTP Server .exe and it will create a default server.ini file.
 
 ### TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
 This is a fully-functional Delphi-only FTP client that is multi threaded using the VCL Framework.  It has been tested with the following servers:
