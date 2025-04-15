@@ -30,7 +30,7 @@ type
     FFTPServExplicit: TIdFTPServer;
     FFTPServImplicit: TIdFTPServer;
     procedure ioOnGetPasswordEx(ASender: TObject; var VPassword: String;
-      const AIsWrite: Boolean; var VOk : Boolean);
+      const AIsWrite: Boolean; var VOk: Boolean);
     procedure ftpsrvOnHostCheck(ASender: TIdFTPServerContext;
       const AHost: String; var VAccepted: Boolean);
     procedure ftpsrvOnLogin(ASender: TIdFTPServerContext;
@@ -76,8 +76,8 @@ type
 var
   app: TFTPServerApp;
 
-function SetFileLastAccessDateTime(const FileName: String;
-  DateTime: TDateTime): Boolean; inline;
+function SetFileLastAccessDateTime(const FileName: String; DateTime: TDateTime)
+  : Boolean; inline;
 begin
   Result := (FileName <> '') and (FileExists(FileName) = True);
   if Result then
@@ -87,7 +87,7 @@ begin
 end;
 
 function SetFileLastModifiedDateTime(const FileName: String;
-  DateTime: TDateTime): Boolean;  inline;
+  DateTime: TDateTime): Boolean; inline;
 begin
   Result := (FileName <> '') and (FileExists(FileName) = True);
   if Result then
@@ -228,8 +228,8 @@ begin
     WriteLn('FTP Default Data Port: ' + IntToStr(FFTPServExplicit.DefaultPort));
     FIOExplicit.SSLOptions.MinTLSVersion := TLSv1_2;
     // FIOExplicit.SSLOptions.Method := TLSv1_3;
-    FIOExplicit.SSLOptions.CertFile := Lini.ReadString('Certificate', 'CertificateFile',
-      GetCurrentDir + '\localhost.crt');
+    FIOExplicit.SSLOptions.CertFile := Lini.ReadString('Certificate',
+      'CertificateFile', GetCurrentDir + '\localhost.crt');
     FIOExplicit.SSLOptions.KeyFile := Lini.ReadString('Certificate', 'KeyFile',
       GetCurrentDir + '\localhost.key');
     FIOExplicit.SSLOptions.RootCertFile := Lini.ReadString('Certificate',
@@ -247,10 +247,10 @@ begin
       FCompressor := nil;
     end;
     FFTPServExplicit.IOHandler := FIOExplicit;
-    {This must be set to 0 so PASV will work properly.  If left
-    at its default, the data port will timeout doing PASV.  That
-    is a serious thing since some FTP clients default to PASV or
-    even will NOT support PORT transfers.}
+    { This must be set to 0 so PASV will work properly.  If left
+      at its default, the data port will timeout doing PASV.  That
+      is a serious thing since some FTP clients default to PASV or
+      even will NOT support PORT transfers. }
     FFTPServExplicit.DefaultDataPort := 0;
     if Lini.ReadBool('Server', 'Requre_TLS', True) then
     begin
@@ -295,12 +295,13 @@ begin
       Lini.ReadBool('Server', 'Permit_CCC_Clear_Command_Connection_In_TLS_FTP',
       DEF_FTP_PERMIT_CCC);
 
-    FFTPServExplicit.AllowAnonymousLogin := Lini.ReadBool('Server',
-      'Allow_Anonymous_FTP', false);
+    FFTPServExplicit.AllowAnonymousLogin :=
+      Lini.ReadBool('Server', 'Allow_Anonymous_FTP', false);
     FFTPServExplicit.MLSDFacts := [mlsdFileCreationTime, mlsdFileLastAccessTime,
       mlsdWin32Attributes, mlsdPerms];
     FFTPServExplicit.OnHostCheck := Self.ftpsrvOnHostCheck;
-    FFTPServExplicit.SupportXAUTH := Lini.ReadBool('Server', 'SupportXAUTH', false);
+    FFTPServExplicit.SupportXAUTH := Lini.ReadBool('Server',
+      'SupportXAUTH', false);
     FFTPServExplicit.OnUserLogin := ftpsrvOnLogin;
     FFTPServExplicit.OnClientID := ftpsrvOnClient;
     FFTPServExplicit.PathProcessing := ftppDOS;
@@ -324,16 +325,18 @@ begin
     FFTPServExplicit.OnSiteUTIME := ftpsrvOnSiteUTIME;
     FFTPServExplicit.OnGetFileSize := Self.ftpsrvOnGetFileSize;
     FFTPServExplicit.OnMLST := ftpsrvOnMLST;
-    if Lini.ReadBool('Server', 'ImplicitSSL', True) then begin
+    if Lini.ReadBool('Server', 'ImplicitSSL', True) then
+    begin
       FIOImplicit := TTaurusTLSServerIOHandler.Create(nil);
-      FIOImplicit.SSLOptions.Assign( FIOExplicit.SSLOptions);
+      FIOImplicit.SSLOptions.Assign(FIOExplicit.SSLOptions);
       FFTPServImplicit := TIdFTPServer.Create(nil);
-      FFTPServImplicit.DirFormat :=  FFTPServExplicit.DirFormat;
+      FFTPServImplicit.DirFormat := FFTPServExplicit.DirFormat;
       FFTPServImplicit.Compressor := FFTPServExplicit.Compressor;
       FFTPServImplicit.IOHandler := FIOImplicit;
       FFTPServImplicit.OnCRCFile := FFTPServExplicit.OnCRCFile;
 
-      FFTPServImplicit.AllowAnonymousLogin := FFTPServExplicit.AllowAnonymousLogin;
+      FFTPServImplicit.AllowAnonymousLogin :=
+        FFTPServExplicit.AllowAnonymousLogin;
       FFTPServImplicit.MLSDFacts := FFTPServExplicit.MLSDFacts;
       FFTPServImplicit.OnHostCheck := FFTPServExplicit.OnHostCheck;
       FFTPServImplicit.SupportXAUTH := FFTPServExplicit.SupportXAUTH;
@@ -359,14 +362,16 @@ begin
 
       FFTPServImplicit.DefaultPort := 990;
       FFTPServImplicit.UseTLS := utUseImplicitTLS;
-      WriteLn('Implicit FTPS Default Data Port: ' + IntToStr(FFTPServImplicit.DefaultPort));
+      WriteLn('Implicit FTPS Default Data Port: ' +
+        IntToStr(FFTPServImplicit.DefaultPort));
     end;
   finally
     FreeAndNil(Lini)
   end;
 
   FFTPServExplicit.Active := True;
-  if Assigned(FFTPServImplicit) then begin
+  if Assigned(FFTPServImplicit) then
+  begin
     FFTPServImplicit.Active := True;
   end;
 end;
@@ -497,7 +502,7 @@ begin
   if (ARec.Attr and faDirectory) = faDirectory then
   begin
     AFTPItem.ItemType := ditDirectory;
-    AFTPItem.SizeAvail := False;
+    AFTPItem.SizeAvail := false;
   end
   else
   begin
@@ -752,7 +757,7 @@ begin
 end;
 
 procedure TFTPServerApp.ioOnGetPasswordEx(ASender: TObject;
-  var VPassword: String; const AIsWrite: Boolean; var VOk : Boolean);
+  var VPassword: String; const AIsWrite: Boolean; var VOk: Boolean);
 var
   Lini: TIniFile;
 begin
@@ -782,8 +787,7 @@ end;
 
 begin
   app := nil;
-  if LoadOpenSSLLibrary then
-  begin
+  try
     try
       app := TFTPServerApp.Create;
       WriteLn(OpenSSLVersion);
@@ -793,12 +797,7 @@ begin
         WriteLn(E.ClassName, ': ', E.Message);
     end;
     ReadLn;
-  end
-  else
-  begin
- //  WriteLn(WhichFailedToLoad);
-    ReadLn;
+  finally
+    FreeAndNil(app);
   end;
-  FreeAndNil(app);
-
 end.
