@@ -20,6 +20,7 @@ type
     VirtualImage2: TVirtualImage;
     procedure FormCreate(Sender: TObject);
     procedure LinkLabel1Click(Sender: TObject);
+    procedure VirtualImage1Click(Sender: TObject);
     procedure VirtualImage2Click(Sender: TObject);
   private
     { Private declarations }
@@ -44,12 +45,17 @@ end;
 
 procedure TAboutBox.LinkLabel1Click(Sender: TObject);
 begin
-  ShellExecute(0, 'open', PChar(LinkLabel1.Hint), nil, nil, SW_SHOWNORMAL);
+  LaunchURL(LinkLabel1.Hint);
+end;
+
+procedure TAboutBox.VirtualImage1Click(Sender: TObject);
+begin
+  LaunchURL('https://github.com/JPeterMugaas/TaurusTLS');
 end;
 
 procedure TAboutBox.VirtualImage2Click(Sender: TObject);
 begin
-  ShellExecute(0, 'open', PChar('https://www.indyproject.org/'), nil, nil, SW_SHOWNORMAL);
+  LaunchURL('https://www.indyproject.org/');
 end;
 
 end.

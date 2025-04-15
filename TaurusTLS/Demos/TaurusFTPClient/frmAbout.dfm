@@ -20,17 +20,17 @@ object AboutBox: TAboutBox
   object Panel1: TPanel
     Left = 9
     Top = 8
-    Width = 304
+    Width = 302
     Height = 230
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentColor = True
     TabOrder = 0
-    ExplicitWidth = 302
+    ExplicitWidth = 300
     ExplicitHeight = 222
     DesignSize = (
-      304
+      302
       230)
     object ProductName: TLabel
       Left = 119
@@ -60,7 +60,7 @@ object AboutBox: TAboutBox
     object Comments: TLabel
       Left = 8
       Top = 150
-      Width = 280
+      Width = 278
       Height = 43
       Anchors = [akLeft, akRight, akBottom]
       AutoSize = False
@@ -82,6 +82,7 @@ object AboutBox: TAboutBox
       ImageHeight = 0
       ImageIndex = 1
       ImageName = 'bullhead_150'
+      OnClick = VirtualImage1Click
     end
     object VirtualImage2: TVirtualImage
       Left = 233
@@ -114,7 +115,7 @@ object AboutBox: TAboutBox
   object OKButton: TButton
     Left = 111
     Top = 242
-    Width = 98
+    Width = 96
     Height = 25
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'OK'
@@ -122,7 +123,7 @@ object AboutBox: TAboutBox
     ModalResult = 1
     TabOrder = 1
     ExplicitTop = 234
-    ExplicitWidth = 96
+    ExplicitWidth = 94
   end
   object ImageCollection1: TImageCollection
     Images = <

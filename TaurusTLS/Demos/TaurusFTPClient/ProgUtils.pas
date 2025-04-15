@@ -13,10 +13,27 @@ function DlgCaptionToFormCaption(const ACaption : String) : String;
 
 function GetProgramVersion : String;
 
+procedure LaunchURL(const AURL : String);
+
 implementation
 
-uses WinAPI.Messages, IdIPAddress, TaurusTLSHeaders_x509,
-TaurusTLSHeaders_x509_vfy, System.SysUtils;
+uses WinAPI.Messages,
+     WinAPI.Windows,
+     ShellApi,
+     IdIPAddress, TaurusTLSHeaders_x509,
+     TaurusTLSHeaders_x509_vfy, System.SysUtils;
+
+procedure LaunchURL(const AURL : String);
+var LExe : TShellExecuteInfo;
+begin
+  FillChar(lExe, SizeOf(LExe), Chr(0));
+  lExe.cbSize := SizeOf(lExe);
+  LExe.fMask := SEE_MASK_NOCLOSEPROCESS;
+  LExe.lpVerb := 'open';
+  LExe.lpFile := PChar(AURL);
+  LExe.nShow := SW_SHOWNORMAL; // show the application normally
+  ShellExecuteEx(@LExe);
+end;
 
 function GetProgramVersion : String;
 var LMajor, LMinor, LBuild : Cardinal;
