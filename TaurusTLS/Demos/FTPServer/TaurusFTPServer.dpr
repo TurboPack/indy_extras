@@ -68,6 +68,8 @@ type
     procedure ftpsrvOnSiteUTIME(ASender: TIdFTPServerContext;
       const AFileName: TIdFTPFileName; var VLastAccessTime, VLastModTime,
       VCreateDate: TDateTime; var VAUth: Boolean);
+    function SetupFTPServer(AIni: TIniFile): TIdFTPServer;
+    function SetupIOHandler(AIni: TIniFile): TTaurusTLSServerIOHandler;
   public
     constructor Create;
     destructor Destroy; override;
@@ -162,12 +164,106 @@ end;
 
 { TFTPServerApp }
 
+function TFTPServerApp.SetupFTPServer(AIni: TIniFile): TIdFTPServer;
+begin
+  Result := TIdFTPServer.Create(nil);
+  Result.Greeting.Text.Text := 'TaurusFTP Server..';
+  Result.PASVBoundPortMin := AIni.ReadInteger('Server',
+    'PASV_Bound_Port_Minimum', 0);
+  Result.PASVBoundPortMax := AIni.ReadInteger('Server',
+    'PASV_Bound_Port_Maximum', 0);
+  Result.Compressor := FCompressor;
+  { This must be set to 0 so PASV will work properly.  If left
+    at its default, the data port will timeout doing PASV.  That
+    is a serious thing since some FTP clients default to PASV or
+    even will NOT support PORT transfers. }
+  Result.DefaultDataPort := 0;
+  // Make the special Unix value case-insensitive
+  if AIni.ReadBool('Server', 'Unix_Emulation', True) then
+  begin
+    Result.DirFormat := ftpdfUnix;
+  end
+  else
+  begin
+    Result.DirFormat := ftpdfDOS;
+  end;
+
+  Result.FTPSecurityOptions.PasswordAttempts :=
+    AIni.ReadInteger('Server', 'Password_Attempts', DEF_FTP_PASSWORDATTEMPTS);
+  Result.FTPSecurityOptions.InvalidPassDelay :=
+    AIni.ReadInteger('Server', 'Delay_On_Failed_Password_Attempt',
+    DEF_FTP_INVALIDPASS_DELAY);
+  Result.FTPSecurityOptions.NoReservedRangePORT :=
+    AIni.ReadBool('Server', 'No_PORT_Requests_To_Ports_In_Reserved_Range',
+    DEF_FTP_NO_RESERVED_PORTS);
+  Result.FTPSecurityOptions.BlockAllPORTTransfers :=
+    AIni.ReadBool('Server', 'Do_Not_Accept_PORT_Transfers',
+    DEF_FTP_BLOCK_ALL_PORTS);
+  Result.FTPSecurityOptions.DisableSYSTCommand :=
+    AIni.ReadBool('Server', 'Disable_SYST_Command', DEF_FTP_DISABLE_SYST);
+  Result.FTPSecurityOptions.DisableSTATCommand :=
+    AIni.ReadBool('Server', 'Disable_STAT_Command', DEF_FTP_DISABLE_STAT);
+  Result.FTPSecurityOptions.RequirePORTFromSameIP :=
+    AIni.ReadBool('Server', 'Reqiore_PORT_Connection_From_Same_IP_Address',
+    DEF_FTP_PORT_SAME_IP);
+  Result.FTPSecurityOptions.RequirePASVFromSameIP :=
+    AIni.ReadBool('Server', 'Require_PASV_Connection_From_Same_IP_Address',
+    DEF_FTP_PASV_SAME_IP);
+  Result.FTPSecurityOptions.PermitCCC := AIni.ReadBool('Server',
+    'Permit_CCC_Clear_Command_Connection_In_TLS_FTP', DEF_FTP_PERMIT_CCC);
+
+  Result.AllowAnonymousLogin := AIni.ReadBool('Server',
+    'Allow_Anonymous_FTP', false);
+  Result.MLSDFacts := [mlsdFileCreationTime, mlsdFileLastAccessTime,
+    mlsdWin32Attributes, mlsdPerms];
+  Result.OnHostCheck := ftpsrvOnHostCheck;
+  Result.SupportXAUTH := AIni.ReadBool('Server', 'SupportXAUTH', false);
+  Result.OnUserLogin := ftpsrvOnLogin;
+  Result.OnClientID := ftpsrvOnClient;
+  Result.PathProcessing := ftppDOS;
+  Result.OnChangeDirectory := ftpsrvOnCWD;
+  Result.OnMakeDirectory := ftpsrvOnMakeDirectory;
+  Result.OnRemoveDirectory := ftpsrvOnRemoveDirectory;
+  Result.OnListDirectory := ftpsrvOnList;
+  Result.OnRenameFile := ftpsrvOnRenameFile;
+  Result.OnRetrieveFile := ftpsrvOnRetrieveFile;
+  Result.OnStoreFile := ftpsrvOnStoreFile;
+  // OnCRCFile uses the same code as OnRetrieveFile
+  if AIni.ReadBool('Server', 'Allow_File_Checksums', True) then
+  begin
+    Result.OnCRCFile := ftpsrvOnRetrieveFile;
+  end;
+  Result.OnDeleteFile := ftpsrvOnDeleteFile;
+  Result.OnGetFileDate := ftpsrvOnGetFileDate;
+  Result.OnFileExistCheck := ftpsrvOnFileExistCheck;
+  Result.OnSetModifiedTime := ftpsrvOnSetModFileDate;
+  Result.OnSetCreationTime := ftpsrvOnSetCreationFileDate;
+  Result.OnSiteUTIME := ftpsrvOnSiteUTIME;
+  Result.OnGetFileSize := ftpsrvOnGetFileSize;
+  Result.OnMLST := ftpsrvOnMLST;
+end;
+
+function TFTPServerApp.SetupIOHandler(AIni: TIniFile)
+  : TTaurusTLSServerIOHandler;
+begin
+  Result := TTaurusTLSServerIOHandler.Create(nil);
+  Result.SSLOptions.MinTLSVersion := TLSv1_2;
+  Result.SSLOptions.CertFile := AIni.ReadString('Certificate',
+    'CertificateFile', GetCurrentDir + '\localhost.crt');
+  Result.SSLOptions.KeyFile := AIni.ReadString('Certificate', 'KeyFile',
+    GetCurrentDir + '\localhost.key');
+  Result.SSLOptions.RootCertFile := AIni.ReadString('Certificate',
+    'RootCertFile', '');
+  Result.SSLOptions.DHParamsFile := AIni.ReadString('Certificate',
+    'DH_Parameters', '');
+  Result.OnGetPassword := ioOnGetPasswordEx;
+end;
+
 constructor TFTPServerApp.Create;
 var
   Lini: TIniFile;
 begin
   inherited Create;
-  // temp
   if not FileExists(GetCurrentDir + '\server.ini') then
   begin
 
@@ -213,45 +309,21 @@ begin
     end;
   end;
 
-  // temp
-  FIOImplicit := nil;
-  Self.FFTPServImplicit := nil;
-  FIOExplicit := TTaurusTLSServerIOHandler.Create(nil);
   Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
-  FFTPServExplicit := TIdFTPServer.Create(nil);
   try
-    FFTPServExplicit.Greeting.Text.Text := 'TaurusFTP Server..';
-    FFTPServExplicit.PASVBoundPortMin := Lini.ReadInteger('Server',
-      'PASV_Bound_Port_Minimum', 0);
-    FFTPServExplicit.PASVBoundPortMax := Lini.ReadInteger('Server',
-      'PASV_Bound_Port_Maximum', 0);
-    WriteLn('FTP Default Data Port: ' + IntToStr(FFTPServExplicit.DefaultPort));
-    FIOExplicit.SSLOptions.MinTLSVersion := TLSv1_2;
-    // FIOExplicit.SSLOptions.Method := TLSv1_3;
-    FIOExplicit.SSLOptions.CertFile := Lini.ReadString('Certificate',
-      'CertificateFile', GetCurrentDir + '\localhost.crt');
-    FIOExplicit.SSLOptions.KeyFile := Lini.ReadString('Certificate', 'KeyFile',
-      GetCurrentDir + '\localhost.key');
-    FIOExplicit.SSLOptions.RootCertFile := Lini.ReadString('Certificate',
-      'RootCertFile', '');
-    FIOExplicit.SSLOptions.DHParamsFile := Lini.ReadString('Certificate',
-      'DH_Parameters', '');
-    FIOExplicit.OnGetPassword := Self.ioOnGetPasswordEx;
     if Lini.ReadBool('Server', 'Allow_Compression', True) then
     begin
       FCompressor := TIdCompressorZLib.Create(nil);
-      FFTPServExplicit.Compressor := FCompressor;
     end
     else
     begin
       FCompressor := nil;
     end;
+
+    //--handle explicit FTPS server.
+    FFTPServExplicit := SetupFTPServer(Lini);
+    FIOExplicit := SetupIOHandler(Lini);
     FFTPServExplicit.IOHandler := FIOExplicit;
-    { This must be set to 0 so PASV will work properly.  If left
-      at its default, the data port will timeout doing PASV.  That
-      is a serious thing since some FTP clients default to PASV or
-      even will NOT support PORT transfers. }
-    FFTPServExplicit.DefaultDataPort := 0;
     if Lini.ReadBool('Server', 'Requre_TLS', True) then
     begin
       FFTPServExplicit.UseTLS := utUseRequireTLS;
@@ -260,119 +332,24 @@ begin
     begin
       FFTPServExplicit.UseTLS := utUseExplicitTLS;
     end;
-    // Make the special Unix value case-insensitive
-    if Lini.ReadBool('Server', 'Unix_Emulation', True) then
-    begin
-      FFTPServExplicit.DirFormat := ftpdfUnix;
-    end
-    else
-    begin
-      FFTPServExplicit.DirFormat := ftpdfDOS;
-    end;
+    FFTPServExplicit.Active := True;
+    WriteLn('FTP Default Data Port: ' + IntToStr(FFTPServExplicit.DefaultPort));
 
-    FFTPServExplicit.FTPSecurityOptions.PasswordAttempts :=
-      Lini.ReadInteger('Server', 'Password_Attempts', DEF_FTP_PASSWORDATTEMPTS);
-    FFTPServExplicit.FTPSecurityOptions.InvalidPassDelay :=
-      Lini.ReadInteger('Server', 'Delay_On_Failed_Password_Attempt',
-      DEF_FTP_INVALIDPASS_DELAY);
-    FFTPServExplicit.FTPSecurityOptions.NoReservedRangePORT :=
-      Lini.ReadBool('Server', 'No_PORT_Requests_To_Ports_In_Reserved_Range',
-      DEF_FTP_NO_RESERVED_PORTS);
-    FFTPServExplicit.FTPSecurityOptions.BlockAllPORTTransfers :=
-      Lini.ReadBool('Server', 'Do_Not_Accept_PORT_Transfers',
-      DEF_FTP_BLOCK_ALL_PORTS);
-    FFTPServExplicit.FTPSecurityOptions.DisableSYSTCommand :=
-      Lini.ReadBool('Server', 'Disable_SYST_Command', DEF_FTP_DISABLE_SYST);
-    FFTPServExplicit.FTPSecurityOptions.DisableSTATCommand :=
-      Lini.ReadBool('Server', 'Disable_STAT_Command', DEF_FTP_DISABLE_STAT);
-    FFTPServExplicit.FTPSecurityOptions.RequirePORTFromSameIP :=
-      Lini.ReadBool('Server', 'Reqiore_PORT_Connection_From_Same_IP_Address',
-      DEF_FTP_PORT_SAME_IP);
-    FFTPServExplicit.FTPSecurityOptions.RequirePASVFromSameIP :=
-      Lini.ReadBool('Server', 'Require_PASV_Connection_From_Same_IP_Address',
-      DEF_FTP_PASV_SAME_IP);
-    FFTPServExplicit.FTPSecurityOptions.PermitCCC :=
-      Lini.ReadBool('Server', 'Permit_CCC_Clear_Command_Connection_In_TLS_FTP',
-      DEF_FTP_PERMIT_CCC);
-
-    FFTPServExplicit.AllowAnonymousLogin :=
-      Lini.ReadBool('Server', 'Allow_Anonymous_FTP', false);
-    FFTPServExplicit.MLSDFacts := [mlsdFileCreationTime, mlsdFileLastAccessTime,
-      mlsdWin32Attributes, mlsdPerms];
-    FFTPServExplicit.OnHostCheck := Self.ftpsrvOnHostCheck;
-    FFTPServExplicit.SupportXAUTH := Lini.ReadBool('Server',
-      'SupportXAUTH', false);
-    FFTPServExplicit.OnUserLogin := ftpsrvOnLogin;
-    FFTPServExplicit.OnClientID := ftpsrvOnClient;
-    FFTPServExplicit.PathProcessing := ftppDOS;
-    FFTPServExplicit.OnChangeDirectory := ftpsrvOnCWD;
-    FFTPServExplicit.OnMakeDirectory := ftpsrvOnMakeDirectory;
-    FFTPServExplicit.OnRemoveDirectory := ftpsrvOnRemoveDirectory;
-    FFTPServExplicit.OnListDirectory := ftpsrvOnList;
-    FFTPServExplicit.OnRenameFile := ftpsrvOnRenameFile;
-    FFTPServExplicit.OnRetrieveFile := ftpsrvOnRetrieveFile;
-    FFTPServExplicit.OnStoreFile := ftpsrvOnStoreFile;
-    // OnCRCFile uses the same code as OnRetrieveFile
-    if Lini.ReadBool('Server', 'Allow_Compression', True) then
-    begin
-      FFTPServExplicit.OnCRCFile := ftpsrvOnRetrieveFile;
-    end;
-    FFTPServExplicit.OnDeleteFile := Self.ftpsrvOnDeleteFile;
-    FFTPServExplicit.OnGetFileDate := ftpsrvOnGetFileDate;
-    FFTPServExplicit.OnFileExistCheck := ftpsrvOnFileExistCheck;
-    FFTPServExplicit.OnSetModifiedTime := ftpsrvOnSetModFileDate;
-    FFTPServExplicit.OnSetCreationTime := ftpsrvOnSetCreationFileDate;
-    FFTPServExplicit.OnSiteUTIME := ftpsrvOnSiteUTIME;
-    FFTPServExplicit.OnGetFileSize := Self.ftpsrvOnGetFileSize;
-    FFTPServExplicit.OnMLST := ftpsrvOnMLST;
+    //--handle implicit FTPS server.
+    FFTPServImplicit := nil;
     if Lini.ReadBool('Server', 'ImplicitSSL', True) then
     begin
-      FIOImplicit := TTaurusTLSServerIOHandler.Create(nil);
-      FIOImplicit.SSLOptions.Assign(FIOExplicit.SSLOptions);
-      FFTPServImplicit := TIdFTPServer.Create(nil);
-      FFTPServImplicit.DirFormat := FFTPServExplicit.DirFormat;
-      FFTPServImplicit.Compressor := FFTPServExplicit.Compressor;
+      FFTPServImplicit := SetupFTPServer(Lini);
+      FIOImplicit := SetupIOHandler(Lini);
       FFTPServImplicit.IOHandler := FIOImplicit;
-      FFTPServImplicit.OnCRCFile := FFTPServExplicit.OnCRCFile;
-
-      FFTPServImplicit.AllowAnonymousLogin :=
-        FFTPServExplicit.AllowAnonymousLogin;
-      FFTPServImplicit.MLSDFacts := FFTPServExplicit.MLSDFacts;
-      FFTPServImplicit.OnHostCheck := FFTPServExplicit.OnHostCheck;
-      FFTPServImplicit.SupportXAUTH := FFTPServExplicit.SupportXAUTH;
-      FFTPServImplicit.OnUserLogin := FFTPServExplicit.OnUserLogin;
-      FFTPServImplicit.OnClientID := FFTPServExplicit.OnClientID;
-      FFTPServImplicit.PathProcessing := FFTPServExplicit.PathProcessing;
-      FFTPServImplicit.OnChangeDirectory := FFTPServExplicit.OnChangeDirectory;
-      FFTPServImplicit.OnMakeDirectory := FFTPServExplicit.OnMakeDirectory;
-      FFTPServImplicit.OnRemoveDirectory := FFTPServExplicit.OnRemoveDirectory;
-      FFTPServImplicit.OnListDirectory := FFTPServExplicit.OnListDirectory;
-      FFTPServImplicit.OnRenameFile := FFTPServExplicit.OnRenameFile;
-      FFTPServImplicit.OnRetrieveFile := FFTPServExplicit.OnRetrieveFile;
-      FFTPServImplicit.OnStoreFile := FFTPServExplicit.OnStoreFile;
-
-      FFTPServImplicit.OnDeleteFile := FFTPServExplicit.OnDeleteFile;
-      FFTPServImplicit.OnGetFileDate := FFTPServExplicit.OnGetFileDate;
-      FFTPServImplicit.OnFileExistCheck := FFTPServExplicit.OnFileExistCheck;
-      FFTPServImplicit.OnSetModifiedTime := FFTPServExplicit.OnSetModifiedTime;
-      FFTPServImplicit.OnSetCreationTime := FFTPServExplicit.OnSetCreationTime;
-      FFTPServImplicit.OnSiteUTIME := FFTPServExplicit.OnSiteUTIME;
-      FFTPServImplicit.OnGetFileSize := FFTPServExplicit.OnGetFileSize;
-      FFTPServImplicit.OnMLST := FFTPServExplicit.OnMLST;
-
       FFTPServImplicit.DefaultPort := 990;
       FFTPServImplicit.UseTLS := utUseImplicitTLS;
+      FFTPServImplicit.Active := True;
       WriteLn('Implicit FTPS Default Data Port: ' +
         IntToStr(FFTPServImplicit.DefaultPort));
     end;
   finally
     FreeAndNil(Lini)
-  end;
-
-  FFTPServExplicit.Active := True;
-  if Assigned(FFTPServImplicit) then
-  begin
-    FFTPServImplicit.Active := True;
   end;
 end;
 
@@ -800,4 +777,5 @@ begin
   finally
     FreeAndNil(app);
   end;
+
 end.
