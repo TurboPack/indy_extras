@@ -173,7 +173,7 @@ author of the original code that was modified to create TaurusTLS.
 ## Third Party Notices
 
 Portions of this software are Copyright (c) 1993 – 2018, Chad Z. Hower
-(Kudzu) and the Indy Pit Crew – <http://www.IndyProject.org/>
+(Kudzu) and the Indy Pit Crew – <https://www.indyproject.org/>
 
 Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
