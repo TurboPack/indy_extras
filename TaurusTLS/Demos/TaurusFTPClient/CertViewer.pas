@@ -285,8 +285,6 @@ begin
       end;
     end;
     redtCertView.Lines.Add('Fingerprint: ');
-    redtCertView.Lines.Add(RightJustify('SHA1: ', TAB1) +
-      FX509.Fingerprints.SHA1AsString);
     redtCertView.Lines.Add(RightJustify('SHA224: ', TAB1) +
       FX509.Fingerprints.SHA224AsString);
     redtCertView.Lines.Add(RightJustify('SHA256: ', TAB1) +

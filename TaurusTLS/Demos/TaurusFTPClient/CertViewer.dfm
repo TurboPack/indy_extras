@@ -20,7 +20,7 @@ object frmCertViewer: TfrmCertViewer
   object lblErrorMessage: TLabel
     Left = 8
     Top = 8
-    Width = 532
+    Width = 530
     Height = 74
     Anchors = [akLeft, akTop, akRight]
     AutoSize = False
@@ -57,7 +57,7 @@ object frmCertViewer: TfrmCertViewer
       556
       34)
     object OKBtn: TButton
-      Left = 387
+      Left = 385
       Top = 2
       Width = 75
       Height = 25
@@ -66,10 +66,9 @@ object frmCertViewer: TfrmCertViewer
       Default = True
       ModalResult = 6
       TabOrder = 0
-      ExplicitLeft = 385
     end
     object CancelBtn: TButton
-      Left = 468
+      Left = 466
       Top = 2
       Width = 75
       Height = 25
@@ -78,13 +77,12 @@ object frmCertViewer: TfrmCertViewer
       Caption = '&No'
       ModalResult = 7
       TabOrder = 1
-      ExplicitLeft = 466
     end
   end
   object redtCertView: TRichEdit
     Left = 8
     Top = 104
-    Width = 532
+    Width = 530
     Height = 209
     TabStop = False
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -102,13 +100,11 @@ object frmCertViewer: TfrmCertViewer
     WantTabs = True
     WantReturns = False
     WordWrap = False
-    ExplicitWidth = 530
-    ExplicitHeight = 201
   end
   object chkacceptOnlyOnce: TCheckBox
     Left = 8
     Top = 320
-    Width = 532
+    Width = 530
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
     Caption = '&Accept Certificate Only Once'
@@ -116,6 +112,5 @@ object frmCertViewer: TfrmCertViewer
     State = cbChecked
     TabOrder = 1
     ExplicitTop = 312
-    ExplicitWidth = 530
   end
 end

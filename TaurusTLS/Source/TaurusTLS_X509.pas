@@ -167,10 +167,6 @@ type
   /// </summary>
   TTaurusTLSX509Fingerprints = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetMD5: TTaurusTLSLEVP_MD;
-    function GetMD5AsString: String;
-    function GetSHA1: TTaurusTLSLEVP_MD;
-    function GetSHA1AsString: String;
     function GetSHA224: TTaurusTLSLEVP_MD;
     function GetSHA224AsString: String;
     function GetSHA256: TTaurusTLSLEVP_MD;
@@ -180,16 +176,6 @@ type
     function GetSHA512: TTaurusTLSLEVP_MD;
     function GetSHA512AsString: String;
   public
-    /// <summary>
-    ///   Fingerprint expressed as a binary MD-5 checksum. The MD-5 algorithm
-    ///   should not be used for cryptographic purposes.
-    /// </summary>
-    property MD5: TTaurusTLSLEVP_MD read GetMD5;
-    /// <summary>
-    ///   Fingerprint expressed as a hexidecimal MD-5 checksum. The MD-5
-    ///   algorithm should not be used for cryptographic purposes.
-    /// </summary>
-    property MD5AsString: String read GetMD5AsString;
     { IMPORTANT!!!
 
       FIPS approves only these algorithms for hashing.
@@ -200,16 +186,6 @@ type
 
       http://csrc.nist.gov/CryptoToolkit/tkhash.html
     }
-    /// <summary>
-    ///   Fingerprint expressed as a binary SHA-1 checksum. The SHA-1 algorithm
-    ///   should not be used for cryptographic purposes.
-    /// </summary>
-    property SHA1: TTaurusTLSLEVP_MD read GetSHA1;
-    /// <summary>
-    ///   Fingerprint expressed as a hexidecimal SHA-1 checksum. The SHA-1
-    ///   algorithm should not be used for cryptographic purposes.
-    /// </summary>
-    property SHA1AsString: String read GetSHA1AsString;
     /// <summary>
     ///   Fingerprint expressed as a binary SHA-224 checksum.
     /// </summary>
@@ -951,27 +927,6 @@ begin
 end;
 
 { TTaurusTLSX509Fingerprints }
-
-function TTaurusTLSX509Fingerprints.GetMD5: TTaurusTLSLEVP_MD;
-begin
-  CheckMD5Permitted;
-  X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length);
-end;
-
-function TTaurusTLSX509Fingerprints.GetMD5AsString: String;
-begin
-  Result := MDAsString(MD5);
-end;
-
-function TTaurusTLSX509Fingerprints.GetSHA1: TTaurusTLSLEVP_MD;
-begin
-  X509_digest(FX509, EVP_sha1, PByte(@Result.MD), Result._Length);
-end;
-
-function TTaurusTLSX509Fingerprints.GetSHA1AsString: String;
-begin
-  Result := MDAsString(SHA1);
-end;
 
 function TTaurusTLSX509Fingerprints.GetSHA224: TTaurusTLSLEVP_MD;
 begin

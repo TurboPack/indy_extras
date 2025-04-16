@@ -77,6 +77,7 @@ object AboutBox: TAboutBox
       Top = 12
       Width = 105
       Height = 105
+      Cursor = crHandPoint
       ImageCollection = ImageCollection1
       ImageWidth = 0
       ImageHeight = 0
@@ -89,6 +90,7 @@ object AboutBox: TAboutBox
       Top = 53
       Width = 64
       Height = 64
+      Cursor = crHandPoint
       ImageCollection = ImageCollection1
       ImageWidth = 0
       ImageHeight = 0
