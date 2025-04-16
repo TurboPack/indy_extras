@@ -632,7 +632,7 @@ type
     function GetHasFreshestCRL: Boolean;
   public
     /// <summary>
-    ///   Creates a new instance of TTaurus​TLSX509.
+    ///   Creates a new instance of TTaurusTLS.
     /// </summary>
     /// <param name="aX509">
     ///   The OpenSSL X509 object associated with the new instance.

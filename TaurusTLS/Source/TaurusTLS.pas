@@ -2872,6 +2872,29 @@ begin
   end;
 end;
 
+function TTaurusTLSServerIOHandler.MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase;
+var
+  LIO: TTaurusTLSIOHandlerSocket;
+begin
+  LIO := TTaurusTLSIOHandlerSocket.Create(nil);
+  try
+    LIO.PassThrough := True;
+    LIO.OnGetPassword := fOnGetPassword;
+    LIO.OnDebugMessage := FOnDebugMessage;
+    LIO.OnStatusInfo := FOnStatusInfo;
+    LIO.OnSSLNegotiated := FOnSSLNegotiated;
+    LIO.OnSecurityLevel := fOnSecurityLevel;
+    LIO.IsPeer := True; // RLebeau 1/24/2019: is this still needed now?
+    LIO.SSLOptions.Assign(SSLOptions);
+    LIO.SSLOptions.Mode := sslmBoth; { or sslmServer }
+    LIO.SSLContext  := SSLContext;
+  except
+    LIO.Free;
+    raise;
+  end;
+  Result := LIO;
+end;
+
 function TTaurusTLSServerIOHandler.MakeFTPSvrPort: TIdSSLIOHandlerSocketBase;
 var
   LIO: TTaurusTLSIOHandlerSocket;
@@ -2899,25 +2922,6 @@ procedure TTaurusTLSServerIOHandler.Shutdown;
 begin
   FreeAndNil(fSSLContext);
   inherited Shutdown;
-end;
-
-function TTaurusTLSServerIOHandler.MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase;
-var
-  LIO: TTaurusTLSIOHandlerSocket;
-begin
-  LIO := TTaurusTLSIOHandlerSocket.Create(nil);
-  try
-    LIO.PassThrough := True;
-    LIO.OnGetPassword := fOnGetPassword;
-    LIO.IsPeer := True;
-    LIO.SSLOptions.Assign(SSLOptions);
-    LIO.SSLOptions.Mode := sslmBoth; { or sslmServer }
-    LIO.SSLContext := nil;
-  except
-    LIO.Free;
-    raise;
-  end;
-  Result := LIO;
 end;
 
 { ITaurusTLSCallbackHelper }
