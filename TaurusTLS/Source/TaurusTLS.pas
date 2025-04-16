@@ -1641,7 +1641,7 @@ type
     function MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase; override;
 
     /// <summary>
-    /// The SSL Context for the TTaurusTLSServerIOHandler​.
+    /// The SSL Context for the TTaurusTLSServerIOHandler.
     /// </summary>
     property SSLContext: TTaurusTLSContext read fSSLContext;
     /// <summary>
