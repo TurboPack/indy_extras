@@ -1565,7 +1565,7 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-
+    function MakeDataChannelIOHandler : TTaurusTLSIOHandlerSocket;
   public
     /// <summary>
     /// Called by Indy (Internet Direct) and makes a TTaurusTLSContext for
@@ -2872,25 +2872,35 @@ begin
   end;
 end;
 
+function TTaurusTLSServerIOHandler.MakeDataChannelIOHandler : TTaurusTLSIOHandlerSocket;
+
+begin
+  Result := TTaurusTLSIOHandlerSocket.Create(nil);
+  try
+    Result.PassThrough := True;
+    Result.OnGetPassword := fOnGetPassword;
+    Result.OnDebugMessage := FOnDebugMessage;
+    Result.OnStatusInfo := FOnStatusInfo;
+    Result.OnSSLNegotiated := FOnSSLNegotiated;
+    Result.OnSecurityLevel := fOnSecurityLevel;
+    Result.IsPeer := True; // RLebeau 1/24/2019: is this still needed now?
+     Result.SSLOptions.Assign(SSLOptions);
+  except
+    Result.Free;
+    raise;
+  end;
+
+end;
+
 function TTaurusTLSServerIOHandler.MakeFTPSvrPasv: TIdSSLIOHandlerSocketBase;
 var
   LIO: TTaurusTLSIOHandlerSocket;
 begin
-  LIO := TTaurusTLSIOHandlerSocket.Create(nil);
-  try
-    LIO.PassThrough := True;
-    LIO.OnGetPassword := fOnGetPassword;
-    LIO.OnDebugMessage := FOnDebugMessage;
-    LIO.OnStatusInfo := FOnStatusInfo;
-    LIO.OnSSLNegotiated := FOnSSLNegotiated;
-    LIO.OnSecurityLevel := fOnSecurityLevel;
-    LIO.IsPeer := True; // RLebeau 1/24/2019: is this still needed now?
-    LIO.SSLOptions.Assign(SSLOptions);
-    LIO.SSLOptions.Mode := sslmBoth; { or sslmServer }
+  LIO := MakeDataChannelIOHandler;
+  if Assigned(LIO) then
+  begin
+    LIO.SSLOptions.Mode := sslmServer;
     LIO.SSLContext  := SSLContext;
-  except
-    LIO.Free;
-    raise;
   end;
   Result := LIO;
 end;
@@ -2899,21 +2909,11 @@ function TTaurusTLSServerIOHandler.MakeFTPSvrPort: TIdSSLIOHandlerSocketBase;
 var
   LIO: TTaurusTLSIOHandlerSocket;
 begin
-  LIO := TTaurusTLSIOHandlerSocket.Create(nil);
-  try
-    LIO.PassThrough := True;
-    LIO.OnGetPassword := fOnGetPassword;
-    LIO.OnDebugMessage := FOnDebugMessage;
-    LIO.OnStatusInfo := FOnStatusInfo;
-    LIO.OnSSLNegotiated := FOnSSLNegotiated;
-    LIO.OnSecurityLevel := fOnSecurityLevel;
-    LIO.IsPeer := True; // RLebeau 1/24/2019: is this still needed now?
-    LIO.SSLOptions.Assign(SSLOptions);
-    LIO.SSLOptions.Mode := sslmBoth; { or sslmClient }{ doesn't really matter }
+  LIO := MakeDataChannelIOHandler;
+  if Assigned(LIO) then
+  begin
+    LIO.SSLOptions.Mode := sslmClient; { doesn't really matter }
     LIO.SSLContext := SSLContext;
-  except
-    LIO.Free;
-    raise;
   end;
   Result := LIO;
 end;
