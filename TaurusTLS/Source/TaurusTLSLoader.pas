@@ -105,7 +105,7 @@ type
     ///   The path of the OpenSSL library.
     /// </summary>
     /// <value>
-    ///   The path where the OpenSSL library should be loaded fron. If empty,
+    ///   The path where the OpenSSL library should be loaded from. If empty,
     ///   the OpenSSL library is loaded from the operating system default
     ///   pathes.
     /// </value>
