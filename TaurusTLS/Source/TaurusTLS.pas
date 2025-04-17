@@ -2010,12 +2010,15 @@ procedure UnLoadOpenSSLLibrary;
 /// </summary>
 function OpenSSLVersion: string;
 /// <summary>
-/// The OpenSSL directory. This is the directory that was configured when
-/// OpenSSL was built.
+///   The OpenSSL directory. This is the directory that was configured when
+///   OpenSSL was built.
 /// </summary>
 /// <returns>
-/// The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
-/// where the library was loaded from.
+///   The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+///   where the library is located. The library itslef is loaded based on the
+///   operating system's defaults or the <see
+///   cref="TaurusTLSLoader|GetOpenSSLLoader" />'s <see
+///   cref="TaurusTLSLoader|IOpenSSLLoader.GetOpenSSLPath" /> property.
 /// </returns>
 function OpenSSLDir: string;
 
