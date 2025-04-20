@@ -2003,7 +2003,6 @@ object frmMainForm: TfrmMainForm
           end>
         Enabled = False
         LargeImages = vimglstSmall
-        StyleElements = [seBorder]
         PopupMenu = ppmnuRemote
         SmallImages = vimglstSmall
         SortType = stData

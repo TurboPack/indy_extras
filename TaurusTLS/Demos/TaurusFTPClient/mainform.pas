@@ -2016,8 +2016,14 @@ end;
 procedure TFTPThread.OnStatusInfo(ASender: TObject; const AsslSocket: PSSL;
 const AWhere, Aret: TIdC_INT; const AType, AMsg: string);
 begin
-  LogSSLEvent(AType);
-  LogSSLEvent(AMsg);
+  Synchronize(procedure
+    begin
+      LogSSLEvent(AType);
+    end);
+  Synchronize(procedure
+    begin
+      LogSSLEvent(AMsg);
+    end);
 end;
 
 procedure TFTPThread.PromptPassword;
