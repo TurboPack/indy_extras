@@ -266,7 +266,7 @@ type
     procedure OnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
       const ADepth: Integer; const AError: TIdC_LONG;
       const AMsg, ADescr: String; var VOk: Boolean);
-    procedure DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
+    procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
   public
@@ -1678,7 +1678,7 @@ begin
   FIO.OnGetPassword := OnGetPassword;
   FIO.OnStatusInfo := OnStatusInfo;
   FIO.OnSSLNegotiated := OnSSLNegotiated;
-  FIO.OnDebugMessage := DoOnDebugMsg;
+//  FIO.OnDebugMessage := OnDebugMsg;
   FLog := FIO.Intercept as TIdLogEvent;
   FLog.OnReceived := Self.OnLogReceived;
   FLog.OnSent := Self.OnLogSent;
@@ -1880,7 +1880,7 @@ begin
     end);
 end;
 
-procedure TFTPThread.DoOnDebugMsg(ASender: TObject; const AWrite: Boolean;
+procedure TFTPThread.OnDebugMsg(ASender: TObject; const AWrite: Boolean;
 AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
 SSL: PSSL);
 {$IFNDEF USE_INLINE_VAR}
