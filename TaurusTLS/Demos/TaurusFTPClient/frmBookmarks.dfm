@@ -41,11 +41,13 @@ object frmFTPSites: TfrmFTPSites
     ParentColor = True
     ParentFont = False
     TabOrder = 4
+    ExplicitTop = 252
+    ExplicitWidth = 265
     DesignSize = (
       267
       34)
     object OKBtn: TButton
-      Left = 106
+      Left = 104
       Top = 2
       Width = 75
       Height = 25
@@ -54,9 +56,10 @@ object frmFTPSites: TfrmFTPSites
       Default = True
       ModalResult = 1
       TabOrder = 0
+      ExplicitLeft = 102
     end
     object CancelBtn: TButton
-      Left = 187
+      Left = 185
       Top = 2
       Width = 75
       Height = 25
@@ -65,43 +68,49 @@ object frmFTPSites: TfrmFTPSites
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 1
+      ExplicitLeft = 183
     end
   end
   object lbxFTPSites: TListBox
     Left = 8
     Top = 32
-    Width = 173
+    Width = 171
     Height = 228
     Anchors = [akLeft, akTop, akRight, akBottom]
     ItemHeight = 15
     TabOrder = 0
+    ExplicitWidth = 169
+    ExplicitHeight = 220
   end
   object btnNew: TButton
-    Left = 187
+    Left = 185
     Top = 32
     Width = 75
     Height = 25
     Action = actFTPSitesNew
     Anchors = [akTop, akRight]
     TabOrder = 1
+    ExplicitLeft = 183
   end
   object btnEdit: TButton
-    Left = 187
+    Left = 185
     Top = 63
     Width = 75
     Height = 25
     Action = actFTPSitesEdit
     Anchors = [akTop, akRight]
     TabOrder = 2
+    ExplicitLeft = 183
   end
   object btnDelete: TButton
-    Left = 187
+    Left = 185
     Top = 94
     Width = 75
     Height = 25
     Action = actFTPSiteDelete
     Anchors = [akTop, akRight]
     TabOrder = 3
+    ExplicitLeft = 183
   end
   object actLstFTPSites: TActionList
     Left = 160

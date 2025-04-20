@@ -87,11 +87,13 @@ object frmFTPProxySettings: TfrmFTPProxySettings
     ParentColor = True
     ParentFont = False
     TabOrder = 5
+    ExplicitTop = 145
+    ExplicitWidth = 470
     DesignSize = (
       472
       34)
     object OKBtn: TButton
-      Left = 311
+      Left = 307
       Top = 2
       Width = 75
       Height = 25
@@ -102,7 +104,7 @@ object frmFTPProxySettings: TfrmFTPProxySettings
       TabOrder = 0
     end
     object CancelBtn: TButton
-      Left = 392
+      Left = 388
       Top = 2
       Width = 75
       Height = 25

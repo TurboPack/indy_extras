@@ -4,10 +4,11 @@ interface
 
 uses WinApi.Windows, System.SysUtils, System.Classes, Vcl.Graphics,
   Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.BaseImageCollection, Vcl.ImageCollection, Vcl.VirtualImage;
+  Vcl.BaseImageCollection, Vcl.ImageCollection, Vcl.VirtualImage,
+  ProgUtils;
 
 type
-  TAboutBox = class(TForm)
+  TAboutBox = class(TThemedForm)
     Panel1: TPanel;
     ProductName: TLabel;
     Version: TLabel;
@@ -32,7 +33,7 @@ var
   AboutBox: TAboutBox;
 
 implementation
-uses ShellApi, ProgUtils;
+uses ShellApi;
 
 {$R *.dfm}
 

@@ -6,10 +6,10 @@ uses Winapi.Windows, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Forms,
   Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Vcl.ExtCtrls,
   System.ImageList, Vcl.ImgList, Vcl.VirtualImageList, Vcl.BaseImageCollection,
   Vcl.ImageCollection, IdExplicitTLSClientServerBase, Vcl.Samples.Spin,
-  Vcl.Dialogs;
+  Vcl.Dialogs, ProgUtils;
 
 type
-  TfrmConnect = class(TForm)
+  TfrmConnect = class(TThemedForm)
     Panel1: TPanel;
     Panel2: TPanel;
     PageControl1: TPageControl;

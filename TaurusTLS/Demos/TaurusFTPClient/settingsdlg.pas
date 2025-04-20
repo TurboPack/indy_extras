@@ -2,7 +2,9 @@ unit settingsdlg;
 
 interface
 
-uses Winapi.Windows, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Forms,
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
+  Vcl.Graphics, Vcl.Forms,
   Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Vcl.ExtCtrls,
   System.ImageList, Vcl.ImgList, Vcl.VirtualImageList, Vcl.BaseImageCollection,
   Vcl.ImageCollection, Vcl.Dialogs, Vcl.CheckLst, Vcl.Samples.Spin;
@@ -22,7 +24,6 @@ type
     ImageCollection1: TImageCollection;
     VirtualImageList1: TVirtualImageList;
     FontDialog1: TFontDialog;
-    redtLog: TRichEdit;
     btnFontSelect: TButton;
     chklbAdvancedOptions: TCheckListBox;
     lblAdvancedOptions: TLabel;
@@ -49,6 +50,11 @@ type
     btnFTPProxySettings: TButton;
     chkDirOutput: TCheckBox;
     chkDebugSSLInfo: TCheckBox;
+    cboRegularForeground: TColorBox;
+    cboRegularBackground: TColorBox;
+    lblRegular: TLabel;
+    cboDisplayMode: TComboBox;
+    lblDisplayMode: TLabel;
     procedure btnFontSelectClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure chklbAdvancedOptionsClickCheck(Sender: TObject);
@@ -64,10 +70,14 @@ type
     procedure btnNATSettingsClick(Sender: TObject);
     procedure btnTransparentProxyClick(Sender: TObject);
     procedure btnFTPProxySettingsClick(Sender: TObject);
+    procedure cboDisplayModeChange(Sender: TObject);
   private
     function GetConnected: Boolean;
     procedure SetConnected(const Value: Boolean);
+    procedure HandleThemes;
   protected
+    FRegularForeground: TColor;
+    FRegularBackground: TColor;
     FErrorForeground: TColor;
     FErrorBackground: TColor;
     FSSLMessageForeground: TColor;
@@ -76,15 +86,15 @@ type
     FDirOutputBackground: TColor;
     FDebugForeground: TColor;
     FDebugBackground: TColor;
-    //proxy/firewall settings for subdialog-boxes
-    FNATPortMin : Word;
-    FNATPortMax : Word;
-    FNATIPAddress : String;
-    FProxyPort : Word;
-    FProxyHost : String;
-    FProxyUsername : String;
-    FProxyPassword : String;
-    FProxyType : Integer;
+    // proxy/firewall settings for subdialog-boxes
+    FNATPortMin: Word;
+    FNATPortMax: Word;
+    FNATIPAddress: String;
+    FProxyPort: Word;
+    FProxyHost: String;
+    FProxyUsername: String;
+    FProxyPassword: String;
+    FProxyType: Integer;
     FFTPProxyPort: Word;
     FFTPProxyType: Integer;
     FFTPProxyPassword: String;
@@ -95,12 +105,16 @@ type
     procedure SetUsePortTransferType(const Value: Boolean);
     procedure EnableDisableCheckBoxes;
     procedure DisplaySampleTexts;
+    procedure SetRegularBackground(const Value: TColor);
+    procedure SetRegularForeground(const Value: TColor);
     procedure SetDirOutputBackground(const Value: TColor);
     procedure SetDirOutputForeground(const Value: TColor);
     procedure SetErrorBackground(const Value: TColor);
     procedure SetErrorForeground(const Value: TColor);
     procedure SetSSLMessageBackground(const Value: TColor);
     procedure SetSSLMessageForeground(const Value: TColor);
+    function GetRegularBackground: TColor;
+    function GetRegularForeground: TColor;
     function GetDirOutputBackground: TColor;
     function GetDirOutputForeground: TColor;
     function GetErrorBackground: TColor;
@@ -111,12 +125,18 @@ type
     function GetDebugForeground: TColor;
     procedure SetDebugBackground(const Value: TColor);
     procedure SetDebugForeground(const Value: TColor);
+    procedure WMSettingChange(var Message: TWMSettingChange);
+      message WM_SETTINGCHANGE;
     { Private declarations }
   public
     { Public declarations }
-    property Connected : Boolean read GetConnected write SetConnected;
+    property Connected: Boolean read GetConnected write SetConnected;
     property UsePortTransferType: Boolean read GetUsePortTransferType
       write SetUsePortTransferType;
+    property RegularForeground: TColor read GetRegularForeground
+      write SetRegularForeground;
+    property RegularBackground: TColor read GetRegularBackground
+      write SetRegularBackground;
     property ErrorForeground: TColor read GetErrorForeground
       write SetErrorForeground;
     property ErrorBackground: TColor read GetErrorBackground
@@ -133,20 +153,22 @@ type
       write SetDebugForeground;
     property DebugBackground: TColor read GetDebugBackground
       write SetDebugBackground;
-    property NATPortMin : Word read FNATPortMin write FNATPortMin;
-    property NATPortMax : Word read FNATPortMax write FNATPortMax;
-    property NATIPAddress : String read FNATIPAddress write FNATIPAddress;
-    property ProxyPort : Word read FProxyPort write FProxyPort;
-    property ProxyHost : String read FProxyHost write FProxyHost;
-    property ProxyUsername : String read FProxyUsername write FProxyUsername;
-    property ProxyPassword : String read FProxyPassword write FProxyPassword;
-    property ProxyType : Integer read FProxyType write FProxyType;
+    property NATPortMin: Word read FNATPortMin write FNATPortMin;
+    property NATPortMax: Word read FNATPortMax write FNATPortMax;
+    property NATIPAddress: String read FNATIPAddress write FNATIPAddress;
+    property ProxyPort: Word read FProxyPort write FProxyPort;
+    property ProxyHost: String read FProxyHost write FProxyHost;
+    property ProxyUsername: String read FProxyUsername write FProxyUsername;
+    property ProxyPassword: String read FProxyPassword write FProxyPassword;
+    property ProxyType: Integer read FProxyType write FProxyType;
 
-    property FTPProxyPort : Word read FFTPProxyPort write FFTPProxyPort;
-    property FTPProxyHost : String read FFTPProxyHost write FFTPProxyHost;
-    property FTPProxyUsername : String read FFTPProxyUsername write FFTPProxyUsername;
-    property FTPProxyPassword : String read FFTPProxyPassword write FFTPProxyPassword;
-    property FTPProxyType : Integer read FFTPProxyType write FFTPProxyType;
+    property FTPProxyPort: Word read FFTPProxyPort write FFTPProxyPort;
+    property FTPProxyHost: String read FFTPProxyHost write FFTPProxyHost;
+    property FTPProxyUsername: String read FFTPProxyUsername
+      write FFTPProxyUsername;
+    property FTPProxyPassword: String read FFTPProxyPassword
+      write FFTPProxyPassword;
+    property FTPProxyType: Integer read FFTPProxyType write FFTPProxyType;
 
   end;
 
@@ -155,17 +177,18 @@ var
 
 implementation
 
-uses TaurusTLS, ProgUtils, dlgNATSettings, dlgFTPProxySettings, dlgProxySettings;
+uses TaurusTLS, ProgUtils, dlgNATSettings, dlgFTPProxySettings,
+  dlgProxySettings, WindowsDarkMode;
 
 {$R *.dfm}
 { TfrmSettings }
 
 procedure TfrmSettings.btnFontSelectClick(Sender: TObject);
 begin
-  FontDialog1.Font := redtLog.Font;
+  FontDialog1.Font := redtTextSamples.Font;
   if FontDialog1.Execute then
   begin
-    redtLog.Font := FontDialog1.Font;
+    redtTextSamples.Font := FontDialog1.Font;
     Self.redtTextSamples.Font := FontDialog1.Font;
     Self.DisplaySampleTexts;
   end;
@@ -213,69 +236,73 @@ begin
 end;
 
 procedure TfrmSettings.btnFTPProxySettingsClick(Sender: TObject);
-var Lfrm : TfrmFTPProxySettings;
+var
+  Lfrm: TfrmFTPProxySettings;
 begin
-  LFrm := TfrmFTPProxySettings.Create(Application);
+  Lfrm := TfrmFTPProxySettings.Create(Application);
   try
-    LFrm.Caption := DlgCaptionToFormCaption(btnFTPProxySettings.Caption);
-    LFrm.cboProxyType.ItemIndex := FFTPProxyType;
-    LFrm.edtProxyServerName.Text := FFTPProxyHost;
-    LFrm.edtProxyServerUserName.Text := FFTPProxyUsername;
-    LFrm.edtProxyServerPassword.Text := FFTPProxyPassword;
-    LFrm.spededtProxyPort.Value := FFTPProxyPort;
-    if LFrm.ShowModal = mrOk then
+    Lfrm.Caption := DlgCaptionToFormCaption(btnFTPProxySettings.Caption);
+    Lfrm.cboProxyType.ItemIndex := FFTPProxyType;
+    Lfrm.edtProxyServerName.Text := FFTPProxyHost;
+    Lfrm.edtProxyServerUserName.Text := FFTPProxyUsername;
+    Lfrm.edtProxyServerPassword.Text := FFTPProxyPassword;
+    Lfrm.spededtProxyPort.Value := FFTPProxyPort;
+    if Lfrm.ShowModal = mrOk then
     begin
-      FFTPProxyType := LFrm.cboProxyType.ItemIndex;
-      FFTPProxyHost := LFrm.edtProxyServerName.Text;
-      FFTPProxyUsername := LFrm.edtProxyServerUserName.Text;
-      FFTPProxyPassword := LFrm.edtProxyServerPassword.Text;
-      FFTPProxyPort := LFrm.spededtProxyPort.Value;
+      FFTPProxyType := Lfrm.cboProxyType.ItemIndex;
+      FFTPProxyHost := Lfrm.edtProxyServerName.Text;
+      FFTPProxyUsername := Lfrm.edtProxyServerUserName.Text;
+      FFTPProxyPassword := Lfrm.edtProxyServerPassword.Text;
+      FFTPProxyPort := Lfrm.spededtProxyPort.Value;
     end;
   finally
-    FreeAndNil(LFrm);
+    FreeAndNil(Lfrm);
   end;
 end;
 
 procedure TfrmSettings.btnNATSettingsClick(Sender: TObject);
-var LFrm : TfrmNATSettings;
+var
+  Lfrm: TfrmNATSettings;
 begin
-  LFrm := TfrmNATSettings.Create(Application);
+  Lfrm := TfrmNATSettings.Create(Application);
   try
-    LFrm.Caption := DlgCaptionToFormCaption(btnNATSettings.Caption);
-    LFrm.edtExternalIPAddress.Text := FNATIPAddress;
-    LFrm.spnedtPortMinimum.Value := FNATPortMin;
-    LFrm.spnedtPortMaximum.Value := FNATPortMax;
-    if LFrm.ShowModal = mrOk then begin
-      FNATIPAddress := LFrm.edtExternalIPAddress.Text;
-      FNATPortMin := LFrm.spnedtPortMinimum.Value;
-      FNATPortMax := LFrm.spnedtPortMaximum.Value;
+    Lfrm.Caption := DlgCaptionToFormCaption(btnNATSettings.Caption);
+    Lfrm.edtExternalIPAddress.Text := FNATIPAddress;
+    Lfrm.spnedtPortMinimum.Value := FNATPortMin;
+    Lfrm.spnedtPortMaximum.Value := FNATPortMax;
+    if Lfrm.ShowModal = mrOk then
+    begin
+      FNATIPAddress := Lfrm.edtExternalIPAddress.Text;
+      FNATPortMin := Lfrm.spnedtPortMinimum.Value;
+      FNATPortMax := Lfrm.spnedtPortMaximum.Value;
     end;
   finally
-    FreeAndNil(LFrm);
+    FreeAndNil(Lfrm);
   end;
 end;
 
 procedure TfrmSettings.btnTransparentProxyClick(Sender: TObject);
-var LFrm : TfrmProxySettings;
+var
+  Lfrm: TfrmProxySettings;
 begin
-  LFrm := TfrmProxySettings.Create(Application);
+  Lfrm := TfrmProxySettings.Create(Application);
   try
-    LFrm.Caption := DlgCaptionToFormCaption(btnTransparentProxy.Caption);
-    LFrm.cboProxyType.ItemIndex := FProxyType;
-    LFrm.edtProxyServerName.Text := FProxyHost;
-    LFrm.edtProxyServerUserName.Text := FProxyUsername;
-    LFrm.edtProxyServerPassword.Text := FProxyPassword;
-    LFrm.spededtProxyPort.Value := FProxyPort;
-    if LFrm.ShowModal = mrOk then
+    Lfrm.Caption := DlgCaptionToFormCaption(btnTransparentProxy.Caption);
+    Lfrm.cboProxyType.ItemIndex := FProxyType;
+    Lfrm.edtProxyServerName.Text := FProxyHost;
+    Lfrm.edtProxyServerUserName.Text := FProxyUsername;
+    Lfrm.edtProxyServerPassword.Text := FProxyPassword;
+    Lfrm.spededtProxyPort.Value := FProxyPort;
+    if Lfrm.ShowModal = mrOk then
     begin
-      FProxyType := LFrm.cboProxyType.ItemIndex;
-      FProxyHost := LFrm.edtProxyServerName.Text;
-      FProxyUsername := LFrm.edtProxyServerUserName.Text;
-      FProxyPassword := LFrm.edtProxyServerPassword.Text;
-      FProxyPort := LFrm.spededtProxyPort.Value;
+      FProxyType := Lfrm.cboProxyType.ItemIndex;
+      FProxyHost := Lfrm.edtProxyServerName.Text;
+      FProxyUsername := Lfrm.edtProxyServerUserName.Text;
+      FProxyPassword := Lfrm.edtProxyServerPassword.Text;
+      FProxyPort := Lfrm.spededtProxyPort.Value;
     end;
   finally
-    FreeAndNil(LFrm);
+    FreeAndNil(Lfrm);
   end;
 end;
 
@@ -291,9 +318,26 @@ begin
   DisplaySampleTexts;
 end;
 
+procedure TfrmSettings.cboDisplayModeChange(Sender: TObject);
+begin
+  case cboDisplayMode.ItemIndex of
+    0:
+      SetAppropriateThemeMode(THEME_DARK, THEME_LIGHT);
+    1:
+      SetSpecificThemeMode(False, THEME_DARK, THEME_LIGHT);
+  else
+    SetSpecificThemeMode(True, THEME_DARK, THEME_LIGHT);
+  end;
+end;
+
 procedure TfrmSettings.DisplaySampleTexts;
 begin
   redtTextSamples.Lines.Clear;
+  redtTextSamples.Font.Color := Self.FRegularForeground;
+  redtTextSamples.Color := Self.FRegularBackground;
+  redtTextSamples.Lines.Add('Regular Text');
+  cboRegularForeground.Selected := FRegularForeground;
+  cboRegularBackground.Selected := FRegularBackground;
   redtTextSamples.SelAttributes.Color := FErrorForeground;
   cboErrorForeground.Selected := FErrorForeground;
   redtTextSamples.SelAttributes.BackColor := FErrorBackground;
@@ -331,16 +375,6 @@ end;
 
 procedure TfrmSettings.FormCreate(Sender: TObject);
 begin
-  redtLog.Lines.Clear;
-  redtLog.Lines.Add('Operating System: ' + TOSVersion.ToString);
-
-{$IFDEF WIN64}
-  redtLog.Lines.Add('    Compiled For: Win64');
-{$ELSE}
-  redtLog.Lines.Add('    Compiled For: Win32');
-{$ENDIF}
-  redtLog.Lines.Add(' OpenSSL Version: ' + OpenSSLVersion);
-  ScrollToEnd(redtLog);
   chklbAdvancedOptions.ItemEnabled[2] := False;
   DisplaySampleTexts;
 end;
@@ -385,6 +419,16 @@ begin
   Result := cboErrorForeground.Selected;
 end;
 
+function TfrmSettings.GetRegularBackground: TColor;
+begin
+  Result := cboRegularBackground.Selected;
+end;
+
+function TfrmSettings.GetRegularForeground: TColor;
+begin
+  Result := cboRegularForeground.Color;
+end;
+
 function TfrmSettings.GetSSLMessageBackground: TColor;
 begin
   Result := cboTLSMessageBackground.Selected;
@@ -400,6 +444,11 @@ begin
   Result := cboTransferTypes.ItemIndex = 1;
 end;
 
+procedure TfrmSettings.HandleThemes;
+begin
+
+end;
+
 procedure TfrmSettings.SetConnected(const Value: Boolean);
 begin
   cboTransferTypes.Enabled := not Value;
@@ -413,7 +462,7 @@ end;
 
 procedure TfrmSettings.SetDebugBackground(const Value: TColor);
 begin
-  Self.FDebugBackground := Value;
+  FDebugBackground := Value;
   DisplaySampleTexts;
 end;
 
@@ -447,6 +496,18 @@ begin
   DisplaySampleTexts;
 end;
 
+procedure TfrmSettings.SetRegularBackground(const Value: TColor);
+begin
+  FRegularBackground := Value;
+  DisplaySampleTexts;
+end;
+
+procedure TfrmSettings.SetRegularForeground(const Value: TColor);
+begin
+  FRegularForeground := Value;
+  DisplaySampleTexts;
+end;
+
 procedure TfrmSettings.SetSSLMessageBackground(const Value: TColor);
 begin
   FSSLMessageBackground := Value;
@@ -468,6 +529,14 @@ begin
   else
   begin
     cboTransferTypes.ItemIndex := 0;
+  end;
+end;
+
+procedure TfrmSettings.WMSettingChange(var Message: TWMSettingChange);
+begin
+  if cboDisplayMode.ItemIndex = 0 then
+  begin
+    SetAppropriateThemeMode(THEME_DARK, THEME_LIGHT);
   end;
 end;
 

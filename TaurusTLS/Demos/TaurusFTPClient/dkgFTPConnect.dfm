@@ -110,7 +110,7 @@ object frmConnect: TfrmConnect
         object edtHostname: TEdit
           Left = 96
           Top = 50
-          Width = 297
+          Width = 295
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           Font.Charset = DEFAULT_CHARSET
@@ -121,23 +121,23 @@ object frmConnect: TfrmConnect
           ParentFont = False
           TabOrder = 1
           OnChange = edtHostnameChange
-          ExplicitWidth = 295
+          ExplicitWidth = 293
         end
         object chkAnonymousFTP: TCheckBox
           Left = 96
           Top = 87
-          Width = 181
+          Width = 179
           Height = 17
           Anchors = [akLeft, akTop, akRight]
           Caption = '&Anonymous FTP'
           TabOrder = 2
           OnClick = chkAnonymousFTPClick
-          ExplicitWidth = 179
+          ExplicitWidth = 177
         end
         object edtUsername: TEdit
           Left = 96
           Top = 124
-          Width = 297
+          Width = 295
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           Font.Charset = DEFAULT_CHARSET
@@ -148,22 +148,23 @@ object frmConnect: TfrmConnect
           ParentFont = False
           TabOrder = 3
           OnChange = edtUsernameChange
-          ExplicitWidth = 295
+          ExplicitWidth = 293
         end
         object edtPassword: TEdit
           Left = 96
           Top = 161
-          Width = 265
+          Width = 263
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           PasswordChar = '*'
           TabOrder = 4
           OnChange = edtPasswordChange
+          ExplicitWidth = 261
         end
         object cboConnectionType: TComboBox
           Left = 96
           Top = 198
-          Width = 297
+          Width = 295
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -176,7 +177,7 @@ object frmConnect: TfrmConnect
             'Use Explicit FTP TLS (FTPS) if Available'
             'Require Explicit FTP TLS (FTPS)'
             'Implicit TLS FTP Connection (FTPS)')
-          ExplicitWidth = 295
+          ExplicitWidth = 293
         end
         object edtProfileName: TEdit
           Left = 96
@@ -215,7 +216,7 @@ object frmConnect: TfrmConnect
           FocusControl = edtPublicKey
         end
         object spdbtnPrivateKeyFile: TSpeedButton
-          Left = 364
+          Left = 362
           Top = 16
           Width = 23
           Height = 22
@@ -227,7 +228,7 @@ object frmConnect: TfrmConnect
           ExplicitLeft = 368
         end
         object spdbtnPublicKey: TSpeedButton
-          Left = 364
+          Left = 362
           Top = 45
           Width = 23
           Height = 22
@@ -239,7 +240,7 @@ object frmConnect: TfrmConnect
           ExplicitLeft = 368
         end
         object spdbtnCAKey: TSpeedButton
-          Left = 364
+          Left = 362
           Top = 75
           Width = 23
           Height = 22
@@ -263,29 +264,32 @@ object frmConnect: TfrmConnect
         object edtPublicKey: TEdit
           Left = 96
           Top = 43
-          Width = 261
+          Width = 259
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
           TabOrder = 1
+          ExplicitWidth = 261
         end
         object edtPrivateKeyFile: TEdit
           Left = 96
           Top = 13
-          Width = 261
+          Width = 259
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
           TabOrder = 0
+          ExplicitWidth = 261
         end
         object edtCAKey: TEdit
           Left = 96
           Top = 73
-          Width = 261
+          Width = 259
           Height = 23
           Anchors = [akLeft, akTop, akRight]
           AutoSelect = False
           TabOrder = 2
+          ExplicitWidth = 261
         end
       end
       object TabSheet2: TTabSheet
@@ -333,7 +337,7 @@ object frmConnect: TfrmConnect
         object cboTransferTypes: TComboBox
           Left = 96
           Top = 42
-          Width = 297
+          Width = 295
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]

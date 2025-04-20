@@ -13,13 +13,16 @@ uses
   dlgFTPProxySettings in 'dlgFTPProxySettings.pas' {frmFTPProxySettings},
   dlgNATSettings in 'dlgNATSettings.pas' {frmNATSettings},
   dlgProxySettings in 'dlgProxySettings.pas' {frmProxySettings},
-  frmProgress in 'frmProgress.pas' {frmFileProgress};
+  frmProgress in 'frmProgress.pas' {frmFileProgress},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Windows10');
   Application.CreateForm(TfrmMainForm, frmMainForm);
   Application.Run;
 end.

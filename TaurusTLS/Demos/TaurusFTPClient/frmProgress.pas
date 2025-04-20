@@ -5,10 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, IdComponent,
-  Vcl.ComCtrls, IdThreadSafe;
+  Vcl.ComCtrls, IdThreadSafe, ProgUtils;
 
 type
-  TfrmFileProgress = class(TForm)
+  TfrmFileProgress = class(TThemedForm)
     Panel2: TPanel;
     CancelBtn: TButton;
     lblAction: TLabel;

@@ -44,11 +44,13 @@ object frmFileProgress: TfrmFileProgress
     ParentColor = True
     ParentFont = False
     TabOrder = 1
+    ExplicitTop = 128
+    ExplicitWidth = 384
     DesignSize = (
       386
       34)
     object CancelBtn: TButton
-      Left = 306
+      Left = 304
       Top = 2
       Width = 75
       Height = 25
@@ -59,6 +61,7 @@ object frmFileProgress: TfrmFileProgress
       ModalResult = 2
       TabOrder = 0
       OnClick = CancelBtnClick
+      ExplicitLeft = 302
     end
   end
   object prgbrDownloadUpload: TProgressBar

@@ -17,14 +17,15 @@ object frmNATSettings: TfrmNATSettings
     138)
   TextHeight = 15
   object lblMaximumPort: TLabel
-    Left = 230
+    Left = 226
     Top = 76
-    Width = 58
+    Width = 57
     Height = 15
     Anchors = [akTop, akRight]
     Caption = 'M&aximum:'
     FocusControl = spnedtPortMaximum
     Layout = tlCenter
+    ExplicitLeft = 230
   end
   object lblMinPort: TLabel
     Left = 18
@@ -73,11 +74,13 @@ object frmNATSettings: TfrmNATSettings
     ParentColor = True
     ParentFont = False
     TabOrder = 3
+    ExplicitTop = 96
+    ExplicitWidth = 372
     DesignSize = (
       374
       34)
     object OKBtn: TButton
-      Left = 213
+      Left = 209
       Top = 2
       Width = 75
       Height = 25
@@ -88,7 +91,7 @@ object frmNATSettings: TfrmNATSettings
       TabOrder = 0
     end
     object CancelBtn: TButton
-      Left = 294
+      Left = 290
       Top = 2
       Width = 75
       Height = 25
@@ -100,7 +103,7 @@ object frmNATSettings: TfrmNATSettings
     end
   end
   object spnedtPortMaximum: TSpinEdit
-    Left = 294
+    Left = 290
     Top = 76
     Width = 75
     Height = 24
@@ -125,7 +128,7 @@ object frmNATSettings: TfrmNATSettings
   object edtExternalIPAddress: TEdit
     Left = 105
     Top = 13
-    Width = 263
+    Width = 259
     Height = 23
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 0

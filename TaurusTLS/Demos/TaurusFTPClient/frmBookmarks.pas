@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.BaseImageCollection, Vcl.ImageCollection, System.ImageList, Vcl.ImgList,
   Vcl.VirtualImageList, System.Actions, System.Generics.Collections,
-  Vcl.ActnList, IniFiles;
+  Vcl.ActnList, IniFiles, ProgUtils;
 
 type
   TFTPSite = class(TObject)
@@ -45,7 +45,7 @@ type
     property SecurityLevel : Integer read fSecurityLevel write fSecurityLevel;
   end;
 
-  TfrmFTPSites = class(TForm)
+  TfrmFTPSites = class(TThemedForm)
     Panel2: TPanel;
     OKBtn: TButton;
     CancelBtn: TButton;

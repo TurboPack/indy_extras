@@ -87,11 +87,13 @@ object frmProxySettings: TfrmProxySettings
     ParentColor = True
     ParentFont = False
     TabOrder = 5
+    ExplicitTop = 145
+    ExplicitWidth = 470
     DesignSize = (
       472
       34)
     object OKBtn: TButton
-      Left = 311
+      Left = 309
       Top = 2
       Width = 75
       Height = 25
@@ -100,9 +102,10 @@ object frmProxySettings: TfrmProxySettings
       Default = True
       ModalResult = 1
       TabOrder = 0
+      ExplicitLeft = 307
     end
     object CancelBtn: TButton
-      Left = 392
+      Left = 390
       Top = 2
       Width = 75
       Height = 25
@@ -111,6 +114,7 @@ object frmProxySettings: TfrmProxySettings
       Caption = 'Cancel'
       ModalResult = 2
       TabOrder = 1
+      ExplicitLeft = 388
     end
   end
   object spededtProxyPort: TSpinEdit

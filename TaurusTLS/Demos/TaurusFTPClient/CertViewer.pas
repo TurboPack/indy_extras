@@ -8,10 +8,11 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ComCtrls,
   IdCTypes,
+  ProgUtils,
   TaurusTLS_X509;
 
 type
-  TfrmCertViewer = class(TForm)
+  TfrmCertViewer = class(TThemedForm)
     Panel2: TPanel;
     OKBtn: TButton;
     CancelBtn: TButton;
@@ -53,7 +54,7 @@ implementation
 {$R *.dfm}
 
 uses mainform, dkgFTPConnect, IniFiles,
-  ProgUtils, System.UITypes, System.IOUtils,
+  System.UITypes, System.IOUtils,
   TaurusTLSHeaders_x509;
 
 const

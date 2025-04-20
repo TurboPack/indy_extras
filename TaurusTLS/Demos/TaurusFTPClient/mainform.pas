@@ -17,10 +17,11 @@ uses
   IdIntercept, IdLogBase, IdLogEvent, Vcl.Menus, Vcl.StdActns,
   IdZLibCompressorBase, IdCompressorZLib, IdConnectThroughHttpProxy,
   IdCustomTransparentProxy, IdSocks, IdThreadSafe, IdZLibHeaders,
+  ProgUtils,
   TaurusTLSHeaders_ossl_typ, TaurusTLS_X509, TaurusTLS;
 
 type
-  TfrmMainForm = class(TForm)
+  TfrmMainForm = class(TThemedForm)
     vimglstMainProgram: TVirtualImageList;
     imgcolMainProgram: TImageCollection;
     actlstMainProgram: TActionList;
@@ -156,6 +157,8 @@ type
     FThreadRunning: TIdThreadSafeBoolean;
 
     // colors
+    FRegularForeground : TColor;
+    FRegularBackground : TColor;
     FErrorForeground: TColor;
     FErrorBackground: TColor;
     FSSLMessageForeground: TColor;
@@ -179,7 +182,6 @@ type
     procedure ChangeLocalDir(const ADir: String);
     procedure ChangeRemoteDir(const ADir: String);
     //
-
     procedure RemoteLvClearArrows;
     procedure LocalClearArrows;
     procedure DownloadFile(const AFile: String);
@@ -355,7 +357,7 @@ uses dkgFTPConnect, settingsdlg, frmAbout, frmBookmarks, CertViewer,
   IdFTPList, IdGlobalProtocols, IdReplyRFC, TaurusTLSLoader,
   TaurusTLSHeaders_ssl3, // for SSL3_RT_ constants
   System.IOUtils, System.IniFiles, System.UITypes,
-  Winapi.CommCtrl, ProgUtils, AcceptableCerts;
+  Winapi.CommCtrl, AcceptableCerts, WindowsDarkMode;
 
 const
   DIR_IMAGE_IDX = 6;
@@ -684,10 +686,13 @@ begin
     try
       LFrm.UsePortTransferType := LIni.ReadBool('Transfers',
         'Use_PORT_Transfers', False);
-      LFrm.redtLog.Font.Name := redtLog.Font.Name;
-      LFrm.redtTextSamples.Font.Name := LFrm.redtLog.Font.Name;
-      LFrm.redtLog.Font.Size := redtLog.Font.Size;
-      LFrm.redtTextSamples.Font.Size := LFrm.redtLog.Font.Size;
+      LFrm.cboDisplayMode.ItemIndex := GLightTheme;
+      LFrm.redtTextSamples.Font.Name := redtLog.Font.Name;
+      LFrm.redtTextSamples.Font.Name := LFrm.redtTextSamples.Font.Name;
+      LFrm.redtTextSamples.Font.Size := redtLog.Font.Size;
+      LFrm.redtTextSamples.Font.Size := LFrm.redtTextSamples.Font.Size;
+      LFrm.RegularForeground := FRegularForeground;
+      LFrm.RegularBackground := FRegularBackground;
       LFrm.ErrorForeground := FErrorForeground;
       LFrm.ErrorBackground := FErrorBackground;
       LFrm.SSLMessageForeground := FSSLMessageForeground;
@@ -755,6 +760,12 @@ begin
       LFrm.chkDirOutput.Checked := FLogDirOutput;
       if LFrm.ShowModal = mrOk then
       begin
+        GLightTheme := LFrm.cboDisplayMode.ItemIndex;
+        HandleThemes;
+        FRegularForeground :=  LFrm.RegularForeground;
+        FRegularBackground := LFrm.RegularBackground;
+        redtLog.Font.Color := LFrm.RegularForeground;
+        redtLog.Color := LFrm.RegularBackground;
         FLogDebugOutput := LFrm.chkLogDebug.Checked;
         FLogDirOutput := LFrm.chkDirOutput.Checked;
         FLogSSLDebugInfo := LFrm.chkDebugSSLInfo.Checked;
@@ -799,7 +810,7 @@ begin
         LIni.WriteBool('Debug', 'Log_Debug_Output', FLogDebugOutput);
         LIni.WriteBool('Debug', 'SSL_Packet_Info', FLogSSLDebugInfo);
         LIni.WriteBool('Debug', 'Log_Directory_Output', FLogDirOutput);
-        redtLog.Font := LFrm.redtLog.Font;
+        redtLog.Font := LFrm.redtTextSamples.Font;
         LIni.WriteString('Log_Font', 'Name', redtLog.Font.Name);
         LIni.WriteInteger('Log_Font', 'Size', redtLog.Font.Size);
 
@@ -807,6 +818,10 @@ begin
         LIni.WriteInteger('Log_Font', 'CharSet', redtLog.Font.Charset);
         LIni.WriteInteger('Log_Font', 'Size', redtLog.Font.Size);
         LIni.WriteInteger('Log_Font', 'Style', Byte(redtLog.Font.Style));
+
+        LIni.WriteInteger('Log_Font', 'Regular_Foreground', FRegularForeground);
+        LIni.WriteInteger('Log_Font', 'Regular_Background', FRegularBackground);
+
         LIni.WriteInteger('Log_Font', 'Error_Foreground', FErrorForeground);
         LIni.WriteInteger('Log_Font', 'Error_Background', FErrorBackground);
         LIni.WriteInteger('Log_Font', 'SSL_Message_Foreground',
@@ -850,6 +865,10 @@ begin
         LIni.WriteString('FTP_Proxy', 'User_Name', SocksInfo.Username);
         LIni.WriteString('FTP_Proxy', 'Password', SocksInfo.Password);
         LIni.WriteInteger('FTP_Proxy', 'Port', SocksInfo.Port);
+      end
+      else
+      begin
+        HandleThemes;
       end;
     finally
       FreeAndNil(LIni);
@@ -981,9 +1000,9 @@ begin
 
   FRemoteColumnToSort := 0;
   FRemoteAscending := True;
-  Self.IdFTPClient.ClientInfo.ClientName := '';
-  // Self.IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
-  // Self.IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
+  IdFTPClient.ClientInfo.ClientName := '';
+  // IdFTPClient.ClientInfo.ClientName := 'TaurusFTP';
+  // IdFTPClient.ClientInfo.ClientVersion := GetProgramVersion;
   LocalClearArrows;
   PopulateLocalFiles;
   RemoteLvClearArrows;
@@ -1001,6 +1020,8 @@ begin
     FLogDebugOutput := LIni.ReadBool('Debug', 'Log_Debug_Output', False);
     FLogSSLDebugInfo := LIni.ReadBool('Debug', 'SSL_Packet_Info', False);
     FLogDirOutput := LIni.ReadBool('Debug', 'Log_Directory_Output', False);
+    GLightTheme := LIni.ReadInteger('Display','Light_Mode',0);
+    HandleThemes;
     redtLog.Font.Name := LIni.ReadString('Log_Font', 'Name', redtLog.Font.Name);
     redtLog.Font.Charset := LIni.ReadInteger('Log_Font', 'CharSet',
       redtLog.Font.Charset);
@@ -1008,6 +1029,10 @@ begin
       redtLog.Font.Size);
     redtLog.Font.Style := TFontStyles(Byte(LIni.ReadInteger('Log_Font', 'Style',
       Byte(redtLog.Font.Style))));
+    FRegularForeground := LIni.ReadInteger('Log_Font', 'Regular_Foreground', clBlack);
+    FRegularBackground := LIni.ReadInteger('Long_Font', 'Regular_Background', clWhite);
+    redtLog.Font.Color := FRegularForeground;
+    redtLog.Color := FRegularBackground;
     FErrorForeground := LIni.ReadInteger('Log_Font', 'Error_Foreground', clRed);
     FErrorBackground := LIni.ReadInteger('Log_Font',
       'Error_Background', clWhite);
@@ -1680,8 +1705,8 @@ begin
   FIO.OnSSLNegotiated := OnSSLNegotiated;
 //  FIO.OnDebugMessage := OnDebugMsg;
   FLog := FIO.Intercept as TIdLogEvent;
-  FLog.OnReceived := Self.OnLogReceived;
-  FLog.OnSent := Self.OnLogSent;
+  FLog.OnReceived := OnLogReceived;
+  FLog.OnSent := OnLogSent;
   FreeOnTerminate := True;
 end;
 
@@ -2083,7 +2108,7 @@ procedure TDisconnectThread.Execute;
 begin
   frmMainForm.ThreadRunning := True;
   try
-    Self.FFTP.Disconnect;
+    FFTP.Disconnect;
     Synchronize(
       procedure
       begin
@@ -2157,9 +2182,9 @@ end;
 constructor TFileOnWorkThread.Create(AFTP: TIdFTP; const AFile: String);
 begin
   inherited Create(AFTP, AFile);
-  FFTP.OnWorkBegin := Self.OnWorkBegin;
-  FFTP.OnWork := Self.OnWork;
-  FFTP.OnWorkEnd := Self.OnWorkEnd;
+  FFTP.OnWorkBegin := OnWorkBegin;
+  FFTP.OnWork := OnWork;
+  FFTP.OnWorkEnd := OnWorkEnd;
 end;
 
 procedure TFileOnWorkThread.OnWork(ASender: TObject; AWorkMode: TWorkMode;
@@ -2174,7 +2199,7 @@ begin
   begin
     if frmMainForm.ProgressIndicator.CancelPressed then
     begin
-      Self.FFTP.Abort;
+      FFTP.Abort;
       frmMainForm.ProgressIndicator.CancelPressed := False;
     end;
   end;
@@ -2187,7 +2212,7 @@ begin
   Synchronize(
     procedure
     begin
-      frmMainForm.SetupPRogressIndicator(Self.FFile, AWorkMode, 0, FSize);
+      frmMainForm.SetupPRogressIndicator(FFile, AWorkMode, 0, FSize);
     end);
 end;
 

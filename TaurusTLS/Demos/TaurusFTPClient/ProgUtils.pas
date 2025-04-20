@@ -2,7 +2,24 @@ unit ProgUtils;
 
 interface
 
-uses Vcl.ComCtrls;
+uses
+  Vcl.ComCtrls, Vcl.Forms, WinAPI.Messages;
+
+type
+  TThemedForm = class(TForm)
+  private
+    procedure WMSettingChange(var Message: TWMSettingChange); message WM_SETTINGCHANGE;
+  protected
+    procedure HandleThemes;
+  end;
+
+var
+    {0 - system, 1 - light mode, 2 dark mode}
+    GLightTheme : Integer;
+
+const
+    THEME_DARK = 'Windows10 Dark';
+    THEME_LIGHT = 'Windows10';
 
 procedure ScrollToTop(ARichEdit: TRichEdit);
 procedure ScrollToEnd(ARichEdit: TRichEdit);
@@ -17,10 +34,11 @@ procedure LaunchURL(const AURL : String);
 
 implementation
 
-uses WinAPI.Messages,
+uses
      WinAPI.Windows,
      ShellApi,
      IdIPAddress, TaurusTLSHeaders_x509,
+     WindowsDarkMode,
      TaurusTLSHeaders_x509_vfy, System.SysUtils;
 
 procedure LaunchURL(const AURL : String);
@@ -126,6 +144,23 @@ begin
     finally
       ARichEdit.HideSelection := isSelectionHidden;
     end;
+end;
+
+{ TThemedForm }
+
+procedure TThemedForm.HandleThemes;
+begin
+  case GLightTheme of
+    0 :  SetAppropriateThemeMode(THEME_DARK, THEME_LIGHT);
+    1 : SetSpecificThemeMode(False, THEME_DARK, THEME_LIGHT);
+  else
+     SetSpecificThemeMode(True, THEME_DARK, THEME_LIGHT);
+  end;
+end;
+
+procedure TThemedForm.WMSettingChange(var Message: TWMSettingChange);
+begin
+  HandleThemes;
 end;
 
 end.

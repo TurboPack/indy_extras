@@ -6,10 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Samples.Spin;
+  Vcl.Samples.Spin, ProgUtils;
 
 type
-  TfrmNATSettings = class(TForm)
+  TfrmNATSettings = class(TThemedForm)
     Panel2: TPanel;
     OKBtn: TButton;
     CancelBtn: TButton;
@@ -35,7 +35,7 @@ var
 
 implementation
 
-uses IdIPAddress, ProgUtils;
+uses IdIPAddress;
 
 {$R *.dfm}
 { TfrmNATSettings }
