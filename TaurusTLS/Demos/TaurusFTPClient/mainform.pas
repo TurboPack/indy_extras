@@ -1703,7 +1703,10 @@ begin
   FIO.OnGetPassword := OnGetPassword;
   FIO.OnStatusInfo := OnStatusInfo;
   FIO.OnSSLNegotiated := OnSSLNegotiated;
-//  FIO.OnDebugMessage := OnDebugMsg;
+  if frmMainForm.LogSSLDebugInfo then
+  begin
+    FIO.OnDebugMessage := OnDebugMsg;
+  end;
   FLog := FIO.Intercept as TIdLogEvent;
   FLog.OnReceived := OnLogReceived;
   FLog.OnSent := OnLogSent;
