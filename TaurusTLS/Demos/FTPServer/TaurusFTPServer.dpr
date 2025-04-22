@@ -270,12 +270,12 @@ begin
     Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
     try
       Lini.WriteString('Certificate', 'CertificateFile',
-        GetCurrentDir + '\ca.pem');
+        GetCurrentDir + '\ssl-cert.pem');
       Lini.WriteString('Certificate', 'KeyFile',
-        GetCurrentDir + '\privkey.pem');
+        GetCurrentDir + '\ssl-key.pem');
       Lini.WriteString('Certificate', 'RootCertFile', '');
       Lini.WriteString('Certificate', 'DH_Parameters', '');
-      Lini.WriteString('Certificate', 'Password', 'testinfg');
+      Lini.WriteString('Certificate', 'Password', '');
 
       Lini.WriteInteger('Server', 'PASV_Bound_Port_Minimum', 0);
       Lini.WriteInteger('Server', 'PASV_Bound_Port_Maximum', 0);

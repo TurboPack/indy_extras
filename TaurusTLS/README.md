@@ -127,7 +127,7 @@ Password=[password for your private SSL key]
 You can also do the following:
 
 1. Copy the OpenSSL .dll's and openssl.exe to the directory where the FTP server demo .exe is built.  Usually that is \\$\(platform\)\\Debug or \\$\(platform\)\\Release.
-2. Run the makecert.bat to generate a minimal self-signed certificate for development on the loopbook adaptor (localhost).
+2. Run the makecert.bat to generate a self-signed certificate.  Just answer the prompts and the certificate is generated.
 3. Run the FTP Server .exe and it will create a default server.ini file that points to the certificate files generated in Step 2.
 
 ### TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
