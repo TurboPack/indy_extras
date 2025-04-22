@@ -185,13 +185,17 @@ Analyzes source-code to find various types of potential issues.
 
 # Credits
 
-## Tony Whyman
-
-for providing the OpenSSL headers that TaurusTLS is based upon
-
 ## Chad Z. Hower (Kudzu) and the Indy Pit Crew
 
 author of the original code that was modified to create TaurusTLS.
+
+## Dave Nottage
+
+for providing the code used for loading OpenSSL on MacOS.
+
+## Tony Whyman
+
+for providing the OpenSSL headers that TaurusTLS is based upon
 
 # Third Party Notices
 
