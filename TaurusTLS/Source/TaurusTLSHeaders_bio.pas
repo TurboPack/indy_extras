@@ -309,6 +309,21 @@ type
 
   BIO_sock_info_type = (BIO_SOCK_INFO_ADDRESS);
 
+  // Define a union type for the value field
+  TValueUnion = record
+    case Integer of
+      0: (fd: TIdC_INT);
+      1: (custom: Pointer);
+      2: (custom_ui: TIdC_SIZET); //Todo: use something besides TIdC_SIZET
+      3: (ssl: PSSL);
+  end;
+  bio_poll_descriptor_st = record
+    _type : TIdC_UINT32;
+    value : TValueUnion;
+  end;
+  BIO_POLL_DESCRIPTOR = bio_poll_descriptor_st;
+  PBIO_POLL_DESCRIPTOR = ^BIO_POLL_DESCRIPTOR;
+
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		
   	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 

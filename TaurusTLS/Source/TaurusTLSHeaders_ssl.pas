@@ -30,6 +30,18 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF WINDOWS}
+  IdWinsock2,
+  {$ENDIF}
+  {$IFDEF USE_VCL_POSIX}
+  Posix.SysSelect,
+  Posix.SysSocket,
+  Posix.SysTime,
+  {$ENDIF}
+  {$IFDEF USE_BASEUNIX}
+  sockets,
+  baseunix,
+  {$ENDIF}
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_async,
   TaurusTLSHeaders_bio,
@@ -894,6 +906,15 @@ const
   SSL_TICKET_RETURN_USE = 3;
   (* Use the ticket, send a renewed ticket to the client *)
   SSL_TICKET_RETURN_USE_RENEW = 4;
+
+  SSL_LISTENER_FLAG_NO_VALIDATE       = 1 shl 1;
+  SSL_ACCEPT_CONNECTION_NO_BLOCK      = 1 shl 0;
+
+  SSL_DOMAIN_FLAG_SINGLE_THREAD       = 1 shl 0;
+  SSL_DOMAIN_FLAG_MULTI_THREAD        = 1 shl 1;
+  SSL_DOMAIN_FLAG_THREAD_ASSISTED     = 1 shl 2;
+  SSL_DOMAIN_FLAG_BLOCKING            = 1 shl 3;
+  SSL_DOMAIN_FLAG_LEGACY_BLOCKING     = 1 shl 4;
 
 type
   (*
@@ -2368,6 +2389,31 @@ var
   SSL_CTX_set_num_tickets: function (ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_get_num_tickets: function (const ctx: PSSL_CTX): TIdC_SIZET; cdecl = nil; {introduced 1.1.0}
 
+  SSL_handle_events: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_get_event_timeout: function(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
+  SSL_get_rpoll_descriptor: function(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
+  SSL_get_wpoll_descriptor: function(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
+  SSL_net_read_desired: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_net_write_desired: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_set_blocking_mode: function(s : PSSL; blocking : TIdC_INT) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_get_blocking_mode: function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_set1_initial_peer_addr : function(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_get0_connection: function(s : PSSL) : PSSL; cdecl = nil;   {introduced 3.2.0}
+  SSL_is_connection: function(s : PSSL) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
+
+  SSL_is_listener : function(ssl : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.5.0}
+  SSL_get0_listener : function(s : PSSL) : PSSL; cdecl = nil;  {introduced 3.5.0}
+  SSL_new_listener : function(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
+  SSL_new_listener_from : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
+  SSL_new_from_listener : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
+  SSL_accept_connection : function(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
+  SSL_get_accept_connection_queue_len : function(ssl : PSSL) : TIdC_SIZET; cdecl = nil; {introduced 3.5.0}
+  SSL_listen : function(ssl : PSSL) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
+
+  SSL_is_domain : function(s : PSSL) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
+  SSL_get0_domain : function(s : PSSL) : PSSL; cdecl = nil;  {introduced 3.5.0}
+  SSL_new_domain : function(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
+
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
   //# endif
@@ -3214,6 +3260,32 @@ var
   function SSL_CTX_set_num_tickets(ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
 
+  function SSL_handle_events(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
+  function SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
+  function SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
+  function SSL_net_read_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_net_write_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get_blocking_mode(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_set1_initial_peer_addr(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT  cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get0_connection(s : PSSL) : PSSL cdecl; external CLibSSL;   {introduced 3.2.0}
+  function SSL_is_connection(s : PSSL) : TIdC_INT cdecl; external CLibSSL;   {introduced 3.2.0}
+
+  function SSL_is_listener(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
+  function SSL_get0_listener(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
+  function SSL_new_listener(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_new_listener_from(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_new_from_listener(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_accept_connection(ssl : PSSL; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_get_accept_connection_queue_len(ssl : PSSL) : TIdC_SIZET cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_listen(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+
+  function SSL_is_domain(s : PSSL) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_get0_domain(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
+  function SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
+
+
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
   //# endif
@@ -4017,6 +4089,31 @@ const
   SSL_get_num_tickets_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_set_num_tickets_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_CTX_get_num_tickets_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  SSL_handle_events_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_event_timeout_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_rpoll_descriptor_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_wpoll_descriptor_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_net_read_desired_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_net_write_desired_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_set_blocking_mode_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_blocking_mode_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_set1_initial_peer_addr_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get0_connection_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_is_connection_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+
+  SSL_is_listener_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_get0_listener_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_new_listener_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_new_listener_from_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_new_from_listener_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_accept_connection_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_get_accept_connection_queue_len_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_listen_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+
+  SSL_is_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_get0_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_new_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+
   SSL_session_reused_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_add_ssl_module_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_config_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5036,6 +5133,31 @@ const
   SSL_get_num_tickets_procname = 'SSL_get_num_tickets'; {introduced 1.1.0}
   SSL_CTX_set_num_tickets_procname = 'SSL_CTX_set_num_tickets'; {introduced 1.1.0}
   SSL_CTX_get_num_tickets_procname = 'SSL_CTX_get_num_tickets'; {introduced 1.1.0}
+
+  SSL_handle_events_procname = 'SSL_handle_events';  {introduced 3.2.0}
+  SSL_get_event_timeout_procname = 'SSL_get_event_timeout'; {introduced 3.2.0}
+  SSL_get_rpoll_descriptor_procname = 'SSL_get_rpoll_descriptor';  {introduced 3.2.0}
+  SSL_get_wpoll_descriptor_procname = 'SSL_get_wpoll_descriptor';  {introduced 3.2.0}
+  SSL_net_read_desired_procname = 'SSL_net_read_desired';  {introduced 3.2.0}
+  SSL_net_write_desired_procname = 'SSL_net_write_desired';  {introduced 3.2.0}
+  SSL_set_blocking_mode_procname  = 'SSL_set_blocking_mode';  {introduced 3.2.0}
+  SSL_get_blocking_mode_procname = 'SSL_get_blocking_mode';  {introduced 3.2.0}
+  SSL_set1_initial_peer_addr_procname = 'SSL_set1_initial_peer_addr';  {introduced 3.2.0}
+  SSL_get0_connection_procname = 'SSL_get0_connection';  {introduced 3.2.0}
+  SSL_is_connection_procname = 'SSL_is_connection';  {introduced 3.2.0}
+
+  SSL_is_listener_procname = 'SSL_is_listener';  {introduced 3.5.0}
+  SSL_get0_listener_procname = 'SSL_get0_listener';  {introduced 3.5.0}
+  SSL_new_listener_procname = 'SSL_new_listener'; {introduced 3.5.0}
+  SSL_new_listener_from_procname = 'SSL_new_listener_from'; {introduced 3.5.0}
+  SSL_new_from_listener_procname  = 'SSL_new_from_listener';  {introduced 3.5.0}
+  SSL_accept_connection_procname = 'SSL_accept_connection'; {introduced 3.5.0}
+  SSL_get_accept_connection_queue_len_procname = 'SSL_get_accept_connection_queue_len'; {introduced 3.5.0}
+  SSL_listen_procname = 'SSL_listen'; {introduced 3.5.0}
+
+  SSL_is_domain_procname = 'SSL_is_domain'; {introduced 3.5.0}
+  SSL_get0_domain_procname = 'SSL_get0_domain';  {introduced 3.5.0}
+  SSL_new_domain_procname = 'SSL_new_domain'; {introduced 3.5.0}
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
@@ -9048,17 +9170,143 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET; 
+function  ERR_SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_num_tickets_procname);
 end;
 
- {introduced 1.1.0}
+ {introduced 3.2.0}
+function ERR_SSL_handle_events(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_handle_events_procname);
+end;
+
+{introduced 3.2.0}
+function ERR_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_event_timeout_procname);
+end;
+
+{introduced 3.2.0}
+function ERR_SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_rpoll_descriptor_procname);
+end;
+
+{introduced 3.2.0}
+function ERR_SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_wpoll_descriptor_procname);
+end;
+
+{introduced 3.2.0}
+function ERR_SSL_net_read_desired(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_net_read_desired_procname);
+end;
+
+{introduced 3.2.0}
+function ERR_SSL_net_write_desired(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_net_write_desired_procname);
+end;
+{introduced 3.2.0}
+function ERR_SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_blocking_mode_procname);
+end;
+{introduced 3.2.0}
+function ERR_SSL_get_blocking_mode(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_blocking_mode_procname);
+end;
+{introduced 3.2.0}
+function ERR_SSL_set1_initial_peer_addr(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_initial_peer_addr_procname);
+end;
+{introduced 3.2.0}
+function ERR_SSL_get0_connection(s : PSSL) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_connection_procname);
+end;
+{introduced 3.2.0}
+function ERR_SSL_is_connection(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_connection_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_is_listener(ssl : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_listener_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_get0_listener(s : PSSL) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_listener_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_new_listener(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_listener_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_new_listener_from(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_listener_from_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_new_from_listener(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_from_listener_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_accept_connection(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_accept_connection_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_get_accept_connection_queue_len(ssl : PSSL) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_accept_connection_queue_len_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_listen(ssl : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_listen_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_is_domain(s : PSSL) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_domain_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_get0_domain(s : PSSL) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_domain_procname);
+end;
+{introduced 3.5.0}
+
+function ERR_SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_domain_procname);
+end;
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
   //# endif
 
+ {introduced 1.1.0}
 function  ERR_SSL_session_reused(const s: PSSL): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_session_reused_procname);
@@ -24271,6 +24519,705 @@ begin
     {$ifend}
   end;
 
+  {introduced 3.2.0}
+  SSL_handle_events  := LoadLibFunction(ADllHandle, SSL_handle_events_procname);
+  FuncLoadError := not assigned(SSL_handle_events);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_handle_events_allownil)}
+    SSL_handle_events := @ERR_SSL_handle_events;
+    {$ifend}
+    {$if declared(SSL_handle_events_introduced)}
+    if LibVersion < SSL_handle_events_introduced then
+    begin
+      {$if declared(FC_SSL_handle_events)}
+      SSL_handle_events := @FC_SSL_handle_events;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_handle_events_removed)}
+    if SSL_handle_events_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_handle_events)}
+      SSL_handle_events := @_SSL_handle_events;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_handle_events_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_handle_events');
+    {$ifend}
+  end;
+
+  {introduced 3.2.0}
+  SSL_get_event_timeout  := LoadLibFunction(ADllHandle, SSL_get_event_timeout_procname);
+  FuncLoadError := not assigned(SSL_get_event_timeout);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_event_timeout_allownil)}
+    SSL_get_event_timeout := @ERR_SSL_get_event_timeout;
+    {$ifend}
+    {$if declared(SSL_get_event_timeout_introduced)}
+    if LibVersion < SSL_get_event_timeout_introduced then
+    begin
+      {$if declared(FC_SSL_get_event_timeout)}
+      SSL_get_event_timeout := @FC_SSL_get_event_timeout;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_event_timeout_removed)}
+    if SSL_get_event_timeout_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_event_timeout)}
+      SSL_get_event_timeout := @_SSL_get_event_timeout;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_event_timeout_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_event_timeout');
+    {$ifend}
+  end;
+
+  SSL_get_rpoll_descriptor  := LoadLibFunction(ADllHandle, SSL_get_rpoll_descriptor_procname);
+  FuncLoadError := not assigned(SSL_get_rpoll_descriptor);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_rpoll_descriptor_allownil)}
+    SSL_get_rpoll_descriptor := @ERR_SSL_get_rpoll_descriptor;
+    {$ifend}
+    {$if declared(SSL_get_rpoll_descriptor_introduced)}
+    if LibVersion < SSL_get_rpoll_descriptor_introduced then
+    begin
+      {$if declared(FC_SSL_get_rpoll_descriptor)}
+      SSL_get_rpoll_descriptor := @FC_SSL_get_rpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_rpoll_descriptor_removed)}
+    if SSL_get_rpoll_descriptor_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_rpoll_descriptor)}
+      SSL_get_rpoll_descriptor := @_SSL_get_rpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_rpoll_descriptor_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_rpoll_descriptor');
+    {$ifend}
+  end;
+
+  SSL_get_wpoll_descriptor  := LoadLibFunction(ADllHandle, SSL_get_wpoll_descriptor_procname);
+  FuncLoadError := not assigned(SSL_get_wpoll_descriptor);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_wpoll_descriptor_allownil)}
+    SSL_get_wpoll_descriptor := @ERR_SSL_get_wpoll_descriptor;
+    {$ifend}
+    {$if declared(SSL_get_wpoll_descriptor_introduced)}
+    if LibVersion < SSL_get_wpoll_descriptor_introduced then
+    begin
+      {$if declared(FC_SSL_get_wpoll_descriptor)}
+      SSL_get_wpoll_descriptor := @FC_SSL_get_wpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_wpoll_descriptor_removed)}
+    if SSL_get_wpoll_descriptor_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_wpoll_descriptor)}
+      SSL_get_wpoll_descriptor := @_SSL_get_wpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_wpoll_descriptor_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_wpoll_descriptor');
+    {$ifend}
+  end;
+
+  SSL_net_read_desired  := LoadLibFunction(ADllHandle, SSL_net_read_desired_procname);
+  FuncLoadError := not assigned(SSL_net_read_desired);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_net_read_desired_allownil)}
+    SSL_net_read_desired := @ERR_SSL_net_read_desired;
+    {$ifend}
+    {$if declared(SSL_net_read_desired_introduced)}
+    if LibVersion < SSL_net_read_desired_introduced then
+    begin
+      {$if declared(FC_SSL_net_read_desired)}
+      SSL_net_read_desired := @FC_SSL_net_read_desired;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_net_read_desired_removed)}
+    if SSL_net_read_desired_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_net_read_desired)}
+      SSL_net_read_desired := @_SSL_net_read_desired;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_net_read_desired_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_net_read_desired');
+    {$ifend}
+  end;
+
+  SSL_net_write_desired  := LoadLibFunction(ADllHandle, SSL_net_write_desired_procname);
+  FuncLoadError := not assigned(SSL_net_write_desired);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_net_write_desired_allownil)}
+    SSL_net_write_desired := @ERR_SSL_net_write_desired;
+    {$ifend}
+    {$if declared(SSL_net_write_desired_introduced)}
+    if LibVersion < SSL_net_write_desired_introduced then
+    begin
+      {$if declared(FC_SSL_net_write_desired)}
+      SSL_net_write_desired := @FC_SSL_net_write_desired;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_net_write_desired_removed)}
+    if SSL_net_write_desired_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_net_write_desired)}
+      SSL_net_write_desired := @_SSL_net_write_desired;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_net_write_desired_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_net_write_desired');
+    {$ifend}
+  end;
+
+  SSL_set_blocking_mode  := LoadLibFunction(ADllHandle, SSL_set_blocking_mode_procname);
+  FuncLoadError := not assigned(SSL_set_blocking_mode);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_blocking_mode_allownil)}
+    SSL_set_blocking_mode := @ERR_SSL_set_blocking_mode;
+    {$ifend}
+    {$if declared(SSL_set_blocking_mode_introduced)}
+    if LibVersion < SSL_set_blocking_mode_introduced then
+    begin
+      {$if declared(FC_SSL_set_blocking_mode)}
+      SSL_set_blocking_mode := @FC_SSL_set_blocking_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_blocking_mode_removed)}
+    if SSL_set_blocking_mode_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_blocking_mode)}
+      SSL_set_blocking_mode := @_SSL_set_blocking_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_blocking_mode_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_blocking_mode');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_get_blocking_mode  := LoadLibFunction(ADllHandle, SSL_get_blocking_mode_procname);
+  FuncLoadError := not assigned(SSL_get_blocking_mode);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_blocking_mode_allownil)}
+    SSL_get_blocking_mode := @ERR_SSL_get_blocking_mode;
+    {$ifend}
+    {$if declared(SSL_get_blocking_mode_introduced)}
+    if LibVersion < SSL_get_blocking_mode_introduced then
+    begin
+      {$if declared(FC_SSL_get_blocking_mode)}
+      SSL_get_blocking_mode := @FC_SSL_get_blocking_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_blocking_mode_removed)}
+    if SSL_get_blocking_mode_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_blocking_mode)}
+      SSL_get_blocking_mode := @_SSL_get_blocking_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_blocking_mode_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_blocking_mode');
+    {$ifend}
+  end;
+
+  {introduced 3.2.0}
+  SSL_set1_initial_peer_addr := LoadLibFunction(ADllHandle, SSL_set1_initial_peer_addr_procname);
+  FuncLoadError := not assigned(SSL_set1_initial_peer_addr);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set1_initial_peer_addr_allownil)}
+    SSL_set1_initial_peer_addr := @ERR_SSL_set1_initial_peer_addr;
+    {$ifend}
+    {$if declared(SSL_set1_initial_peer_addr_introduced)}
+    if LibVersion < SSL_set1_initial_peer_addr_introduced then
+    begin
+      {$if declared(FC_SSL_set1_initial_peer_addr)}
+      SSL_set1_initial_peer_addr := @FC_SSL_set1_initial_peer_addr;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set1_initial_peer_addr_removed)}
+    if SSL_set1_initial_peer_addr_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set1_initial_peer_addr)}
+      SSL_set1_initial_peer_addr := @_SSL_set1_initial_peer_addr;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set1_initial_peer_addr_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set1_initial_peer_addr');
+    {$ifend}
+  end;
+
+  {introduced 3.2.0}
+  SSL_get0_connection := LoadLibFunction(ADllHandle, SSL_get0_connection_procname);
+  FuncLoadError := not assigned(SSL_get0_connection);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_connection_allownil)}
+    SSL_get0_connection := @ERR_SSL_get0_connection;
+    {$ifend}
+    {$if declared(SSL_get0_connection_introduced)}
+    if LibVersion < SSL_get0_connection_introduced then
+    begin
+      {$if declared(FC_SSL_get0_connection)}
+      SSL_get0_connection := @FC_SSL_get0_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_connection_removed)}
+    if SSL_get0_connection_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_connection)}
+      SSL_get0_connection := @_SSL_get0_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_connection_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_connection');
+    {$ifend}
+  end;
+
+  {introduced 3.2.0}
+  SSL_is_connection  := LoadLibFunction(ADllHandle, SSL_is_connection_procname);
+  FuncLoadError := not assigned(SSL_is_connection);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_is_connection_allownil)}
+    SSL_is_connection := @ERR_SSL_is_connection;
+    {$ifend}
+    {$if declared(SSL_is_connection_introduced)}
+    if LibVersion < SSL_is_connection_introduced then
+    begin
+      {$if declared(FC_SSL_is_connection)}
+      SSL_is_connection := @FC_SSL_is_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_is_connection_removed)}
+    if SSL_is_connection_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_is_connection)}
+      SSL_is_connection := @_SSL_is_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_is_connection_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_is_connection');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_is_listener  := LoadLibFunction(ADllHandle, SSL_is_listener_procname);
+  FuncLoadError := not assigned(SSL_is_listener);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_is_listener_allownil)}
+    SSL_is_listener := @ERR_SSL_is_listener;
+    {$ifend}
+    {$if declared(SSL_is_listener_introduced)}
+    if LibVersion < SSL_is_listener_introduced then
+    begin
+      {$if declared(FC_SSL_is_listener)}
+      SSL_is_listener := @FC_SSL_is_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_is_listener_removed)}
+    if SSL_is_listener_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_is_listener)}
+      SSL_is_listener := @_SSL_is_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_is_listener_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_is_listener');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_get0_listener  := LoadLibFunction(ADllHandle, SSL_get0_listener_procname);
+  FuncLoadError := not assigned(SSL_get0_listener);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_listener_allownil)}
+    SSL_get0_listener := @ERR_SSL_get0_listener;
+    {$ifend}
+    {$if declared(SSL_get0_listener_introduced)}
+    if LibVersion < SSL_get0_listener_introduced then
+    begin
+      {$if declared(FC_SSL_get0_listener)}
+      SSL_get0_listener := @FC_SSL_get0_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_listener_removed)}
+    if SSL_get0_listener_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_listener)}
+      SSL_get0_listener := @_SSL_get0_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_listener_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_listener');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_new_listener  := LoadLibFunction(ADllHandle, SSL_new_listener_procname);
+  FuncLoadError := not assigned(SSL_new_listener);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_new_listener_allownil)}
+    SSL_new_listener := @ERR_SSL_new_listener;
+    {$ifend}
+    {$if declared(SSL_new_listener_introduced)}
+    if LibVersion < SSL_new_listener_introduced then
+    begin
+      {$if declared(FC_SSL_new_listener)}
+      SSL_new_listener := @FC_SSL_new_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_new_listener_removed)}
+    if SSL_new_listener_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_new_listener)}
+      SSL_new_listener := @_SSL_new_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_new_listener_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_new_listener');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_new_listener_from  := LoadLibFunction(ADllHandle, SSL_new_listener_from_procname);
+  FuncLoadError := not assigned(SSL_new_listener_from);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_new_listener_from_allownil)}
+    SSL_new_listener_from := @ERR_SSL_new_listener_from;
+    {$ifend}
+    {$if declared(SSL_new_listener_from_introduced)}
+    if LibVersion < SSL_new_listener_from_introduced then
+    begin
+      {$if declared(FC_SSL_new_listener_from)}
+      SSL_new_listener_from := @FC_SSL_new_listener_from;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_new_listener_from_removed)}
+    if SSL_new_listener_from_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_new_listener_from)}
+      SSL_new_listener_from := @_SSL_new_listener_from;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_new_listener_from_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_new_listener_from');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_new_from_listener  := LoadLibFunction(ADllHandle, SSL_new_from_listener_procname);
+  FuncLoadError := not assigned(SSL_new_from_listener);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_new_from_listener_allownil)}
+    SSL_new_from_listener := @ERR_SSL_new_from_listener;
+    {$ifend}
+    {$if declared(SSL_new_from_listener_introduced)}
+    if LibVersion < SSL_new_from_listener_introduced then
+    begin
+      {$if declared(FC_SSL_new_from_listener)}
+      SSL_new_from_listener := @FC_SSL_new_from_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_new_from_listener_removed)}
+    if SSL_new_from_listener_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_new_from_listener)}
+      SSL_new_from_listener := @_SSL_new_from_listener;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_new_from_listener_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_new_from_listener');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_accept_connection  := LoadLibFunction(ADllHandle, SSL_accept_connection_procname);
+  FuncLoadError := not assigned(SSL_accept_connection);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_accept_connection_allownil)}
+    SSL_accept_connection := @ERR_SSL_accept_connection;
+    {$ifend}
+    {$if declared(SSL_accept_connection_introduced)}
+    if LibVersion < SSL_accept_connection_introduced then
+    begin
+      {$if declared(FC_SSL_accept_connection)}
+      SSL_accept_connection := @FC_SSL_accept_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_accept_connection_removed)}
+    if SSL_accept_connection_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_accept_connection)}
+      SSL_accept_connection := @_SSL_accept_connection;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_accept_connection_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_accept_connection');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_get_accept_connection_queue_len  := LoadLibFunction(ADllHandle, SSL_get_accept_connection_queue_len_procname);
+  FuncLoadError := not assigned(SSL_get_accept_connection_queue_len);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_accept_connection_queue_len_allownil)}
+    SSL_get_accept_connection_queue_len := @ERR_SSL_get_accept_connection_queue_len;
+    {$ifend}
+    {$if declared(SSL_get_accept_connection_queue_len_introduced)}
+    if LibVersion < SSL_get_accept_connection_queue_len_introduced then
+    begin
+      {$if declared(FC_SSL_get_accept_connection_queue_len)}
+      SSL_get_accept_connection_queue_len := @FC_SSL_get_accept_connection_queue_len;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_accept_connection_queue_len_removed)}
+    if SSL_get_accept_connection_queue_len_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_accept_connection_queue_len)}
+      SSL_get_accept_connection_queue_len := @_SSL_get_accept_connection_queue_len;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_accept_connection_queue_len_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_accept_connection_queue_len');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_listen  := LoadLibFunction(ADllHandle, SSL_listen_procname);
+  FuncLoadError := not assigned(SSL_listen);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_listen_allownil)}
+    SSL_listen := @ERR_SSL_listen;
+    {$ifend}
+    {$if declared(SSL_listen_introduced)}
+    if LibVersion < SSL_listen_introduced then
+    begin
+      {$if declared(FC_SSL_listen)}
+      SSL_listen := @FC_SSL_listen;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_listen_removed)}
+    if SSL_listen_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_listen)}
+      SSL_listen := @_SSL_listen;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_listen_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_listen');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_is_domain  := LoadLibFunction(ADllHandle, SSL_is_domain_procname);
+  FuncLoadError := not assigned(SSL_is_domain);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_is_domain_allownil)}
+    SSL_is_domain := @ERR_SSL_is_domain;
+    {$ifend}
+    {$if declared(SSL_is_domain_introduced)}
+    if LibVersion < SSL_is_domain_introduced then
+    begin
+      {$if declared(FC_SSL_is_domain)}
+      SSL_is_domain := @FC_SSL_is_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_is_domain_removed)}
+    if SSL_is_domain_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_is_domain)}
+      SSL_is_domain := @_SSL_is_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_is_domain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_is_domain');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_get0_domain := LoadLibFunction(ADllHandle, SSL_get0_domain_procname);
+  FuncLoadError := not assigned(SSL_get0_domain);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get0_domain_allownil)}
+    SSL_get0_domain := @ERR_SSL_get0_domain;
+    {$ifend}
+    {$if declared(SSL_get0_domain_introduced)}
+    if LibVersion < SSL_get0_domain_introduced then
+    begin
+      {$if declared(FC_SSL_get0_domain)}
+      SSL_get0_domain := @FC_SSL_get0_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get0_domain_removed)}
+    if SSL_get0_domain_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get0_domain)}
+      SSL_get0_domain := @_SSL_get0_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get0_domain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get0_domain');
+    {$ifend}
+  end;
+
+  {introduced 3.5.0}
+  SSL_new_domain := LoadLibFunction(ADllHandle, SSL_new_domain_procname);
+  FuncLoadError := not assigned(SSL_new_domain);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_new_domain_allownil)}
+    SSL_new_domain := @ERR_SSL_new_domain;
+    {$ifend}
+    {$if declared(SSL_new_domain_introduced)}
+    if LibVersion < SSL_new_domain_introduced then
+    begin
+      {$if declared(FC_SSL_new_domain)}
+      SSL_new_domain := @FC_SSL_new_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_new_domain_removed)}
+    if SSL_new_domain_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_new_domain)}
+      SSL_new_domain := @_SSL_new_domain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_new_domain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_new_domain');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   SSL_session_reused := LoadLibFunction(ADllHandle, SSL_session_reused_procname);
   FuncLoadError := not assigned(SSL_session_reused);
@@ -27005,6 +27952,31 @@ begin
   SSL_get_num_tickets := nil; {introduced 1.1.0}
   SSL_CTX_set_num_tickets := nil; {introduced 1.1.0}
   SSL_CTX_get_num_tickets := nil; {introduced 1.1.0}
+  SSL_handle_events := nil;  {introduced 3.2.0}
+  SSL_get_event_timeout := nil;  {introduced 3.2.0}
+  SSL_get_rpoll_descriptor := nil; {introduced 3.2.0}
+  SSL_get_wpoll_descriptor := nil; {introduced 3.2.0}
+  SSL_net_read_desired := nil;  {introduced 3.2.0}
+  SSL_net_write_desired := nil;  {introduced 3.2.0}
+  SSL_set_blocking_mode := nil;  {introduced 3.2.0}
+  SSL_get_blocking_mode := nil; {introduced 3.2.0}
+  SSL_set1_initial_peer_addr := nil;  {introduced 3.2.0}
+  SSL_get0_connection := nil;  {introduced 3.2.0}
+  SSL_is_connection := nil;  {introduced 3.2.0}
+
+  SSL_is_listener  := nil;  {introduced 3.5.0}
+  SSL_get0_listener  := nil;  {introduced 3.5.0}
+  SSL_new_listener  := nil; {introduced 3.5.0}
+  SSL_new_listener_from  := nil; {introduced 3.5.0}
+  SSL_new_from_listener  := nil; {introduced 3.5.0}
+  SSL_accept_connection  := nil; {introduced 3.5.0}
+  SSL_get_accept_connection_queue_len  := nil; {introduced 3.5.0}
+  SSL_listen := nil; {introduced 3.5.0}
+
+  SSL_is_domain  := nil; {introduced 3.5.0}
+  SSL_get0_domain  := nil;  {introduced 3.5.0}
+  SSL_new_domain  := nil; {introduced 3.5.0}
+
   SSL_session_reused := nil; {introduced 1.1.0}
   SSL_is_server := nil;
   SSL_CONF_CTX_new := nil;
