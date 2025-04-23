@@ -916,6 +916,30 @@ const
   SSL_DOMAIN_FLAG_BLOCKING            = 1 shl 3;
   SSL_DOMAIN_FLAG_LEGACY_BLOCKING     = 1 shl 4;
 
+  SSL_STREAM_TYPE_NONE        = 0;
+  SSL_STREAM_TYPE_READ        = 1 shl 0;
+  SSL_STREAM_TYPE_WRITE       = 1 shl 1;
+  SSL_STREAM_TYPE_BIDI        = SSL_STREAM_TYPE_READ or SSL_STREAM_TYPE_WRITE;
+
+  SSL_DEFAULT_STREAM_MODE_NONE       = 0;
+  SSL_DEFAULT_STREAM_MODE_AUTO_BIDI  = 1;
+  SSL_DEFAULT_STREAM_MODE_AUTO_UNI   = 2;
+
+  SSL_STREAM_FLAG_UNI         = 1 shl 0;
+  SSL_STREAM_FLAG_NO_BLOCK    = 1 shl 1;
+  SSL_STREAM_FLAG_ADVANCE     = 1 shl 2;
+
+  SSL_INCOMING_STREAM_POLICY_AUTO     = 0;
+  SSL_INCOMING_STREAM_POLICY_ACCEPT   = 1;
+  SSL_INCOMING_STREAM_POLICY_REJECT   = 2;
+
+  SSL_ACCEPT_STREAM_NO_BLOCK = 1 shl 0;
+
+  SSL_SHUTDOWN_FLAG_RAPID = 1 shl 0;
+  SSL_SHUTDOWN_FLAG_NO_STREAM_FLUSH = 1 shl 1;
+  SSL_SHUTDOWN_FLAG_NO_BLOCK = 1 shl 2;
+  SSL_SHUTDOWN_FLAG_WAIT_PEER = 1 shl 3;
+
 type
   (*
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
@@ -2414,6 +2438,31 @@ var
   SSL_get0_domain : function(s : PSSL) : PSSL; cdecl = nil;  {introduced 3.5.0}
   SSL_new_domain : function(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl = nil; {introduced 3.5.0}
 
+  SSL_CTX_set_domain_flags : function(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
+  SSL_CTX_get_domain_flags : function(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.5.0}
+  SSL_get_domain_flags : function(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.5.0}
+
+  SSL_get_stream_type : function(s : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+
+  SSL_get_stream_id : function(s : PSSL) : TIdC_UINT64; cdecl = nil;   {introduced 3.2.0}
+  SSL_is_stream_local : function(s : PSSL) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
+
+  SSL_set_default_stream_mode: function(s : PSSL; mode : TIdC_UINT32) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
+
+  SSL_new_stream: function(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil;  {introduced 3.2.0}
+
+  SSL_set_incoming_stream_policy: function(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+
+  SSL_accept_stream: function(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl = nil;   {introduced 3.2.0}
+  SSL_get_accept_stream_queue_len : function(s : PSSL) : TIdC_SIZET; cdecl = nil;    {introduced 3.2.0}
+
+  {$IFNDEF  OPENSSL_NO_QUIC}
+  SSL_inject_net_dgram: function(s : PSSL; buf : PIdAnsiChar;
+                                buf_len : TIdC_SIZET;
+                                peer : PBIO_ADDR;
+                                local : PBIO_ADDR) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  {$ENDIF}
+
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
   //# endif
@@ -3285,6 +3334,34 @@ var
   function SSL_get0_domain(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
   function SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
 
+  function SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
+
+  function SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
+  function SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
+
+  function SSL_get_stream_type(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+
+  function SSL_get_stream_id(s : PSSL) : TIdC_UINT64 cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_is_stream_local(s : PSSL) : TIdC_INT cdecl; external CLibSSL;    {introduced 3.2.0}
+
+  function SSL_set_default_stream_mode(s : PSSL; mode : TIdC_UINT32) : TIdC_INT  cdecl; external CLibSSL;  {introduced 3.2.0}
+
+  function SSL_new_stream(s : PSSL; flags : TIdC_UINT64) : PSSL  cdecl; external CLibSSL;  {introduced 3.2.0}
+
+  function SSL_set_incoming_stream_policy(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT  cdecl; external CLibSSL;   {introduced 3.2.0}
+
+  function SSL_accept_stream(s : PSSL; flags : TIdC_UINT64) : PSSL  cdecl; external CLibSSL;   {introduced 3.2.0}
+  function SSL_get_accept_stream_queue_len(s : PSSL) : TIdC_SIZET  cdecl; external CLibSSL;   {introduced 3.2.0}
+
+  {$IFNDEF  OPENSSL_NO_QUIC}
+  function SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
+                                buf_len : TIdC_SIZET;
+                                peer : PBIO_ADDR;
+                                local : PBIO_ADDR) : TIdC_INT  cdecl; external CLibSSL;   {introduced 3.2.0}
+  {$ENDIF}
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
@@ -4113,6 +4190,22 @@ const
   SSL_is_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   SSL_get0_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   SSL_new_domain_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+
+  SSL_CTX_set_domain_flags_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_CTX_get_domain_flags_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  SSL_get_domain_flags_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+
+  SSL_set_default_stream_mode_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_type_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_id_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_new_stream_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_is_stream_local_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_set_incoming_stream_policy_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_accept_stream_procname_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_accept_stream_queue_len_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+{$IFNDEF  OPENSSL_NO_QUIC}
+  SSL_inject_net_dgram_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+{$ENDIF}
 
   SSL_session_reused_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_add_ssl_module_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5158,6 +5251,22 @@ const
   SSL_is_domain_procname = 'SSL_is_domain'; {introduced 3.5.0}
   SSL_get0_domain_procname = 'SSL_get0_domain';  {introduced 3.5.0}
   SSL_new_domain_procname = 'SSL_new_domain'; {introduced 3.5.0}
+
+  SSL_CTX_set_domain_flags_procname = 'SSL_CTX_set_domain_flags';  {introduced 3.5.0}
+  SSL_CTX_get_domain_flags_procname = 'SSL_CTX_get_domain_flags';  {introduced 3.5.0}
+  SSL_get_domain_flags_procname = 'SSL_get_domain_flags'; {introduced 3.5.0}
+
+  SSL_set_default_stream_mode_procname = 'SSL_set_default_stream_mode'; {introduced 3.2.0}
+  SSL_get_stream_type_procname = 'SSL_get_stream_type'; {introduced 3.2.0}
+  SSL_get_stream_id_procname = 'SSL_get_stream_id'; {introduced 3.2.0}
+  SSL_new_stream_procname = 'SSL_new_stream';  {introduced 3.2.0}
+  SSL_is_stream_local_procname = 'SSL_is_stream_local'; {introduced 3.2.0}
+  SSL_set_incoming_stream_policy_procname = 'SSL_set_incoming_stream_policy'; {introduced 3.2.0}
+  SSL_accept_stream_procname = 'SSL_accept_stream';  {introduced 3.2.0}
+  SSL_get_accept_stream_queue_len_procname = 'SSL_get_accept_stream_queue_len';  {introduced 3.2.0}
+{$IFNDEF  OPENSSL_NO_QUIC}
+  SSL_inject_net_dgram_procname = 'SSL_inject_net_dgram'; {introduced 3.2.0}
+{$ENDIF}
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
@@ -9301,6 +9410,75 @@ function ERR_SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_domain_procname);
 end;
+
+{introduced 3.5.0}
+function ERR_SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_domain_flags_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_domain_flags_procname);
+end;
+
+{introduced 3.5.0}
+function ERR_SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_domain_flags_procname);
+end;
+
+function ERR_SSL_get_stream_type(s : PSSL) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_type_procname);
+end;
+
+function ERR_SSL_get_stream_id(s : PSSL) : TIdC_UINT64;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_id_procname);
+end;
+
+function ERR_SSL_is_stream_local(s : PSSL) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_stream_local_procname);
+end;
+
+function ERR_SSL_set_default_stream_mode(s : PSSL; mode : TIdC_UINT32) : TIdC_INT;
+begin
+    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_default_stream_mode_procname);
+end;
+
+function ERR_SSL_new_stream(s : PSSL; flags : TIdC_UINT64) : PSSL;
+begin
+    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_stream_procname);
+end;
+
+function ERR_SSL_set_incoming_stream_policy(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_incoming_stream_policy_procname);
+end;
+
+function ERR_SSL_accept_stream(s : PSSL; flags : TIdC_UINT64) : PSSL;
+begin
+    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_accept_stream_procname);
+end;
+
+function ERR_SSL_get_accept_stream_queue_len(s : PSSL) : TIdC_SIZET;
+begin
+    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_accept_stream_queue_len_procname);
+end;
+
+{$IFNDEF  OPENSSL_NO_QUIC}
+function ERR_SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
+                                buf_len : TIdC_SIZET;
+                                peer : PBIO_ADDR;
+                                local : PBIO_ADDR) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_inject_net_dgram_procname);
+end;
+{$ENDIF}
+
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_cache_hit(s) SSL_session_reused(s)
@@ -25218,6 +25396,360 @@ begin
     {$ifend}
   end;
 
+  {introduced 3.5.0}
+  SSL_CTX_set_domain_flags := LoadLibFunction(ADllHandle, SSL_CTX_set_domain_flags_procname);
+  FuncLoadError := not assigned(SSL_CTX_set_domain_flags);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_set_domain_flags_allownil)}
+    SSL_CTX_set_domain_flags := @ERR_SSL_CTX_set_domain_flags;
+    {$ifend}
+    {$if declared(SSL_CTX_set_domain_flags_introduced)}
+    if LibVersion < SSL_CTX_set_domain_flags_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_set_domain_flags)}
+      SSL_CTX_set_domain_flags := @FC_SSL_CTX_set_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_set_domain_flags_removed)}
+    if SSL_CTX_set_domain_flags_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_set_domain_flags)}
+      SSL_CTX_set_domain_flags := @_SSL_CTX_set_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_set_domain_flags_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_set_domain_flags');
+    {$ifend}
+  end;
+
+  {introduced 3.5.0}
+  SSL_CTX_get_domain_flags := LoadLibFunction(ADllHandle, SSL_CTX_get_domain_flags_procname);
+  FuncLoadError := not assigned(SSL_CTX_get_domain_flags);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_CTX_get_domain_flags_allownil)}
+    SSL_CTX_get_domain_flags := @ERR_SSL_CTX_get_domain_flags;
+    {$ifend}
+    {$if declared(SSL_CTX_get_domain_flags_introduced)}
+    if LibVersion < SSL_CTX_get_domain_flags_introduced then
+    begin
+      {$if declared(FC_SSL_CTX_get_domain_flags)}
+      SSL_CTX_get_domain_flags := @FC_SSL_CTX_get_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_CTX_get_domain_flags_removed)}
+    if SSL_CTX_get_domain_flags_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_CTX_get_domain_flags)}
+      SSL_CTX_get_domain_flags := @_SSL_CTX_get_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_CTX_get_domain_flags_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_CTX_get_domain_flags');
+    {$ifend}
+  end;
+
+   {introduced 3.5.0}
+  SSL_get_domain_flags := LoadLibFunction(ADllHandle, SSL_get_domain_flags_procname);
+  FuncLoadError := not assigned(SSL_get_domain_flags);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_domain_flags_allownil)}
+    SSL_get_domain_flags := @ERR_SSL_get_domain_flags;
+    {$ifend}
+    {$if declared(SSL_get_domain_flags_introduced)}
+    if LibVersion < SSL_get_domain_flags_introduced then
+    begin
+      {$if declared(FC_SSL_get_domain_flags)}
+      SSL_get_domain_flags := @FC_SSL_get_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_domain_flags_removed)}
+    if SSL_get_domain_flags_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_domain_flags)}
+      SSL_get_domain_flags := @_SSL_get_domain_flags;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_domain_flags_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_domain_flags');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_get_stream_type := LoadLibFunction(ADllHandle, SSL_get_stream_type_procname);
+  FuncLoadError := not assigned(SSL_get_stream_type);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_type_allownil)}
+    SSL_get_stream_type := @ERR_SSL_get_stream_type;
+    {$ifend}
+    {$if declared(SSL_get_stream_type_introduced)}
+    if LibVersion < SSL_get_stream_type_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_type)}
+      SSL_get_stream_type := @FC_SSL_get_stream_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_type_removed)}
+    if SSL_get_stream_type_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_type)}
+      SSL_get_stream_type := @_SSL_get_stream_type;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_type_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_type');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_get_stream_id := LoadLibFunction(ADllHandle, SSL_get_stream_id_procname);
+  FuncLoadError := not assigned(SSL_get_stream_id);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_id_allownil)}
+    SSL_get_stream_id := @ERR_SSL_get_stream_id;
+    {$ifend}
+    {$if declared(SSL_get_stream_id_introduced)}
+    if LibVersion < SSL_get_stream_id_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_id)}
+      SSL_get_stream_id := @FC_SSL_get_stream_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_id_removed)}
+    if SSL_get_stream_id_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_id)}
+      SSL_get_stream_id := @_SSL_get_stream_id;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_id_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_id');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_is_stream_local := LoadLibFunction(ADllHandle, SSL_is_stream_local_procname);
+  FuncLoadError := not assigned(SSL_is_stream_local);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_is_stream_local_allownil)}
+    SSL_is_stream_local := @ERR_SSL_is_stream_local;
+    {$ifend}
+    {$if declared(SSL_is_stream_local_introduced)}
+    if LibVersion < SSL_is_stream_local_introduced then
+    begin
+      {$if declared(FC_SSL_is_stream_local)}
+      SSL_is_stream_local := @FC_SSL_is_stream_local;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_is_stream_local_removed)}
+    if SSL_is_stream_local_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_is_stream_local)}
+      SSL_is_stream_local := @_SSL_is_stream_local;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_is_stream_local_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_is_stream_local');
+    {$ifend}
+  end;
+
+    {introduced 3.2.0}
+  SSL_set_default_stream_mode := LoadLibFunction(ADllHandle, SSL_set_default_stream_mode_procname);
+  FuncLoadError := not assigned(SSL_set_default_stream_mode);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_default_stream_mode_allownil)}
+    SSL_set_default_stream_mode := @ERR_SSL_set_default_stream_mode;
+    {$ifend}
+    {$if declared(SSL_set_default_stream_mode_introduced)}
+    if LibVersion < SSL_set_default_stream_mode_introduced then
+    begin
+      {$if declared(FC_SSL_set_default_stream_mode)}
+      SSL_set_default_stream_mode := @FC_SSL_set_default_stream_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_default_stream_mode_removed)}
+    if SSL_set_default_stream_mode_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_default_stream_mode)}
+      SSL_set_default_stream_mode := @_SSL_set_default_stream_mode;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_default_stream_mode_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_default_stream_mode');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_new_stream := LoadLibFunction(ADllHandle, SSL_new_stream_procname);
+  FuncLoadError := not assigned(SSL_new_stream);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_new_stream_allownil)}
+    SSL_new_stream := @ERR_SSL_new_stream;
+    {$ifend}
+    {$if declared(SSL_new_stream_introduced)}
+    if LibVersion < SSL_new_stream_introduced then
+    begin
+      {$if declared(FC_SSL_new_stream)}
+      SSL_new_stream := @FC_SSL_new_stream;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_new_stream_removed)}
+    if SSL_new_stream_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_new_stream)}
+      SSL_new_stream := @_SSL_new_stream;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_new_stream_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_new_stream');
+    {$ifend}
+  end;
+
+    {introduced 3.2.0}
+  SSL_set_incoming_stream_policy := LoadLibFunction(ADllHandle, SSL_set_incoming_stream_policy_procname);
+  FuncLoadError := not assigned(SSL_set_incoming_stream_policy);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_set_incoming_stream_policy_allownil)}
+    SSL_set_incoming_stream_policy := @ERR_SSL_set_incoming_stream_policy;
+    {$ifend}
+    {$if declared(SSL_set_incoming_stream_policy_introduced)}
+    if LibVersion < SSL_set_incoming_stream_policy_introduced then
+    begin
+      {$if declared(FC_SSL_set_incoming_stream_policy)}
+      SSL_set_incoming_stream_policy := @FC_SSL_set_incoming_stream_policy;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_set_incoming_stream_policy_removed)}
+    if SSL_set_incoming_stream_policy_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_set_incoming_stream_policy)}
+      SSL_set_incoming_stream_policy := @_SSL_set_incoming_stream_policy;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_set_incoming_stream_policy_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_set_incoming_stream_policy');
+    {$ifend}
+  end;
+
+   {introduced 3.2.0}
+  SSL_accept_stream := LoadLibFunction(ADllHandle, SSL_accept_stream_procname);
+  FuncLoadError := not assigned(SSL_accept_stream);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_accept_stream_allownil)}
+    SSL_accept_stream := @ERR_SSL_accept_stream;
+    {$ifend}
+    {$if declared(SSL_accept_stream_introduced)}
+    if LibVersion < SSL_accept_stream_introduced then
+    begin
+      {$if declared(FC_SSL_accept_stream)}
+      SSL_accept_stream := @FC_SSL_accept_stream;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_accept_stream_removed)}
+    if SSL_accept_stream_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_accept_stream)}
+      SSL_accept_stream := @_SSL_accept_stream;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_accept_stream_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_accept_stream');
+    {$ifend}
+  end;
+
+{$IFNDEF OPENSSL_NO_QUIC}
+    {introduced 3.2.0}
+  SSL_inject_net_dgram := LoadLibFunction(ADllHandle, SSL_inject_net_dgram_procname);
+  FuncLoadError := not assigned(SSL_inject_net_dgram);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_inject_net_dgram_allownil)}
+    SSL_inject_net_dgram := @ERR_SSL_inject_net_dgram;
+    {$ifend}
+    {$if declared(SSL_inject_net_dgram_introduced)}
+    if LibVersion < SSL_inject_net_dgram_introduced then
+    begin
+      {$if declared(FC_SSL_inject_net_dgram)}
+      SSL_inject_net_dgram := @FC_SSL_inject_net_dgram;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_inject_net_dgram_removed)}
+    if SSL_inject_net_dgram_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_inject_net_dgram)}
+      SSL_inject_net_dgram := @_SSL_inject_net_dgram(;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_inject_net_dgram_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_inject_net_dgram');
+    {$ifend}
+  end;
+  {$ENDIF}
+
  {introduced 1.1.0}
   SSL_session_reused := LoadLibFunction(ADllHandle, SSL_session_reused_procname);
   FuncLoadError := not assigned(SSL_session_reused);
@@ -27976,6 +28508,21 @@ begin
   SSL_is_domain  := nil; {introduced 3.5.0}
   SSL_get0_domain  := nil;  {introduced 3.5.0}
   SSL_new_domain  := nil; {introduced 3.5.0}
+
+  SSL_CTX_set_domain_flags := nil; {introduced 3.5.0}
+  SSL_CTX_get_domain_flags := nil; {introduced 3.5.0}
+  SSL_get_domain_flags := nil;  {introduced 3.5.0}
+
+  SSL_get_stream_type := nil; {introduced 3.2.0}
+  SSL_get_stream_id := nil;  {introduced 3.2.0}
+  SSL_is_stream_local := nil; {introduced 3.2.0}
+  SSL_set_default_stream_mode := nil;  {introduced 3.2.0}
+  SSL_new_stream := nil;  {introduced 3.2.0}
+  SSL_set_incoming_stream_policy := nil;   {introduced 3.2.0}
+  SSL_accept_stream  := nil; {introduced 3.2.0}
+{$IFNDEF OPENSSL_NO_QUIC}
+  SSL_inject_net_dgram := nil;    {introduced 3.2.0}
+{$ENDIF}
 
   SSL_session_reused := nil; {introduced 1.1.0}
   SSL_is_server := nil;
