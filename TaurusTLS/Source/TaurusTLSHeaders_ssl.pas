@@ -940,6 +940,14 @@ const
   SSL_SHUTDOWN_FLAG_NO_BLOCK = 1 shl 2;
   SSL_SHUTDOWN_FLAG_WAIT_PEER = 1 shl 3;
 
+  SSL_STREAM_STATE_NONE         = 0;
+  SSL_STREAM_STATE_OK             = 1;
+  SSL_STREAM_STATE_WRONG_DIR      = 2;
+  SSL_STREAM_STATE_FINISHED       = 3;
+  SSL_STREAM_STATE_RESET_LOCAL    = 4;
+  SSL_STREAM_STATE_RESET_REMOTE   = 5;
+  SSL_STREAM_STATE_CONN_CLOSED    = 6;
+
 type
   (*
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
@@ -965,6 +973,12 @@ type
   end;
   SSL_SHUTDOWN_EX_ARGS = ssl_shutdown_ex_args_st;
   PSSL_SHUTDOWN_EX_ARGS = ^SSL_SHUTDOWN_EX_ARGS;
+
+  ssl_stream_reset_args_st = record
+    quic_error_code : TIdC_UINT64;
+  end;
+  SSL_STREAM_RESET_ARGS = ssl_stream_reset_args_st;
+  PSSL_STREAM_RESET_ARGS = ^SSL_STREAM_RESET_ARGS;
 
   (* SRTP protection profiles for use with the use_srtp extension (RFC 5764)*)
   srtp_protection_profile_st = record
@@ -2262,7 +2276,17 @@ var
   SSL_shutdown: function (s: PSSL): TIdC_INT; cdecl = nil;
   SSL_shutdown_ex: function(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
-                           args_len : TIdC_SIZET) : TIdC_INT cdecl = nil;
+                           args_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;   {introduced 3.2.0}
+
+  SSL_stream_conclude : function(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_stream_reset : function(ssl : PSSL;
+                            args : PSSL_STREAM_RESET_ARGS;
+                            args_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+
+  SSL_get_stream_read_state : function(ssl : PSSL) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_get_stream_write_state : function(ssl : PSSL) : TIdC_INT;  cdecl = nil;  {introduced 3.2.0}
+  SSL_get_stream_read_error_code : function(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+  SSL_get_stream_write_error_code : function(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
 
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
@@ -3158,7 +3182,18 @@ var
   function SSL_shutdown(s: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
-                           args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
+
+  function SSL_stream_conclude(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_stream_reset(ssl : PSSL;
+                            args : PSSL_STREAM_RESET_ARGS;
+                            args_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get_stream_read_state(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get_stream_write_state(ssl : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+
+  function SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+  function SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
+
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -4021,6 +4056,13 @@ end;
 
 const
   SSL_shutdown_ex_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_stream_conclude_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_stream_reset_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_read_state_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_write_state_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_read_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_stream_write_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+
   SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5051,6 +5093,15 @@ const
   SSL_renegotiate_abbreviated_procname = 'SSL_renegotiate_abbreviated';
   SSL_shutdown_procname = 'SSL_shutdown';
   SSL_shutdown_ex_procname = 'SSL_shutdown_ex';
+
+  SSL_stream_conclude_procname = 'SSL_stream_conclude'; {introduced 3.2.0}
+  SSL_stream_reset_procname = 'SSL_stream_reset';  {introduced 3.2.0}
+  SSL_get_stream_read_state_procname = 'SSL_get_stream_read_state';  {introduced 3.2.0}
+  SSL_get_stream_write_state_procname = 'SSL_get_stream_write_state';  {introduced 3.2.0}
+
+  SSL_get_stream_read_error_code_procname = 'SSL_get_stream_read_error_code';  {introduced 3.2.0}
+  SSL_get_stream_write_error_code_procname = 'SSL_get_stream_write_error_code';  {introduced 3.2.0}
+
   SSL_CTX_set_post_handshake_auth_procname = 'SSL_CTX_set_post_handshake_auth'; {introduced 1.1.0}
   SSL_set_post_handshake_auth_procname = 'SSL_set_post_handshake_auth'; {introduced 1.1.0}
 
@@ -6257,12 +6308,12 @@ end;
 
 {/forward_compatibility}
 {$WARN  NO_RETVAL OFF}
-function  ERR_SSL_CTX_set_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG; 
+function  ERR_SSL_CTX_set_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_mode_procname);
 end;
 
- 
+
 function  ERR_SSL_CTX_clear_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_clear_mode_procname);
@@ -8644,7 +8695,39 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ssl_shutdown_ex_procname);
 end;
 
-procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT); 
+function ERR_SSL_stream_conclude(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_stream_conclude_procname);
+end;
+
+function ERR_SSL_stream_reset(ssl : PSSL;
+                            args : PSSL_STREAM_RESET_ARGS;
+                            args_len : TIdC_SIZET) : TIdC_INT;  {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_stream_reset_procname);
+end;
+
+function ERR_SSL_get_stream_read_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_read_state_procname);
+end;
+
+function ERR_SSL_get_stream_write_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_write_state_procname);
+end;
+
+function ERR_SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_read_error_code_procname);
+end;
+
+function ERR_SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_write_error_code_procname);
+end;
+
+procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_post_handshake_auth_procname);
 end;
@@ -21559,6 +21642,193 @@ begin
     {$ifend}
   end;
 
+  SSL_stream_conclude := LoadLibFunction(ADllHandle, SSL_stream_conclude_procname);
+  FuncLoadError := not assigned(SSL_stream_conclude);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_stream_conclude_allownil)}
+    SSL_stream_conclude := @ERR_SSL_stream_conclude;
+    {$ifend}
+    {$if declared(SSL_stream_conclude_introduced)}
+    if LibVersion < SSL_stream_conclude_introduced then
+    begin
+      {$if declared(FC_SSL_stream_conclude)}
+      SSL_stream_conclude := @FC_SSL_stream_conclude;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_stream_conclude_removed)}
+    if SSL_stream_conclude_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_stream_conclude)}
+      SSL_stream_conclude := @_SSL_stream_conclude;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_stream_conclude_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_stream_conclude');
+    {$ifend}
+  end;
+
+  SSL_get_stream_read_state := LoadLibFunction(ADllHandle, SSL_get_stream_read_state_procname);
+  FuncLoadError := not assigned(SSL_get_stream_read_state);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_read_state_allownil)}
+    SSL_get_stream_read_state := @ERR_SSL_get_stream_read_state;
+    {$ifend}
+    {$if declared(SSL_get_stream_read_state_introduced)}
+    if LibVersion < SSL_get_stream_read_state_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_read_state)}
+      SSL_get_stream_read_state := @FC_SSL_get_stream_read_state;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_read_state_removed)}
+    if SSL_get_stream_read_state_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_read_state)}
+      SSL_get_stream_read_state := @_SSL_get_stream_read_state;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_read_state_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_read_state');
+    {$ifend}
+  end;
+
+  SSL_get_stream_write_state := LoadLibFunction(ADllHandle, SSL_get_stream_write_state_procname);
+  FuncLoadError := not assigned(SSL_get_stream_write_state);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_write_state_allownil)}
+    SSL_get_stream_write_state := @ERR_SSL_get_stream_write_state;
+    {$ifend}
+    {$if declared(SSL_get_stream_write_state_introduced)}
+    if LibVersion < SSL_get_stream_write_state_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_write_state)}
+      SSL_get_stream_write_state := @FC_SSL_get_stream_write_state;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_write_state_removed)}
+    if SSL_get_stream_write_state_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_write_state)}
+      SSL_get_stream_write_state := @_SSL_get_stream_write_state;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_write_state_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_write_state');
+    {$ifend}
+  end;
+
+  SSL_get_stream_read_error_code := LoadLibFunction(ADllHandle, SSL_get_stream_read_error_code_procname);
+  FuncLoadError := not assigned(SSL_get_stream_read_error_code);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_read_error_code_allownil)}
+    SSL_get_stream_read_error_code := @ERR_SSL_get_stream_read_error_code;
+    {$ifend}
+    {$if declared(SSL_get_stream_read_error_code_introduced)}
+    if LibVersion < SSL_get_stream_read_error_code_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_read_error_code)}
+      SSL_get_stream_read_error_code := @FC_SSL_get_stream_read_error_code;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_read_error_code_removed)}
+    if SSL_get_stream_read_error_code_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_read_error_code)}
+      SSL_get_stream_read_error_code := @_SSL_get_stream_read_error_code;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_read_error_code_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_read_error_code');
+    {$ifend}
+  end;
+
+  SSL_get_stream_write_error_code := LoadLibFunction(ADllHandle, SSL_get_stream_write_error_code_procname);
+  FuncLoadError := not assigned(SSL_get_stream_write_error_code);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_stream_write_error_code_allownil)}
+    SSL_get_stream_write_error_code := @ERR_SSL_get_stream_write_error_code;
+    {$ifend}
+    {$if declared(SSL_get_stream_write_error_code_introduced)}
+    if LibVersion < SSL_get_stream_write_error_code_introduced then
+    begin
+      {$if declared(FC_SSL_get_stream_write_error_code)}
+      SSL_get_stream_write_error_code := @FC_SSL_get_stream_write_error_code;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_stream_write_error_code_removed)}
+    if SSL_get_stream_write_error_code_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_stream_write_error_code)}
+      SSL_get_stream_write_error_code := @_SSL_get_stream_write_error_code;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_stream_write_error_code_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_stream_write_error_code');
+    {$ifend}
+  end;
+
+
+  SSL_stream_reset := LoadLibFunction(ADllHandle, SSL_stream_reset_procname);
+  FuncLoadError := not assigned(SSL_stream_reset);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_stream_reset_allownil)}
+    SSL_stream_reset := @ERR_SSL_stream_reset;
+    {$ifend}
+    {$if declared(SSL_stream_reset_introduced)}
+    if LibVersion < SSL_stream_reset_introduced then
+    begin
+      {$if declared(FC_SSL_stream_reset)}
+      SSL_stream_reset := @FC_SSL_stream_reset;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_stream_reset_removed)}
+    if SSL_stream_reset_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_stream_reset)}
+      SSL_stream_reset := @_SSL_stream_reset;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_stream_reset_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_stream_reset');
+    {$ifend}
+  end;
+
   SSL_CTX_set_post_handshake_auth := LoadLibFunction(ADllHandle, SSL_CTX_set_post_handshake_auth_procname);
   FuncLoadError := not assigned(SSL_CTX_set_post_handshake_auth);
   if FuncLoadError then
@@ -28159,6 +28429,8 @@ begin
   SSL_want := nil;
   SSL_clear := nil;
   BIO_ssl_shutdown := nil;
+  SSL_shutdown_ex := nil;  {introduced 3.2.0}
+
   SSL_CTX_up_ref := nil; {introduced 1.1.0}
   SSL_CTX_free := nil;
   SSL_CTX_set_cert_store := nil;
@@ -28593,6 +28865,13 @@ begin
   TLSv1_2_client_method := nil; {removed 1.1.0 allow_nil}	// TLSv1.2
   SSL_get0_peer_certificate := nil; {introduced 3.3.0}
   SSL_get1_peer_certificate := nil; {introduced 3.3.0}
+  SSL_stream_conclude := nil; {introduced 3.2.0}
+  SSL_stream_reset := nil; {introduced 3.2.0}
+  SSL_get_stream_read_state :=  nil;
+  SSL_get_stream_write_state := nil;
+
+  SSL_get_stream_read_error_code := nil;
+  SSL_get_stream_write_error_code := nil;
 end;
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;
