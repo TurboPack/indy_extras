@@ -89,10 +89,10 @@
         <BT_BuildType>Debug</BT_BuildType>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <DCC_UsePackage>vclwinx;fmx;vclie;DbxCommonDriver;bindengine;VCLRESTComponents;FireDACCommonODBC;IndyCore290;FireDACCommonDriver;appanalytics;vclx;dbxcds;vcledge;bindcompvclwinx;bindcompfmx;inetdb;FireDACSqliteDriver;DbxClientDriver;soapmidas;vclactnband;fmxFireDAC;dbexpress;DBXMySQLDriver;VclSmp;inet;vcltouch;fmxase;dbrtl;fmxdae;FireDACMSAccDriver;CustomIPTransport;vcldsnap;DBXInterBaseDriver;Skia.Package.VCL;vcldb;vclFireDAC;bindcomp;FireDACCommon;RESTBackendComponents;IndyProtocols290;bindcompdbx;rtl;FireDACMySQLDriver;FireDACADSDriver;RESTComponents;DBXSqliteDriver;vcl;dsnapxml;adortl;dsnapcon;vclimg;FireDACPgDriver;FireDAC;inetdbxpress;xmlrtl;tethering;bindcompvcl;dsnap;CloudService;IndySystem290;fmxobj;bindcompvclsmp;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
-        <Icon_MainIcon>TaurusFTPClient_Icon.ico</Icon_MainIcon>
+        <Icon_MainIcon>TaurusFTPClient_Icon3.ico</Icon_MainIcon>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <UWP_DelphiLogo150>bull_150.png</UWP_DelphiLogo150>
-        <UWP_DelphiLogo44>bull_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>bullhead_150.png</UWP_DelphiLogo150>
+        <UWP_DelphiLogo44>bullhead_44.png</UWP_DelphiLogo44>
         <VerInfo_Keys>CompanyName=Indy Pitt Crew;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=$(MSBuildProjectName);LegalCopyright=Copyright (c) 2024 Indy Pitt Crew;LegalTrademarks=$(MSBuildProjectName);OriginalFilename=$(MSBuildProjectName);ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -226,22 +226,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="bull_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
-                    <Platform Name="Win64">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo150x150.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="bull_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="bull_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
-                    <Platform Name="Win64">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -254,8 +240,22 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="bullhead_150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo150x150.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="bullhead_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="bullhead_44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win64">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>
