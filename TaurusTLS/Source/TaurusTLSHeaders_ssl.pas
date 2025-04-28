@@ -3800,55 +3800,15 @@ function SSL_CTX_sess_timeouts(ctx : PSSL_CTX): TIdC_LONG;
 function SSL_CTX_sess_cache_full(ctx : PSSL_CTX): TIdC_LONG;
 
 function SSL_get_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64)  : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v);
-end;
-
 function SSL_set_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : TIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v );
-end;
-
 function SSL_get_feature_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
-end;
 
 function SSL_set_feature_request_uint(ssl : PSSL; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
-end;
-
 function SSL_get_feature_peer_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_PEER_REQUEST, id, v);
-end;
-
 function SSL_get_feature_negotiated_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_NEGOTIATED, id, v);
-end;
-
 function SSL_get_quic_stream_bidi_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_LOCAL_AVAIL,
-                               value);
-end;
 
 function SSL_get_quic_stream_bidi_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_REMOTE_AVAIL,
-                               value);
-end;
-
 function SSL_get_quic_stream_uni_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 function SSL_get_quic_stream_uni_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 function SSL_get_event_handling_mode(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
