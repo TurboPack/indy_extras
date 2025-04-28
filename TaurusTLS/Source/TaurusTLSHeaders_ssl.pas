@@ -971,6 +971,36 @@ const
   SSL_VALUE_EVENT_HANDLING_MODE_IMPLICIT    = 1;
   SSL_VALUE_EVENT_HANDLING_MODE_EXPLICIT    = 2;
 
+  SSL_POLL_EVENT_NONE      =  0;
+
+  SSL_POLL_EVENT_F          = (1 shl  0); //* F   (Failure) */
+  SSL_POLL_EVENT_EL         = (1 shl  1); //* EL  (Exception on Listener) */
+  SSL_POLL_EVENT_EC         = (1 shl  2); //* EC  (Exception on Conn) */
+  SSL_POLL_EVENT_ECD        = (1 shl  3); //* ECD (Exception on Conn Drained) */
+  SSL_POLL_EVENT_ER         = (1 shl  4); //* ER  (Exception on Read) */
+  SSL_POLL_EVENT_EW         = (1 shl  5); //* EW  (Exception on Write) */
+  SSL_POLL_EVENT_R          = (1 shl  6); //* R   (Readable) */
+  SSL_POLL_EVENT_W          = (1 shl  7); //* W   (Writable) */
+  SSL_POLL_EVENT_IC         = (1 shl  8); //* IC  (Incoming Connection) */
+  SSL_POLL_EVENT_ISB        = (1 shl  9); //* ISB (Incoming Stream: Bidi) */
+  SSL_POLL_EVENT_ISU        = (1 shl 10); //* ISU (Incoming Stream: Uni) */
+  SSL_POLL_EVENT_OSB        = (1 shl 11); //* OSB (Outgoing Stream: Bidi) */
+  SSL_POLL_EVENT_OSU        = (1 shl 12); //* OSU (Outgoing Stream: Uni) */
+
+  SSL_POLL_EVENT_RW         = (SSL_POLL_EVENT_R or SSL_POLL_EVENT_W);
+  SSL_POLL_EVENT_RE         = (SSL_POLL_EVENT_R or SSL_POLL_EVENT_ER);
+  SSL_POLL_EVENT_WE         = (SSL_POLL_EVENT_W or SSL_POLL_EVENT_EW);
+  SSL_POLL_EVENT_RWE        = (SSL_POLL_EVENT_RE or SSL_POLL_EVENT_WE);
+  SSL_POLL_EVENT_E          = (SSL_POLL_EVENT_EL or SSL_POLL_EVENT_EC
+                             or SSL_POLL_EVENT_ER or SSL_POLL_EVENT_EW);
+  SSL_POLL_EVENT_IS         = (SSL_POLL_EVENT_ISB or SSL_POLL_EVENT_ISU);
+  SSL_POLL_EVENT_ISE        = (SSL_POLL_EVENT_IS or SSL_POLL_EVENT_EC);
+  SSL_POLL_EVENT_I          = (SSL_POLL_EVENT_IS or SSL_POLL_EVENT_IC);
+  SSL_POLL_EVENT_OS         = (SSL_POLL_EVENT_OSB or SSL_POLL_EVENT_OSU);
+
+  SSL_POLL_EVENT_OSE         = (SSL_POLL_EVENT_OS or SSL_POLL_EVENT_EC);
+  SSL_POLL_FLAG_NO_HANDLE_EVENTS  = 1 shl 0;
+
 type
   (*
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
@@ -1020,6 +1050,12 @@ type
   end;
   SSL_CONN_CLOSE_INFO = ssl_conn_close_info_st;
   PSSL_CONN_CLOSE_INFO = ^SSL_CONN_CLOSE_INFO;
+  ssl_poll_item_st = record
+     desc : BIO_POLL_DESCRIPTOR;
+      events, revents : TIdC_UINT64;
+  end;
+  SSL_POLL_ITEM = ssl_poll_item_st;
+  PSSL_POLL_ITEM = ^SSL_POLL_ITEM;
   (* Typedefs for handling custom extensions *)
   custom_ext_add_cb = function (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; outlen: PIdC_SIZET; al: PIdC_INT; add_arg: Pointer): TIdC_INT; cdecl;
   custom_ext_free_cb = procedure (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; add_arg: Pointer); cdecl;
@@ -2325,6 +2361,13 @@ var
   SSL_get_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
   SSL_set_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
 
+  SSL_poll : function(items : PSSL_POLL_ITEM;
+                    num_items : TIdC_SIZET;
+                    stride : TIdC_SIZET;
+                    timeout : Ptimeval;
+                    flags : TIdC_UINT64;
+                    result_count : PIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
+
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
@@ -3236,6 +3279,12 @@ var
                                    info_len : TIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.2.0}
   function SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
   function SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
+  function SSL_poll(items : PSSL_POLL_ITEM;
+                    num_items : TIdC_SIZET;
+                    stride : TIdC_SIZET;
+                    timeout : Ptimeval;
+                    flags : TIdC_UINT64;
+                    result_count : PIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
 
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
@@ -4225,7 +4274,7 @@ const
   SSL_get_conn_close_info_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_value_uint_introduced =  (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
   SSL_set_value_uint_introduced =  (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
-
+  SSL_poll_introduced =  (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
 
   SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5269,7 +5318,7 @@ const
 
   SSL_get_value_uint_procname = 'SSL_get_value_uint'; {introduced 3.3.0}
   SSL_set_value_uint_procname = 'SSL_set_value_uint'; {introduced 3.3.0}
-
+  SSL_poll_procname = 'SSL_poll'; {introduced 3.3.0}
 
   SSL_CTX_set_post_handshake_auth_procname = 'SSL_CTX_set_post_handshake_auth'; {introduced 1.1.0}
   SSL_set_post_handshake_auth_procname = 'SSL_set_post_handshake_auth'; {introduced 1.1.0}
@@ -8913,6 +8962,17 @@ end;
 function ERR_SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_set_value_uint_procname);
+end;
+
+{introduced 3.3.0}
+function ERR_SSL_poll(items : PSSL_POLL_ITEM;
+                    num_items : TIdC_SIZET;
+                    stride : TIdC_SIZET;
+                    timeout : Ptimeval;
+                    flags : TIdC_UINT64;
+                    result_count : PIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_poll_procname);
 end;
 
 procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT);
@@ -22047,34 +22107,65 @@ begin
     {$ifend}
   end;
 
-  SSL_set_value_uint := LoadLibFunction(ADllHandle, SSL_get_value_uint_procname);
-  FuncLoadError := not assigned(SSL_get_value_uint);
+  SSL_set_value_uint := LoadLibFunction(ADllHandle, SSL_set_value_uint_procname);
+  FuncLoadError := not assigned(SSL_set_value_uint);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_value_uint_allownil)}
-    SSL_get_value_uint := @ERR_SSL_get_value_uint;
+    {$if not defined(SSL_set_value_uint_allownil)}
+    SSL_set_value_uint := @ERR_SSL_set_value_uint;
     {$ifend}
-    {$if declared(SSL_get_value_uint_introduced)}
-    if LibVersion < SSL_get_value_uint_introduced then
+    {$if declared(SSL_set_value_uint_introduced)}
+    if LibVersion < SSL_set_value_uint_introduced then
     begin
-      {$if declared(FC_SSL_get_value_uint)}
-      SSL_get_value_uint := @FC_SSL_get_value_uint;
+      {$if declared(FC_SSL_set_value_uint)}
+      SSL_set_value_uint := @FC_SSL_set_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(SSL_get_value_uint_removed)}
-    if SSL_get_value_uint_removed <= LibVersion then
+    {$if declared(SSL_set_value_uint_removed)}
+    if SSL_set_value_uint_removed <= LibVersion then
     begin
-      {$if declared(_SSL_get_value_uint)}
-      SSL_get_value_uint := @_SSL_get_value_uint;
+      {$if declared(_SSL_set_value_uint)}
+      SSL_set_value_uint := @_SSL_set_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(SSL_get_value_uint_allownil)}
+    {$if not defined(SSL_set_value_uint_allownil)}
     if FuncLoadError then
-      AFailed.Add('SSL_get_value_uint');
+      AFailed.Add('SSL_set_value_uint');
+    {$ifend}
+  end;
+
+  SSL_poll := LoadLibFunction(ADllHandle, SSL_poll_procname);
+  FuncLoadError := not assigned(SSL_poll);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_poll_allownil)}
+    SSL_poll := @ERR_SSL_poll;
+    {$ifend}
+    {$if declared(SSL_poll_introduced)}
+    if LibVersion < SSL_poll_introduced then
+    begin
+      {$if declared(FC_SSL_poll)}
+      SSL_poll := @FC_SSL_poll;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_poll_removed)}
+    if SSL_poll_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_poll)}
+      SSL_poll := @_SSL_poll;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_poll_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_poll');
     {$ifend}
   end;
 
@@ -29155,6 +29246,7 @@ begin
   SSL_get_conn_close_info := nil;  {introduced 3.2.0}
   SSL_get_value_uint := nil; {introduced 3.3.0}
   SSL_set_value_uint := nil; {introduced 3.3.0}
+  SSL_poll := nil; {introduced 3.3.0}
 end;
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;
