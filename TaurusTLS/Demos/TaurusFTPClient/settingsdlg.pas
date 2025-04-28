@@ -74,7 +74,6 @@ type
   private
     function GetConnected: Boolean;
     procedure SetConnected(const Value: Boolean);
-    procedure HandleThemes;
   protected
     FRegularForeground: TColor;
     FRegularBackground: TColor;
@@ -442,11 +441,6 @@ end;
 function TfrmSettings.GetUsePortTransferType: Boolean;
 begin
   Result := cboTransferTypes.ItemIndex = 1;
-end;
-
-procedure TfrmSettings.HandleThemes;
-begin
-
 end;
 
 procedure TfrmSettings.SetConnected(const Value: Boolean);

@@ -35,7 +35,7 @@ object frmSettings: TfrmSettings
       Align = alClient
       Images = VirtualImageList1
       TabOrder = 0
-      ExplicitWidth = 492
+      ExplicitWidth = 531
       object tbshtFont: TTabSheet
         Caption = 'F&ont'
         ImageIndex = 1
@@ -85,7 +85,7 @@ object frmSettings: TfrmSettings
         object ScrollBox1: TScrollBox
           Left = 175
           Top = 88
-          Width = 338
+          Width = 336
           Height = 208
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 3
@@ -274,7 +274,7 @@ object frmSettings: TfrmSettings
         object cboTransferTypes: TComboBox
           Left = 92
           Top = 13
-          Width = 401
+          Width = 399
           Height = 23
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -282,12 +282,11 @@ object frmSettings: TfrmSettings
           Items.Strings = (
             'Use PASV Transfers'
             'Use PORT Transfers')
-          ExplicitWidth = 364
         end
         object chklbAdvancedOptions: TCheckListBox
           Left = 92
           Top = 51
-          Width = 401
+          Width = 399
           Height = 97
           Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
@@ -298,7 +297,6 @@ object frmSettings: TfrmSettings
             'Send MLSD instead of DIR command')
           TabOrder = 1
           OnClickCheck = chklbAdvancedOptionsClickCheck
-          ExplicitWidth = 364
         end
       end
       object tbshtFrewallProxy: TTabSheet
@@ -385,7 +383,7 @@ object frmSettings: TfrmSettings
       539
       34)
     object OKBtn: TButton
-      Left = 366
+      Left = 364
       Top = 2
       Width = 75
       Height = 25
@@ -397,7 +395,7 @@ object frmSettings: TfrmSettings
       ExplicitLeft = 327
     end
     object CancelBtn: TButton
-      Left = 447
+      Left = 445
       Top = 2
       Width = 75
       Height = 25
