@@ -3866,6 +3866,8 @@ function SSL_get_stream_write_buf_size(ssl : PSSL; value : PIdC_UINT64) : TIdC_I
 function SSL_get_stream_write_buf_used(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 
+function SSL_as_poll_descriptor(s : PSSL) : BIO_POLL_DESCRIPTOR;
+
 implementation
 
   uses
@@ -3875,13 +3877,22 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
 
+function SSL_as_poll_descriptor(s : PSSL) : BIO_POLL_DESCRIPTOR;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result._type := BIO_POLL_DESCRIPTOR_TYPE_SSL;
+  Result.value.ssl := s;
+end;
+
 procedure SSL_disable_ct(s : PSSL);
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
   SSL_set_ct_validation_callback(s,nil,nil);
 end;
 
 procedure SSL_CTX_disable_ct(ctx : PSSL_CTX);
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   //        ((void) SSL_CTX_set_validation_callback((ctx), NULL, NULL))
   SSL_CTX_set_ct_validation_callback(ctx,nil,nil);
