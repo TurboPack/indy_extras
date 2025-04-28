@@ -948,6 +948,9 @@ const
   SSL_STREAM_STATE_RESET_REMOTE   = 5;
   SSL_STREAM_STATE_CONN_CLOSED    = 6;
 
+  SSL_CONN_CLOSE_FLAG_LOCAL     = 1 shl 0;
+  SSL_CONN_CLOSE_FLAG_TRANSPORT   = 1 shl 1;
+
 type
   (*
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
