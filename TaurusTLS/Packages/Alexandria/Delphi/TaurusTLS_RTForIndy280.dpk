@@ -124,6 +124,7 @@ contains
   TaurusTLSHeaders_tserr in '..\..\..\Source\TaurusTLSHeaders_tserr.pas',
   TaurusTLSHeaders_txt_db in '..\..\..\Source\TaurusTLSHeaders_txt_db.pas',
   TaurusTLSHeaders_ui in '..\..\..\Source\TaurusTLSHeaders_ui.pas',
-  TaurusTLSHeaders_uierr in '..\..\..\Source\TaurusTLSHeaders_uierr.pas';
+  TaurusTLSHeaders_uierr in '..\..\..\Source\TaurusTLSHeaders_uierr.pas',
+  TaurusTLSHeaders_quic in '..\..\..\Source\TaurusTLSHeaders_quic.pas';
 
 end.

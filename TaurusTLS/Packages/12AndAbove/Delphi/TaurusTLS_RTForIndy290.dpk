@@ -126,6 +126,7 @@ contains
   TaurusTLSHeaders_x509v3 in '..\..\..\Source\TaurusTLSHeaders_x509v3.pas',
   TaurusTLSExceptionHandlers in '..\..\..\Source\TaurusTLSExceptionHandlers.pas',
   TaurusTLSFIPS in '..\..\..\Source\TaurusTLSFIPS.pas',
-  TaurusTLS_NTLM in '..\..\..\Source\TaurusTLS_NTLM.pas';
+  TaurusTLS_NTLM in '..\..\..\Source\TaurusTLS_NTLM.pas',
+  TaurusTLSHeaders_quic in '..\..\..\Source\TaurusTLSHeaders_quic.pas';
 
 end.

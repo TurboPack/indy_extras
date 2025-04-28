@@ -989,6 +989,14 @@ type
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
   PSTACK_OF_SRTP_PROTECTION_PROFILE = type pointer;
 
+  ssl_conn_close_info_st = record
+    error_code, frame_type : TIdC_UINT64;
+    reason : PIdAnsiChar;
+    reason_len : TIdC_SIZET;
+    flags : TIdC_UINT32;
+  end;
+  SSL_CONN_CLOSE_INFO = ssl_conn_close_info_st;
+  PSSL_CONN_CLOSE_INFO = ^SSL_CONN_CLOSE_INFO;
   (* Typedefs for handling custom extensions *)
   custom_ext_add_cb = function (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; outlen: PIdC_SIZET; al: PIdC_INT; add_arg: Pointer): TIdC_INT; cdecl;
   custom_ext_free_cb = procedure (s: PSSL; ext_type: TIdC_UINT; const out_: PByte; add_arg: Pointer); cdecl;
@@ -2287,6 +2295,9 @@ var
   SSL_get_stream_write_state : function(ssl : PSSL) : TIdC_INT;  cdecl = nil;  {introduced 3.2.0}
   SSL_get_stream_read_error_code : function(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
   SSL_get_stream_write_error_code : function(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.2.0}
+  SSL_get_conn_close_info : function(ssl : PSSL;
+                                 info : PSSL_CONN_CLOSE_INFO;
+                                 info_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
@@ -3194,6 +3205,9 @@ var
   function SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
   function SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
 
+  function SSL_get_conn_close_info(ssl : PSSL;
+                                   info : PSSL_CONN_CLOSE_INFO;
+                                   info_len : TIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.2.0}
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -4062,6 +4076,7 @@ const
   SSL_get_stream_write_state_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_stream_read_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_stream_write_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_conn_close_info_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
 
   SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5101,6 +5116,7 @@ const
 
   SSL_get_stream_read_error_code_procname = 'SSL_get_stream_read_error_code';  {introduced 3.2.0}
   SSL_get_stream_write_error_code_procname = 'SSL_get_stream_write_error_code';  {introduced 3.2.0}
+  SSL_get_conn_close_info_procname = 'SSL_get_conn_close_info';  {introduced 3.2.0}
 
   SSL_CTX_set_post_handshake_auth_procname = 'SSL_CTX_set_post_handshake_auth'; {introduced 1.1.0}
   SSL_set_post_handshake_auth_procname = 'SSL_set_post_handshake_auth'; {introduced 1.1.0}
@@ -8725,6 +8741,13 @@ end;
 function ERR_SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_write_error_code_procname);
+end;
+
+function ERR_SSL_get_conn_close_info(ssl : PSSL;
+                                 info : PSSL_CONN_CLOSE_INFO;
+                                 info_len : TIdC_SIZET) : TIdC_INT; {introduced 3.2.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_conn_close_info_procname);
 end;
 
 procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT);
@@ -21797,6 +21820,36 @@ begin
     {$ifend}
   end;
 
+  SSL_get_conn_close_info := LoadLibFunction(ADllHandle, SSL_get_conn_close_info_procname);
+  FuncLoadError := not assigned(SSL_get_conn_close_info);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_conn_close_info_allownil)}
+    SSL_get_conn_close_info := @ERR_SSL_get_conn_close_info;
+    {$ifend}
+    {$if declared(SSL_get_conn_close_info_introduced)}
+    if LibVersion < SSL_get_conn_close_info_introduced then
+    begin
+      {$if declared(FC_SSL_get_conn_close_info)}
+      SSL_get_conn_close_info := @FC_SSL_get_conn_close_info;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_conn_close_info_removed)}
+    if SSL_get_conn_close_info_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_conn_close_info)}
+      SSL_get_conn_close_info := @_SSL_get_conn_close_info;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_conn_close_info_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_conn_close_info');
+    {$ifend}
+  end;
 
   SSL_stream_reset := LoadLibFunction(ADllHandle, SSL_stream_reset_procname);
   FuncLoadError := not assigned(SSL_stream_reset);
@@ -28867,11 +28920,12 @@ begin
   SSL_get1_peer_certificate := nil; {introduced 3.3.0}
   SSL_stream_conclude := nil; {introduced 3.2.0}
   SSL_stream_reset := nil; {introduced 3.2.0}
-  SSL_get_stream_read_state :=  nil;
-  SSL_get_stream_write_state := nil;
+  SSL_get_stream_read_state :=  nil;  {introduced 3.2.0}
+  SSL_get_stream_write_state := nil;   {introduced 3.2.0}
 
-  SSL_get_stream_read_error_code := nil;
-  SSL_get_stream_write_error_code := nil;
+  SSL_get_stream_read_error_code := nil;  {introduced 3.2.0}
+  SSL_get_stream_write_error_code := nil;   {introduced 3.2.0}
+  SSL_get_conn_close_info := nil;  {introduced 3.2.0}
 end;
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;

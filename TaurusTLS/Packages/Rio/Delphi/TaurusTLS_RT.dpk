@@ -124,6 +124,7 @@ contains
   TaurusTLSHeaders_x509_vfy in '..\..\..\Source\TaurusTLSHeaders_x509_vfy.pas',
   TaurusTLSHeaders_x509err in '..\..\..\Source\TaurusTLSHeaders_x509err.pas',
   TaurusTLSHeaders_x509v3 in '..\..\..\Source\TaurusTLSHeaders_x509v3.pas',
-  TaurusTLSLoader in '..\..\..\Source\TaurusTLSLoader.pas';
+  TaurusTLSLoader in '..\..\..\Source\TaurusTLSLoader.pas',
+  TaurusTLSHeaders_quic in '..\..\..\Source\TaurusTLSHeaders_quic.pas';
 
 end.
