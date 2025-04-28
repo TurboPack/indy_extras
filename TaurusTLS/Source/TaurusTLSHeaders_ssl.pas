@@ -951,6 +951,26 @@ const
   SSL_CONN_CLOSE_FLAG_LOCAL     = 1 shl 0;
   SSL_CONN_CLOSE_FLAG_TRANSPORT   = 1 shl 1;
 
+  SSL_VALUE_CLASS_GENERIC              = 0;
+  SSL_VALUE_CLASS_FEATURE_REQUEST      = 1;
+  SSL_VALUE_CLASS_FEATURE_PEER_REQUEST = 2;
+  SSL_VALUE_CLASS_FEATURE_NEGOTIATED   = 3;
+
+  SSL_VALUE_NONE                            = 0;
+  SSL_VALUE_QUIC_STREAM_BIDI_LOCAL_AVAIL    = 1;
+  SSL_VALUE_QUIC_STREAM_BIDI_REMOTE_AVAIL   = 2;
+  SSL_VALUE_QUIC_STREAM_UNI_LOCAL_AVAIL     = 3;
+  SSL_VALUE_QUIC_STREAM_UNI_REMOTE_AVAIL    = 4;
+  SSL_VALUE_QUIC_IDLE_TIMEOUT               = 5;
+  SSL_VALUE_EVENT_HANDLING_MODE             = 6;
+  SSL_VALUE_STREAM_WRITE_BUF_SIZE           = 7;
+  SSL_VALUE_STREAM_WRITE_BUF_USED           = 8;
+  SSL_VALUE_STREAM_WRITE_BUF_AVAIL          = 9;
+
+  SSL_VALUE_EVENT_HANDLING_MODE_INHERIT     = 0;
+  SSL_VALUE_EVENT_HANDLING_MODE_IMPLICIT    = 1;
+  SSL_VALUE_EVENT_HANDLING_MODE_EXPLICIT    = 2;
+
 type
   (*
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
@@ -2302,6 +2322,9 @@ var
                                  info : PSSL_CONN_CLOSE_INFO;
                                  info_len : TIdC_SIZET) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
 
+  SSL_get_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
+  SSL_set_value_uint : function(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
+
   SSL_CTX_set_post_handshake_auth: procedure (ctx: PSSL_CTX; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   SSL_set_post_handshake_auth: procedure (s: PSSL; _val: TIdC_INT); cdecl = nil; {introduced 1.1.0}
 
@@ -3211,6 +3234,9 @@ var
   function SSL_get_conn_close_info(ssl : PSSL;
                                    info : PSSL_CONN_CLOSE_INFO;
                                    info_len : TIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.2.0}
+  function SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
+  function SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
+
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -3773,6 +3799,64 @@ function SSL_CTX_sess_misses(ctx : PSSL_CTX): TIdC_LONG;
 function SSL_CTX_sess_timeouts(ctx : PSSL_CTX): TIdC_LONG;
 function SSL_CTX_sess_cache_full(ctx : PSSL_CTX): TIdC_LONG;
 
+function SSL_get_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64)  : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v);
+end;
+
+function SSL_set_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : TIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v );
+end;
+
+function SSL_get_feature_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
+end;
+
+function SSL_set_feature_request_uint(ssl : PSSL; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
+end;
+
+function SSL_get_feature_peer_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_PEER_REQUEST, id, v);
+end;
+
+function SSL_get_feature_negotiated_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_NEGOTIATED, id, v);
+end;
+
+function SSL_get_quic_stream_bidi_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_LOCAL_AVAIL,
+                               value);
+end;
+
+function SSL_get_quic_stream_bidi_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_REMOTE_AVAIL,
+                               value);
+end;
+
+function SSL_get_quic_stream_uni_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+function SSL_get_quic_stream_uni_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+function SSL_get_event_handling_mode(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+function SSL_set_event_handling_mode(ssl : PSSL; value : TIdC_UINT64) : TIdC_INT;
+function SSL_get_stream_write_buf_size(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+function SSL_get_stream_write_buf_used(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+
 implementation
 
   uses
@@ -4071,6 +4155,105 @@ begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SESS_CACHE_FULL, 0, nil);
 end;
 
+function SSL_get_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64)  : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v);
+end;
+
+function SSL_set_generic_value_uint(ssl : PSSL; id : TIdC_UINT32; v : TIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_GENERIC, id, v );
+end;
+
+function SSL_get_feature_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
+end;
+
+function SSL_set_feature_request_uint(ssl : PSSL; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_set_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_REQUEST, id, v);
+end;
+
+function SSL_get_feature_peer_request_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_PEER_REQUEST, id, v);
+end;
+
+function SSL_get_feature_negotiated_uint(ssl : PSSL; id : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_value_uint(ssl, SSL_VALUE_CLASS_FEATURE_NEGOTIATED, id, v);
+end;
+
+function SSL_get_quic_stream_bidi_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_LOCAL_AVAIL,
+                               value);
+end;
+
+function SSL_get_quic_stream_bidi_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_BIDI_REMOTE_AVAIL,
+                               value);
+end;
+
+function SSL_get_quic_stream_uni_local_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_UNI_LOCAL_AVAIL,
+                               value);
+end;
+
+function SSL_get_quic_stream_uni_remote_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_QUIC_STREAM_UNI_REMOTE_AVAIL,
+                               value);
+end;
+
+function SSL_get_event_handling_mode(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_get_generic_value_uint((ssl), SSL_VALUE_EVENT_HANDLING_MODE,
+                               (value))
+end;
+
+function SSL_set_event_handling_mode(ssl : PSSL; value : TIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+   Result := SSL_set_generic_value_uint(ssl, SSL_VALUE_EVENT_HANDLING_MODE,
+                               value);
+end;
+
+function SSL_get_stream_write_buf_size(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+   Result := SSL_get_generic_value_uint(ssl, SSL_VALUE_STREAM_WRITE_BUF_SIZE,
+                               value);
+end;
+
+function SSL_get_stream_write_buf_used(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+    Result := SSL_get_generic_value_uint(ssl, SSL_VALUE_STREAM_WRITE_BUF_USED,
+                               value);
+end;
+
+function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+    Result := SSL_get_generic_value_uint((ssl), SSL_VALUE_STREAM_WRITE_BUF_AVAIL,
+                               value);
+end;
+
 const
   SSL_shutdown_ex_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_stream_conclude_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
@@ -4080,6 +4263,9 @@ const
   SSL_get_stream_read_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_stream_write_error_code_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_conn_close_info_introduced =  (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_get_value_uint_introduced =  (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
+  SSL_set_value_uint_introduced =  (byte(3) shl 8 or byte(3)) shl 8 or byte(0);
+
 
   SSL_CTX_new_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSL_CTX_get_options_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -5120,6 +5306,10 @@ const
   SSL_get_stream_read_error_code_procname = 'SSL_get_stream_read_error_code';  {introduced 3.2.0}
   SSL_get_stream_write_error_code_procname = 'SSL_get_stream_write_error_code';  {introduced 3.2.0}
   SSL_get_conn_close_info_procname = 'SSL_get_conn_close_info';  {introduced 3.2.0}
+
+  SSL_get_value_uint_procname = 'SSL_get_value_uint'; {introduced 3.3.0}
+  SSL_set_value_uint_procname = 'SSL_set_value_uint'; {introduced 3.3.0}
+
 
   SSL_CTX_set_post_handshake_auth_procname = 'SSL_CTX_set_post_handshake_auth'; {introduced 1.1.0}
   SSL_set_post_handshake_auth_procname = 'SSL_set_post_handshake_auth'; {introduced 1.1.0}
@@ -8751,6 +8941,18 @@ function ERR_SSL_get_conn_close_info(ssl : PSSL;
                                  info_len : TIdC_SIZET) : TIdC_INT; {introduced 3.2.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_conn_close_info_procname);
+end;
+
+ {introduced 3.3.0}
+function ERR_SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_value_uint_procname);
+end;
+
+ {introduced 3.3.0}
+function ERR_SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_set_value_uint_procname);
 end;
 
 procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT);
@@ -21854,6 +22056,68 @@ begin
     {$ifend}
   end;
 
+  SSL_get_value_uint := LoadLibFunction(ADllHandle, SSL_get_value_uint_procname);
+  FuncLoadError := not assigned(SSL_get_value_uint);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_value_uint_allownil)}
+    SSL_get_value_uint := @ERR_SSL_get_value_uint;
+    {$ifend}
+    {$if declared(SSL_get_value_uint_introduced)}
+    if LibVersion < SSL_get_value_uint_introduced then
+    begin
+      {$if declared(FC_SSL_get_value_uint)}
+      SSL_get_value_uint := @FC_SSL_get_value_uint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_value_uint_removed)}
+    if SSL_get_value_uint_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_value_uint)}
+      SSL_get_value_uint := @_SSL_get_value_uint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_value_uint_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_value_uint');
+    {$ifend}
+  end;
+
+  SSL_set_value_uint := LoadLibFunction(ADllHandle, SSL_get_value_uint_procname);
+  FuncLoadError := not assigned(SSL_get_value_uint);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_value_uint_allownil)}
+    SSL_get_value_uint := @ERR_SSL_get_value_uint;
+    {$ifend}
+    {$if declared(SSL_get_value_uint_introduced)}
+    if LibVersion < SSL_get_value_uint_introduced then
+    begin
+      {$if declared(FC_SSL_get_value_uint)}
+      SSL_get_value_uint := @FC_SSL_get_value_uint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_value_uint_removed)}
+    if SSL_get_value_uint_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_value_uint)}
+      SSL_get_value_uint := @_SSL_get_value_uint;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_value_uint_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_value_uint');
+    {$ifend}
+  end;
+
   SSL_stream_reset := LoadLibFunction(ADllHandle, SSL_stream_reset_procname);
   FuncLoadError := not assigned(SSL_stream_reset);
   if FuncLoadError then
@@ -28929,6 +29193,8 @@ begin
   SSL_get_stream_read_error_code := nil;  {introduced 3.2.0}
   SSL_get_stream_write_error_code := nil;   {introduced 3.2.0}
   SSL_get_conn_close_info := nil;  {introduced 3.2.0}
+  SSL_get_value_uint := nil; {introduced 3.3.0}
+  SSL_set_value_uint := nil; {introduced 3.3.0}
 end;
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;
