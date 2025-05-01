@@ -15,6 +15,17 @@
 					<SyntaxMode Value="Delphi"/>
 				</SyntaxOptions>
 			</Parsing>
+			<Other>
+				<Verbosity>
+					<ShowLineNum Value="True"/>
+					<ShowAll Value="True"/>
+					<ShowDebugInfo Value="True"/>
+					<ShowUsedFiles Value="True"/>
+					<ShowTriedFiles Value="True"/>
+					<ShowCompProc Value="True"/>
+					<ShowCond Value="True"/>
+				</Verbosity>
+			</Other>
 		</CompilerOptions>
 		<Description Value="An attempt to make OpenSSL 1.1.1 and OpenSSL 3.x compatible support for Indy - Internet Direct"/>
 		<License Value="TaurusTLS is dual licensed. You can review which license better suits your needs, and use that license. You can even change your mind later if you have previously chosen one.&#xA;&#xA;1) Modified BSD License - The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution. &#xA;&#xA;2) MPL Mozilla Public License) License - To make it easier and consistent for JEDI users, we also offer an MPL license v1.1."/>
@@ -379,6 +390,10 @@
 				<Filename Value="../../Source/TaurusTLSHeaders_ct.pas"/>
 				<UnitName Value="TaurusTLSHeaders_ct"/>
 			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_quic.pas"/>
+				<UnitName Value="TaurusTLSHeaders_quic"/>
+			</Item>
 		</Files>
 		<RequiredPkgs>
 			<Item>
@@ -395,5 +410,5 @@
 			<Version Value="2"/>
 			<UseFileFilters Value="True"/>
 		</PublishOptions>
-		<Version Major="1" Build="13"/></Package>
+		<Version Major="1" Build="14"/></Package>
 </CONFIG>
