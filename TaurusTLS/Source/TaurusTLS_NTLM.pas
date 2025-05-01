@@ -7,7 +7,7 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
-
+{$I TaurusTLSCompilerDefines.inc}
 /// <summary>
 /// Self-registrated NT LAN Manager (NTLM) Protocol Implementation for Indy -
 /// Internet Direct.  Indy itself will call
@@ -19,8 +19,6 @@
 /// depreciated even by Microsoft.
 /// </remarks>
 unit TaurusTLS_NTLM;
-
-{$I TaurusTLSCompilerDefines.inc}
 
 interface
 

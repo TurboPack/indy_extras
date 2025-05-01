@@ -8,12 +8,11 @@
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
 
+{$I TaurusTLSCompilerDefines.inc}
 /// <summary>
 /// File routines for the TaurusTLS library.
 /// </summary>
 unit TaurusTLS_Files;
-
-{$I TaurusTLSCompilerDefines.inc}
 
 interface
 

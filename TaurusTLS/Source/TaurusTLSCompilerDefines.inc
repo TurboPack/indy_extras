@@ -446,11 +446,11 @@
   // is largely not UnicodeString-enabled yet.  Maybe we should enable
   // {$MODE DelphiUnicode} anyway, and then deal with any RTL function issues
   // on an as-needed basis...
-{/$MODE Delphi}
+  {$mode delphi}
   {$IFDEF FPC_2_7_1_OR_ABOVE}
-    {.$MODE DelphiUnicode}
-    {.$MODESWITCH UnicodeStrings}
-    {.$CODEPAGE UTF8} // needed for Unicode string literals to work properly
+    {/$MODE DelphiUnicode}
+    {/$MODESWITCH UnicodeStrings}
+    {/$CODEPAGE UTF8} // needed for Unicode string literals to work properly
   {$ENDIF}
   //note that we may need further defines for widget types depending on
   //what we do and what platforms we support in FPC.

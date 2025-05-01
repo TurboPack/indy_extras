@@ -1,7 +1,6 @@
-unit taurusftp_unit;
-
-{$ifdef fpc}{$mode delphi}{$endif}
 {$I TaurusTLSCompilerDefines.inc}
+
+unit taurusftp_unit;
 
 interface
 

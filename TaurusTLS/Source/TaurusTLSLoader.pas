@@ -7,13 +7,13 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
+{$i TaurusTLSCompilerDefines.inc}
 /// <summary>
 ///   Functionality for loading the OpenSSL library including registration
 ///   mechanism for the TaurusTLSHeader_ units.
 /// </summary>
 unit TaurusTLSLoader;
 
-{$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
 interface

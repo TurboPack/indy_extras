@@ -7,6 +7,7 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
+{$i TaurusTLSCompilerDefines.inc}
 /// <summary>
 ///   Self-registering unit that provides MD2, MD4, MD5, SHA1, SHA224, SHA256,
 ///   SHA384, SHA512, HMAC-MD5, HMAC-SHA-1, HMAC-SHA-224, HMAC-SHA-384, and
@@ -25,7 +26,6 @@
 /// </remarks>
 unit TaurusTLSFIPS;
 
-{$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
 interface

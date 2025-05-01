@@ -8,13 +8,12 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
+{$i TaurusTLSCompilerDefines.inc}
 unit TaurusTLSConsts;
 
-interface
-
-{$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
+interface
 
 const
   {The default SSLLibraryPath is empty. You can override this by setting the

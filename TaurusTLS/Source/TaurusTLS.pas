@@ -7,6 +7,7 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
+{$i TaurusTLSCompilerDefines.inc}
 {
   Rev 1.41    22/02/2024 AWhyman
   a. Property SSLProtocolVersion added to TSocket. This returns the SSL/TLS protocol
@@ -218,8 +219,6 @@ unit TaurusTLS;
   additional AError parameter (patch courtesy of "jvlad", dmda@yandex.ru).
   This helps user code distinquish between Self-signed and invalid certificates.
 }
-
-{$I TaurusTLSCompilerDefines.inc}
 
 interface
 

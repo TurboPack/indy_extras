@@ -4,9 +4,6 @@
      and this file regenerated. TaurusTLSHeaders_ossl_typ.h2pas is distributed with the full Indy
      Distribution.
    *)
-   
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -19,11 +16,12 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
+{$i TaurusTLSCompilerDefines.inc}
+
 unit TaurusTLSHeaders_ossl_typ;
 
 interface
 
-{$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 
 // Headers for OpenSSL 1.1.1

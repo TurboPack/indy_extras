@@ -1,7 +1,7 @@
 /// <exclude />
+{$i TaurusTLSCompilerDefines.inc}
 unit TaurusTLSHeaders_ct;
 
-{$i TaurusTLSCompilerDefines.inc}
 {$i TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
 { error Should not compile if USE_OPENSSL is not defined!!! }
