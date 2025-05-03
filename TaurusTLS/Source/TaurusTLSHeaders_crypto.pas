@@ -1079,6 +1079,7 @@ procedure  _CRYPTO_set_locking_callback; cdecl;
 begin
 end;
 
+{$i TaurusTLSUnusedParamOff.inc}
 procedure  _CRYPTO_set_id_callback(func: TIdSslIdCallback); cdecl;
 begin
 end;
@@ -1100,6 +1101,8 @@ end;
 procedure  _CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); cdecl;
 begin
 end;
+
+  {$i TaurusTLSUnusedParamOff.inc}
 
 function  _FIPS_mode: TIdC_INT; cdecl;
 begin
@@ -1147,6 +1150,7 @@ end;
 
 {forward_compatibility}
 
+{$i TaurusTLSUnusedParamOff.inc}
 function  FC_OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
 begin
   if opts and OPENSSL_INIT_ADD_ALL_CIPHERS <> 0 then
@@ -1155,6 +1159,7 @@ begin
     OpenSSL_add_all_digests;
   Result := 1;
 end;
+{$i TaurusTLSUnusedParamOn.inc}
 
 procedure  FC_OPENSSL_cleanup; cdecl;
 begin

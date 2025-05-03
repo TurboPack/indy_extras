@@ -1557,6 +1557,7 @@ const
     get_by_alias: nil // * get_by_alias */
     );
 
+   {$i TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl;
 begin
   Result := @Indy_x509_unicode_file_lookup;
@@ -1572,6 +1573,9 @@ begin
   _PX509_LOOKUP_METHOD(method)^.ctrl := @ctrl_fn;
   Result := 1;
 end;
+
+{$i TaurusTLSUnusedParamOn.inc}
+
 (*
 struct x509_lookup_st {
     int init;                   /* have we been started */

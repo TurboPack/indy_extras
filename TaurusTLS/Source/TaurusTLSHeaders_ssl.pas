@@ -6386,6 +6386,8 @@ const
   SSL_CTRL_OPTIONS = 32;
   SSL_CTRL_CLEAR_OPTIONS = 77;
 
+  {$i TaurusTLSUnusedParamOff.inc}
+
 function  FC_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb; cdecl;
 begin
   Result := _PSSL_CTX(ctx)^.default_passwd_callback;
@@ -6396,12 +6398,12 @@ begin
   Result := _PSSL_CTX(ctx)^.default_passwd_callback_userdata;
 end;
 
-procedure  FC_SSL_CTX_set_default_passwd_cb(out ctx: PSSL_CTX; cb: pem_password_cb); cdecl;
+procedure  FC_SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb); cdecl;
 begin
   _PSSL_CTX(ctx)^.default_passwd_callback := cb;
 end;
 
-procedure  FC_SSL_CTX_set_default_passwd_cb_userdata(out ctx: PSSL_CTX; u: Pointer); cdecl;
+procedure  FC_SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer); cdecl;
 begin
   _PSSL_CTX(ctx)^.default_passwd_callback_userdata := u;
 end;
@@ -6439,6 +6441,8 @@ function  FC_SSL_CTX_get_cert_store(const ctx: PSSL_CTX): PX509_STORE; cdecl;
 begin
   Result :=  _PSSL_CTX(ctx)^.cert_store;
 end;
+
+{$i TaurusTLSUnusedParamOn.inc}
 
 const
   SSL_MAX_KRB5_PRINCIPAL_LENGTH = 256;

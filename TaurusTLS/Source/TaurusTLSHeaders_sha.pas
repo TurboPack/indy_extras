@@ -29,8 +29,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSHeaders_ossl_typ;
+  IdGlobal;
 
 const
   SHA_LBLOCK = 16;
@@ -362,7 +361,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -1105,6 +1104,7 @@ begin
 
 
 end;
+ {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

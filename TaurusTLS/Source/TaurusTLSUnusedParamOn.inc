@@ -1,0 +1,4 @@
+{$ifdef fpc}
+  {$pop}
+{$endif}
+
