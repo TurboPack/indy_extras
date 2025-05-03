@@ -103,7 +103,7 @@ const
   CMAC_resume_procname = 'CMAC_resume';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_CMAC_CTX_new: PCMAC_CTX; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_new_procname);
@@ -159,7 +159,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -469,7 +469,7 @@ const
   OBJ_sigid_free_procname = 'OBJ_sigid_free';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_OBJ_NAME_init: TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_init_procname);
@@ -724,7 +724,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -159,7 +159,7 @@ const
   AES_unwrap_key_procname = 'AES_unwrap_key';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_AES_options: PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_options_procname);
@@ -254,7 +254,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

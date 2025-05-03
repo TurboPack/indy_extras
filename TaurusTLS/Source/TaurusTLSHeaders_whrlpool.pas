@@ -98,7 +98,7 @@ const
   WHIRLPOOL_procname = 'WHIRLPOOL';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 {$ifdef fpc}
 {$push}{$warn 5024 off}
 {$endif}
@@ -131,7 +131,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(WHIRLPOOL_procname);
 end;
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);

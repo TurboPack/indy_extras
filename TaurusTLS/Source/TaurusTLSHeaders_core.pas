@@ -25,8 +25,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSHeaders_ossl_typ
+  IdGlobal
   {$IFDEF VCL_XE3_OR_ABOVE},System.Types{$ELSE},Types{$ENDIF};
 
 

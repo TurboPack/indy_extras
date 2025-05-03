@@ -415,6 +415,7 @@ const
   X509err_procname = 'X509err'; {removed 1.0.0}
   ERR_GET_REASON_procname = 'ERR_GET_REASON'; {removed 1.0.0}
 
+{$i TaurusTLSNoRetValOff.inc}
 
 procedure  _SSLErr(func: TIdC_INT; reason: TIdC_INT); cdecl;
 begin
@@ -443,10 +444,6 @@ begin
   Result := l and $fff;
 end;
 
-{$WARN  NO_RETVAL OFF}
-{$ifdef fpc}
-{$push}{$warn 5024 off}
-{$endif}
 procedure  ERR_ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_put_error_procname);
@@ -670,10 +667,7 @@ end;
 
  
 
-{$WARN  NO_RETVAL ON}
-{$ifdef fpc}
-{$pop}
-{$endif}
+{$i TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -1429,7 +1429,7 @@ begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));
 end;
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_host_name_procname);
@@ -1581,7 +1581,7 @@ end;
   //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
   //                (void (*)(void))cb)
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -90,7 +90,7 @@ const
   SSL_get_selected_srtp_profile_procname = 'SSL_get_selected_srtp_profile';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tlsext_use_srtp_procname);
@@ -112,7 +112,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_selected_srtp_profile_procname);
 end;
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

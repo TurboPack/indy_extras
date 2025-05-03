@@ -95,7 +95,7 @@ const
   BUF_reverse_procname = 'BUF_reverse';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_BUF_MEM_new: PBUF_MEM; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_new_procname);
@@ -133,7 +133,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -717,8 +717,7 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
@@ -907,7 +906,7 @@ const
   RSA_meth_set_multi_prime_keygen_procname = 'RSA_meth_set_multi_prime_keygen';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_RSA_new: PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_new_procname);
@@ -1567,7 +1566,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

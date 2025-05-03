@@ -3606,7 +3606,7 @@ begin
 end;
 
 {/forward_compatibility}
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_assign_RSA_procname);
@@ -6928,7 +6928,7 @@ end;
 
  
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

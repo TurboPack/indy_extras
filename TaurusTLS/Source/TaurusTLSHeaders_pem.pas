@@ -554,7 +554,7 @@ const
   i2b_PVK_bio_procname = 'i2b_PVK_bio';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_get_EVP_CIPHER_INFO_procname);
@@ -1034,7 +1034,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

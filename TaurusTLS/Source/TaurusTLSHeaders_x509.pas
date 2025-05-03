@@ -3156,7 +3156,7 @@ begin
 end;
 
 {/forward_compatibility}
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_X509_CRL_set_default_method(const meth: PX509_CRL_METHOD); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_default_method_procname);
@@ -5636,7 +5636,7 @@ end;
  {introduced 3.0.0}
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

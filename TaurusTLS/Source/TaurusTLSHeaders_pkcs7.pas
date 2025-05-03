@@ -736,7 +736,7 @@ const
   BIO_new_PKCS7_procname = 'BIO_new_PKCS7';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_PKCS7_ISSUER_AND_SERIAL_digest(data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD; md: PByte; len: PIdC_UINT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ISSUER_AND_SERIAL_digest_procname);
@@ -1310,7 +1310,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

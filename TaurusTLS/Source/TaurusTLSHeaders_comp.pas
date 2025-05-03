@@ -109,7 +109,7 @@ const
   BIO_f_zlib_procname = 'BIO_f_zlib';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_COMP_CTX_new(meth: PCOMP_METHOD): PCOMP_CTX; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_new_procname);
@@ -174,7 +174,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

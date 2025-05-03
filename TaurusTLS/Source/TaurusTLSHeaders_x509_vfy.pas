@@ -1598,7 +1598,7 @@ begin
 end;
 
 {/forward_compatibility}
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_depth_procname);
@@ -2707,7 +2707,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

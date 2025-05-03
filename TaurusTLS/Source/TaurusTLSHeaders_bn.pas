@@ -1304,7 +1304,7 @@ const
   BN_bntest_rand_procname = 'BN_bntest_rand';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_BN_set_flags(b: PBIGNUM; n: TIdC_INT); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_set_flags_procname);
@@ -2471,7 +2471,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

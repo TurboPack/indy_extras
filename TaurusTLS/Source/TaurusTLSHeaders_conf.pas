@@ -484,7 +484,7 @@ const
   OPENSSL_load_builtin_modules_procname = 'OPENSSL_load_builtin_modules';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_CONF_set_default_method(meth: PCONF_METHOD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_set_default_method_procname);
@@ -696,7 +696,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

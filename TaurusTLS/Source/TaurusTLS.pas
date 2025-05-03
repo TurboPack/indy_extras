@@ -2341,6 +2341,9 @@ var
 {$ENDIF}
   LVer: TTaurusMsgCBVer;
 begin
+  {$ifdef fpc}
+  LBytes := nil;
+  {$endif}
   {
     You have to save the value of WSGetLastError as some Operating System API
     function calls will reset that value and we can't know what a programmer will
@@ -2932,13 +2935,10 @@ function TTaurusTLSServerIOHandler.GetPassword(const AIsWrite: Boolean;
   out VOk: Boolean): string;
 begin
   Result := '';
+  VOk := False;
   if Assigned(fOnGetPassword) then
   begin
     fOnGetPassword(Self, Result, AIsWrite, VOk);
-  end
-  else
-  begin
-    VOk := False;
   end;
 end;
 
@@ -2963,15 +2963,12 @@ end;
 function TTaurusTLSServerIOHandler.VerifyPeer(ACertificate: TTaurusTLSX509;
   const ADepth: Integer; const AError: TIdC_LONG): Boolean;
 begin
+  Result := False;
   if Assigned(fOnVerifyPeer) then
   begin
     fOnVerifyPeer(Self, ACertificate, ADepth, AError,
       AnsiStringToString(X509_verify_cert_error_string(AError)),
       CertErrorToLongDescr(AError), Result);
-  end
-  else
-  begin
-    Result := False;
   end;
 end;
 
@@ -3437,13 +3434,10 @@ function TTaurusTLSIOHandlerSocket.GetPassword(const AIsWrite: Boolean;
   out VOk: Boolean): string;
 begin
   Result := '';
+  VOk := False;
   if Assigned(fOnGetPassword) then
   begin
     fOnGetPassword(Self, Result, AIsWrite, VOk);
-  end
-  else
-  begin
-    VOk := False;
   end;
 end;
 
@@ -4084,7 +4078,6 @@ var
   LCertificate: TTaurusTLSX509;
 {$IFNDEF  USE_INLINE_VAR}
   lHostName: AnsiString;
-  LErrorMsg: AnsiString;
 {$ENDIF}
 begin
   Assert(fSSL = nil);

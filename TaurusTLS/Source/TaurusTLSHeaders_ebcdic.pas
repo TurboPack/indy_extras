@@ -72,7 +72,7 @@ const
   ascii2ebcdic_procname = 'ascii2ebcdic';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ebcdic2ascii_procname);
@@ -86,7 +86,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

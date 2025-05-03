@@ -158,7 +158,7 @@ const
   RAND_poll_procname = 'RAND_poll';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_RAND_set_rand_method(const meth: PRAND_METHOD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RAND_set_rand_method_procname);
@@ -262,7 +262,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

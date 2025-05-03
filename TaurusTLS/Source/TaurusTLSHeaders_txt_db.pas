@@ -111,7 +111,7 @@ const
   TXT_DB_insert_procname = 'TXT_DB_insert';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_TXT_DB_read(in_: PBIO; num: TIdC_INT): PTXT_DB; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_read_procname);
@@ -144,7 +144,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

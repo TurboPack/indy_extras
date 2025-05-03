@@ -709,7 +709,7 @@ begin
   DES_set_odd_parity(key);
 end;
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 
 procedure ERR_DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: longint);
@@ -986,7 +986,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_fixup_key_parity_procname);
 end;
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);

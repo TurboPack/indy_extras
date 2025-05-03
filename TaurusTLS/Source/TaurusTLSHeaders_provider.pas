@@ -194,7 +194,7 @@ const
   OSSL_PROVIDER_try_load_ex_procname = 'OSSL_PROVIDER_try_load_ex'; {introduced 3.2.0}
   OSSL_PROVIDER_load_ex_procname = 'OSSL_PROVIDER_load_ex'; {introduced 3.2.0}
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_OSSL_PROVIDER_set_default_search_path(ctx: POSSL_LIB_CTX; path: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PROVIDER_set_default_search_path_procname);
@@ -314,7 +314,7 @@ end;
 
  {introduced 3.2.0}
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -1146,7 +1146,7 @@ const
   UI_UTIL_read_pw_procname = 'UI_UTIL_read_pw';
   UI_UTIL_wrap_read_pem_callback_procname = 'UI_UTIL_wrap_read_pem_callback';
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 
 function ERR_UI_new: PUI;
 begin
@@ -1664,7 +1664,7 @@ begin
     (UI_UTIL_wrap_read_pem_callback_procname);
 end;
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);

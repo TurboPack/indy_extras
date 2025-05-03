@@ -110,7 +110,7 @@ const
 
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR__CONF_new_section(conf: PCONF; const section: PAnsiChar): PCONF_VALUE; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_new_section_procname);
@@ -161,7 +161,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

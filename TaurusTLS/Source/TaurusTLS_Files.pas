@@ -225,6 +225,7 @@ var
   Ldefault_passwd_cb: pem_password_cb;
 begin
   Result := 0;
+  LPassword := nil;
   LKey := nil;
   LCert := nil;
   LM := TMemoryStream.Create;
@@ -307,6 +308,7 @@ var
   LPassword: array of TIdAnsiChar;
   Ldefault_passwd_callback: pem_password_cb;
 begin
+  LPassword := nil;
   Result := 0;
   LKey := nil;
   LCert := nil;

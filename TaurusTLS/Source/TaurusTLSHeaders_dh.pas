@@ -790,8 +790,7 @@ const
                                 EVP_PKEY_CTRL_GET_DH_KDF_UKM, 0, (void *)(p))
 }
 
-
-{$WARN  NO_RETVAL OFF}
+{$i TaurusTLSNoRetValOff.inc}
 function  ERR_DHparams_dup(dh: PDH): PDH; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DHparams_dup_procname);
@@ -1324,7 +1323,7 @@ begin
     Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, PPointer(x)));
 end;
 
-{$WARN  NO_RETVAL ON}
+{$i TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

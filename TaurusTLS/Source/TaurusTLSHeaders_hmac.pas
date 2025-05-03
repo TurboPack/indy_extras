@@ -173,7 +173,7 @@ begin
 end;
 
 {/forward_compatibility}
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_HMAC_CTX_init(ctx : PHMAC_CTX); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_init_procname);
@@ -255,7 +255,7 @@ end;
 
  {introduced 1.1.0}
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

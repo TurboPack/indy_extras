@@ -78,7 +78,7 @@ const
   OSSL_QUIC_client_thread_method_procname = 'OSSL_QUIC_client_thread_method(';
   OSSL_QUIC_server_method_procname = 'OSSL_QUIC_server_method';
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 {introduced 3.2.0}
 function ERR_OSSL_QUIC_client_method : PSSL_METHOD;
 begin

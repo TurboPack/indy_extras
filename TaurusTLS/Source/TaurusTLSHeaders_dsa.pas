@@ -508,7 +508,7 @@ const
   DSA_meth_set_keygen_procname = 'DSA_meth_set_keygen';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_DSAparams_dup(x: PDSA): PDSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSAparams_dup_procname);
@@ -1005,7 +1005,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -119,7 +119,7 @@ const
   BF_options_procname = 'BF_options';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_set_key_procname);
@@ -172,7 +172,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

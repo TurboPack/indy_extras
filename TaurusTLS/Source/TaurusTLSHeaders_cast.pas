@@ -105,7 +105,7 @@ const
   CAST_ofb64_encrypt_procname = 'CAST_ofb64_encrypt';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_CAST_set_key(key: PCast_Key; len: TIdC_INT; const data: PByte); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_set_key_procname);
@@ -149,7 +149,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

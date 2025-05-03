@@ -29,8 +29,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSHeaders_ossl_typ;
+  IdGlobal;
 
 const
   ASYNC_ERR = 0;
@@ -175,7 +174,7 @@ const
   ASYNC_unblock_pause_procname = 'ASYNC_unblock_pause'; {introduced 1.1.0}
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc}
 function  ERR_ASYNC_init_thread(max_size: TIdC_SIZET; init_size: TIdC_SIZET): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_init_thread_procname);
@@ -277,7 +276,7 @@ end;
 
  {introduced 1.1.0}
 
-{$WARN  NO_RETVAL ON}
+ {$i TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

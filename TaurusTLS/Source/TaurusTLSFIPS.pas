@@ -36,7 +36,6 @@ uses
 implementation
 
 uses
-  IdException,
   IdGlobal,
   IdCTypes,
   IdFIPS,
@@ -294,7 +293,11 @@ function TaurusTLSFinalHashInst(ACtx: TIdHashIntCtx): TIdBytes;
 var
   LLen : TIdC_UInt;
 begin
+  {$ifdef fpc}
+  Result := nil;
+  {$endif}
   SetLength(Result,EVP_MAX_MD_SIZE);
+  LLen := 0; //unneeded but we get FPC warnings if we don't
   if EVP_DigestFinal_ex(ACtx, PByte(@Result[0]), LLen) <> 1 then begin
     ETaurusTLSDigestFinalEx.RaiseException(RSOSSLEVPDigestError);
   end;
@@ -464,6 +467,7 @@ var
   LLen : TIdC_UInt;
 begin
   LLen := EVP_MAX_MD_SIZE;
+  Result := nil;
   SetLength(Result,LLen);
   if HMAC_Final(ACtx, PByte(@Result[0]), @LLen) <> 1 then begin
    ETaurusTLSHMACFinal.RaiseException(RSOSSLHMACFinalError);

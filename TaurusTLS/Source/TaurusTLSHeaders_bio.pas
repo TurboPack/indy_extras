@@ -1847,7 +1847,7 @@ begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
 end;
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_flags_procname);
@@ -2932,7 +2932,7 @@ end;
 //                                 long (*callback_ctrl) (BIO *, int,
 //                                                        BIO_info_cb *));
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

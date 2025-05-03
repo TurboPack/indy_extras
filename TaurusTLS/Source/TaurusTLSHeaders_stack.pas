@@ -445,7 +445,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):longint; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_num_procname);
@@ -736,7 +736,7 @@ end;
 
  
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

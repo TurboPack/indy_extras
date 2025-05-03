@@ -6515,6 +6515,9 @@ type
 {$endif}
   end;
 
+  {/forward_compatibility}
+    {$i TaurusTLSNoRetValOff.inc}
+
 function  FC_SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT; cdecl;
 begin
   Result := _PSSL_SESSION(s).ssl_version;
@@ -6535,8 +6538,6 @@ begin
   Result := SSL_shutdown(ssl);
 end;
 
-{/forward_compatibility}
-{$WARN  NO_RETVAL OFF}
 function  ERR_SSL_CTX_set_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_mode_procname);
@@ -10313,7 +10314,7 @@ begin
 end;
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

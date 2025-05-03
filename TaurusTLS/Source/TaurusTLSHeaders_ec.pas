@@ -1000,7 +1000,7 @@ const
   EC_KEY_METHOD_get_verify_procname = 'EC_KEY_METHOD_get_verify'; {introduced 1.1.0}
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_EC_GFp_simple_method: PEC_METHOD; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_simple_method_procname);
@@ -2077,7 +2077,7 @@ end;
 
  {introduced 1.1.0}
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

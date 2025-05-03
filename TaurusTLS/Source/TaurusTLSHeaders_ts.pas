@@ -1474,7 +1474,7 @@ const
   TS_CONF_set_ess_cert_id_digest_procname = 'TS_CONF_set_ess_cert_id_digest';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_TS_REQ_new: PTS_REQ; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_REQ_new_procname);
@@ -2783,7 +2783,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

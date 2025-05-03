@@ -136,7 +136,7 @@ const
   Camellia_ctr128_encrypt_procname = 'Camellia_ctr128_encrypt';
 
 
-{$WARN  NO_RETVAL OFF}
+  {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_set_key_procname);
@@ -200,7 +200,7 @@ end;
 
 
 
-{$WARN  NO_RETVAL ON}
+  {$i TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
