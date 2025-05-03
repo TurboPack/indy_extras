@@ -70,6 +70,7 @@ uses
 
 {$IFDEF DCC}
   {$IFDEF VCL_2005_OR_ABOVE}
+  {$i TaurusTLS_Vers.inc}
 var
   AboutBoxServices: IOTAAboutBoxServices = nil;
   AboutBoxIndex: Integer = -1;
