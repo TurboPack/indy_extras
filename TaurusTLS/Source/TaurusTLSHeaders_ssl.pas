@@ -4467,7 +4467,7 @@ const
   SSL_new_stream_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_is_stream_local_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_set_incoming_stream_policy_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
-  SSL_accept_stream_procname_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  SSL_accept_stream_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   SSL_get_accept_stream_queue_len_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
 {$IFNDEF  OPENSSL_NO_QUIC}
   SSL_inject_net_dgram_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
@@ -26366,6 +26366,37 @@ begin
     {$if not defined(SSL_accept_stream_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_accept_stream');
+    {$ifend}
+  end;
+
+  SSL_get_accept_stream_queue_len := LoadLibFunction(ADllHandle, SSL_get_accept_stream_queue_len_procname);
+  FuncLoadError := not assigned(SSL_get_accept_stream_queue_len);
+  if FuncLoadError then
+  begin
+    {$if not defined(SSL_get_accept_stream_queue_len_allownil)}
+    SSL_get_accept_stream_queue_len := @ERR_SSL_get_accept_stream_queue_len;
+    {$ifend}
+    {$if declared(SSL_get_accept_stream_queue_len_introduced)}
+    if LibVersion < SSL_get_accept_stream_queue_len_introduced then
+    begin
+      {$if declared(FC_SSL_get_accept_stream_queue_len)}
+      SSL_get_accept_stream_queue_len := @FC_SSL_get_accept_stream_queue_len;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(SSL_get_accept_stream_queue_len_removed)}
+    if SSL_get_accept_stream_queue_len_removed <= LibVersion then
+    begin
+      {$if declared(_SSL_get_accept_stream_queue_len)}
+      SSL_get_accept_stream_queue_len := @_SSL_get_accept_stream_queue_len;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(SSL_get_accept_stream_queue_len_allownil)}
+    if FuncLoadError then
+      AFailed.Add('SSL_get_accept_stream_queue_len');
     {$ifend}
   end;
 
