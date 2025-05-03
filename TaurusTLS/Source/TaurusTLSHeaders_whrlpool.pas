@@ -29,8 +29,7 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
-  TaurusTLSHeaders_ossl_typ;
+  IdGlobal;
 
 const
   WHIRLPOOL_DIGEST_LENGTH = 512 div 8;
@@ -100,6 +99,9 @@ const
 
 
 {$WARN  NO_RETVAL OFF}
+{$ifdef fpc}
+{$push}{$warn 5024 off}
+{$endif}
 function  ERR_WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(WHIRLPOOL_Init_procname);
@@ -129,12 +131,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(WHIRLPOOL_procname);
 end;
 
-
-
 {$WARN  NO_RETVAL ON}
 
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
+procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
 
 begin
@@ -299,6 +299,10 @@ begin
 
 
 end;
+
+{$ifdef fpc}
+{$pop}
+{$endif}
 
 procedure Unload;
 begin

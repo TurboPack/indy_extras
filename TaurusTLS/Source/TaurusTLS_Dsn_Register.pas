@@ -60,8 +60,6 @@ uses
   {$ENDIF}
   TaurusTLS;
 
-{$I TaurusTLS_Vers.inc}
-
 {$IFNDEF FPC}
   {$IFDEF Borland}
   {$R TaurusTLS_Dsn_Register_16.dcr}
