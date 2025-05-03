@@ -46,6 +46,7 @@ uses
   TaurusTLSHeaders_hmac,
   TaurusTLSHeaders_ossl_typ;
 
+{$i TaurusTLSUnusedParamOff.inc}
 function FIPS_mode_set(onoff : TIdC_INT) : TIdC_INT;  {$IFDEF INLINE}inline;{$ENDIF}
 begin
   Result := 0;
@@ -58,6 +59,7 @@ begin
   end;
   {$ENDIF}
 end;
+{$i TaurusTLSUnusedParamOn.inc}
 
 function FIPS_mode() : TIdC_INT;  {$IFDEF INLINE}inline;{$ENDIF}
 begin

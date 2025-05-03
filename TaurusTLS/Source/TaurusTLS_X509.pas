@@ -849,11 +849,16 @@ end;
 
 function TTaurusTLSX509Name.GetHash: TTaurusTLSULong;
 begin
+  {$ifdef fpc}
+  Initialize(Result);
+  if fX509Name <> nil then
+  {$else}
   if fX509Name = nil then
   begin
     FillChar(Result, SizeOf(Result), 0)
   end
   else
+  {$endif}
   begin
     Result.C1 := X509_NAME_hash(fX509Name);
   end;

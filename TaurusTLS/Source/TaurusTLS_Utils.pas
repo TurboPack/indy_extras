@@ -440,8 +440,15 @@ end;
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
+{$ifndef fpc}
+//required to fix:
+//"Hint: "formal parameter" not yet supported inside inline procedure/function"
 {$IFDEF USE_INLINE}inline; {$ENDIF}
+{$endif}
 begin
+  {$ifdef fpc}
+  Result := nil;
+  {$endif}
   SetLength(Result, ASize);
   if ASize > 0 then
   begin
@@ -555,7 +562,11 @@ begin
     var
       LBuf: TBa;
 {$ENDIF}
+    {$ifdef fpc}
+    Initialize(LBuf);
+    {$else}
     FillChar(LBuf, 1024, 0);
+    {$endif}
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
     Result := String(LBuf);
   end

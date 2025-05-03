@@ -201,7 +201,11 @@ var
   LErrMsgPtr: TPtrWrapper;
   {$ENDIF}
 begin
+  {$ifdef fpc}
+  Initialize(LErrMsg);
+  {$else}
   FillChar(LErrMsg,sMaxErrMsg,0);
+  {$endif}
   {$IFDEF USE_MARSHALLED_PTRS}
   LErrMsgPtr := TPtrWrapper.Create(@LErrMsg[0]);
   {$ENDIF}
