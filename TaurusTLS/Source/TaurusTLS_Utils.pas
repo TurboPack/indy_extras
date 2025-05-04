@@ -508,7 +508,9 @@ end;
 {$ENDIF}
 
 function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
+{$ifndef fpc}
 {$IFDEF USE_INLINE} inline; {$ENDIF}
+{$endif}
 var
   i: TIdC_SIZET;
   LPtr: PByte;

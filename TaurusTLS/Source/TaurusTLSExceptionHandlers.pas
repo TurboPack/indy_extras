@@ -192,7 +192,9 @@ uses IdGlobal, IdStack, IdResourceStringsProtocols,
    TaurusTLS_ResourceStrings, TaurusTLS_Utils;
 
 function GetErrorMessage(const AErr : TIdC_ULONG) : String;
+{$ifndef fpc}
 {$IFDEF USE_INLINE} inline; {$ENDIF}
+{$endif}
 const
   sMaxErrMsg = 160;
 var
