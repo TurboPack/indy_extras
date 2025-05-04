@@ -249,7 +249,11 @@ uses TaurusTLS_ResourceStrings, TaurusTLSHeaders_bio, TaurusTLSHeaders_objects,
 function AnsiStringToString(const AStr: PIdAnsiChar): String;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
+  {$ifdef fpc}
+  Result := AStr;
+  {$else}
   Result := UTF8ToString(UTF8Encode(AStr));
+  {$endif}
 end;
 
 function CertErrorToLongDescr(ACertError: TIdC_LONG): String;

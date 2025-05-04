@@ -1188,6 +1188,7 @@ begin
           LLen := BIO_get_mem_data(LMem, @LBufPtr);
           if (LLen > 0) and (LBufPtr <> nil) then
           begin
+            {$ifndef fpc}
             FDisplayInfo.Text := IndyTextEncoding_UTF8.GetString(
 {$IFNDEF VCL_6_OR_ABOVE}
               // RLebeau: for some reason, Delphi 5 causes a "There is no overloaded
@@ -1200,6 +1201,9 @@ begin
               LBufPtr, LLen
 {$ENDIF}
               );
+            {$else}
+              FDisplayInfo.Text := BytesToString(RawToBytes(LBufPtr^, LLen));
+            {$endif}
           end;
         end;
       finally
