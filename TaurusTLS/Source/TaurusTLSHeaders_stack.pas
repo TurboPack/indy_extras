@@ -24,8 +24,11 @@ unit TaurusTLSHeaders_stack;
 interface
 
 uses
-    IdCTypes,
-    IdGlobal;
+  IdCTypes,
+  IdGlobal
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  , TaurusTLSConsts
+  {$ENDIF};
 
 
 {

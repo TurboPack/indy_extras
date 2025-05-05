@@ -1103,6 +1103,12 @@
   {$DEFINE WIN32_OR_WIN64}
 {$ENDIF}
 
+{$IFDEF WINDOWS}
+  //Define these two if you wish to have TaurusTLS staticly load the OpenSSL
+  //.DLL's instead of dynamically.
+    {/$DEFINE STATICLOAD_OPENSSL}
+    {/$DEFINE OPENSSL_USE_SHARED_LIBRARY}
+{$ENDIF}
 {$IFDEF IOS}
   // Support for 64-bit ARM iOS Simulator was added in Delphi 11.2
   // TODO: how to detect iOS Simulator in FPC? Does it support 64-bit ARM?

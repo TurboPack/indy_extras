@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_ec,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_pkcs7,

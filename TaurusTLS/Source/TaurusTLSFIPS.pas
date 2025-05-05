@@ -249,6 +249,7 @@ begin
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   Result := Assigned(EVP_sha384);
   {$ELSE}
+  Result := True;
   {$ENDIF}
   {$ENDIF}
 end;

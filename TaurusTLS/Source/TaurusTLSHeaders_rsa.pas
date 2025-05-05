@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
@@ -721,7 +724,15 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
+function RSA_get_ex_new_index(l : TIdC_LONG; p : PRSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef);
+end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -1375,15 +1386,6 @@ end;
 function  ERR_RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_mgf1_procname);
-end;
-
-  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
-function RSA_get_ex_new_index(l : TIdC_LONG; p : PRSA;
-    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef);
 end;
 
 function  ERR_RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; 

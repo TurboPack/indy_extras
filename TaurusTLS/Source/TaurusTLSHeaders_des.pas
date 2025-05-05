@@ -25,7 +25,10 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  , TaurusTLSConsts
+  {$ENDIF};
 
 {
   Automatically converted by H2Pas 1.0.0 from des.h
@@ -2234,14 +2237,14 @@ end;
 procedure DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: longint);
 begin
-  DES_ecb3_encrypt(input, _output, ks1, ks2, ks1, enc);
+  DES_ecb3_encrypt(_input, _output, ks1, ks2, ks1, enc);
 end;
 
 procedure DES_ede2_cbc_encrypt(_input: Pbyte; _output: Pbyte; _length: longint;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
   enc: longint);
 begin
-  DES_ede3_cbc_encrypt(input, _output, _length, ks1, ks2, ks1, ivec, enc);
+  DES_ede3_cbc_encrypt(_input, _output, _length, ks1, ks2, ks1, ivec, enc);
 end;
 
 procedure DES_ede2_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: longint;

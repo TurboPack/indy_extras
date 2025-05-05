@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_ec;
@@ -1173,6 +1176,14 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
   
+  // These functions allow control over any per-structure ENGINE data. */
+  //#define ENGINE_get_ex_new_index(l, p, newf, dupf, freef) CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef)
+function ENGINE_get_ex_new_index(l : TIdC_LONG; p : PENGINE;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef);
+end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -1964,37 +1975,27 @@ begin
 end;
 
 
-function  ERR_ENGINE_set_pkey_meths(e: PENGINE; f: ENGINE_PKEY_METHS_PTR): TIdC_INT; 
+function  ERR_ENGINE_set_pkey_meths(e: PENGINE; f: ENGINE_PKEY_METHS_PTR): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_set_pkey_meths_procname);
 end;
 
 
-function  ERR_ENGINE_set_pkey_asn1_meths(e: PENGINE; f: ENGINE_PKEY_ASN1_METHS_PTR): TIdC_INT; 
+function  ERR_ENGINE_set_pkey_asn1_meths(e: PENGINE; f: ENGINE_PKEY_ASN1_METHS_PTR): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_set_pkey_asn1_meths_procname);
 end;
 
 
-function  ERR_ENGINE_set_flags(e: PENGINE; flags: TIdC_INT): TIdC_INT; 
+function  ERR_ENGINE_set_flags(e: PENGINE; flags: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_set_flags_procname);
 end;
 
 
-function  ERR_ENGINE_set_cmd_defns(e: PENGINE; const defns: PENGINE_CMD_DEFN): TIdC_INT; 
+function  ERR_ENGINE_set_cmd_defns(e: PENGINE; const defns: PENGINE_CMD_DEFN): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ENGINE_set_cmd_defns_procname);
-end;
-
-
-  // These functions allow control over any per-structure ENGINE data. */
-  //#define ENGINE_get_ex_new_index(l, p, newf, dupf, freef) CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef)
-function ENGINE_get_ex_new_index(l : TIdC_LONG; p : PENGINE;
-    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_ENGINE, l, p, newf, dupf, freef);
 end;
 
 function  ERR_ENGINE_set_ex_data(e: PENGINE; idx: TIdC_INT; arg: Pointer): TIdC_INT;

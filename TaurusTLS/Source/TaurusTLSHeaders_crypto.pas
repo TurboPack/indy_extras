@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp,
@@ -4506,19 +4509,19 @@ end;
 //# define OPENSSL_memdup(str, s) CRYPTO_memdup((str), s, OPENSSL_FILE, OPENSSL_LINE)
 function OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer;
 begin
-  Result := CRYPTO_memdup(str, s, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_memdup(_str, s, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strdup(str) CRYPTO_strdup(str, OPENSSL_FILE, OPENSSL_LINE)
 function OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar;
 begin
-  Result := CRYPTO_strdup(str, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+   Result := CRYPTO_strdup(_str, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_strndup(str, n) CRYPTO_strndup(str, n, OPENSSL_FILE, OPENSSL_LINE)
 function OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar;
 begin
-  Result := CRYPTO_strndup(str, n, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
+  Result := CRYPTO_strndup(_str, n, {$IFNDEF FPC}''{$ELSE}{$I %FILE%}{$ENDIF}, {$IFNDEF FPC}-1{$ELSE}{$I %LINENUM%}{$ENDIF});
 end;
 
 //# define OPENSSL_secure_malloc(num) CRYPTO_secure_malloc(num, OPENSSL_FILE, OPENSSL_LINE)
@@ -4548,7 +4551,7 @@ end;
 //# define OPENSSL_secure_actual_size(ptr) CRYPTO_secure_actual_size(ptr)
 function OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET;
 begin
-  Result := CRYPTO_secure_actual_size(ptr);
+  Result := CRYPTO_secure_actual_size(_ptr);
 end;
 
 function CRYPTO_num_locks: TIdC_INT;

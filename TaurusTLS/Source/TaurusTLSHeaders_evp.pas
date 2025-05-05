@@ -32,6 +32,9 @@ uses
   IdGlobal,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_obj_mac,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_ossl_typ;
 
 const
@@ -2238,7 +2241,7 @@ var
   function EVP_PKEY_type(type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_PKEY_id(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto; {removed 3.0.0}
-  function EVP_PKEY_base_id(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;; {removed 3.0.0}
+  function EVP_PKEY_base_id(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto; {removed 3.0.0}
   function EVP_PKEY_bits(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_security_bits(const pkey: PEVP_PKEY): TIdC_INT  cdecl; external CLibCrypto; {introduced 1.1.0 removed 3.0.0}
   function EVP_PKEY_size(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto; {removed 3.0.0}
@@ -24051,7 +24054,7 @@ begin
   BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));
 end;
 
-
+ {$i TaurusTLSNoRetValOff.inc}
 {$IFNDEF OPENSSL_NO_MD2}
 function EVP_md2: PEVP_MD;
 begin
@@ -24072,7 +24075,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ROSUnsupported);
 end;
 {$ENDIF}
-
+ {$i TaurusTLSNoRetValOn.inc}
 
 {$ENDIF}
 

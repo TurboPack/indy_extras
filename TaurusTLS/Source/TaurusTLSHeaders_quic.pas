@@ -21,6 +21,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_ssl;
 
 {$MINENUMSIZE 4}
@@ -54,8 +57,8 @@ var
   OSSL_QUIC_client_thread_method  : function : PSSL_METHOD; cdecl = nil; {introduced 3.2.0}
   OSSL_QUIC_server_method : function  : PSSL_METHOD; cdecl = nil; {introduced 3.5.0}
 {$ELSE}
-  function OSSL_QUIC_client_method : PSSL_METHOD cdecl; external LibSSL; {introduced 3.2.0}
-  function OSSL_QUIC_client_thread_method : PSSL_METHOD cdecl; external LibSSL; {introduced 3.2.0}
+  function OSSL_QUIC_client_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.2.0}
+  function OSSL_QUIC_client_thread_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.2.0}
   function OSSL_QUIC_server_method : PSSL_METHOD cdecl; external CLibSSL; {introduced 3.5.0}
 {$ENDIF}
 

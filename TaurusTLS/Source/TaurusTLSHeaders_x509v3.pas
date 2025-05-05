@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_asn1t,
@@ -1045,7 +1048,7 @@ var
   function GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer cdecl; external CLibCrypto;
   function GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
   function GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-  procedure GENERAL_NAMES_free((a : PGENERAL_NAMES); cdecl;  external CLibCrypto;
+  procedure GENERAL_NAMES_free(a : PGENERAL_NAMES); cdecl;  external CLibCrypto;
 
   //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
   //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const _str: PIdAnsiChar): PASN1_OCTET_STRING;

@@ -46,8 +46,12 @@ begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   Result := true;
 {$ELSE}
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  Result := True;
+  {$ELSE}
   Result := Assigned(DES_set_odd_parity) and Assigned(DES_set_key) and
     Assigned(DES_ecb_encrypt);
+  {$ENDIF}
 {$ENDIF}
 end;
 

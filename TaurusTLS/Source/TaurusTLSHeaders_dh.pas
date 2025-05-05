@@ -31,6 +31,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
@@ -569,6 +572,12 @@ begin
   Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DH, l, p, newf, dupf, freef);
 end;
 
+function d2i_DHparams_bio(bp: PBIO; x: PPDH): PDH;
+{$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+    Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, PPointer(x)));
+end;
+
 const
   DH_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_security_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1099,7 +1108,7 @@ end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method; 
+function  ERR_DH_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_new_procname);
 end;
@@ -1117,7 +1126,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_get0_name(const dhm: PDH_Method): PIdAnsiChar; 
+function  ERR_DH_meth_get0_name(const dhm: PDH_Method): PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get0_name_procname);
 end;
@@ -1135,97 +1144,97 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_flags(const dhm: PDH_Method; flags: TIdC_INT): TIdC_INT; 
+function  ERR_DH_meth_set_flags(const dhm: PDH_Method; flags: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_get0_app_data(const dhm: PDH_Method): Pointer; 
+function  ERR_DH_meth_get0_app_data(const dhm: PDH_Method): Pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get0_app_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set0_app_data(const dhm: PDH_Method; app_data: Pointer): TIdC_INT; 
+function  ERR_DH_meth_set0_app_data(const dhm: PDH_Method; app_data: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set0_app_data_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_generate_key(const dhm: PDH_Method): DH_meth_generate_key_cb; 
+function  ERR_DH_meth_get_generate_key(const dhm: PDH_Method): DH_meth_generate_key_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_generate_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_generate_key(const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TIdC_INT; 
+function  ERR_DH_meth_set_generate_key(const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_generate_key_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_compute_key(const dhm: PDH_Method): DH_meth_compute_key_cb; 
+function  ERR_DH_meth_get_compute_key(const dhm: PDH_Method): DH_meth_compute_key_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_compute_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_compute_key(const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TIdC_INT; 
+function  ERR_DH_meth_set_compute_key(const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_compute_key_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_bn_mod_exp(const dhm: PDH_Method): DH_meth_bn_mod_exp_cb; 
+function  ERR_DH_meth_get_bn_mod_exp(const dhm: PDH_Method): DH_meth_bn_mod_exp_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_bn_mod_exp_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_bn_mod_exp(const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TIdC_INT; 
+function  ERR_DH_meth_set_bn_mod_exp(const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_bn_mod_exp_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_init(const dhm: PDH_Method): DH_meth_init_cb; 
+function  ERR_DH_meth_get_init(const dhm: PDH_Method): DH_meth_init_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_init_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_init(const dhm: PDH_Method; init: DH_meth_init_cb): TIdC_INT; 
+function  ERR_DH_meth_set_init(const dhm: PDH_Method; init: DH_meth_init_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_init_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_finish(const dhm: PDH_Method): DH_meth_finish_cb; 
+function  ERR_DH_meth_get_finish(const dhm: PDH_Method): DH_meth_finish_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_finish_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_finish(const dhm: PDH_Method; finish: DH_meth_finish_cb): TIdC_INT; 
+function  ERR_DH_meth_set_finish(const dhm: PDH_Method; finish: DH_meth_finish_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_finish_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_generate_params(const dhm: PDH_Method): DH_meth_generate_params_cb; 
+function  ERR_DH_meth_get_generate_params(const dhm: PDH_Method): DH_meth_generate_params_cb;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_generate_params_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_generate_params(const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TIdC_INT; 
+function  ERR_DH_meth_set_generate_params(const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_generate_params_procname);
 end;
@@ -1316,12 +1325,6 @@ end;
                                 EVP_PKEY_OP_DERIVE, \
                                 EVP_PKEY_CTRL_GET_DH_KDF_UKM, 0, (void *)(p))
 }
-
-function d2i_DHparams_bio(bp: PBIO; x: PPDH): PDH;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-    Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, PPointer(x)));
-end;
 
 {$i TaurusTLSNoRetValOn.inc}
 

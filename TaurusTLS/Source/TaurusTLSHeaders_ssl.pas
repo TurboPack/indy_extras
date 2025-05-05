@@ -42,6 +42,9 @@ uses
   sockets,
   baseunix,
   {$ENDIF}
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_async,
   TaurusTLSHeaders_bio,
@@ -1018,6 +1021,7 @@ type
   PSSL_CONF_CTX = type pointer;
   PSSL_COMP = type pointer;
   PSTACK_OF_SSL_CIPHER = type pointer;
+  PPSTACK_OF_SSL_CIPHER = ^PSTACK_OF_SSL_CIPHER;
   PSTACK_OF_SSL_COMP = type pointer;
 
   ssl_shutdown_ex_args_st = record
@@ -1221,6 +1225,8 @@ type
   SSL_CTX_sess_remove_cb = procedure(ctx: PSSL_CTX; sess: PSSL_SESSION); cdecl;
 
   TSSL_CTX_set_verify_callback = function (ok : TIdC_INT; ctx : PX509_STORE_CTX) : TIdC_INT; cdecl;
+
+  Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT; const buf : Pointer; len : TIdC_SIZET; ssl : PSSL; arg : Pointer); cdecl;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		
@@ -1812,8 +1818,6 @@ var
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
 
-type
-  Tmsg_callback = procedure(write_p, version, content_type : TIdC_INT; const buf : Pointer; len : TIdC_SIZET; ssl : PSSL; arg : Pointer); cdecl;
 var
   SSL_CTX_set_msg_callback : procedure (ctx: PSSL_CTX; cb : Tmsg_callback); cdecl = nil;
   SSL_set_msg_callback : procedure (ssl: PSSL; cb : Tmsg_callback); cdecl = nil;
@@ -2807,7 +2811,7 @@ var
 
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
-  function SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX,
+  function SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX;
               ext_type : TIdC_UINT) : TIdC_INT cdecl; external CLibSSL;
 
   function SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX;
@@ -2816,7 +2820,7 @@ var
                                            free_cb : custom_ext_free_cb;
                                            add_arg : Pointer;
                                            parse_cb : custom_ext_parse_cb;
-                                           parse_arg : Pointere) : TIdC_INT cdecl; external CLibSSL;
+                                           parse_arg : Pointer) : TIdC_INT cdecl; external CLibSSL;
 
   function SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX;
                                          ext_type : TIdC_UINT;
@@ -2959,7 +2963,7 @@ var
   function SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX cdecl; external CLibSSL;
   function SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
-                          const meth : PSSL_METHOD) : PSSL_CTX; cdecl = nil; cdecl; external CLibSSL; {introduced 3.0.0}
+                          const meth : PSSL_METHOD) : PSSL_CTX; cdecl; external CLibSSL; {introduced 3.0.0}
   function SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_get_cert_store(const v1: PSSL_CTX): PX509_STORE cdecl; external CLibSSL;
@@ -3022,7 +3026,7 @@ var
   function SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  function TIdC_INT SSL_use_cert_and_key(ssl: PSSL, x509: PX509; privatekey : EVP_PKEY;
+  function SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : EVP_PKEY;
                                    chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;
 
   (* Set serverinfo data for the current active cert. *)
@@ -3112,7 +3116,7 @@ var
   function SSL_CTX_use_RSAPrivateKey(ctx: PSSL_CTX; rsa: PRSA): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibSSL;
-  function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT;
+  function SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT  cdecl; external CLibSSL;
@@ -3244,10 +3248,10 @@ var
   function TLS_client_method: PSSL_METHOD cdecl; external CLibSSL; {introduced 1.1.0}
 
   function DTLS_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
-  function DTLS_server_method : SSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
-  function DTLS_client_method : SSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
+  function DTLS_server_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
+  function DTLS_client_method : PSSL_METHOD cdecl; external CLibSSL; //* DTLS 1.0 and 1.2 */
 
-  function DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
+  function DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET cdecl; external CLibSSL;
   //
   function SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
   function SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER cdecl; external CLibSSL;
@@ -3276,15 +3280,15 @@ var
 
   function SSL_get_conn_close_info(ssl : PSSL;
                                    info : PSSL_CONN_CLOSE_INFO;
-                                   info_len : TIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.2.0}
-  function SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
-  function SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
+                                   info_len : TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
+  function SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
+  function SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
   function SSL_poll(items : PSSL_POLL_ITEM;
                     num_items : TIdC_SIZET;
                     stride : TIdC_SIZET;
                     timeout : Ptimeval;
                     flags : TIdC_UINT64;
-                    result_count : PIdC_SIZET) : TIdC_INT cdecl; external LibSSL; {introduced 3.3.0}
+                    result_count : PIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
 
   procedure SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
@@ -3304,16 +3308,15 @@ var
   procedure SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
   function SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
   function SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
-  function SSL_add1_to_CA_list(ssl: PSSL, const X509 *x) : TIdC_INT cdecl; external CLibSSL;
-  function SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX, const X509 *x) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_add1_to_CA_list(ssl: PSSL; const x : PX509) : TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX; const x : PX509) : TIdC_INT cdecl; external CLibSSL;
   function SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
 
-  procedure SSL_set_client_CA_list(s: PSSL, STACK_OF(X509_NAME) *name_list) cdecl; external CLibSSL;
-  procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX, STACK_OF(X509_NAME) *name_list) cdecl; external CLibSSL;
+  procedure SSL_set_client_CA_list(s: PSSL;  name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
+  procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
   function SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
-  function SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : STACK_OF_X509_NAME cdecl; external CLibSSL;
+  function SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : PSTACK_OF_X509_NAME cdecl; external CLibSSL;
 
-  procedure SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list: PSTACK_OF_X509_NAME) cdecl; external CLibSSL;
   function SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_CTX_add_client_CA(ctx: PSSL_CTX; x: PX509): TIdC_INT cdecl; external CLibSSL;
 
@@ -3437,9 +3440,9 @@ var
   function SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET cdecl; external CLibSSL; {introduced 1.1.0}
 
   function SSL_handle_events(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
-  function SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
-  function SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
-  function SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL;; {introduced 3.2.0}
+  function SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
+  function SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
+  function SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT cdecl; external CLibSSL; {introduced 3.2.0}
   function SSL_net_read_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
   function SSL_net_write_desired(s : PSSL) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
   function SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.2.0}
@@ -3460,10 +3463,6 @@ var
   function SSL_is_domain(s : PSSL) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
   function SSL_get0_domain(s : PSSL) : PSSL cdecl; external CLibSSL;  {introduced 3.5.0}
   function SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL cdecl; external CLibSSL; {introduced 3.5.0}
-
-  function SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
-  function SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
-  function SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL;  {introduced 3.5.0}
 
   function SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
   function SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT cdecl; external CLibSSL; {introduced 3.5.0}
@@ -3540,8 +3539,8 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  function SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
+  function SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT cdecl; external CLibSSL;
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -3591,7 +3590,7 @@ var
   function SSL_get0_security_ex_data(const s: PSSL): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_CTX_set_security_level(ctx: PSSL_CTX; level: TIdC_INT) cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_get_security_level(const ctx: PSSL_CTX): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  procedure SSL_CTX_set_security_callback(ctx: PSSL_CTX, cb: SSL_security_callback) cdecl; external CLibSSL;
+  procedure SSL_CTX_set_security_callback(ctx: PSSL_CTX; cb: SSL_security_callback) cdecl; external CLibSSL;
   function SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback cdecl; external CLibSSL;
   function SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -29599,7 +29598,7 @@ end;
 //# define SSL_set1_groups_list(s, str)                      SSL_ctrl(s,SSL_CTRL_SET_GROUPS_LIST,0,(char *)(str))
 function SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_GROUPS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_GROUPS_LIST, 0, _str);
 end;
 
 //# define SSL_get_shared_group(s, n)                        SSL_ctrl(s,SSL_CTRL_GET_SHARED_GROUP,n,NULL)
@@ -29629,7 +29628,7 @@ end;
 //# define SSL_set1_sigalgs_list(s, str)                     SSL_ctrl(s,SSL_CTRL_SET_SIGALGS_LIST,0,(char *)(str))
 function SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_SIGALGS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_SIGALGS_LIST, 0, _str);
 end;
 
 //# define SSL_CTX_set1_client_sigalgs(ctx, slist, slistlen) SSL_CTX_ctrl(ctx,SSL_CTRL_SET_CLIENT_SIGALGS,slistlen,(TIdC_INT *)(slist))
@@ -29653,7 +29652,7 @@ end;
 //# define SSL_set1_client_sigalgs_list(s, str)              SSL_ctrl(s,SSL_CTRL_SET_CLIENT_SIGALGS_LIST,0,(char *)(str))
 function SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;
 begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_CLIENT_SIGALGS_LIST, 0, str);
+  Result := SSL_ctrl(s, SSL_CTRL_SET_CLIENT_SIGALGS_LIST, 0, _str);
 end;
 
 //# define SSL_get0_certificate_types(s, clist)              SSL_ctrl(s, SSL_CTRL_GET_CLIENT_CERT_TYPES, 0, (char *)(clist))

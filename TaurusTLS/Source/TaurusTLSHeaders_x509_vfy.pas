@@ -32,6 +32,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_ossl_typ,
@@ -921,8 +924,8 @@ var
 //  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
 //  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
   procedure X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto;
-  void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *c, STACK_OF(X509) *sk);
-  void X509_STORE_CTX_set0_crls(X509_STORE_CTX *c, STACK_OF(X509_CRL) *sk);
+  procedure X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509)  cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set0_crls(c : X509_STORE_CTX; sk : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto;
   function X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;

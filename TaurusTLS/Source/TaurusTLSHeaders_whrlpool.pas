@@ -29,7 +29,10 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal;
+  IdGlobal
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  , TaurusTLSConsts
+  {$ENDIF};
 
 const
   WHIRLPOOL_DIGEST_LENGTH = 512 div 8;

@@ -31,6 +31,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_conf;
 
   //* Up until TaurusTLS 0.9.5a, this was new_section */

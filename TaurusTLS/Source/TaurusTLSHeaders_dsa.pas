@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_evp;
@@ -395,6 +398,14 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
   
+  //#define DSA_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef)
+function DSA_get_ex_new_index(l : TIdC_LONG; p : PDSA;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef);
+end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -650,15 +661,6 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_verify_procname);
 end;
 
-
-  //#define DSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef)
-function DSA_get_ex_new_index(l : TIdC_LONG; p : PDSA;
-    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_DSA, l, p, newf, dupf, freef);
-end;
 
 function  ERR_DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT;
 begin

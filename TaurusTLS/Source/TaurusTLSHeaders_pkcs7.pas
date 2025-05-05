@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_stack,
@@ -584,7 +587,7 @@ var
   function sk_PKCS7_SIGNER_INFO_new_null : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_PKCS7_SIGNER_INFO_free(st : PSTACK_OF_PKCS7_SIGNER_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_PKCS7_SIGNER_INFO_num (const sk : PSTACK_OF_PKCS7_SIGNER_INFO) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PPKCS7_SIGNER_INFO_ cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PPKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_SIGNER_INFO_push (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_SIGNER_INFO_dup (sk : PSTACK_OF_PKCS7_SIGNER_INFO) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_PKCS7_SIGNER_INFO_find (sk : PSTACK_OF_PKCS7_SIGNER_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';

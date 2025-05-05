@@ -30,6 +30,9 @@ interface
 uses
   IdCTypes,
   IdGlobal,
+  {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
+  TaurusTLSConsts,
+  {$ENDIF}
   TaurusTLSHeaders_asn1t,
   TaurusTLSHeaders_bio,
   TaurusTLSHeaders_ossl_typ,
@@ -864,7 +867,6 @@ var
 
   ASN1_STRING_to_UTF8: function (out_: PPByte; const in_: PASN1_STRING): TIdC_INT; cdecl = nil;
 
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
 
   //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
   //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
@@ -1196,8 +1198,7 @@ var
   //# endif
 
   function ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
+  function ASN1_d2i_bio(xnew: pxnew; d2i: pd2i_of_void; in_: PBIO; x: PPointer): Pointer cdecl; external CLibCrypto;
 
   //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
   //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
@@ -2641,7 +2642,7 @@ end;
   //function ASN1_STRING_print_ex_fp(&fp: PFILE; const _str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
   //# endif
 
-function  ERR_ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT; 
+function  ERR_ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_STRING_to_UTF8_procname);
 end;
