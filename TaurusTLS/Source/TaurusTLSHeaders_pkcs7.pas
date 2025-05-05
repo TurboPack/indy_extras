@@ -369,10 +369,10 @@ var
   PKCS7_add_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT; cdecl = nil;
   PKCS7_get_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; cdecl = nil;
   PKCS7_get_signed_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; cdecl = nil;
-  PKCS7_set_signed_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  PKCS7_set_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+  PKCS7_set_signed_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;  cdecl = nil;
+  PKCS7_set_attributes : function(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;  cdecl = nil;
 
-  PKCS7_sign : function(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+  PKCS7_sign : function(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;  cdecl = nil;
 
   PKCS7_sign_add_signer: function (p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO; cdecl = nil;
 
@@ -382,9 +382,9 @@ var
   PKCS7_encrypt : function(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7; cdecl = nil;
   PKCS7_decrypt: function (p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  PKCS7_add_attrib_smimecap : function(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
-  PKCS7_get_smimecap : function(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
-  PKCS7_simple_smimecap : function(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+  PKCS7_add_attrib_smimecap : function(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;   cdecl = nil;
+  PKCS7_get_smimecap : function(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;  cdecl = nil;
+  PKCS7_simple_smimecap : function(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;   cdecl = nil;
 
   PKCS7_add_attrib_content_type: function (si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   PKCS7_add0_attrib_signing_time: function (si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TIdC_INT; cdecl = nil;
@@ -486,7 +486,7 @@ var
   function PKCS7_add_signature(p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO cdecl; external CLibCrypto;
   function PKCS7_cert_from_signer_info(p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509 cdecl; external CLibCrypto;
   function PKCS7_set_digest(p7: PPKCS7; const md: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  function PKCS7_get_signer_info(p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO;
+  function PKCS7_get_signer_info(p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto;
 
   function PKCS7_add_recipient(p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO cdecl; external CLibCrypto;
   procedure PKCS7_SIGNER_INFO_get0_algs(si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR) cdecl; external CLibCrypto;
@@ -502,10 +502,10 @@ var
   function PKCS7_add_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_get_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE cdecl; external CLibCrypto;
   function PKCS7_get_signed_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE cdecl; external CLibCrypto;
-  function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
-  function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+  function PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT cdecl; external CLibCrypto;
+  function PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT cdecl; external CLibCrypto;
 
-  function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+  function PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7 cdecl; external CLibCrypto;
 
   function PKCS7_sign_add_signer(p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO cdecl; external CLibCrypto;
 
@@ -536,15 +536,15 @@ type
   Tsk_PKCS7_RECIP_INFO_free = procedure(st : PSTACK_OF_PKCS7_RECIP_INFO) cdecl;
   Tsk_PKCS7_RECIP_INFO_num = function (const sk : PSTACK_OF_PKCS7_RECIP_INFO) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_value = function (const sk : PSTACK_OF_PKCS7_RECIP_INFO; i : TIdC_INT) : PX509_CRL cdecl;
-  Tsk_PKCS7_RECIP_INFO_push = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PX509_CRL) : TIdC_INT cdecl;
+  Tsk_PKCS7_RECIP_INFO_push = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PPKCS7_RECIP_INFO) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_dup = function (sk : PSTACK_OF_PKCS7_RECIP_INFO) : PSTACK_OF_PKCS7_RECIP_INFO cdecl;
-  Tsk_PKCS7_RECIP_INFO_find = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; _val : PX509_CRL) : TIdC_INT cdecl;
+  Tsk_PKCS7_RECIP_INFO_find = function (sk : PSTACK_OF_PKCS7_RECIP_INFO; _val : PPKCS7_RECIP_INFO) : TIdC_INT cdecl;
   Tsk_PKCS7_RECIP_INFO_pop_free = procedure (sk : PSTACK_OF_PKCS7_RECIP_INFO; func: TOPENSSL_sk_freefunc) cdecl;
   Tsk_PKCS7_SIGNER_INFO_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl;
   Tsk_PKCS7_SIGNER_INFO_new_null = function : PSTACK_OF_PKCS7_SIGNER_INFO cdecl;
   Tsk_PKCS7_SIGNER_INFO_free = procedure(st : PSTACK_OF_PKCS7_SIGNER_INFO) cdecl;
   Tsk_PKCS7_SIGNER_INFO_num = function (const sk : PSTACK_OF_PKCS7_SIGNER_INFO) : TIdC_INT cdecl;
-  Tsk_PKCS7_SIGNER_INFO_value = function (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PX509_CRL cdecl;
+  Tsk_PKCS7_SIGNER_INFO_value = function (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PPKCS7_SIGNER_INFO cdecl;
   Tsk_PKCS7_SIGNER_INFO_push = function (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl;
   Tsk_PKCS7_SIGNER_INFO_dup = function (sk : PSTACK_OF_PKCS7_SIGNER_INFO) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl;
   Tsk_PKCS7_SIGNER_INFO_find = function (sk : PSTACK_OF_PKCS7_SIGNER_INFO; _val : PX509_CRL) : TIdC_INT cdecl;
@@ -575,7 +575,7 @@ var
   function sk_PKCS7_RECIP_INFO_new_null : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_PKCS7_RECIP_INFO_free(st : PSTACK_OF_PKCS7_RECIP_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_PKCS7_RECIP_INFO_num (const sk : PSTACK_OF_PKCS7_RECIP_INFO) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_PKCS7_RECIP_INFO_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_PKCS7_RECIP_INFO_value (const sk : PSTACK_OF_PKCS7_RECIP_INFO; i : TIdC_INT) : PPKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_RECIP_INFO_push (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_RECIP_INFO_dup (sk : PSTACK_OF_PKCS7_RECIP_INFO) : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_PKCS7_RECIP_INFO_find (sk : PSTACK_OF_PKCS7_RECIP_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
@@ -584,7 +584,7 @@ var
   function sk_PKCS7_SIGNER_INFO_new_null : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_PKCS7_SIGNER_INFO_free(st : PSTACK_OF_PKCS7_SIGNER_INFO) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_PKCS7_SIGNER_INFO_num (const sk : PSTACK_OF_PKCS7_SIGNER_INFO) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PPKCS7_SIGNER_INFO_ cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_SIGNER_INFO_push (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_SIGNER_INFO_dup (sk : PSTACK_OF_PKCS7_SIGNER_INFO) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_PKCS7_SIGNER_INFO_find (sk : PSTACK_OF_PKCS7_SIGNER_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';

@@ -2158,7 +2158,7 @@ var
   function X509_REQ_extension_nid(nid: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_extension_nids: PIdC_INT cdecl; external CLibCrypto;
   procedure X509_REQ_set_extension_nids(nids: PIdC_INT) cdecl; external CLibCrypto;
-  function X509_REQ_get_extensions(X509_REQ *req) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
+  function X509_REQ_get_extensions(req : PX509_REQ) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
   function X509_REQ_add_extensions_nid(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION;
                                        nid : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto;

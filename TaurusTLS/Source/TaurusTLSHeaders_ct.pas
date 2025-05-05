@@ -173,9 +173,9 @@ var
    ERR_load_CT_strings : function : TIdC_INT; cdecl = nil;
 {$ELSE}
 function CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX cdecl; external CLibCrypto;
-procedure CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX) cdeckl; external CLibCrypto;
+procedure CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX) cdecl; external CLibCrypto;
 function CT_POLICY_EVAL_CTX_get0_cert(const ctx : PCT_POLICY_EVAL_CTX) : PX509 cdecl; external CLibCrypto;
-function CT_POLICY_EVAL_CTX_set1_cert(ctx PCT_POLICY_EVAL_CTX; cert : PX509) : TIdC_INT cdecl; external CLibCrypto;
+function CT_POLICY_EVAL_CTX_set1_cert(ctx : PCT_POLICY_EVAL_CTX; cert : PX509) : TIdC_INT cdecl; external CLibCrypto;
 function CT_POLICY_EVAL_CTX_get0_issuer(const ctx : PCT_POLICY_EVAL_CTX) : PX509 cdecl; external CLibCrypto;
 function CT_POLICY_EVAL_CTX_set1_issuer(ctx : PCT_POLICY_EVAL_CTX; issuer : PX509) : TIdC_INT cdecl; external CLibCrypto;
 function CT_POLICY_EVAL_CTX_get0_log_store(const ctx : PCT_POLICY_EVAL_CTX) : PCTLOG_STORE cdecl; external CLibCrypto;
@@ -184,7 +184,7 @@ procedure CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE(ctx : PCT_POLICY_EVAL_CTX;
 function CT_POLICY_EVAL_CTX_get_time(const ctx : PCT_POLICY_EVAL_CTX) : TIdC_UINT64 cdecl; external CLibCrypto;
 procedure CT_POLICY_EVAL_CTX_set_time(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64) cdecl; external CLibCrypto;
 
-function SCT_new(void) : PSCT cdecl; external CLibCrypto;
+function SCT_new : PSCT cdecl; external CLibCrypto;
 function SCT_new_from_base64(version : TIdAnsiChar;
                              logid_base64 : PIdAnsiChar;
                              entry_type : ct_log_entry_type_t;
