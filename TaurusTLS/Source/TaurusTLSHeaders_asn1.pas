@@ -1445,7 +1445,7 @@ var
   sk_X509_ALGOR_find : Tsk_X509_ALGOR_find absolute sk_find;
   sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free absolute sk_pop_free;
 {$ELSE}
-  function sk_ASN1_OBJECT_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_OBJECT_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_OBJECT_new_null : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ASN1_OBJECT_free(st : PSTACK_OF_ASN1_OBJECT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_ASN1_OBJECT_num (const sk : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
@@ -1454,7 +1454,7 @@ var
   function sk_ASN1_OBJECT_dup (sk : PSTACK_OF_ASN1_OBJECT) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_OBJECT_find (sk : PSTACK_OF_ASN1_OBJECT; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_ASN1_OBJECT_pop_free (sk : PSTACK_OF_ASN1_OBJECT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  function sk_ASN1_INTEGER_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_INTEGER_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_INTEGER_new_null : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ASN1_INTEGER_free(st : PSTACK_OF_ASN1_INTEGER) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_ASN1_INTEGER_num (const sk : PSTACK_OF_ASN1_INTEGER) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
@@ -1463,7 +1463,7 @@ var
   function sk_ASN1_INTEGER_dup (sk : PSTACK_OF_ASN1_INTEGER) : PSTACK_OF_ASN1_INTEGER cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_INTEGER_find (sk : PSTACK_OF_ASN1_INTEGER; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_ASN1_INTEGER_pop_free (sk : PSTACK_OF_ASN1_INTEGER; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  function sk_ASN1_GENERALSTRING_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_GENERALSTRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_GENERALSTRING_new_null : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ASN1_GENERALSTRING_free(st : PSTACK_OF_ASN1_GENERALSTRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_ASN1_GENERALSTRING_num (const sk : PSTACK_OF_ASN1_GENERALSTRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
@@ -1472,7 +1472,7 @@ var
   function sk_ASN1_GENERALSTRING_dup (sk : PSTACK_OF_ASN1_GENERALSTRING) : PSTACK_OF_ASN1_GENERALSTRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_GENERALSTRING_find (sk : PSTACK_OF_ASN1_GENERALSTRING; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_ASN1_GENERALSTRING_pop_free (sk : PSTACK_OF_ASN1_GENERALSTRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  function sk_ASN1_UTF8STRING_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_UTF8STRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_UTF8STRING_new_null : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ASN1_UTF8STRING_free(st : PSTACK_OF_ASN1_UTF8STRING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_ASN1_UTF8STRING_num (const sk : PSTACK_OF_ASN1_UTF8STRING) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
@@ -1481,7 +1481,7 @@ var
   function sk_ASN1_UTF8STRING_dup (sk : PSTACK_OF_ASN1_UTF8STRING) : PSTACK_OF_ASN1_UTF8STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_UTF8STRING_find (sk : PSTACK_OF_ASN1_UTF8STRING; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_ASN1_UTF8STRING_pop_free (sk : PSTACK_OF_ASN1_UTF8STRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  function sk_ASN1_TYPE_new(cmp : Tsk_new_cmp) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_ASN1_TYPE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_TYPE_new_null : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ASN1_TYPE_free(st : PSTACK_OF_ASN1_TYPE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_ASN1_TYPE_num (const sk : PSTACK_OF_ASN1_TYPE) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
@@ -1490,7 +1490,7 @@ var
   function sk_ASN1_TYPE_dup (sk : PSTACK_OF_ASN1_TYPE) : PSTACK_OF_ASN1_TYPE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_TYPE_find (sk : PSTACK_OF_ASN1_TYPE; val : PX509_ALGOR) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_ASN1_TYPE_pop_free (sk : PSTACK_OF_ASN1_TYPE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
-  function sk_X509_ALGOR_new(cmp : Tsk_new_cmp) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_ALGOR_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_ALGOR_new_null : PSTACK_OF_X509_ALGOR cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_ALGOR_free(st : PSTACK_OF_X509_ALGOR) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_X509_ALGOR_num (const sk : PSTACK_OF_X509_ALGOR) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';

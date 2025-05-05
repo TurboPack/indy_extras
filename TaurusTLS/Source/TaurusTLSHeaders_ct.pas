@@ -292,7 +292,7 @@ var
   sk_CTLOG_pop_free: Tsk_CTLOG_pop_free absolute sk_pop_free;
 
 {$ELSE}
-function sk_SCT_new(cmp: Tsk_new_cmp): PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+function sk_SCT_new(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
 function sk_SCT_new_null: PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
 procedure sk_SCT_free(st: PSTACK_OF_SCT)cdecl; external CLibCrypto name 'OPENSSL_sk_free';
 function sk_SCT_num(const sk: PSTACK_OF_SCT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
@@ -302,7 +302,7 @@ function sk_SCT_dup(sk: PSTACK_OF_SCT): PSTACK_OF_SCT cdecl; external CLibCrypto
 function sk_SCT_find(sk: PSTACK_OF_SCT; val: PSCT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
 procedure sk_SCT_pop_free(sk: PSTACK_OF_SCT; func: Tsk_pop_free_func)cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
-function sk_CTLOG_new(cmp: Tsk_new_cmp): PSTACK_OF_CTLOG cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+function sk_CTLOG_new(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_CTLOG cdecl; external CLibCrypto name 'OPENSSL_sk_new';
 function sk_CTLOG_new_null: PSTACK_OF_CTLOG cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
 procedure sk_CTLOG_free(st: PSTACK_OF_CTLOG) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
 function sk_CTLOG_num(const sk: PSTACK_OF_CTLOG): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';

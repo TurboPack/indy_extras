@@ -358,7 +358,7 @@ var
   sk_CONF_IMODULE_pop_free :  Tsk_CONF_IMODULE_pop_free absolute sk_pop_free;
 
 {$ELSE}
-  function sk_CONF_VALUE_new(cmp : Tsk_new_cmp) : PSTACK_OF_CONF_VALUE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_CONF_VALUE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_VALUE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_CONF_VALUE_new_null : PSTACK_OF_CONF_VALUE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_CONF_VALUE_free(st : PSTACK_OF_CONF_VALUE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_CONF_VALUE_num (const sk : PSTACK_OF_CONF_VALUE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
@@ -368,7 +368,7 @@ var
   function sk_CONF_VALUE_find (sk : PSTACK_OF_CONF_VALUE; val : PCONF_VALUE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_CONF_VALUE_pop_free (sk : PSTACK_OF_CONF_VALUE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
-  function sk_CONF_MODULE_new(cmp : Tsk_new_cmp) : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_CONF_MODULE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_CONF_MODULE_new_null : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_CONF_MODULE_free(st : PSTACK_OF_CONF_MODULE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_CONF_MODULE_num (const sk : PSTACK_OF_CONF_MODULE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
@@ -378,7 +378,7 @@ var
   function sk_CONF_MODULE_find (sk : PSTACK_OF_CONF_MODULE; val : PCONF_MODULE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_CONF_MODULE_pop_free (sk : PSTACK_OF_CONF_MODULE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
-  function sk_CONF_IMODULE_new(cmp : Tsk_new_cmp) : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_CONF_IMODULE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_CONF_IMODULE_new_null : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_CONF_IMODULE_free(st : PSTACK_OF_CONF_IMODULE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_CONF_IMODULE_num (const sk : PSTACK_OF_CONF_IMODULE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';

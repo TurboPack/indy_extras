@@ -3767,7 +3767,7 @@ var
   sk_SRTP_PROTECTION_PROFILE_find : Tsk_SRTP_PROTECTION_PROFILE_find absolute sk_find;
   sk_SRTP_PROTECTION_PROFILE_pop_free :  Tsk_SRTP_PROTECTION_PROFILE_pop_free absolute sk_pop_free;
 {$ELSE}
-  function sk_SSL_CIPHER_new(cmp : Tsk_new_cmp) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SSL_CIPHER_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_SSL_CIPHER_new_null : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_SSL_CIPHER_free(st : PSTACK_OF_SSL_CIPHER) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_SSL_CIPHER_num (const sk : PSTACK_OF_SSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
@@ -3777,7 +3777,7 @@ var
   function sk_SSL_CIPHER_find (sk : PSTACK_OF_SSL_CIPHER; val : PSSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_SSL_CIPHER_pop_free (sk : PSTACK_OF_SSL_CIPHER; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
-  function sk_SSL_COMP_new(cmp : Tsk_new_cmp) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SSL_COMP_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_SSL_COMP_new_null : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_SSL_COMP_free(st : PSTACK_OF_SSL_COMP) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_SSL_COMP_num (const sk : PSTACK_OF_SSL_COMP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
@@ -3788,7 +3788,7 @@ var
   procedure sk_SSL_COMP_pop_free (sk : PSTACK_OF_SSL_COMP; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 
-  function sk_SRTP_PROTECTION_PROFILE_new(cmp : Tsk_new_cmp) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_SRTP_PROTECTION_PROFILE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_SRTP_PROTECTION_PROFILE_new_null : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_SRTP_PROTECTION_PROFILE_free(st : PSTACK_OF_SRTP_PROTECTION_PROFILE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_SRTP_PROTECTION_PROFILE_num (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
