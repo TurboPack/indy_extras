@@ -1146,7 +1146,7 @@ var
   function sk_X509_REVOKED_new_null : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_REVOKED_free(st : PSTACK_OF_X509_REVOKED) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_X509_REVOKED_num (const sk : PSTACK_OF_X509_REVOKED) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_X509_REVOKED_value (const sk : PSTACK_OF_REVOKED; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_REVOKED_value (const sk : PSTACK_OF_X509_REVOKED; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_REVOKED_push (sk : PSTACK_OF_X509_REVOKED; st : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_REVOKED_dup (sk : PSTACK_OF_X509_REVOKED) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_REVOKED_find (sk : PSTACK_OF_X509_REVOKED; val : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
@@ -1155,7 +1155,7 @@ var
   function sk_X509_CRL_new_null : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_CRL_free(st : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_X509_CRL_num (const sk : PSTACK_OF_X509_CRL) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_X509_CRL_value (const sk : PSTACK_OF_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_CRL_value (const sk : PSTACK_OF_X509_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_CRL_push (sk : PSTACK_OF_X509_CRL; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_CRL_dup (sk : PSTACK_OF_X509_CRL) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_CRL_find (sk : PSTACK_OF_X509_CRL; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
@@ -1164,7 +1164,7 @@ var
   function sk_X509_ATTRIBUTE_new_null : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_X509_ATTRIBUTE_free(st : PSTACK_OF_X509_ATTRIBUTE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
   function sk_X509_ATTRIBUTE_num (const sk : PSTACK_OF_X509_ATTRIBUTE) : TIdC_INT; external CLibCrypto name 'OPENSSL_sk_num';
-  function sk_X509_ATTRIBUTE_value (const sk : PSTACK_OF_ATTRIBUTE; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_ATTRIBUTE_value (const sk : PSTACK_OF_X509_ATTRIBUTE; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_ATTRIBUTE_push (sk : PSTACK_OF_X509_ATTRIBUTE; st : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_ATTRIBUTE_dup (sk : PSTACK_OF_X509_ATTRIBUTE) : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_ATTRIBUTE_find (sk : PSTACK_OF_X509_ATTRIBUTE; val : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
@@ -2159,7 +2159,7 @@ var
   function X509_REQ_get_extension_nids: PIdC_INT cdecl; external CLibCrypto;
   procedure X509_REQ_set_extension_nids(nids: PIdC_INT) cdecl; external CLibCrypto;
   function X509_REQ_get_extensions(X509_REQ *req) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
-  function X509_REQ_add_extensions_nid(X509_REQ *req; exts : PSTACK_OF_X509_EXTENSION;
+  function X509_REQ_add_extensions_nid(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION;
                                        nid : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
@@ -2183,7 +2183,7 @@ var
   function X509_CRL_get0_lastUpdate(const crl: PX509_CRL): PASN1_TIME cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get0_nextUpdate(const crl: PX509_CRL): PASN1_TIME cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get_issuer(const crl: PX509_CRL): PX509_NAME cdecl; external CLibCrypto; {introduced 1.1.0}
-  function X509_CRL_get0_extensions(const X509_CRL *crl) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
+  function X509_CRL_get0_extensions(const crl : PX509_CRL) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto;
   function X509_CRL_get_REVOKED(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto;
   procedure X509_CRL_get0_signature(const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR) cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_CRL_get_signature_nid(const crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -2435,7 +2435,16 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+  //#define X509_get_ex_new_index(l, p, newf, dupf, freef) \
+  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef)
+function X509_get_ex_new_index(l : TIdC_LONG; p : PX509;
+    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef);
+end;
+
 const
   X509_PUBKEY_get0_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_get_pathlen_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -3123,15 +3132,6 @@ function  _X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; cdecl;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := X509_NAME_hash_ex(x,nil,nil,nil);
-end;
-
-  //#define X509_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef)
-function X509_get_ex_new_index(l : TIdC_LONG; p : PX509;
-    newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef);
 end;
 
 procedure  FC_X509_get0_signature(out sig: PASN1_BIT_STRING; out alg: PX509_ALGOR; const x: PX509); cdecl;
