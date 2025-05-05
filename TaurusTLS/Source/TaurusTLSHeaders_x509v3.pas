@@ -1514,7 +1514,7 @@ var
   function sk_ASIdOrRange_push (sk : PSTACK_OF_ASIdOrRange; st : PASIdOrRange): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_ASIdOrRange_dup (sk : PSTACK_OF_ASIdOrRange) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASIdOrRange_find (sk : PSTACK_OF_ASIdOrRange; val : PASIdOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_ASIdOrRange_pop_free (sk : PSTACK_OF_ASIdOrRange; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_ASIdOrRange_pop_free (sk : PSTACK_OF_ASIdOrRange; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_IPAddressOrRange_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_IPAddressOrRange_new_null : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_IPAddressOrRange_free(st : PSTACK_OF_IPAddressOrRange) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1523,7 +1523,7 @@ var
   function sk_IPAddressOrRange_push (sk : PSTACK_OF_IPAddressOrRange; st : PIPAddressOrRange): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_IPAddressOrRange_dup (sk : PSTACK_OF_IPAddressOrRange) : PSTACK_OF_IPAddressOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_IPAddressOrRange_find (sk : PSTACK_OF_IPAddressOrRange; val : PIPAddressOrRange) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_IPAddressOrRange_pop_free (sk : PSTACK_OF_IPAddressOrRange; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_IPAddressOrRange_pop_free (sk : PSTACK_OF_IPAddressOrRange; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_IPAddressFamily_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_IPAddressFamily_new_null : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_IPAddressFamily_free(st : PSTACK_OF_IPAddressFamily) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1532,7 +1532,7 @@ var
   function sk_IPAddressFamily_push (sk : PSTACK_OF_IPAddressFamily; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_IPAddressFamily_dup (sk : PSTACK_OF_IPAddressFamily) : PSTACK_OF_IPAddressFamily cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_IPAddressFamily_find (sk : PSTACK_OF_IPAddressFamily; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_IPAddressFamily_pop_free (sk : PSTACK_OF_IPAddressFamily; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_IPAddressFamily_pop_free (sk : PSTACK_OF_IPAddressFamily; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_GENERAL_NAME_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_GENERAL_NAME_new_null : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_GENERAL_NAME_free(st : PSTACK_OF_GENERAL_NAME) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1541,7 +1541,7 @@ var
   function sk_GENERAL_NAME_push (sk : PSTACK_OF_GENERAL_NAME; st : PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_GENERAL_NAME_dup (sk : PSTACK_OF_GENERAL_NAME) : PSTACK_OF_GENERAL_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_GENERAL_NAME_find (sk : PSTACK_OF_GENERAL_NAME; val : PGENERAL_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_GENERAL_NAME_pop_free (sk : PSTACK_OF_GENERAL_NAME; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_GENERAL_NAME_pop_free (sk : PSTACK_OF_GENERAL_NAME; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_ACCESS_DESCRIPTION_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ACCESS_DESCRIPTION_new_null : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_ACCESS_DESCRIPTION_free(st : PSTACK_OF_ACCESS_DESCRIPTION) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1550,7 +1550,7 @@ var
   function sk_ACCESS_DESCRIPTION_push (sk : PSTACK_OF_ACCESS_DESCRIPTION; st : PACCESS_DESCRIPTION): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_ACCESS_DESCRIPTION_dup (sk : PSTACK_OF_ACCESS_DESCRIPTION) : PSTACK_OF_ACCESS_DESCRIPTION cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ACCESS_DESCRIPTION_find (sk : PSTACK_OF_ACCESS_DESCRIPTION; val : PACCESS_DESCRIPTION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_ACCESS_DESCRIPTION_pop_free (sk : PSTACK_OF_ACCESS_DESCRIPTION; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_ACCESS_DESCRIPTION_pop_free (sk : PSTACK_OF_ACCESS_DESCRIPTION; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_DIST_POINT_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_DIST_POINT_new_null : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_DIST_POINT_free(st : PSTACK_OF_DIST_POINT) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1559,7 +1559,7 @@ var
   function sk_DIST_POINT_push (sk : PSTACK_OF_DIST_POINT; st : PDIST_POINT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_DIST_POINT_dup (sk : PSTACK_OF_DIST_POINT) : PSTACK_OF_DIST_POINT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_DIST_POINT_find (sk : PSTACK_OF_DIST_POINT; val : PDIST_POINT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_DIST_POINT_pop_free (sk : PSTACK_OF_DIST_POINT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_DIST_POINT_pop_free (sk : PSTACK_OF_DIST_POINT; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_SXNETID_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_SXNETID_new_null : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1569,7 +1569,7 @@ var
   function sk_SXNETID_push (sk : PSTACK_OF_SXNETID; st : PSXNETID): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_SXNETID_dup (sk : PSTACK_OF_SXNETID) : PSTACK_OF_SXNETID cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_SXNETID_find (sk : PSTACK_OF_SXNETID; val : PSXNETID) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_SXNETID_pop_free (sk : PSTACK_OF_SXNETID; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_SXNETID_pop_free (sk : PSTACK_OF_SXNETID; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_POLICYQUALINFO_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_POLICYQUALINFO_new_null : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1579,7 +1579,7 @@ var
   function sk_POLICYQUALINFO_push (sk : PSTACK_OF_POLICYQUALINFO; st : PPOLICYQUALINFO): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_POLICYQUALINFO_dup (sk : PSTACK_OF_POLICYQUALINFO) : PSTACK_OF_POLICYQUALINFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_POLICYQUALINFO_find (sk : PSTACK_OF_POLICYQUALINFO; val : PPOLICYQUALINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_POLICYQUALINFO_pop_free (sk : PSTACK_OF_POLICYQUALINFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_POLICYQUALINFO_pop_free (sk : PSTACK_OF_POLICYQUALINFO; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_POLICYINFO_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_POLICYINFO_new_null : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1589,7 +1589,7 @@ var
   function sk_POLICYINFO_push (sk : PSTACK_OF_POLICYINFO; st : PPOLICYINFO): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_POLICYINFO_dup (sk : PSTACK_OF_POLICYINFO) : PSTACK_OF_POLICYINFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_POLICYINFO_find (sk : PSTACK_OF_POLICYINFO; val : PPOLICYINFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_POLICYINFO_pop_free (sk : PSTACK_OF_POLICYINFO; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_POLICYINFO_pop_free (sk : PSTACK_OF_POLICYINFO; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_POLICY_MAPPING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_POLICY_MAPPING_new_null : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_POLICY_MAPPING_free(st : PSTACK_OF_POLICY_MAPPING) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1598,7 +1598,7 @@ var
   function sk_POLICY_MAPPING_push (sk : PSTACK_OF_POLICY_MAPPING; st : PPOLICY_MAPPING): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_POLICY_MAPPING_dup (sk : PSTACK_OF_POLICY_MAPPING) : PSTACK_OF_POLICY_MAPPING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_POLICY_MAPPING_find (sk : PSTACK_OF_POLICY_MAPPING; val : PPOLICY_MAPPING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_POLICY_MAPPING_pop_free (sk : PSTACK_OF_POLICY_MAPPING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_POLICY_MAPPING_pop_free (sk : PSTACK_OF_POLICY_MAPPING; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_GENERAL_SUBTREE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_GENERAL_SUBTREE_new_null : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
   procedure sk_GENERAL_SUBTREE_free(st : PSTACK_OF_GENERAL_SUBTREE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
@@ -1607,7 +1607,7 @@ var
   function sk_GENERAL_SUBTREE_push (sk : PSTACK_OF_GENERAL_SUBTREE; st : PGENERAL_SUBTREE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_GENERAL_SUBTREE_dup (sk : PSTACK_OF_GENERAL_SUBTREE) : PSTACK_OF_GENERAL_SUBTREE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_GENERAL_SUBTREE_find (sk : PSTACK_OF_GENERAL_SUBTREE; val : PGENERAL_SUBTREE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_GENERAL_SUBTREE_pop_free (sk : PSTACK_OF_GENERAL_SUBTREE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_GENERAL_SUBTREE_pop_free (sk : PSTACK_OF_GENERAL_SUBTREE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_ASN1_STRING_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_STRING_new_null : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1617,7 +1617,7 @@ var
   function sk_ASN1_STRING_push (sk : PSTACK_OF_ASN1_STRING; st : PASN1_STRING): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_ASN1_STRING_dup (sk : PSTACK_OF_ASN1_STRING) : PSTACK_OF_ASN1_STRING cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_ASN1_STRING_find (sk : PSTACK_OF_ASN1_STRING; val : PASN1_STRING) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_ASN1_STRING_pop_free (sk : PSTACK_OF_ASN1_STRING; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_ASN1_STRING_pop_free (sk : PSTACK_OF_ASN1_STRING; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_X509_PURPOSE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_PURPOSE_new_null : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1627,7 +1627,7 @@ var
   function sk_X509_PURPOSE_push (sk : PSTACK_OF_X509_PURPOSE; st : PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_PURPOSE_dup (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_PURPOSE_find (sk : PSTACK_OF_X509_PURPOSE; val : PX509_PURPOSE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_X509_PURPOSE_pop_free (sk : PSTACK_OF_X509_PURPOSE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_X509_PURPOSE_pop_free (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
 

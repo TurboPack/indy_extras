@@ -1093,7 +1093,7 @@ var
   function sk_X509_OBJECT_push (sk : PSTACK_OF_X509_OBJECT; st : PX509_OBJECT): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_OBJECT_dup (sk : PSTACK_OF_X509_OBJECT) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_OBJECT_find (sk : PSTACK_OF_X509_OBJECT; val : PX509_OBJECT) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_X509_OBJECT_pop_free (sk : PSTACK_OF_X509_OBJECT; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_X509_OBJECT_pop_free (sk : PSTACK_OF_X509_OBJECT; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_X509_LOOKUP_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_LOOKUP_new_null : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1103,7 +1103,7 @@ var
   function sk_X509_LOOKUP_push (sk : PSTACK_OF_X509_LOOKUP; st : PX509_LOOKUP): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_LOOKUP_dup (sk : PSTACK_OF_X509_LOOKUP) : PSTACK_OF_X509_LOOKUP cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_LOOKUP_find (sk : PSTACK_OF_X509_LOOKUP; val : PX509_LOOKUP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_X509_LOOKUP_pop_free (sk : PSTACK_OF_X509_LOOKUP; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_X509_LOOKUP_pop_free (sk : PSTACK_OF_X509_LOOKUP; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_X509_VERIFY_PARAM_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_VERIFY_PARAM_new_null : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1113,7 +1113,7 @@ var
   function sk_X509_VERIFY_PARAM_push (sk : PSTACK_OF_X509_VERIFY_PARAM; st : PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_VERIFY_PARAM_dup (sk : PSTACK_OF_X509_VERIFY_PARAM) : PSTACK_OF_X509_VERIFY_PARAM cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_VERIFY_PARAM_find (sk : PSTACK_OF_X509_VERIFY_PARAM; val : PX509_VERIFY_PARAM) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_X509_VERIFY_PARAM_pop_free (sk : PSTACK_OF_X509_VERIFY_PARAM; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_X509_VERIFY_PARAM_pop_free (sk : PSTACK_OF_X509_VERIFY_PARAM; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
 

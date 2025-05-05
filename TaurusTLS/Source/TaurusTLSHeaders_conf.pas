@@ -366,7 +366,7 @@ var
   function sk_CONF_VALUE_push (sk : PSTACK_OF_CONF_VALUE; st : PCONF_VALUE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_CONF_VALUE_dup (sk : PSTACK_OF_CONF_VALUE) : PSTACK_OF_CONF_VALUE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_CONF_VALUE_find (sk : PSTACK_OF_CONF_VALUE; val : PCONF_VALUE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_CONF_VALUE_pop_free (sk : PSTACK_OF_CONF_VALUE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_CONF_VALUE_pop_free (sk : PSTACK_OF_CONF_VALUE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_CONF_MODULE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_CONF_MODULE_new_null : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -376,7 +376,7 @@ var
   function sk_CONF_MODULE_push (sk : PSTACK_OF_CONF_MODULE; st : PCONF_MODULE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_CONF_MODULE_dup (sk : PSTACK_OF_CONF_MODULE) : PSTACK_OF_CONF_MODULE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_CONF_MODULE_find (sk : PSTACK_OF_CONF_MODULE; val : PCONF_MODULE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_CONF_MODULE_pop_free (sk : PSTACK_OF_CONF_MODULE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_CONF_MODULE_pop_free (sk : PSTACK_OF_CONF_MODULE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_CONF_IMODULE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_CONF_IMODULE_new_null : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -386,7 +386,7 @@ var
   function sk_CONF_IMODULE_push (sk : PSTACK_OF_CONF_IMODULE; st : PCONF_IMODULE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_CONF_IMODULE_dup (sk : PSTACK_OF_CONF_IMODULE) : PSTACK_OF_CONF_IMODULE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_CONF_IMODULE_find (sk : PSTACK_OF_CONF_IMODULE; val : PCONF_IMODULE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
-  procedure sk_CONF_IMODULE_pop_free (sk : PSTACK_OF_CONF_IMODULE; func: Tsk_pop_free_func) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+  procedure sk_CONF_IMODULE_pop_free (sk : PSTACK_OF_CONF_IMODULE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
 
