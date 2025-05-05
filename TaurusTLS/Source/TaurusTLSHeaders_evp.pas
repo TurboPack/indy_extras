@@ -2236,8 +2236,15 @@ var
   function EVP_PKEY_decrypt_old(dec_key: PByte; const enc_key: PByte; enc_key_len: TIdC_INT; private_key: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_encrypt_old(dec_key: PByte; const enc_key: PByte; key_len: TIdC_INT; pub_key: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_type(type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+
+  function EVP_PKEY_id(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto; {removed 3.0.0}
+  function EVP_PKEY_base_id(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;; {removed 3.0.0}
+  function EVP_PKEY_bits(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_PKEY_security_bits(const pkey: PEVP_PKEY): TIdC_INT  cdecl; external CLibCrypto; {introduced 1.1.0 removed 3.0.0}
+  function EVP_PKEY_size(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto; {removed 3.0.0}
   function EVP_PKEY_set_type(pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_set_type_str(pkey: PEVP_PKEY; const _str: PIdAnsiChar; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_PKEY_set_alias_type(pkey: PEVP_PKEY; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0 removed 3.0.0}
 
   function EVP_PKEY_set1_engine(pkey: PEVP_PKEY; e: PENGINE): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_PKEY_get0_engine(const pkey: PEVP_PKEY): PENGINE cdecl; external CLibCrypto; {introduced 1.1.0}
