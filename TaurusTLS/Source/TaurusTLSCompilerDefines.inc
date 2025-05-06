@@ -1125,6 +1125,10 @@
   {$ENDIF}
 {$ENDIF}
 
+{$IFDEF ANDROID}
+  {$DEFINE STATICLOAD_OPENSSL}
+{$ENDIF}
+
 {$UNDEF USE_INVALIDATE_MOD_CACHE}
 //This must come after the iconv defines because this compiler targets a Unix-like
 //operating system.  One key difference is that it does have a TEncoding class.
@@ -1149,6 +1153,9 @@
     {$IFNDEF IOS}
       {$DEFINE OSX}
       {$DEFINE DARWIN}
+      {$IFDEF TAURUSTLS_STATIC}
+        {$DEFINE STATICLOAD_OPENSSL}
+      {$ENDIF}
     {$ENDIF}
   {$ENDIF}
 {$ENDIF}
