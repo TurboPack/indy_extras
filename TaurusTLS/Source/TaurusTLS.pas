@@ -1300,10 +1300,10 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
     function GetProxyTargetHost: string;
 {$IFEND}
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetURIHost: string;
 {$IFEND}
   public
@@ -2041,10 +2041,8 @@ uses
   TaurusTLS_ResourceStrings,
   IdStack,
   IdThreadSafe,
-{$IFNDEF GETURIHOST_SUPPORTED}
   IdCustomTransparentProxy,
   IdURI,
-{$ENDIF}
   SysUtils,
   SyncObjs,
   TaurusTLSHeaders_asn1,
@@ -3451,7 +3449,7 @@ begin
   end;
 end;
 
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
 var
@@ -3481,7 +3479,7 @@ begin
 end;
 {$IFEND}
 
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
 function TTaurusTLSIOHandlerSocket.GetURIHost: string;
 var
   LURI: TIdURI;
