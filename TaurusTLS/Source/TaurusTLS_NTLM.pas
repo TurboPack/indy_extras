@@ -30,8 +30,6 @@ uses
   TaurusTLSHeaders_des,
   SysUtils;
 
-{$I TaurusTLSIndyVers.inc}
-
 function LoadTaurusTLS: Boolean;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}

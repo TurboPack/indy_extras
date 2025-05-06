@@ -32,7 +32,6 @@ uses
   IdCTypes,
   IdGlobal;
 
-{$I TaurusTLSIndyVers.inc}
 type
 {$IF NOT DECLARED(TIdC_SIZET)}
   {$IFDEF HAS_SIZE_T}

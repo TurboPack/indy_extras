@@ -30,8 +30,6 @@ uses
   TaurusTLSHeaders_x509v3,
   Classes;
 
-{$I TaurusTLSIndyVers.inc}
-
 type
   /// <summary>
   /// Message Digest.
@@ -207,7 +205,6 @@ function DirName(const ADirName: PX509_NAME): String;
 /// </returns>
 function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 
-{$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 /// <summary>
 /// Converts to series ot bytes to a TIdBytes.
 /// </summary>
@@ -224,7 +221,6 @@ function GeneralNameToStr(const AGN: PGENERAL_NAME): String;
 /// The function may not be present if the Indy version is greater than 10.6.
 /// </remarks>
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
-{$ENDIF}
 /// <summary>
 /// Converts a PIdAnsiChar to a standard Unicode string.
 /// </summary>
@@ -491,8 +487,7 @@ begin
   end;
 end;
 
-{$IFDEF UTCTimeToLocalTime_UNDEF}
-
+{$IF NOT DECLARED(UTCTimeToLocalTime)}
 function UTCTimeToLocalTime(const Value: TDateTime): TDateTime;
 begin
 {$IFDEF HAS_UniversalTimeToLocal}
@@ -505,7 +500,7 @@ begin
 {$ENDIF}
 {$ENDIF}
 end;
-{$ENDIF}
+{$IFEND}
 
 function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
 {$ifndef fpc}

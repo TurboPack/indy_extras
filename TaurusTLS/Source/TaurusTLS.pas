@@ -256,7 +256,6 @@ uses
   TaurusTLS_X509,
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
-{$I TaurusTLSIndyVers.inc}
 {$IF DECLARED(TIdSSLVersion)}
 
 const
@@ -2368,11 +2367,7 @@ begin
         var
           LBytes: TIdBytes;
 {$ENDIF}
-{$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
         LBytes := TaurusTLSRawToBytes(buf, len);
-{$ELSE}
-        LBytes := RawToBytes(buf, len);
-{$ENDIF}
         case Version of
           SSL3_VERSION:
             LVer := verSSL3Header;
