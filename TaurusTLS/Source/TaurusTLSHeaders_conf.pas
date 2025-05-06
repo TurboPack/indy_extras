@@ -330,35 +330,35 @@ type
   Tsk_CONF_IMODULE_pop_free = procedure (sk : PSTACK_OF_CONF_IMODULE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  sk_CONF_VALUE_new: Tsk_CONF_VALUE_new absolute sk_new;
-  sk_CONF_VALUE_new_null : Tsk_CONF_VALUE_new_null absolute sk_new_null;
-  sk_CONF_VALUE_free : Tsk_CONF_VALUE_free absolute sk_free;
-  sk_CONF_VALUE_num : Tsk_CONF_VALUE_num absolute sk_num;
-  sk_CONF_VALUE_value : Tsk_CONF_VALUE_value absolute sk_value;
-  sk_CONF_VALUE_push : Tsk_CONF_VALUE_push absolute sk_push;
-  sk_CONF_VALUE_dup : Tsk_CONF_VALUE_dup absolute sk_dup;
-  sk_CONF_VALUE_find : Tsk_CONF_VALUE_find absolute sk_find;
-  sk_CONF_VALUE_pop_free :  Tsk_CONF_VALUE_pop_free absolute sk_pop_free;
+  sk_CONF_VALUE_new: Tsk_CONF_VALUE_new = nil;
+  sk_CONF_VALUE_new_null : Tsk_CONF_VALUE_new_null = nil;
+  sk_CONF_VALUE_free : Tsk_CONF_VALUE_free = nil;
+  sk_CONF_VALUE_num : Tsk_CONF_VALUE_num = nil;
+  sk_CONF_VALUE_value : Tsk_CONF_VALUE_value = nil;
+  sk_CONF_VALUE_push : Tsk_CONF_VALUE_push = nil;
+  sk_CONF_VALUE_dup : Tsk_CONF_VALUE_dup = nil;
+  sk_CONF_VALUE_find : Tsk_CONF_VALUE_find = nil;
+  sk_CONF_VALUE_pop_free :  Tsk_CONF_VALUE_pop_free = nil;
 
-  sk_CONF_MODULE_new: Tsk_CONF_MODULE_new absolute sk_new;
-  sk_CONF_MODULE_new_null : Tsk_CONF_MODULE_new_null absolute sk_new_null;
-  sk_CONF_MODULE_free : Tsk_CONF_MODULE_free absolute sk_free;
-  sk_CONF_MODULE_num : Tsk_CONF_MODULE_num absolute sk_num;
-  sk_CONF_MODULE_value : Tsk_CONF_MODULE_value absolute sk_value;
-  sk_CONF_MODULE_push : Tsk_CONF_MODULE_push absolute sk_push;
-  sk_CONF_MODULE_dup : Tsk_CONF_MODULE_dup absolute sk_dup;
-  sk_CONF_MODULE_find : Tsk_CONF_MODULE_find absolute sk_find;
-  sk_CONF_MODULE_pop_free :  Tsk_CONF_MODULE_pop_free absolute sk_pop_free;
+  sk_CONF_MODULE_new: Tsk_CONF_MODULE_new = nil;
+  sk_CONF_MODULE_new_null : Tsk_CONF_MODULE_new_null = nil;
+  sk_CONF_MODULE_free : Tsk_CONF_MODULE_free = nil;
+  sk_CONF_MODULE_num : Tsk_CONF_MODULE_num = nil;
+  sk_CONF_MODULE_value : Tsk_CONF_MODULE_value = nil;
+  sk_CONF_MODULE_push : Tsk_CONF_MODULE_push = nil;
+  sk_CONF_MODULE_dup : Tsk_CONF_MODULE_dup = nil;
+  sk_CONF_MODULE_find : Tsk_CONF_MODULE_find = nil;
+  sk_CONF_MODULE_pop_free :  Tsk_CONF_MODULE_pop_free = nil;
 
-  sk_CONF_IMODULE_new: Tsk_CONF_IMODULE_new absolute sk_new;
-  sk_CONF_IMODULE_new_null : Tsk_CONF_IMODULE_new_null absolute sk_new_null;
-  sk_CONF_IMODULE_free : Tsk_CONF_IMODULE_free absolute sk_free;
-  sk_CONF_IMODULE_num : Tsk_CONF_IMODULE_num absolute sk_num;
-  sk_CONF_IMODULE_value : Tsk_CONF_IMODULE_value absolute sk_value;
-  sk_CONF_IMODULE_push : Tsk_CONF_IMODULE_push absolute sk_push;
-  sk_CONF_IMODULE_dup : Tsk_CONF_IMODULE_dup absolute sk_dup;
-  sk_CONF_IMODULE_find : Tsk_CONF_IMODULE_find absolute sk_find;
-  sk_CONF_IMODULE_pop_free :  Tsk_CONF_IMODULE_pop_free absolute sk_pop_free;
+  sk_CONF_IMODULE_new: Tsk_CONF_IMODULE_new= nil;
+  sk_CONF_IMODULE_new_null : Tsk_CONF_IMODULE_new_null= nil;
+  sk_CONF_IMODULE_free : Tsk_CONF_IMODULE_free= nil;
+  sk_CONF_IMODULE_num : Tsk_CONF_IMODULE_num= nil;
+  sk_CONF_IMODULE_value : Tsk_CONF_IMODULE_value= nil;
+  sk_CONF_IMODULE_push : Tsk_CONF_IMODULE_push= nil;
+  sk_CONF_IMODULE_dup : Tsk_CONF_IMODULE_dup= nil;
+  sk_CONF_IMODULE_find : Tsk_CONF_IMODULE_find= nil;
+  sk_CONF_IMODULE_pop_free :  Tsk_CONF_IMODULE_pop_free= nil;
 
 {$ELSE}
   function sk_CONF_VALUE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_CONF_VALUE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
@@ -1537,7 +1537,36 @@ begin
     {$ifend}
   end;
 
+  // stack of macros
+  sk_CONF_VALUE_new:= Tsk_CONF_VALUE_new(sk_new);
+  sk_CONF_VALUE_new_null := Tsk_CONF_VALUE_new_null(sk_new_null);
+  sk_CONF_VALUE_free := Tsk_CONF_VALUE_free(sk_free);
+  sk_CONF_VALUE_num := Tsk_CONF_VALUE_num(sk_num);
+  sk_CONF_VALUE_value := Tsk_CONF_VALUE_value(sk_value);
+  sk_CONF_VALUE_push := Tsk_CONF_VALUE_push(sk_push);
+  sk_CONF_VALUE_dup := Tsk_CONF_VALUE_dup(sk_dup);
+  sk_CONF_VALUE_find := Tsk_CONF_VALUE_find(sk_find);
+  sk_CONF_VALUE_pop_free :=  Tsk_CONF_VALUE_pop_free(sk_pop_free);
 
+  sk_CONF_MODULE_new:= Tsk_CONF_MODULE_new(sk_new);
+  sk_CONF_MODULE_new_null := Tsk_CONF_MODULE_new_null(sk_new_null);
+  sk_CONF_MODULE_free := Tsk_CONF_MODULE_free(sk_free);
+  sk_CONF_MODULE_num := Tsk_CONF_MODULE_num(sk_num);
+  sk_CONF_MODULE_value := Tsk_CONF_MODULE_value(sk_value);
+  sk_CONF_MODULE_push := Tsk_CONF_MODULE_push(sk_push);
+  sk_CONF_MODULE_dup := Tsk_CONF_MODULE_dup(sk_dup);
+  sk_CONF_MODULE_find := Tsk_CONF_MODULE_find(sk_find);
+  sk_CONF_MODULE_pop_free :=  Tsk_CONF_MODULE_pop_free(sk_pop_free);
+
+  sk_CONF_IMODULE_new:= Tsk_CONF_IMODULE_new(sk_new);
+  sk_CONF_IMODULE_new_null := Tsk_CONF_IMODULE_new_null(sk_new_null);
+  sk_CONF_IMODULE_free := Tsk_CONF_IMODULE_free(sk_free);
+  sk_CONF_IMODULE_num := Tsk_CONF_IMODULE_num(sk_num);
+  sk_CONF_IMODULE_value := Tsk_CONF_IMODULE_value(sk_value);
+  sk_CONF_IMODULE_push := Tsk_CONF_IMODULE_push(sk_push);
+  sk_CONF_IMODULE_dup := Tsk_CONF_IMODULE_dup(sk_dup);
+  sk_CONF_IMODULE_find := Tsk_CONF_IMODULE_find(sk_find);
+  sk_CONF_IMODULE_pop_free :=  Tsk_CONF_IMODULE_pop_free(sk_pop_free);
 end;
 
 procedure Unload;
@@ -1568,8 +1597,38 @@ begin
   CONF_get1_default_config_file := nil;
   CONF_parse_list := nil;
   OPENSSL_load_builtin_modules := nil;
+
+  //stack of macros
+  sk_CONF_VALUE_new:= Tsk_CONF_VALUE_new(sk_new);
+  sk_CONF_VALUE_new_null := Tsk_CONF_VALUE_new_null(sk_new_null);
+  sk_CONF_VALUE_free := Tsk_CONF_VALUE_free(sk_free);
+  sk_CONF_VALUE_num := Tsk_CONF_VALUE_num(sk_num);
+  sk_CONF_VALUE_value := Tsk_CONF_VALUE_value(sk_value);
+  sk_CONF_VALUE_push := Tsk_CONF_VALUE_push(sk_push);
+  sk_CONF_VALUE_dup := Tsk_CONF_VALUE_dup(sk_dup);
+  sk_CONF_VALUE_find := Tsk_CONF_VALUE_find(sk_find);
+  sk_CONF_VALUE_pop_free :=  Tsk_CONF_VALUE_pop_free(sk_pop_free);
+
+  sk_CONF_MODULE_new:= Tsk_CONF_MODULE_new(sk_new);
+  sk_CONF_MODULE_new_null := Tsk_CONF_MODULE_new_null(sk_new_null);
+  sk_CONF_MODULE_free := Tsk_CONF_MODULE_free(sk_free);
+  sk_CONF_MODULE_num := Tsk_CONF_MODULE_num(sk_num);
+  sk_CONF_MODULE_value := Tsk_CONF_MODULE_value(sk_value);
+  sk_CONF_MODULE_push := Tsk_CONF_MODULE_push(sk_push);
+  sk_CONF_MODULE_dup := Tsk_CONF_MODULE_dup(sk_dup);
+  sk_CONF_MODULE_find := Tsk_CONF_MODULE_find(sk_find);
+  sk_CONF_MODULE_pop_free :=  Tsk_CONF_MODULE_pop_free(sk_pop_free);
+
+  sk_CONF_IMODULE_new:= Tsk_CONF_IMODULE_new(sk_new);
+  sk_CONF_IMODULE_new_null := Tsk_CONF_IMODULE_new_null(sk_new_null);
+  sk_CONF_IMODULE_free := Tsk_CONF_IMODULE_free(sk_free);
+  sk_CONF_IMODULE_num := Tsk_CONF_IMODULE_num(sk_num);
+  sk_CONF_IMODULE_value := Tsk_CONF_IMODULE_value(sk_value);
+  sk_CONF_IMODULE_push := Tsk_CONF_IMODULE_push(sk_push);
+  sk_CONF_IMODULE_dup := Tsk_CONF_IMODULE_dup(sk_dup);
+  sk_CONF_IMODULE_find := Tsk_CONF_IMODULE_find(sk_find);
+  sk_CONF_IMODULE_pop_free :=  Tsk_CONF_IMODULE_pop_free(sk_pop_free);
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

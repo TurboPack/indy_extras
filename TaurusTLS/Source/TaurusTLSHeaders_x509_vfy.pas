@@ -1057,35 +1057,35 @@ type
   Tsk_X509_VERIFY_PARAM_pop_free = procedure (sk : PSTACK_OF_X509_VERIFY_PARAM; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  sk_X509_OBJECT_new: Tsk_X509_OBJECT_new absolute sk_new;
-  sk_X509_OBJECT_new_null : Tsk_X509_OBJECT_new_null absolute sk_new_null;
-  sk_X509_OBJECT_free : Tsk_X509_OBJECT_free absolute sk_free;
-  sk_X509_OBJECT_num : Tsk_X509_OBJECT_num absolute sk_num;
-  sk_X509_OBJECT_value : Tsk_X509_OBJECT_value absolute sk_value;
-  sk_X509_OBJECT_push : Tsk_X509_OBJECT_push absolute sk_push;
-  sk_X509_OBJECT_dup : Tsk_X509_OBJECT_dup absolute sk_dup;
-  sk_X509_OBJECT_find : Tsk_X509_OBJECT_find absolute sk_find;
-  sk_X509_OBJECT_pop_free :  Tsk_X509_OBJECT_pop_free absolute sk_pop_free;
+  sk_X509_OBJECT_new: Tsk_X509_OBJECT_new  = nil;
+  sk_X509_OBJECT_new_null : Tsk_X509_OBJECT_new_null  = nil;
+  sk_X509_OBJECT_free : Tsk_X509_OBJECT_free  = nil;
+  sk_X509_OBJECT_num : Tsk_X509_OBJECT_num  = nil;
+  sk_X509_OBJECT_value : Tsk_X509_OBJECT_value  = nil;
+  sk_X509_OBJECT_push : Tsk_X509_OBJECT_push  = nil;
+  sk_X509_OBJECT_dup : Tsk_X509_OBJECT_dup  = nil;
+  sk_X509_OBJECT_find : Tsk_X509_OBJECT_find  = nil;
+  sk_X509_OBJECT_pop_free :  Tsk_X509_OBJECT_pop_free  = nil;
 
-  sk_X509_LOOKUP_new: Tsk_X509_LOOKUP_new absolute sk_new;
-  sk_X509_LOOKUP_new_null : Tsk_X509_LOOKUP_new_null absolute sk_new_null;
-  sk_X509_LOOKUP_free : Tsk_X509_LOOKUP_free absolute sk_free;
-  sk_X509_LOOKUP_num : Tsk_X509_LOOKUP_num absolute sk_num;
-  sk_X509_LOOKUP_value : Tsk_X509_LOOKUP_value absolute sk_value;
-  sk_X509_LOOKUP_push : Tsk_X509_LOOKUP_push absolute sk_push;
-  sk_X509_LOOKUP_dup : Tsk_X509_LOOKUP_dup absolute sk_dup;
-  sk_X509_LOOKUP_find : Tsk_X509_LOOKUP_find absolute sk_find;
-  sk_X509_LOOKUP_pop_free :  Tsk_X509_LOOKUP_pop_free absolute sk_pop_free;
+  sk_X509_LOOKUP_new: Tsk_X509_LOOKUP_new  = nil;
+  sk_X509_LOOKUP_new_null : Tsk_X509_LOOKUP_new_null  = nil;
+  sk_X509_LOOKUP_free : Tsk_X509_LOOKUP_free  = nil;
+  sk_X509_LOOKUP_num : Tsk_X509_LOOKUP_num  = nil;
+  sk_X509_LOOKUP_value : Tsk_X509_LOOKUP_value  = nil;
+  sk_X509_LOOKUP_push : Tsk_X509_LOOKUP_push  = nil;
+  sk_X509_LOOKUP_dup : Tsk_X509_LOOKUP_dup  = nil;
+  sk_X509_LOOKUP_find : Tsk_X509_LOOKUP_find  = nil;
+  sk_X509_LOOKUP_pop_free :  Tsk_X509_LOOKUP_pop_free  = nil;
 
-  sk_X509_VERIFY_PARAM_new: Tsk_X509_VERIFY_PARAM_new absolute sk_new;
-  sk_X509_VERIFY_PARAM_new_null : Tsk_X509_VERIFY_PARAM_new_null absolute sk_new_null;
-  sk_X509_VERIFY_PARAM_free : Tsk_X509_VERIFY_PARAM_free absolute sk_free;
-  sk_X509_VERIFY_PARAM_num : Tsk_X509_VERIFY_PARAM_num absolute sk_num;
-  sk_X509_VERIFY_PARAM_value : Tsk_X509_VERIFY_PARAM_value absolute sk_value;
-  sk_X509_VERIFY_PARAM_push : Tsk_X509_VERIFY_PARAM_push absolute sk_push;
-  sk_X509_VERIFY_PARAM_dup : Tsk_X509_VERIFY_PARAM_dup absolute sk_dup;
-  sk_X509_VERIFY_PARAM_find : Tsk_X509_VERIFY_PARAM_find absolute sk_find;
-  sk_X509_VERIFY_PARAM_pop_free :  Tsk_X509_VERIFY_PARAM_pop_free absolute sk_pop_free;
+  sk_X509_VERIFY_PARAM_new: Tsk_X509_VERIFY_PARAM_new  = nil;
+  sk_X509_VERIFY_PARAM_new_null : Tsk_X509_VERIFY_PARAM_new_null  = nil;
+  sk_X509_VERIFY_PARAM_free : Tsk_X509_VERIFY_PARAM_free  = nil;
+  sk_X509_VERIFY_PARAM_num : Tsk_X509_VERIFY_PARAM_num  = nil;
+  sk_X509_VERIFY_PARAM_value : Tsk_X509_VERIFY_PARAM_value  = nil;
+  sk_X509_VERIFY_PARAM_push : Tsk_X509_VERIFY_PARAM_push  = nil;
+  sk_X509_VERIFY_PARAM_dup : Tsk_X509_VERIFY_PARAM_dup  = nil;
+  sk_X509_VERIFY_PARAM_find : Tsk_X509_VERIFY_PARAM_find  = nil;
+  sk_X509_VERIFY_PARAM_pop_free :  Tsk_X509_VERIFY_PARAM_pop_free  = nil;
 
 {$ELSE}
   function sk_X509_OBJECT_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
@@ -7928,6 +7928,37 @@ begin
     {$ifend}
   end;
 
+  //stack of macros
+  LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  sk_X509_OBJECT_new:= Tsk_X509_OBJECT_new(sk_new);
+  sk_X509_OBJECT_new_null := Tsk_X509_OBJECT_new_null(sk_new_null);
+  sk_X509_OBJECT_free := Tsk_X509_OBJECT_free(sk_free);
+  sk_X509_OBJECT_num := Tsk_X509_OBJECT_num(sk_num);
+  sk_X509_OBJECT_value := Tsk_X509_OBJECT_value(sk_value);
+  sk_X509_OBJECT_push := Tsk_X509_OBJECT_push(sk_push);
+  sk_X509_OBJECT_dup := Tsk_X509_OBJECT_dup(sk_dup);
+  sk_X509_OBJECT_find := Tsk_X509_OBJECT_find(sk_find);
+  sk_X509_OBJECT_pop_free :=  Tsk_X509_OBJECT_pop_free(sk_pop_free);
+
+  sk_X509_LOOKUP_new:= Tsk_X509_LOOKUP_new(sk_new);
+  sk_X509_LOOKUP_new_null := Tsk_X509_LOOKUP_new_null(sk_new_null);
+  sk_X509_LOOKUP_free := Tsk_X509_LOOKUP_free(sk_free);
+  sk_X509_LOOKUP_num := Tsk_X509_LOOKUP_num(sk_num);
+  sk_X509_LOOKUP_value := Tsk_X509_LOOKUP_value(sk_value);
+  sk_X509_LOOKUP_push := Tsk_X509_LOOKUP_push(sk_push);
+  sk_X509_LOOKUP_dup := Tsk_X509_LOOKUP_dup(sk_dup);
+  sk_X509_LOOKUP_find := Tsk_X509_LOOKUP_find(sk_find);
+  sk_X509_LOOKUP_pop_free :=  Tsk_X509_LOOKUP_pop_free(sk_pop_free);
+
+  sk_X509_VERIFY_PARAM_new:= Tsk_X509_VERIFY_PARAM_new(sk_new);
+  sk_X509_VERIFY_PARAM_new_null := Tsk_X509_VERIFY_PARAM_new_null(sk_new_null);
+  sk_X509_VERIFY_PARAM_free := Tsk_X509_VERIFY_PARAM_free(sk_free);
+  sk_X509_VERIFY_PARAM_num := Tsk_X509_VERIFY_PARAM_num(sk_num);
+  sk_X509_VERIFY_PARAM_value := Tsk_X509_VERIFY_PARAM_value(sk_value);
+  sk_X509_VERIFY_PARAM_push := Tsk_X509_VERIFY_PARAM_push(sk_push);
+  sk_X509_VERIFY_PARAM_dup := Tsk_X509_VERIFY_PARAM_dup(sk_dup);
+  sk_X509_VERIFY_PARAM_find := Tsk_X509_VERIFY_PARAM_find(sk_find);
+  sk_X509_VERIFY_PARAM_pop_free :=  Tsk_X509_VERIFY_PARAM_pop_free(sk_pop_free);
 
 end;
 
@@ -8092,6 +8123,37 @@ begin
   X509_policy_level_get0_node := nil;
   X509_policy_node_get0_policy := nil;
   X509_policy_node_get0_parent := nil;
+
+  //Stack of macros
+  sk_X509_OBJECT_new := nil;
+  sk_X509_OBJECT_new_null  := nil;
+  sk_X509_OBJECT_free  := nil;
+  sk_X509_OBJECT_num  := nil;
+  sk_X509_OBJECT_value  := nil;
+  sk_X509_OBJECT_push  := nil;
+  sk_X509_OBJECT_dup  := nil;
+  sk_X509_OBJECT_find  := nil;
+  sk_X509_OBJECT_pop_free  := nil;
+
+  sk_X509_LOOKUP_new := nil;
+  sk_X509_LOOKUP_new_null  := nil;
+  sk_X509_LOOKUP_free  := nil;
+  sk_X509_LOOKUP_num  := nil;
+  sk_X509_LOOKUP_value  := nil;
+  sk_X509_LOOKUP_push  := nil;
+  sk_X509_LOOKUP_dup  := nil;
+  sk_X509_LOOKUP_find  := nil;
+  sk_X509_LOOKUP_pop_free  := nil;
+
+  sk_X509_VERIFY_PARAM_new := nil;
+  sk_X509_VERIFY_PARAM_new_null  := nil;
+  sk_X509_VERIFY_PARAM_free  := nil;
+  sk_X509_VERIFY_PARAM_num  := nil;
+  sk_X509_VERIFY_PARAM_value  := nil;
+  sk_X509_VERIFY_PARAM_push  := nil;
+  sk_X509_VERIFY_PARAM_dup  := nil;
+  sk_X509_VERIFY_PARAM_find  := nil;
+  sk_X509_VERIFY_PARAM_pop_free  := nil;
 end;
 {$ELSE}
 function X509_STORE_CTX_get_app_data(ctx: PX509_STORE_CTX): Pointer;

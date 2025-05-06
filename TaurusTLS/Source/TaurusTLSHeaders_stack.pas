@@ -24,6 +24,7 @@ unit TaurusTLSHeaders_stack;
 interface
 
 uses
+  Classes,
   IdCTypes,
   IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
@@ -161,6 +162,7 @@ var
   sk_sort: procedure (st:POPENSSL_STACK); cdecl = nil; {removed 1.1.0}
   sk_is_sorted: function (st:POPENSSL_STACK):longint; cdecl = nil; {removed 1.1.0}
 
+  procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 {$ELSE}
   function OPENSSL_sk_num(_para1:POPENSSL_STACK):longint cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -217,7 +219,6 @@ var
 implementation
 
   uses
-    classes, 
     TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
@@ -741,8 +742,7 @@ end;
 
   {$i TaurusTLSNoRetValOn.inc} 
 
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
 
 begin
@@ -2282,6 +2282,11 @@ begin
   end;
 
  
+end;
+
+procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
+begin
+  LoadStackFunctions(ADLLHandle,LibVersion,AFailed);
 end;
 
 procedure Unload;
