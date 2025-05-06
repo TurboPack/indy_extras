@@ -1300,7 +1300,7 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
     function GetProxyTargetHost: string;
 {$IFEND}
 {$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
@@ -3451,7 +3451,7 @@ begin
   end;
 end;
 
-{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
 var
