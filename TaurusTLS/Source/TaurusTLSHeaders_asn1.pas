@@ -1391,60 +1391,60 @@ type
   Tsk_ASN1_STRING_TABLE_pop_free = procedure (sk : PSTACK_OF_ASN1_STRING_TABLE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  sk_ASN1_OBJECT_new: Tsk_ASN1_OBJECT_new absolute sk_new;
-  sk_ASN1_OBJECT_new_null : Tsk_ASN1_OBJECT_new_null absolute sk_new_null;
-  sk_ASN1_OBJECT_free : Tsk_ASN1_OBJECT_free absolute sk_free;
-  sk_ASN1_OBJECT_num : Tsk_ASN1_OBJECT_num absolute sk_num;
-  sk_ASN1_OBJECT_value : Tsk_ASN1_OBJECT_value absolute sk_value;
-  sk_ASN1_OBJECT_push : Tsk_ASN1_OBJECT_push absolute sk_push;
-  sk_ASN1_OBJECT_dup : Tsk_ASN1_OBJECT_dup absolute sk_dup;
-  sk_ASN1_OBJECT_find : Tsk_ASN1_OBJECT_find absolute sk_find;
-  sk_ASN1_OBJECT_pop_free : Tsk_ASN1_OBJECT_pop_free absolute sk_pop_free;
-  sk_ASN1_INTEGER_new: Tsk_ASN1_INTEGER_new absolute sk_new;
-  sk_ASN1_INTEGER_new_null : Tsk_ASN1_INTEGER_new_null absolute sk_new_null;
-  sk_ASN1_INTEGER_free : Tsk_ASN1_INTEGER_free absolute sk_free;
-  sk_ASN1_INTEGER_num : Tsk_ASN1_INTEGER_num absolute sk_num;
-  sk_ASN1_INTEGER_value : Tsk_ASN1_INTEGER_value absolute sk_value;
-  sk_ASN1_INTEGER_push : Tsk_ASN1_INTEGER_push absolute sk_push;
-  sk_ASN1_INTEGER_dup : Tsk_ASN1_INTEGER_dup absolute sk_dup;
-  sk_ASN1_INTEGER_find : Tsk_ASN1_INTEGER_find absolute sk_find;
-  sk_ASN1_INTEGER_pop_free : Tsk_ASN1_INTEGER_pop_free absolute sk_pop_free;
-  sk_ASN1_GENERALSTRING_new: Tsk_ASN1_GENERALSTRING_new absolute sk_new;
-  sk_ASN1_GENERALSTRING_new_null : Tsk_ASN1_GENERALSTRING_new_null absolute sk_new_null;
-  sk_ASN1_GENERALSTRING_free : Tsk_ASN1_GENERALSTRING_free absolute sk_free;
-  sk_ASN1_GENERALSTRING_num : Tsk_ASN1_GENERALSTRING_num absolute sk_num;
-  sk_ASN1_GENERALSTRING_value : Tsk_ASN1_GENERALSTRING_value absolute sk_value;
-  sk_ASN1_GENERALSTRING_push : Tsk_ASN1_GENERALSTRING_push absolute sk_push;
-  sk_ASN1_GENERALSTRING_dup : Tsk_ASN1_GENERALSTRING_dup absolute sk_dup;
-  sk_ASN1_GENERALSTRING_find : Tsk_ASN1_GENERALSTRING_find absolute sk_find;
-  sk_ASN1_GENERALSTRING_pop_free : Tsk_ASN1_GENERALSTRING_pop_free absolute sk_pop_free;
-  sk_ASN1_UTF8STRING_new: Tsk_ASN1_UTF8STRING_new absolute sk_new;
-  sk_ASN1_UTF8STRING_new_null : Tsk_ASN1_UTF8STRING_new_null absolute sk_new_null;
-  sk_ASN1_UTF8STRING_free : Tsk_ASN1_UTF8STRING_free absolute sk_free;
-  sk_ASN1_UTF8STRING_num : Tsk_ASN1_UTF8STRING_num absolute sk_num;
-  sk_ASN1_UTF8STRING_value : Tsk_ASN1_UTF8STRING_value absolute sk_value;
-  sk_ASN1_UTF8STRING_push : Tsk_ASN1_UTF8STRING_push absolute sk_push;
-  sk_ASN1_UTF8STRING_dup : Tsk_ASN1_UTF8STRING_dup absolute sk_dup;
-  sk_ASN1_UTF8STRING_find : Tsk_ASN1_UTF8STRING_find absolute sk_find;
-  sk_ASN1_UTF8STRING_pop_free : Tsk_ASN1_UTF8STRING_pop_free absolute sk_pop_free;
-  sk_ASN1_TYPE_new: Tsk_ASN1_TYPE_new absolute sk_new;
-  sk_ASN1_TYPE_new_null : Tsk_ASN1_TYPE_new_null absolute sk_new_null;
-  sk_ASN1_TYPE_free : Tsk_ASN1_TYPE_free absolute sk_free;
-  sk_ASN1_TYPE_num : Tsk_ASN1_TYPE_num absolute sk_num;
-  sk_ASN1_TYPE_value : Tsk_ASN1_TYPE_value absolute sk_value;
-  sk_ASN1_TYPE_push : Tsk_ASN1_TYPE_push absolute sk_push;
-  sk_ASN1_TYPE_dup : Tsk_ASN1_TYPE_dup absolute sk_dup;
-  sk_ASN1_TYPE_find : Tsk_ASN1_TYPE_find absolute sk_find;
-  sk_ASN1_TYPE_pop_free : Tsk_ASN1_TYPE_pop_free absolute sk_pop_free;
-  sk_X509_ALGOR_new: Tsk_X509_ALGOR_new absolute sk_new;
-  sk_X509_ALGOR_new_null : Tsk_X509_ALGOR_new_null absolute sk_new_null;
-  sk_X509_ALGOR_free : Tsk_X509_ALGOR_free absolute sk_free;
-  sk_X509_ALGOR_num : Tsk_X509_ALGOR_num absolute sk_num;
-  sk_X509_ALGOR_value : Tsk_X509_ALGOR_value absolute sk_value;
-  sk_X509_ALGOR_push : Tsk_X509_ALGOR_push absolute sk_push;
-  sk_X509_ALGOR_dup : Tsk_X509_ALGOR_dup absolute sk_dup;
-  sk_X509_ALGOR_find : Tsk_X509_ALGOR_find absolute sk_find;
-  sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free absolute sk_pop_free;
+  sk_ASN1_OBJECT_new: Tsk_ASN1_OBJECT_new = nil;
+  sk_ASN1_OBJECT_new_null : Tsk_ASN1_OBJECT_new_null = nil;
+  sk_ASN1_OBJECT_free : Tsk_ASN1_OBJECT_free = nil;
+  sk_ASN1_OBJECT_num : Tsk_ASN1_OBJECT_num = nil;
+  sk_ASN1_OBJECT_value : Tsk_ASN1_OBJECT_value = nil;
+  sk_ASN1_OBJECT_push : Tsk_ASN1_OBJECT_push = nil;
+  sk_ASN1_OBJECT_dup : Tsk_ASN1_OBJECT_dup = nil;
+  sk_ASN1_OBJECT_find : Tsk_ASN1_OBJECT_find = nil;
+  sk_ASN1_OBJECT_pop_free : Tsk_ASN1_OBJECT_pop_free = nil;
+  sk_ASN1_INTEGER_new: Tsk_ASN1_INTEGER_new = nil;
+  sk_ASN1_INTEGER_new_null : Tsk_ASN1_INTEGER_new_null = nil;
+  sk_ASN1_INTEGER_free : Tsk_ASN1_INTEGER_free = nil;
+  sk_ASN1_INTEGER_num : Tsk_ASN1_INTEGER_num = nil;
+  sk_ASN1_INTEGER_value : Tsk_ASN1_INTEGER_value = nil;
+  sk_ASN1_INTEGER_push : Tsk_ASN1_INTEGER_push = nil;
+  sk_ASN1_INTEGER_dup : Tsk_ASN1_INTEGER_dup = nil;
+  sk_ASN1_INTEGER_find : Tsk_ASN1_INTEGER_find = nil;
+  sk_ASN1_INTEGER_pop_free : Tsk_ASN1_INTEGER_pop_free = nil;
+  sk_ASN1_GENERALSTRING_new: Tsk_ASN1_GENERALSTRING_new = nil;
+  sk_ASN1_GENERALSTRING_new_null : Tsk_ASN1_GENERALSTRING_new_null = nil;
+  sk_ASN1_GENERALSTRING_free : Tsk_ASN1_GENERALSTRING_free = nil;
+  sk_ASN1_GENERALSTRING_num : Tsk_ASN1_GENERALSTRING_num = nil;
+  sk_ASN1_GENERALSTRING_value : Tsk_ASN1_GENERALSTRING_value = nil;
+  sk_ASN1_GENERALSTRING_push : Tsk_ASN1_GENERALSTRING_push = nil;
+  sk_ASN1_GENERALSTRING_dup : Tsk_ASN1_GENERALSTRING_dup = nil;
+  sk_ASN1_GENERALSTRING_find : Tsk_ASN1_GENERALSTRING_find = nil;
+  sk_ASN1_GENERALSTRING_pop_free : Tsk_ASN1_GENERALSTRING_pop_free = nil;
+  sk_ASN1_UTF8STRING_new: Tsk_ASN1_UTF8STRING_new = nil;
+  sk_ASN1_UTF8STRING_new_null : Tsk_ASN1_UTF8STRING_new_null = nil;
+  sk_ASN1_UTF8STRING_free : Tsk_ASN1_UTF8STRING_free = nil;
+  sk_ASN1_UTF8STRING_num : Tsk_ASN1_UTF8STRING_num = nil;
+  sk_ASN1_UTF8STRING_value : Tsk_ASN1_UTF8STRING_value = nil;
+  sk_ASN1_UTF8STRING_push : Tsk_ASN1_UTF8STRING_push = nil;
+  sk_ASN1_UTF8STRING_dup : Tsk_ASN1_UTF8STRING_dup = nil;
+  sk_ASN1_UTF8STRING_find : Tsk_ASN1_UTF8STRING_find = nil;
+  sk_ASN1_UTF8STRING_pop_free : Tsk_ASN1_UTF8STRING_pop_free = nil;
+  sk_ASN1_TYPE_new: Tsk_ASN1_TYPE_new = nil;
+  sk_ASN1_TYPE_new_null : Tsk_ASN1_TYPE_new_null = nil;
+  sk_ASN1_TYPE_free : Tsk_ASN1_TYPE_free = nil;
+  sk_ASN1_TYPE_num : Tsk_ASN1_TYPE_num = nil;
+  sk_ASN1_TYPE_value : Tsk_ASN1_TYPE_value = nil;
+  sk_ASN1_TYPE_push : Tsk_ASN1_TYPE_push = nil;
+  sk_ASN1_TYPE_dup : Tsk_ASN1_TYPE_dup = nil;
+  sk_ASN1_TYPE_find : Tsk_ASN1_TYPE_find = nil;
+  sk_ASN1_TYPE_pop_free : Tsk_ASN1_TYPE_pop_free = nil;
+  sk_X509_ALGOR_new: Tsk_X509_ALGOR_new = nil;
+  sk_X509_ALGOR_new_null : Tsk_X509_ALGOR_new_null = nil;
+  sk_X509_ALGOR_free : Tsk_X509_ALGOR_free = nil;
+  sk_X509_ALGOR_num : Tsk_X509_ALGOR_num = nil;
+  sk_X509_ALGOR_value : Tsk_X509_ALGOR_value = nil;
+  sk_X509_ALGOR_push : Tsk_X509_ALGOR_push = nil;
+  sk_X509_ALGOR_dup : Tsk_X509_ALGOR_dup = nil;
+  sk_X509_ALGOR_find : Tsk_X509_ALGOR_find = nil;
+  sk_X509_ALGOR_pop_free : Tsk_X509_ALGOR_pop_free = nil;
 {$ELSE}
   function sk_ASN1_OBJECT_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_ASN1_OBJECT_new_null : PSTACK_OF_ASN1_OBJECT cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -8892,7 +8892,67 @@ begin
     {$ifend}
   end;
 
- {introduced 1.1.0}
+  {stack of macros}
+  //ensure that the stack of functions ALWAYS load before they are assigned
+  //through typecast procedureal pointers.
+  LoadStackFunctions(ADllHandle,libVersion,AFailed);
+
+  sk_ASN1_OBJECT_new :=  Tsk_ASN1_OBJECT_new(sk_new);
+  sk_ASN1_OBJECT_new_null := Tsk_ASN1_OBJECT_new_null(sk_new_null);
+  sk_ASN1_OBJECT_free := Tsk_ASN1_OBJECT_free(sk_free);
+  sk_ASN1_OBJECT_num := Tsk_ASN1_OBJECT_num(sk_num);
+  sk_ASN1_OBJECT_value := Tsk_ASN1_OBJECT_value(@sk_value);
+  sk_ASN1_OBJECT_push := Tsk_ASN1_OBJECT_push(@sk_push);
+  sk_ASN1_OBJECT_dup := Tsk_ASN1_OBJECT_dup(sk_dup);
+  sk_ASN1_OBJECT_find := Tsk_ASN1_OBJECT_find(sk_find);
+  sk_ASN1_OBJECT_pop_free := Tsk_ASN1_OBJECT_pop_free(sk_pop_free);
+
+   sk_ASN1_INTEGER_new := Tsk_ASN1_INTEGER_new(sk_new);
+  sk_ASN1_INTEGER_new_null := Tsk_ASN1_INTEGER_new_null(sk_new_null);
+  sk_ASN1_INTEGER_free := Tsk_ASN1_INTEGER_free(sk_free);
+  sk_ASN1_INTEGER_num := Tsk_ASN1_INTEGER_num(sk_num);
+  sk_ASN1_INTEGER_value := Tsk_ASN1_INTEGER_value(sk_value);
+  sk_ASN1_INTEGER_push := Tsk_ASN1_INTEGER_push(sk_push);
+  sk_ASN1_INTEGER_dup := Tsk_ASN1_INTEGER_dup(sk_dup);
+  sk_ASN1_INTEGER_find := Tsk_ASN1_INTEGER_find(sk_find);
+  sk_ASN1_INTEGER_pop_free := Tsk_ASN1_INTEGER_pop_free(sk_pop_free);
+  sk_ASN1_GENERALSTRING_new := Tsk_ASN1_GENERALSTRING_new(sk_new);
+  sk_ASN1_GENERALSTRING_new_null := Tsk_ASN1_GENERALSTRING_new_null( sk_new_null);
+  sk_ASN1_GENERALSTRING_free := Tsk_ASN1_GENERALSTRING_free(sk_free);
+  sk_ASN1_GENERALSTRING_num := Tsk_ASN1_GENERALSTRING_num(sk_num);
+  sk_ASN1_GENERALSTRING_value := Tsk_ASN1_GENERALSTRING_value(sk_value);
+  sk_ASN1_GENERALSTRING_push := Tsk_ASN1_GENERALSTRING_push(sk_push);
+  sk_ASN1_GENERALSTRING_dup := Tsk_ASN1_GENERALSTRING_dup(sk_dup);
+  sk_ASN1_GENERALSTRING_find := Tsk_ASN1_GENERALSTRING_find (sk_find);
+  sk_ASN1_GENERALSTRING_pop_free := Tsk_ASN1_GENERALSTRING_pop_free(sk_pop_free);
+
+  sk_ASN1_UTF8STRING_new:= Tsk_ASN1_UTF8STRING_new ( sk_new);
+  sk_ASN1_UTF8STRING_new_null := Tsk_ASN1_UTF8STRING_new_null(sk_new_null);
+  sk_ASN1_UTF8STRING_free := Tsk_ASN1_UTF8STRING_free(sk_free);
+  sk_ASN1_UTF8STRING_num := Tsk_ASN1_UTF8STRING_num(sk_num);
+  sk_ASN1_UTF8STRING_value := Tsk_ASN1_UTF8STRING_value(sk_value);
+  sk_ASN1_UTF8STRING_push := Tsk_ASN1_UTF8STRING_push(sk_push);
+  sk_ASN1_UTF8STRING_dup := Tsk_ASN1_UTF8STRING_dup(sk_dup);
+  sk_ASN1_UTF8STRING_find := Tsk_ASN1_UTF8STRING_find( sk_find);
+  sk_ASN1_UTF8STRING_pop_free := Tsk_ASN1_UTF8STRING_pop_free(sk_pop_free);
+  sk_ASN1_TYPE_new:= Tsk_ASN1_TYPE_new(sk_new);
+  sk_ASN1_TYPE_new_null := Tsk_ASN1_TYPE_new_null(sk_new_null);
+  sk_ASN1_TYPE_free := Tsk_ASN1_TYPE_free(sk_free);
+  sk_ASN1_TYPE_num := Tsk_ASN1_TYPE_num(sk_num);
+  sk_ASN1_TYPE_value := Tsk_ASN1_TYPE_value(sk_value);
+  sk_ASN1_TYPE_push := Tsk_ASN1_TYPE_push(sk_push);
+  sk_ASN1_TYPE_dup := Tsk_ASN1_TYPE_dup(sk_dup);
+  sk_ASN1_TYPE_find := Tsk_ASN1_TYPE_find (sk_find);
+  sk_ASN1_TYPE_pop_free := Tsk_ASN1_TYPE_pop_free(sk_pop_free);
+  sk_X509_ALGOR_new:= Tsk_X509_ALGOR_new( sk_new);
+  sk_X509_ALGOR_new_null := Tsk_X509_ALGOR_new_null(sk_new_null);
+  sk_X509_ALGOR_free := Tsk_X509_ALGOR_free( sk_free);
+  sk_X509_ALGOR_num := Tsk_X509_ALGOR_num( sk_num);
+  sk_X509_ALGOR_value := Tsk_X509_ALGOR_value( sk_value);
+  sk_X509_ALGOR_push := Tsk_X509_ALGOR_push( sk_push);
+  sk_X509_ALGOR_dup := Tsk_X509_ALGOR_dup( sk_dup);
+  sk_X509_ALGOR_find := Tsk_X509_ALGOR_find( sk_find);
+  sk_X509_ALGOR_pop_free := Tsk_X509_ALGOR_pop_free( sk_pop_free);
 end;
 
 procedure Unload;
@@ -9077,8 +9137,63 @@ begin
   SMIME_text := nil;
   ASN1_ITEM_lookup := nil; {introduced 1.1.0}
   ASN1_ITEM_get := nil; {introduced 1.1.0}
+
+  //stack of
+  sk_ASN1_OBJECT_new:= nil;
+  sk_ASN1_OBJECT_new_null := nil;
+  sk_ASN1_OBJECT_free := nil;
+  sk_ASN1_OBJECT_num := nil;
+  sk_ASN1_OBJECT_value := nil;
+  sk_ASN1_OBJECT_push := nil;
+  sk_ASN1_OBJECT_dup := nil;
+  sk_ASN1_OBJECT_find := nil;
+  sk_ASN1_OBJECT_pop_free := nil;
+  sk_ASN1_INTEGER_new:= nil;
+  sk_ASN1_INTEGER_new_null := nil;
+  sk_ASN1_INTEGER_free := nil;
+  sk_ASN1_INTEGER_num := nil;
+  sk_ASN1_INTEGER_value := nil;
+  sk_ASN1_INTEGER_push := nil;
+  sk_ASN1_INTEGER_dup := nil;
+  sk_ASN1_INTEGER_find := nil;
+  sk_ASN1_INTEGER_pop_free := nil;
+  sk_ASN1_GENERALSTRING_new:= nil;
+  sk_ASN1_GENERALSTRING_new_null := nil;
+  sk_ASN1_GENERALSTRING_free := nil;
+  sk_ASN1_GENERALSTRING_num := nil;
+  sk_ASN1_GENERALSTRING_value := nil;
+  sk_ASN1_GENERALSTRING_push := nil;
+  sk_ASN1_GENERALSTRING_dup := nil;
+  sk_ASN1_GENERALSTRING_find := nil;
+  sk_ASN1_GENERALSTRING_pop_free := nil;
+  sk_ASN1_UTF8STRING_new:= nil;
+  sk_ASN1_UTF8STRING_new_null := nil;
+  sk_ASN1_UTF8STRING_free := nil;
+  sk_ASN1_UTF8STRING_num := nil;
+  sk_ASN1_UTF8STRING_value := nil;
+  sk_ASN1_UTF8STRING_push := nil;
+  sk_ASN1_UTF8STRING_dup := nil;
+  sk_ASN1_UTF8STRING_find := nil;
+  sk_ASN1_UTF8STRING_pop_free := nil;
+  sk_ASN1_TYPE_new:= nil;
+  sk_ASN1_TYPE_new_null := nil;
+  sk_ASN1_TYPE_free  := nil;
+  sk_ASN1_TYPE_num  := nil;
+  sk_ASN1_TYPE_value  := nil;
+  sk_ASN1_TYPE_push  := nil;
+  sk_ASN1_TYPE_dup  := nil;
+  sk_ASN1_TYPE_find  := nil;
+  sk_ASN1_TYPE_pop_free  := nil;
+  sk_X509_ALGOR_new := nil;
+  sk_X509_ALGOR_new_null  := nil;
+  sk_X509_ALGOR_free  := nil;
+  sk_X509_ALGOR_num  := nil;
+  sk_X509_ALGOR_value  := nil;
+  sk_X509_ALGOR_push  := nil;
+  sk_X509_ALGOR_dup  := nil;
+  sk_X509_ALGOR_find  := nil;
+  sk_X509_ALGOR_pop_free  := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -274,25 +274,25 @@ type
   Tsk_CTLOG_pop_free = procedure(sk: PSTACK_OF_CTLOG; func: TOPENSSL_sk_freefunc)cdecl;
 
 var
-  sk_SCT_new: Tsk_SCT_new absolute sk_new;
-  sk_SCT_new_null: Tsk_SCT_new_null absolute sk_new_null;
-  sk_SCT_free: Tsk_SCT_free absolute sk_free;
-  sk_SCT_num: Tsk_SCT_num absolute sk_num;
-  sk_SCT_value: Tsk_SCT_value absolute sk_value;
-  sk_SCT_push: Tsk_SCT_push absolute sk_push;
-  sk_SCT_dup: Tsk_SCT_dup absolute sk_dup;
-  sk_SCT_find: Tsk_SCT_find absolute sk_find;
-  sk_SCT_pop_free: Tsk_SCT_pop_free absolute sk_pop_free;
+  sk_SCT_new: Tsk_SCT_new = nil;
+  sk_SCT_new_null: Tsk_SCT_new_null = nil;
+  sk_SCT_free: Tsk_SCT_free = nil;
+  sk_SCT_num: Tsk_SCT_num = nil;
+  sk_SCT_value: Tsk_SCT_value = nil;
+  sk_SCT_push: Tsk_SCT_push = nil;
+  sk_SCT_dup: Tsk_SCT_dup = nil;
+  sk_SCT_find: Tsk_SCT_find = nil;
+  sk_SCT_pop_free: Tsk_SCT_pop_free = nil;
 
-  sk_CTLOG_new: Tsk_CTLOG_new absolute sk_new;
-  sk_CTLOG_new_null: Tsk_CTLOG_new_null absolute sk_new_null;
-  sk_CTLOG_free: Tsk_CTLOG_free absolute sk_free;
-  sk_CTLOG_num: Tsk_CTLOG_num absolute sk_num;
-  sk_CTLOG_value: Tsk_CTLOG_value absolute sk_value;
-  sk_CTLOG_push: Tsk_CTLOG_push absolute sk_push;
-  sk_CTLOG_dup: Tsk_CTLOG_dup absolute sk_dup;
-  sk_CTLOG_find: Tsk_CTLOG_find absolute sk_find;
-  sk_CTLOG_pop_free: Tsk_CTLOG_pop_free absolute sk_pop_free;
+  sk_CTLOG_new: Tsk_CTLOG_new = nil;
+  sk_CTLOG_new_null: Tsk_CTLOG_new_null = nil;
+  sk_CTLOG_free: Tsk_CTLOG_free = nil;
+  sk_CTLOG_num: Tsk_CTLOG_num = nil;
+  sk_CTLOG_value: Tsk_CTLOG_value = nil;
+  sk_CTLOG_push: Tsk_CTLOG_push = nil;
+  sk_CTLOG_dup: Tsk_CTLOG_dup = nil;
+  sk_CTLOG_find: Tsk_CTLOG_find = nil;
+  sk_CTLOG_pop_free: Tsk_CTLOG_pop_free = nil;
 
 {$ELSE}
 function sk_SCT_new(cmp: TOPENSSL_sk_compfunc): PSTACK_OF_SCT cdecl; external CLibCrypto name 'OPENSSL_sk_new';
@@ -2454,6 +2454,28 @@ begin
       AFailed.Add('ERR_load_CT_strings');
     {$ifend}
   end;
+
+  // Stack of macros
+  LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  sk_SCT_new := Tsk_SCT_new(sk_new);
+  sk_SCT_new_null := Tsk_SCT_new_null(sk_new_null);
+  sk_SCT_free := Tsk_SCT_free(sk_free);
+  sk_SCT_num := Tsk_SCT_num(sk_num);
+  sk_SCT_value := Tsk_SCT_value(sk_value);
+  sk_SCT_push := Tsk_SCT_push(sk_push);
+  sk_SCT_dup := Tsk_SCT_dup(sk_dup);
+  sk_SCT_find := Tsk_SCT_find(sk_find);
+  sk_SCT_pop_free := Tsk_SCT_pop_free(sk_pop_free);
+
+  sk_CTLOG_new := Tsk_CTLOG_new(sk_new);
+  sk_CTLOG_new_null := Tsk_CTLOG_new_null(sk_new_null);
+  sk_CTLOG_free := Tsk_CTLOG_free(sk_free);
+  sk_CTLOG_num := Tsk_CTLOG_num(sk_num);
+  sk_CTLOG_value := Tsk_CTLOG_value(sk_value);
+  sk_CTLOG_push := Tsk_CTLOG_push(sk_push);
+  sk_CTLOG_dup := Tsk_CTLOG_dup(sk_dup);
+  sk_CTLOG_find := Tsk_CTLOG_find(sk_find);
+  sk_CTLOG_pop_free := Tsk_CTLOG_pop_free(sk_pop_free);
 end;
  {$i TaurusTLSUnusedParamOn.inc}
 
@@ -2521,6 +2543,27 @@ begin
   CTLOG_STORE_load_default_file := nil;
 
   ERR_load_CT_strings := nil;
+
+  // Stack of macros
+  sk_SCT_new := nil;
+  sk_SCT_new_null := nil;
+  sk_SCT_free := nil;
+  sk_SCT_num := nil;
+  sk_SCT_value := nil;
+  sk_SCT_push := nil;
+  sk_SCT_dup := nil;
+  sk_SCT_find := nil;
+  sk_SCT_pop_free := nil;
+
+  sk_CTLOG_new := nil;
+  sk_CTLOG_new_null := nil;
+  sk_CTLOG_free := nil;
+  sk_CTLOG_num := nil;
+  sk_CTLOG_value := nil;
+  sk_CTLOG_push := nil;
+  sk_CTLOG_dup := nil;
+  sk_CTLOG_find := nil;
+  sk_CTLOG_pop_free := nil;
 end;
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

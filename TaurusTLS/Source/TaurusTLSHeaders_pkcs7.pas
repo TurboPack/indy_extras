@@ -554,25 +554,25 @@ type
   Tsk_PKCS7_SIGNER_INFO_pop_free = procedure (sk : PSTACK_OF_PKCS7_SIGNER_INFO; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  sk_PKCS7_RECIP_INFO_new: Tsk_PKCS7_RECIP_INFO_new absolute sk_new;
-  sk_PKCS7_RECIP_INFO_new_null : Tsk_PKCS7_RECIP_INFO_new_null absolute sk_new_null;
-  sk_PKCS7_RECIP_INFO_free : Tsk_PKCS7_RECIP_INFO_free absolute sk_free;
-  sk_PKCS7_RECIP_INFO_num : Tsk_PKCS7_RECIP_INFO_num absolute sk_num;
-  sk_PKCS7_RECIP_INFO_value : Tsk_PKCS7_RECIP_INFO_value absolute sk_value;
-  sk_PKCS7_RECIP_INFO_push : Tsk_PKCS7_RECIP_INFO_push absolute sk_push;
-  sk_PKCS7_RECIP_INFO_dup : Tsk_PKCS7_RECIP_INFO_dup absolute sk_dup;
-  sk_PKCS7_RECIP_INFO_find : Tsk_PKCS7_RECIP_INFO_find absolute sk_find;
-  sk_PKCS7_RECIP_INFO_pop_free : Tsk_PKCS7_RECIP_INFO_pop_free absolute sk_pop_free;
+  sk_PKCS7_RECIP_INFO_new: Tsk_PKCS7_RECIP_INFO_new = nil;
+  sk_PKCS7_RECIP_INFO_new_null : Tsk_PKCS7_RECIP_INFO_new_null = nil;
+  sk_PKCS7_RECIP_INFO_free : Tsk_PKCS7_RECIP_INFO_free = nil;
+  sk_PKCS7_RECIP_INFO_num : Tsk_PKCS7_RECIP_INFO_num = nil;
+  sk_PKCS7_RECIP_INFO_value : Tsk_PKCS7_RECIP_INFO_value = nil;
+  sk_PKCS7_RECIP_INFO_push : Tsk_PKCS7_RECIP_INFO_push = nil;
+  sk_PKCS7_RECIP_INFO_dup : Tsk_PKCS7_RECIP_INFO_dup = nil;
+  sk_PKCS7_RECIP_INFO_find : Tsk_PKCS7_RECIP_INFO_find = nil;
+  sk_PKCS7_RECIP_INFO_pop_free : Tsk_PKCS7_RECIP_INFO_pop_free = nil;
 
-  sk_PKCS7_SIGNER_INFO_new: Tsk_PKCS7_SIGNER_INFO_new absolute sk_new;
-  sk_PKCS7_SIGNER_INFO_new_null : Tsk_PKCS7_SIGNER_INFO_new_null absolute sk_new_null;
-  sk_PKCS7_SIGNER_INFO_free : Tsk_PKCS7_SIGNER_INFO_free absolute sk_free;
-  sk_PKCS7_SIGNER_INFO_num : Tsk_PKCS7_SIGNER_INFO_num absolute sk_num;
-  sk_PKCS7_SIGNER_INFO_value : Tsk_PKCS7_SIGNER_INFO_value absolute sk_value;
-  sk_PKCS7_SIGNER_INFO_push : Tsk_PKCS7_SIGNER_INFO_push absolute sk_push;
-  sk_PKCS7_SIGNER_INFO_dup : Tsk_PKCS7_SIGNER_INFO_dup absolute sk_dup;
-  sk_PKCS7_SIGNER_INFO_find : Tsk_PKCS7_SIGNER_INFO_find absolute sk_find;
-  sk_PKCS7_SIGNER_INFO_pop_free : Tsk_PKCS7_SIGNER_INFO_pop_free absolute sk_pop_free;
+  sk_PKCS7_SIGNER_INFO_new: Tsk_PKCS7_SIGNER_INFO_new = nil;
+  sk_PKCS7_SIGNER_INFO_new_null : Tsk_PKCS7_SIGNER_INFO_new_null = nil;
+  sk_PKCS7_SIGNER_INFO_free : Tsk_PKCS7_SIGNER_INFO_free = nil;
+  sk_PKCS7_SIGNER_INFO_num : Tsk_PKCS7_SIGNER_INFO_num = nil;
+  sk_PKCS7_SIGNER_INFO_value : Tsk_PKCS7_SIGNER_INFO_value = nil;
+  sk_PKCS7_SIGNER_INFO_push : Tsk_PKCS7_SIGNER_INFO_push = nil;
+  sk_PKCS7_SIGNER_INFO_dup : Tsk_PKCS7_SIGNER_INFO_dup = nil;
+  sk_PKCS7_SIGNER_INFO_find : Tsk_PKCS7_SIGNER_INFO_find = nil;
+  sk_PKCS7_SIGNER_INFO_pop_free : Tsk_PKCS7_SIGNER_INFO_pop_free = nil;
 {$ELSE}
   function sk_PKCS7_RECIP_INFO_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_PKCS7_RECIP_INFO_new_null : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -4594,6 +4594,27 @@ begin
     {$ifend}
   end;
 
+  //stack of macros
+  LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  sk_PKCS7_RECIP_INFO_new:= Tsk_PKCS7_RECIP_INFO_new(sk_new);
+  sk_PKCS7_RECIP_INFO_new_null := Tsk_PKCS7_RECIP_INFO_new_null(sk_new_null);
+  sk_PKCS7_RECIP_INFO_free := Tsk_PKCS7_RECIP_INFO_free(sk_free);
+  sk_PKCS7_RECIP_INFO_num := Tsk_PKCS7_RECIP_INFO_num(sk_num);
+  sk_PKCS7_RECIP_INFO_value := Tsk_PKCS7_RECIP_INFO_value(sk_value);
+  sk_PKCS7_RECIP_INFO_push := Tsk_PKCS7_RECIP_INFO_push(sk_push);
+  sk_PKCS7_RECIP_INFO_dup := Tsk_PKCS7_RECIP_INFO_dup(sk_dup);
+  sk_PKCS7_RECIP_INFO_find := Tsk_PKCS7_RECIP_INFO_find(sk_find);
+  sk_PKCS7_RECIP_INFO_pop_free := Tsk_PKCS7_RECIP_INFO_pop_free(sk_pop_free);
+
+  sk_PKCS7_SIGNER_INFO_new:= Tsk_PKCS7_SIGNER_INFO_new(sk_new);
+  sk_PKCS7_SIGNER_INFO_new_null := Tsk_PKCS7_SIGNER_INFO_new_null(sk_new_null);
+  sk_PKCS7_SIGNER_INFO_free := Tsk_PKCS7_SIGNER_INFO_free(sk_free);
+  sk_PKCS7_SIGNER_INFO_num := Tsk_PKCS7_SIGNER_INFO_num(sk_num);
+  sk_PKCS7_SIGNER_INFO_value := Tsk_PKCS7_SIGNER_INFO_value(sk_value);
+  sk_PKCS7_SIGNER_INFO_push := Tsk_PKCS7_SIGNER_INFO_push(sk_push);
+  sk_PKCS7_SIGNER_INFO_dup := Tsk_PKCS7_SIGNER_INFO_dup(sk_dup);
+  sk_PKCS7_SIGNER_INFO_find := Tsk_PKCS7_SIGNER_INFO_find(sk_find);
+  sk_PKCS7_SIGNER_INFO_pop_free := Tsk_PKCS7_SIGNER_INFO_pop_free(sk_pop_free);
 
 end;
 
@@ -4676,8 +4697,28 @@ begin
   SMIME_write_PKCS7 := nil;
   SMIME_read_PKCS7 := nil;
   BIO_new_PKCS7 := nil;
+
+  //stack of macros
+  sk_PKCS7_RECIP_INFO_new:= nil;
+  sk_PKCS7_RECIP_INFO_new_null := nil;
+  sk_PKCS7_RECIP_INFO_free := nil;
+  sk_PKCS7_RECIP_INFO_num := nil;
+  sk_PKCS7_RECIP_INFO_value := nil;
+  sk_PKCS7_RECIP_INFO_push := nil;
+  sk_PKCS7_RECIP_INFO_dup := nil;
+  sk_PKCS7_RECIP_INFO_find := nil;
+  sk_PKCS7_RECIP_INFO_pop_free := nil;
+
+  sk_PKCS7_SIGNER_INFO_new:= nil;
+  sk_PKCS7_SIGNER_INFO_new_null := nil;
+  sk_PKCS7_SIGNER_INFO_free := nil;
+  sk_PKCS7_SIGNER_INFO_num := nil;
+  sk_PKCS7_SIGNER_INFO_value := nil;
+  sk_PKCS7_SIGNER_INFO_push := nil;
+  sk_PKCS7_SIGNER_INFO_dup := nil;
+  sk_PKCS7_SIGNER_INFO_find := nil;
+  sk_PKCS7_SIGNER_INFO_pop_free := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -3736,35 +3736,35 @@ type
   Tsk_SRTP_PROTECTION_PROFILE_pop_free = procedure (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: TOPENSSL_sk_freefunc) cdecl;
 
 var
-  sk_SSL_CIPHER_new: Tsk_SSL_CIPHER_new absolute sk_new;
-  sk_SSL_CIPHER_new_null : Tsk_SSL_CIPHER_new_null absolute sk_new_null;
-  sk_SSL_CIPHER_free : Tsk_SSL_CIPHER_free absolute sk_free;
-  sk_SSL_CIPHER_num : Tsk_SSL_CIPHER_num absolute sk_num;
-  sk_SSL_CIPHER_value : Tsk_SSL_CIPHER_value absolute sk_value;
-  sk_SSL_CIPHER_push : Tsk_SSL_CIPHER_push absolute sk_push;
-  sk_SSL_CIPHER_dup : Tsk_SSL_CIPHER_dup absolute sk_dup;
-  sk_SSL_CIPHER_find : Tsk_SSL_CIPHER_find absolute sk_find;
-  sk_SSL_CIPHER_pop_free :  Tsk_SSL_CIPHER_pop_free absolute sk_pop_free;
+  sk_SSL_CIPHER_new: Tsk_SSL_CIPHER_new = nil;
+  sk_SSL_CIPHER_new_null : Tsk_SSL_CIPHER_new_null = nil;
+  sk_SSL_CIPHER_free : Tsk_SSL_CIPHER_free = nil;
+  sk_SSL_CIPHER_num : Tsk_SSL_CIPHER_num = nil;
+  sk_SSL_CIPHER_value : Tsk_SSL_CIPHER_value = nil;
+  sk_SSL_CIPHER_push : Tsk_SSL_CIPHER_push = nil;
+  sk_SSL_CIPHER_dup : Tsk_SSL_CIPHER_dup = nil;
+  sk_SSL_CIPHER_find : Tsk_SSL_CIPHER_find = nil;
+  sk_SSL_CIPHER_pop_free :  Tsk_SSL_CIPHER_pop_free = nil;
 
-  sk_SSL_COMP_new: Tsk_SSL_COMP_new absolute sk_new;
-  sk_SSL_COMP_new_null : Tsk_SSL_COMP_new_null absolute sk_new_null;
-  sk_SSL_COMP_free : Tsk_SSL_COMP_free absolute sk_free;
-  sk_SSL_COMP_num : Tsk_SSL_COMP_num absolute sk_num;
-  sk_SSL_COMP_value : Tsk_SSL_COMP_value absolute sk_value;
-  sk_SSL_COMP_push : Tsk_SSL_COMP_push absolute sk_push;
-  sk_SSL_COMP_dup : Tsk_SSL_COMP_dup absolute sk_dup;
-  sk_SSL_COMP_find : Tsk_SSL_COMP_find absolute sk_find;
-  sk_SSL_COMP_pop_free :  Tsk_SSL_COMP_pop_free absolute sk_pop_free;
+  sk_SSL_COMP_new: Tsk_SSL_COMP_new = nil;
+  sk_SSL_COMP_new_null : Tsk_SSL_COMP_new_null = nil;
+  sk_SSL_COMP_free : Tsk_SSL_COMP_free = nil;
+  sk_SSL_COMP_num : Tsk_SSL_COMP_num = nil;
+  sk_SSL_COMP_value : Tsk_SSL_COMP_value = nil;
+  sk_SSL_COMP_push : Tsk_SSL_COMP_push = nil;
+  sk_SSL_COMP_dup : Tsk_SSL_COMP_dup = nil;
+  sk_SSL_COMP_find : Tsk_SSL_COMP_find = nil;
+  sk_SSL_COMP_pop_free :  Tsk_SSL_COMP_pop_free = nil;
 
-  sk_SRTP_PROTECTION_PROFILE_new: Tsk_SRTP_PROTECTION_PROFILE_new absolute sk_new;
-  sk_SRTP_PROTECTION_PROFILE_new_null : Tsk_SRTP_PROTECTION_PROFILE_new_null absolute sk_new_null;
-  sk_SRTP_PROTECTION_PROFILE_free : Tsk_SRTP_PROTECTION_PROFILE_free absolute sk_free;
-  sk_SRTP_PROTECTION_PROFILE_num : Tsk_SRTP_PROTECTION_PROFILE_num absolute sk_num;
-  sk_SRTP_PROTECTION_PROFILE_value : Tsk_SRTP_PROTECTION_PROFILE_value absolute sk_value;
-  sk_SRTP_PROTECTION_PROFILE_push : Tsk_SRTP_PROTECTION_PROFILE_push absolute sk_push;
-  sk_SRTP_PROTECTION_PROFILE_dup : Tsk_SRTP_PROTECTION_PROFILE_dup absolute sk_dup;
-  sk_SRTP_PROTECTION_PROFILE_find : Tsk_SRTP_PROTECTION_PROFILE_find absolute sk_find;
-  sk_SRTP_PROTECTION_PROFILE_pop_free :  Tsk_SRTP_PROTECTION_PROFILE_pop_free absolute sk_pop_free;
+  sk_SRTP_PROTECTION_PROFILE_new: Tsk_SRTP_PROTECTION_PROFILE_new = nil;
+  sk_SRTP_PROTECTION_PROFILE_new_null : Tsk_SRTP_PROTECTION_PROFILE_new_null = nil;
+  sk_SRTP_PROTECTION_PROFILE_free : Tsk_SRTP_PROTECTION_PROFILE_free = nil;
+  sk_SRTP_PROTECTION_PROFILE_num : Tsk_SRTP_PROTECTION_PROFILE_num = nil;
+  sk_SRTP_PROTECTION_PROFILE_value : Tsk_SRTP_PROTECTION_PROFILE_value = nil;
+  sk_SRTP_PROTECTION_PROFILE_push : Tsk_SRTP_PROTECTION_PROFILE_push = nil;
+  sk_SRTP_PROTECTION_PROFILE_dup : Tsk_SRTP_PROTECTION_PROFILE_dup = nil;
+  sk_SRTP_PROTECTION_PROFILE_find : Tsk_SRTP_PROTECTION_PROFILE_find = nil;
+  sk_SRTP_PROTECTION_PROFILE_pop_free :  Tsk_SRTP_PROTECTION_PROFILE_pop_free = nil;
 {$ELSE}
   function sk_SSL_CIPHER_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_SSL_CIPHER_new_null : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -28705,7 +28705,38 @@ begin
     {$ifend}
   end;
 
- {introduced 3.3.0}
+  //stack of macros
+  LoadStackFunctions(ADllHandle,libVersion,AFailed);
+
+  sk_SSL_CIPHER_new:= Tsk_SSL_CIPHER_new(sk_new);
+  sk_SSL_CIPHER_new_null := Tsk_SSL_CIPHER_new_null(sk_new_null);
+  sk_SSL_CIPHER_free := Tsk_SSL_CIPHER_free(sk_free);
+  sk_SSL_CIPHER_num := Tsk_SSL_CIPHER_num(sk_num);
+  sk_SSL_CIPHER_value := Tsk_SSL_CIPHER_value(sk_value);
+  sk_SSL_CIPHER_push := Tsk_SSL_CIPHER_push(sk_push);
+  sk_SSL_CIPHER_dup := Tsk_SSL_CIPHER_dup(sk_dup);
+  sk_SSL_CIPHER_find := Tsk_SSL_CIPHER_find(sk_find);
+  sk_SSL_CIPHER_pop_free :=  Tsk_SSL_CIPHER_pop_free(sk_pop_free);
+
+  sk_SSL_COMP_new:= Tsk_SSL_COMP_new(sk_new);
+  sk_SSL_COMP_new_null := Tsk_SSL_COMP_new_null(sk_new_null);
+  sk_SSL_COMP_free := Tsk_SSL_COMP_free(sk_free);
+  sk_SSL_COMP_num := Tsk_SSL_COMP_num(sk_num);
+  sk_SSL_COMP_value := Tsk_SSL_COMP_value(sk_value);
+  sk_SSL_COMP_push := Tsk_SSL_COMP_push(sk_push);
+  sk_SSL_COMP_dup := Tsk_SSL_COMP_dup(sk_dup);
+  sk_SSL_COMP_find := Tsk_SSL_COMP_find(sk_find);
+  sk_SSL_COMP_pop_free :=  Tsk_SSL_COMP_pop_free(sk_pop_free);
+
+  sk_SRTP_PROTECTION_PROFILE_new:= Tsk_SRTP_PROTECTION_PROFILE_new(sk_new);
+  sk_SRTP_PROTECTION_PROFILE_new_null := Tsk_SRTP_PROTECTION_PROFILE_new_null(sk_new_null);
+  sk_SRTP_PROTECTION_PROFILE_free := Tsk_SRTP_PROTECTION_PROFILE_free(sk_free);
+  sk_SRTP_PROTECTION_PROFILE_num := Tsk_SRTP_PROTECTION_PROFILE_num(sk_num);
+  sk_SRTP_PROTECTION_PROFILE_value := Tsk_SRTP_PROTECTION_PROFILE_value(sk_value);
+  sk_SRTP_PROTECTION_PROFILE_push := Tsk_SRTP_PROTECTION_PROFILE_push(sk_push);
+  sk_SRTP_PROTECTION_PROFILE_dup := Tsk_SRTP_PROTECTION_PROFILE_dup(sk_dup);
+  sk_SRTP_PROTECTION_PROFILE_find := Tsk_SRTP_PROTECTION_PROFILE_find(sk_find);
+  sk_SRTP_PROTECTION_PROFILE_pop_free :=  Tsk_SRTP_PROTECTION_PROFILE_pop_free(sk_pop_free);
 end;
 
 procedure Unload;
@@ -29293,6 +29324,37 @@ begin
   SSL_get_value_uint := nil; {introduced 3.3.0}
   SSL_set_value_uint := nil; {introduced 3.3.0}
   SSL_poll := nil; {introduced 3.3.0}
+
+  //stack of
+  sk_SSL_CIPHER_new:= nil;
+  sk_SSL_CIPHER_new_null := nil;
+  sk_SSL_CIPHER_free := nil;
+  sk_SSL_CIPHER_num := nil;
+  sk_SSL_CIPHER_value := nil;
+  sk_SSL_CIPHER_push := nil;
+  sk_SSL_CIPHER_dup := nil;
+  sk_SSL_CIPHER_find := nil;
+  sk_SSL_CIPHER_pop_free := nil;
+
+  sk_SSL_COMP_new:= nil;
+  sk_SSL_COMP_new_null := nil;
+  sk_SSL_COMP_free := nil;
+  sk_SSL_COMP_num := nil;
+  sk_SSL_COMP_value := nil;
+  sk_SSL_COMP_push := nil;
+  sk_SSL_COMP_dup := nil;
+  sk_SSL_COMP_find := nil;
+  sk_SSL_COMP_pop_free := nil;
+
+  sk_SRTP_PROTECTION_PROFILE_new:= nil;
+  sk_SRTP_PROTECTION_PROFILE_new_null := nil;
+  sk_SRTP_PROTECTION_PROFILE_free := nil;
+  sk_SRTP_PROTECTION_PROFILE_num := nil;
+  sk_SRTP_PROTECTION_PROFILE_value := nil;
+  sk_SRTP_PROTECTION_PROFILE_push := nil;
+  sk_SRTP_PROTECTION_PROFILE_dup := nil;
+  sk_SRTP_PROTECTION_PROFILE_find := nil;
+  sk_SRTP_PROTECTION_PROFILE_pop_free := nil;
 end;
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;
