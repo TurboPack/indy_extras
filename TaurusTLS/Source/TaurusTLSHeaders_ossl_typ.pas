@@ -72,12 +72,15 @@ type
     {$ENDIF}
   {$ENDIF}
 {$IFEND}
+{$IF NOT DECLARED(PIdC_SSIZET)}
   {$IFDEF HAS_PSSIZE_T}
   // in ptypes.inc, pssize_t is missing, but pSSize is present, and it is defined as ^ssize_t...
   PIdC_SSIZET = {pssize_t}pSSize;
   {$ELSE}
   PIdC_SSIZET = ^TIdC_SSIZET;
   {$ENDIF}
+{$IFEND}
+{$IF NOT DECLARED(TIdC_TIMET)}
   {$IFDEF HAS_TIME_T}
   TIdC_TIMET = time_t;
   {$ELSE}
@@ -92,23 +95,36 @@ type
       {$ENDIF}
     {$ENDIF}
   {$ENDIF}
+{$IFEND}
+{$IF NOT DECLARED(PIdC_TIMET)}
   {$IFDEF HAS_PTIME_T}
   PIdC_TIMET = ptime_t;
   {$ELSE}
   PIdC_TIMET = ^TIdC_TIMET;
   {$ENDIF}
-  {$IFNDEF HAS_PByte}PByte = ^Byte;{$ENDIF}
+{$IFEND}
+{$IF NOT DECLARED(PByte)}
+  PByte = ^Byte;
+{$IFEND}
+{$IF NOT DECLARED(PPByte)}
     PPByte = ^PByte;
+{$IFEND}
+{$IF NOT DECLARED(PPPByte)}
   PPPByte = ^PPByte;
+{$IFEND}
+{$IF NOT DECLARED(PPIdC_INT)}
   PPIdC_INT = ^PIdC_INT;
-
+{$IFEND}
+{$IF NOT DECLARED(PPIdAnsiChar)}
   {$IFDEF HAS_PPAnsiChar}
   PPIdAnsiChar = PPAnsiChar;
   {$ELSE}
   PPIdAnsiChar = ^PIdAnsiChar;
   {$ENDIF}
+{$IFEND}
+{$IF NOT DECLARED(PPPIdAnsiChar)}
   PPPIdAnsiChar = ^PPIdAnsiChar;
-
+{$IFEND}
   TIdC_TM = record
     tm_sec: TIdC_INT;         (* seconds,  range 0 to 59          *)
     tm_min: TIdC_INT;         (* minutes, range 0 to 59           *)
