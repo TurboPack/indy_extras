@@ -15,6 +15,8 @@ Both components are in the TaurusTLS.pas unit and the components are available o
 
 TaurusTLS supports the following operating systems:
 
+- Android
+- iOS
 - Linux
 - MacOS
 - Windows
@@ -54,7 +56,13 @@ You may install TaurusTLS into the 64-bit Integrated Development Environment (ID
 
 ## Deploying Your Applications
 
-TaurusTLS requires OpenSSL 1.1.1 or OpenSSL 3.x.  
+TaurusTLS requires OpenSSL 1.1.1 or OpenSSL 3.x.
+
+### Static Libraries (OpenSSL 3.x ONLY)
+
+Static libraries (`.a` files) can be used with Android, iOS and macOS. Precompiled versions of the libraries are available at: <https://github.com/JPeterMugaas/OpenSSL-Distribution/tree/main/binaries> and <https://github.com/TurboPack/OpenSSL-Distribution/tree/main/binaries>. There are also instructions for building the libraries at: https://github.com/TurboPack/OpenSSL-Distribution/tree/main/build-scripts
+
+**For macOS ONLY** a compiler define of `TAURUSTLS_STATIC` will need to be configured in your project in order to use static libraries, i.e. in Project Options, Building > Delphi Compiler, for the relevant configurations of macOS and/or macOS ARM, a value of: `TAURUSTLS_STATIC` needs to be present in the Conditional defines value.
 
 ### Linux
 
@@ -191,7 +199,7 @@ author of the original code that was modified to create TaurusTLS.
 
 ## Dave Nottage
 
-for providing the code used for loading OpenSSL on MacOS.
+for providing the code used for loading OpenSSL on MacOS, and for changes needed for static binding, and Android and iOS
 
 ## Tony Whyman
 
