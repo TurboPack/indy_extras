@@ -33,8 +33,8 @@ uses
   IdGlobal;
 
 {$I TaurusTLSIndyVers.inc}
-{$IFDEF TIdC_SIZET_UNDEF}
 type
+{$IF NOT DECLARED(TIdC_SIZET)}
   {$IFDEF HAS_SIZE_T}
   TIdC_SIZET = size_t;
   {$ELSE}
@@ -49,11 +49,15 @@ type
       {$ENDIF}
     {$ENDIF}
   {$ENDIF}
-  {$IFDEF HAS_PSIZE_T}
+{$IFEND}
+{$IF NOT DECLARED(PIdC_SIZET)}
+  {$IF DECLARED(PSIZE_T)}
   PIdC_SIZET = psize_t;
   {$ELSE}
   PIdC_SIZET = ^TIdC_SIZET;
-  {$ENDIF}
+  {$IFEND}
+{$IFEND}
+{$IF NOT DECLARED(TIdC_SSIZET)}
   {$IFDEF HAS_SSIZE_T}
   TIdC_SSIZET = ssize_t;
   {$ELSE}
@@ -68,6 +72,7 @@ type
       {$ENDIF}
     {$ENDIF}
   {$ENDIF}
+{$IFEND}
   {$IFDEF HAS_PSSIZE_T}
   // in ptypes.inc, pssize_t is missing, but pSSize is present, and it is defined as ^ssize_t...
   PIdC_SSIZET = {pssize_t}pSSize;
@@ -118,8 +123,7 @@ type
   end;
   PIdC_TM = ^TIdC_TM;
   PPIdC_TM = ^PIdC_TM;
-{$ENDIF}
-type
+
 // moved from unit "asn1" to prevent circular references
   asn1_string_st = record
     _length: TIdC_INT;

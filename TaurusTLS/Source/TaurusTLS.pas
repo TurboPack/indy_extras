@@ -257,7 +257,7 @@ uses
   TaurusTLSFIPS {Ensure FIPS functions initialised};
 
 {$I TaurusTLSIndyVers.inc}
-{$IFDEF HAS_TIdSSLVersion}
+{$IF DECLARED(TIdSSLVersion)}
 
 const
   /// <summary>
@@ -360,7 +360,7 @@ type
     sslCtxClient,
     /// <summary>Server</summary>
     sslCtxServer);
-{$ENDIF}
+{$IFEND}
   /// <summary>
   /// Type used to specify a peer verification value.
   /// </summary>
@@ -1300,10 +1300,12 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IFNDEF GETURIHOST_SUPPORTED}
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetProxyTargetHost: string;
+{$IFEND}
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetURIHost: string;
-{$ENDIF}
+{$IFEND}
   public
     /// <summary>
     /// Frees resources and destroys the current instance.
@@ -3449,7 +3451,7 @@ begin
   end;
 end;
 
-{$IFNDEF GETURIHOST_SUPPORTED}
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
 var
@@ -3477,7 +3479,9 @@ begin
   end;
 
 end;
+{$IFEND}
 
+{$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
 function TTaurusTLSIOHandlerSocket.GetURIHost: string;
 var
   LURI: TIdURI;
@@ -3493,7 +3497,7 @@ begin
     end;
   end;
 end;
-{$ENDIF}
+{$IFEND}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
   AWhere, Aret: TIdC_INT);
