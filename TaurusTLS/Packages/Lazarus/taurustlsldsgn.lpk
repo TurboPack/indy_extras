@@ -12,6 +12,11 @@
 				<OtherUnitFiles Value="..\..\Source"/>
 				<UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
 			</SearchPaths>
+			<Other>
+				<Verbosity>
+					<ShowDebugInfo Value="True"/>
+				</Verbosity>
+			</Other>
 		</CompilerOptions>
 		<Description Value="An attempt to make OpenSSL 1.1.1 and OpenSSL 3.x compatible support for Indy - Internet Direct"/>
 		<License Value="TaurusTLS is dual licensed. You can review which license better suits your needs, and use that license. You can even change your mind later if you have previously chosen one.&#xA;&#xA;1) Modified BSD License - The TaurusTLS Modified BSD license is a very no nonsense license that allows you to do almost anything you want with TaurusTLS provided you provide proper attribution. &#xA;&#xA;2) MPL Mozilla Public License) License - To make it easier and consistent for JEDI users, we also offer an MPL license v1.1."/>
@@ -50,5 +55,5 @@
 			<Version Value="2"/>
 			<UseFileFilters Value="True"/>
 		</PublishOptions>
-		<Version Major="1" Build="14"/></Package>
+		<Version Major="1" Build="16"/></Package>
 </CONFIG>

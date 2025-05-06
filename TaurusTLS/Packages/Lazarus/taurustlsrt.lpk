@@ -35,16 +35,32 @@
 				<UnitName Value="TaurusTLS"/>
 			</Item>
 			<Item>
+				<Filename Value="../../Source/TaurusTLS_Files.pas"/>
+				<UnitName Value="TaurusTLS_Files"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
+				<UnitName Value="TaurusTLS_NTLM"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLS_ResourceStrings.pas"/>
+				<UnitName Value="TaurusTLS_ResourceStrings"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLS_Utils.pas"/>
+				<UnitName Value="TaurusTLS_Utils"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLS_X509.pas"/>
+				<UnitName Value="TaurusTLS_X509"/>
+			</Item>
+			<Item>
 				<Filename Value="../../Source/TaurusTLSConsts.pas"/>
 				<UnitName Value="TaurusTLSConsts"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSExceptionHandlers.pas"/>
 				<UnitName Value="TaurusTLSExceptionHandlers"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLS_Files.pas"/>
-				<UnitName Value="TaurusTLS_Files"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSFIPS.pas"/>
@@ -59,12 +75,12 @@
 				<UnitName Value="TaurusTLSHeaders_asn1"/>
 			</Item>
 			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_asn1err.pas"/>
-				<UnitName Value="TaurusTLSHeaders_asn1err"/>
-			</Item>
-			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_asn1_mac.pas"/>
 				<UnitName Value="TaurusTLSHeaders_asn1_mac"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_asn1err.pas"/>
+				<UnitName Value="TaurusTLSHeaders_asn1err"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_asn1t.pas"/>
@@ -159,6 +175,10 @@
 				<UnitName Value="TaurusTLSHeaders_cryptoerr"/>
 			</Item>
 			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_ct.pas"/>
+				<UnitName Value="TaurusTLSHeaders_ct"/>
+			</Item>
+			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_cterr.pas"/>
 				<UnitName Value="TaurusTLSHeaders_cterr"/>
 			</Item>
@@ -227,16 +247,16 @@
 				<UnitName Value="TaurusTLSHeaders_kdferr"/>
 			</Item>
 			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_obj_mac.pas"/>
+				<UnitName Value="TaurusTLSHeaders_obj_mac"/>
+			</Item>
+			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_objects.pas"/>
 				<UnitName Value="TaurusTLSHeaders_objects"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_objectserr.pas"/>
 				<UnitName Value="TaurusTLSHeaders_objectserr"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_obj_mac.pas"/>
-				<UnitName Value="TaurusTLSHeaders_obj_mac"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_ocsperr.pas"/>
@@ -255,6 +275,10 @@
 				<UnitName Value="TaurusTLSHeaders_pemerr"/>
 			</Item>
 			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_pkcs12.pas"/>
+				<UnitName Value="TaurusTLSHeaders_pkcs12"/>
+			</Item>
+			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_pkcs7.pas"/>
 				<UnitName Value="TaurusTLSHeaders_pkcs7"/>
 			</Item>
@@ -263,12 +287,12 @@
 				<UnitName Value="TaurusTLSHeaders_pkcs7err"/>
 			</Item>
 			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_pkcs12.pas"/>
-				<UnitName Value="TaurusTLSHeaders_pkcs12"/>
-			</Item>
-			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_provider.pas"/>
 				<UnitName Value="TaurusTLSHeaders_provider"/>
+			</Item>
+			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_quic.pas"/>
+				<UnitName Value="TaurusTLSHeaders_quic"/>
 			</Item>
 			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_rand.pas"/>
@@ -355,6 +379,10 @@
 				<UnitName Value="TaurusTLSHeaders_x509"/>
 			</Item>
 			<Item>
+				<Filename Value="../../Source/TaurusTLSHeaders_x509_vfy.pas"/>
+				<UnitName Value="TaurusTLSHeaders_x509_vfy"/>
+			</Item>
+			<Item>
 				<Filename Value="../../Source/TaurusTLSHeaders_x509err.pas"/>
 				<UnitName Value="TaurusTLSHeaders_x509err"/>
 			</Item>
@@ -363,36 +391,8 @@
 				<UnitName Value="TaurusTLSHeaders_x509v3"/>
 			</Item>
 			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_x509_vfy.pas"/>
-				<UnitName Value="TaurusTLSHeaders_x509_vfy"/>
-			</Item>
-			<Item>
 				<Filename Value="../../Source/TaurusTLSLoader.pas"/>
 				<UnitName Value="TaurusTLSLoader"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLS_ResourceStrings.pas"/>
-				<UnitName Value="TaurusTLS_ResourceStrings"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLS_Utils.pas"/>
-				<UnitName Value="TaurusTLS_Utils"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLS_X509.pas"/>
-				<UnitName Value="TaurusTLS_X509"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
-				<UnitName Value="TaurusTLS_NTLM"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_ct.pas"/>
-				<UnitName Value="TaurusTLSHeaders_ct"/>
-			</Item>
-			<Item>
-				<Filename Value="../../Source/TaurusTLSHeaders_quic.pas"/>
-				<UnitName Value="TaurusTLSHeaders_quic"/>
 			</Item>
 		</Files>
 		<RequiredPkgs>
@@ -410,5 +410,5 @@
 			<Version Value="2"/>
 			<UseFileFilters Value="True"/>
 		</PublishOptions>
-		<Version Major="1" Build="14"/></Package>
+		<Version Major="1" Build="16"/></Package>
 </CONFIG>
