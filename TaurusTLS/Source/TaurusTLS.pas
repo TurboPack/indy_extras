@@ -1299,12 +1299,17 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+{$ifdef fpc}
     function GetProxyTargetHost: string;
-{$IFEND}
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetURIHost: string;
-{$IFEND}
+{$else}
+  {$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+    function GetProxyTargetHost: string;
+  {$IFEND}
+  {$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+    function GetURIHost: string;
+  {$IFEND}
+{$endif}
   public
     /// <summary>
     /// Frees resources and destroys the current instance.
@@ -3444,6 +3449,52 @@ begin
   end;
 end;
 
+{$ifdef fpc}
+
+function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
+var
+  // under ARC, convert a weak reference to a strong reference before working with it
+  LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
+begin
+  Result := '';
+  // RLebeau: not reading from the property as it will create a
+  // default Proxy object if one is not already assigned...
+  LTransparentProxy := FTransparentProxy;
+  if Assigned(LTransparentProxy) then
+  begin
+    if LTransparentProxy.Enabled then
+    begin
+      repeat
+        LNextTransparentProxy := LTransparentProxy.ChainedProxy;
+        if not Assigned(LNextTransparentProxy) then
+          Break;
+        if not LNextTransparentProxy.Enabled then
+          Break;
+        LTransparentProxy := LNextTransparentProxy;
+      until False;
+      Result := LTransparentProxy.Host;
+    end;
+  end;
+
+end;
+
+function TTaurusTLSIOHandlerSocket.GetURIHost: string;
+var
+  LURI: TIdURI;
+begin
+  Result := '';
+  if URIToCheck <> '' then
+  begin
+    LURI := TIdURI.Create(URIToCheck);
+    try
+      Result := LURI.Host;
+    finally
+      LURI.Free;
+    end;
+  end;
+end;
+
+{$else}
 {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
@@ -3491,6 +3542,7 @@ begin
   end;
 end;
 {$IFEND}
+{$endif}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
   AWhere, Aret: TIdC_INT);
