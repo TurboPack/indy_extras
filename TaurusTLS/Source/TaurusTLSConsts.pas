@@ -53,6 +53,11 @@ const
         CLibSSL = 'libssl-3.dll';
       {$ENDIF}
     {$ENDIF}
+  {$ELSE}
+    {$IFDEF STATICLOAD_OPENSSL}
+    CLibCrypto = 'libcrypto.a';
+    CLibSSL = 'libssl.a';
+    {$ENDIF}
   {$ENDIF}
   
   {$IFDEF UNIX}
