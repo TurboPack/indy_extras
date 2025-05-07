@@ -90,7 +90,7 @@
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Build>6</VerInfo_Build>
 		<VerInfo_Locale>1033</VerInfo_Locale>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.16;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.16;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.17;Comments=</VerInfo_Keys>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 		<DCC_UnitSearchPath>$(INDY_PATH)\Lib\System;$(INDY_PATH)\Lib\Core;$(INDY_PATH)\Lib\Protocols;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 	</PropertyGroup>
@@ -117,13 +117,13 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_OSX64)'!=''">
 		<DCC_UsePackage>rtl;IndyCore280;IndySystem280;IndyProtocols280;$(DCC_UsePackage)</DCC_UsePackage>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.16;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.16;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.17;Comments=</VerInfo_Keys>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>false</VerInfo_IncludeVerInfo>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_OSXARM64)'!=''">
 		<DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.16;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.16;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.17;Comments=</VerInfo_Keys>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>false</VerInfo_IncludeVerInfo>
 	</PropertyGroup>
@@ -131,7 +131,7 @@
 		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.16;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.16;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.17;Comments=</VerInfo_Keys>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<DCC_UsePackage>rtl;IndyCore280;IndySystem280;IndyProtocols280;$(DCC_UsePackage)</DCC_UsePackage>
 	</PropertyGroup>
@@ -139,7 +139,7 @@
 		<DCC_UsePackage>rtl;IndyCore280;IndySystem280;IndyProtocols280;$(DCC_UsePackage)</DCC_UsePackage>
 		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.16;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.16;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.17;InternalName=TaurusTLS_RTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.17;Comments=</VerInfo_Keys>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1)'!=''">
 		<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
