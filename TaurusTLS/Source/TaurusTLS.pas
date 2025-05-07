@@ -4178,13 +4178,16 @@ begin
 
   { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
     first character to the hostname is passed }
-  if fHostName <> '' then
+  if Self.fVerifyHostname then
   begin
-    LRetCode := SSL_set1_host(fSSL, PIdAnsiChar(AnsiString(fHostName)));
-    if LRetCode <= 0 then
+    if fHostName <> '' then
     begin
-      ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
-        RSSSLSettingTLSHostNameError);
+      LRetCode := SSL_set1_host(fSSL, PIdAnsiChar(AnsiString(fHostName)));
+      if LRetCode <= 0 then
+      begin
+        ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
+          RSSSLSettingTLSHostNameError);
+      end;
     end;
   end;
 
@@ -4209,39 +4212,24 @@ begin
   try
     if fSSLContext.VerifyHostname then
     begin
-{$IFDEF  USE_INLINE_VAR}
-      var
-        lHostName: AnsiString;
-{$ENDIF}
-      lHostName := AnsiString(fHostName);
-      if X509_check_host(Lpeercert, PAnsiChar(lHostName), Length(lHostName), 0,
-        nil) <> 1 then
+      LVerifyResult := SSL_get_verify_result(fSSL);
+      if LVerifyResult <> X509_V_OK then
       begin
-        ETaurusTLSCertDoesNotMatchError.RaiseWithMessage
-          (RSOSSLCertificateDoesNotMatch);
-      end;
-    end;
-    LVerifyResult := SSL_get_verify_result(fSSL);
-    if LVerifyResult <> X509_V_OK then
-    begin
-{$IFDEF USE_INLINE_VAR}
-      var
-        LErrorMsg: AnsiString;
-{$ENDIF}
-      if fSSLContext.VerifyOn then
-      begin
-        if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+        if fSSLContext.VerifyOn then
         begin
-          LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
-          try
-            if not LHelper.VerifyPeer(LCertificate, 0, LVerifyResult) then
-            begin
-              ETaurusTLSCertValidationError.RaiseWithMessage
-                (AnsiStringToString(X509_verify_cert_error_string
-                (LVerifyResult)));
+          if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+          begin
+            LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
+            try
+              if not LHelper.VerifyPeer(LCertificate, 0, LVerifyResult) then
+              begin
+                ETaurusTLSCertValidationError.RaiseWithMessage
+                  (AnsiStringToString(X509_verify_cert_error_string
+                  (LVerifyResult)));
+              end;
+            finally
+              FreeAndNil(LCertificate);
             end;
-          finally
-            FreeAndNil(LCertificate);
           end;
         end;
       end;
