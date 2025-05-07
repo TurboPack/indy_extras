@@ -1303,10 +1303,10 @@ type
     function GetProxyTargetHost: string;
     function GetURIHost: string;
 {$else}
-  {$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+  {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
     function GetProxyTargetHost: string;
   {$IFEND}
-  {$IF NOT DECLARED(TIdSSLIOHandlerSocketBase.GetURIHost)}
+  {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetURIHost: string;
   {$IFEND}
 {$endif}
