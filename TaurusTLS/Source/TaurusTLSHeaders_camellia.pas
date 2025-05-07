@@ -30,11 +30,11 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
+  IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  TaurusTLSConsts,
+  , TaurusTLSConsts
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  ;
 
 const
   // Added '_CONST' to avoid name clashes
@@ -204,7 +204,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -528,10 +528,8 @@ begin
       AFailed.Add('Camellia_ctr128_encrypt');
     {$ifend}
   end;
-
-
 end;
-
+  {$i TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   Camellia_set_key := nil;
@@ -545,7 +543,6 @@ begin
   Camellia_ofb128_encrypt := nil;
   Camellia_ctr128_encrypt := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

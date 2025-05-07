@@ -1668,7 +1668,7 @@ begin
 end;
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);
 
@@ -3707,7 +3707,7 @@ begin
   UI_UTIL_read_pw := nil;
   UI_UTIL_wrap_read_pem_callback := nil;
 end;
-{$ELSE}
+  {$i TaurusTLSUnusedParamOn.inc}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 

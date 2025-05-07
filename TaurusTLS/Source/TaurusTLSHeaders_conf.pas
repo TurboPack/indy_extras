@@ -700,7 +700,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -1568,6 +1568,8 @@ begin
   sk_CONF_IMODULE_find := Tsk_CONF_IMODULE_find(sk_find);
   sk_CONF_IMODULE_pop_free :=  Tsk_CONF_IMODULE_pop_free(sk_pop_free);
 end;
+
+  {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

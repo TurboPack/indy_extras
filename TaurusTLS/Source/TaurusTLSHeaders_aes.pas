@@ -30,11 +30,11 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
+  IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  TaurusTLSConsts,
+  , TaurusTLSConsts
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  ;
 
 const
 // Added '_CONST' to avoid name clashes
@@ -258,7 +258,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -742,9 +742,8 @@ begin
       AFailed.Add('AES_unwrap_key');
     {$ifend}
   end;
-
-
 end;
+  {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

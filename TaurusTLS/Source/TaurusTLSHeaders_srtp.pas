@@ -116,6 +116,7 @@ begin
 end;
 
   {$i TaurusTLSNoRetValOn.inc} 
+  {$i TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -257,7 +258,7 @@ begin
   SSL_get_srtp_profiles := nil;
   SSL_get_selected_srtp_profile := nil;
 end;
-{$ELSE}
+  {$i TaurusTLSUnusedParamOff.inc}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

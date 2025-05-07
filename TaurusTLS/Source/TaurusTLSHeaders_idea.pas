@@ -162,7 +162,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -422,10 +422,8 @@ begin
       AFailed.Add('IDEA_encrypt');
     {$ifend}
   end;
-
-
 end;
-
+  {$i TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   IDEA_options := nil;
@@ -437,7 +435,6 @@ begin
   IDEA_ofb64_encrypt := nil;
   IDEA_encrypt := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

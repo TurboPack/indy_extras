@@ -135,7 +135,7 @@ const
   ERR_load_OSSL_STORE_strings_procname = 'ERR_load_OSSL_STORE_strings';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+{$i TaurusTLSNoRetValOff.inc}
 function  ERR_ERR_load_OSSL_STORE_strings: TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_OSSL_STORE_strings_procname);
@@ -143,8 +143,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-
+{$i TaurusTLSNoRetValOn.inc}
+{$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -184,11 +184,13 @@ begin
 
 end;
 
+{$i TaurusTLSUnusedParamOff.inc}
+
 procedure Unload;
 begin
   ERR_load_OSSL_STORE_strings := nil;
 end;
-{$ELSE}
+
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -148,7 +148,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -312,9 +312,8 @@ begin
       AFailed.Add('TXT_DB_insert');
     {$ifend}
   end;
-
-
 end;
+  {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin
@@ -324,7 +323,7 @@ begin
   TXT_DB_get_by_index := nil;
   TXT_DB_insert := nil;
 end;
-{$ELSE}
+
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

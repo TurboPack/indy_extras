@@ -117,7 +117,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -153,15 +153,13 @@ begin
       AFailed.Add('ERR_load_UI_strings');
     {$ifend}
   end;
-
-
 end;
+  {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin
   ERR_load_UI_strings := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

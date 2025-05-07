@@ -1008,7 +1008,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -3444,9 +3444,8 @@ begin
       AFailed.Add('DSA_meth_set_keygen');
     {$ifend}
   end;
-
-
 end;
+  {$i TaurusTLSUnusedParamOff.inc}
 
 procedure Unload;
 begin

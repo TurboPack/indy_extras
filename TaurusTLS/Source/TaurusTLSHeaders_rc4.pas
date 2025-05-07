@@ -31,11 +31,10 @@ interface
 
 uses
   IdCTypes,
-  IdGlobal,
+  IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  TaurusTLSConsts,
-  {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  , TaurusTLSConsts
+  {$ENDIF};
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -142,8 +141,7 @@ implementation
 
   uses
     classes, 
-    TaurusTLSExceptionHandlers,
-    TaurusTLS_ResourceStrings
+    TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
@@ -188,7 +186,7 @@ end;
  {allow_nil}
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -323,6 +321,7 @@ begin
 
  {allow_nil}
 end;
+ {$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin
@@ -331,7 +330,6 @@ begin
   private_RC4_set_key := nil; {allow_nil}
   RC4 := nil; {allow_nil}
 end;
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

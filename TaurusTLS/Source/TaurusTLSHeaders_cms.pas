@@ -1356,7 +1356,7 @@ end;
   //# define CMS_R_UNSUPPORTED_RECPIENTINFO_TYPE \ CMS_R_UNSUPPORTED_RECIPIENTINFO_TYPE
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -4368,10 +4368,8 @@ begin
       AFailed.Add('CMS_SharedInfo_encode');
     {$ifend}
   end;
-
-
 end;
-
+  {$i TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   CMS_get0_type := nil;
@@ -4469,7 +4467,7 @@ begin
   CMS_RecipientInfo_kari_decrypt := nil;
   CMS_SharedInfo_encode := nil;
 end;
-{$ELSE}
+
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

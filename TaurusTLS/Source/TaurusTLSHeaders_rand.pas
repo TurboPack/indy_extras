@@ -266,7 +266,7 @@ end;
 
 
   {$i TaurusTLSNoRetValOn.inc} 
-
+  {$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -782,10 +782,8 @@ begin
       AFailed.Add('RAND_poll');
     {$ifend}
   end;
-
-
 end;
-
+  {$i TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   RAND_set_rand_method := nil;
