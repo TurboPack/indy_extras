@@ -1943,12 +1943,6 @@ type
   /// </seealso>
   ETaurusTLSReadExError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if the Certificate Subject's Common Name does not match the specified
-  /// hostname.
-  /// </summary>
-  ETaurusTLSCertDoesNotMatchError = class(ETaurusTLSError);
-
-  /// <summary>
   /// Raised if certificate validation failed and the message breifly
   /// describes the failure.
   /// </summary>
