@@ -27,14 +27,15 @@ interface
 // Headers for OpenSSL 1.1.1
 // aes.h
 
-
+{$i TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
-  IdGlobal
+  IdGlobal,
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  , TaurusTLSConsts
+  TaurusTLSConsts,
   {$ENDIF}
-  ;
+  TaurusTLSHeaders_ossl_typ;
+{$i TaurusTLSUnusedUnitOn.inc}
 
 const
 // Added '_CONST' to avoid name clashes

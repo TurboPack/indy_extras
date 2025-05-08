@@ -4,7 +4,7 @@
      and this file regenerated. TaurusTLSHeaders_async.h2pas is distributed with the full Indy
      Distribution.
    *)
-   
+{$WARN 5023 off : Unit "$1" not used in $2}
 {$i TaurusTLSCompilerDefines.inc} 
 {$i TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
@@ -27,12 +27,15 @@ interface
 // async.h
 
 
+{$i TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
-  IdGlobal
+  IdGlobal,
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  , TaurusTLSConsts
-  {$ENDIF};
+  TaurusTLSConsts,
+  {$ENDIF}
+  TaurusTLSHeaders_ossl_typ;
+{$i TaurusTLSUnusedUnitOn.inc}
 
 const
   ASYNC_ERR = 0;
