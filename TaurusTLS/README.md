@@ -62,17 +62,9 @@ TaurusTLS requires OpenSSL 1.1.1 or OpenSSL 3.x.
 
 Static libraries (`.a` files) can be used with Android, iOS and macOS. Precompiled versions of the libraries are available at: <https://github.com/JPeterMugaas/OpenSSL-Distribution/tree/main/binaries> and <https://github.com/TurboPack/OpenSSL-Distribution/tree/main/binaries>. There are also instructions for building the libraries at: https://github.com/TurboPack/OpenSSL-Distribution/tree/main/build-scripts
 
-**For macOS ONLY** a compiler define of `TAURUSTLS_STATIC` will need to be configured in your project in order to use static libraries, i.e. in Project Options, Building > Delphi Compiler, for the relevant configurations of macOS and/or macOS ARM, a value of: `TAURUSTLS_STATIC` needs to be present in the Conditional defines value.
-
 ### Linux
 
 On Linux, OpenSSL is usually installed by default.  We recommend that developers document this requirement in case users need to install updated versions of OpenSSL.
-
-### MacOS
-
-On MacOS, the default OpenSSL version is LibreSSL and that may NOT work.  You can install OpenSSL alongside LibreSSL using the instructions at:
-
-<https://secdops.com/blog/using-openssl-alongside-the-default-libressl-on-macos/>
 
 ### Windows
 
