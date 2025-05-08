@@ -172,6 +172,12 @@ procedure Register_SSLLoader(LoadProc: TOpenSSLLoadProc;
 /// </remarks>
 procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IF NOT DECLARED( LoadLibFunction)}
+function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
+{$IFEND}
+{$ENDIF}
+
 implementation
 
 uses
@@ -230,6 +236,13 @@ begin
 end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+
+{$IF NOT DECLARED( LoadLibFunction)}
+function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
+begin
+  Result := {$IFDEF WINDOWS}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
+end;
+{$IFEND}
 
 type
 
