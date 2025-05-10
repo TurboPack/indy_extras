@@ -7,7 +7,7 @@
 { * Portions of this software are Copyright (c) 1993 – 2018,                   * }
 { * Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  * }
 { ****************************************************************************** }
-{$i TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
 {
   Rev 1.41    22/02/2024 AWhyman
   a. Property SSLProtocolVersion added to TSocket. This returns the SSL/TLS protocol
@@ -586,22 +586,22 @@ type
     ACtx: PSSL_CTX; op: TIdC_INT; bits: TIdC_INT; const ACipherNid: TIdC_INT;
     const ACipher: String; var VAccepted: Boolean) of object;
   /// <summary>
-  ///   <see cref="TTaurusTLSIOHandlerSocket.OnGetPassword" /> and <see
-  ///   cref="TTaurusTLSServerIOHandler.OnGetPassword" /> events
+  /// <see cref="TTaurusTLSIOHandlerSocket.OnGetPassword" /> and <see
+  /// cref="TTaurusTLSServerIOHandler.OnGetPassword" /> events
   /// </summary>
   /// <param name="ASender">
-  ///   The object that triggers the event.
+  /// The object that triggers the event.
   /// </param>
   /// <param name="VPassword">
-  ///   Return value indicating the password.
+  /// Return value indicating the password.
   /// </param>
   /// <param name="AIsWrite">
-  ///   True if the password is written/encrypted and typically the password is
-  ///   prompted for twice to prevent entry error.
+  /// True if the password is written/encrypted and typically the password is
+  /// prompted for twice to prevent entry error.
   /// </param>
   /// <param name="VOk">
-  ///   Set this value to true if a password was retreived or false if password
-  ///   retreival failed (for example, the user clicked a cancel button).
+  /// Set this value to true if a password was retreived or false if password
+  /// retreival failed (for example, the user clicked a cancel button).
   /// </param>
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean; var VOk: Boolean) of object;
@@ -1179,8 +1179,8 @@ type
     /// is prompted for twice to prevent entry error.
     /// </param>
     /// <param name="VOk">
-    ///   Set this value to true if a password was retreived or false if password
-    ///   retreival failed (for example, the user clicked a cancel button).
+    /// Set this value to true if a password was retreived or false if password
+    /// retreival failed (for example, the user clicked a cancel button).
     /// </param>
     /// <returns>
     /// The password the event handler returned.
@@ -1299,17 +1299,17 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$ifdef fpc}
+{$IFDEF fpc}
     function GetProxyTargetHost: string;
     function GetURIHost: string;
-{$else}
-  {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
+{$ELSE}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
     function GetProxyTargetHost: string;
-  {$IFEND}
-  {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
+{$IFEND}
+{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
     function GetURIHost: string;
-  {$IFEND}
-{$endif}
+{$IFEND}
+{$ENDIF}
   public
     /// <summary>
     /// Frees resources and destroys the current instance.
@@ -1473,8 +1473,8 @@ type
     /// is prompted for twice to prevent entry error.
     /// </param>
     /// <param name="VOk">
-    ///   Set this value to true if a password was retreived or false if password
-    ///   retreival failed (for example, the user clicked a cancel button).
+    /// Set this value to true if a password was retreived or false if password
+    /// retreival failed (for example, the user clicked a cancel button).
     /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
@@ -1570,7 +1570,7 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-    function MakeDataChannelIOHandler : TTaurusTLSIOHandlerSocket;
+    function MakeDataChannelIOHandler: TTaurusTLSIOHandlerSocket;
   public
     /// <summary>
     /// Called by Indy (Internet Direct) and makes a TTaurusTLSContext for
@@ -1585,7 +1585,7 @@ type
     /// for the TTaurusTLSServerIOHandler.
     /// </summary>
     procedure Shutdown; override;
-      {$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
     // AListenerThread is a thread and not a yarn. Its the listener thread.
     /// <summary>
     /// Called by Indy (Internet Direct) when the server accepts a connection.
@@ -1607,7 +1607,7 @@ type
     /// </remarks>
     function Accept(ASocket: TIdSocketHandle; AListenerThread: TIdThread;
       AYarn: TIdYarn): TIdIOHandler; override;
-      {$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
     // function Accept(ASocket: TIdSocketHandle; AThread: TIdThread) : TIdIOHandler;  override;
     /// <summary>
     /// Frees resources and destroys the current instance.
@@ -1726,8 +1726,8 @@ type
     /// is prompted for twice to prevent entry error.
     /// </param>
     /// <param name="VOk">
-    ///   Set this value to true if a password was retreived or false if password
-    ///   retreival failed (for example, the user clicked a cancel button).
+    /// Set this value to true if a password was retreived or false if password
+    /// retreival failed (for example, the user clicked a cancel button).
     /// </param>
     property OnGetPassword: TOnGetPasswordEvent read fOnGetPassword
       write fOnGetPassword;
@@ -2011,15 +2011,15 @@ procedure UnLoadOpenSSLLibrary;
 /// </summary>
 function OpenSSLVersion: string;
 /// <summary>
-///   The OpenSSL directory. This is the directory that was configured when
-///   OpenSSL was built.
+/// The OpenSSL directory. This is the directory that was configured when
+/// OpenSSL was built.
 /// </summary>
 /// <returns>
-///   The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
-///   where the library is located. The library itslef is loaded based on the
-///   operating system's defaults or the <see
-///   cref="TaurusTLSLoader|GetOpenSSLLoader" />'s <see
-///   cref="TaurusTLSLoader|IOpenSSLLoader.GetOpenSSLPath" /> property.
+/// The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+/// where the library is located. The library itslef is loaded based on the
+/// operating system's defaults or the <see
+/// cref="TaurusTLSLoader|GetOpenSSLLoader" />'s <see
+/// cref="TaurusTLSLoader|IOpenSSLLoader.GetOpenSSLPath" /> property.
 /// </returns>
 function OpenSSLDir: string;
 
@@ -2184,7 +2184,8 @@ begin
   end;
 end;
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
+
 function SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
   bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
 var
@@ -2223,7 +2224,7 @@ begin
     GStack.WSSetLastError(LErr);
   end;
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 function PasswordCallback(var buf: PIdAnsiChar; size: TIdC_INT;
   rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
@@ -2240,7 +2241,7 @@ var
   LPassword: String;
 {$ENDIF}
   LErr: Integer;
-  LOk : Boolean;
+  LOk: Boolean;
   LHelper: ITaurusTLSCallbackHelper;
 begin
   // Preserve last error just in case TaurusTLS is using it and we do something that
@@ -2290,7 +2291,7 @@ begin
       buf[size - 1] := #0; // RLebeau: truncate the password if needed
       if not LOk then
       begin
-        //indicate failure
+        // indicate failure
         Result := -1;
       end;
     finally
@@ -2343,9 +2344,9 @@ var
 {$ENDIF}
   LVer: TTaurusMsgCBVer;
 begin
-  {$ifdef fpc}
+{$IFDEF fpc}
   LBytes := nil;
-  {$endif}
+{$ENDIF}
   {
     You have to save the value of WSGetLastError as some Operating System API
     function calls will reset that value and we can't know what a programmer will
@@ -2471,8 +2472,8 @@ begin
   Result := TIdC_ULONG(CurrentThreadId);
 end;
 {$ENDIF}
+{$I TaurusTLSUnusedParamOff.inc}
 
-{$i TaurusTLSUnusedParamOff.inc}
 procedure SslLockingCallback(Mode, n: TIdC_INT; Afile: PIdAnsiChar;
   line: TIdC_INT)cdecl;
 var
@@ -2502,7 +2503,7 @@ begin
     Lock.Release;
   end;
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 procedure PrepareTaurusTLSLocking;
 var
@@ -2822,7 +2823,8 @@ begin
   fSSLContext.InitContext(sslCtxServer);
 end;
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
+
 function TTaurusTLSServerIOHandler.Accept(ASocket: TIdSocketHandle;
   // This is a thread and not a yarn. Its the listener thread.
   AListenerThread: TIdThread; AYarn: TIdYarn): TIdIOHandler;
@@ -2877,9 +2879,10 @@ begin
     FreeAndNil(LIO);
   end;
 end;
-   {$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
-function TTaurusTLSServerIOHandler.MakeDataChannelIOHandler : TTaurusTLSIOHandlerSocket;
+function TTaurusTLSServerIOHandler.MakeDataChannelIOHandler
+  : TTaurusTLSIOHandlerSocket;
 
 begin
   Result := TTaurusTLSIOHandlerSocket.Create(nil);
@@ -2891,7 +2894,7 @@ begin
     Result.OnSSLNegotiated := FOnSSLNegotiated;
     Result.OnSecurityLevel := fOnSecurityLevel;
     Result.IsPeer := True; // RLebeau 1/24/2019: is this still needed now?
-     Result.SSLOptions.Assign(SSLOptions);
+    Result.SSLOptions.Assign(SSLOptions);
   except
     Result.Free;
     raise;
@@ -2907,7 +2910,7 @@ begin
   if Assigned(LIO) then
   begin
     LIO.SSLOptions.Mode := sslmServer;
-    LIO.SSLContext  := SSLContext;
+    LIO.SSLContext := SSLContext;
   end;
   Result := LIO;
 end;
@@ -3443,7 +3446,7 @@ begin
   end;
 end;
 
-{$ifdef fpc}
+{$IFDEF fpc}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
 var
@@ -3488,7 +3491,7 @@ begin
   end;
 end;
 
-{$else}
+{$ELSE}
 {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
 
 function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
@@ -3518,8 +3521,8 @@ begin
 
 end;
 {$IFEND}
-
 {$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
+
 function TTaurusTLSIOHandlerSocket.GetURIHost: string;
 var
   LURI: TIdURI;
@@ -3536,7 +3539,7 @@ begin
   end;
 end;
 {$IFEND}
-{$endif}
+{$ENDIF}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
   AWhere, Aret: TIdC_INT);
@@ -3795,8 +3798,7 @@ begin
       // OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
       // that handles a chain of certificates in a PEM file.  That is prefered.
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-
-        LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
+      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
 {$ELSE}
       LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
 {$ENDIF}
@@ -4182,6 +4184,8 @@ begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
           RSSSLSettingTLSHostNameError);
       end;
+      SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
+        (fSSLContext.VerifyMode), nil);
     end;
   end;
 
@@ -4211,7 +4215,8 @@ begin
       begin
         if fSSLContext.VerifyOn then
         begin
-          if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+          if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
+          then
           begin
             LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
             try
