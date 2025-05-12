@@ -23,7 +23,7 @@ unit TaurusTLS_NTLM;
 interface
 
 implementation
-
+{$I TaurusTLSLinkDefines.inc}
 uses
   IdGlobal, IdFIPS, IdHashMessageDigest,
   TaurusTLSLoader,
