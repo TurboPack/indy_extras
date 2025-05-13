@@ -578,6 +578,7 @@ begin
     Result := PDH(ASN1_d2i_bio(@DH_new, @d2i_DHparams, bp, PPointer(x)));
 end;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
   DH_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_security_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -624,7 +625,6 @@ const
   DH_meth_get_generate_params_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_meth_set_generate_params_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
   DHparams_dup_procname = 'DHparams_dup';
 
