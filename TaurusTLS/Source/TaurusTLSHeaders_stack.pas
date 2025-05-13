@@ -819,214 +819,214 @@ begin
   { introduced 1.1.0 }
   if not Assigned(OPENSSL_sk_set) then
   begin
-  OPENSSL_sk_set := LoadLibFunction(ADllHandle, OPENSSL_sk_set_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_set);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_set := LoadLibFunction(ADllHandle, OPENSSL_sk_set_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_set);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_set_allownil)}
-    OPENSSL_sk_set := @ERR_OPENSSL_sk_set;
+      OPENSSL_sk_set := @ERR_OPENSSL_sk_set;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_introduced)}
-    if LibVersion < OPENSSL_sk_set_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_set_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_set)}
-      OPENSSL_sk_set := @FC_OPENSSL_sk_set;
+        OPENSSL_sk_set := @FC_OPENSSL_sk_set;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_removed)}
-    if OPENSSL_sk_set_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_set_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_set)}
-      OPENSSL_sk_set := @_OPENSSL_sk_set;
+        OPENSSL_sk_set := @_OPENSSL_sk_set;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_set');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_set');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_new) then
+  if not Assigned(OPENSSL_sk_new) then
   begin
-  OPENSSL_sk_new := LoadLibFunction(ADllHandle, OPENSSL_sk_new_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_new);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_new := LoadLibFunction(ADllHandle, OPENSSL_sk_new_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_new);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_new_allownil)}
-    OPENSSL_sk_new := @ERR_OPENSSL_sk_new;
+      OPENSSL_sk_new := @ERR_OPENSSL_sk_new;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_introduced)}
-    if LibVersion < OPENSSL_sk_new_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_new_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_new)}
-      OPENSSL_sk_new := @FC_OPENSSL_sk_new;
+        OPENSSL_sk_new := @FC_OPENSSL_sk_new;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_removed)}
-    if OPENSSL_sk_new_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_new_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_new)}
-      OPENSSL_sk_new := @_OPENSSL_sk_new;
+        OPENSSL_sk_new := @_OPENSSL_sk_new;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_new');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_new');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_new_null) then
+  if not Assigned(OPENSSL_sk_new_null) then
   begin
-  OPENSSL_sk_new_null := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_new_null_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_new_null);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_new_null := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_new_null_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_new_null);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_new_null_allownil)}
-    OPENSSL_sk_new_null := @ERR_OPENSSL_sk_new_null;
+      OPENSSL_sk_new_null := @ERR_OPENSSL_sk_new_null;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_null_introduced)}
-    if LibVersion < OPENSSL_sk_new_null_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_new_null_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_new_null)}
-      OPENSSL_sk_new_null := @FC_OPENSSL_sk_new_null;
+        OPENSSL_sk_new_null := @FC_OPENSSL_sk_new_null;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_null_removed)}
-    if OPENSSL_sk_new_null_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_new_null_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_new_null)}
-      OPENSSL_sk_new_null := @_OPENSSL_sk_new_null;
+        OPENSSL_sk_new_null := @_OPENSSL_sk_new_null;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_new_null_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_new_null');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_new_null');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
   if not Assigned(OPENSSL_sk_new_reserve) then
   begin
-  OPENSSL_sk_new_reserve := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_new_reserve_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_new_reserve);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_new_reserve := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_new_reserve_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_new_reserve);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_new_reserve_allownil)}
-    OPENSSL_sk_new_reserve := @ERR_OPENSSL_sk_new_reserve;
+      OPENSSL_sk_new_reserve := @ERR_OPENSSL_sk_new_reserve;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_reserve_introduced)}
-    if LibVersion < OPENSSL_sk_new_reserve_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_new_reserve_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_new_reserve)}
-      OPENSSL_sk_new_reserve := @FC_OPENSSL_sk_new_reserve;
+        OPENSSL_sk_new_reserve := @FC_OPENSSL_sk_new_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_reserve_removed)}
-    if OPENSSL_sk_new_reserve_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_new_reserve_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_new_reserve)}
-      OPENSSL_sk_new_reserve := @_OPENSSL_sk_new_reserve;
+        OPENSSL_sk_new_reserve := @_OPENSSL_sk_new_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_new_reserve_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_new_reserve');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_new_reserve');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
   if not Assigned(OPENSSL_sk_reserve) then
   begin
-  OPENSSL_sk_reserve := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_reserve_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_reserve);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_reserve := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_reserve_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_reserve);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_reserve_allownil)}
-    OPENSSL_sk_reserve := @ERR_OPENSSL_sk_reserve;
+      OPENSSL_sk_reserve := @ERR_OPENSSL_sk_reserve;
 {$IFEND}
 {$IF declared(OPENSSL_sk_reserve_introduced)}
-    if LibVersion < OPENSSL_sk_reserve_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_reserve_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_reserve)}
-      OPENSSL_sk_reserve := @FC_OPENSSL_sk_reserve;
+        OPENSSL_sk_reserve := @FC_OPENSSL_sk_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_reserve_removed)}
-    if OPENSSL_sk_reserve_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_reserve_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_reserve)}
-      OPENSSL_sk_reserve := @_OPENSSL_sk_reserve;
+        OPENSSL_sk_reserve := @_OPENSSL_sk_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_reserve_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_reserve');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_reserve');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
   if not Assigned(OPENSSL_sk_free) then
   begin
-  OPENSSL_sk_free := LoadLibFunction(ADllHandle, OPENSSL_sk_free_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_free);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_free := LoadLibFunction(ADllHandle, OPENSSL_sk_free_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_free);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_free_allownil)}
-    OPENSSL_sk_free := @ERR_OPENSSL_sk_free;
+      OPENSSL_sk_free := @ERR_OPENSSL_sk_free;
 {$IFEND}
 {$IF declared(OPENSSL_sk_free_introduced)}
-    if LibVersion < OPENSSL_sk_free_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_free_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_free)}
-      OPENSSL_sk_free := @FC_OPENSSL_sk_free;
+        OPENSSL_sk_free := @FC_OPENSSL_sk_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_free_removed)}
-    if OPENSSL_sk_free_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_free_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_free)}
-      OPENSSL_sk_free := @_OPENSSL_sk_free;
+        OPENSSL_sk_free := @_OPENSSL_sk_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_free');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_free');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
@@ -1067,534 +1067,536 @@ begin
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_deep_copy) then
+  if not Assigned(OPENSSL_sk_deep_copy) then
   begin
-  OPENSSL_sk_deep_copy := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_deep_copy_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_deep_copy);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_deep_copy := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_deep_copy_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_deep_copy);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_deep_copy_allownil)}
-    OPENSSL_sk_deep_copy := @ERR_OPENSSL_sk_deep_copy;
+      OPENSSL_sk_deep_copy := @ERR_OPENSSL_sk_deep_copy;
 {$IFEND}
 {$IF declared(OPENSSL_sk_deep_copy_introduced)}
-    if LibVersion < OPENSSL_sk_deep_copy_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_deep_copy_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_deep_copy)}
-      OPENSSL_sk_deep_copy := @FC_OPENSSL_sk_deep_copy;
+        OPENSSL_sk_deep_copy := @FC_OPENSSL_sk_deep_copy;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_deep_copy_removed)}
-    if OPENSSL_sk_deep_copy_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_deep_copy_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_deep_copy)}
-      OPENSSL_sk_deep_copy := @_OPENSSL_sk_deep_copy;
+        OPENSSL_sk_deep_copy := @_OPENSSL_sk_deep_copy;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_deep_copy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_deep_copy');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_deep_copy');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_insert) then
+  if not Assigned(OPENSSL_sk_insert) then
   begin
-  OPENSSL_sk_insert := LoadLibFunction(ADllHandle, OPENSSL_sk_insert_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_insert);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_insert := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_insert_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_insert);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_insert_allownil)}
-    OPENSSL_sk_insert := @ERR_OPENSSL_sk_insert;
+      OPENSSL_sk_insert := @ERR_OPENSSL_sk_insert;
 {$IFEND}
 {$IF declared(OPENSSL_sk_insert_introduced)}
-    if LibVersion < OPENSSL_sk_insert_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_insert_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_insert)}
-      OPENSSL_sk_insert := @FC_OPENSSL_sk_insert;
+        OPENSSL_sk_insert := @FC_OPENSSL_sk_insert;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_insert_removed)}
-    if OPENSSL_sk_insert_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_insert_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_insert)}
-      OPENSSL_sk_insert := @_OPENSSL_sk_insert;
+        OPENSSL_sk_insert := @_OPENSSL_sk_insert;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_insert_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_insert');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_insert');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_delete) then
+  if not Assigned(OPENSSL_sk_delete) then
   begin
-  OPENSSL_sk_delete := LoadLibFunction(ADllHandle, OPENSSL_sk_delete_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_delete);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_delete := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_delete_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_delete);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_delete_allownil)}
-    OPENSSL_sk_delete := @ERR_OPENSSL_sk_delete;
+      OPENSSL_sk_delete := @ERR_OPENSSL_sk_delete;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_introduced)}
-    if LibVersion < OPENSSL_sk_delete_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_delete_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_delete)}
-      OPENSSL_sk_delete := @FC_OPENSSL_sk_delete;
+        OPENSSL_sk_delete := @FC_OPENSSL_sk_delete;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_removed)}
-    if OPENSSL_sk_delete_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_delete_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_delete)}
-      OPENSSL_sk_delete := @_OPENSSL_sk_delete;
+        OPENSSL_sk_delete := @_OPENSSL_sk_delete;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_delete_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_delete');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_delete');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_delete_ptr) then
+  if not Assigned(OPENSSL_sk_delete_ptr) then
   begin
-  OPENSSL_sk_delete_ptr := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_delete_ptr_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_delete_ptr);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_delete_ptr := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_delete_ptr_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_delete_ptr);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_delete_ptr_allownil)}
-    OPENSSL_sk_delete_ptr := @ERR_OPENSSL_sk_delete_ptr;
+      OPENSSL_sk_delete_ptr := @ERR_OPENSSL_sk_delete_ptr;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_ptr_introduced)}
-    if LibVersion < OPENSSL_sk_delete_ptr_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_delete_ptr_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_delete_ptr)}
-      OPENSSL_sk_delete_ptr := @FC_OPENSSL_sk_delete_ptr;
+        OPENSSL_sk_delete_ptr := @FC_OPENSSL_sk_delete_ptr;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_ptr_removed)}
-    if OPENSSL_sk_delete_ptr_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_delete_ptr_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_delete_ptr)}
-      OPENSSL_sk_delete_ptr := @_OPENSSL_sk_delete_ptr;
+        OPENSSL_sk_delete_ptr := @_OPENSSL_sk_delete_ptr;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_delete_ptr_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_delete_ptr');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_delete_ptr');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_find) then
+  if not Assigned(OPENSSL_sk_find) then
   begin
-  OPENSSL_sk_find := LoadLibFunction(ADllHandle, OPENSSL_sk_find_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_find);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_find := LoadLibFunction(ADllHandle, OPENSSL_sk_find_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_find);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_find_allownil)}
-    OPENSSL_sk_find := @ERR_OPENSSL_sk_find;
+      OPENSSL_sk_find := @ERR_OPENSSL_sk_find;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_introduced)}
-    if LibVersion < OPENSSL_sk_find_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_find_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_find)}
-      OPENSSL_sk_find := @FC_OPENSSL_sk_find;
+        OPENSSL_sk_find := @FC_OPENSSL_sk_find;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_removed)}
-    if OPENSSL_sk_find_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_find_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_find)}
-      OPENSSL_sk_find := @_OPENSSL_sk_find;
+        OPENSSL_sk_find := @_OPENSSL_sk_find;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_find_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_find');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_find');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_find_ex) then
+  if not Assigned(OPENSSL_sk_find_ex) then
   begin
-  OPENSSL_sk_find_ex := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_find_ex_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_find_ex);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_find_ex := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_find_ex_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_find_ex);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_find_ex_allownil)}
-    OPENSSL_sk_find_ex := @ERR_OPENSSL_sk_find_ex;
+      OPENSSL_sk_find_ex := @ERR_OPENSSL_sk_find_ex;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_ex_introduced)}
-    if LibVersion < OPENSSL_sk_find_ex_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_find_ex_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_find_ex)}
-      OPENSSL_sk_find_ex := @FC_OPENSSL_sk_find_ex;
+        OPENSSL_sk_find_ex := @FC_OPENSSL_sk_find_ex;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_ex_removed)}
-    if OPENSSL_sk_find_ex_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_find_ex_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_find_ex)}
-      OPENSSL_sk_find_ex := @_OPENSSL_sk_find_ex;
+        OPENSSL_sk_find_ex := @_OPENSSL_sk_find_ex;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_find_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_find_ex');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_find_ex');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_push) then
+  if not Assigned(OPENSSL_sk_push) then
   begin
-  OPENSSL_sk_push := LoadLibFunction(ADllHandle, OPENSSL_sk_push_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_push);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_push := LoadLibFunction(ADllHandle, OPENSSL_sk_push_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_push);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_push_allownil)}
-    OPENSSL_sk_push := @ERR_OPENSSL_sk_push;
+      OPENSSL_sk_push := @ERR_OPENSSL_sk_push;
 {$IFEND}
 {$IF declared(OPENSSL_sk_push_introduced)}
-    if LibVersion < OPENSSL_sk_push_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_push_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_push)}
-      OPENSSL_sk_push := @FC_OPENSSL_sk_push;
+        OPENSSL_sk_push := @FC_OPENSSL_sk_push;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_push_removed)}
-    if OPENSSL_sk_push_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_push_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_push)}
-      OPENSSL_sk_push := @_OPENSSL_sk_push;
+        OPENSSL_sk_push := @_OPENSSL_sk_push;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_push_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_push');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_push');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_unshift) then
+  if not Assigned(OPENSSL_sk_unshift) then
   begin
-  OPENSSL_sk_unshift := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_unshift_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_unshift);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_unshift := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_unshift_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_unshift);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_unshift_allownil)}
-    OPENSSL_sk_unshift := @ERR_OPENSSL_sk_unshift;
+      OPENSSL_sk_unshift := @ERR_OPENSSL_sk_unshift;
 {$IFEND}
 {$IF declared(OPENSSL_sk_unshift_introduced)}
-    if LibVersion < OPENSSL_sk_unshift_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_unshift_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_unshift)}
-      OPENSSL_sk_unshift := @FC_OPENSSL_sk_unshift;
+        OPENSSL_sk_unshift := @FC_OPENSSL_sk_unshift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_unshift_removed)}
-    if OPENSSL_sk_unshift_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_unshift_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_unshift)}
-      OPENSSL_sk_unshift := @_OPENSSL_sk_unshift;
+        OPENSSL_sk_unshift := @_OPENSSL_sk_unshift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_unshift_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_unshift');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_unshift');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_shift) then
+  if not Assigned(OPENSSL_sk_shift) then
   begin
-  OPENSSL_sk_shift := LoadLibFunction(ADllHandle, OPENSSL_sk_shift_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_shift);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_shift := LoadLibFunction(ADllHandle, OPENSSL_sk_shift_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_shift);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_shift_allownil)}
-    OPENSSL_sk_shift := @ERR_OPENSSL_sk_shift;
+      OPENSSL_sk_shift := @ERR_OPENSSL_sk_shift;
 {$IFEND}
 {$IF declared(OPENSSL_sk_shift_introduced)}
-    if LibVersion < OPENSSL_sk_shift_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_shift_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_shift)}
-      OPENSSL_sk_shift := @FC_OPENSSL_sk_shift;
+        OPENSSL_sk_shift := @FC_OPENSSL_sk_shift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_shift_removed)}
-    if OPENSSL_sk_shift_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_shift_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_shift)}
-      OPENSSL_sk_shift := @_OPENSSL_sk_shift;
+        OPENSSL_sk_shift := @_OPENSSL_sk_shift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_shift_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_shift');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_shift');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_pop) then
+  if not Assigned(OPENSSL_sk_pop) then
   begin
-  OPENSSL_sk_pop := LoadLibFunction(ADllHandle, OPENSSL_sk_pop_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_pop);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_pop := LoadLibFunction(ADllHandle, OPENSSL_sk_pop_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_pop);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_pop_allownil)}
-    OPENSSL_sk_pop := @ERR_OPENSSL_sk_pop;
+      OPENSSL_sk_pop := @ERR_OPENSSL_sk_pop;
 {$IFEND}
 {$IF declared(OPENSSL_sk_pop_introduced)}
-    if LibVersion < OPENSSL_sk_pop_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_pop_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_pop)}
-      OPENSSL_sk_pop := @FC_OPENSSL_sk_pop;
+        OPENSSL_sk_pop := @FC_OPENSSL_sk_pop;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_pop_removed)}
-    if OPENSSL_sk_pop_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_pop_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_pop)}
-      OPENSSL_sk_pop := @_OPENSSL_sk_pop;
+        OPENSSL_sk_pop := @_OPENSSL_sk_pop;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_pop_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_pop');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_pop');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if assigned(OPENSSL_sk_zero) then
+  if Assigned(OPENSSL_sk_zero) then
   begin
-  OPENSSL_sk_zero := LoadLibFunction(ADllHandle, OPENSSL_sk_zero_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_zero);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_zero := LoadLibFunction(ADllHandle, OPENSSL_sk_zero_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_zero);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_zero_allownil)}
-    OPENSSL_sk_zero := @ERR_OPENSSL_sk_zero;
+      OPENSSL_sk_zero := @ERR_OPENSSL_sk_zero;
 {$IFEND}
 {$IF declared(OPENSSL_sk_zero_introduced)}
-    if LibVersion < OPENSSL_sk_zero_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_zero_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_zero)}
-      OPENSSL_sk_zero := @FC_OPENSSL_sk_zero;
+        OPENSSL_sk_zero := @FC_OPENSSL_sk_zero;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_zero_removed)}
-    if OPENSSL_sk_zero_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_zero_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_zero)}
-      OPENSSL_sk_zero := @_OPENSSL_sk_zero;
+        OPENSSL_sk_zero := @_OPENSSL_sk_zero;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_zero_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_zero');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_zero');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_set_cmp_func) then
+  if not Assigned(OPENSSL_sk_set_cmp_func) then
   begin
-  OPENSSL_sk_set_cmp_func := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_set_cmp_func_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_set_cmp_func);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_set_cmp_func := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_set_cmp_func_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_set_cmp_func);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_set_cmp_func_allownil)}
-    OPENSSL_sk_set_cmp_func := @ERR_OPENSSL_sk_set_cmp_func;
+      OPENSSL_sk_set_cmp_func := @ERR_OPENSSL_sk_set_cmp_func;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_cmp_func_introduced)}
-    if LibVersion < OPENSSL_sk_set_cmp_func_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_set_cmp_func_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_set_cmp_func)}
-      OPENSSL_sk_set_cmp_func := @FC_OPENSSL_sk_set_cmp_func;
+        OPENSSL_sk_set_cmp_func := @FC_OPENSSL_sk_set_cmp_func;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_cmp_func_removed)}
-    if OPENSSL_sk_set_cmp_func_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_set_cmp_func_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_set_cmp_func)}
-      OPENSSL_sk_set_cmp_func := @_OPENSSL_sk_set_cmp_func;
+        OPENSSL_sk_set_cmp_func := @_OPENSSL_sk_set_cmp_func;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_set_cmp_func_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_set_cmp_func');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_set_cmp_func');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_dup) then
+  if not Assigned(OPENSSL_sk_dup) then
   begin
-  OPENSSL_sk_dup := LoadLibFunction(ADllHandle, OPENSSL_sk_dup_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_dup);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_dup := LoadLibFunction(ADllHandle, OPENSSL_sk_dup_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_dup);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_dup_allownil)}
-    OPENSSL_sk_dup := @ERR_OPENSSL_sk_dup;
+      OPENSSL_sk_dup := @ERR_OPENSSL_sk_dup;
 {$IFEND}
 {$IF declared(OPENSSL_sk_dup_introduced)}
-    if LibVersion < OPENSSL_sk_dup_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_dup_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_dup)}
-      OPENSSL_sk_dup := @FC_OPENSSL_sk_dup;
+        OPENSSL_sk_dup := @FC_OPENSSL_sk_dup;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_dup_removed)}
-    if OPENSSL_sk_dup_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_dup_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_dup)}
-      OPENSSL_sk_dup := @_OPENSSL_sk_dup;
+        OPENSSL_sk_dup := @_OPENSSL_sk_dup;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_dup');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_dup');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_sort) then
+  if not Assigned(OPENSSL_sk_sort) then
   begin
-  OPENSSL_sk_sort := LoadLibFunction(ADllHandle, OPENSSL_sk_sort_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_sort);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_sort := LoadLibFunction(ADllHandle, OPENSSL_sk_sort_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_sort);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_sort_allownil)}
-    OPENSSL_sk_sort := @ERR_OPENSSL_sk_sort;
+      OPENSSL_sk_sort := @ERR_OPENSSL_sk_sort;
 {$IFEND}
 {$IF declared(OPENSSL_sk_sort_introduced)}
-    if LibVersion < OPENSSL_sk_sort_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_sort_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_sort)}
-      OPENSSL_sk_sort := @FC_OPENSSL_sk_sort;
+        OPENSSL_sk_sort := @FC_OPENSSL_sk_sort;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_sort_removed)}
-    if OPENSSL_sk_sort_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_sort_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_sort)}
-      OPENSSL_sk_sort := @_OPENSSL_sk_sort;
+        OPENSSL_sk_sort := @_OPENSSL_sk_sort;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_sort_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_sort');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_sort');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
-  if not assigned(OPENSSL_sk_is_sorted) then
+  if not Assigned(OPENSSL_sk_is_sorted) then
   begin
-  OPENSSL_sk_is_sorted := LoadLibFunction(ADllHandle,
-    OPENSSL_sk_is_sorted_procname);
-  FuncLoadError := not Assigned(OPENSSL_sk_is_sorted);
-  if FuncLoadError then
-  begin
+    OPENSSL_sk_is_sorted := LoadLibFunction(ADllHandle,
+      OPENSSL_sk_is_sorted_procname);
+    FuncLoadError := not Assigned(OPENSSL_sk_is_sorted);
+    if FuncLoadError then
+    begin
 {$IF not defined(OPENSSL_sk_is_sorted_allownil)}
-    OPENSSL_sk_is_sorted := @ERR_OPENSSL_sk_is_sorted;
+      OPENSSL_sk_is_sorted := @ERR_OPENSSL_sk_is_sorted;
 {$IFEND}
 {$IF declared(OPENSSL_sk_is_sorted_introduced)}
-    if LibVersion < OPENSSL_sk_is_sorted_introduced then
-    begin
+      if LibVersion < OPENSSL_sk_is_sorted_introduced then
+      begin
 {$IF declared(FC_OPENSSL_sk_is_sorted)}
-      OPENSSL_sk_is_sorted := @FC_OPENSSL_sk_is_sorted;
+        OPENSSL_sk_is_sorted := @FC_OPENSSL_sk_is_sorted;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(OPENSSL_sk_is_sorted_removed)}
-    if OPENSSL_sk_is_sorted_removed <= LibVersion then
-    begin
+      if OPENSSL_sk_is_sorted_removed <= LibVersion then
+      begin
 {$IF declared(_OPENSSL_sk_is_sorted)}
-      OPENSSL_sk_is_sorted := @_OPENSSL_sk_is_sorted;
+        OPENSSL_sk_is_sorted := @_OPENSSL_sk_is_sorted;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(OPENSSL_sk_is_sorted_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OPENSSL_sk_is_sorted');
+      if FuncLoadError then
+        AFailed.Add('OPENSSL_sk_is_sorted');
 {$IFEND}
-  end;
+    end;
   end;
 
   { introduced 1.1.0 }
