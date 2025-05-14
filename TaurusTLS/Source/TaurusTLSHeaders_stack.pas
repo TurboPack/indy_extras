@@ -742,8 +742,10 @@ end;
 
   {$i TaurusTLSNoRetValOn.inc}
 
-procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-var FuncLoadError: boolean;
+procedure LoadStackFunctions(const ADllHandle: TIdLibHandle;
+  LibVersion: TIdC_UINT; const AFailed: TStringList);
+var
+  FuncLoadError: boolean;
 
 begin
   if not Assigned(OPENSSL_sk_num) then
@@ -1600,66 +1602,72 @@ begin
   end;
 
   { introduced 1.1.0 }
-  sk_num := LoadLibFunction(ADllHandle, sk_num_procname);
-  FuncLoadError := not Assigned(sk_num);
-  if FuncLoadError then
+  if not Assigned(sk_num) then
   begin
+    sk_num := LoadLibFunction(ADllHandle, sk_num_procname);
+    FuncLoadError := not Assigned(sk_num);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_num_allownil)}
-    sk_num := @ERR_sk_num;
+      sk_num := @ERR_sk_num;
 {$IFEND}
 {$IF declared(sk_num_introduced)}
-    if LibVersion < sk_num_introduced then
-    begin
+      if LibVersion < sk_num_introduced then
+      begin
 {$IF declared(FC_sk_num)}
-      sk_num := @FC_sk_num;
+        sk_num := @FC_sk_num;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_num_removed)}
-    if sk_num_removed <= LibVersion then
-    begin
+      if sk_num_removed <= LibVersion then
+      begin
 {$IF declared(_sk_num)}
-      sk_num := @_sk_num;
+        sk_num := @_sk_num;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_num_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_num');
+      if FuncLoadError then
+        AFailed.Add('sk_num');
 {$IFEND}
+    end;
   end;
 
-  sk_value := LoadLibFunction(ADllHandle, sk_value_procname);
-  FuncLoadError := not Assigned(sk_value);
-  if FuncLoadError then
+  if not Assigned(sk_value) then
   begin
+    sk_value := LoadLibFunction(ADllHandle, sk_value_procname);
+    FuncLoadError := not Assigned(sk_value);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_value_allownil)}
-    sk_value := @ERR_sk_value;
+      sk_value := @ERR_sk_value;
 {$IFEND}
 {$IF declared(sk_value_introduced)}
-    if LibVersion < sk_value_introduced then
-    begin
+      if LibVersion < sk_value_introduced then
+      begin
 {$IF declared(FC_sk_value)}
-      sk_value := @FC_sk_value;
+        sk_value := @FC_sk_value;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_value_removed)}
-    if sk_value_removed <= LibVersion then
-    begin
+      if sk_value_removed <= LibVersion then
+      begin
 {$IF declared(_sk_value)}
-      sk_value := @_sk_value;
+        sk_value := @_sk_value;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_value_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_value');
+      if FuncLoadError then
+        AFailed.Add('sk_value');
 {$IFEND}
+    end;
   end;
 
   sk_set := LoadLibFunction(ADllHandle, sk_set_procname);
@@ -1692,659 +1700,701 @@ begin
       AFailed.Add('sk_set');
 {$IFEND}
   end;
-
-  sk_new := LoadLibFunction(ADllHandle, sk_new_procname);
-  FuncLoadError := not Assigned(sk_new);
-  if FuncLoadError then
+  if not Assigned(sk_new) then
   begin
+    sk_new := LoadLibFunction(ADllHandle, sk_new_procname);
+    FuncLoadError := not Assigned(sk_new);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_new_allownil)}
-    sk_new := @ERR_sk_new;
+      sk_new := @ERR_sk_new;
 {$IFEND}
 {$IF declared(sk_new_introduced)}
-    if LibVersion < sk_new_introduced then
-    begin
+      if LibVersion < sk_new_introduced then
+      begin
 {$IF declared(FC_sk_new)}
-      sk_new := @FC_sk_new;
+        sk_new := @FC_sk_new;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_new_removed)}
-    if sk_new_removed <= LibVersion then
-    begin
+      if sk_new_removed <= LibVersion then
+      begin
 {$IF declared(_sk_new)}
-      sk_new := @_sk_new;
+        sk_new := @_sk_new;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_new');
+      if FuncLoadError then
+        AFailed.Add('sk_new');
 {$IFEND}
+    end;
   end;
 
-  sk_new_null := LoadLibFunction(ADllHandle, sk_new_null_procname);
-  FuncLoadError := not Assigned(sk_new_null);
-  if FuncLoadError then
+  if not Assigned(sk_new_null) then
   begin
+    sk_new_null := LoadLibFunction(ADllHandle, sk_new_null_procname);
+    FuncLoadError := not Assigned(sk_new_null);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_new_null_allownil)}
-    sk_new_null := @ERR_sk_new_null;
+      sk_new_null := @ERR_sk_new_null;
 {$IFEND}
 {$IF declared(sk_new_null_introduced)}
-    if LibVersion < sk_new_null_introduced then
-    begin
+      if LibVersion < sk_new_null_introduced then
+      begin
 {$IF declared(FC_sk_new_null)}
-      sk_new_null := @FC_sk_new_null;
+        sk_new_null := @FC_sk_new_null;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_new_null_removed)}
-    if sk_new_null_removed <= LibVersion then
-    begin
+      if sk_new_null_removed <= LibVersion then
+      begin
 {$IF declared(_sk_new_null)}
-      sk_new_null := @_sk_new_null;
+        sk_new_null := @_sk_new_null;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_new_null_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_new_null');
+      if FuncLoadError then
+        AFailed.Add('sk_new_null');
 {$IFEND}
+    end;
   end;
 
-  sk_new_reserve := LoadLibFunction(ADllHandle, sk_new_reserve_procname);
-  FuncLoadError := not Assigned(sk_new_reserve);
-  if FuncLoadError then
+  if not Assigned(sk_new_reserve) then
   begin
+    sk_new_reserve := LoadLibFunction(ADllHandle, sk_new_reserve_procname);
+    FuncLoadError := not Assigned(sk_new_reserve);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_new_reserve_allownil)}
-    sk_new_reserve := @ERR_sk_new_reserve;
+      sk_new_reserve := @ERR_sk_new_reserve;
 {$IFEND}
 {$IF declared(sk_new_reserve_introduced)}
-    if LibVersion < sk_new_reserve_introduced then
-    begin
+      if LibVersion < sk_new_reserve_introduced then
+      begin
 {$IF declared(FC_sk_new_reserve)}
-      sk_new_reserve := @FC_sk_new_reserve;
+        sk_new_reserve := @FC_sk_new_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_new_reserve_removed)}
-    if sk_new_reserve_removed <= LibVersion then
-    begin
+      if sk_new_reserve_removed <= LibVersion then
+      begin
 {$IF declared(_sk_new_reserve)}
-      sk_new_reserve := @_sk_new_reserve;
+        sk_new_reserve := @_sk_new_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_new_reserve_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_new_reserve');
+      if FuncLoadError then
+        AFailed.Add('sk_new_reserve');
 {$IFEND}
+    end;
   end;
-
-  sk_reserve := LoadLibFunction(ADllHandle, sk_reserve_procname);
-  FuncLoadError := not Assigned(sk_reserve);
-  if FuncLoadError then
+  if not Assigned(sk_reserve) then
   begin
+    sk_reserve := LoadLibFunction(ADllHandle, sk_reserve_procname);
+    FuncLoadError := not Assigned(sk_reserve);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_reserve_allownil)}
-    sk_reserve := @ERR_sk_reserve;
+      sk_reserve := @ERR_sk_reserve;
 {$IFEND}
 {$IF declared(sk_reserve_introduced)}
-    if LibVersion < sk_reserve_introduced then
-    begin
+      if LibVersion < sk_reserve_introduced then
+      begin
 {$IF declared(FC_sk_reserve)}
-      sk_reserve := @FC_sk_reserve;
+        sk_reserve := @FC_sk_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_reserve_removed)}
-    if sk_reserve_removed <= LibVersion then
-    begin
+      if sk_reserve_removed <= LibVersion then
+      begin
 {$IF declared(_sk_reserve)}
-      sk_reserve := @_sk_reserve;
+        sk_reserve := @_sk_reserve;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_reserve_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_reserve');
+      if FuncLoadError then
+        AFailed.Add('sk_reserve');
 {$IFEND}
+    end;
   end;
-
-  sk_free := LoadLibFunction(ADllHandle, sk_free_procname);
-  FuncLoadError := not Assigned(sk_free);
-  if FuncLoadError then
+  if not Assigned(sk_free) then
   begin
+    sk_free := LoadLibFunction(ADllHandle, sk_free_procname);
+    FuncLoadError := not Assigned(sk_free);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_free_allownil)}
-    sk_free := @ERR_sk_free;
+      sk_free := @ERR_sk_free;
 {$IFEND}
 {$IF declared(sk_free_introduced)}
-    if LibVersion < sk_free_introduced then
-    begin
+      if LibVersion < sk_free_introduced then
+      begin
 {$IF declared(FC_sk_free)}
-      sk_free := @FC_sk_free;
+        sk_free := @FC_sk_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_free_removed)}
-    if sk_free_removed <= LibVersion then
-    begin
+      if sk_free_removed <= LibVersion then
+      begin
 {$IF declared(_sk_free)}
-      sk_free := @_sk_free;
+        sk_free := @_sk_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_free');
+      if FuncLoadError then
+        AFailed.Add('sk_free');
 {$IFEND}
+    end;
   end;
-
-  sk_pop_free := LoadLibFunction(ADllHandle, sk_pop_free_procname);
-  FuncLoadError := not Assigned(sk_pop_free);
-  if FuncLoadError then
+  if not Assigned(sk_pop_free) then
   begin
+    sk_pop_free := LoadLibFunction(ADllHandle, sk_pop_free_procname);
+    FuncLoadError := not Assigned(sk_pop_free);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_pop_free_allownil)}
-    sk_pop_free := @ERR_sk_pop_free;
+      sk_pop_free := @ERR_sk_pop_free;
 {$IFEND}
 {$IF declared(sk_pop_free_introduced)}
-    if LibVersion < sk_pop_free_introduced then
-    begin
+      if LibVersion < sk_pop_free_introduced then
+      begin
 {$IF declared(FC_sk_pop_free)}
-      sk_pop_free := @FC_sk_pop_free;
+        sk_pop_free := @FC_sk_pop_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_pop_free_removed)}
-    if sk_pop_free_removed <= LibVersion then
-    begin
+      if sk_pop_free_removed <= LibVersion then
+      begin
 {$IF declared(_sk_pop_free)}
-      sk_pop_free := @_sk_pop_free;
+        sk_pop_free := @_sk_pop_free;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_pop_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_pop_free');
+      if FuncLoadError then
+        AFailed.Add('sk_pop_free');
 {$IFEND}
+    end;
   end;
-
-  sk_deep_copy := LoadLibFunction(ADllHandle, sk_deep_copy_procname);
-  FuncLoadError := not Assigned(sk_deep_copy);
-  if FuncLoadError then
+  if not Assigned(sk_deep_copy) then
   begin
+    sk_deep_copy := LoadLibFunction(ADllHandle, sk_deep_copy_procname);
+    FuncLoadError := not Assigned(sk_deep_copy);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_deep_copy_allownil)}
-    sk_deep_copy := @ERR_sk_deep_copy;
+      sk_deep_copy := @ERR_sk_deep_copy;
 {$IFEND}
 {$IF declared(sk_deep_copy_introduced)}
-    if LibVersion < sk_deep_copy_introduced then
-    begin
+      if LibVersion < sk_deep_copy_introduced then
+      begin
 {$IF declared(FC_sk_deep_copy)}
-      sk_deep_copy := @FC_sk_deep_copy;
+        sk_deep_copy := @FC_sk_deep_copy;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_deep_copy_removed)}
-    if sk_deep_copy_removed <= LibVersion then
-    begin
+      if sk_deep_copy_removed <= LibVersion then
+      begin
 {$IF declared(_sk_deep_copy)}
-      sk_deep_copy := @_sk_deep_copy;
+        sk_deep_copy := @_sk_deep_copy;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_deep_copy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_deep_copy');
+      if FuncLoadError then
+        AFailed.Add('sk_deep_copy');
 {$IFEND}
+    end;
   end;
-
-  sk_insert := LoadLibFunction(ADllHandle, sk_insert_procname);
-  FuncLoadError := not Assigned(sk_insert);
-  if FuncLoadError then
+  if not Assigned(sk_insert) then
   begin
+    sk_insert := LoadLibFunction(ADllHandle, sk_insert_procname);
+    FuncLoadError := not Assigned(sk_insert);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_insert_allownil)}
-    sk_insert := @ERR_sk_insert;
+      sk_insert := @ERR_sk_insert;
 {$IFEND}
 {$IF declared(sk_insert_introduced)}
-    if LibVersion < sk_insert_introduced then
-    begin
+      if LibVersion < sk_insert_introduced then
+      begin
 {$IF declared(FC_sk_insert)}
-      sk_insert := @FC_sk_insert;
+        sk_insert := @FC_sk_insert;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_insert_removed)}
-    if sk_insert_removed <= LibVersion then
-    begin
+      if sk_insert_removed <= LibVersion then
+      begin
 {$IF declared(_sk_insert)}
-      sk_insert := @_sk_insert;
+        sk_insert := @_sk_insert;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_insert_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_insert');
+      if FuncLoadError then
+        AFailed.Add('sk_insert');
 {$IFEND}
+    end;
   end;
-
-  sk_delete := LoadLibFunction(ADllHandle, sk_delete_procname);
-  FuncLoadError := not Assigned(sk_delete);
-  if FuncLoadError then
+  if not Assigned(sk_delete) then
   begin
+    sk_delete := LoadLibFunction(ADllHandle, sk_delete_procname);
+    FuncLoadError := not Assigned(sk_delete);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_delete_allownil)}
-    sk_delete := @ERR_sk_delete;
+      sk_delete := @ERR_sk_delete;
 {$IFEND}
 {$IF declared(sk_delete_introduced)}
-    if LibVersion < sk_delete_introduced then
-    begin
+      if LibVersion < sk_delete_introduced then
+      begin
 {$IF declared(FC_sk_delete)}
-      sk_delete := @FC_sk_delete;
+        sk_delete := @FC_sk_delete;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_delete_removed)}
-    if sk_delete_removed <= LibVersion then
-    begin
+      if sk_delete_removed <= LibVersion then
+      begin
 {$IF declared(_sk_delete)}
-      sk_delete := @_sk_delete;
+        sk_delete := @_sk_delete;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_delete_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_delete');
+      if FuncLoadError then
+        AFailed.Add('sk_delete');
 {$IFEND}
+    end;
   end;
-
-  sk_delete_ptr := LoadLibFunction(ADllHandle, sk_delete_ptr_procname);
-  FuncLoadError := not Assigned(sk_delete_ptr);
-  if FuncLoadError then
+  if not Assigned(sk_delete_ptr) then
   begin
+    sk_delete_ptr := LoadLibFunction(ADllHandle, sk_delete_ptr_procname);
+    FuncLoadError := not Assigned(sk_delete_ptr);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_delete_ptr_allownil)}
-    sk_delete_ptr := @ERR_sk_delete_ptr;
+      sk_delete_ptr := @ERR_sk_delete_ptr;
 {$IFEND}
 {$IF declared(sk_delete_ptr_introduced)}
-    if LibVersion < sk_delete_ptr_introduced then
-    begin
+      if LibVersion < sk_delete_ptr_introduced then
+      begin
 {$IF declared(FC_sk_delete_ptr)}
-      sk_delete_ptr := @FC_sk_delete_ptr;
+        sk_delete_ptr := @FC_sk_delete_ptr;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_delete_ptr_removed)}
-    if sk_delete_ptr_removed <= LibVersion then
-    begin
+      if sk_delete_ptr_removed <= LibVersion then
+      begin
 {$IF declared(_sk_delete_ptr)}
-      sk_delete_ptr := @_sk_delete_ptr;
+        sk_delete_ptr := @_sk_delete_ptr;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_delete_ptr_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_delete_ptr');
+      if FuncLoadError then
+        AFailed.Add('sk_delete_ptr');
 {$IFEND}
+    end;
   end;
-
-  sk_find := LoadLibFunction(ADllHandle, sk_find_procname);
-  FuncLoadError := not Assigned(sk_find);
-  if FuncLoadError then
+  if not Assigned(sk_find) then
   begin
+    sk_find := LoadLibFunction(ADllHandle, sk_find_procname);
+    FuncLoadError := not Assigned(sk_find);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_find_allownil)}
-    sk_find := @ERR_sk_find;
+      sk_find := @ERR_sk_find;
 {$IFEND}
 {$IF declared(sk_find_introduced)}
-    if LibVersion < sk_find_introduced then
-    begin
+      if LibVersion < sk_find_introduced then
+      begin
 {$IF declared(FC_sk_find)}
-      sk_find := @FC_sk_find;
+        sk_find := @FC_sk_find;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_find_removed)}
-    if sk_find_removed <= LibVersion then
-    begin
+      if sk_find_removed <= LibVersion then
+      begin
 {$IF declared(_sk_find)}
-      sk_find := @_sk_find;
+        sk_find := @_sk_find;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_find_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_find');
+      if FuncLoadError then
+        AFailed.Add('sk_find');
 {$IFEND}
+    end;
   end;
-
-  sk_find_ex := LoadLibFunction(ADllHandle, sk_find_ex_procname);
-  FuncLoadError := not Assigned(sk_find_ex);
-  if FuncLoadError then
+  if not Assigned(sk_find_ex) then
   begin
+    sk_find_ex := LoadLibFunction(ADllHandle, sk_find_ex_procname);
+    FuncLoadError := not Assigned(sk_find_ex);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_find_ex_allownil)}
-    sk_find_ex := @ERR_sk_find_ex;
+      sk_find_ex := @ERR_sk_find_ex;
 {$IFEND}
 {$IF declared(sk_find_ex_introduced)}
-    if LibVersion < sk_find_ex_introduced then
-    begin
+      if LibVersion < sk_find_ex_introduced then
+      begin
 {$IF declared(FC_sk_find_ex)}
-      sk_find_ex := @FC_sk_find_ex;
+        sk_find_ex := @FC_sk_find_ex;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_find_ex_removed)}
-    if sk_find_ex_removed <= LibVersion then
-    begin
+      if sk_find_ex_removed <= LibVersion then
+      begin
 {$IF declared(_sk_find_ex)}
-      sk_find_ex := @_sk_find_ex;
+        sk_find_ex := @_sk_find_ex;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_find_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_find_ex');
+      if FuncLoadError then
+        AFailed.Add('sk_find_ex');
 {$IFEND}
+    end;
   end;
-
-  sk_push := LoadLibFunction(ADllHandle, sk_push_procname);
-  FuncLoadError := not Assigned(sk_push);
-  if FuncLoadError then
+  if not Assigned(sk_push) then
   begin
+    sk_push := LoadLibFunction(ADllHandle, sk_push_procname);
+    FuncLoadError := not Assigned(sk_push);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_push_allownil)}
-    sk_push := @ERR_sk_push;
+      sk_push := @ERR_sk_push;
 {$IFEND}
 {$IF declared(sk_push_introduced)}
-    if LibVersion < sk_push_introduced then
-    begin
+      if LibVersion < sk_push_introduced then
+      begin
 {$IF declared(FC_sk_push)}
-      sk_push := @FC_sk_push;
+        sk_push := @FC_sk_push;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_push_removed)}
-    if sk_push_removed <= LibVersion then
-    begin
+      if sk_push_removed <= LibVersion then
+      begin
 {$IF declared(_sk_push)}
-      sk_push := @_sk_push;
+        sk_push := @_sk_push;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_push_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_push');
+      if FuncLoadError then
+        AFailed.Add('sk_push');
 {$IFEND}
+    end;
   end;
-
-  sk_unshift := LoadLibFunction(ADllHandle, sk_unshift_procname);
-  FuncLoadError := not Assigned(sk_unshift);
-  if FuncLoadError then
+  if not Assigned(sk_unshift) then
   begin
+    sk_unshift := LoadLibFunction(ADllHandle, sk_unshift_procname);
+    FuncLoadError := not Assigned(sk_unshift);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_unshift_allownil)}
-    sk_unshift := @ERR_sk_unshift;
+      sk_unshift := @ERR_sk_unshift;
 {$IFEND}
 {$IF declared(sk_unshift_introduced)}
-    if LibVersion < sk_unshift_introduced then
-    begin
+      if LibVersion < sk_unshift_introduced then
+      begin
 {$IF declared(FC_sk_unshift)}
-      sk_unshift := @FC_sk_unshift;
+        sk_unshift := @FC_sk_unshift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_unshift_removed)}
-    if sk_unshift_removed <= LibVersion then
-    begin
+      if sk_unshift_removed <= LibVersion then
+      begin
 {$IF declared(_sk_unshift)}
-      sk_unshift := @_sk_unshift;
+        sk_unshift := @_sk_unshift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_unshift_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_unshift');
+      if FuncLoadError then
+        AFailed.Add('sk_unshift');
 {$IFEND}
+    end;
   end;
-
-  sk_shift := LoadLibFunction(ADllHandle, sk_shift_procname);
-  FuncLoadError := not Assigned(sk_shift);
-  if FuncLoadError then
+  if not Assigned(sk_shift) then
   begin
+    sk_shift := LoadLibFunction(ADllHandle, sk_shift_procname);
+    FuncLoadError := not Assigned(sk_shift);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_shift_allownil)}
-    sk_shift := @ERR_sk_shift;
+      sk_shift := @ERR_sk_shift;
 {$IFEND}
 {$IF declared(sk_shift_introduced)}
-    if LibVersion < sk_shift_introduced then
-    begin
+      if LibVersion < sk_shift_introduced then
+      begin
 {$IF declared(FC_sk_shift)}
-      sk_shift := @FC_sk_shift;
+        sk_shift := @FC_sk_shift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_shift_removed)}
-    if sk_shift_removed <= LibVersion then
-    begin
+      if sk_shift_removed <= LibVersion then
+      begin
 {$IF declared(_sk_shift)}
-      sk_shift := @_sk_shift;
+        sk_shift := @_sk_shift;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_shift_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_shift');
+      if FuncLoadError then
+        AFailed.Add('sk_shift');
 {$IFEND}
+    end;
   end;
-
-  sk_pop := LoadLibFunction(ADllHandle, sk_pop_procname);
-  FuncLoadError := not Assigned(sk_pop);
-  if FuncLoadError then
+  if not Assigned(sk_pop) then
   begin
+    sk_pop := LoadLibFunction(ADllHandle, sk_pop_procname);
+    FuncLoadError := not Assigned(sk_pop);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_pop_allownil)}
-    sk_pop := @ERR_sk_pop;
+      sk_pop := @ERR_sk_pop;
 {$IFEND}
 {$IF declared(sk_pop_introduced)}
-    if LibVersion < sk_pop_introduced then
-    begin
+      if LibVersion < sk_pop_introduced then
+      begin
 {$IF declared(FC_sk_pop)}
-      sk_pop := @FC_sk_pop;
+        sk_pop := @FC_sk_pop;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_pop_removed)}
-    if sk_pop_removed <= LibVersion then
-    begin
+      if sk_pop_removed <= LibVersion then
+      begin
 {$IF declared(_sk_pop)}
-      sk_pop := @_sk_pop;
+        sk_pop := @_sk_pop;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_pop_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_pop');
+      if FuncLoadError then
+        AFailed.Add('sk_pop');
 {$IFEND}
+    end;
   end;
-
-  sk_zero := LoadLibFunction(ADllHandle, sk_zero_procname);
-  FuncLoadError := not Assigned(sk_zero);
-  if FuncLoadError then
+  if not Assigned(sk_zero) then
   begin
+    sk_zero := LoadLibFunction(ADllHandle, sk_zero_procname);
+    FuncLoadError := not Assigned(sk_zero);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_zero_allownil)}
-    sk_zero := @ERR_sk_zero;
+      sk_zero := @ERR_sk_zero;
 {$IFEND}
 {$IF declared(sk_zero_introduced)}
-    if LibVersion < sk_zero_introduced then
-    begin
+      if LibVersion < sk_zero_introduced then
+      begin
 {$IF declared(FC_sk_zero)}
-      sk_zero := @FC_sk_zero;
+        sk_zero := @FC_sk_zero;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_zero_removed)}
-    if sk_zero_removed <= LibVersion then
-    begin
+      if sk_zero_removed <= LibVersion then
+      begin
 {$IF declared(_sk_zero)}
-      sk_zero := @_sk_zero;
+        sk_zero := @_sk_zero;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_zero_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_zero');
+      if FuncLoadError then
+        AFailed.Add('sk_zero');
 {$IFEND}
+    end;
   end;
-
-  sk_set_cmp_func := LoadLibFunction(ADllHandle, sk_set_cmp_func_procname);
-  FuncLoadError := not Assigned(sk_set_cmp_func);
-  if FuncLoadError then
+  if not Assigned(sk_set_cmp_func) then
   begin
+    sk_set_cmp_func := LoadLibFunction(ADllHandle, sk_set_cmp_func_procname);
+    FuncLoadError := not Assigned(sk_set_cmp_func);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_set_cmp_func_allownil)}
-    sk_set_cmp_func := @ERR_sk_set_cmp_func;
+      sk_set_cmp_func := @ERR_sk_set_cmp_func;
 {$IFEND}
 {$IF declared(sk_set_cmp_func_introduced)}
-    if LibVersion < sk_set_cmp_func_introduced then
-    begin
+      if LibVersion < sk_set_cmp_func_introduced then
+      begin
 {$IF declared(FC_sk_set_cmp_func)}
-      sk_set_cmp_func := @FC_sk_set_cmp_func;
+        sk_set_cmp_func := @FC_sk_set_cmp_func;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_set_cmp_func_removed)}
-    if sk_set_cmp_func_removed <= LibVersion then
-    begin
+      if sk_set_cmp_func_removed <= LibVersion then
+      begin
 {$IF declared(_sk_set_cmp_func)}
-      sk_set_cmp_func := @_sk_set_cmp_func;
+        sk_set_cmp_func := @_sk_set_cmp_func;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_set_cmp_func_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_set_cmp_func');
+      if FuncLoadError then
+        AFailed.Add('sk_set_cmp_func');
 {$IFEND}
+    end;
   end;
-
-  sk_dup := LoadLibFunction(ADllHandle, sk_dup_procname);
-  FuncLoadError := not Assigned(sk_dup);
-  if FuncLoadError then
+  if not Assigned(sk_dup) then
   begin
+    sk_dup := LoadLibFunction(ADllHandle, sk_dup_procname);
+    FuncLoadError := not Assigned(sk_dup);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_dup_allownil)}
-    sk_dup := @ERR_sk_dup;
+      sk_dup := @ERR_sk_dup;
 {$IFEND}
 {$IF declared(sk_dup_introduced)}
-    if LibVersion < sk_dup_introduced then
-    begin
+      if LibVersion < sk_dup_introduced then
+      begin
 {$IF declared(FC_sk_dup)}
-      sk_dup := @FC_sk_dup;
+        sk_dup := @FC_sk_dup;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_dup_removed)}
-    if sk_dup_removed <= LibVersion then
-    begin
+      if sk_dup_removed <= LibVersion then
+      begin
 {$IF declared(_sk_dup)}
-      sk_dup := @_sk_dup;
+        sk_dup := @_sk_dup;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_dup');
+      if FuncLoadError then
+        AFailed.Add('sk_dup');
 {$IFEND}
+    end;
   end;
-
-  sk_sort := LoadLibFunction(ADllHandle, sk_sort_procname);
-  FuncLoadError := not Assigned(sk_sort);
-  if FuncLoadError then
+  if not Assigned(sk_sort) then
   begin
+    sk_sort := LoadLibFunction(ADllHandle, sk_sort_procname);
+    FuncLoadError := not Assigned(sk_sort);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_sort_allownil)}
-    sk_sort := @ERR_sk_sort;
+      sk_sort := @ERR_sk_sort;
 {$IFEND}
 {$IF declared(sk_sort_introduced)}
-    if LibVersion < sk_sort_introduced then
-    begin
+      if LibVersion < sk_sort_introduced then
+      begin
 {$IF declared(FC_sk_sort)}
-      sk_sort := @FC_sk_sort;
+        sk_sort := @FC_sk_sort;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_sort_removed)}
-    if sk_sort_removed <= LibVersion then
-    begin
+      if sk_sort_removed <= LibVersion then
+      begin
 {$IF declared(_sk_sort)}
-      sk_sort := @_sk_sort;
+        sk_sort := @_sk_sort;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_sort_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_sort');
+      if FuncLoadError then
+        AFailed.Add('sk_sort');
 {$IFEND}
+    end;
   end;
-
-  sk_is_sorted := LoadLibFunction(ADllHandle, sk_is_sorted_procname);
-  FuncLoadError := not Assigned(sk_is_sorted);
-  if FuncLoadError then
+  if not Assigned(sk_is_sorted) then
   begin
+    sk_is_sorted := LoadLibFunction(ADllHandle, sk_is_sorted_procname);
+    FuncLoadError := not Assigned(sk_is_sorted);
+    if FuncLoadError then
+    begin
 {$IF not defined(sk_is_sorted_allownil)}
-    sk_is_sorted := @ERR_sk_is_sorted;
+      sk_is_sorted := @ERR_sk_is_sorted;
 {$IFEND}
 {$IF declared(sk_is_sorted_introduced)}
-    if LibVersion < sk_is_sorted_introduced then
-    begin
+      if LibVersion < sk_is_sorted_introduced then
+      begin
 {$IF declared(FC_sk_is_sorted)}
-      sk_is_sorted := @FC_sk_is_sorted;
+        sk_is_sorted := @FC_sk_is_sorted;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF declared(sk_is_sorted_removed)}
-    if sk_is_sorted_removed <= LibVersion then
-    begin
+      if sk_is_sorted_removed <= LibVersion then
+      begin
 {$IF declared(_sk_is_sorted)}
-      sk_is_sorted := @_sk_is_sorted;
+        sk_is_sorted := @_sk_is_sorted;
 {$IFEND}
-      FuncLoadError := false;
-    end;
+        FuncLoadError := false;
+      end;
 {$IFEND}
 {$IF not defined(sk_is_sorted_allownil)}
-    if FuncLoadError then
-      AFailed.Add('sk_is_sorted');
+      if FuncLoadError then
+        AFailed.Add('sk_is_sorted');
 {$IFEND}
+    end;
   end;
-
-
 end;
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
