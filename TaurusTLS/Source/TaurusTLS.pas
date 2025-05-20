@@ -1020,6 +1020,9 @@ type
   /// Properties and methods for dealing with a TLS Socket.
   /// </summary>
   TTaurusTLSSocket = class(TObject)
+  private
+    function GetVerifyHostname: Boolean;
+    procedure SetVerifyHostName(const Value: Boolean);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
 {$IFDEF USE_OBJECT_ARC}[Weak]
@@ -1141,6 +1144,10 @@ type
     /// TLS Protocol version in use as a string.
     /// </summary>
     property SSLProtocolVersionStr: string read GetSSLProtocolVersionStr;
+    /// <summary>
+    /// Peer Certificate must match hostname
+    /// </summary>
+    property VefiryHostname : Boolean read GetVerifyHostname write SetVerifyHostName;
   end;
 
   /// <summary>
@@ -2851,6 +2858,7 @@ begin
           LIO.SSLOptions.Assign(fSSLOptions);
           LIO.IsPeer := True;
           LIO.SSLSocket := TTaurusTLSSocket.Create(Self);
+          LIO.SSLSocket.VefiryHostname := Self.SSLOptions.VerifyHostname;
           LIO.SSLContext := fSSLContext;
           // TODO: to enable server-side SNI, we need to:
           // - Set up an additional SSL_CTX for each different certificate;
@@ -3293,6 +3301,7 @@ begin
   if not Assigned(fSSLSocket) then
   begin
     fSSLSocket := TTaurusTLSSocket.Create(Self);
+    fSSLSocket.VefiryHostname := Self.SSLOptions.VerifyHostname;
   end;
   Assert(fSSLSocket.SSLContext = nil);
   fSSLSocket.SSLContext := fSSLContext;
@@ -4174,7 +4183,7 @@ begin
 
   { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
     first character to the hostname is passed }
-  if Self.fVerifyHostname then
+  if fVerifyHostname then
   begin
     if fHostName <> '' then
     begin
@@ -4304,6 +4313,11 @@ begin
   until False;
 end;
 
+procedure TTaurusTLSSocket.SetVerifyHostName(const Value: Boolean);
+begin
+  Self.fVerifyHostname := Value;
+end;
+
 function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
 begin
   if fSession = nil then
@@ -4343,6 +4357,11 @@ begin
     TLSv1_3:
       Result := 'TLSv1.3';
   end;
+end;
+
+function TTaurusTLSSocket.GetVerifyHostname: Boolean;
+begin
+  Result := Self.fVerifyHostname;
 end;
 
 function TTaurusTLSSocket.GetPeerCert: TTaurusTLSX509;
