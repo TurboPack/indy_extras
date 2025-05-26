@@ -4163,6 +4163,7 @@ var
 {$IFNDEF  USE_INLINE_VAR}
   lHostName: AnsiString;
 {$ENDIF}
+  LFunc : SSL_verify_cb;
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
@@ -4215,8 +4216,17 @@ begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
           RSSSLSettingTLSHostNameError);
       end;
+      if sslvrfPeer in Self.fSSLContext.VerifyMode then
+      begin
+        LFunc := VerifyCallback;
+      end
+      else
+      begin
+        LFunc := nil;
+      end;
       SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-        (fSSLContext.VerifyMode), VerifyCallback);
+          (fSSLContext.VerifyMode), LFunc);
+      SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
     end;
   end;
 
