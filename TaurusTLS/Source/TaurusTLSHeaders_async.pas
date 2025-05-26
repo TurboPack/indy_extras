@@ -4,7 +4,7 @@
      and this file regenerated. TaurusTLSHeaders_async.h2pas is distributed with the full Indy
      Distribution.
    *)
-{$WARN 5023 off : Unit "$1" not used in $2}
+   
 {$i TaurusTLSCompilerDefines.inc} 
 {$i TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
