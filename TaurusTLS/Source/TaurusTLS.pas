@@ -2193,6 +2193,28 @@ end;
 
 {$I TaurusTLSUnusedParamOff.inc}
 
+function VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX) : TIdC_INT cdecl;
+var
+  LErr : Integer;
+begin
+  Result := 1;
+  // Preserve last error just in case TaurusTLS is using it and we do something that
+  // clobers it.  CYA.
+   LErr := GStack.WSGetLastError;
+   try
+     LockInfoCB.Enter;
+     try
+       if not preverify_ok > 0 then
+       begin
+       end;
+     finally
+       LockPassCB.Leave;
+     end;
+   finally
+     GStack.WSSetLastError(LErr);
+   end;
+end;
+
 function SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
   bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
 var
@@ -4194,7 +4216,7 @@ begin
           RSSSLSettingTLSHostNameError);
       end;
       SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-        (fSSLContext.VerifyMode), nil);
+        (fSSLContext.VerifyMode), VerifyCallback);
     end;
   end;
 
