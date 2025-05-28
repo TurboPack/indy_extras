@@ -4210,6 +4210,7 @@ begin
   begin
     if fHostName <> '' then
     begin
+      SSL_set_hostflags(fSSL,0);
       LRetCode := SSL_set1_host(fSSL, PIdAnsiChar(AnsiString(fHostName)));
       if LRetCode <= 0 then
       begin
