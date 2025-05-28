@@ -41,6 +41,7 @@ resourcestring
   RSOSSLCopySessionIdError = 'SSL_copy_session_id error';
   ROSUnsupported = 'Not Supported';
   RSOSSLCertificateDoesNotMatch = 'SSL certificate does not match host name';
+  RSSSLSettingTLSHostNameError = 'SSL_set1_host failed error.';
   // callback where strings
   RSOSSLAlert = '%s Alert';
   RSOSSLReadAlert = '%s Read Alert';
