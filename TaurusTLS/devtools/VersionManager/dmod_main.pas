@@ -199,6 +199,45 @@ begin
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);
 
+  UpdatePackage('..\..\..\..\Packages\Tokyo\Delphi\TaurusTLS_RTForIndy250.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Tokyo\Delphi\TaurusTLS_DTForIndy250.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Tokyo\Delphi\TaurusTLS_RT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Tokyo\Delphi\TaurusTLS_DT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+
+  UpdatePackage('..\..\..\..\Packages\Berlin\Delphi\TaurusTLS_RTForIndy240.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Berlin\Delphi\TaurusTLS_DTForIndy240.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Berlin\Delphi\TaurusTLS_RT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Berlin\Delphi\TaurusTLS_DT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+
+  UpdatePackage('..\..\..\..\Packages\Seattle\Delphi\TaurusTLS_RTForIndy230.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Seattle\Delphi\TaurusTLS_DTForIndy230.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Seattle\Delphi\TaurusTLS_RT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+   UpdatePackage('..\..\..\..\Packages\Seattle\Delphi\TaurusTLS_DT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+
   UpdatePackage('..\..\..\..\Packages\Sydney\Delphi\TaurusTLS_RTForIndy270.dproj',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);

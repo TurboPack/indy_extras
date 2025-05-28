@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{2C9287E4-43EE-4D6C-AB7F-DB17F54B035E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\Sydney\Delphi\TaurusTLS_DTForIndy240.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="TaurusTLS_RTForIndy240.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TaurusTLS_DTForIndy240">
+        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy240.dproj"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy240:Clean">
+        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy240.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy240:Make">
+        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy240.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TaurusTLS_RTForIndy240">
+        <MSBuild Projects="TaurusTLS_RTForIndy240.dproj"/>
+    </Target>
+    <Target Name="TaurusTLS_RTForIndy240:Clean">
+        <MSBuild Projects="TaurusTLS_RTForIndy240.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TaurusTLS_RTForIndy240:Make">
+        <MSBuild Projects="TaurusTLS_RTForIndy240.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TaurusTLS_DTForIndy240;TaurusTLS_RTForIndy240"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TaurusTLS_DTForIndy240:Clean;TaurusTLS_RTForIndy240:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TaurusTLS_DTForIndy240:Make;TaurusTLS_RTForIndy240:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
