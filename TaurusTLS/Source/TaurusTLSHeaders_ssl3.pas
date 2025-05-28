@@ -28,7 +28,10 @@ interface
 
 
 uses
-  IdGlobal;
+  IdGlobal
+  {$IFNDEF FPC}
+  , TaurusTLSHeaders_ossl_typ
+  {$ENDIF};
 
 const
   (*

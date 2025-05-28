@@ -32,7 +32,8 @@ uses
   IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   , TaurusTLSConsts
-  {$ENDIF};
+  {$ENDIF}
+  {$IFNDEF FPC}, TaurusTLSHeaders_ossl_typ{$ENDIF};
 
 const
   SHA_LBLOCK = 16;

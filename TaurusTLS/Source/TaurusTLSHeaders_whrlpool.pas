@@ -32,6 +32,9 @@ uses
   IdGlobal
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   , TaurusTLSConsts
+  {$ENDIF}
+  {$IFNDEF FPC}
+  , TaurusTLSHeaders_ossl_typ
   {$ENDIF};
 
 const

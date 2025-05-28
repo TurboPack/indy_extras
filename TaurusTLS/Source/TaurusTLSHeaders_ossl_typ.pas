@@ -115,6 +115,12 @@ type
 {$IF NOT DECLARED(PPIdC_INT)}
   PPIdC_INT = ^PIdC_INT;
 {$IFEND}
+{$IF NOT DECLARED(TIdAnsiChar)}
+  TIdAnsiChar = AnsiChar;
+{$IFEND}
+{$IF NOT DECLARED(PIdAnsiChar)}
+  PIdAnsiChar = PAnsiChar;
+{$IFEND}
 {$IF NOT DECLARED(PPIdAnsiChar)}
   {$IFDEF HAS_PPAnsiChar}
   PPIdAnsiChar = PPAnsiChar;

@@ -174,7 +174,12 @@ procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IF NOT DECLARED( LoadLibFunction)}
+//Have to do things this way because LoadLibFunction is now "declared" even though
+//it's just a forward reference we intend to resolve.  Seen in Delphi 2009.
+  {$DEFINE LOADLIB_UNAVAIL}
+  {$IFDEF LOADLIB_UNAVAIL}
 function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
+   {$ENDIF}
 {$IFEND}
 {$ENDIF}
 
@@ -188,7 +193,10 @@ uses
   TaurusTLS_ResourceStrings
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFDEF WINDOWS}, Windows{$ENDIF}
-{$IFDEF FPC}, dynlibs{$ELSE}, System.IOUtils{$ENDIF}
+{$IFDEF FPC}, dynlibs{$ELSE}
+  {$IFDEF VCL_2010_OR_ABOVE}, System.IOUtils
+  {$ENDIF}
+{$ENDIF}
     , TaurusTLSConsts,
   IdThreadSafe,
   SysUtils
@@ -237,12 +245,13 @@ end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
-{$IF NOT DECLARED( LoadLibFunction)}
+{$IFDEF LOADLIB_UNAVAIL}
 function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
 begin
   Result := {$IFDEF WINDOWS}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
 end;
-{$IFEND}
+
+{$ENDIF}
 
 type
 
@@ -301,10 +310,29 @@ begin
     {$ELSE} 0 {$ENDIF});
 end;
 
+{$IF NOT DECLARED(rpos)}
+function RPos(Substr: string; S: string): Integer;
+var
+  i: Integer;
+begin
+  Result := 0;
+  if ((Length(S) > 0) and (Length(Substr) > 0)) then
+    if (Length(S) >= Length(Substr)) then
+      for i:= (Length(S) - Length(Substr)) downto 1 do
+        if (Copy(S, i, Length(Substr)) = Substr) then
+        begin
+          Result := i;
+          Exit;
+        end;
+end;
+{$IFEND}
+
 Function TaurusTLSExtractFileNameWithoutExt(const libname:String) : String;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 Begin
-  {$IFDEF FPC}
+  {$IFDEF VCL_2010_OR_ABOVE}
+  Result := TPath.GetFileNameWithoutExtension(LibName);
+  {$ELSE}
   if ExtractFileExt(libname) <> '' then
   begin
     Result := ExtractFilename(copy(libname,1,rpos(ExtractFileExt(libname),libname)-1))
@@ -313,18 +341,16 @@ Begin
   begin
     Result := ExtractFilename(libname);
   end;
-  {$ELSE}
-  Result := TPath.GetFileNameWithoutExtension(LibName);
   {$ENDIF}
 End;
 
 function TaurusTLSExtractFileExt(const LibName: String): String;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  {$IFDEF FPC}
-  Result := ExtractFileExt(LibName);
-  {$ELSE}
+  {$IFDEF VCL_2010_OR_ABOVE}
   Result := TPath.GetExtension(LibName);
+  {$ELSE}
+  Result := ExtractFileExt(LibName);
   {$ENDIF}
 end;
 
