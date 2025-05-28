@@ -199,6 +199,19 @@ begin
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);
 
+  UpdatePackage('..\..\..\..\Packages\Sydney\Delphi\TaurusTLS_RTForIndy270.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Sydney\Delphi\TaurusTLS_DTForIndy270.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Sydney\Delphi\TaurusTLS_RT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\Sydney\Delphi\TaurusTLS_DT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+
    UpdateLazPkg('..\..\..\..\Packages\Lazarus\taurustlsrt.lpk',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName);
    UpdateLazPkg('..\..\..\..\Packages\Lazarus\taurustlsldsgn.lpk',
