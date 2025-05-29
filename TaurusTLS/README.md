@@ -31,6 +31,17 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 
 ## RAD Studio Installation
 
+TaurusTLS supports the following RAD Studio versions:
+ - Athens (Delphi 12)
+ - Alexandria (Delphi 11)
+ - Sydney (Delphi 10.4)
+ - Rio (Delphi 10.3)
+ - Tokyo (Delphi 10.2)
+ - Berlin (Delphi 10.1)
+ - Seattle (Delphi 10)
+ 
+ You may build packages for older versions of RAD Studio but you will need to make your own packages.
+
 ### For Indy Included with Delphi
 
 1. Open TaurusAll.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
@@ -47,6 +58,31 @@ You may install TaurusTLS into the 64-bit Integrated Development Environment (ID
 4. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
+
+### Making your own Packages
+
+I suggest that you have 2 separate packages; a runtime only package and a design-time package.  
+
+The run-time package should depend upon your Indy package files and include the following:
+
+ - Source\TaurusTLS.pas
+ - Source\TaurusTLS_Files.pas
+ - Source\TaurusTLS_NTLM.pas
+ - Source\TaurusTLS_ResourceStrings.pas
+ - Source\TaurusTLS_Utils.pas
+ - Source\TaurusTLS_X509.pas
+ - Source\TaurusTLSConsts.pas
+ - Source\TaurusTLSExceptionHandlers.pas
+ - Source\TaurusTLSFIPS.pas
+ - Source\TaurusTLSHeaders_*.pas
+ - Source\TaurusTLSLoader.pas
+ 
+ The design-time package should depend upon the run-time package and include the following files:
+ 
+ - Source\TaurusTLS_Dsn_AboutDlg.pas
+ - Source\TaurusTLS_Dsn_ComponentEditor.pas
+ - Source\TaurusTLS_Dsn_Register.pas
+ - Source\TaurusTLS_Dsn_ResourceStrings.pas
 
 ## Lazarus Installation
 
