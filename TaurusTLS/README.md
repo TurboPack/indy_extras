@@ -40,7 +40,7 @@ TaurusTLS supports the following RAD Studio versions:
 - Berlin (Delphi 10.1)
 - Seattle (Delphi 10)
 
-You may build packages for older versions of RAD Studio but you will need to make your own packages.
+You may make packages for older versions of RAD Studio.
 
 ### For Indy Included with Delphi
 
