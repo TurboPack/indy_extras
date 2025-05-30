@@ -4216,19 +4216,20 @@ begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
           RSSSLSettingTLSHostNameError_2);
       end;
-      if sslvrfPeer in Self.fSSLContext.VerifyMode then
-      begin
-        LFunc := VerifyCallback;
-      end
-      else
-      begin
-        LFunc := nil;
-      end;
-      SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-          (fSSLContext.VerifyMode), LFunc);
-      SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
     end;
   end;
+
+  if sslvrfPeer in Self.fSSLContext.VerifyMode then
+  begin
+    LFunc := VerifyCallback;
+  end
+  else
+  begin
+    LFunc := nil;
+  end;
+  SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
+          (fSSLContext.VerifyMode), LFunc);
+  SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
 
   LRetCode := SSL_connect(fSSL);
   if LRetCode <= 0 then
