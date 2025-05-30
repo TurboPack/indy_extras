@@ -6397,16 +6397,6 @@ begin
   Result := _PSSL_CTX(ctx)^.default_passwd_callback_userdata;
 end;
 
-procedure  FC_SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb); cdecl;
-begin
-  _PSSL_CTX(ctx)^.default_passwd_callback := cb;
-end;
-
-procedure  FC_SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer); cdecl;
-begin
-  _PSSL_CTX(ctx)^.default_passwd_callback_userdata := u;
-end;
-
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
                         const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
 begin
