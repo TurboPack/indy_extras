@@ -4215,7 +4215,7 @@ begin
       if LRetCode <= 0 then
       begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
-          RSSSLSettingTLSHostNameError);
+          RSSSLSettingTLSHostNameError_2);
       end;
       if sslvrfPeer in Self.fSSLContext.VerifyMode then
       begin
