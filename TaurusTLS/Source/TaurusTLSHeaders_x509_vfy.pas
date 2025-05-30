@@ -1571,12 +1571,6 @@ begin
   //Do nothing
 end;
 
-function  FC_X509_LOOKUP_meth_set_ctrl(method: PX509_LOOKUP_METHOD; ctrl_fn: X509_LOOKUP_ctrl_fn): TIdC_INT; cdecl;
-begin
-  _PX509_LOOKUP_METHOD(method)^.ctrl := @ctrl_fn;
-  Result := 1;
-end;
-
 {$i TaurusTLSUnusedParamOn.inc}
 
 (*
