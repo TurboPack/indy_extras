@@ -2568,7 +2568,7 @@ var
   SSL_inject_net_dgram: function(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
-                                local : PBIO_ADDR) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
+                                _local : PBIO_ADDR) : TIdC_INT; cdecl = nil;  {introduced 3.2.0}
   {$ENDIF}
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -3486,7 +3486,7 @@ var
   function SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
-                                local : PBIO_ADDR) : TIdC_INT  cdecl; external CLibSSL;   {introduced 3.2.0}
+                                _local : PBIO_ADDR) : TIdC_INT  cdecl; external CLibSSL;   {introduced 3.2.0}
   {$ENDIF}
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -9809,7 +9809,7 @@ end;
 function ERR_SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
-                                local : PBIO_ADDR) : TIdC_INT;
+                                _local : PBIO_ADDR) : TIdC_INT;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_inject_net_dgram_procname);
 end;

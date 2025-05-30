@@ -1020,9 +1020,6 @@ type
   /// Properties and methods for dealing with a TLS Socket.
   /// </summary>
   TTaurusTLSSocket = class(TObject)
-  private
-    function GetVerifyHostname: Boolean;
-    procedure SetVerifyHostName(const Value: Boolean);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict {$ENDIF}protected
     fSession: PSSL_SESSION;
 {$IFDEF USE_OBJECT_ARC}[Weak]
@@ -1038,6 +1035,8 @@ type
     function GetPeerCert: TTaurusTLSX509;
 
     function GetSSLCipher: TTaurusTLSCipher;
+    function GetVerifyHostname: Boolean;
+    procedure SetVerifyHostName(const Value: Boolean);
   public
     /// <summary>
     /// Creates a new instance of TTaurusTLSSocket.
