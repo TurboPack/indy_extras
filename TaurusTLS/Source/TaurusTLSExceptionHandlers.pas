@@ -265,7 +265,7 @@ end;
 class procedure ETaurusTLSAPISSLError.RaiseException(ASSL: PSSL; const ARetCode: TIdC_INT;
   const AMsg: String);
 begin
-  RaiseExceptionCode(SSL_get_error(PSSL(ASSL), ARetCode), ARetCode, AMsg);
+  RaiseExceptionCode(SSL_get_error(ASSL, ARetCode), ARetCode, AMsg);
 end;
 
 class procedure ETaurusTLSAPISSLError.RaiseExceptionCode(const AErrCode, ARetCode: TIdC_INT;
