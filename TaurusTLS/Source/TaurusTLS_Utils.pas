@@ -569,7 +569,7 @@ begin
     FillChar(LBuf, 1024, 0);
     {$endif}
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
-    Result := String(LBuf);
+    Result := PIdAnsiChar(@LBuf);
   end
   else
   begin
@@ -606,8 +606,8 @@ begin
     Exit;
   end;
 {$IFDEF USE_MARSHALLED_PTRS}
-  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(UTCtime^.data),
-    UTCtime^._Length);
+  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(a^.data),
+    a^._Length);
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
   SetString(time_str, PAnsiChar(a^.data), a^._Length);
@@ -685,7 +685,7 @@ var
   LE: PX509_NAME_ENTRY;
   LASN1: PASN1_STRING;
   LOBJ: PASN1_OBJECT;
-  LPtr: PAnsiChar;
+  LPtr: PIdAnsiChar;
 begin
   Result := '';
   Le_count := X509_NAME_entry_count(ADirName);
@@ -695,7 +695,7 @@ begin
     LE := X509_NAME_get_entry(ADirName, i);
     LOBJ := X509_NAME_ENTRY_get_object(LE);
     LASN1 := X509_NAME_ENTRY_get_data(LE);
-    LPtr := PAnsiChar(ASN1_STRING_get0_data(LASN1));
+    LPtr := PIdAnsiChar(ASN1_STRING_get0_data(LASN1));
     Result := Result + ' ' + ASN1_OBJECT_ToStr(LOBJ) + ' = ' +
       String(LPtr) + ';';
   end;
@@ -741,11 +741,11 @@ begin
       Result := 'Other Name';
     GEN_EMAIL:
       begin
-        Result := 'E-Mail: ' + String(PAnsiChar(AGN.d.rfc822Name.data));
+        Result := 'E-Mail: ' + String(PIdAnsiChar(AGN.d.rfc822Name.data));
       end;
     GEN_DNS:
       begin
-        Result := 'DNS: ' + String(PAnsiChar(AGN.d.dNSName.data));
+        Result := 'DNS: ' + String(PIdAnsiChar(AGN.d.dNSName.data));
       end;
     GEN_X400:
       begin

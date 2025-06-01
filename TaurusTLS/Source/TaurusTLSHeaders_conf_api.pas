@@ -68,16 +68,16 @@ var
 
 
 {$ELSE}
-  function _CONF_new_section(conf: PCONF; const section: PAnsiChar): PCONF_VALUE cdecl; external CLibCrypto;
+  function _CONF_new_section(conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE cdecl; external CLibCrypto;
   //* Up until TaurusTLS 0.9.5a, this was get_section */
-  function _CONF_get_section(const conf: PCONF; const section: PAnsiChar): PCONF_VALUE cdecl; external CLibCrypto;
+  function _CONF_get_section(const conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE cdecl; external CLibCrypto;
   //* Up until TaurusTLS 0.9.5a, this was CONF_get_section */
   //STACK_OF(CONF_VALUE) *_CONF_get_section_values(const CONF *conf,
   //                                               const char *section);
 
   function _CONF_add_string(conf: PCONF; section: PCONF_VALUE; value: PCONF_VALUE): TIdC_INT cdecl; external CLibCrypto;
-  function _CONF_get_string(const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): PAnsiChar cdecl; external CLibCrypto;
-  function _CONF_get_number(const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): TIdC_LONG cdecl; external CLibCrypto;
+  function _CONF_get_string(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
+  function _CONF_get_number(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): TIdC_LONG cdecl; external CLibCrypto;
 
   function _CONF_new_data(conf: PCONF): TIdC_INT cdecl; external CLibCrypto;
   procedure _CONF_free_data(conf: PCONF) cdecl; external CLibCrypto;
@@ -114,14 +114,14 @@ const
 
 
   {$i TaurusTLSNoRetValOff.inc} 
-function  ERR__CONF_new_section(conf: PCONF; const section: PAnsiChar): PCONF_VALUE; 
+function  ERR__CONF_new_section(conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_new_section_procname);
 end;
 
 
   //* Up until TaurusTLS 0.9.5a, this was get_section */
-function  ERR__CONF_get_section(const conf: PCONF; const section: PAnsiChar): PCONF_VALUE; 
+function  ERR__CONF_get_section(const conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_section_procname);
 end;
@@ -137,13 +137,13 @@ begin
 end;
 
 
-function  ERR__CONF_get_string(const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): PAnsiChar; 
+function  ERR__CONF_get_string(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_string_procname);
 end;
 
 
-function  ERR__CONF_get_number(const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): TIdC_LONG; 
+function  ERR__CONF_get_number(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): TIdC_LONG;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_number_procname);
 end;

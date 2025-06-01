@@ -4159,9 +4159,7 @@ var
   LVerifyResult: TIdC_LONG;
   Lpeercert: PX509;
   LCertificate: TTaurusTLSX509;
-{$IFNDEF  USE_INLINE_VAR}
-  lHostName: AnsiString;
-{$ENDIF}
+  LHostName : TBytes;
   LFunc : SSL_verify_cb;
 begin
   Assert(fSSL = nil);
@@ -4210,7 +4208,8 @@ begin
     if fHostName <> '' then
     begin
       SSL_set_hostflags(fSSL,0);
-      LRetCode := SSL_set1_host(fSSL, PIdAnsiChar(AnsiString(fHostName)));
+      LHostName := BytesOf(fHostName);
+      LRetCode := SSL_set1_host(fSSL, PIdAnsiChar( @LHostName));
       if LRetCode <= 0 then
       begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,

@@ -814,7 +814,7 @@ uses
 function TTaurusTLSX509Name.GetOneLine: String;
 var
   LOneLine: array [0 .. 2048] of TIdAnsiChar;
-  LPtr: PAnsiChar;
+  LPtr: PIdAnsiChar;
 begin
   if fX509Name = nil then
   begin

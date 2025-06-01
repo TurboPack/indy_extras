@@ -38,12 +38,12 @@ uses
   TaurusTLSHeaders_stack;
 
 type
-  CONF_parse_list_list_cb = function (const elem: PAnsiChar; len: TIdC_INT; usr: Pointer): TIdC_INT;
+  CONF_parse_list_list_cb = function (const elem: PIdAnsiChar; len: TIdC_INT; usr: Pointer): TIdC_INT;
 
   CONF_VALUE = record
-    section: PAnsiChar;
-    name: PAnsiChar;
-    value: PAnsiChar;
+    section: PIdAnsiChar;
+    name: PIdAnsiChar;
+    value: PIdAnsiChar;
   end;
   PCONF_VALUE = ^CONF_VALUE;
 
@@ -179,24 +179,24 @@ var
   NCONF_free: procedure (conf: PCONF); cdecl = nil;
   NCONF_free_data: procedure (conf: PCONF); cdecl = nil;
 
-  NCONF_load: function (conf: PCONF; const file_: PAnsiChar; eline: PIdC_LONG): TIdC_INT; cdecl = nil;
+  NCONF_load: function (conf: PCONF; const file_: PIdAnsiChar; eline: PIdC_LONG): TIdC_INT; cdecl = nil;
   NCONF_load_bio: function (conf: PCONF; bp: PBIO; eline: PIdC_LONG): TIdC_INT; cdecl = nil;
   //STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
   //                                        const char *section);
-  NCONF_get_string: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar): PAnsiChar; cdecl = nil;
-  NCONF_get_number_e: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar; result: PIdC_LONG): TIdC_INT; cdecl = nil;
+  NCONF_get_string: function (const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
+  NCONF_get_number_e: function (const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar; result: PIdC_LONG): TIdC_INT; cdecl = nil;
   NCONF_dump_bio: function (const conf: PCONf; out_: PBIO): TIdC_INT; cdecl = nil;
 
   //#define NCONF_get_number(c,g,n,r) NCONF_get_number_e(c,g,n,r)
 
   //* Module functions */
 
-  CONF_modules_load: function (const cnf: PCONF; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  CONF_modules_load_file: function (const filename: PAnsiChar; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
+  CONF_modules_load: function (const cnf: PCONF; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
+  CONF_modules_load_file: function (const filename: PIdAnsiChar; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
 
   CONF_modules_unload: procedure (all: TIdC_INT); cdecl = nil;
   CONF_modules_finish: procedure ; cdecl = nil;
-  CONF_module_add: function (const name: PAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT; cdecl = nil;
+  CONF_module_add: function (const name: PIdAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT; cdecl = nil;
 
   //const char *CONF_imodule_get_name(const CONF_IMODULE *md);
   //const char *CONF_imodule_get_value(const CONF_IMODULE *md);
@@ -208,8 +208,8 @@ var
   CONF_module_get_usr_data: function (pmod: PCONF_MODULE): Pointer; cdecl = nil;
   CONF_module_set_usr_data: procedure (pmod: PCONF_MODULE; usr_data: Pointer); cdecl = nil;
 
-  CONF_get1_default_config_file: function : PAnsiChar; cdecl = nil;
-  CONF_parse_list: function (const list: PAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT; cdecl = nil;
+  CONF_get1_default_config_file: function : PIdAnsiChar; cdecl = nil;
+  CONF_parse_list: function (const list: PIdAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT; cdecl = nil;
 
   OPENSSL_load_builtin_modules: procedure ; cdecl = nil;
 
@@ -261,24 +261,24 @@ var
   procedure NCONF_free(conf: PCONF) cdecl; external CLibCrypto;
   procedure NCONF_free_data(conf: PCONF) cdecl; external CLibCrypto;
 
-  function NCONF_load(conf: PCONF; const file_: PAnsiChar; eline: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
+  function NCONF_load(conf: PCONF; const file_: PIdAnsiChar; eline: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function NCONF_load_bio(conf: PCONF; bp: PBIO; eline: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   //STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
   //                                        const char *section);
-  function NCONF_get_string(const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar): PAnsiChar cdecl; external CLibCrypto;
-  function NCONF_get_number_e(const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar; result: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
+  function NCONF_get_string(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
+  function NCONF_get_number_e(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar; result: PIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
   function NCONF_dump_bio(const conf: PCONf; out_: PBIO): TIdC_INT cdecl; external CLibCrypto;
 
   //#define NCONF_get_number(c,g,n,r) NCONF_get_number_e(c,g,n,r)
 
   //* Module functions */
 
-  function CONF_modules_load(const cnf: PCONF; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  function CONF_modules_load_file(const filename: PAnsiChar; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
+  function CONF_modules_load(const cnf: PCONF; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
+  function CONF_modules_load_file(const filename: PIdAnsiChar; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
 
   procedure CONF_modules_unload(all: TIdC_INT) cdecl; external CLibCrypto;
   procedure CONF_modules_finish cdecl; external CLibCrypto;
-  function CONF_module_add(const name: PAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT cdecl; external CLibCrypto;
+  function CONF_module_add(const name: PIdAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT cdecl; external CLibCrypto;
 
   //const char *CONF_imodule_get_name(const CONF_IMODULE *md);
   //const char *CONF_imodule_get_value(const CONF_IMODULE *md);
@@ -290,8 +290,8 @@ var
   function CONF_module_get_usr_data(pmod: PCONF_MODULE): Pointer cdecl; external CLibCrypto;
   procedure CONF_module_set_usr_data(pmod: PCONF_MODULE; usr_data: Pointer) cdecl; external CLibCrypto;
 
-  function CONF_get1_default_config_file: PAnsiChar cdecl; external CLibCrypto;
-  function CONF_parse_list(const list: PAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
+  function CONF_get1_default_config_file: PIdAnsiChar cdecl; external CLibCrypto;
+  function CONF_parse_list(const list: PIdAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
   procedure OPENSSL_load_builtin_modules cdecl; external CLibCrypto;
 
@@ -565,7 +565,7 @@ end;
 
 
 
-function  ERR_NCONF_load(conf: PCONF; const file_: PAnsiChar; eline: PIdC_LONG): TIdC_INT; 
+function  ERR_NCONF_load(conf: PCONF; const file_: PIdAnsiChar; eline: PIdC_LONG): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_load_procname);
 end;
@@ -579,13 +579,13 @@ end;
 
   //STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
   //                                        const char *section);
-function  ERR_NCONF_get_string(const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar): PAnsiChar; 
+function  ERR_NCONF_get_string(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_get_string_procname);
 end;
 
 
-function  ERR_NCONF_get_number_e(const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar; _result: PIdC_LONG): TIdC_INT;
+function  ERR_NCONF_get_number_e(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar; _result: PIdC_LONG): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_get_number_e_procname);
 end;
@@ -602,13 +602,13 @@ end;
 
   //* Module functions */
 
-function  ERR_CONF_modules_load(const cnf: PCONF; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_CONF_modules_load(const cnf: PCONF; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_load_procname);
 end;
 
 
-function  ERR_CONF_modules_load_file(const filename: PAnsiChar; const appname: PAnsiChar; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_CONF_modules_load_file(const filename: PIdAnsiChar; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_load_file_procname);
 end;
@@ -627,7 +627,7 @@ begin
 end;
 
 
-function  ERR_CONF_module_add(const name: PAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT; 
+function  ERR_CONF_module_add(const name: PIdAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_module_add_procname);
 end;
@@ -679,13 +679,13 @@ end;
 
 
 
-function  ERR_CONF_get1_default_config_file: PAnsiChar; 
+function  ERR_CONF_get1_default_config_file: PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_get1_default_config_file_procname);
 end;
 
 
-function  ERR_CONF_parse_list(const list: PAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT; 
+function  ERR_CONF_parse_list(const list: PIdAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_parse_list_procname);
 end;

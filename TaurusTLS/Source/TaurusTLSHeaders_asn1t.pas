@@ -604,7 +604,7 @@ const
 
 type
   ASN1_ITEM_st = record
-    itype: AnsiChar;
+    itype: TIdAnsiChar;
     utype: TIdC_LONG;
     template: PASN1_TEMPLATE;
     tcount: TIdC_LONG;
@@ -673,7 +673,7 @@ const
 
 type
   ASN1_TLC_st = record
-    valid: AnsiChar;
+    valid: TIdAnsiChar;
     ret: TIdC_INT;
     plen: TIdC_LONG;
     ptag: TIdC_INT;
@@ -685,7 +685,7 @@ type
 
   ASN1_ex_d2i = function(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG;
     const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT;
-    opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT;
+    opt: TIdAnsiChar; ctx: PASN1_TLC): TIdC_INT;
   PASN1_ex_d2i = ^ASN1_ex_d2i;
 
   ASN1_ex_i2d = function(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM;
@@ -1000,7 +1000,7 @@ var
   function ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
   procedure ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
 
-  function ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: TIdAnsiChar; ctx: PASN1_TLC): TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 

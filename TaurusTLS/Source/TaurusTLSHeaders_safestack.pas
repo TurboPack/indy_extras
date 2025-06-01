@@ -17,20 +17,21 @@ interface
 
 uses
   IdCTypes,
+  IdGlobal,
   TaurusTLSHeaders_stack;
 
 type
-  POPENSSL_STRING = PAnsiChar;
+  POPENSSL_STRING = PIdAnsiChar;
 
   PSTACK_OF_OPENSSL_STRING = pointer;
-  Tsk_OPENSSL_STRING_compfunc = function(a: PPAnsiChar; b: PPAnsiChar): TIdC_INT cdecl;
-  Tsk_OPENSSL_STRING_freefunc = procedure(a: PAnsiChar) cdecl;
-  Tsk_OPENSSL_STRING_copyfunc = function(a: PAnsiChar): PAnsiChar cdecl;
+  Tsk_OPENSSL_STRING_compfunc = function(a: PPIdAnsiChar; b: PPIdAnsiChar): TIdC_INT cdecl;
+  Tsk_OPENSSL_STRING_freefunc = procedure(a: PIdAnsiChar) cdecl;
+  Tsk_OPENSSL_STRING_copyfunc = function(a: PIdAnsiChar): PIdAnsiChar cdecl;
 
 function sk_OPENSSL_STRING_num(sk: PSTACK_OF_OPENSSL_STRING): TIdC_INT;
 {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_value(sk: PSTACK_OF_OPENSSL_STRING; idx: TIdC_INT)
-  : PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  : PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_new(compare: Tsk_OPENSSL_STRING_compfunc)
   : PSTACK_OF_OPENSSL_STRING; {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_new_null: PSTACK_OF_OPENSSL_STRING;
@@ -40,26 +41,26 @@ procedure sk_OPENSSL_STRING_free(sk: PSTACK_OF_OPENSSL_STRING);
 procedure sk_OPENSSL_STRING_zero(sk: PSTACK_OF_OPENSSL_STRING);
 {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_delete(sk: PSTACK_OF_OPENSSL_STRING; i: TIdC_INT)
-  : PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  : PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_delete_ptr(sk: PSTACK_OF_OPENSSL_STRING;
-  _ptr: PAnsiChar): PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_push(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+  _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+function sk_OPENSSL_STRING_push(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_unshift(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_unshift(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_pop(sk: PSTACK_OF_OPENSSL_STRING): PAnsiChar;
+function sk_OPENSSL_STRING_pop(sk: PSTACK_OF_OPENSSL_STRING): PIdAnsiChar;
 {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_shift(sk: PSTACK_OF_OPENSSL_STRING): PAnsiChar;
+function sk_OPENSSL_STRING_shift(sk: PSTACK_OF_OPENSSL_STRING): PIdAnsiChar;
 {$IFDEF INLINE}inline; {$ENDIF}
 procedure sk_OPENSSL_STRING_pop_free(sk: PSTACK_OF_OPENSSL_STRING;
   freefunc: Tsk_OPENSSL_STRING_freefunc); {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_insert(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar;
+function sk_OPENSSL_STRING_insert(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar;
   idx: TIdC_INT): TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 function sk_OPENSSL_STRING_set(sk: PSTACK_OF_OPENSSL_STRING; idx: TIdC_INT;
-  _ptr: PAnsiChar): PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_find(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+  _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+function sk_OPENSSL_STRING_find(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
-function sk_OPENSSL_STRING_find_ex(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_find_ex(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 procedure sk_OPENSSL_STRING_sort(sk: PSTACK_OF_OPENSSL_STRING);
 {$IFDEF INLINE}inline; {$ENDIF}
@@ -82,9 +83,9 @@ begin
 end;
 
 function sk_OPENSSL_STRING_value(sk: PSTACK_OF_OPENSSL_STRING; idx: TIdC_INT)
-  : PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  : PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_value(POPENSSL_STACK(sk), idx));
+  Result := PIdAnsiChar(OPENSSL_sk_value(POPENSSL_STACK(sk), idx));
 end;
 
 function sk_OPENSSL_STRING_new(compare: Tsk_OPENSSL_STRING_compfunc)
@@ -113,39 +114,39 @@ begin
 end;
 
 function sk_OPENSSL_STRING_delete(sk: PSTACK_OF_OPENSSL_STRING; i: TIdC_INT)
-  : PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  : PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_delete(POPENSSL_STACK(sk), i));
+  Result := PIdAnsiChar(OPENSSL_sk_delete(POPENSSL_STACK(sk), i));
 end;
 
 function sk_OPENSSL_STRING_delete_ptr(sk: PSTACK_OF_OPENSSL_STRING;
-  _ptr: PAnsiChar): PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_delete_ptr(POPENSSL_STACK(sk), pointer(_ptr)));
+  Result := PIdAnsiChar(OPENSSL_sk_delete_ptr(POPENSSL_STACK(sk), pointer(_ptr)));
 end;
 
-function sk_OPENSSL_STRING_push(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_push(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 begin
   Result := OPENSSL_sk_push(POPENSSL_STACK(sk), pointer(_ptr));
 end;
 
-function sk_OPENSSL_STRING_unshift(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_unshift(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 begin
   Result := OPENSSL_sk_unshift(POPENSSL_STACK(sk), pointer(_ptr));
 end;
 
-function sk_OPENSSL_STRING_pop(sk: PSTACK_OF_OPENSSL_STRING): PAnsiChar;
+function sk_OPENSSL_STRING_pop(sk: PSTACK_OF_OPENSSL_STRING): PIdAnsiChar;
 {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_pop(POPENSSL_STACK(sk)));
+  Result := PIdAnsiChar(OPENSSL_sk_pop(POPENSSL_STACK(sk)));
 end;
 
-function sk_OPENSSL_STRING_shift(sk: PSTACK_OF_OPENSSL_STRING): PAnsiChar;
+function sk_OPENSSL_STRING_shift(sk: PSTACK_OF_OPENSSL_STRING): PIdAnsiChar;
 {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_shift(POPENSSL_STACK(sk)));
+  Result := PIdAnsiChar(OPENSSL_sk_shift(POPENSSL_STACK(sk)));
 end;
 
 procedure sk_OPENSSL_STRING_pop_free(sk: PSTACK_OF_OPENSSL_STRING;
@@ -154,25 +155,25 @@ begin
   OPENSSL_sk_pop_free(POPENSSL_STACK(sk), TOPENSSL_sk_freefunc(freefunc));
 end;
 
-function sk_OPENSSL_STRING_insert(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar;
+function sk_OPENSSL_STRING_insert(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar;
   idx: TIdC_INT): TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 begin
   Result := OPENSSL_sk_insert(POPENSSL_STACK(sk), pointer(_ptr), idx);
 end;
 
 function sk_OPENSSL_STRING_set(sk: PSTACK_OF_OPENSSL_STRING; idx: TIdC_INT;
-  _ptr: PAnsiChar): PAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
+  _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF INLINE}inline; {$ENDIF}
 begin
-  Result := PAnsiChar(OPENSSL_sk_set(POPENSSL_STACK(sk), idx, pointer(_ptr)));
+  Result := PIdAnsiChar(OPENSSL_sk_set(POPENSSL_STACK(sk), idx, pointer(_ptr)));
 end;
 
-function sk_OPENSSL_STRING_find(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_find(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 begin
   Result := OPENSSL_sk_find(POPENSSL_STACK(sk), pointer(_ptr));
 end;
 
-function sk_OPENSSL_STRING_find_ex(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PAnsiChar)
+function sk_OPENSSL_STRING_find_ex(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF INLINE}inline; {$ENDIF}
 begin
   Result := OPENSSL_sk_find_ex(POPENSSL_STACK(sk), pointer(_ptr));
