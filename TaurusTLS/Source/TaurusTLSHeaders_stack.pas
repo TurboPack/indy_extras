@@ -222,12 +222,7 @@ var
 implementation
 
   uses
-    TaurusTLSExceptionHandlers
-  {$IFDEF FPC}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,TaurusTLSLoader
-  {$ENDIF}
-  {$ENDIF};
+    TaurusTLSExceptionHandlers;
 
 const
   OPENSSL_sk_num_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
