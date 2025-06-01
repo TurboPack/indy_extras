@@ -1,0 +1,16 @@
+minimum required tmsbuild version: 1.0
+
+application:
+  id: taurustls_developers.taurustls
+  name: TaurusTLS
+  version file: version.txt
+
+supported frameworks:
+  rtl:
+    ide since: delphiseattle
+    platforms: 
+      - all
+  
+packages:
+  - TaurusTLS_RT: [runtime, rtl]
+  - TaurusTLS_DT: [design, TaurusTLS_RT, rtl]

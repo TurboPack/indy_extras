@@ -37,7 +37,7 @@ TaurusTLS supports the following RAD Studio versions:
 - Sydney (Delphi 10.4) - package in the TaurusTLS\Packages\dsydney\Delphi folder
 - Rio (Delphi 10.3) - package in the TaurusTLS\Packages\drio\Delphi folder
 - Tokyo (Delphi 10.2) - package in the TaurusTLS\Packages\dtokyo\Delphi folder
-- Berlin (Delphi 10.1) - package in the TaurusTLS\Packages\Berlin\Delphi folder
+- Berlin (Delphi 10.1) - package in the TaurusTLS\Packages\dberlin\Delphi folder
 - Seattle (Delphi 10) - package in the TaurusTLS\Packages\dseattle\Delphi folder
 
 You may make packages for older versions of RAD Studio.
