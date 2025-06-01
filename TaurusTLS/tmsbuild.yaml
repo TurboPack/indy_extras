@@ -16,4 +16,5 @@ packages:
   - TaurusTLS_DT: [design, rtl]
  
 links:
-  - link: TaurusTLS_Dsn_Register.dcr 
+  - type: file
+  - name: TaurusTLS_Dsn_Register.dcr 
