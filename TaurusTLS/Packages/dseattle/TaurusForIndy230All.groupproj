@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{2C9287E4-43EE-4D6C-AB7F-DB17F54B035E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TaurusTLS_RTForIndy230.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="TaurusTLS_DTForIndy230.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TaurusTLS_RTForIndy230">
+        <MSBuild Projects="TaurusTLS_RTForIndy230.dproj"/>
+    </Target>
+    <Target Name="TaurusTLS_RTForIndy230:Clean">
+        <MSBuild Projects="TaurusTLS_RTForIndy230.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TaurusTLS_RTForIndy230:Make">
+        <MSBuild Projects="TaurusTLS_RTForIndy230.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy230">
+        <MSBuild Projects="TaurusTLS_DTForIndy230.dproj"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy230:Clean">
+        <MSBuild Projects="TaurusTLS_DTForIndy230.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy230:Make">
+        <MSBuild Projects="TaurusTLS_DTForIndy230.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TaurusTLS_RTForIndy230;TaurusTLS_DTForIndy230"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TaurusTLS_RTForIndy230:Clean;TaurusTLS_DTForIndy230:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TaurusTLS_RTForIndy230:Make;TaurusTLS_DTForIndy230:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

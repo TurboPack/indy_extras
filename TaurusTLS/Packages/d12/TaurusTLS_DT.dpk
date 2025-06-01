@@ -1,0 +1,46 @@
+package TaurusTLS_DT;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE RELEASE}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'TaurusTLS Design-Time-Only package'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  IndyCore,
+  IndyProtocols,
+  IndySystem,
+  TaurusTLS_RT,
+  designide;
+
+contains
+  TaurusTLS_Dsn_Register in '..\..\Source\TaurusTLS_Dsn_Register.pas',
+  TaurusTLS_Dsn_ResourceStrings in '..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas',
+  TaurusTLS_Dsn_AboutDlg in '..\..\Source\TaurusTLS_Dsn_AboutDlg.pas',
+  TaurusTLS_Dsn_ComponentEditor in '..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas';
+
+end.

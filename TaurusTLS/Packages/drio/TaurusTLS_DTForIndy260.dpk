@@ -1,0 +1,45 @@
+package TaurusTLS_DTForIndy260;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  designide,
+  IndyCore260,
+  IndyProtocols260,
+  IndySystem260,
+  TaurusTLS_RTForIndy260;
+
+contains
+  TaurusTLS_Dsn_AboutDlg in '..\..\Source\TaurusTLS_Dsn_AboutDlg.pas',
+  TaurusTLS_Dsn_ComponentEditor in '..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas',
+  TaurusTLS_Dsn_Register in '..\..\Source\TaurusTLS_Dsn_Register.pas',
+  TaurusTLS_Dsn_ResourceStrings in '..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas';
+
+end.
