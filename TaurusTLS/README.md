@@ -32,19 +32,19 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 
 TaurusTLS supports the following RAD Studio versions:
 
-- Athens (Delphi 12)
-- Alexandria (Delphi 11)
-- Sydney (Delphi 10.4)
-- Rio (Delphi 10.3)
-- Tokyo (Delphi 10.2)
-- Berlin (Delphi 10.1)
-- Seattle (Delphi 10)
+- Athens (Delphi 12) - packages in the TaurusTLS\Packages\d12\Delphi folder
+- Alexandria (Delphi 11) - package in the TaurusTLS\Packages\d11\Delphi folder
+- Sydney (Delphi 10.4) - package in the TaurusTLS\Packages\dsydney\Delphi folder
+- Rio (Delphi 10.3) - package in the TaurusTLS\Packages\drio\Delphi folder
+- Tokyo (Delphi 10.2) - package in the TaurusTLS\Packages\dtokyo\Delphi folder
+- Berlin (Delphi 10.1) - package in the TaurusTLS\Packages\Berlin\Delphi folder
+- Seattle (Delphi 10) - package in the TaurusTLS\Packages\dseattle\Delphi folder
 
 You may make packages for older versions of RAD Studio.
 
 ### For Indy Included with Delphi
 
-1. Open TaurusAll.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
+1. Open TaurusAll.groupproj in the TaurusTLS\Packages\d12\Delphi folder.
 2. Compile TaurusTLS_RT.
 3. Compile TaurusTLS_DT and install it in the IDE.
 
@@ -53,7 +53,7 @@ You may install TaurusTLS into the 64-bit Integrated Development Environment (ID
 ### For Indy that was Upgraded from the Website
 
 1. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
-2. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\12AndAbove\Delphi folder.
+2. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\d12\Delphi folder.
 3. Compile TaurusTLS_RTForIndy290.
 4. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
 
