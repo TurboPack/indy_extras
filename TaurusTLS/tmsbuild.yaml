@@ -14,8 +14,4 @@ supported frameworks:
 packages:
   - TaurusTLS_RT: [runtime, rtl]
   - TaurusTLS_DT: [design, rtl]
- 
-links:
-  - link:
-      type: file
-      name: TaurusTLS_Dsn_Register.dcr 
+
