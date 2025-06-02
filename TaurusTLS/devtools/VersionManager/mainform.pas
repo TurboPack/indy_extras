@@ -61,6 +61,10 @@ begin
     spnedtBuild.Value,
     edtCompanyName.Text,
     edtCopyright.Text);
+  dmodMain.WriteVersions_txt(edtProductName.Text, spnMajorVersion.Value,
+    spnMinorVersion.Value,
+    spnedtRelease.Value,
+    spnedtBuild.Value);
 end;
 
 constructor TfrmMainForm.Create(AOwner: TComponent);
