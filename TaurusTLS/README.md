@@ -32,13 +32,13 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 
 TaurusTLS supports the following RAD Studio versions:
 
-- Athens (Delphi 12) - packages in the TaurusTLS\Packages\d12\Delphi folder
-- Alexandria (Delphi 11) - package in the TaurusTLS\Packages\d11\Delphi folder
-- Sydney (Delphi 10.4) - package in the TaurusTLS\Packages\dsydney\Delphi folder
-- Rio (Delphi 10.3) - package in the TaurusTLS\Packages\drio\Delphi folder
-- Tokyo (Delphi 10.2) - package in the TaurusTLS\Packages\dtokyo\Delphi folder
-- Berlin (Delphi 10.1) - package in the TaurusTLS\Packages\dberlin\Delphi folder
-- Seattle (Delphi 10) - package in the TaurusTLS\Packages\dseattle\Delphi folder
+- Athens (Delphi 12) - packages in the TaurusTLS\Packages\d12 folder
+- Alexandria (Delphi 11) - package in the TaurusTLS\Packages\d11 folder
+- Sydney (Delphi 10.4) - package in the TaurusTLS\Packages\dsydney folder
+- Rio (Delphi 10.3) - package in the TaurusTLS\Packages\drio folder
+- Tokyo (Delphi 10.2) - package in the TaurusTLS\Packages\dtokyo folder
+- Berlin (Delphi 10.1) - package in the TaurusTLS\Packages\dberlin folder
+- Seattle (Delphi 10) - package in the TaurusTLS\Packages\dseattle folder
 
 You may make packages for older versions of RAD Studio.
 
