@@ -10,12 +10,8 @@ supported frameworks:
     ide since: delphiseattle
     platforms: 
       - all
-  
-  TaurusTLS_RT:
-    ide since: delphiseattle   
-    platforms:
-      - all
         
 packages:
-  - TaurusTLS_DT: [design, rtl, TaurusTLS_RT]
-
+  - TaurusTLS_RT: [runtime, rtl]
+  - TaurusTLS_DT: [design, rtl]
+      TaurusTLS_RT
