@@ -108,6 +108,11 @@
         <SanitizedProjectName>TaurusTLS_RT</SanitizedProjectName>
         <GenDll>true</GenDll>
         <DllSuffix>280</DllSuffix>
+        <DCC_BplOutput>.\$(Platform)\$(Config)</DCC_BplOutput>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
+        <DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
+        <DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <EnabledSysJars>android-support-v4.dex.jar;apk-expansion.dex.jar;cloud-messaging.dex.jar;fmx.dex.jar;google-analytics-v2.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar;google-play-services.dex.jar</EnabledSysJars>
@@ -169,7 +174,7 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Build>18</VerInfo_Build>
+        <VerInfo_Build>19</VerInfo_Build>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.19;InternalName=TaurusTLS_RT.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RT.bpl;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.19;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
     </PropertyGroup>
