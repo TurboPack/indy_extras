@@ -50,6 +50,13 @@ You may make packages for older versions of RAD Studio.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
 
+If you have TMS Smart Setup, you can do the following:
+
+```
+tms repo-register git https://github.com/JPeterMugaas/TaurusTLS.git
+tms install taurustls_developers.taurustls
+```
+
 ### For Indy that was Upgraded from the Website
 
 1. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
