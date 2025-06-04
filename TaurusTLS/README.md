@@ -50,7 +50,7 @@ You may make packages for older versions of RAD Studio.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
 
-If you have TMS Smart Setup, you can do the following:
+If you have [TMS Smart Setup](https://doc.tmssoftware.com/smartsetup/), you can do the following to install TaurusTLS:
 
 ```
 tms repo-register git https://github.com/JPeterMugaas/TaurusTLS.git
