@@ -3,10 +3,10 @@
         <ProjectGuid>{2C9287E4-43EE-4D6C-AB7F-DB17F54B035E}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="..\Sydney\Delphi\TaurusTLS_DTForIndy250.dproj">
+        <Projects Include="TaurusTLS_RTForIndy250.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="TaurusTLS_RTForIndy250.dproj">
+        <Projects Include="TaurusTLS_DTForIndy250.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -17,15 +17,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="TaurusTLS_DTForIndy250">
-        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy250.dproj"/>
-    </Target>
-    <Target Name="TaurusTLS_DTForIndy250:Clean">
-        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy250.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="TaurusTLS_DTForIndy250:Make">
-        <MSBuild Projects="..\Sydney\Delphi\TaurusTLS_DTForIndy250.dproj" Targets="Make"/>
-    </Target>
     <Target Name="TaurusTLS_RTForIndy250">
         <MSBuild Projects="TaurusTLS_RTForIndy250.dproj"/>
     </Target>
@@ -35,14 +26,23 @@
     <Target Name="TaurusTLS_RTForIndy250:Make">
         <MSBuild Projects="TaurusTLS_RTForIndy250.dproj" Targets="Make"/>
     </Target>
+    <Target Name="TaurusTLS_DTForIndy250">
+        <MSBuild Projects="TaurusTLS_DTForIndy250.dproj"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy250:Clean">
+        <MSBuild Projects="TaurusTLS_DTForIndy250.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TaurusTLS_DTForIndy250:Make">
+        <MSBuild Projects="TaurusTLS_DTForIndy250.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="TaurusTLS_DTForIndy250;TaurusTLS_RTForIndy250"/>
+        <CallTarget Targets="TaurusTLS_RTForIndy250;TaurusTLS_DTForIndy250"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="TaurusTLS_DTForIndy250:Clean;TaurusTLS_RTForIndy250:Clean"/>
+        <CallTarget Targets="TaurusTLS_RTForIndy250:Clean;TaurusTLS_DTForIndy250:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="TaurusTLS_DTForIndy250:Make;TaurusTLS_RTForIndy250:Make"/>
+        <CallTarget Targets="TaurusTLS_RTForIndy250:Make;TaurusTLS_DTForIndy250:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -1,4 +1,4 @@
-package TaurusTLS_RTForIndy270;
+package TaurusTLS_RTForIndy250;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -30,9 +30,9 @@ package TaurusTLS_RTForIndy270;
 
 requires
   rtl,
-  IndyCore270,
-  IndyProtocols270,
-  IndySystem270;
+  IndyCore250,
+  IndyProtocols250,
+  IndySystem250;
 
 contains
   TaurusTLS in '..\..\Source\TaurusTLS.pas',
