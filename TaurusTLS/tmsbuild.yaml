@@ -13,4 +13,7 @@ supported frameworks:
         
 packages:
   - TaurusTLS_RT: [runtime, rtl]
-      
+  - TaurusTLS_DT: [design, rtl]
+
+help:
+  file: Help/chm/TaurusForIndy290All.chm
