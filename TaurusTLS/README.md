@@ -44,7 +44,7 @@ You may make packages for older versions of RAD Studio.
 
 ### For Indy Included with Delphi
 
-1. Open TaurusAll.groupproj in the TaurusTLS\Packages\d12\Delphi folder.
+1. Open TaurusAll.groupproj in the TaurusTLS\Packages\d12 folder.
 2. Compile TaurusTLS_RT.
 3. Compile TaurusTLS_DT and install it in the IDE.
 
@@ -60,7 +60,7 @@ tms install taurustls_developers.taurustls
 ### For Indy that was Upgraded from the Website
 
 1. Set the INDY_PATH environment variable for your user account to the location where Indy is located.
-2. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\d12\Delphi folder.
+2. Open TaurusForIndy290All.groupproj in the TaurusTLS\Packages\d12 folder.
 3. Compile TaurusTLS_RTForIndy290.
 4. Compile TaurusTLS_DTForIndy290 and install it in the IDE.
 
