@@ -93,7 +93,7 @@ The design-time package should depend upon the run-time package and include the 
 
 ## Lazarus Installation
 
-1. Open taurustlsldsgn.lpk from the TaurusTLS/Packages/Lazarus.
+1. Open taurustlsldsgn.lpk from the TaurusTLS/Packages/lazarus.
 2. From "Required Packages", open "TaurusTLSRT" and compile it.
 3. Then compile the main package itself and install it in the IDE.
 
