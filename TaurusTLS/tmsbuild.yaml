@@ -1,4 +1,4 @@
-minimum required tmsbuild version: 1.0
+minimum required tmsbuild version: 1.8
 
 application:
   id: taurustls_developers.taurustls
@@ -10,10 +10,20 @@ supported frameworks:
     ide since: delphiseattle
     platforms: 
       - all
+
+  lcl:
+    ide since: lazarus
+    ide until: lazarus
+    platforms:
+      - all
+
         
 packages:
   - TaurusTLS_RT: [runtime, rtl]
   - TaurusTLS_DT: [design, rtl]
+#lazarus
+  - taurustlsrt: [runtime, lcl]
+  - taurustlsldsgn: [runtime, lcl]
 
 help:
   file: Help/chm/TaurusForIndy290All.chm
