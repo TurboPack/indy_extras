@@ -4201,14 +4201,27 @@ begin
     end;
   end;
 
-  { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
-    first character to the hostname is passed }
+  LHostName := BytesOf(fHostName);
+  if fHostName <> '' then
+  begin
+    {$IFNDEF OPENSSL_NO_TLSEXT}
+    { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
+      first character to the hostname is passed }
+    LRetCode := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(LHostName));
+    if LRetCode <= 0 then begin
+       // RLebeau: for the time being, not raising an exception on error, as I don't
+       // know which OpenSSL versions support this extension, and which error code(s)
+      // are safe to ignore on those versions...
+      ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode, RSSSLSettingTLSHostNameError_2);
+   end;
+   {$ENDIF}
+  end;
+
   if fVerifyHostname then
   begin
     if fHostName <> '' then
     begin
       SSL_set_hostflags(fSSL,0);
-      LHostName := BytesOf(fHostName);
       LRetCode := SSL_set1_host(fSSL, PIdAnsiChar( @LHostName));
       if LRetCode <= 0 then
       begin
