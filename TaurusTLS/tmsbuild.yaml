@@ -1,4 +1,4 @@
-minimum required tmsbuild version: 1.0
+minimum required tmsbuild version: 1.7
 
 application:
   id: taurustls_developers.taurustls
