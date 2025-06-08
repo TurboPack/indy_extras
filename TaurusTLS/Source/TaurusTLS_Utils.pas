@@ -569,7 +569,7 @@ begin
     FillChar(LBuf, 1024, 0);
     {$endif}
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
-    Result := PIdAnsiChar(@LBuf);
+    Result := AnsiStringToString(PIdAnsiChar(@LBuf));
   end
   else
   begin
