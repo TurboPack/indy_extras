@@ -23,7 +23,7 @@ packages:
   - TaurusTLS_DT: [design, rtl]
 #lazarus
   - taurustlsrt: [runtime, lcl]
-  - taurustlsldsgn: [runtime, lcl]
+  - taurustlsldsgn: [design, lcl]
 
 help:
   file: Help/chm/TaurusForIndy290All.chm
