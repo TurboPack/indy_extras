@@ -551,7 +551,14 @@ end;
 
 procedure TFTPApplication.CmdCertInfo;
 begin
-  WriteLn(FIO.SSLSocket.PeerCert.DisplayInfo.Text);
+  if Assigned(FIO.SSLSocket) and Assigned(FIO.SSLSocket.PeerCert) then
+  begin
+    WriteLn(FIO.SSLSocket.PeerCert.DisplayInfo.Text);
+  end
+  else
+  begin
+    WriteLn('Must be connected to a FTPS server.');
+  end;
 end;
 
 procedure TFTPApplication.CmdPassive(const ACmd: string);
@@ -962,6 +969,7 @@ begin
   var
     LCmds: string;
 {$ENDIF}
+  LCmds := '';
   for i := 0 to High(ACmd) do
   begin
     LCmds := LCmds + ' ' + ACmd[i];

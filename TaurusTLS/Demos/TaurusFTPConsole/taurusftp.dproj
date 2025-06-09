@@ -7,9 +7,9 @@
         <MainSource>taurusftp.dpr</MainSource>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <ProjectGuid>{9587DBE8-D8C0-466B-8B55-2906B8604C34}</ProjectGuid>
-        <ProjectName Condition="'$(ProjectName)'==''">taurusftp</ProjectName>
         <ProjectVersion>20.3</ProjectVersion>
         <TargetedPlatforms>693379</TargetedPlatforms>
+        <ProjectName Condition="'$(ProjectName)'==''">taurusftp</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
