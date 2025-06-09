@@ -53,6 +53,7 @@ You may install TaurusTLS into the 64-bit Integrated Development Environment (ID
 If you have [TMS Smart Setup](https://doc.tmssoftware.com/smartsetup/), you can do the following to install TaurusTLS:
 
 ```
+tms configure
 tms repo-register git https://github.com/JPeterMugaas/TaurusTLS.git
 tms install taurustls_developers.taurustls
 ```
