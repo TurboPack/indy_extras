@@ -62,9 +62,9 @@ uses
 
 {$IFNDEF FPC}
   {$IFDEF Borland}
-  {$R TaurusTLS_Dsn_Register_16.dcr}
+  {$R ..\Source\TaurusTLS_Dsn_Register_16.dcr}
   {$ELSE}
-  {$R TaurusTLS_Dsn_Register.dcr}
+  {$R ..\Source\TaurusTLS_Dsn_Register.dcr}
   {$ENDIF}
 {$ENDIF}
 
@@ -145,7 +145,7 @@ finalization
 {$ENDIF}
 {$IFDEF FPC}
 initialization
-{$i TaurusTLS_Dsn_Register.lrs}
+{$i ..\Source\TaurusTLS_Dsn_Register.lrs}
 {$ENDIF}
 
 end.
