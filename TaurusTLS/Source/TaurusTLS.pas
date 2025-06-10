@@ -4201,7 +4201,7 @@ begin
     end;
   end;
 
-  LHostName := BytesOf(fHostName);
+  LHostName := BytesOf(fHostName + #0);
   if fHostName <> '' then
   begin
     {$IFNDEF OPENSSL_NO_TLSEXT}
