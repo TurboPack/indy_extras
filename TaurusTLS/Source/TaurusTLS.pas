@@ -4209,7 +4209,7 @@ begin
     {$IFNDEF OPENSSL_NO_TLSEXT}
     { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
       first character to the hostname is passed }
-    LRetCode := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(LHostName));
+    LRetCode := SSL_set_tlsext_host_name(fSSL, PIdAnsiChar(@LHostName[0]));
     if LRetCode <= 0 then begin
       ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode, RSSSLSettingTLSHostNameError_2);
    end;
@@ -4221,7 +4221,7 @@ begin
     if fHostName <> '' then
     begin
       SSL_set_hostflags(fSSL,0);
-      LRetCode := SSL_set1_host(fSSL, PIdAnsiChar( @LHostName));
+      LRetCode := SSL_set1_host(fSSL, PIdAnsiChar( @LHostName[0]));
       if LRetCode <= 0 then
       begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
@@ -4273,7 +4273,7 @@ begin
           begin
             LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
             try
-              if not LHelper.VerifyPeer(LCertificate, 0, LVerifyResult) then
+              if not LHelper.VerifyPeer(LCertificate, fSSLContext.VerifyDepth, LVerifyResult) then
               begin
                 ETaurusTLSCertValidationError.RaiseWithMessage
                   (AnsiStringToString(X509_verify_cert_error_string
