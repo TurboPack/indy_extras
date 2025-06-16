@@ -2091,6 +2091,7 @@ type
 var
   SSLIsLoaded: TIdThreadSafeBoolean = nil;
   LockInfoCB: TIdCriticalSection = nil;
+  LockLevelCB: TIdCriticalSection = nil;
   LockPassCB: TIdCriticalSection = nil;
   LockVerifyCB: TIdCriticalSection = nil;
   CallbackLockList: TIdCriticalSectionThreadList = nil;
@@ -2201,13 +2202,13 @@ begin
   // clobers it.  CYA.
    LErr := GStack.WSGetLastError;
    try
-     LockInfoCB.Enter;
+     LockVerifyCB.Enter;
      try
        if not preverify_ok > 0 then
        begin
        end;
      finally
-       LockPassCB.Leave;
+       LockVerifyCB.Leave;
      end;
    finally
      GStack.WSSetLastError(LErr);
@@ -2226,7 +2227,7 @@ begin
   // clobers it.  CYA.
   LErr := GStack.WSGetLastError;
   try
-    LockInfoCB.Enter;
+    LockLevelCB.Enter;
     try
       if Supports(TTaurusTLSContext(ex).Parent, ITaurusTLSCallbackHelper,
         IInterface(LHelper)) then
@@ -2246,7 +2247,7 @@ begin
         Result := 0;
       end;
     finally
-      LockPassCB.Leave;
+      LockLevelCB.Leave;
     end;
   finally
     GStack.WSSetLastError(LErr);
@@ -2610,6 +2611,7 @@ begin
     // Create locking structures, we need them for callback routines
     Assert(LockInfoCB = nil);
     LockInfoCB := TIdCriticalSection.Create;
+    LockLevelCB := TIdCriticalSection.Create;
     LockPassCB := TIdCriticalSection.Create;
     LockVerifyCB := TIdCriticalSection.Create;
     // Handle internal TaurusTLS locking
@@ -2660,6 +2662,7 @@ begin
       GetOpenSSLLoader.Unload;
 {$ENDIF}
       FreeAndNil(LockInfoCB);
+      FreeAndNil(LockLevelCB);
       FreeAndNil(LockPassCB);
       FreeAndNil(LockVerifyCB);
       if Assigned(CallbackLockList) then
