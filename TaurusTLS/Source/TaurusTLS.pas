@@ -2882,7 +2882,7 @@ begin
           LIO.SSLOptions.Assign(fSSLOptions);
           LIO.IsPeer := True;
           LIO.SSLSocket := TTaurusTLSSocket.Create(Self);
-          LIO.SSLSocket.VefiryHostname := Self.SSLOptions.VerifyHostname;
+          LIO.SSLSocket.VefiryHostname := SSLOptions.VerifyHostname;
           LIO.SSLContext := fSSLContext;
           // TODO: to enable server-side SNI, we need to:
           // - Set up an additional SSL_CTX for each different certificate;
@@ -3325,7 +3325,7 @@ begin
   if not Assigned(fSSLSocket) then
   begin
     fSSLSocket := TTaurusTLSSocket.Create(Self);
-    fSSLSocket.VefiryHostname := Self.SSLOptions.VerifyHostname;
+    fSSLSocket.VefiryHostname := SSLOptions.VerifyHostname;
   end;
   Assert(fSSLSocket.SSLContext = nil);
   fSSLSocket.SSLContext := fSSLContext;
@@ -3383,7 +3383,7 @@ begin
       LHost := GetProxyTargetHost;
       if LHost = '' then
       begin
-        LHost := Self.Host;
+        LHost := Host;
       end;
     end;
     fSSLSocket.HostName := LHost;
@@ -4233,7 +4233,7 @@ begin
     end;
   end;
 
-  if sslvrfPeer in Self.fSSLContext.VerifyMode then
+  if sslvrfPeer in fSSLContext.VerifyMode then
   begin
     LFunc := VerifyCallback;
   end
@@ -4362,7 +4362,7 @@ end;
 
 procedure TTaurusTLSSocket.SetVerifyHostName(const Value: Boolean);
 begin
-  Self.fVerifyHostname := Value;
+  fVerifyHostname := Value;
 end;
 
 function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
@@ -4408,7 +4408,7 @@ end;
 
 function TTaurusTLSSocket.GetVerifyHostname: Boolean;
 begin
-  Result := Self.fVerifyHostname;
+  Result := fVerifyHostname;
 end;
 
 function TTaurusTLSSocket.GetPeerCert: TTaurusTLSX509;
@@ -4478,7 +4478,7 @@ constructor TTaurusTLSCipher.Create(AOwner: TTaurusTLSSocket);
 begin
   inherited Create;
   fSSLSocket := AOwner;
-  Self.fSSLCipher := nil;
+  fSSLCipher := nil;
 end;
 
 destructor TTaurusTLSCipher.Destroy;
