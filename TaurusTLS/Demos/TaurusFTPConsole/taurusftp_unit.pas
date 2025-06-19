@@ -50,8 +50,8 @@ type
     procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
-    procedure DoOnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
-      const ADepth: Integer; const AError: TIdC_LONG; const AMsg, ADescr: String;
+    procedure DoOnVerifyError(ASender: TObject; ACertificate: TTaurusTLSX509;
+      const AError: TIdC_LONG; const AMsg, ADescr: String;
       var VOk: Boolean);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
@@ -1297,8 +1297,8 @@ begin
   until False;
 end;
 
-procedure TFTPApplication.DoOnVerifyPeer(ASender: TObject;
-  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+procedure TFTPApplication.DoOnVerifyError(ASender: TObject;
+  ACertificate: TTaurusTLSX509; const AError: TIdC_LONG;
   const AMsg, ADescr: String; var VOk: Boolean);
 var LRsp : String;
 begin
@@ -1381,7 +1381,7 @@ begin
   FFTP.Compressor := FComp;
   FIO := TTaurusTLSIOHandlerSocket.Create(nil);
   FIO.OnSSLNegotiated := OnSSLNegotiated;
-  FIO.OnVerifyPeer := DoOnVerifyPeer;
+  FIO.OnVerifyError := DoOnVerifyError;
   FFTP.IOHandler := FIO;
   FFTP.Passive := True;
   FLog := TIdLogEvent.Create(nil);

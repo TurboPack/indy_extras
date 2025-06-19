@@ -107,6 +107,9 @@ type
     SocksInfo: TIdSocksInfo;
     HTTPConnectThrough: TIdConnectThroughHttpProxy;
     iosslFTP: TTaurusTLSIOHandlerSocket;
+    actViewCertificateInfo: TAction;
+    PeerCertificate1: TMenuItem;
+    N10: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure actFileConnectExecute(Sender: TObject);
     procedure actFileConnectUpdate(Sender: TObject);
@@ -145,6 +148,8 @@ type
     procedure actFileRemoteMakeDirectoryUpdate(Sender: TObject);
     procedure actFileLocalMakeDirectoryExecute(Sender: TObject);
     procedure actFileLocalMakeDirectoryUpdate(Sender: TObject);
+    procedure actViewCertificateInfoExecute(Sender: TObject);
+    procedure actViewCertificateInfoUpdate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} private
     { Private declarations }
@@ -265,8 +270,8 @@ type
     procedure PromptPassword;
     procedure OnGetPassword(ASender: TObject; var VPassword: String;
       const AIsWrite: Boolean; var VOk : Boolean);
-    procedure OnVerifyPeer(ASender: TObject; ACertificate: TTaurusTLSX509;
-      const ADepth: Integer; const AError: TIdC_LONG;
+    procedure OnVerifyError(ASender: TObject; ACertificate: TTaurusTLSX509;
+      const AError: TIdC_LONG;
       const AMsg, ADescr: String; var VOk: Boolean);
     procedure OnDebugMsg(ASender: TObject; const AWrite: Boolean;
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
@@ -1200,6 +1205,16 @@ begin
   end;
 end;
 
+procedure TfrmMainForm.actViewCertificateInfoExecute(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfrmMainForm.actViewCertificateInfoUpdate(Sender: TObject);
+begin
+  actViewCertificateInfo.Enabled := (iosslFTP.SSLSocket <> nil);
+end;
+
 procedure TfrmMainForm.lvLocalFilesColumnClick(Sender: TObject;
   Column: TListColumn);
 begin
@@ -1699,7 +1714,7 @@ begin
   inherited Create(False);
   FFTP := AFTP;
   FIO := AFTP.IOHandler as TTaurusTLSIOHandlerSocket;
-  // FIO.OnVerifyPeer := OnVerifyPeer;
+  // FIO.OnVerifyError := OnVerifyError;
   FIO.OnGetPassword := OnGetPassword;
   FIO.OnStatusInfo := OnStatusInfo;
   FIO.OnSSLNegotiated := OnSSLNegotiated;
@@ -1716,7 +1731,7 @@ end;
 destructor TFTPThread.Destroy;
 begin
   FIO.OnDebugMessage := nil;
-  FIO.OnVerifyPeer := nil;
+  FIO.OnVerifyError := nil;
   FIO.OnGetPassword := nil;
   FLog.OnReceived := nil;
   FLog.OnSent := nil;
@@ -1741,13 +1756,12 @@ begin
   VOk := FKeyPasswordOk;
 end;
 
-procedure TFTPThread.OnVerifyPeer(ASender: TObject;
-  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+procedure TFTPThread.OnVerifyError(ASender: TObject;
+  ACertificate: TTaurusTLSX509; const AError: TIdC_LONG;
   const AMsg, ADescr: String; var VOk: Boolean);
 begin
   FX509 := ACertificate;
   FError := AError;
-  FDepth := ADepth;
   FMsg := AMsg;
   FDescr := ADescr;
   Synchronize(Self, PromptVerifyCert);
@@ -2078,7 +2092,7 @@ begin
     Synchronize(
       procedure
       begin
-        FIO.OnVerifyPeer := OnVerifyPeer;
+        FIO.OnVerifyError := OnVerifyError;
       end);
     FFTP.Connect;
     if FFTP.IsCompressionSupported then

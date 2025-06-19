@@ -2875,6 +2875,12 @@ object frmMainForm: TfrmMainForm
       ImageName = 'libre-gui-action-select'
       ShortCut = 16449
     end
+    object actViewCertificateInfo: TAction
+      Category = 'View'
+      Caption = 'Peer &Certificate...'
+      OnExecute = actViewCertificateInfoExecute
+      OnUpdate = actViewCertificateInfoUpdate
+    end
     object actViewSetting: TAction
       Category = 'View'
       Caption = '&Settings...'
@@ -3122,6 +3128,12 @@ object frmMainForm: TfrmMainForm
     end
     object View1: TMenuItem
       Caption = '&View'
+      object PeerCertificate1: TMenuItem
+        Action = actViewCertificateInfo
+      end
+      object N10: TMenuItem
+        Caption = '-'
+      end
       object Settings1: TMenuItem
         Action = actViewSetting
       end
@@ -3197,7 +3209,7 @@ object frmMainForm: TfrmMainForm
     DefaultPort = 0
     ReadTimeout = 60000
     SSLOptions.Mode = sslmUnassigned
-    SSLOptions.VerifyMode = [sslvrfPeer]
+    SSLOptions.VerifyMode = []
     SSLOptions.VerifyDepth = 2
     Left = 624
     Top = 306
