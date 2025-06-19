@@ -1306,6 +1306,12 @@ var
 function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; {removed 1.0.0}
 {$ENDIF}
 
+type
+  SSL_CTX_set_tlsext_servername_callback_cb = function (ssl : PSSL; alert : PIdC_INT; arg : Pointer) : TIdC_INT; cdecl;
+
+function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX; cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
+function SSL_CTX_set_tlsext_servername_arg(ctx : PSSL_CTX; arg : Pointer)  : TIdC_LONG;
+
 implementation
 
 uses 
@@ -1395,9 +1401,22 @@ const
   //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
   //                (void (*)(void))cb)
 
+function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX; cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,SSL_CTX_callback_ctrl_v3(cb));
+end;
+
+
   //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
   //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
   //
+function SSL_CTX_set_tlsext_servername_arg(ctx : PSSL_CTX; arg : Pointer)  : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg);
+end;
+
   //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
   //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
   //# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
