@@ -2328,7 +2328,7 @@ end;
 
 {$I TaurusTLSUnusedParamOff.inc}
 
-function VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX) : TIdC_INT cdecl;
+function g_VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX) : TIdC_INT cdecl;
 var
   LErr : Integer;
   LSsl: PSSL;
@@ -2378,7 +2378,7 @@ begin
   end;
 end;
 
-function SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
+function g_SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
   bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
 var
   LErr: Integer;
@@ -2418,7 +2418,7 @@ begin
 end;
 {$I TaurusTLSUnusedParamOn.inc}
 
-function PasswordCallback(var buf: PIdAnsiChar; size: TIdC_INT;
+function g_PasswordCallback(var buf: PIdAnsiChar; size: TIdC_INT;
   rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 {$IFDEF USE_MARSHALLED_PTRS}
 type
@@ -2494,7 +2494,7 @@ begin
   end;
 end;
 
-procedure InfoCallback(const SSLSocket: PSSL; where, ret: TIdC_INT); cdecl;
+procedure g_InfoCallback(const SSLSocket: PSSL; where, ret: TIdC_INT); cdecl;
 var
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
@@ -2526,7 +2526,7 @@ begin
   end;
 end;
 
-procedure MsgCallback(write_p, Version, content_type: TIdC_INT;
+procedure g_MsgCallback(write_p, Version, content_type: TIdC_INT;
   const buf: Pointer; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
 var
   LErr: Integer;
@@ -3973,13 +3973,13 @@ begin
   SSL_CTX_set_security_level(fContext, FSecurityLevel);
   if SecurityLevelCBOn then
   begin
-    SSL_CTX_set_security_callback(fContext, SecurityLevelCallback);
+    SSL_CTX_set_security_callback(fContext, g_SecurityLevelCallback);
     SSL_CTX_set0_security_ex_data(fContext, Self);
   end;
 
   // assign a password lookup routine
   // if PasswordRoutineOn then begin
-  SSL_CTX_set_default_passwd_cb(fContext, @PasswordCallback);
+  SSL_CTX_set_default_passwd_cb(fContext, @g_PasswordCallback);
   SSL_CTX_set_default_passwd_cb_userdata(fContext, Self);
   // end;
   if fUseSystemRootCertificateStore then
@@ -4058,12 +4058,12 @@ begin
 
   if StatusInfoOn then
   begin
-    SSL_CTX_set_info_callback(fContext, InfoCallback);
+    SSL_CTX_set_info_callback(fContext, g_InfoCallback);
   end;
 
   if MessageCBOn then
   begin
-    SSL_CTX_set_msg_callback(fContext, MsgCallback);
+    SSL_CTX_set_msg_callback(fContext, g_MsgCallback);
     SSL_CTX_set_msg_callback_arg(fContext, Self);
   end;
   // if_SSL_CTX_set_tmp_rsa_callback(hSSLContext, @RSACallback);
@@ -4418,7 +4418,7 @@ begin
 
   if sslvrfPeer in fSSLContext.VerifyMode then
   begin
-    LFunc := VerifyCallback;
+    LFunc := g_VerifyCallback;
   end
   else
   begin
