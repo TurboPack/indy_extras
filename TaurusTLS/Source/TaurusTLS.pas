@@ -635,6 +635,39 @@ type
     const ADepth: Integer; const AError: TIdC_LONG; const AMsg, ADescr: String;
     var VOk: Boolean) of object;
   /// <summary>
+  /// <see cref="TTaurusTLSIOHandlerSocket.OnVerifyCallback" /> and <see
+  /// cref="TTaurusTLSServerIOHandler.OnVerifyCallback" /> events
+  /// </summary>
+  /// <param name="ASender">
+  /// The object that triggers the event (TTaurusTLSIOHandlerSocket or TTaurusTLSServerIOHandler).
+  /// </param>
+  /// <param name="APreverify_ok">
+  /// Indicates whether the certificate at the current depth passed internal OpenSSL verification so far.
+  /// 1 = passed, 0 = failed.
+  /// </param>
+  /// <param name="ACertificate">
+  /// The current certificate being verified, wrapped in a TTaurusTLSX509 helper for easier inspection.
+  /// </param>
+  /// <param name="ADepth">
+  /// The position of the certificate in the chain, where 0 is the peer/leaf certificate.
+  /// </param>
+  /// <param name="AError">
+  /// The OpenSSL error code associated with this certificate, if any.
+  /// </param>
+  /// <param name="AMsg">
+  /// The OpenSSL error string corresponding to AError.
+  /// </param>
+  /// <param name="ADescr">
+  /// A descriptive message suitable for logging or display.
+  /// </param>
+  /// <param name="VContinue">
+  /// Set to False to immediately terminate verification with failure.
+  /// Set to True to allow verification to proceed.
+  /// </param>
+  TOnVerifyCallbackEvent = procedure(ASender: TObject; const APreverify_ok: TIdC_INT;
+    ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+    const AMsg, ADescr: String; var VContinue: Boolean) of object;
+  /// <summary>
   /// <see cref="TTaurusTLSIOHandlerSocket.OnBeforeConnect" />, <see
   /// cref="TTaurusTLSIOHandlerSocket.OnSSLNegotiated" />, and <see
   /// cref="TTaurusTLSServerIOHandler.OnSSLNegotiated" /> events
@@ -1224,6 +1257,36 @@ type
     function VerifyPeer(ACertificate: TTaurusTLSX509; const ADepth: Integer;
       const AError: TIdC_LONG): Boolean;
     /// <summary>
+    /// Handles certificate verification during the TLS handshake.
+    /// Called once for each certificate in the chain to determine whether verification should continue.
+    /// </summary>
+    /// <param name="APreverify_ok">
+    /// Indicates whether OpenSSL considers the current certificate valid at this stage:
+    /// 1 = passed verification so far; 0 = failed verification.
+    /// </param>
+    /// <param name="ACertificate">
+    /// The current certificate being verified, represented as a <c>TTaurusTLSX509</c> instance.
+    /// </param>
+    /// <param name="ADepth">
+    /// The position of the certificate in the chain (0 = peer certificate, higher numbers = issuer certificates).
+    /// </param>
+    /// <param name="AError">
+    /// The OpenSSL error code associated with this certificate if verification failed.
+    /// </param>
+    /// <param name="AMsg">
+    /// The OpenSSL error message string corresponding to <c>AError</c>.
+    /// </param>
+    /// <param name="ADescr">
+    /// A human-readable description of the verification error or status.
+    /// </param>
+    /// <param name="VContinue">
+    /// Set this to <c>False</c> to stop verification immediately and fail the handshake.
+    /// Leave as <c>True</c> to continue verification.
+    /// </param>
+    procedure VerifyCallback(const APreverify_ok: TIdC_INT;
+      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+      const AMsg, ADescr: String; var VContinue: Boolean);
+    /// <summary>
     /// Called when the SecurityLevel callback is invoked.
     /// </summary>
     /// <param name="AsslSocket">
@@ -1276,6 +1339,7 @@ type
     // fSSLLayerClosed: Boolean;
     fOnBeforeConnect: TOnIOHandlerNotify;
     FOnSSLNegotiated: TOnIOHandlerNotify;
+    fOnVerifyCallback: TOnVerifyCallbackEvent;
     // function GetPeerCert: TTaurusTLSX509;
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
@@ -1301,6 +1365,9 @@ type
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const ADepth: Integer;
       const AError: TIdC_LONG): Boolean;
+    procedure VerifyCallback(const APreverify_ok: TIdC_INT;
+      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+      const AMsg, ADescr: String; var VContinue: Boolean);
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
@@ -1543,6 +1610,38 @@ type
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
+    /// <summary>
+    /// Occurs when a certificate in the TLS chain is being verified during the handshake.
+    /// Use this event to inspect the intermediate result and current certificate
+  	/// and decide whether verification should continue.
+    /// </summary>
+    /// <param name="ASender">
+    /// The object that triggers the event.
+    /// </param>
+    /// <param name="APreverify_ok">
+    /// Indicates whether the certificate at the current depth passed internal OpenSSL verification so far.
+    /// 1 = passed, 0 = failed.
+    /// </param>
+    /// <param name="ACertificate">
+    /// The current certificate being verified, wrapped in a TTaurusTLSX509 helper for easier inspection.
+    /// </param>
+    /// <param name="ADepth">
+    /// The position of the certificate in the chain, where 0 is the peer/leaf certificate.
+    /// </param>
+    /// <param name="AError">
+    /// The OpenSSL error code associated with this certificate, if any.
+    /// </param>
+    /// <param name="AMsg">
+    /// The OpenSSL error string corresponding to AError.
+    /// </param>
+    /// <param name="ADescr">
+    /// A descriptive message suitable for logging or display.
+    /// </param>
+    /// <param name="VContinue">
+    /// Set to False to immediately terminate verification with failure.
+    /// Set to True to allow verification to proceed.
+    /// </param>
+    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback write FOnVerifyCallback;
   end;
 
   /// <summary>
@@ -1559,6 +1658,7 @@ type
     fOnGetPassword: TOnGetPasswordEvent;
     FOnDebugMessage: TOnDebugMessageEvent;
     fOnVerifyPeer: TOnVerifyPeerEvent;
+    fOnVerifyCallback: TOnVerifyCallbackEvent;
     //
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     // procedure CreateSSLContext;
@@ -1572,6 +1672,9 @@ type
     procedure StatusInfo(const AsslSocket: PSSL; AWhere, Aret: TIdC_INT);
     function VerifyPeer(ACertificate: TTaurusTLSX509; const ADepth: Integer;
       const AError: TIdC_LONG): Boolean;
+    procedure VerifyCallback(const APreverify_ok: TIdC_INT;
+      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+      const AMsg, ADescr: String; var VContinue: Boolean);
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
@@ -1796,6 +1899,38 @@ type
     /// </param>
     property OnVerifyPeer: TOnVerifyPeerEvent read fOnVerifyPeer
       write fOnVerifyPeer;
+    /// <summary>
+    /// Occurs when a certificate in the TLS chain is being verified during the handshake.
+    /// Use this event to inspect the intermediate result and current certificate
+  	/// and decide whether verification should continue.
+    /// </summary>
+    /// <param name="ASender">
+    /// The object that triggers the event.
+    /// </param>
+    /// <param name="APreverify_ok">
+    /// Indicates whether the certificate at the current depth passed internal OpenSSL verification so far.
+    /// 1 = passed, 0 = failed.
+    /// </param>
+    /// <param name="ACertificate">
+    /// The current certificate being verified, wrapped in a TTaurusTLSX509 helper for easier inspection.
+    /// </param>
+    /// <param name="ADepth">
+    /// The position of the certificate in the chain, where 0 is the peer/leaf certificate.
+    /// </param>
+    /// <param name="AError">
+    /// The OpenSSL error code associated with this certificate, if any.
+    /// </param>
+    /// <param name="AMsg">
+    /// The OpenSSL error string corresponding to AError.
+    /// </param>
+    /// <param name="ADescr">
+    /// A descriptive message suitable for logging or display.
+    /// </param>
+    /// <param name="VContinue">
+    /// Set to False to immediately terminate verification with failure.
+    /// Set to True to allow verification to proceed.
+    /// </param>
+    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback write FOnVerifyCallback;
   end;
 
   /// <summary>
@@ -2196,23 +2331,51 @@ end;
 function VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX) : TIdC_INT cdecl;
 var
   LErr : Integer;
+  LSsl: PSSL;
+  LSock: TTaurusTLSSocket;
+  LContinue: Boolean;
+  LHelper: ITaurusTLSCallbackHelper;
+  LX509_Cert: PX509;
+  LCertificate: TTaurusTLSX509;
+  LDepth: Integer;
+  LCertErr: TIdC_LONG;
+  LMSg: String;
+  LDescr: String;
 begin
   Result := 1;
+  LContinue := True;
   // Preserve last error just in case TaurusTLS is using it and we do something that
   // clobers it.  CYA.
-   LErr := GStack.WSGetLastError;
-   try
-     LockVerifyCB.Enter;
-     try
-       if not preverify_ok > 0 then
-       begin
-       end;
-     finally
-       LockVerifyCB.Leave;
-     end;
-   finally
-     GStack.WSSetLastError(LErr);
-   end;
+  LErr := GStack.WSGetLastError;
+  try
+    LSsl := X509_STORE_CTX_get_ex_data(x509_ctx, SSL_get_ex_data_X509_STORE_CTX_idx());
+    if LSsl <> nil then
+    begin
+      LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));
+      if LSock <> nil then
+      begin
+        LockVerifyCB.Enter;
+        try
+          if Supports(LSock.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+          begin
+            LX509_Cert := X509_STORE_CTX_get_current_cert(x509_ctx);
+            LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
+            LDepth := X509_STORE_CTX_get_error_depth(x509_ctx);
+            LCertErr := X509_STORE_CTX_get_error(x509_ctx);
+            LMSg := AnsiStringToString(X509_verify_cert_error_string(LCertErr));
+            LDescr := CertErrorToLongDescr(LCertErr);
+            LHelper.VerifyCallback( preverify_ok, LCertificate, LDepth, LCertErr, LMsg, LDescr, LContinue );
+            if not LContinue then
+              Result := 0;
+          end;
+        finally
+          LockVerifyCB.Leave;
+        end;
+      end;
+    end;
+  finally
+    GStack.WSSetLastError(LErr);
+  end;
 end;
 
 function SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
@@ -2997,6 +3160,16 @@ begin
   end;
 end;
 
+procedure TTaurusTLSServerIOHandler.VerifyCallback(const APreverify_ok: TIdC_INT;
+  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+  const AMsg, ADescr: String; var VContinue: Boolean);
+begin
+  if Assigned(fOnVerifyCallback) then
+  begin
+    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg, ADescr, VContinue);
+  end;
+end;
+
 function TTaurusTLSServerIOHandler.VerifyPeer(ACertificate: TTaurusTLSX509;
   const ADepth: Integer; const AError: TIdC_LONG): Boolean;
 begin
@@ -3591,6 +3764,16 @@ begin
 {$ENDIF}
     GetStateVars(AsslSocket, AWhere, Aret, LType, LMsg);
     FOnStatusInfo(Self, AsslSocket, AWhere, Aret, LType, LMsg);
+  end;
+end;
+
+procedure TTaurusTLSIOHandlerSocket.VerifyCallback(const APreverify_ok: TIdC_INT;
+  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
+  const AMsg, ADescr: String; var VContinue: Boolean);
+begin
+  if Assigned(fOnVerifyCallback) then
+  begin
+    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg, ADescr, VContinue);
   end;
 end;
 
