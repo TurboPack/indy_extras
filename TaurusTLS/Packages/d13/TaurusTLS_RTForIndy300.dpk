@@ -32,9 +32,9 @@ package TaurusTLS_RTForIndy300;
 
 requires
   rtl,
-  IndyCore290,
-  IndySystem290,
-  IndyProtocols290;
+  IndyCore300,
+  IndySystem300,
+  IndyProtocols300;
 
 contains
   TaurusTLS_ResourceStrings in '..\..\Source\TaurusTLS_ResourceStrings.pas',

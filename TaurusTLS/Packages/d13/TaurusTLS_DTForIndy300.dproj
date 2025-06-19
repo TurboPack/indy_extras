@@ -165,12 +165,12 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
-        <DCCReference Include="dclIndyCore290.dcp"/>
-        <DCCReference Include="dclIndyProtocols290.dcp"/>
-        <DCCReference Include="IndyCore290.dcp"/>
-        <DCCReference Include="IndyProtocols290.dcp"/>
-        <DCCReference Include="IndySystem290.dcp"/>
-        <DCCReference Include="TaurusTLS_RTForIndy290.dcp"/>
+        <DCCReference Include="dclIndyCore300.dcp"/>
+        <DCCReference Include="dclIndyProtocols300.dcp"/>
+        <DCCReference Include="IndyCore300.dcp"/>
+        <DCCReference Include="IndyProtocols300.dcp"/>
+        <DCCReference Include="IndySystem300.dcp"/>
+        <DCCReference Include="TaurusTLS_RTForIndy300.dcp"/>
         <DCCReference Include="designide.dcp"/>
         <DCCReference Include="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
         <DCCReference Include="..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas"/>
@@ -222,6 +222,12 @@
                 </DeployFile>
                 <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_DTForIndy290.bpl" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\23.0\Bpl\TaurusTLS_DTForIndy290.bpl" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Release\TaurusTLS_DTForIndy300.bpl" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>TaurusTLS_DTForIndy300.bpl</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="OSX32">
                         <Operation>1</Operation>

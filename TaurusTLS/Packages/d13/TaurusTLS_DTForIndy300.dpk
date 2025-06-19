@@ -31,12 +31,12 @@ package TaurusTLS_DTForIndy300;
 
 requires
   rtl,
-  dclIndyCore290,
-  dclIndyProtocols290,
-  IndyCore290,
-  IndyProtocols290,
-  IndySystem290,
-  TaurusTLS_RTForIndy290,
+  dclIndyCore300,
+  dclIndyProtocols300,
+  IndyCore300,
+  IndyProtocols300,
+  IndySystem300,
+  TaurusTLS_RTForIndy300,
   designide;
 
 contains
