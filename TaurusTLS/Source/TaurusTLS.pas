@@ -2323,13 +2323,15 @@ var
   LSsl: PSSL;
   LSock: TTaurusTLSSocket;
   LContinue: Boolean;
-  LHelper: ITaurusTLSCallbackHelper;
   LX509_Cert: PX509;
   LCertificate: TTaurusTLSX509;
   LDepth: Integer;
   LCertErr: TIdC_LONG;
+  {$IFNDEF USE_INLINE_VAR}
+  LHelper: ITaurusTLSCallbackHelper;
   LMSg: String;
   LDescr: String;
+  {$ENDIF}
 begin
   Result := 1;
   LContinue := True;
@@ -2345,12 +2347,18 @@ begin
       begin
         LockVerifyCB.Enter;
         try
+          {$IFDEF USE_INLINE_VAR}
+          var LHelper: ITaurusTLSCallbackHelper;
+          {$ENDIF}
           if Supports(LSock.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
           begin
             LX509_Cert := X509_STORE_CTX_get_current_cert(x509_ctx);
             LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
             LDepth := X509_STORE_CTX_get_error_depth(x509_ctx);
             LCertErr := X509_STORE_CTX_get_error(x509_ctx);
+            {$IFDEF USE_INLINE_VAR}
+            var LMSg, LDescr : String;
+            {$ENDIF}
             LMSg := AnsiStringToString(X509_verify_cert_error_string(LCertErr));
             LDescr := CertErrorToLongDescr(LCertErr);
             LHelper.VerifyCallback( preverify_ok, LCertificate, LDepth, LCertErr, LMsg, LDescr, LContinue );
