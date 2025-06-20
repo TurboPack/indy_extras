@@ -1321,7 +1321,27 @@ uses
   {$ENDIF}
   TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_ssl;
-  
+
+  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
+  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
+  //                (void (*)(void))cb)
+
+function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX; cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result :=  SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,SSL_CTX_callback_ctrl_v3(cb));
+end;
+
+
+  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
+  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
+  //
+function SSL_CTX_set_tlsext_servername_arg(ctx : PSSL_CTX; arg : Pointer)  : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg);
+end;
+
 const
   SSL_CTX_set_tlsext_max_fragment_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSL_set_tlsext_max_fragment_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1397,25 +1417,9 @@ const
   //# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
   //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
   //
-  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
-  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
-  //                (void (*)(void))cb)
-
-function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX; cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result :=  SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,SSL_CTX_callback_ctrl_v3(cb));
-end;
 
 
-  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
-  //
-function SSL_CTX_set_tlsext_servername_arg(ctx : PSSL_CTX; arg : Pointer)  : TIdC_LONG;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg);
-end;
+
 
   //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
   //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
