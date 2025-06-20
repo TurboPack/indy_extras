@@ -4241,8 +4241,8 @@ end;
 function SSL_get_event_handling_mode(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result :=  SSL_get_generic_value_uint((ssl), SSL_VALUE_EVENT_HANDLING_MODE,
-                               (value))
+  Result :=  SSL_get_generic_value_uint(ssl, SSL_VALUE_EVENT_HANDLING_MODE,
+                               value);
 end;
 
 function SSL_set_event_handling_mode(ssl : PSSL; value : TIdC_UINT64) : TIdC_INT;
@@ -4269,7 +4269,7 @@ end;
 function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-    Result := SSL_get_generic_value_uint((ssl), SSL_VALUE_STREAM_WRITE_BUF_AVAIL,
+    Result := SSL_get_generic_value_uint(ssl, SSL_VALUE_STREAM_WRITE_BUF_AVAIL,
                                value);
 end;
 
