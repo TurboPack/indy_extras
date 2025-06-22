@@ -2325,12 +2325,9 @@ var
   LContinue: Boolean;
   LX509_Cert: PX509;
   LCertificate: TTaurusTLSX509;
-  LDepth: Integer;
   LCertErr: TIdC_LONG;
   {$IFNDEF USE_INLINE_VAR}
   LHelper: ITaurusTLSCallbackHelper;
-  LMSg: String;
-  LDescr: String;
   {$ENDIF}
 begin
   Result := 1;
@@ -2353,15 +2350,17 @@ begin
           if Supports(LSock.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
           begin
             LX509_Cert := X509_STORE_CTX_get_current_cert(x509_ctx);
-            LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
-            LDepth := X509_STORE_CTX_get_error_depth(x509_ctx);
             LCertErr := X509_STORE_CTX_get_error(x509_ctx);
-            {$IFDEF USE_INLINE_VAR}
-            var LMSg, LDescr : String;
-            {$ENDIF}
-            LMSg := AnsiStringToString(X509_verify_cert_error_string(LCertErr));
-            LDescr := CertErrorToLongDescr(LCertErr);
-            LHelper.VerifyCallback( preverify_ok, LCertificate, LDepth, LCertErr, LMsg, LDescr, LContinue );
+            LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
+            try
+              LHelper.VerifyCallback( preverify_ok, LCertificate,
+                X509_STORE_CTX_get_error_depth(x509_ctx),
+                LCertErr,
+                AnsiStringToString(X509_verify_cert_error_string(LCertErr)),
+                CertErrorToLongDescr(LCertErr), LContinue );
+            finally
+              FreeAndNil(LCertificate);
+            end;
             if not LContinue then
               Result := 0;
           end;
@@ -4343,7 +4342,6 @@ var
   Lpeercert: PX509;
   LCertificate: TTaurusTLSX509;
   LHostName : TBytes;
-  LFunc : SSL_verify_cb;
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
@@ -4413,16 +4411,8 @@ begin
     end;
   end;
 
-  if sslvrfPeer in fSSLContext.VerifyMode then
-  begin
-    LFunc := g_VerifyCallback;
-  end
-  else
-  begin
-    LFunc := nil;
-  end;
   SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-          (fSSLContext.VerifyMode), LFunc);
+          (fSSLContext.VerifyMode), g_VerifyCallback);
   SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
 
   LRetCode := SSL_connect(fSSL);
