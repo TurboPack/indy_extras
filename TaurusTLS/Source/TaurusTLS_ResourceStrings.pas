@@ -117,9 +117,8 @@ resourcestring
   RSMSG_X509_V_ERR_CERT_CHAIN_TOO_LONG = 'The certificate chain length is ' +
     'greater than the supplied maximum depth. Unused. ';
   RSMSG_X509_V_ERR_CERT_REVOKED = 'The certificate has been revoked.';
-  RSMSG_X509_V_ERR_INVALID_CA = 'A Certificate Authority (CA) certificate is ' +
-    'invalid. Either it is not a CA or its extensions are not consistent ' +
-    'with the supplied purpose.';
+  RSMSG_X509_V_ERR_NO_ISSUER_PUBLIC_KEY = 'The issuer certificate does not '+
+    'have a public key.';
   RSMSG_X509_V_ERR_PATH_LENGTH_EXCEEDED = 'The basicConstraints pathlength ' +
     'parameter has been exceeded. ';
   RSMSG_X509_V_ERR_INVALID_PURPOSE = 'The supplied certificate cannot be used '
@@ -182,6 +181,48 @@ resourcestring
   RSMSG_X509_V_ERR_APPLICATION_VERIFICATION  = 'An application specific '+
     'error. This will never be returned unless explicitly set by an '+
     'application. ';
+  RSMSG_X509_V_ERR_UNSUPPORTED_NAME_SYNTAX = 'Unsupported or invalid name '+
+    'syntax.';
+  RSMSG_X509_V_ERR_PATH_LOOP = 'Path loop.';
+  RSMSG_X509_V_ERR_HOSTNAME_MISMATCH = 'Hostname mismatch.';
+  RSMSG_X509_V_ERR_EMAIL_MISMATCH = 'Email address mismatch.';
+  RSMSG_X509_V_ERR_IP_ADDRESS_MISMATCH = 'IP address mismatch.';
+  RSMSG_X509_V_ERR_DANE_NO_MATCH = 'DNS-based Authentication of Named '+
+    'Entities (DANE) Transport Layer Security Authentication (TLSA) '+
+    'authentication is enabled, but no TLSA records matched the certificate '+
+    'chain. This error is only possible in openssl-s_client(1).';
+  RSMSG_X509_V_ERR_EE_KEY_TOO_SMALL = 'End Entry (EE) certificate key too weak.';
+  RSMSG_X509_V_ERR_CA_KEY_TOO_SMALL = 'Certificate Authority (CA) '+
+    'certificate key too weak.';
+  RSMSG_X509_V_ERR_CA_MD_TOO_WEAK = 'Certificate Authority (CA) signature '+
+    'digest algorithm too weak';
+  RSMSG_X509_V_ERR_INVALID_CALL = 'Invalid certificate verification context.';
+  RSMSG_X509_V_ERR_STORE_LOOKUP = 'Issuer certificate lookup error.';
+  RSMSG_X509_V_ERR_NO_VALID_SCTS = 'Certificate Transparency required, but no '+
+    'valid Signed Certificate Timestamps (SCTs) found.';
+  RSMSG_X509_V_ERR_PROXY_SUBJECT_NAME_VIOLATION = 'Proxy subject name violation.';
+  RSMSG_X509_V_ERR_OCSP_VERIFY_NEEDED = 'Returned by the verify callback to '+
+    'indicate an Online Certificate Status Protocol (OCSP) verification is '+
+    'needed.';
+  RSMSG_X509_V_ERR_OCSP_VERIFY_FAILED = 'Returned by the verify callback to '+
+    'indicate Online Certificate Status Protocol (OCSP) verification failed.';
+  RSMSG_X509_V_ERR_OCSP_CERT_UNKNOWN = 'Returned by the verify callback to '+
+    'indicate that the certificate is not recognized by the Online '+
+    'Certificate Status Protoco (OCSP) responder.';
+  RSMSG_X509_V_ERR_UNSUPPORTED_SIGNATURE_ALGORITHM = 'Cannot find certificate '+
+    'signature algorithm.';
+  RSMSG_X509_V_ERR_SIGNATURE_ALGORITHM_MISMATCH = 'The issuer''s public key '+
+    'is not of the type required by the signature in the subject''s '+
+    'certificate.';
+  RSMSG_X509_V_ERR_SIGNATURE_ALGORITHM_INCONSISTENCY = 'The algorithm given '+
+    'in the certificate info is inconsistent with the one used for the '+
+    'certificate signature.';
+  RSMSG_X509_V_ERR_INVALID_CA = 'A Certificate Authority (CA) certificate is '+
+    'invalid. Either it is not a CA or its extensions are not consistent '+
+    'with the supplied purpose.';
+  RSMSG_X509_V_ERR_RPK_UNTRUSTED = 'No TLS records were configured to validate '+
+    'the raw public key, or DNS-based Authentication of Named Entities (DANE) '+
+    'was not enabled on the connection.';
 
 implementation
 

@@ -255,6 +255,7 @@ end;
 function CertErrorToLongDescr(ACertError: TIdC_LONG): String;
 begin
   { Thuis is stuff from: https://linux.die.net/man/3/x509_store_ctx_get_error
+    and https://docs.openssl.org/3.3/man3/X509_STORE_CTX_get_error/#error-codes .
     I found that the error message from  X509_verify_cert_error_string does not
     always accurately describe the issue involved. }
   case ACertError of
@@ -347,9 +348,9 @@ begin
       begin
         Result := RSMSG_X509_V_ERR_CERT_REVOKED;
       end;
-    X509_V_ERR_INVALID_CA:
+    X509_V_ERR_NO_ISSUER_PUBLIC_KEY:
       begin
-        Result := RSMSG_X509_V_ERR_INVALID_CA;
+        Result := RSMSG_X509_V_ERR_NO_ISSUER_PUBLIC_KEY;
       end;
     X509_V_ERR_PATH_LENGTH_EXCEEDED:
       begin
@@ -430,6 +431,90 @@ begin
     X509_V_ERR_APPLICATION_VERIFICATION:
       begin
         Result := RSMSG_X509_V_ERR_APPLICATION_VERIFICATION;
+      end;
+    X509_V_ERR_UNSUPPORTED_NAME_SYNTAX:
+      begin
+        Result := RSMSG_X509_V_ERR_UNSUPPORTED_NAME_SYNTAX;
+      end;
+    X509_V_ERR_PATH_LOOP:
+      begin
+        Result := RSMSG_X509_V_ERR_PATH_LOOP;
+      end;
+    X509_V_ERR_HOSTNAME_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_HOSTNAME_MISMATCH;
+      end;
+    X509_V_ERR_EMAIL_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_EMAIL_MISMATCH;
+      end;
+    X509_V_ERR_IP_ADDRESS_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_IP_ADDRESS_MISMATCH;
+      end;
+    X509_V_ERR_DANE_NO_MATCH:
+      begin
+        Result :=  RSMSG_X509_V_ERR_DANE_NO_MATCH;
+      end;
+    X509_V_ERR_EE_KEY_TOO_SMALL:
+      begin
+        Result := RSMSG_X509_V_ERR_EE_KEY_TOO_SMALL;
+      end;
+    X509_V_ERR_CA_KEY_TOO_SMALL:
+      begin
+        Result := RSMSG_X509_V_ERR_CA_KEY_TOO_SMALL;
+      end;
+    X509_V_ERR_CA_MD_TOO_WEAK:
+      begin
+        Result := RSMSG_X509_V_ERR_CA_MD_TOO_WEAK;
+      end;
+    X509_V_ERR_INVALID_CALL:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_CALL;
+      end;
+    X509_V_ERR_STORE_LOOKUP:
+      begin
+        Result := RSMSG_X509_V_ERR_STORE_LOOKUP;
+      end;
+    X509_V_ERR_NO_VALID_SCTS:
+      begin
+        Result := RSMSG_X509_V_ERR_NO_VALID_SCTS;
+      end;
+    X509_V_ERR_PROXY_SUBJECT_NAME_VIOLATION:
+      begin
+        Result := RSMSG_X509_V_ERR_PROXY_SUBJECT_NAME_VIOLATION;
+      end;
+    X509_V_ERR_OCSP_VERIFY_NEEDED:
+      begin
+        Result := RSMSG_X509_V_ERR_OCSP_VERIFY_NEEDED;
+      end;
+    X509_V_ERR_OCSP_VERIFY_FAILED:
+      begin
+        Result := RSMSG_X509_V_ERR_OCSP_VERIFY_FAILED;
+      end;
+    X509_V_ERR_OCSP_CERT_UNKNOWN:
+      begin
+        Result := RSMSG_X509_V_ERR_OCSP_CERT_UNKNOWN;
+      end;
+    X509_V_ERR_UNSUPPORTED_SIGNATURE_ALGORITHM:
+      begin
+        Result := RSMSG_X509_V_ERR_UNSUPPORTED_SIGNATURE_ALGORITHM;
+      end;
+    X509_V_ERR_SIGNATURE_ALGORITHM_MISMATCH:
+      begin
+        Result := RSMSG_X509_V_ERR_SIGNATURE_ALGORITHM_MISMATCH;
+      end;
+    X509_V_ERR_SIGNATURE_ALGORITHM_INCONSISTENCY:
+      begin
+        Result := RSMSG_X509_V_ERR_SIGNATURE_ALGORITHM_INCONSISTENCY;
+      end;
+    X509_V_ERR_INVALID_CA:
+      begin
+        Result := RSMSG_X509_V_ERR_INVALID_CA;
+      end;
+    X509_V_ERR_RPK_UNTRUSTED :
+      begin
+        Result := RSMSG_X509_V_ERR_RPK_UNTRUSTED;
       end
   else
     Result := AnsiStringToString(X509_verify_cert_error_string(ACertError));
