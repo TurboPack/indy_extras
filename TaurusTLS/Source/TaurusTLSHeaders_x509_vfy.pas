@@ -74,7 +74,7 @@ const
   X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE      = 21;
   X509_V_ERR_CERT_CHAIN_TOO_LONG                  = 22;
   X509_V_ERR_CERT_REVOKED                         = 23;
-  X509_V_ERR_INVALID_CA                           = 24;
+  X509_V_ERR_NO_ISSUER_PUBLIC_KEY                 = 24;
   X509_V_ERR_PATH_LENGTH_EXCEEDED                 = 25;
   X509_V_ERR_INVALID_PURPOSE                      = 26;
   X509_V_ERR_CERT_UNTRUSTED                       = 27;
@@ -138,6 +138,26 @@ const
   X509_V_ERR_OCSP_VERIFY_NEEDED                   = 73;  (* Need OCSP verification *)
   X509_V_ERR_OCSP_VERIFY_FAILED                   = 74;  (* Couldn't verify cert through OCSP *)
   X509_V_ERR_OCSP_CERT_UNKNOWN                    = 75;  (* Certificate wasn't recognized by the OCSP responder *)
+  X509_V_ERR_UNSUPPORTED_SIGNATURE_ALGORITHM      = 76;
+  X509_V_ERR_SIGNATURE_ALGORITHM_MISMATCH         = 77;
+  X509_V_ERR_SIGNATURE_ALGORITHM_INCONSISTENCY    = 78;
+  X509_V_ERR_INVALID_CA                           = 79;
+  X509_V_ERR_PATHLEN_INVALID_FOR_NON_CA           = 80;
+  X509_V_ERR_PATHLEN_WITHOUT_KU_KEY_CERT_SIGN     = 81;
+  X509_V_ERR_KU_KEY_CERT_SIGN_INVALID_FOR_NON_CA  = 82;
+  X509_V_ERR_ISSUER_NAME_EMPTY                    = 83;
+  X509_V_ERR_SUBJECT_NAME_EMPTY                   = 84;
+  X509_V_ERR_MISSING_AUTHORITY_KEY_IDENTIFIER     = 85;
+  X509_V_ERR_MISSING_SUBJECT_KEY_IDENTIFIER       = 86;
+  X509_V_ERR_EMPTY_SUBJECT_ALT_NAME               = 87;
+  X509_V_ERR_EMPTY_SUBJECT_SAN_NOT_CRITICAL       = 88;
+  X509_V_ERR_CA_BCONS_NOT_CRITICAL                = 89;
+  X509_V_ERR_AUTHORITY_KEY_IDENTIFIER_CRITICAL    = 90;
+  X509_V_ERR_SUBJECT_KEY_IDENTIFIER_CRITICAL      = 91;
+  X509_V_ERR_CA_CERT_MISSING_KEY_USAGE            = 92;
+  X509_V_ERR_EXTENSIONS_REQUIRE_VERSION_3         = 93;
+  X509_V_ERR_EC_KEY_EXPLICIT_PARAMS               = 94;
+  X509_V_ERR_RPK_UNTRUSTED                        = 95;
 
   (* Certificate verify flags *)
 
