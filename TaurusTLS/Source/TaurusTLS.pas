@@ -3002,7 +3002,7 @@ begin
   fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
   fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
   fSSLContext.CipherList := SSLOptions.CipherList;
-  fSSLContext.VerifyOn := Assigned(fOnVerifyError);
+  fSSLContext.VerifyOn := Assigned(fOnVerifyCallback);
   fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
   fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
   fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
@@ -3444,7 +3444,7 @@ begin
       SSLOptions.UseSystemRootCertificateStore;
     fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
     fSSLContext.CipherList := SSLOptions.CipherList;
-    fSSLContext.VerifyOn := Assigned(fOnVerifyError);
+    fSSLContext.VerifyOn := Assigned(fOnVerifyCallback );
     fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
     fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
     fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
@@ -4342,6 +4342,7 @@ var
   Lpeercert: PX509;
   LCertificate: TTaurusTLSX509;
   LHostName : TBytes;
+  LFunc : SSL_verify_cb;
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
@@ -4411,8 +4412,16 @@ begin
     end;
   end;
 
+  if fSSLContext.VerifyOn then
+  begin
+    LFunc := g_VerifyCallback;
+  end
+  else
+  begin
+    LFunc := nil;
+  end;
   SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-          (fSSLContext.VerifyMode), g_VerifyCallback);
+          (fSSLContext.VerifyMode), LFunc);
   SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
 
   LRetCode := SSL_connect(fSSL);
@@ -4439,22 +4448,19 @@ begin
       LVerifyResult := SSL_get_verify_result(fSSL);
       if LVerifyResult <> X509_V_OK then
       begin
-        if fSSLContext.VerifyOn then
+        if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
+        then
         begin
-          if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
-          then
-          begin
-            LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
-            try
-              if not LHelper.VerifyError(LCertificate, LVerifyResult) then
-              begin
+          LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
+          try
+            if not LHelper.VerifyError(LCertificate, LVerifyResult) then
+            begin
                 ETaurusTLSCertValidationError.RaiseWithMessage
                   (AnsiStringToString(X509_verify_cert_error_string
                   (LVerifyResult)));
-              end;
-            finally
-              FreeAndNil(LCertificate);
             end;
+          finally
+            FreeAndNil(LCertificate);
           end;
         end;
       end;
