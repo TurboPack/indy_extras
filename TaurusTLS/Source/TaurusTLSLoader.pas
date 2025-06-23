@@ -186,6 +186,9 @@ function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLib
 implementation
 
 uses
+{$IFDEF HAS_UNIT_Generics_Collections}
+  System.Generics.Collections,
+{$ENDIF}
   TaurusTLSExceptionHandlers,
   {$IFDEF FPC}
   IdGlobalProtocols,
@@ -211,9 +214,15 @@ const
 
 var
   GOpenSSLLoader: IOpenSSLLoader = nil;
+{$IFDEF HAS_UNIT_Generics_Collections}
+  GLibCryptoLoadList: TList<TOpenSSLLoadProc> = nil;
+  GLibSSLLoadList: TList<TOpenSSLLoadProc> = nil;
+  GUnLoadList: TList<TOpenSSLUnloadProc> = nil;
+{$ELSE}
   GLibCryptoLoadList: TList = nil;
   GLibSSLLoadList: TList = nil;
   GUnLoadList: TList = nil;
+{$ENDIF}
 
 function GetOpenSSLLoader: IOpenSSLLoader;
 begin
@@ -224,9 +233,17 @@ procedure Register_SSLLoader(LoadProc: TOpenSSLLoadProc;
   const module_name: string);
 begin
   if GLibCryptoLoadList = nil then
+{$IFDEF HAS_UNIT_Generics_Collections}
+    GLibCryptoLoadList := TList<TOpenSSLLoadProc>.Create;
+{$ELSE}
     GLibCryptoLoadList := TList.Create;
+{$ENDIF}
   if GLibSSLLoadList = nil then
+{$IFDEF HAS_UNIT_Generics_Collections}
+    GLibSSLLoadList := TList<TOpenSSLLoadProc>.Create;
+{$ELSE}
     GLibSSLLoadList := TList.Create;
+{$ENDIF}
 
   if module_name = 'LibCrypto' then
     GLibCryptoLoadList.Add(@LoadProc)
@@ -239,7 +256,11 @@ end;
 procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 begin
   if GUnLoadList = nil then
+{$IFDEF HAS_UNIT_Generics_Collections}
+    GUnLoadList := TList<TOpenSSLUnloadProc>.Create;
+{$ELSE}
     GUnLoadList := TList.Create;
+{$ENDIF}
   GUnLoadList.Add(@UnloadProc);
 end;
 
