@@ -192,13 +192,17 @@ var
   LM: TMemoryStream;
   LB: PBIO;
 begin
+  LB:=nil;
   LM := TMemoryStream.Create;
-  LB := BIO_new_mem_buf(LM.Memory, LM.Size);
   try
     LM.LoadFromFile(AFileName);
+    LB := BIO_new_mem_buf(LM.Memory, LM.Size);
     Result := PEM_read_bio_X509(LB, nil, nil, nil);
   finally
-    BIO_free(LB);
+    if Assigned(LB) then
+    begin
+      BIO_free(LB);
+    end;
     FreeAndNil(LM);
   end;
 end;
