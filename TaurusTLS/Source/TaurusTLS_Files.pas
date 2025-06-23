@@ -199,10 +199,7 @@ begin
     LB := BIO_new_mem_buf(LM.Memory, LM.Size);
     Result := PEM_read_bio_X509(LB, nil, nil, nil);
   finally
-    if Assigned(LB) then
-    begin
-      BIO_free(LB);
-    end;
+    BIO_free(LB);
     FreeAndNil(LM);
   end;
 end;
