@@ -1177,7 +1177,7 @@ type
     /// <summary>
     /// Peer Certificate must match hostname
     /// </summary>
-    property VefiryHostname : Boolean read GetVerifyHostname write SetVerifyHostName;
+    property VerifyHostname : Boolean read GetVerifyHostname write SetVerifyHostName;
   end;
 
   /// <summary>
@@ -3041,7 +3041,7 @@ begin
           LIO.SSLOptions.Assign(fSSLOptions);
           LIO.IsPeer := True;
           LIO.SSLSocket := TTaurusTLSSocket.Create(Self);
-          LIO.SSLSocket.VefiryHostname := SSLOptions.VerifyHostname;
+          LIO.SSLSocket.VerifyHostname := SSLOptions.VerifyHostname;
           LIO.SSLContext := fSSLContext;
           // TODO: to enable server-side SNI, we need to:
           // - Set up an additional SSL_CTX for each different certificate;
@@ -3494,7 +3494,7 @@ begin
   if not Assigned(fSSLSocket) then
   begin
     fSSLSocket := TTaurusTLSSocket.Create(Self);
-    fSSLSocket.VefiryHostname := SSLOptions.VerifyHostname;
+    fSSLSocket.VerifyHostname := SSLOptions.VerifyHostname;
   end;
   Assert(fSSLSocket.SSLContext = nil);
   fSSLSocket.SSLContext := fSSLContext;
