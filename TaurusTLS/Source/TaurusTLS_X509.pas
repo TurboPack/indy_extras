@@ -1137,8 +1137,8 @@ begin
   FreeAndNil(FPublicKey);
   { If the X.509 certificate handle was obtained from a certificate
     store or from the SSL connection as a peer certificate, then DO NOT
-    free it here!  The memory is owned by the TaurusTLS library and will
-    crash the library if Indy tries to free its private memory here }
+    free it here!  The memory is owned by the OpenSSL library and will
+    crash the library if TaurusTLS tries to free its private memory here }
   if FCanFreeX509 then
   begin
     X509_free(FX509);
