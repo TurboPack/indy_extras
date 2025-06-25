@@ -7,6 +7,10 @@
 
 // General
 
+{$IFNDEF DEBUG}
+  {$DEFINE USE_INLINE}
+{$ENDIF}
+
 // Make this $DEFINE to use the 16 color icons required by Borland
 // or DEFINE to use the 256 color Indy versions
 {.$DEFINE Borland}

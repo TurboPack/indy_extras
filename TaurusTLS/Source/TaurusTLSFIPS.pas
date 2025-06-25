@@ -47,7 +47,7 @@ uses
   TaurusTLSHeaders_ossl_typ;
 
 {$i TaurusTLSUnusedParamOff.inc}
-function FIPS_mode_set(onoff : TIdC_INT) : TIdC_INT;  {$IFDEF INLINE}inline;{$ENDIF}
+function FIPS_mode_set(onoff : TIdC_INT) : TIdC_INT;  {$IFDEF USE_INLINE}inline;{$ENDIF}
 begin
   Result := 0;
   {$IFDEF OPENSSL_FIPS}
@@ -61,7 +61,7 @@ begin
 end;
 {$i TaurusTLSUnusedParamOn.inc}
 
-function FIPS_mode() : TIdC_INT;  {$IFDEF INLINE}inline;{$ENDIF}
+function FIPS_mode() : TIdC_INT;  {$IFDEF USE_INLINE}inline;{$ENDIF}
 begin
   Result := 0;
   {$IFDEF OPENSSL_FIPS}
