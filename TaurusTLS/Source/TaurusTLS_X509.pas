@@ -60,18 +60,18 @@ type
   TTaurusTLSX509Name = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     fX509Name: PX509_NAME;
-    function GetStrByNID(const ANid: TIdC_INT): String;
-    function GetOneLine: String;
-    function GetHash: TTaurusTLSULong;
-    function GetHashAsString: String;
-    function GetCommonName: String;
-    function GetOrginization: String;
-    function GetUnit: String;
-    function GetEMail: String;
-    function GetCity: String;
-    function GetCountry: String;
-    function GetProvidence: String;
-    function GetStreetAddress: String;
+    function GetStrByNID(const ANid: TIdC_INT): String; inline;
+    function GetOneLine: String; inline;
+    function GetHash: TTaurusTLSULong; inline;
+    function GetHashAsString: String; inline;
+    function GetCommonName: String; inline;
+    function GetOrginization: String; inline;
+    function GetUnit: String; inline;
+    function GetEMail: String; inline;
+    function GetCity: String; inline;
+    function GetCountry: String; inline;
+    function GetProvidence: String; inline;
+    function GetStreetAddress: String; inline;
   public
     /// <summary>
     ///   Creates a new instance of TTaurusTLSX509Name.
@@ -167,14 +167,14 @@ type
   /// </summary>
   TTaurusTLSX509Fingerprints = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetSHA224: TTaurusTLSLEVP_MD;
-    function GetSHA224AsString: String;
-    function GetSHA256: TTaurusTLSLEVP_MD;
-    function GetSHA256AsString: String;
-    function GetSHA384: TTaurusTLSLEVP_MD;
-    function GetSHA384AsString: String;
-    function GetSHA512: TTaurusTLSLEVP_MD;
-    function GetSHA512AsString: String;
+    function GetSHA224: TTaurusTLSLEVP_MD; inline;
+    function GetSHA224AsString: String; inline;
+    function GetSHA256: TTaurusTLSLEVP_MD; inline;
+    function GetSHA256AsString: String; inline;
+    function GetSHA384: TTaurusTLSLEVP_MD; inline;
+    function GetSHA384AsString: String; inline;
+    function GetSHA512: TTaurusTLSLEVP_MD; inline;
+    function GetSHA512AsString: String; inline;
   public
     { IMPORTANT!!!
 
@@ -227,10 +227,10 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     Fsig_alg: PX509_ALGOR;
     Fsignature: PASN1_BIT_STRING;
-    function GetSignature: String;
-    function GetSigType: TIdC_INT;
-    function GetSigTypeAsString: String;
-    function GetAlgorithm: String;
+    function GetSignature: String; inline;
+    function GetSigType: TIdC_INT; inline;
+    function GetSigTypeAsString: String; inline;
+    function GetAlgorithm: String; inline;
   public
     /// <summary>
     ///   Creates a new instance of the object.
@@ -262,14 +262,14 @@ type
   /// </summary>
   TTaurusTLSX509PublicKey = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetModulus: String;
-    function GetExponent: String;
-    function GetAlgorithm: String;
-    function GetBits: TIdC_INT;
-    function GetSize: TIdC_INT;
-    function GetSecurityBits: TIdC_INT;
-    function GetEncoding: String;
-    function GetEncodingSize: TIdC_INT;
+    function GetModulus: String; inline;
+    function GetExponent: String; inline;
+    function GetAlgorithm: String; inline;
+    function GetBits: TIdC_INT; inline;
+    function GetSize: TIdC_INT; inline;
+    function GetSecurityBits: TIdC_INT; inline;
+    function GetEncoding: String; inline;
+    function GetEncodingSize: TIdC_INT; inline;
   public
     /// <summary>
     ///   Algorithm for the X509 Public Key.
@@ -317,9 +317,9 @@ type
   TTaurusTLSX509Exts = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     // X509_get_ext
-    function GetExtension(const AIndex: TIdC_INT): PX509_EXTENSION;
-    function GetExtensionByNid(const ANid: TIdC_INT): PX509_EXTENSION;
-    function GetCount: TIdC_INT;
+    function GetExtension(const AIndex: TIdC_INT): PX509_EXTENSION; inline;
+    function GetExtensionByNid(const ANid: TIdC_INT): PX509_EXTENSION; inline;
+    function GetCount: TIdC_INT; inline;
   public
     /// <summary>
     ///   OpenSSL X509 Extention object by numeric identifier (NID).
@@ -345,10 +345,10 @@ type
   /// </summary>
   TTaurusTLSX509AuthorityKeyID = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetIssuer(const AIndex: TIdC_INT): String;
-    function GetKeyId: String;
-    function GetSerial: TIdC_INT64;
-    function GetIssuerCount: TIdC_INT;
+    function GetIssuer(const AIndex: TIdC_INT): String; inline;
+    function GetKeyId: String; inline;
+    function GetSerial: TIdC_INT64; inline;
+    function GetIssuerCount: TIdC_INT; inline;
   public
     /// <summary>
     ///   authority key identifier.
@@ -376,9 +376,9 @@ type
   /// </summary>
   TTaurusTLSX509Warnings = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetObsoleteV1: Boolean;
-    function GetSelfSigned: Boolean;
-    function GetSubjectAndIssuerMatch: Boolean;
+    function GetObsoleteV1: Boolean; inline;
+    function GetSelfSigned: Boolean; inline;
+    function GetSubjectAndIssuerMatch: Boolean; inline;
   public
     /// <summary>
     ///   The certificate is an obsolete version 1 certificate.
@@ -401,10 +401,10 @@ type
   /// </summary>
   TTaurusTLSX509Errors = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    function GetInvalidInconsistantValues: Boolean;
-    function GetInvalidPolicy: Boolean;
-    function GetUnhandledCriticalExtension: Boolean;
-    function GetNoFingerprint: Boolean;
+    function GetInvalidInconsistantValues: Boolean; inline;
+    function GetInvalidPolicy: Boolean; inline;
+    function GetUnhandledCriticalExtension: Boolean; inline;
+    function GetNoFingerprint: Boolean; inline;
   public
     /// <summary>
     ///   Failed to compute the internal SHA1 hash value of the certificate or
@@ -435,9 +435,9 @@ type
   TTaurusTLSX509AltSubjectNames = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     FGeneralNames: PGENERAL_NAMES;
-    procedure GetGeneralNames;
-    function GetItems(const AIndex: TIdC_INT): string;
-    function GetItemsCount: TIdC_INT;
+    procedure GetGeneralNames; inline;
+    function GetItems(const AIndex: TIdC_INT): string; inline;
+    function GetItemsCount: TIdC_INT; inline;
   public
     constructor Create(aX509: PX509); override;
     destructor Destroy; override;
@@ -605,31 +605,32 @@ type
     FDisplayInfo: TStrings;
     FAuthorityKeyID: TTaurusTLSX509AuthorityKeyID;
     FAltSubjectNames: TTaurusTLSX509AltSubjectNames;
-    function GetExtensionCount: TIdC_LONG;
-    function GetSubject: TTaurusTLSX509Name;
-    function GetIssuer: TTaurusTLSX509Name;
-    function GetnotBefore: TDateTime;
-    function GetnotAfter: TDateTime;
-    function GetFingerprint: TTaurusTLSLEVP_MD;
-    function GetFingerprintAsString: String;
-    function GetSerialNumber: String;
+    function GetExtensionCount: TIdC_LONG; inline;
+    function GetSubject: TTaurusTLSX509Name; inline;
+    function GetIssuer: TTaurusTLSX509Name; inline;
+    function GetnotBefore: TDateTime; inline;
+    function GetnotAfter: TDateTime; inline;
+    function GetFingerprint: TTaurusTLSLEVP_MD; inline;
+    function GetFingerprintAsString: String; inline;
+    function GetSerialNumber: String; inline;
 
-    function GetVersion: TIdC_LONG;
+    function GetVersion: TIdC_LONG; inline;
     function GetDisplayInfo: TStrings;
-    function GetSubjectKeyIdentifier: String;
-    function GetCertificateAuthorityFlag: Boolean;
-    function GetExtentionName(const AIndex: TIdC_INT): string;
-    function GetExtentionCritical(const AIndex: TIdC_INT): Boolean;
-    function GetExtentionValues(const AIndex: TIdC_INT): string;
+    function GetSubjectKeyIdentifier: String; inline;
+    function GetCertificateAuthorityFlag: Boolean; inline;
+    function GetExtentionName(const AIndex: TIdC_INT): string; inline;
+    function GetExtentionCritical(const AIndex: TIdC_INT): Boolean; inline;
+    function GetExtentionValues(const AIndex: TIdC_INT): string; inline;
     function GetKeyUsage: TTaurusTLSX509KeyUsage;
     function GetExtKeyUsage: TTaurusTLSX509ExtKeyUsage;
 
-    function GetProxyPathLen: TIdC_LONG;
+    function GetProxyPathLen: TIdC_LONG; inline;
 
-    function X509ToTTaurusTLSX509Name(aX509: PX509_NAME): TTaurusTLSX509Name;
-    function GetHasBasicConstaints: Boolean;
-    function GetCertificateAuthorityPathLen: TIdC_LONG;
-    function GetHasFreshestCRL: Boolean;
+    class function X509ToTTaurusTLSX509Name(aX509: PX509_NAME): TTaurusTLSX509Name;
+      static; inline;
+    function GetHasBasicConstaints: Boolean; inline;
+    function GetCertificateAuthorityPathLen: TIdC_LONG; inline;
+    function GetHasFreshestCRL: Boolean; inline;
   public
     /// <summary>
     ///   Creates a new instance of TTaurusTLS.
@@ -1351,7 +1352,7 @@ begin
   Result := X509_get_version(FX509);
 end;
 
-function TTaurusTLSX509.X509ToTTaurusTLSX509Name(aX509: PX509_NAME)
+class function TTaurusTLSX509.X509ToTTaurusTLSX509Name(aX509: PX509_NAME)
   : TTaurusTLSX509Name;
 
 begin
