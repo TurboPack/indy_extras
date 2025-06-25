@@ -1154,7 +1154,7 @@ end;
 
 function TTaurusTLSX509.GetCertificateAuthorityFlag: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and EXFLAG_CA = EXFLAG_CA;
+  Result := (X509_get_extension_flags(FX509)) and EXFLAG_CA <> 0;
 end;
 
 function TTaurusTLSX509.GetCertificateAuthorityPathLen: TIdC_LONG;
@@ -1270,41 +1270,25 @@ var
   LFlags: TIdC_UINT32;
 begin
   Result := [];
-  if X509_get_extension_flags(FX509) and EXFLAG_XKUSAGE = EXFLAG_XKUSAGE then
+  if (X509_get_extension_flags(FX509) and EXFLAG_XKUSAGE) <> 0 then
   begin
     LFlags := X509_get_extended_key_usage(FX509);
-    if LFlags and XKU_SSL_SERVER = XKU_SSL_SERVER then
-    begin
-      Result := Result + [Server];
-    end;
-    if LFlags and XKU_SSL_CLIENT = XKU_SSL_CLIENT then
-    begin
-      Result := Result + [Client];
-    end;
-    if LFlags and XKU_SMIME = XKU_SMIME then
-    begin
-      Result := Result + [SMIME];
-    end;
-    if LFlags and XKU_CODE_SIGN = XKU_CODE_SIGN then
-    begin
-      Result := Result + [CodeSign];
-    end;
-    if LFlags and XKU_OCSP_SIGN = XKU_OCSP_SIGN then
-    begin
-      Result := Result + [OCSPSign];
-    end;
-    if LFlags and XKU_TIMESTAMP = XKU_TIMESTAMP then
-    begin
-      Result := Result + [TimeStamp];
-    end;
-    if LFlags and XKU_DVCS = XKU_DVCS then
-    begin
-      Result := Result + [DVCS];
-    end;
-    if LFlags and XKU_ANYEKU = XKU_ANYEKU then
-    begin
-      Result := Result + [AnyEKU];
-    end;
+    if (LFlags and XKU_SSL_SERVER) <> 0 then
+      Include(Result, Server);
+    if (LFlags and XKU_SSL_CLIENT) <> 0 then
+      Include(Result, Client);
+    if (LFlags and XKU_SMIME) <> 0 then
+      Include(Result,  SMIME);
+    if (LFlags and XKU_CODE_SIGN) <> 0 then
+      Include(Result, CodeSign);
+    if (LFlags and XKU_OCSP_SIGN) <> 0 then
+      Include(Result, OCSPSign);
+    if (LFlags and XKU_TIMESTAMP) <> 0 then
+      Include(Result, TimeStamp);
+    if (LFlags and XKU_DVCS) <> 0 then
+      Include(Result, DVCS);
+    if (LFlags and XKU_ANYEKU) <> 0 then
+      Include(Result, AnyEKU);
   end;
 end;
 
@@ -1313,49 +1297,32 @@ var
   LKeyUsage: TIdC_UINT32;
 begin
   Result := [];
-  if X509_get_extension_flags(FX509) and EXFLAG_KUSAGE = EXFLAG_KUSAGE then
+  if (X509_get_extension_flags(FX509) and EXFLAG_KUSAGE) <> 0 then
   begin
-
     LKeyUsage := X509_get_key_usage(FX509);
-    if LKeyUsage and KU_DIGITAL_SIGNATURE = KU_DIGITAL_SIGNATURE then
-    begin
-      Result := Result + [DigitalSignature];
-    end;
-    if LKeyUsage and KU_NON_REPUDIATION = KU_NON_REPUDIATION then
-    begin
-      Result := Result + [NonRepudiation];
-    end;
-    if LKeyUsage and KU_KEY_ENCIPHERMENT = KU_KEY_ENCIPHERMENT then
-    begin
-      Result := Result + [DataEncipherment];
-    end;
-    if LKeyUsage and KU_KEY_AGREEMENT = KU_KEY_AGREEMENT then
-    begin
-      Result := Result + [KeyAgreement];
-    end;
-    if LKeyUsage and KU_KEY_CERT_SIGN = KU_KEY_CERT_SIGN then
-    begin
-      Result := Result + [CertSign];
-    end;
-    if LKeyUsage and KU_CRL_SIGN = KU_CRL_SIGN then
-    begin
-      Result := Result + [CRLSign];
-    end;
-    if LKeyUsage and KU_ENCIPHER_ONLY = KU_ENCIPHER_ONLY then
-    begin
-      Result := Result + [EncipherOnly];
-    end;
-    if LKeyUsage and KU_DECIPHER_ONLY = KU_DECIPHER_ONLY then
-    begin
-      Result := Result + [DecipherOnly];
-    end;
+    if (LKeyUsage and KU_DIGITAL_SIGNATURE) <> 0 then
+      Include(Result, DigitalSignature);
+    if (LKeyUsage and KU_NON_REPUDIATION) <> 0 then
+      Include(Result, NonRepudiation);
+    if (LKeyUsage and KU_KEY_ENCIPHERMENT) <> 0 then
+      Include(Result, DataEncipherment);
+    if (LKeyUsage and KU_KEY_AGREEMENT) <> 0 then
+      Include(Result, KeyAgreement);
+    if (LKeyUsage and KU_KEY_CERT_SIGN) <> 0 then
+      Include(Result, CertSign);
+    if (LKeyUsage and KU_CRL_SIGN) <> 0 then
+      Include(Result, CRLSign);
+    if (LKeyUsage and KU_ENCIPHER_ONLY) <> 0 then
+      Include(Result, EncipherOnly);
+    if (LKeyUsage and KU_DECIPHER_ONLY) <> 0 then
+      Include(Result, DecipherOnly);
   end;
 end;
 
 function TTaurusTLSX509.GetProxyPathLen: TIdC_LONG;
 begin
   Result := -1;
-  if X509_get_extension_flags(FX509) and EXFLAG_PROXY = EXFLAG_PROXY then
+  if (X509_get_extension_flags(FX509) and EXFLAG_PROXY) <> 0 then
   begin
     Result := X509_get_proxy_pathlen(FX509);
   end;
@@ -1614,42 +1581,39 @@ end;
 
 function TTaurusTLSX509Warnings.GetObsoleteV1: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and EXFLAG_V1 = EXFLAG_V1;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_V1) <> 0;
 end;
 
 function TTaurusTLSX509Warnings.GetSelfSigned: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and EXFLAG_SI = EXFLAG_SI;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_SI) <> 0;
 end;
 
 function TTaurusTLSX509Warnings.GetSubjectAndIssuerMatch: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and EXFLAG_SS = EXFLAG_SS;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_SS) <> 0;
 end;
 
 { TTaurusTLSX509Errors }
 
 function TTaurusTLSX509Errors.GetInvalidInconsistantValues: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and EXFLAG_INVALID = EXFLAG_INVALID;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_INVALID) <> 0;
 end;
 
 function TTaurusTLSX509Errors.GetInvalidPolicy: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and
-    EXFLAG_INVALID_POLICY = EXFLAG_INVALID_POLICY;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_INVALID_POLICY) <> 0;
 end;
 
 function TTaurusTLSX509Errors.GetNoFingerprint: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and
-    EXFLAG_NO_FINGERPRINT = EXFLAG_NO_FINGERPRINT;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_NO_FINGERPRINT) <> 0;
 end;
 
 function TTaurusTLSX509Errors.GetUnhandledCriticalExtension: Boolean;
 begin
-  Result := X509_get_extension_flags(FX509) and
-    EXFLAG_CRITICAL = EXFLAG_CRITICAL;
+  Result := (X509_get_extension_flags(FX509) and EXFLAG_CRITICAL) <> 0;
 end;
 
 { TTaurusTLSX509AltSubjectNames }
