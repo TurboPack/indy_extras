@@ -3897,6 +3897,17 @@ begin
   SSL_CTX_set_ct_validation_callback(ctx,nil,nil);
 end;
 
+function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_GET_READ_AHEAD, 0, nil);
+end;
+
+function SSL_CTX_set_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_READ_AHEAD, m, nil);
+end;
 
 function SSL_CTX_get_default_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3908,18 +3919,6 @@ function SSL_CTX_set_default_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG): TIdC_LON
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := SSL_CTX_set_read_ahead(ctx, m);
-end;
-
-function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_GET_READ_AHEAD, 0, nil);
-end;
-
-function SSL_CTX_set_read_ahead(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
-{$IFDEF USE_INLINE}inline; {$ENDIF}
-begin
-  Result := SSL_CTX_ctrl(ctx, SSL_CTRL_SET_READ_AHEAD, m, nil);
 end;
 
 //===

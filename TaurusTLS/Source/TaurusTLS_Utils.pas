@@ -522,6 +522,34 @@ begin
   end;
 end;
 
+function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
+{$IFDEF USE_INLINE} inline; {$ENDIF}
+var
+  i: TIdC_SIZET;
+  LPtr: PByte;
+begin
+  Result := '';
+  if Assigned(APtr) then
+  begin
+    LPtr := PByte(APtr);
+    for i := 0 to ALen - 1 do
+    begin
+      if i <> 0 then
+      begin
+        Result := Result + ':'; { Do not Localize }
+      end;
+      Result := Result + IndyFormat('%.2x', [LPtr^]);
+      Inc(LPtr);
+    end;
+  end;
+end;
+
+function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String;
+{$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));
+end;
+
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
 
 function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
@@ -586,36 +614,6 @@ begin
 {$ENDIF}
 end;
 {$IFEND}
-
-function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;
-{$ifndef fpc}
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-{$endif}
-var
-  i: TIdC_SIZET;
-  LPtr: PByte;
-begin
-  Result := '';
-  if Assigned(APtr) then
-  begin
-    LPtr := PByte(APtr);
-    for i := 0 to ALen - 1 do
-    begin
-      if i <> 0 then
-      begin
-        Result := Result + ':'; { Do not Localize }
-      end;
-      Result := Result + IndyFormat('%.2x', [LPtr^]);
-      Inc(LPtr);
-    end;
-  end;
-end;
-
-function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));
-end;
 
 function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}

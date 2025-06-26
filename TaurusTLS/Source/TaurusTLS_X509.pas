@@ -828,6 +828,31 @@ begin
   end;
 end;
 
+
+function TTaurusTLSX509Name.GetStrByNID(const ANid: TIdC_INT): String;
+var
+  LBuffer: array [0 .. 2048] of TIdAnsiChar;
+begin
+  if fX509Name = nil then
+  begin
+    Result := ''; { Do not Localize }
+  end
+  else
+  begin
+    if X509_NAME_get_text_by_NID(fX509Name, ANid, @LBuffer[0], 256) > -1 then
+    begin
+      // PIdAnsiChar typecast is necessary to force the RTL
+      // to read it as a PAnsiChar for conversion for a
+      // string.
+      Result := String(PIdAnsiChar(@LBuffer[0]));
+    end
+    else
+    begin
+      Result := '';
+    end;
+  end;
+end;
+
 function TTaurusTLSX509Name.GetCity: String;
 begin
   Result := GetStrByNID(NID_localityName);
@@ -880,29 +905,6 @@ begin
   Result := GetStrByNID(NID_stateOrProvinceName);
 end;
 
-function TTaurusTLSX509Name.GetStrByNID(const ANid: TIdC_INT): String;
-var
-  LBuffer: array [0 .. 2048] of TIdAnsiChar;
-begin
-  if fX509Name = nil then
-  begin
-    Result := ''; { Do not Localize }
-  end
-  else
-  begin
-    if X509_NAME_get_text_by_NID(fX509Name, ANid, @LBuffer[0], 256) > -1 then
-    begin
-      // PIdAnsiChar typecast is necessary to force the RTL
-      // to read it as a PAnsiChar for conversion for a
-      // string.
-      Result := String(PIdAnsiChar(@LBuffer[0]));
-    end
-    else
-    begin
-      Result := '';
-    end;
-  end;
-end;
 
 function TTaurusTLSX509Name.GetStreetAddress: String;
 begin
@@ -1103,6 +1105,35 @@ begin
   Result := AnsiStringToString(OBJ_nid2ln(SigType));
 end;
 
+{ TTaurusTLSX509Exts }
+
+function TTaurusTLSX509Exts.GetCount: TIdC_INT;
+begin
+  Result := X509_get_ext_count(FX509);
+end;
+
+function TTaurusTLSX509Exts.GetExtension(const AIndex: TIdC_INT)
+  : PX509_EXTENSION;
+begin
+  Result := X509_get_ext(FX509, AIndex);
+end;
+
+function TTaurusTLSX509Exts.GetExtensionByNid(const ANid: TIdC_INT)
+  : PX509_EXTENSION;
+var
+  LIdx: TIdC_INT;
+begin
+  LIdx := X509_get_ext_by_NID(FX509, ANid, -1);
+  if LIdx > -1 then
+  begin
+    Result := X509_get_ext(FX509, LIdx);
+  end
+  else
+  begin
+    Result := nil;
+  end;
+end;
+
 { TTaurusTLSX509 }
 
 constructor TTaurusTLSX509.Create(aX509: PX509; aCanFreeX509: Boolean = True);
@@ -1219,7 +1250,7 @@ end;
 
 function TTaurusTLSX509.GetExtensionCount: TIdC_LONG;
 begin
-  Result := Self.FExtensions.Count;
+  Result := FExtensions.Count;
 end;
 
 function TTaurusTLSX509.GetExtentionCritical(const AIndex: TIdC_INT): Boolean;
@@ -1506,35 +1537,6 @@ function TTaurusTLSX509PublicKey.GetSize: TIdC_INT;
 begin
   /// no need to reference EVP_PKEY_get_size.  The headers load it as an alternative.
   Result := EVP_PKEY_size(X509_PUBKEY_get0(X509_get_X509_PUBKEY(FX509)));
-end;
-
-{ TTaurusTLSX509Exts }
-
-function TTaurusTLSX509Exts.GetCount: TIdC_INT;
-begin
-  Result := X509_get_ext_count(FX509);
-end;
-
-function TTaurusTLSX509Exts.GetExtension(const AIndex: TIdC_INT)
-  : PX509_EXTENSION;
-begin
-  Result := X509_get_ext(FX509, AIndex);
-end;
-
-function TTaurusTLSX509Exts.GetExtensionByNid(const ANid: TIdC_INT)
-  : PX509_EXTENSION;
-var
-  LIdx: TIdC_INT;
-begin
-  LIdx := X509_get_ext_by_NID(FX509, ANid, -1);
-  if LIdx > -1 then
-  begin
-    Result := X509_get_ext(FX509, LIdx);
-  end
-  else
-  begin
-    Result := nil;
-  end;
 end;
 
 { TTaurusTLSX509AuthorityKeyID }
