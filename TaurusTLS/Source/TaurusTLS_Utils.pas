@@ -51,7 +51,7 @@ type
   /// <remarks>
   /// The function returns an empty string if the a parameter is nil.
   /// </remarks>
-function ASN1_STRING_ToHexStr(a: PASN1_STRING): String; overload;
+function ASN1_STRING_ToHexStr(a: PASN1_STRING): String; overload; {$IFDEF USE_INLINE} inline; {$ENDIF}
 /// <summary>
 /// Converts an OpenSSL ASN1 Octet String to a hexidecimal representation.
 /// </summary>
@@ -64,7 +64,7 @@ function ASN1_STRING_ToHexStr(a: PASN1_STRING): String; overload;
 /// <remarks>
 /// The function returns an empty string if the a parameter is nil.
 /// </remarks>
-function ASN1_STRING_ToHexStr(a: PASN1_OCTET_STRING): String; overload;
+function ASN1_STRING_ToHexStr(a: PASN1_OCTET_STRING): String; overload; {$IFDEF USE_INLINE} inline; {$ENDIF}
 
 /// <summary>
 /// Converts an OpenSSL ASN1_OBJECT value to a string.
@@ -94,7 +94,7 @@ function ASN1_OBJECT_ToStr(a: PASN1_OBJECT): String;
 /// <remarks>
 /// An empty string may be returned if APtr is nil or the ALen parameter is 0.
 /// </remarks>
-function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;  overload;
+function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;  overload;  {$IFDEF USE_INLINE} inline; {$ENDIF}
 /// <summary>
 /// Converts a series of bytes to their hexidecimal representation.
 /// </summary>
@@ -110,7 +110,7 @@ function BytesToHexString(APtr: Pointer; ALen: TIdC_SIZET): String;  overload;
 /// <remarks>
 /// An empty string may be returned if APtr is nil or the ALen parameter is 0.
 /// </remarks>
-function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String; overload;
+function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String; overload;  {$IFDEF USE_INLINE} inline; {$ENDIF}
 /// <summary>
 /// Converts a TTaurusTLSLEVP_MD record to a hexidecimal representation.
 /// </summary>
@@ -120,7 +120,7 @@ function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String; overload;
 /// <returns>
 /// The hexidecimal representation.
 /// </returns>
-function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;
+function MDAsString(const AMD: TTaurusTLSLEVP_MD): String;  {$IFDEF USE_INLINE} inline; {$ENDIF}
 /// <summary>
 /// Parses an ASN1_TIME into a time stamp.
 /// </summary>
@@ -181,7 +181,7 @@ function ASN1TimeToDateTime(a: PASN1_TIME): TDateTime;
 /// The IP address or an empty string if the a parameter is nil or the value
 /// is not a valid IP address.
 /// </returns>
-function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
+function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String; {$IFDEF USE_INLINE}inline; {$ENDIF}
 /// <summary>
 /// Converts an OpenSSL X509_NAME object to a string representation.
 /// </summary>
@@ -227,7 +227,7 @@ function TaurusTLSRawToBytes(const AValue; const ASize: TIdC_SIZET): TIdBytes;
 /// <param name="AStr">
 /// Pointer to the string to convert.
 /// </param>
-function AnsiStringToString(const AStr: PIdAnsiChar): String;
+function AnsiStringToString(const AStr: PIdAnsiChar): String; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 /// <summary>
 ///   Returns a descriptive mssage for a certificate validation error.

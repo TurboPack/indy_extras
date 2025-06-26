@@ -16,7 +16,8 @@ unit TaurusTLSExceptionHandlers;
 interface
 
 uses
-  Classes, SysUtils, IdException, IdCTypes, TaurusTLSHeaders_ossl_typ;
+  Classes, SysUtils, IdException, IdCTypes, TaurusTLSHeaders_ossl_typ,
+  TaurusTLS_Utils;
 
 type
 //moved from IdSSLTaurusTLS so we can use these classes in other places
@@ -189,7 +190,7 @@ implementation
 
 uses IdGlobal, IdStack, IdResourceStringsProtocols,
    TaurusTLSHeaders_err, TaurusTLSHeaders_ssl,
-   TaurusTLS_ResourceStrings, TaurusTLS_Utils;
+   TaurusTLS_ResourceStrings;
 
 function GetErrorMessage(const AErr : TIdC_ULONG) : String;
 {$ifndef fpc}
