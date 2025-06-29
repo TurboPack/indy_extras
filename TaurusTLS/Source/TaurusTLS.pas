@@ -607,32 +607,32 @@ type
   TOnGetPasswordEvent = procedure(ASender: TObject; var VPassword: String;
     const AIsWrite: Boolean; var VOk: Boolean) of object;
   /// <summary>
-  ///   <see cref="TTaurusTLSIOHandlerSocket.OnVerifyError" /> and <see
-  ///   cref="TTaurusTLSServerIOHandler.OnVerifyError" /> events
+  /// <see cref="TTaurusTLSIOHandlerSocket.OnVerifyError" /> and <see
+  /// cref="TTaurusTLSServerIOHandler.OnVerifyError" /> events
   /// </summary>
   /// <param name="ASender">
-  ///   The object that triggers the event.
+  /// The object that triggers the event.
   /// </param>
   /// <param name="ACertificate">
-  ///   The certificate that raised the error
+  /// The certificate that raised the error
   /// </param>
   /// <param name="AError">
-  ///   The validation error code.
+  /// The validation error code.
   /// </param>
   /// <param name="AMsg">
-  ///   The message string OpenSSL returned describing the failure breifly.
+  /// The message string OpenSSL returned describing the failure breifly.
   /// </param>
   /// <param name="ADescr">
-  ///   A description of the failure in a long form for display to user in
-  ///   something such as a message-box.
+  /// A description of the failure in a long form for display to user in
+  /// something such as a message-box.
   /// </param>
   /// <param name="VOk">
-  ///   Set to True if you wish the certificate to pass validation or False if
-  ///   you want it to fail validation.
+  /// Set to True if you wish the certificate to pass validation or False if
+  /// you want it to fail validation.
   /// </param>
-  TOnVerifyErrorEvent = procedure(ASender: TObject; ACertificate: TTaurusTLSX509;
-    const AError: TIdC_LONG; const AMsg, ADescr: String;
-    var VOk: Boolean) of object;
+  TOnVerifyErrorEvent = procedure(ASender: TObject;
+    ACertificate: TTaurusTLSX509; const AError: TIdC_LONG;
+    const AMsg, ADescr: String; var VOk: Boolean) of object;
   /// <summary>
   /// <see cref="TTaurusTLSIOHandlerSocket.OnVerifyCallback" /> and <see
   /// cref="TTaurusTLSServerIOHandler.OnVerifyCallback" /> events
@@ -663,9 +663,10 @@ type
   /// Set to False to immediately terminate verification with failure.
   /// Set to True to allow verification to proceed.
   /// </param>
-  TOnVerifyCallbackEvent = procedure(ASender: TObject; const APreverify_ok: TIdC_INT;
-    ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-    const AMsg, ADescr: String; var VContinue: Boolean) of object;
+  TOnVerifyCallbackEvent = procedure(ASender: TObject;
+    const APreverify_ok: TIdC_INT; ACertificate: TTaurusTLSX509;
+    const ADepth: Integer; const AError: TIdC_LONG; const AMsg, ADescr: String;
+    var VContinue: Boolean) of object;
   /// <summary>
   /// <see cref="TTaurusTLSIOHandlerSocket.OnBeforeConnect" />, <see
   /// cref="TTaurusTLSIOHandlerSocket.OnSSLNegotiated" />, and <see
@@ -677,24 +678,51 @@ type
   TOnIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
 
   /// <summary>
-  ///   Object encapsolating published X509 Certificates.
+  /// Object encapsolating published X509 Certificates.
   /// </summary>
   TTaurusTLSX509File = class(TCollectionItem)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
-    FPublicKey : TFileName;
-    FPrivateKey : TFileName;
+    FPublicKey: TFileName;
+    FPrivateKey: TFileName;
     procedure AssignTo(Destination: TPersistent); override;
   published
     /// <summary>
-    ///   Private Key file for certificate.
+    /// Private Key file for certificate.
     /// </summary>
-    property PrivateKey : TFileName read FPrivateKey write FPrivateKey;
+    property PrivateKey: TFileName read FPrivateKey write FPrivateKey;
 
     /// <summary>
-    ///   Public key file for the certificate.
+    /// Public key file for the certificate.
     /// </summary>
-    property PublicKey : TFileName read FPublicKey write FPublicKey;
+    property PublicKey: TFileName read FPublicKey write FPublicKey;
   end;
+
+  /// <summary>
+  /// A Collection of TTaurus​TLSX509File used to display and set
+  /// certificate filenames.
+  /// </summary>
+  TTaurusTLSX509Files = class(TOwnedCollection)
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+    function GetItem(Index: Integer): TTaurusTLSX509File;
+    procedure SetItem(Index: Integer; const Value: TTaurusTLSX509File);
+  public
+
+    /// <summary>
+    /// Creates a new TTaurus​TLSX509Files object with AOwner as the owner
+    /// of the collection.
+    /// </summary>
+    /// <param name="AOwner">
+    /// The owner of the collection being created.
+    /// </param>
+    constructor Create(AOwner: TPersistent);
+
+    /// <summary>Use this method to add a new item to the collection.</summary>
+    function Add: TTaurusTLSX509File;
+    property Items[Index: Integer]: TTaurusTLSX509File read GetItem
+      write SetItem; default;
+
+  end;
+
   { TTaurusTLSBaseSSLOptions }
   /// <summary>
   /// Class that provides properties that effect TLS.
@@ -720,13 +748,13 @@ type
     /// <summary>
     /// Creates a new instance of TTaurusTLSBaseSSLOptions.
     /// </summary>
-    constructor Create;
+    constructor Create(AOwner: TObject);
     //
     /// <summary>
-    ///   The object that owns this TTaurusTLSBaseSSLOptions.
+    /// The object that owns this TTaurusTLSBaseSSLOptions.
     /// </summary>
     /// <remarks>
-    ///   Should only be set by TaurusTLS itself.
+    /// Should only be set by TaurusTLS itself.
     /// </remarks>
     property Parent: TObject read FParent write FParent;
     // procedure Assign(ASource: TPersistent); override;
@@ -859,41 +887,48 @@ type
   end;
 
   /// <summary>
-  ///   Class that provides properties that effect TLS. clients
+  /// Class that provides properties that effect TLS. clients
   /// </summary>
   TTaurusTLSClientSSLOptions = class(TTaurusTLSBaseSSLOptions)
   protected
-    fClientCert : TTaurusTLSX509File;
-    procedure SetClientCert(AValue : TTaurusTLSX509File);
+    fClientCert: TTaurusTLSX509File;
+    procedure SetClientCert(AValue: TTaurusTLSX509File);
   public
     /// <summary>
     /// Creates a new instance of TTaurusTLSClientSSLOptions.
     /// </summary>
-    constructor Create;
+    constructor Create(AOwner: TObject);
     destructor Destroy; override;
   published
 
     /// <summary>
-    ///   Client certificate to send to the TLS Server.
+    /// Client certificate to send to the TLS Server.
     /// </summary>
-    property ClientCert : TTaurusTLSX509File read fClientCert;
+    property ClientCert: TTaurusTLSX509File read fClientCert;
   end;
+
   TTaurusTLSServerSSLOptions = class(TTaurusTLSBaseSSLOptions)
+  private
+    procedure SetfCertificates(const Value: TTaurusTLSX509Files);
   protected
-    fDefaultCert : TTaurusTLSX509File;
-    procedure SetDefaultCert(AValue : TTaurusTLSX509File);
+    fDefaultCert: TTaurusTLSX509File;
+    fCertificates: TTaurusTLSX509Files;
+    procedure SetDefaultCert(AValue: TTaurusTLSX509File);
+    procedure SetCertificates(AValue: TTaurusTLSX509Files);
   public
     /// <summary>
     /// Creates a new instance of TTaurusTLSClientSSLOptions.
     /// </summary>
-    constructor Create;
+    constructor Create(AOwner: TObject);
     destructor Destroy; override;
   published
 
     /// <summary>
-    ///   Default Server Certificate to send to the client.
+    /// Default Server Certificate to send to the client.
     /// </summary>
-    property DefaultCert : TTaurusTLSX509File read fDefaultCert;
+    property DefaultCert: TTaurusTLSX509File read fDefaultCert;
+    property Certificates: TTaurusTLSX509Files read fCertificates
+      write SetfCertificates;
   end;
   { TTaurusTLSContext }
 
@@ -1236,7 +1271,8 @@ type
     /// <summary>
     /// Peer Certificate must match hostname
     /// </summary>
-    property VerifyHostname : Boolean read GetVerifyHostname write SetVerifyHostName;
+    property VerifyHostname: Boolean read GetVerifyHostname
+      write SetVerifyHostName;
   end;
 
   /// <summary>
@@ -1338,8 +1374,9 @@ type
     /// Leave as <c>True</c> to continue verification.
     /// </param>
     procedure VerifyCallback(const APreverify_ok: TIdC_INT;
-      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-      const AMsg, ADescr: String; var VContinue: Boolean);
+      ACertificate: TTaurusTLSX509; const ADepth: Integer;
+      const AError: TIdC_LONG; const AMsg, ADescr: String;
+      var VContinue: Boolean);
     /// <summary>
     /// Called when the SecurityLevel callback is invoked.
     /// </summary>
@@ -1420,8 +1457,9 @@ type
     function VerifyError(ACertificate: TTaurusTLSX509;
       const AError: TIdC_LONG): Boolean;
     procedure VerifyCallback(const APreverify_ok: TIdC_INT;
-      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-      const AMsg, ADescr: String; var VContinue: Boolean);
+      ACertificate: TTaurusTLSX509; const ADepth: Integer;
+      const AError: TIdC_LONG; const AMsg, ADescr: String;
+      var VContinue: Boolean);
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
@@ -1635,35 +1673,35 @@ type
     /// </param>
     property OnSecurityLevel: TOnSecurityLevelEvent read fOnSecurityLevel
       write fOnSecurityLevel;
-   /// <summary>
-   ///   Occurs when there is a certificate validation error.
-   /// </summary>
-   /// <param name="ASender">
-   ///   The object that triggers the event.
-   /// </param>
-   /// <param name="ACertificate">
-   ///   The certificate that raised the error
-   /// </param>
-   /// <param name="AError">
-   ///   The validation error code.
-   /// </param>
-   /// <param name="AMsg">
-   ///   The message string OpenSSL returned describing the failure breifly.
-   /// </param>
-   /// <param name="ADescr">
-   ///   A description of the failure in a long form for display to user in
-   ///   something such as a message-box.
-   /// </param>
-   /// <param name="VOk">
-   ///   Set to True if you wish the certificate to pass validation or False if
-   ///   you want it to fail validation.
-   /// </param>
+    /// <summary>
+    /// Occurs when there is a certificate validation error.
+    /// </summary>
+    /// <param name="ASender">
+    /// The object that triggers the event.
+    /// </param>
+    /// <param name="ACertificate">
+    /// The certificate that raised the error
+    /// </param>
+    /// <param name="AError">
+    /// The validation error code.
+    /// </param>
+    /// <param name="AMsg">
+    /// The message string OpenSSL returned describing the failure breifly.
+    /// </param>
+    /// <param name="ADescr">
+    /// A description of the failure in a long form for display to user in
+    /// something such as a message-box.
+    /// </param>
+    /// <param name="VOk">
+    /// Set to True if you wish the certificate to pass validation or False if
+    /// you want it to fail validation.
+    /// </param>
     property OnVerifyError: TOnVerifyErrorEvent read fOnVerifyError
       write fOnVerifyError;
     /// <summary>
     /// Occurs when a certificate in the TLS chain is being verified during the handshake.
     /// Use this event to inspect the intermediate result and current certificate
-  	/// and decide whether verification should continue.
+    /// and decide whether verification should continue.
     /// </summary>
     /// <param name="ASender">
     /// The object that triggers the event.
@@ -1691,7 +1729,8 @@ type
     /// Set to False to immediately terminate verification with failure.
     /// Set to True to allow verification to proceed.
     /// </param>
-    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback write FOnVerifyCallback;
+    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback
+      write fOnVerifyCallback;
   end;
 
   /// <summary>
@@ -1723,8 +1762,9 @@ type
     function VerifyError(ACertificate: TTaurusTLSX509;
       const AError: TIdC_LONG): Boolean;
     procedure VerifyCallback(const APreverify_ok: TIdC_INT;
-      ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-      const AMsg, ADescr: String; var VContinue: Boolean);
+      ACertificate: TTaurusTLSX509; const ADepth: Integer;
+      const AError: TIdC_LONG; const AMsg, ADescr: String;
+      var VContinue: Boolean);
     procedure SecurityLevelCB(const AsslSocket: PSSL; ACtx: PSSL_CTX;
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
@@ -1949,7 +1989,7 @@ type
     /// <summary>
     /// Occurs when a certificate in the TLS chain is being verified during the handshake.
     /// Use this event to inspect the intermediate result and current certificate
-  	/// and decide whether verification should continue.
+    /// and decide whether verification should continue.
     /// </summary>
     /// <param name="ASender">
     /// The object that triggers the event.
@@ -1977,7 +2017,8 @@ type
     /// Set to False to immediately terminate verification with failure.
     /// Set to True to allow verification to proceed.
     /// </param>
-    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback write FOnVerifyCallback;
+    property OnVerifyCallback: TOnVerifyCallbackEvent read fOnVerifyCallback
+      write fOnVerifyCallback;
   end;
 
   /// <summary>
@@ -2363,18 +2404,19 @@ end;
 
 {$I TaurusTLSUnusedParamOff.inc}
 
-function g_VerifyCallback(const preverify_ok: TIdC_INT; x509_ctx: PX509_STORE_CTX) : TIdC_INT cdecl;
+function g_VerifyCallback(const preverify_ok: TIdC_INT;
+  x509_ctx: PX509_STORE_CTX): TIdC_INT cdecl;
 var
-  LErr : Integer;
+  LErr: Integer;
   LSsl: PSSL;
   LSock: TTaurusTLSSocket;
   LContinue: Boolean;
   LX509_Cert: PX509;
   LCertificate: TTaurusTLSX509;
   LCertErr: TIdC_LONG;
-  {$IFNDEF USE_INLINE_VAR}
+{$IFNDEF USE_INLINE_VAR}
   LHelper: ITaurusTLSCallbackHelper;
-  {$ENDIF}
+{$ENDIF}
 begin
   Result := 1;
   LContinue := True;
@@ -2382,7 +2424,8 @@ begin
   // clobers it.  CYA.
   LErr := GStack.WSGetLastError;
   try
-    LSsl := X509_STORE_CTX_get_ex_data(x509_ctx, SSL_get_ex_data_X509_STORE_CTX_idx());
+    LSsl := X509_STORE_CTX_get_ex_data(x509_ctx,
+      SSL_get_ex_data_X509_STORE_CTX_idx());
     if LSsl <> nil then
     begin
       LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));
@@ -2390,20 +2433,21 @@ begin
       begin
         LockVerifyCB.Enter;
         try
-          {$IFDEF USE_INLINE_VAR}
-          var LHelper: ITaurusTLSCallbackHelper;
-          {$ENDIF}
-          if Supports(LSock.Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
+{$IFDEF USE_INLINE_VAR}
+          var
+            LHelper: ITaurusTLSCallbackHelper;
+{$ENDIF}
+          if Supports(LSock.Parent, ITaurusTLSCallbackHelper,
+            IInterface(LHelper)) then
           begin
             LX509_Cert := X509_STORE_CTX_get_current_cert(x509_ctx);
             LCertErr := X509_STORE_CTX_get_error(x509_ctx);
             LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
             try
-              LHelper.VerifyCallback( preverify_ok, LCertificate,
-                X509_STORE_CTX_get_error_depth(x509_ctx),
-                LCertErr,
+              LHelper.VerifyCallback(preverify_ok, LCertificate,
+                X509_STORE_CTX_get_error_depth(x509_ctx), LCertErr,
                 AnsiStringToString(X509_verify_cert_error_string(LCertErr)),
-                CertErrorToLongDescr(LCertErr), LContinue );
+                CertErrorToLongDescr(LCertErr), LContinue);
             finally
               FreeAndNil(LCertificate);
             end;
@@ -2420,8 +2464,9 @@ begin
   end;
 end;
 
-function g_SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX; op: TIdC_INT;
-  bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer): TIdC_INT; cdecl;
+function g_SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX;
+  op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer)
+  : TIdC_INT; cdecl;
 var
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
@@ -2970,6 +3015,28 @@ begin
   end;
 end;
 
+{ TTaurusTLSX509Files }
+
+function TTaurusTLSX509Files.Add: TTaurusTLSX509File;
+begin
+  Result := TTaurusTLSX509File(inherited Add);
+end;
+
+constructor TTaurusTLSX509Files.Create(AOwner: TPersistent);
+begin
+  inherited Create(AOwner, TTaurusTLSX509File);
+end;
+
+function TTaurusTLSX509Files.GetItem(Index: Integer): TTaurusTLSX509File;
+begin
+  Result := TTaurusTLSX509File(inherited GetItem(Index));
+end;
+
+procedure TTaurusTLSX509Files.SetItem(Index: Integer;
+  const Value: TTaurusTLSX509File);
+begin
+  inherited SetItem(Index, Value);
+end;
 
 /// ///////////////////////////////////////////////////
 // TTaurusTLSBaseSSLOptions
@@ -3023,10 +3090,11 @@ end;
 
 { TTaurusTLSClientSSLOptions }
 
-constructor TTaurusTLSClientSSLOptions.Create;
+constructor TTaurusTLSClientSSLOptions.Create(AOwner: TObject);
 begin
-  inherited Create;
+  inherited Create(AOwner);
   fClientCert := TTaurusTLSX509File.Create(nil);
+  FParent := AOwner;
 end;
 
 destructor TTaurusTLSClientSSLOptions.Destroy;
@@ -3035,24 +3103,31 @@ begin
   inherited;
 end;
 
-procedure TTaurusTLSClientSSLOptions.SetClientCert(
-  AValue: TTaurusTLSX509File);
+procedure TTaurusTLSClientSSLOptions.SetClientCert(AValue: TTaurusTLSX509File);
 begin
-  fClientCert.Assign( AValue);
+  fClientCert.Assign(AValue);
 end;
 
 { TTaurusTLSServerSSLOptions }
 
-constructor TTaurusTLSServerSSLOptions.Create;
+constructor TTaurusTLSServerSSLOptions.Create(AOwner: TObject);
 begin
-  inherited Create;
+  inherited Create(AOwner);
   fDefaultCert := TTaurusTLSX509File.Create(nil);
+  fCertificates := TTaurusTLSX509Files.Create(TComponent(AOwner));
 end;
 
 destructor TTaurusTLSServerSSLOptions.Destroy;
 begin
+  FreeAndNil(fCertificates);
   FreeAndNil(fDefaultCert);
   inherited;
+end;
+
+procedure TTaurusTLSServerSSLOptions.SetCertificates
+  (AValue: TTaurusTLSX509Files);
+begin
+  fCertificates.Assign(AValue);
 end;
 
 procedure TTaurusTLSServerSSLOptions.SetDefaultCert(AValue: TTaurusTLSX509File);
@@ -3060,13 +3135,18 @@ begin
   fDefaultCert.Assign(AValue);
 end;
 
+procedure TTaurusTLSServerSSLOptions.SetfCertificates
+  (const Value: TTaurusTLSX509Files);
+begin
+  fCertificates := Value;
+end;
+
 { TTaurusTLSServerIOHandler }
 
 procedure TTaurusTLSServerIOHandler.InitComponent;
 begin
   inherited InitComponent;
-  fSSLOptions := TTaurusTLSServerSSLOptions.Create;
-  fSSLOptions.Parent := Self;
+  fSSLOptions := TTaurusTLSServerSSLOptions.Create(Self);
 end;
 
 destructor TTaurusTLSServerIOHandler.Destroy;
@@ -3093,6 +3173,8 @@ begin
   fSSLContext := TTaurusTLSContext.Create;
   fSSLContext.Parent := Self;
   fSSLContext.RootPublicKey := SSLOptions.RootPublicKey;
+  fSSLContext.PrivateKey :=  SSLOptions.DefaultCert.PrivateKey;
+  fSSLContext.PublicKey := SSLOptions.DefaultCert.PublicKey;
   fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
   fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
   fSSLContext.VerifyMode := SSLOptions.VerifyMode;
@@ -3256,13 +3338,14 @@ begin
   end;
 end;
 
-procedure TTaurusTLSServerIOHandler.VerifyCallback(const APreverify_ok: TIdC_INT;
-  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-  const AMsg, ADescr: String; var VContinue: Boolean);
+procedure TTaurusTLSServerIOHandler.VerifyCallback(const APreverify_ok
+  : TIdC_INT; ACertificate: TTaurusTLSX509; const ADepth: Integer;
+  const AError: TIdC_LONG; const AMsg, ADescr: String; var VContinue: Boolean);
 begin
   if Assigned(fOnVerifyCallback) then
   begin
-    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg, ADescr, VContinue);
+    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg,
+      ADescr, VContinue);
   end;
 end;
 
@@ -3329,8 +3412,7 @@ procedure TTaurusTLSIOHandlerSocket.InitComponent;
 begin
   inherited InitComponent;
   IsPeer := False;
-  fSSLOptions := TTaurusTLSClientSSLOptions.Create;
-  fSSLOptions.Parent := Self;
+  fSSLOptions := TTaurusTLSClientSSLOptions.Create(Self);
   // fSSLLayerClosed := true;
   fSSLContext := nil;
 end;
@@ -3344,8 +3426,7 @@ begin
   begin
     FreeAndNil(fSSLContext);
   end;
-  if (fSSLOptions <> nil) and
-    (fSSLOptions.Parent = Self) then
+  if (fSSLOptions <> nil) and (fSSLOptions.Parent = Self) then
   begin
     FreeAndNil(fSSLOptions);
   end;
@@ -3544,7 +3625,7 @@ begin
       SSLOptions.UseSystemRootCertificateStore;
     fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
     fSSLContext.CipherList := SSLOptions.CipherList;
-    fSSLContext.VerifyOn := Assigned(fOnVerifyCallback );
+    fSSLContext.VerifyOn := Assigned(fOnVerifyCallback);
     fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
     fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
     fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
@@ -3574,7 +3655,7 @@ begin
   VOk := True;
   if Assigned(fOnVerifyError) then
   begin
-    fOnVerifyError(Self, Certificate,  AError,
+    fOnVerifyError(Self, Certificate, AError,
       AnsiStringToString(X509_verify_cert_error_string(AError)),
       CertErrorToLongDescr(AError), VOk);
   end;
@@ -3863,18 +3944,19 @@ begin
   end;
 end;
 
-procedure TTaurusTLSIOHandlerSocket.VerifyCallback(const APreverify_ok: TIdC_INT;
-  ACertificate: TTaurusTLSX509; const ADepth: Integer; const AError: TIdC_LONG;
-  const AMsg, ADescr: String; var VContinue: Boolean);
+procedure TTaurusTLSIOHandlerSocket.VerifyCallback(const APreverify_ok
+  : TIdC_INT; ACertificate: TTaurusTLSX509; const ADepth: Integer;
+  const AError: TIdC_LONG; const AMsg, ADescr: String; var VContinue: Boolean);
 begin
   if Assigned(fOnVerifyCallback) then
   begin
-    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg, ADescr, VContinue);
+    fOnVerifyCallback(Self, APreverify_ok, ACertificate, ADepth, AError, AMsg,
+      ADescr, VContinue);
   end;
 end;
 
 function TTaurusTLSIOHandlerSocket.VerifyError(ACertificate: TTaurusTLSX509;
-   const AError: TIdC_LONG): Boolean;
+  const AError: TIdC_LONG): Boolean;
 begin
   DoVerifyError(ACertificate, AError, Result);
 end;
@@ -4441,8 +4523,8 @@ var
   LVerifyResult: TIdC_LONG;
   Lpeercert: PX509;
   LCertificate: TTaurusTLSX509;
-  LHostName : TBytes;
-  LFunc : SSL_verify_cb;
+  LHostName: TBytes;
+  LFunc: SSL_verify_cb;
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
@@ -4484,25 +4566,27 @@ begin
   end;
 
   LHostName := BytesOf(fHostName + #0);
-  //RFC 3546 states:
-  //Literal IPv4 and IPv6 addresses are not permitted in "HostName".
+  // RFC 3546 states:
+  // Literal IPv4 and IPv6 addresses are not permitted in "HostName".
   if (fHostName <> '') and (not IsValidIP(fHostName)) then
   begin
-    {$IFNDEF OPENSSL_NO_TLSEXT}
+{$IFNDEF OPENSSL_NO_TLSEXT}
     { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
       first character to the hostname is passed }
     LRetCode := SSL_set_tlsext_host_name(fSSL, @LHostName[0]);
-    if LRetCode <= 0 then begin
-      ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode, RSSSLSettingTLSHostNameError_2);
-   end;
-   {$ENDIF}
+    if LRetCode <= 0 then
+    begin
+      ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
+        RSSSLSettingTLSHostNameError_2);
+    end;
+{$ENDIF}
   end;
 
   if fVerifyHostname then
   begin
     if fHostName <> '' then
     begin
-      SSL_set_hostflags(fSSL,0);
+      SSL_set_hostflags(fSSL, 0);
       LRetCode := SSL_set1_host(fSSL, @LHostName[0]);
       if LRetCode <= 0 then
       begin
@@ -4521,7 +4605,7 @@ begin
     LFunc := nil;
   end;
   SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-          (fSSLContext.VerifyMode), LFunc);
+    (fSSLContext.VerifyMode), LFunc);
   SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
 
   LRetCode := SSL_connect(fSSL);
@@ -4548,16 +4632,15 @@ begin
       LVerifyResult := SSL_get_verify_result(fSSL);
       if LVerifyResult <> X509_V_OK then
       begin
-        if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper))
-        then
+        if Supports(Parent, ITaurusTLSCallbackHelper, IInterface(LHelper)) then
         begin
           LCertificate := TTaurusTLSX509.Create(Lpeercert, False);
           try
             if not LHelper.VerifyError(LCertificate, LVerifyResult) then
             begin
-                ETaurusTLSCertValidationError.RaiseWithMessage
-                  (AnsiStringToString(X509_verify_cert_error_string
-                  (LVerifyResult)));
+              ETaurusTLSCertValidationError.RaiseWithMessage
+                (AnsiStringToString(X509_verify_cert_error_string
+                (LVerifyResult)));
             end;
           finally
             FreeAndNil(LCertificate);
