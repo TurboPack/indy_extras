@@ -247,6 +247,7 @@ uses
   IdIOHandlerSocket,
   IdSSL,
   IdYarn,
+  SysUtils,
   TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_ossl_typ,
   TaurusTLSHeaders_ssl,
@@ -675,14 +676,34 @@ type
   /// </param>
   TOnIOHandlerNotify = procedure(ASender: TTaurusTLSIOHandlerSocket) of object;
 
-  { TTaurusTLSSSLOptions }
+  /// <summary>
+  ///   Object encapsolating published X509 Certificates.
+  /// </summary>
+  TTaurusTLSX509File = class(TCollectionItem)
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+    FPublicKey : TFileName;
+    FPrivateKey : TFileName;
+    procedure AssignTo(Destination: TPersistent); override;
+  published
+    /// <summary>
+    ///   Private Key file for certificate.
+    /// </summary>
+    property PrivateKey : TFileName read FPrivateKey write FPrivateKey;
+
+    /// <summary>
+    ///   Public key file for the certificate.
+    /// </summary>
+    property PublicKey : TFileName read FPublicKey write FPublicKey;
+  end;
+  { TTaurusTLSBaseSSLOptions }
   /// <summary>
   /// Class that provides properties that effect TLS.
   /// </summary>
-  TTaurusTLSSSLOptions = class(TPersistent)
+  TTaurusTLSBaseSSLOptions = class(TPersistent)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+    FParent: TObject;
     fUseSystemRootCertificateStore: Boolean;
-    fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
+    fsRootPublicKey, fsPublicKey, fsPrivateKey, fsDHParamsFile: String;
     fMode: TTaurusTLSSSLMode;
     fMinTLSVersion: TTaurusTLSSSLVersion;
     fVerifyDepth: Integer;
@@ -697,26 +718,27 @@ type
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
   public
     /// <summary>
-    /// Creates a new instance of TTaurusTLSSSLOptions.
+    /// Creates a new instance of TTaurusTLSBaseSSLOptions.
     /// </summary>
     constructor Create;
+    //
+    /// <summary>
+    ///   The object that owns this TTaurusTLSBaseSSLOptions.
+    /// </summary>
+    /// <remarks>
+    ///   Should only be set by TaurusTLS itself.
+    /// </remarks>
+    property Parent: TObject read FParent write FParent;
     // procedure Assign(ASource: TPersistent); override;
   published
     /// <summary>
     /// Root certificate file.
     /// </summary>
-    property RootCertFile: String read fsRootCertFile write fsRootCertFile;
+    property RootPublicKey: String read fsRootPublicKey write fsRootPublicKey;
     /// <summary>
     /// Client or Server certificate file.
     /// </summary>
-    property CertFile: String read fsCertFile write fsCertFile;
-    /// <summary>
-    /// Private Key file.
-    /// </summary>
-    property KeyFile: String read fsKeyFile write fsKeyFile;
-    /// <summary>
-    /// DH Parameters file.
-    /// </summary>
+
     property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
     /// <summary>
     /// The Minimum TLS version you will accept. The maximum TLS version that
@@ -818,13 +840,13 @@ type
     /// </item>
     /// <item>
     /// Are availble for the particular security level you set with the
-    /// <see cref="TaurusTLS|TTaurusTLSSSLOptions.SecurityLevel" />
+    /// <see cref="TaurusTLS|TTaurusTLSBaseSSLOptions.SecurityLevel" />
     /// property
     /// </item>
     /// <item>
     /// Are avaiable with the TLS version used in the session. That can be
     /// between the <see
-    /// cref="TaurusTLS|TTaurusTLSSSLOptions.MinTLSVersion" /> property
+    /// cref="TaurusTLS|TTaurusTLSBaseSSLOptions.MinTLSVersion" /> property
     /// and TLS 1.3.
     /// </item>
     /// </list>
@@ -836,6 +858,43 @@ type
     property CipherList: String read fCipherList write fCipherList;
   end;
 
+  /// <summary>
+  ///   Class that provides properties that effect TLS. clients
+  /// </summary>
+  TTaurusTLSClientSSLOptions = class(TTaurusTLSBaseSSLOptions)
+  protected
+    fClientCert : TTaurusTLSX509File;
+    procedure SetClientCert(AValue : TTaurusTLSX509File);
+  public
+    /// <summary>
+    /// Creates a new instance of TTaurusTLSClientSSLOptions.
+    /// </summary>
+    constructor Create;
+    destructor Destroy; override;
+  published
+
+    /// <summary>
+    ///   Client certificate to send to the TLS Server.
+    /// </summary>
+    property ClientCert : TTaurusTLSX509File read fClientCert;
+  end;
+  TTaurusTLSServerSSLOptions = class(TTaurusTLSBaseSSLOptions)
+  protected
+    fDefaultCert : TTaurusTLSX509File;
+    procedure SetDefaultCert(AValue : TTaurusTLSX509File);
+  public
+    /// <summary>
+    /// Creates a new instance of TTaurusTLSClientSSLOptions.
+    /// </summary>
+    constructor Create;
+    destructor Destroy; override;
+  published
+
+    /// <summary>
+    ///   Default Server Certificate to send to the client.
+    /// </summary>
+    property DefaultCert : TTaurusTLSX509File read fDefaultCert;
+  end;
   { TTaurusTLSContext }
 
   /// <summary>
@@ -849,7 +908,7 @@ type
 {$ENDIF} FParent: TObject;
 
     fMode: TTaurusTLSSSLMode;
-    fsRootCertFile, fsCertFile, fsKeyFile, fsDHParamsFile: String;
+    fsRootPublicKey, fsPublicKey, fsPrivateKey, fsDHParamsFile: String;
     fVerifyDepth: Integer;
     fVerifyMode: TTaurusTLSVerifyModeSet;
     FSecurityLevel: TTaurusTLSSecurityLevel;
@@ -964,11 +1023,11 @@ type
     /// <summary>
     /// Root certificate file.
     /// </summary>
-    property RootCertFile: String read fsRootCertFile write fsRootCertFile;
+    property RootPublicKey: String read fsRootPublicKey write fsRootPublicKey;
     /// <summary>
     /// Client or Server certificate file.
     /// </summary>
-    property CertFile: String read fsCertFile write fsCertFile;
+    property PublicKey: String read fsPublicKey write fsPublicKey;
     /// <summary>
     /// The colon-separated (:) list of ciphersuits you wish to use or left
     /// empty to use the default ciphers. The list should only contain ciphers
@@ -978,13 +1037,13 @@ type
     /// </item>
     /// <item>
     /// Are availble for the particular security level you set with the
-    /// <see cref="TaurusTLS|TTaurusTLSSSLOptions.SecurityLevel" />
+    /// <see cref="TaurusTLS|TTaurusTLSBaseSSLOptions.SecurityLevel" />
     /// property
     /// </item>
     /// <item>
     /// Are avaiable with the TLS version used in the session. That can be
     /// between the <see
-    /// cref="TaurusTLS|TTaurusTLSSSLOptions.MinTLSVersion" /> property
+    /// cref="TaurusTLS|TTaurusTLSBaseSSLOptions.MinTLSVersion" /> property
     /// and TLS 1.3.
     /// </item>
     /// </list>
@@ -997,7 +1056,7 @@ type
     /// <summary>
     /// Private Key file.
     /// </summary>
-    property KeyFile: String read fsKeyFile write fsKeyFile;
+    property PrivateKey: String read fsPrivateKey write fsPrivateKey;
     /// <summary>
     /// DH Parameters file.
     /// </summary>
@@ -1323,7 +1382,7 @@ type
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fSSLContext: TTaurusTLSContext;
-    fSSLOptions: TTaurusTLSSSLOptions;
+    fSSLOptions: TTaurusTLSClientSSLOptions;
     fSSLSocket: TTaurusTLSSocket;
     // fPeerCert: TTaurusTLSX509;
     FOnDebugMessage: TOnDebugMessageEvent;
@@ -1383,11 +1442,10 @@ type
     /// Frees resources and destroys the current instance.
     /// </summary>
     destructor Destroy; override;
-    // TODO: add an AOwner parameter
     /// <summary>
     /// Called by Indy (Internet Direct) to make an IOHandler for TIdFTP
     /// data channel connection. The new IOHandler has similar properties
-    /// except that <see cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname">
+    /// except that <see cref="TaurusTLS|TTaurusTLSBaseSSLOptions.VerifyHostname">
     /// VerifyHostname</see> is false to prevent a certificate check that is
     /// likely to fail with the FTP data channel because the FTP PASV/EPSV
     /// command returns an IP address instead of a DNS hostname.
@@ -1502,7 +1560,7 @@ type
     /// <summary>
     /// Properties that effect TLS.
     /// </summary>
-    property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
+    property SSLOptions: TTaurusTLSClientSSLOptions read fSSLOptions
       write fSSLOptions;
     /// <summary>
     /// Occurs when there is a status message.
@@ -1642,7 +1700,7 @@ type
   TTaurusTLSServerIOHandler = class(TIdServerIOHandlerSSLBase,
     ITaurusTLSCallbackHelper)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
-    fSSLOptions: TTaurusTLSSSLOptions;
+    fSSLOptions: TTaurusTLSServerSSLOptions;
     fSSLContext: TTaurusTLSContext;
     FOnSSLNegotiated: TOnIOHandlerNotify;
     FOnStatusInfo: TOnStatusEvent;
@@ -1780,7 +1838,7 @@ type
     /// <summary>
     /// Properties that effect TLS.
     /// </summary>
-    property SSLOptions: TTaurusTLSSSLOptions read fSSLOptions
+    property SSLOptions: TTaurusTLSServerSSLOptions read fSSLOptions
       write fSSLOptions;
     /// <summary>
     /// Occurs when TLS negotiation is concluded.
@@ -2171,7 +2229,6 @@ uses
   IdThreadSafe,
   IdCustomTransparentProxy,
   IdURI,
-  SysUtils,
   SyncObjs,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bn,
@@ -2200,17 +2257,6 @@ type
   TIdCriticalSectionThreadList = TThreadList;
   TIdCriticalSectionList = TList;
 {$ENDIF}
-
-  // RLebeau 1/24/2019: defining this as a private implementation for now to
-  // avoid a change in the public interface above.  This should be rolled into
-  // the public interface at some point...
-  TTaurusTLSSSLOptions_Internal = class(TTaurusTLSSSLOptions)
-  protected
-{$IFDEF USE_OBJECT_ARC}[Weak]
-{$ENDIF} FParent: TObject;
-  public
-
-  end;
 
 var
   SSLIsLoaded: TIdThreadSafeBoolean = nil;
@@ -2906,11 +2952,30 @@ begin
   end;
 end;
 
+{ TTaurusTLSX509File }
+
+procedure TTaurusTLSX509File.AssignTo(Destination: TPersistent);
+var
+  LDest: TTaurusTLSX509File;
+begin
+  if Destination is TTaurusTLSBaseSSLOptions then
+  begin
+    LDest := TTaurusTLSX509File(Destination);
+    LDest.PrivateKey := FPrivateKey;
+    LDest.PublicKey := FPublicKey;
+  end
+  else
+  begin
+    inherited;
+  end;
+end;
+
+
 /// ///////////////////////////////////////////////////
-// TTaurusTLSSSLOptions
+// TTaurusTLSBaseSSLOptions
 /// ////////////////////////////////////////////////////
 
-constructor TTaurusTLSSSLOptions.Create;
+constructor TTaurusTLSBaseSSLOptions.Create;
 begin
   inherited Create;
   fMinTLSVersion := DEF_MIN_TLSVERSION;
@@ -2919,28 +2984,26 @@ begin
   fVerifyHostname := DEF_VERIFY_HOSTNAME;
 end;
 
-procedure TTaurusTLSSSLOptions.SetMinTLSVersion(const AValue
+procedure TTaurusTLSBaseSSLOptions.SetMinTLSVersion(const AValue
   : TTaurusTLSSSLVersion);
 begin
   fMinTLSVersion := AValue;
 end;
 
-procedure TTaurusTLSSSLOptions.SetSecurityLevel(const AValue
+procedure TTaurusTLSBaseSSLOptions.SetSecurityLevel(const AValue
   : TTaurusTLSSecurityLevel);
 begin
   FSecurityLevel := AValue;
 end;
 
-procedure TTaurusTLSSSLOptions.AssignTo(Destination: TPersistent);
+procedure TTaurusTLSBaseSSLOptions.AssignTo(Destination: TPersistent);
 var
-  LDest: TTaurusTLSSSLOptions;
+  LDest: TTaurusTLSBaseSSLOptions;
 begin
-  if Destination is TTaurusTLSSSLOptions then
+  if Destination is TTaurusTLSBaseSSLOptions then
   begin
-    LDest := TTaurusTLSSSLOptions(Destination);
-    LDest.RootCertFile := RootCertFile;
-    LDest.CertFile := CertFile;
-    LDest.KeyFile := KeyFile;
+    LDest := TTaurusTLSBaseSSLOptions(Destination);
+    LDest.RootPublicKey := RootPublicKey;
     LDest.DHParamsFile := DHParamsFile;
     LDest.SecurityLevel := SecurityLevel;
     LDest.MinTLSVersion := MinTLSVersion;
@@ -2958,13 +3021,52 @@ begin
   end;
 end;
 
+{ TTaurusTLSClientSSLOptions }
+
+constructor TTaurusTLSClientSSLOptions.Create;
+begin
+  inherited Create;
+  fClientCert := TTaurusTLSX509File.Create(nil);
+end;
+
+destructor TTaurusTLSClientSSLOptions.Destroy;
+begin
+  FreeAndNil(fClientCert);
+  inherited;
+end;
+
+procedure TTaurusTLSClientSSLOptions.SetClientCert(
+  AValue: TTaurusTLSX509File);
+begin
+  fClientCert.Assign( AValue);
+end;
+
+{ TTaurusTLSServerSSLOptions }
+
+constructor TTaurusTLSServerSSLOptions.Create;
+begin
+  inherited Create;
+  fDefaultCert := TTaurusTLSX509File.Create(nil);
+end;
+
+destructor TTaurusTLSServerSSLOptions.Destroy;
+begin
+  FreeAndNil(fDefaultCert);
+  inherited;
+end;
+
+procedure TTaurusTLSServerSSLOptions.SetDefaultCert(AValue: TTaurusTLSX509File);
+begin
+  fDefaultCert.Assign(AValue);
+end;
+
 { TTaurusTLSServerIOHandler }
 
 procedure TTaurusTLSServerIOHandler.InitComponent;
 begin
   inherited InitComponent;
-  fSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
-  TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent := Self;
+  fSSLOptions := TTaurusTLSServerSSLOptions.Create;
+  fSSLOptions.Parent := Self;
 end;
 
 destructor TTaurusTLSServerIOHandler.Destroy;
@@ -2990,9 +3092,7 @@ begin
   Assert(fSSLContext = nil);
   fSSLContext := TTaurusTLSContext.Create;
   fSSLContext.Parent := Self;
-  fSSLContext.RootCertFile := SSLOptions.RootCertFile;
-  fSSLContext.CertFile := SSLOptions.CertFile;
-  fSSLContext.KeyFile := SSLOptions.KeyFile;
+  fSSLContext.RootPublicKey := SSLOptions.RootPublicKey;
   fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
   fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
   fSSLContext.VerifyMode := SSLOptions.VerifyMode;
@@ -3229,8 +3329,8 @@ procedure TTaurusTLSIOHandlerSocket.InitComponent;
 begin
   inherited InitComponent;
   IsPeer := False;
-  fSSLOptions := TTaurusTLSSSLOptions_Internal.Create;
-  TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent := Self;
+  fSSLOptions := TTaurusTLSClientSSLOptions.Create;
+  fSSLOptions.Parent := Self;
   // fSSLLayerClosed := true;
   fSSLContext := nil;
 end;
@@ -3244,8 +3344,8 @@ begin
   begin
     FreeAndNil(fSSLContext);
   end;
-  if (fSSLOptions <> nil) and (fSSLOptions is TTaurusTLSSSLOptions_Internal) and
-    (TTaurusTLSSSLOptions_Internal(fSSLOptions).FParent = Self) then
+  if (fSSLOptions <> nil) and
+    (fSSLOptions.Parent = Self) then
   begin
     FreeAndNil(fSSLOptions);
   end;
@@ -3432,9 +3532,9 @@ begin
   begin
     fSSLContext := TTaurusTLSContext.Create;
     fSSLContext.Parent := Self;
-    fSSLContext.RootCertFile := SSLOptions.RootCertFile;
-    fSSLContext.CertFile := SSLOptions.CertFile;
-    fSSLContext.KeyFile := SSLOptions.KeyFile;
+    fSSLContext.PublicKey := SSLOptions.ClientCert.PublicKey;
+    fSSLContext.PrivateKey := SSLOptions.ClientCert.PrivateKey;
+    fSSLContext.RootPublicKey := SSLOptions.RootPublicKey;
     fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
     fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
     fSSLContext.VerifyMode := SSLOptions.VerifyMode;
@@ -3987,9 +4087,9 @@ begin
 {$ENDIF}
   end;
   // load key and certificate files
-  if (RootCertFile <> '') or (VerifyDirs <> '') then
+  if (RootPublicKey <> '') or (VerifyDirs <> '') then
   begin { Do not Localize }
-    if not IndySSL_CTX_load_verify_locations(fContext, RootCertFile,
+    if not IndySSL_CTX_load_verify_locations(fContext, RootPublicKey,
       VerifyDirs) > 0 then
     begin
       ETaurusTLSLoadingRootCertError.RaiseWithMessage
@@ -3997,22 +4097,22 @@ begin
     end;
   end;
 
-  if CertFile <> '' then
+  if PublicKey <> '' then
   begin { Do not Localize }
 
-    if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1
+    if PosInStrArray(ExtractFileExt(PublicKey), ['.p12', '.pfx'], False) <> -1
     then
     begin
-      LRes := IndySSL_CTX_use_certificate_file_PKCS12(fContext, CertFile) > 0;
+      LRes := IndySSL_CTX_use_certificate_file_PKCS12(fContext, PublicKey) > 0;
     end
     else
     begin
       // OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
       // that handles a chain of certificates in a PEM file.  That is prefered.
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
+      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
 {$ELSE}
-      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
+      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
 {$ENDIF}
     end;
     if not LRes then
@@ -4021,16 +4121,16 @@ begin
     end;
   end;
 
-  if KeyFile <> '' then
+  if PrivateKey <> '' then
   begin { Do not Localize }
-    if PosInStrArray(ExtractFileExt(KeyFile), ['.p12', '.pfx'], False) <> -1
+    if PosInStrArray(ExtractFileExt(PrivateKey), ['.p12', '.pfx'], False) <> -1
     then
     begin
-      LRes := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, KeyFile) > 0;
+      LRes := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, PrivateKey) > 0;
     end
     else
     begin
-      LRes := IndySSL_CTX_use_PrivateKey_file(fContext, KeyFile,
+      LRes := IndySSL_CTX_use_PrivateKey_file(fContext, PrivateKey,
         SSL_FILETYPE_PEM) > 0;
     end;
     if LRes then
@@ -4125,10 +4225,10 @@ begin
       SizeOf(fSessionId));
   end;
   // CA list
-  if RootCertFile <> '' then
+  if RootPublicKey <> '' then
   begin { Do not Localize }
     SSL_CTX_set_client_CA_list(fContext,
-      IndySSL_load_client_CA_file(RootCertFile));
+      IndySSL_load_client_CA_file(RootPublicKey));
   end
 
   // TODO: provide an event so users can apply their own settings as needed...
@@ -4233,10 +4333,10 @@ begin
   Result.VerifyOn := VerifyOn;
   Result.MinTLSVersion := MinTLSVersion;
   Result.Mode := Mode;
-  Result.RootCertFile := RootCertFile;
+  Result.RootPublicKey := RootPublicKey;
   Result.SecurityLevel := SecurityLevel;
-  Result.CertFile := CertFile;
-  Result.KeyFile := KeyFile;
+  Result.PublicKey := PublicKey;
+  Result.PrivateKey := PrivateKey;
   Result.VerifyMode := VerifyMode;
   Result.VerifyDepth := VerifyDepth;
   Result.VerifyHostname := VerifyHostname;

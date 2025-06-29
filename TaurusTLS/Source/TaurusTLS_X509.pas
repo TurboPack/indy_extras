@@ -99,7 +99,7 @@ type
     ///   an E-Mail address. TaurusTLS checks this value in the <see
     ///   cref="TaurusTLS_X509|TTaurusTLSX509.Subject" /> property to see that
     ///   it matches the hostname you specified for the connection if the <see
-    ///   cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname">VerifyHostname
+    ///   cref="TaurusTLS|TTaurusTLSBaseSSLOptions.VerifyHostname">VerifyHostname
     ///   </see> property is true.
     /// </summary>
     property CommonName: String read GetCommonName;
@@ -674,7 +674,7 @@ type
     /// <summary>
     ///   Subject name of the certificate. Usually, that is the hostname but
     ///   could also be an E-Mail address. If the <see
-    ///   cref="TaurusTLS|TTaurusTLSSSLOptions.VerifyHostname" /> is true,
+    ///   cref="TaurusTLS|TTaurusTLSBaseSSLOptions.VerifyHostname" /> is true,
     ///   TaurusTLS will check the Common Name ( <see
     ///   cref="TaurusTLS_X509|TTaurusTLSX509Name.CommonName" />) to see that it
     ///   matches the provided value.
