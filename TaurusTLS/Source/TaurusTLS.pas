@@ -3222,13 +3222,14 @@ begin
   fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
   fSSLContext.Mode := SSLOptions.Mode;
   fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
+  fSSLContext.InitContext(sslCtxServer);
+  //This must be after the Context is initialized so it does not AV.
+  //It avs if the Context property is nil.
   if Self.fSSLOptions.Certificates.Count > 0 then
   begin
-    {For some reason, this causes an AV}
     SSL_CTX_set_tlsext_servername_callback(fSSLContext.Context,
       g_tlsext_SNI_callback);
   end;
-  fSSLContext.InitContext(sslCtxServer);
 end;
 
 {$I TaurusTLSUnusedParamOff.inc}
