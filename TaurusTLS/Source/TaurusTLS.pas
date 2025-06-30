@@ -2739,16 +2739,28 @@ begin
           begin
             //indicate a fatal alert for hostname not found.
             Result := SSL_TLSEXT_ERR_ALERT_FATAL;
+            LBHost := ToBytes(LHostName);
             for i := 0 to LSSLIO.SSLOptions.Certificates.Count -1 do
             begin
               LX509 := LSSLIO.SSLOptions.Certificates[i].x509;
-              LBHost := ToBytes(LHostName);
               if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
               begin
                 //switch certificate we send to the client and indicate success.
                 SSL_set_SSL_CTX(SSL, LSSLIO.SSLOptions.Certificates[i].ctx);
                 Result := SSL_TLSEXT_ERR_OK;
                 break;
+              end;
+            end;
+            //try with the default cert if none was found.
+            if Result <> SSL_TLSEXT_ERR_OK then
+            begin
+              LX509 := SSL_CTX_get0_certificate( LSSLIO.SSLContext.Context );
+              if LX509 <> nil then
+              begin
+                if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
+                begin
+                  Result := SSL_TLSEXT_ERR_NOACK;
+                end;
               end;
             end;
           end;
@@ -4666,6 +4678,7 @@ begin
   begin
     ETaurusTLSAcceptError.RaiseException(fSSL, LRetCode, RSSSLAcceptError);
   end;
+
   fSession := SSL_get1_session(fSSL);
 end;
 
