@@ -2305,6 +2305,7 @@ var
   LockLevelCB: TIdCriticalSection = nil;
   LockPassCB: TIdCriticalSection = nil;
   LockVerifyCB: TIdCriticalSection = nil;
+  Lock_SNI_CB: TIdCriticalSection = nil;
   CallbackLockList: TIdCriticalSectionThreadList = nil;
 
 procedure GetStateVars(const SSLSocket: PSSL; const AWhere, Aret: TIdC_INT;
@@ -2680,6 +2681,33 @@ begin
   end;
 end;
 
+function g_tlsext_SNI_callback(ssl : PSSL; alert : PIdC_INT; arg : Pointer) : TIdC_INT; cdecl;
+var
+  LErr: Integer;
+  LHostname : String;
+begin
+  LErr := GStack.WSGetLastError;
+  try
+    Result := SSL_TLSEXT_ERR_NOACK;;
+    Lock_SNI_CB.Enter;
+    try
+      if ssl <> nil then
+      begin
+         LHostName :=  AnsiStringToString(SSL_get_servername(ssl,
+           TLSEXT_NAMETYPE_host_name));
+         if LHostName <> '' then
+         begin
+
+         end;
+      end;
+    finally
+      Lock_SNI_CB.Leave;
+    end;
+  finally
+     GStack.WSSetLastError(LErr);
+  end;
+end;
+
 function TranslateInternalVerifyToSSL(Mode: TTaurusTLSVerifyModeSet): Integer;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
@@ -2864,6 +2892,7 @@ begin
     LockLevelCB := TIdCriticalSection.Create;
     LockPassCB := TIdCriticalSection.Create;
     LockVerifyCB := TIdCriticalSection.Create;
+    Lock_SNI_CB := TIdCriticalSection.Create;
     // Handle internal TaurusTLS locking
     CallbackLockList := TIdCriticalSectionThreadList.Create;
     PrepareTaurusTLSLocking;
@@ -2915,6 +2944,7 @@ begin
       FreeAndNil(LockLevelCB);
       FreeAndNil(LockPassCB);
       FreeAndNil(LockVerifyCB);
+      FreeAndNil(Lock_SNI_CB);
       if Assigned(CallbackLockList) then
       begin
 {$IFDEF USE_OBJECT_ARC}
@@ -3192,6 +3222,12 @@ begin
   fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
   fSSLContext.Mode := SSLOptions.Mode;
   fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
+  if Self.fSSLOptions.Certificates.Count > 0 then
+  begin
+    {For some reason, this causes an AV}
+    SSL_CTX_set_tlsext_servername_callback(fSSLContext.Context,
+      g_tlsext_SNI_callback);
+  end;
   fSSLContext.InitContext(sslCtxServer);
 end;
 
