@@ -2724,6 +2724,8 @@ var
 begin
   LErr := GStack.WSGetLastError;
   try
+    //Default reply, do not acknowlege SNI and continue as if we didn't
+    //receive a SNI.
     Result := SSL_TLSEXT_ERR_NOACK;
     Lock_SNI_CB.Enter;
     try
@@ -2735,6 +2737,7 @@ begin
             TLSEXT_NAMETYPE_host_name));
           if LHostname <> '' then
           begin
+            //indicate a fatal alert for hostname not found.
             Result := SSL_TLSEXT_ERR_ALERT_FATAL;
             for i := 0 to LSSLIO.SSLOptions.Certificates.Count -1 do
             begin
@@ -2742,6 +2745,7 @@ begin
               LBHost := ToBytes(LHostName);
               if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
               begin
+                //switch certificate we send to the client and indicate success.
                 SSL_set_SSL_CTX(SSL, LSSLIO.SSLOptions.Certificates[i].ctx);
                 Result := SSL_TLSEXT_ERR_OK;
                 break;
