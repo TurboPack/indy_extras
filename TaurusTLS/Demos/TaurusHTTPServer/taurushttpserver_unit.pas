@@ -1,6 +1,6 @@
-{$i TaurusTLSCompilerDefines.inc}
-
 unit taurusHTTPServer_unit;
+
+{$i TaurusTLSCompilerDefines.inc}
 
 interface
 
@@ -31,8 +31,8 @@ begin
   inherited Create;
   FHTTP := TIdHTTPServer.Create(nil);
   FIO := TTaurusTLSServerIOHandler.Create(nil);
-  FIO.SSLOptions.DefaultCert.PublicKey := 'domain.crt';
-  FIO.SSLOptions.DefaultCert.PrivateKey := 'domain.key';
+  FIO.SSLOptions.CertFile := 'domain.crt';
+  FIO.SSLOptions.KeyFile := 'domain.key';
   FHTTP.IOHandler := FIO;
   FHTTP.DefaultPort := 443;
   FHTTP.Active := True;
@@ -40,7 +40,6 @@ end;
 
 destructor THTTPServer.Destroy;
 begin
-  FHTTP.Active := False;
   FreeAndNil(FIO);
   FreeAndNil(FHTTP);
   inherited;
@@ -65,7 +64,6 @@ begin
     begin
       WriteLn(E.Message);
       ReadLn;
-      FreeAndNil(LHTTP);
     end;
   end;
 end;
