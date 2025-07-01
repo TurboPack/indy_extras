@@ -2716,11 +2716,13 @@ function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer)
   : TIdC_INT; cdecl;
 var
   LErr: Integer;
-  LHostname: String;
   i : Integer;
   LSSLIO : TTaurusTLSServerIOHandler;
   LX509 : PX509;
+  {$IFNDEF USE_INLINE_VAR}
+  LHostname: String;
   LBHost : TIdBytes;
+  {$ENDIF}
 begin
   LErr := GStack.WSGetLastError;
   try
@@ -2733,12 +2735,18 @@ begin
       begin
         if arg <> nil then begin
           LSSLIO := TTaurusTLSServerIOHandler(arg);
+           {$IFDEF USE_INLINE_VAR}
+          var LHostName : String;
+           {$ENDIF}
           LHostname := AnsiStringToString(SSL_get_servername(SSL,
             TLSEXT_NAMETYPE_host_name));
           if LHostname <> '' then
           begin
             //indicate a fatal alert for hostname not found.
             Result := SSL_TLSEXT_ERR_ALERT_FATAL;
+            {$IFDEF USE_INLINE_VAR}
+            var LBHost : TIdBytes;
+            {$ENDIF}
             LBHost := ToBytes(LHostName);
             for i := 0 to LSSLIO.SSLOptions.Certificates.Count -1 do
             begin
@@ -2759,7 +2767,8 @@ begin
               begin
                 if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
                 begin
-                  Result := SSL_TLSEXT_ERR_NOACK;
+//                  Result := SSL_TLSEXT_ERR_NOACK;
+                  Result := SSL_TLSEXT_ERR_OK;
                 end;
               end;
             end;
