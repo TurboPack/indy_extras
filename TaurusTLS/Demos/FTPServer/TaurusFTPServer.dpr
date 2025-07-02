@@ -140,37 +140,6 @@ end;
 
 { TFTPServerApp }
 
-procedure SetupVirtualFTPServers(AIO : TTaurusTLSServerIOHandler);
-var LIni : TIniFile;
-  LServers : TStringList;
-  LPrivKey, LPubKey : String;
-  LCert : TTaurusTLSX509File;
-  i : Integer;
-begin
-  LIni := TIniFile.Create(GetCurrentDir + '\virtual_servers.ini');
-  try
-    LServers := TStringList.Create;
-    try
-      LIni.ReadSections(LServers);
-      for I := 0 to LServers.Count -1 do
-      begin
-        LPrivKey := LIni.ReadString(LServers[i],'KeyFile','');
-        LPubKey := LIni.ReadString(LServers[i],'CertificateFile','');
-      end;
-      if (LPrivKey <> '') and (LPubKey <> '') then
-      begin
-        LCert := AIO.SSLOptions.Certificates.Add;
-        LCert.PrivateKey := LPrivKey;
-        LCert.PublicKey := LPubKey;
-      end;
-    finally
-      FreeAndNil(LServers);
-    end;
-  finally
-      FreeAndNil(LIni);
-  end;
-end;
-
 function TFTPServerApp.SetupDefaultFTPServer(AIni: TIniFile): TIdFTPServer;
 begin
   Result := TIdFTPServer.Create(nil);
