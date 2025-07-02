@@ -19,13 +19,14 @@ uses
   TaurusTLS,
   System.Classes,
   System.IniFiles,
-  System.SysUtils,
   System.IOUtils,
+  System.Math,
+  System.SysUtils,
   WinApi.Windows;
 
 type
   TFTPServerApp = class(TObject)
-  private
+  {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     FCompressor: TIdCompressorZLib;
     FIOExplicit: TTaurusTLSServerIOHandler;
     FIOImplicit: TTaurusTLSServerIOHandler;
@@ -80,28 +81,17 @@ type
 var
   app: TFTPServerApp;
 
-function SetFileLastAccessDateTime(const FileName: String; DateTime: TDateTime)
-  : Boolean; inline;
-begin
-  Result := (FileName <> '') and (FileExists(FileName) = True);
-  if Result then
-  begin
-    TFile.SetLastAccessTime(FileName, DateTime);
-  end;
-end;
-
 function SetFileLastModifiedDateTime(const FileName: String;
-  DateTime: TDateTime): Boolean; inline;
+  DateTime: TDateTime): Boolean;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := (FileName <> '') and (FileExists(FileName) = True);
+  Result := (FileName <> '') and FileExists(FileName);
   if Result then
   begin
     TFile.SetLastWriteTime(FileName, DateTime);
   end;
 end;
-
  {$IFNDEF VCL_12_OR_ABOVE}
-function FileTime2DateTime(FileTime: TFileTime): TDateTime;
+function FileTime2DateTime(FileTime: TFileTime): TDateTime;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 var
    LocalFileTime: TFileTime;
    SystemTime: TSystemTime;
@@ -113,45 +103,17 @@ end;
 {$ENDIF}
 
 function SetFileCreationDateTime(const FileName: String; DateTime: TDateTime)
-  : Boolean; inline;
+  : Boolean;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := (FileName <> '') and (FileExists(FileName) = True);
+  Result := (FileName <> '') and FileExists(FileName);
   if Result then
   begin
     TFile.SetCreationTime(FileName, DateTime);
   end;
 end;
 
-// This is necessary because FileAge does not work with directories.
-function GetFileLastModifiedDateTime(const FileName: String;
-  var VDateTime: TDateTime): Boolean;
-var
-  F: TSearchRec;
-
-begin
-  Result := FindFirst(FileName, faAnyFile, F) = 0;
-  if Result then
-  begin
-    VDateTime := F.TimeStamp;
-    System.SysUtils.FindClose(F);
-  end;
-end;
-
-// based on https://stackoverflow.com/questions/17064672/programmatical-log-in-by-providing-credentials
-function ConnectAs(const lpszUsername, lpszPassword: string): Boolean;
-var
-  hToken: THandle;
-begin
-  Result := LogonUser(PChar(lpszUsername), nil, PChar(lpszPassword),
-    LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken);
-  if Result then
-  begin
-    Result := ImpersonateLoggedOnUser(hToken);
-  end;
-end;
-
 function FTPPathToLocalPath(const APath: String;
-  const AAnonymous: Boolean): String;
+  const AAnonymous: Boolean): String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   if AAnonymous then
   begin
@@ -166,12 +128,12 @@ begin
   Result := StringReplace(Result, '\\', '\', [rfReplaceAll]);
 end;
 
-procedure FileNotFound(const APathName: String);
+procedure FileNotFound(const APathName: String);  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   raise Exception.Create(APathName + ' not found');
 end;
 
-procedure PermissionDenied;
+procedure PermissionDenied;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   raise Exception.Create('permission denied');
 end;
@@ -290,6 +252,11 @@ end;
 
 function TFTPServerApp.SetupIOHandler(AIni: TIniFile)
   : TTaurusTLSServerIOHandler;
+var LIni : TIniFile;
+  LServers : TStringList;
+  LPrivKey, LPubKey : String;
+  LCert : TTaurusTLSX509File;
+  i : Integer;
 begin
   Result := TTaurusTLSServerIOHandler.Create(nil);
   Result.SSLOptions.MinTLSVersion := TLSv1_2;
@@ -299,7 +266,29 @@ begin
     GetCurrentDir + '\localhost.key');
   Result.SSLOptions.RootPublicKey := AIni.ReadString('Certificate',
     'RootCertFile', '');
-  SetupVirtualFTPServers(Result);
+
+  LIni := TIniFile.Create(GetCurrentDir + '\virtual_servers.ini');
+  try
+    LServers := TStringList.Create;
+    try
+      LIni.ReadSections(LServers);
+      for I := 0 to LServers.Count -1 do
+      begin
+        LPrivKey := LIni.ReadString(LServers[i],'KeyFile','');
+        LPubKey := LIni.ReadString(LServers[i],'CertificateFile','');
+      end;
+      if (LPrivKey <> '') and (LPubKey <> '') then
+      begin
+        LCert := Result.SSLOptions.Certificates.Add;
+        LCert.PrivateKey := LPrivKey;
+        LCert.PublicKey := LPubKey;
+      end;
+    finally
+      FreeAndNil(LServers);
+    end;
+  finally
+      FreeAndNil(LIni);
+  end;
 
   Result.SSLOptions.DHParamsFile := AIni.ReadString('Certificate',
     'DH_Parameters', '');
@@ -308,49 +297,49 @@ end;
 
 constructor TFTPServerApp.Create;
 var
-  Lini: TIniFile;
+  LIni: TIniFile;
 begin
   inherited Create;
   if not FileExists(GetCurrentDir + '\server.ini') then
   begin
 
-    Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
+    LIni := TIniFile.Create(GetCurrentDir + '\server.ini');
     try
-      Lini.WriteString('Certificate', 'CertificateFile',
+      LIni.WriteString('Certificate', 'CertificateFile',
         GetCurrentDir + '\ssl-cert.pem');
-      Lini.WriteString('Certificate', 'KeyFile',
+      LIni.WriteString('Certificate', 'KeyFile',
         GetCurrentDir + '\ssl-key.pem');
-      Lini.WriteString('Certificate', 'RootCertFile', '');
-      Lini.WriteString('Certificate', 'DH_Parameters', '');
-      Lini.WriteString('Certificate', 'Password', '');
+      LIni.WriteString('Certificate', 'RootCertFile', '');
+      LIni.WriteString('Certificate', 'DH_Parameters', '');
+      LIni.WriteString('Certificate', 'Password', '');
 
-      Lini.WriteInteger('Server', 'PASV_Bound_Port_Minimum', 0);
-      Lini.WriteInteger('Server', 'PASV_Bound_Port_Maximum', 0);
+      LIni.WriteInteger('Server', 'PASV_Bound_Port_Minimum', 0);
+      LIni.WriteInteger('Server', 'PASV_Bound_Port_Maximum', 0);
 
-      Lini.WriteInteger('Server', 'Password_Attempts',
+      LIni.WriteInteger('Server', 'Password_Attempts',
         DEF_FTP_PASSWORDATTEMPTS);
-      Lini.WriteInteger('Server', 'Delay_On_Failed_Password_Attempt',
+      LIni.WriteInteger('Server', 'Delay_On_Failed_Password_Attempt',
         DEF_FTP_INVALIDPASS_DELAY);
-      Lini.WriteBool('Server', 'No_PORT_Requests_To_Ports_In_Reserved_Range',
+      LIni.WriteBool('Server', 'No_PORT_Requests_To_Ports_In_Reserved_Range',
         DEF_FTP_NO_RESERVED_PORTS);
-      Lini.WriteBool('Server', 'Do_Not_Accept_PORT_Transfers',
+      LIni.WriteBool('Server', 'Do_Not_Accept_PORT_Transfers',
         DEF_FTP_BLOCK_ALL_PORTS);
-      Lini.WriteBool('Server', 'Disable_SYST_Command', DEF_FTP_DISABLE_SYST);
-      Lini.WriteBool('Server', 'Disable_STAT_Command', DEF_FTP_DISABLE_STAT);
-      Lini.WriteBool('Server', 'Reqiore_PORT_Connection_From_Same_IP_Address',
+      LIni.WriteBool('Server', 'Disable_SYST_Command', DEF_FTP_DISABLE_SYST);
+      LIni.WriteBool('Server', 'Disable_STAT_Command', DEF_FTP_DISABLE_STAT);
+      LIni.WriteBool('Server', 'Reqiore_PORT_Connection_From_Same_IP_Address',
         DEF_FTP_PORT_SAME_IP);
-      Lini.WriteBool('Server', 'Require_PASV_Connection_From_Same_IP_Address',
+      LIni.WriteBool('Server', 'Require_PASV_Connection_From_Same_IP_Address',
         DEF_FTP_PASV_SAME_IP);
-      Lini.WriteBool('Server', 'Permit_CCC_Clear_Command_Connection_In_TLS_FTP',
+      LIni.WriteBool('Server', 'Permit_CCC_Clear_Command_Connection_In_TLS_FTP',
         DEF_FTP_PERMIT_CCC);
 
-      Lini.WriteBool('Server', 'Allow_Anonymous_FTP', false);
-      Lini.WriteBool('Server', 'Allow_Compression', True);
-      Lini.WriteBool('Server', 'Allow_File_Checksums', True);
-      Lini.WriteBool('Server', 'Requre_TLS', True);
-      Lini.WriteBool('Server', 'SupportXAUTH', false);
-      Lini.WriteBool('Server', 'Unix_Emulation', True);
-      Lini.WriteBool('Server', 'ImplicitSSL', True);
+      LIni.WriteBool('Server', 'Allow_Anonymous_FTP', false);
+      LIni.WriteBool('Server', 'Allow_Compression', True);
+      LIni.WriteBool('Server', 'Allow_File_Checksums', True);
+      LIni.WriteBool('Server', 'Requre_TLS', True);
+      LIni.WriteBool('Server', 'SupportXAUTH', false);
+      LIni.WriteBool('Server', 'Unix_Emulation', True);
+      LIni.WriteBool('Server', 'ImplicitSSL', True);
     finally
       FreeAndNil(Lini);
     end;
@@ -358,7 +347,7 @@ begin
 
   Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
   try
-    if Lini.ReadBool('Server', 'Allow_Compression', True) then
+    if LIni.ReadBool('Server', 'Allow_Compression', True) then
     begin
       FCompressor := TIdCompressorZLib.Create(nil);
     end
@@ -371,7 +360,7 @@ begin
     FFTPServExplicit := SetupDefaultFTPServer(Lini);
     FIOExplicit := SetupIOHandler(Lini);
     FFTPServExplicit.IOHandler := FIOExplicit;
-    if Lini.ReadBool('Server', 'Requre_TLS', True) then
+    if LIni.ReadBool('Server', 'Requre_TLS', True) then
     begin
       FFTPServExplicit.UseTLS := utUseRequireTLS;
     end
@@ -384,7 +373,7 @@ begin
 
     //--handle implicit FTPS server.
     FFTPServImplicit := nil;
-    if Lini.ReadBool('Server', 'ImplicitSSL', True) then
+    if LIni.ReadBool('Server', 'ImplicitSSL', True) then
     begin
       FFTPServImplicit := SetupDefaultFTPServer(Lini);
       FIOImplicit := SetupIOHandler(Lini);
@@ -415,7 +404,7 @@ end;
 procedure TFTPServerApp.ftpsrvOnClient(ASender: TIdFTPServerContext;
   const AID: String);
 begin
-
+  {Intentionally left blank so that the server supports the CLNT command.}
 end;
 
 procedure TFTPServerApp.ftpsrvOnCWD(ASender: TIdFTPServerContext;
@@ -480,13 +469,20 @@ end;
 
 procedure TFTPServerApp.ftpsrvOnGetFileDate(ASender: TIdFTPServerContext;
   const AFileName: TIdFTPFileName; var VFileDate: TDateTime);
+var
+  LF: TSearchRec;
 begin
-  if not GetFileLastModifiedDateTime(FTPPathToLocalPath(AFileName,
-    ASender.UserType = utAnonymousUser), VFileDate) then
+// This is necessary because FileAge does not work with directories.
+  if FindFirst(FTPPathToLocalPath(AFileName,
+    ASender.UserType = utAnonymousUser), faAnyFile, LF) = 0 then
+  begin
+    VFileDate := LF.TimeStamp;
+    System.SysUtils.FindClose(LF);
+  end
+  else
   begin
     FileNotFound(AFileName);
   end;
-
 end;
 
 procedure TFTPServerApp.ftpsrvOnGetFileSize(ASender: TIdFTPServerContext;
@@ -509,21 +505,23 @@ end;
 procedure TFTPServerApp.ftpsrvOnHostCheck(ASender: TIdFTPServerContext;
   const AHost: String; var VAccepted: Boolean);
 begin
-  VAccepted := (AHost = GStack.HostName);
+  VAccepted := AHost = GStack.HostName;
   if not VAccepted then
   begin
-    VAccepted := (GStack.LocalAddresses.IndexOf(AHost) > -1);
+    VAccepted := GStack.LocalAddresses.IndexOf(AHost) > -1;
   end;
 end;
 
-procedure TSearchRecToFTPListItem(ARec: TSearchRec;
-  var AFTPItem: TIdFTPListOutputItem; const AAnonymous: Boolean); inline;
+procedure TSearchRecToFTPListItem(const ARec: TSearchRec;
+  AFTPItem: TIdFTPListOutputItem; const AAnonymous: Boolean); inline;
 var
   LUnixPerm: String;
   LMSLTPerm: String;
+  LIsDir : Boolean;
 begin
   AFTPItem.FileName := ARec.Name;
-  if (ARec.Attr and faDirectory) = faDirectory then
+  LIsDir := (ARec.Attr and faDirectory) = faDirectory;
+  if LIsDir then
   begin
     AFTPItem.ItemType := ditDirectory;
     AFTPItem.SizeAvail := false;
@@ -573,7 +571,7 @@ begin
     end;
   end;
   // x - execute bit - for directories, means that you can access it.
-  if (ARec.Attr and faDirectory) = faDirectory then
+  if LIsDir then
   begin
     LUnixPerm := LUnixPerm + 'x';
     LMSLTPerm := StringReplace(LMSLTPerm, 'a', '', [rfReplaceAll]);
@@ -604,11 +602,13 @@ begin
   AFTPItem.LastAccessDate := ARec.LastAccessTime;
   AFTPItem.CreationDate := ARec.CreationTime;
   {$ELSE}
+  {$WARN SYMBOL_PLATFORM OFF}
   AFTPItem.LastAccessDate := FileTime2DateTime(ARec.FindData.ftLastAccessTime );
   AFTPItem.CreationDate := FileTime2DateTime(ARec.FindData.ftCreationTime);
+  {$WARN SYMBOL_PLATFORM ON}
   {$ENDIF}
   AFTPItem.Size := ARec.Size;
-  AFTPItem.WinAttribs := ARec.Attr;
+  AFTPItem.WinAttribs := Cardinal(ARec.Attr);
 end;
 
 procedure TFTPServerApp.ftpsrvOnList(ASender: TIdFTPServerContext;
@@ -669,18 +669,13 @@ end;
 
 procedure TFTPServerApp.ftpsrvOnRenameFile(ASender: TIdFTPServerContext;
   const ARenameFromFile, ARenameToFile: TIdFTPFileName);
-var
-  LFromFile, LToFile: String;
 begin
   if ASender.UserType = utAnonymousUser then
   begin
     PermissionDenied;
   end;
-  LFromFile := FTPPathToLocalPath(ARenameFromFile,
-    ASender.UserType = utAnonymousUser);
-  LToFile := FTPPathToLocalPath(ARenameToFile,
-    ASender.UserType = utAnonymousUser);
-  if not RenameFile(LFromFile, LToFile) then
+  if not RenameFile(FTPPathToLocalPath(ARenameFromFile, ASender.UserType = utAnonymousUser),
+    FTPPathToLocalPath(ARenameToFile, ASender.UserType = utAnonymousUser)) then
   begin
     raise Exception.Create('Can not rename ' + ARenameFromFile + ' to ' +
       ARenameToFile);
@@ -723,21 +718,25 @@ begin
     PermissionDenied;
   end;
   LPath := FTPPathToLocalPath(AFileName, ASender.UserType = utAnonymousUser);
-  if VLastAccessTime <> 0 then
+  if IsZero(VLastAccessTime) then
   begin
-    if not SetFileLastAccessDateTime(LPath, VLastAccessTime) then
+    if (LPath <> '') and FileExists(LPath) then
+    begin
+      TFile.SetLastAccessTime(LPath, VLastAccessTime);
+    end
+    else
     begin
       FileNotFound(AFileName);
     end;
   end;
-  if VLastModTime <> 0 then
+  if IsZero(VLastModTime) then
   begin
     if not SetFileLastModifiedDateTime(LPath, VLastModTime) then
     begin
       FileNotFound(AFileName);
     end;
   end;
-  if VCreateDate <> 0 then
+  if IsZero(VCreateDate) then
   begin
     if not SetFileCreationDateTime(LPath, VCreateDate) then
     begin
@@ -788,25 +787,31 @@ end;
 procedure TFTPServerApp.ioOnGetPasswordEx(ASender: TObject;
   var VPassword: String; const AIsWrite: Boolean; var VOk: Boolean);
 var
-  Lini: TIniFile;
+  LIni: TIniFile;
 begin
-  Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
+  LIni := TIniFile.Create(GetCurrentDir + '\server.ini');
   try
-    VPassword := Lini.ReadString('Certificate', 'Password', 'testinfg');
+    VPassword := LIni.ReadString('Certificate', 'Password', 'testinfg');
     VOk := VPassword <> '';
   finally
-    FreeAndNil(Lini);
+    FreeAndNil(LIni);
   end;
 end;
 
 procedure TFTPServerApp.ftpsrvOnLogin(ASender: TIdFTPServerContext;
   const AUsername, APassword: string; var AAuthenticated: Boolean);
-{ var
-  Lini: TIniFile; }
+var
+  hToken: THandle;
 begin
   if ASender.UserType = utNormalUser then
   begin
-    AAuthenticated := ConnectAs(AUsername, APassword);
+  // based on https://stackoverflow.com/questions/17064672/programmatical-log-in-by-providing-credentials
+    AAuthenticated := LogonUser(PChar(AUserName), nil, PChar(APassword),
+    LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken);
+    if AAuthenticated then
+    begin
+      AAuthenticated := ImpersonateLoggedOnUser(hToken);
+    end;
   end
   else
   begin
@@ -815,10 +820,9 @@ begin
 end;
 
 begin
-  app := nil;
+  app := TFTPServerApp.Create;
   try
     try
-      app := TFTPServerApp.Create;
       WriteLn(OpenSSLVersion);
       WriteLn('FTP Server App');
     except
