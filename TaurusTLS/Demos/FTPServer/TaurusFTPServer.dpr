@@ -1,8 +1,10 @@
+
 program TaurusFTPServer;
 
 {$APPTYPE CONSOLE}
 {$R *.res}
 
+{$I TaurusTLSCompilerDefines.inc}
 uses
   IdFIPS,
   IdExplicitTLSClientServerBase,
@@ -68,7 +70,7 @@ type
     procedure ftpsrvOnSiteUTIME(ASender: TIdFTPServerContext;
       const AFileName: TIdFTPFileName; var VLastAccessTime, VLastModTime,
       VCreateDate: TDateTime; var VAUth: Boolean);
-    function SetupFTPServer(AIni: TIniFile): TIdFTPServer;
+    function SetupDefaultFTPServer(AIni: TIniFile): TIdFTPServer;
     function SetupIOHandler(AIni: TIniFile): TTaurusTLSServerIOHandler;
   public
     constructor Create;
@@ -97,6 +99,18 @@ begin
     TFile.SetLastWriteTime(FileName, DateTime);
   end;
 end;
+
+ {$IFNDEF VCL_12_OR_ABOVE}
+function FileTime2DateTime(FileTime: TFileTime): TDateTime;
+var
+   LocalFileTime: TFileTime;
+   SystemTime: TSystemTime;
+begin
+   FileTimeToLocalFileTime(FileTime, LocalFileTime) ;
+   FileTimeToSystemTime(LocalFileTime, SystemTime) ;
+   Result := SystemTimeToDateTime(SystemTime) ;
+end;
+{$ENDIF}
 
 function SetFileCreationDateTime(const FileName: String; DateTime: TDateTime)
   : Boolean; inline;
@@ -164,7 +178,38 @@ end;
 
 { TFTPServerApp }
 
-function TFTPServerApp.SetupFTPServer(AIni: TIniFile): TIdFTPServer;
+procedure SetupVirtualFTPServers(AIO : TTaurusTLSServerIOHandler);
+var LIni : TIniFile;
+  LServers : TStringList;
+  LPrivKey, LPubKey : String;
+  LCert : TTaurusTLSX509File;
+  i : Integer;
+begin
+  LIni := TIniFile.Create(GetCurrentDir + '\virtual_servers.ini');
+  try
+    LServers := TStringList.Create;
+    try
+      LIni.ReadSections(LServers);
+      for I := 0 to LServers.Count -1 do
+      begin
+        LPrivKey := LIni.ReadString(LServers[i],'KeyFile','');
+        LPubKey := LIni.ReadString(LServers[i],'CertificateFile','');
+      end;
+      if (LPrivKey <> '') and (LPubKey <> '') then
+      begin
+        LCert := AIO.SSLOptions.Certificates.Add;
+        LCert.PrivateKey := LPrivKey;
+        LCert.PublicKey := LPubKey;
+      end;
+    finally
+      FreeAndNil(LServers);
+    end;
+  finally
+      FreeAndNil(LIni);
+  end;
+end;
+
+function TFTPServerApp.SetupDefaultFTPServer(AIni: TIniFile): TIdFTPServer;
 begin
   Result := TIdFTPServer.Create(nil);
   Result.Greeting.Text.Text := 'TaurusFTP Server..';
@@ -245,8 +290,6 @@ end;
 
 function TFTPServerApp.SetupIOHandler(AIni: TIniFile)
   : TTaurusTLSServerIOHandler;
-//var
-//  LCert : TTaurusTLSX509File;
 begin
   Result := TTaurusTLSServerIOHandler.Create(nil);
   Result.SSLOptions.MinTLSVersion := TLSv1_2;
@@ -256,10 +299,7 @@ begin
     GetCurrentDir + '\localhost.key');
   Result.SSLOptions.RootPublicKey := AIni.ReadString('Certificate',
     'RootCertFile', '');
-
-//  LCert := Result.SSLOptions.Certificates.Add;
-//  LCert.PrivateKey := GetCurrentDir + '\hayse-key.pem';
-//  LCert.PublicKey :=  GetCurrentDir + '\hayse-cert.pem';
+  SetupVirtualFTPServers(Result);
 
   Result.SSLOptions.DHParamsFile := AIni.ReadString('Certificate',
     'DH_Parameters', '');
@@ -328,7 +368,7 @@ begin
     end;
 
     //--handle explicit FTPS server.
-    FFTPServExplicit := SetupFTPServer(Lini);
+    FFTPServExplicit := SetupDefaultFTPServer(Lini);
     FIOExplicit := SetupIOHandler(Lini);
     FFTPServExplicit.IOHandler := FIOExplicit;
     if Lini.ReadBool('Server', 'Requre_TLS', True) then
@@ -346,7 +386,7 @@ begin
     FFTPServImplicit := nil;
     if Lini.ReadBool('Server', 'ImplicitSSL', True) then
     begin
-      FFTPServImplicit := SetupFTPServer(Lini);
+      FFTPServImplicit := SetupDefaultFTPServer(Lini);
       FIOImplicit := SetupIOHandler(Lini);
       FFTPServImplicit.IOHandler := FIOImplicit;
       FFTPServImplicit.DefaultPort := 990;
@@ -560,8 +600,13 @@ begin
   AFTPItem.UnixGroupPermissions := LUnixPerm;
   AFTPItem.UnixOtherPermissions := LUnixPerm;
   AFTPItem.ModifiedDate := ARec.TimeStamp;
+  {$IFDEF VCL_12_OR_ABOVE}
   AFTPItem.LastAccessDate := ARec.LastAccessTime;
   AFTPItem.CreationDate := ARec.CreationTime;
+  {$ELSE}
+  AFTPItem.LastAccessDate := FileTime2DateTime(ARec.FindData.ftLastAccessTime );
+  AFTPItem.CreationDate := FileTime2DateTime(ARec.FindData.ftCreationTime);
+  {$ENDIF}
   AFTPItem.Size := ARec.Size;
   AFTPItem.WinAttribs := ARec.Attr;
 end;
