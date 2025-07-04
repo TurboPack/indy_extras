@@ -1,5 +1,4 @@
 {$I TaurusTLSCompilerDefines.inc}
-
 unit taurusftp_unit;
 
 interface
@@ -51,8 +50,7 @@ type
       AVersion: TTaurusMsgCBVer; AContentType: TIdC_INT; const buf: TIdBytes;
       SSL: PSSL);
     procedure DoOnVerifyError(ASender: TObject; ACertificate: TTaurusTLSX509;
-      const AError: TIdC_LONG; const AMsg, ADescr: String;
-      var VOk: Boolean);
+      const AError: TIdC_LONG; const AMsg, ADescr: String; var VOk: Boolean);
     procedure Open;
     procedure CmdOpen(const ACmd: string);
     procedure CmdDir(const ACmd: string);
@@ -60,6 +58,7 @@ type
     procedure CmdCd(const ACmd: string);
     procedure CmdCdUp;
     procedure CmdPassive(const ACmd: string);
+    procedure CmdMLSD(const ACmd: String);
     procedure CmdGet(const ACmd: string);
     procedure CmdPut(const ACmd: string);
     procedure CmdRename(const ACmd: string);
@@ -101,9 +100,9 @@ implementation
 
 uses
   IniFiles,
-  {$IFNDEF FPC}
+{$IFNDEF FPC}
   System.IOUtils,
-  {$ENDIF}
+{$ENDIF}
   TaurusTLSHeaders_ssl3;
 
 const
@@ -111,7 +110,7 @@ const
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level',
-    'save-config','cert-info'];
+    'save-config', 'cert-info', 'mlsd'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
 begin
@@ -177,17 +176,18 @@ begin
   end;
 end;
 
-function CreateAndGetCOnfigDir : String;
+function CreateAndGetCOnfigDir: String;
 begin
-  {$IFNDEF FPC}
-   Result := TPath.GetHomePath() + TPath.DirectorySeparatorChar + 'taurustls' +
-     TPath.DirectorySeparatorChar;
-  {$ELSE}
-   Result := GetAppConfigDir(False);
-   {$ENDIF}
-   if not DirectoryExists(Result) then begin
-     SysUtils.CreateDir(Result);
-   end;
+{$IFNDEF FPC}
+  Result := TPath.GetHomePath() + TPath.DirectorySeparatorChar + 'taurustls' +
+    TPath.DirectorySeparatorChar;
+{$ELSE}
+  Result := GetAppConfigDir(False);
+{$ENDIF}
+  if not DirectoryExists(Result) then
+  begin
+    SysUtils.CreateDir(Result);
+  end;
 end;
 
 { TFTPApplication }
@@ -599,6 +599,45 @@ begin
   end;
 end;
 
+procedure TFTPApplication.CmdMLSD(const ACmd: String);
+var
+  LCmdParams: TStrings;
+begin
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      case PosInStrArray(LCmdParams[0], ['on', 'true', 'off', 'false'],
+        False) of
+        0, 1:
+          FFTP.UseMLIS := True;
+        2, 3:
+          FFTP.UseMLIS := False;
+      else
+        begin
+          FFTP.UseMLIS := not FFTP.UseMLIS;
+        end;
+      end;
+    end
+    else
+    begin
+      FFTP.UseMLIS := not FFTP.UseMLIS;
+    end;
+    if FFTP.UseMLIS then
+    begin
+      WriteLn('MLSD: True (use MLSD for directory listing)');
+    end
+    else
+    begin
+      WriteLn('MLSD: False (use DIR for directory listing)');
+    end;
+  finally
+    FreeAndNil(LCmdParams);
+  end;
+
+end;
+
 procedure TFTPApplication.CmdGet(const ACmd: string);
 var
   LCmdParams: TStrings;
@@ -689,8 +728,8 @@ procedure TFTPApplication.CmdDebugInfo;
 begin
 {$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
- // WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
- //   IntToStr(Lo(GetRTLVersion)));
+  // WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
+  // IntToStr(Lo(GetRTLVersion)));
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
@@ -794,18 +833,20 @@ begin
   end;
 end;
 
-
 procedure TFTPApplication.CmdSaveConfig;
-var LIni : TIniFile;
+var
+  LIni: TIniFile;
 begin
-   LIni := TIniFile.Create(CreateAndGetCOnfigDir+'taurusftp.ini');
-   try
-      Lini.WriteBool('debug','trace', Assigned(FIO.OnDebugMessage));
-      Lini.WriteInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
-      Lini.WriteBool('ftp','passive', FFTP.Passive);
-   finally
-     FreeAndNil(LIni);
-   end;
+  LIni := TIniFile.Create(CreateAndGetCOnfigDir + 'taurusftp.ini');
+  try
+    LIni.WriteBool('debug', 'trace', Assigned(FIO.OnDebugMessage));
+    LIni.WriteInteger('security', 'security_level',
+      FIO.SSLOptions.SecurityLevel);
+    LIni.WriteBool('ftp', 'passive', FFTP.Passive);
+    LIni.WriteBool('ftp','use_MLSD', FFTP.UseMLIS);
+  finally
+    FreeAndNil(LIni);
+  end;
 end;
 
 procedure TFTPApplication.CmdSecurityLevel(const ACmd: string);
@@ -987,13 +1028,13 @@ end;
 
 procedure TFTPApplication.CmdHelp(const ACmd: string);
 {$IFNDEF USE_INLINE_VAR}
-  {$IFDEF FPC}
-  var
-    LCmd, LSubcommand: AnsiString;
+{$IFDEF FPC}
+var
+  LCmd, LSubcommand: AnsiString;
 {$ELSE}
 var
   LCmd, LSubcommand: String;
-  {$ENDIF}
+{$ENDIF}
 {$ENDIF}
 begin
 {$IFDEF USE_INLINE_VAR}
@@ -1027,8 +1068,9 @@ begin
     PrintCmdHelp(['quote'], 'Send arbitrary ftp command');
     PrintCmdHelp(['debug-trace'], 'Show Debug TLS trace information');
     PrintCmdHelp(['security-level'], 'Show or set security level');
-    PrintCmdHelp(['save-config'],'Save configuration');
-    PrintCmdHelp(['cert-info'],'Show certificate information');
+    PrintCmdHelp(['save-config'], 'Save configuration');
+    PrintCmdHelp(['cert-info'], 'Show certificate information');
+    PrintCmdHelp(['mlsd'], 'Toggle use of MLSD command');
   end
   else
   begin
@@ -1178,13 +1220,24 @@ begin
           WriteLn('4    - A minimum of 192 security bits is permitted.');
           WriteLn('5    - A minimum of 256 security bits is permitted.');
         end;
-      31 :
+      31:
         begin
-          PrintCmdHelp(['save-config'],'Save configuration','save-config');
+          PrintCmdHelp(['save-config'], 'Save configuration', 'save-config');
         end;
-      32 :
+      32:
         begin
-          PrintCmdHelp(['cert-info'],'Certificate information','cert-info');
+          PrintCmdHelp(['cert-info'], 'Certificate information', 'cert-info');
+        end;
+      33:
+        begin
+          PrintCmdHelp(['mlsd'], 'Toggle use of MLSD command', 'mlsd [state]');
+          WriteLn('');
+          WriteLn('The state value may be one of these:');
+          WriteLn('');
+          WriteLn('on    - MLSD mode on (use MLSD command for directory listing)');
+          WriteLn('off   - MLSD mode off (use DIR command for directory listing)');
+          WriteLn('true  - MLSD mode on (use MLSD command for directory listing)');
+          WriteLn('false - MLSD mode off (use DIR command for directory listing)');
         end;
     end;
   end;
@@ -1192,13 +1245,13 @@ end;
 
 procedure TFTPApplication.DoCommands;
 {$IFNDEF USE_INLINE_VAR}
-  {$IFDEF FPC}
+{$IFDEF FPC}
 var
   LCmd: AnsiString;
-  {$ELSE}
+{$ELSE}
 var
   LCmd: string;
-  {$ENDIF}
+{$ENDIF}
 {$ENDIF}
 begin
 {$IFDEF USE_INLINE_VAR}
@@ -1286,7 +1339,12 @@ begin
           // 'save-config'
           CmdSaveConfig;
         32:
+           // 'cert-info'
           CmdCertInfo;
+        33:
+          // 'mlsd'
+          CmdMLSD(LCmd);
+
       else
         WriteLn('Bad Command');
       end;
@@ -1300,7 +1358,8 @@ end;
 procedure TFTPApplication.DoOnVerifyError(ASender: TObject;
   ACertificate: TTaurusTLSX509; const AError: TIdC_LONG;
   const AMsg, ADescr: String; var VOk: Boolean);
-var LRsp : String;
+var
+  LRsp: String;
 begin
   WriteLn(ADescr);
   WriteLn('');
@@ -1308,7 +1367,7 @@ begin
   WriteLn('');
   Write('Accept this certificate?');
   ReadLn(LRsp);
-  VOk := PosInStrArray(LRsp,['Y','YES'],false) > -1;
+  VOk := PosInStrArray(LRsp, ['Y', 'YES'], False) > -1;
 end;
 
 procedure TFTPApplication.DoRun;
@@ -1347,23 +1406,26 @@ begin
 end;
 
 procedure TFTPApplication.LoadConfig;
-var LIni : TIniFile;
+var
+  LIni: TIniFile;
 begin
-   LIni := TIniFile.Create(CreateAndGetCOnfigDir+'taurusftp.ini');
-   try
-     if  Lini.ReadBool('debug','trace', Assigned(FIO.OnDebugMessage)) then
-     begin
-       FIO.OnDebugMessage := OnDebugMsg;
-     end
-     else
-     begin
-       FIO.OnDebugMessage := nil;
-     end;
-     FIO.SSLOptions.SecurityLevel := Lini.ReadInteger('security','security_level',FIO.SSLOptions.SecurityLevel);
-     FFTP.Passive := Lini.ReadBool('ftp','passive', FFTP.Passive);
-   finally
-     FreeAndNil(LIni);
-   end;
+  LIni := TIniFile.Create(CreateAndGetCOnfigDir + 'taurusftp.ini');
+  try
+    if LIni.ReadBool('debug', 'trace', Assigned(FIO.OnDebugMessage)) then
+    begin
+      FIO.OnDebugMessage := OnDebugMsg;
+    end
+    else
+    begin
+      FIO.OnDebugMessage := nil;
+    end;
+    FIO.SSLOptions.SecurityLevel := LIni.ReadInteger('security',
+      'security_level', FIO.SSLOptions.SecurityLevel);
+    FFTP.Passive := LIni.ReadBool('ftp', 'passive', FFTP.Passive);
+    FFTP.UseMLIS := LIni.ReadBool('ftp','use_MLSD', True);
+  finally
+    FreeAndNil(LIni);
+  end;
 end;
 
 {$IFDEF FPC}
