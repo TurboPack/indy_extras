@@ -113,6 +113,7 @@ const
     'save-config', 'cert-info', 'mlsd'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := '';
   if ALen > Length(AText) then
@@ -126,6 +127,7 @@ begin
 end;
 
 function LeftJustify(const AText: String; ALen: Integer): string;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := '';
   if ALen > Length(AText) then
@@ -177,6 +179,7 @@ begin
 end;
 
 function CreateAndGetCOnfigDir: String;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
 {$IFNDEF FPC}
   Result := TPath.GetHomePath() + TPath.DirectorySeparatorChar + 'taurustls' +
@@ -1353,6 +1356,7 @@ begin
         WriteLn(E.Message);
     end;
   until False;
+  CmdSaveConfig;
 end;
 
 procedure TFTPApplication.DoOnVerifyError(ASender: TObject;
