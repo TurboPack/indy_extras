@@ -133,8 +133,10 @@ procedure TSearchRecToFTPListItem(const ARec: TSearchRec;
   AFTPItem: TIdFTPListOutputItem; const AAnonymous: Boolean);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 var
+  {$IFNDEF USE_INLINE_VAR}
   LUnixPerm: String;
   LMSLTPerm: String;
+  {$ENDIF}
   LIsDir: Boolean;
 begin
   AFTPItem.FileName := ARec.Name;
@@ -148,7 +150,10 @@ begin
   begin
     AFTPItem.ItemType := ditFile;
   end;
-
+  {$IFDEF USE_INLINE_VAR}
+  var
+    LUnixPerm, LMSLTPerm : String;
+  {$ENDIF}
   if AAnonymous then
   begin
     LMSLTPerm := 'elr';
@@ -326,7 +331,9 @@ function TFTPServerApp.SetupIOHandler(AIni: TIniFile)
 var
   LIni: TIniFile;
   LServers: TStringList;
+  {$IFNDEF USE_INLINE_VAR}
   LPrivKey, LPubKey : String;
+  {$ENDIF}
   LCert: TTaurusTLSX509File;
   i: Integer;
 begin
@@ -345,6 +352,9 @@ begin
     LServers := TStringList.Create;
     try
       LIni.ReadSections(LServers);
+      {$IFDEF USE_INLINE_VAR}
+      var LPrivKey, LPubKey : String;
+      {$ENDIF}
       for i := 0 to LServers.Count - 1 do
       begin
         LPrivKey := LIni.ReadString(LServers[i], 'KeyFile', '');
@@ -686,13 +696,19 @@ end;
 procedure TFTPServerApp.ftpsrvOnSiteUTIME(ASender: TIdFTPServerContext;
   const AFileName: TIdFTPFileName; var VLastAccessTime, VLastModTime,
   VCreateDate: TDateTime; var VAUth: Boolean);
+{$IFNDEF USE_INLINE_VAR}
 var
   LPath: String;
+{$ENDIF}
 begin
   if ASender.UserType = utAnonymousUser then
   begin
     PermissionDenied;
   end;
+  {$IFDEF USE_INLINE_VAR}
+  var
+     LPath: String;
+  {$ENDIF}
   LPath := FTPPathToLocalPath(AFileName, ASender.UserType = utAnonymousUser);
   if IsZero(VLastAccessTime) then
   begin
