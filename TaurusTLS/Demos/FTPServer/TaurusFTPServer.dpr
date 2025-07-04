@@ -804,6 +804,7 @@ begin
     begin
       AAuthenticated := ImpersonateLoggedOnUser(hToken);
     end;
+    CloseHandle( hToken);
   end
   else
   begin
