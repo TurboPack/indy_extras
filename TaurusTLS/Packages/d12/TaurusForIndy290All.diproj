@@ -28,11 +28,11 @@ Powered by &lt;a href="https://devjetsoftware.com/products/documentation-insight
   <Outputs>
     <Output Type="HTML">
       <Active>true</Active>
-      <OutputDirectory>..\..\..\Help\html</OutputDirectory>
+      <OutputDirectory>..\..\Help\html</OutputDirectory>
     </Output>
     <Output Type="CHM">
       <Active>true</Active>
-      <OutputFileName>..\..\..\Help\chm\TaurusForIndy290All.chm</OutputFileName>
+      <OutputFileName>..\..\Help\chm\TaurusForIndy290All.chm</OutputFileName>
     </Output>
     <Output Type="MSHELP2">
       <Active>false</Active>

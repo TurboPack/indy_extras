@@ -1326,9 +1326,11 @@ uses
   //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
   //                (void (*)(void))cb)
 
-function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX; cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
+function SSL_CTX_set_tlsext_servername_callback(ctx : PSSL_CTX;
+  cb : SSL_CTX_set_tlsext_servername_callback_cb) : TIdC_LONG;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
+  {This AV's for some reason}
   Result :=  SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,SSL_CTX_callback_ctrl_v3(cb));
 end;
 

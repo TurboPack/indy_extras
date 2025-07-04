@@ -3232,7 +3232,7 @@ var
 
   function SSL_ctrl(ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibSSL;
   function SSL_CTX_ctrl(ctx: PSSL_CTX; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibSSL;
-  function SSL_CTX_callback_ctrl(v1: PSSL_CTX; v2: TIdC_INT; v3: SSL_CTX_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
+  function SSL_CTX_callback_ctrl(v1: PSSL_CTX; cmd: TIdC_INT; fp: SSL_CTX_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
 
   function SSL_get_early_data_status(const s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
