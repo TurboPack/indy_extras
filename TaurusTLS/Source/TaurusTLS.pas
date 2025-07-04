@@ -686,6 +686,8 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FPublicKey: TFileName;
     FPrivateKey: TFileName;
+    FRootKey: TFileName;
+    fDHParamsFile: TFileName;
     fCtx: PSSL_CTX;
     fContext: TTaurusTLSContext;
     procedure AssignTo(Destination: TPersistent); override;
@@ -700,12 +702,17 @@ type
     /// Frees resources and destroys the current instance.
     /// </summary>
     destructor Destroy; override;
-
+    /// <summary>
+    /// The OpenSSL SSL_CTX Object associated with this TTaurusTLSX509File
+    /// </summary>
     property Context: TTaurusTLSContext read fContext write fContext;
     /// <summary>
     /// The OpenSSL SSL_CTX object for this certificate.
     /// </summary>
     property ctx: PSSL_CTX read GetCtx;
+    /// <summary>
+    /// The OpenSSL X509 object for this certificate.
+    /// </summary>
     property x509 : PX509 read GetX509;
   published
     /// <summary>
@@ -717,6 +724,14 @@ type
     /// Public key file for the certificate.
     /// </summary>
     property PublicKey: TFileName read FPublicKey write FPublicKey;
+    /// <summary>
+    /// Public Root certificate chain file for the certificate.
+    /// </summary>
+    property RootKey: TFileName read fRootKey write FRootKey;
+    /// <summary>
+    ///  DH Parameters file.
+    /// </summary>
+    property DHParamsFile: TFileName read fDHParamsFile write FDHParamsFile;
   end;
 
   /// <summary>
@@ -757,7 +772,7 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FParent: TObject;
     fUseSystemRootCertificateStore: Boolean;
-    fsRootPublicKey, fsPublicKey, fsPrivateKey, fsDHParamsFile: String;
+
     fMode: TTaurusTLSSSLMode;
     fMinTLSVersion: TTaurusTLSSSLVersion;
     fVerifyDepth: Integer;
@@ -785,15 +800,6 @@ type
     property Parent: TObject read FParent write FParent;
     // procedure Assign(ASource: TPersistent); override;
   published
-    /// <summary>
-    /// Root certificate file.
-    /// </summary>
-    property RootPublicKey: String read fsRootPublicKey write fsRootPublicKey;
-    /// <summary>
-    /// Client or Server certificate file.
-    /// </summary>
-
-    property DHParamsFile: String read fsDHParamsFile write fsDHParamsFile;
     /// <summary>
     /// The Minimum TLS version you will accept. The maximum TLS version that
     /// is accepted is TLS version 1.3.
@@ -2767,8 +2773,7 @@ begin
               begin
                 if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
                 begin
-//                  Result := SSL_TLSEXT_ERR_NOACK;
-                  Result := SSL_TLSEXT_ERR_OK;
+                  Result := SSL_TLSEXT_ERR_NOACK;
                 end;
               end;
             end;
@@ -3211,8 +3216,6 @@ begin
   if Destination is TTaurusTLSBaseSSLOptions then
   begin
     LDest := TTaurusTLSBaseSSLOptions(Destination);
-    LDest.RootPublicKey := RootPublicKey;
-    LDest.DHParamsFile := DHParamsFile;
     LDest.SecurityLevel := SecurityLevel;
     LDest.MinTLSVersion := MinTLSVersion;
     LDest.Mode := Mode;
@@ -3338,10 +3341,10 @@ begin
   Assert(fSSLContext = nil);
   fSSLContext := TTaurusTLSContext.Create;
   fSSLContext.Parent := Self;
-  fSSLContext.RootPublicKey := SSLOptions.RootPublicKey;
+  fSSLContext.RootPublicKey := SSLOptions.DefaultCert.RootKey;
   fSSLContext.PrivateKey := SSLOptions.DefaultCert.PrivateKey;
   fSSLContext.PublicKey := SSLOptions.DefaultCert.PublicKey;
-  fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
+  fSSLContext.DHParamsFile := SSLOptions.DefaultCert.DHParamsFile;
   fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
   fSSLContext.VerifyMode := SSLOptions.VerifyMode;
   // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
@@ -3790,8 +3793,8 @@ begin
     fSSLContext.Parent := Self;
     fSSLContext.PublicKey := SSLOptions.ClientCert.PublicKey;
     fSSLContext.PrivateKey := SSLOptions.ClientCert.PrivateKey;
-    fSSLContext.RootPublicKey := SSLOptions.RootPublicKey;
-    fSSLContext.DHParamsFile := SSLOptions.DHParamsFile;
+    fSSLContext.RootPublicKey := SSLOptions.ClientCert.RootKey;
+    fSSLContext.DHParamsFile := SSLOptions.ClientCert.DHParamsFile;
     fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
     fSSLContext.VerifyMode := SSLOptions.VerifyMode;
     fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;

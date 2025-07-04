@@ -1,10 +1,9 @@
-
 program TaurusFTPServer;
 
 {$APPTYPE CONSOLE}
 {$R *.res}
-
 {$I TaurusTLSCompilerDefines.inc}
+
 uses
   IdFIPS,
   IdExplicitTLSClientServerBase,
@@ -26,7 +25,7 @@ uses
 
 type
   TFTPServerApp = class(TObject)
-  {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     FCompressor: TIdCompressorZLib;
     FIOExplicit: TTaurusTLSServerIOHandler;
     FIOImplicit: TTaurusTLSServerIOHandler;
@@ -82,7 +81,7 @@ var
   app: TFTPServerApp;
 
 function SetFileLastModifiedDateTime(const FileName: String;
-  DateTime: TDateTime): Boolean;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+  DateTime: TDateTime): Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := (FileName <> '') and FileExists(FileName);
   if Result then
@@ -90,20 +89,22 @@ begin
     TFile.SetLastWriteTime(FileName, DateTime);
   end;
 end;
- {$IFNDEF VCL_12_OR_ABOVE}
-function FileTime2DateTime(FileTime: TFileTime): TDateTime;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+{$IFNDEF VCL_12_OR_ABOVE}
+
+function FileTime2DateTime(FileTime: TFileTime): TDateTime;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
 var
-   LocalFileTime: TFileTime;
-   SystemTime: TSystemTime;
+  LocalFileTime: TFileTime;
+  SystemTime: TSystemTime;
 begin
-   FileTimeToLocalFileTime(FileTime, LocalFileTime) ;
-   FileTimeToSystemTime(LocalFileTime, SystemTime) ;
-   Result := SystemTimeToDateTime(SystemTime) ;
+  FileTimeToLocalFileTime(FileTime, LocalFileTime);
+  FileTimeToSystemTime(LocalFileTime, SystemTime);
+  Result := SystemTimeToDateTime(SystemTime);
 end;
 {$ENDIF}
 
 function SetFileCreationDateTime(const FileName: String; DateTime: TDateTime)
-  : Boolean;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+  : Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := (FileName <> '') and FileExists(FileName);
   if Result then
@@ -112,8 +113,8 @@ begin
   end;
 end;
 
-function FTPPathToLocalPath(const APath: String;
-  const AAnonymous: Boolean): String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+function FTPPathToLocalPath(const APath: String; const AAnonymous: Boolean)
+  : String; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   if AAnonymous then
   begin
@@ -128,12 +129,113 @@ begin
   Result := StringReplace(Result, '\\', '\', [rfReplaceAll]);
 end;
 
-procedure FileNotFound(const APathName: String);  {$IFDEF USE_INLINE}inline; {$ENDIF}
+procedure TSearchRecToFTPListItem(const ARec: TSearchRec;
+  AFTPItem: TIdFTPListOutputItem; const AAnonymous: Boolean);
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+var
+  LUnixPerm: String;
+  LMSLTPerm: String;
+  LIsDir: Boolean;
+begin
+  AFTPItem.FileName := ARec.Name;
+  LIsDir := (ARec.Attr and faDirectory) = faDirectory;
+  if LIsDir then
+  begin
+    AFTPItem.ItemType := ditDirectory;
+    AFTPItem.SizeAvail := false;
+  end
+  else
+  begin
+    AFTPItem.ItemType := ditFile;
+  end;
+
+  if AAnonymous then
+  begin
+    LMSLTPerm := 'elr';
+  end
+  else
+  begin
+    LMSLTPerm := 'acdeflmprw';
+  end;
+  if ARec.Attr and faReadOnly = faReadOnly then
+  begin
+    LUnixPerm := 'r-';
+    LMSLTPerm := StringReplace(LMSLTPerm, 'a', '', [rfReplaceAll]);
+    // file may be APPE'd
+    LMSLTPerm := StringReplace(LMSLTPerm, 'w', '', [rfReplaceAll]);
+    // file may be STOR'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
+    // dir may be RMD'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'm', '', [rfReplaceAll]);
+    // dir may be MKD'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'f', '', [rfReplaceAll]);
+    // file or dir may be RNFR'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'd', '', [rfReplaceAll]);
+    // dir or file may be RMD'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'c', '', [rfReplaceAll]);
+    // dir may be STOU'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
+    // dir may be RMD'ed
+  end
+  else
+  begin
+    if AAnonymous then
+    begin
+      LUnixPerm := 'r-';
+    end
+    else
+    begin
+      LUnixPerm := 'rw';
+    end;
+  end;
+  // x - execute bit - for directories, means that you can access it.
+  if LIsDir then
+  begin
+    LUnixPerm := LUnixPerm + 'x';
+    LMSLTPerm := StringReplace(LMSLTPerm, 'a', '', [rfReplaceAll]);
+    // file may be APPE'd
+    LMSLTPerm := StringReplace(LMSLTPerm, 'r', '', [rfReplaceAll]);
+    // file may be RETR'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'w', '', [rfReplaceAll]);
+    // file may be STOR'ed
+  end
+  else
+  begin
+    LUnixPerm := LUnixPerm + '-';
+    LMSLTPerm := StringReplace(LMSLTPerm, 'e', '', [rfReplaceAll]);
+    // dir may be CWD'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'l', '', [rfReplaceAll]);
+    // dir may be LIST'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'm', '', [rfReplaceAll]);
+    // dir may be MKD'ed
+    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
+    // dir may be RMD'ed
+  end;
+  AFTPItem.MLISTPermissions := LMSLTPerm;
+  AFTPItem.UnixOwnerPermissions := LUnixPerm;
+  AFTPItem.UnixGroupPermissions := LUnixPerm;
+  AFTPItem.UnixOtherPermissions := LUnixPerm;
+  AFTPItem.ModifiedDate := ARec.TimeStamp;
+{$IFDEF VCL_12_OR_ABOVE}
+  AFTPItem.LastAccessDate := ARec.LastAccessTime;
+  AFTPItem.CreationDate := ARec.CreationTime;
+{$ELSE}
+{$WARN SYMBOL_PLATFORM OFF}
+  AFTPItem.LastAccessDate := FileTime2DateTime(ARec.FindData.ftLastAccessTime);
+  AFTPItem.CreationDate := FileTime2DateTime(ARec.FindData.ftCreationTime);
+{$WARN SYMBOL_PLATFORM ON}
+{$ENDIF}
+  AFTPItem.Size := ARec.Size;
+  AFTPItem.WinAttribs := Cardinal(ARec.Attr);
+end;
+
+procedure FileNotFound(const APathName: String); {$IFDEF USE_INLINE}inline;
+{$ENDIF}
 begin
   raise Exception.Create(APathName + ' not found');
 end;
 
-procedure PermissionDenied;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+procedure PermissionDenied; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   raise Exception.Create('permission denied');
 end;
@@ -221,46 +323,49 @@ end;
 
 function TFTPServerApp.SetupIOHandler(AIni: TIniFile)
   : TTaurusTLSServerIOHandler;
-var LIni : TIniFile;
-  LServers : TStringList;
+var
+  LIni: TIniFile;
+  LServers: TStringList;
   LPrivKey, LPubKey : String;
-  LCert : TTaurusTLSX509File;
-  i : Integer;
+  LCert: TTaurusTLSX509File;
+  i: Integer;
 begin
   Result := TTaurusTLSServerIOHandler.Create(nil);
   Result.SSLOptions.MinTLSVersion := TLSv1_2;
   Result.SSLOptions.DefaultCert.PublicKey := AIni.ReadString('Certificate',
     'CertificateFile', GetCurrentDir + '\localhost.crt');
-  Result.SSLOptions.DefaultCert.PrivateKey := AIni.ReadString('Certificate', 'KeyFile',
-    GetCurrentDir + '\localhost.key');
-  Result.SSLOptions.RootPublicKey := AIni.ReadString('Certificate',
+  Result.SSLOptions.DefaultCert.PrivateKey := AIni.ReadString('Certificate',
+    'KeyFile', GetCurrentDir + '\localhost.key');
+  Result.SSLOptions.DefaultCert.RootKey := AIni.ReadString('Certificate',
     'RootCertFile', '');
-
+  Result.SSLOptions.DefaultCert.DHParamsFile := AIni.ReadString('Certificate',
+    'DH_Parameters', '');
   LIni := TIniFile.Create(GetCurrentDir + '\virtual_servers.ini');
   try
     LServers := TStringList.Create;
     try
       LIni.ReadSections(LServers);
-      for I := 0 to LServers.Count -1 do
+      for i := 0 to LServers.Count - 1 do
       begin
-        LPrivKey := LIni.ReadString(LServers[i],'KeyFile','');
-        LPubKey := LIni.ReadString(LServers[i],'CertificateFile','');
+        LPrivKey := LIni.ReadString(LServers[i], 'KeyFile', '');
+        LPubKey := LIni.ReadString(LServers[i], 'CertificateFile', '');
+        if (LPrivKey <> '') and (LPubKey <> '') then
+        begin
+          LCert := Result.SSLOptions.Certificates.Add;
+          LCert.PrivateKey := LPrivKey;
+          LCert.PublicKey := LPubKey;
+          LCert.RootKey := LIni.ReadString(LServers[i], 'RootCertFile', '');
+          LCert.DHParamsFile := LIni.ReadString(LServers[i], 'DH_Parameters','');
+        end;
       end;
-      if (LPrivKey <> '') and (LPubKey <> '') then
-      begin
-        LCert := Result.SSLOptions.Certificates.Add;
-        LCert.PrivateKey := LPrivKey;
-        LCert.PublicKey := LPubKey;
-      end;
+
     finally
       FreeAndNil(LServers);
     end;
   finally
-      FreeAndNil(LIni);
+    FreeAndNil(LIni);
   end;
 
-  Result.SSLOptions.DHParamsFile := AIni.ReadString('Certificate',
-    'DH_Parameters', '');
   Result.OnGetPassword := ioOnGetPasswordEx;
 end;
 
@@ -310,11 +415,11 @@ begin
       LIni.WriteBool('Server', 'Unix_Emulation', True);
       LIni.WriteBool('Server', 'ImplicitSSL', True);
     finally
-      FreeAndNil(Lini);
+      FreeAndNil(LIni);
     end;
   end;
 
-  Lini := TIniFile.Create(GetCurrentDir + '\server.ini');
+  LIni := TIniFile.Create(GetCurrentDir + '\server.ini');
   try
     if LIni.ReadBool('Server', 'Allow_Compression', True) then
     begin
@@ -325,9 +430,9 @@ begin
       FCompressor := nil;
     end;
 
-    //--handle explicit FTPS server.
-    FFTPServExplicit := SetupDefaultFTPServer(Lini);
-    FIOExplicit := SetupIOHandler(Lini);
+    // --handle explicit FTPS server.
+    FFTPServExplicit := SetupDefaultFTPServer(LIni);
+    FIOExplicit := SetupIOHandler(LIni);
     FFTPServExplicit.IOHandler := FIOExplicit;
     if LIni.ReadBool('Server', 'Requre_TLS', True) then
     begin
@@ -340,12 +445,12 @@ begin
     FFTPServExplicit.Active := True;
     WriteLn('FTP Default Data Port: ' + IntToStr(FFTPServExplicit.DefaultPort));
 
-    //--handle implicit FTPS server.
+    // --handle implicit FTPS server.
     FFTPServImplicit := nil;
     if LIni.ReadBool('Server', 'ImplicitSSL', True) then
     begin
-      FFTPServImplicit := SetupDefaultFTPServer(Lini);
-      FIOImplicit := SetupIOHandler(Lini);
+      FFTPServImplicit := SetupDefaultFTPServer(LIni);
+      FIOImplicit := SetupIOHandler(LIni);
       FFTPServImplicit.IOHandler := FIOImplicit;
       FFTPServImplicit.DefaultPort := 990;
       FFTPServImplicit.UseTLS := utUseImplicitTLS;
@@ -354,7 +459,7 @@ begin
         IntToStr(FFTPServImplicit.DefaultPort));
     end;
   finally
-    FreeAndNil(Lini)
+    FreeAndNil(LIni)
   end;
 end;
 
@@ -373,7 +478,7 @@ end;
 procedure TFTPServerApp.ftpsrvOnClient(ASender: TIdFTPServerContext;
   const AID: String);
 begin
-  {Intentionally left blank so that the server supports the CLNT command.}
+  { Intentionally left blank so that the server supports the CLNT command. }
 end;
 
 procedure TFTPServerApp.ftpsrvOnCWD(ASender: TIdFTPServerContext;
@@ -441,7 +546,7 @@ procedure TFTPServerApp.ftpsrvOnGetFileDate(ASender: TIdFTPServerContext;
 var
   LF: TSearchRec;
 begin
-// This is necessary because FileAge does not work with directories.
+  // This is necessary because FileAge does not work with directories.
   if FindFirst(FTPPathToLocalPath(AFileName,
     ASender.UserType = utAnonymousUser), faAnyFile, LF) = 0 then
   begin
@@ -479,105 +584,6 @@ begin
   begin
     VAccepted := GStack.LocalAddresses.IndexOf(AHost) > -1;
   end;
-end;
-
-procedure TSearchRecToFTPListItem(const ARec: TSearchRec;
-  AFTPItem: TIdFTPListOutputItem; const AAnonymous: Boolean); inline;
-var
-  LUnixPerm: String;
-  LMSLTPerm: String;
-  LIsDir : Boolean;
-begin
-  AFTPItem.FileName := ARec.Name;
-  LIsDir := (ARec.Attr and faDirectory) = faDirectory;
-  if LIsDir then
-  begin
-    AFTPItem.ItemType := ditDirectory;
-    AFTPItem.SizeAvail := false;
-  end
-  else
-  begin
-    AFTPItem.ItemType := ditFile;
-  end;
-
-  if AAnonymous then
-  begin
-    LMSLTPerm := 'elr';
-  end
-  else
-  begin
-    LMSLTPerm := 'acdeflmprw';
-  end;
-  if ARec.Attr and faReadOnly = faReadOnly then
-  begin
-    LUnixPerm := 'r-';
-    LMSLTPerm := StringReplace(LMSLTPerm, 'a', '', [rfReplaceAll]);
-    // file may be APPE'd
-    LMSLTPerm := StringReplace(LMSLTPerm, 'w', '', [rfReplaceAll]);
-    // file may be STOR'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
-    // dir may be RMD'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'm', '', [rfReplaceAll]);
-    // dir may be MKD'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'f', '', [rfReplaceAll]);
-    // file or dir may be RNFR'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'd', '', [rfReplaceAll]);
-    // dir or file may be RMD'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'c', '', [rfReplaceAll]);
-    // dir may be STOU'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
-    // dir may be RMD'ed
-  end
-  else
-  begin
-    if AAnonymous then
-    begin
-      LUnixPerm := 'r-';
-    end
-    else
-    begin
-      LUnixPerm := 'rw';
-    end;
-  end;
-  // x - execute bit - for directories, means that you can access it.
-  if LIsDir then
-  begin
-    LUnixPerm := LUnixPerm + 'x';
-    LMSLTPerm := StringReplace(LMSLTPerm, 'a', '', [rfReplaceAll]);
-    // file may be APPE'd
-    LMSLTPerm := StringReplace(LMSLTPerm, 'r', '', [rfReplaceAll]);
-    // file may be RETR'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'w', '', [rfReplaceAll]);
-    // file may be STOR'ed
-  end
-  else
-  begin
-    LUnixPerm := LUnixPerm + '-';
-    LMSLTPerm := StringReplace(LMSLTPerm, 'e', '', [rfReplaceAll]);
-    // dir may be CWD'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'l', '', [rfReplaceAll]);
-    // dir may be LIST'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'm', '', [rfReplaceAll]);
-    // dir may be MKD'ed
-    LMSLTPerm := StringReplace(LMSLTPerm, 'p', '', [rfReplaceAll]);
-    // dir may be RMD'ed
-  end;
-  AFTPItem.MLISTPermissions := LMSLTPerm;
-  AFTPItem.UnixOwnerPermissions := LUnixPerm;
-  AFTPItem.UnixGroupPermissions := LUnixPerm;
-  AFTPItem.UnixOtherPermissions := LUnixPerm;
-  AFTPItem.ModifiedDate := ARec.TimeStamp;
-  {$IFDEF VCL_12_OR_ABOVE}
-  AFTPItem.LastAccessDate := ARec.LastAccessTime;
-  AFTPItem.CreationDate := ARec.CreationTime;
-  {$ELSE}
-  {$WARN SYMBOL_PLATFORM OFF}
-  AFTPItem.LastAccessDate := FileTime2DateTime(ARec.FindData.ftLastAccessTime );
-  AFTPItem.CreationDate := FileTime2DateTime(ARec.FindData.ftCreationTime);
-  {$WARN SYMBOL_PLATFORM ON}
-  {$ENDIF}
-  AFTPItem.Size := ARec.Size;
-  AFTPItem.WinAttribs := Cardinal(ARec.Attr);
 end;
 
 procedure TFTPServerApp.ftpsrvOnList(ASender: TIdFTPServerContext;
@@ -643,8 +649,9 @@ begin
   begin
     PermissionDenied;
   end;
-  if not RenameFile(FTPPathToLocalPath(ARenameFromFile, ASender.UserType = utAnonymousUser),
-    FTPPathToLocalPath(ARenameToFile, ASender.UserType = utAnonymousUser)) then
+  if not RenameFile(FTPPathToLocalPath(ARenameFromFile,
+    ASender.UserType = utAnonymousUser), FTPPathToLocalPath(ARenameToFile,
+    ASender.UserType = utAnonymousUser)) then
   begin
     raise Exception.Create('Can not rename ' + ARenameFromFile + ' to ' +
       ARenameToFile);
@@ -774,9 +781,9 @@ var
 begin
   if ASender.UserType = utNormalUser then
   begin
-  // based on https://stackoverflow.com/questions/17064672/programmatical-log-in-by-providing-credentials
-    AAuthenticated := LogonUser(PChar(AUserName), nil, PChar(APassword),
-    LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken);
+    // based on https://stackoverflow.com/questions/17064672/programmatical-log-in-by-providing-credentials
+    AAuthenticated := LogonUser(PChar(AUsername), nil, PChar(APassword),
+      LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, hToken);
     if AAuthenticated then
     begin
       AAuthenticated := ImpersonateLoggedOnUser(hToken);
@@ -789,18 +796,27 @@ begin
 end;
 
 begin
-  app := TFTPServerApp.Create;
+  //Done this way because an exception can be raised ducring the
+  //FTPServerApp.Create
   try
+    app := TFTPServerApp.Create;
     try
-      WriteLn(OpenSSLVersion);
-      WriteLn('FTP Server App');
-    except
-      on E: Exception do
-        WriteLn(E.ClassName, ': ', E.Message);
+      try
+        WriteLn(OpenSSLVersion);
+        WriteLn('FTP Server App');
+      except
+        on E: Exception do
+          WriteLn(E.ClassName, ': ', E.Message);
+      end;
+      ReadLn;
+    finally
+      FreeAndNil(app);
     end;
-    ReadLn;
-  finally
-    FreeAndNil(app);
+  except
+    on E: Exception do
+    begin
+      WriteLn(E.ClassName, ': ', E.Message);
+      ReadLn;
+    end;
   end;
-
 end.
