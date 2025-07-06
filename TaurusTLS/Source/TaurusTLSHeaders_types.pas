@@ -645,6 +645,8 @@ type
   OSSL_PARAM = record
   end;
   POSSL_PARAM = ^OSSL_PARAM;
+  POSSL_ENCODER_CTX = Pointer;
+  pem_password_cb = function(buf: PIdAnsiChar; size: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 
 implementation
 
