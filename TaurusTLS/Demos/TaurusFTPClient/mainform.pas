@@ -18,7 +18,7 @@ uses
   IdZLibCompressorBase, IdCompressorZLib, IdConnectThroughHttpProxy,
   IdCustomTransparentProxy, IdSocks, IdThreadSafe, IdZLibHeaders,
   ProgUtils,
-  TaurusTLSHeaders_ossl_typ, TaurusTLS_X509, TaurusTLS;
+  TaurusTLSHeaders_types{, TaurusTLS_X509, TaurusTLS;
 
 type
   TfrmMainForm = class(TThemedForm)

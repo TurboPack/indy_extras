@@ -25,7 +25,7 @@ uses
   IdZLibHeaders,
   TaurusTLS,
   TaurusTLS_X509,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types{;
 
 type
 

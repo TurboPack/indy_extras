@@ -34,7 +34,7 @@ uses
   , TaurusTLSConsts
   {$ENDIF}
   {$IFNDEF FPC}
-  , TaurusTLSHeaders_ossl_typ
+  , TaurusTLSHeaders_types
   {$ENDIF};
 
 const

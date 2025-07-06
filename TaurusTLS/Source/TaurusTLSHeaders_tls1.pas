@@ -33,7 +33,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 const
   (* Default security level if not overridden at config time *)

@@ -34,7 +34,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_crypto,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_evp;
 
 (* The types RSA and RSA_METHOD are defined in ossl_typ.h *)

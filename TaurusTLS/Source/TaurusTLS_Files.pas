@@ -20,7 +20,7 @@ interface
 
 uses
   IdCTypes,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_x509;
 
 const

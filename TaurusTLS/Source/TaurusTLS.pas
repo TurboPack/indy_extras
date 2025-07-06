@@ -249,7 +249,7 @@ uses
   IdYarn,
   SysUtils,
   TaurusTLSExceptionHandlers,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_ssl3,
   TaurusTLSHeaders_tls1,

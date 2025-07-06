@@ -35,7 +35,7 @@ uses
   {$ENDIF}
   TaurusTLSHeaders_asn1t,
   TaurusTLSHeaders_bio,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_stack;
 
 {$MINENUMSIZE 4}

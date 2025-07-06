@@ -35,7 +35,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 const
   EVP_MAX_MD_SIZE = 64; // longest known is SHA512

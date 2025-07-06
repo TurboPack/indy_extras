@@ -35,7 +35,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_evp,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 //* Opaque */
 type

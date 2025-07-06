@@ -37,7 +37,7 @@ uses
   {$ENDIF}
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ssl,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_x509;
 

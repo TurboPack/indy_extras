@@ -94,7 +94,7 @@ contains
   TaurusTLSHeaders_objects in '..\..\Source\TaurusTLSHeaders_objects.pas',
   TaurusTLSHeaders_objectserr in '..\..\Source\TaurusTLSHeaders_objectserr.pas',
   TaurusTLSHeaders_ocsperr in '..\..\Source\TaurusTLSHeaders_ocsperr.pas',
-  TaurusTLSHeaders_ossl_typ in '..\..\Source\TaurusTLSHeaders_ossl_typ.pas',
+  TaurusTLSHeaders_types in '..\..\Source\TaurusTLSHeaders_types.pas',
   TaurusTLSHeaders_pem in '..\..\Source\TaurusTLSHeaders_pem.pas',
   TaurusTLSHeaders_pemerr in '..\..\Source\TaurusTLSHeaders_pemerr.pas',
   TaurusTLSHeaders_pkcs7 in '..\..\Source\TaurusTLSHeaders_pkcs7.pas',

@@ -33,7 +33,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_evp;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

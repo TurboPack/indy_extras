@@ -27,7 +27,7 @@ uses
   IdCTypes,
   IdGlobal
   {$IFDEF VCL_XE3_OR_ABOVE},System.Types{$ELSE},Types{$ENDIF}
-  {$IFNDEF FPC}, TaurusTLSHeaders_ossl_typ{$ENDIF};
+  {$IFNDEF FPC}, TaurusTLSHeaders_types{$ENDIF};
 
 
 {

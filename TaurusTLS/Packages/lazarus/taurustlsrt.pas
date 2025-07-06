@@ -27,18 +27,18 @@ uses
   TaurusTLSHeaders_err, TaurusTLSHeaders_evp, TaurusTLSHeaders_evperr, 
   TaurusTLSHeaders_hmac, TaurusTLSHeaders_idea, TaurusTLSHeaders_kdferr, 
   TaurusTLSHeaders_obj_mac, TaurusTLSHeaders_objects, 
-  TaurusTLSHeaders_objectserr, TaurusTLSHeaders_ocsperr, 
-  TaurusTLSHeaders_ossl_typ, TaurusTLSHeaders_pem, TaurusTLSHeaders_pemerr, 
-  TaurusTLSHeaders_pkcs12, TaurusTLSHeaders_pkcs7, TaurusTLSHeaders_pkcs7err, 
-  TaurusTLSHeaders_provider, TaurusTLSHeaders_quic, TaurusTLSHeaders_rand, 
-  TaurusTLSHeaders_randerr, TaurusTLSHeaders_rc4, TaurusTLSHeaders_rsa, 
-  TaurusTLSHeaders_rsaerr, TaurusTLSHeaders_safestack, TaurusTLSHeaders_sha, 
-  TaurusTLSHeaders_srtp, TaurusTLSHeaders_ssl, TaurusTLSHeaders_ssl3, 
-  TaurusTLSHeaders_sslerr, TaurusTLSHeaders_stack, TaurusTLSHeaders_storeerr, 
-  TaurusTLSHeaders_tls1, TaurusTLSHeaders_ts, TaurusTLSHeaders_tserr, 
-  TaurusTLSHeaders_txt_db, TaurusTLSHeaders_ui, TaurusTLSHeaders_uierr, 
-  TaurusTLSHeaders_whrlpool, TaurusTLSHeaders_x509, TaurusTLSHeaders_x509_vfy, 
-  TaurusTLSHeaders_x509err, TaurusTLSHeaders_x509v3, TaurusTLSLoader;
+  TaurusTLSHeaders_objectserr, TaurusTLSHeaders_ocsperr, TaurusTLSHeaders_pem, 
+  TaurusTLSHeaders_pemerr, TaurusTLSHeaders_pkcs12, TaurusTLSHeaders_pkcs7, 
+  TaurusTLSHeaders_pkcs7err, TaurusTLSHeaders_provider, TaurusTLSHeaders_quic, 
+  TaurusTLSHeaders_rand, TaurusTLSHeaders_randerr, TaurusTLSHeaders_rc4, 
+  TaurusTLSHeaders_rsa, TaurusTLSHeaders_rsaerr, TaurusTLSHeaders_safestack, 
+  TaurusTLSHeaders_sha, TaurusTLSHeaders_srtp, TaurusTLSHeaders_ssl, 
+  TaurusTLSHeaders_ssl3, TaurusTLSHeaders_sslerr, TaurusTLSHeaders_stack, 
+  TaurusTLSHeaders_storeerr, TaurusTLSHeaders_tls1, TaurusTLSHeaders_ts, 
+  TaurusTLSHeaders_tserr, TaurusTLSHeaders_txt_db, TaurusTLSHeaders_ui, 
+  TaurusTLSHeaders_uierr, TaurusTLSHeaders_whrlpool, TaurusTLSHeaders_x509, 
+  TaurusTLSHeaders_x509_vfy, TaurusTLSHeaders_x509err, 
+  TaurusTLSHeaders_x509v3, TaurusTLSLoader, TaurusTLSHeaders_types;
 
 implementation
 

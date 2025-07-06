@@ -26,7 +26,7 @@ uses
   IdGlobalProtocols,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_evp,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_x509v3,
   Classes;
 

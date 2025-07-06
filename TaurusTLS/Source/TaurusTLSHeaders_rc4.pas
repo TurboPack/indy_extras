@@ -36,7 +36,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 {$i TaurusTLSUnusedUnitOn.inc}
 
 {$IFDEF FPC}

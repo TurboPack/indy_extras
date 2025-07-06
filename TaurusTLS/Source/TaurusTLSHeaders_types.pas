@@ -18,7 +18,7 @@
 {******************************************************************************}
 {$i TaurusTLSCompilerDefines.inc}
 
-unit TaurusTLSHeaders_ossl_typ;
+unit TaurusTLSHeaders_types;
 
 interface
 

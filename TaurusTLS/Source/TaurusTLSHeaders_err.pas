@@ -33,7 +33,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 const
   ERR_TXT_MALLOCED = $01;

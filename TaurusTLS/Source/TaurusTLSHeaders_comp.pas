@@ -34,7 +34,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_bio,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		

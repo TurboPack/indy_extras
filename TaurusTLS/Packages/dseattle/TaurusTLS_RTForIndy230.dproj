@@ -170,7 +170,7 @@
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_objects.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_objectserr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ocsperr.pas"/>
-		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ossl_typ.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_types.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pem.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pemerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pkcs7.pas"/>

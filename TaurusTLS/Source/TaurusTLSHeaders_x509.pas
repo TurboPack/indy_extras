@@ -39,7 +39,7 @@ uses
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_objects,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 type
   X509_ALGORS = type Pointer;

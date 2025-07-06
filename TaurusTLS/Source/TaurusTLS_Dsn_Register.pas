@@ -116,7 +116,7 @@ begin
   inherited RequiresUnits(Proc);
   //for new callback event
   Proc('IdCTypes'); {Do not localize}
-  Proc('TaurusTLSHeaders_ossl_typ'); {Do not localize}
+  Proc('TaurusTLSHeaders_types'); {Do not localize}
   Proc('TaurusTLS_X509');  {Do not localize}
 end;
 

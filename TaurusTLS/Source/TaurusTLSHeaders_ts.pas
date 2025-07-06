@@ -35,7 +35,7 @@ uses
   {$ENDIF}
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
-  TaurusTLSHeaders_ossl_typ,
+  TaurusTLSHeaders_types,
   TaurusTLSHeaders_pkcs7,
   TaurusTLSHeaders_rsa,
   TaurusTLSHeaders_tserr,

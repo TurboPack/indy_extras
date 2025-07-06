@@ -30,7 +30,7 @@ interface
 uses
   IdGlobal
   {$IFNDEF FPC}
-  , TaurusTLSHeaders_ossl_typ
+  , TaurusTLSHeaders_types
   {$ENDIF};
 
 const

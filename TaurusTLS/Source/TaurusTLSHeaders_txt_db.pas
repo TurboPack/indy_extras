@@ -34,7 +34,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_safestack,
-  TaurusTLSHeaders_ossl_typ;
+  TaurusTLSHeaders_types;
 
 const
   DB_ERROR_OK = 0;

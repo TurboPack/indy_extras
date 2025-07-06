@@ -33,7 +33,7 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   , TaurusTLSConsts
   {$ENDIF}
-  {$IFNDEF FPC}, TaurusTLSHeaders_ossl_typ{$ENDIF};
+  {$IFNDEF FPC}, TaurusTLSHeaders_types{$ENDIF};
 
 const
   SHA_LBLOCK = 16;

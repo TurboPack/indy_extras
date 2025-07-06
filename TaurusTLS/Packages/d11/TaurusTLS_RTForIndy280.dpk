@@ -70,7 +70,7 @@ contains
   TaurusTLSHeaders_objects in '..\..\Source\TaurusTLSHeaders_objects.pas',
   TaurusTLSHeaders_objectserr in '..\..\Source\TaurusTLSHeaders_objectserr.pas',
   TaurusTLSHeaders_ocsperr in '..\..\Source\TaurusTLSHeaders_ocsperr.pas',
-  TaurusTLSHeaders_ossl_typ in '..\..\Source\TaurusTLSHeaders_ossl_typ.pas',
+  TaurusTLSHeaders_types in '..\..\Source\TaurusTLSHeaders_types.pas',
   TaurusTLSHeaders_bn in '..\..\Source\TaurusTLSHeaders_bn.pas',
   TaurusTLSHeaders_bnerr in '..\..\Source\TaurusTLSHeaders_bnerr.pas',
   TaurusTLSHeaders_buffer in '..\..\Source\TaurusTLSHeaders_buffer.pas',
