@@ -223,6 +223,7 @@ type
   {$EXTERNALSYM i2d_PKCS7_bio_stream}
   {$EXTERNALSYM PEM_write_bio_PKCS7_stream}
   {$EXTERNALSYM PKCS7_ctrl}
+  {$EXTERNALSYM PKCS7_type_is_other}
   {$EXTERNALSYM PKCS7_set_type}
   {$EXTERNALSYM PKCS7_set0_type_other}
   {$EXTERNALSYM PKCS7_set_content}
@@ -249,6 +250,7 @@ type
   {$EXTERNALSYM PKCS7_set_cipher}
   {$EXTERNALSYM PKCS7_stream}
   {$EXTERNALSYM PKCS7_get_issuer_and_serial}
+  {$EXTERNALSYM PKCS7_get_octet_string}
   {$EXTERNALSYM PKCS7_digest_from_attributes}
   {$EXTERNALSYM PKCS7_add_signed_attribute}
   {$EXTERNALSYM PKCS7_add_attribute}
@@ -337,6 +339,7 @@ var
 
   PKCS7_ctrl: function (p7: PPKCS7; cmd: TIdC_INT; larg: TIdC_LONG; parg: PIdAnsiChar): TIdC_LONG; cdecl = nil;
 
+  PKCS7_type_is_other: function (p7 : PPKCS7): TIdC_INT cdecl = nil;
   PKCS7_set_type: function (p7: PPKCS7; type_: TIdC_INT): TIdC_INT; cdecl = nil;
   PKCS7_set0_type_other: function (p7: PPKCS7; type_: TIdC_INT; other: PASN1_TYPE): TIdC_INT; cdecl = nil;
   PKCS7_set_content: function (p7: PPKCS7; p7_data: PPKCS7): TIdC_INT; cdecl = nil;
@@ -367,6 +370,7 @@ var
   PKCS7_stream: function (boundary: PPPByte; p7: PPKCS7): TIdC_INT; cdecl = nil;
 
   PKCS7_get_issuer_and_serial: function (p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL; cdecl = nil;
+  PKCS7_get_octet_string : function(p7 : PPKCS7) : PASN1_OCTET_STRING; cdecl = nil;
   PKCS7_digest_from_attributes : function(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING; cdecl = nil;
   PKCS7_add_signed_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   PKCS7_add_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT; cdecl = nil;
@@ -470,6 +474,7 @@ var
 
   function PKCS7_ctrl(p7: PPKCS7; cmd: TIdC_INT; larg: TIdC_LONG; parg: PIdAnsiChar): TIdC_LONG cdecl; external CLibCrypto;
 
+  function PKCS7_type_is_other(p7 : PPKCS7): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_set_type(p7: PPKCS7; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_set0_type_other(p7: PPKCS7; type_: TIdC_INT; other: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TIdC_INT cdecl; external CLibCrypto;
@@ -500,6 +505,7 @@ var
   function PKCS7_stream(boundary: PPPByte; p7: PPKCS7): TIdC_INT cdecl; external CLibCrypto;
 
   function PKCS7_get_issuer_and_serial(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL cdecl; external CLibCrypto;
+  function PKCS7_get_octet_string(p7 : PPKCS7) : PASN1_OCTET_STRING; cdecl; external CLibCrypto;
   function PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
   function PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function PKCS7_add_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT cdecl; external CLibCrypto;
@@ -603,6 +609,9 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
   
+const
+  PKCS7_get_octet_string_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  PKCS7_type_is_other_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -677,6 +686,7 @@ const
 
   PKCS7_ctrl_procname = 'PKCS7_ctrl';
 
+  PKCS7_type_is_other_procname = 'PKCS7_type_is_other';
   PKCS7_set_type_procname = 'PKCS7_set_type';
   PKCS7_set0_type_other_procname = 'PKCS7_set0_type_other';
   PKCS7_set_content_procname = 'PKCS7_set_content';
@@ -707,6 +717,7 @@ const
   PKCS7_stream_procname = 'PKCS7_stream';
 
   PKCS7_get_issuer_and_serial_procname = 'PKCS7_get_issuer_and_serial';
+  PKCS7_get_octet_string_procname = 'PKCS7_get_octet_string';
   PKCS7_digest_from_attributes_procname = 'PKCS7_digest_from_attributes';
   PKCS7_add_signed_attribute_procname = 'PKCS7_add_signed_attribute';
   PKCS7_add_attribute_procname = 'PKCS7_add_attribute';
@@ -1027,6 +1038,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ctrl_procname);
 end;
 
+function ERR_PKCS7_type_is_other(p7 : PPKCS7): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_type_is_other_procname);
+end;
 
 function  ERR_PKCS7_set_type(p7: PPKCS7; type_: TIdC_INT): TIdC_INT;
 begin
@@ -1183,6 +1198,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_issuer_and_serial_procname);
 end;
 
+function ERR_PKCS7_get_octet_string(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_octet_string_procname);
+end;
 
 function ERR_PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING;
 begin
@@ -3104,6 +3123,38 @@ begin
     {$ifend}
   end;
 
+  PKCS7_type_is_other := LoadLibFunction(ADllHandle, PKCS7_type_is_other_procname);
+  FuncLoadError := not assigned(PKCS7_type_is_other);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_type_is_other_allownil)}
+    PKCS7_type_is_other := @ERR_PKCS7_type_is_other;
+    {$ifend}
+    {$if declared(PKCS7_type_is_other_introduced)}
+    if LibVersion < PKCS7_type_is_other_introduced then
+    begin
+      {$if declared(FC_PKCS7_type_is_other)}
+      PKCS7_type_is_other := @FC_PKCS7_type_is_other;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_type_is_other_removed)}
+    if PKCS7_type_is_other_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_type_is_other)}
+      PKCS7_type_is_other := @_PKCS7_type_is_other;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_type_is_other_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_type_is_other');
+    {$ifend}
+  end;
+
+
   PKCS7_set_type := LoadLibFunction(ADllHandle, PKCS7_set_type_procname);
   FuncLoadError := not assigned(PKCS7_set_type);
   if FuncLoadError then
@@ -3963,6 +4014,37 @@ begin
     {$ifend}
   end;
 
+  PKCS7_get_octet_string :=  LoadLibFunction(ADllHandle, PKCS7_get_octet_string_procname);
+  FuncLoadError := not assigned(PKCS7_get_octet_string);
+  if FuncLoadError then
+  begin
+    {$if not defined(PKCS7_get_octet_string_allownil)}
+    PKCS7_get_octet_string := @ERR_PKCS7_get_octet_string;
+    {$ifend}
+    {$if declared(PKCS7_get_octet_string_introduced)}
+    if LibVersion < PKCS7_get_octet_string_introduced then
+    begin
+      {$if declared(FC_PKCS7_get_octet_string)}
+      PKCS7_get_octet_string := @FC_PKCS7_get_octet_string;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PKCS7_get_octet_string_removed)}
+    if PKCS7_get_octet_string_removed <= LibVersion then
+    begin
+      {$if declared(_PKCS7_get_octet_string)}
+      PKCS7_get_octet_string := @_PKCS7_get_octet_string;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PKCS7_get_octet_string_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PKCS7_get_octet_string');
+    {$ifend}
+  end;
+
   PKCS7_digest_from_attributes := LoadLibFunction(ADllHandle, PKCS7_digest_from_attributes_procname);
   FuncLoadError := not assigned(PKCS7_digest_from_attributes);
   if FuncLoadError then
@@ -4650,6 +4732,7 @@ begin
   PKCS7_ENC_CONTENT_it := nil;
 
   PKCS7_ctrl := nil;
+  PKCS7_type_is_other := nil;
   PKCS7_set_type := nil;
   PKCS7_set0_type_other := nil;
   PKCS7_set_content := nil;
@@ -4677,6 +4760,7 @@ begin
   PKCS7_set_cipher := nil;
   PKCS7_stream := nil;
   PKCS7_get_issuer_and_serial := nil;
+  PKCS7_get_octet_string := nil;
   PKCS7_digest_from_attributes := nil;
   PKCS7_add_signed_attribute := nil;
   PKCS7_add_attribute := nil;
