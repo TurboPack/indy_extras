@@ -41,11 +41,11 @@ var
     TIdC_INT; cdecl = nil;
 {$ELSE}
   function ossl_encoder_get_number(encoder : POSSL_ENCODER) : TIdC_INT;
-     cdecl; external CLibCrypto;
+     cdecl external CLibCrypto;
   function ossl_encoder_store_cache_flush(libctx : POSSL_LIB_CTX) : TIdC_INT;
-     cdecl; external CLibCrypto;
+     cdecl external CLibCrypto;
   function ossl_encoder_store_remove_all_provided (prov : POSSL_PROVIDER) :
-    TIdC_INT;  cdecl; external CLibCrypto
+    TIdC_INT  cdecl; external CLibCrypto;
 {$ENDIF}
 
 implementation
