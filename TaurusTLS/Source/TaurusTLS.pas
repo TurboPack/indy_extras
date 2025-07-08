@@ -1422,7 +1422,6 @@ type
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
     procedure SetPassThrough(const Value: Boolean); override;
-
     procedure DoVerifyError(Certificate: TTaurusTLSX509;
       const AError: TIdC_LONG; out VOk: Boolean);
     function RecvEnc(var VBuffer: TIdBytes): Integer; override;
@@ -1747,7 +1746,6 @@ type
     //
     procedure InitComponent; override;
     procedure SetCertificates(const AValue: TTaurusTLSX509Files);
-    procedure SetDefaultCert(AValue: TTaurusTLSX509File);
     procedure InitCertContexts;
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
@@ -3482,11 +3480,6 @@ begin
   fCertificates.Assign(AValue);
 end;
 
-procedure TTaurusTLSServerIOHandler.SetDefaultCert(AValue: TTaurusTLSX509File);
-begin
-  Self.fDefaultCert.Assign(AValue);
-end;
-
 function TTaurusTLSServerIOHandler.GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
 begin
   Result := nil;
@@ -3526,12 +3519,14 @@ begin
   inherited InitComponent;
   IsPeer := False;
   fSSLOptions := TTaurusTLSOptions.Create(Self);
+  fClientCert := TTaurusTLSX509File.Create(nil);
   // fSSLLayerClosed := true;
   fSSLContext := nil;
 end;
 
 destructor TTaurusTLSIOHandlerSocket.Destroy;
 begin
+  FreeAndNil(fClientCert);
   FreeAndNil(fSSLSocket);
   // we do not destroy these if their Parent is not Self
   // because these do not belong to us when we are in a server.
