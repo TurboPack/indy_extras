@@ -642,11 +642,14 @@ type
   POSSL_LIB_CTX = Pointer;
   POSSL_ENCODER = Pointer;
   POSSL_PROVIDER = Pointer;
+  POSSL_DECODER = Pointer;
+  POSSL_DECODER_CTX = Pointer;
   OSSL_PARAM = record
   end;
   POSSL_PARAM = ^OSSL_PARAM;
   POSSL_ENCODER_CTX = Pointer;
   pem_password_cb = function(buf: PIdAnsiChar; size: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
+  POSSL_ALGORITHM = Pointer;
 
 implementation
 

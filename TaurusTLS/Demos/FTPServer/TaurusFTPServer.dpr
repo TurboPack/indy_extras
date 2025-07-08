@@ -339,13 +339,13 @@ var
 begin
   Result := TTaurusTLSServerIOHandler.Create(nil);
   Result.SSLOptions.MinTLSVersion := TLSv1_2;
-  Result.SSLOptions.DefaultCert.PublicKey := AIni.ReadString('Certificate',
+  Result.DefaultCert.PublicKey := AIni.ReadString('Certificate',
     'CertificateFile', GetCurrentDir + '\localhost.crt');
-  Result.SSLOptions.DefaultCert.PrivateKey := AIni.ReadString('Certificate',
+  Result.DefaultCert.PrivateKey := AIni.ReadString('Certificate',
     'KeyFile', GetCurrentDir + '\localhost.key');
-  Result.SSLOptions.DefaultCert.RootKey := AIni.ReadString('Certificate',
+  Result.DefaultCert.RootKey := AIni.ReadString('Certificate',
     'RootCertFile', '');
-  Result.SSLOptions.DefaultCert.DHParamsFile := AIni.ReadString('Certificate',
+  Result.DefaultCert.DHParamsFile := AIni.ReadString('Certificate',
     'DH_Parameters', '');
   LIni := TIniFile.Create(GetCurrentDir + '\virtual_servers.ini');
   try
@@ -361,7 +361,7 @@ begin
         LPubKey := LIni.ReadString(LServers[i], 'CertificateFile', '');
         if (LPrivKey <> '') and (LPubKey <> '') then
         begin
-          LCert := Result.SSLOptions.Certificates.Add;
+          LCert := Result.Certificates.Add;
           LCert.PrivateKey := LPrivKey;
           LCert.PublicKey := LPubKey;
           LCert.RootKey := LIni.ReadString(LServers[i], 'RootCertFile', '');

@@ -17,8 +17,8 @@ uses
   IdIntercept, IdLogBase, IdLogEvent, Vcl.Menus, Vcl.StdActns,
   IdZLibCompressorBase, IdCompressorZLib, IdConnectThroughHttpProxy,
   IdCustomTransparentProxy, IdSocks, IdThreadSafe, IdZLibHeaders,
-  ProgUtils,
-  TaurusTLSHeaders_types{, TaurusTLS_X509, TaurusTLS;
+  ProgUtils, TaurusTLS_NTLM,
+  TaurusTLSHeaders_types, TaurusTLS_X509, TaurusTLS;
 
 type
   TfrmMainForm = class(TThemedForm)
@@ -442,9 +442,9 @@ begin
           2:
             IdFTPClient.Passive := False;
         end;
-        Self.iosslFTP.SSLOptions.CertFile := LFTPSite.PublicKey;
-        Self.iosslFTP.SSLOptions.KeyFile := LFTPSite.PrivateKey;
-        Self.iosslFTP.SSLOptions.RootCertFile := LFTPSite.CAKey;
+        Self.iosslFTP.ClientCert.PublicKey := LFTPSite.PublicKey;
+        Self.iosslFTP.ClientCert.PrivateKey := LFTPSite.PrivateKey;
+        Self.iosslFTP.ClientCert.RootKey := LFTPSite.CAKey;
         Self.iosslFTP.SSLOptions.SecurityLevel := LFTPSite.SecurityLevel;
         ConnectFTP;
       end;
@@ -957,9 +957,9 @@ begin
       IdFTPClient.IOHandler := iosslFTP;
       IdFTPClient.Passive := not LFrm.UsePortTransferType;
       IdFTPClient.UseTLS := LFrm.UseTLS;
-      iosslFTP.SSLOptions.KeyFile := LFrm.edtPrivateKeyFile.Text;
-      iosslFTP.SSLOptions.CertFile := LFrm.edtPublicKey.Text;
-      iosslFTP.SSLOptions.RootCertFile := LFrm.edtCAKey.Text;
+      iosslFTP.ClientCert.PrivateKey := LFrm.edtPrivateKeyFile.Text;
+      iosslFTP.ClientCert.PublicKey := LFrm.edtPublicKey.Text;
+      iosslFTP.ClientCert.RootKey := LFrm.edtCAKey.Text;
       iosslFTP.SSLOptions.SecurityLevel := LFrm.cboSecurityLevel.ItemIndex;
       ConnectFTP;
     end;

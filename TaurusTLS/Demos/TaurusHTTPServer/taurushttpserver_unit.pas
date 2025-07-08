@@ -31,8 +31,8 @@ begin
   inherited Create;
   FHTTP := TIdHTTPServer.Create(nil);
   FIO := TTaurusTLSServerIOHandler.Create(nil);
-  FIO.SSLOptions.DefaultCert.PublicKey := 'domain.crt';
-  FIO.SSLOptions.DefaultCert.PrivateKey := 'domain.key';
+  FIO.DefaultCert.PublicKey := 'domain.crt';
+  FIO.DefaultCert.PrivateKey := 'domain.key';
   FHTTP.IOHandler := FIO;
   FHTTP.DefaultPort := 443;
   FHTTP.Active := True;
