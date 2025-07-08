@@ -3209,6 +3209,7 @@ procedure TTaurusTLSServerIOHandler.InitComponent;
 begin
   inherited InitComponent;
   fSSLOptions := TTaurusTLSOptions.Create(Self);
+  fSSLOptions.Parent := Self;
   fDefaultCert := TTaurusTLSX509File.Create(nil);
   fCertificates := TTaurusTLSX509Files.Create(Self);
 end;
@@ -3269,6 +3270,12 @@ begin
   Assert(fSSLContext = nil);
   fSSLContext := TTaurusTLSContext.Create;
   fSSLContext.Parent := Self;
+  fSSLContext.RootPublicKey := DefaultCert.RootKey;
+  fSSLContext.PublicKey := DefaultCert.PublicKey;
+  fSSLContext.PrivateKey := DefaultCert.PrivateKey;
+  fSSLContext.DHParamsFile := DefaultCert.DHParamsFile;
+  fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
+  fSSLContext.VerifyMode := SSLOptions.VerifyMode;
   // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
   fSSLContext.UseSystemRootCertificateStore :=
     SSLOptions.UseSystemRootCertificateStore;
@@ -3519,6 +3526,7 @@ begin
   inherited InitComponent;
   IsPeer := False;
   fSSLOptions := TTaurusTLSOptions.Create(Self);
+  fSSLOptions.Parent := Self;
   fClientCert := TTaurusTLSX509File.Create(nil);
   // fSSLLayerClosed := true;
   fSSLContext := nil;
