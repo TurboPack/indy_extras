@@ -692,7 +692,7 @@ type
     fContext: TTaurusTLSContext;
     procedure AssignTo(Destination: TPersistent); override;
     function GetCtx: PSSL_CTX;
-    function GetX509 : PX509;
+    function GetX509: PX509;
   public
     /// <summary>
     /// Creates a new TTaurus​TLSX509File object with Collection as the owner.
@@ -713,7 +713,7 @@ type
     /// <summary>
     /// The OpenSSL X509 object for this certificate.
     /// </summary>
-    property x509 : PX509 read GetX509;
+    property x509: PX509 read GetX509;
   published
     /// <summary>
     /// Private Key file for certificate.
@@ -727,11 +727,11 @@ type
     /// <summary>
     /// Public Root certificate chain file for the certificate.
     /// </summary>
-    property RootKey: TFileName read fRootKey write FRootKey;
+    property RootKey: TFileName read FRootKey write FRootKey;
     /// <summary>
-    ///  DH Parameters file.
+    /// DH Parameters file.
     /// </summary>
-    property DHParamsFile: TFileName read fDHParamsFile write FDHParamsFile;
+    property DHParamsFile: TFileName read fDHParamsFile write fDHParamsFile;
   end;
 
   /// <summary>
@@ -922,7 +922,7 @@ type
   /// Class that provides properties that effect TLS. clients
   /// </summary>
   TTaurusTLSClientSSLOptions = class(TTaurusTLSBaseSSLOptions)
-  {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fClientCert: TTaurusTLSX509File;
     procedure SetClientCert(AValue: TTaurusTLSX509File);
   public
@@ -943,7 +943,7 @@ type
   end;
 
   TTaurusTLSServerSSLOptions = class(TTaurusTLSBaseSSLOptions)
-  {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     fDefaultCert: TTaurusTLSX509File;
     fCertificates: TTaurusTLSX509Files;
     procedure SetDefaultCert(AValue: TTaurusTLSX509File);
@@ -952,7 +952,7 @@ type
     /// <summary>
     /// Creates a new instance of TTaurusTLSClientSSLOptions.
     /// </summary>
-    constructor Create(AOwner: TObject);
+    constructor Create(AOwner: TPersistent);
     /// <summary>
     /// Frees resources and destroys the current instance.
     /// </summary>
@@ -2722,56 +2722,61 @@ function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer)
   : TIdC_INT; cdecl;
 var
   LErr: Integer;
-  i : Integer;
-  LSSLIO : TTaurusTLSServerIOHandler;
-  LX509 : PX509;
-  {$IFNDEF USE_INLINE_VAR}
+  i: Integer;
+  LSSLIO: TTaurusTLSServerIOHandler;
+  LX509: PX509;
+{$IFNDEF USE_INLINE_VAR}
   LHostname: String;
-  LBHost : TIdBytes;
-  {$ENDIF}
+  LBHost: TIdBytes;
+{$ENDIF}
 begin
   LErr := GStack.WSGetLastError;
   try
-    //Default reply, do not acknowlege SNI and continue as if we didn't
-    //receive a SNI.
+    // Default reply, do not acknowlege SNI and continue as if we didn't
+    // receive a SNI.
     Result := SSL_TLSEXT_ERR_NOACK;
     Lock_SNI_CB.Enter;
     try
       if SSL <> nil then
       begin
-        if arg <> nil then begin
+        if arg <> nil then
+        begin
           LSSLIO := TTaurusTLSServerIOHandler(arg);
-           {$IFDEF USE_INLINE_VAR}
-          var LHostName : String;
-           {$ENDIF}
+{$IFDEF USE_INLINE_VAR}
+          var
+            LHostname: String;
+{$ENDIF}
           LHostname := AnsiStringToString(SSL_get_servername(SSL,
             TLSEXT_NAMETYPE_host_name));
           if LHostname <> '' then
           begin
-            //indicate a fatal alert for hostname not found.
+            // indicate a fatal alert for hostname not found.
             Result := SSL_TLSEXT_ERR_ALERT_FATAL;
-            {$IFDEF USE_INLINE_VAR}
-            var LBHost : TIdBytes;
-            {$ENDIF}
-            LBHost := ToBytes(LHostName);
-            for i := 0 to LSSLIO.SSLOptions.Certificates.Count -1 do
+{$IFDEF USE_INLINE_VAR}
+            var
+              LBHost: TIdBytes;
+{$ENDIF}
+            LBHost := ToBytes(LHostname);
+            for i := 0 to LSSLIO.SSLOptions.Certificates.Count - 1 do
             begin
               LX509 := LSSLIO.SSLOptions.Certificates[i].x509;
-              if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
+              if X509_check_host(LX509, @LBHost[0], Length(LBHost), 0, nil) = 1
+              then
               begin
-                //switch certificate we send to the client and indicate success.
+                // switch certificate we send to the client and indicate success.
                 SSL_set_SSL_CTX(SSL, LSSLIO.SSLOptions.Certificates[i].ctx);
                 Result := SSL_TLSEXT_ERR_OK;
                 break;
               end;
             end;
-            //try with the default cert if none was found.
+            // try with the default cert if none was found.
             if Result <> SSL_TLSEXT_ERR_OK then
             begin
-              LX509 := SSL_CTX_get0_certificate( LSSLIO.SSLContext.Context );
+              LX509 := SSL_CTX_get0_certificate(LSSLIO.SSLContext.Context);
               if LX509 <> nil then
               begin
-                if X509_check_host(LX509, @LBHost[0], Length(LBHost),0,nil) = 1 then
+                if X509_check_host(LX509, @LBHost[0], Length(LBHost), 0, nil) = 1
+                then
                 begin
                   Result := SSL_TLSEXT_ERR_NOACK;
                 end;
@@ -3115,7 +3120,7 @@ var
 begin
   if Destination is TTaurusTLSBaseSSLOptions then
   begin
-    LDest := TTaurusTLSX509File(Destination);
+    LDest := Destination as TTaurusTLSX509File;
     LDest.PrivateKey := FPrivateKey;
     LDest.PublicKey := FPublicKey;
   end
@@ -3139,9 +3144,9 @@ end;
 
 function TTaurusTLSX509File.GetX509: PX509;
 var
-  LCtx : PSSL_CTX;
+  LCtx: PSSL_CTX;
 begin
-  LCtx := Ctx;
+  LCtx := ctx;
   if Assigned(LCtx) then
   begin
     Result := SSL_CTX_get0_certificate(LCtx);
@@ -3254,11 +3259,11 @@ end;
 
 { TTaurusTLSServerSSLOptions }
 
-constructor TTaurusTLSServerSSLOptions.Create(AOwner: TObject);
+constructor TTaurusTLSServerSSLOptions.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner);
   fDefaultCert := TTaurusTLSX509File.Create(nil);
-  fCertificates := TTaurusTLSX509Files.Create(TComponent(AOwner));
+  fCertificates := TTaurusTLSX509Files.Create(AOwner);
 end;
 
 destructor TTaurusTLSServerSSLOptions.Destroy;
@@ -3307,7 +3312,7 @@ procedure TTaurusTLSServerIOHandler.InitCertContexts;
 var
   i: Integer;
   LContext: TTaurusTLSContext;
-  LCertificate : TTaurusTLSX509File;
+  LCertificate: TTaurusTLSX509File;
 begin
   for i := 0 to fSSLOptions.Certificates.Count - 1 do
   begin
@@ -3368,7 +3373,7 @@ begin
   begin
     SSL_CTX_set_tlsext_servername_callback(fSSLContext.Context,
       g_tlsext_SNI_callback);
-    SSL_CTX_set_tlsext_servername_arg(fSSLContext.Context,Self);
+    SSL_CTX_set_tlsext_servername_arg(fSSLContext.Context, Self);
     InitCertContexts;
   end;
 end;
@@ -3422,7 +3427,7 @@ begin
 
           Result := LIO;
           LIO := nil;
-          Break;
+          break;
         end;
       end;
     end;
@@ -4025,9 +4030,9 @@ begin
       repeat
         LNextTransparentProxy := LTransparentProxy.ChainedProxy;
         if not Assigned(LNextTransparentProxy) then
-          Break;
+          break;
         if not LNextTransparentProxy.Enabled then
-          Break;
+          break;
         LTransparentProxy := LNextTransparentProxy;
       until False;
       Result := LTransparentProxy.Host;
@@ -4071,9 +4076,9 @@ begin
       repeat
         LNextTransparentProxy := LTransparentProxy.ChainedProxy;
         if not Assigned(LNextTransparentProxy) then
-          Break;
+          break;
         if not LNextTransparentProxy.Enabled then
-          Break;
+          break;
         LTransparentProxy := LNextTransparentProxy;
       until False;
       Result := LTransparentProxy.Host;
@@ -4843,7 +4848,7 @@ begin
     if Lret > 0 then
     begin
       Result := LRead;
-      Break;
+      break;
     end;
     LErr := GetSSLError(Lret);
     if (LErr = SSL_ERROR_WANT_READ) or (LErr = SSL_ERROR_WANT_WRITE) then
@@ -4854,7 +4859,7 @@ begin
     begin
       ETaurusTLSReadExError.RaiseExceptionCode(LErr, Lret, RSDSSLReadExFailed);
     end;
-    Break;
+    break;
   until False;
 end;
 
@@ -4876,7 +4881,7 @@ begin
       LLength := LLength - LWritten;
       if LLength < 1 then
       begin
-        Break;
+        break;
       end;
       Continue;
     end;
@@ -4894,7 +4899,7 @@ begin
       ETaurusTLSWriteEx2Error.RaiseExceptionCode(LErr, Lret,
         RSDSSLWriteExFailed);
     end;
-    Break;
+    break;
   until False;
 end;
 

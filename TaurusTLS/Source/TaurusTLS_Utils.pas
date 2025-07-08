@@ -697,7 +697,7 @@ begin
 {$IFDEF STRING_IS_ANSI}
   SetString(time_str, PAnsiChar(a^.data), a^._Length);
 {$ELSE}
-  SetString(LTemp, PAnsiChar(a^.data), a^._Length);
+  SetString(LTemp, PAnsiChar(a.data), a._Length);
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
   // TODO: do we need to use SetCodePage() here?
   time_str := String(LTemp); // explicit convert to Unicode

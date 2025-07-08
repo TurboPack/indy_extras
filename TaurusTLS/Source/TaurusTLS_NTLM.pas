@@ -60,7 +60,7 @@ type
     * turns a 56 bit key into the 64 bit, odd parity key and sets the key.
     * The key schedule ks is also set.
     */ }
-procedure setup_des_key(const Akey_56: des_cblock; Var Vks: des_key_schedule);
+procedure setup_des_key(const Akey_56: des_cblock; var Vks: des_key_schedule);
 Var
   Lkey: des_cblock;
 begin
@@ -89,6 +89,7 @@ Var
   Lks: des_key_schedule;
   Lnonce: des_cblock;
 begin
+  FillChar(LKs,SizeOf(LKs),0);
   setup_des_key(Vkeys^, Lks);
   Move(ANonce[0], Lnonce, 8);
   DES_ecb_encrypt(@Lnonce, PDES_cblock(@Vresults^), @Lks, DES_ENCRYPT);
