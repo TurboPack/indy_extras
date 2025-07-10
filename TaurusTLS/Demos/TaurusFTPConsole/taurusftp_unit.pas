@@ -103,7 +103,8 @@ uses
 {$IFNDEF FPC}
   System.IOUtils,
 {$ENDIF}
-  TaurusTLSHeaders_ssl3;
+  TaurusTLSHeaders_ssl3,
+  TaurusTLSLoader;
 
 const
   Prog_Cmds: array of string = ['exit', 'quit', 'open', 'dir', 'pwd', 'cd',
@@ -728,6 +729,7 @@ begin
 end;
 
 procedure TFTPApplication.CmdDebugInfo;
+var i : Integer;
 begin
 {$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
@@ -736,6 +738,15 @@ begin
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
+  if GetOpenSSLLoader.GetFailedToLoad.Count > 0 then
+  begin
+    WriteLn('  Failed To Load: ');
+    for i := 0 to GetOpenSSLLoader.GetFailedToLoad.Count - 1 do
+    begin
+      WriteLn('   '+GetOpenSSLLoader.GetFailedToLoad[i]);
+    end;
+  end;
+
   if IdZLibHeaders.Load then
   begin
     WriteLn('    ZLib Version: ' + zlibVersion());
