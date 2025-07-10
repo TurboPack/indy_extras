@@ -70,9 +70,11 @@ type
   {$EXTERNALSYM RAND_load_file}
   {$EXTERNALSYM RAND_write_file}
   {$EXTERNALSYM RAND_status}
+  {$IFNDEF OPENSSL_NO_EGD}
   {$EXTERNALSYM RAND_query_egd_bytes}
   {$EXTERNALSYM RAND_egd}
   {$EXTERNALSYM RAND_egd_bytes}
+  {$ENDIF}
   {$EXTERNALSYM RAND_poll}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -98,9 +100,11 @@ var
   RAND_write_file: function (const file_: PIdAnsiChar): TIdC_INT; cdecl = nil;
   RAND_status: function : TIdC_INT; cdecl = nil;
 
+  {$IFNDEF OPENSSL_NO_EGD}
   RAND_query_egd_bytes: function (const path: PIdAnsiChar; buf: PByte; bytes: TIdC_INT): TIdC_INT; cdecl = nil;
   RAND_egd: function (const path: PIdAnsiChar): TIdC_INT; cdecl = nil;
   RAND_egd_bytes: function (const path: PIdAnsiChar; bytes: TIdC_INT): TIdC_INT; cdecl = nil;
+  {$ENDIF}
 
   RAND_poll: function : TIdC_INT; cdecl = nil;
 
@@ -126,9 +130,11 @@ var
   function RAND_write_file(const file_: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function RAND_status: TIdC_INT cdecl; external CLibCrypto;
 
+ {$IFNDEF OPENSSL_NO_EGD}
   function RAND_query_egd_bytes(const path: PIdAnsiChar; buf: PByte; bytes: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function RAND_egd(const path: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function RAND_egd_bytes(const path: PIdAnsiChar; bytes: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  {$ENDIF}
 
   function RAND_poll: TIdC_INT cdecl; external CLibCrypto;
 
@@ -171,9 +177,11 @@ const
   RAND_write_file_procname = 'RAND_write_file';
   RAND_status_procname = 'RAND_status';
 
+  {$IFNDEF OPENSSL_NO_EGD}
   RAND_query_egd_bytes_procname = 'RAND_query_egd_bytes';
   RAND_egd_procname = 'RAND_egd';
   RAND_egd_bytes_procname = 'RAND_egd_bytes';
+  {$ENDIF}
 
   RAND_poll_procname = 'RAND_poll';
 
@@ -262,7 +270,7 @@ begin
 end;
 
 
-
+ {$IFNDEF OPENSSL_NO_EGD}
 function  ERR_RAND_query_egd_bytes(const path: PIdAnsiChar; buf: PByte; bytes: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RAND_query_egd_bytes_procname);
@@ -280,7 +288,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RAND_egd_bytes_procname);
 end;
 
-
+  {$ENDIF}
 
 function  ERR_RAND_poll: TIdC_INT; 
 begin
@@ -740,7 +748,7 @@ begin
     {$ifend}
   end;
 
-
+  {$IFNDEF OPENSSL_NO_EGD}
   RAND_query_egd_bytes := LoadLibFunction(ADllHandle, RAND_query_egd_bytes_procname);
   FuncLoadError := not assigned(RAND_query_egd_bytes);
   if FuncLoadError then
@@ -835,7 +843,7 @@ begin
       AFailed.Add('RAND_egd_bytes');
     {$ifend}
   end;
-
+  {$ENDIF}
 
   RAND_poll := LoadLibFunction(ADllHandle, RAND_poll_procname);
   FuncLoadError := not assigned(RAND_poll);
@@ -885,9 +893,11 @@ begin
   RAND_load_file := nil;
   RAND_write_file := nil;
   RAND_status := nil;
+   {$IFNDEF OPENSSL_NO_EGD}
   RAND_query_egd_bytes := nil;
   RAND_egd := nil;
   RAND_egd_bytes := nil;
+   {$ENDIF}
   RAND_poll := nil;
 end;
 {$ELSE}
