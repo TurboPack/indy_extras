@@ -35,6 +35,10 @@ uses
   {$ENDIF}
   TaurusTLSHeaders_types;
 
+const
+  RAND_DRBG_STRENGTH = 256; // Openssl default RANDOM strength constant.
+  RAND_DEFAULT_STRENGTH = RAND_DRBG_STRENGTH; // Default RANDOM strength
+
 type
   rand_meth_st_seed = function (const buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl;
   rand_meth_st_bytes = function (buf: PByte; num: TIdC_INT): TIdC_INT; cdecl;
