@@ -198,7 +198,7 @@ end;
 function FC_RAND_priv_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
 begin
-  Result := RAND_priv_bytes_ex(nil,buf,TIdC_INT(num), strength);
+   Result := RAND_priv_bytes(PByte(buf),TIdC_INT(num));
 end;
 
   {$i TaurusTLSNoRetValOff.inc}
