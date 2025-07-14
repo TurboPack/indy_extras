@@ -67,7 +67,7 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///   or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     ///  <remark>
     ///  Derived class must implement  this method.
@@ -87,7 +87,7 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     function Random(var buf; num: TIdC_SIZET): TIdC_INT;
       {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -126,7 +126,7 @@ type
   ///      <c>RAND_priv_bytes</c> with <c>openssl 1.1.x</c>
   ///    </item>
   ///  </list>
-  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis">
+  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis" />
   ///  </summary>
   ///  <inheritdoc />
   TTaurusTLS_OSSLPrivateRandomBytes = class(TTaurusTLS_CustomOSSLRandomBytes)
@@ -146,7 +146,7 @@ type
   ///      <c>RAND_bytes</c> with <c>openssl 1.1.x</c>
   ///    </item>
   ///  </list>
-  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis">
+  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis" />
   ///  </summary>
   TTaurusTLS_OSSLPublicRandomBytes = class(TTaurusTLS_CustomOSSLRandomBytes)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
@@ -162,7 +162,7 @@ type
   /// This class is designed for code which handles error via <c>openssl error stack</c>
   /// Every <c>Random</c> method returns <c>1</c> on success,
   /// <c>-1</c> if not supported by the current method, or <c>0</c> on other failure.
-  /// <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+  /// <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values " />
   ///
   /// User-code must validate returned code for success.
   /// </remarks>
@@ -207,7 +207,7 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     function Random(var ABuffer; ASize: TIdC_SIZET): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -219,12 +219,12 @@ type
     ///  a new <see cref="System.SysUtils.TBytes" /> array and fill it with random bytes.
     ///  </param>
     ///  <param name="ASize">
-    ///  The size of <paramref="ABytes"> array to be create
+    ///  The size of <paramref="ABytes" /> array to be create
     ///  </param>
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     function Random(out ABytes: TBytes; ASize: TIdC_SIZET): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -239,7 +239,7 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     ///  <remarks>
     ///  This method is <b>only</b> safe for any numerical types. It does not
@@ -273,7 +273,7 @@ type
     ///  The <c>PrivateRandom</c> <c>class property</c> reterns an instance of <see cref="TTaurusTLS_OSSLRandom" /> class
     ///  which uses <c>openssl private</c> random bytes generator.
     ///  </summary>
-    ///  <rematrks>
+    ///  <remarks>
     ///  User code <b>must not</b> free the obtained instance.
     ///  </remarks>
     class property PrivateRandom: TTaurusTLS_OSSLRandom read FPrivateRandom;
@@ -281,7 +281,7 @@ type
     ///  The <c>PrivateRandom</c> <c>class property</c> reterns an instance of <see cref="TTaurusTLS_OSSLRandom" /> class
     ///  which uses <c>openssl public</c> random bytes generator.
     ///  </summary>
-    ///  <rematrks>
+    ///  <remarks>
     ///  User code <b>must not</b> free the obtained instance.
     ///  </remarks>
     class property PublicRandom: TTaurusTLS_OSSLRandom read FPublicRandom;
@@ -343,7 +343,7 @@ type
     ///  a new <see cref="System.SysUtils.TBytes" /> array and fill it with random bytes.
     ///  </param>
     ///  <param name="ASize">
-    ///  The size of <paramref="ABytes"> array to be create
+    ///  The size of <paramref="ABytes" /> array to be create
     ///  </param>
     function Random(ASize: TIdC_SIZET): TBytes;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -387,7 +387,7 @@ type
     ///  The <c>PrivateRandom</c> <c>class property</c> reterns an instance of <see cref="TTaurusTLS_OSSLRandom" /> class
     ///  which uses <c>openssl private</c> random bytes generator.
     ///  </summary>
-    ///  <rematrks>
+    ///  <remarks>
     ///  User code <b>must not</b> free the obtained instance.
     ///  </remarks>
     class property PrivateRandom: TTaurusTLS_Random read FPrivateRandom;
@@ -395,7 +395,7 @@ type
     ///  The <c>PrivateRandom</c> <c>class property</c> reterns an instance of <see cref="TTaurusTLS_OSSLRandom" /> class
     ///  which uses <c>openssl public</c> random bytes generator.
     ///  </summary>
-    ///  <rematrks>
+    ///  <remarks>
     ///  User code <b>must not</b> free the obtained instance.
     ///  </remarks>
     class property PublicRandom: TTaurusTLS_Random read FPublicRandom;
