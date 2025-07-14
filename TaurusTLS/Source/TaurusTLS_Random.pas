@@ -209,7 +209,7 @@ type
     ///  or <c>0</c> on other failure
     ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
-    function Random(var ABuffer; ASize: TIdC_SIZET): TIdC_INT;
+    function Random(out ABuffer; ASize: TIdC_SIZET): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
     ///  <summary>
     ///  The <c>Random</c> is a method to create array of random bytes sequence
@@ -313,7 +313,7 @@ type
     constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
       ACtx: POSSL_LIB_CTX = nil; AStrength: TIdC_UINT = 0); overload;
 
-    procedure GetRandom(var buf; num: TIdC_SIZET);
+    procedure GetRandom(out buf; num: TIdC_SIZET);
       {$IFDEF USE_INLINE}inline;{$ENDIF}
     procedure CheckError(const AResult: TIdC_INT);
       {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -333,7 +333,7 @@ type
     ///  <param name="ASize">
     ///  Number of bytes to be filled to the <c>buf</c> /> parameter
     ///  </param>
-    procedure Random(var ABuffer; ASize: TIdC_SIZET);
+    procedure Random(out ABuffer; ASize: TIdC_SIZET);
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
     ///  <summary>
     ///  The <c>Random</c> is a method to create array of random bytes sequence
@@ -405,7 +405,7 @@ type
   ///  This exception indicates error returned from <c>openssl</c> random function(s)
   ///  in the <see cref="TTaurusTLS_Random" /> class.
   ///  </summary>
-  ERandom = class(ETaurusTLSAPICryptoError);
+  ETaurusTLSRandom = class(ETaurusTLSAPICryptoError);
 
 implementation
 
@@ -448,6 +448,12 @@ end;
 
 { TTaurusTLS_OSSLRandom }
 
+class function TTaurusTLS_OSSLRandom.NewRandom(
+  ARandomBytes: TTaurusTLS_CustomOSSLRandomBytes): TTaurusTLS_OSSLRandom;
+begin
+  Result:=Create(ARandomBytes);
+end;
+
 class constructor TTaurusTLS_OSSLRandom.Create;
 begin
   FPrivateRandom:=NewRandom(TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, 0));
@@ -458,12 +464,6 @@ class destructor TTaurusTLS_OSSLRandom.Destroy;
 begin
   FreeAndNil(FPublicRandom);
   FreeAndNil(FPrivateRandom);
-end;
-
-class function TTaurusTLS_OSSLRandom.NewRandom(
-  ARandomBytes: TTaurusTLS_CustomOSSLRandomBytes): TTaurusTLS_OSSLRandom;
-begin
-  Result:=Create(ARandomBytes);
 end;
 
 constructor TTaurusTLS_OSSLRandom.Create;
@@ -483,7 +483,7 @@ begin
   Result:=FRandomBytes.Random(buf, num);
 end;
 
-function TTaurusTLS_OSSLRandom.Random(var ABuffer;
+function TTaurusTLS_OSSLRandom.Random(out ABuffer;
   ASize: TIdC_SIZET): TIdC_INT;
 begin
   Result:=GetRandom(ABuffer, ASize);
@@ -510,6 +510,12 @@ end;
 
 { TTaurusTLS_Random }
 
+class function TTaurusTLS_Random.NewRandom(
+  ARandomBytes: TTaurusTLS_CustomOSSLRandomBytes): TTaurusTLS_Random;
+begin
+  Result:=Create(ARandomBytes);
+end;
+
 class constructor TTaurusTLS_Random.Create;
 begin
   FPrivateRandom:=NewRandom(TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, 0));
@@ -522,12 +528,6 @@ begin
   FreeAndNil(FPrivateRandom);
 end;
 
-class function TTaurusTLS_Random.NewRandom(
-  ARandomBytes: TTaurusTLS_CustomOSSLRandomBytes): TTaurusTLS_Random;
-begin
-  Result:=Create(ARandomBytes);
-end;
-
 constructor TTaurusTLS_Random.Create;
 begin
   Assert(False, ClassName+' can not be creates with this constructor.');
@@ -536,7 +536,9 @@ end;
 procedure TTaurusTLS_Random.CheckError(const AResult: TIdC_INT);
 begin
   if AResult <> 1 then
-    raise ERandom.Create('');
+  begin
+    ETaurusTLSRandom.RaiseExceptionCode(AResult);
+  end;
 end;
 
 constructor TTaurusTLS_Random.Create(
@@ -547,12 +549,12 @@ begin
   FRandomBytes:=ARandomGen;
 end;
 
-procedure TTaurusTLS_Random.GetRandom(var buf; num: TIdC_SIZET);
+procedure TTaurusTLS_Random.GetRandom(out buf; num: TIdC_SIZET);
 begin
   CheckError(FRandomBytes.Random(buf, num));
 end;
 
-procedure TTaurusTLS_Random.Random(var ABuffer; ASize: TIdC_SIZET);
+procedure TTaurusTLS_Random.Random(out ABuffer; ASize: TIdC_SIZET);
 begin
   GetRandom(ABuffer, ASize);
 end;
