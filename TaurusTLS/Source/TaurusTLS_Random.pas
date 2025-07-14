@@ -537,7 +537,7 @@ procedure TTaurusTLS_Random.CheckError(const AResult: TIdC_INT);
 begin
   if AResult <> 1 then
   begin
-    ETaurusTLSRandom.RaiseExceptionCode(AResult);
+    ETaurusTLSRandom.RaiseException;
   end;
 end;
 
