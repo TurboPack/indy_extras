@@ -37,7 +37,8 @@ uses
   DUnitX.TestFramework,
   TaurusTLS.UT.Utils in 'TaurusTLS.UT.Utils.pas',
   TaurusTLS.UT.TestClasses in 'TaurusTLS.UT.TestClasses.pas',
-  TaurusTLS.UT.Dummy in 'TaurusTLS.UT.Dummy.pas';
+  TaurusTLS.UT.Dummy in 'TaurusTLS.UT.Dummy.pas',
+  TaurusTLS.UT.Random in 'TaurusTLS.UT.Random.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}
