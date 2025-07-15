@@ -189,6 +189,7 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
   public
+    destructor Destroy; override;
     ///  <summary>
     ///  The instance of <c>TTaurusTLS_OSSLRandom</c> class must be created
     ///  using <see cref="NewRandom" /> <c>class method</c>.
@@ -226,7 +227,24 @@ type
     ///  or <c>0</c> on other failure
     ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
-    function Random(out ABytes: TBytes; ASize: TIdC_SIZET): TIdC_INT;
+    function Random(var ABytes: TBytes; ASize: TIdC_SIZET): TIdC_INT;
+      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    ///  <summary>
+    ///  The <c>Random</c> is a method returns random floating number value
+    ///  </summary>
+    ///  <param name="AOut">
+    ///  Reference to variable of <c>extended</c> type.
+    ///  The method returns value filled with a <c>random</c> value(s).
+    ///  </param>
+    ///  <returns>
+    ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
+    ///  or <c>0</c> on other failure
+    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
+    ///  </returns>
+    ///  <remarks>
+    ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
+    ///  </remarks>
+    function Random(var AOut: extended): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
     ///  <summary>
     ///  The <c>Random</c> is a method to create a <c>generic type</c> <typeparamref name="T" />
@@ -318,6 +336,7 @@ type
     procedure CheckError(const AResult: TIdC_INT);
       {$IFDEF USE_INLINE}inline;{$ENDIF}
   public
+    destructor Destroy; override;
     ///  <summary>
     ///  The instance of <c>TTaurusTLS_Random</c> class must be created
     ///  using <see cref="NewRandom" /> <c>class method</c>.
@@ -347,6 +366,17 @@ type
     ///  </param>
     function Random(ASize: TIdC_SIZET): TBytes;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    ///  <summary>
+    ///  The <c>Random</c> is a method returns random floating number value
+    ///  </summary>
+    ///  <returns>
+    ///  The method returns a floating number random value of <c>extended</c> type.
+    ///  </returns>
+    ///  <remarks>
+    ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
+    ///  </remarks>
+    function Random: extended; overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
     ///  <summary>
     ///  The <c>Random</c> is a method to create a <c>generic type</c> <typeparamref name="T" />
     ///  filled with a <c>random</c> value(s);
@@ -407,10 +437,30 @@ type
   ///  </summary>
   ETaurusTLSRandom = class(ETaurusTLSAPICryptoError);
 
+const
+  cMultiplier: extended = ((1.0/$100000000) / $100000000);  // 2^-48
+
+function RandomToExtend(ASeed: TIdC_UINT64): extended;
+  {$IFDEF USE_INLINE}inline;{$ENDIF}
+
 implementation
 
 uses
+  Math,
   TaurusTLSHeaders_err;
+
+function RandomToExtend(ASeed: TIdC_UINT64): extended;
+  {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+var
+  lExt: extended;
+
+begin
+  lExt:=ASeed;
+  Result:=lExt*cMultiplier;
+  if not IsZero (Result) and (((1 shl (ASeed and $3F)) and ASeed) <> 0) then
+    Result:=-1*Result; //random negative
+end;
 
 { TTaurusTLS_CustomOSSLRandomBytes }
 
@@ -456,19 +506,27 @@ end;
 
 class constructor TTaurusTLS_OSSLRandom.Create;
 begin
-  FPrivateRandom:=NewRandom(TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, 0));
-  FPublicRandom:=NewRandom(TTaurusTLS_OSSLPublicRandomBytes.Create(nil, 0));
+  FPrivateRandom:=NewRandom(
+    TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, RAND_DEFAULT_STRENGTH));
+  FPublicRandom:=NewRandom(
+    TTaurusTLS_OSSLPublicRandomBytes.Create(nil, RAND_DEFAULT_STRENGTH));
 end;
 
 class destructor TTaurusTLS_OSSLRandom.Destroy;
 begin
   FreeAndNil(FPublicRandom);
   FreeAndNil(FPrivateRandom);
+  inherited Destroy;
 end;
 
 constructor TTaurusTLS_OSSLRandom.Create;
 begin
   Assert(False, ClassName+' can not be creates with this constructor.');
+end;
+
+destructor TTaurusTLS_OSSLRandom.Destroy;
+begin
+  FreeAndNil(FRandomBytes);
 end;
 
 constructor TTaurusTLS_OSSLRandom.Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
@@ -489,7 +547,7 @@ begin
   Result:=GetRandom(ABuffer, ASize);
 end;
 
-function TTaurusTLS_OSSLRandom.Random(out ABytes: TBytes;
+function TTaurusTLS_OSSLRandom.Random(var ABytes: TBytes;
   ASize: TIdC_SIZET): TIdC_INT;
 begin
   if ASize = 0 then
@@ -501,6 +559,22 @@ begin
     SSLErr(RAND_F_DRBG_BYTES, ERR_R_MALLOC_FAILURE);
   end;
   Result:=GetRandom(ABytes[0], ASize);
+end;
+
+function TTaurusTLS_OSSLRandom.Random(var AOut: extended): TIdC_INT;
+var
+  lTemp: TIdC_UINT64;
+begin
+  repeat
+    Result:=Random<TIdC_UINT64>(lTemp);
+    if Result <> 1 then
+      Exit;
+  until (lTemp <> 0);
+  try
+    AOut:=RandomToExtend(lTemp);
+  except
+    SSLErr(RAND_F_DRBG_BYTES, RAND_R_INTERNAL_ERROR);
+  end;
 end;
 
 function TTaurusTLS_OSSLRandom.Random<T>(out AOut: T): TIdC_INT;
@@ -518,8 +592,10 @@ end;
 
 class constructor TTaurusTLS_Random.Create;
 begin
-  FPrivateRandom:=NewRandom(TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, 0));
-  FPublicRandom:=NewRandom(TTaurusTLS_OSSLPublicRandomBytes.Create(nil, 0));
+  FPrivateRandom:=NewRandom(
+    TTaurusTLS_OSSLPrivateRandomBytes.Create(nil, RAND_DEFAULT_STRENGTH));
+  FPublicRandom:=NewRandom(
+    TTaurusTLS_OSSLPublicRandomBytes.Create(nil, RAND_DEFAULT_STRENGTH));
 end;
 
 class destructor TTaurusTLS_Random.Destroy;
@@ -531,6 +607,11 @@ end;
 constructor TTaurusTLS_Random.Create;
 begin
   Assert(False, ClassName+' can not be creates with this constructor.');
+end;
+
+destructor TTaurusTLS_Random.Destroy;
+begin
+  FreeAndNil(FRandomBytes);
 end;
 
 procedure TTaurusTLS_Random.CheckError(const AResult: TIdC_INT);
@@ -570,6 +651,17 @@ end;
 function TTaurusTLS_Random.Random<T>: T;
 begin
   GetRandom(Result, SizeOf(T));
+end;
+
+function TTaurusTLS_Random.Random: extended;
+var
+  lTemp: TIdC_UINT64;
+
+begin
+  repeat
+    lTemp:=Random<TIdC_UINT64>;
+  until (lTemp <> 0);
+  Result:=RandomToExtend(lTemp);
 end;
 
 end.
