@@ -244,8 +244,7 @@ type
     ///  <remarks>
     ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
     ///  </remarks>
-    function Random(var AOut: extended): TIdC_INT;
-      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    function Random(var AOut: extended): TIdC_INT; overload;
     ///  <summary>
     ///  The <c>Random</c> is a method to create a <c>generic type</c> <typeparamref name="T" />
     ///  filled with a <c>random</c> value(s);
@@ -375,8 +374,7 @@ type
     ///  <remarks>
     ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
     ///  </remarks>
-    function Random: extended; overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
-
+    function Random: extended; overload;
     ///  <summary>
     ///  The <c>Random</c> is a method to create a <c>generic type</c> <typeparamref name="T" />
     ///  filled with a <c>random</c> value(s);
@@ -437,20 +435,15 @@ type
   ///  </summary>
   ETaurusTLSRandom = class(ETaurusTLSAPICryptoError);
 
-const
-  cMultiplier: extended = ((1.0/$100000000) / $100000000);  // 2^-48
-
-function RandomToExtend(ASeed: TIdC_UINT64): extended;
-  {$IFDEF USE_INLINE}inline;{$ENDIF}
-
 implementation
 
 uses
-  Math,
   TaurusTLSHeaders_err;
 
 function RandomToExtend(ASeed: TIdC_UINT64): extended;
   {$IFDEF USE_INLINE}inline;{$ENDIF}
+const
+  cMultiplier: extended = ((1.0/$100000000) / $100000000);  // 2^-64
 
 var
   lExt: extended;
@@ -458,7 +451,7 @@ var
 begin
   lExt:=ASeed;
   Result:=lExt*cMultiplier;
-  if not IsZero (Result) and (((1 shl (ASeed and $3F)) and ASeed) <> 0) then
+  if not (ASeed <> 0) and (((1 shl (ASeed and $3F)) and ASeed) <> 0) then
     Result:=-1*Result; //random negative
 end;
 
@@ -516,17 +509,18 @@ class destructor TTaurusTLS_OSSLRandom.Destroy;
 begin
   FreeAndNil(FPublicRandom);
   FreeAndNil(FPrivateRandom);
-  inherited Destroy;
 end;
 
 constructor TTaurusTLS_OSSLRandom.Create;
 begin
+  inherited;
   Assert(False, ClassName+' can not be creates with this constructor.');
 end;
 
 destructor TTaurusTLS_OSSLRandom.Destroy;
 begin
   FreeAndNil(FRandomBytes);
+  inherited;
 end;
 
 constructor TTaurusTLS_OSSLRandom.Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
@@ -606,12 +600,14 @@ end;
 
 constructor TTaurusTLS_Random.Create;
 begin
+  inherited;
   Assert(False, ClassName+' can not be creates with this constructor.');
 end;
 
 destructor TTaurusTLS_Random.Destroy;
 begin
   FreeAndNil(FRandomBytes);
+  inherited;
 end;
 
 procedure TTaurusTLS_Random.CheckError(const AResult: TIdC_INT);
