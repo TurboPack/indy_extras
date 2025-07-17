@@ -39,5 +39,5 @@ contains
   TaurusTLS_Dsn_ComponentEditor in '..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas',
   TaurusTLS_Dsn_Register in '..\..\Source\TaurusTLS_Dsn_Register.pas',
   TaurusTLS_Dsn_ResourceStrings in '..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas';
-
+	
 end.

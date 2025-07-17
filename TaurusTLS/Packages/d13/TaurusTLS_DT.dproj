@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{C5F917B6-75DB-4463-81A1-8CEF1AD6AA6D}</ProjectGuid>
         <MainSource>TaurusTLS_DT.dpk</MainSource>

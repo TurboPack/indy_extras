@@ -7,7 +7,7 @@ Licensed under the Modified TaurusTLS BSD Licence or MPL 1.1.
 interface
 
 uses
-  System.SysUtils, System.Classes, Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc;
+  System.SysUtils, System.Classes, Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, SmartInspect.VCL;
 
 type
   TdmodMain = class(TDataModule)
@@ -22,6 +22,7 @@ type
       const ACompanyName: String);
   public
     { Public declarations }
+    procedure CreateFromTemplates;
     procedure UpdatePackages(const AMajorVersion, AMinorVersion, ARelease,
       ABuild: Integer; const ACompanyName, ACopyright: String);
     procedure UpdateProductCopyright(const AProduct, ACopyright: String);
@@ -36,10 +37,178 @@ var
 
 implementation
 
-uses Variants;
+uses Variants, IdGlobal, IOUtils;
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 {$R *.dfm}
 { TdmodMain }
+
+procedure IterateThroughSourceDir(VRT_Units, VDT_Units, VRegister: TStrings);
+var
+  LCurFile: TSearchRec;
+begin
+  VRT_Units.Clear;
+  VDT_Units.Clear;
+  VRegister.Clear;
+  if FindFirst('..\..\..\..\Source\*.pas', faAnyFile, LCurFile) = 0 then
+  begin
+    repeat
+      if (LCurFile.Attr and faDirectory) = 0 then
+      begin
+        if Pos('TaurusTLS_Dsn_', LCurFile.Name) = 1 then
+        begin
+          VDT_Units.Add(LCurFile.Name);
+          if Pos('procedure Register;', IOUtils.TFile.ReadAllText('..\..\..\..\Source\'+LCurFile.Name)) > 0 then
+          begin
+             VRegister.Add(LCurFile.Name);
+          end;
+        end
+        else
+        begin
+          VRT_Units.Add(LCurFile.Name);
+        end;
+      end;
+    until FindNext(LCurFile) <> 0;
+    FindClose(LCurFile);
+  end;
+end;
+
+function ListUnitsForLPK(AUnits, ARegister: TStrings): string;
+var
+  i: Integer;
+begin
+  Result := '';
+  for i := 0 to AUnits.Count - 1 do
+  begin
+    Result := Result + #9#9#9+'<Item>' + sLineBreak;
+    Result := Result + #9#9#9#9+'<Filename Value="..\..\Source\' + AUnits[i] + '"/>' + sLineBreak;
+    if ARegister.IndexOf(AUnits[i]) > -1 then
+    begin
+      Result := Result + #9#9#9#9+'<HasRegisterProc Value="True"/>'  + sLineBreak;
+    end;
+    Result := Result + #9#9#9#9+'<UnitName Value="' + ChangeFileExt(AUnits[i],
+      '') + '"/>' + sLineBreak;
+    Result := Result + #9#9#9+'</Item>';
+    if i < AUnits.Count -1 then
+    begin
+      Result := Result + sLineBreak;
+    end;
+  end;
+end;
+
+function ListUnitsForPAS(AUnits: TStrings): string;
+var
+  i: Integer;
+begin
+  Result := '';
+  for i := 0 to AUnits.Count - 1 do
+  begin
+    Result := Result + '  ' + ChangeFileExt(AUnits[i], '');
+    if i = AUnits.Count - 1 then
+    begin
+      Result := Result + ';';
+    end
+    else
+    begin
+      Result := Result + ',' + sLineBreak;
+    end;
+  end;
+end;
+
+function ListUnitsForDPROJ(AUnits : TStrings) : string;
+var
+  i: Integer;
+begin
+  Result := '';
+  for i := 0 to AUnits.Count - 1 do
+  begin
+     Result := Result + '		<DCCReference Include="..\..\Source\' + AUnits[i] + '"/>' + sLineBreak;
+  end;
+end;
+
+function ListUnitsForDPK(AUnits: TStrings): string;
+var
+  i: Integer;
+begin
+  Result := '';
+  for i := 0 to AUnits.Count - 1 do
+  begin
+    Result := Result + '  ' + ChangeFileExt(AUnits[i], '') + ' in ''..\..\Source\'
+      + AUnits[i] + '''';
+    if i = AUnits.Count - 1 then
+    begin
+      Result := Result + ';';
+    end
+    else
+    begin
+      Result := Result + ',' + sLineBreak;
+    end;
+  end;
+end;
+
+procedure FindFilesToRead(root:String; AResults : TStrings);
+var
+  SR:TSearchRec;
+  LFileToRead : String;
+begin
+  root:=IncludeTrailingPathDelimiter(root);
+  if FindFirst(root+'*.*',faAnyFile,SR) = 0 then
+  begin
+      repeat
+          LFileToRead := root+SR.Name;
+          if ((SR.Attr and faDirectory) = SR.Attr ) and (pos('.',SR.Name)=0) then
+          begin
+             FindFilesToRead(LFileToRead, AResults);
+          end
+          else
+          begin
+           if IdGlobal.PosInStrArray(ExtractFileExt(SR.Name), ['.pas', '.lpk','.dpk','.dproj']) >  -1 then
+           begin
+              AResults.Add(LFileToRead);
+
+           end;
+          end;
+      until FindNext(SR)<>0;
+      FindClose(SR);
+  end;
+end;
+
+procedure TdmodMain.CreateFromTemplates;
+var
+  LRTL_Units, LDT_Units, L_Register: TStrings;
+  LFilesToRead : TStrings;
+  LFileContents : String;
+  i : Integer;
+  LFileToWrite : String;
+begin
+    LRTL_Units := TStringList.Create;
+    LDT_Units := TStringList.Create;
+    L_Register := TStringList.Create;
+    LFilesToRead := TStringList.Create;
+    try
+      IterateThroughSourceDir(LRTL_Units, LDT_Units, L_Register);
+      FindFilesToRead('..\..\Templates', LFilesToRead);
+      for i := 0 to LFilesToRead.Count - 1 do
+      begin
+        LFileContents :=  System.IOUtils.TFile.ReadAllText( LFilesToRead[i]);
+        LFileToWrite := ExpandFileName( StringReplace( LFilesToRead[i],'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+        LFileContents := StringReplace( LFileContents, '{$LPK_FILES_DT}', ListUnitsForLPK(LDT_Units, L_Register),[rfReplaceAll]);
+        LFileContents := StringReplace( LFileContents, '{$LPK_FILES_RT}', ListUnitsForLPK(LRTL_Units, L_Register),[rfReplaceAll]);
+
+        LFileContents := StringReplace( LFileContents, '{$DRPJ_FILES_DT}', ListUnitsForDPROJ(LDT_Units),[rfReplaceAll]);
+        LFileContents := StringReplace( LFileContents, '{$DRPJ_FILES_RT}', ListUnitsForDPROJ(LRTL_Units),[rfReplaceAll]);
+
+        LFileContents := StringReplace( LFileContents, '{$DPK_FILES_DT}', ListUnitsForDPK(LDT_Units),[rfReplaceAll]);
+        LFileContents := StringReplace( LFileContents, '{$DPK_FILES_RT}', ListUnitsForDPK(LRTL_Units),[rfReplaceAll]);
+
+        System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+      end;
+    finally
+      FreeAndNil(LFilesToRead);
+      FreeAndNil(L_Register);
+      FreeAndNil(LDT_Units);
+      FreeAndNil(LRTL_Units);
+    end;
+end;
 
 procedure TdmodMain.UpdateIncFile(const AMajorVersion, AMinorVersion, ARelease,
   ABuild: Integer; const AProductName: String);
@@ -302,6 +471,6 @@ begin
   DecodeTime(Now,LHour,LMin,LSec,LMSec);
   WriteLn(versions_txt,FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz',Now));
   Close(versions_txt);
-end;
+ end;
 
 end.
