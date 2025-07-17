@@ -182,8 +182,7 @@ type
     ///  </summary>
     class constructor Create;
     class destructor Destroy;
-    constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
-      ACtx: POSSL_LIB_CTX = nil; AStrength: TIdC_UINT = 0); overload;
+    constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes); overload;
 
     function GetRandom(var buf; num: TIdC_SIZET): TIdC_INT;
       {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -262,9 +261,13 @@ type
     ///  This method is <b>only</b> safe for any numerical types. It does not
     ///  check range for user-defined enumeration types and boolean types.
     ///  </remarks>
+    {$IFNDEF FPC}
     function Random<T: record>(out AOut: T): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
-
+    {$ELSE}
+    function Random<T>(out AOut: T): TIdC_INT;
+      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    {$ENDIF}
     { TODO 5 -o@AT -cimplementation : Define and implement Random methods for AnisString and WideString types }
 //    function RandomString(ALength: TIdC_SIZET): AnsiString; overload;
 //    function RandomString(ALength: TIdC_SIZET): UnicodeString; overload;
@@ -327,8 +330,7 @@ type
     ///  </summary>
     class constructor Create;
     class destructor Destroy;
-    constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
-      ACtx: POSSL_LIB_CTX = nil; AStrength: TIdC_UINT = 0); overload;
+    constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes); overload;
 
     procedure GetRandom(out buf; num: TIdC_SIZET);
       {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -387,8 +389,13 @@ type
     ///  This method is <b>only</b> safe for any numerical types. It does not
     ///  check range for user-defined enumeration types and boolean types.
     ///  </remarks>
+{$IFNDEF FPC}
     function Random<T: record>: T;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+{$ELSE}
+    function Random<T>: T;
+      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+{$ENDIF}
 
     { TODO 5 -o@AT -cimplementation : Define and implement Random methods for AnisString and WideString types }
 //    function RandomString(ALength: TIdC_SIZET): AnsiString; overload;
@@ -523,8 +530,7 @@ begin
   inherited;
 end;
 
-constructor TTaurusTLS_OSSLRandom.Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes;
-  ACtx: POSSL_LIB_CTX; AStrength: TIdC_UINT);
+constructor TTaurusTLS_OSSLRandom.Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes);
 begin
   Assert(Assigned(ARandomGen), 'ARandomGen must not be ''nil''.');
   FRandomBytes:=ARandomGen;
@@ -560,7 +566,15 @@ var
   lTemp: TIdC_UINT64;
 begin
   repeat
+{$IFNDEF FPC}
     Result:=Random<TIdC_UINT64>(lTemp);
+{$ELSE}
+    // FPC generates error for code above:
+    // TaurusTLS_Random.pas(567,19) Error: Operator is not overloaded: "TTaurusTLS_OSSLRandom.Random(out <Formal type>;QWord):LongInt;" < "QWord"
+    // The simples workaround not to use Operator overriding,
+    // but to fill lTemp variable with function "Random(out ABuffer; ASize: TIdC_SIZET): TIdC_INT"
+    Result:=Random(lTemp, SizeOf(lTemp));
+{$ENDIF}
     if Result <> 1 then
       Exit;
   until (lTemp <> 0);
@@ -571,10 +585,22 @@ begin
   end;
 end;
 
+{$IFNDEF FPC}
 function TTaurusTLS_OSSLRandom.Random<T>(out AOut: T): TIdC_INT;
 begin
   Result:=GetRandom(AOut, SizeOf(T));
 end;
+{$ELSE}
+function TTaurusTLS_OSSLRandom.Random<T>(out AOut:
+  T): TIdC_INT;
+begin
+  // FPC mict stricter Generic types substitution than the Delphi.
+  // It fails to comile with errors:
+  // TaurusTLS_Random.pas(574,32) Error: function header doesn't match any method of this class "Random$1(out T):LongInt;"
+  // TaurusTLS_Random.pas(265,14) Error: Found declaration: Random$1(out TTaurusTLS_OSSLRandom.T):LongInt;
+  Result:=GetRandom(AOut, SizeOf(T));
+end;
+{$ENDIF}
 
 { TTaurusTLS_Random }
 
@@ -618,9 +644,7 @@ begin
   end;
 end;
 
-constructor TTaurusTLS_Random.Create(
-  ARandomGen: TTaurusTLS_CustomOSSLRandomBytes; ACtx: POSSL_LIB_CTX;
-  AStrength: TIdC_UINT);
+constructor TTaurusTLS_Random.Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes);
 begin
   Assert(Assigned(ARandomGen), 'ARandomGen must not be ''nil''.');
   FRandomBytes:=ARandomGen;
@@ -655,7 +679,15 @@ var
 
 begin
   repeat
+{$IFNDEF FPC}
     lTemp:=Random<TIdC_UINT64>;
+{$ELSE}
+    // FPC generates error for code above:
+    // TaurusTLS_Random.pas(567,19) Error: Operator is not overloaded: "TTaurusTLS_OSSLRandom.Random(out <Formal type>;QWord):LongInt;" < "QWord"
+    // The simples workaround not to use Operator overriding,
+    // but to fill lTemp variable with function "Random(out ABuffer; ASize: TIdC_SIZET): TIdC_INT"
+    Random(lTemp, SizeOf(lTemp));
+{$ENDIF}
   until (lTemp <> 0);
   Result:=RandomToExtend(lTemp);
 end;

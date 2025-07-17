@@ -122,7 +122,7 @@ type
 implementation
 
 uses
-  TaurusTLSHeaders_rand, TaurusTLSHeaders_err;
+  TaurusTLSHeaders_rand, TaurusTLSHeaders_err, TaurusTLSExceptionHandlers;
 
 { TTools }
 
