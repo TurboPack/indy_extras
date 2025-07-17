@@ -7,7 +7,6 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
-
 {$I TaurusTLSCompilerDefines.inc}
 /// <summary>
 ///   Class wrapperers on OpenSSL Random Generator functions.
@@ -90,7 +89,7 @@ type
     ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     function Random(var buf; num: TIdC_SIZET): TIdC_INT;
-      {$IFDEF USE_INLINE}inline; {$ENDIF}
+      {$IFDEF DCC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
     ///  <summary>
     ///  The constructor <c>Create</c> create the instance
     ///  </summary>
@@ -175,17 +174,20 @@ type
     FPublicRandom: TTaurusTLS_OSSLRandom;
 
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+    function GetRandom(var buf; num: TIdC_SIZET): TIdC_INT;
+      {$IFNDEF FPC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
+
     ///  <summary>
     ///  The <c>class constructor</c> initializes shared <c>private</c> and <c>public</c>
     ///  random generators avalable via <see cref="PrivateRandom" /> and <see cref="PublicRandom" />
     ///  <c>class properties</c>.
     ///  </summary>
+{$IFDEF FPC}
+  public
+{$ENDIF}
     class constructor Create;
     class destructor Destroy;
     constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes); overload;
-
-    function GetRandom(var buf; num: TIdC_SIZET): TIdC_INT;
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
 
   public
     destructor Destroy; override;
@@ -210,7 +212,7 @@ type
     ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     function Random(out ABuffer; ASize: TIdC_SIZET): TIdC_INT;
-      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+      overload; {$IFNDEF FPC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
     ///  <summary>
     ///  The <c>Random</c> is a method to create array of random bytes sequence
     ///  </summary>
@@ -323,6 +325,13 @@ type
     FPublicRandom: TTaurusTLS_Random;
 
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
+    procedure GetRandom(out buf; num: TIdC_SIZET);
+      {$IFNDEF FPC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
+    procedure CheckError(const AResult: TIdC_INT);
+      {$IFDEF USE_INLINE}inline;{$ENDIF}
+{$IFDEF FPC}
+  public
+{$ENDIF}
     ///  <summary>
     ///  The <c>class constructor</c> initializes shared <c>private</c> and <c>public</c>
     ///  random generators avalable via <see cref="PrivateRandom" /> and <see cref="PublicRandom" />
@@ -332,10 +341,6 @@ type
     class destructor Destroy;
     constructor Create(ARandomGen: TTaurusTLS_CustomOSSLRandomBytes); overload;
 
-    procedure GetRandom(out buf; num: TIdC_SIZET);
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
-    procedure CheckError(const AResult: TIdC_INT);
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
   public
     destructor Destroy; override;
     ///  <summary>
@@ -353,8 +358,8 @@ type
     ///  <param name="ASize">
     ///  Number of bytes to be filled to the <c>buf</c> /> parameter
     ///  </param>
-    procedure Random(out ABuffer; ASize: TIdC_SIZET);
-      overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    procedure Random(out ABuffer; ASize: TIdC_SIZET); overload;
+      {$IFNDEF FPC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
     ///  <summary>
     ///  The <c>Random</c> is a method to create array of random bytes sequence
     ///  </summary>
@@ -540,12 +545,19 @@ function TTaurusTLS_OSSLRandom.GetRandom(var buf; num: TIdC_SIZET): TIdC_INT;
 begin
   Result:=FRandomBytes.Random(buf, num);
 end;
+{$IFDEF FPC}
+  {$PUSH}
+  {$WARN 5058 OFF : Variable "$1" does not seem to be initialized}
+{$ENDIF}
 
 function TTaurusTLS_OSSLRandom.Random(out ABuffer;
   ASize: TIdC_SIZET): TIdC_INT;
 begin
   Result:=GetRandom(ABuffer, ASize);
 end;
+{$IFDEF FPC}
+  {$POP}
+{$ENDIF}
 
 function TTaurusTLS_OSSLRandom.Random(var ABytes: TBytes;
   ASize: TIdC_SIZET): TIdC_INT;
@@ -591,6 +603,8 @@ begin
   Result:=GetRandom(AOut, SizeOf(T));
 end;
 {$ELSE}
+  {$PUSH}
+  {$WARN 5058 OFF : Variable "$1" does not seem to be initialized}
 function TTaurusTLS_OSSLRandom.Random<T>(out AOut:
   T): TIdC_INT;
 begin
@@ -600,6 +614,7 @@ begin
   // TaurusTLS_Random.pas(265,14) Error: Found declaration: Random$1(out TTaurusTLS_OSSLRandom.T):LongInt;
   Result:=GetRandom(AOut, SizeOf(T));
 end;
+  {$POP}
 {$ENDIF}
 
 { TTaurusTLS_Random }
@@ -650,16 +665,27 @@ begin
   FRandomBytes:=ARandomGen;
 end;
 
+{$IFDEF FPC}
+  {$PUSH}
+  {$WARN 5058 OFF : Variable "$1" does not seem to be initialized}
+{$ENDIF}
 procedure TTaurusTLS_Random.GetRandom(out buf; num: TIdC_SIZET);
 begin
   CheckError(FRandomBytes.Random(buf, num));
 end;
+{$IFDEF FPC}
+  {$POP}
+{$ENDIF}
 
 procedure TTaurusTLS_Random.Random(out ABuffer; ASize: TIdC_SIZET);
 begin
   GetRandom(ABuffer, ASize);
 end;
 
+{$IFDEF FPC}
+  {$PUSH}
+  {$WARN 5093 off : Function result variable of a managed type does not seem to be initialized}
+{$ENDIF}
 function TTaurusTLS_Random.Random(ASize: TIdC_SIZET): TBytes;
 begin
   if ASize <= 0 then
@@ -667,6 +693,9 @@ begin
   SetLength(Result, ASize);
   GetRandom(Result[0], ASize);
 end;
+{$IFDEF FPC}
+  {$POP}
+{$ENDIF}
 
 function TTaurusTLS_Random.Random<T>: T;
 begin
