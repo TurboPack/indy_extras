@@ -2618,7 +2618,7 @@ begin
 end;
 
 procedure g_MsgCallback(write_p, Version, content_type: TIdC_INT;
-  const buf: Pointer; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
+  const buf; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
 var
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
@@ -4806,7 +4806,7 @@ begin
   LOffset := AOffset;
   LLength := ALength;
   repeat
-    Lret := SSL_write_ex2(fSSL, @ABuffer[LOffset], LLength, 0, LWritten);
+    Lret := SSL_write_ex2(fSSL, ABuffer[LOffset], LLength, 0, LWritten);
     if Lret > 0 then
     begin
       Result := Result + LWritten;
