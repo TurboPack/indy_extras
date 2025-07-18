@@ -711,10 +711,10 @@ var
   BIO_vfree: procedure (a: PBIO); cdecl = nil;
   BIO_up_ref: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_read: function (b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_gets: function ( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_write: function (b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_puts: function (bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; cdecl = nil;
   BIO_indent: function (b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
@@ -1088,10 +1088,10 @@ var
   procedure BIO_vfree(a: PBIO) cdecl; external CLibCrypto;
   function BIO_up_ref(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibCrypto;
@@ -2251,7 +2251,7 @@ begin
 end;
 
 
-function  ERR_BIO_number_written(bio: PBIO): TIdC_UINT64;
+function  ERR_BIO_number_written(bio: PBIO): TIdC_UINT64; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_number_written_procname);
 end;
@@ -2343,7 +2343,7 @@ begin
 end;
 
 
-function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
+function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_read_ex_procname);
 end;
@@ -2361,7 +2361,7 @@ begin
 end;
 
 
-function  ERR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT;
+function  ERR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_write_ex_procname);
 end;

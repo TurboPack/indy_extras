@@ -4777,7 +4777,7 @@ var
 begin
   Result := 0;
   repeat
-    Lret := SSL_read_ex(fSSL, PByte(VBuffer), Length(VBuffer), LRead);
+    Lret := SSL_read_ex(fSSL, PByte(VBuffer), Length(VBuffer), @LRead);
     if Lret > 0 then
     begin
       Result := LRead;
@@ -4806,7 +4806,7 @@ begin
   LOffset := AOffset;
   LLength := ALength;
   repeat
-    Lret := SSL_write_ex2(fSSL, @ABuffer[LOffset], LLength, 0, LWritten);
+    Lret := SSL_write_ex2(fSSL, @ABuffer[LOffset], LLength, 0, @LWritten);
     if Lret > 0 then
     begin
       Result := Result + LWritten;
