@@ -1975,8 +1975,8 @@ var
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-  SSL_get_finished: function (const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
-  SSL_get_peer_finished: function (const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
+  SSL_get_finished: function (const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
+  SSL_get_peer_finished: function (const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl = nil;
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define TaurusTLS_add_ssl_algorithms()   SSL_library_init()
@@ -2297,17 +2297,17 @@ var
   SSL_accept: function (ssl: PSSL): TIdC_INT; cdecl = nil;
   SSL_stateless: function (s: PSSL): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_connect: function (ssl: PSSL): TIdC_INT; cdecl = nil;
-  SSL_read: function (ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  SSL_read_ex: function (ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_read: function (ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl = nil;
+  SSL_read_ex: function (ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  SSL_read_early_data: function (s: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_peek: function (ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  SSL_peek_ex: function (ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_write: function (ssl: PSSL; const buf: Pointer; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  SSL_write_ex: function (s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_write_ex2: function (s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
+  SSL_read_early_data: function (s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_peek: function (ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl = nil;
+  SSL_peek_ex: function (ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_write: function (ssl: PSSL; const buf : Pointer; num: TIdC_INT): TIdC_INT; cdecl = nil;
+  SSL_write_ex: function (s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_write_ex2: function (s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT; cdecl = nil; {introduced 3.3.0}
 
-  SSL_write_early_data: function (s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  SSL_write_early_data: function (s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_callback_ctrl: function (v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG; cdecl = nil;
 
   SSL_ctrl: function (ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
@@ -2594,7 +2594,7 @@ var
   SSL_config: function (s: PSSL; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   SSL_CTX_config: function (ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  SSL_trace : procedure(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer); cdecl = nil;
+  SSL_trace : procedure(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf : Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer); cdecl = nil;
 
   DTLSv1_listen: function (s: PSSL; client: PBIO_ADDr): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
@@ -2900,8 +2900,8 @@ var
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-  function SSL_get_finished(const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
-  function SSL_get_peer_finished(const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
+  function SSL_get_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
+  function SSL_get_peer_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET cdecl; external CLibSSL;
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define TaurusTLS_add_ssl_algorithms()   SSL_library_init()
@@ -3218,16 +3218,16 @@ var
   function SSL_accept(ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
   function SSL_stateless(s: PSSL): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_connect(ssl: PSSL): TIdC_INT cdecl; external CLibSSL;
-  function SSL_read(ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  function SSL_read_ex(ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_read(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
+  function SSL_read_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  function SSL_read_early_data(s: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_peek(ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  function SSL_peek_ex(ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_write(ssl: PSSL; const buf: Pointer; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  function SSL_write_ex(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
-  function SSL_write_early_data(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_read_early_data(s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_peek(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
+  function SSL_peek_ex(ssl: PSSL; var buf; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_write(ssl: PSSL; const buf : Pointer; num: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
+  function SSL_write_ex(s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; external CLibSSL; {introduced 3.3.0}
+  function SSL_write_early_data(s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_callback_ctrl(v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG cdecl; external CLibSSL;
 
   function SSL_ctrl(ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibSSL;
@@ -3512,7 +3512,7 @@ var
   function SSL_config(s: PSSL; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_CTX_config(ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
-  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer) cdecl; external CLibSSL;
+  procedure SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf : Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer) cdecl; external CLibSSL;
 
   function DTLSv1_listen(s: PSSL; client: PBIO_ADDr): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
 
@@ -6402,7 +6402,7 @@ begin
   Result := SSL_CTX_new(meth);
 end;
 
-function FC_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0}
+function FC_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0}
 begin
   Result := SSL_write_ex(s,buf,num,written);
 end;
@@ -7354,13 +7354,13 @@ end;
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-function  ERR_SSL_get_finished(const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_SSL_get_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_finished_procname);
 end;
 
 
-function  ERR_SSL_get_peer_finished(const s: PSSL; buf: Pointer; count: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_SSL_get_peer_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_finished_procname);
 end;
@@ -8706,56 +8706,56 @@ begin
 end;
 
 
-function  ERR_SSL_read(ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_read(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_procname);
 end;
 
 
-function  ERR_SSL_read_ex(ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_read_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_ex_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_read_early_data(s: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_read_early_data(s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_peek(ssl: PSSL; buf: Pointer; num: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_peek(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_peek_procname);
 end;
 
 
-function  ERR_SSL_peek_ex(ssl: PSSL; buf: Pointer; num: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_peek_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_peek_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_write(ssl: PSSL; const buf: Pointer; num: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_write(ssl: PSSL; const buf : Pointer; num: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_procname);
 end;
 
 
-function  ERR_SSL_write_ex(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT;
+function  ERR_SSL_write_ex(s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex_procname);
 end;
 
  {introduced 3.3.0}
-function ERR_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; written: PIdC_SIZET) : TIdC_INT;
+function ERR_SSL_write_ex2(s: PSSL; const buf : Pointer; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex2_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_write_early_data(s: PSSL; const buf: Pointer; num: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_write_early_data(s: PSSL; const buf : Pointer; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_early_data_procname);
 end;
@@ -9919,7 +9919,7 @@ end;
 
  {introduced 1.1.0}
 
-procedure ERR_SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf: Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+procedure ERR_SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf : Pointer; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_trace_procname);
 end;
