@@ -710,11 +710,19 @@ var
   BIO_get_shutdown: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_vfree: procedure (a: PBIO); cdecl = nil;
   BIO_up_ref: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_read: function (b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  // WAS DECLARED AS:
+  // BIO_read: function (b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
+  BIO_read: function (b: PBIO; var data; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
+  // WAS DECLARED AS:
+  // BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_read_ex: function (b: PBIO; var data; dlen: TIdC_SIZET; out readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_gets: function ( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_write: function (b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  // WAS DECLARED AS:
+  // BIO_write: function (b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
+  BIO_write: function (b: PBIO; const data; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
+  // WAS DECLARED AS:
+  // BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_write_ex: function (b: PBIO; const data; dlen: TIdC_SIZET; out written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_puts: function (bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; cdecl = nil;
   BIO_indent: function (b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
@@ -741,7 +749,9 @@ var
 
   BIO_s_mem: function : PBIO_METHOD; cdecl = nil;
   BIO_s_secmem: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0}
-  BIO_new_mem_buf: function (const buf: Pointer; len: TIdC_INT): PBIO; cdecl = nil;
+  // WAS DECLARED AS:
+  // BIO_new_mem_buf: function (const buf: Pointer; len: TIdC_INT): PBIO; cdecl = nil;
+  BIO_new_mem_buf: function (const buf; len: TIdC_INT): PBIO; cdecl = nil;
 
   BIO_s_socket: function : PBIO_METHOD; cdecl = nil;
   BIO_s_connect: function : PBIO_METHOD; cdecl = nil;
@@ -791,7 +801,9 @@ var
   BIO_ADDR_free: procedure (a: PBIO_ADDR); cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_clear: procedure (ap: PBIO_ADDR); cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_family: function (const ap: PBIO_ADDR): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  // WAS DECLARED AS:
+  // BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; out l: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TIdC_SHORT; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
@@ -804,7 +816,9 @@ var
   BIO_ADDRINFO_address: function (const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl = nil; {introduced 1.1.0}
   BIO_ADDRINFO_free: procedure (bai: PBIO_ADDRINFO); cdecl = nil; {introduced 1.1.0}
 
-  BIO_parse_hostserv: function (const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  // WAS DECLARED AS:
+  // BIO_parse_hostserv: function (const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_parse_hostserv: function (const hostserv: PIdAnsiChar; var host, service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
   BIO_lookup: function (const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_lookup_ex: function (const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}

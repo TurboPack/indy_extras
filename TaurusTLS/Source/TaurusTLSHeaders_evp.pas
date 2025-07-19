@@ -1244,15 +1244,15 @@ var
 
   EVP_EncryptInit: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte): TIdC_INT; cdecl = nil;
   EVP_EncryptInit_ex: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte): TIdC_INT; cdecl = nil;
-  EVP_EncryptUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_EncryptUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_EncryptFinal_ex: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_EncryptFinal: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
   EVP_DecryptInit: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_DecryptInit_ex: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte): TIdC_INT; cdecl = nil;
-  EVP_DecryptUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT; cdecl = nil;
-  EVP_DecryptFinal: function (ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
-  EVP_DecryptFinal_ex: function (ctx: PEVP_MD_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_DecryptUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_DecryptFinal: function (ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_DecryptFinal_ex: function (ctx: PEVP_MD_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
   EVP_CipherInit: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte; enc: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherInit_ex: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte; enc: TidC_INT): TIdC_INT; cdecl = nil;
