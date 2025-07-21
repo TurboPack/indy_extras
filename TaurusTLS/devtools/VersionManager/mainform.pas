@@ -51,7 +51,7 @@ procedure TfrmMainForm.btnGenerateFilesClick(Sender: TObject);
 begin
   dmod_main.dmodMain.CreateFromTemplates;
 
-{  dmod_main.dmodMain.UpdateIncFile(spnMajorVersion.Value,
+  dmod_main.dmodMain.UpdateIncFile(spnMajorVersion.Value,
     spnMinorVersion.Value,
     spnedtRelease.Value,
     spnedtBuild.Value,
@@ -66,7 +66,7 @@ begin
   dmodMain.WriteVersions_txt(edtProductName.Text, spnMajorVersion.Value,
     spnMinorVersion.Value,
     spnedtRelease.Value,
-    spnedtBuild.Value);    }
+    spnedtBuild.Value);
 end;
 
 constructor TfrmMainForm.Create(AOwner: TComponent);
