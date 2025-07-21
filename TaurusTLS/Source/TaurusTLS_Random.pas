@@ -66,11 +66,14 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///   or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     ///  <remark>
     ///  Derived class must implement  this method.
     ///  </remark>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     function DoRandom(ctx : POSSL_LIB_CTX; var buf; num: TIdC_SIZET;
       strength: TIdC_UINT): TIdC_INT; overload; virtual; abstract;
   public
@@ -86,8 +89,11 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     function Random(var buf; num: TIdC_SIZET): TIdC_INT;
       {$IFDEF DCC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
     ///  <summary>
@@ -125,9 +131,12 @@ type
   ///      <c>RAND_priv_bytes</c> with <c>openssl 1.1.x</c>
   ///    </item>
   ///  </list>
-  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis" />
   ///  </summary>
   ///  <inheritdoc />
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_priv_bytes
+    /// </seealso>
   TTaurusTLS_OSSLPrivateRandomBytes = class(TTaurusTLS_CustomOSSLRandomBytes)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     function DoRandom(ctx : POSSL_LIB_CTX; var buf; num: TIdC_SIZET;
@@ -145,8 +154,11 @@ type
   ///      <c>RAND_bytes</c> with <c>openssl 1.1.x</c>
   ///    </item>
   ///  </list>
-  ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#synopsis" />
   ///  </summary>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
   TTaurusTLS_OSSLPublicRandomBytes = class(TTaurusTLS_CustomOSSLRandomBytes)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     function DoRandom(ctx : POSSL_LIB_CTX; var buf; num: TIdC_SIZET;
@@ -161,10 +173,13 @@ type
   /// This class is designed for code which handles error via <c>openssl error stack</c>
   /// Every <c>Random</c> method returns <c>1</c> on success,
   /// <c>-1</c> if not supported by the current method, or <c>0</c> on other failure.
-  /// <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values " />
   ///
   /// User-code must validate returned code for success.
   /// </remarks>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
   TTaurusTLS_OSSLRandom = class
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     FRandomBytes: TTaurusTLS_CustomOSSLRandomBytes;
@@ -209,8 +224,11 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     function Random(out ABuffer; ASize: TIdC_SIZET): TIdC_INT;
       overload; {$IFNDEF FPC}{$IFDEF USE_INLINE}inline;{$ENDIF}{$ENDIF}
     ///  <summary>
@@ -226,8 +244,11 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     function Random(var ABytes: TBytes; ASize: TIdC_SIZET): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
     ///  <summary>
@@ -240,29 +261,35 @@ type
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
     ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     ///  <remarks>
     ///  This method returns number in ranges <c>-1 >= x &lt; 0</c> and <c> 0 > x and &lt;=1 </c>
     ///  </remarks>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     function Random(var AOut: extended): TIdC_INT; overload;
-    ///  <summary>
-    ///  The <c>Random</c> is a method to create a <c>generic type</c> <typeparamref name="T" />
-    ///  filled with a <c>random</c> value(s);
-    ///  </summary>
-    ///  <param name="AOut">
-    ///  Reference to variable of <c>generic type</c> <typeparamref name="T" />.
-    ///  The method returns value filled with a <c>random</c> value(s).
-    ///  </param>
-    ///  <returns>
-    ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
-    ///  or <c>0</c> on other failure
-    ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
-    ///  </returns>
-    ///  <remarks>
-    ///  This method is <b>only</b> safe for any numerical types. It does not
-    ///  check range for user-defined enumeration types and boolean types.
-    ///  </remarks>
+    /// <summary>
+    ///   The <c>Random</c> is a method to create a <c>generic type</c>
+    ///   <typeparamref name="T" /> filled with a <c>random</c> value(s);
+    /// </summary>
+    /// <param name="AOut">
+    ///   Reference to variable of <c>generic type</c> <typeparamref name="T" />.
+    ///   The method returns value filled with a <c>random</c> value(s).
+    /// </param>
+    /// <returns>
+    ///   <c>1</c> on success, <c>-1</c> if not supported by the current method,
+    ///   or <c>0</c> on other failure
+    /// </returns>
+    /// <remarks>
+    ///   This method is <b>only</b> safe for any numerical types. It does not
+    ///   check range for user-defined enumeration types and boolean types.
+    /// </remarks>
+    /// <seealso
+    /// href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values">
+    ///   RAND_bytes
+    /// </seealso>
     {$IFNDEF FPC}
     function Random<T: record>(out AOut: T): TIdC_INT;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
