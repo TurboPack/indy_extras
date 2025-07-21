@@ -217,11 +217,11 @@ type
     ///  The <c>Random</c> is a method to create array of random bytes sequence
     ///  </summary>
     ///  <param name="ABytes">
-    ///  Reference to variable of <see cref="System.SysUtils.TBytes" />. The method creates
-    ///  a new <see cref="System.SysUtils.TBytes" /> array and fill it with random bytes.
+    ///  Reference to variable of TBytes. The method creates
+    ///  a new TBytes array and fill it with random bytes.
     ///  </param>
     ///  <param name="ASize">
-    ///  The size of <paramref="ABytes" /> array to be create
+    ///  The size of <param ref="ABytes" /> array to be create
     ///  </param>
     ///  <returns>
     ///  <c>1</c> on success, <c>-1</c> if not supported by the current method,
@@ -243,7 +243,7 @@ type
     ///  <seealso href="https://docs.openssl.org/3.3/man3/RAND_bytes/#return-values" />
     ///  </returns>
     ///  <remarks>
-    ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
+    ///  This method returns number in ranges <c>-1 >= x &lt; 0</c> and <c> 0 > x and &lt;=1 </c>
     ///  </remarks>
     function Random(var AOut: extended): TIdC_INT; overload;
     ///  <summary>
@@ -364,11 +364,11 @@ type
     ///  The <c>Random</c> is a method to create array of random bytes sequence
     ///  </summary>
     ///  <param name="ABytes">
-    ///  Reference to variable of <see cref="System.SysUtils.TBytes" />. The method creates
-    ///  a new <see cref="System.SysUtils.TBytes" /> array and fill it with random bytes.
+    ///  Reference to variable of TBytes. The method creates
+    ///  a new TBytes array and fill it with random bytes.
     ///  </param>
     ///  <param name="ASize">
-    ///  The size of <paramref="ABytes" /> array to be create
+    ///  The size of <param ref="ABytes" /> array to be create
     ///  </param>
     function Random(ASize: TIdC_SIZET): TBytes;
       overload; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -379,7 +379,7 @@ type
     ///  The method returns a floating number random value of <c>extended</c> type.
     ///  </returns>
     ///  <remarks>
-    ///  This method returns number in ranges <c>-1 >= x < 0</c> and <c> 0 > x and <=1 </c>
+    ///  This method returns number in ranges <c>-1 >= x &lt; 0</c> and <c> 0 > x and &lt;=1 </c>
     ///  </remarks>
     function Random: extended; overload;
     ///  <summary>
