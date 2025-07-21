@@ -133,7 +133,7 @@ contains
   TaurusTLSLoader in '..\..\Source\TaurusTLSLoader.pas',
   TaurusTLS_Files in '..\..\Source\TaurusTLS_Files.pas',
   TaurusTLS_NTLM in '..\..\Source\TaurusTLS_NTLM.pas',
-  taurustls_random in '..\..\Source\taurustls_random.pas',
+  TaurusTLS_Random in '..\..\Source\TaurusTLS_Random.pas',
   TaurusTLS_ResourceStrings in '..\..\Source\TaurusTLS_ResourceStrings.pas',
   TaurusTLS_Utils in '..\..\Source\TaurusTLS_Utils.pas',
   TaurusTLS_X509 in '..\..\Source\TaurusTLS_X509.pas';

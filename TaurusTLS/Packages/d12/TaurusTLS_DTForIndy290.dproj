@@ -171,7 +171,7 @@
 		<DCCReference Include="IndySystem290.dcp"/>
 		<DCCReference Include="TaurusTLS_RTForIndy290.dcp"/>
 		<DCCReference Include="designide.dcp"/>
-				<DCCReference Include="..\..\Source\TaurusTLS.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSConsts.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSExceptionHandlers.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSFIPS.pas"/>
@@ -267,11 +267,10 @@
 		<DCCReference Include="..\..\Source\TaurusTLSLoader.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_Files.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_NTLM.pas"/>
-		<DCCReference Include="..\..\Source\taurustls_random.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS_Random.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_ResourceStrings.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_Utils.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_X509.pas"/>
-
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

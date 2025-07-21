@@ -145,7 +145,6 @@
 		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas"/>
-
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

@@ -415,8 +415,8 @@
 				<UnitName Value="TaurusTLS_NTLM"/>
 			</Item>
 			<Item>
-				<Filename Value="..\..\Source\taurustls_random.pas"/>
-				<UnitName Value="taurustls_random"/>
+				<Filename Value="..\..\Source\TaurusTLS_Random.pas"/>
+				<UnitName Value="TaurusTLS_Random"/>
 			</Item>
 			<Item>
 				<Filename Value="..\..\Source\TaurusTLS_ResourceStrings.pas"/>
