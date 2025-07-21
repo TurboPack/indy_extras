@@ -1257,8 +1257,8 @@ var
   EVP_CipherInit: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte; enc: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherInit_ex: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte; enc: TidC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT; cdecl = nil;
-  EVP_CipherFinal: function (ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
-  EVP_CipherFinal_ex: function (ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_CipherFinal: function (ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_CipherFinal_ex: function (ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
   EVP_SignFinal: function (ctx: PEVP_CIPHER_CTX; md: PByte; s: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
@@ -1966,14 +1966,14 @@ var
   function EVP_DecryptInit(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecryptInit_ex(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_DecryptFinal(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_DecryptFinal_ex(ctx: PEVP_MD_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_DecryptFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_DecryptFinal_ex(ctx: PEVP_MD_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_CipherInit(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte; enc: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CipherInit_ex(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte; enc: TidC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CipherUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_CipherFinal(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_CipherFinal_ex(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_CipherFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_CipherFinal_ex(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_SignFinal(ctx: PEVP_CIPHER_CTX; md: PByte; s: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
 
@@ -4380,13 +4380,13 @@ begin
 end;
 
 
-function  ERR_EVP_DecryptFinal(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_DecryptFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_DecryptFinal_procname);
 end;
 
 
-function  ERR_EVP_DecryptFinal_ex(ctx: PEVP_MD_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_DecryptFinal_ex(ctx: PEVP_MD_CTX; var outm; var out1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_DecryptFinal_ex_procname);
 end;
@@ -4411,13 +4411,13 @@ begin
 end;
 
 
-function  ERR_EVP_CipherFinal(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_CipherFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CipherFinal_procname);
 end;
 
 
-function  ERR_EVP_CipherFinal_ex(ctx: PEVP_CIPHER_CTX; outm: PByte; var out1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_CipherFinal_ex(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CipherFinal_ex_procname);
 end;
