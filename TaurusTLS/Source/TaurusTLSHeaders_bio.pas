@@ -1288,7 +1288,7 @@ function BIO_do_accept(b: PBIO): TIdC_LONG; {removed 1.0.0}
 function BIO_do_handshake(b: PBIO): TIdC_LONG; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
-function BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; {removed 1.0.0}
+function BIO_get_mem_data(b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; {removed 1.0.0}
@@ -1855,7 +1855,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl;
 //# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
-function  _BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;
+function  _BIO_get_mem_data(b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, @pp);
 end;
