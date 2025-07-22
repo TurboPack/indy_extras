@@ -1,4 +1,4 @@
-/// <exclude />
+﻿/// <exclude />
   (* This unit was generated using the script genTaurusTLSHdrs.sh from the source file TaurusTLSHeaders_bio.h2pas
      It should not be modified directly. All changes should be made to TaurusTLSHeaders_bio.h2pas
      and this file regenerated. TaurusTLSHeaders_bio.h2pas is distributed with the full Indy
@@ -504,7 +504,7 @@ var
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: PIdAnsiChar" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_data: function (b: PBIO; var pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_data: function (b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_buf: function (b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
   // WAS DECLARED AS:
   // original declaration of parameter pp was invalid.
@@ -1974,7 +1974,7 @@ end;
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT;
-function  ERR_BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT;
+function  ERR_BIO_get_mem_data(b: PBIO; var pp: PIdAnsiChar) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_data_procname);
 end;
