@@ -505,12 +505,12 @@ var
   // correct declaration should be "pp: PIdAnsiChar" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_get_mem_data: function (b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_set_mem_buf: function (b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_set_mem_buf: function (b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
   // WAS DECLARED AS:
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: PIdAnsiChar" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_ptr: function (b: PBIO; var pp: Pointer): TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_ptr: function (b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_eof_return: function (b: PBIO; v: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
   BIO_get_new_index: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -1289,10 +1289,10 @@ function BIO_do_handshake(b: PBIO): TIdC_LONG; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
 function BIO_get_mem_data(b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
-function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
+function BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; {removed 1.0.0}
-function BIO_get_mem_ptr(b: PBIO; var pp: Pointer): TIdC_INT; {removed 1.0.0}
+function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
 {$ENDIF}
 
@@ -1861,7 +1861,7 @@ begin
 end;
 
 //# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
-function  _BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl;
+function  _BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; cdecl;
 begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
 end;
@@ -1869,7 +1869,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; cdecl;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function  _BIO_get_mem_ptr(b: PBIO; var pp: Pointer): TIdC_INT; cdecl;
+function  _BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, @pp);
 end;
@@ -1980,7 +1980,7 @@ begin
 end;
 
 
-function  ERR_BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT;
+function  ERR_BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_mem_buf_procname);
 end;
@@ -1988,7 +1988,7 @@ end;
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT;
-function  ERR_BIO_get_mem_ptr(b: PBIO; var pp: Pointer): TIdC_INT;
+function  ERR_BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_ptr_procname);
 end;
@@ -7641,7 +7641,7 @@ end;
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function BIO_get_mem_ptr(b: PBIO; var pp: Pointer): TIdC_INT;
+function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT;
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, pp);
 end;
