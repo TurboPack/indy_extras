@@ -500,9 +500,9 @@ var
   BIO_do_accept: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
   BIO_do_handshake: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
 
-  BIO_get_mem_data: function (b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_data: function (b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_buf: function (b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_ptr: function (b: PBIO; pp: PIdAnsiChar): TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_ptr: function (b: PBIO; var pp: PIdAnsiChar): TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_eof_return: function (b: PBIO; v: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
   BIO_get_new_index: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -1278,9 +1278,9 @@ function BIO_should_retry(b: PBIO): TIdC_INT; {removed 1.0.0}
 function BIO_do_connect(b: PBIO): TIdC_LONG; {removed 1.0.0}
 function BIO_do_accept(b: PBIO): TIdC_LONG; {removed 1.0.0}
 function BIO_do_handshake(b: PBIO): TIdC_LONG; {removed 1.0.0}
-function BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
+function BIO_get_mem_data(b: PBIO; var pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
-function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; {removed 1.0.0}
+function BIO_get_mem_ptr(b: PBIO; var pp: PIdAnsiChar): TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
 {$ENDIF}
 
