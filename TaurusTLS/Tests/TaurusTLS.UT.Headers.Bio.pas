@@ -24,6 +24,8 @@ type
   public
     [TestCase('AValue=''$$$$$$$$$$$$$$$$''', '$$$$$$$$$$$$$$$$')]
     procedure Test_BIO_new_mem_buf(const AValue: RawByteString);
+    [TestCase('AValue=''$$$$$$$$$$$$$$$$''', '$$$$$$$$$$$$$$$$')]
+    procedure Test_BIO_new_mem_ref(const AValue: RawByteString);
     [TestCase('AValue=''$'',AChunkLen=3', '$, 3')]
     [TestCase('AValue=''$$$$$$$$$$$$$$$$'',AChunkLen=3',
       '$$$$$$$$$$$$$$$$, 3')]
@@ -53,12 +55,21 @@ type
     [TestCase('ALength=4096,AChunkLen=256', '4096,256')]
     [TestCase('ALength=8177,AChunkLen=513', '8177,513')]
     procedure Test_Random_BIO_write_ex(ALength: NativeUInt; AChunkLen: TIdC_SIZET);
+    [TestCase('AHostServicePair=''host:service'',APriority=BIO_PARSE_PRIO_HOST',
+      'host:service, BIO_PARSE_PRIO_HOST')]
+    [TestCase('AHostServicePair=''host:'',APriority=BIO_PARSE_PRIO_HOST',
+      'host:, BIO_PARSE_PRIO_HOST')]
+    [TestCase('AHostServicePair='':service'',APriority=BIO_PARSE_PRIO_HOST',
+      ':service, BIO_PARSE_PRIO_HOST')]
+    procedure Test_BIO_parse_hostserv(AHostServicePair: RawByteString;
+      APriority: BIO_hostserv_priorities);
   end;
 
 implementation
 
 uses
-  System.SysUtils, System.Hash, TaurusTLSExceptionHandlers;
+  System.AnsiStrings, System.SysUtils, System.Hash,
+  TaurusTLSExceptionHandlers, TaurusTLSHeaders_crypto;
 
 { TBioReadWriteDixture }
 
@@ -87,9 +98,9 @@ begin
     Assert.IsNotNull(lBio, 'lBio is ''nil''');
     lPos:=1;
     lRemainLen:=lLen;
+    if AChunkLen > lLen then
+      AChunkLen:=lLen;
     repeat
-      if AChunkLen > lLen then
-        AChunkLen:=lLen;
       lTestLen:=lRemainLen;
       if lTestLen > AChunkLen then
         lTestLen:=AChunkLen;
@@ -169,6 +180,39 @@ begin
     lDataLen:=BIO_get_mem_data(lBio, lData);
     Assert.AreEqual<TIdC_INT>(lLen, lDataLen, 'BIO_get_mem_data(lBio, lData) <> 1');
     Assert.AreEqual<pointer>(@AValue[1], lData, '@AValue and lData are not equal');
+  finally
+    BIO_free(lBio);
+  end;
+end;
+
+type
+  // https://github.com/openssl/openssl/blob/bde55d421b1f49e31248c240efe50ff1f0d24141/include/openssl/buffer.h#L42
+  TBUF_MEM = record
+    length: TIdC_SIZET;
+    data: PIdAnsiChar;
+    max: TIdC_SIZET;
+    flags: TIdC_UINT;
+  end;
+
+procedure TBioReadWriteFixture.Test_BIO_new_mem_ref(const AValue: RawByteString);
+var
+  lBio: PBIO;
+  lLen: TIdC_INT;
+  lRef: PBUF_MEM;
+  lData: PIdAnsiChar;
+
+begin
+  lBio:=nil;
+  lLen:=Length(AValue);
+  Assert.AreNotEqual<TIdC_INT>(0, lLen, 'Lenght(AValue) = 0');
+  try
+    lBio:=BIO_new_mem_buf(AValue[1], lLen);
+    Assert.IsNotNull(lBio, 'lBio is ''nil''');
+    Assert.AreEqual<TIdC_INT>(1, BIO_get_mem_ptr(lBio, lRef), 'BIO_get_mem_ptr');
+    Assert.AreEqual<TIdC_INT>(lLen, TBUF_MEM(lRef^).length,
+      '@AValue[1] <> TBUF_MEM(lRef^).length');
+    Assert.AreEqual<pointer>(@AValue[1], TBUF_MEM(lRef^).data,
+      '@AValue[1] <> TBUF_MEM(lRef^).data');
   finally
     BIO_free(lBio);
   end;
@@ -286,6 +330,58 @@ begin
       Assert.AreEqual<TIdC_SSIZET>(1, lResult, 'BIO_write_ex');
     end
   );
+end;
+
+
+// This test is not designed for a IPv6 address in the 'host' part yet.
+// This test verifies that paramerers values are passed to the 'BIO_parse_hostserv'
+// and returned from correctly.
+procedure TBioReadWriteFixture.Test_BIO_parse_hostserv(
+  AHostServicePair: RawByteString; APriority: BIO_hostserv_priorities);
+
+  procedure Compare(AStr: RawByteString; AChars: PIdAnsiChar; AItem: string);
+  begin
+    if Assigned(AChars) then
+    begin
+      Assert.AreEqual(0, System.AnsiStrings.StrComp(PAnsiChar(AStr), AChars),
+        Format('Returned %s part is not equal to input value'+
+          '''%s'' <> ''%s''', [AItem, AChars, AStr]));
+    end
+    else
+      Assert.IsEmpty(AStr,
+        Format('Returned %s part is empty, but should be ''%s''', [AItem, AStr]));
+  end;
+
+var
+  lStrings: TArray<string>;
+  lPair: string;
+  lHost, lService: RawByteString;
+  lHostOut, lServiceOut: PIdAnsiChar;
+  lLen: integer;
+
+begin
+  lPair:=AHostServicePair;
+  lLen:=Length(lPair);
+  Assert.AreNotEqual<TIdC_INT>(0, lLen, 'Lenght(AHostServicePair) = 0');
+  Assert.AreNotEqual(':', lPair, 'AHostServicePair should not be '':''');
+  lStrings:=lPair.Split([':']);
+  lLen:=Length(lStrings);
+  Assert.AreEqual(2, lLen,
+    Format('AHostServicePair should consists of 1 or 2 elements'+
+      ' devided by '':''. Actually it consists of %d elements', [lLen]));
+  lHost:=lStrings[0];
+  lService:=lStrings[1];
+  try
+    Assert.AreEqual<TIdC_INT>(1, BIO_parse_hostserv(PIdAnsiChar(AHostServicePair),
+      lHostOut, lServiceOut, APriority), 'BIO_parse_hostserv');
+    Compare(lHost, lHostOut, 'host');
+    Compare(lService, lServiceOut, 'service');
+  finally
+    if Assigned(lHostOut) then
+      OPENSSL_free(lHostOut);
+    if Assigned(lServiceOut) then
+      OPENSSL_free(lServiceOut);
+  end;
 end;
 
 initialization
