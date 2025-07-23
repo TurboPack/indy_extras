@@ -402,7 +402,7 @@ type
   EVP_CIPHER_meth_init = function(ctx: PEVP_CIPHER_CTX; const key: PByte;
     const iv: PByte; enc: TIdC_SIZET): TIdC_INT; cdecl;
   EVP_CIPHER_meth_do_cipher = function(ctx: PEVP_CIPHER_CTX; var out_;
-    const in_: PByte; inl: TIdC_SIZET): TIdC_INT; cdecl;
+    const in_; inl: TIdC_SIZET): TIdC_INT; cdecl;
   EVP_CIPHER_meth_cleanup = function(v1: PEVP_CIPHER_CTX): TIdC_INT; cdecl;
   EVP_CIPHER_meth_set_asn1_params = function(v1: PEVP_CIPHER_CTX;
     v2: PASN1_TYPE): TIdC_INT; cdecl;
@@ -512,7 +512,7 @@ type
   EVP_PKEY_meth_decrypt_init = function(ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl;
   PEVP_PKEY_meth_decrypt_init = ^EVP_PKEY_meth_decrypt_init;
   EVP_PKEY_meth_decrypt = function(ctx: PEVP_PKEY_CTX; var out_;
-    outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT; cdecl;
+    outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT; cdecl;
   PEVP_PKEY_meth_decrypt = ^EVP_PKEY_meth_decrypt;
   EVP_PKEY_meth_derive_init = function(ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl;
   PEVP_PKEY_meth_derive_init = ^EVP_PKEY_meth_derive_init;
@@ -1199,7 +1199,7 @@ var
   //# define BIO_get_cipher_status(b)   BIO_ctrl(b;BIO_C_GET_CIPHER_STATUS;0;NULL)
   //# define BIO_get_cipher_ctx(b;c_pp) BIO_ctrl(b;BIO_C_GET_CIPHER_CTX;0; (PIdAnsiChar)(c_pp))
 
-  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_: PByte; in1: TIdC_UINT): TIdC_INT;
+  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_; in1: TIdC_UINT): TIdC_INT;
 
   //# define EVP_add_cipher_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS;(n))
   //# define EVP_add_digest_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS;(n))
@@ -1256,7 +1256,7 @@ var
 
   EVP_CipherInit: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte; enc: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherInit_ex: function (ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte; enc: TidC_INT): TIdC_INT; cdecl = nil;
-  EVP_CipherUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_CipherUpdate: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherFinal: function (ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_CipherFinal_ex: function (ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
@@ -1285,12 +1285,12 @@ var
   EVP_ENCODE_CTX_copy: function (dctx: PEVP_ENCODE_CTX; sctx: PEVP_ENCODE_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   EVP_ENCODE_CTX_num: function (ctx: PEVP_ENCODE_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   EVP_EncodeInit: procedure (ctx: PEVP_ENCODE_CTX); cdecl = nil;
-  EVP_EncodeUpdate: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_EncodeUpdate: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_EncodeFinal: procedure (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT); cdecl = nil;
   EVP_EncodeBlock: function (t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT; cdecl = nil;
 
   EVP_DecodeInit: procedure (ctx: PEVP_ENCODE_CTX); cdecl = nil;
-  EVP_DecodeUpdate: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_DecodeUpdate: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_DecodeFinal: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_DecodeBlock: function (t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT; cdecl = nil;
 
@@ -1700,9 +1700,9 @@ var
   EVP_PKEY_verify_recover_init: function (ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl = nil;
   EVP_PKEY_verify_recover: function (ctx: PEVP_PKEY_CTX; rout: PByte; var outlen: TIdC_SIZET; const sig: PByte; siglen: TIdC_SIZET): TIdC_INT; cdecl = nil;
   EVP_PKEY_encrypt_init: function (ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl = nil;
-  EVP_PKEY_encrypt: function (ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
+  EVP_PKEY_encrypt: function (ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
   EVP_PKEY_decrypt_init: function (ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl = nil;
-  EVP_PKEY_decrypt: function (ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
+  EVP_PKEY_decrypt: function (ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT; cdecl = nil;
 
   EVP_PKEY_derive_init: function (ctx: PEVP_PKEY_CTX): TIdC_INT; cdecl = nil;
   EVP_PKEY_derive_set_peer: function (ctx: PEVP_PKEY_CTX; peer: PEVP_PKEY): TIdC_INT; cdecl = nil;
@@ -1916,7 +1916,7 @@ var
   //# define BIO_get_cipher_status(b)   BIO_ctrl(b;BIO_C_GET_CIPHER_STATUS;0;NULL)
   //# define BIO_get_cipher_ctx(b;c_pp) BIO_ctrl(b;BIO_C_GET_CIPHER_CTX;0; (PIdAnsiChar)(c_pp))
 
-  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_: PByte; in1: TIdC_UINT): TIdC_INT;
+  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_; in1: TIdC_UINT): TIdC_INT;
 
   //# define EVP_add_cipher_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS;(n))
   //# define EVP_add_digest_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS;(n))
@@ -1959,19 +1959,19 @@ var
 
   function EVP_EncryptInit(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte): TIdC_INT cdecl; external CLibCrypto;
   function EVP_EncryptInit_ex(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_EncryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_EncryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_EncryptFinal_ex(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_EncryptFinal(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_DecryptInit(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecryptInit_ex(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_DecryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_DecryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecryptFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecryptFinal_ex(ctx: PEVP_MD_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_CipherInit(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; const key: PByte; const iv: PByte; enc: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CipherInit_ex(ctx: PEVP_CIPHER_CTX; const cipher: PEVP_CIPHER; impl: PENGINE; const key: PByte; const iv: PByte; enc: TidC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_CipherUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_CipherUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CipherFinal(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CipherFinal_ex(ctx: PEVP_CIPHER_CTX; var outm; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
@@ -2000,12 +2000,12 @@ var
   function EVP_ENCODE_CTX_copy(dctx: PEVP_ENCODE_CTX; sctx: PEVP_ENCODE_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_ENCODE_CTX_num(ctx: PEVP_ENCODE_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EVP_EncodeInit(ctx: PEVP_ENCODE_CTX) cdecl; external CLibCrypto;
-  function EVP_EncodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_EncodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   procedure EVP_EncodeFinal(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT) cdecl; external CLibCrypto;
   function EVP_EncodeBlock(t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   procedure EVP_DecodeInit(ctx: PEVP_ENCODE_CTX) cdecl; external CLibCrypto;
-  function EVP_DecodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_DecodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecodeFinal(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecodeBlock(t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
@@ -2416,9 +2416,9 @@ var
   function EVP_PKEY_verify_recover_init(ctx: PEVP_PKEY_CTX): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_verify_recover(ctx: PEVP_PKEY_CTX; rout: PByte; var outlen: TIdC_SIZET; const sig: PByte; siglen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_encrypt_init(ctx: PEVP_PKEY_CTX): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_PKEY_encrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_PKEY_encrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_decrypt_init(ctx: PEVP_PKEY_CTX): TIdC_INT cdecl; external CLibCrypto;
-  function EVP_PKEY_decrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_PKEY_decrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_PKEY_derive_init(ctx: PEVP_PKEY_CTX): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_derive_set_peer(ctx: PEVP_PKEY_CTX; peer: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
@@ -2900,7 +2900,7 @@ const
   //# define BIO_get_cipher_status(b)   BIO_ctrl(b;BIO_C_GET_CIPHER_STATUS;0;NULL)
   //# define BIO_get_cipher_ctx(b;c_pp) BIO_ctrl(b;BIO_C_GET_CIPHER_CTX;0; (PIdAnsiChar)(c_pp))
 
-  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_: PByte; in1: TIdC_UINT): TIdC_INT;
+  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_; in1: TIdC_UINT): TIdC_INT;
 
   //# define EVP_add_cipher_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS;(n))
   //# define EVP_add_digest_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS;(n))
@@ -4158,7 +4158,7 @@ end;
   //# define BIO_get_cipher_status(b)   BIO_ctrl(b;BIO_C_GET_CIPHER_STATUS;0;NULL)
   //# define BIO_get_cipher_ctx(b;c_pp) BIO_ctrl(b;BIO_C_GET_CIPHER_CTX;0; (PIdAnsiChar)(c_pp))
 
-  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_: PByte; in1: TIdC_UINT): TIdC_INT;
+  //function EVP_Cipher(c: PEVP_CIPHER_CTX; var out_; const in_; in1: TIdC_UINT): TIdC_INT;
 
   //# define EVP_add_cipher_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_CIPHER_METH|OBJ_NAME_ALIAS;(n))
   //# define EVP_add_digest_alias(n;alias) OBJ_NAME_add((alias);OBJ_NAME_TYPE_MD_METH|OBJ_NAME_ALIAS;(n))
@@ -4343,7 +4343,7 @@ begin
 end;
 
 
-function  ERR_EVP_EncryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_EncryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_EncryptUpdate_procname);
 end;
@@ -4374,7 +4374,7 @@ begin
 end;
 
 
-function  ERR_EVP_DecryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in_1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_DecryptUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in_1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_DecryptUpdate_procname);
 end;
@@ -4405,7 +4405,7 @@ begin
 end;
 
 
-function  ERR_EVP_CipherUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_CipherUpdate(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CipherUpdate_procname);
 end;
@@ -4534,7 +4534,7 @@ begin
 end;
 
 
-function  ERR_EVP_EncodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_EncodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_EncodeUpdate_procname);
 end;
@@ -4559,7 +4559,7 @@ begin
 end;
 
 
-function  ERR_EVP_DecodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_: PByte; in1: TIdC_INT): TIdC_INT;
+function  ERR_EVP_DecodeUpdate(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT; const in_; in1: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_DecodeUpdate_procname);
 end;
@@ -6529,7 +6529,7 @@ begin
 end;
 
 
-function  ERR_EVP_PKEY_encrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT;
+function  ERR_EVP_PKEY_encrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_encrypt_procname);
 end;
@@ -6541,7 +6541,7 @@ begin
 end;
 
 
-function  ERR_EVP_PKEY_decrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_: PByte; inlen: TIdC_SIZET): TIdC_INT;
+function  ERR_EVP_PKEY_decrypt(ctx: PEVP_PKEY_CTX; var out_; var outlen: TIdC_SIZET; const in_; inlen: TIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_decrypt_procname);
 end;
