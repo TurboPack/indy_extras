@@ -277,9 +277,11 @@ begin
     SSL3_RT_HEADER:
       LOutput := LOutput + LeftJustify('Header', 22) + ' - ';
     SSL3_RT_INNER_CONTENT_TYPE:
-      LOutput := LOutput + LeftJustify('Inner Content Type ' + IntToHex(buf[0]),
-        22) + ' - ';
-
+      if Length(buf) > 0 then
+      begin
+        LOutput := LOutput + LeftJustify('Inner Content Type ' +
+          IntToHex(buf[0], 2), 22) + ' - ';
+      end;
     // * Pseudo content types for QUIC */
     SSL3_RT_QUIC_DATAGRAM:
       LOutput := LOutput + LeftJustify('QUIC Datagram', 22) + ' - ';
@@ -729,12 +731,17 @@ begin
 end;
 
 procedure TFTPApplication.CmdDebugInfo;
-var i : Integer;
+var
+  i: Integer;
 begin
 {$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
-  // WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
-  // IntToStr(Lo(GetRTLVersion)));
+  {$IFDEF VCL_12_OR_ABOVE}
+  WriteLn('     RTL Version: ' + IntToStr(Hi(GetRTLVersion)) + '.' +
+    IntToStr(Lo(GetRTLVersion)));
+  WriteLn('Compiler Version: ' + IntToStr(Hi(GetCompilerVersion)) + '.' +
+    IntToStr(Lo(GetCompilerVersion)));
+  {$ENDIF}
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
@@ -743,7 +750,7 @@ begin
     WriteLn('  Failed To Load: ');
     for i := 0 to GetOpenSSLLoader.GetFailedToLoad.Count - 1 do
     begin
-      WriteLn('   '+GetOpenSSLLoader.GetFailedToLoad[i]);
+      WriteLn('     ' + GetOpenSSLLoader.GetFailedToLoad[i]);
     end;
   end;
 
@@ -857,7 +864,7 @@ begin
     LIni.WriteInteger('security', 'security_level',
       FIO.SSLOptions.SecurityLevel);
     LIni.WriteBool('ftp', 'passive', FFTP.Passive);
-    LIni.WriteBool('ftp','use_MLSD', FFTP.UseMLIS);
+    LIni.WriteBool('ftp', 'use_MLSD', FFTP.UseMLIS);
   finally
     FreeAndNil(LIni);
   end;
@@ -1353,7 +1360,7 @@ begin
           // 'save-config'
           CmdSaveConfig;
         32:
-           // 'cert-info'
+          // 'cert-info'
           CmdCertInfo;
         33:
           // 'mlsd'
@@ -1437,7 +1444,7 @@ begin
     FIO.SSLOptions.SecurityLevel := LIni.ReadInteger('security',
       'security_level', FIO.SSLOptions.SecurityLevel);
     FFTP.Passive := LIni.ReadBool('ftp', 'passive', FFTP.Passive);
-    FFTP.UseMLIS := LIni.ReadBool('ftp','use_MLSD', True);
+    FFTP.UseMLIS := LIni.ReadBool('ftp', 'use_MLSD', True);
   finally
     FreeAndNil(LIni);
   end;
