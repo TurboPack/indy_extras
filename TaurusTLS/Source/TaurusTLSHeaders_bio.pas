@@ -1203,7 +1203,7 @@ var
   function BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure BIO_ADDRINFO_free(bai: PBIO_ADDRINFO) cdecl; external CLibCrypto; {introduced 1.1.0}
 
-  function BIO_parse_hostserv(const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_parse_hostserv(const hostserv: PIdAnsiChar; var host, service: PIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function BIO_lookup(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_lookup_ex(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -2795,7 +2795,7 @@ end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_parse_hostserv(const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; 
+function  ERR_BIO_parse_hostserv(const hostserv: PIdAnsiChar; var host, service: PIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_parse_hostserv_procname);
 end;
