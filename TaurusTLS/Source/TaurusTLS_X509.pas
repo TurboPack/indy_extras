@@ -1205,7 +1205,7 @@ function TTaurusTLSX509.GetDisplayInfo: TStrings;
 var
   LMem: PBIO;
   LLen: TIdC_INT;
-  LBufPtr : PIdAnsiChar;
+  LBufPtr : Pointer;
 //  LBufPtr: PIdAnsiChar;
 begin
   if not Assigned(FDisplayInfo) then
