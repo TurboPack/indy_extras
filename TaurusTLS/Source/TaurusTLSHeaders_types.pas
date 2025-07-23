@@ -271,9 +271,7 @@ type
   BN_GENCB = bn_gencb_st;
   PBN_GENCB = ^BN_GENCB;
 
-  buf_mem_st = type Pointer;
-  BUF_MEM = buf_mem_st;
-  PBUF_MEM = ^BUF_MEM;
+  PBUF_MEM = Pointer;
 
   evp_cipher_st = type Pointer;
   EVP_CIPHER = evp_cipher_st;
