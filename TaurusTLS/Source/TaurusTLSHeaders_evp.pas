@@ -1150,6 +1150,8 @@ var
   EVP_CIPHER_block_size: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {removed 3.0.0}
   EVP_CIPHER_impl_ctx_size: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   EVP_CIPHER_key_length: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {removed 3.0.0}
+  EVP_CIPHER_get_key_length: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {introduced 3.0.0}
+
   EVP_CIPHER_iv_length: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {removed 3.0.0}
   EVP_CIPHER_flags: function (const cipher: PEVP_CIPHER): TIdC_ULONG; cdecl = nil; {removed 3.0.0}
   //# define EVP_CIPHER_mode(e)              (EVP_CIPHER_flags(e) & EVP_CIPH_MODE)
@@ -2519,6 +2521,7 @@ var
 
   procedure EVP_add_alg_module cdecl; external CLibCrypto;
 
+  function EVP_CIPHER_get_key_length(const cipher: PEVP_CIPHER): TIdC_INT cdecl; external CLibCrypto; {introduced 3.0.0}
 
 
 
@@ -2738,6 +2741,7 @@ const
   EVP_CIPHER_nid_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_block_size_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_key_length_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_CIPHER_get_key_length_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_iv_length_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_flags_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_CTX_encrypting_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
@@ -2851,6 +2855,7 @@ const
   EVP_CIPHER_block_size_procname = 'EVP_CIPHER_block_size'; {removed 3.0.0}
   EVP_CIPHER_impl_ctx_size_procname = 'EVP_CIPHER_impl_ctx_size'; {introduced 1.1.0}
   EVP_CIPHER_key_length_procname = 'EVP_CIPHER_key_length'; {removed 3.0.0}
+  EVP_CIPHER_get_key_length_procname = 'EVP_CIPHER_get_key_length'; {introduced 3.0.0}
   EVP_CIPHER_iv_length_procname = 'EVP_CIPHER_iv_length'; {removed 3.0.0}
   EVP_CIPHER_flags_procname = 'EVP_CIPHER_flags'; {removed 3.0.0}
   //# define EVP_CIPHER_mode(e)              (EVP_CIPHER_flags(e) & EVP_CIPH_MODE)
@@ -3616,8 +3621,14 @@ begin
 end;
 
 {/forward_compatibility}
+
+function _EVP_CIPHER_key_length(const cipher: PEVP_CIPHER): TIdC_INT; cdecl;
+begin
+  Result := EVP_CIPHER_get_key_length(cipher);
+end;
+
   {$i TaurusTLSNoRetValOff.inc} 
-function  ERR_EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT; 
+function  ERR_EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_assign_RSA_procname);
 end;
@@ -4003,11 +4014,15 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_EVP_CIPHER_key_length(const cipher: PEVP_CIPHER): TIdC_INT; 
+function  ERR_EVP_CIPHER_key_length(const cipher: PEVP_CIPHER): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_key_length_procname);
 end;
 
+function  ERR_EVP_CIPHER_get_key_length(const cipher: PEVP_CIPHER): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_get_key_length_procname);
+end;
  
 function  ERR_EVP_CIPHER_iv_length(const cipher: PEVP_CIPHER): TIdC_INT; 
 begin
@@ -8928,6 +8943,36 @@ begin
     {$ifend}
   end;
 
+  EVP_CIPHER_get_key_length := LoadLibFunction(ADllHandle, EVP_CIPHER_get_key_length_procname);
+  FuncLoadError := not assigned(EVP_CIPHER_get_key_length);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_CIPHER_get_key_length_allownil)}
+    EVP_CIPHER_get_key_length := @ERR_EVP_CIPHER_get_key_length;
+    {$ifend}
+    {$if declared(EVP_CIPHER_get_key_length_introduced)}
+    if LibVersion < EVP_CIPHER_get_key_length_introduced then
+    begin
+      {$if declared(FC_EVP_CIPHER_get_key_length)}
+      EVP_CIPHER_get_key_length := @FC_EVP_CIPHER_get_key_length;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_CIPHER_get_key_length_removed)}
+    if EVP_CIPHER_get_key_length_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_CIPHER_get_key_length)}
+      EVP_CIPHER_get_key_length := @_EVP_CIPHER_get_key_length;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_CIPHER_get_key_length_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_CIPHER_get_key_length');
+    {$ifend}
+  end;
  
   EVP_CIPHER_iv_length := LoadLibFunction(ADllHandle, EVP_CIPHER_iv_length_procname);
   FuncLoadError := not assigned(EVP_CIPHER_iv_length);
@@ -23543,6 +23588,7 @@ begin
   EVP_CIPHER_block_size := nil; {removed 3.0.0}
   EVP_CIPHER_impl_ctx_size := nil; {introduced 1.1.0}
   EVP_CIPHER_key_length := nil; {removed 3.0.0}
+  EVP_CIPHER_get_key_length := nil; {introduced 3.0.0}
   EVP_CIPHER_iv_length := nil; {removed 3.0.0}
   EVP_CIPHER_flags := nil; {removed 3.0.0}
   EVP_CIPHER_CTX_cipher := nil;
