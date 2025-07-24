@@ -1901,7 +1901,6 @@ var
   function EVP_CIPHER_impl_ctx_size(const cipher: PEVP_CIPHER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   //# define EVP_CIPHER_mode(e)              (EVP_CIPHER_flags(e) & EVP_CIPH_MODE)
 
-  function EVP_CIPHER_flags(const cipher: PEVP_CIPHER): TIdC_ULONG; cdecl; external CLibCrypto; {removed 3.0.0}
   function EVP_CIPHER_get_flags(const cipher: PEVP_CIPHER): TIdC_ULONG; cdecl; external CLibCrypto; {introduced 3.0.0}
 
 
@@ -2588,7 +2587,6 @@ function EVP_CIPHER_CTX_get_type(c : PEVP_CIPHER_CTX) : TIdC_INT; {$IFDEF USE_IN
 
 function EVP_CIPHER_CTX_get_mode(c: PEVP_CIPHER_CTX) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 
-//# define
 function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 implementation
@@ -2622,7 +2620,6 @@ begin
   Result :=  EVP_CIPHER_get_mode(EVP_CIPHER_CTX_get0_cipher(c))
 end;
 
-//# define
 function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;
  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
@@ -3875,6 +3872,11 @@ end;
 function _EVP_CIPHER_type(const ctx: PEVP_CIPHER): TIdC_INT; cdecl;
 begin
   Result := EVP_CIPHER_get_type(ctx);
+end;
+
+function _EVP_CIPHER_flags(const cipher: PEVP_CIPHER): TIdC_ULONG; cdecl;
+begin
+  Result := EVP_CIPHER_get_flags(cipher);
 end;
 
   {$i TaurusTLSNoRetValOff.inc} 
