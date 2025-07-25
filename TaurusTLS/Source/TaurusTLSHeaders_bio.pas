@@ -7633,7 +7633,7 @@ begin
 end;
 
 //# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
-function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT;
+function BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT;
 begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
 end;
