@@ -121,13 +121,11 @@ OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of lif
 
 - libcrypto-1_1.dll
 - libssl-1_1.dll
-- openssl.exe
 
 OpenSSL 3.x
 
 - libcrypto-3.dll
 - libssl-3.dll
-- openssl.exe
 
 For Win64 applications, you need to redistribute the following:
 
@@ -135,13 +133,21 @@ OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of lif
 
 - libcrypto-1_1-x64.dll
 - libssl-1_1-x64.dll
-- openssl.exe
 
 OpenSSL 3.x
 
 - libcrypto-3-x64.dll
 - libssl-3-x64.dll
-- openssl.exe
+
+We strongly urge you to redistribute the openssl.exe included with the .DLL's along with your program.  Some of your users may need it to:
+
+1. Generate keys
+2. Create Certificate Signing Requests
+3. Create self-signed Certificates
+4. Examine certificates
+6. convert Certificate
+
+There's a reference book called the *OpenSSL Cookbook* at <https://www.feistyduck.com/books/openssl-cookbook/>.
 
 ## Component Reference
 
