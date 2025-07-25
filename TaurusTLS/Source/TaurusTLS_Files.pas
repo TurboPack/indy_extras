@@ -196,7 +196,7 @@ begin
   LM := TMemoryStream.Create;
   try
     LM.LoadFromFile(AFileName);
-    LB := BIO_new_mem_buf(LM.Memory, LM.Size);
+    LB := BIO_new_mem_buf(LM.Memory^, LM.Size);
     Result := PEM_read_bio_X509(LB, nil, nil, nil);
   finally
     BIO_free(LB);
@@ -243,7 +243,7 @@ begin
   end;
 
   try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
+    b := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(b) then
     begin
       SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_BUF_LIB);
@@ -327,7 +327,7 @@ begin
   end;
 
   try
-    Lb := BIO_new_mem_buf(LM.Memory, LM.Size);
+    Lb := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(Lb) then
     begin
       SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_BUF_LIB);
@@ -486,7 +486,7 @@ begin
   end;
 
   try
-    Lin := BIO_new_mem_buf(LM.Memory, LM.Size);
+    Lin := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(Lin) then
     begin
       X509err(X509_F_X509_LOAD_CERT_FILE, ERR_R_SYS_LIB);
@@ -579,7 +579,7 @@ begin
   end;
 
   try
-    Lin := BIO_new_mem_buf(LM.Memory, LM.Size);
+    Lin := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(Lin) then
     begin
       X509err(X509_F_X509_LOAD_CERT_CRL_FILE, ERR_R_SYS_LIB);
@@ -657,7 +657,7 @@ begin
         Exit;
       end;
       try
-        LB := BIO_new_mem_buf(LM.Memory, LM.Size);
+        LB := BIO_new_mem_buf(LM.Memory^, LM.Size);
         if Assigned(LB) then
         begin
           try
@@ -765,7 +765,7 @@ begin
   end;
 
   try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
+    b := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(b) then
     begin
       SSLerr(SSL_F_SSL_CTX_USE_PRIVATEKEY_FILE, ERR_R_BUF_LIB);
@@ -832,7 +832,7 @@ begin
     Exit;
   end;
   try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
+    b := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(b) then
     begin
       SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_FILE, ERR_R_BUF_LIB);
@@ -979,7 +979,7 @@ begin
   end;
 
   try
-    b := BIO_new_mem_buf(LM.Memory, LM.Size);
+    b := BIO_new_mem_buf(LM.Memory^, LM.Size);
     if not Assigned(b) then
     begin
       SSLerr(SSL_F_SSL3_CTRL, ERR_R_BUF_LIB);
