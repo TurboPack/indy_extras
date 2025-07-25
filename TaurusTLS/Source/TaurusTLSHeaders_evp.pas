@@ -669,6 +669,8 @@ type
   {$EXTERNALSYM EVP_DecodeUpdate}
   {$EXTERNALSYM EVP_DecodeFinal}
   {$EXTERNALSYM EVP_DecodeBlock}
+  {$EXTERNALSYM EVP_CIPHER_fetch}
+  {$EXTERNALSYM EVP_CIPHER_free}
   {$EXTERNALSYM EVP_CIPHER_CTX_new}
   {$EXTERNALSYM EVP_CIPHER_CTX_reset} {introduced 1.1.0}
   {$EXTERNALSYM EVP_CIPHER_CTX_free}
@@ -1313,6 +1315,8 @@ var
   EVP_DecodeFinal: function (ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_DecodeBlock: function (t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT; cdecl = nil;
 
+  EVP_CIPHER_fetch: function (ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl = nil;
+  EVP_CIPHER_free: procedure (cipher: PEVP_CIPHER); cdecl = nil;
   EVP_CIPHER_CTX_new: function : PEVP_CIPHER_CTX; cdecl = nil;
   EVP_CIPHER_CTX_reset: function (c: PEVP_CIPHER_CTX): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   EVP_CIPHER_CTX_free: procedure (c: PEVP_CIPHER_CTX); cdecl = nil;
@@ -1906,7 +1910,7 @@ var
 
   function EVP_CIPHER_CTX_cipher(const ctx: PEVP_CIPHER_CTX): PEVP_CIPHER cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_get0_cipher(const ctx: PEVP_CIPHER_CTX): PEVP_CIPHER cdecl; external CLibCrypto; {introduced 3.0.0}
-  function EVP_CIPHER_get_type(const ctx : PEVP_CIPHER_CTX): TIdC_INT cdecl; external CLibCrypto;;
+  function EVP_CIPHER_get_type(const ctx : PEVP_CIPHER_CTX): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_iv(const ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_CIPHER_CTX_original_iv(const ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_CIPHER_CTX_iv_noconst(ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1917,7 +1921,7 @@ var
   procedure EVP_CIPHER_CTX_set_app_data(ctx: PEVP_CIPHER_CTX; data: Pointer) cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_get_cipher_data(const ctx: PEVP_CIPHER_CTX): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_CIPHER_CTX_set_cipher_data(ctx: PEVP_CIPHER_CTX; cipher_data: Pointer): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function EVP_CIPHER_CTX_get_tag_length(const ctx : PEVP_CIPHER_CTX) : TIdC_INT; cdecl = nil; {introduced 3.0.0}
+  function EVP_CIPHER_CTX_get_tag_length(const ctx : PEVP_CIPHER_CTX) : TIdC_INT; cdecl; external CLibCrypto; {introduced 3.0.0}
 
   function EVP_CIPHER_CTX_is_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT cdecl; external CLibCrypto;  {introduced 3.0.0}
   function EVP_CIPHER_CTX_get_block_size(const ctx: PEVP_CIPHER_CTX): TIdC_INT  cdecl; external CLibCrypto; {introduced 3.0.0}
@@ -1926,7 +1930,6 @@ var
 
   function EVP_CIPHER_get_iv_length(const cipher: PEVP_CIPHER): TIdC_INT cdecl; external CLibCrypto; {introduced 3.0.0}
   function EVP_CIPHER_get_block_size (const cipher: PEVP_CIPHER): TIdC_INT cdecl; external CLibCrypto; {introduced 3.0.0}
-  function EVP_CIPHER_get_type(const ctx: PEVP_CIPHER): TIdC_INT; cdecl = nil; {introduced 3.0.0}
   //# define EVP_CIPHER_CTX_type(c)         EVP_CIPHER_type(EVP_CIPHER_CTX_cipher(c))
 
   //# if OPENSSL_API_COMPAT < 0x10100000L
@@ -2047,6 +2050,8 @@ var
   function EVP_DecodeFinal(ctx: PEVP_ENCODE_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_DecodeBlock(t: PByte; const f: PByte; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
+  function EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl; external CLibCrypto; {introduced 3.0.0}
+  procedure EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl; external CLibCrypto; {introduced 3.0.0}
   function EVP_CIPHER_CTX_new: PEVP_CIPHER_CTX cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_reset(c: PEVP_CIPHER_CTX): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure EVP_CIPHER_CTX_free(c: PEVP_CIPHER_CTX) cdecl; external CLibCrypto;
@@ -2582,12 +2587,15 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
 
  //# define EVP_CIPHER_name(e)              OBJ_nid2sn(EVP_CIPHER_nid(e))
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 function  EVP_CIPHER_CTX_type(c : PEVP_CIPHER_CTX)  : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 function EVP_CIPHER_CTX_get_type(c : PEVP_CIPHER_CTX) : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 function EVP_CIPHER_CTX_get_mode(c: PEVP_CIPHER_CTX) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+{$ENDIF}
+
 
 implementation
 
@@ -2600,6 +2608,8 @@ uses
   TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_objects;
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
 function  EVP_CIPHER_CTX_type(c : PEVP_CIPHER_CTX)  : TIdC_INT;
  {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -2625,6 +2635,8 @@ function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;
 begin
   Result := (EVP_CIPHER_flags(e) and EVP_CIPH_MODE);
 end;
+
+{$ENDIF}
 
 const
   EVP_MD_meth_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -2700,6 +2712,8 @@ const
   EVP_ENCODE_CTX_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_ENCODE_CTX_copy_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_ENCODE_CTX_num_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  EVP_CIPHER_fetch_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_CIPHER_free_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_CTX_reset_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_md5_sha1_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_sha512_224_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -3105,6 +3119,8 @@ const
   EVP_DecodeFinal_procname = 'EVP_DecodeFinal';
   EVP_DecodeBlock_procname = 'EVP_DecodeBlock';
 
+  EVP_CIPHER_fetch_procname = 'EVP_CIPHER_fetch';
+  EVP_CIPHER_free_procname = 'EVP_CIPHER_free';
   EVP_CIPHER_CTX_new_procname = 'EVP_CIPHER_CTX_new';
   EVP_CIPHER_CTX_reset_procname = 'EVP_CIPHER_CTX_reset'; {introduced 1.1.0}
   EVP_CIPHER_CTX_free_procname = 'EVP_CIPHER_CTX_free';
@@ -3627,6 +3643,17 @@ const
   EVP_cleanup_procname = 'EVP_cleanup'; {removed 1.1.0}
 
 {function introduced - compatibility}
+
+function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
+begin
+  Result:=EVP_get_cipherbyname(algorithm);
+end;
+
+procedure FC_EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl;
+begin
+  // only needs for compatibility with 1.1.1
+  // it does nothing as EVP_get_cipherbyname does not initialize the cipher
+end;
 
 function  FC_EVP_MD_CTX_new: PEVP_MD_CTX; cdecl;
 begin
@@ -4907,8 +4934,18 @@ begin
 end;
 
 
+function ERR_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_fetch_procname);
+end;
 
-function  ERR_EVP_CIPHER_CTX_new: PEVP_CIPHER_CTX; 
+procedure ERR_EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_free_procname);
+end;
+
+
+function  ERR_EVP_CIPHER_CTX_new: PEVP_CIPHER_CTX;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_CTX_new_procname);
 end;
@@ -12414,6 +12451,70 @@ begin
     {$if not defined(EVP_DecodeBlock_allownil)}
     if FuncLoadError then
       AFailed.Add('EVP_DecodeBlock');
+    {$ifend}
+  end;
+
+
+  EVP_CIPHER_fetch := LoadLibFunction(ADllHandle, EVP_CIPHER_fetch_procname);
+  FuncLoadError := not assigned(EVP_CIPHER_fetch);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_CIPHER_fetch_allownil)}
+    EVP_CIPHER_fetch := @ERR_EVP_CIPHER_fetch;
+    {$ifend}
+    {$if declared(EVP_CIPHER_fetch_introduced)}
+    if LibVersion < EVP_CIPHER_fetch_introduced then
+    begin
+      {$if declared(FC_EVP_CIPHER_fetch)}
+      EVP_CIPHER_fetch := @FC_EVP_CIPHER_fetch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_CIPHER_fetch_removed)}
+    if EVP_CIPHER_fetch_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_CIPHER_fetch)}
+      EVP_CIPHER_fetch := @_EVP_CIPHER_fetch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_CIPHER_fetch_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_CIPHER_fetch');
+    {$ifend}
+  end;
+
+
+  EVP_CIPHER_free := LoadLibFunction(ADllHandle, EVP_CIPHER_free_procname);
+  FuncLoadError := not assigned(EVP_CIPHER_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_CIPHER_free_allownil)}
+    EVP_CIPHER_free := @ERR_EVP_CIPHER_free;
+    {$ifend}
+    {$if declared(EVP_CIPHER_free_introduced)}
+    if LibVersion < EVP_CIPHER_free_introduced then
+    begin
+      {$if declared(FC_EVP_CIPHER_free)}
+      EVP_CIPHER_free := @FC_EVP_CIPHER_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_CIPHER_free_removed)}
+    if EVP_CIPHER_free_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_CIPHER_free)}
+      EVP_CIPHER_free := @_EVP_CIPHER_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_CIPHER_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_CIPHER_free');
     {$ifend}
   end;
 
