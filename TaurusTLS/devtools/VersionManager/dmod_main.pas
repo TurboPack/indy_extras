@@ -7,7 +7,7 @@ Licensed under the Modified TaurusTLS BSD Licence or MPL 1.1.
 interface
 
 uses
-  System.SysUtils, System.Classes, Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, SmartInspect.VCL;
+  System.SysUtils, System.Classes, Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc;
 
 type
   TdmodMain = class(TDataModule)
@@ -332,6 +332,20 @@ procedure TdmodMain.UpdatePackages(
   const AMajorVersion, AMinorVersion, ARelease, ABuild: Integer;
   const ACompanyName, ACopyright: String);
 begin
+  UpdatePackage('..\..\..\..\Packages\d13\TaurusTLS_RTForIndy370.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\d13\TaurusTLS_DTForIndy370.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\d13\TaurusTLS_RT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+  UpdatePackage('..\..\..\..\Packages\d13\TaurusTLS_DT.dproj',
+            AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
+            ACopyright);
+
+
   UpdatePackage('..\..\..\..\Packages\d12\TaurusTLS_RTForIndy290.dproj',
             AMajorVersion, AMinorVersion, ARelease, ABuild, ACompanyName,
             ACopyright);

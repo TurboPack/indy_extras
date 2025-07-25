@@ -1,4 +1,4 @@
-package TaurusTLS_RTForIndy300;
+package TaurusTLS_DTForIndy300;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -25,18 +25,22 @@ package TaurusTLS_RTForIndy300;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'TaurusTLS Run-Time package'}
-{$LIBSUFFIX '290'}
-{$RUNONLY}
+{$DESCRIPTION 'TaurusTLS Design-Time-Only package'}
+{$LIBSUFFIX '370'}
+{$DESIGNONLY}
 {$IMPLICITBUILD OFF}
 
 requires
   rtl,
-  IndyCore300,
-  IndySystem300,
-  IndyProtocols300;
+  dclIndyCore370,
+  dclIndyProtocols370,
+  IndyCore370,
+  IndyProtocols370,
+  IndySystem370,
+  TaurusTLS_RTForIndy370,
+  designide;
 
 contains
-{$DPK_FILES_RT}
+{$DPK_FILES_DT}
 
 end.
