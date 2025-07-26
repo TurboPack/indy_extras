@@ -1140,7 +1140,7 @@ var
 
   function BIO_s_mem: PBIO_METHOD cdecl; external CLibCrypto;
   function BIO_s_secmem: PBIO_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_new_mem_buf(const buf: Pointer; len: TIdC_INT): PBIO cdecl; external CLibCrypto;
+  function BIO_new_mem_buf(const buf; len: TIdC_INT): PBIO cdecl; external CLibCrypto;
 
   function BIO_s_socket: PBIO_METHOD cdecl; external CLibCrypto;
   function BIO_s_connect: PBIO_METHOD cdecl; external CLibCrypto;
