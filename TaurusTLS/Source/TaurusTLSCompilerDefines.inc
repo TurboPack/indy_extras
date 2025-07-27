@@ -42,6 +42,7 @@
 // all platforms, including the mobile compilers.
 {$DEFINE HAS_PAnsiChar}
 {$UNDEF NO_ANSI_TYPES}
+{$UNDEF HAS_TInterlocked}
 
 // Make sure the following are $DEFINE'd only for suitable environments
 // as specified further below.  Delphi/C++Builder Mobile/NextGen compilers
@@ -813,6 +814,9 @@
 
 {$IFDEF VCL_XE_OR_ABOVE}
   {$DEFINE VCL_2010_OR_ABOVE}
+  {$IFNDEF DOTNET}
+    {$DEFINE HAS_TInterlocked}
+  {$ENDIF}
 {$ELSE}
   {$IFDEF VCL_2010}
     {$DEFINE VCL_2010_OR_ABOVE}
