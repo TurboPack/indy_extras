@@ -41,7 +41,7 @@ type
     FComp: TIdCompressorZLib;
     FIO: TTaurusTLSIOHandlerSocket;
     FLog: TIdLogEvent;
-    procedure LoadConfig;
+    function LoadValidConfig : Boolean;
     // log events
     procedure OnReceived(ASender: TComponent; const AText, AData: string);
     procedure OnSent(ASender: TComponent; const AText, AData: string);
@@ -103,6 +103,7 @@ uses
 {$IFNDEF FPC}
   System.IOUtils,
 {$ENDIF}
+  TaurusTLSHeaders_evp,
   TaurusTLSHeaders_ssl3,
   TaurusTLSLoader;
 
@@ -865,6 +866,10 @@ begin
       FIO.SSLOptions.SecurityLevel);
     LIni.WriteBool('ftp', 'passive', FFTP.Passive);
     LIni.WriteBool('ftp', 'use_MLSD', FFTP.UseMLIS);
+    LIni.WriteString('certificate','public_key',FIO.ClientCert.PublicKey);
+    LIni.WriteString('certificate','private_key',FIO.ClientCert.PrivateKey);
+    LIni.WriteString('certificate','root_key',FIO.ClientCert.RootKey);
+    LIni.WriteString('certificate','dh_params',FIO.ClientCert.DHParamsFile);
   finally
     FreeAndNil(LIni);
   end;
@@ -1427,10 +1432,14 @@ begin
 {$ENDIF}
 end;
 
-procedure TFTPApplication.LoadConfig;
+function TFTPApplication.LoadValidConfig : Boolean;
 var
   LIni: TIniFile;
+  {$IFNDEF USE_INLINE_VAR}
+  LPubkey, LPrivKey : String;
+  {$ENDIF}
 begin
+  Result := True;
   LIni := TIniFile.Create(CreateAndGetCOnfigDir + 'taurusftp.ini');
   try
     if LIni.ReadBool('debug', 'trace', Assigned(FIO.OnDebugMessage)) then
@@ -1445,6 +1454,39 @@ begin
       'security_level', FIO.SSLOptions.SecurityLevel);
     FFTP.Passive := LIni.ReadBool('ftp', 'passive', FFTP.Passive);
     FFTP.UseMLIS := LIni.ReadBool('ftp', 'use_MLSD', True);
+    {$IFDEF USE_INLINE_VAR}
+    var LPubkey, LPrivKey : String;
+    {$ENDIF}
+    LPubKey := LIni.ReadString('certificate','public_key','');
+    LPrivKey := LIni.ReadString('certificate','private_key','');
+    if (LPubKey <> '') and (LPrivKey <> '') then
+    begin
+       FIO.SSLOptions.VerifyMode := FIO.SSLOptions.VerifyMode + [];
+       FIO.ClientCert.PublicKey := LPubKey;
+       FIO.ClientCert.PrivateKey := LPrivKey;
+       if not FileExists(LPubKey) then
+       begin
+         Result := False;
+         WriteLn('Error:  public key, "'+LPubKey+'" does not exist');
+       end;
+       if Result and not FileExists(LPrivKey) then
+       begin
+         Result := False;
+         WriteLn('Error:  private key, "'+LPrivKey+'" does not exist');
+       end;
+       FIO.ClientCert.RootKey := LIni.ReadString('certificate','root_key','');
+       if Result and (FIO.ClientCert.RootKey <> '') and not FileExists(FIO.ClientCert.RootKey) then
+       begin
+         Result := False;
+         WriteLn('Error:  root key, "'+LPrivKey+'" does not exist');
+       end;
+       FIO.ClientCert.DHParamsFile := LIni.ReadString('certificate','dh_params','');
+       if Result and (FIO.ClientCert.DHParamsFile <> '') and not FileExists(FIO.ClientCert.RootKey) then
+       begin
+         Result := False;
+         WriteLn('Error:  DH parameters, "'+LPrivKey+'" does not exist');
+       end;
+    end;
   finally
     FreeAndNil(LIni);
   end;
@@ -1478,7 +1520,7 @@ begin
 {$IFDEF FPC}
   StopOnException := True;
 {$ENDIF}
-  LoadConfig;
+
 end;
 
 destructor TFTPApplication.Destroy;
@@ -1515,8 +1557,10 @@ Application.Run;
 {$ELSE}
   Application := TFTPApplication.Create;
 try
-
-  Application.DoRun;
+  if Application.LoadValidConfig then
+  begin
+    Application.DoRun;
+  end;
 except
   on E: Exception do
   begin
