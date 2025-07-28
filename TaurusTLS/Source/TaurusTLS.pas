@@ -4400,8 +4400,6 @@ begin
   end;
   if fVerifyMode <> [] then
   begin
-    if fContext <> nil then
-    begin
       // SSL_CTX_set_default_verify_paths(fContext);
       { if VerifyOn then
         begin
@@ -4412,11 +4410,11 @@ begin
         Func := nil;
         end; }
 
-      // SSL_CTX_set_verify(fContext,
-      // TranslateInternalVerifyToSSL(fVerifyMode), nil);
-      SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
-    end;
+     SSL_CTX_set_verify(fContext,
+       TranslateInternalVerifyToSSL(fVerifyMode), nil);
+     SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
   end;
+
   if CtxMode = sslCtxServer then
   begin
     SSL_CTX_set_session_id_context(fContext, PByte(@fSessionId),
