@@ -470,7 +470,7 @@ begin
       FFTPServImplicit.DefaultPort := 990;
       FFTPServImplicit.UseTLS := utUseImplicitTLS;
       FIOImplicit.SSLOptions.VerifyMode := FIOExplicit.SSLOptions.VerifyMode;
-      FIOExplicit.SSLOptions.VerifyDepth := FIOExplicit.SSLOptions.VerifyDepth;
+      FIOImplicit.SSLOptions.VerifyDepth := FIOExplicit.SSLOptions.VerifyDepth;
 
       FFTPServImplicit.Active := True;
       WriteLn('Implicit FTPS Default Data Port: ' +
