@@ -195,9 +195,12 @@ const
 // Buffer length in bits not bytes: CFB1 mode only ///
   EVP_CIPH_FLAG_LENGTH_BITS = $2000;
 // Note if suitable for use in FIPS mode ///
-  EVP_CIPH_FLAG_FIPS = $4000;
+//  was EVP_CIPH_FLAG_FIPS = $4000;
+  EVP_CIPH_FLAG_FIPS           = 0;
+
 // Allow non FIPS cipher in FIPS mode ///
-  EVP_CIPH_FLAG_NON_FIPS_ALLOW = $8000;
+// was  EVP_CIPH_FLAG_NON_FIPS_ALLOW = $8000;
+  EVP_CIPH_FLAG_NON_FIPS_ALLOW = 0;
 //
  // Cipher handles any and all padding logic as well as finalisation.
  ///
@@ -206,6 +209,8 @@ const
   EVP_CIPH_FLAG_TLS1_1_MULTIBLOCK = $400000;
 // Cipher can handle pipeline operations ///
   EVP_CIPH_FLAG_PIPELINE = $800000;
+
+  EVP_CIPH_FLAG_INVERSE_CIPHER = $8000000;
 
 //
  // Cipher context flag to indicate we can handle wrap mode: if allowed in
