@@ -89,6 +89,11 @@ type
     procedure Unload;
 
     /// <summary>
+    ///   True if the OpenSSL library is loaded or False if it is not loaded.
+    /// </summary>
+    function IsLoaded: Boolean;
+
+    /// <summary>
     ///   The version numbers for the OpenSSL library separated by ";"
     /// </summary>
     /// <value>
@@ -293,13 +298,14 @@ type
     function GetOpenSSLPath: string;
     procedure SetOpenSSLPath(const Value: string);
     function GetFailedToLoad: TStringList;
+
   public
     constructor Create;
     destructor Destroy; override;
 
     function Load: Boolean;
     procedure Unload;
-
+    function IsLoaded : Boolean;
     property OpenSSLPath: string read GetOpenSSLPath write SetOpenSSLPath;
     property FailedToLoad: TStringList read GetFailedToLoad;
   end;
@@ -518,6 +524,11 @@ end;
 function TOpenSSLLoader.GetFailedToLoad: TStringList;
 begin
   Result := FFailed;
+end;
+
+function TOpenSSLLoader.IsLoaded: Boolean;
+begin
+  Result := FLibCrypto <> NilHandle;
 end;
 
 procedure TOpenSSLLoader.Unload;
