@@ -1588,8 +1588,7 @@ type
     /// <summary>
     /// Properties that effect TLS.
     /// </summary>
-    property SSLOptions: TTaurusTLSOptions read fSSLOptions
-      write fSSLOptions;
+    property SSLOptions: TTaurusTLSOptions read fSSLOptions write fSSLOptions;
     /// <summary>
     /// Occurs when there is a status message.
     /// </summary>
@@ -1873,16 +1872,15 @@ type
     /// </summary>
     property DefaultCert: TTaurusTLSX509File read fDefaultCert;
     /// <summary>
-    ///   Certificates for domains that the TLS Client may request from the
-    ///   server.
+    /// Certificates for domains that the TLS Client may request from the
+    /// server.
     /// </summary>
     property Certificates: TTaurusTLSX509Files read fCertificates
       write SetCertificates;
     /// <summary>
     /// Properties that effect TLS.
     /// </summary>
-    property SSLOptions: TTaurusTLSOptions read fSSLOptions
-      write fSSLOptions;
+    property SSLOptions: TTaurusTLSOptions read fSSLOptions write fSSLOptions;
     /// <summary>
     /// Occurs when TLS negotiation is concluded.
     /// </summary>
@@ -2617,8 +2615,8 @@ begin
   end;
 end;
 
-procedure g_MsgCallback(write_p, Version, content_type: TIdC_INT;
-  const buf; len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
+procedure g_MsgCallback(write_p, Version, content_type: TIdC_INT; const buf;
+  len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
 var
   LErr: Integer;
   LHelper: ITaurusTLSCallbackHelper;
@@ -3481,8 +3479,8 @@ begin
 
 end;
 
-procedure TTaurusTLSServerIOHandler.SetCertificates(
-  const AValue: TTaurusTLSX509Files);
+procedure TTaurusTLSServerIOHandler.SetCertificates(const AValue
+  : TTaurusTLSX509Files);
 begin
   fCertificates.Assign(AValue);
 end;
@@ -4110,6 +4108,7 @@ end;
 const
   wincryptdll = 'crypt32.dll';
   RootStore = 'ROOT';
+  CAStore = 'CA';
 
 type
   HCERTSTORE = THandle;
@@ -4149,6 +4148,10 @@ function CertEnumCertificatesInStore(certstore: HCERTSTORE;
   external wincryptdll;
 
 { Copy Windows CA Certs to out cert store }
+
+const
+  SystemStores: array of string = [RootStore, CAStore];
+
 procedure TTaurusTLSContext.LoadWindowsCertStore;
 var
   LWinCertStore: HCERTSTORE;
@@ -4156,43 +4159,48 @@ var
   Lcert_context: PCCERT_CONTEXT;
   LError: Integer;
   LSSLCertStore: PX509_STORE;
+  i: Integer;
 begin
   Lcert_context := nil;
+  for i := Low(SystemStores) to High(SystemStores) do
+  begin
 {$IFDEF STRING_IS_ANSI}
-  LWinCertStore := CertOpenSystemStoreA(nil, RootStore);
+    LWinCertStore := CertOpenSystemStoreA(nil, RootStore);
 {$ELSE}
-  LWinCertStore := CertOpenSystemStoreW(nil, RootStore);
+    LWinCertStore := CertOpenSystemStoreW(nil, PCHar(SystemStores[i]));
 {$ENDIF}
-  if LWinCertStore = 0 then
-    Exit;
+    if LWinCertStore = 0 then
+      Exit;
 
-  LSSLCertStore := SSL_CTX_get_cert_store(fContext);
-  try
-    Lcert_context := CertEnumCertificatesInStore(LWinCertStore, Lcert_context);
-    while Lcert_context <> nil do
-    begin
-      LX509Cert := d2i_X509(nil, @Lcert_context^.pbCertEncoded,
-        Lcert_context^.cbCertEncoded);
-      if LX509Cert <> nil then
-      begin
-        LError := X509_STORE_add_cert(LSSLCertStore, LX509Cert);
-        // Ignore if cert already in store
-        if (LError = 0) and
-          (ERR_GET_REASON(ERR_get_error) <> X509_R_CERT_ALREADY_IN_HASH_TABLE)
-        then
-        begin
-          ETaurusTLSCertNotAddedToStore.RaiseExceptionCode(LError,
-            ROSCertificateNotAddedToStore);
-        end;
-        X509_free(LX509Cert);
-      end;
+    LSSLCertStore := SSL_CTX_get_cert_store(fContext);
+    try
       Lcert_context := CertEnumCertificatesInStore(LWinCertStore,
         Lcert_context);
-    end;
-  finally
-    if not CertCloseStore(LWinCertStore, 0) then
-    begin
-      RaiseLastOSError;
+      while Lcert_context <> nil do
+      begin
+        LX509Cert := d2i_X509(nil, @Lcert_context^.pbCertEncoded,
+          Lcert_context^.cbCertEncoded);
+        if LX509Cert <> nil then
+        begin
+          LError := X509_STORE_add_cert(LSSLCertStore, LX509Cert);
+          // Ignore if cert already in store
+          if (LError = 0) and
+            (ERR_GET_REASON(ERR_get_error) <> X509_R_CERT_ALREADY_IN_HASH_TABLE)
+          then
+          begin
+            ETaurusTLSCertNotAddedToStore.RaiseExceptionCode(LError,
+              ROSCertificateNotAddedToStore);
+          end;
+          X509_free(LX509Cert);
+        end;
+        Lcert_context := CertEnumCertificatesInStore(LWinCertStore,
+          Lcert_context);
+      end;
+    finally
+      if not CertCloseStore(LWinCertStore, 0) then
+      begin
+        RaiseLastOSError;
+      end;
     end;
   end;
 end;
@@ -4400,19 +4408,19 @@ begin
   end;
   if fVerifyMode <> [] then
   begin
-      // SSL_CTX_set_default_verify_paths(fContext);
-      { if VerifyOn then
-        begin
-        Func := VerifyCallback;
-        end
-        else
-        begin
-        Func := nil;
-        end; }
+    // SSL_CTX_set_default_verify_paths(fContext);
+    { if VerifyOn then
+      begin
+      Func := VerifyCallback;
+      end
+      else
+      begin
+      Func := nil;
+      end; }
 
-     SSL_CTX_set_verify(fContext,
-       TranslateInternalVerifyToSSL(fVerifyMode), nil);
-     SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
+    SSL_CTX_set_verify(fContext,
+      TranslateInternalVerifyToSSL(fVerifyMode), nil);
+    SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
   end;
 
   if CtxMode = sslCtxServer then
