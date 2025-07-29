@@ -452,6 +452,11 @@ begin
     begin
       FFTPServExplicit.UseTLS := utUseExplicitTLS;
     end;
+    if LIni.ReadBool('Server','Require_Client_Certificate',False)=True then
+    begin
+      FIOExplicit.SSLOptions.VerifyMode := [sslvrfPeer, sslvrfFailIfNoPeerCert];
+      FIOExplicit.SSLOptions.VerifyDepth := 3;
+    end;
     FFTPServExplicit.Active := True;
     WriteLn('FTP Default Data Port: ' + IntToStr(FFTPServExplicit.DefaultPort));
 
@@ -464,6 +469,9 @@ begin
       FFTPServImplicit.IOHandler := FIOImplicit;
       FFTPServImplicit.DefaultPort := 990;
       FFTPServImplicit.UseTLS := utUseImplicitTLS;
+      FIOImplicit.SSLOptions.VerifyMode := FIOExplicit.SSLOptions.VerifyMode;
+      FIOExplicit.SSLOptions.VerifyDepth := FIOExplicit.SSLOptions.VerifyDepth;
+
       FFTPServImplicit.Active := True;
       WriteLn('Implicit FTPS Default Data Port: ' +
         IntToStr(FFTPServImplicit.DefaultPort));
