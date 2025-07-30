@@ -210,7 +210,13 @@ const
 // Cipher can handle pipeline operations ///
   EVP_CIPH_FLAG_PIPELINE = $800000;
 
-  EVP_CIPH_FLAG_INVERSE_CIPHER = $8000000;
+//* For provider implementations that handle  ASN1 get/set param themselves */
+  EVP_CIPH_FLAG_CUSTOM_ASN1      = $1000000;
+//* For ciphers generating unprotected CMS attributes */
+  EVP_CIPH_FLAG_CIPHER_WITH_MAC   = $2000000;
+//* For supplementary wrap cipher support */
+  EVP_CIPH_FLAG_GET_WRAP_CIPHER  = $4000000;
+  EVP_CIPH_FLAG_INVERSE_CIPHER   = $8000000;
 
 //
  // Cipher context flag to indicate we can handle wrap mode: if allowed in
