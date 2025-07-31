@@ -44,6 +44,36 @@
 		<CfgParent>Base</CfgParent>
 		<Base>true</Base>
 	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Android64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Android64)'!=''">
+		<Cfg_2_Android64>true</Cfg_2_Android64>
+		<CfgParent>Cfg_2</CfgParent>
+		<Cfg_2>true</Cfg_2>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Cfg_2)'=='true') or '$(Cfg_2_iOSDevice64)'!=''">
+		<Cfg_2_iOSDevice64>true</Cfg_2_iOSDevice64>
+		<CfgParent>Cfg_2</CfgParent>
+		<Cfg_2>true</Cfg_2>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSX64' and '$(Cfg_2)'=='true') or '$(Cfg_2_OSX64)'!=''">
+		<Cfg_2_OSX64>true</Cfg_2_OSX64>
+		<CfgParent>Cfg_2</CfgParent>
+		<Cfg_2>true</Cfg_2>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='OSXARM64' and '$(Cfg_2)'=='true') or '$(Cfg_2_OSXARM64)'!=''">
+		<Cfg_2_OSXARM64>true</Cfg_2_OSXARM64>
+		<CfgParent>Cfg_2</CfgParent>
+		<Cfg_2>true</Cfg_2>
+		<Base>true</Base>
+	</PropertyGroup>
+	<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+		<Cfg_2_Win32>true</Cfg_2_Win32>
+		<CfgParent>Cfg_2</CfgParent>
+		<Cfg_2>true</Cfg_2>
+		<Base>true</Base>
+	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base)'!=''">
 		<DCC_E>false</DCC_E>
 		<DCC_F>false</DCC_F>
@@ -55,12 +85,13 @@
 		<GenPackage>true</GenPackage>
 		<SanitizedProjectName>TaurusTLS_RT</SanitizedProjectName>
 		<DCC_Description>TaurusTLS Run-Time package</DCC_Description>
-		<DllSuffix>300</DllSuffix>
+		<DllSuffix>370</DllSuffix>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_RT.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RT.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
 		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_RT.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RT.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
@@ -94,6 +125,22 @@
 		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
 		<DCC_RangeChecking>true</DCC_RangeChecking>
 		<DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2_Android64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2_iOSDevice64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2_OSX64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2_OSXARM64)'!=''">
+		<BT_BuildType>Debug</BT_BuildType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+		<VerInfo_Build>29</VerInfo_Build>
 	</PropertyGroup>
 	<ItemGroup>
 		<DelphiCompile Include="$(MainSource)">
@@ -223,6 +270,12 @@
 				<Source>
 					<Source Name="MainSource">TaurusTLS_RT.dpk</Source>
 				</Source>
+				<Excluded_Packages>
+					<Excluded_Packages Name="$(BDSBIN)\bcboffice2k370.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+					<Excluded_Packages Name="$(BDSBIN)\bcbofficexp370.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+					<Excluded_Packages Name="$(BDSBIN)\dcloffice2k370.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+					<Excluded_Packages Name="$(BDSBIN)\dclofficexp370.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+				</Excluded_Packages>
 			</Delphi.Personality>
 			<Platforms>
 				<Platform value="Android">False</Platform>

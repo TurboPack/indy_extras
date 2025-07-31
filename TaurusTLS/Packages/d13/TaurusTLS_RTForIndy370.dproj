@@ -91,6 +91,7 @@
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_RTForIndy370.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy370.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
 		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_RTForIndy370.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy370.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
@@ -124,6 +125,7 @@
 		<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
 		<DCC_RangeChecking>true</DCC_RangeChecking>
 		<DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+		<DCC_UnitSearchPath>$(INDY_PATH)\Lib\System;$(INDY_PATH)\Lib\Core;$(INDY_PATH)\Lib\Protocols;..\..\\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2_Android64)'!=''">
 		<BT_BuildType>Debug</BT_BuildType>
@@ -139,7 +141,8 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_RTForIndy370.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_RTForIndy370.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
+		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+		<VerInfo_Build>29</VerInfo_Build>
 	</PropertyGroup>
 	<ItemGroup>
 		<DelphiCompile Include="$(MainSource)">
