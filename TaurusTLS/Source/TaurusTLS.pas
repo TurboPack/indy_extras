@@ -1418,6 +1418,10 @@ type
     fOnBeforeConnect: TOnIOHandlerNotify;
     FOnSSLNegotiated: TOnIOHandlerNotify;
     fOnVerifyCallback: TOnVerifyCallbackEvent;
+    //This needs to be private, not strict private
+    //so we can set it in the clone method for FTP data
+    //channel SNI.
+    {$IFNDEF USE_STRICT_PRIVATE_PROTECTED} fHostname : String{$ENDIF}
     // function GetPeerCert: TTaurusTLSX509;
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
@@ -1461,6 +1465,10 @@ type
     function GetURIHost: string;
 {$IFEND}
 {$ENDIF}
+    //This needs to be private, not strict private
+    //so we can set it in the clone method for FTP data
+    //channel SNI.
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} private fHostname : String;{$ENDIF}
   public
     /// <summary>
     /// Frees resources and destroys the current instance.
@@ -3528,6 +3536,7 @@ begin
   fClientCert := TTaurusTLSX509File.Create(nil);
   // fSSLLayerClosed := true;
   fSSLContext := nil;
+  fHostname := '';
 end;
 
 destructor TTaurusTLSIOHandlerSocket.Destroy;
@@ -3605,6 +3614,7 @@ begin
       fSSLContext := nil;
     end;
   end;
+  fHostname := '';
   inherited Close;
 end;
 
@@ -3781,9 +3791,7 @@ var
   LTimeout: Integer;
 {$ENDIF}
   LMode: TTaurusTLSSSLMode;
-{$IFNDEF USE_INLINE_VAR}
-  LHost: string;
-{$ENDIF}
+
 begin
   Assert(Binding <> nil);
   if not Assigned(fSSLSocket) then
@@ -3837,20 +3845,19 @@ begin
   end;
   if LMode = sslmClient then
   begin
-{$IFDEF USE_INLINE_VAR}
-    var
-      LHost: String;
-{$ENDIF}
-    LHost := GetURIHost;
-    if LHost = '' then
+    if fHostname = '' then
     begin
-      LHost := GetProxyTargetHost;
-      if LHost = '' then
+      fHostname := GetURIHost;
+      if fHostname = '' then
       begin
-        LHost := Host;
+        fHostname := GetProxyTargetHost;
+        if fHostname = '' then
+        begin
+          fHostname := Host;
+        end;
       end;
     end;
-    fSSLSocket.HostName := LHost;
+    fSSLSocket.HostName := fHostName;
     fSSLSocket.Connect(Binding.Handle);
   end
   else
@@ -3872,6 +3879,7 @@ var
 begin
   LIO := TTaurusTLSIOHandlerSocket.Create(nil);
   try
+    LIO.fHostname := fHostname;
     LIO.SSLOptions.Assign(SSLOptions);
     LIO.OnStatusInfo := FOnStatusInfo;
     LIO.OnDebugMessage := FOnDebugMessage;
