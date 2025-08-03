@@ -88,6 +88,8 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FErrorCode : TIdC_ULONG;
   public
+    class function CheckResult(AResult: TIdC_INT;
+      const AMsg : String = ''; ARaiseException: boolean = True): boolean; static;
     /// <summary>
     ///   Raises the exception class with an error code.
     /// </summary>
@@ -161,7 +163,7 @@ type
   end;
 
   /// <summary>
-  ///   Anscestor of exceptions that are raised if an HMAC* functions fail.
+  ///   Anscestor of exceptions that are raised if an HMAC* functions fails.
   /// </summary>
   ETaurusTLSHMACError = class(ETaurusTLSAPICryptoError);
   /// <summary>
@@ -185,6 +187,44 @@ type
   ///   HMAC_Final
   /// </seealso>
   ETaurusTLSHMACFinal = class(ETaurusTLSHMACError);
+
+  /// <summary>
+  ///   Anscestor of exceptions that are raised if an EVP_CIPHER_* functions fails.
+  /// </summary>
+  ETaurusTLSEVPCipherError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the EVP_CipherInit_ex function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/1.0.2/man3/EVP_EncryptInit/">
+  /// EVP_CipherInit_ex
+  /// </seealso>
+  ETaurusTLSEVPCipherInitEx = class(ETaurusTLSEVPCipherError);
+  /// <summary>
+  ///   Raised if the EVP_CipherUpdate function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_EncryptInit/">
+  ///  EVP_CipherUpdate
+  /// </seealso>
+  ETaurusTLSEVPCipherUpdate = class(ETaurusTLSEVPCipherError);
+  /// <summary>
+  ///   Raised if the EVP_CipherFinal_ex function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_EncryptInit/">
+  ///  EVP_CipherFinal_ex
+  /// </seealso>
+  ETaurusTLSEVPCipherFinalEx = class(ETaurusTLSEVPCipherError);
+
+  /// <summary>
+  ///   Anscestor of exceptions that are raised if an EVP_CIPHER_CTX_* functions fails.
+  /// </summary>
+  ETaurusTLSEVPCipherCTXError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the EVP_CIPHER_CTX_new function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_EncryptInit/">
+  ///  EVP_CIPHER_CTX_new
+  /// </seealso>
+  EVPCipherCTXNew = class(ETaurusTLSEVPCipherCTXError);
 
 implementation
 
@@ -233,6 +273,14 @@ begin
 end;
 
 { ETaurusTLSAPICryptoError }
+class function ETaurusTLSAPICryptoError.CheckResult(AResult: TIdC_INT;
+  const AMsg : String = ''; ARaiseException: boolean = True): boolean;
+begin
+  Result := AResult = 1;
+  if (not Result) and ARaiseException then
+    RaiseException;
+end;
+
 class procedure ETaurusTLSAPICryptoError.RaiseException(const AMsg : String = '');
 begin
   RaiseExceptionCode(ERR_get_error(), AMsg);
