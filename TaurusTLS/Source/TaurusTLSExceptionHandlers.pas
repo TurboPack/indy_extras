@@ -88,6 +88,23 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FErrorCode : TIdC_ULONG;
   public
+
+    /// <summary>
+    ///   Conditionally raises an exception if the result of an OpenSSL API call
+    ///   &lt;&gt; 1 with the message provied by the AMsg parameter.
+    /// </summary>
+    /// <param name="AResult">
+    ///   The result of an OpenSSL function.
+    /// </param>
+    /// <param name="AMsg">
+    ///   The exception that is to be raised.
+    /// </param>
+    /// <param name="ARaiseException">
+    ///   Set to true to raise the exception.
+    /// </param>
+    /// <returns>
+    ///   True if the previous function succeded.
+    /// </returns>
     class function CheckResult(AResult: TIdC_INT;
       const AMsg : String = ''; ARaiseException: boolean = True): boolean; static;
     /// <summary>

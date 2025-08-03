@@ -1421,7 +1421,7 @@ type
     //This needs to be private, not strict private
     //so we can set it in the clone method for FTP data
     //channel SNI.
-    {$IFNDEF USE_STRICT_PRIVATE_PROTECTED} fHostname : String{$ENDIF}
+    {$IFNDEF USE_STRICT_PRIVATE_PROTECTED} fHostname : String;{$ENDIF}
     // function GetPeerCert: TTaurusTLSX509;
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
