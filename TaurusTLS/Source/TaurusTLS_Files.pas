@@ -384,11 +384,11 @@ end;
 {
   IMPORTANT!!!
 
-  TaurusTLS can not handle Unicode file names at all.  On Posix systems, UTF8 File
-  names can be used with TaurusTLS.  The Windows operating system does not accept
+  OpenSSL can not handle Unicode file names at all.  On Posix systems, UTF8 File
+  names can be used with OpenSSL.  The Windows operating system does not accept
   UTF8 file names at all so we have our own routines that will handle Unicode
   filenames.   Most of this section of code is based on code in the OpenSSL .DLL
-  which is copyrighted by the TaurusTLS developers.  Some of it is translated into
+  which is copyrighted by the OpenSSL developers.  Some of it is translated into
   Pascal and made some modifications so that it will handle Unicode filenames.
 }
 
