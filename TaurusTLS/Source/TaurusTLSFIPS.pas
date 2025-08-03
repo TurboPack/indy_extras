@@ -82,7 +82,10 @@ function TaurusTLSGetDigestCtx(AInst: PEVP_MD): TIdHashIntCtx;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := EVP_MD_CTX_new;
-
+  if Result = nil then
+  begin
+    ETaurusTLSEVPMDCTXNew.RaiseException(RSOSSLEVPMDCTXNew);
+  end;
   ETaurusTLSDigestInitEx.CheckResult(EVP_DigestInit_ex(Result, AInst, nil),
     RSOSSLEVPDigestExError);
 end;
@@ -93,6 +96,10 @@ function TaurusTLSHMACInit(const AKey: TIdBytes; AInst: PEVP_MD): TIdHMACIntCtx;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := HMAC_CTX_new;
+  if Result = nil then
+  begin
+    ETaurusTLSHMACCTXNew.RaiseException(RSOSSLHMACCTXnew);
+  end;
   ETaurusTLSHMACInitEx.CheckResult(HMAC_Init_ex(Result, PByte(AKey),
     Length(AKey), AInst, nil), RSOSSLHMACInitExError);
 end;

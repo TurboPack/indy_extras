@@ -57,9 +57,11 @@ resourcestring
   RSOSSLHandshakeStart = 'Handshake Start';
   RSOSSLHandshakeDone = 'Handshake Done';
   { IdSSLTaurusTLSFIPS }
+  RSOSSLEVPMDCTXNew = 'EVP_MD_CTX_new error';
   RSOSSLEVPDigestExError = 'EVP_DigestInit_ex error';
   RSOSSLEVPDigestUpdateError = 'EVP_DigestUpdate error';
   RSOSSLEVPDigestError = 'EVP_DigestFinal_ex error';
+  RSOSSLHMACCTXnew =  'HMAC_CTX_new error';
   RSOSSLHMACInitExError = 'HMAC_Init_ex error';
   RSOSSLHMACUpdateError = 'HMAC_Update error';
   RSOSSLHMACFinalError = 'HMAC_Final error';

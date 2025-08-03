@@ -143,6 +143,13 @@ type
   /// </summary>
   ETaurusTLSDigestError = class(ETaurusTLSAPICryptoError);
   /// <summary>
+  ///   Raised when the EVP_MD_CTX_new function failed. <br />
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
+  ///   EVP_MD_CTX_new
+  /// </seealso>
+  ETaurusTLSEVPMDCTXNew = class(ETaurusTLSDigestError);
+  /// <summary>
   ///   Raised when the EVP_DigestFinal_ex function failed. <br />
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/EVP_DigestInit/">
@@ -183,6 +190,14 @@ type
   ///   Anscestor of exceptions that are raised if an HMAC* functions fails.
   /// </summary>
   ETaurusTLSHMACError = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Raised if the HMAC_CTX_new function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.0/man3/HMAC/">
+  ///   HMAC_CTX_new
+  /// </seealso>
+  ETaurusTLSHMACCTXNew = class(ETaurusTLSHMACError);
+
   /// <summary>
   ///   Raised if the HMAC_Init_ex function failed.
   /// </summary>
