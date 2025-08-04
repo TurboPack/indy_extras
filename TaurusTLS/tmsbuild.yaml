@@ -1,4 +1,4 @@
-minimum required tmsbuild version: 1.8
+minimum required tmsbuild version: 2.0
 
 application:
   id: taurustls_developers.taurustls
@@ -28,6 +28,9 @@ packages:
   - taurustlsrt: [runtime, lcl]
   - taurustlsldsgn: [design, lcl]
 
+package options:
+  root package folder: packages
+  
 help:
   file: Help/chm/TaurusForIndy290All.chm
 
