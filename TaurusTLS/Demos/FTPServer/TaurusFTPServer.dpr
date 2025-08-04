@@ -416,7 +416,7 @@ begin
         DEF_FTP_PASV_SAME_IP);
       LIni.WriteBool('Server', 'Permit_CCC_Clear_Command_Connection_In_TLS_FTP',
         DEF_FTP_PERMIT_CCC);
-
+      LIni.WriteBool('Server','Require_Client_Certificate',False);
       LIni.WriteBool('Server', 'Allow_Anonymous_FTP', false);
       LIni.WriteBool('Server', 'Allow_Compression', True);
       LIni.WriteBool('Server', 'Allow_File_Checksums', True);
