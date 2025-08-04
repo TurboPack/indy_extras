@@ -195,7 +195,7 @@
 		<DCCReference Include="IndySystem.dcp"/>
 		<DCCReference Include="IndyProtocols.dcp"/>
 		<DCCReference Include="IndyCore.dcp"/>
- {$DROJ_FILES_RT}
+ {$DPROJ_FILES_RT}
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

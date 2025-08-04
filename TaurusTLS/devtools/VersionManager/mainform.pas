@@ -28,6 +28,7 @@ type
     btnGenerateFiles: TButton;
     edtProductName: TEdit;
     lblProductName: TLabel;
+    mmoLog: TMemo;
     procedure btnGenerateFilesClick(Sender: TObject);
   private
     { Private declarations }

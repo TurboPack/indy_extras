@@ -131,7 +131,7 @@
 		<DCCReference Include="IndyProtocols250.dcp"/>
 		<DCCReference Include="IndySystem250.dcp"/>
 		<DCCReference Include="TaurusTLS_RTForIndy250.dcp"/>
-	{$DROJ_FILES_DT}
+	{$DPROJ_FILES_DT}
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>

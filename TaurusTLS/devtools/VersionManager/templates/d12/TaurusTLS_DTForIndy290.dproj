@@ -171,7 +171,7 @@
 		<DCCReference Include="IndySystem290.dcp"/>
 		<DCCReference Include="TaurusTLS_RTForIndy290.dcp"/>
 		<DCCReference Include="designide.dcp"/>
-		{$DRPJ_FILES_RT}
+		{$DPROJ_FILES_RT}
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

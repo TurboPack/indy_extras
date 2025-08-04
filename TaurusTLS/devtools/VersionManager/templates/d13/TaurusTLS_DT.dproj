@@ -170,7 +170,7 @@
         <DCCReference Include="IndySystem.dcp"/>
         <DCCReference Include="TaurusTLS_RT.dcp"/>
         <DCCReference Include="designide.dcp"/>
-{$DRPJ_FILES_DT}
+{$DPROJ_FILES_DT}
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

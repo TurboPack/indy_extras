@@ -139,7 +139,7 @@
 		<DCCReference Include="IndyCore.dcp"/>
 		<DCCReference Include="IndyProtocols.dcp"/>
 		<DCCReference Include="IndySystem.dcp"/>
-{$DROJ_FILES_RT}		
+{$DPROJ_FILES_RT}		
 		<BuildConfiguration Include="Release">
 			<Key>Cfg_2</Key>
 			<CfgParent>Base</CfgParent>

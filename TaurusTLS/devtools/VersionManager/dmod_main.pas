@@ -190,12 +190,12 @@ begin
       for i := 0 to LFilesToRead.Count - 1 do
       begin
         LFileContents :=  System.IOUtils.TFile.ReadAllText( LFilesToRead[i]);
-        LFileToWrite := ExpandFileName( StringReplace( LFilesToRead[i],'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+        LFileToWrite :=  ExpandFileName( StringReplace( LFilesToRead[i],'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
         LFileContents := StringReplace( LFileContents, '{$LPK_FILES_DT}', ListUnitsForLPK(LDT_Units, L_Register),[rfReplaceAll]);
         LFileContents := StringReplace( LFileContents, '{$LPK_FILES_RT}', ListUnitsForLPK(LRTL_Units, L_Register),[rfReplaceAll]);
 
-        LFileContents := StringReplace( LFileContents, '{$DRPJ_FILES_DT}', ListUnitsForDPROJ(LDT_Units),[rfReplaceAll]);
-        LFileContents := StringReplace( LFileContents, '{$DRPJ_FILES_RT}', ListUnitsForDPROJ(LRTL_Units),[rfReplaceAll]);
+        LFileContents := StringReplace( LFileContents, '{$DPROJ_FILES_DT}', ListUnitsForDPROJ(LDT_Units),[rfReplaceAll]);
+        LFileContents := StringReplace( LFileContents, '{$DPROJ_FILES_RT}', ListUnitsForDPROJ(LRTL_Units),[rfReplaceAll]);
 
         LFileContents := StringReplace( LFileContents, '{$DPK_FILES_DT}', ListUnitsForDPK(LDT_Units),[rfReplaceAll]);
         LFileContents := StringReplace( LFileContents, '{$DPK_FILES_RT}', ListUnitsForDPK(LRTL_Units),[rfReplaceAll]);

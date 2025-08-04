@@ -141,7 +141,7 @@
 		<DCCReference Include="rtl.dcp"/>
 		<DCCReference Include="designide.dcp"/>
 		<DCCReference Include="TaurusTLS_RT.dcp"/>
-{$DRPJ_FILES_DT}
+{$DPROJ_FILES_DT}
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

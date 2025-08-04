@@ -121,7 +121,7 @@
 		<DCCReference Include="IndyProtocols280.dcp"/>
 		<DCCReference Include="IndySystem280.dcp"/>
 		<DCCReference Include="TaurusTLS_RTForIndy280.dcp"/>
- {$DROJ_FILES_RT}
+ {$DPROJ_FILES_RT}
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

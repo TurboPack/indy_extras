@@ -152,7 +152,7 @@
 		<DCCReference Include="IndyCore370.dcp"/>
 		<DCCReference Include="IndySystem370.dcp"/>
 		<DCCReference Include="IndyProtocols370.dcp"/>
-{$DRPJ_FILES_RT}
+{$DPROJ_FILES_RT}
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>

@@ -207,7 +207,10 @@
 		<DCCReference Include="IndySystem.dcp"/>
 		<DCCReference Include="TaurusTLS_RT.dcp"/>
 		<DCCReference Include="designide.dcp"/>
- {$DROJ_FILES_DT}
+		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_AboutDlg.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_ComponentEditor.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_Register.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS_Dsn_ResourceStrings.pas"/>
 		<BuildConfiguration Include="Base">
 			<Key>Base</Key>
 		</BuildConfiguration>
