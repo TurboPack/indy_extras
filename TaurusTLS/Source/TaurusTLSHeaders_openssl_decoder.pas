@@ -237,7 +237,7 @@ function OSSL_DECODER_CTX_set_construct_data(ctx : POSSL_DECODER_CTX;
   construct_data : Pointer) : TIdC_INT cdecl; external CLibCrypto;
 function OSSL_DECODER_CTX_set_cleanup(ctx : POSSL_DECODER_CTX;
   cleanup : OSSL_DECODER_CLEANUP) : TIdC_INT cdecl; external CLibCrypto;
-function OSSL_DECODER_CTX_get_construct(ctx : POSSL_DECODER_CTX) : OSSL_DECODER_CONSTRUCT;
+function OSSL_DECODER_CTX_get_construct(ctx : POSSL_DECODER_CTX) : OSSL_DECODER_CONSTRUCT cdecl; external CLibCrypto;
 function OSSL_DECODER_CTX_get_construct_data(ctx : POSSL_DECODER_CTX) : Pointer  cdecl; external CLibCrypto;
 function OSSL_DECODER_CTX_get_cleanup(ctx : POSSL_DECODER_CTX) : OSSL_DECODER_CLEANUP cdecl; external CLibCrypto;
 
