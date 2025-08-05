@@ -136,7 +136,7 @@ object frmMainForm: TfrmMainForm
     Caption = '&Generate Files'
     TabOrder = 7
     OnClick = btnGenerateFilesClick
-    ExplicitTop = 240
+    ExplicitTop = 339
   end
   object edtProductName: TEdit
     Left = 16
@@ -152,6 +152,7 @@ object frmMainForm: TfrmMainForm
     Height = 89
     Anchors = [akLeft, akTop, akRight, akBottom]
     ReadOnly = True
+    ScrollBars = ssBoth
     TabOrder = 8
     WordWrap = False
   end

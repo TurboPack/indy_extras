@@ -10,10 +10,13 @@ uses
   System.SysUtils, System.Classes, Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc;
 
 type
+  TOnDebugLog = procedure (ASender : TObject; const AText : String) of object;
   TdmodMain = class(TDataModule)
     projFile: TXMLDocument;
   strict private
     { Private declarations }
+    FOnDebugLog : TOnDebugLog;
+    procedure DoOnDebugLog(const AText : String);
     procedure UpdatePackage(const APkg: String;
       const AMajorVersion, AMinorVersion, ARelease, ABuild: Integer;
       const ACompanyName, ACopyright: String);
@@ -30,6 +33,7 @@ type
       ABuild: Integer; const AProductName: String);
     procedure WriteVersions_txt(const AProduct : String;
       const AMajorVersion, AMinorVersion, ARelease, ABuild: Integer);
+    property OnDebugLog : TOnDebugLog read fOnDebugLog write fOnDebugLog;
   end;
 
 var
@@ -189,6 +193,7 @@ begin
       FindFilesToRead('..\..\Templates', LFilesToRead);
       for i := 0 to LFilesToRead.Count - 1 do
       begin
+        Self.DoOnDebugLog( 'Read: '+ExpandFileName(LFilesToRead[i]));
         LFileContents :=  System.IOUtils.TFile.ReadAllText( LFilesToRead[i]);
         LFileToWrite :=  ExpandFileName( StringReplace( LFilesToRead[i],'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
         LFileContents := StringReplace( LFileContents, '{$LPK_FILES_DT}', ListUnitsForLPK(LDT_Units, L_Register),[rfReplaceAll]);
@@ -199,7 +204,7 @@ begin
 
         LFileContents := StringReplace( LFileContents, '{$DPK_FILES_DT}', ListUnitsForDPK(LDT_Units),[rfReplaceAll]);
         LFileContents := StringReplace( LFileContents, '{$DPK_FILES_RT}', ListUnitsForDPK(LRTL_Units),[rfReplaceAll]);
-
+         Self.DoOnDebugLog( 'Write: '+LFileToWrite );
         System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
       end;
     finally
@@ -208,6 +213,14 @@ begin
       FreeAndNil(LDT_Units);
       FreeAndNil(LRTL_Units);
     end;
+end;
+
+procedure TdmodMain.DoOnDebugLog(const AText : String);
+begin
+  if Assigned(fOnDebugLog) then
+  begin
+    fOnDebugLog(Self,AText);
+  end;
 end;
 
 procedure TdmodMain.UpdateIncFile(const AMajorVersion, AMinorVersion, ARelease,
