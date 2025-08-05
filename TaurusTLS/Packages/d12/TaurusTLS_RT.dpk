@@ -37,7 +37,7 @@ requires
   IndyCore;
 
 contains
-   TaurusTLS in '..\..\Source\TaurusTLS.pas',
+  TaurusTLS in '..\..\Source\TaurusTLS.pas',
   TaurusTLSConsts in '..\..\Source\TaurusTLSConsts.pas',
   TaurusTLSExceptionHandlers in '..\..\Source\TaurusTLSExceptionHandlers.pas',
   TaurusTLSFIPS in '..\..\Source\TaurusTLSFIPS.pas',
