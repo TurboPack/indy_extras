@@ -37,7 +37,6 @@ uses
   DUnitX.TestFramework,
   TaurusTLS.UT.Utils in 'TaurusTLS.UT.Utils.pas',
   TaurusTLS.UT.TestClasses in 'TaurusTLS.UT.TestClasses.pas',
-  TaurusTLS.UT.Dummy in 'TaurusTLS.UT.Dummy.pas',
   TaurusTLS.UT.Random in 'TaurusTLS.UT.Random.pas',
   TaurusTLS.UT.Headers.Bio in 'TaurusTLS.UT.Headers.Bio.pas';
 

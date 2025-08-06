@@ -27,6 +27,7 @@ type
   end;
 
   [TestFixture]
+  [Category('Random')]
   TOSSLRandomFixture = class(TOsslBaseFixture)
   private
     function GetRandomBytes(ASource: TRandomSrc; ACtx: POSSL_LIB_CTX;
@@ -38,32 +39,33 @@ type
     [Test]
     [IgnoreMemoryLeaks]
     procedure NewRandomNegative;
-    [TestCase('Iterations=5', '5')]
+    [AutoNameTestCase('5')]
     procedure NewRandomPositive(Iterations: NativeUInt);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomMemory(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomBytes(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomBoundary(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomByte(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomInt(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomInt64(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomExtended(Source: TRandomSrc; Items, Size: TIdC_SIZET);
   end;
 
   [TestFixture]
+  [Category('Random')]
   TRandomFixture = class(TOsslBaseFixture)
   private
     function GetRandomBytes(ASource: TRandomSrc; ACtx: POSSL_LIB_CTX;
@@ -74,28 +76,28 @@ type
     [Test]
     [IgnoreMemoryLeaks]
     procedure NewRandomNegative;
-    [TestCase('Iterations=5', '5')]
+    [AutoNameTestCase('5')]
     procedure NewRandomPositive(Iterations: NativeUInt);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomMemory(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomBytes(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomBoundary(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomByte(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomInt(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomInt64(Source: TRandomSrc; Items, Size: TIdC_SIZET);
-    [TestCase('Source=rsPrivate;Items=5;Size=1024', 'rsPrivate,5,1024')]
-    [TestCase('Source=rsPublic;Items=5;Size=1024', 'rsPublic,5,1024')]
+    [AutoNameTestCase('rsPrivate,5,1024')]
+    [AutoNameTestCase('rsPublic,5,1024')]
     procedure RandomExtended(Source: TRandomSrc; Items, Size: TIdC_SIZET);
   end;
 

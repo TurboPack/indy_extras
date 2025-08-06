@@ -22,45 +22,38 @@ type
     procedure Do_BIO_write(const AValue: RawByteString; AChunkLen: TIdC_SIZET;
       ABioProc: TBIO_WriteProc);
   public
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$''', '$$$$$$$$$$$$$$$$')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$')]
     procedure Test_BIO_new_mem_buf(const AValue: RawByteString);
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$''', '$$$$$$$$$$$$$$$$')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$')]
     procedure Test_BIO_new_mem_ref(const AValue: RawByteString);
-    [TestCase('AValue=''$'',AChunkLen=3', '$, 3')]
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$'',AChunkLen=3',
-      '$$$$$$$$$$$$$$$$, 3')]
-    [TestCase('AValue=''0123456789'',AChunkLen=2', '0123456789,2')]
+    [AutoNameTestCase('$,3')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$,3')]
+    [AutoNameTestCase('0123456789,2')]
     procedure Test_BIO_read(const AValue: RawByteString; AChunkLen: TIdC_SIZET);
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$'',ChnkLen=3',
-      '$$$$$$$$$$$$$$$$, 3')]
-    [TestCase('Value=''0123456789'',AChunkLen=2', '0123456789,2')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$, 3')]
+    [AutoNameTestCase('0123456789,2')]
     procedure Test_BIO_read_ex(const AValue: RawByteString; AChunkLen: TIdC_SIZET);
-    [TestCase('ALength=4096,AChunkLen=256', '4096,256')]
-    [TestCase('ALength=8177,AChunkLen=513', '8177,513')]
+    [AutoNameTestCase('4096,256')]
+    [AutoNameTestCase('8177,513')]
     procedure Test_Random_BIO_read(ALength: NativeUInt; AChunkLen: TIdC_SIZET);
-    [TestCase('ALength=4096,AChunkLen=256', '4096,256')]
-    [TestCase('ALength=8177,AChunkLen=513', '8177,513')]
+    [AutoNameTestCase('4096,256')]
+    [AutoNameTestCase('8177,513')]
     procedure Test_Random_BIO_read_ex(ALength: NativeUInt; AChunkLen: TIdC_SIZET);
-    [TestCase('AValue=''$'',AChunkLen=3', '$, 3')]
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$'',AChunkLen=3',
-      '$$$$$$$$$$$$$$$$, 3')]
-    [TestCase('AValue=''0123456789'',AChunkLen=2', '0123456789,2')]
+    [AutoNameTestCase('$,3')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$, 3')]
+    [AutoNameTestCase('0123456789,2')]
     procedure Test_BIO_write(const AValue: RawByteString; AChunkLen: TIdC_SIZET);
-    [TestCase('AValue=''$$$$$$$$$$$$$$$$'',ChnkLen=3',
-      '$$$$$$$$$$$$$$$$, 3')]
+    [AutoNameTestCase('$$$$$$$$$$$$$$$$, 3')]
     procedure Test_BIO_write_ex(const AValue: RawByteString; AChunkLen: TIdC_SIZET);
-    [TestCase('ALength=4096,AChunkLen=256', '4096,256')]
-    [TestCase('ALength=8177,AChunkLen=513', '8177,513')]
+    [AutoNameTestCase('4096,256')]
+    [AutoNameTestCase('8177,513')]
     procedure Test_Random_BIO_write(ALength: NativeUInt; AChunkLen: TIdC_SIZET);
-    [TestCase('ALength=4096,AChunkLen=256', '4096,256')]
-    [TestCase('ALength=8177,AChunkLen=513', '8177,513')]
+    [AutoNameTestCase('4096,256')]
+    [AutoNameTestCase('8177,513')]
     procedure Test_Random_BIO_write_ex(ALength: NativeUInt; AChunkLen: TIdC_SIZET);
-    [TestCase('AHostServicePair=''host:service'',APriority=BIO_PARSE_PRIO_HOST',
-      'host:service, BIO_PARSE_PRIO_HOST')]
-    [TestCase('AHostServicePair=''host:'',APriority=BIO_PARSE_PRIO_HOST',
-      'host:, BIO_PARSE_PRIO_HOST')]
-    [TestCase('AHostServicePair='':service'',APriority=BIO_PARSE_PRIO_HOST',
-      ':service, BIO_PARSE_PRIO_HOST')]
+    [AutoNameTestCase('host:service, BIO_PARSE_PRIO_HOST')]
+    [AutoNameTestCase('host:, BIO_PARSE_PRIO_HOST')]
+    [AutoNameTestCase(':service, BIO_PARSE_PRIO_HOST')]
     procedure Test_BIO_parse_hostserv(AHostServicePair: RawByteString;
       APriority: BIO_hostserv_priorities);
   end;
