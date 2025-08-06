@@ -4307,7 +4307,7 @@ begin
   // load key and certificate files
   if (RootPublicKey <> '') or (VerifyDirs <> '') then
   begin { Do not Localize }
-    if not IndySSL_CTX_load_verify_locations(fContext, RootPublicKey,
+    if not TaurusTLS_SSL_CTX_load_verify_locations(fContext, RootPublicKey,
       VerifyDirs) > 0 then
     begin
       ETaurusTLSLoadingRootCertError.RaiseWithMessage
@@ -4321,16 +4321,16 @@ begin
     if PosInStrArray(ExtractFileExt(PublicKey), ['.p12', '.pfx'], False) <> -1
     then
     begin
-      LRes := IndySSL_CTX_use_certificate_file_PKCS12(fContext, PublicKey) > 0;
+      LRes := TaurusTLS_SSL_CTX_use_certificate_file_PKCS12(fContext, PublicKey) > 0;
     end
     else
     begin
       // OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
       // that handles a chain of certificates in a PEM file.  That is prefered.
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
+      LRes := TaurusTLS_SSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
 {$ELSE}
-      LRes := IndySSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
+      LRes := TaurusTLS_SSL_CTX_use_certificate_chain_file(fContext, PublicKey) > 0;
 {$ENDIF}
     end;
     if not LRes then
@@ -4344,11 +4344,11 @@ begin
     if PosInStrArray(ExtractFileExt(PrivateKey), ['.p12', '.pfx'], False) <> -1
     then
     begin
-      LRes := IndySSL_CTX_use_PrivateKey_file_PKCS12(fContext, PrivateKey) > 0;
+      LRes := TaurusTLS_SSL_CTX_use_PrivateKey_file_PKCS12(fContext, PrivateKey) > 0;
     end
     else
     begin
-      LRes := IndySSL_CTX_use_PrivateKey_file(fContext, PrivateKey,
+      LRes := TaurusTLS_SSL_CTX_use_PrivateKey_file(fContext, PrivateKey,
         SSL_FILETYPE_PEM) > 0;
     end;
     if LRes then
@@ -4362,7 +4362,7 @@ begin
   end;
   if DHParamsFile <> '' then
   begin { Do not Localize }
-    if not IndySSL_CTX_use_DHparams_file(fContext, fsDHParamsFile,
+    if not TaurusTLS_SSL_CTX_use_DHparams_file(fContext, fsDHParamsFile,
       SSL_FILETYPE_PEM) > 0 then
     begin
       ETaurusTLSLoadingDHParamsError.RaiseWithMessage
@@ -4444,7 +4444,7 @@ begin
   if RootPublicKey <> '' then
   begin { Do not Localize }
     SSL_CTX_set_client_CA_list(fContext,
-      IndySSL_load_client_CA_file(RootPublicKey));
+      TaurusTLS_SSL_load_client_CA_file(RootPublicKey));
   end
 
   // TODO: provide an event so users can apply their own settings as needed...
@@ -4466,7 +4466,7 @@ end;
   Result := False;
 
   if (Dirs <> '') or (FileName <> '') then begin
-  if IndySSL_CTX_load_verify_locations(fContext, FileName, Dirs) <= 0 then begin
+  if TaurusTLS_SSL_CTX_load_verify_locations(fContext, FileName, Dirs) <= 0 then begin
   raise EIdOSSLCouldNotLoadSSLLibrary.Create(RSOSSLCouldNotLoadSSLLibrary);
   end;
   end;

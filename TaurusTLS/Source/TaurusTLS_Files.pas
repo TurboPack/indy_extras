@@ -51,7 +51,7 @@ function LoadCertificate(const AFileName: String): PX509;
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 /// <summary>
 /// Load a .pfx or .p12 private key file into an OpenSSL SSL Context Object.
@@ -65,7 +65,7 @@ function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 /// <summary>
 /// Load a private key into an OpenSSL Context Object.
@@ -83,7 +83,7 @@ function IndySSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
 /// <returns>
 /// Returns 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 /// <summary>
 /// Load Root certificates into an OpenSSL SSL Context Object.
@@ -100,7 +100,7 @@ function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
 /// <summary>
 /// Loads a certificate chain from a PEM file into an OpenSSL SSL Context
@@ -115,7 +115,7 @@ function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 // const AFileName: String; AType: Integer): TIdC_INT;
 /// <summary>
@@ -127,7 +127,7 @@ function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
 /// <returns>
 /// The list of Certificate Authorities.
 /// </returns>
-function IndySSL_load_client_CA_file(const AFileName: String)
+function TaurusTLS_SSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 /// <summary>
 /// Loads a DH parameters file into an OpenSSL Context Object.
@@ -145,7 +145,7 @@ function IndySSL_load_client_CA_file(const AFileName: String)
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 /// <summary>
 /// Load Root certificates into an OpenSSL SSL Context Object.
@@ -162,7 +162,7 @@ function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
 /// <returns>
 /// 1 if successful or 0 if failed.
 /// </returns>
-function IndyX509_STORE_load_locations(ctx: PX509_STORE;
+function TaurusTLS_X509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
 
 implementation
@@ -215,7 +215,7 @@ end;
 // natively support PKCS12 certificates/keys, only PEM/ASN1, so load them
 // manually...
 
-function IndySSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -299,7 +299,7 @@ begin
   end;
 end;
 
-function IndySSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -394,9 +394,9 @@ end;
 
 {$IFDEF STRING_IS_UNICODE} { UCS-2 implied }
 {$IFDEF WINDOWS}
-function Indy_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
+function TaurusTLS_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
   const AFileName: String; const _type: TIdC_INT): TIdC_INT; forward;
-function Indy_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
+function TaurusTLS_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
   const AFileName: String; _type: TIdC_INT): TIdC_INT; forward;
 
 {
@@ -405,7 +405,7 @@ function Indy_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
   to be portable at all.
 }
 
-function by_Indy_unicode_file_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT;
+function by_TaurusTLS_unicode_file_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT;
   const argc: PAnsiChar; argl: TIdC_LONG; var ret: PAnsiChar): TIdC_INT; cdecl;
 {$IFNDEF USE_INLINE_VAR}
 var
@@ -433,7 +433,7 @@ begin
               begin
                 LFileName := AnsiStringToString(X509_get_default_cert_file);
               end;
-              Result := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
+              Result := Ord(TaurusTLS_unicode_X509_load_cert_crl_file(ctx, LFileName,
                 X509_FILETYPE_PEM) <> 0);
               if Result = 0 then
               begin
@@ -443,12 +443,12 @@ begin
           X509_FILETYPE_PEM:
             begin
               LFileName := PWideChar(Pointer(argc));
-              Result := Ord(Indy_unicode_X509_load_cert_crl_file(ctx, LFileName,
+              Result := Ord(TaurusTLS_unicode_X509_load_cert_crl_file(ctx, LFileName,
                 X509_FILETYPE_PEM) <> 0);
             end;
         else
           LFileName := PWideChar(Pointer(argc));
-          Result := Ord(Indy_unicode_X509_load_cert_file(ctx, LFileName,
+          Result := Ord(TaurusTLS_unicode_X509_load_cert_file(ctx, LFileName,
             TIdC_INT(argl)) <> 0);
         end;
       end;
@@ -457,7 +457,7 @@ begin
   end;
 end;
 
-function Indy_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
+function TaurusTLS_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
   const AFileName: String; _type: TIdC_INT): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -549,7 +549,7 @@ begin
   end;
 end;
 
-function Indy_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
+function TaurusTLS_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
   const AFileName: String; const _type: TIdC_INT): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -563,7 +563,7 @@ begin
 
   if _type <> X509_FILETYPE_PEM then
   begin
-    Result := Indy_unicode_X509_load_cert_file(ctx, AFileName, _type);
+    Result := TaurusTLS_unicode_X509_load_cert_file(ctx, AFileName, _type);
     Exit;
   end;
 
@@ -619,7 +619,7 @@ begin
   Result := count;
 end;
 
-procedure IndySSL_load_client_CA_file_err(var VRes: PSTACK_OF_X509_NAME);
+procedure TaurusTLS_SSL_load_client_CA_file_err(var VRes: PSTACK_OF_X509_NAME);
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   if Assigned(VRes) then
@@ -629,7 +629,7 @@ begin
   end;
 end;
 
-function IndySSL_load_client_CA_file(const AFileName: String)
+function TaurusTLS_SSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 var
   LM: TMemoryStream;
@@ -682,7 +682,7 @@ begin
                 if not Assigned(LXN) then
                 begin
                   // error
-                  IndySSL_load_client_CA_file_err(Result);
+                  TaurusTLS_SSL_load_client_CA_file_err(Result);
                   Failed := True;
                   Exit;
                 end;
@@ -691,7 +691,7 @@ begin
                 if not Assigned(LXNDup) then
                 begin
                   // error
-                  IndySSL_load_client_CA_file_err(Result);
+                  TaurusTLS_SSL_load_client_CA_file_err(Result);
                   Failed := True;
                   Exit;
                 end;
@@ -743,7 +743,7 @@ begin
   end;
 end;
 
-function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -804,7 +804,7 @@ begin
   end;
 end;
 
-function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -906,7 +906,7 @@ begin
   end;
 end;
 
-function IndyX509_STORE_load_locations(ctx: PX509_STORE;
+function TaurusTLS_X509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
 var
   lookup: PX509_LOOKUP;
@@ -921,12 +921,12 @@ begin
     begin
       Exit;
     end;
-    X509_LOOKUP_meth_set_ctrl(method, @by_Indy_unicode_file_ctrl);
+    X509_LOOKUP_meth_set_ctrl(method, @by_TaurusTLS_unicode_file_ctrl);
     // RLebeau: the PAnsiChar(Pointer(...)) cast below looks weird, but it is
     // intentional. X509_LOOKUP_load_file() takes a PAnsiChar as input, but
     // we are using Unicode strings here.  So casting the UnicodeString to a
     // raw Pointer and then passing that to X509_LOOKUP_load_file() as PAnsiChar.
-    // Indy_Unicode_X509_LOOKUP_file will cast it back to PWideChar for processing...
+    // TaurusTLS_unicode_X509_LOOKUP_file will cast it back to PWideChar for processing...
     if X509_LOOKUP_load_file(lookup, PAnsiChar(Pointer(AFileName)),
       X509_FILETYPE_PEM) <> 1 then
     begin
@@ -949,15 +949,15 @@ begin
   Result := 1;
 end;
 
-function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
-  Result := IndyX509_STORE_load_locations(SSL_CTX_get_cert_store(ctx),
+  Result := TaurusTLS_X509_STORE_load_locations(SSL_CTX_get_cert_store(ctx),
     ACAFile, ACAPath);
 end;
 
-function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
   LM: TMemoryStream;
@@ -1024,7 +1024,7 @@ end;
 
 {$IFDEF UNIX}
 
-function IndySSL_load_client_CA_file(const AFileName: String)
+function TaurusTLS_SSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 {$IFDEF USE_MARSHALLED_PTRS}
 var
@@ -1040,7 +1040,7 @@ begin
     );
 end;
 
-function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 {$IFDEF USE_MARSHALLED_PTRS}
@@ -1057,7 +1057,7 @@ begin
     , AType);
 end;
 
-function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 {$IFDEF USE_MARSHALLED_PTRS}
@@ -1089,7 +1089,7 @@ begin
 end;
 {$ENDIF}
 
-function IndyX509_STORE_load_locations(ctx: PX509_STORE;
+function TaurusTLS_X509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 {$IFDEF USE_MARSHALLED_PTRS}
@@ -1117,7 +1117,7 @@ begin
     );
 end;
 
-function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
@@ -1135,11 +1135,11 @@ begin
   // {$ENDIF}
   // );
 
-  Result := IndyX509_STORE_load_locations(SSL_CTX_get_cert_store(ctx),
+  Result := TaurusTLS_X509_STORE_load_locations(SSL_CTX_get_cert_store(ctx),
     ACAFile, ACAPath);
 end;
 
-function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
   b: PBIO;
@@ -1198,28 +1198,28 @@ end;
 { this conditional section assumes that strings are UTF8 or perhaps use a codepage
   and the calls typically resolve to direct calls to TaurusTLS }
 
-function IndySSL_load_client_CA_file(const AFileName: String)
+function TaurusTLS_SSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := SSL_load_client_CA_file(PAnsiChar(AFileName));
 end;
 
-function IndySSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := SSL_CTX_use_PrivateKey_file(ctx, PAnsiChar(AFileName), AType);
 end;
 
-function IndySSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   Result := SSL_CTX_use_certificate_chain_file(ctx, PAnsiChar(AFileName));
 end;
 
-function IndyX509_STORE_load_locations(ctx: PX509_STORE;
+function TaurusTLS_X509_STORE_load_locations(ctx: PX509_STORE;
   const AFileName, APathName: String): TIdC_INT;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
@@ -1233,7 +1233,7 @@ begin
     PAnsiChar(Pointer(APathName)));
 end;
 
-function IndySSL_CTX_load_verify_locations(ctx: PSSL_CTX;
+function TaurusTLS_SSL_CTX_load_verify_locations(ctx: PSSL_CTX;
   const ACAFile, ACAPath: String): TIdC_INT;
 begin
   // RLebeau 4/18/2010: X509_STORE_load_locations() expects nil pointers
@@ -1246,7 +1246,7 @@ begin
     PAnsiChar(Pointer(ACAPath)));
 end;
 
-function IndySSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
+function TaurusTLS_SSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
   b: PBIO;
