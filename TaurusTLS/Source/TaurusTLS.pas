@@ -4791,7 +4791,7 @@ begin
     begin
       Continue;
     end;
-
+    // From: Remy Lebeau
     // The error condition is first returned to the base IOHandler, which
     // handles disconnects and timeouts, then passed back down to the
     // SSLIOHandler (virtual CheckForError() method) to raise a TLS or
@@ -4831,6 +4831,7 @@ begin
     begin
       Continue;
     end;
+    // From: Remy Lebeau
     // The error condition is first returned to the base IOHandler, which
     // handles disconnects and timeouts, then passed back down to the
     // SSLIOHandler (virtual CheckForError() method) to raise a TLS or
