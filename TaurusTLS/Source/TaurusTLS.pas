@@ -3099,6 +3099,8 @@ begin
     LDest := Destination as TTaurusTLSX509File;
     LDest.PrivateKey := FPrivateKey;
     LDest.PublicKey := FPublicKey;
+    LDest.RootKey := FRootKey;
+    LDest.DHParamsFile := fDHParamsFile;
   end
   else
   begin
