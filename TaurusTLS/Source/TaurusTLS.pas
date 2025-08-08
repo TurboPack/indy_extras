@@ -2168,23 +2168,6 @@ type
   /// </seealso>
   ETaurusTLSConnectError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if <c>SSL_write_ex2</c> or <c>SSL_write_ex</c> fails.
-  /// </summary>
-  /// <seealso href="https://docs.openssl.org/3.3/man3/SSL_write/">
-  /// SSL_write_ex2
-  /// </seealso>
-  /// <seealso href="https://docs.openssl.org/3.3/man3/SSL_write/">
-  /// SSL_write_ex
-  /// </seealso>
-  ETaurusTLSWriteEx2Error = class(ETaurusTLSAPISSLError);
-  /// <summary>
-  /// Raised if <c>SSL_read_ex</c> fails.
-  /// </summary>
-  /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_read/">
-  /// SSL_read_ex
-  /// </seealso>
-  ETaurusTLSReadExError = class(ETaurusTLSAPISSLError);
-  /// <summary>
   /// Raised if certificate validation failed and the message breifly
   /// describes the failure.
   /// </summary>
@@ -4808,9 +4791,14 @@ begin
     begin
       Continue;
     end;
+
+    // The error condition is first returned to the base IOHandler, which
+    // handles disconnects and timeouts, then passed back down to the
+    // SSLIOHandler (virtual CheckForError() method) to raise a TLS or
+    // system exception.
     if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      ETaurusTLSReadExError.RaiseExceptionCode(LErr, Lret, RSDSSLReadExFailed);
+      Result := LRet;
     end;
     break;
   until False;
@@ -4843,14 +4831,13 @@ begin
     begin
       Continue;
     end;
-    if LErr = SSL_ERROR_ZERO_RETURN then
+    // The error condition is first returned to the base IOHandler, which
+    // handles disconnects and timeouts, then passed back down to the
+    // SSLIOHandler (virtual CheckForError() method) to raise a TLS or
+    // system exception.
+    if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      Result := 0;
-    end
-    else
-    begin
-      ETaurusTLSWriteEx2Error.RaiseExceptionCode(LErr, Lret,
-        RSDSSLWriteExFailed);
+      Result := LRet;
     end;
     break;
   until False;
