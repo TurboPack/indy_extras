@@ -6302,7 +6302,6 @@ type
 	// */
 	  client_cert_engine : PENGINE;
     {$ENDIF}
-    {$IFNDEF OPENSSL_NO_TLSEXT}
 //* TLS extensions servername callback */
     tlsext_servername_callback : PSSL_CTEX_tlsext_servername_callback;
     tlsext_servername_arg : Pointer;
@@ -6321,7 +6320,6 @@ type
 	//int (*tlsext_status_cb)(SSL *ssl, void *arg);
     tlsext_status_cb : Ptlsext_status_cb;
 	  tlsext_status_arg : Pointer;
-    {$ENDIF}
 	//* draft-rescorla-tls-opaque-prf-input-00.txt information */
      tlsext_opaque_prf_input_callback : function(para1 : PSSL; peerinput : Pointer; len : TIdC_SIZET; arg : Pointer ) : TIdC_INT cdecl;
 	//int (*tlsext_opaque_prf_input_callback)(SSL *, void *peerinput, TIdC_SIZET len, void *arg);
@@ -6349,7 +6347,6 @@ type
 	  srp_ctx : SRP_CTX; //* ctx for SRP authentication */
 {$endif}
 
-{$ifndef OPENSSL_NO_TLSEXT}
 //# ifndef OPENSSL_NO_NEXTPROTONEG
 	//* Next protocol negotiation information */
 	//* (for experimental NPN extension). */
@@ -6377,7 +6374,6 @@ type
 //# endif
         //* SRTP profiles we are willing to do from RFC 5764 */
       srtp_profiles : PSTACK_OF_SRTP_PROTECTION_PROFILE;
-{$endif}
   end;
 
 const
@@ -6488,7 +6484,6 @@ type
 	// * efficient and to implement a maximum cache size. */
 	  prev, next : PSSL_SESSION;
 
-    {$IFNDEF OPENSSL_NO_TLSEXT}
     tlsext_hostname : PIdAnsiChar;
       {$IFDEF OPENSSL_NO_EC}
 	  tlsext_ecpointformatlist_length : TIdC_SIZET;
@@ -6501,7 +6496,6 @@ type
     tlsext_tick : PIdAnsiChar;//* Session ticket */
     tlsext_ticklen : TIdC_SIZET;//* Session ticket length */
     tlsext_tick_lifetime_hint : TIdC_LONG;//* Session lifetime hint in seconds */
-    {$ENDIF}
 {$ifndef OPENSSL_NO_SRP}
 	  srp_username : PIdAnsiChar;
 {$endif}

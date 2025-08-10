@@ -2172,7 +2172,6 @@ type
   /// describes the failure.
   /// </summary>
   ETaurusTLSCertValidationError = class(ETaurusTLSError);
-{$IFNDEF OPENSSL_NO_TLSEXT}
   /// <summary>
   /// Raised if <c>SSL_set_tlsext_host_name</c> failed.
   /// </summary>
@@ -2181,7 +2180,6 @@ type
   /// SSL_set_tlsext_host_name
   /// </seealso>
   ETaurusTLSSettingTLSHostNameError = class(ETaurusTLSAPISSLError);
-{$ENDIF}
   /// <summary>
   /// Raised if <c>SSL_CTX_set_min_proto_version</c> failed.
   /// </summary>
@@ -4690,7 +4688,6 @@ begin
   // Literal IPv4 and IPv6 addresses are not permitted in "HostName".
   if (fHostName <> '') and (not IsValidIP(fHostName)) then
   begin
-{$IFNDEF OPENSSL_NO_TLSEXT}
     { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
       first character to the hostname is passed }
     LRetCode := SSL_set_tlsext_host_name(fSSL, @LHostname[0]);
@@ -4699,7 +4696,6 @@ begin
       ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
         RSSSLSettingTLSHostNameError_2);
     end;
-{$ENDIF}
   end;
 
   if fVerifyHostname then
