@@ -404,7 +404,7 @@ type
     ///  using content of <c>Stream</c> as an <c>internal array of bytes</c> storage
     ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
     ///  </summary>
-    ///  <param name="AStream">A instance of <see cref="TStream" /> which content will be stored
+    ///  <param name="AStream">A instance of TStream which content will be stored
     ///  in the <c>internal array of bytes</c> storage.
     ///  </param>
     ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
@@ -417,7 +417,7 @@ type
   /// <summary>
   ///  Helper class for the <see cref="TTaurusTLS_EncryptedBytes" /> to create
   ///  new instances initializiing <c>internal encrypted array of bytes</c>
-  ///  from a content of <see cref="TStream" /> instance.
+  ///  from a content of TStream instance.
   ///  </summary>
   TTaurusTLS_EncryptedBytesHelper = class helper for TTaurusTLS_EncryptedBytes
   public
@@ -426,7 +426,7 @@ type
     ///  using content of <c>Stream</c> as an <c>internal array of bytes</c> storage
     ///  and keeps it in <c>encrypted</c> form.
     ///  </summary>
-    ///  <param name="AStream">A instance of <see cref="TStream" /> which content will be stored
+    ///  <param name="AStream">A instance of TStream which content will be stored
     ///  in the <c>internal encrypted array of bytes</c> storage.
     ///  </param>
     ///  <param name="AWipeSrcMem"> Indicates whether the content of <c>AStream</c> instance
@@ -452,7 +452,7 @@ type
     ///  and keeps it in <c>encrypted</c> form
     ///  using <c>Advanced Encryption Standard (AES) cipher algorithm</c> family
     ///  </summary>
-    ///  <param name="AStream">A instance of <see cref="TStream" /> which content will be stored
+    ///  <param name="AStream">A instance of TStream which content will be stored
     ///  in the <c>internal encrypted array of bytes</c> storage.
     ///  </param>
     ///  <param name="AWipeSrcMem"> Indicates whether the content of <c>AStream</c> instance
