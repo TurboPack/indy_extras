@@ -407,6 +407,10 @@
 				<UnitName Value="TaurusTLSLoader"/>
 			</Item>
 			<Item>
+				<Filename Value="..\..\Source\TaurusTLS_Encryptors.pas"/>
+				<UnitName Value="TaurusTLS_Encryptors"/>
+			</Item>
+			<Item>
 				<Filename Value="..\..\Source\TaurusTLS_Files.pas"/>
 				<UnitName Value="TaurusTLS_Files"/>
 			</Item>
@@ -421,6 +425,10 @@
 			<Item>
 				<Filename Value="..\..\Source\TaurusTLS_ResourceStrings.pas"/>
 				<UnitName Value="TaurusTLS_ResourceStrings"/>
+			</Item>
+			<Item>
+				<Filename Value="..\..\Source\TaurusTLS_SSLContainers.pas"/>
+				<UnitName Value="TaurusTLS_SSLContainers"/>
 			</Item>
 			<Item>
 				<Filename Value="..\..\Source\TaurusTLS_Utils.pas"/>
