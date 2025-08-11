@@ -226,6 +226,26 @@ resourcestring
     'the raw public key, or DNS-based Authentication of Named Entities (DANE) '+
     'was not enabled on the connection.';
 
+  // ITaurusTLS_Bytes Interface errors
+  RIB_Bytes_CanNotChange = 'Unable to set a data to the ITaurusTLS_Bytes '+
+    'instance. It was initialized already.';
+
+  // TTaurusTLS_Cipher errors
+  REVP_Cipher_NoCipherProvided = 'Unable to initializate Cipher instance. '+
+    'No OpenSSL Cipher provided.';
+  REVP_Cipher_ZeroKeyLen = 'Unable to initializate Cipher instance with a '+
+    'zero Key length.';
+  REVP_Cipher_IVKeyLen = 'Unable to initializate Cipher instance with a '+
+    'zero IV length.';
+
+  // TTaurusTLS_CustomEncryptor's descendants errors
+  REVP_Encryptor_CtxInitError = 'Error initialization Encrypt/Decrypt context.';
+  REVP_EncryptDecrypt_InitNoCipher = 'Unable to initializate EncyptDecrypt '+
+    'instance. No OpenSSL Cipher provided.';
+  REVP_Encryptor_Encrypt_Error = 'Error in Encrypting data.';
+  REVP_Encryptor_Decrypt_Error = 'Error in Decrypting data.';
+
+
 implementation
 
 end.
