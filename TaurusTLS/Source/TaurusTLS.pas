@@ -3075,7 +3075,7 @@ procedure TTaurusTLSX509File.AssignTo(Destination: TPersistent);
 var
   LDest: TTaurusTLSX509File;
 begin
-  if Destination is TTaurusTLSOptions then
+  if Destination is TTaurusTLSX509File then
   begin
     LDest := Destination as TTaurusTLSX509File;
     LDest.PrivateKey := FPrivateKey;
