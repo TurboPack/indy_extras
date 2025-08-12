@@ -96,7 +96,7 @@
 		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<DCC_UnitSearchPath>$(INDY_PATH)\Lib\System;$(INDY_PATH)\Lib\Core;$(INDY_PATH)\Lib\Protocols;..\..\\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-		<DllSuffix>290</DllSuffix>
+		<DllSuffix></DllSuffix>
 		<GenDll>true</GenDll>
 		<GenPackage>true</GenPackage>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>

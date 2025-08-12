@@ -13,9 +13,12 @@ type
   TOnDebugLog = procedure (ASender : TObject; const AText : String) of object;
   TdmodMain = class(TDataModule)
     projFile: TXMLDocument;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
   strict private
     { Private declarations }
     FOnDebugLog : TOnDebugLog;
+    FRT_Units, FDT_Units, FRegister : TStrings;
     procedure DoOnDebugLog(const AText : String);
     procedure UpdatePackage(const APkg: String;
       const AMajorVersion, AMinorVersion, ARelease, ABuild: Integer;
@@ -23,6 +26,11 @@ type
     procedure UpdateLazPkg(const APkg: String;
       const AMajorVersion, AMinorVersion, ARelease, ABuild: Integer;
       const ACompanyName: String);
+    procedure ReplaceInPAS(const AFileName : String);
+    procedure ReplaceInLPK(const AFileName : String);
+    procedure ReplaceInDPK(const AFileName : String);
+    procedure ReplaceInDPROJ(const AFileName : String);
+
   public
     { Public declarations }
     procedure CreateFromTemplates;
@@ -118,6 +126,7 @@ begin
   end;
 end;
 
+
 function ListUnitsForDPROJ(AUnits : TStrings) : string;
 var
   i: Integer;
@@ -176,42 +185,44 @@ begin
   end;
 end;
 
+procedure TdmodMain.DataModuleDestroy(Sender: TObject);
+begin
+  FreeAndNil( FRegister);
+  FreeAndNil( FRT_Units);
+  FreeAndNil( FDT_Units );
+end;
+
+procedure TdmodMain.DataModuleCreate(Sender: TObject);
+begin
+  FRegister := TStringList.Create(True);
+    FRT_Units := TStringList.Create(True);
+    FDT_Units := TStringList.Create(True);
+end;
+
 procedure TdmodMain.CreateFromTemplates;
 var
-  LRTL_Units, LDT_Units, L_Register: TStrings;
   LFilesToRead : TStrings;
-  LFileContents : String;
   i : Integer;
-  LFileToWrite : String;
 begin
-    LRTL_Units := TStringList.Create;
-    LDT_Units := TStringList.Create;
-    L_Register := TStringList.Create;
     LFilesToRead := TStringList.Create;
     try
-      IterateThroughSourceDir(LRTL_Units, LDT_Units, L_Register);
+      IterateThroughSourceDir(FRT_Units, FDT_Units, FRegister);
       FindFilesToRead('..\..\Templates', LFilesToRead);
       for i := 0 to LFilesToRead.Count - 1 do
       begin
-        Self.DoOnDebugLog( 'Read: '+ExpandFileName(LFilesToRead[i]));
-        LFileContents :=  System.IOUtils.TFile.ReadAllText( LFilesToRead[i]);
-        LFileToWrite :=  ExpandFileName( StringReplace( LFilesToRead[i],'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
-        LFileContents := StringReplace( LFileContents, '{$LPK_FILES_DT}', ListUnitsForLPK(LDT_Units, L_Register),[rfReplaceAll]);
-        LFileContents := StringReplace( LFileContents, '{$LPK_FILES_RT}', ListUnitsForLPK(LRTL_Units, L_Register),[rfReplaceAll]);
-
-        LFileContents := StringReplace( LFileContents, '{$DPROJ_FILES_DT}', ListUnitsForDPROJ(LDT_Units),[rfReplaceAll]);
-        LFileContents := StringReplace( LFileContents, '{$DPROJ_FILES_RT}', ListUnitsForDPROJ(LRTL_Units),[rfReplaceAll]);
-
-        LFileContents := StringReplace( LFileContents, '{$DPK_FILES_DT}', ListUnitsForDPK(LDT_Units),[rfReplaceAll]);
-        LFileContents := StringReplace( LFileContents, '{$DPK_FILES_RT}', ListUnitsForDPK(LRTL_Units),[rfReplaceAll]);
-         Self.DoOnDebugLog( 'Write: '+LFileToWrite );
-        System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+        case PosInStrArray(ExtractFileExt(LFilesToRead[i]),['.PAS','.LPK','.DPK','.DPROJ'],False) of
+          //0 - .PAS
+          0 : Self.ReplaceInPAS(LFilesToRead[i]);
+          //1 - .LPK
+          1 : ReplaceInLPK(LFilesToRead[i]);
+          //2 - .DPK
+          2 : ReplaceInDPK(LFilesToRead[i]);
+          //3 - .DPROJ
+          3 : ReplaceInDPROJ(LFilesToRead[i]);
+        end;
       end;
     finally
       FreeAndNil(LFilesToRead);
-      FreeAndNil(L_Register);
-      FreeAndNil(LDT_Units);
-      FreeAndNil(LRTL_Units);
     end;
 end;
 
@@ -221,6 +232,157 @@ begin
   begin
     fOnDebugLog(Self,AText);
   end;
+end;
+
+
+const
+ DPK_DSGN =  '{$DPK_FILES_DT}';
+ DPK_RTL = '{$DPK_FILES_RT}';
+ DPROJ_DSGN = '{$DPROJ_FILES_DT}';
+ DPROJ_RTL = '{$DPROJ_FILES_RT}';
+ PAS_DSGN = '{$PAS_FILES_DT}';
+ PAS_RTL = '{$PAS_FILES_RT}';
+ LPK_DSGN = '{$LPK_FILES_DT}';
+ LPK_RTL = '{$LPK_FILES_RT}';
+
+procedure TdmodMain.ReplaceInDPK(const AFileName: String);
+var LFileContents : String;
+  LFileToRead : String;
+  LFileToWrite : String;
+  LWarn : Boolean;
+begin
+   LFileToRead := ExpandFileName(AFileName);
+   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
+   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   if Pos(DPK_DSGN,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('DPK - Writing design-timne source-code units');
+     LFileContents := StringReplace( LFileContents, DPK_DSGN, ListUnitsForDPK(FDT_Units),[rfReplaceAll]);
+   end;
+   if Pos(DPK_RTL,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('DPK - Writing run-time-only source-code units');
+     LFileContents := StringReplace( LFileContents, DPK_RTL, ListUnitsForDPK(FRT_Units),[rfReplaceAll]);
+   end;
+   if LWarn then
+   begin
+     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a templae!!!')
+   end
+   else
+   begin
+     Self.DoOnDebugLog( 'Write: '+LFileToWrite );
+     System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+   end;
+end;
+
+procedure TdmodMain.ReplaceInDPROJ(const AFileName: String);
+var LFileContents : String;
+  LFileToRead : String;
+  LFileToWrite : String;
+  LWarn : Boolean;
+
+begin
+  LWarn := True;
+   LFileToRead := ExpandFileName(AFileName);
+   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
+   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   if Pos(DPROJ_DSGN,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('DPROJ - Writing design-timne source-code units');
+     LFileContents := StringReplace( LFileContents, '{$DPROJ_FILES_DT}', ListUnitsForDPROJ(FDT_Units),[rfReplaceAll]);
+   end;
+   if Pos(DPROJ_RTL,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('DPROJ - Writing run-time-only source-code units');
+     LFileContents := StringReplace( LFileContents, DPROJ_RTL, ListUnitsForDPROJ(FRT_Units),[rfReplaceAll]);
+   end;
+   if LWarn then
+   begin
+     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a templae!!!')
+   end
+   else
+   begin
+     Self.DoOnDebugLog( 'Write: '+LFileToWrite );
+     System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+   end;
+
+end;
+
+procedure TdmodMain.ReplaceInLPK(const AFileName: String);
+var LFileContents : String;
+  LFileToRead : String;
+  LFileToWrite : String;
+  LWarn : Boolean;
+begin
+  LWarn := True;
+   LFileToRead := ExpandFileName(AFileName);
+   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
+   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   if Pos(LPK_DSGN,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('LPK - Writing design-timne source-code units');
+     LFileContents := StringReplace( LFileContents, LPK_DSGN, ListUnitsForLPK(FDT_Units, FRegister),[rfReplaceAll]);
+   end;
+   if Pos(LPK_RTL,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('LPK - Writing run-time-only source-code units');
+      LFileContents := StringReplace( LFileContents, LPK_RTL, ListUnitsForLPK(FRT_Units, FRegister),[rfReplaceAll]);
+   end;
+   if LWarn then
+   begin
+     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a templae!!!')
+   end
+   else
+   begin
+    Self.DoOnDebugLog( 'Write: '+LFileToWrite );
+    System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+   end;
+end;
+
+procedure TdmodMain.ReplaceInPAS(const AFileName: String);
+var LFileContents : String;
+  LFileToRead : String;
+  LFileToWrite : String;
+  LWarn : Boolean;
+
+begin
+  LWarn := True;
+   LFileToRead := ExpandFileName(AFileName);
+   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
+   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   if Pos(PAS_DSGN,LFileContents) > 0 then
+   begin
+     LWarn := False;
+      Self.DoOnDebugLog('PAS - Writing design-timne source-code units');
+     LFileContents := StringReplace( LFileContents, PAS_DSGN, ListUnitsForPAS(FDT_Units),[rfReplaceAll]);
+   end;
+   if  Pos(PAS_RTL,LFileContents) > 0 then
+   begin
+     LWarn := False;
+     Self.DoOnDebugLog('PAS - Writing run-time-only source-code units');
+     LFileContents := StringReplace( LFileContents, PAS_RTL, ListUnitsForPAS(FRT_Units),[rfReplaceAll]);
+   end;
+   if LWarn then
+   begin
+     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a templae!!!')
+   end
+   else
+   begin
+
+     Self.DoOnDebugLog( 'Write: '+LFileToWrite );
+     System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+   end;
+
 end;
 
 procedure TdmodMain.UpdateIncFile(const AMajorVersion, AMinorVersion, ARelease,

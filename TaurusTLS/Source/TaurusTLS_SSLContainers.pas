@@ -163,7 +163,7 @@ type
 
   /// <inheritdoc />
   ///  <summary>
-  ///  This class implements see cref="ITaurusTLS_Bytes" /> interface functionality.
+  ///  This class implements <see cref="ITaurusTLS_Bytes" /> interface functionality.
   ///  Instance of this class automatically clears <c>array of bytes</c> it holds
   ///  with "zero" values when it being destroyed
   ///  </summary>

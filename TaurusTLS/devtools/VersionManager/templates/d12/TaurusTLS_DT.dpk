@@ -39,6 +39,6 @@ requires
   designide;
 
 contains
- {$DPK_FILES_DT}
+{$DPK_FILES_DT}
 
 end.

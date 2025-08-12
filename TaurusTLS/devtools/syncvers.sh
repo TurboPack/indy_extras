@@ -22,4 +22,17 @@ cp -p Source/TaurusTLS_Vers.inc ../git/indy_extras/TaurusTLS//Source/
 cp -p tmsbuild.yaml ../git/indy_extras/TaurusTLS/
 cp -p version.txt ../git/indy_extras/TaurusTLS/
 
+rm -rf ../git/TaurusTLS/devtools/VersionManager/templates/*
+cp -rp devtools/VersionManager/templates/* ../git/TaurusTLS/devtools/VersionManager/templates/
+find  ../git/TaurusTLS/devtools/VersionManager/templates/ -name "*.groupproj" -exec rm -rf {} \;
+find  ../git/TaurusTLS/devtools/VersionManager/templates/ -name "*.bak" -exec rm -rf {} \;
+find  ../git/TaurusTLS/devtools/VersionManager/templates/ -name "*.diproj" -exec rm -rf {} \;
+find  ../git/TaurusTLS/devtools/VersionManager/templates/ -name "*.res" -exec rm -rf {} \;
+
+rm -rf ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/*
+cp -rp devtools/VersionManager/templates/* ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/
+find  ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/ -name "*.groupproj" -exec rm -rf {} \;
+find  ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/ -name "*.bak" -exec rm -rf {} \;
+find  ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/ -name "*.diproj" -exec rm -rf {} \;
+find  ../git/indy_extras/TaurusTLS/devtools/VersionManager/templates/ -name "*.res" -exec rm -rf {} \;
 popd

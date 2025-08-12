@@ -37,6 +37,6 @@ requires
   IndyCore;
 
 contains
- {$DPK_FILES_RT}
+{$DPK_FILES_RT}
 
 end.

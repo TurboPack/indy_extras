@@ -37,6 +37,6 @@ requires
   TaurusTLS_RTForIndy280;
 
 contains
- {$DPK_FILES_DT}
+{$DPK_FILES_DT}
 
 end.
