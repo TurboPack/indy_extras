@@ -70,8 +70,8 @@
       <Unit>
         <Filename Value="../../../../../../Users/jpmug/Documents/HelpNDoc/Output/code/TaurusTLS.pas"/>
         <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_stack.pas"/>
@@ -80,12 +80,15 @@
         <CursorPos X="6" Y="228"/>
         <UsageCount Value="6"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLS_SSLContainers.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="363"/>
+        <CursorPos X="40" Y="388"/>
+        <UsageCount Value="10"/>
+      </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="../../../../../../Users/jpmug/Documents/HelpNDoc/Output/code/TaurusTLS.pas"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
