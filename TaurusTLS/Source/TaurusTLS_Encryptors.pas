@@ -85,37 +85,41 @@ type
     ///  </summary>
     destructor Destroy; override;
 
-    ///  <summary>
-    ///  Lookups a <c>cipher algorithm</c> by its name, initialize and returns
-    ///  the pointer to <c>EVP_CIPHER</c> structure
-    ///  </summary>
-    ///  <param name="ACipherName"> a Unicode string with a <c>cipher algorithm</c> name
-    ///  </param>
-    ///  <returns>
-    ///  The pointer to <c>EVP_CIPHER</c> structure
-    ///  </returns>
-    ///  <remarks>
-    ///  The caller code is responcible to release returning
-    ///  pointer to <c>EVP_CIPHER</c> structure using
-    ///  OpenSSL function <c>EVP_CIPHER_free</c>.
-    ///  </remarks>
+    /// <summary>
+    ///   Lookups a <c>cipher algorithm</c> by its name, initialize and returns
+    ///   the pointer to <c>EVP_CIPHER</c> structure
+    /// </summary>
+    /// <param name="ACipherName">
+    ///   a Unicode string with a <c>cipher algorithm</c> name
+    /// </param>
+    /// <returns>
+    ///   The pointer to <c>EVP_CIPHER</c> structure
+    /// </returns>
+    /// <remarks>
+    ///   The caller code is responcible to release returning pointer to <c>
+    ///   EVP_CIPHER</c> structure using OpenSSL function <see
+    ///   href="https://docs.openssl.org/3.0/man3/EVP_EncryptInit/">
+    ///   EVP_CIPHER_free</see>.
+    /// </remarks>
     class function GetCipherByName(ACipherName: string): PEVP_CIPHER;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
-    ///  <summary>
-    ///  Lookups a <c>cipher algorithm</c> by its name, initialize and returns
-    ///  pointer to <c>EVP_CIPHER</c> structure
-    ///  </summary>
-    ///  <param name="ACipherName"> a pointer to the null-terminated Ansi string
-    ///  with a <c>cipher algorithm</c> name
-    ///  </param>
-    ///  <returns>
-    ///  The pointer to <c>EVP_CIPHER</c> structure
-    ///  </returns>
-    ///  <remarks>
-    ///  The caller code is responcible to release returning
-    ///  pointer to <c>EVP_CIPHER</c> structure using
-    ///  OpenSSL function <c>EVP_CIPHER_free</c>.
-    ///  </remarks>
+    /// <summary>
+    ///   Lookups a <c>cipher algorithm</c> by its name, initialize and returns
+    ///   pointer to <c>EVP_CIPHER</c> structure
+    /// </summary>
+    /// <param name="ACipherName">
+    ///   a pointer to the null-terminated Ansi string with a <c>cipher
+    ///   algorithm</c> name
+    /// </param>
+    /// <returns>
+    ///   The pointer to <c>EVP_CIPHER</c> structure
+    /// </returns>
+    /// <remarks>
+    ///   The caller code is responcible to release returning pointer to <c>
+    ///   EVP_CIPHER</c> structure using OpenSSL function <see
+    ///   href="https://docs.openssl.org/3.0/man3/EVP_EncryptInit/">
+    ///   EVP_CIPHER_free</see>.
+    /// </remarks>
     class function GetCipherByName(ACipherName: PIdAnsiChar): PEVP_CIPHER;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
