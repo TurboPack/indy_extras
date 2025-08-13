@@ -49,7 +49,7 @@ implementation
 uses
   System.SysUtils, System.Classes, System.Generics.Collections, System.SyncObjs,
   DUnitX.CommandLine.Options, TaurusTLS.UT.Utils,
-  TaurusTLSHeaders_ossl_typ, TaurusTLSHeaders_buffer;
+  TaurusTLSHeaders_types, TaurusTLSHeaders_buffer;
 
 { TOsslLoaderTests }
 
