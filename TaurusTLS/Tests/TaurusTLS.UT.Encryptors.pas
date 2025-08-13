@@ -37,13 +37,13 @@ type
     [AutoNameTestCase('AES-128-CBC-CTS')]
     [AutoNameTestCase('ARIA-256-GCM')]
     [AutoNameTestCase('CAMELLIA-256-CFB')]
-    procedure GetCipherByNameUnicodePositive(const ACipherName: string);
+    procedure GetCipherByNameAnsiPositive(const ACipherName: RawByteString);
     [AutoNameTestCase('DES3')]
     [AutoNameTestCase('ChaCha20')]
     [AutoNameTestCase('AES-128-CBC-CTS')]
     [AutoNameTestCase('ARIA-256-GCM')]
     [AutoNameTestCase('CAMELLIA-256-CFB')]
-    procedure GetCipherByNameAnsiPositive(const ACipherName: RawByteString);
+    procedure GetCipherByNameUnicodePositive(const ACipherName: string);
     [TestCase('aes-wrong-name', 'aes-wrong-name')]
     procedure GetCipherByNameUnicodeNegative(const ACipherName: string);
     [TestCase('aes-wrong-name', 'aes-wrong-name')]
@@ -219,6 +219,11 @@ end;
 
 { TCipherFixture }
 
+procedure TCipherFixture.Teardown;
+begin
+  FreeAndNil(FCipher);
+end;
+
 function TCipherFixture.GetCipher(ACipherName: string): TTaurusTLS_Cipher;
 begin
   if CompareText(FCipherName, ACipherName) <> 0 then
@@ -344,37 +349,73 @@ begin
     'Invalid Cipher IV Length.');
 end;
 
-procedure TCipherFixture.Teardown;
+procedure TCipherFixture.GetCipherByNameAnsiPositive(
+  const ACipherName: RawByteString);
+var
+  lCipher: PEVP_CIPHER;
+
 begin
-  FreeAndNil(FCipher);
+  lCipher:=TTaurusTLS_Cipher.GetCipherByName(PIdAnsiChar(ACipherName));
+  try
+    Assert.IsNotNull(lCipher,
+      'TTaurusTLS_Cipher.GetCipherByName returns empty Cipher method implementation.')
+  finally
+    if Assigned(lCipher) then
+      EVP_CIPHER_free(lCipher);
+  end;
+end;
+
+procedure TCipherFixture.GetCipherByNameUnicodePositive(const ACipherName: string);
+var
+  lCipher: PEVP_CIPHER;
+
+begin
+  lCipher:=TTaurusTLS_Cipher.GetCipherByName(ACipherName);
+  try
+    Assert.IsNotNull(lCipher,
+      'TTaurusTLS_Cipher.GetCipherByName returns empty Cipher method implementation.')
+  finally
+    if Assigned(lCipher) then
+      EVP_CIPHER_free(lCipher);
+  end;
+
 end;
 
 procedure TCipherFixture.GetCipherByNameAnsiNegative(
   const ACipherName: RawByteString);
-begin
-  Assert.IsNull(TTaurusTLS_Cipher.GetCipherByName(PIdAnsiChar(ACipherName)),
-    'TTaurusTLS_Cipher.GetCipherByName should return '+
-    'empty Cipher method implementation for this Cipher name.')
-end;
+var
+  lCipher: PEVP_CIPHER;
 
-procedure TCipherFixture.GetCipherByNameAnsiPositive(
-  const ACipherName: RawByteString);
 begin
-  Assert.IsNotNull(TTaurusTLS_Cipher.GetCipherByName(PIdAnsiChar(ACipherName)),
-    'TTaurusTLS_Cipher.GetCipherByName returns empty Cipher method implementation.')
+
+  lCipher:=TTaurusTLS_Cipher.GetCipherByName(PIdAnsiChar(ACipherName));
+  try
+    Assert.IsNull(lCipher,
+      'TTaurusTLS_Cipher.GetCipherByName should return '+
+      'empty Cipher method implementation for this Cipher name.')
+  finally
+    if Assigned(lCipher) then
+      EVP_CIPHER_free(lCipher);
+  end;
+
 end;
 
 procedure TCipherFixture.GetCipherByNameUnicodeNegative(const ACipherName: string);
-begin
-  Assert.IsNull(TTaurusTLS_Cipher.GetCipherByName(ACipherName),
-    'TTaurusTLS_Cipher.GetCipherByName should return '+
-    'empty Cipher method implementation for this Cipher name.')
-end;
+var
+  lCipher: PEVP_CIPHER;
 
-procedure TCipherFixture.GetCipherByNameUnicodePositive(const ACipherName: string);
 begin
-  Assert.IsNotNull(TTaurusTLS_Cipher.GetCipherByName(ACipherName),
-    'TTaurusTLS_Cipher.GetCipherByName returns empty Cipher method implementation.')
+{
+  lCipher:=TTaurusTLS_Cipher.GetCipherByName(ACipherName);
+  try
+    Assert.IsNull(lCipher,
+      'TTaurusTLS_Cipher.GetCipherByName should return '+
+      'empty Cipher method implementation for this Cipher name.')
+  finally
+    if Assigned(lCipher) then
+      EVP_CIPHER_free(lCipher);
+  end;
+}
 end;
 
 procedure TCipherFixture.NewKey(const ACipherName: string);

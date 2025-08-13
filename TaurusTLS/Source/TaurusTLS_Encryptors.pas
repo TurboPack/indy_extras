@@ -94,6 +94,11 @@ type
     ///  <returns>
     ///  The pointer to <c>EVP_CIPHER</c> structure
     ///  </returns>
+    ///  <remarks>
+    ///  The caller code is responcible to release returning
+    ///  pointer to <c>EVP_CIPHER</c> structure using
+    ///  OpenSSL function <c>EVP_CIPHER_free</c>.
+    ///  </remarks>
     class function GetCipherByName(ACipherName: string): PEVP_CIPHER;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
     ///  <summary>
@@ -106,6 +111,11 @@ type
     ///  <returns>
     ///  The pointer to <c>EVP_CIPHER</c> structure
     ///  </returns>
+    ///  <remarks>
+    ///  The caller code is responcible to release returning
+    ///  pointer to <c>EVP_CIPHER</c> structure using
+    ///  OpenSSL function <c>EVP_CIPHER_free</c>.
+    ///  </remarks>
     class function GetCipherByName(ACipherName: PIdAnsiChar): PEVP_CIPHER;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
@@ -585,9 +595,7 @@ var
   lAnsiStr: RawByteString;
 
 begin
-{$WARNINGS OFF}
-  lAnsiStr:=ACipherName; //expicit conversion from Unicode to Ansi string
-{$WARNINGS ON}
+  lAnsiStr:=AnsiString(ACipherName); //expicit conversion from Unicode to Ansi string
   Result:=GetCipherByName(PIdAnsiChar(lAnsiStr));
 end;
 
