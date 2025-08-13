@@ -236,8 +236,8 @@ var
      ERR_set_error((lib), (reason), NULL))}
 
   ERR_new: procedure ; cdecl = nil; {introduced 3.0.0}
-  ERR_set_debug: procedure (const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar); cdecl = nil;  {introduced 3.0.0}
-  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
+  ERR_set_debug: procedure (const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar); cdecl = nil;  {introduced 3.0.0}
+  ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
 
 
   ERR_set_error_data: procedure (data: PIdAnsiChar; flags: TIdC_INT); cdecl = nil;
@@ -289,12 +289,12 @@ var
      ERR_set_error((lib), (reason), NULL))}
 
   procedure ERR_new cdecl; external CLibCrypto; {introduced 3.0.0}
-  procedure ERR_set_debug(const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar) cdecl; external CLibCrypto;  {introduced 3.0.0}
-  procedure ERR_set_error(lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
+  procedure ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar) cdecl; external CLibCrypto;  {introduced 3.0.0}
+  procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
 
 
   procedure ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT) cdecl; external CLibCrypto;
-  
+
   function ERR_get_error: TIdC_ULONG cdecl; external CLibCrypto;
   function ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
   function ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
@@ -466,13 +466,13 @@ begin
 end;
 
  {introduced 3.0.0}
-procedure  ERR_ERR_set_debug(const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar); 
+procedure  ERR_ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_debug_procname);
 end;
 
   {introduced 3.0.0}
-procedure  ERR_ERR_set_error(lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const); 
+procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_error_procname);
 end;

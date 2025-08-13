@@ -55,7 +55,7 @@ uses
   type
   POPENSSL_STACK  = pointer;
 
-  TOPENSSL_sk_compfunc = function (_para1:pointer; _para2:pointer):longint;cdecl;
+  TOPENSSL_sk_compfunc = function (_para1:pointer; _para2:pointer):TIdC_INT;cdecl;
   TOPENSSL_sk_freefunc = procedure (_para1:pointer);cdecl;
   TOPENSSL_sk_copyfunc = function (_para1:pointer):pointer;cdecl;
 
@@ -115,108 +115,108 @@ var
   {$EXTERNALSYM sk_dup} {removed 1.1.0}
   {$EXTERNALSYM sk_sort} {removed 1.1.0}
   {$EXTERNALSYM sk_is_sorted} {removed 1.1.0}
-  OPENSSL_sk_num: function (_para1:POPENSSL_STACK):longint; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_value: function (_para1:POPENSSL_STACK; _para2:longint):pointer; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer):pointer; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_num: function (_para1:POPENSSL_STACK):TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_value: function (_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_set: function (st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_new: function (cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_new_null: function :POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_reserve: function (st:POPENSSL_STACK; n:longint):longint; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_reserve: function (st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_free: procedure (_para1:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint):longint; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_delete: function (st:POPENSSL_STACK; loc:longint):pointer; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_delete: function (st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer):pointer; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_find: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_find_ex: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_push: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_unshift: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_find: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_find_ex: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_push: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_unshift: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_shift: function (st:POPENSSL_STACK):pointer; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_pop: function (st:POPENSSL_STACK):pointer; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_zero: procedure (st:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_dup: function (st:POPENSSL_STACK):POPENSSL_STACK; cdecl = nil; {introduced 1.1.0}
   OPENSSL_sk_sort: procedure (st:POPENSSL_STACK); cdecl = nil; {introduced 1.1.0}
-  OPENSSL_sk_is_sorted: function (st:POPENSSL_STACK):longint; cdecl = nil; {introduced 1.1.0}
+  OPENSSL_sk_is_sorted: function (st:POPENSSL_STACK):TIdC_INT; cdecl = nil; {introduced 1.1.0}
 
-  sk_num: function (_para1:POPENSSL_STACK):longint; cdecl = nil; {removed 1.1.0}
-  sk_value: function (_para1:POPENSSL_STACK; _para2:longint):pointer; cdecl = nil; {removed 1.1.0}
-  sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer):pointer; cdecl = nil; {removed 1.1.0}
+  sk_num: function (_para1:POPENSSL_STACK):TIdC_INT; cdecl = nil; {removed 1.1.0}
+  sk_value: function (_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl = nil; {removed 1.1.0}
+  sk_set: function (st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl = nil; {removed 1.1.0}
   sk_new: function (cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
   sk_new_null: function :POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
-  sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK; cdecl = nil; {removed 1.0.0}
-  sk_reserve: function (st:POPENSSL_STACK; n:longint):longint; cdecl = nil; {removed 1.0.0}
+  sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl = nil; {removed 1.0.0}
+  sk_reserve: function (st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl = nil; {removed 1.0.0}
   sk_free: procedure (_para1:POPENSSL_STACK); cdecl = nil; {removed 1.1.0}
   sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = nil; {removed 1.1.0}
   sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
-  sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint):longint; cdecl = nil; {removed 1.1.0}
-  sk_delete: function (st:POPENSSL_STACK; loc:longint):pointer; cdecl = nil; {removed 1.1.0}
+  sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl = nil; {removed 1.1.0}
+  sk_delete: function (st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl = nil; {removed 1.1.0}
   sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer):pointer; cdecl = nil; {removed 1.1.0}
-  sk_find: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {removed 1.1.0}
-  sk_find_ex: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {removed 1.1.0}
-  sk_push: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {removed 1.1.0}
-  sk_unshift: function (st:POPENSSL_STACK; data:pointer):longint; cdecl = nil; {removed 1.1.0}
+  sk_find: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {removed 1.1.0}
+  sk_find_ex: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {removed 1.1.0}
+  sk_push: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {removed 1.1.0}
+  sk_unshift: function (st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl = nil; {removed 1.1.0}
   sk_shift: function (st:POPENSSL_STACK):pointer; cdecl = nil; {removed 1.1.0}
   sk_pop: function (st:POPENSSL_STACK):pointer; cdecl = nil; {removed 1.1.0}
   sk_zero: procedure (st:POPENSSL_STACK); cdecl = nil; {removed 1.1.0}
   sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; cdecl = nil; {removed 1.1.0}
   sk_dup: function (st:POPENSSL_STACK):POPENSSL_STACK; cdecl = nil; {removed 1.1.0}
   sk_sort: procedure (st:POPENSSL_STACK); cdecl = nil; {removed 1.1.0}
-  sk_is_sorted: function (st:POPENSSL_STACK):longint; cdecl = nil; {removed 1.1.0}
+  sk_is_sorted: function (st:POPENSSL_STACK):TIdC_INT; cdecl = nil; {removed 1.1.0}
 
   procedure LoadStackFunctions(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 {$ELSE}
-  function OPENSSL_sk_num(_para1:POPENSSL_STACK):longint cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_new_null:POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_reserve(st:POPENSSL_STACK; n:longint):longint cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure OPENSSL_sk_free(_para1:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure OPENSSL_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc) cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_delete(st:POPENSSL_STACK; loc:longint):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):longint cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):longint cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):longint cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):longint cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_shift(st:POPENSSL_STACK):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_pop(st:POPENSSL_STACK):pointer cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure OPENSSL_sk_zero(st:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc cdecl; external CLibCrypto; {introduced 1.1.0}
   function OPENSSL_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure OPENSSL_sk_sort(st:POPENSSL_STACK) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_sk_is_sorted(st:POPENSSL_STACK):longint cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
 
-  function sk_num(_para1:POPENSSL_STACK):longint; {removed 1.1.0}
-  function sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer; {removed 1.1.0}
-  function sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer; {removed 1.1.0}
+  function sk_num(_para1:POPENSSL_STACK):TIdC_INT; {removed 1.1.0}
+  function sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; {removed 1.1.0}
+  function sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; {removed 1.1.0}
   function sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; {removed 1.1.0}
   function sk_new_null:POPENSSL_STACK; {removed 1.1.0}
-  function sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK; {removed 1.0.0}
-  function sk_reserve(st:POPENSSL_STACK; n:longint):longint; {removed 1.0.0}
+  function sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; {removed 1.0.0}
+  function sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; {removed 1.0.0}
   procedure sk_free(_para1:POPENSSL_STACK); {removed 1.1.0}
   procedure sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); {removed 1.1.0}
   function sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; {removed 1.1.0}
-  function sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint; {removed 1.1.0}
-  function sk_delete(st:POPENSSL_STACK; loc:longint):pointer; {removed 1.1.0}
+  function sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; {removed 1.1.0}
+  function sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer; {removed 1.1.0}
   function sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer; {removed 1.1.0}
-  function sk_find(st:POPENSSL_STACK; data:pointer):longint; {removed 1.1.0}
-  function sk_find_ex(st:POPENSSL_STACK; data:pointer):longint; {removed 1.1.0}
-  function sk_push(st:POPENSSL_STACK; data:pointer):longint; {removed 1.1.0}
-  function sk_unshift(st:POPENSSL_STACK; data:pointer):longint; {removed 1.1.0}
+  function sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT; {removed 1.1.0}
+  function sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT; {removed 1.1.0}
+  function sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT; {removed 1.1.0}
+  function sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT; {removed 1.1.0}
   function sk_shift(st:POPENSSL_STACK):pointer; {removed 1.1.0}
   function sk_pop(st:POPENSSL_STACK):pointer; {removed 1.1.0}
   procedure sk_zero(st:POPENSSL_STACK); {removed 1.1.0}
   function sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; {removed 1.1.0}
   function sk_dup(st:POPENSSL_STACK):POPENSSL_STACK; {removed 1.1.0}
   procedure sk_sort(st:POPENSSL_STACK); {removed 1.1.0}
-  function sk_is_sorted(st:POPENSSL_STACK):longint; {removed 1.1.0}
+  function sk_is_sorted(st:POPENSSL_STACK):TIdC_INT; {removed 1.1.0}
 {$ENDIF}
 
 implementation
@@ -327,17 +327,17 @@ const
   sk_is_sorted_procname = 'sk_is_sorted'; {removed 1.1.0}
 
 
-function  _sk_num(_para1:POPENSSL_STACK):longint; cdecl;
+function  _sk_num(_para1:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_num(_para1);
 end;
 
-function  _sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer; cdecl;
+function  _sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl;
 begin
   Result := OPENSSL_sk_value(_para1,_para2);
 end;
 
-function  _sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer; cdecl;
+function  _sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl;
 begin
   Result := OPENSSL_sk_set(st,i,data);
 end;
@@ -352,12 +352,12 @@ begin
   Result := OPENSSL_sk_new_null;
 end;
 
-function  _sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK; cdecl;
+function  _sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl;
 begin
   Result := OPENSSL_sk_new_reserve(c,n);
 end;
 
-function  _sk_reserve(st:POPENSSL_STACK; n:longint):longint; cdecl;
+function  _sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_reserve(st,n);
 end;
@@ -377,12 +377,12 @@ begin
   Result := OPENSSL_sk_deep_copy(_para1,c,f);
 end;
 
-function  _sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint; cdecl;
+function  _sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_insert(sk,data,where);
 end;
 
-function  _sk_delete(st:POPENSSL_STACK; loc:longint):pointer; cdecl;
+function  _sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl;
 begin
   Result := OPENSSL_sk_delete(st,loc);
 end;
@@ -392,22 +392,22 @@ begin
   Result := OPENSSL_sk_delete_ptr(st,p);
 end;
 
-function  _sk_find(st:POPENSSL_STACK; data:pointer):longint; cdecl;
+function  _sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_find(st,data);
 end;
 
-function  _sk_find_ex(st:POPENSSL_STACK; data:pointer):longint; cdecl;
+function  _sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_find_ex(st,data);
 end;
 
-function  _sk_push(st:POPENSSL_STACK; data:pointer):longint; cdecl;
+function  _sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_push(st,data);
 end;
 
-function  _sk_unshift(st:POPENSSL_STACK; data:pointer):longint; cdecl;
+function  _sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_unshift(st,data);
 end;
@@ -442,7 +442,7 @@ begin
   OPENSSL_sk_sort(st);
 end;
 
-function  _sk_is_sorted(st:POPENSSL_STACK):longint; cdecl;
+function  _sk_is_sorted(st:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   Result := OPENSSL_sk_is_sorted(st);
 end;
@@ -450,19 +450,19 @@ end;
 
 
   {$i TaurusTLSNoRetValOff.inc}
-function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):longint;
+function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_num_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer;
+function  ERR_OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_value_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer;
+function  ERR_OPENSSL_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_set_procname);
 end;
@@ -480,13 +480,13 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK;
+function  ERR_OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_new_reserve_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_reserve(st:POPENSSL_STACK; n:longint):longint;
+function  ERR_OPENSSL_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_reserve_procname);
 end;
@@ -510,13 +510,13 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint;
+function  ERR_OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_insert_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_delete(st:POPENSSL_STACK; loc:longint):pointer;
+function  ERR_OPENSSL_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_delete_procname);
 end;
@@ -528,25 +528,25 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_find_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_find_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_push_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_unshift_procname);
 end;
@@ -588,26 +588,26 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_is_sorted(st:POPENSSL_STACK):longint;
+function  ERR_OPENSSL_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_is_sorted_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_sk_num(_para1:POPENSSL_STACK):longint;
+function  ERR_sk_num(_para1:POPENSSL_STACK):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_num_procname);
 end;
 
 
-function  ERR_sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer;
+function  ERR_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_value_procname);
 end;
 
 
-function  ERR_sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer;
+function  ERR_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_set_procname);
 end;
@@ -625,13 +625,13 @@ begin
 end;
 
 
-function  ERR_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK;
+function  ERR_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_new_reserve_procname);
 end;
 
 
-function  ERR_sk_reserve(st:POPENSSL_STACK; n:longint):longint;
+function  ERR_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_reserve_procname);
 end;
@@ -655,13 +655,13 @@ begin
 end;
 
 
-function  ERR_sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint;
+function  ERR_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_insert_procname);
 end;
 
 
-function  ERR_sk_delete(st:POPENSSL_STACK; loc:longint):pointer;
+function  ERR_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_delete_procname);
 end;
@@ -673,25 +673,25 @@ begin
 end;
 
 
-function  ERR_sk_find(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_find_procname);
 end;
 
 
-function  ERR_sk_find_ex(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_find_ex_procname);
 end;
 
 
-function  ERR_sk_push(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_push_procname);
 end;
 
 
-function  ERR_sk_unshift(st:POPENSSL_STACK; data:pointer):longint;
+function  ERR_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_unshift_procname);
 end;
@@ -733,7 +733,7 @@ begin
 end;
 
 
-function  ERR_sk_is_sorted(st:POPENSSL_STACK):longint;
+function  ERR_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_is_sorted_procname);
 end;
@@ -2454,17 +2454,17 @@ begin
   sk_is_sorted := nil; {removed 1.1.0}
 end;
 {$ELSE}
-function sk_num(_para1:POPENSSL_STACK):longint;
+function sk_num(_para1:POPENSSL_STACK):TIdC_INT;
 begin
   Result := OPENSSL_sk_num(_para1);
 end;
 
-function sk_value(_para1:POPENSSL_STACK; _para2:longint):pointer;
+function sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer;
 begin
   Result := OPENSSL_sk_value(_para1,_para2);
 end;
 
-function sk_set(st:POPENSSL_STACK; i:longint; data:pointer):pointer;
+function sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer;
 begin
   Result := OPENSSL_sk_set(st,i,data);
 end;
@@ -2479,12 +2479,12 @@ begin
   Result := OPENSSL_sk_new_null;
 end;
 
-function sk_new_reserve(c:TOPENSSL_sk_compfunc; n:longint):POPENSSL_STACK;
+function sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK;
 begin
   Result := OPENSSL_sk_new_reserve(c,n);
 end;
 
-function sk_reserve(st:POPENSSL_STACK; n:longint):longint;
+function sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT;
 begin
   Result := OPENSSL_sk_reserve(st,n);
 end;
@@ -2504,12 +2504,12 @@ begin
   Result := OPENSSL_sk_deep_copy(_para1,c,f);
 end;
 
-function sk_insert(sk:POPENSSL_STACK; data:pointer; where:longint):longint;
+function sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT;
 begin
   Result := OPENSSL_sk_insert(sk,data,where);
 end;
 
-function sk_delete(st:POPENSSL_STACK; loc:longint):pointer;
+function sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer;
 begin
   Result := OPENSSL_sk_delete(st,loc);
 end;
@@ -2519,22 +2519,22 @@ begin
   Result := OPENSSL_sk_delete_ptr(st,p);
 end;
 
-function sk_find(st:POPENSSL_STACK; data:pointer):longint;
+function sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   Result := OPENSSL_sk_find(st,data);
 end;
 
-function sk_find_ex(st:POPENSSL_STACK; data:pointer):longint;
+function sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   Result := OPENSSL_sk_find_ex(st,data);
 end;
 
-function sk_push(st:POPENSSL_STACK; data:pointer):longint;
+function sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   Result := OPENSSL_sk_push(st,data);
 end;
 
-function sk_unshift(st:POPENSSL_STACK; data:pointer):longint;
+function sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT;
 begin
   Result := OPENSSL_sk_unshift(st,data);
 end;
@@ -2569,7 +2569,7 @@ begin
   OPENSSL_sk_sort(st);
 end;
 
-function sk_is_sorted(st:POPENSSL_STACK):longint;
+function sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
 begin
   Result := OPENSSL_sk_is_sorted(st);
 end;
