@@ -616,6 +616,7 @@ end;
 
 destructor TTaurusTLS_CustomEncryptor.Destroy;
 begin
+  EVP_CIPHER_CTX_free(FCtx);
   FreeAndNil(FCipher);
   inherited;
 end;
