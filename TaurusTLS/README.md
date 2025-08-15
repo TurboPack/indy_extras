@@ -51,11 +51,10 @@ You may make packages for older versions of RAD Studio.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
 
-If you have [TMS Smart Setup](https://doc.tmssoftware.com/smartsetup/) with **no credentials** required, go to the "TMS Smart Setup Console", and do the following to install TaurusTLS:
+If you have [TMS Smart Setup 2.0](https://doc.tmssoftware.com/smartsetup/) with **no credentials** required, go to the "TMS Smart Setup Console", and do the following to install TaurusTLS:
 
 ```
 tms configure
-tms repo-register git https://github.com/JPeterMugaas/TaurusTLS.git
 tms install taurustls_developers.taurustls
 ```
 
@@ -75,9 +74,11 @@ I suggest that you have 2 separate packages; a runtime only package and a design
 The run-time package should depend upon your Indy package files and include the following:
 
 - Source\TaurusTLS.pas
+- Source\TaurusTLS_Encryptors.pas
 - Source\TaurusTLS_Files.pas
 - Source\TaurusTLS_NTLM.pas
 - Source\TaurusTLS_ResourceStrings.pas
+- Source\TaurusTLS_SSLContainers.pas
 - Source\TaurusTLS_Utils.pas
 - Source\TaurusTLS_X509.pas
 - Source\TaurusTLSConsts.pas
