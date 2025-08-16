@@ -16,12 +16,12 @@
   b. SSL Headers now loaded using the OpenSSLLoader unit in order to support
   OpenSSL 3 and later.
 
-  c. New property TOpenSSLSSLOptions.UseSystemRootCertificateStore. Defaults to true.
+  c. New property TOpenSSLSSLOptions.UseSystemRootCACertificateStore. Defaults to true.
   If true then SSL_CTX_set_default_verify_paths is called. This causes the
   certs in OPENSSLDIR/certs to be used for certificate verification
 
   d. Windows only: if OPENSSL_DONT_USE_WINDOWS_CERT_STORE not defined  and
-  TOpenSSLSSLOptions.UseSystemRootCertificateStore is true then
+  TOpenSSLSSLOptions.UseSystemRootCACertificateStore is true then
   Windows Root Certificate store is also loaded into SSL Context X.509 certificate store.
 
   e. Direct access to OpenSSL internal data structures (exposed in earlier versions,
@@ -771,7 +771,7 @@ type
   TTaurusTLSOptions = class(TPersistent)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
     FParent: TObject;
-    fUseSystemRootCertificateStore: Boolean;
+    fUseSystemRootCACertificateStore: Boolean;
 
     fMode: TTaurusTLSSSLMode;
     fMinTLSVersion: TTaurusTLSSSLVersion;
@@ -886,10 +886,10 @@ type
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname
       default DEF_VERIFY_HOSTNAME;
     /// <summary>
-    /// Use the system's certificate store to verify certificates.
+    /// Use the system's ROOT and CA certificate stores to verify certificates.
     /// </summary>
-    property UseSystemRootCertificateStore: Boolean
-      read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore
+    property UseSystemRootCACertificateStore: Boolean
+      read fUseSystemRootCACertificateStore write fUseSystemRootCACertificateStore
       default True;
     /// <summary>
     /// The colon-separated (:) list of ciphersuits you wish to use or left
@@ -924,7 +924,7 @@ type
   /// </summary>
   TTaurusTLSContext = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
-    fUseSystemRootCertificateStore: Boolean;
+    fUseSystemRootCACertificateStore: Boolean;
 {$IFDEF USE_OBJECT_ARC}[Weak]
 {$ENDIF} FParent: TObject;
 
@@ -1085,8 +1085,8 @@ type
     /// <summary>
     /// Use system's certificate store to verify certificates.
     /// </summary>
-    property UseSystemRootCertificateStore: Boolean
-      read fUseSystemRootCertificateStore write fUseSystemRootCertificateStore;
+    property UseSystemRootCACertificateStore: Boolean
+      read fUseSystemRootCACertificateStore write fUseSystemRootCACertificateStore;
     /// <summary>
     /// Directories where to load root certificates from separated by colons.
     /// </summary>
@@ -3156,7 +3156,7 @@ constructor TTaurusTLSOptions.Create;
 begin
   inherited Create;
   fMinTLSVersion := DEF_MIN_TLSVERSION;
-  fUseSystemRootCertificateStore := True;
+  fUseSystemRootCACertificateStore := True;
   FSecurityLevel := DEF_SECURITY_LEVEL;
   fVerifyHostname := DEF_VERIFY_HOSTNAME;
 end;
@@ -3186,7 +3186,7 @@ begin
     LDest.VerifyMode := VerifyMode;
     LDest.VerifyDepth := VerifyDepth;
     LDest.VerifyHostname := VerifyHostname;
-    LDest.fUseSystemRootCertificateStore := fUseSystemRootCertificateStore;
+    LDest.fUseSystemRootCACertificateStore := fUseSystemRootCACertificateStore;
     LDest.VerifyDirs := VerifyDirs;
     LDest.CipherList := CipherList;
   end
@@ -3241,8 +3241,8 @@ begin
     LCertificate.Context := LContext;
     LContext.VerifyDepth := SSLOptions.VerifyDepth;
     LContext.VerifyMode := SSLOptions.VerifyMode;
-    LContext.UseSystemRootCertificateStore :=
-      SSLOptions.UseSystemRootCertificateStore;
+    LContext.UseSystemRootCACertificateStore :=
+      SSLOptions.UseSystemRootCACertificateStore;
     LContext.VerifyHostname := SSLOptions.VerifyHostname;
     LContext.CipherList := SSLOptions.CipherList;
     LContext.VerifyOn := Assigned(fOnVerifyCallback);
@@ -3270,8 +3270,8 @@ begin
   fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
   fSSLContext.VerifyMode := SSLOptions.VerifyMode;
   // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
-  fSSLContext.UseSystemRootCertificateStore :=
-    SSLOptions.UseSystemRootCertificateStore;
+  fSSLContext.UseSystemRootCACertificateStore :=
+    SSLOptions.UseSystemRootCACertificateStore;
   fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
   fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
   fSSLContext.CipherList := SSLOptions.CipherList;
@@ -3732,8 +3732,8 @@ begin
     fSSLContext.VerifyMode := SSLOptions.VerifyMode;
     fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
     // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
-    fSSLContext.UseSystemRootCertificateStore :=
-      SSLOptions.UseSystemRootCertificateStore;
+    fSSLContext.UseSystemRootCACertificateStore :=
+      SSLOptions.UseSystemRootCACertificateStore;
     fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
     fSSLContext.CipherList := SSLOptions.CipherList;
     fSSLContext.VerifyOn := Assigned(fOnVerifyCallback);
@@ -4089,7 +4089,7 @@ begin
   fVerifyMode := [];
   fMode := sslmUnassigned;
   fSessionId := 1;
-  fUseSystemRootCertificateStore := True;
+  fUseSystemRootCACertificateStore := True;
 end;
 
 destructor TTaurusTLSContext.Destroy;
@@ -4279,7 +4279,7 @@ begin
   SSL_CTX_set_default_passwd_cb(fContext, @g_PasswordCallback);
   SSL_CTX_set_default_passwd_cb_userdata(fContext, Self);
   // end;
-  if fUseSystemRootCertificateStore then
+  if fUseSystemRootCACertificateStore then
   begin
 {$IFDEF USE_WINDOWS_CERT_STORE}
     LoadWindowsCertStore;
