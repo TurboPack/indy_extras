@@ -4,9 +4,9 @@
      and this file regenerated. TaurusTLSHeaders_x509_vfy.h2pas is distributed with the full Indy
      Distribution.
    *)
-   
+
 {$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$i TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -548,8 +548,8 @@ var
   X509_STORE_CTX_get1_issuer: function (issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT; cdecl = nil;
 
   X509_STORE_CTX_free: procedure (ctx: PX509_STORE_CTX); cdecl = nil;
-//  TIdC_INT X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: P STACK_OF(X509));
-//  procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: P STACK_OF(X509));
+  X509_STORE_CTX_init : function(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT; cdecl = nil;
+  X509_STORE_CTX_set0_trusted_stack : procedure (ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509); cdecl = nil;
   X509_STORE_CTX_cleanup: procedure (ctx: PX509_STORE_CTX); cdecl = nil;
 
   X509_STORE_CTX_get0_store: function (ctx: PX509_STORE_CTX): PX509_STORE; cdecl = nil;
@@ -837,8 +837,8 @@ var
   function X509_STORE_CTX_get1_issuer(issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT cdecl; external CLibCrypto;
 
   procedure X509_STORE_CTX_free(ctx: PX509_STORE_CTX) cdecl; external CLibCrypto;
-//  TIdC_INT X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: P STACK_OF(X509));
-//  procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: P STACK_OF(X509));
+  function X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509) cdecl; external CLibCrypto;
   procedure X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX) cdecl; external CLibCrypto;
 
   function X509_STORE_CTX_get0_store(ctx: PX509_STORE_CTX): PX509_STORE cdecl; external CLibCrypto;
@@ -1343,8 +1343,8 @@ const
   X509_STORE_CTX_get1_issuer_procname = 'X509_STORE_CTX_get1_issuer';
 
   X509_STORE_CTX_free_procname = 'X509_STORE_CTX_free';
-//  TIdC_INT X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: P STACK_OF(X509));
-//  procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: P STACK_OF(X509));
+  X509_STORE_CTX_init_procname  = 'X509_STORE_CTX_init';
+  X509_STORE_CTX_set0_trusted_stack_procname = 'X509_STORE_CTX_set0_trusted_stack';
   X509_STORE_CTX_cleanup_procname = 'X509_STORE_CTX_cleanup';
 
   X509_STORE_CTX_get0_store_procname = 'X509_STORE_CTX_get0_store';
@@ -1976,9 +1976,17 @@ begin
 end;
 
 
-//  TIdC_INT X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: P STACK_OF(X509));
-//  procedure X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: P STACK_OF(X509));
-procedure  ERR_X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX); 
+function  ERR_X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_init_procname);
+end;
+
+procedure ERR_X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_trusted_stack_procname);
+end;
+
+procedure  ERR_X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_cleanup_procname);
 end;
@@ -4243,6 +4251,37 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_get_lookup_crls := LoadLibFunction(ADllHandle, X509_STORE_get_lookup_crls_procname);
+  FuncLoadError := not assigned(X509_STORE_get_lookup_crls);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_get_lookup_crls_allownil)}
+    X509_STORE_get_lookup_crls := @ERR_X509_STORE_get_lookup_crls;
+    {$ifend}
+    {$if declared(X509_STORE_get_lookup_crls_introduced)}
+    if LibVersion < X509_STORE_get_lookup_crls_introduced then
+    begin
+      {$if declared(FC_X509_STORE_get_lookup_crls)}
+      X509_STORE_get_lookup_crls := @FC_X509_STORE_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_get_lookup_crls_removed)}
+    if X509_STORE_get_lookup_crls_removed <= LibVersion then
+    begin                                   s
+      {$if declared(_X509_STORE_get_lookup_crls)}
+      X509_STORE_get_lookup_crls := @_X509_STORE_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_get_lookup_crls_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_get_lookup_crls');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   X509_STORE_set_cleanup := LoadLibFunction(ADllHandle, X509_STORE_set_cleanup_procname);
   FuncLoadError := not assigned(X509_STORE_set_cleanup);
@@ -4467,6 +4506,67 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_CTX_init := LoadLibFunction(ADllHandle, X509_STORE_CTX_init_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_init);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_init_allownil)}
+    X509_STORE_CTX_init := @ERR_X509_STORE_CTX_init;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_init_introduced)}
+    if LibVersion < X509_STORE_CTX_init_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_init)}
+      X509_STORE_CTX_init := @FC_X509_STORE_CTX_init;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_init_removed)}
+    if X509_STORE_CTX_init_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_init)}
+      X509_STORE_CTX_init := @_X509_STORE_CTX_init;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_init_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_init');
+    {$ifend}
+  end;
+
+  X509_STORE_CTX_set0_trusted_stack := LoadLibFunction(ADllHandle, X509_STORE_CTX_set0_trusted_stack_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_set0_trusted_stack);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_set0_trusted_stack_allownil)}
+    X509_STORE_CTX_set0_trusted_stack := @ERR_X509_STORE_CTX_set0_trusted_stack;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_set0_trusted_stack_introduced)}
+    if LibVersion < X509_STORE_CTX_set0_trusted_stack_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_set0_trusted_stack)}
+      X509_STORE_CTX_set0_trusted_stack := @FC_X509_STORE_CTX_set0_trusted_stack;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_set0_trusted_stack_removed)}
+    if X509_STORE_CTX_set0_trusted_stack_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_set0_trusted_stack)}
+      X509_STORE_CTX_set0_trusted_stack := @_X509_STORE_CTX_set0_trusted_stack;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_set0_trusted_stack_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_set0_trusted_stack');
+    {$ifend}
+  end;
 
   X509_STORE_CTX_cleanup := LoadLibFunction(ADllHandle, X509_STORE_CTX_cleanup_procname);
   FuncLoadError := not assigned(X509_STORE_CTX_cleanup);
@@ -8138,6 +8238,8 @@ begin
   X509_STORE_CTX_new := nil;
   X509_STORE_CTX_get1_issuer := nil;
   X509_STORE_CTX_free := nil;
+  X509_STORE_CTX_init := nil;
+  X509_STORE_CTX_set0_trusted_stack := nil;
   X509_STORE_CTX_cleanup := nil;
   X509_STORE_CTX_get0_store := nil;
   X509_STORE_CTX_get0_cert := nil; {introduced 1.1.0}
