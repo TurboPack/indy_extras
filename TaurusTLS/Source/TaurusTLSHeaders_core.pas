@@ -59,15 +59,10 @@ uses
 
 
     type
-      ossl_core_handle_st = record end;
-      OSSL_CORE_HANDLE = ossl_core_handle_st;
-      POSSL_CORE_HANDLE = ^OSSL_CORE_HANDLE;
-      openssl_core_ctx_st = record end;
-      OPENSSL_CORE_CTX = openssl_core_ctx_st;
-      POPENSSL_CORE_CTX = ^OPENSSL_CORE_CTX;
-      ossl_core_bio_st = record end;
-      OSSL_CORE_BIO = ossl_core_bio_st;
-      POSSL_CORE_BIO = ^OSSL_CORE_BIO;
+      POSSL_CORE_HANDLE = Pointer;
+
+      POPENSSL_CORE_CTX = Pointer;
+      POSSL_CORE_BIO = Pointer;
     {
      * Dispatch table element.  function_id numbers and the functions are defined
      * in core_dispatch.h, see macros with 'OSSL_CORE_MAKE_FUNC' in their names.

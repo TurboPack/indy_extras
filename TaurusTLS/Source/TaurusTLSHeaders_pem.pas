@@ -284,8 +284,11 @@ var
   // ~DH
 
   PEM_read_bio_PrivateKey: function (bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
+  PEM_read_bio_PrivateKey_ex : function (bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY; cdecl = nil;
   PEM_write_bio_PrivateKey: function (bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl = nil;
-
+  PEM_write_bio_PrivateKey_ex : function(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
   PEM_read_bio_PUBKEY: function (bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; cdecl = nil;
   PEM_write_bio_PUBKEY: function (bp: PBIO; x: PEVP_PKEY): TIdC_INT; cdecl = nil;
 
@@ -399,12 +402,18 @@ var
   // ~DH
 
   function PEM_read_bio_PrivateKey(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
+  function PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl; external CLibCrypto;
+
   function PEM_write_bio_PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
 
   function PEM_read_bio_PUBKEY(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY cdecl; external CLibCrypto;
   function PEM_write_bio_PUBKEY(bp: PBIO; x: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
+  function PEM_write_bio_PrivateKey_ex(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
   function PEM_write_bio_PrivateKey_traditional(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+
   function PEM_write_bio_PKCS8PrivateKey_nid(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function PEM_write_bio_PKCS8PrivateKey(bp: PBIO; x: PEVP_PKEY_METHOD; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function i2d_PKCS8PrivateKey_bio(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER_CTX; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT cdecl; external CLibCrypto;
@@ -436,6 +445,8 @@ implementation
   
 const
   PEM_read_bio_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  PEM_read_bio_PrivateKey_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  PEM_write_bio_PrivateKey_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   PEM_bytes_read_bio_secmem_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   PEM_write_bio_PrivateKey_traditional_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
 
@@ -531,7 +542,9 @@ const
   // ~DH
 
   PEM_read_bio_PrivateKey_procname = 'PEM_read_bio_PrivateKey';
+  PEM_read_bio_PrivateKey_ex_procname = 'PEM_read_bio_PrivateKey_ex';
   PEM_write_bio_PrivateKey_procname = 'PEM_write_bio_PrivateKey';
+  PEM_write_bio_PrivateKey_ex_procname = 'PEM_write_bio_PrivateKey_ex';
 
   PEM_read_bio_PUBKEY_procname = 'PEM_read_bio_PUBKEY';
   PEM_write_bio_PUBKEY_procname = 'PEM_write_bio_PUBKEY';
@@ -555,6 +568,17 @@ const
   b2i_PVK_bio_procname = 'b2i_PVK_bio';
   i2b_PVK_bio_procname = 'i2b_PVK_bio';
 
+function FC_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl;
+begin
+  Result := PEM_read_bio_PrivateKey(bp,x,cb,u);
+end;
+
+function FC_PEM_write_bio_PrivateKey_ex(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl;
+begin
+  Result := PEM_write_bio_PrivateKey(bp,x,enc,kstr,klen,cb,u);
+end;
 
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; 
@@ -916,12 +940,22 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PrivateKey_procname);
 end;
 
+function ERR_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PrivateKey_ex_procname);
+end;
 
 function  ERR_PEM_write_bio_PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PrivateKey_procname);
 end;
 
+function ERR_PEM_write_bio_PrivateKey_ex(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PrivateKey_ex_procname);
+end;
 
 
 function  ERR_PEM_read_bio_PUBKEY(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; 
@@ -2770,6 +2804,37 @@ begin
     {$ifend}
   end;
 
+  PEM_read_bio_PrivateKey_ex := LoadLibFunction(ADllHandle, PEM_read_bio_PrivateKey_ex_procname);
+  FuncLoadError := not assigned(PEM_read_bio_PrivateKey_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(PEM_read_bio_PrivateKey_ex_allownil)}
+    PEM_read_bio_PrivateKey_ex := @ERR_PEM_read_bio_PrivateKey_ex;
+    {$ifend}
+    {$if declared(PEM_read_bio_PrivateKey_ex_introduced)}
+    if LibVersion < PEM_read_bio_PrivateKey_ex_introduced then
+    begin
+      {$if declared(FC_PEM_read_bio_PrivateKey_ex)}
+      PEM_read_bio_PrivateKey_ex := @FC_PEM_read_bio_PrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PEM_read_bio_PrivateKey_ex_removed)}
+    if PEM_read_bio_PrivateKey_ex_removed <= LibVersion then
+    begin
+      {$if declared(_PEM_read_bio_PrivateKey_ex)}
+      PEM_read_bio_PrivateKey_ex := @_PEM_read_bio_PrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PEM_read_bio_PrivateKey_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PEM_read_bio_PrivateKey_ex');
+    {$ifend}
+  end;
+
 
   PEM_write_bio_PrivateKey := LoadLibFunction(ADllHandle, PEM_write_bio_PrivateKey_procname);
   FuncLoadError := not assigned(PEM_write_bio_PrivateKey);
@@ -2802,6 +2867,36 @@ begin
     {$ifend}
   end;
 
+  PEM_write_bio_PrivateKey_ex := LoadLibFunction(ADllHandle, PEM_write_bio_PrivateKey_ex_procname);
+  FuncLoadError := not assigned(PEM_write_bio_PrivateKey_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(PEM_write_bio_PrivateKey_ex_allownil)}
+    PEM_write_bio_PrivateKey_ex := @ERR_PEM_write_bio_PrivateKey_ex;
+    {$ifend}
+    {$if declared(PEM_write_bio_PrivateKey_ex_introduced)}
+    if LibVersion < PEM_write_bio_PrivateKey_ex_introduced then
+    begin
+      {$if declared(FC_PEM_write_bio_PrivateKey_ex)}
+      PEM_write_bio_PrivateKey_ex := @FC_PEM_write_bio_PrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PEM_write_bio_PrivateKey_ex_removed)}
+    if PEM_write_bio_PrivateKey_ex_removed <= LibVersion then
+    begin
+      {$if declared(_PEM_write_bio_PrivateKey_ex)}
+      PEM_write_bio_PrivateKey_ex := @_PEM_write_bio_PrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PEM_write_bio_PrivateKey_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PEM_write_bio_PrivateKey_ex');
+    {$ifend}
+  end;
 
   PEM_read_bio_PUBKEY := LoadLibFunction(ADllHandle, PEM_read_bio_PUBKEY_procname);
   FuncLoadError := not assigned(PEM_read_bio_PUBKEY);
@@ -3437,7 +3532,9 @@ begin
   PEM_write_bio_DHparams := nil;
   PEM_write_bio_DHxparams := nil;
   PEM_read_bio_PrivateKey := nil;
+  PEM_read_bio_PrivateKey_ex := nil;
   PEM_write_bio_PrivateKey := nil;
+  PEM_write_bio_PrivateKey_ex := nil;
   PEM_read_bio_PUBKEY := nil;
   PEM_write_bio_PUBKEY := nil;
   PEM_write_bio_PrivateKey_traditional := nil; {introduced 1.1.0}
