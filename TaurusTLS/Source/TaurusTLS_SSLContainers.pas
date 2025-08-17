@@ -284,6 +284,13 @@ type
     ///  </returns>
     function EncrypBytes(ASrc: TBytes): TBytes;
     ///  <summary>
+    ///  Creates instance of TPlainBytes class which contains
+    ///  <c>decrypted array of bytes</c> to be exposed through <see cref="ITaurusTLS_Bio" />
+    ///  interface. Descendant class(es) can override this method.
+    ///  </summary>
+    procedure NewPlainBytes(const ABytes: TBytes; out APlainBytes: TPlainBytes);
+      virtual;
+    ///  <summary>
     ///  Check if internal instance of <see cref="ITaurusTLS_Bytes" /> to store
     ///  <c>decrypted array of bytes</c> exists.
     ///  If does not exists - creates new one.
@@ -629,6 +636,12 @@ begin
   Result:=FEncryptedBytes;
 end;
 
+procedure TTaurusTLS_EncryptedBytes.NewPlainBytes(const ABytes: TBytes;
+  out APlainBytes: TPlainBytes);
+begin
+  APlainBytes:=TPlainBytes.Create(ABytes, Self);
+end;
+
 function TTaurusTLS_EncryptedBytes.GetPlainBytes: ITaurusTLS_Bytes;
 var
   lOldPlainBytes, lNewPlainBytes: TPlainBytes;
@@ -640,7 +653,7 @@ begin
   if not Assigned(lOldPlainBytes) then
   begin
     lNewPlainData:=DecryptBytes;
-    lNewPlainBytes:=TPlainBytes.Create(lNewPlainData, Self);
+    NewPlainBytes(lNewPlainData, lNewPlainBytes);
 {$IFDEF DCC}
     if TInterlocked.CompareExchange(Pointer(FPlainBytes), Pointer(lNewPlainBytes),
       Pointer(lOldPlainBytes)) <> nil then

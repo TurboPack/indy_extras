@@ -918,7 +918,7 @@ var
 begin
   BeginRead;
   try
-    lFactory:=FFactory;
+    lFactory:=GetFactory;
     Result:=NewEncryptor(lFactory.FKeySize, lFactory.FEncodeMode);
   finally
     EndRead;
