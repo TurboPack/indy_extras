@@ -645,6 +645,9 @@ var
   X509_STORE_load_locations: function (ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT; cdecl = nil;
   X509_STORE_set_default_paths: function (ctx: PX509_STORE): TIdC_INT; cdecl = nil;
   X509_STORE_set_default_paths_ex : function( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  X509_STORE_load_store: function(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  X509_STORE_load_store_ex: function(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+
   //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
   X509_STORE_CTX_set_ex_data: function (ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
@@ -941,6 +944,10 @@ var
   function X509_STORE_load_locations(ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_default_paths(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+
+  function X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  function X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+
 
   //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
@@ -1258,6 +1265,8 @@ const
   X509_STORE_load_locations_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_load_file_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_set_default_paths_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  X509_STORE_load_store_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+
 {helper_functions}
 function X509_LOOKUP_load_file(ctx: PX509_LOOKUP; name: PIdAnsiChar; type_: TIdC_LONG): TIdC_INT;
 begin
@@ -1453,7 +1462,8 @@ const
   X509_STORE_load_locations_ex_procname = 'X509_STORE_load_locations_ex';
   X509_STORE_set_default_paths_procname = 'X509_STORE_set_default_paths';
   X509_STORE_set_default_paths_ex_procname = 'X509_STORE_set_default_paths_ex';
-
+  X509_STORE_load_store_procname = 'X509_STORE_load_store';
+  X509_STORE_load_store_ex_procname = 'X509_STORE_load_store_ex';
   //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
   X509_STORE_CTX_set_ex_data_procname = 'X509_STORE_CTX_set_ex_data';
@@ -1654,6 +1664,11 @@ end;
 function FC_X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   Result := X509_STORE_set_default_paths(ctx);
+end;
+
+function FC_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;
+begin
+  Result := X509_STORE_load_store(ctx,uri);
 end;
 
 {/forward_compatibility}
@@ -2384,6 +2399,15 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_default_paths_ex_procname);
 end;
 
+function ERR_X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_store_procname);
+end;
+
+function ERR_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_store_ex_procname);
+end;
 
   //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE_CTX, l, p, newf, dupf, freef)
@@ -6380,6 +6404,68 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_load_store := LoadLibFunction(ADllHandle, X509_STORE_load_store_procname);
+  FuncLoadError := not assigned(X509_STORE_load_store);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_load_store_allownil)}
+    X509_STORE_load_store := @ERR_X509_STORE_load_store;
+    {$ifend}
+    {$if declared(X509_STORE_load_store_introduced)}
+    if LibVersion < X509_STORE_load_store_introduced then
+    begin
+      {$if declared(FC_X509_STORE_load_store)}
+      X509_STORE_load_store := @FC_X509_STORE_load_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_load_store_removed)}
+    if X509_STORE_load_store_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_load_store)}
+      X509_STORE_load_store := @_X509_STORE_load_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_load_store_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_load_store');
+    {$ifend}
+  end;
+
+  X509_STORE_load_store_ex := LoadLibFunction(ADllHandle, X509_STORE_load_store_ex_procname);
+  FuncLoadError := not assigned(X509_STORE_load_store_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_load_store_ex_allownil)}
+    X509_STORE_load_store_ex := @ERR_X509_STORE_load_store_ex;
+    {$ifend}
+    {$if declared(X509_STORE_load_store_ex_introduced)}
+    if LibVersion < X509_STORE_load_store_ex_introduced then
+    begin
+      {$if declared(FC_X509_STORE_load_store_ex)}
+      X509_STORE_load_store_ex := @FC_X509_STORE_load_store_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_load_store_ex_removed)}
+    if X509_STORE_load_store_ex_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_load_store_ex)}
+      X509_STORE_load_store_ex := @_X509_STORE_load_store_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_load_store_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_load_store_ex');
+    {$ifend}
+  end;
+
 
   X509_STORE_CTX_set_ex_data := LoadLibFunction(ADllHandle, X509_STORE_CTX_set_ex_data_procname);
   FuncLoadError := not assigned(X509_STORE_CTX_set_ex_data);
@@ -8508,6 +8594,8 @@ begin
   X509_STORE_load_locations_ex := nil;
   X509_STORE_set_default_paths := nil;
   X509_STORE_set_default_paths_ex := nil;
+  X509_STORE_load_store := nil;
+  X509_STORE_load_store_ex := nil;
   X509_STORE_CTX_set_ex_data := nil;
   X509_STORE_CTX_get_ex_data := nil;
   X509_STORE_CTX_get_error := nil;
