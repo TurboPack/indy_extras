@@ -562,6 +562,7 @@ type
   end;
   X509_PURPOSE = x509_purpose_st;
   PSTACK_OF_X509_PURPOSE = type pointer;
+  PSTACK_OF_X509_POLICY_NODE = type pointer;
 
 //  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
 
@@ -1395,6 +1396,16 @@ type
   Tsk_X509_PURPOSE_find = function (sk : PSTACK_OF_X509_PURPOSE; _val : PX509_PURPOSE) : TIdC_INT cdecl;
   Tsk_X509_PURPOSE_pop_free = procedure (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl;
 
+  Tsk_X509_POLICY_NODE_new = function(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_POLICY_NODE cdecl;
+  Tsk_X509_POLICY_NODE_new_null = function : PSTACK_OF_X509_POLICY_NODE cdecl;
+  Tsk_X509_POLICY_NODE_free = procedure(st : PSTACK_OF_X509_POLICY_NODE) cdecl;
+  Tsk_X509_POLICY_NODE_num = function (const sk : PSTACK_OF_X509_POLICY_NODE) : TIdC_INT cdecl;
+  Tsk_X509_POLICY_NODE_value = function (const sk : PSTACK_OF_X509_POLICY_NODE; i : TIdC_INT) : PX509_POLICY_NODE cdecl;
+  Tsk_X509_POLICY_NODE_push = function (sk : PSTACK_OF_X509_POLICY_NODE; st : PX509_POLICY_NODE) : TIdC_INT cdecl;
+  Tsk_X509_POLICY_NODE_dup = function (sk : PSTACK_OF_X509_POLICY_NODE) : PSTACK_OF_X509_POLICY_NODE cdecl;
+  Tsk_X509_POLICY_NODE_find = function (sk : PSTACK_OF_X509_POLICY_NODE; _val : PX509_POLICY_NODE) : TIdC_INT cdecl;
+  Tsk_X509_POLICY_NODE_pop_free = procedure (sk : PSTACK_OF_X509_POLICY_NODE; func: TOPENSSL_sk_freefunc) cdecl;
+
 
 var
   sk_ASIdOrRange_new: Tsk_ASIdOrRange_new = nil;
@@ -1507,6 +1518,16 @@ var
   sk_X509_PURPOSE_dup : Tsk_X509_PURPOSE_dup = nil;
   sk_X509_PURPOSE_find : Tsk_X509_PURPOSE_find = nil;
   sk_X509_PURPOSE_pop_free : Tsk_X509_PURPOSE_pop_free = nil;
+
+  sk_X509_POLICY_NODE_new :  Tsk_X509_POLICY_NODE_new = nil;
+  sk_X509_POLICY_NODE_new_null : Tsk_X509_POLICY_NODE_new_null = nil;
+  sk_X509_POLICY_NODE_free : Tsk_X509_POLICY_NODE_free = nil;
+  sk_X509_POLICY_NODE_num :  Tsk_X509_POLICY_NODE_num = nil;
+  sk_X509_POLICY_NODE_value : Tsk_X509_POLICY_NODE_value = nil;
+  sk_X509_POLICY_NODE_push : Tsk_X509_POLICY_NODE_push = nil;
+  sk_X509_POLICY_NODE_dup : Tsk_X509_POLICY_NODE_dup = nil;
+  sk_X509_POLICY_NODE_find : Tsk_X509_POLICY_NODE_find = nil;
+  sk_X509_POLICY_NODE_pop_free : Tsk_X509_POLICY_NODE_pop_free = nil;
 
 {$ELSE}
   function sk_ASIdOrRange_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_ASIdOrRange cdecl; external CLibCrypto name 'OPENSSL_sk_new';
@@ -1631,6 +1652,16 @@ var
   function sk_X509_PURPOSE_dup (sk : PSTACK_OF_X509_PURPOSE) : PSTACK_OF_X509_PURPOSE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
   function sk_X509_PURPOSE_find (sk : PSTACK_OF_X509_PURPOSE; val : PX509_PURPOSE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_PURPOSE_pop_free (sk : PSTACK_OF_X509_PURPOSE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
+
+  function sk_X509_POLICY_NODE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
+  function sk_X509_POLICY_NODE_new_null : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
+  procedure sk_X509_POLICY_NODE_free(st : PSTACK_OF_X509_POLICY_NODE) cdecl; external CLibCrypto name 'OPENSSL_sk_free';
+  function sk_X509_POLICY_NODE_num (const sk : PSTACK_OF_X509_POLICY_NODE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_num';
+  function sk_X509_POLICY_NODE_value (const sk : PSTACK_OF_X509_POLICY_NODE; i : TIdC_INT): PX509_POLICY_NODE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
+  function sk_X509_POLICY_NODE_push (sk : PSTACK_OF_X509_POLICY_NODE; st : PX509_POLICY_NODE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
+  function sk_X509_POLICY_NODE_dup (sk : PSTACK_OF_X509_POLICY_NODE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
+  function sk_X509_POLICY_NODE_find (sk : PSTACK_OF_X509_POLICY_NODE; val : PX509_POLICY_NODE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  procedure sk_X509_POLICY_NODE_pop_free (sk : PSTACK_OF_X509_POLICY_NODE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
 
@@ -5614,6 +5645,16 @@ begin
   sk_X509_PURPOSE_dup := Tsk_X509_PURPOSE_dup(sk_dup);
   sk_X509_PURPOSE_find := Tsk_X509_PURPOSE_find(sk_find);
   sk_X509_PURPOSE_pop_free := Tsk_X509_PURPOSE_pop_free(sk_pop_free);
+
+  sk_X509_POLICY_NODE_new :=  Tsk_X509_POLICY_NODE_new(sk_new);
+  sk_X509_POLICY_NODE_new_null := Tsk_X509_POLICY_NODE_new_null(sk_new_null);
+  sk_X509_POLICY_NODE_free := Tsk_X509_POLICY_NODE_free(sk_free);
+  sk_X509_POLICY_NODE_num :=  Tsk_X509_POLICY_NODE_num(sk_num);
+  sk_X509_POLICY_NODE_value := Tsk_X509_POLICY_NODE_value(sk_value);
+  sk_X509_POLICY_NODE_push := Tsk_X509_POLICY_NODE_push(sk_push);
+  sk_X509_POLICY_NODE_dup := Tsk_X509_POLICY_NODE_dup(sk_dup);
+  sk_X509_POLICY_NODE_find := Tsk_X509_POLICY_NODE_find(sk_find);
+  sk_X509_POLICY_NODE_pop_free := Tsk_X509_POLICY_NODE_pop_free(sk_pop_free);
 
 end;
 

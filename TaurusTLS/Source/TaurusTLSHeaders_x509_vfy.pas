@@ -35,11 +35,13 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
+  TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_ssl,
   TaurusTLSHeaders_types,
   TaurusTLSHeaders_stack,
-  TaurusTLSHeaders_x509;
+  TaurusTLSHeaders_x509,
+  TaurusTLSHeaders_x509v3;
 
 type
   PSTACK_OF_X509_OBJECT = type pointer;
@@ -554,8 +556,8 @@ var
 
   X509_STORE_CTX_get0_store: function (ctx: PX509_STORE_CTX): PX509_STORE; cdecl = nil;
   X509_STORE_CTX_get0_cert: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil; {introduced 1.1.0}
-  //STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
-  //void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+  X509_STORE_CTX_get0_untrusted : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509; cdecl = nil;
+  X509_STORE_CTX_set0_untrusted : procedure(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl = nil;
   X509_STORE_CTX_set_verify_cb: procedure (ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb); cdecl = nil;
   X509_STORE_CTX_get_verify_cb: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb; cdecl = nil; {introduced 1.1.0}
   X509_STORE_CTX_get_verify: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn; cdecl = nil; {introduced 1.1.0}
@@ -566,13 +568,14 @@ var
   X509_STORE_CTX_get_check_crl: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn; cdecl = nil; {introduced 1.1.0}
   X509_STORE_CTX_get_cert_crl: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn; cdecl = nil; {introduced 1.1.0}
   X509_STORE_CTX_get_check_policy: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn; cdecl = nil; {introduced 1.1.0}
-//  function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
-//  function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
+  X509_STORE_CTX_get_lookup_certs : function (ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn; cdecl = nil;
+  X509_STORE_CTX_get_lookup_crls : function (ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;  cdecl = nil;
   X509_STORE_CTX_get_cleanup: function (ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn; cdecl = nil; {introduced 1.1.0}
 
   X509_STORE_add_lookup: function (v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP; cdecl = nil;
   X509_LOOKUP_hash_dir: function : PX509_LOOKUP_METHOD; cdecl = nil;
   X509_LOOKUP_file: function : PX509_LOOKUP_METHOD; cdecl = nil;
+  X509_LOOKUP_store: function : PX509_LOOKUP_METHOD; cdecl = nil;  {introduced 3.0.0}
 
   X509_LOOKUP_meth_new: function (const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl = nil; {introduced 1.1.0}
   X509_LOOKUP_meth_free: procedure (method: PX509_LOOKUP_METHOD); cdecl = nil; {introduced 1.1.0}
@@ -621,9 +624,11 @@ var
   X509_LOOKUP_ctrl: function (ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT; cdecl = nil;
 
   X509_load_cert_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509_load_cert_file_ex : function(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT; cdecl = nil;
+
   X509_load_crl_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_load_cert_crl_file: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-
+  X509_load_cert_crl_file_ex: function (ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT; cdecl = nil;
   X509_LOOKUP_new: function (method: PX509_LOOKUP_METHOD): PX509_LOOKUP; cdecl = nil;
   X509_LOOKUP_free: procedure (ctx: PX509_LOOKUP); cdecl = nil;
   X509_LOOKUP_init: function (ctx: PX509_LOOKUP): TIdC_INT; cdecl = nil;
@@ -661,8 +666,8 @@ var
   X509_STORE_CTX_get0_current_issuer: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil;
   X509_STORE_CTX_get0_current_crl: function (ctx: PX509_STORE_CTX): PX509_CRL; cdecl = nil;
   X509_STORE_CTX_get0_parent_ctx: function (ctx: PX509_STORE_CTX): PX509_STORE_CTX; cdecl = nil;
-//  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
-//  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
+  X509_STORE_CTX_get0_chain : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl = nil;
+  X509_STORE_CTX_get1_chain : function(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl = nil;
   X509_STORE_CTX_set_cert: procedure (c: PX509_STORE_CTX; x: PX509); cdecl = nil;
   X509_STORE_CTX_set0_verified_chain : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl = nil;
   X509_STORE_CTX_set0_crls : procedure(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL); cdecl = nil;
@@ -700,11 +705,10 @@ var
   X509_VERIFY_PARAM_set_trust: function (param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set_depth: procedure (param: PX509_VERIFY_PARAM; depth: TIdC_INT); cdecl = nil;
   X509_VERIFY_PARAM_set_auth_level: procedure (param: PX509_VERIFY_PARAM; auth_level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-//  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
-//  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
+  X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl = nil;
+  X509_VERIFY_PARAM_set_time: procedure (param: PX509_VERIFY_PARAM; t: TIdC_TIMET);  cdecl = nil;
   X509_VERIFY_PARAM_add0_policy: function (param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  //TIdC_INT X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
-  //                                    STACK_OF(ASN1_OBJECT) *policies);
+  X509_VERIFY_PARAM_set1_policies : function(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl = nil;
 
   X509_VERIFY_PARAM_set_inh_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_VERIFY_PARAM_get_inh_flags: function (const param: PX509_VERIFY_PARAM): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
@@ -729,22 +733,17 @@ var
   X509_VERIFY_PARAM_lookup: function (const name: PIdAnsiChar): X509_VERIFY_PARAM; cdecl = nil;
   X509_VERIFY_PARAM_table_cleanup: procedure ; cdecl = nil;
 
-  //TIdC_INT X509_policy_check(X509_POLICY_TREE **ptree, TIdC_INT *pexplicit_policy,
-  //                      STACK_OF(X509) *certs,
-  //                      STACK_OF(ASN1_OBJECT) *policy_oids, TIdC_UINT flags);
+  X509_policy_check : function(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
+    policy_oids : PSTACK_OF_ASN1_OBJECT; flags :  TIdC_UINT) : TIdC_INT; cdecl = nil;
 
   X509_policy_tree_free: procedure (tree: PX509_POLICY_TREE); cdecl = nil;
 
   X509_policy_tree_level_count: function (const tree: PX509_POLICY_TREE): TIdC_INT; cdecl = nil;
   X509_policy_tree_get0_level: function (const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL; cdecl = nil;
 
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_policies(const
-  //                                                           X509_POLICY_TREE
-  //                                                           *tree);
-  //
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_user_policies(const
-  //                                                                X509_POLICY_TREE
-  //                                                                *tree);
+  X509_policy_tree_get0_policies : function(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;  cdecl = nil;
+
+  X509_policy_tree_get0_user_policies : function(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE; cdecl = nil;
 
   X509_policy_level_node_count: function (level: PX509_POLICY_LEVEL): TIdC_INT; cdecl = nil;
 
@@ -752,9 +751,8 @@ var
 
   X509_policy_node_get0_policy: function (const node: PX509_POLICY_NODE): PASN1_OBJECT; cdecl = nil;
 
-  //STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
-  //                                                           X509_POLICY_NODE
-  //                                                           *node);
+  X509_policy_node_get0_qualifiers: function(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO; cdecl = nil;
+
   X509_policy_node_get0_parent: function (const node: PX509_POLICY_NODE): PX509_POLICY_NODE; cdecl = nil;
 
 {$ELSE}
@@ -852,8 +850,9 @@ var
 
   function X509_STORE_CTX_get0_store(ctx: PX509_STORE_CTX): PX509_STORE cdecl; external CLibCrypto;
   function X509_STORE_CTX_get0_cert(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto; {introduced 1.1.0}
-  //STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
-  //void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+  function X509_STORE_CTX_get0_untrusted(ctx : PX509_STORE_CTX) : PSTACK_OF_X509 cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set0_untrusted(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509) cdecl; external CLibCrypto;
+
   procedure X509_STORE_CTX_set_verify_cb(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb) cdecl; external CLibCrypto;
   function X509_STORE_CTX_get_verify_cb(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_CTX_get_verify(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -864,14 +863,14 @@ var
   function X509_STORE_CTX_get_check_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_CTX_get_cert_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_CTX_get_check_policy(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn cdecl; external CLibCrypto; {introduced 1.1.0}
-//  function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
-//  function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
+  function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn  cdecl; external CLibCrypto;
+  function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn  cdecl; external CLibCrypto;
   function X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function X509_STORE_add_lookup(v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP cdecl; external CLibCrypto;
   function X509_LOOKUP_hash_dir: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
   function X509_LOOKUP_file: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
-
+  function X509_LOOKUP_store: PX509_LOOKUP_METHOD cdecl; external CLibCrypto;
   function X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD) cdecl; external CLibCrypto; {introduced 1.1.0}
 
@@ -919,6 +918,7 @@ var
   function X509_LOOKUP_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
 
   function X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT cdecl; external CLibCrypto;
   function X509_load_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_load_cert_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
@@ -939,14 +939,14 @@ var
   function X509_STORE_load_file(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT  cdecl; external CLibCrypto;
   function X509_STORE_load_path(ctx : X509_STORE; const dir :  PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_load_locations_ex(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl = nil;  {introduced 3.0.0}
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;  {introduced 3.0.0}
 
   function X509_STORE_load_locations(ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_default_paths(ctx: PX509_STORE): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
-  function X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  function X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  function X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+  function X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
 
 
   //#define X509_STORE_CTX_get_ex_new_index(l, p, newf, dupf, freef) \
@@ -962,8 +962,9 @@ var
   function X509_STORE_CTX_get0_current_issuer(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto;
   function X509_STORE_CTX_get0_current_crl(ctx: PX509_STORE_CTX): PX509_CRL cdecl; external CLibCrypto;
   function X509_STORE_CTX_get0_parent_ctx(ctx: PX509_STORE_CTX): PX509_STORE_CTX cdecl; external CLibCrypto;
-//  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
-//  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
+  function X509_STORE_CTX_get0_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl; external CLibCrypto;
+  function X509_STORE_CTX_get1_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl; external CLibCrypto;
+
   procedure X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto;
   procedure X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509)  cdecl; external CLibCrypto;
   procedure X509_STORE_CTX_set0_crls(c : X509_STORE_CTX; sk : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto;
@@ -1001,11 +1002,11 @@ var
   function X509_VERIFY_PARAM_set_trust(param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_set_depth(param: PX509_VERIFY_PARAM; depth: TIdC_INT) cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-//  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
-//  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
+  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET  cdecl; external CLibCrypto;
+  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET)  cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  //TIdC_INT X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
-  //                                    STACK_OF(ASN1_OBJECT) *policies);
+  function X509_VERIFY_PARAM_set1_policies(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl; external CLibCrypto;
+
 
   function X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32 cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1030,22 +1031,16 @@ var
   function X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): X509_VERIFY_PARAM cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_table_cleanup cdecl; external CLibCrypto;
 
-  //TIdC_INT X509_policy_check(X509_POLICY_TREE **ptree, TIdC_INT *pexplicit_policy,
-  //                      STACK_OF(X509) *certs,
-  //                      STACK_OF(ASN1_OBJECT) *policy_oids, TIdC_UINT flags);
+  function X509_policy_check(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
+    policy_oids : PSTACK_OF_ASN1_OBJECT; flags :  TIdC_UINT) : TIdC_INT cdecl; external CLibCrypto
 
   procedure X509_policy_tree_free(tree: PX509_POLICY_TREE) cdecl; external CLibCrypto;
 
   function X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT cdecl; external CLibCrypto;
   function X509_policy_tree_get0_level(const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL cdecl; external CLibCrypto;
 
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_policies(const
-  //                                                           X509_POLICY_TREE
-  //                                                           *tree);
-  //
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_user_policies(const
-  //                                                                X509_POLICY_TREE
-  //                                                                *tree);
+  function X509_policy_tree_get0_policies(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
+  function X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
 
   function X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT cdecl; external CLibCrypto;
 
@@ -1053,9 +1048,7 @@ var
 
   function X509_policy_node_get0_policy(const node: PX509_POLICY_NODE): PASN1_OBJECT cdecl; external CLibCrypto;
 
-  //STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
-  //                                                           X509_POLICY_NODE
-  //                                                           *node);
+  function X509_policy_node_get0_qualifiers(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO  cdecl; external CLibCrypto;
   function X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE cdecl; external CLibCrypto;
 
 function X509_STORE_CTX_get_app_data(ctx: PX509_STORE_CTX): Pointer; {removed 1.0.0}
@@ -1170,8 +1163,6 @@ implementation
     ,TaurusTLSLoader
   {$ENDIF};
 
-  //#define X509_STORE_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE, l, p, newf, dupf, freef)
 function X509_STORE_get_ex_new_index(l : TIdC_LONG; p : PX509_STORE;
     newf : CRYPTO_EX_new; dupf : CRYPTO_EX_dup; freef : CRYPTO_EX_FREE) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -1232,6 +1223,8 @@ const
   X509_STORE_CTX_get_check_crl_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_STORE_CTX_get_cert_crl_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_STORE_CTX_get_check_policy_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  X509_STORE_CTX_get_lookup_certs_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  X509_STORE_CTX_get_lookup_crls_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_STORE_CTX_get_cleanup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_LOOKUP_meth_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_LOOKUP_meth_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1266,6 +1259,9 @@ const
   X509_STORE_load_file_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_set_default_paths_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_load_store_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  X509_load_cert_file_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  X509_load_cert_crl_file_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  X509_LOOKUP_store_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
 
 {helper_functions}
 function X509_LOOKUP_load_file(ctx: PX509_LOOKUP; name: PIdAnsiChar; type_: TIdC_LONG): TIdC_INT;
@@ -1374,8 +1370,8 @@ const
 
   X509_STORE_CTX_get0_store_procname = 'X509_STORE_CTX_get0_store';
   X509_STORE_CTX_get0_cert_procname = 'X509_STORE_CTX_get0_cert'; {introduced 1.1.0}
-  //STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
-  //void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+  X509_STORE_CTX_get0_untrusted_procname = 'X509_STORE_CTX_get0_untrusted';
+  X509_STORE_CTX_set0_untrusted_procname = 'X509_STORE_CTX_set0_untrusted';
   X509_STORE_CTX_set_verify_cb_procname = 'X509_STORE_CTX_set_verify_cb';
   X509_STORE_CTX_get_verify_cb_procname = 'X509_STORE_CTX_get_verify_cb'; {introduced 1.1.0}
   X509_STORE_CTX_get_verify_procname = 'X509_STORE_CTX_get_verify'; {introduced 1.1.0}
@@ -1386,14 +1382,14 @@ const
   X509_STORE_CTX_get_check_crl_procname = 'X509_STORE_CTX_get_check_crl'; {introduced 1.1.0}
   X509_STORE_CTX_get_cert_crl_procname = 'X509_STORE_CTX_get_cert_crl'; {introduced 1.1.0}
   X509_STORE_CTX_get_check_policy_procname = 'X509_STORE_CTX_get_check_policy'; {introduced 1.1.0}
-//  function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
-//  function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
+  X509_STORE_CTX_get_lookup_certs_procname = 'X509_STORE_CTX_get_lookup_certs';
+  X509_STORE_CTX_get_lookup_crls_procname = 'X509_STORE_CTX_get_lookup_crls';
   X509_STORE_CTX_get_cleanup_procname = 'X509_STORE_CTX_get_cleanup'; {introduced 1.1.0}
 
   X509_STORE_add_lookup_procname = 'X509_STORE_add_lookup';
   X509_LOOKUP_hash_dir_procname = 'X509_LOOKUP_hash_dir';
   X509_LOOKUP_file_procname = 'X509_LOOKUP_file';
-
+  X509_LOOKUP_store_procname = 'X509_LOOKUP_store';
   X509_LOOKUP_meth_new_procname = 'X509_LOOKUP_meth_new'; {introduced 1.1.0}
   X509_LOOKUP_meth_free_procname = 'X509_LOOKUP_meth_free'; {introduced 1.1.0}
 
@@ -1441,8 +1437,10 @@ const
   X509_LOOKUP_ctrl_procname = 'X509_LOOKUP_ctrl';
 
   X509_load_cert_file_procname = 'X509_load_cert_file';
+  X509_load_cert_file_ex_procname = 'X509_load_cert_file_ex';
   X509_load_crl_file_procname = 'X509_load_crl_file';
   X509_load_cert_crl_file_procname = 'X509_load_cert_crl_file';
+  X509_load_cert_crl_file_ex_procname = 'X509_load_cert_crl_file_ex';
 
   X509_LOOKUP_new_procname = 'X509_LOOKUP_new';
   X509_LOOKUP_free_procname = 'X509_LOOKUP_free';
@@ -1477,8 +1475,8 @@ const
   X509_STORE_CTX_get0_current_issuer_procname = 'X509_STORE_CTX_get0_current_issuer';
   X509_STORE_CTX_get0_current_crl_procname = 'X509_STORE_CTX_get0_current_crl';
   X509_STORE_CTX_get0_parent_ctx_procname = 'X509_STORE_CTX_get0_parent_ctx';
-//  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
-//  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
+  X509_STORE_CTX_get0_chain_procname = 'X509_STORE_CTX_get0_chain';
+  X509_STORE_CTX_get1_chain_procname = 'X509_STORE_CTX_get1_chain';
   X509_STORE_CTX_set_cert_procname = 'X509_STORE_CTX_set_cert';
   X509_STORE_CTX_set0_verified_chain_procname = 'X509_STORE_CTX_set0_verified_chain';
   X509_STORE_CTX_set0_crls_procname = 'X509_STORE_CTX_set0_crls';
@@ -1516,11 +1514,10 @@ const
   X509_VERIFY_PARAM_set_trust_procname = 'X509_VERIFY_PARAM_set_trust';
   X509_VERIFY_PARAM_set_depth_procname = 'X509_VERIFY_PARAM_set_depth';
   X509_VERIFY_PARAM_set_auth_level_procname = 'X509_VERIFY_PARAM_set_auth_level'; {introduced 1.1.0}
-//  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
-//  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
+  X509_VERIFY_PARAM_get_time_procname = 'X509_VERIFY_PARAM_get_time';
+  X509_VERIFY_PARAM_set_time_procname = 'X509_VERIFY_PARAM_set_time';
   X509_VERIFY_PARAM_add0_policy_procname = 'X509_VERIFY_PARAM_add0_policy';
-  //TIdC_INT X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
-  //                                    STACK_OF(ASN1_OBJECT) *policies);
+  X509_VERIFY_PARAM_set1_policies_procname = 'X509_VERIFY_PARAM_set1_policies';
 
   X509_VERIFY_PARAM_set_inh_flags_procname = 'X509_VERIFY_PARAM_set_inh_flags'; {introduced 1.1.0}
   X509_VERIFY_PARAM_get_inh_flags_procname = 'X509_VERIFY_PARAM_get_inh_flags'; {introduced 1.1.0}
@@ -1545,22 +1542,14 @@ const
   X509_VERIFY_PARAM_lookup_procname = 'X509_VERIFY_PARAM_lookup';
   X509_VERIFY_PARAM_table_cleanup_procname = 'X509_VERIFY_PARAM_table_cleanup';
 
-  //TIdC_INT X509_policy_check(X509_POLICY_TREE **ptree, TIdC_INT *pexplicit_policy,
-  //                      STACK_OF(X509) *certs,
-  //                      STACK_OF(ASN1_OBJECT) *policy_oids, TIdC_UINT flags);
-
+  X509_policy_check_procname = 'X509_policy_check';
   X509_policy_tree_free_procname = 'X509_policy_tree_free';
 
   X509_policy_tree_level_count_procname = 'X509_policy_tree_level_count';
   X509_policy_tree_get0_level_procname = 'X509_policy_tree_get0_level';
 
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_policies(const
-  //                                                           X509_POLICY_TREE
-  //                                                           *tree);
-  //
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_user_policies(const
-  //                                                                X509_POLICY_TREE
-  //                                                                *tree);
+  X509_policy_tree_get0_policies_procname = 'X509_policy_tree_get0_policies';
+  X509_policy_tree_get0_user_policies_procname = 'X509_policy_tree_get0_user_policies';
 
   X509_policy_level_node_count_procname = 'X509_policy_level_node_count';
 
@@ -1568,9 +1557,7 @@ const
 
   X509_policy_node_get0_policy_procname = 'X509_policy_node_get0_policy';
 
-  //STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
-  //                                                           X509_POLICY_NODE
-  //                                                           *node);
+  X509_policy_node_get0_qualifiers_procname = 'X509_policy_node_get0_qualifiers';
   X509_policy_node_get0_parent_procname = 'X509_policy_node_get0_parent';
 
 
@@ -1666,11 +1653,20 @@ begin
   Result := X509_STORE_set_default_paths(ctx);
 end;
 
-function FC_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;
+function FC_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   Result := X509_STORE_load_store(ctx,uri);
 end;
 
+function FC_X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT; cdecl;
+begin
+  Result := X509_load_cert_file(ctx,file_, type_);
+end;
+
+function FC_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT; cdecl;
+begin
+  Result := X509_load_cert_crl_file(ctx,file_,type_);
+end;
 {/forward_compatibility}
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 
@@ -2057,8 +2053,17 @@ begin
 end;
 
  {introduced 1.1.0}
-  //STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
-  //void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+
+function ERR_X509_STORE_CTX_get0_untrusted(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_untrusted_procname);
+end;
+
+procedure ERR_X509_STORE_CTX_set0_untrusted(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_untrusted_procname);
+end;
+
 procedure  ERR_X509_STORE_CTX_set_verify_cb(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_verify_cb_procname);
@@ -2119,9 +2124,17 @@ begin
 end;
 
  {introduced 1.1.0}
-//  function X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
-//  function X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
-function  ERR_X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn; 
+function ERR_X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_lookup_certs_procname);
+end;
+
+function ERR_X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_lookup_crls_procname);
+end;
+
+function  ERR_X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_cleanup_procname);
 end;
@@ -2145,7 +2158,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_file_procname);
 end;
 
-
+function  ERR_X509_LOOKUP_store: PX509_LOOKUP_METHOD;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_store_procname);
+end;
 
 function  ERR_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; 
 begin
@@ -2278,11 +2294,15 @@ end;
 
 
 
-function  ERR_X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_file_procname);
 end;
 
+function ERR_X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_file_ex_procname);
+end;
 
 function  ERR_X509_load_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
 begin
@@ -2295,7 +2315,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_crl_file_procname);
 end;
 
-
+function ERR_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_crl_file_ex_procname);
+end;
 
 function  ERR_X509_LOOKUP_new(method: PX509_LOOKUP_METHOD): PX509_LOOKUP; 
 begin
@@ -2476,9 +2499,16 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_parent_ctx_procname);
 end;
 
+function ERR_X509_STORE_CTX_get0_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_chain_procname);
+end;
 
-//  STACK_OF(X509) *X509_STORE_CTX_get0_chain(X509_STORE_CTX *ctx);
-//  STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);
+function ERR_X509_STORE_CTX_get1_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get1_chain_procname);
+end;
+
 procedure  ERR_X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_cert_procname);
@@ -2644,16 +2674,26 @@ begin
 end;
 
  {introduced 1.1.0}
-//  function X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
-//  procedure X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
-function  ERR_X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; 
+function ERR_X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_time_procname);
+end;
+
+procedure ERR_X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_time_procname);
+end;
+
+function  ERR_X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_add0_policy_procname);
 end;
 
 
-  //TIdC_INT X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
-  //                                    STACK_OF(ASN1_OBJECT) *policies);
+function ERR_X509_VERIFY_PARAM_set1_policies(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_policies_procname);
+end;
 
 function  ERR_X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT; 
 begin
@@ -2772,16 +2812,17 @@ begin
 end;
 
 
+function ERR_X509_policy_check(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
+    policy_oids : PSTACK_OF_ASN1_OBJECT; flags : TIdC_UINT) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_check_procname);
+end;
 
-  //TIdC_INT X509_policy_check(X509_POLICY_TREE **ptree, TIdC_INT *pexplicit_policy,
-  //                      STACK_OF(X509) *certs,
-  //                      STACK_OF(ASN1_OBJECT) *policy_oids, TIdC_UINT flags);
 
-procedure  ERR_X509_policy_tree_free(tree: PX509_POLICY_TREE); 
+procedure  ERR_X509_policy_tree_free(tree: PX509_POLICY_TREE);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_free_procname);
 end;
-
 
 
 function  ERR_X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT; 
@@ -2796,14 +2837,15 @@ begin
 end;
 
 
+function ERR_X509_policy_tree_get0_policies(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_policies_procname);
+end;
 
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_policies(const
-  //                                                           X509_POLICY_TREE
-  //                                                           *tree);
-  //
-  //STACK_OF(X509_POLICY_NODE) *X509_policy_tree_get0_user_policies(const
-  //                                                                X509_POLICY_TREE
-  //                                                                *tree);
+function ERR_X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_user_policies_procname);
+end;
 
 function  ERR_X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT; 
 begin
@@ -2825,11 +2867,12 @@ begin
 end;
 
 
+function ERR_X509_policy_node_get0_qualifiers(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_node_get0_qualifiers_procname);
+end;
 
-  //STACK_OF(POLICYQUALINFO) *X509_policy_node_get0_qualifiers(const
-  //                                                           X509_POLICY_NODE
-  //                                                           *node);
-function  ERR_X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE; 
+function  ERR_X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_node_get0_parent_procname);
 end;
@@ -4211,34 +4254,65 @@ begin
   end;
 
  {introduced 1.1.0}
-  X509_STORE_get_check_policy := LoadLibFunction(ADllHandle, X509_STORE_get_check_policy_procname);
-  FuncLoadError := not assigned(X509_STORE_get_check_policy);
+  X509_policy_tree_get0_user_policies := LoadLibFunction(ADllHandle, X509_policy_tree_get0_user_policies_procname);
+  FuncLoadError := not assigned(X509_policy_tree_get0_user_policies);
   if FuncLoadError then
   begin
-    {$if not defined(X509_STORE_get_check_policy_allownil)}
-    X509_STORE_get_check_policy := @ERR_X509_STORE_get_check_policy;
+    {$if not defined(X509_policy_tree_get0_user_policies_allownil)}
+    X509_policy_tree_get0_user_policies := @ERR_X509_policy_tree_get0_user_policies;
     {$ifend}
-    {$if declared(X509_STORE_get_check_policy_introduced)}
-    if LibVersion < X509_STORE_get_check_policy_introduced then
+    {$if declared(X509_policy_tree_get0_user_policies_introduced)}
+    if LibVersion < X509_policy_tree_get0_user_policies_introduced then
     begin
-      {$if declared(FC_X509_STORE_get_check_policy)}
-      X509_STORE_get_check_policy := @FC_X509_STORE_get_check_policy;
+      {$if declared(FC_X509_policy_tree_get0_user_policies)}
+      X509_policy_tree_get0_user_policies := @FC_X509_policy_tree_get0_user_policies;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(X509_STORE_get_check_policy_removed)}
-    if X509_STORE_get_check_policy_removed <= LibVersion then
+    {$if declared(X509_policy_tree_get0_user_policies_removed)}
+    if X509_policy_tree_get0_user_policies_removed <= LibVersion then
     begin
-      {$if declared(_X509_STORE_get_check_policy)}
-      X509_STORE_get_check_policy := @_X509_STORE_get_check_policy;
+      {$if declared(_X509_policy_tree_get0_user_policies)}
+      X509_policy_tree_get0_user_policies := @_X509_policy_tree_get0_user_policies;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(X509_STORE_get_check_policy_allownil)}
+    {$if not defined(X509_policy_tree_get0_user_policies_allownil)}
     if FuncLoadError then
-      AFailed.Add('X509_STORE_get_check_policy');
+      AFailed.Add('X509_policy_tree_get0_user_policies');
+    {$ifend}
+  end;
+
+  X509_policy_tree_get0_policies := LoadLibFunction(ADllHandle, X509_policy_tree_get0_policies_procname);
+  FuncLoadError := not assigned(X509_policy_tree_get0_policies);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_policy_tree_get0_policies_allownil)}
+    X509_policy_tree_get0_policies := @ERR_X509_policy_tree_get0_policies;
+    {$ifend}
+    {$if declared(X509_policy_tree_get0_policies_introduced)}
+    if LibVersion < X509_policy_tree_get0_policies_introduced then
+    begin
+      {$if declared(FC_X509_policy_tree_get0_policies)}
+      X509_policy_tree_get0_policies := @FC_X509_policy_tree_get0_policies;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_policy_tree_get0_policies_removed)}
+    if X509_policy_tree_get0_policies_removed <= LibVersion then
+    begin
+      {$if declared(_X509_policy_tree_get0_policies)}
+      X509_policy_tree_get0_policies := @_X509_policy_tree_get0_policies;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_policy_tree_get0_policies_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_policy_tree_get0_policies');
     {$ifend}
   end;
 
@@ -4747,6 +4821,69 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_CTX_get0_untrusted := LoadLibFunction(ADllHandle, X509_STORE_CTX_get0_untrusted_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get0_untrusted);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get0_untrusted_allownil)}
+    X509_STORE_CTX_get0_untrusted := @ERR_X509_STORE_CTX_get0_untrusted;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get0_untrusted_introduced)}
+    if LibVersion < X509_STORE_CTX_get0_untrusted_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get0_untrusted)}
+      X509_STORE_CTX_get0_untrusted := @FC_X509_STORE_CTX_get0_untrusted;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get0_untrusted_removed)}
+    if X509_STORE_CTX_get0_untrusted_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get0_untrusted)}
+      X509_STORE_CTX_get0_untrusted := @_X509_STORE_CTX_get0_untrusted;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get0_untrusted_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get0_untrusted');
+    {$ifend}
+  end;
+
+  X509_STORE_CTX_set0_untrusted := LoadLibFunction(ADllHandle, X509_STORE_CTX_set0_untrusted_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_set0_untrusted);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_set0_untrusted_allownil)}
+    X509_STORE_CTX_set0_untrusted := @ERR_X509_STORE_CTX_set0_untrusted;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_set0_untrusted_introduced)}
+    if LibVersion < X509_STORE_CTX_set0_untrusted_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_set0_untrusted)}
+      X509_STORE_CTX_set0_untrusted := @FC_X509_STORE_CTX_set0_untrusted;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_set0_untrusted_removed)}
+    if X509_STORE_CTX_set0_untrusted_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_set0_untrusted)}
+      X509_STORE_CTX_set0_untrusted := @_X509_STORE_CTX_set0_untrusted;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_set0_untrusted_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_set0_untrusted');
+    {$ifend}
+  end;
+
+
  {introduced 1.1.0}
   X509_STORE_CTX_set_verify_cb := LoadLibFunction(ADllHandle, X509_STORE_CTX_set_verify_cb_procname);
   FuncLoadError := not assigned(X509_STORE_CTX_set_verify_cb);
@@ -5067,6 +5204,68 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_CTX_get_lookup_crls := LoadLibFunction(ADllHandle, X509_STORE_CTX_get_lookup_crls_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get_lookup_crls);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
+    X509_STORE_CTX_get_lookup_crls := @ERR_X509_STORE_CTX_get_lookup_crls;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get_lookup_crls_introduced)}
+    if LibVersion < X509_STORE_CTX_get_lookup_crls_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get_lookup_crls)}
+      X509_STORE_CTX_get_lookup_crls := @FC_X509_STORE_CTX_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get_lookup_crls_removed)}
+    if X509_STORE_CTX_get_lookup_crls_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get_lookup_crls)}
+      X509_STORE_CTX_get_lookup_crls := @_X509_STORE_CTX_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get_lookup_crls');
+    {$ifend}
+  end;
+
+  X509_STORE_CTX_get_lookup_crls := LoadLibFunction(ADllHandle, X509_STORE_CTX_get_lookup_crls_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get_lookup_crls);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
+    X509_STORE_CTX_get_lookup_crls := @ERR_X509_STORE_CTX_get_lookup_crls;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get_lookup_crls_introduced)}
+    if LibVersion < X509_STORE_CTX_get_lookup_crls_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get_lookup_crls)}
+      X509_STORE_CTX_get_lookup_crls := @FC_X509_STORE_CTX_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get_lookup_crls_removed)}
+    if X509_STORE_CTX_get_lookup_crls_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get_lookup_crls)}
+      X509_STORE_CTX_get_lookup_crls := @_X509_STORE_CTX_get_lookup_crls;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get_lookup_crls');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   X509_STORE_CTX_get_cleanup := LoadLibFunction(ADllHandle, X509_STORE_CTX_get_cleanup_procname);
   FuncLoadError := not assigned(X509_STORE_CTX_get_cleanup);
@@ -5192,6 +5391,37 @@ begin
     {$if not defined(X509_LOOKUP_file_allownil)}
     if FuncLoadError then
       AFailed.Add('X509_LOOKUP_file');
+    {$ifend}
+  end;
+
+  X509_LOOKUP_store := LoadLibFunction(ADllHandle, X509_LOOKUP_store_procname);
+  FuncLoadError := not assigned(X509_LOOKUP_store);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_LOOKUP_store_allownil)}
+    X509_LOOKUP_store := @ERR_X509_LOOKUP_store;
+    {$ifend}
+    {$if declared(X509_LOOKUP_store_introduced)}
+    if LibVersion < X509_LOOKUP_store_introduced then
+    begin
+      {$if declared(FC_X509_LOOKUP_store)}
+      X509_LOOKUP_store := @FC_X509_LOOKUP_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_LOOKUP_store_removed)}
+    if X509_LOOKUP_store_removed <= LibVersion then
+    begin
+      {$if declared(_X509_LOOKUP_store)}
+      X509_LOOKUP_store := @_X509_LOOKUP_store;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_LOOKUP_store_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_LOOKUP_store');
     {$ifend}
   end;
 
@@ -5771,6 +6001,36 @@ begin
     {$ifend}
   end;
 
+  X509_load_cert_file_ex := LoadLibFunction(ADllHandle, X509_load_cert_file_ex_procname);
+  FuncLoadError := not assigned(X509_load_cert_file_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_load_cert_file_ex_allownil)}
+    X509_load_cert_file_ex := @ERR_X509_load_cert_file_ex;
+    {$ifend}
+    {$if declared(X509_load_cert_file_ex_introduced)}
+    if LibVersion < X509_load_cert_file_ex_introduced then
+    begin
+      {$if declared(FC_X509_load_cert_file_ex)}
+      X509_load_cert_file_ex := @FC_X509_load_cert_file_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_load_cert_file_ex_removed)}
+    if X509_load_cert_file_ex_removed <= LibVersion then
+    begin
+      {$if declared(_X509_load_cert_file_ex)}
+      X509_load_cert_file_ex := @_X509_load_cert_file_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_load_cert_file_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_load_cert_file_ex');
+    {$ifend}
+  end;
 
   X509_load_crl_file := LoadLibFunction(ADllHandle, X509_load_crl_file_procname);
   FuncLoadError := not assigned(X509_load_crl_file);
@@ -5835,6 +6095,36 @@ begin
     {$ifend}
   end;
 
+  X509_load_cert_crl_file_ex := LoadLibFunction(ADllHandle, X509_load_cert_crl_file_ex_procname);
+  FuncLoadError := not assigned(X509_load_cert_crl_file_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_load_cert_crl_file_ex_allownil)}
+    X509_load_cert_crl_file_ex := @ERR_X509_load_cert_crl_file_ex;
+    {$ifend}
+    {$if declared(X509_load_cert_crl_file_ex_introduced)}
+    if LibVersion < X509_load_cert_crl_file_ex_introduced then
+    begin
+      {$if declared(FC_X509_load_cert_crl_file_ex)}
+      X509_load_cert_crl_file_ex := @FC_X509_load_cert_crl_file_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_load_cert_crl_file_ex_removed)}
+    if X509_load_cert_crl_file_ex_removed <= LibVersion then
+    begin
+      {$if declared(_X509_load_cert_crl_file_ex)}
+      X509_load_cert_crl_file_ex := @_X509_load_cert_crl_file_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_load_cert_crl_file_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_load_cert_crl_file_ex');
+    {$ifend}
+  end;
 
   X509_LOOKUP_new := LoadLibFunction(ADllHandle, X509_LOOKUP_new_procname);
   FuncLoadError := not assigned(X509_LOOKUP_new);
@@ -6818,6 +7108,67 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_CTX_get0_chain := LoadLibFunction(ADllHandle, X509_STORE_CTX_get0_chain_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get0_chain);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get0_chain_allownil)}
+    X509_STORE_CTX_get0_chain := @ERR_X509_STORE_CTX_get0_chain;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get0_chain_introduced)}
+    if LibVersion < X509_STORE_CTX_get0_chain_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get0_chain)}
+      X509_STORE_CTX_get0_chain := @FC_X509_STORE_CTX_get0_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get0_chain_removed)}
+    if X509_STORE_CTX_get0_chain_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get0_chain)}
+      X509_STORE_CTX_get0_chain := @_X509_STORE_CTX_get0_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get0_chain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get0_chain');
+    {$ifend}
+  end;
+
+  X509_STORE_CTX_get1_chain := LoadLibFunction(ADllHandle, X509_STORE_CTX_get1_chain_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get1_chain);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_CTX_get1_chain_allownil)}
+    X509_STORE_CTX_get1_chain := @ERR_X509_STORE_CTX_get1_chain;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_chain_introduced)}
+    if LibVersion < X509_STORE_CTX_get1_chain_introduced then
+    begin
+      {$if declared(FC_X509_STORE_CTX_get1_chain)}
+      X509_STORE_CTX_get1_chain := @FC_X509_STORE_CTX_get1_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_CTX_get1_chain_removed)}
+    if X509_STORE_CTX_get1_chain_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_CTX_get1_chain)}
+      X509_STORE_CTX_get1_chain := @_X509_STORE_CTX_get1_chain;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_CTX_get1_chain_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_CTX_get1_chain');
+    {$ifend}
+  end;
 
   X509_STORE_CTX_set_cert := LoadLibFunction(ADllHandle, X509_STORE_CTX_set_cert_procname);
   FuncLoadError := not assigned(X509_STORE_CTX_set_cert);
@@ -7619,6 +7970,103 @@ begin
   end;
 
 
+  X509_VERIFY_PARAM_get_time := LoadLibFunction(ADllHandle, X509_VERIFY_PARAM_get_time_procname);
+  FuncLoadError := not assigned(X509_VERIFY_PARAM_get_time);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_VERIFY_PARAM_get_time_allownil)}
+    X509_VERIFY_PARAM_get_time := @ERR_X509_VERIFY_PARAM_get_time;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_get_time_introduced)}
+    if LibVersion < X509_VERIFY_PARAM_get_time_introduced then
+    begin
+      {$if declared(FC_X509_VERIFY_PARAM_get_time)}
+      X509_VERIFY_PARAM_get_time := @FC_X509_VERIFY_PARAM_get_time;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_get_time_removed)}
+    if X509_VERIFY_PARAM_get_time_removed <= LibVersion then
+    begin
+      {$if declared(_X509_VERIFY_PARAM_get_time)}
+      X509_VERIFY_PARAM_get_time := @_X509_VERIFY_PARAM_get_time;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_VERIFY_PARAM_get_time_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_VERIFY_PARAM_get_time');
+    {$ifend}
+  end;
+
+
+  X509_VERIFY_PARAM_set_time := LoadLibFunction(ADllHandle, X509_VERIFY_PARAM_set_time_procname);
+  FuncLoadError := not assigned(X509_VERIFY_PARAM_set_time);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_VERIFY_PARAM_set_time_allownil)}
+    X509_VERIFY_PARAM_set_time := @ERR_X509_VERIFY_PARAM_set_time;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_set_time_introduced)}
+    if LibVersion < X509_VERIFY_PARAM_set_time_introduced then
+    begin
+      {$if declared(FC_X509_VERIFY_PARAM_set_time)}
+      X509_VERIFY_PARAM_set_time := @FC_X509_VERIFY_PARAM_set_time;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_set_time_removed)}
+    if X509_VERIFY_PARAM_set_time_removed <= LibVersion then
+    begin
+      {$if declared(_X509_VERIFY_PARAM_set_time)}
+      X509_VERIFY_PARAM_set_time := @_X509_VERIFY_PARAM_set_time;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_VERIFY_PARAM_set_time_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_VERIFY_PARAM_set_time');
+    {$ifend}
+  end;
+
+
+
+  X509_VERIFY_PARAM_set1_policies := LoadLibFunction(ADllHandle, X509_VERIFY_PARAM_set1_policies_procname);
+  FuncLoadError := not assigned(X509_VERIFY_PARAM_set1_policies);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_VERIFY_PARAM_set1_policies_allownil)}
+    X509_VERIFY_PARAM_set1_policies := @ERR_X509_VERIFY_PARAM_set1_policies;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_set1_policies_introduced)}
+    if LibVersion < X509_VERIFY_PARAM_set1_policies_introduced then
+    begin
+      {$if declared(FC_X509_VERIFY_PARAM_set1_policies)}
+      X509_VERIFY_PARAM_set1_policies := @FC_X509_VERIFY_PARAM_set1_policies;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_set1_policies_removed)}
+    if X509_VERIFY_PARAM_set1_policies_removed <= LibVersion then
+    begin
+      {$if declared(_X509_VERIFY_PARAM_set1_policies)}
+      X509_VERIFY_PARAM_set1_policies := @_X509_VERIFY_PARAM_set1_policies;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_VERIFY_PARAM_set1_policies_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_VERIFY_PARAM_set1_policies');
+    {$ifend}
+  end;
+
+
   X509_VERIFY_PARAM_set_inh_flags := LoadLibFunction(ADllHandle, X509_VERIFY_PARAM_set_inh_flags_procname);
   FuncLoadError := not assigned(X509_VERIFY_PARAM_set_inh_flags);
   if FuncLoadError then
@@ -8226,6 +8674,36 @@ begin
     {$ifend}
   end;
 
+  X509_policy_check := LoadLibFunction(ADllHandle, X509_policy_check_procname);
+  FuncLoadError := not assigned(X509_policy_check);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_policy_check_allownil)}
+    X509_policy_check := @ERR_X509_policy_check;
+    {$ifend}
+    {$if declared(X509_policy_check_introduced)}
+    if LibVersion < X509_policy_check_introduced then
+    begin
+      {$if declared(FC_X509_policy_check)}
+      X509_policy_check := @FC_X509_policy_check;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_policy_check_removed)}
+    if X509_policy_check_removed <= LibVersion then
+    begin
+      {$if declared(_X509_policy_check)}
+      X509_policy_check := @_X509_policy_check;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_policy_check_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_policy_check');
+    {$ifend}
+  end;
 
   X509_policy_tree_free := LoadLibFunction(ADllHandle, X509_policy_tree_free_procname);
   FuncLoadError := not assigned(X509_policy_tree_free);
@@ -8319,6 +8797,37 @@ begin
     {$if not defined(X509_policy_tree_get0_level_allownil)}
     if FuncLoadError then
       AFailed.Add('X509_policy_tree_get0_level');
+    {$ifend}
+  end;
+
+  X509_policy_level_node_count := LoadLibFunction(ADllHandle, X509_policy_level_node_count_procname);
+  FuncLoadError := not assigned(X509_policy_level_node_count);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_policy_level_node_count_allownil)}
+    X509_policy_level_node_count := @ERR_X509_policy_level_node_count;
+    {$ifend}
+    {$if declared(X509_policy_level_node_count_introduced)}
+    if LibVersion < X509_policy_level_node_count_introduced then
+    begin
+      {$if declared(FC_X509_policy_level_node_count)}
+      X509_policy_level_node_count := @FC_X509_policy_level_node_count;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_policy_level_node_count_removed)}
+    if X509_policy_level_node_count_removed <= LibVersion then
+    begin
+      {$if declared(_X509_policy_level_node_count)}
+      X509_policy_level_node_count := @_X509_policy_level_node_count;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_policy_level_node_count_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_policy_level_node_count');
     {$ifend}
   end;
 
@@ -8418,6 +8927,36 @@ begin
     {$ifend}
   end;
 
+  X509_policy_node_get0_qualifiers := LoadLibFunction(ADllHandle, X509_policy_node_get0_qualifiers_procname);
+  FuncLoadError := not assigned(X509_policy_node_get0_qualifiers);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_policy_node_get0_qualifiers_allownil)}
+    X509_policy_node_get0_qualifiers := @ERR_X509_policy_node_get0_qualifiers;
+    {$ifend}
+    {$if declared(X509_policy_node_get0_qualifiers_introduced)}
+    if LibVersion < X509_policy_node_get0_qualifiers_introduced then
+    begin
+      {$if declared(FC_X509_policy_node_get0_qualifiers)}
+      X509_policy_node_get0_qualifiers := @FC_X509_policy_node_get0_qualifiers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_policy_node_get0_qualifiers_removed)}
+    if X509_policy_node_get0_qualifiers_removed <= LibVersion then
+    begin
+      {$if declared(_X509_policy_node_get0_qualifiers)}
+      X509_policy_node_get0_qualifiers := @_X509_policy_node_get0_qualifiers;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_policy_node_get0_qualifiers_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_policy_node_get0_qualifiers');
+    {$ifend}
+  end;
 
   X509_policy_node_get0_parent := LoadLibFunction(ADllHandle, X509_policy_node_get0_parent_procname);
   FuncLoadError := not assigned(X509_policy_node_get0_parent);
@@ -8542,6 +9081,8 @@ begin
   X509_STORE_CTX_cleanup := nil;
   X509_STORE_CTX_get0_store := nil;
   X509_STORE_CTX_get0_cert := nil; {introduced 1.1.0}
+  X509_STORE_CTX_get0_untrusted := nil;
+  X509_STORE_CTX_set0_untrusted := nil;
   X509_STORE_CTX_set_verify_cb := nil;
   X509_STORE_CTX_get_verify_cb := nil; {introduced 1.1.0}
   X509_STORE_CTX_get_verify := nil; {introduced 1.1.0}
@@ -8552,10 +9093,13 @@ begin
   X509_STORE_CTX_get_check_crl := nil; {introduced 1.1.0}
   X509_STORE_CTX_get_cert_crl := nil; {introduced 1.1.0}
   X509_STORE_CTX_get_check_policy := nil; {introduced 1.1.0}
+  X509_STORE_CTX_get_lookup_certs := nil;
+  X509_STORE_CTX_get_lookup_crls := nil;
   X509_STORE_CTX_get_cleanup := nil; {introduced 1.1.0}
   X509_STORE_add_lookup := nil;
   X509_LOOKUP_hash_dir := nil;
   X509_LOOKUP_file := nil;
+  X509_LOOKUP_store := nil;
   X509_LOOKUP_meth_new := nil; {introduced 1.1.0}
   X509_LOOKUP_meth_free := nil; {introduced 1.1.0}
   X509_LOOKUP_meth_set_ctrl := nil; {introduced 1.1.0}
@@ -8574,8 +9118,10 @@ begin
   X509_STORE_CTX_get_obj_by_subject := nil; {introduced 1.1.0}
   X509_LOOKUP_ctrl := nil;
   X509_load_cert_file := nil;
+  X509_load_cert_file_ex := nil;
   X509_load_crl_file := nil;
   X509_load_cert_crl_file := nil;
+  X509_load_cert_crl_file_ex := nil;
   X509_LOOKUP_new := nil;
   X509_LOOKUP_free := nil;
   X509_LOOKUP_init := nil;
@@ -8607,6 +9153,8 @@ begin
   X509_STORE_CTX_get0_current_issuer := nil;
   X509_STORE_CTX_get0_current_crl := nil;
   X509_STORE_CTX_get0_parent_ctx := nil;
+  X509_STORE_CTX_get0_chain := nil;
+  X509_STORE_CTX_get1_chain := nil;
   X509_STORE_CTX_set_cert := nil;
   X509_STORE_CTX_set_purpose := nil;
   X509_STORE_CTX_set_trust := nil;
@@ -8651,14 +9199,17 @@ begin
   X509_VERIFY_PARAM_get0 := nil;
   X509_VERIFY_PARAM_lookup := nil;
   X509_VERIFY_PARAM_table_cleanup := nil;
+  X509_policy_check := nil;
   X509_policy_tree_free := nil;
   X509_policy_tree_level_count := nil;
   X509_policy_tree_get0_level := nil;
   X509_policy_level_node_count := nil;
   X509_policy_level_get0_node := nil;
   X509_policy_node_get0_policy := nil;
+  X509_policy_node_get0_qualifiers := nil;
   X509_policy_node_get0_parent := nil;
-
+  X509_policy_tree_get0_policies := nil;
+ X509_policy_tree_get0_user_policies := nil;
   //Stack of macros
   sk_X509_OBJECT_new := nil;
   sk_X509_OBJECT_new_null  := nil;
