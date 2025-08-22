@@ -1600,6 +1600,9 @@ var
   d2i_AutoPrivateKey: function (a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
   i2d_PrivateKey: function (a: PEVP_PKEY; pp: PPByte): TIdC_INT; cdecl = nil;
 
+  i2d_KeyParams_bio : function(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT; cdecl = nil;
+  d2i_KeyParams_bio : function(type_ : TIdC_INT; var a : PEVP_PKEY; in_ : PBIO) : PEVP_PKEY; cdecl = nil;
+
   EVP_PKEY_copy_parameters: function (to_: PEVP_PKEY; const from: PEVP_PKEY): TIdC_INT; cdecl = nil;
   EVP_PKEY_missing_parameters: function (const pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
   EVP_PKEY_save_parameters: function (pkey: PEVP_PKEY; mode: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -2341,6 +2344,8 @@ var
   function d2i_PrivateKey(type_: TIdC_INT; a: PEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function d2i_AutoPrivateKey(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function i2d_PrivateKey(a: PEVP_PKEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
+  function i2d_KeyParams_bio(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT;  cdecl; external CLibCrypto;
+  function d2i_KeyParams_bio(type_ : TIdC_INT; var a : PEVP_PKEY; in_ : PBIO) : PEVP_PKEY;  cdecl; external CLibCrypto;
 
   function EVP_PKEY_copy_parameters(to_: PEVP_PKEY; const from: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_PKEY_missing_parameters(const pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
@@ -2354,8 +2359,6 @@ var
   function EVP_PKEY_print_params(out_: PBIO; const pkey: PEVP_PKEY; indent: TIdC_INT; pctx: PASN1_PCTX): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_PKEY_get_default_digest_nid(pkey: PEVP_PKEY; pnid: PIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-
 
   (* calls methods *)
   function EVP_CIPHER_param_to_asn1(c: PEVP_CIPHER_CTX; type_: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
@@ -3408,6 +3411,9 @@ const
   d2i_AutoPrivateKey_procname = 'd2i_AutoPrivateKey';
   i2d_PrivateKey_procname = 'i2d_PrivateKey';
 
+  i2d_KeyParams_bio_procname = 'i2d_KeyParams_bio';
+  d2i_KeyParams_bio_procname = 'd2i_KeyParams_bio';
+
   EVP_PKEY_copy_parameters_procname = 'EVP_PKEY_copy_parameters';
   EVP_PKEY_missing_parameters_procname = 'EVP_PKEY_missing_parameters';
   EVP_PKEY_save_parameters_procname = 'EVP_PKEY_save_parameters';
@@ -3418,6 +3424,7 @@ const
   EVP_PKEY_print_public_procname = 'EVP_PKEY_print_public';
   EVP_PKEY_print_private_procname = 'EVP_PKEY_print_private';
   EVP_PKEY_print_params_procname = 'EVP_PKEY_print_params';
+
 
   EVP_PKEY_get_default_digest_nid_procname = 'EVP_PKEY_get_default_digest_nid';
 
@@ -6297,7 +6304,15 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PrivateKey_procname);
 end;
 
+function ERR_i2d_KeyParams_bio(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_KeyParams_bio_procname);
+end;
 
+function ERR_d2i_KeyParams_bio(type_ : TIdC_INT; var a : PEVP_PKEY; in_ : PBIO) : PEVP_PKEY;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_KeyParams_bio_procname);
+end;
 
 function  ERR_EVP_PKEY_copy_parameters(to_: PEVP_PKEY; const from: PEVP_PKEY): TIdC_INT; 
 begin
@@ -6347,6 +6362,7 @@ function  ERR_EVP_PKEY_print_params(out_: PBIO; const pkey: PEVP_PKEY; indent: T
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_print_params_procname);
 end;
+
 
 
 
@@ -19398,6 +19414,68 @@ begin
     {$ifend}
   end;
 
+   i2d_KeyParams_bio := LoadLibFunction(ADllHandle, i2d_KeyParams_bio_procname);
+  FuncLoadError := not assigned(i2d_KeyParams_bio);
+  if FuncLoadError then
+  begin
+    {$if not defined(i2d_KeyParams_bio_allownil)}
+    i2d_KeyParams_bio := @ERR_i2d_KeyParams_bio;
+    {$ifend}
+    {$if declared(i2d_KeyParams_bio_introduced)}
+    if LibVersion < i2d_KeyParams_bio_introduced then
+    begin
+      {$if declared(FC_i2d_KeyParams_bio)}
+      i2d_KeyParams_bio := @FC_i2d_KeyParams_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(i2d_KeyParams_bio_removed)}
+    if i2d_KeyParams_bio_removed <= LibVersion then
+    begin
+      {$if declared(_i2d_KeyParams_bio)}
+      i2d_KeyParams_bio := @_i2d_KeyParams_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(i2d_KeyParams_bio_allownil)}
+    if FuncLoadError then
+      AFailed.Add('i2d_KeyParams_bio');
+    {$ifend}
+  end;
+
+  d2i_KeyParams_bio := LoadLibFunction(ADllHandle, d2i_KeyParams_bio_procname);
+  FuncLoadError := not assigned(d2i_KeyParams_bio);
+  if FuncLoadError then
+  begin
+    {$if not defined(d2i_KeyParams_bio_allownil)}
+    d2i_KeyParams_bio := @ERR_d2i_KeyParams_bio;
+    {$ifend}
+    {$if declared(d2i_KeyParams_bio_introduced)}
+    if LibVersion < d2i_KeyParams_bio_introduced then
+    begin
+      {$if declared(FC_d2i_KeyParams_bio)}
+      d2i_KeyParams_bio := @FC_d2i_KeyParams_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(d2i_KeyParams_bio_removed)}
+    if d2i_KeyParams_bio_removed <= LibVersion then
+    begin
+      {$if declared(_d2i_KeyParams_bio)}
+      d2i_KeyParams_bio := @_d2i_KeyParams_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(d2i_KeyParams_bio_allownil)}
+    if FuncLoadError then
+      AFailed.Add('d2i_KeyParams_bio');
+    {$ifend}
+  end;
+
 
   EVP_PKEY_copy_parameters := LoadLibFunction(ADllHandle, EVP_PKEY_copy_parameters_procname);
   FuncLoadError := not assigned(EVP_PKEY_copy_parameters);
@@ -24808,6 +24886,8 @@ begin
   EVP_PKEY_print_public := nil;
   EVP_PKEY_print_private := nil;
   EVP_PKEY_print_params := nil;
+  i2d_KeyParams_bio := nil;
+  d2i_KeyParams_bio := nil;
   EVP_PKEY_get_default_digest_nid := nil;
   EVP_PKEY_set1_tls_encodedpoint := nil; {introduced 1.1.0 removed 3.0.0}
   EVP_PKEY_get1_tls_encodedpoint := nil; {introduced 1.1.0 removed 3.0.0}
