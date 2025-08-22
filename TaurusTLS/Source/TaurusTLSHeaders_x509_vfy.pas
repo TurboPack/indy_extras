@@ -1587,7 +1587,7 @@ type
     store_ctx: PX509_STORE;
   end;
 
-{$i taurustlsunusedparamoff.inc}
+{$i TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; cdecl;
 begin
   Result := _PX509_LOOKUP(ctx)^.store_ctx;
@@ -1624,7 +1624,7 @@ function FC_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiCh
 begin
   Result := X509_load_cert_crl_file(ctx,file_,type_);
 end;
-  {$i taurustlsunusedparamon.inc}
+{$i TaurusTLSUnusedParamOn.inc}
 {/forward_compatibility}
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 

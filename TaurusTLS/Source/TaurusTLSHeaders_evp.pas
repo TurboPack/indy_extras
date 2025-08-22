@@ -1598,6 +1598,8 @@ var
 
   d2i_PrivateKey: function (type_: TIdC_INT; a: PEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
   d2i_AutoPrivateKey: function (a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; cdecl = nil;
+  d2i_AutoPrivateKey_ex : function(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
+    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl = nil;
   i2d_PrivateKey: function (a: PEVP_PKEY; pp: PPByte): TIdC_INT; cdecl = nil;
 
   i2d_KeyParams_bio : function(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT; cdecl = nil;
@@ -2343,6 +2345,8 @@ var
 
   function d2i_PrivateKey(type_: TIdC_INT; a: PEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function d2i_AutoPrivateKey(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
+  function d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
+    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl = nil;
   function i2d_PrivateKey(a: PEVP_PKEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function i2d_KeyParams_bio(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT;  cdecl; external CLibCrypto;
   function d2i_KeyParams_bio(type_ : TIdC_INT; var a : PEVP_PKEY; in_ : PBIO) : PEVP_PKEY;  cdecl; external CLibCrypto;
@@ -2883,7 +2887,8 @@ const
   EVP_PKEY_get1_tls_encodedpoint_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_type_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_CIPHER_get_type_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-   EVP_CIPHER_get_mode_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_CIPHER_get_mode_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  d2i_AutoPrivateKey_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   OpenSSL_add_all_ciphers_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   OpenSSL_add_all_digests_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_cleanup_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -3409,6 +3414,7 @@ const
 
   d2i_PrivateKey_procname = 'd2i_PrivateKey';
   d2i_AutoPrivateKey_procname = 'd2i_AutoPrivateKey';
+  d2i_AutoPrivateKey_ex_procname = 'd2i_AutoPrivateKey_ex';
   i2d_PrivateKey_procname = 'i2d_PrivateKey';
 
   i2d_KeyParams_bio_procname = 'i2d_KeyParams_bio';
@@ -3662,7 +3668,7 @@ const
 
 {function introduced - compatibility}
 
-{$i taurustlsunusedparamoff.inc}
+{$i TaurusTLSUnusedParamOff.inc}
 function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
   Result:=EVP_get_cipherbyname(algorithm);
@@ -3776,7 +3782,7 @@ function FC_EVP_CIPHER_CTX_is_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT;
 begin
   Result:=EVP_CIPHER_CTX_encrypting(ctx);
 end;
-{$i taurustlsunusedparamon.inc}
+{$i TaurusTLSUnusedParamOn.inc}
 {function removals - compatability}
 
 {$DEFINE EVP_md2_allownil} {removed 1.1.0 allow_nil}
@@ -3924,6 +3930,14 @@ function _EVP_CIPHER_flags(const cipher: PEVP_CIPHER): TIdC_ULONG; cdecl;
 begin
   Result := EVP_CIPHER_get_flags(cipher);
 end;
+
+{$i TaurusTLSUnusedParamOff.inc}
+function FC_d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
+    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY;
+begin
+  Result :=  d2i_AutoPrivateKey(a,pp,_length);
+end;
+{$i TaurusTLSUnusedParamOn.inc}
 
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
@@ -6298,6 +6312,11 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_AutoPrivateKey_procname);
 end;
 
+function ERR_d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
+    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_AutoPrivateKey_ex_procname);
+end;
 
 function  ERR_i2d_PrivateKey(a: PEVP_PKEY; pp: PPByte): TIdC_INT; 
 begin
@@ -19382,6 +19401,36 @@ begin
     {$ifend}
   end;
 
+  d2i_AutoPrivateKey_ex := LoadLibFunction(ADllHandle, d2i_AutoPrivateKey_ex_procname);
+  FuncLoadError := not assigned(d2i_AutoPrivateKey_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(d2i_AutoPrivateKey_ex_allownil)}
+    d2i_AutoPrivateKey_ex := @ERR_d2i_AutoPrivateKey_ex;
+    {$ifend}
+    {$if declared(d2i_AutoPrivateKey_ex_introduced)}
+    if LibVersion < d2i_AutoPrivateKey_ex_introduced then
+    begin
+      {$if declared(FC_d2i_AutoPrivateKey_ex)}
+      d2i_AutoPrivateKey_ex := @FC_d2i_AutoPrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(d2i_AutoPrivateKey_ex_removed)}
+    if d2i_AutoPrivateKey_ex_removed <= LibVersion then
+    begin
+      {$if declared(_d2i_AutoPrivateKey_ex)}
+      d2i_AutoPrivateKey_ex := @_d2i_AutoPrivateKey_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(d2i_AutoPrivateKey_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('d2i_AutoPrivateKey_ex');
+    {$ifend}
+  end;
 
   i2d_PrivateKey := LoadLibFunction(ADllHandle, i2d_PrivateKey_procname);
   FuncLoadError := not assigned(i2d_PrivateKey);
@@ -24877,6 +24926,7 @@ begin
   i2d_PublicKey := nil;
   d2i_PrivateKey := nil;
   d2i_AutoPrivateKey := nil;
+  d2i_AutoPrivateKey_ex := nil;
   i2d_PrivateKey := nil;
   EVP_PKEY_copy_parameters := nil;
   EVP_PKEY_missing_parameters := nil;

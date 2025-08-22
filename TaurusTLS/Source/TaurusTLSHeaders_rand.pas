@@ -189,7 +189,7 @@ const
 
   RAND_poll_procname = 'RAND_poll';
 
-  {$i taurustlsunusedparamoff.inc}
+{$i TaurusTLSUnusedParamOff.inc}
 function FC_RAND_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
 begin
@@ -201,7 +201,7 @@ function FC_RAND_priv_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
 begin
    Result := RAND_priv_bytes(PByte(buf),TIdC_INT(num));
 end;
-{$i taurustlsunusedparamon.inc}
+{$i TaurusTLSUnusedParamOn.inc}
 
   {$i TaurusTLSNoRetValOff.inc}
 function  ERR_RAND_set_rand_method(const meth: PRAND_METHOD): TIdC_INT;

@@ -137,7 +137,7 @@ end;
 
   {$i TaurusTLSNoRetValOn.inc} 
 
-
+{$i TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
 
@@ -303,6 +303,7 @@ begin
 
 
 end;
+{$i TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin
