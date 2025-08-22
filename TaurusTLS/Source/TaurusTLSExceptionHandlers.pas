@@ -314,12 +314,14 @@ begin
 end;
 
 class procedure ETaurusTLSAPICryptoError.RaiseException(const AMsg : String = '');
+  {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 begin
   RaiseExceptionCode(ERR_get_error(), AMsg);
 end;
 
 class procedure ETaurusTLSAPICryptoError.RaiseExceptionCode(
   const AErrCode: TIdC_ULONG; const AMsg: String);
+  {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 var
   {$IFNDEF USE_INLINE_VAR}
   LMsg: String;
@@ -345,12 +347,14 @@ end;
 
 class procedure ETaurusTLSAPISSLError.RaiseException(ASSL: PSSL; const ARetCode: TIdC_INT;
   const AMsg: String);
+    {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 begin
   RaiseExceptionCode(SSL_get_error(ASSL, ARetCode), ARetCode, AMsg);
 end;
 
 class procedure ETaurusTLSAPISSLError.RaiseExceptionCode(const AErrCode, ARetCode: TIdC_INT;
   const AMsg: String);
+    {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 var
   LErrQueue : TIdC_ULONG;
   LException : ETaurusTLSAPISSLError;

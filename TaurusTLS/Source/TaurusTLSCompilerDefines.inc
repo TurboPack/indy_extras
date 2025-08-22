@@ -677,6 +677,8 @@
     {$DEFINE VCL_70}
     {$DEFINE DELPHI_7}
   {.$ENDIF}
+   {$DEFINE HAS_DIRECTIVE_PUSHPOP} // TODO: when was push/pop introduced?
+   {$DEFINE USE_NORETURN} // TODO: when was noreturn introduced? Possibly after 2.6.x
 {$ENDIF}
 
 // end FPC
