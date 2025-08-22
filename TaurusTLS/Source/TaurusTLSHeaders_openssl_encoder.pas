@@ -218,7 +218,7 @@ const
     shl 8 or byte(0);
   OSSL_ENCODER_settable_ctx_params_introduced = (byte(3) shl 8 or byte(0))
     shl 8 or byte(0);
-  OSSL_ENCODER_CTX_new__introduced = (byte(3) shl 8 or byte(0))
+  OSSL_ENCODER_CTX_new_introduced = (byte(3) shl 8 or byte(0))
     shl 8 or byte(0);
   OSSL_ENCODER_CTX_set_params_introduced = (byte(3) shl 8 or byte(0))
     shl 8 or byte(0);

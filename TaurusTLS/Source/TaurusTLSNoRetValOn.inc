@@ -5,7 +5,7 @@
     {$WARN NO_RETVAL ON}
   {$ENDIF}
 {$ENDIF}
-{$ifdef fpc}
+{$ifdef HAS_DIRECTIVE_PUSHPOP}
   {$pop}
 {$endif}
 

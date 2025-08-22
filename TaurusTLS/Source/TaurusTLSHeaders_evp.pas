@@ -3655,6 +3655,7 @@ const
 
 {function introduced - compatibility}
 
+{$i taurustlsunusedparamoff.inc}
 function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
   Result:=EVP_get_cipherbyname(algorithm);
@@ -3768,7 +3769,7 @@ function FC_EVP_CIPHER_CTX_is_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT;
 begin
   Result:=EVP_CIPHER_CTX_encrypting(ctx);
 end;
-
+{$i taurustlsunusedparamon.inc}
 {function removals - compatability}
 
 {$DEFINE EVP_md2_allownil} {removed 1.1.0 allow_nil}

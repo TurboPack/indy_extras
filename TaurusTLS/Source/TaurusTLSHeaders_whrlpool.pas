@@ -104,10 +104,8 @@ const
   WHIRLPOOL_procname = 'WHIRLPOOL';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
-{$ifdef fpc}
-{$push}{$warn 5024 off}
-{$endif}
+  {$i TaurusTLSNoRetValOff.inc}
+
 function  ERR_WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(WHIRLPOOL_Init_procname);
@@ -305,10 +303,6 @@ begin
 
 
 end;
-
-{$ifdef fpc}
-{$pop}
-{$endif}
 
 procedure Unload;
 begin

@@ -1,4 +1,4 @@
-{$ifdef fpc}
+{$ifdef HAS_DIRECTIVE_PUSHPOP}
   {$pop}
 {$endif}
 

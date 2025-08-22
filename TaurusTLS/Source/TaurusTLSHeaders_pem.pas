@@ -586,6 +586,7 @@ const
   b2i_PVK_bio_procname = 'b2i_PVK_bio';
   i2b_PVK_bio_procname = 'i2b_PVK_bio';
 
+  {$i taurustlsunusedparamoff.inc}
 function FC_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl;
 begin
@@ -615,7 +616,7 @@ function FC_PEM_read_bio_Parameters_ex(bp: PBIO; x:PPEVP_PKEY;
 begin
   Result := PEM_read_bio_Parameters(bp,x);
 end;
-
+{$i taurustlsunusedparamon.inc}
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; 
 begin
@@ -3298,6 +3299,36 @@ begin
     {$ifend}
   end;
 
+  PEM_read_bio_Parameters_ex := LoadLibFunction(ADllHandle, PEM_read_bio_Parameters_ex_procname);
+  FuncLoadError := not assigned(PEM_read_bio_Parameters_ex);
+  if FuncLoadError then
+  begin
+    {$if not defined(PEM_read_bio_Parameters_ex_allownil)}
+    PEM_read_bio_Parameters_ex := @ERR_PEM_read_bio_Parameters_ex;
+    {$ifend}
+    {$if declared(PEM_read_bio_Parameters_ex_introduced)}
+    if LibVersion < PEM_read_bio_Parameters_ex_introduced then
+    begin
+      {$if declared(FC_PEM_read_bio_Parameters_ex)}
+      PEM_read_bio_Parameters_ex := @FC_PEM_read_bio_Parameters_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(PEM_read_bio_Parameters_ex_removed)}
+    if PEM_read_bio_Parameters_ex_removed <= LibVersion then
+    begin
+      {$if declared(_PEM_read_bio_Parameters_ex)}
+      PEM_read_bio_Parameters_ex := @_PEM_read_bio_Parameters_ex;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(PEM_read_bio_Parameters_ex_allownil)}
+    if FuncLoadError then
+      AFailed.Add('PEM_read_bio_Parameters_ex');
+    {$ifend}
+  end;
 
   PEM_write_bio_Parameters := LoadLibFunction(ADllHandle, PEM_write_bio_Parameters_procname);
   FuncLoadError := not assigned(PEM_write_bio_Parameters);

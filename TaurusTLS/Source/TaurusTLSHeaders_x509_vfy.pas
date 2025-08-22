@@ -1587,6 +1587,7 @@ type
     store_ctx: PX509_STORE;
   end;
 
+{$i taurustlsunusedparamoff.inc}
 function  FC_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; cdecl;
 begin
   Result := _PX509_LOOKUP(ctx)^.store_ctx;
@@ -1623,6 +1624,7 @@ function FC_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiCh
 begin
   Result := X509_load_cert_crl_file(ctx,file_,type_);
 end;
+  {$i taurustlsunusedparamon.inc}
 {/forward_compatibility}
   {$i TaurusTLSNoRetValOff.inc} 
 function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 
@@ -4265,6 +4267,37 @@ begin
     {$ifend}
   end;
 
+  X509_STORE_get_check_policy := LoadLibFunction(ADllHandle, X509_STORE_get_check_policy_procname);
+  FuncLoadError := not assigned(X509_STORE_get_check_policy);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_STORE_get_check_policy_allownil)}
+    X509_STORE_get_check_policy := @ERR_X509_STORE_get_check_policy;
+    {$ifend}
+    {$if declared(X509_STORE_get_check_policy_introduced)}
+    if LibVersion < X509_STORE_get_check_policy_introduced then
+    begin
+      {$if declared(FC_X509_STORE_get_check_policy)}
+      X509_STORE_get_check_policy := @FC_X509_STORE_get_check_policy;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_STORE_get_check_policy_removed)}
+    if X509_STORE_get_check_policy_removed <= LibVersion then
+    begin
+      {$if declared(_X509_STORE_get_check_policy)}
+      X509_STORE_get_check_policy := @_X509_STORE_get_check_policy;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_STORE_get_check_policy_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_STORE_get_check_policy');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   X509_policy_tree_get0_user_policies := LoadLibFunction(ADllHandle, X509_policy_tree_get0_user_policies_procname);
   FuncLoadError := not assigned(X509_policy_tree_get0_user_policies);
@@ -5216,34 +5249,34 @@ begin
     {$ifend}
   end;
 
-  X509_STORE_CTX_get_lookup_crls := LoadLibFunction(ADllHandle, X509_STORE_CTX_get_lookup_crls_procname);
-  FuncLoadError := not assigned(X509_STORE_CTX_get_lookup_crls);
+  X509_STORE_CTX_get_lookup_certs := LoadLibFunction(ADllHandle, X509_STORE_CTX_get_lookup_certs_procname);
+  FuncLoadError := not assigned(X509_STORE_CTX_get_lookup_certs);
   if FuncLoadError then
   begin
-    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
-    X509_STORE_CTX_get_lookup_crls := @ERR_X509_STORE_CTX_get_lookup_crls;
+    {$if not defined(X509_STORE_CTX_get_lookup_cert_allownil)}
+    X509_STORE_CTX_get_lookup_certs := @ERR_X509_STORE_CTX_get_lookup_certs;
     {$ifend}
-    {$if declared(X509_STORE_CTX_get_lookup_crls_introduced)}
-    if LibVersion < X509_STORE_CTX_get_lookup_crls_introduced then
+    {$if declared(X509_STORE_CTX_get_lookup_certs_introduced)}
+    if LibVersion < X509_STORE_CTX_get_lookup_certs_introduced then
     begin
-      {$if declared(FC_X509_STORE_CTX_get_lookup_crls)}
-      X509_STORE_CTX_get_lookup_crls := @FC_X509_STORE_CTX_get_lookup_crls;
+      {$if declared(FC_X509_STORE_CTX_get_lookup_certs)}
+      X509_STORE_CTX_get_lookup_certs := @FC_X509_STORE_CTX_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(X509_STORE_CTX_get_lookup_crls_removed)}
-    if X509_STORE_CTX_get_lookup_crls_removed <= LibVersion then
+    {$if declared(X509_STORE_CTX_get_lookup_certs_removed)}
+    if X509_STORE_CTX_get_lookup_certs_removed <= LibVersion then
     begin
-      {$if declared(_X509_STORE_CTX_get_lookup_crls)}
-      X509_STORE_CTX_get_lookup_crls := @_X509_STORE_CTX_get_lookup_crls;
+      {$if declared(_X509_STORE_CTX_get_lookup_certs)}
+      X509_STORE_CTX_get_lookup_certs := @_X509_STORE_CTX_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
+    {$if not defined(X509_STORE_CTX_get_lookup_certs_allownil)}
     if FuncLoadError then
-      AFailed.Add('X509_STORE_CTX_get_lookup_crls');
+      AFailed.Add('X509_STORE_CTX_get_lookup_certs');
     {$ifend}
   end;
 

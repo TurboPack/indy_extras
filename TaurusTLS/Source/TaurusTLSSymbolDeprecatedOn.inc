@@ -6,7 +6,7 @@
     {$WARN SYMBOL_DEPRECATED ON}
   {$ENDIF}
 {$ENDIF}
-{$ifdef fpc}
+{$ifdef HAS_DIRECTIVE_PUSHPOP}
   {$pop}
 {$endif}
 
