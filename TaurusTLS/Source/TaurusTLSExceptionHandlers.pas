@@ -405,6 +405,7 @@ end;
 { ETaurusTLSError }
 
 class procedure ETaurusTLSError.RaiseWithMessage(const AMsg: String);
+{$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 begin
   raise Create(AMsg);
 end;
