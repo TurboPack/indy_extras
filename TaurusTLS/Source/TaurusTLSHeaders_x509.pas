@@ -1298,6 +1298,8 @@ var
   i2d_PKCS8PrivateKeyInfo_bio: function (bp: PBIO; key: PEVP_PKEY): TIdC_INT; cdecl = nil;
   i2d_PrivateKey_bio: function (bp: PBIO; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
   d2i_PrivateKey_bio: function (bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY; cdecl = nil;
+  d2i_PrivateKey_ex_bio: function (bp : PBIO; a :PPEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY; cdecl = nil;
   i2d_PUBKEY_bio: function (bp: PBIO; pkey: PEVP_PKEY): TIdC_INT; cdecl = nil;
   d2i_PUBKEY_bio: function (bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY; cdecl = nil;
 
@@ -1920,6 +1922,9 @@ var
   function i2d_PKCS8PrivateKeyInfo_bio(bp: PBIO; key: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function i2d_PrivateKey_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function d2i_PrivateKey_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY cdecl; external CLibCrypto;
+  function d2i_PrivateKey_ex_bio(bp : PBIO; a :PPEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY; cdecl; external CLibCrypto;
+
   function i2d_PUBKEY_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function d2i_PUBKEY_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY cdecl; external CLibCrypto;
 
@@ -2501,7 +2506,7 @@ const
   X509_http_nbio_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_CRL_http_nbio_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_NAME_hash_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-
+  d2i_PrivateKey_ex_bio_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
 
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -2624,6 +2629,7 @@ const
   i2d_PKCS8PrivateKeyInfo_bio_procname = 'i2d_PKCS8PrivateKeyInfo_bio';
   i2d_PrivateKey_bio_procname = 'i2d_PrivateKey_bio';
   d2i_PrivateKey_bio_procname = 'd2i_PrivateKey_bio';
+  d2i_PrivateKey_ex_bio_procname = 'd2i_PrivateKey_ex_bio';
   i2d_PUBKEY_bio_procname = 'i2d_PUBKEY_bio';
   d2i_PUBKEY_bio_procname = 'd2i_PUBKEY_bio';
 
@@ -3158,6 +3164,12 @@ begin
   Result := EVP_PKEY_type(OBJ_obj2nid(_PX509(x)^.sig_alg^.algorithm));
 end;
 
+function FC_d2i_PrivateKey_ex_bio(bp : PBIO; a :PPEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY;  cdecl;
+begin
+  Result := d2i_PrivateKey_bio(bp,a);
+end;
+
 {/forward_compatibility}
   {$i TaurusTLSNoRetValOff.inc} 
 procedure  ERR_X509_CRL_set_default_method(const meth: PX509_CRL_METHOD); 
@@ -3516,6 +3528,12 @@ end;
 function  ERR_d2i_PrivateKey_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PrivateKey_bio_procname);
+end;
+
+function ERR_d2i_PrivateKey_ex_bio(bp : PBIO; a :PPEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PrivateKey_ex_bio_procname);
 end;
 
 
@@ -7469,6 +7487,36 @@ begin
     {$ifend}
   end;
 
+  d2i_PrivateKey_ex_bio := LoadLibFunction(ADllHandle, d2i_PrivateKey_ex_bio_procname);
+  FuncLoadError := not assigned(d2i_PrivateKey_ex_bio);
+  if FuncLoadError then
+  begin
+    {$if not defined(d2i_PrivateKey_ex_bio_allownil)}
+    d2i_PrivateKey_ex_bio := @ERR_d2i_PrivateKey_ex_bio;
+    {$ifend}
+    {$if declared(d2i_PrivateKey_ex_bio_introduced)}
+    if LibVersion < d2i_PrivateKey_ex_bio_introduced then
+    begin
+      {$if declared(FC_d2i_PrivateKey_ex_bio)}
+      d2i_PrivateKey_ex_bio := @FC_d2i_PrivateKey_ex_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(d2i_PrivateKey_ex_bio_removed)}
+    if d2i_PrivateKey_ex_bio_removed <= LibVersion then
+    begin
+      {$if declared(_d2i_PrivateKey_ex_bio)}
+      d2i_PrivateKey_ex_bio := @_d2i_PrivateKey_ex_bio;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(d2i_PrivateKey_ex_bio_allownil)}
+    if FuncLoadError then
+      AFailed.Add('d2i_PrivateKey_ex_bio');
+    {$ifend}
+  end;
 
   i2d_PUBKEY_bio := LoadLibFunction(ADllHandle, i2d_PUBKEY_bio_procname);
   FuncLoadError := not assigned(i2d_PUBKEY_bio);
