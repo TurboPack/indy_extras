@@ -6,7 +6,7 @@ program taurusftp;
 both Lazaurus and Delphi.}
 
 uses
-  taurusftp_unit;
+  taurusftp_unit; //, indylaz;
 
 {$R *.res}
 

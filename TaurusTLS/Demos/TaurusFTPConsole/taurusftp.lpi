@@ -24,6 +24,11 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="indylaz"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="taurusftp.lpr"/>
@@ -38,7 +43,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);../../Source"/>
-      <OtherUnitFiles Value="../../Source;../../../Indy/Indy-Indy-10.6.3.6/Lib/System;../../../Indy/Indy-Indy-10.6.3.6/Lib/Core;../../../Indy/Indy-Indy-10.6.3.6/Lib/Protocols;../../../Indy-Indy-10.6.3.6/Lib/System;../../../Indy-Indy-10.6.3.6/Lib/Core;../../../Indy-Indy-10.6.3.6/Lib/Protocols"/>
+      <OtherUnitFiles Value="../../Source"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

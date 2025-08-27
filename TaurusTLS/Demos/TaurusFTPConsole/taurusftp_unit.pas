@@ -743,6 +743,9 @@ begin
   WriteLn('Compiler Version: ' + IntToStr(Hi(GetCompilerVersion)) + '.' +
     IntToStr(Lo(GetCompilerVersion)));
   {$ENDIF}
+{$ELSE}
+  WriteLn('       Target OS: ', {$I %FPCTARGETOS%});
+  WriteLn('      Target CPU: ', {$I %FPCTARGETCPU%});
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
   WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
