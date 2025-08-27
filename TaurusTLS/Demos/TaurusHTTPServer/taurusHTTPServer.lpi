@@ -24,6 +24,11 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="indylaz"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="taurusHTTPServer.lpr"/>
@@ -44,7 +49,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\..\Source"/>
-      <OtherUnitFiles Value="..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\System;..\..\..\Indy-Indy-10.6.3.6\Lib\System;..\..\..\Indy-Indy-10.6.3.6\Lib\Core;..\..\..\Indy-Indy-10.6.3.6\Lib\Protocols;..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\Core;..\..\..\Indy\Indy-Indy-10.6.3.6\Lib\Protocols;..\..\Source"/>
+      <OtherUnitFiles Value="..\..\Source"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

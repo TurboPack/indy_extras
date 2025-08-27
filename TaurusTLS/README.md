@@ -182,19 +182,6 @@ You can also do the following:
 2. Run the makecert.bat to generate a self-signed certificate.  Just answer the prompts and the certificate is generated.
 3. Run the FTP Server .exe and it will create a default server.ini file that points to the certificate files generated in Step 2.
 
-### TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
-
-This is a fully functional Delphi-only FTP client that is multi-threaded using the VCL Framework.  It has been tested with the following servers:
-
-- CompleteFTP - <https://enterprisedt.com/products/completeftp/>
-- FileZilla Server - <https://filezilla-project.org/>
-- ProFTPD - <http://www.proftpd.org/>
-- PureFTPD - <https://www.pureftpd.org/>
-- vsftpd - <https://security.appspot.com/vsftpd.html>
-- Xlight FTP Server - <https://www.xlightftpd.com/>
-
-No special configuration is required, and the program generates its own INI files for storing FTP server information and default settings.  You may need to configure the program if you have a firewall/proxy setup or are behind a NAT and wish to use PORT transfers.
-
 ### TaurusTLS\demos\TaurusFTPConsole\taurusftp.dpr and taurusftp.lpr
 
 This is a fully functional cross-platform console FTP client that can be built with both Delphi and Lazaurus.  It has been tested with the following servers:
