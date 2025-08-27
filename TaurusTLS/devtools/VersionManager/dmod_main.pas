@@ -174,7 +174,8 @@ begin
           end
           else
           begin
-           if IdGlobal.PosInStrArray(ExtractFileExt(SR.Name), ['.pas', '.lpk','.dpk','.dproj']) >  -1 then
+           if IdGlobal.PosInStrArray(ExtractFileExt(SR.Name), ['.pas-template',
+             '.lpk-template','.dpk-template','.dproj-template']) >  -1 then
            begin
               AResults.Add(LFileToRead);
 
@@ -210,7 +211,8 @@ begin
       FindFilesToRead('..\..\Templates', LFilesToRead);
       for i := 0 to LFilesToRead.Count - 1 do
       begin
-        case PosInStrArray(ExtractFileExt(LFilesToRead[i]),['.PAS','.LPK','.DPK','.DPROJ'],False) of
+        case PosInStrArray(ExtractFileExt(LFilesToRead[i]),['.PAS-TEMPLATE',
+        '.LPK-TEMPLATE','.DPK-TEMPLATE','.DPROJ-TEMPLATE'],False) of
           //0 - .PAS
           0 : Self.ReplaceInPAS(LFilesToRead[i]);
           //1 - .LPK
@@ -245,16 +247,23 @@ const
  LPK_DSGN = '{$LPK_FILES_DT}';
  LPK_RTL = '{$LPK_FILES_RT}';
 
+function CalcOutputFile(const AInputFileName : String) : String;
+begin
+  Result :=  StringReplace(
+    ExpandFileName(
+    StringReplace( AInputFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]))
+    ,'-template','',[rfReplaceAll]);
+end;
+
 procedure TdmodMain.ReplaceInDPK(const AFileName: String);
 var LFileContents : String;
-  LFileToRead : String;
   LFileToWrite : String;
   LWarn : Boolean;
 begin
-   LFileToRead := ExpandFileName(AFileName);
-   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
-   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
-   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   LWarn := True;
+   Self.DoOnDebugLog( 'Read: '+ AFileName);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( AFileName);
+   LFileToWrite := CalcOutputFile(AFileName);
    if Pos(DPK_DSGN,LFileContents) > 0 then
    begin
      LWarn := False;
@@ -269,27 +278,26 @@ begin
    end;
    if LWarn then
    begin
-     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a templae!!!')
+     Self.DoOnDebugLog('WARNING ' + AFileName + ' is not a template!!!')
    end
    else
    begin
      Self.DoOnDebugLog( 'Write: '+LFileToWrite );
-     System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents );
+     System.IOUtils.TFile.WriteAllText( LFileToWrite, LFileContents);
    end;
 end;
 
 procedure TdmodMain.ReplaceInDPROJ(const AFileName: String);
 var LFileContents : String;
-  LFileToRead : String;
   LFileToWrite : String;
   LWarn : Boolean;
 
 begin
   LWarn := True;
-   LFileToRead := ExpandFileName(AFileName);
-   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
-   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
-   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   Self.DoOnDebugLog( 'Read: '+ AFileName);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( AFileName);
+   LFileToWrite := CalcOutputFile(AFileName);
+
    if Pos(DPROJ_DSGN,LFileContents) > 0 then
    begin
      LWarn := False;
@@ -316,15 +324,13 @@ end;
 
 procedure TdmodMain.ReplaceInLPK(const AFileName: String);
 var LFileContents : String;
-  LFileToRead : String;
   LFileToWrite : String;
   LWarn : Boolean;
 begin
   LWarn := True;
-   LFileToRead := ExpandFileName(AFileName);
-   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
-   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
-   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   Self.DoOnDebugLog( 'Read: '+ AFileName);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( AFileName);
+   LFileToWrite := CalcOutputFile(AFileName);
    if Pos(LPK_DSGN,LFileContents) > 0 then
    begin
      LWarn := False;
@@ -350,16 +356,15 @@ end;
 
 procedure TdmodMain.ReplaceInPAS(const AFileName: String);
 var LFileContents : String;
-  LFileToRead : String;
   LFileToWrite : String;
   LWarn : Boolean;
 
 begin
   LWarn := True;
-   LFileToRead := ExpandFileName(AFileName);
-   Self.DoOnDebugLog( 'Read: '+ LFileToRead);
-   LFileContents :=  System.IOUtils.TFile.ReadAllText( LFileToRead);
-   LFileToWrite :=  ExpandFileName( StringReplace( AFileName,'..\..\Templates','..\..\..\..\Packages',[rfIgnoreCase]));
+   Self.DoOnDebugLog( 'Read: '+ AFileName);
+   LFileContents :=  System.IOUtils.TFile.ReadAllText( AFileName);
+   LFileToWrite := CalcOutputFile(AFileName);
+
    if Pos(PAS_DSGN,LFileContents) > 0 then
    begin
      LWarn := False;
