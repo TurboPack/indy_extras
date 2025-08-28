@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project Version="1.0">
+  <Title>TaurusTLS</Title>
+  <Summary>OpenSSL 1.1.1 and OpenSSL 3.x support for Indy - Internet Direct</Summary>
+  <Author>TaurusTLS Developers</Author>
+  <Email/>
+  <Copyright>Copyright (c) 2025 TaurusTLS Developers,  All Rights Reserved,</Copyright>
+  <Comment>TaurusTLS provides OpenSSL 1.1 and 3.x support for Indy - Internet Direct.</Comment>
+  <Language>1033</Language>
+  <Charset>1</Charset>
+  <HeaderHtml>&lt;%TopicTitle%&gt;</HeaderHtml>
+  <FooterHtml>&lt;center&gt;&lt;b&gt;TaurusTLS&lt;/b&gt;&lt;br/&gt;
+&lt;%Copyright%&gt;&lt;br /&gt;
+&lt;br /&gt;
+Powered by &lt;a href="https://devjetsoftware.com/products/documentation-insight/" target="_blank"&gt;DocInsight&lt;/a&gt;&lt;/center&gt;</FooterHtml>
+  <CustomDefines/>
+  <ShowImplementationSection>false</ShowImplementationSection>
+  <ShowPrivateMembers>false</ShowPrivateMembers>
+  <ShowProtectedMembers>false</ShowProtectedMembers>
+  <ShowInheritedMembers>true</ShowInheritedMembers>
+  <ShowPropertyAccessors>true</ShowPropertyAccessors>
+  <FileNamePolicy>0</FileNamePolicy>
+  <CompilerVersion>27</CompilerVersion>
+  <TargetPlatform>0</TargetPlatform>
+  <Sources>
+    <Source>.\TaurusTLS_RT.dpk</Source>
+  </Sources>
+  <Outputs>
+    <Output Type="HTML">
+      <Active>true</Active>
+      <OutputDirectory>..\..\Help\html</OutputDirectory>
+    </Output>
+    <Output Type="CHM">
+      <Active>true</Active>
+      <OutputFileName>..\..\Help\chm\TaurusForIndy290All.chm</OutputFileName>
+    </Output>
+    <Output Type="MSHELP2">
+      <Active>false</Active>
+      <OutputFileName>build\docs\mshelp2\TaurusForIndy290All.HxS</OutputFileName>
+      <Namespace>TaurusForIndy290All</Namespace>
+      <TitleID>library</TitleID>
+    </Output>
+    <Output Type="HelpAndManual">
+      <Active>false</Active>
+      <OutputFileName>build\docs\hm\TaurusForIndy290All.hmxp</OutputFileName>
+    </Output>
+  </Outputs>
+</Project>
