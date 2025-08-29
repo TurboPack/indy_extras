@@ -8,9 +8,9 @@
         <Filename Value="taurusftp.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="22" Y="9"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS.pas"/>
@@ -150,12 +150,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="taurusftp.lpr"/>
-        <Caret Line="11" Column="6"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">

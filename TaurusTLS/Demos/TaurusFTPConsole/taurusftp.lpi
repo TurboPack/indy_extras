@@ -26,6 +26,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="TaurusTLSRT"/>
+      </Item>
+      <Item>
         <PackageName Value="indylaz"/>
       </Item>
     </RequiredPackages>

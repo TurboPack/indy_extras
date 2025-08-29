@@ -25,7 +25,7 @@
 					<ShowCompProc Value="True"/>
 					<ShowCond Value="True"/>
 				</Verbosity>
-				<CustomOptions Value="-Ur"/>
+				<CustomOptions Value=""/>
 			</Other>
 		</CompilerOptions>
 		<Description Value="TaurusTLS provides OpenSSL 3.x support for Indy - Internet Direct"/>
