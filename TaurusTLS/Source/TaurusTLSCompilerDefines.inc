@@ -1094,6 +1094,8 @@
 {$ENDIF}
 
 {$IFDEF FPC}
+   //This needs to be disabled for FreePascal to work.
+   //See https://github.com/JPeterMugaas/TaurusTLS/issues/79
   {$UNDEF USE_INLINE}
   {$IFDEF FPC_UNICODESTRINGS}
     {$DEFINE STRING_IS_UNICODE}
