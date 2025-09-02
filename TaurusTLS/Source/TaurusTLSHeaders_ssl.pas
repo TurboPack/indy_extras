@@ -2003,11 +2003,6 @@ var
 
   //DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
-  //# define DTLSv1_get_timeout(ssl, arg) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)(arg))
-  //# define DTLSv1_handle_timeout(ssl) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
-  //
   ///* Backwards compatibility, original 1.1.0 names */
   //# define SSL_CTRL_GET_SERVER_TMP_KEY \
   //         SSL_CTRL_GET_PEER_TMP_KEY
@@ -2927,11 +2922,6 @@ var
 
   //DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
-  //# define DTLSv1_get_timeout(ssl, arg) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)(arg))
-  //# define DTLSv1_handle_timeout(ssl) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
-  //
   ///* Backwards compatibility, original 1.1.0 names */
   //# define SSL_CTRL_GET_SERVER_TMP_KEY \
   //         SSL_CTRL_GET_PEER_TMP_KEY
@@ -3867,6 +3857,9 @@ function SSL_get_stream_write_buf_avail(ssl : PSSL; value : PIdC_UINT64) : TIdC_
 
 function SSL_as_poll_descriptor(s : PSSL) : BIO_POLL_DESCRIPTOR;
 
+function DTLSv1_get_timeout(s : PSSL; tv : PTimeVal) : TIdC_INT;
+function DTLSv1_handle_timeout(ssl : PSSL) : TIdC_INT;
+
 implementation
 
   uses
@@ -3875,6 +3868,18 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
+
+function DTLSv1_get_timeout(s : PSSL; tv : PTimeVal) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(s,DTLS_CTRL_GET_TIMEOUT,0, tv);
+end;
+
+function DTLSv1_handle_timeout(ssl : PSSL) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, nil);
+end;
 
 function SSL_as_poll_descriptor(s : PSSL) : BIO_POLL_DESCRIPTOR;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -4975,11 +4980,6 @@ const
 
   //DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
-  //# define DTLSv1_get_timeout(ssl, arg) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)(arg))
-  //# define DTLSv1_handle_timeout(ssl) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
-  //
   ///* Backwards compatibility, original 1.1.0 names */
   //# define SSL_CTRL_GET_SERVER_TMP_KEY \
   //         SSL_CTRL_GET_PEER_TMP_KEY
