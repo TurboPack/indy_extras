@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1003,7 +1003,7 @@ const
   EC_KEY_METHOD_get_verify_procname = 'EC_KEY_METHOD_get_verify'; {introduced 1.1.0}
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_EC_GFp_simple_method: PEC_METHOD; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_simple_method_procname);
@@ -2080,7 +2080,7 @@ end;
 
  {introduced 1.1.0}
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

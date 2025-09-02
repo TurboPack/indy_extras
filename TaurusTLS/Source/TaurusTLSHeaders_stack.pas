@@ -5,8 +5,8 @@
      Distribution.
    *)
 
-{$i TaurusTLSCompilerDefines.inc}
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -449,7 +449,7 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_num_procname);
@@ -740,7 +740,7 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc}
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure LoadStackFunctions(const ADllHandle: TIdLibHandle;
   LibVersion: TIdC_UINT; const AFailed: TStringList);

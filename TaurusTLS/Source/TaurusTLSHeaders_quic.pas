@@ -8,13 +8,14 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
+{$I TaurusTLSCompilerDefines.inc}
 unit TaurusTLSHeaders_quic;
 
 interface
 // Headers for OpenSSL 3.2.0
 // ssl.h
-{$i TaurusTLSCompilerDefines.inc}
-{$i TaurusTLSLinkDefines.inc}
+
+{$I TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -81,7 +82,7 @@ const
   OSSL_QUIC_client_thread_method_procname = 'OSSL_QUIC_client_thread_method(';
   OSSL_QUIC_server_method_procname = 'OSSL_QUIC_server_method';
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 
 {introduced 3.2.0}
 function ERR_OSSL_QUIC_client_method : PSSL_METHOD;
@@ -101,7 +102,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_QUIC_server_method_procname);
 end;
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;

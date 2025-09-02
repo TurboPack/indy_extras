@@ -26,7 +26,7 @@
 /// </remarks>
 unit TaurusTLSFIPS;
 
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 
 interface
 

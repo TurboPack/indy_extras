@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -917,7 +917,7 @@ const
   RSA_meth_set_multi_prime_keygen_procname = 'RSA_meth_set_multi_prime_keygen';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_RSA_new: PRSA; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_new_procname);
@@ -1568,9 +1568,9 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -4618,7 +4618,7 @@ begin
 
 
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

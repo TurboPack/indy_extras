@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1477,7 +1477,7 @@ const
   TS_CONF_set_ess_cert_id_digest_procname = 'TS_CONF_set_ess_cert_id_digest';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_TS_REQ_new: PTS_REQ; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TS_REQ_new_procname);
@@ -2786,7 +2786,7 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

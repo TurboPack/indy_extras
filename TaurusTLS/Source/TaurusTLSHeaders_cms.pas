@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -723,7 +723,7 @@ const
   //# define CMS_R_UNSUPPORTED_RECPIENTINFO_TYPE \ CMS_R_UNSUPPORTED_RECIPIENTINFO_TYPE
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_CMS_get0_type(const cms: PCMS_ContentInfo): PASN1_OBJECT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMS_get0_type_procname);
@@ -1355,8 +1355,8 @@ end;
   //# define CMS_R_UNKNOWN_DIGEST_ALGORITM CMS_R_UNKNOWN_DIGEST_ALGORITHM
   //# define CMS_R_UNSUPPORTED_RECPIENTINFO_TYPE \ CMS_R_UNSUPPORTED_RECIPIENTINFO_TYPE
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -4369,7 +4369,7 @@ begin
     {$ifend}
   end;
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   CMS_get0_type := nil;

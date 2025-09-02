@@ -5,8 +5,8 @@
      Distribution.
    *)
 
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1872,7 +1872,7 @@ const
   ASN1_ITEM_get_procname = 'ASN1_ITEM_get'; {introduced 1.1.0}
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ASN1_TYPE_get(const a: PASN1_TYPE): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_TYPE_get_procname);
@@ -3098,7 +3098,7 @@ end;
 
  {introduced 1.1.0}
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

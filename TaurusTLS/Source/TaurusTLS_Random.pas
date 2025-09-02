@@ -12,7 +12,7 @@
 ///   Class wrapperers on OpenSSL Random Generator functions.
 /// </summary>
 unit TaurusTLS_Random;
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 
 interface
 

@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -197,7 +197,7 @@ const
   OSSL_PROVIDER_try_load_ex_procname = 'OSSL_PROVIDER_try_load_ex'; {introduced 3.2.0}
   OSSL_PROVIDER_load_ex_procname = 'OSSL_PROVIDER_load_ex'; {introduced 3.2.0}
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_OSSL_PROVIDER_set_default_search_path(ctx: POSSL_LIB_CTX; path: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PROVIDER_set_default_search_path_procname);
@@ -317,7 +317,7 @@ end;
 
  {introduced 3.2.0}
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

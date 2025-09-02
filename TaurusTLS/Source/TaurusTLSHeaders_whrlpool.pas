@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -104,7 +104,7 @@ const
   WHIRLPOOL_procname = 'WHIRLPOOL';
 
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 
 function  ERR_WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT; 
 begin
@@ -135,9 +135,9 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(WHIRLPOOL_procname);
 end;
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
 
@@ -303,7 +303,7 @@ begin
 
 
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

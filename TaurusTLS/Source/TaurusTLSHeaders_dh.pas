@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -799,7 +799,7 @@ const
                                 EVP_PKEY_CTRL_GET_DH_KDF_UKM, 0, (void *)(p))
 }
 
-{$i TaurusTLSNoRetValOff.inc}
+{$I TaurusTLSNoRetValOff.inc}
 function  ERR_DHparams_dup(dh: PDH): PDH; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DHparams_dup_procname);
@@ -1326,7 +1326,7 @@ end;
                                 EVP_PKEY_CTRL_GET_DH_KDF_UKM, 0, (void *)(p))
 }
 
-{$i TaurusTLSNoRetValOn.inc}
+{$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

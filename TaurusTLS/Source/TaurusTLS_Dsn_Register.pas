@@ -70,7 +70,7 @@ uses
 
 {$IFDEF DCC}
   {$IFDEF VCL_2005_OR_ABOVE}
-  {$i TaurusTLS_Vers.inc}
+  {$I TaurusTLS_Vers.inc}
 var
   AboutBoxServices: IOTAAboutBoxServices = nil;
   AboutBoxIndex: Integer = -1;
@@ -145,7 +145,7 @@ finalization
 {$ENDIF}
 {$IFDEF FPC}
 initialization
-{$i ..\Source\TaurusTLS_Dsn_Register.lrs}
+{$I ..\Source\TaurusTLS_Dsn_Register.lrs}
 {$ENDIF}
 
 end.

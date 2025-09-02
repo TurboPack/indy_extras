@@ -16,13 +16,13 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
-{$i TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
 
 unit TaurusTLSHeaders_types;
 
 interface
 
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 
 // Headers for OpenSSL 1.1.1
 // ossl_typ.h

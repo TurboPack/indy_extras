@@ -21,7 +21,7 @@ uses
   {$ENDIF}
   ;
 
-{$i TaurusTLS_Vers.inc}
+{$I TaurusTLS_Vers.inc}
 
 type
   {$IFDEF FPC}

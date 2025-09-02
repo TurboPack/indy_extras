@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -487,7 +487,7 @@ const
   OPENSSL_load_builtin_modules_procname = 'OPENSSL_load_builtin_modules';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_CONF_set_default_method(meth: PCONF_METHOD): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_set_default_method_procname);
@@ -699,8 +699,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -1569,7 +1569,7 @@ begin
   sk_CONF_IMODULE_pop_free :=  Tsk_CONF_IMODULE_pop_free(sk_pop_free);
 end;
 
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

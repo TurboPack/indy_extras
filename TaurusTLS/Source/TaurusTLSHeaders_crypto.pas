@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1082,7 +1082,7 @@ procedure  _CRYPTO_set_locking_callback; cdecl;
 begin
 end;
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 procedure  _CRYPTO_set_id_callback(func: TIdSslIdCallback); cdecl;
 begin
 end;
@@ -1105,7 +1105,7 @@ procedure  _CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); cdecl;
 begin
 end;
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 
 function  _FIPS_mode: TIdC_INT; cdecl;
 begin
@@ -1153,7 +1153,7 @@ end;
 
 {forward_compatibility}
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function  FC_OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
 begin
   if opts and OPENSSL_INIT_ADD_ALL_CIPHERS <> 0 then
@@ -1162,7 +1162,7 @@ begin
     OpenSSL_add_all_digests;
   Result := 1;
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 procedure  FC_OPENSSL_cleanup; cdecl;
 begin
@@ -1170,7 +1170,7 @@ begin
 end;
 
 {/forward_compatibility}
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_OPENSSL_malloc(num: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_malloc_procname);
@@ -1786,7 +1786,7 @@ end;
 
  
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

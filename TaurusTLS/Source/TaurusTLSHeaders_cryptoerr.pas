@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -100,7 +100,7 @@ const
   ERR_load_CRYPTO_strings_procname = 'ERR_load_CRYPTO_strings';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_CRYPTO_strings: TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_CRYPTO_strings_procname);
@@ -108,8 +108,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -146,7 +146,7 @@ begin
     {$ifend}
   end;
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   ERR_load_CRYPTO_strings := nil;

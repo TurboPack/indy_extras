@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1026,7 +1026,7 @@ const
   ASN1_item_ex_i2d_procname = 'ASN1_item_ex_i2d';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ex_new_procname);
@@ -1054,8 +1054,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -1190,7 +1190,7 @@ begin
   end;
 
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

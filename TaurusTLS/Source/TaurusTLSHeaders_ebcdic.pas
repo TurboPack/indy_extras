@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -27,7 +27,7 @@ interface
 // Headers for OpenSSL 1.1.1
 // ebcdic.h
 
-{$i TaurusTLSUnusedUnitOff.inc}
+{$I TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
   IdGlobal,
@@ -35,7 +35,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_types;
-{$i TaurusTLSUnusedUnitOn.inc}
+{$I TaurusTLSUnusedUnitOn.inc}
 
 
   //extern const unsigned char os_toascii[256];
@@ -76,7 +76,7 @@ const
   ascii2ebcdic_procname = 'ascii2ebcdic';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ebcdic2ascii_procname);
@@ -90,8 +90,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -160,7 +160,7 @@ begin
     {$ifend}
   end;
 end;
- {$i TaurusTLSUnusedParamOn.inc}
+ {$I TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   ebcdic2ascii := nil;

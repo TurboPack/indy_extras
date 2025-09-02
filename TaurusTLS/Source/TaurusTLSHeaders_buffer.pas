@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -98,7 +98,7 @@ const
   BUF_reverse_procname = 'BUF_reverse';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_BUF_MEM_new: PBUF_MEM; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_new_procname);
@@ -136,8 +136,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -336,7 +336,7 @@ begin
 
 
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   BUF_MEM_new := nil;

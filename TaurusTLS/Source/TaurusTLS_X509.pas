@@ -12,7 +12,7 @@
 ///   X509 Certificate classes.
 /// </summary>
 unit TaurusTLS_X509;
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 
 interface
 

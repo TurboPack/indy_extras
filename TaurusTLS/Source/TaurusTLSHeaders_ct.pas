@@ -1,8 +1,8 @@
 /// <exclude />
-{$i TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
 unit TaurusTLSHeaders_ct;
 
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
 { error Should not compile if USE_OPENSSL is not defined!!! }
 {$ENDIF}
@@ -390,7 +390,7 @@ const
   CTLOG_STORE_load_default_file_procname = 'CTLOG_STORE_load_default_file';
 
   ERR_load_CT_strings_procname = 'ERR_load_CT_strings';
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 
 function ERR_CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX;
 begin
@@ -696,9 +696,9 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);
 var
@@ -2477,7 +2477,7 @@ begin
   sk_CTLOG_find := Tsk_CTLOG_find(sk_find);
   sk_CTLOG_pop_free := Tsk_CTLOG_pop_free(sk_pop_free);
 end;
- {$i TaurusTLSUnusedParamOn.inc}
+ {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

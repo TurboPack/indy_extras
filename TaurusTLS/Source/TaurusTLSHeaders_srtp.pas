@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -93,7 +93,7 @@ const
   SSL_get_selected_srtp_profile_procname = 'SSL_get_selected_srtp_profile';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tlsext_use_srtp_procname);
@@ -115,8 +115,8 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_selected_srtp_profile_procname);
 end;
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -258,7 +258,7 @@ begin
   SSL_get_srtp_profiles := nil;
   SSL_get_selected_srtp_profile := nil;
 end;
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

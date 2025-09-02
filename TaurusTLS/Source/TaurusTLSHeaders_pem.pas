@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -586,7 +586,7 @@ const
   b2i_PVK_bio_procname = 'b2i_PVK_bio';
   i2b_PVK_bio_procname = 'i2b_PVK_bio';
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function FC_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl;
 begin
@@ -616,8 +616,8 @@ function FC_PEM_read_bio_Parameters_ex(bp: PBIO; x:PPEVP_PKEY;
 begin
   Result := PEM_read_bio_Parameters(bp,x);
 end;
-{$i TaurusTLSUnusedParamOn.inc}
-  {$i TaurusTLSNoRetValOff.inc} 
+{$I TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_get_EVP_CIPHER_INFO_procname);
@@ -1123,7 +1123,7 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

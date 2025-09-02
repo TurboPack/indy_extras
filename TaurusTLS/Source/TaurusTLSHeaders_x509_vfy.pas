@@ -5,8 +5,8 @@
      Distribution.
    *)
 
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc}
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -1554,7 +1554,7 @@ const
     get_by_alias: nil // * get_by_alias */
     );
 
-   {$i TaurusTLSUnusedParamOff.inc}
+   {$I TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl;
 begin
   Result := @Indy_x509_unicode_file_lookup;
@@ -1565,7 +1565,7 @@ begin
   //Do nothing
 end;
 
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 (*
 struct x509_lookup_st {
@@ -1587,7 +1587,7 @@ type
     store_ctx: PX509_STORE;
   end;
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; cdecl;
 begin
   Result := _PX509_LOOKUP(ctx)^.store_ctx;
@@ -1624,9 +1624,9 @@ function FC_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiCh
 begin
   Result := X509_load_cert_crl_file(ctx,file_,type_);
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 {/forward_compatibility}
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_depth_procname);
@@ -2831,7 +2831,7 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

@@ -5,8 +5,8 @@
      and this file regenerated. TaurusTLSHeaders_aes.h2pas is distributed with the full Indy
      Distribution.
    *)
-{$i TaurusTLSCompilerDefines.inc}
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -27,7 +27,7 @@ interface
 // Headers for OpenSSL 1.1.1
 // aes.h
 
-{$i TaurusTLSUnusedUnitOff.inc}
+{$I TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
   IdGlobal,
@@ -35,7 +35,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_types;
-{$i TaurusTLSUnusedUnitOn.inc}
+{$I TaurusTLSUnusedUnitOn.inc}
 
 const
 // Added '_CONST' to avoid name clashes
@@ -163,7 +163,7 @@ const
   AES_unwrap_key_procname = 'AES_unwrap_key';
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_AES_options: PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(AES_options_procname);
@@ -258,8 +258,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -744,7 +744,7 @@ begin
     {$ifend}
   end;
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

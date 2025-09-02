@@ -8,10 +8,10 @@
 {* Portions of this software are Copyright (c) 1993 – 2018,                   *}
 {* Chad Z. Hower (Kudzu) and the Indy Pit Crew – http://www.IndyProject.org/  *}
 {******************************************************************************}
-{$i TaurusTLSCompilerDefines.inc}
+{$I TaurusTLSCompilerDefines.inc}
 unit TaurusTLSConsts;
 
-{$i TaurusTLSLinkDefines.inc}
+{$I TaurusTLSLinkDefines.inc}
 
 interface
 

@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -6380,7 +6380,7 @@ const
   SSL_CTRL_OPTIONS = 32;
   SSL_CTRL_CLEAR_OPTIONS = 77;
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 
 function  FC_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb; cdecl;
 begin
@@ -6426,7 +6426,7 @@ begin
   Result :=  _PSSL_CTX(ctx)^.cert_store;
 end;
 
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 const
   SSL_MAX_KRB5_PRINCIPAL_LENGTH = 256;
@@ -6502,7 +6502,7 @@ type
   end;
 
   {/forward_compatibility}
-    {$i TaurusTLSNoRetValOff.inc}
+    {$I TaurusTLSNoRetValOff.inc}
 
 function  FC_SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT; cdecl;
 begin
@@ -10300,7 +10300,7 @@ begin
 end;
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

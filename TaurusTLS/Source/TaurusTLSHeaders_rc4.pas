@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -29,7 +29,7 @@ interface
     rc4.h
 }
 
-{$i TaurusTLSUnusedUnitOff.inc}
+{$I TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
   IdGlobal,
@@ -37,7 +37,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_types;
-{$i TaurusTLSUnusedUnitOn.inc}
+{$I TaurusTLSUnusedUnitOn.inc}
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -162,7 +162,7 @@ const
 {$DEFINE private_RC4_set_key_allownil} {allow_nil}
 {$DEFINE RC4_allownil} {allow_nil}
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_RC4_options: PIdAnsiChar; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RC4_options_procname);
@@ -188,8 +188,8 @@ end;
 
  {allow_nil}
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -324,7 +324,7 @@ begin
 
  {allow_nil}
 end;
- {$i TaurusTLSUnusedParamOn.inc}
+ {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

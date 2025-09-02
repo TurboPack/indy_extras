@@ -1926,7 +1926,7 @@ const
 
 
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(GENERAL_NAME_cmp_procname);
@@ -2615,9 +2615,9 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc}
+  {$I TaurusTLSNoRetValOn.inc}
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
@@ -5658,7 +5658,7 @@ begin
 
 end;
 
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;
 begin

@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -151,6 +151,43 @@ const
   BIO_CTRL_DGRAM_SCTP_SAVE_SHUTDOWN     = 70;
 
   BIO_CTRL_DGRAM_SET_PEEK_MODE          = 71;
+
+  BIO_CTRL_GET_KTLS_SEND                = 73;
+  BIO_CTRL_GET_KTLS_RECV                = 76;
+
+  BIO_CTRL_DGRAM_SCTP_WAIT_FOR_DRY      = 77;
+  BIO_CTRL_DGRAM_SCTP_MSG_WAITING       = 78;
+
+//* BIO_f_prefix controls */
+  BIO_CTRL_SET_PREFIX                   = 79;
+  BIO_CTRL_SET_INDENT                   = 80;
+  BIO_CTRL_GET_INDENT                   = 81;
+
+  BIO_CTRL_DGRAM_GET_LOCAL_ADDR_CAP     = 82;
+  BIO_CTRL_DGRAM_GET_LOCAL_ADDR_ENABLE  = 83;
+  BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE  = 84;
+  BIO_CTRL_DGRAM_GET_EFFECTIVE_CAPS     = 85;
+  BIO_CTRL_DGRAM_GET_CAPS               = 86;
+  BIO_CTRL_DGRAM_SET_CAPS               = 87;
+  BIO_CTRL_DGRAM_GET_NO_TRUNC           = 88;
+  BIO_CTRL_DGRAM_SET_NO_TRUNC           = 89;
+
+{*
+ * internal BIO:
+ *   BIO_CTRL_SET_KTLS_TX_ZEROCOPY_SENDFILE 90
+ *}
+
+  BIO_CTRL_GET_RPOLL_DESCRIPTOR         = 91;
+  BIO_CTRL_GET_WPOLL_DESCRIPTOR         = 92;
+  BIO_CTRL_DGRAM_DETECT_PEER_ADDR       = 93;
+  BIO_CTRL_DGRAM_SET0_LOCAL_ADDR        = 94;
+
+  BIO_DGRAM_CAP_NONE = 0;
+
+  BIO_DGRAM_CAP_HANDLES_SRC_ADDR = 1 shl 0;
+  BIO_DGRAM_CAP_HANDLES_DST_ADDR = 1 shl 1;
+  BIO_DGRAM_CAP_PROVIDES_SRC_ADDR = 1 shl 2;
+  BIO_DGRAM_CAP_PROVIDES_DST_ADDR = 1 shl 3;
 
   (* modifiers *)
   BIO_FP_READ            = $02;
@@ -316,6 +353,25 @@ type
   PBIO_sock_info_u = ^BIO_sock_info_u;
 
   BIO_sock_info_type = (BIO_SOCK_INFO_ADDRESS);
+
+  //* BIO_sendmmsg/BIO_recvmmsg-related definitions */
+  bio_msg_st = record
+    data : Pointer;
+    data_len : TIdC_SIZET;
+    peer, local : PBIO_ADDR;
+    flags : TIdC_UINT64;
+  end;
+  BIO_MSG = bio_msg_st;
+  PBIO_MSG = ^BIO_MSG;
+
+  bio_mmsg_cb_args_st = record
+    msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET;
+    flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET;
+  end;
+  BIO_MMSG_CB_ARGS = bio_mmsg_cb_args_st;
+  PBIO_MMSG_CB_ARGS = ^BIO_MMSG_CB_ARGS;
 
   // Define a union type for the value field
   TValueUnion = record
@@ -724,6 +780,9 @@ var
   // WAS DECLARED AS:
   // BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_read_ex: function (b: PBIO; var data; dlen: TIdC_SIZET; out readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_recvmmsg: function (b : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET): TIdC_INT; cdecl = nil;
   BIO_gets: function ( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
   // WAS DECLARED AS:
   // BIO_write: function (b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -731,6 +790,12 @@ var
   // WAS DECLARED AS:
   // BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_write_ex: function (b: PBIO; const data; dlen: TIdC_SIZET; out written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_sendmmsg : function (b0 : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET) : TIdC_INT; cdecl = nil;
+  BIO_get_rpoll_descriptor : function(b : PBIO; desc : PBIO_POLL_DESCRIPTOR)  : TIdC_INT; cdecl = nil;
+  BIO_get_wpoll_descriptor : function(b : PBIO; desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl = nil;
+
   BIO_puts: function (bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; cdecl = nil;
   BIO_indent: function (b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
@@ -788,7 +853,7 @@ var
 
   BIO_sock_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_sock_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
-
+  BIO_err_is_non_fatal : function(errcode : TIdC_UINT) : TIdC_INT; cdecl = nil;
   BIO_fd_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
   BIO_fd_non_fatal_error: function (_error: TIdC_INT): TIdC_INT; cdecl = nil;
 //  function BIO_dump_cb(
@@ -1111,9 +1176,19 @@ var
   function BIO_up_ref(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_recvmmsg(b : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET): TIdC_INT;  cdecl; external CLibCrypto; {introduced 3.2.0}
   function BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+
+  function BIO_sendmmsg(b0 : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+  function BIO_get_rpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR)  : TIdC_INT; cdecl; external CLibCrypto;
+  function BIO_get_wpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl; external CLibCrypto;
+
   function BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
   function BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibCrypto;
@@ -1169,6 +1244,8 @@ var
 
   function BIO_sock_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_sock_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function BIO_err_is_non_fatal(errcode : TIdC_UINT) : TIdC_INT cdecl; external CLibCrypto;
+
 
   function BIO_fd_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_fd_non_fatal_error(_error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1296,6 +1373,10 @@ function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
 {$ENDIF}
 
+function BIO_dgram_get_local_addr_enable(b : PBIO; var penable : TIdC_INT) : TIdC_INT;
+function BIO_dgram_set_local_addr_enable(b : PBIO; enable : TIdC_INT) : TIdC_INT;
+function BIO_dgram_get_local_addr_cap(b : PBIO) : TIdC_INT;
+
 implementation
 
   uses
@@ -1304,7 +1385,25 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
+function BIO_dgram_get_local_addr_enable(b : PBIO; var penable : TIdC_INT) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := BIO_ctrl(b, BIO_CTRL_DGRAM_GET_LOCAL_ADDR_ENABLE, 0, @penable);
+end;
+
+function BIO_dgram_set_local_addr_enable(b : PBIO; enable : TIdC_INT) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := BIO_ctrl(b, BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE, enable, nil);
+end;
+
+function BIO_dgram_get_local_addr_cap(b : PBIO) : TIdC_INT;
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := BIO_ctrl(b, BIO_CTRL_DGRAM_GET_LOCAL_ADDR_CAP, 0, nil);
+end;
+
 const
   BIO_get_new_index_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   BIO_get_callback_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1317,7 +1416,11 @@ const
   BIO_get_shutdown_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   BIO_up_ref_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   BIO_read_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  BIO_recvmmsg_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   BIO_write_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  BIO_sendmmsg_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  BIO_get_rpoll_descriptor_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
+  BIO_get_wpoll_descriptor_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
   BIO_set_next_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   BIO_set_retry_reason_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   BIO_s_secmem_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -1601,9 +1704,13 @@ const
   BIO_up_ref_procname = 'BIO_up_ref'; {introduced 1.1.0}
   BIO_read_procname = 'BIO_read';
   BIO_read_ex_procname = 'BIO_read_ex'; {introduced 1.1.0}
+  BIO_recvmmsg_procname = 'BIO_recvmmsg'; {introduced 3.2.0}
   BIO_gets_procname = 'BIO_gets';
   BIO_write_procname = 'BIO_write';
   BIO_write_ex_procname = 'BIO_write_ex'; {introduced 1.1.0}
+  BIO_sendmmsg_procname = 'BIO_sendmmsg'; {introduced 3.2.0}
+  BIO_get_rpoll_descriptor_procname = 'BIO_get_rpoll_descriptor'; {introduced 3.2.0}
+  BIO_get_wpoll_descriptor_procname = 'BIO_get_wpoll_descriptor'; {introduced 3.2.0}
   BIO_puts_procname = 'BIO_puts';
   BIO_indent_procname = 'BIO_indent';
   BIO_ctrl_procname = 'BIO_ctrl';
@@ -1659,6 +1766,7 @@ const
 
   BIO_sock_should_retry_procname = 'BIO_sock_should_retry';
   BIO_sock_non_fatal_error_procname = 'BIO_sock_non_fatal_error';
+  BIO_err_is_non_fatal_procname = 'BIO_err_is_non_fatal';
 
   BIO_fd_should_retry_procname = 'BIO_fd_should_retry';
   BIO_fd_non_fatal_error_procname = 'BIO_fd_non_fatal_error';
@@ -1880,7 +1988,7 @@ begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
 end;
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_flags_procname);
@@ -2377,9 +2485,17 @@ begin
 end;
 
 
-function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
+function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_read_ex_procname);
+end;
+
+ {introduced 3.2.0}
+function ERR_BIO_recvmmsg(b : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET): TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_recvmmsg_procname);
 end;
 
  {introduced 1.1.0}
@@ -2398,6 +2514,24 @@ end;
 function  ERR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_write_ex_procname);
+end;
+
+ {introduced 3.2.0}
+function ERR_BIO_sendmmsg(b0 : PBIO; msg : PBIO_MSG;
+    stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
+    msgs_processed : PIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sendmmsg_procname);
+end;
+
+function ERR_BIO_get_rpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR)  : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_rpoll_descriptor_procname);
+end;
+
+function ERR_BIO_get_wpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_wpoll_descriptor_procname);
 end;
 
  {introduced 1.1.0}
@@ -2655,7 +2789,10 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_non_fatal_error_procname);
 end;
 
-
+function ERR_BIO_err_is_non_fatal(errcode : TIdC_UINT) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_err_is_non_fatal_procname);
+end;
 
 function  ERR_BIO_fd_should_retry(i: TIdC_INT): TIdC_INT; 
 begin
@@ -2969,7 +3106,7 @@ end;
 //                                 long (*callback_ctrl) (BIO *, int,
 //                                                        BIO_info_cb *));
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -4671,6 +4808,37 @@ begin
     {$ifend}
   end;
 
+  BIO_recvmmsg := LoadLibFunction(ADllHandle, BIO_recvmmsg_procname);
+  FuncLoadError := not assigned(BIO_recvmmsg);
+  if FuncLoadError then
+  begin
+    {$if not defined(BIO_recvmmsg_allownil)}
+    BIO_recvmmsg := @ERR_BIO_recvmmsg;
+    {$ifend}
+    {$if declared(BIO_recvmmsg_introduced)}
+    if LibVersion < BIO_recvmmsg_introduced then
+    begin
+      {$if declared(FC_BIO_recvmmsg)}
+      BIO_recvmmsg := @FC_BIO_recvmmsg;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(BIO_recvmmsg_removed)}
+    if BIO_recvmmsg_removed <= LibVersion then
+    begin
+      {$if declared(_BIO_recvmmsg)}
+      BIO_recvmmsg := @_BIO_recvmmsg;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(BIO_recvmmsg_allownil)}
+    if FuncLoadError then
+      AFailed.Add('BIO_recvmmsg');
+    {$ifend}
+  end;
+
  {introduced 1.1.0}
   BIO_gets := LoadLibFunction(ADllHandle, BIO_gets_procname);
   FuncLoadError := not assigned(BIO_gets);
@@ -4764,6 +4932,99 @@ begin
     {$if not defined(BIO_write_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_write_ex');
+    {$ifend}
+  end;
+
+  BIO_sendmmsg := LoadLibFunction(ADllHandle, BIO_sendmmsg_procname);
+  FuncLoadError := not assigned(BIO_sendmmsg);
+  if FuncLoadError then
+  begin
+    {$if not defined(BIO_sendmmsg_allownil)}
+    BIO_sendmmsg := @ERR_BIO_sendmmsg;
+    {$ifend}
+    {$if declared(BIO_sendmmsg_introduced)}
+    if LibVersion < BIO_sendmmsg_introduced then
+    begin
+      {$if declared(FC_BIO_sendmmsg)}
+      BIO_sendmmsg := @FC_BIO_sendmmsg;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(BIO_sendmmsg_removed)}
+    if BIO_sendmmsg_removed <= LibVersion then
+    begin
+      {$if declared(_BIO_sendmmsg)}
+      BIO_sendmmsg := @_BIO_sendmmsg;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(BIO_sendmmsg_allownil)}
+    if FuncLoadError then
+      AFailed.Add('BIO_sendmmsg');
+    {$ifend}
+  end;
+
+  BIO_get_rpoll_descriptor := LoadLibFunction(ADllHandle, BIO_get_rpoll_descriptor_procname);
+  FuncLoadError := not assigned(BIO_get_rpoll_descriptor);
+  if FuncLoadError then
+  begin
+    {$if not defined(BIO_get_rpoll_descriptor_allownil)}
+    BIO_get_rpoll_descriptor := @ERR_BIO_get_rpoll_descriptor;
+    {$ifend}
+    {$if declared(BIO_get_rpoll_descriptor_introduced)}
+    if LibVersion < BIO_get_rpoll_descriptor_introduced then
+    begin
+      {$if declared(FC_BIO_get_rpoll_descriptor)}
+      BIO_get_rpoll_descriptor := @FC_BIO_get_rpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(BIO_get_rpoll_descriptor_removed)}
+    if BIO_get_rpoll_descriptor_removed <= LibVersion then
+    begin
+      {$if declared(_BIO_get_rpoll_descriptor)}
+      BIO_get_rpoll_descriptor := @_BIO_get_rpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(BIO_get_rpoll_descriptor_allownil)}
+    if FuncLoadError then
+      AFailed.Add('BIO_get_rpoll_descriptor');
+    {$ifend}
+  end;
+
+  BIO_get_wpoll_descriptor := LoadLibFunction(ADllHandle, BIO_get_wpoll_descriptor_procname);
+  FuncLoadError := not assigned(BIO_get_wpoll_descriptor);
+  if FuncLoadError then
+  begin
+    {$if not defined(BIO_get_wpoll_descriptor_allownil)}
+    BIO_get_wpoll_descriptor := @ERR_BIO_get_wpoll_descriptor;
+    {$ifend}
+    {$if declared(BIO_get_wpoll_descriptor_introduced)}
+    if LibVersion < BIO_get_wpoll_descriptor_introduced then
+    begin
+      {$if declared(FC_BIO_get_wpoll_descriptor)}
+      BIO_get_wpoll_descriptor := @FC_BIO_get_wpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(BIO_get_wpoll_descriptor_removed)}
+    if BIO_get_wpoll_descriptor_removed <= LibVersion then
+    begin
+      {$if declared(_BIO_get_wpoll_descriptor)}
+      BIO_get_wpoll_descriptor := @_BIO_get_wpoll_descriptor;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(BIO_get_wpoll_descriptor_allownil)}
+    if FuncLoadError then
+      AFailed.Add('BIO_get_wpoll_descriptor');
     {$ifend}
   end;
 
@@ -6047,6 +6308,36 @@ begin
     {$ifend}
   end;
 
+  BIO_err_is_non_fatal := LoadLibFunction(ADllHandle,BIO_err_is_non_fatal_procname);
+  FuncLoadError := not assigned(BIO_err_is_non_fatal);
+  if FuncLoadError then
+  begin
+    {$if not defined(BIO_err_is_non_fatal_allownil)}
+    BIO_err_is_non_fatal := @ERR_BIO_err_is_non_fatal;
+    {$ifend}
+    {$if declared(BIO_err_is_non_fatal_introduced)}
+    if LibVersion < BIO_err_is_non_fatal_introduced then
+    begin
+      {$if declared(FC_BIO_err_is_non_fatal)}
+      BIO_err_is_non_fatal := @FC_BIO_err_is_non_fatal;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(BIO_err_is_non_fatal_removed)}
+    if BIO_err_is_non_fatal_removed <= LibVersion then
+    begin
+      {$if declared(_BIO_err_is_non_fatal)}
+      BIO_err_is_non_fatal := @_BIO_err_is_non_fatal;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(BIO_err_is_non_fatal_allownil)}
+    if FuncLoadError then
+      AFailed.Add('BIO_err_is_non_fatal');
+    {$ifend}
+  end;
 
   BIO_fd_should_retry := LoadLibFunction(ADllHandle, BIO_fd_should_retry_procname);
   FuncLoadError := not assigned(BIO_fd_should_retry);
@@ -7449,9 +7740,13 @@ begin
   BIO_up_ref := nil; {introduced 1.1.0}
   BIO_read := nil;
   BIO_read_ex := nil; {introduced 1.1.0}
+  BIO_recvmmsg := nil; {introduced 3.2.0}
   BIO_gets := nil;
   BIO_write := nil;
   BIO_write_ex := nil; {introduced 1.1.0}
+  BIO_sendmmsg := nil;
+  BIO_get_rpoll_descriptor := nil;
+  BIO_get_wpoll_descriptor := nil;
   BIO_puts := nil;
   BIO_indent := nil;
   BIO_ctrl := nil;

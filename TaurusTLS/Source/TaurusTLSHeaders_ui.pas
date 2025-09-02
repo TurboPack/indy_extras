@@ -1149,7 +1149,7 @@ const
   UI_UTIL_read_pw_procname = 'UI_UTIL_read_pw';
   UI_UTIL_wrap_read_pem_callback_procname = 'UI_UTIL_wrap_read_pem_callback';
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 
 function ERR_UI_new: PUI;
 begin
@@ -1667,8 +1667,8 @@ begin
     (UI_UTIL_wrap_read_pem_callback_procname);
 end;
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);
 
@@ -3707,7 +3707,7 @@ begin
   UI_UTIL_read_pw := nil;
   UI_UTIL_wrap_read_pem_callback := nil;
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 

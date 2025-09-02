@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -189,7 +189,7 @@ const
 
   RAND_poll_procname = 'RAND_poll';
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function FC_RAND_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
 begin
@@ -201,9 +201,9 @@ function FC_RAND_priv_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
 begin
    Result := RAND_priv_bytes(PByte(buf),TIdC_INT(num));
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_RAND_set_rand_method(const meth: PRAND_METHOD): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RAND_set_rand_method_procname);
@@ -314,8 +314,8 @@ end;
 
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
 var FuncLoadError: boolean;
@@ -893,7 +893,7 @@ begin
     {$ifend}
   end;
 end;
-  {$i TaurusTLSUnusedParamOn.inc}
+  {$I TaurusTLSUnusedParamOn.inc}
 procedure Unload;
 begin
   RAND_set_rand_method := nil;

@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -27,7 +27,7 @@ interface
 // async.h
 
 
-{$i TaurusTLSUnusedUnitOff.inc}
+{$I TaurusTLSUnusedUnitOff.inc}
 uses
   IdCTypes,
   IdGlobal,
@@ -35,7 +35,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_types;
-{$i TaurusTLSUnusedUnitOn.inc}
+{$I TaurusTLSUnusedUnitOn.inc}
 
 const
   ASYNC_ERR = 0;
@@ -180,7 +180,7 @@ const
   ASYNC_unblock_pause_procname = 'ASYNC_unblock_pause'; {introduced 1.1.0}
 
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_ASYNC_init_thread(max_size: TIdC_SIZET; init_size: TIdC_SIZET): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_init_thread_procname);
@@ -282,7 +282,7 @@ end;
 
  {introduced 1.1.0}
 
- {$i TaurusTLSNoRetValOn.inc}
+ {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

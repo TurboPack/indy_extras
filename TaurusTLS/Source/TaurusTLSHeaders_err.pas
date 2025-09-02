@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -418,7 +418,7 @@ const
   X509err_procname = 'X509err'; {removed 1.0.0}
   ERR_GET_REASON_procname = 'ERR_GET_REASON'; {removed 1.0.0}
 
-{$i TaurusTLSNoRetValOff.inc}
+{$I TaurusTLSNoRetValOff.inc}
 
 procedure  _SSLErr(func: TIdC_INT; reason: TIdC_INT); cdecl;
 begin
@@ -670,7 +670,7 @@ end;
 
  
 
-{$i TaurusTLSNoRetValOn.inc}
+{$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

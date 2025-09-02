@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -506,7 +506,7 @@ const
   PKCS12_newpass_procname = 'PKCS12_newpass';
 
 
-  {$i TaurusTLSNoRetValOff.inc}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_PKCS12_mac_present(const p12: PPKCS12): TIdC_INT; 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_mac_present_procname);
@@ -952,7 +952,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_newpass_procname);
 end;
 
-{$i TaurusTLSNoRetValOn.inc}
+{$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 

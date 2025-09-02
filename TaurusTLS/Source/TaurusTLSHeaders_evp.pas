@@ -5,8 +5,8 @@
      Distribution.
    *)
    
-{$i TaurusTLSCompilerDefines.inc} 
-{$i TaurusTLSLinkDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -3668,7 +3668,7 @@ const
 
 {function introduced - compatibility}
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
   Result:=EVP_get_cipherbyname(algorithm);
@@ -3782,7 +3782,7 @@ function FC_EVP_CIPHER_CTX_is_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT;
 begin
   Result:=EVP_CIPHER_CTX_encrypting(ctx);
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 {function removals - compatability}
 
 {$DEFINE EVP_md2_allownil} {removed 1.1.0 allow_nil}
@@ -3931,15 +3931,15 @@ begin
   Result := EVP_CIPHER_get_flags(cipher);
 end;
 
-{$i TaurusTLSUnusedParamOff.inc}
+{$I TaurusTLSUnusedParamOff.inc}
 function FC_d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
     libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY;
 begin
   Result :=  d2i_AutoPrivateKey(a,pp,_length);
 end;
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_assign_RSA_procname);
@@ -7360,7 +7360,7 @@ end;
 
  
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -25142,7 +25142,7 @@ begin
   BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));
 end;
 
- {$i TaurusTLSNoRetValOff.inc}
+ {$I TaurusTLSNoRetValOff.inc}
 {$IFNDEF OPENSSL_NO_MD2}
 function EVP_md2: PEVP_MD;
 begin
@@ -25163,7 +25163,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ROSUnsupported);
 end;
 {$ENDIF}
- {$i TaurusTLSNoRetValOn.inc}
+ {$I TaurusTLSNoRetValOn.inc}
 
 {$ENDIF}
 

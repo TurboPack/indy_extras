@@ -3135,7 +3135,7 @@ const
 
 
 
-  {$i TaurusTLSUnusedParamOff.inc}
+  {$I TaurusTLSUnusedParamOff.inc}
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 function  _X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; cdecl;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3170,9 +3170,9 @@ begin
   Result := d2i_PrivateKey_bio(bp,a);
 end;
 
-{$i TaurusTLSUnusedParamOn.inc}
+{$I TaurusTLSUnusedParamOn.inc}
 {/forward_compatibility}
-  {$i TaurusTLSNoRetValOff.inc} 
+  {$I TaurusTLSNoRetValOff.inc} 
 procedure  ERR_X509_CRL_set_default_method(const meth: PX509_CRL_METHOD); 
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_default_method_procname);
@@ -5658,7 +5658,7 @@ end;
  {introduced 3.0.0}
 
 
-  {$i TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc} 
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
