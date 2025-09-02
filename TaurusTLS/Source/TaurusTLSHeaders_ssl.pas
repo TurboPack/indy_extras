@@ -6426,6 +6426,17 @@ begin
   Result :=  _PSSL_CTX(ctx)^.cert_store;
 end;
 
+function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl;
+begin
+  Result := DTLSv1_get_timeout(s,tv);
+end;
+
+function FC_SSL_handle_events(s : PSSL) : TIdC_INT cdecl;  {introduced 3.2.0}
+begin
+  Result := DTLSv1_handle_timeout(s);
+end;
+
+
 {$I TaurusTLSUnusedParamOn.inc}
 
 const
@@ -7391,11 +7402,6 @@ end;
 
   //DECLARE_PEM_rw(SSL_SESSION, SSL_SESSION)
 
-  //# define DTLSv1_get_timeout(ssl, arg) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_GET_TIMEOUT,0, (void *)(arg))
-  //# define DTLSv1_handle_timeout(ssl) \
-  //        SSL_ctrl(ssl,DTLS_CTRL_HANDLE_TIMEOUT,0, NULL)
-  //
   ///* Backwards compatibility, original 1.1.0 names */
   //# define SSL_CTRL_GET_SERVER_TMP_KEY \
   //         SSL_CTRL_GET_PEER_TMP_KEY
