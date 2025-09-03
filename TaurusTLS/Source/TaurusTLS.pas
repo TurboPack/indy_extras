@@ -233,7 +233,11 @@ interface
 uses
   // facilitate inlining only.
 {$IFDEF WINDOWS}
+{$IFDEF DCC}
+  WinAPI.Windows,
+{$ELSE}
   Windows,
+{$ENDIF}
 {$ENDIF}
   Classes,
   IdCTypes,

@@ -53,7 +53,7 @@ uses
     {$ENDIF}
   {$ENDIF}
   {$IFDEF WINDOWS}
-  Windows,
+  {$IFDEF DCC}WinAPI.Windows{$ELSE}Windows{$ENDIF},
   {$ENDIF}
   {$IFDEF FPC}
   LResources,

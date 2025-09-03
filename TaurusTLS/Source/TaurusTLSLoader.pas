@@ -200,7 +200,7 @@ uses
   {$ENDIF}
   TaurusTLS_ResourceStrings
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-{$IFDEF WINDOWS}, Windows{$ENDIF}
+{$IFDEF WINDOWS}, {$IFDEF DCC}WinAPI.Windows {$ELSE}Windows{$ENDIF}{$ENDIF}
 {$IFDEF FPC}, dynlibs{$ELSE}
   {$IFDEF VCL_2010_OR_ABOVE}, System.IOUtils
   {$ENDIF}
