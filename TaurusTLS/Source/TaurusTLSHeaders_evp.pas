@@ -2346,7 +2346,7 @@ var
   function d2i_PrivateKey(type_: TIdC_INT; a: PEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function d2i_AutoPrivateKey(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY cdecl; external CLibCrypto;
   function d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
-    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl = nil;
+    libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl;  external CLibCrypto;
   function i2d_PrivateKey(a: PEVP_PKEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function i2d_KeyParams_bio(pb : PBIO; const pkey : PEVP_PKEY) : TIdC_INT;  cdecl; external CLibCrypto;
   function d2i_KeyParams_bio(type_ : TIdC_INT; var a : PEVP_PKEY; in_ : PBIO) : PEVP_PKEY;  cdecl; external CLibCrypto;
