@@ -1309,7 +1309,7 @@ var
   EVP_OpenInit: function (ctx: PEVP_CIPHER_CTX; const type_: PEVP_CIPHER; const ek: PByte; ek1: TIdC_INT; const iv: PByte; priv: PEVP_PKEY): TIdC_INT; cdecl = nil;
   EVP_OpenFinal: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
-  EVP_SealInit: function (ctx: PEVP_CIPHER_CTX; const type_: EVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT; cdecl = nil;
+  EVP_SealInit: function (ctx: PEVP_CIPHER_CTX; const type_: PEVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT; cdecl = nil;
   EVP_SealFinal: function (ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT; cdecl = nil;
 
   EVP_ENCODE_CTX_new: function : PEVP_ENCODE_CTX; cdecl = nil; {introduced 1.1.0}
@@ -2049,7 +2049,7 @@ var
   function EVP_OpenInit(ctx: PEVP_CIPHER_CTX; const type_: PEVP_CIPHER; const ek: PByte; ek1: TIdC_INT; const iv: PByte; priv: PEVP_PKEY): TIdC_INT cdecl; external CLibCrypto;
   function EVP_OpenFinal(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
-  function EVP_SealInit(ctx: PEVP_CIPHER_CTX; const type_: EVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_SealInit(ctx: PEVP_CIPHER_CTX; const type_: PEVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function EVP_SealFinal(ctx: PEVP_CIPHER_CTX; var out_; var out1: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
 
   function EVP_ENCODE_CTX_new: PEVP_ENCODE_CTX cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -3680,24 +3680,6 @@ begin
   // it does nothing as EVP_get_cipherbyname does not initialize the cipher
 end;
 
-function  FC_EVP_MD_CTX_new: PEVP_MD_CTX; cdecl;
-begin
-  Result := AllocMem(SizeOf(EVP_MD_CTX));
-  EVP_MD_CTX_init(Result);
-end;
-
-procedure  FC_EVP_MD_CTX_free(ctx: PEVP_MD_CTX); cdecl;
-begin
-  EVP_MD_CTX_cleanup(ctx);
-  FreeMem(ctx,SizeOf(EVP_MD_CTX));
-end;
-
-function FC_EVP_CIPHER_CTX_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT; cdecl;
-begin
-  //TODO not sure about this.
-  Result := 0;
-end;
-
 function FC_EVP_CIPHER_get_nid(const cipher : PEVP_CIPHER) : TIdC_INT; cdecl;
 begin
   Result := EVP_CIPHER_nid(cipher);
@@ -4881,7 +4863,7 @@ end;
 
 
 
-function  ERR_EVP_SealInit(ctx: PEVP_CIPHER_CTX; const type_: EVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_SealInit(ctx: PEVP_CIPHER_CTX; const type_: PEVP_CIPHER; ek: PPByte; ek1: PIdC_INT; iv: PByte; pubk: PPEVP_PKEY; npubk: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_SealInit_procname);
 end;

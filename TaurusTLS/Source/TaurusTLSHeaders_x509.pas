@@ -481,9 +481,8 @@ type
 
   PX509_CERT_AUX = pointer;
 
-   _PX509 = ^X509;
 
-X509 = record
+{X509 = record
     cert_info: PX509_CINF;
     sig_alg : PX509_ALGOR;
     signature : PASN1_BIT_STRING;
@@ -504,15 +503,15 @@ X509 = record
     crldp : PSTACK_OF_DIST_POINT;
     altname : PSTACK_OF_GENERAL_NAME;
     nc : PNAME_CONSTRAINTS;
-    {$IFNDEF OPENSSL_NO_RFC3779}
-    rfc3779_addr : PSTACK_OF_IPAddressFamily;
+//    {$IFNDEF OPENSSL_NO_RFC3779}
+{    rfc3779_addr : PSTACK_OF_IPAddressFamily;
     rfc3779_asid : PASIdentifiers;
-    {$ENDIF}
-    {$IFNDEF OPENSSL_NO_SHA}
-    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of TIdAnsiChar;
-    {$ENDIF}
-    aux : PX509_CERT_AUX;
-  end;
+//    {$ENDIF}
+//    {$IFNDEF OPENSSL_NO_SHA}
+//    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of TIdAnsiChar;
+//    {$ENDIF}
+//    aux : PX509_CERT_AUX;
+//  end;       }
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		
@@ -1281,14 +1280,14 @@ var
   d2i_RSA_PUBKEY_bio: function (bp: PBIO; rsa: PPRSA): PRSA; cdecl = nil;
   i2d_RSA_PUBKEY_bio: function (bp: PBIO; rsa: PRSA): TIdC_INT; cdecl = nil;
 
-  d2i_DSA_PUBKEY_bio: function (bp: PBIO; dsa: PPDSA): DSA; cdecl = nil;
+  d2i_DSA_PUBKEY_bio: function (bp: PBIO; dsa: PPDSA): PDSA; cdecl = nil;
   i2d_DSA_PUBKEY_bio: function (bp: PBIO; dsa: PDSA): TIdC_INT; cdecl = nil;
   d2i_DSAPrivateKey_bio: function (bp: PBIO; dsa: PPDSA): PDSA; cdecl = nil;
   i2d_DSAPrivateKey_bio: function (bp: PBIO; dsa: PDSA): TIdC_INT; cdecl = nil;
 
   d2i_EC_PUBKEY_bio: function (bp: PBIO; eckey: PPEC_KEY): PEC_KEY; cdecl = nil;
   i2d_EC_PUBKEY_bio: function (bp: PBIO; eckey: PEC_KEY): TIdC_INT; cdecl = nil;
-  d2i_ECPrivateKey_bio: function (bp: PBIO; eckey: PPEC_KEY): EC_KEY; cdecl = nil;
+  d2i_ECPrivateKey_bio: function (bp: PBIO; eckey: PPEC_KEY): PEC_KEY; cdecl = nil;
   i2d_ECPrivateKey_bio: function (bp: PBIO; eckey: PEC_KEY): TIdC_INT; cdecl = nil;
 
   d2i_PKCS8_bio: function (bp: PBIO; p8: PPX509_SIG): PX509_SIG; cdecl = nil;
@@ -1363,7 +1362,7 @@ var
   i2d_DSA_PUBKEY: function (a: PDSA; pp: PPByte): TIdC_INT; cdecl = nil;
   d2i_DSA_PUBKEY: function (a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl = nil;
 
-  i2d_EC_PUBKEY: function (a: EC_KEY; pp: PPByte): TIdC_INT; cdecl = nil;
+  i2d_EC_PUBKEY: function (a: PEC_KEY; pp: PPByte): TIdC_INT; cdecl = nil;
   d2i_EC_PUBKEY: function (a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY; cdecl = nil;
 
   X509_SIG_new: function : PX509_SIG; cdecl = nil;
@@ -1547,7 +1546,7 @@ var
   X509_REQ_add_extensions : function(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT; cdecl = nil;
   X509_REQ_get_attr_count: function (const req: PX509_REQ): TIdC_INT; cdecl = nil;
   X509_REQ_get_attr_by_NID: function (const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
-  X509_REQ_get_attr_by_OBJ: function (const req: PX509_REQ; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509_REQ_get_attr_by_OBJ: function (const req: PX509_REQ; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_REQ_get_attr: function (const req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE; cdecl = nil;
   X509_REQ_delete_attr: function (req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE; cdecl = nil;
   X509_REQ_add1_attr: function (req: PX509_REQ; attr: PX509_ATTRIBUTE): TIdC_INT; cdecl = nil;
@@ -1677,7 +1676,7 @@ var
 
   X509_CRL_get_ext_count: function (const x: PX509_CRL): TIdC_INT; cdecl = nil;
   X509_CRL_get_ext_by_NID: function (const x: PX509_CRL; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
-  X509_CRL_get_ext_by_OBJ: function (const x: X509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509_CRL_get_ext_by_OBJ: function (const x: PX509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_CRL_get_ext_by_critical: function (const x: PX509_CRL; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_CRL_get_ext: function (const x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION; cdecl = nil;
   X509_CRL_delete_ext: function (x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION; cdecl = nil;
@@ -1905,14 +1904,14 @@ var
   function d2i_RSA_PUBKEY_bio(bp: PBIO; rsa: PPRSA): PRSA cdecl; external CLibCrypto;
   function i2d_RSA_PUBKEY_bio(bp: PBIO; rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
 
-  function d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): DSA cdecl; external CLibCrypto;
+  function d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): PDSA cdecl; external CLibCrypto;
   function i2d_DSA_PUBKEY_bio(bp: PBIO; dsa: PDSA): TIdC_INT cdecl; external CLibCrypto;
   function d2i_DSAPrivateKey_bio(bp: PBIO; dsa: PPDSA): PDSA cdecl; external CLibCrypto;
   function i2d_DSAPrivateKey_bio(bp: PBIO; dsa: PDSA): TIdC_INT cdecl; external CLibCrypto;
 
   function d2i_EC_PUBKEY_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY cdecl; external CLibCrypto;
   function i2d_EC_PUBKEY_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): EC_KEY cdecl; external CLibCrypto;
+  function d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY cdecl; external CLibCrypto;
   function i2d_ECPrivateKey_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT cdecl; external CLibCrypto;
 
   function d2i_PKCS8_bio(bp: PBIO; p8: PPX509_SIG): PX509_SIG cdecl; external CLibCrypto;
@@ -1988,7 +1987,7 @@ var
   function i2d_DSA_PUBKEY(a: PDSA; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA cdecl; external CLibCrypto;
 
-  function i2d_EC_PUBKEY(a: EC_KEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
+  function i2d_EC_PUBKEY(a: PEC_KEY; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
   function d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY cdecl; external CLibCrypto;
 
   function X509_SIG_new: PX509_SIG cdecl; external CLibCrypto;
@@ -2172,7 +2171,7 @@ var
   function X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr_by_NID(const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_REQ_get_attr(const req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE cdecl; external CLibCrypto;
   function X509_REQ_delete_attr(req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE cdecl; external CLibCrypto;
   function X509_REQ_add1_attr(req: PX509_REQ; attr: PX509_ATTRIBUTE): TIdC_INT cdecl; external CLibCrypto;
@@ -2301,7 +2300,7 @@ var
 
   function X509_CRL_get_ext_count(const x: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
   function X509_CRL_get_ext_by_NID(const x: PX509_CRL; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_CRL_get_ext_by_OBJ(const x: X509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function X509_CRL_get_ext_by_OBJ(const x: PX509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_CRL_get_ext_by_critical(const x: PX509_CRL; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_CRL_get_ext(const x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION cdecl; external CLibCrypto;
   function X509_CRL_delete_ext(x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION cdecl; external CLibCrypto;
@@ -3143,27 +3142,6 @@ begin
   Result := X509_NAME_hash_ex(x,nil,nil,nil);
 end;
 
-procedure  FC_X509_get0_signature(out sig: PASN1_BIT_STRING; out alg: PX509_ALGOR; const x: PX509); cdecl;
-begin
-  sig := _PX509(x)^.signature;
-  alg := _PX509(x)^.sig_alg;
-end;
-
-function  FC_X509_get0_notBefore(const x: PX509): PASN1_TIME; cdecl;
-begin
-  Result := _PX509(x)^.cert_info.validity.notBefore;
-end;
-
-function  FC_X509_get0_notAfter(const x: PX509): PASN1_TIME; cdecl;
-begin
-  Result := _PX509(x)^.cert_info.validity.notAfter;
-end;
-
-function  FC_X509_get_signature_type(const x: PX509): TIdC_INT; cdecl;
-begin
-  Result := EVP_PKEY_type(OBJ_obj2nid(_PX509(x)^.sig_alg^.algorithm));
-end;
-
 function FC_d2i_PrivateKey_ex_bio(bp : PBIO; a :PPEVP_PKEY;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY;  cdecl;
 begin
@@ -3447,7 +3425,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSA_PUBKEY_bio_procname);
 end;
 
-function  ERR_d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): DSA; 
+function  ERR_d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): PDSA;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_PUBKEY_bio_procname);
 end;
@@ -3477,7 +3455,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_EC_PUBKEY_bio_procname);
 end;
 
-function  ERR_d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): EC_KEY; 
+function  ERR_d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ECPrivateKey_bio_procname);
 end;
@@ -3851,7 +3829,7 @@ end;
 
 
 
-function  ERR_i2d_EC_PUBKEY(a: EC_KEY; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_EC_PUBKEY(a: PEC_KEY; pp: PPByte): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_EC_PUBKEY_procname);
 end;
@@ -4660,7 +4638,7 @@ begin
 end;
 
 
-function  ERR_X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_by_OBJ_procname);
 end;
@@ -5205,7 +5183,7 @@ begin
 end;
 
 
-function  ERR_X509_CRL_get_ext_by_OBJ(const x: X509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_CRL_get_ext_by_OBJ(const x: PX509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_by_OBJ_procname);
 end;

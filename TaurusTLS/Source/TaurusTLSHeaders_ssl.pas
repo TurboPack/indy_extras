@@ -1009,7 +1009,7 @@ type
    * This is needed to stop compilers complaining about the 'struct ssl_st *'
    * function parameters used to prototype callbacks in SSL_CTX.
    *)
-  ssl_crock_st = ^ssl_st;
+  ssl_crock_st = PSSL;
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
   PSSL_METHOD = type pointer;
   PSSL_CIPHER = type pointer;
@@ -3016,7 +3016,7 @@ var
   function SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT cdecl; external CLibSSL;
   function SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-  function SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : EVP_PKEY;
+  function SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
                                    chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT cdecl; external CLibSSL;
 
   (* Set serverinfo data for the current active cert. *)
@@ -3567,7 +3567,7 @@ var
   function SSL_CTX_set_ctlog_list_file(ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
   procedure SSL_CTX_set0_ctlog_store(ctx: PSSL_CTX; logs: PCTLOG_STORE) cdecl; external CLibSSL; {introduced 1.1.0}
 
-  function SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : CTLOG_STORE cdecl; external CLibSSL;
+  function SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : PCTLOG_STORE cdecl; external CLibSSL;
 
   // # endif /* OPENSSL_NO_CT */
 
@@ -6211,186 +6211,11 @@ type
     srp_Mask : TIdC_ULONG;
 	end;
 
-  _PSSL_CTX = ^SSL_CTX;
-  SSL_CTX = record
-    method: PSSL_METHOD;
-    cipher_list: PSTACK_OF_SSL_CIPHER;
-    // same as above but sorted for lookup
-    cipher_list_by_id: PSTACK_OF_SSL_CIPHER;
-    cert_store: PX509_STORE;
-    sessions: Plash_of_SSL_SESSION;
-    // a set of SSL_SESSIONs
-    // Most session-ids that will be cached, default is
-    // SSL_SESSION_CACHE_MAX_SIZE_DEFAULT. 0 is unlimited.
-    session_cache_size: TIdC_ULONG;
-    session_cache_head: PSSL_SESSION;
-    session_cache_tail: PSSL_SESSION;
-    // This can have one of 2 values, ored together,
-    // SSL_SESS_CACHE_CLIENT,
-    // SSL_SESS_CACHE_SERVER,
-    // Default is SSL_SESSION_CACHE_SERVER, which means only
-    // SSL_accept which cache SSL_SESSIONS.
-    session_cache_mode: TIdC_INT;
-    session_timeout: TIdC_LONG;
-    // If this callback is not null, it will be called each
-    // time a session id is added to the cache.  If this function
-    // returns 1, it means that the callback will do a
-    // SSL_SESSION_free() when it has finished using it.  Otherwise,
-    // on 0, it means the callback has finished with it.
-    // If remove_session_cb is not null, it will be called when
-    // a session-id is removed from the cache.  After the call,
-    // TaurusTLS will SSL_SESSION_free() it.
-    new_session_cb: function (ssl : PSSL; sess: PSSL_SESSION): TIdC_INT; cdecl;
-    remove_session_cb: procedure (ctx : PSSL_CTX; sess : PSSL_SESSION); cdecl;
-    get_session_cb: function (ssl : PSSL; data : PByte; len: TIdC_INT; _copy : PIdC_INT) : PSSL_SESSION; cdecl;
-    stats : SSL_CTX_stats;
-
-    references: TIdC_INT;
-    // if defined, these override the X509_verify_cert() calls
-    app_verify_callback: function (_para1 : PX509_STORE_CTX; _para2 : Pointer) : TIdC_INT; cdecl;
-    app_verify_arg: Pointer;
-    // before TaurusTLS 0.9.7, 'app_verify_arg' was ignored
-    // ('app_verify_callback' was called with just one argument)
-    // Default password callback.
-    default_passwd_callback: pem_password_cb;
-    // Default password callback user data.
-    default_passwd_callback_userdata: Pointer;
-    // get client cert callback
-    client_cert_cb: function (SSL : PSSL; x509 : PPX509; pkey : PPEVP_PKEY) : TIdC_INT; cdecl;
-    // verify cookie callback
-    app_gen_cookie_cb: function (ssl : PSSL; cookie : PByte; cookie_len : TIdC_UINT) : TIdC_INT; cdecl;
-    app_verify_cookie_cb: Pointer;
-    ex_data : CRYPTO_EX_DATA;
-    rsa_md5 : PEVP_MD; // For SSLv2 - name is 'ssl2-md5'
-    md5: PEVP_MD; // For SSLv3/TLSv1 'ssl3-md5'
-    sha1: PEVP_MD; // For SSLv3/TLSv1 'ssl3->sha1'
-    extra_certs: PSTACK_OF_X509;
-    comp_methods: PSTACK_OF_COMP; // stack of SSL_COMP, SSLv3/TLSv1
-    // Default values used when no per-SSL value is defined follow
-    info_callback: PSSL_CTX_info_callback; // used if SSL's info_callback is NULL
-    // what we put in client cert requests
-    client_CA : PSTACK_OF_X509_NAME;
-    // Default values to use in SSL structures follow (these are copied by SSL_new)
-    options : TIdC_ULONG;
-    mode : TIdC_ULONG;
-    max_cert_list : TIdC_LONG;
-    cert : PCERT;
-    read_ahead : TIdC_INT;
-    // callback that allows applications to peek at protocol messages
-    msg_callback : Tmsg_callback;
-    msg_callback_arg : Pointer;
-    verify_mode : TIdC_INT;
-    sid_ctx_length : TIdC_UINT;
-    sid_ctx : array[0..SSL_MAX_SID_CTX_LENGTH - 1] of TIdAnsiChar;
-    default_verify_callback : function(ok : TIdC_INT; ctx : PX509_STORE_CTX) : TIdC_INT; cdecl; // called 'verify_callback' in the SSL
-    // Default generate session ID callback.
-    generate_session_id : PGEN_SESSION_CB;
-    param : PX509_VERIFY_PARAM;
-    {$IFDEF OMIT_THIS}
-    purpose : TIdC_INT;  // Purpose setting
-    trust : TIdC_INT;    // Trust setting
-    {$ENDIF}
-
-    quiet_shutdown : TIdC_INT;
-	//* Maximum amount of data to send in one fragment.
-	// * actual record size can be more than this due to
-	// * padding and MAC overheads.
-	// */
-	  max_send_fragment : TIdC_UINT;
-    {$IFNDEF OPENSSL_ENGINE}
-	///* Engine to pass requests for client certs to
-	// */
-	  client_cert_engine : PENGINE;
-    {$ENDIF}
-//* TLS extensions servername callback */
-    tlsext_servername_callback : PSSL_CTEX_tlsext_servername_callback;
-    tlsext_servername_arg : Pointer;
-    //* RFC 4507 session ticket keys */
-    tlsext_tick_key_name : array [0..(16-1)] of TIdAnsiChar;
-    tlsext_tick_hmac_key : array [0..(16-1)] of TIdAnsiChar;
-    tlsext_tick_aes_key : array [0..(16-1)] of TIdAnsiChar;
-	//* Callback to support customisation of ticket key setting */
- //	int (*tlsext_ticket_key_cb)(SSL *ssl,
- //					unsigned char *name, unsigned char *iv,
- //					EVP_CIPHER_CTX *ectx,
- //					HMAC_CTX *hctx, int enc);
-    tlsext_ticket_key_cb : Ptlsext_ticket_key_cb;
-	//* certificate status request info */
-	//* Callback for status request */
-	//int (*tlsext_status_cb)(SSL *ssl, void *arg);
-    tlsext_status_cb : Ptlsext_status_cb;
-	  tlsext_status_arg : Pointer;
-	//* draft-rescorla-tls-opaque-prf-input-00.txt information */
-     tlsext_opaque_prf_input_callback : function(para1 : PSSL; peerinput : Pointer; len : TIdC_SIZET; arg : Pointer ) : TIdC_INT cdecl;
-	//int (*tlsext_opaque_prf_input_callback)(SSL *, void *peerinput, TIdC_SIZET len, void *arg);
-     tlsext_opaque_prf_input_callback_arg : Pointer;
-
-{$ifndef OPENSSL_NO_PSK}
-	   psk_identity_hint : PIdAnsiChar;
-     psk_client_callback : function (ssl : PSSL; hint : PIdAnsiChar;
-       identity : PIdAnsiChar; max_identity_len : TIdC_UINT;
-       psk : PIdAnsiChar; max_psk_len : TIdC_UINT ) : TIdC_UINT cdecl;
- //	unsigned int (*psk_client_callback)(SSL *ssl, const char *hint, char *identity,
-//		unsigned int max_identity_len, unsigned char *psk,
-//		unsigned int max_psk_len);
-     psk_server_callback : function (ssl : PSSL; identity, psk : PIdAnsiChar; max_psk_len : TIdC_UINT) : TIdC_UINT cdecl;
-//	unsigned int (*psk_server_callback)(SSL *ssl, const char *identity,
-//		unsigned char *psk, unsigned int max_psk_len);
-{$endif}
-
-{$ifndef OPENSSL_NO_BUF_FREELISTS}
-	  freelist_max_len : TIdC_UINT;
-	  wbuf_freelist : Pssl3_buf_freelist_st;
-	  rbuf_freelist : Pssl3_buf_freelist_st;
-{$endif}
-{$ifndef OPENSSL_NO_SRP}
-	  srp_ctx : SRP_CTX; //* ctx for SRP authentication */
-{$endif}
-
-//# ifndef OPENSSL_NO_NEXTPROTONEG
-	//* Next protocol negotiation information */
-	//* (for experimental NPN extension). */
-
-	//* For a server, this contains a callback function by which the set of
-	// * advertised protocols can be provided. */
-    next_protos_advertised_cb : function(s : PSSL; var _out : PIdAnsiChar;
-     var len : TIdC_UINT; arg : Pointer) : TIdC_INT cdecl;
-//	int (*next_protos_advertised_cb)(SSL *s, const unsigned char **buf,
-//			                 unsigned int *len, void *arg);
-	  next_protos_advertised_cb_arg : Pointer;
-	//* For a client, this contains a callback function that selects the
-	// * next protocol from the list provided by the server. */
-    next_proto_select_cb : function(s : PSSL; var _out : PIdAnsiChar;
-      outlen : PIdAnsiChar;
-      _in : PIdAnsiChar;
-      inlen : TIdC_UINT;
-      arg : Pointer) : TIdC_INT cdecl;
-//	int (*next_proto_select_cb)(SSL *s, unsigned char **out,
-//				    unsigned char *outlen,
-//				    const unsigned char *in,
-//				    unsigned int inlen,
-//				    void *arg);
-	  next_proto_select_cb_arg : Pointer;
-//# endif
-        //* SRTP profiles we are willing to do from RFC 5764 */
-      srtp_profiles : PSTACK_OF_SRTP_PROTECTION_PROFILE;
-  end;
-
 const
   SSL_CTRL_OPTIONS = 32;
   SSL_CTRL_CLEAR_OPTIONS = 77;
 
   {$I TaurusTLSUnusedParamOff.inc}
-
-function  FC_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb; cdecl;
-begin
-  Result := _PSSL_CTX(ctx)^.default_passwd_callback;
-end;
-
-function  FC_SSL_CTX_get_default_passwd_cb_userdata(ctx: PSSL_CTX): Pointer; cdecl;
-begin
-  Result := _PSSL_CTX(ctx)^.default_passwd_callback_userdata;
-end;
 
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
                         const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
@@ -6421,11 +6246,6 @@ begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_OPTIONS,0,nil);
 end;
 
-function  FC_SSL_CTX_get_cert_store(const ctx: PSSL_CTX): PX509_STORE; cdecl;
-begin
-  Result :=  _PSSL_CTX(ctx)^.cert_store;
-end;
-
 function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl;
 begin
   Result := DTLSv1_get_timeout(s,tv);
@@ -6444,81 +6264,9 @@ const
 
 type
    PSESS_CERT = pointer;
-  _PSSL_SESSION = ^_SSL_SESSION;
-  _SSL_SESSION = record
-    ssl_version : TIdC_INT; // what ssl version session info is being kept in here?
-    // only really used in SSLv2
-    key_arg_length: TIdC_UINT;
-    key_arg: Array[0..SSL_MAX_KEY_ARG_LENGTH-1] of Byte;
-    master_key_length: TIdC_INT;
-    master_key: Array[0..SSL_MAX_MASTER_KEY_LENGTH-1] of Byte;
-    // session_id - valid?
-    session_id_length: TIdC_UINT;
-    session_id: Array[0..SSL_MAX_SSL_SESSION_ID_LENGTH-1] of Byte;
-    // this is used to determine whether the session is being reused in
-    // the appropriate context. It is up to the application to set this,
-    // via SSL_new
-    sid_ctx_length: TIdC_UINT;
-    sid_ctx: array[0..SSL_MAX_SID_CTX_LENGTH-1] of Byte;
-    {$IFNDEF OPENSSL_NO_KRB5}
-    krb5_client_princ_len: TIdC_UINT;
-    krb5_client_princ: array[0..SSL_MAX_KRB5_PRINCIPAL_LENGTH-1] of Byte;
-    {$ENDIF}
-{$ifndef OPENSSL_NO_PSK}
-	  psk_identity_hint : PIdAnsiChar;
-	  psk_identity : PIdAnsiChar;
-{$endif}
-    not_resumable: TIdC_INT;
-    // The cert is the certificate used to establish this connection
-    sess_cert :  PSESS_CERT;
-
-	//* This is the cert for the other end.
-	// * On clients, it will be the same as sess_cert->peer_key->x509
-	// * (the latter is not enough as sess_cert is not retained
-	// * in the external representation of sessions, see ssl_asn1.c). */
-	  peer : PX509;
-	//* when app_verify_callback accepts a session where the peer's certificate
-	// * is not ok, we must remember the error for session reuse: */
-	  verify_result : TIdC_LONG; //* only for servers */
-	  references : TIdC_INT;
-	  timeout : TIdC_LONG;
-	  time : TIdC_LONG;
-	  compress_meth : TIdC_UINT;	//* Need to lookup the method */
-
-	  cipher : PSSL_CIPHER;
-	  cipher_id : TIdC_ULONG;	//* when ASN.1 loaded, this
-					// * needs to be used to load
-					// * the 'cipher' structure */
-    ciphers : PSTACK_OF_SSL_CIPHER; //* shared ciphers? */
-    ex_data : CRYPTO_EX_DATA; // application specific data */
-	//* These are used to make removal of session-ids more
-	// * efficient and to implement a maximum cache size. */
-	  prev, next : PSSL_SESSION;
-
-    tlsext_hostname : PIdAnsiChar;
-      {$IFDEF OPENSSL_NO_EC}
-	  tlsext_ecpointformatlist_length : TIdC_SIZET;
-	  tlsext_ecpointformatlist : PIdAnsiChar; //* peer's list */
-	  tlsext_ellipticcurvelist_length : TIdC_SIZET;
-	  tlsext_ellipticcurvelist : PIdAnsiChar; //* peer's list */
-      {$ENDIF} //* OPENSSL_NO_EC */
-
- //* RFC4507 info */
-    tlsext_tick : PIdAnsiChar;//* Session ticket */
-    tlsext_ticklen : TIdC_SIZET;//* Session ticket length */
-    tlsext_tick_lifetime_hint : TIdC_LONG;//* Session lifetime hint in seconds */
-{$ifndef OPENSSL_NO_SRP}
-	  srp_username : PIdAnsiChar;
-{$endif}
-  end;
 
   {/forward_compatibility}
-    {$I TaurusTLSNoRetValOff.inc}
-
-function  FC_SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT; cdecl;
-begin
-  Result := _PSSL_SESSION(s).ssl_version;
-end;
+  {$I TaurusTLSNoRetValOff.inc}
 
 function  FC_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
 begin

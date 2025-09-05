@@ -159,17 +159,13 @@ type
   end;
 
   // moved from asn1
-  ASN1_VALUE_st = type Pointer;
-  ASN1_VALUE = ASN1_VALUE_st;
-  PASN1_VALUE = ^ASN1_VALUE;
+  PASN1_VALUE = type Pointer;
   PPASN1_VALUE = ^PASN1_VALUE;
 
   // moved from e_os2
   ossl_ssize_t = type {$IFDEF WIN64}TIdC_INT64{$ELSE}TIdC_INT{$ENDIF};
 
-  asn1_object_st = type Pointer;
-  ASN1_OBJECT = asn1_object_st;
-  PASN1_OBJECT = ^ASN1_OBJECT;
+  PASN1_OBJECT = type Pointer;
   PPASN1_OBJECT = ^PASN1_OBJECT;
 
   ASN1_INTEGER = type asn1_string_st;
@@ -233,178 +229,89 @@ type
   ASN1_NULL = type TIdC_INT;
   PASN1_NULL = ^ASN1_NULL;
 
+  PASN1_ITEM = type Pointer;
 
-  ASN1_ITEM_st = type Pointer;
-  ASN1_ITEM = ASN1_ITEM_st;
-  PASN1_ITEM = ^ASN1_ITEM;
+  PASN1_PCTX = type Pointer;
 
-  asn1_pctx_st = type Pointer;
-  ASN1_PCTX = asn1_pctx_st;
-  PASN1_PCTX = ^ASN1_PCTX;
+  PASN1_SCTX = type Pointer;
 
-  asn1_sctx_st = type Pointer;
-  ASN1_SCTX = asn1_sctx_st;
-  PASN1_SCTX = ^ASN1_SCTX;
-
-  dane_st = type Pointer;
-  bio_st = type Pointer;
-  BIO = bio_st;
-  PBIO = ^BIO;
-  PPBIO  = ^PBIO;
-  bignum_st = type Pointer;
-  BIGNUM = bignum_st;
-  PBIGNUM = ^BIGNUM;
-  PPBIGNUM  = ^PBIGNUM;
-  bignum_ctx = type Pointer;
-  BN_CTX = bignum_ctx;
-  PBN_CTX = ^BN_CTX;
-  bn_blinding_st = type Pointer;
-  BN_BLINDING = bn_blinding_st;
-  PBN_BLINDING = ^BN_BLINDING;
-  bn_mont_ctx_st = type Pointer;
-  BN_MONT_CTX = bn_mont_ctx_st;
-  PBN_MONT_CTX = ^BN_MONT_CTX;
-  bn_recp_ctx_st = type Pointer;
-  BN_RECP_CTX = bn_recp_ctx_st;
-  PBN_RECP_CTX = ^BN_RECP_CTX;
-  bn_gencb_st = type Pointer;
-  BN_GENCB = bn_gencb_st;
-  PBN_GENCB = ^BN_GENCB;
+  PBIO = type Pointer;
+  PPBIO  = type Pointer;
+  PBIGNUM = type Pointer;
+  PPBIGNUM  = type Pointer;
+  PBN_CTX = type Pointer;
+  PBN_BLINDING = type Pointer;
+  PBN_MONT_CTX = type Pointer;
+  PBN_RECP_CTX = type Pointer;
+  PBN_GENCB = type Pointer;
 
   PBUF_MEM = Pointer;
 
-  evp_cipher_st = type Pointer;
-  EVP_CIPHER = evp_cipher_st;
-  PEVP_CIPHER = ^EVP_CIPHER;
+  PEVP_CIPHER = type Pointer;
   PPEVP_CIPHER = ^PEVP_CIPHER;
-  evp_cipher_ctx_st = type Pointer;
-  EVP_CIPHER_CTX = evp_cipher_ctx_st;
-  PEVP_CIPHER_CTX = ^EVP_CIPHER_CTX;
-  evp_md_st = type Pointer;
-  EVP_MD = evp_md_st;
-  PEVP_MD = ^EVP_MD;
+  PEVP_CIPHER_CTX = type Pointer;
+  PEVP_MD = type Pointer;
   PPEVP_MD = ^PEVP_MD;
-  evp_md_ctx_st = type Pointer;
-  EVP_MD_CTX = evp_md_ctx_st;
-  PEVP_MD_CTX = ^EVP_MD_CTX;
-  evp_pkey_st = type Pointer;
-  EVP_PKEY = evp_pkey_st;
-  PEVP_PKEY = ^EVP_PKEY;
-  PPEVP_PKEY = ^PEVP_PKEY;
+  PEVP_MD_CTX = type Pointer;
 
-  evp_pkey_asn1_method_st = type Pointer;
-  EVP_PKEY_ASN1_METHOD = evp_pkey_asn1_method_st;
-  PEVP_PKEY_ASN1_METHOD = ^EVP_PKEY_ASN1_METHOD;
+  PEVP_PKEY = type Pointer;
+  PPEVP_PKEY = ^PEVP_PKEY;
+  PEVP_SKEY = type Pointer;
+  PPEVP_SKEY = ^PEVP_SKEY;
+  PEVP_PKEY_ASN1_METHOD = type Pointer;
   PPEVP_PKEY_ASN1_METHOD = ^PEVP_PKEY_ASN1_METHOD;
 
-  evp_pkey_method_st = type Pointer;
-  EVP_PKEY_METHOD = evp_pkey_method_st;
-  PEVP_PKEY_METHOD = ^EVP_PKEY_METHOD;
+  PEVP_PKEY_METHOD = type Pointer;
   PPEVP_PKEY_METHOD = ^PEVP_PKEY_METHOD;
-  evp_pkey_ctx_st = type Pointer;
-  EVP_PKEY_CTX = evp_pkey_ctx_st;
-  PEVP_PKEY_CTX = ^EVP_PKEY_CTX;
+  PEVP_PKEY_CTX = type Pointer;
   PPEVP_PKEY_CTX = ^PEVP_PKEY_CTX;
 
-  evp_Encode_Ctx_st = type Pointer;
-  EVP_ENCODE_CTX = evp_Encode_Ctx_st;
-  PEVP_ENCODE_CTX = ^EVP_ENCODE_CTX;
+  PEVP_ENCODE_CTX = type Pointer;
 
-  hmac_ctx_st = type Pointer;
-  HMAC_CTX = hmac_ctx_st;
-  PHMAC_CTX = ^HMAC_CTX;
+  PHMAC_CTX = type Pointer;
 
-  dh_st = type Pointer;
-  DH = dh_st;
-  PDH = ^DH;
+  PDH = type Pointer;
   PPDH = ^PDH;
-  dh_method_st = type Pointer;
-  DH_METHOD = dh_method_st;
-  PDH_METHOD = ^DH_METHOD;
+  PDH_METHOD = type Pointer;
 
-  dsa_st = type Pointer;
-  DSA = dsa_st;
-  PDSA = ^DSA;
+  PDSA = type Pointer;
   PPDSA = ^PDSA;
-  dsa_method_st = type Pointer;
-  DSA_METHOD = dsa_method_st;
-  PDSA_METHOD = ^DSA_METHOD;
+  PDSA_METHOD = type Pointer;
 
-  rsa_st = type Pointer;
-  RSA = rsa_st;
-  PRSA = ^RSA;
+  PRSA = type Pointer;
   PPRSA = ^PRSA;
-  rsa_meth_st = type Pointer;
-  RSA_METHOD = rsa_meth_st;
-  PRSA_METHOD = ^RSA_METHOD;
+  PRSA_METHOD = type Pointer;
 
-  ec_key_st = type Pointer;
-  EC_KEY = ec_key_st;
-  PEC_KEY = ^EC_KEY;
+  PEC_KEY = type Pointer;
   PPEC_KEY = ^PEC_KEY;
-  ec_key_method_st = type Pointer;
-  EC_KEY_METHOD = ec_key_method_st;
-  PEC_KEY_METHOD = ^EC_KEY_METHOD;
+  PEC_KEY_METHOD = type Pointer;
 
-  rand_meth_st = type Pointer;
-  RAND_METHOD = rand_meth_st;
-  PRAND_METHOD = ^RAND_METHOD;
-  rand_drbg_st = type Pointer;
-  RAND_DRBG = rand_drbg_st;
-  PRAND_DRBG = ^RAND_DRBG;
+  PRAND_METHOD = type Pointer;
+  PRAND_DRBG = type Pointer;
 
-  ssl_dane_st = type Pointer;
-  SSL_DANE = ssl_dane_st;
-  PSSL_DANE = ^SSL_DANE;
-  x509_st = type Pointer;
-  X509 = x509_st;
-  PX509 = ^X509;
+  PSSL_DANE = type Pointer;
+  PX509 = type Pointer;
   PPX509 = ^PX509;
-  Stack_Of_X509 = type Pointer;
-  PStack_Of_X509 = ^Stack_Of_X509;
+  PStack_Of_X509 = type Pointer;
   PPStack_Of_X509 = ^PStack_Of_X509;
-  X509_crl_st = type Pointer;
-  X509_CRL = X509_crl_st;
-  PX509_CRL = ^X509_CRL;
+  PX509_CRL = type Pointer;
   PPX509_CRL = ^PX509_CRL;
-  x509_crl_method_st = type Pointer;
-  X509_CRL_METHOD = x509_crl_method_st;
-  PX509_CRL_METHOD = ^X509_CRL_METHOD;
-  x509_revoked_st = type Pointer;
-  X509_REVOKED = x509_revoked_st;
-  PX509_REVOKED = ^X509_REVOKED;
+  PX509_CRL_METHOD = type Pointer;
+  PX509_REVOKED = type Pointer;
   PPX509_REVOKED = ^PX509_REVOKED;
-  X509_name_st = type Pointer;
-  X509_NAME = X509_name_st;
-  PX509_NAME = ^X509_NAME;
+  PX509_NAME = type Pointer;
   PPX509_NAME = ^PX509_NAME;
-  X509_pubkey_st = type Pointer;
-  X509_PUBKEY = X509_pubkey_st;
-  PX509_PUBKEY = ^X509_PUBKEY;
+  PX509_PUBKEY = type Pointer;
   PPX509_PUBKEY = ^PX509_PUBKEY;
-  x509_store_st = type Pointer;
-  X509_STORE = x509_store_st;
-  PX509_STORE = ^X509_STORE;
-  x509_store_ctx_st = type Pointer;
-  X509_STORE_CTX = x509_store_ctx_st;
-  PX509_STORE_CTX = ^X509_STORE_CTX;
+  PX509_STORE = type Pointer;
+  PX509_STORE_CTX = type Pointer;
 
-  x509_object_st = type Pointer;
-  X509_OBJECT = x509_object_st;
-  PX509_OBJECT = ^X509_OBJECT;
-  x509_lookup_st = type Pointer;
-  X509_LOOKUP = x509_lookup_st;
-  PX509_LOOKUP = ^X509_LOOKUP;
-  x509_lookup_method_st = type Pointer;
-  X509_LOOKUP_METHOD = x509_lookup_method_st;
-  PX509_LOOKUP_METHOD = ^X509_LOOKUP_METHOD;
-  X509_VERIFY_PARAM_st = type Pointer;
-  X509_VERIFY_PARAM = X509_VERIFY_PARAM_st;
-  PX509_VERIFY_PARAM = ^X509_VERIFY_PARAM;
+  PX509_OBJECT = type Pointer;
+  PX509_LOOKUP = type Pointer;
+  PX509_LOOKUP_METHOD = type Pointer;
+  PX509_VERIFY_PARAM = type Pointer;
 
-  x509_sig_info_st = type Pointer;
-  X509_SIG_INFO = x509_sig_info_st;
-  PX509_SIG_INFO = ^X509_SIG_INFO;
+  PX509_SIG_INFO = type Pointer;
 
   pkcs8_priv_key_info_st = type Pointer;
   PKCS8_PRIV_KEY_INFO = pkcs8_priv_key_info_st;
@@ -428,106 +335,54 @@ type
     db: Pointer;
   (* Maybe more here *)
   end;
-//  v3_ext_ctx = type Pointer;
-  X509V3_CTX = v3_ext_ctx;
-  PX509V3_CTX = ^X509V3_CTX;
-  conf_st = type Pointer;
-  CONF = conf_st;
-  PCONF = ^CONF;
-  ossl_init_settings_st = type Pointer;
-  OPENSSL_INIT_SETTINGS = ossl_init_settings_st;
-  POPENSSL_INIT_SETTINGS = ^OPENSSL_INIT_SETTINGS;
+  PX509V3_CTX = type Pointer;
+  PCONF = type Pointer;
+  POPENSSL_INIT_SETTINGS = type Pointer;
 
-  ui_st = type Pointer;
-  UI = ui_st;
-  PUI = ^UI;
-  ui_method_st = type Pointer;
-  UI_METHOD = ui_method_st;
-  PUI_METHOD = ^UI_METHOD;
+  PUI = type Pointer;
+  PUI_METHOD = type Pointer;
 
-  engine_st = type Pointer;
-  ENGINE = engine_st;
-  PENGINE = ^ENGINE;
+  PENGINE = type Pointer;
   PPENGINE = ^PENGINE;
-  ssl_st = type Pointer;
-  SSL = ssl_st;
-  PSSL = ^SSL;
-  ssl_ctx_st = type Pointer;
-  SSL_CTX = ssl_ctx_st;
-  PSSL_CTX = ^SSL_CTX;
+  PSSL = type Pointer;
+  PSSL_CTX = type Pointer;
   PPSSL_CTX  = ^PSSL_CTX;
 
-  comp_ctx_st = type Pointer;
-  COMP_CTX = comp_ctx_st;
-  PCOMP_CTX = ^COMP_CTX;
-  comp_method_st = type Pointer;
-  COMP_METHOD = comp_method_st;
-  PCOMP_METHOD = ^COMP_METHOD;
+  PCOMP_CTX = type Pointer;
+  PCOMP_METHOD = type Pointer;
 
-  X509_POLICY_NODE_st = type Pointer;
-  X509_POLICY_NODE = X509_POLICY_NODE_st;
-  PX509_POLICY_NODE = ^X509_POLICY_NODE;
-  X509_POLICY_LEVEL_st = type Pointer;
-  X509_POLICY_LEVEL = X509_POLICY_LEVEL_st;
-  PX509_POLICY_LEVEL = ^X509_POLICY_LEVEL;
-  X509_POLICY_TREE_st = type Pointer;
-  X509_POLICY_TREE = X509_POLICY_TREE_st;
-  PX509_POLICY_TREE = ^X509_POLICY_TREE;
+  PX509_POLICY_NODE = type Pointer;
+  PX509_POLICY_LEVEL = type Pointer;
+  PX509_POLICY_TREE = type Pointer;
   X509_POLICY_CACHE_st = type Pointer;
-  X509_POLICY_CACHE = X509_POLICY_CACHE_st;
-  PX509_POLICY_CACHE = ^X509_POLICY_CACHE;
+  PX509_POLICY_CACHE = type Pointer;
 
   AUTHORITY_KEYID_st = type Pointer;
   AUTHORITY_KEYID = AUTHORITY_KEYID_st;
   PAUTHORITY_KEYID = ^AUTHORITY_KEYID;
-  DIST_POINT_st = type Pointer;
-  DIST_POINT = DIST_POINT_st;
-  PDIST_POINT = ^DIST_POINT;
-  ISSUING_DIST_POINT_st = type Pointer;
-  ISSUING_DIST_POINT = ISSUING_DIST_POINT_st;
-  PISSUING_DIST_POINT = ^ISSUING_DIST_POINT;
-  NAME_CONSTRAINTS_st = type Pointer;
-  NAME_CONSTRAINTS = NAME_CONSTRAINTS_st;
-  PNAME_CONSTRAINTS = ^NAME_CONSTRAINTS;
+  PDIST_POINT = type Pointer;
+  PISSUING_DIST_POINT = type Pointer;
+  PNAME_CONSTRAINTS = type Pointer;
 
-  crypto_ex_data_st = type Pointer;
-  CRYPTO_EX_DATA = crypto_ex_data_st;
-  PCRYPTO_EX_DATA = ^CRYPTO_EX_DATA;
+  PCRYPTO_EX_DATA = type Pointer;
 
-  ocsp_req_ctx_st = type Pointer;
-  OCSP_REQ_CTX = ocsp_req_ctx_st;
-  POCSP_REQ_CTX = ^OCSP_REQ_CTX;
-  ocsp_response_st = type Pointer;
-  OCSP_RESPONSE = ocsp_response_st;
-  POCSP_RESPONSE = ^OCSP_RESPONSE;
-  ocsp_responder_id_st = type Pointer;
-  OCSP_RESPID = ocsp_responder_id_st;
-  POCSP_RESPID = ^OCSP_RESPID;
+  POCSP_REQ_CTX = type Pointer;
+  POCSP_RESPONSE = type Pointer;
+  POCSP_RESPID = type Pointer;
 
-  sct_st = type Pointer;
-  SCT = sct_st;
-  PSCT = ^SCT;
+  PSCT = type Pointer;
   PPSCT = ^PSCT;
-  sct_ctx_st = type Pointer;
-  SCT_CTX = sct_ctx_st;
-  PSCT_CTX = ^SCT_CTX;
-  ctlog_st = type Pointer;
-  CTLOG = ctlog_st;
-  PCTLOG = ^CTLOG;
+  PSCT_CTX = type Pointer;
+  PCTLOG = type Pointer;
   PPCTLOG = ^PCTLOG;
-  ctlog_store_st = type Pointer;
-  CTLOG_STORE = ctlog_store_st;
-  PCTLOG_STORE = ^CTLOG_STORE;
-  ct_policy_eval_ctx_st = type Pointer;
-  CT_POLICY_EVAL_CTX = ct_policy_eval_ctx_st;
-  PCT_POLICY_EVAL_CTX = ^CT_POLICY_EVAL_CTX;
+  PCTLOG_STORE = type Pointer;
+  PCT_POLICY_EVAL_CTX = type Pointer;
 
-  ossl_store_info_st = type Pointer;
-  OSSL_STORE_INFO = ossl_store_info_st;
-  POSSL_STORE_INFO = ^OSSL_STORE_INFO;
-  ossl_store_search_st = type Pointer;
-  OSSL_STORE_SEARCH = ossl_store_search_st;
-  POSSL_STORE_SEARCH = ^OSSL_STORE_SEARCH;
+  POSSL_STORE_INFO = type Pointer;
+  POSSL_STORE_SEARCH = type Pointer;
+
+  PEVP_KDF = type Pointer;
+  PEVP_KDF_CTX = type Pointer;
 
 // moved from unit "asn1" to prevent circular references'
 const

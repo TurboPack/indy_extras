@@ -393,7 +393,7 @@ var
   RSA_X931_generate_key_ex: function (rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
 
   RSA_check_key: function (const v1: PRSA): TIdC_INT; cdecl = nil;
-  RSA_check_key_ex: function (const v1: PRSA; cb: BN_GENCB): TIdC_INT; cdecl = nil;
+  RSA_check_key_ex: function (const v1: PRSA; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
   (* next 4 return -1 on error *)
   RSA_public_encrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
   RSA_private_encrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -574,7 +574,7 @@ var
   function RSA_X931_generate_key_ex(rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
 
   function RSA_check_key(const v1: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TIdC_INT cdecl; external CLibCrypto;
+  function RSA_check_key_ex(const v1: PRSA; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
   (* next 4 return -1 on error *)
   function RSA_public_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function RSA_private_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1110,7 +1110,7 @@ begin
 end;
 
 
-function  ERR_RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TIdC_INT; 
+function  ERR_RSA_check_key_ex(const v1: PRSA; cb: PBN_GENCB): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_check_key_ex_procname);
 end;

@@ -338,7 +338,7 @@ var
 
   CMS_signed_get_attr_count: function (const si: PCMS_SignerInfo): TIdC_INT; cdecl = nil;
   CMS_signed_get_attr_by_NID: function (const si: PCMS_SignerInfo; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
-  CMS_signed_get_attr_by_OBJ: function (const si: PCMS_SignerInfo; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
+  CMS_signed_get_attr_by_OBJ: function (const si: PCMS_SignerInfo; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl = nil;
   CMS_signed_get_attr: function (const si: PCMS_SignerInfo; loc: TIdC_INT): PX509_ATTRIBUTE; cdecl = nil;
   CMS_signed_delete_attr: function (const si: PCMS_SignerInfo; loc: TIdC_INT): PX509_ATTRIBUTE; cdecl = nil;
   CMS_signed_add1_attr: function (si: PCMS_SignerInfo; loc: TIdC_INT): TIdC_INT; cdecl = nil;
@@ -500,7 +500,7 @@ var
 
   function CMS_signed_get_attr_count(const si: PCMS_SignerInfo): TIdC_INT cdecl; external CLibCrypto;
   function CMS_signed_get_attr_by_NID(const si: PCMS_SignerInfo; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function CMS_signed_get_attr_by_OBJ(const si: PCMS_SignerInfo; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function CMS_signed_get_attr_by_OBJ(const si: PCMS_SignerInfo; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function CMS_signed_get_attr(const si: PCMS_SignerInfo; loc: TIdC_INT): PX509_ATTRIBUTE cdecl; external CLibCrypto;
   function CMS_signed_delete_attr(const si: PCMS_SignerInfo; loc: TIdC_INT): PX509_ATTRIBUTE cdecl; external CLibCrypto;
   function CMS_signed_add1_attr(si: PCMS_SignerInfo; loc: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -1168,7 +1168,7 @@ begin
 end;
 
 
-function  ERR_CMS_signed_get_attr_by_OBJ(const si: PCMS_SignerInfo; const obj: ASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_CMS_signed_get_attr_by_OBJ(const si: PCMS_SignerInfo; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMS_signed_get_attr_by_OBJ_procname);
 end;

@@ -37,8 +37,7 @@ uses
 
 type
   // moved from asn1
-  ASN1_ITEM_EXP = ASN1_ITEM;
-  PASN1_ITEM_EXP = ^ASN1_ITEM_EXP;
+  PASN1_ITEM_EXP = type Pointer;
 
 //# ifndef OPENSSL_EXPORT_VAR_AS_FUNCTION
 //

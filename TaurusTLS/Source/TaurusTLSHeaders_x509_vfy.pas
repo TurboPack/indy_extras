@@ -626,7 +626,7 @@ var
   X509_STORE_load_file_ex: function(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl = nil;
   X509_STORE_load_file: function(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  X509_STORE_load_path : function(ctx : X509_STORE; const dir :  PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  X509_STORE_load_path : function(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT; cdecl = nil;
   X509_STORE_load_locations_ex : function(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl = nil;  {introduced 3.0.0}
   X509_STORE_load_locations: function (ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT; cdecl = nil;
@@ -638,7 +638,7 @@ var
   X509_STORE_CTX_set_ex_data: function (ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
   X509_STORE_CTX_get_ex_data: function (ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer; cdecl = nil;
   X509_STORE_CTX_get_error: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  X509_STORE_CTX_set_error: procedure (ctx: X509_STORE_CTX; s: TIdC_INT); cdecl = nil;
+  X509_STORE_CTX_set_error: procedure (ctx: PX509_STORE_CTX; s: TIdC_INT); cdecl = nil;
   X509_STORE_CTX_get_error_depth: function (ctx: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
   X509_STORE_CTX_set_error_depth: procedure (ctx: PX509_STORE_CTX; depth: TIdC_INT); cdecl = nil; {introduced 1.1.0}
   X509_STORE_CTX_get_current_cert: function (ctx: PX509_STORE_CTX): PX509; cdecl = nil;
@@ -710,7 +710,7 @@ var
   X509_VERIFY_PARAM_add0_table: function (param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_get_count: function : TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_get0: function (id: TIdC_INT): PX509_VERIFY_PARAM; cdecl = nil;
-  X509_VERIFY_PARAM_lookup: function (const name: PIdAnsiChar): X509_VERIFY_PARAM; cdecl = nil;
+  X509_VERIFY_PARAM_lookup: function (const name: PIdAnsiChar): PX509_VERIFY_PARAM; cdecl = nil;
   X509_VERIFY_PARAM_table_cleanup: procedure ; cdecl = nil;
 
   X509_policy_check : function(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
@@ -721,7 +721,7 @@ var
   X509_policy_tree_level_count: function (const tree: PX509_POLICY_TREE): TIdC_INT; cdecl = nil;
   X509_policy_tree_get0_level: function (const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL; cdecl = nil;
 
-  X509_policy_tree_get0_policies : function(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;  cdecl = nil;
+  X509_policy_tree_get0_policies : function(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;  cdecl = nil;
 
   X509_policy_tree_get0_user_policies : function(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE; cdecl = nil;
 
@@ -903,7 +903,7 @@ var
   function X509_STORE_load_file_ex(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT  cdecl; external CLibCrypto;
   function X509_STORE_load_file(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT  cdecl; external CLibCrypto;
-  function X509_STORE_load_path(ctx : X509_STORE; const dir :  PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
+  function X509_STORE_load_path(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_load_locations_ex(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;  {introduced 3.0.0}
 
@@ -917,7 +917,7 @@ var
   function X509_STORE_CTX_set_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_get_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
   function X509_STORE_CTX_get_error(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  procedure X509_STORE_CTX_set_error(ctx: X509_STORE_CTX; s: TIdC_INT) cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set_error(ctx: PX509_STORE_CTX; s: TIdC_INT) cdecl; external CLibCrypto;
   function X509_STORE_CTX_get_error_depth(ctx: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
   procedure X509_STORE_CTX_set_error_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_STORE_CTX_get_current_cert(ctx: PX509_STORE_CTX): PX509 cdecl; external CLibCrypto;
@@ -930,7 +930,7 @@ var
 
   procedure X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509) cdecl; external CLibCrypto;
   procedure X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509)  cdecl; external CLibCrypto;
-  procedure X509_STORE_CTX_set0_crls(c : X509_STORE_CTX; sk : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto;
+  procedure X509_STORE_CTX_set0_crls(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL) cdecl; external CLibCrypto;
   function X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
@@ -991,7 +991,7 @@ var
   function X509_VERIFY_PARAM_add0_table(param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_get_count: TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_get0(id: TIdC_INT): PX509_VERIFY_PARAM cdecl; external CLibCrypto;
-  function X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): X509_VERIFY_PARAM cdecl; external CLibCrypto;
+  function X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): PX509_VERIFY_PARAM cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_table_cleanup cdecl; external CLibCrypto;
 
   function X509_policy_check(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
@@ -1002,7 +1002,7 @@ var
   function X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT cdecl; external CLibCrypto;
   function X509_policy_tree_get0_level(const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL cdecl; external CLibCrypto;
 
-  function X509_policy_tree_get0_policies(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
+  function X509_policy_tree_get0_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
   function X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE cdecl; external CLibCrypto;
 
   function X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT cdecl; external CLibCrypto;
@@ -2347,7 +2347,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_file_procname);
 end;
 
-function ERR_X509_STORE_load_path(ctx : X509_STORE; const dir :  PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_load_path(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_path_procname);
 end;
@@ -2401,7 +2401,7 @@ begin
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set_error(ctx: X509_STORE_CTX; s: TIdC_INT); 
+procedure  ERR_X509_STORE_CTX_set_error(ctx: PX509_STORE_CTX; s: TIdC_INT);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_error_procname);
 end;
@@ -2469,7 +2469,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_verified_chain_procname);
 end;
 
-procedure ERR_X509_STORE_CTX_set0_crls(c : X509_STORE_CTX; sk : PSTACK_OF_X509_CRL);
+procedure ERR_X509_STORE_CTX_set0_crls(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL);
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_crls_procname);
 end;
@@ -2752,7 +2752,7 @@ begin
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): X509_VERIFY_PARAM; 
+function  ERR_X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): PX509_VERIFY_PARAM;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_lookup_procname);
 end;
@@ -2789,7 +2789,7 @@ begin
 end;
 
 
-function ERR_X509_policy_tree_get0_policies(const tree : X509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
+function ERR_X509_policy_tree_get0_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_policies_procname);
 end;

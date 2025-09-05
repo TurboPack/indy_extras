@@ -129,21 +129,6 @@ const
   HMAC_CTX_get_md_procname = 'HMAC_CTX_get_md'; {introduced 1.1.0}
 
 
-
-
-{forward_compatibility}
-function  FC_HMAC_CTX_new: PHMAC_CTX; cdecl;
-begin
-  Result := AllocMem(SizeOf(HMAC_CTX));
-  HMAC_CTX_init(Result);
-end;
-
-procedure  FC_HMAC_CTX_free(ctx: PHMAC_CTX); cdecl;
-begin
-  HMAC_CTX_cleanup(ctx);
-  FreeMem(ctx,SizeOf(HMAC_CTX));
-end;
-
 (*
 typedef struct hmac_ctx_st {
     const EVP_MD *md;
@@ -158,22 +143,6 @@ typedef struct hmac_ctx_st {
 const
   HMAC_MAX_MD_CBLOCK = 128; {largest known is SHA512}
 
-type
- PHMAC_CTX = ^HMAC_CTX;
- HMAC_CTX = record
-   md: EVP_MD;
-   md_ctx: EVP_MD_CTX;
-   i_ctx: EVP_MD_CTX;
-   o_ctx: EVP_MD_CTX;
-   key_length: TIdC_UINT;
-   key: array [0..HMAC_MAX_MD_CBLOCK] of char;
- end;
-
-
-function  FC_HMAC_size(const e: PHMAC_CTX): TIdC_SIZET; cdecl; 
-begin
-  Result := EVP_MD_size(e^.md);
-end;
 
 {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc} 
