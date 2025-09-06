@@ -555,6 +555,9 @@ type
   PEVP_PBE_KEYGEN = ^EVP_PBE_KEYGEN;
   PPEVP_PBE_KEYGEN = ^PEVP_PBE_KEYGEN;
 
+  //* MAC Stuff */
+  EVP_MAC_names_do_all_fn = procedure (const name : PIdAnsiChar; data : Pointer) cdecl;
+  EVP_MAC_do_all_provided_fn = procedure(mac : PEVP_MAC; arg : Pointer) cdecl;
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
 		
   	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
@@ -1761,95 +1764,90 @@ var
   EVP_PKEY_CTX_get_cb: function (ctx: PEVP_PKEY_CTX): EVP_PKEY_gen_cb; cdecl = nil;
 
   EVP_PKEY_CTX_get_keygen_info: function (ctx: PEVP_PKEY_CTX; idx: TIdC_INT): TIdC_INT; cdecl = nil;
-
   EVP_PKEY_meth_set_init: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_init: EVP_PKEY_meth_init); cdecl = nil;
-
   EVP_PKEY_meth_set_copy: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_copy_cb: EVP_PKEY_meth_copy_cb); cdecl = nil;
-
   EVP_PKEY_meth_set_cleanup: procedure (pmeth: PEVP_PKEY_METHOD; PEVP_PKEY_meth_cleanup: EVP_PKEY_meth_cleanup); cdecl = nil;
-
   EVP_PKEY_meth_set_paramgen: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_paramgen_init: EVP_PKEY_meth_paramgen_init; AEVP_PKEY_meth_paramgen: EVP_PKEY_meth_paramgen_init); cdecl = nil;
-
   EVP_PKEY_meth_set_keygen: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_keygen_init: EVP_PKEY_meth_keygen_init; AEVP_PKEY_meth_keygen: EVP_PKEY_meth_keygen); cdecl = nil;
-
   EVP_PKEY_meth_set_sign: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_sign_init: EVP_PKEY_meth_sign_init; AEVP_PKEY_meth_sign: EVP_PKEY_meth_sign); cdecl = nil;
-
   EVP_PKEY_meth_set_verify: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verify_init: EVP_PKEY_meth_verify_init; AEVP_PKEY_meth_verify: EVP_PKEY_meth_verify_init); cdecl = nil;
-
   EVP_PKEY_meth_set_verify_recover: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verify_recover_init: EVP_PKEY_meth_verify_recover_init; AEVP_PKEY_meth_verify_recover: EVP_PKEY_meth_verify_recover_init); cdecl = nil;
-
   EVP_PKEY_meth_set_signctx: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_signctx_init: EVP_PKEY_meth_signctx_init; AEVP_PKEY_meth_signctx: EVP_PKEY_meth_signctx); cdecl = nil;
-
   EVP_PKEY_meth_set_verifyctx: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verifyctx_init: EVP_PKEY_meth_verifyctx_init; AEVP_PKEY_meth_verifyctx: EVP_PKEY_meth_verifyctx); cdecl = nil;
-
   EVP_PKEY_meth_set_encrypt: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_encrypt_init: EVP_PKEY_meth_encrypt_init; AEVP_PKEY_meth_encrypt: EVP_PKEY_meth_encrypt); cdecl = nil;
-
   EVP_PKEY_meth_set_decrypt: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_decrypt_init: EVP_PKEY_meth_decrypt_init; AEVP_PKEY_meth_decrypt: EVP_PKEY_meth_decrypt); cdecl = nil;
-
   EVP_PKEY_meth_set_derive: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_derive_init: EVP_PKEY_meth_derive_init; AEVP_PKEY_meth_derive: EVP_PKEY_meth_derive); cdecl = nil;
-
   EVP_PKEY_meth_set_ctrl: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_ctrl: EVP_PKEY_meth_ctrl; AEVP_PKEY_meth_ctrl_str: EVP_PKEY_meth_ctrl_str); cdecl = nil;
-
   EVP_PKEY_meth_set_digestsign: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digestsign: EVP_PKEY_meth_digestsign); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_digestverify: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digestverify: EVP_PKEY_meth_digestverify); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_check: EVP_PKEY_meth_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_public_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_public_check: EVP_PKEY_meth_public_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_param_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_param_check: EVP_PKEY_meth_param_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_digest_custom: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digest_custom: EVP_PKEY_meth_digest_custom); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_init: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_init: PEVP_PKEY_meth_init); cdecl = nil;
-
   EVP_PKEY_meth_get_copy: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth__copy: PEVP_PKEY_meth_copy); cdecl = nil;
-
   EVP_PKEY_meth_get_cleanup: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_cleanup: PEVP_PKEY_meth_cleanup); cdecl = nil;
-
   EVP_PKEY_meth_get_paramgen: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_paramgen_init: EVP_PKEY_meth_paramgen_init; AEVP_PKEY_meth_paramgen: PEVP_PKEY_meth_paramgen); cdecl = nil;
-
   EVP_PKEY_meth_get_keygen: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_keygen_init: EVP_PKEY_meth_keygen_init; AEVP_PKEY_meth_keygen: PEVP_PKEY_meth_keygen); cdecl = nil;
-
   EVP_PKEY_meth_get_sign: procedure (const pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_sign_init: PEVP_PKEY_meth_sign_init; AEVP_PKEY_meth_sign: PEVP_PKEY_meth_sign); cdecl = nil;
-
   EVP_PKEY_meth_get_verify: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verify_init: PEVP_PKEY_meth_verify_init; AEVP_PKEY_meth_verify: PEVP_PKEY_meth_verify_init); cdecl = nil;
-
   EVP_PKEY_meth_get_verify_recover: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verify_recover_init: PEVP_PKEY_meth_verify_recover_init; AEVP_PKEY_meth_verify_recover: PEVP_PKEY_meth_verify_recover_init); cdecl = nil;
-
   EVP_PKEY_meth_get_signctx: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_signctx_init: PEVP_PKEY_meth_signctx_init; AEVP_PKEY_meth_signctx: PEVP_PKEY_meth_signctx); cdecl = nil;
-
   EVP_PKEY_meth_get_verifyctx: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_verifyctx_init: PEVP_PKEY_meth_verifyctx_init; AEVP_PKEY_meth_verifyctx: PEVP_PKEY_meth_verifyctx); cdecl = nil;
-
   EVP_PKEY_meth_get_encrypt: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_encrypt_init: PEVP_PKEY_meth_encrypt_init; AEVP_PKEY_meth_encrypt: PEVP_PKEY_meth_encrypt); cdecl = nil;
-
   EVP_PKEY_meth_get_decrypt: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_decrypt_init: PEVP_PKEY_meth_decrypt_init; AEVP_PKEY_meth_decrypt: PEVP_PKEY_meth_decrypt); cdecl = nil;
-
   EVP_PKEY_meth_get_derive: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_derive_init: PEVP_PKEY_meth_derive_init; AEVP_PKEY_meth_derive: PEVP_PKEY_meth_derive); cdecl = nil;
-
   EVP_PKEY_meth_get_ctrl: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_ctrl: PEVP_PKEY_meth_ctrl; AEVP_PKEY_meth_ctrl_str: PEVP_PKEY_meth_ctrl_str); cdecl = nil;
-
   EVP_PKEY_meth_get_digestsign: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digestsign: PEVP_PKEY_meth_digestsign); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_digestverify: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digestverify: PEVP_PKEY_meth_digestverify); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_check: PEVP_PKEY_meth_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_public_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_public_check: PEVP_PKEY_meth_public_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_param_check: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_param_check: PEVP_PKEY_meth_param_check); cdecl = nil; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_digest_custom: procedure (pmeth: PEVP_PKEY_METHOD; AEVP_PKEY_meth_digest_custom: PEVP_PKEY_meth_digest_custom); cdecl = nil; {introduced 1.1.0}
-
   EVP_add_alg_module: procedure ; cdecl = nil;
-
   OpenSSL_add_all_ciphers: procedure ; cdecl = nil; {removed 1.1.0}
-
   OpenSSL_add_all_digests: procedure ; cdecl = nil; {removed 1.1.0}
-
   EVP_cleanup: procedure ; cdecl = nil; {removed 1.1.0}
+  //* MAC stuff */
+  EVP_MAC_fetch : function(libctx : POSSL_LIB_CTX;
+    const algorithm, properties : PIdAnsiChar) : PEVP_MAC; cdecl = nil;
+  EVP_MAC_up_ref : function(mac : PEVP_MAC) : TIdC_INT; cdecl = nil;
+  EVP_MAC_free : procedure(mac : PEVP_MAC); cdecl = nil;
+  EVP_MAC_is_a : function(const mac : PEVP_MAC; const name : PIdAnsiChar) : TIdC_INT; cdecl = nil;
+  EVP_MAC_get0_name : function(const mac : PEVP_MAC) : PIdAnsiChar; cdecl = nil;
+  EVP_MAC_names_do_all : function(const mac : PEVP_MAC; fn : EVP_MAC_names_do_all_fn;
+                         data : Pointer) : TIdC_INT; cdecl = nil;
+  EVP_MAC_get0_description : function(const mac : PEVP_MAC) : PIdAnsiChar; cdecl = nil;
+  EVP_MAC_get0_provider : function(const mac :PEVP_MAC) : POSSL_PROVIDER; cdecl = nil;
 
+  EVP_MAC_get_params : function(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+
+  EVP_MAC_CTX_new : function (mac : PEVP_MAC) : PEVP_MAC_CTX; cdecl = nil; {introduced 3.0.0}
+  EVP_MAC_CTX_free : procedure (ctx : PEVP_MAC_CTX ); cdecl = nil;  {introduced 3.0.0}
+
+  EVP_MAC_CTX_dup : function(const  src : PEVP_MAC_CTX) : PEVP_MAC_CTX; cdecl = nil;
+  EVP_MAC_CTX_get0_mac : function(ctx : PEVP_MAC_CTX) : PEVP_MAC; cdecl = nil;
+  EVP_MAC_CTX_get_params : function(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+  EVP_MAC_CTX_set_params : function(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+
+  EVP_MAC_CTX_get_mac_size : function (ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl = nil;
+  EVP_MAC_CTX_get_block_size : function (ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl = nil;
+
+  EVP_Q_mac : function(libctx : POSSL_LIB_CTX; const name, propq, subalg : PIdAnsiChar;
+    const params : POSSL_PARAM; const key : Pointer; keylen : TIdC_SIZET;
+    const data : PIdAnsiChar; datalen : TIdC_SIZET; _out : PIdAnsiChar;
+    outsize : TIdC_SIZET;  var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl = nil;
+  EVP_MAC_init: function(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
+     const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+  EVP_MAC_update : function(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
+    datalen : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  EVP_MAC_final : function(ctx : PEVP_MAC_CTX;
+    _out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+  EVP_MAC_finalXOF : function(ctx : PEVP_MAC_CTX; _out : PIdAnsiChar; outsize : TIdC_SIZET) : TIdC_INT; cdecl = nil;
+
+  EVP_MAC_do_all_provided : procedure(libctx : POSSL_LIB_CTX;
+                             fn : EVP_MAC_do_all_provided_fn;
+                             arg : Pointer);  cdecl = nil;
 {$ELSE}
 
   function EVP_MD_meth_new(md_type: TIdC_INT; pkey_type: TIdC_INT): PEVP_MD cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -2601,6 +2599,54 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
   procedure OpenSSL_add_all_ciphers; {removed 1.1.0}
   procedure OpenSSL_add_all_digests; {removed 1.1.0}
   procedure EVP_cleanup; {removed 1.1.0}
+//* MAC Stuff */
+  function EVP_MAC_fetch(libctx : POSSL_LIB_CTX;
+    const algorithm, properties : PIdAnsiChar) : PEVP_MAC; cdecl; external CLibCrypto;
+  function EVP_MAC_up_ref(mac : PEVP_MAC) : TIdC_INT; cdecl; external CLibCrypto;
+  procedure EVP_MAC_free(mac : PEVP_MAC); cdecl; external CLibCrypto;
+  function EVP_MAC_is_a(const mac : PEVP_MAC; const name : PIdAnsiChar) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_get0_name(const mac : PEVP_MAC) : PIdAnsiChar; cdecl; external CLibCrypto;
+  function EVP_MAC_names_do_all(const mac : PEVP_MAC; fn : EVP_MAC_names_do_all_fn;
+                         data : Pointer) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_get0_description(const mac : PEVP_MAC) : PIdAnsiChar; cdecl; external CLibCrypto;
+  function EVP_MAC_get0_provider(const mac :PEVP_MAC) : POSSL_PROVIDER; cdecl; external CLibCrypto;
+
+  function EVP_MAC_get_params(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+
+  function EVP_MAC_CTX_new(mac : PEVP_MAC) : PEVP_MAC_CTX cdecl; external CLibCrypto;  {introduced 3.0.0}
+  procedure EVP_MAC_CTX_free (ctx : PEVP_MAC_CTX ) cdecl; external CLibCrypto;   {introduced 3.0.0}
+
+  function EVP_MAC_CTX_dup(const  src : PEVP_MAC_CTX) : PEVP_MAC_CTX; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_get0_mac(ctx : PEVP_MAC_CTX) : PEVP_MAC; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+
+  function EVP_MAC_CTX_get_mac_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_get_block_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl; external CLibCrypto;
+  function EVP_Q_mac(libctx : POSSL_LIB_CTX;
+    const name, propq, subalg : PIdAnsiChar; const params : POSSL_PARAM;
+    const key : Pointer; keylen : TIdC_SIZET;
+    const data : PIdAnsiChar; datalen : TIdC_SIZET;
+    _out : PIdAnsiChar; outsize : TIdC_SIZET;
+    var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl; external CLibCrypto;
+  function EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
+                 const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+
+  function EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
+    datalen : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_final(ctx : PEVP_MAC_CTX;
+    out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_finalXOF(ctx : PEVP_MAC_CTX; _out : PIdAnsiChar; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+
+  function EVP_MAC_gettable_params(const mac : PEVP_MAC) : POSSL_PARAM;  cdecl; external CLibCrypto;
+  function EVP_MAC_gettable_ctx_params(const mac : PEVP_MAC) : POSSL_PARAM; cdecl; external CLibCrypto;
+  function EVP_MAC_settable_ctx_params(const mac : PEVP_MAC) : POSSL_PARAM;  cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_gettable_params(ctx : PEVP_MAC_CTX) : POSSL_PARAM; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_settable_params(ctx : PEVP_MAC_CTX) : POSSL_PARAM; cdecl; external CLibCrypto;
+
+  procedure EVP_MAC_do_all_provided(libctx : POSSL_LIB_CTX;
+                             fn : EVP_MAC_do_all_provided_fn;
+                             arg : Pointer);  cdecl; external CLibCrypto;
 {$ENDIF}
 
  //# define EVP_CIPHER_name(e)              OBJ_nid2sn(EVP_CIPHER_nid(e))
@@ -3577,94 +3623,78 @@ const
   EVP_PKEY_CTX_get_cb_procname = 'EVP_PKEY_CTX_get_cb';
 
   EVP_PKEY_CTX_get_keygen_info_procname = 'EVP_PKEY_CTX_get_keygen_info';
-
   EVP_PKEY_meth_set_init_procname = 'EVP_PKEY_meth_set_init';
-
   EVP_PKEY_meth_set_copy_procname = 'EVP_PKEY_meth_set_copy';
-
   EVP_PKEY_meth_set_cleanup_procname = 'EVP_PKEY_meth_set_cleanup';
-
   EVP_PKEY_meth_set_paramgen_procname = 'EVP_PKEY_meth_set_paramgen';
-
   EVP_PKEY_meth_set_keygen_procname = 'EVP_PKEY_meth_set_keygen';
-
   EVP_PKEY_meth_set_sign_procname = 'EVP_PKEY_meth_set_sign';
-
   EVP_PKEY_meth_set_verify_procname = 'EVP_PKEY_meth_set_verify';
-
   EVP_PKEY_meth_set_verify_recover_procname = 'EVP_PKEY_meth_set_verify_recover';
-
   EVP_PKEY_meth_set_signctx_procname = 'EVP_PKEY_meth_set_signctx';
-
   EVP_PKEY_meth_set_verifyctx_procname = 'EVP_PKEY_meth_set_verifyctx';
-
   EVP_PKEY_meth_set_encrypt_procname = 'EVP_PKEY_meth_set_encrypt';
-
   EVP_PKEY_meth_set_decrypt_procname = 'EVP_PKEY_meth_set_decrypt';
-
   EVP_PKEY_meth_set_derive_procname = 'EVP_PKEY_meth_set_derive';
-
   EVP_PKEY_meth_set_ctrl_procname = 'EVP_PKEY_meth_set_ctrl';
-
   EVP_PKEY_meth_set_digestsign_procname = 'EVP_PKEY_meth_set_digestsign'; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_digestverify_procname = 'EVP_PKEY_meth_set_digestverify'; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_check_procname = 'EVP_PKEY_meth_set_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_public_check_procname = 'EVP_PKEY_meth_set_public_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_param_check_procname = 'EVP_PKEY_meth_set_param_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_set_digest_custom_procname = 'EVP_PKEY_meth_set_digest_custom'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_init_procname = 'EVP_PKEY_meth_get_init';
-
   EVP_PKEY_meth_get_copy_procname = 'EVP_PKEY_meth_get_copy';
-
   EVP_PKEY_meth_get_cleanup_procname = 'EVP_PKEY_meth_get_cleanup';
-
   EVP_PKEY_meth_get_paramgen_procname = 'EVP_PKEY_meth_get_paramgen';
-
   EVP_PKEY_meth_get_keygen_procname = 'EVP_PKEY_meth_get_keygen';
-
   EVP_PKEY_meth_get_sign_procname = 'EVP_PKEY_meth_get_sign';
-
   EVP_PKEY_meth_get_verify_procname = 'EVP_PKEY_meth_get_verify';
-
   EVP_PKEY_meth_get_verify_recover_procname = 'EVP_PKEY_meth_get_verify_recover';
-
   EVP_PKEY_meth_get_signctx_procname = 'EVP_PKEY_meth_get_signctx';
-
   EVP_PKEY_meth_get_verifyctx_procname = 'EVP_PKEY_meth_get_verifyctx';
-
   EVP_PKEY_meth_get_encrypt_procname = 'EVP_PKEY_meth_get_encrypt';
-
   EVP_PKEY_meth_get_decrypt_procname = 'EVP_PKEY_meth_get_decrypt';
-
   EVP_PKEY_meth_get_derive_procname = 'EVP_PKEY_meth_get_derive';
-
   EVP_PKEY_meth_get_ctrl_procname = 'EVP_PKEY_meth_get_ctrl';
-
   EVP_PKEY_meth_get_digestsign_procname = 'EVP_PKEY_meth_get_digestsign'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_digestverify_procname = 'EVP_PKEY_meth_get_digestverify'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_check_procname = 'EVP_PKEY_meth_get_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_public_check_procname = 'EVP_PKEY_meth_get_public_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_param_check_procname = 'EVP_PKEY_meth_get_param_check'; {introduced 1.1.0}
-
   EVP_PKEY_meth_get_digest_custom_procname = 'EVP_PKEY_meth_get_digest_custom'; {introduced 1.1.0}
-
   EVP_add_alg_module_procname = 'EVP_add_alg_module';
-
   OpenSSL_add_all_ciphers_procname = 'OpenSSL_add_all_ciphers'; {removed 1.1.0}
-
   OpenSSL_add_all_digests_procname = 'OpenSSL_add_all_digests'; {removed 1.1.0}
-
   EVP_cleanup_procname = 'EVP_cleanup'; {removed 1.1.0}
+
+  //* MAC Stuff */
+  EVP_MAC_fetch_procname = 'EVP_MAC_fetch';
+  EVP_MAC_up_ref_procname = 'EVP_MAC_up_ref';
+  EVP_MAC_free_procname = 'EVP_MAC_free';
+  EVP_MAC_is_a_procname = 'EVP_MAC_is_a';
+  EVP_MAC_get0_name_procname = 'EVP_MAC_get0_name';
+  EVP_MAC_names_do_all_procname = 'EVP_MAC_names_do_all';
+  EVP_MAC_get0_description_procname = 'EVP_MAC_get0_description';
+  EVP_MAC_get0_provider_procname = 'EVP_MAC_get0_provider';
+  EVP_MAC_get_params_procname = 'EVP_MAC_get_params';
+
+  EVP_MAC_CTX_new_procname = 'EVP_MAC_CTX_new';
+  EVP_MAC_CTX_free_procname =  'EVP_MAC_CTX_free';
+  EVP_MAC_CTX_dup_procname = 'EVP_MAC_CTX_dup';
+  EVP_MAC_CTX_get0_mac_procname = 'EVP_MAC_CTX_get0_mac';
+  EVP_MAC_CTX_get_params_procname = 'EVP_MAC_CTX_get_params';
+  EVP_MAC_CTX_set_params_procname = 'EVP_MAC_CTX_set_params';
+
+  EVP_MAC_CTX_get_mac_size_procname = 'EVP_MAC_CTX_get_mac_size';
+  EVP_MAC_CTX_get_block_size_procname = 'EVP_MAC_CTX_get_block_size';
+  EVP_MAC_init_procname = 'EVP_MAC_init';
+
+  EVP_MAC_update_procname = 'EVP_MAC_update';
+  EVP_MAC_final_procname = 'EVP_MAC_final';
+  EVP_MAC_finalXOF_procname = 'ERR_EVP_MAC_finalXOF';
+
+  EVP_MAC_do_all_provided_procname = 'EVP_MAC_do_all_provided';
 
 {function introduced - compatibility}
 
@@ -7340,7 +7370,129 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_cleanup_procname);
 end;
 
- 
+//* MAC Stuff */
+function ERR_EVP_MAC_fetch(libctx : POSSL_LIB_CTX;
+    const algorithm, properties : PIdAnsiChar) : PEVP_MAC;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_fetch_procname);
+
+end;
+
+  function ERR_EVP_MAC_up_ref(mac : PEVP_MAC) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_up_ref_procname);
+
+end;
+
+procedure ERR_EVP_MAC_free(mac : PEVP_MAC);
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_free_procname);
+
+end;
+
+function ERR_EVP_MAC_is_a(const mac : PEVP_MAC; const name : PIdAnsiChar) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_is_a_procname);
+
+end;
+
+function ERR_EVP_MAC_get0_name(const mac : PEVP_MAC) : PIdAnsiChar;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get0_name_procname);
+
+end;
+
+function ERR_EVP_MAC_names_do_all(const mac : PEVP_MAC; fn : EVP_MAC_names_do_all_fn;
+                         data : Pointer) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_names_do_all_procname);
+
+end;
+function ERR_EVP_MAC_get0_description(const mac : PEVP_MAC) : PIdAnsiChar;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get0_description_procname);
+
+end;
+
+function ERR_EVP_MAC_get0_provider(const mac :PEVP_MAC) : POSSL_PROVIDER;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get0_provider_procname);
+end;
+
+function ERR_EVP_MAC_get_params(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get_params_procname);
+end;
+
+function ERR_EVP_MAC_CTX_new(mac : PEVP_MAC) : PEVP_MAC_CTX;  {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_new_procname);
+end;
+
+procedure ERR_EVP_MAC_CTX_free (ctx : PEVP_MAC_CTX );   {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_free_procname);
+end;
+
+  function ERR_EVP_MAC_CTX_dup(const  src : PEVP_MAC_CTX) : PEVP_MAC_CTX;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_dup_procname);
+end;
+
+  function ERR_EVP_MAC_CTX_get0_mac(ctx : PEVP_MAC_CTX) : PEVP_MAC;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get0_mac_procname);
+end;
+
+  function ERR_EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get_params_procname);
+end;
+
+  function ERR_EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_set_params_procname);
+end;
+
+function ERR_EVP_MAC_CTX_get_mac_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get_mac_size_procname);
+end;
+
+function ERR_EVP_MAC_CTX_get_block_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get_block_size_procname);
+end;
+
+function ERR_EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
+                 const  params : array of OSSL_PARAM) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_init_procname);
+end;
+
+function ERR_EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
+    datalen : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_update_procname);
+end;
+
+function ERR_EVP_MAC_final(ctx : PEVP_MAC_CTX;
+    _out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_final_procname);
+end;
+
+function ERR_EVP_MAC_finalXOF(ctx : PEVP_MAC_CTX; _out : PIdAnsiChar; outsize : TIdC_SIZET) : TIdC_INT;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_finalXOF_procname);
+end;
+
+procedure ERR_EVP_MAC_do_all_provided(libctx : POSSL_LIB_CTX;
+                             fn : EVP_MAC_do_all_provided_fn;
+                             arg : Pointer);
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_do_all_provided_procname);
+end;
 
   {$I TaurusTLSNoRetValOn.inc} 
 
@@ -24464,7 +24616,7 @@ begin
     {$ifend}
   end;
 
- 
+
   OpenSSL_add_all_digests := LoadLibFunction(ADllHandle, OpenSSL_add_all_digests_procname);
   FuncLoadError := not assigned(OpenSSL_add_all_digests);
   if FuncLoadError then
@@ -24496,7 +24648,7 @@ begin
     {$ifend}
   end;
 
- 
+
   EVP_cleanup := LoadLibFunction(ADllHandle, EVP_cleanup_procname);
   FuncLoadError := not assigned(EVP_cleanup);
   if FuncLoadError then
@@ -24528,7 +24680,689 @@ begin
     {$ifend}
   end;
 
- 
+  //* MAC Stuff */
+  EVP_MAC_fetch := LoadLibFunction(ADllHandle, EVP_MAC_fetch_procname);
+  FuncLoadError := not assigned(EVP_MAC_fetch);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_fetch_allownil)}
+    EVP_MAC_fetch := @ERR_EVP_MAC_fetch;
+    {$ifend}
+    {$if declared(EVP_MAC_fetch_introduced)}
+    if LibVersion < EVP_MAC_fetch_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_fetch)}
+      EVP_MAC_fetch := @FC_EVP_MAC_fetch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_fetch_removed)}
+    if EVP_MAC_fetch_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_fetch)}
+      EVP_MAC_fetch := @_EVP_MAC_fetch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_fetch_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_fetch');
+    {$ifend}
+  end;
+
+  EVP_MAC_up_ref := LoadLibFunction(ADllHandle, EVP_MAC_up_ref_procname);
+  FuncLoadError := not assigned(EVP_MAC_up_ref);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_up_ref_allownil)}
+    EVP_MAC_up_ref := @ERR_EVP_MAC_up_ref;
+    {$ifend}
+    {$if declared(EVP_MAC_up_ref_introduced)}
+    if LibVersion < EVP_MAC_up_ref_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_up_ref)}
+      EVP_MAC_up_ref := @FC_EVP_MAC_up_ref;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_up_ref_removed)}
+    if EVP_MAC_up_ref_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_up_ref)}
+      EVP_MAC_up_ref := @_EVP_MAC_up_ref;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_up_ref_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_up_ref');
+    {$ifend}
+  end;
+
+  EVP_MAC_free := LoadLibFunction(ADllHandle, EVP_MAC_free_procname);
+  FuncLoadError := not assigned(EVP_MAC_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_free_allownil)}
+    EVP_MAC_free := @ERR_EVP_MAC_free;
+    {$ifend}
+    {$if declared(EVP_MAC_free_introduced)}
+    if LibVersion < EVP_MAC_free_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_free)}
+      EVP_MAC_free := @FC_EVP_MAC_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_free_removed)}
+    if EVP_MAC_free_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_free)}
+      EVP_MAC_free := @_EVP_MAC_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_free');
+    {$ifend}
+  end;
+
+  EVP_MAC_is_a := LoadLibFunction(ADllHandle, EVP_MAC_is_a_procname);
+  FuncLoadError := not assigned(EVP_MAC_is_a);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_is_a_allownil)}
+    EVP_MAC_is_a := @ERR_EVP_MAC_is_a;
+    {$ifend}
+    {$if declared(EVP_MAC_is_a_introduced)}
+    if LibVersion < EVP_MAC_is_a_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_is_a)}
+      EVP_MAC_is_a := @FC_EVP_MAC_is_a;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_is_a_removed)}
+    if EVP_MAC_is_a_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_is_a)}
+      EVP_MAC_is_a := @_EVP_MAC_is_a;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_is_a_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_is_a');
+    {$ifend}
+  end;
+
+  EVP_MAC_get0_name := LoadLibFunction(ADllHandle, EVP_MAC_get0_name_procname);
+  FuncLoadError := not assigned(EVP_MAC_get0_name);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_get0_name_allownil)}
+    EVP_MAC_get0_name := @ERR_EVP_MAC_get0_name;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_name_introduced)}
+    if LibVersion < EVP_MAC_get0_name_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_get0_name)}
+      EVP_MAC_get0_name := @FC_EVP_MAC_get0_name;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_name_removed)}
+    if EVP_MAC_get0_name_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_get0_name)}
+      EVP_MAC_get0_name := @_EVP_MAC_get0_name;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_get0_name_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_get0_name');
+    {$ifend}
+  end;
+
+  EVP_MAC_names_do_all := LoadLibFunction(ADllHandle, EVP_MAC_names_do_all_procname);
+  FuncLoadError := not assigned(EVP_MAC_names_do_all);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_names_do_all_allownil)}
+    EVP_MAC_names_do_all := @ERR_EVP_MAC_names_do_all;
+    {$ifend}
+    {$if declared(EVP_MAC_names_do_all_introduced)}
+    if LibVersion < EVP_MAC_names_do_all_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_names_do_all)}
+      EVP_MAC_names_do_all := @FC_EVP_MAC_names_do_all;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_names_do_all_removed)}
+    if EVP_MAC_names_do_all_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_names_do_all)}
+      EVP_MAC_names_do_all := @_EVP_MAC_names_do_all;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_names_do_all_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_names_do_all');
+    {$ifend}
+  end;
+
+  EVP_MAC_get0_description := LoadLibFunction(ADllHandle, EVP_MAC_get0_description_procname);
+  FuncLoadError := not assigned(EVP_MAC_get0_description);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_get0_description_allownil)}
+    EVP_MAC_get0_description := @ERR_EVP_MAC_get0_description;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_description_introduced)}
+    if LibVersion < EVP_MAC_get0_description_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_get0_description)}
+      EVP_MAC_get0_description := @FC_EVP_MAC_get0_description;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_description_removed)}
+    if EVP_MAC_get0_description_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_get0_description)}
+      EVP_MAC_get0_description := @_EVP_MAC_get0_description;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_get0_description_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_get0_description');
+    {$ifend}
+  end;
+
+  EVP_MAC_get0_provider := LoadLibFunction(ADllHandle, EVP_MAC_get0_provider_procname);
+  FuncLoadError := not assigned(EVP_MAC_get0_provider);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_get0_provider_allownil)}
+    EVP_MAC_get0_provider := @ERR_EVP_MAC_get0_provider;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_provider_introduced)}
+    if LibVersion < EVP_MAC_get0_provider_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_get0_provider)}
+      EVP_MAC_get0_provider := @FC_EVP_MAC_get0_provider;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_get0_provider_removed)}
+    if EVP_MAC_get0_provider_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_get0_provider)}
+      EVP_MAC_get0_provider := @_EVP_MAC_get0_provider;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_get0_provider_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_get0_provider');
+    {$ifend}
+  end;
+
+  EVP_MAC_get_params := LoadLibFunction(ADllHandle, EVP_MAC_get_params_procname);
+  FuncLoadError := not assigned(EVP_MAC_get_params);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_get_params_allownil)}
+    EVP_MAC_get_params := @ERR_EVP_MAC_get_params;
+    {$ifend}
+    {$if declared(EVP_MAC_get_params_introduced)}
+    if LibVersion < EVP_MAC_get_params_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_get_params)}
+      EVP_MAC_get_params := @FC_EVP_MAC_get_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_get_params_removed)}
+    if EVP_MAC_get_params_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_get_params)}
+      EVP_MAC_get_params := @_EVP_MAC_get_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_get_params_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_get_params');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_new := LoadLibFunction(ADllHandle, EVP_MAC_CTX_new_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_new);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_new_allownil)}
+    EVP_MAC_CTX_new := @ERR_EVP_MAC_CTX_new;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_new_introduced)}
+    if LibVersion < EVP_MAC_CTX_new_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_new)}
+      EVP_MAC_CTX_new := @FC_EVP_MAC_CTX_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_new_removed)}
+    if EVP_MAC_CTX_new_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_new)}
+      EVP_MAC_CTX_new := @_EVP_MAC_CTX_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_new_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_new');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_free := LoadLibFunction(ADllHandle, EVP_MAC_CTX_free_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_free_allownil)}
+    EVP_MAC_CTX_free := @ERR_EVP_MAC_CTX_free;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_free_introduced)}
+    if LibVersion < EVP_MAC_CTX_free_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_free)}
+      EVP_MAC_CTX_free := @FC_EVP_MAC_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_free_removed)}
+    if EVP_MAC_CTX_free_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_free)}
+      EVP_MAC_CTX_free := @_EVP_MAC_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_free');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_free := LoadLibFunction(ADllHandle, EVP_MAC_CTX_free_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_free_allownil)}
+    EVP_MAC_CTX_free := @ERR_EVP_MAC_CTX_free;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_free_introduced)}
+    if LibVersion < EVP_MAC_CTX_free_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_free)}
+      EVP_MAC_CTX_free := @FC_EVP_MAC_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_free_removed)}
+    if EVP_MAC_CTX_free_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_free)}
+      EVP_MAC_CTX_free := @_EVP_MAC_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_free');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_dup := LoadLibFunction(ADllHandle, EVP_MAC_CTX_dup_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_dup);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_dup_allownil)}
+    EVP_MAC_CTX_dup := @ERR_EVP_MAC_CTX_dup;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_dup_introduced)}
+    if LibVersion < EVP_MAC_CTX_dup_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_dup)}
+      EVP_MAC_CTX_dup := @FC_EVP_MAC_CTX_dup;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_dup_removed)}
+    if EVP_MAC_CTX_dup_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_dup)}
+      EVP_MAC_CTX_dup := @_EVP_MAC_CTX_dup;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_dup_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_dup');
+    {$ifend}
+  end;
+
+   EVP_MAC_CTX_get0_mac := LoadLibFunction(ADllHandle, EVP_MAC_CTX_get0_mac_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_get0_mac);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_get0_mac_allownil)}
+    EVP_MAC_CTX_get0_mac := @ERR_EVP_MAC_CTX_get0_mac;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get0_mac_introduced)}
+    if LibVersion < EVP_MAC_CTX_get0_mac_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_get0_mac)}
+      EVP_MAC_CTX_get0_mac := @FC_EVP_MAC_CTX_get0_mac;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get0_mac_removed)}
+    if EVP_MAC_CTX_get0_mac_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_get0_mac)}
+      EVP_MAC_CTX_get0_mac := @_EVP_MAC_CTX_get0_mac;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_get0_mac_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_get0_mac');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_get_params := LoadLibFunction(ADllHandle, EVP_MAC_CTX_get_params_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_get_params);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_get_params_allownil)}
+    EVP_MAC_CTX_get_params := @ERR_EVP_MAC_CTX_get_params;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_params_introduced)}
+    if LibVersion < EVP_MAC_CTX_get_params_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_get_params)}
+      EVP_MAC_CTX_get_params := @FC_EVP_MAC_CTX_get_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_params_removed)}
+    if EVP_MAC_CTX_get_params_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_get_params)}
+      EVP_MAC_CTX_get_params := @_EVP_MAC_CTX_get_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_get_params_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_get_params');
+    {$ifend}
+  end;
+
+  EVP_MAC_CTX_set_params := LoadLibFunction(ADllHandle, EVP_MAC_CTX_set_params_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_set_params);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_set_params_allownil)}
+    EVP_MAC_CTX_set_params := @ERR_EVP_MAC_CTX_set_params;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_set_params_introduced)}
+    if LibVersion < EVP_MAC_CTX_set_params_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_set_params)}
+      EVP_MAC_CTX_set_params := @FC_EVP_MAC_CTX_set_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_set_params_removed)}
+    if EVP_MAC_CTX_set_params_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_set_params)}
+      EVP_MAC_CTX_set_params := @_EVP_MAC_CTX_set_params;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_set_params_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_set_params');
+    {$ifend}
+  end;
+
+   EVP_MAC_CTX_get_mac_size := LoadLibFunction(ADllHandle, EVP_MAC_CTX_get_mac_size_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_get_mac_size);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_CTX_get_mac_size_allownil)}
+    EVP_MAC_CTX_get_mac_size := @ERR_EVP_MAC_CTX_get_mac_size;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_mac_size_introduced)}
+    if LibVersion < EVP_MAC_CTX_get_mac_size_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_get_mac_size)}
+      EVP_MAC_CTX_get_mac_size := @FC_EVP_MAC_CTX_get_mac_size;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_mac_size_removed)}
+    if EVP_MAC_CTX_get_mac_size_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_get_mac_size)}
+      EVP_MAC_CTX_get_mac_size := @_EVP_MAC_CTX_get_mac_size;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_get_mac_size_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_get_mac_size');
+    {$ifend}
+  end;
+
+   EVP_MAC_init := LoadLibFunction(ADllHandle, EVP_MAC_init_procname);
+  FuncLoadError := not assigned(EVP_MAC_init);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_init_allownil)}
+    EVP_MAC_init := @ERR_EVP_MAC_init;
+    {$ifend}
+    {$if declared(EVP_MAC_init_introduced)}
+    if LibVersion < EVP_MAC_init_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_init)}
+      EVP_MAC_init := @FC_EVP_MAC_init;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_init_removed)}
+    if EVP_MAC_init_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_init)}
+      EVP_MAC_init := @_EVP_MAC_init;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_init_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_init');
+    {$ifend}
+  end;
+
+
+    EVP_MAC_update := LoadLibFunction(ADllHandle, EVP_MAC_update_procname);
+  FuncLoadError := not assigned(EVP_MAC_update);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_update_allownil)}
+    EVP_MAC_update := @ERR_EVP_MAC_update;
+    {$ifend}
+    {$if declared(EVP_MAC_update_introduced)}
+    if LibVersion < EVP_MAC_update_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_update)}
+      EVP_MAC_update := @FC_EVP_MAC_update;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_update_removed)}
+    if EVP_MAC_update_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_update)}
+      EVP_MAC_update := @_EVP_MAC_update;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_update_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_update');
+    {$ifend}
+  end;
+
+    EVP_MAC_final := LoadLibFunction(ADllHandle, EVP_MAC_final_procname);
+  FuncLoadError := not assigned(EVP_MAC_final);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_final_allownil)}
+    EVP_MAC_final := @ERR_EVP_MAC_final;
+    {$ifend}
+    {$if declared(EVP_MAC_final_introduced)}
+    if LibVersion < EVP_MAC_final_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_final)}
+      EVP_MAC_final := @FC_EVP_MAC_final;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_final_removed)}
+    if EVP_MAC_final_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_final)}
+      EVP_MAC_final := @_EVP_MAC_final;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_final_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_final');
+    {$ifend}
+  end;
+
+  EVP_MAC_finalXOF := LoadLibFunction(ADllHandle, EVP_MAC_finalXOF_procname);
+  FuncLoadError := not assigned(EVP_MAC_finalXOF);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_finalXOF_allownil)}
+    EVP_MAC_finalXOF := @ERR_EVP_MAC_finalXOF;
+    {$ifend}
+    {$if declared(EVP_MAC_finalXOF_introduced)}
+    if LibVersion < EVP_MAC_finalXOF_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_finalXOF)}
+      EVP_MAC_finalXOF := @FC_EVP_MAC_finalXOF;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_finalXOF_removed)}
+    if EVP_MAC_finalXOF_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_finalXOF)}
+      EVP_MAC_finalXOF := @_EVP_MAC_finalXOF;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_finalXOF_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_finalXOF');
+    {$ifend}
+  end;
+
+  EVP_MAC_do_all_provided := LoadLibFunction(ADllHandle, EVP_MAC_do_all_provided_procname);
+  FuncLoadError := not assigned(EVP_MAC_do_all_provided);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_do_all_provided_allownil)}
+    EVP_MAC_do_all_provided := @ERR_EVP_MAC_do_all_provided;
+    {$ifend}
+    {$if declared(EVP_MAC_do_all_provided_introduced)}
+    if LibVersion < EVP_MAC_do_all_provided_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_do_all_provided)}
+      EVP_MAC_do_all_provided := @FC_EVP_MAC_do_all_provided;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_do_all_provided_removed)}
+    if EVP_MAC_do_all_provided_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_do_all_provided)}
+      EVP_MAC_do_all_provided := @_EVP_MAC_do_all_provided;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_do_all_provided_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_do_all_provided');
+    {$ifend}
+  end;
 end;
 
 procedure Unload;
@@ -25067,6 +25901,22 @@ begin
   OpenSSL_add_all_ciphers := nil; {removed 1.1.0}
   OpenSSL_add_all_digests := nil; {removed 1.1.0}
   EVP_cleanup := nil; {removed 1.1.0}
+  //* MAC Stuff */
+  EVP_MAC_fetch := nil;
+  EVP_MAC_up_ref := nil;
+  EVP_MAC_free := nil;
+  EVP_MAC_is_a := nil;
+  EVP_MAC_get0_name := nil;
+  EVP_MAC_names_do_all := nil;
+  EVP_MAC_get0_description := nil;
+  EVP_MAC_get0_provider := nil;
+  EVP_MAC_get_params := nil;
+  EVP_MAC_CTX_new := nil;
+  EVP_MAC_CTX_free := nil;
+  EVP_MAC_CTX_dup := nil;
+
+  EVP_MAC_CTX_get_block_size := nil;
+  EVP_MAC_init := nil;
 end;
 {$ELSE}
 function EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
