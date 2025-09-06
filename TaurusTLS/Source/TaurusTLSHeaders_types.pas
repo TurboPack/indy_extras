@@ -270,6 +270,9 @@ type
 
   PHMAC_CTX = type Pointer;
 
+  PEVP_MAC = type Pointer;
+  PEVP_MAC_CTX = type Pointer;
+
   PDH = type Pointer;
   PPDH = ^PDH;
   PDH_METHOD = type Pointer;
