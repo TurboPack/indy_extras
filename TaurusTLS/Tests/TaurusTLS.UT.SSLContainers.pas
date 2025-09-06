@@ -91,8 +91,8 @@ type
   TWipingBytesFixture = class(TCustomBytesFixture)
   protected
     class procedure IsEmpty(ABytes: TBytes); overload;
-    class procedure IsEmpty(ABio: PBIO; AExpectedLen: NativeUInt); overload;
     class procedure IsEmpty(AData: pointer; ASize: NativeUInt); overload;
+    class procedure IsBioEmpty(ABio: PBIO; AExpectedLen: NativeUInt); overload;
     procedure TestWipeBytes;
     procedure TestWipeBio;
   public
@@ -383,7 +383,7 @@ begin
 {$POINTERMATH OFF}
 end;
 
-class procedure TWipingBytesFixture.IsEmpty(ABio: PBIO; AExpectedLen: NativeUInt);
+class procedure TWipingBytesFixture.IsBioEmpty(ABio: PBIO; AExpectedLen: NativeUInt);
 var
   lMemPtr: pointer;
   lLen: TIdC_INT;
