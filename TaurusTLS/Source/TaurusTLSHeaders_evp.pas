@@ -1839,6 +1839,7 @@ var
     outsize : TIdC_SIZET;  var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl = nil;
   EVP_MAC_init: function(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
      const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+  EVP_MAC_init_SKEY : function(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
   EVP_MAC_update : function(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl = nil;
   EVP_MAC_final : function(ctx : PEVP_MAC_CTX;
@@ -2631,6 +2632,7 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
     var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl; external CLibCrypto;
   function EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
                  const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
 
   function EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
@@ -2938,7 +2940,27 @@ const
   OpenSSL_add_all_ciphers_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   OpenSSL_add_all_digests_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EVP_cleanup_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-
+  //* MAC Stuff
+  EVP_MAC_fetch_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_up_ref_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_names_do_all_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_free_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_is_a_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_get0_name_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_get0_provider_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_new_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_free_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_get_params_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_set_params_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_Q_mac_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_init_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_init_SKEY_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_update_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_final_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_finalXOF_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_CTX_get_mac_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_CTX_get_block_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_do_all_provided_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
 
 //#  define EVP_PKEY_assign_RSA(pkey,rsa) EVP_PKEY_assign((pkey),EVP_PKEY_RSA, (char *)(rsa))
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -3689,6 +3711,7 @@ const
   EVP_MAC_CTX_get_mac_size_procname = 'EVP_MAC_CTX_get_mac_size';
   EVP_MAC_CTX_get_block_size_procname = 'EVP_MAC_CTX_get_block_size';
   EVP_MAC_init_procname = 'EVP_MAC_init';
+  EVP_MAC_init_SKEY_procname = 'EVP_MAC_init_SKEY';
 
   EVP_MAC_update_procname = 'EVP_MAC_update';
   EVP_MAC_final_procname = 'EVP_MAC_final';
@@ -7468,6 +7491,11 @@ function ERR_EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : 
                  const  params : array of OSSL_PARAM) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_init_procname);
+end;
+
+function ERR_EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT;
+begin
+   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_init_SKEY_procname);
 end;
 
 function ERR_EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
@@ -25239,6 +25267,36 @@ begin
     {$ifend}
   end;
 
+   EVP_MAC_init_SKEY := LoadLibFunction(ADllHandle, EVP_MAC_init_SKEY_procname);
+  FuncLoadError := not assigned(EVP_MAC_init_SKEY);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_init_SKEY_allownil)}
+    EVP_MAC_init_SKEY := @ERR_EVP_MAC_init_SKEY;
+    {$ifend}
+    {$if declared(EVP_MAC_init_SKEY_introduced)}
+    if LibVersion < EVP_MAC_init_SKEY_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_init_SKEY)}
+      EVP_MAC_init_SKEY := @FC_EVP_MAC_init_SKEY;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_init_SKEY_removed)}
+    if EVP_MAC_init_SKEY_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_init_SKEY)}
+      EVP_MAC_init_SKEY := @_EVP_MAC_init_SKEY;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_init_SKEY_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_init_SKEY');
+    {$ifend}
+  end;
 
     EVP_MAC_update := LoadLibFunction(ADllHandle, EVP_MAC_update_procname);
   FuncLoadError := not assigned(EVP_MAC_update);
