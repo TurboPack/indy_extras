@@ -40,7 +40,8 @@ uses
   TaurusTLS.UT.Random in 'TaurusTLS.UT.Random.pas',
   TaurusTLS.UT.Headers.Bio in 'TaurusTLS.UT.Headers.Bio.pas',
   TaurusTLS.UT.SSLContainers in 'TaurusTLS.UT.SSLContainers.pas',
-  TaurusTLS.UT.Encryptors in 'TaurusTLS.UT.Encryptors.pas';
+  TaurusTLS.UT.Encryptors in 'TaurusTLS.UT.Encryptors.pas',
+  TaurusTLS.UT.SSLContainersHelpers in 'TaurusTLS.UT.SSLContainersHelpers.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}

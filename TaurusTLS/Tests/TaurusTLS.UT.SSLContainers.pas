@@ -153,36 +153,6 @@ type
     procedure BioRepeatOneLock(ASize, ACount: NativeUInt);
   end;
 
-  [TestFixture]
-  [Category('BytesHelpers')]
-  TBytesHelperFixture = class(TCustomBytesFixture)
-    [AutoNameTestCase('e2')]
-    [AutoNameTestCase('026ca6b4d0761ebfcd933a3f7b379e')]
-    [AutoNameTestCase('941833f8ffd98ea2861d8c9f718d3f4d'+
-      '7ca37f0214e733d1bd1426bfa03fa2c0')]
-    procedure LoadFromBytes(AHexStr: string);
-    [AutoNameTestCase('0123456789ABCDEF')]
-    procedure LoadFromPAnsiStr(AData: RawByteString);
-    [AutoNameTestCase('0123456789ABCDEF')]
-    procedure LoadFromString(AData: string);
-    [AutoNameTestCase('e2')]
-    [AutoNameTestCase('026ca6b4d0761ebfcd933a3f7b379e')]
-    [AutoNameTestCase('941833f8ffd98ea2861d8c9f718d3f4d'+
-      '7ca37f0214e733d1bd1426bfa03fa2c0')]
-    procedure LoadFromMemStream(AHexStr: string);
-    [AutoNameTestCase('e2')]
-    [AutoNameTestCase('026ca6b4d0761ebfcd933a3f7b379e')]
-    [AutoNameTestCase('941833f8ffd98ea2861d8c9f718d3f4d'+
-      '7ca37f0214e733d1bd1426bfa03fa2c0')]
-    procedure LoadFromByteStream(AHexStr: string);
-  end;
-
-  [TestFixture]
-  [Category('EncyptedBytesHelpers')]
-  TEncyptedBytesHelperFixture = class(TCustomBytesFixture)
-
-  end;
-
 implementation
 
 uses
@@ -612,110 +582,9 @@ begin
   IsUnencrypted(lBio);
 end;
 
-{ TCustomBytesHelperFixture }
-
-procedure TBytesHelperFixture.LoadFromBytes(AHexStr: string);
-var
-  lIBytes: ITaurusTLS_Bytes;
-  lSrc, lBytes: TBytes;
-  lLen: NativeUInt;
-
-begin
-  lSrc:=HexToBytes(AHexStr);
-  lLen:=Length(lSrc);
-  Assert.AreNotEqual<NativeUInt>(0, lLen, 'AData is empty string.');
-  lIBytes:=TTaurusTLS_Bytes.LoadFromBytes<TTaurusTLS_Bytes>(lSrc);
-  lBytes:=lIBytes.Bytes;
-  Assert.AreEqual<NativeUInt>(lLen, Length(lBytes),
-    'Length of AData and lBytes are not equal.');
-  TestData(lSrc, lBytes, lLen);
-end;
-
-procedure TBytesHelperFixture.LoadFromPAnsiStr(AData: RawByteString);
-var
-  lIBytes: ITaurusTLS_Bytes;
-  lBytes: TBytes;
-  lLen: NativeUInt;
-
-begin
-  lLen:=Length(AData);
-  Assert.AreNotEqual<NativeUInt>(0, lLen, 'AData is empty string.');
-  lIBytes:=TTaurusTLS_Bytes.LoadFromString<TTaurusTLS_Bytes>(PIdAnsiChar(AData));
-  lBytes:=lIBytes.Bytes;
-  Assert.AreEqual<NativeUInt>(lLen, Length(lBytes),
-    'Length of AData and lBytes are not equal.');
-  TestData(lBytes, @AData[1], lLen);
-end;
-
-procedure TBytesHelperFixture.LoadFromString(AData: string);
-var
-  lIBytes: ITaurusTLS_Bytes;
-  lBytes: TBytes;
-  lLen: NativeUInt;
-  lBytesStr: string;
-
-begin
-  lLen:=Length(AData);
-  Assert.AreNotEqual<NativeUInt>(0, lLen, 'AData is empty string.');
-  lIBytes:=TTaurusTLS_Bytes.LoadFromString<TTaurusTLS_Bytes>(AData);
-  lBytes:=lIBytes.Bytes;
-  Assert.AreEqual<NativeUInt>(lLen, Length(lBytes),
-    'Length of AData and lBytes are not equal.');
-  lBytesStr:=StringOf(lBytes);
-  Assert.AreEqual(AData, lBytesStr, 'AData and lBytes are not equal.')
-end;
-
-procedure TBytesHelperFixture.LoadFromMemStream(AHexStr: string);
-var
-  lStream: TMemoryStream;
-  lSrcBytes, lBytes: TBytes;
-  lIBytes: ITaurusTLS_Bytes;
-
-begin
-  lSrcBytes:=HexToBytes(AHexStr);
-  lStream:=nil;
-  try
-    lStream:=TMemoryStream.Create;
-    lStream.Write(lSrcBytes, Length(lSrcBytes));
-
-    lIBytes:=TTaurusTLS_Bytes.LoadFromStream<TTaurusTLS_Bytes>(lStream);
-    Assert.IsNotNull(lIBytes, 'Failed to create a ITaurusTLS_Bytes instance '+
-      'from a TStream.');
-    lBytes:=lIBytes.Bytes;
-    TestBytes(lSrcBytes, lBytes);
-  finally
-    lStream.Free;
-  end;
-end;
-
-procedure TBytesHelperFixture.LoadFromByteStream(AHexStr: string);
-var
-  lStream: TBytesStream;
-  lSrcBytes, lBytes: TBytes;
-  lIBytes: ITaurusTLS_Bytes;
-
-begin
-  lSrcBytes:=HexToBytes(AHexStr);
-  lStream:=nil;
-  try
-    lStream:=TBytesStream.Create(lSrcBytes);
-    lStream.Write(lSrcBytes, Length(lSrcBytes));
-
-    lIBytes:=TTaurusTLS_Bytes.LoadFromStream<TTaurusTLS_Bytes>(lStream);
-    Assert.IsNotNull(lIBytes, 'Failed to create a ITaurusTLS_Bytes instance '+
-      'from a TStream.');
-    lBytes:=lIBytes.Bytes;
-    Assert.AreEqual(@lSrcBytes[0], @lBytes[0], 'lSrcBytes and lBytes are not equal. ');
-  finally
-    lStream.Free;
-  end;
-end;
-
 initialization
   TDUnitX.RegisterTestFixture(TBytesFixture);
   TDUnitX.RegisterTestFixture(TWipingBytesFixture);
   TDUnitX.RegisterTestFixture(TEnryptedBytesFixture);
-  TDUnitX.RegisterTestFixture(TBytesHelperFixture);
-  TDUnitX.RegisterTestFixture(TEncyptedBytesHelperFixture);
 
 end.

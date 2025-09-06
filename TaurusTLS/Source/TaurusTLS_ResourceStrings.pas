@@ -245,6 +245,13 @@ resourcestring
   REVP_Encryptor_Encrypt_Error = 'Error in Encrypting data.';
   REVP_Encryptor_Decrypt_Error = 'Error in Decrypting data.';
 
+  // TaurusTLS_SSLContainersHelpers messages
+  RSMSG_TMemoryStreamWipeOutOfRange = 'Unable to wipe a stream buffer memory. '+
+    'Start position or Length is out of range.';
+  RSMSG_UTF8NoMapping = 'Unable to convert character(s) to UTF8.';
+  RSMSG_UnicodeNoMapping = 'Unable to convert character(s) to Unicode.';
+
+
 
 implementation
 

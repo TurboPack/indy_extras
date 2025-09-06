@@ -19,7 +19,8 @@ unit TaurusTLS_SSLContainers;
 interface
 
 uses
-  Classes, {$IFDEF DCC}SyncObjs,{$ENDIF}SysUtils, TaurusTLS_Encryptors,
+  Classes, {$IFDEF DCC}SyncObjs,{$ENDIF}SysUtils,
+  TaurusTLS_SSLContainersHelpers, TaurusTLS_Encryptors,
   TaurusTLSHeaders_types, TaurusTLSHeaders_bio, TaurusTLSExceptionHandlers,
   IdGlobal, IdCTypes;
 
@@ -168,20 +169,8 @@ type
   ///  with "zero" values when it being destroyed
   ///  </summary>
   TTaurusTLS_WipingBytes = class(TTaurusTLS_Bytes)
-  protected
-    procedure WipeData; overload;
   public
-    ///  <summary>
-    ///  This <c>class method</c> fills <c>array of bytes</c> with a value
-    ///  provided in <c>AValue</c> parameter value.
-    ///  </summary>
-    ///  <param name = "AData"><c>array of bytes</c> to be filled with a
-    ///  <c>AValue</c> parameter value.
-    ///  </param>
-    ///  <param name="AValue">An integer value the <c>array of bytes</c> to be filled with.
-    ///  </param>
-    class procedure WipeData(var AData: TBytes; AValue: integer = $0); overload;
-      static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    ///  <inheritdoc />
     destructor Destroy; override;
   end;
 
@@ -251,6 +240,7 @@ type
     ///  </remarks>
     ///  </returns>
     function GetBytes: TBytes;
+
     ///  <summary>
     ///  Implements the <see cref="ITaurusTLS_Bytes.NewBio" /> method.
     ///  Creates the instance of <see cref="ITaurusTLS_Bio" /> interface,
@@ -258,6 +248,7 @@ type
     ///  with the <c>OpenSSL BIO</c> functions.
     ///  </summary>
     function NewBio: ITaurusTLS_Bio;
+
     ///  <summary>
     ///  Implements <see cref="ITaurusTLS_BytesHost.ReleaseNotify" /> method.
     ///  This method is called by the instance of
@@ -267,29 +258,13 @@ type
     procedure ReleaseNotify(const ASender: TTaurusTLS_Bytes);
 
     ///  <summary>
-    ///  Decrypt data from interanl <c>array of bytes</c> storage.
-    ///  </summary>
-    ///  <returns>
-    ///  <c>Array of bytes</c> contains decrypted value from <c>array of bytes</c> storage.
-    ///  </returns>
-    function DecryptBytes: TBytes;
-    ///  <summary>
-    ///  Encrypt data from exteranl <c>array of bytes</c>.
-    ///  </summary>
-    ///  <param name="ASrc"><c>array of bytes</c> to be encrypted.
-    ///  </param>
-    ///  <returns>
-    ///  <c>Array of bytes</c> contains encrypted value from <c>array of bytes</c>
-    ///  in <c>ASrc</c> parameter.
-    ///  </returns>
-    function EncrypBytes(ASrc: TBytes): TBytes;
-    ///  <summary>
     ///  Creates instance of TPlainBytes class which contains
     ///  <c>decrypted array of bytes</c> to be exposed through <see cref="ITaurusTLS_Bio" />
     ///  interface. Descendant class(es) can override this method.
     ///  </summary>
     procedure NewPlainBytes(const ABytes: TBytes; out APlainBytes: TPlainBytes);
       virtual;
+
     ///  <summary>
     ///  Check if internal instance of <see cref="ITaurusTLS_Bytes" /> to store
     ///  <c>decrypted array of bytes</c> exists.
@@ -300,6 +275,8 @@ type
     ///  <c>decrypted array of bytes</c>.
     ///  </returns>
     function GetPlainBytes: ITaurusTLS_Bytes;
+
+    class procedure CheckEncryptor(AEncryptor: TTaurusTLS_CustomEncryptor); static;
     ///  <summary>
     ///  Encrypts the provided data and initialize the internal <c>array of bytes</c>
     ///  storage with it.
@@ -315,7 +292,26 @@ type
     ///  <param name="ABytes">
     ///  An <c>array of bytes</c> is used as internal storage.
     ///  </param>
-    procedure SetBytes(const ABytes: TBytes);
+    procedure SetBytes(const ABytes: TBytes); {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+    ///  <summary>
+    ///  Decrypt data from interanl <c>array of bytes</c> storage.
+    ///  </summary>
+    ///  <returns>
+    ///  <c>Array of bytes</c> contains decrypted value from <c>array of bytes</c> storage.
+    ///  </returns>
+    function DecryptBytes: TBytes; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+    ///  <summary>
+    ///  Encrypt data from exteranl <c>array of bytes</c>.
+    ///  </summary>
+    ///  <param name="ASrc"><c>array of bytes</c> to be encrypted.
+    ///  </param>
+    ///  <returns>
+    ///  <c>Array of bytes</c> contains encrypted value from <c>array of bytes</c>
+    ///  in <c>ASrc</c> parameter.
+    ///  </returns>
+    function EncrypBytes(ASrc: TBytes): TBytes; {$IFDEF USE_INLINE}inline;{$ENDIF}
   public
     ///  <summary>
     ///  Create the instance of <see cref="ITaurusTLS_Bytes" /> to store a
@@ -328,97 +324,12 @@ type
     ///  be filled with a "zero" values after setting the internal storage up.
     ///  </param>
     ///  <param name="AEncryptor">
-    ///  The instance of class derived from <see
-    ///  cref="TTaurusTLS_CustomEncryptor" />. The <c>AEncryptor</c> instance
-    ///  executes <c>encryption</c> and <c>decryption</c> on <c>internal array
-    ///  of bytes</c> storage.
+    ///  The instance of class derived from <see cref="TTaurusTLS_CustomEncryptor" />.
+    ///  The <c>AEncryptor</c> instance executes <c>encryption</c> and
+    ///  <c>decryption</c> on <c>internal array of bytes</c> storage.
     ///  </param>
     constructor Create(ABytes: TBytes; AEncryptor: TTaurusTLS_CustomEncryptor);
     destructor Destroy; override;
-  end;
-
-  /// <summary>
-  ///  Helper class for the <see cref="TTaurusTLS_Bytes" /> to create new instances
-  ///  using different source for <c>interanl array of bytes</c>
-  ///  </summary>
-  TTaurusTLS_BytesHelper = class helper for TTaurusTLS_Bytes
-  private
-    class function NewBytes(ASize: NativeUInt): TBytes;
-      static; {$IFDEF USE_INLINE}inline;{$ENDIF}
-  public
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>Unicode string</c> as an <c>internal array of bytes</c> storage
-    ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
-    ///  </summary>
-    ///  <remarks>
-    ///  <c>Unicode string</c> converts to the <c>Ansi string</c> before content
-    ///  is assigned to the <c>internal array of bytes</c> storage.
-    ///  Using <c>non-ASCII</c> characters in the <c>ASrc</c> parameter may have unpredictable result.
-    ///  </remarks>
-    ///  <param name="ASrc">
-    ///  An <c>Unicode string</c> which content will be stored in the <c>internal array of bytes</c> storage.
-    ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>ASrc</c> in the <c>internal array of bytes</c> storage.
-    ///  </returns>
-    class function LoadFromString<T: TTaurusTLS_Bytes, constructor>(const ASrc: string):
-      ITaurusTLS_Bytes; overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>Ansi string</c> as an <c>internal array of bytes</c> storage
-    ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
-    ///  </summary>
-    ///  <param name="ASrc">
-    ///  An <c>Ansi string</c> which content will be stored in the <c>internal array of bytes</c> storage.
-    ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>ASrc</c> in the <c>internal array of bytes</c> storage.
-    ///  </returns>
-    class function LoadFromRawByteString<T: TTaurusTLS_Bytes, constructor>
-      (const ASrc: RawByteString): ITaurusTLS_Bytes; overload; static;
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>Ansi null-terminated string</c> as an <c>internal array of bytes</c> storage
-    ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
-    ///  </summary>
-    ///  <param name="ASrc">A pointer to the <c>Ansi string</c> which content will be stored
-    ///  in the <c>internal array of bytes</c> storage.
-    ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>ASrc</c> in the <c>internal array of bytes</c> storage.
-    ///  </returns>
-    class function LoadFromPChar<T: TTaurusTLS_Bytes, constructor>(
-      const ASrc: PIdAnsiChar): ITaurusTLS_Bytes; overload; static;
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>array of bytes</c> as an <c>internal array of bytes</c> storage
-    ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
-    ///  </summary>
-    ///  <param name="ASrc">An <c>array of bytes</c> which content will be stored
-    ///  in the <c>internal array of bytes</c> storage.
-    ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>ASrc</c> in the <c>internal array of bytes</c> storage.
-    ///  </returns>
-    class function LoadFromBytes<T: TTaurusTLS_Bytes, constructor>(
-      const ASrc: TBytes): ITaurusTLS_Bytes; overload; static;
-      {$IFDEF USE_INLINE}inline;{$ENDIF}
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>Stream</c> as an <c>internal array of bytes</c> storage
-    ///  and using <typeparam name="T">T</typeparam> as an <c>object interface</c> class.
-    ///  </summary>
-    ///  <param name="AStream">A instance of TStream which content will be stored
-    ///  in the <c>internal array of bytes</c> storage.
-    ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>AStream</c> in the <c>internal array of bytes</c> storage.
-    ///  </returns>
-    class function LoadFromStream<T: TTaurusTLS_Bytes, constructor>(const AStream: TStream):
-      ITaurusTLS_Bytes; overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
   end;
 
   /// <summary>
@@ -427,7 +338,122 @@ type
   ///  from a content of TStream instance.
   ///  </summary>
   TTaurusTLS_EncryptedBytesHelper = class helper for TTaurusTLS_EncryptedBytes
+  public type
+    /// <summary>
+    ///  Number of trailing null bytes to add to the <c>array of bytes</c>
+    ///  to represent it as a <see cref="PAnsiChar" /> or <see cref="PWideChar" />
+    ///  null-terminated string.
+    ///  </summary>
+    TTrailingNulls = TBytesFactory.TTrailingNulls;
   public
+    ///  <summary>
+    ///  Creates an instance of <see cref="ITaurusTLS_Bytes" /> interface
+    ///  storing content of <c>AStr</c> in encrypting storage and filling
+    ///  content of <c>AStr</c> with zeros.
+    ///  </summary>
+    ///  <param name="AStr">
+    ///  Content of <c>AStr</c> to be stored as encrypted <c>array of bytes</c>.
+    ///  Content of <c>AStr</c> is filled with zerod after the instance of
+    ///  <see cref="ITaurusTLS_Bytes" /> created.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  The instance of class derived from <see cref="TTaurusTLS_CustomEncryptor" />.
+    ///  The <c>AEncryptor</c> instance executes <c>encryption</c> and
+    ///  <c>decryption</c> on <c>internal array of bytes</c> storage.
+    ///  </param>
+    ///  <param name="AWithTrailingNull">
+    ///  Method adds two zero bytes after content copied from <c>AString</c>
+    ///  when <c>AWithTrailingNull</c> is <c>True</c> to allow passing
+    ///  unencrypted content as <see cref="PWideChar" /> null-terminated string
+    ///  to the <c>OpenSSL</c> functions via <see cref="ITaurusTLS_Bio" />
+    ///  interface.
+    ///  </param>
+    class function Create(var AStr: UnicodeString;
+      AEncryptor: TTaurusTLS_CustomEncryptor;
+      AWithTrailingNull: boolean = False): ITaurusTLS_Bytes;
+      overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="ITaurusTLS_Bytes" /> interface
+    ///  storing content of <c>AStr</c> in encrypting storage and filling
+    ///  content of <c>AStr</c> with zeros.
+    ///  </summary>
+    ///  <param name="AStr">
+    ///  Content of <c>AStr</c> to be stored as encrypted <c>array of bytes</c>.
+    ///  Content of <c>AStr</c> is filled with zerod after the instance of
+    ///  <see cref="ITaurusTLS_Bytes" /> created.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  The instance of class derived from <see cref="TTaurusTLS_CustomEncryptor" />.
+    ///  The <c>AEncryptor</c> instance executes <c>encryption</c> and
+    ///  <c>decryption</c> on <c>internal array of bytes</c> storage.
+    ///  </param>
+    ///  <param name="AWithTrailingNull">
+    ///  Method adds zero byte after content copied from <c>AString</c>
+    ///  when <c>AWithTrailingNull</c> is <c>True</c> to allow passing
+    ///  unencrypted content as <see cref="PAnsiChar" /> null-terminated string
+    ///  to the <c>OpenSSL</c> functions via <see cref="ITaurusTLS_Bio" />
+    ///  interface.
+    ///  </param>
+    class function Create(var AStr: AnsiString;
+      AEncryptor: TTaurusTLS_CustomEncryptor;
+      AWithTrailingNull: boolean = False): ITaurusTLS_Bytes;
+      overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="ITaurusTLS_Bytes" /> interface
+    ///  storing content of <c>AStr</c> in encrypting storage and filling
+    ///  content of <c>AStr</c> with zeros.
+    ///  </summary>
+    ///  <param name="AStr">
+    ///  Content of <c>AStr</c> to be stored as encrypted <c>array of bytes</c>.
+    ///  Content of <c>AStr</c> is filled with zerod after the instance of
+    ///  <see cref="ITaurusTLS_Bytes" /> created.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  The instance of class derived from <see cref="TTaurusTLS_CustomEncryptor" />.
+    ///  The <c>AEncryptor</c> instance executes <c>encryption</c> and
+    ///  <c>decryption</c> on <c>internal array of bytes</c> storage.
+    ///  </param>
+    ///  <param name="AWithTrailingNull">
+    ///  Method adds zero byte after content copied from <c>AString</c>
+    ///  when <c>AWithTrailingNull</c> is <c>True</c> to allow passing
+    ///  unencrypted content as <see cref="PAnsiChar" /> null-terminated string
+    ///  to the <c>OpenSSL</c> functions via <see cref="ITaurusTLS_Bio" />
+    ///  interface.
+    ///  </param>
+    class function Create(var AStr: RawByteString;
+      AEncryptor: TTaurusTLS_CustomEncryptor;
+      AWithTrailingNull: boolean = False): ITaurusTLS_Bytes;
+      overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="ITaurusTLS_Bytes" /> interface
+    ///  storing content of <c>AStr</c> in encrypting storage and filling
+    ///  content of <c>AStr</c> with zeros.
+    ///  </summary>
+    ///  <param name="AStr">
+    ///  Content of <c>AStr</c> to be stored as encrypted <c>array of bytes</c>.
+    ///  Content of <c>AStr</c> is filled with zerod after the instance of
+    ///  <see cref="ITaurusTLS_Bytes" /> created.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  The instance of class derived from <see cref="TTaurusTLS_CustomEncryptor" />.
+    ///  The <c>AEncryptor</c> instance executes <c>encryption</c> and
+    ///  <c>decryption</c> on <c>internal array of bytes</c> storage.
+    ///  </param>
+    ///  <param name="AWithTrailingNull">
+    ///  Method adds zero byte after content copied from <c>AString</c>
+    ///  when <c>AWithTrailingNull</c> is <c>True</c> to allow passing
+    ///  unencrypted content as <see cref="PAnsiChar" /> null-terminated string
+    ///  to the <c>OpenSSL</c> functions via <see cref="ITaurusTLS_Bio" />
+    ///  interface.
+    ///  </param>
+    class function Create(var AStr: UTF8String;
+      AEncryptor: TTaurusTLS_CustomEncryptor;
+      AWithTrailingNull: boolean = False): ITaurusTLS_Bytes;
+      overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+
     ///  <summary>
     ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
     ///  using content of <c>Stream</c> as an <c>internal array of bytes</c> storage
@@ -436,31 +462,15 @@ type
     ///  <param name="AStream">A instance of TStream which content will be stored
     ///  in the <c>internal encrypted array of bytes</c> storage.
     ///  </param>
-    ///  <param name="AWipeSrcMem"> Indicates whether the content of <c>AStream</c> instance
-    ///  should be filled with "zeros" after the instance of the <see cref="ITaurusTLS_Bytes" /> created.
-    ///  <remarks>
-    ///  The only memory content of see cref="TMemoyStream" /> class and its desendants
-    ///  can be "zeroed".
-    ///  </remarks>
-    ///  </param>
     ///  <param name="AEncryptor">An instance of <see cref="TTaurusTLS_CustomEncryptor" /> type
     ///  is used for the <c>encryption</c> and <c>decryption</c> operations.
     ///  </param>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
-    ///  <c>AStream</c> in the <c>internal encrypted array of bytes</c> storage.
-    ///  </returns>
-    ///  <seealso cref="TTaurusTLS_CustomEncryptor" />
-    class function LoadFromStream(const AStream: TStream; AWipeSrcMem: boolean;
-      AEncryptor: TTaurusTLS_CustomEncryptor = nil): ITaurusTLS_Bytes;
-      overload; static;
-    ///  <summary>
-    ///  Creates the instance of <see cref="ITaurusTLS_Bytes" /> interface
-    ///  using content of <c>Stream</c> as an <c>internal array of bytes</c> storage
-    ///  and keeps it in <c>encrypted</c> form
-    ///  using <c>Advanced Encryption Standard (AES) cipher algorithm</c> family
-    ///  </summary>
-    ///  <param name="AStream">A instance of TStream which content will be stored
-    ///  in the <c>internal encrypted array of bytes</c> storage.
+    ///  <param name="AAddTrailingNulls">
+    ///  Allows to add trailing zero bytes aftec content loaded from the
+    ///  <c>AStream</c> to allow passing unencrypted content
+    ///  as a <see cref="PAnsiChar" /> or a <see cref="PWideChar" /> null-terminated
+    ///  string to the <c>OpenSSL</c> functions via <see cref="ITaurusTLS_Bio" />
+    ///  interface.
     ///  </param>
     ///  <param name="AWipeSrcMem"> Indicates whether the content of <c>AStream</c> instance
     ///  should be filled with "zeros" after the instance of the <see cref="ITaurusTLS_Bytes" /> created.
@@ -469,24 +479,15 @@ type
     ///  can be "zeroed".
     ///  </remarks>
     ///  </param>
-    ///  <param name="AKeySize"><c>Advanced Encryption Standard (AES) cipher algorithm</c>
-    ///  <c>key size</c>. <see cref="TTaurusTLS_AESKeySize" />
-    ///  </param>
-    ///  <param name="AEncodeMode"><c>Advanced Encryption Standard (AES) cipher algorithm</c>
-    ///  <c>encode mode</c>. <see cref="TTaurusTLS_SimleAESEncodeMode" />
-    ///  </param>
-    ///  <remarks>
-    ///  This method utilizes <see cref="TTaurusTLS_SimpleAESFactory" /> factory
-    ///  to create the <see cref="TTaurusTLS_SimleAESEncodeMode" /> instance and
-    ///  with the specified values in parameters <c>AKeySize</c> and <c>AEncodeMode</c>.
-    ///  </remarks>
-    ///  <returns>The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
+    ///  <returns>
+    ///  The instance of <see cref="ITaurusTLS_Bytes" /> holds the content of
     ///  <c>AStream</c> in the <c>internal encrypted array of bytes</c> storage.
     ///  </returns>
-    ///  <seealso cref="TTaurusTLS_SimpleAESFactory" />
-    class function LoadFromStream(const AStream: TStream; AWipeSrcMem: boolean;
-      AKeySize: TTaurusTLS_AESKeySize; AEncodeMode: TTaurusTLS_SimleAESEncodeMode):
-      ITaurusTLS_Bytes; overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
+    class function Create(const AStream: TStream;
+      AEncryptor: TTaurusTLS_CustomEncryptor;
+      AAddTrailingNulls: TTrailingNulls = 0;
+      AWipeSrcMem: boolean = True): ITaurusTLS_Bytes; overload; static;
+      {$IFDEF USE_INLINE}inline;{$ENDIF}
   end;
 
 implementation
@@ -564,25 +565,8 @@ end;
 
 destructor TTaurusTLS_WipingBytes.Destroy;
 begin
-  WipeData;
+  TWiper.Wipe(FBytes);
   inherited;
-end;
-
-procedure TTaurusTLS_WipingBytes.WipeData;
-begin
-  WipeData(FBytes);
-end;
-
-class procedure TTaurusTLS_WipingBytes.WipeData(var AData: TBytes; AValue: integer);
-var
-  lLen: NativeUInt;
-
-begin
-  lLen:=Length(AData);
-  if lLen = 0 then
-    Exit;
-  FillChar(AData[0], lLen, AValue);
-  SetLength(AData, 0);
 end;
 
 { TTaurusTLS_EncryptedBytes.TPlainBytes }
@@ -608,9 +592,7 @@ end;
 constructor TTaurusTLS_EncryptedBytes.Create(ABytes: TBytes;
   AEncryptor: TTaurusTLS_CustomEncryptor);
 begin
-  // Assert is added intentionally to avoid this class improper usage.
-  Assert(Assigned(AEncryptor),
-    ClassName+'.Create: parameter AEncryptor must not be ''nil''.');
+  CheckEncryptor(AEncryptor);
   FEncryptor:=AEncryptor;
   SetBytes(ABytes);
 end;
@@ -619,6 +601,14 @@ destructor TTaurusTLS_EncryptedBytes.Destroy;
 begin
   FreeAndNil(FEncryptor);
   inherited;
+end;
+
+class procedure TTaurusTLS_EncryptedBytes.CheckEncryptor(
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  // Assert is added intentionally to avoid this class improper usage.
+  Assert(Assigned(AEncryptor),
+    ClassName+'.Create: parameter AEncryptor must not be ''nil''.');
 end;
 
 function TTaurusTLS_EncryptedBytes.DecryptBytes: TBytes;
@@ -697,94 +687,13 @@ var
   lBytes: TBytes;
 
 begin
+  try
     if Length(FEncryptedBytes) <> 0 then
-    ETaurusTLSIBytesError.RaiseWithMessage(RIB_Bytes_CanNotChange);
-  lBytes := ABytes;
-  FEncryptedBytes := EncrypBytes(ABytes);
-  TPlainBytes.WipeData(lBytes); // clean-up source data always
-end;
-
-{ TTaurusTLS_CustomBytesHelper }
-
-class function TTaurusTLS_BytesHelper.NewBytes(ASize: NativeUInt): TBytes;
-begin
-  if ASize > 0 then
-{$IFDEF FPC}
-  {$warn 5093 OFF}
-{$ENDIF}
-    SetLength(Result, ASize);
-{$IFDEF FPC}
-  {$warn 5093 ON}
-{$ENDIF}
-end;
-
-class function TTaurusTLS_BytesHelper.LoadFromBytes<T>(
-  const ASrc: TBytes): ITaurusTLS_Bytes;
-var
-  lResult: T;
-
-begin
-  Result:=nil;
-  lResult:=nil;
-  try
-    lResult:=T.Create;
-    lResult.SetBytes(ASrc);
-  except
-    lResult.Free;
-  end;
-  Result:=lResult;
-end;
-
-class function TTaurusTLS_BytesHelper.LoadFromString<T>(
-  const ASrc: string): ITaurusTLS_Bytes;
-begin
-  Result:=LoadFromRawByteString<T>(RawByteString(ASrc));
-end;
-
-class function TTaurusTLS_BytesHelper.LoadFromRawByteString<T>(
-  const ASrc: RawByteString): ITaurusTLS_Bytes;
-begin
-  Result:=LoadFromPChar<T>(PIdAnsiChar(ASrc));
-end;
-
-class function TTaurusTLS_BytesHelper.LoadFromPchar<T>(
-  const ASrc: PIdAnsiChar): ITaurusTLS_Bytes;
-begin
-  Result:=LoadFromBytes<T>(BytesOf(ASrc));
-end;
-
-class function TTaurusTLS_BytesHelper.LoadFromStream<T>(
-  const AStream: TStream): ITaurusTLS_Bytes;
-var
-  lStream: TBytesStream;
-  lBytes: TBytes;
-  lResult: T;
-
-begin
-  if not Assigned(AStream) then
-    Exit(nil);
-
-  if AStream is TBytesStream then
-  begin
-    lBytes:=TBytesStream(AStream).Bytes; // reuse TBytes from the underlyed stream
-  end
-  else
-  begin
-    lStream:=TBytesStream.Create(NewBytes(AStream.Size));
-    try
-      lStream.CopyFrom(AStream, 0);
-      lBytes:=lStream.Bytes;
-    finally
-      lStream.Free;
-    end;
-  end;
-  lResult:=nil;
-  try
-    lResult:=T.Create;
-    lResult.SetBytes(lBytes);
-    Result:=lResult;
-  except
-    lResult.Free;
+      ETaurusTLSIBytesError.RaiseWithMessage(RIB_Bytes_CanNotChange);
+    lBytes := ABytes;
+    FEncryptedBytes := EncrypBytes(ABytes);
+  finally
+    TWiper.Wipe(lBytes); // force clean-up source data
   end;
 end;
 
@@ -795,7 +704,7 @@ type
 
 { TStreamHelper }
 
-procedure TStreamHelper.WipeMemoryData(AValue: integer = $0);
+procedure TStreamHelper.WipeMemoryData(AValue: integer);
 var
   lSize: UInt64;
 
@@ -807,45 +716,56 @@ end;
 
 { TTaurusTLS_EncryptedBytesHelper }
 
-class function TTaurusTLS_EncryptedBytesHelper.LoadFromStream(
-  const AStream: TStream; AWipeSrcMem: boolean;
-  AEncryptor: TTaurusTLS_CustomEncryptor): ITaurusTLS_Bytes;
+class function TTaurusTLS_EncryptedBytesHelper.Create(
+  var AStr: UnicodeString; AEncryptor: TTaurusTLS_CustomEncryptor;
+  AWithTrailingNull: boolean): ITaurusTLS_Bytes;
+begin
+  Result:=TTaurusTLS_EncryptedBytes.Create(
+    TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
+end;
+
+class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: AnsiString;
+  AEncryptor: TTaurusTLS_CustomEncryptor;
+  AWithTrailingNull: boolean): ITaurusTLS_Bytes;
+begin
+  Result:=TTaurusTLS_EncryptedBytes.Create(
+    TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
+end;
+
+class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: RawByteString;
+  AEncryptor: TTaurusTLS_CustomEncryptor;
+  AWithTrailingNull: boolean): ITaurusTLS_Bytes;
+begin
+  Result:=TTaurusTLS_EncryptedBytes.Create(
+    TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
+end;
+
+class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: UTF8String;
+  AEncryptor: TTaurusTLS_CustomEncryptor;
+  AWithTrailingNull: boolean): ITaurusTLS_Bytes;
+begin
+  Result:=TTaurusTLS_EncryptedBytes.Create(
+    TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
+end;
+
+class function TTaurusTLS_EncryptedBytesHelper.Create(
+  const AStream: TStream; AEncryptor: TTaurusTLS_CustomEncryptor;
+  AAddTrailingNulls: TTrailingNulls; AWipeSrcMem: boolean): ITaurusTLS_Bytes;
 var
-  lSize: UInt64;
-  lStream: TBytesStream;
   lBytes: TBytes;
 
 begin
-  Result:=nil;
-  if not Assigned(AStream) then
-    Exit;
-  if not Assigned(AEncryptor) then
-    AEncryptor:=TTaurusTLS_SimpleAESFactory.NewEncryptor;
-  lSize:= AStream.Size;
-{$IFDEF FPC}
-  {$warn 5091 OFF}
-{$ENDIF}
-  SetLength(lBytes, lSize);
-{$IFDEF FPC}
-  {$warn 5091 ON}
-{$ENDIF}
-  lStream := TBytesStream.Create(lBytes);
+  CheckEncryptor(AEncryptor);
   try
-    lStream.CopyFrom(AStream, 0);
     if AWipeSrcMem then
-      AStream.WipeMemoryData;
-  finally
-    lStream.Free;
+      lBytes:=TBytesFactory.CreateAndWipeMemBuf(AStream, 0, AAddTrailingNulls)
+    else
+      lBytes:=TBytesFactory.Create(AStream, 0, AAddTrailingNulls);
+    Result:=TTaurusTLS_EncryptedBytes.Create(lBytes, AEncryptor);
+  except
+    TWiper.Wipe(lBytes);
+    raise;
   end;
-  Result:=TTaurusTLS_EncryptedBytes.Create(lBytes, AEncryptor);
-end;
-
-class function TTaurusTLS_EncryptedBytesHelper.LoadFromStream(
-  const AStream: TStream; AWipeSrcMem: boolean; AKeySize: TTaurusTLS_AESKeySize;
-  AEncodeMode: TTaurusTLS_SimleAESEncodeMode): ITaurusTLS_Bytes;
-begin
-  Result:=LoadFromStream(AStream, AWipeSrcMem,
-    TTaurusTLS_SimpleAESFactory.NewEncryptor(AKeySize, AEncodeMode));
 end;
 
 end.
