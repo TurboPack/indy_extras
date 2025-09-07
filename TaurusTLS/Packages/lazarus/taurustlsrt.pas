@@ -108,6 +108,7 @@ uses
   TaurusTLS_Random,
   TaurusTLS_ResourceStrings,
   TaurusTLS_SSLContainers,
+  TaurusTLS_SSLContainersHelpers,
   TaurusTLS_Utils,
   TaurusTLS_X509;
 

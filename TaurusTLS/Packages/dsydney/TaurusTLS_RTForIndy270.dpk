@@ -135,6 +135,7 @@ contains
   TaurusTLS_Random in '..\..\Source\TaurusTLS_Random.pas',
   TaurusTLS_ResourceStrings in '..\..\Source\TaurusTLS_ResourceStrings.pas',
   TaurusTLS_SSLContainers in '..\..\Source\TaurusTLS_SSLContainers.pas',
+  TaurusTLS_SSLContainersHelpers in '..\..\Source\TaurusTLS_SSLContainersHelpers.pas',
   TaurusTLS_Utils in '..\..\Source\TaurusTLS_Utils.pas',
   TaurusTLS_X509 in '..\..\Source\TaurusTLS_X509.pas';
 

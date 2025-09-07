@@ -34,10 +34,10 @@ type
   public
     ///  <summary>
     ///  Fills with <c>zeros</c> variable of
-    ///  <see cref="RawByteString" /> type.
+    ///  RawByteString type.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A string of <see cref="RawByteString" /> type.
+    ///  A string of RawByteString type.
     ///  </param>
     class procedure Wipe(var AStr: RawByteString);
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -54,10 +54,10 @@ type
 
     ///  <summary>
     ///  Fills with <c>zeros</c> variable of
-    ///  <see cref="UTF8String" /> type.
+    ///  UTF8String type.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A string of <see cref="UTF8String" /> type.
+    ///  A string of UTF8String type.
     ///  </param>
     class procedure Wipe(var AStr: UTF8String);
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -74,17 +74,17 @@ type
 
     ///  <summary>
     ///  Fills with <c>zeros</c> variable of
-    ///  <see cref="TBytes" /> type.
+    ///  TBytes type.
     ///  </summary>
     ///  <param name="AData">
-    ///  An <c>array of bytes</c> variable (<see cref="TBytes" /> type).
+    ///  An <c>array of bytes</c> variable (TBytes type).
     ///  </param>
     class procedure Wipe(var AData: TBytes);
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
   end;
 
   ///  <summary>
-  ///  Adds set of methods to initialze instances of <see cref="TBytes" />
+  ///  Adds set of methods to initialze instances of TBytes
   ///  with various sources
   ///  </summary>
   TBytesFactory = class
@@ -105,8 +105,8 @@ type
     ///  <c>array of bytes</c>.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value bytes at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value bytes at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     ///  <returns>
@@ -128,8 +128,8 @@ type
     ///  <c>array of bytes</c>.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     ///  <returns>
@@ -156,8 +156,8 @@ type
     ///  A number of <c>Unicode characters</c> to be converted.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value bytes at the end of <see cref="TBytes" />
-    ///  array. Adding these bytes allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value bytes at the end of TBytes
+    ///  array. Adding these bytes allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     ///  <returns>
@@ -189,8 +189,8 @@ type
     ///  A number of <c>characters</c> to be converted.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value bytes at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value bytes at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     ///  <param name="cp">
@@ -216,12 +216,12 @@ type
 {$ENDIF}
       static;
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" /> and copies number of
+    ///  Creates instance of TBytes and copies number of
     ///  <c>ALen</c> bytes from the memory pointed with <c>AData</c>
-    ///  into created <see cref="TBytes" /> array.
+    ///  into created TBytes array.
     ///  </summary>
     ///  <param name="AData">
-    ///  Pointer to the memory region which will be copied to the <see cref="TBytes" />
+    ///  Pointer to the memory region which will be copied to the TBytes
     ///  array.
     ///  </param>
     ///  <param name="ADataLen">
@@ -246,17 +246,17 @@ type
   public
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
+    ///  Creates instance of TBytes, converts content of
     ///  <c>AStr</c> string to <see cref="UnicodeString" /> and copies its
-    ///  conntent into created <see cref="TBytes" /> array.
+    ///  conntent into created TBytes array.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="UnicodeString" /> which will be copied to the <see cref="TBytes" />
+    ///  A <see cref="UnicodeString" /> which will be copied to the TBytes
     ///  array.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value bytes at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value bytes at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     ///  <returns>
@@ -268,51 +268,51 @@ type
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, copies conntent of <c>AStr</c>
-    ///  into created <see cref="TBytes" /> array.
+    ///  Creates instance of TBytes, copies conntent of <c>AStr</c>
+    ///  into created TBytes array.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="AnsiString" /> which will be copied to the <see cref="TBytes" />
+    ///  A <see cref="AnsiString" /> which will be copied to the TBytes
     ///  array.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     class function Create(const AStr: AnsiString; AWithTrailingNull: boolean): TBytes;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" /> andcopies conntent of <c>AStr</c>
-    ///  into created <see cref="TBytes" /> array.
+    ///  Creates instance of TBytes andcopies conntent of <c>AStr</c>
+    ///  into created TBytes array.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="UTF8String" /> which will be copied to the <see cref="TBytes" />
+    ///  A UTF8String which will be copied to the TBytes
     ///  array.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
-    ///  as null-terminated <see cref="UTF8String" />.
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
+    ///  as null-terminated UTF8String.
     ///  </param>
     class function Create(const AStr: UTF8String; AWithTrailingNull: boolean): TBytes;
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
+    ///  Creates instance of TBytes, converts content of
     ///  <c>AStr</c> string to <see cref="UnicodeString" />, copies its
-    ///  conntent into created <see cref="TBytes" /> array, and fills
+    ///  conntent into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="UnicodeString" /> which will be copied to the <see cref="TBytes" />
+    ///  A <see cref="UnicodeString" /> which will be copied to the TBytes
     ///  array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     class function CreateAndWipe(var AStr: UnicodeString;
@@ -320,18 +320,18 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, copies conntent of <c>AStr</c>
-    ///  into created <see cref="TBytes" /> array, and fills
+    ///  Creates instance of TBytes, copies conntent of <c>AStr</c>
+    ///  into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="RawByteString" /> which will be copied to the <see cref="TBytes" />
+    ///  A RawByteString which will be copied to the TBytes
     ///  array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     class function CreateAndWipe(var AStr: RawByteString;
@@ -339,18 +339,18 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, copies conntent of <c>AStr</c>
-    ///  into created <see cref="TBytes" /> array, and fills
+    ///  Creates instance of TBytes, copies conntent of <c>AStr</c>
+    ///  into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="AnsiString" /> which will be copied to the <see cref="TBytes" />
+    ///  A <see cref="AnsiString" /> which will be copied to the TBytes
     ///  array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     class function CreateAndWipe(var AStr: AnsiString;
@@ -358,54 +358,54 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, copies conntent of <c>AStr</c>
-    ///  into created <see cref="TBytes" /> array, and fills
+    ///  Creates instance of TBytes, copies conntent of <c>AStr</c>
+    ///  into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
-    ///  A <see cref="UTF8String" /> which will be copied to the <see cref="TBytes" />
+    ///  A UTF8String which will be copied to the TBytes
     ///  array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
-    ///  as null-terminated <see cref="UTF8String" />.
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
+    ///  as null-terminated UTF8String.
     ///  </param>
     class function CreateAndWipe(var AStr: UTF8String;
       AWithTrailingNull: boolean): TBytes; overload; static;
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
-    ///  <c>AStr</c> string to <see cref="UTF8String" /> and copies its
-    ///  conntent into created <see cref="TBytes" /> array.
+    ///  Creates instance of TBytes, converts content of
+    ///  <c>AStr</c> string to UTF8String and copies its
+    ///  conntent into created TBytes array.
     ///  </summary>
     ///  <param name="AStr">
     ///  A <see cref="UnicodeString" /> which will be converted to <c>UTF8</c>
-    ///  format and stored it in the the <see cref="TBytes" /> array.
+    ///  format and stored it in the the TBytes array.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     class function CreateAsUTF8(const AStr: UnicodeString;
       AWithTrailingNull: boolean): TBytes; overload; static;
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
-    ///  <c>AStr</c> string to <see cref="UTF8String" /> and copies its
-    ///  conntent into created <see cref="TBytes" /> array.
+    ///  Creates instance of TBytes, converts content of
+    ///  <c>AStr</c> string to UTF8String and copies its
+    ///  conntent into created TBytes array.
     ///  </summary>
     ///  <param name="AStr">
     ///  A <see cref="AnsiString" /> which will be converted to <c>UTF8</c>
     ///  format using <c>CodePage</c> in parameter <c>cp</c>,
-    ///  and stored it in the the <see cref="TBytes" /> array.
+    ///  and stored it in the the TBytes array.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
 {$IFDEF DCC}
@@ -417,19 +417,19 @@ type
 {$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
-    ///  <c>AStr</c> string to <see cref="UTF8String" />, copies its
-    ///  conntent into created <see cref="TBytes" /> array, and fills
+    ///  Creates instance of TBytes, converts content of
+    ///  <c>AStr</c> string to UTF8String, copies its
+    ///  conntent into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
     ///  A <see cref="UnicodeString" /> which will be converted to <c>UTF8</c>
-    ///  format and stored it in the the <see cref="TBytes" /> array.
+    ///  format and stored it in the the TBytes array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="UnicodeString" />.
     ///  </param>
     class function CreateAsUTF8AndWipe(var AStr: UnicodeString;
@@ -437,19 +437,19 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" />, converts content of
-    ///  <c>AStr</c> string to <see cref="UTF8String" />, copies its
-    ///  conntent into created <see cref="TBytes" /> array, and fills
+    ///  Creates instance of TBytes, converts content of
+    ///  <c>AStr</c> string to UTF8String, copies its
+    ///  conntent into created TBytes array, and fills
     ///  the origianl string with <c>zeros</c>.
     ///  </summary>
     ///  <param name="AStr">
     ///  A <see cref="AnsiString" /> which will be converted to <c>UTF8</c>
-    ///  format and stored it in the the <see cref="TBytes" /> array.
+    ///  format and stored it in the the TBytes array.
     ///  The <c>AStr</c> will be filled with <c>zeros</c> after metod returns.
     ///  </param>
     ///  <param name="AWithTrailingNull">
-    ///  Indicates whether to add a zero-value byte at the end of <see cref="TBytes" />
-    ///  array. Adding this byte allows to represent <see cref="TBytes" /> array
+    ///  Indicates whether to add a zero-value byte at the end of TBytes
+    ///  array. Adding this byte allows to represent TBytes array
     ///  as null-terminated <see cref="AnsiString" />.
     ///  </param>
     class function CreateAsUTF8AndWipe(var AStr: AnsiString;
@@ -457,14 +457,14 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     /// <summary>
-    ///  Creates instance of <see cref="TBytes" /> with lenght of <c>ACount</c>,
+    ///  Creates instance of TBytes with lenght of <c>ACount</c>,
     ///  copies number of <c>bytes</c> from the <c>AStream</c> into
-    ///  created <see cref="TBytes" /> array.
+    ///  created TBytes array.
     ///  <para>
     ///  Method copies <c>ACount</c> bytes from the stream specified
     ///  by <c>AStream</c> into the <c>array of bytes</c>. It then moves
     ///  the current position by <c>ACount</c> bytes and returns
-    ///  the instance of <see cref="TBytes" />.
+    ///  the instance of TBytes.
     ///  </para>
     ///  <para>
     ///  If <c>ACount</c> is 0, method sets <c>AStream</c> position to 0 before reading
@@ -475,7 +475,7 @@ type
     ///  </para>
     ///  </summary>
     ///  <param name="AStream">
-    ///  A <see cref="TStream" /> which content is copied to the
+    ///  A TStream which content is copied to the
     ///  the <c>array of bytes</c>.
     ///  </param>
     ///  <param name="ACount">
@@ -502,31 +502,31 @@ type
       overload; static; {$IFDEF USE_INLINE}inline;{$ENDIF}
 
     ///  <summary>
-    ///  Creates instance of <see cref="TBytes" /> with lenght of <c>ACount</c>,
+    ///  Creates instance of TBytes with lenght of <c>ACount</c>,
     ///  copies number of <c>bytes</c> from the <c>AStream</c> into
-    ///  created <see cref="TBytes" /> array.
+    ///  created TBytes array.
     ///  This method fills the memory buffer of instance
-    ///  of <see cref="TMemoryStream" /> class and its descendant(s) with <c>zeros</c>.
+    ///  of TMemoryStream class and its descendant(s) with <c>zeros</c>.
     ///  <para>
     ///  Method copies <c>ACount</c> bytes from the stream specified
     ///  by <c>AStream</c> into the <c>array of bytes</c>. It then moves
     ///  the current position by <c>ACount</c> bytes and returns it.
-    ///  If <c>AStream</c> as the instance of <see cref="TMemoryStream" />,
-    ///  method fills see cref="TMemoryStream.Memory" /> with zeros
+    ///  If <c>AStream</c> as the instance of TMemoryStream,
+    ///  method fills TMemoryStream.Memory with zeros
     ///  <c>ACount</c> of bytes starting the initial <c>AStream.Position</c>.
     ///  </para>
     ///  <para>
     ///  If <c>ACount</c> is 0, method sets <c>AStream</c> position to 0 before reading
     ///  and then copies the entire contents of <c>AStream</c> into
     ///  the <c>array of bytes</c> then and returns it.
-    ///  If <c>AStream</c> as the instance of <see cref="TMemoryStream" />,
-    ///  method fills entire <see cref="TMemoryStream.Memory" /> with zeros.
+    ///  If <c>AStream</c> as the instance of TMemoryStream,
+    ///  method fills entire TMemoryStream.Memory with zeros.
     ///  If <c>ACount</c> is greater than 0, method reads from the current position
     ///  in <c>AStream</c>.
     ///  </para>
     ///  </summary>
     ///  <param name="AStream">
-    ///  A <see cref="TStream" /> which content is copied to the
+    ///  A TStream which content is copied to the
     ///  the <c>array of bytes</c>.
     ///  </param>
     ///  <param name="ACount">

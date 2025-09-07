@@ -432,6 +432,10 @@
 				<UnitName Value="TaurusTLS_SSLContainers"/>
 			</Item>
 			<Item>
+				<Filename Value="..\..\Source\TaurusTLS_SSLContainersHelpers.pas"/>
+				<UnitName Value="TaurusTLS_SSLContainersHelpers"/>
+			</Item>
+			<Item>
 				<Filename Value="..\..\Source\TaurusTLS_Utils.pas"/>
 				<UnitName Value="TaurusTLS_Utils"/>
 			</Item>

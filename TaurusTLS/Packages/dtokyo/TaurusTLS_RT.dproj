@@ -239,6 +239,7 @@
 		<DCCReference Include="..\..\Source\TaurusTLS_Random.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_ResourceStrings.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_SSLContainers.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLS_SSLContainersHelpers.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_Utils.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLS_X509.pas"/>
 		<BuildConfiguration Include="Release">
