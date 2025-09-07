@@ -32,6 +32,7 @@ type
   TWipeTestTool = record
     class procedure CheckWiped(AData: pointer; ASize: NativeUInt); overload; static;
     class procedure CheckWiped(AData: TBytes); overload; static;
+    class procedure CheckWiped(AData: TBytes; AOffset, ASize: NativeUInt); overload; static;
     class procedure CheckWiped(AData: RawByteString); overload; static;
     class procedure CheckWiped(AData: UnicodeString); overload; static;
   end;
@@ -45,9 +46,16 @@ type
     class procedure AreEqual(const ABytes: TBytes; const AStr: RawByteString;
       AWithTrailingNull: boolean); overload; static;
     class procedure AreEqual(const ABytes, ASrcBytes: TBytes;
-      AOffset: NativeUInt; ATrailingNulls: TTrailingNulls); overload; static;
+      AOffset: NativeUInt; ATrailingNulls: TTrailingNulls;
+      AllowOutOfBounds: boolean); overload; static;
     class procedure AreEqual(const ABytes: TBytes; const AStream: TStream;
       AOffset: Longint; ATrailingNulls: TTrailingNulls); overload; static;
+    class procedure CalcOffsetAndSize(ADataSize: NativeUInt;
+      var AOffset, ACount: Int64); overload; static;
+    class procedure CalcOffsetAndSize(ABytes: TBytes;
+      var AOffset, ACount: Int64); overload; static;
+    class procedure CalcOffsetAndSize(AStream: TStream;
+      var AOffset, ACount: Int64); overload; static;
   end;
 
   TStreamFactory = class
@@ -334,8 +342,25 @@ type
     [TestCase('English_WithTwoTermNulls_Read_1_8', cTestString+',1,8,2')]
     [TestCase('Latin_WithoutTermNull_Read_8_64', cLatinChars+',0,8,64')]
     [TestCase('Latin_WithOneTermNull_Read_16_32', cLatinChars+',1,16,32')]
-    procedure CreateFromStream(AHexStr: UnicodeString; AOffset, ACount: Longint;
+    procedure CreateFromStream(AHexStr: UnicodeString; AOffset, ACount: Int64;
       AAddTrailingNulls: TTrailingNulls);
+    [AutoNameTestCase('256,248,16,2')]
+    [AutoNameTestCase('256,272,256,1')]
+    [AutoNameTestCase('256,272,0,2')]
+    procedure CreateFormStreamOutOfRange(ASize, AReadOffset, AReadLen: Int64;
+      AAddTrailingNulls: TTrailingNulls);
+
+    [TestCase('Empty_WithoutTermNull',',0,0,0')]
+    [TestCase('Empty_WithOneTermNull',',0,0,1')]
+    [TestCase('Empty_WithTwoTermNulls',',0,0,2')]
+    [TestCase('English_WithoutTermNull_ReadAll', cTestString+',0,0,0')]
+    [TestCase('English_WithTwoTermNulls_ReadAll', cTestString+',0,0,2')]
+    [TestCase('English_WithoutTermNull_Read_2_6', cTestString+',2,6,0')]
+    [TestCase('English_WithTwoTermNulls_Read_1_8', cTestString+',1,8,2')]
+    [TestCase('Latin_WithoutTermNull_Read_8_64', cLatinChars+',0,8,64')]
+    [TestCase('Latin_WithOneTermNull_Read_16_32', cLatinChars+',1,16,32')]
+    procedure CreateFromStreamAndWipe(AHexStr: UnicodeString;
+      AOffset, ACount: Int64; AAddTrailingNulls: TTrailingNulls);
   end;
 
 implementation
@@ -490,8 +515,25 @@ begin
 end;
 
 class procedure TWipeTestTool.CheckWiped(AData: TBytes);
+var
+  lLen: NativeUInt;
+
 begin
-  CheckWiped(PByte(AData), Length(AData)*SizeOf(Byte));
+  lLen:=Length(AData);
+  if lLen > 0 then
+    CheckWiped(AData, Low(AData), High(AData));
+
+//  CheckWiped(PByte(AData), Length(AData)*SizeOf(Byte));
+end;
+
+class procedure TWipeTestTool.CheckWiped(AData: TBytes; AOffset,
+  ASize: NativeUInt);
+begin
+  if Length(AData) = 0 then
+    Exit;
+  Assert.IsTrue(Length(AData) >= (AOffset+ASize),
+    'Read out of array bounary.');
+  CheckWiped(PByte(@AData[AOffset]), ASize*SizeOf(Byte));
 end;
 
 class procedure TWipeTestTool.CheckWiped(AData: RawByteString);
@@ -591,7 +633,7 @@ begin
 end;
 
 class procedure TBytesValidator.AreEqual(const ABytes, ASrcBytes: TBytes;
-  AOffset: NativeUInt; ATrailingNulls: TTrailingNulls);
+  AOffset: NativeUInt; ATrailingNulls: TTrailingNulls; AllowOutOfBounds: boolean);
 var
   lALen, lBLen, lSrcLen: NativeUInt;
   i: integer;
@@ -605,12 +647,24 @@ begin
   begin
     lBLen:=lALen-ATrailingNulls;
     lSrcLen:=Length(ASrcBytes);
-    Assert.IsTrue(lSrcLen >= AOffset+lBLen,
-      Format('Trying to read outside of ASrcBytes boundary. '+
-      'Length(ASrcBytes): %d bytes, less than Length(ASrcBytes)+ACount: %d bytes(s)',
-      [lSrcLen, AOffset+lBLen]));
-    Assert.AreEqualMemory(PByte(ABytes), PByte(@ASrcBytes[AOffset]), lBLen,
-      'ASrcBytes and ABytes are not equal.');
+    if not AllowOutOfBounds then
+      Assert.IsTrue(lSrcLen >= AOffset+lBLen,
+        Format('Trying to read outside of ASrcBytes boundary. '+
+        'Length(ASrcBytes): %d bytes, less than Length(ASrcBytes)+ACount: %d bytes(s)',
+        [lSrcLen, AOffset+lBLen]));
+    if (lSrcLen-AOffset) > 0 then
+    begin
+      lSrcLen:=lSrcLen-AOffset;
+      if lSrcLen > lBLen then
+        lSrcLen:=lBLen;
+    end
+    else
+      lSrcLen:=0;
+    Assert.AreEqual(lSrcLen, lBLen,
+      'Length(ABytes) is not equal expected read length.');
+    if lSrcLen > 0 then
+      Assert.AreEqualMemory(PByte(ABytes), PByte(@ASrcBytes[AOffset]), lBLen,
+        'ASrcBytes and ABytes are not equal.');
   end;
   for i := ATrailingNulls-1 downto Low(TTrailingNulls) do
     Assert.AreEqual<byte>(0, ABytes[lALen-i-1],
@@ -649,6 +703,40 @@ begin
   end;
   Assert.AreEqualMemory(PByte(lBytes), PByte(ABytes), lALen,
     'ABytes and content of AStream are not equal.');
+end;
+
+class procedure TBytesValidator.CalcOffsetAndSize(ADataSize: NativeUInt;
+  var AOffset, ACount: Int64);
+
+begin
+  if (ADataSize = 0) or (ACount = 0) then
+  begin
+    AOffset:=0;
+    ACount:=ADataSize;
+    Exit;
+  end;
+
+  if (AOffset+ACount) > ADataSize then
+    ACount:=ACount-AOffset+ADataSize;
+end;
+
+class procedure TBytesValidator.CalcOffsetAndSize(ABytes: TBytes; var AOffset,
+  ACount: Int64);
+begin
+  CalcOffsetAndSize(Length(ABytes), AOffset, ACount);
+end;
+
+class procedure TBytesValidator.CalcOffsetAndSize(AStream: TStream; var AOffset,
+  ACount: Int64);
+var
+  lSize: NativeUInt;
+
+begin
+  if Assigned(AStream) then
+    lSize:=AStream.Size
+  else
+    lSize:=0;
+  CalcOffsetAndSize(lSize, AOffset, ACount);
 end;
 
 { TStreamFactory }
@@ -925,7 +1013,7 @@ begin
 end;
 
 procedure TBytesHelpersStreamFixture.CreateFromStream(AHexStr: UnicodeString;
-  AOffset, ACount: Longint; AAddTrailingNulls: TTrailingNulls);
+  AOffset, ACount: Int64; AAddTrailingNulls: TTrailingNulls);
 var
   lBytes, lReadBytes: TBytes;
   lBLen: NativeUInt;
@@ -946,9 +1034,83 @@ begin
   lReadBytes:=TBytesFactory.Create(Stream, ACount, AAddTrailingNulls);
   Assert.AreEqual<Int64>(ACount, Length(lReadBytes)-AAddTrailingNulls,
     'Number of requested and actaully read bytes are not equal.');
-  TBytesValidator.AreEqual(lReadBytes, lBytes, AOffset, AAddTrailingNulls);
+  TBytesValidator.AreEqual(lReadBytes, lBytes, AOffset, AAddTrailingNulls, False);
 end;
 
+procedure TBytesHelpersStreamFixture.CreateFormStreamOutOfRange(ASize,
+  AReadOffset, AReadLen: Int64; AAddTrailingNulls: TTrailingNulls);
+var
+  lBytes, lReadBytes: TBytes;
+  lBLen, lReadOffset, lReadLen, lExpectedLen: NativeInt;
+  i: NativeUInt;
+
+  function GetReadLen(lSize, lOffset, lLen: NativeInt) : NativeUInt;
+  var
+    lTmp: Int64;
+
+  begin
+    lTmp:=(lSize-lOffset);
+    if lTmp > 0 then
+      Result:=lReadLen-lTmp
+    else
+      Result:=0
+  end;
+
+begin
+  Assert.IsTrue(ASize > 0,
+    'ASize should be greater than zero. Test can''t be executed.');
+
+  if AReadLen = 0 then
+  begin
+    lReadLen:=ASize;
+    lReadOffset:=0;
+  end
+  else
+  begin
+    lReadLen:=AReadLen;
+    lReadOffset:=AReadOffset;
+  end;
+  lExpectedLen:=GetReadLen(ASize, lReadOffset, lReadLen);
+
+  SetLength(lBytes, ASize);
+  for i:=Low(byte) to ASize-1 do
+    lBytes[i]:=Byte(Random(255));
+
+  Stream:=TStreamFactory.NewBytesStream(lBytes);
+  Stream.Position:=AReadOffset;
+  lReadBytes:=TBytesFactory.Create(Stream, AReadLen, AAddTrailingNulls);
+  lBLen:=Length(lReadBytes);
+  TBytesValidator.AreEqual(lReadBytes, lBytes, lReadOffset, AAddTrailingNulls, True);
+end;
+
+procedure TBytesHelpersStreamFixture.CreateFromStreamAndWipe(
+  AHexStr: UnicodeString; AOffset, ACount: Int64;
+  AAddTrailingNulls: TTrailingNulls);
+var
+  lBytes, lCopyBytes, lReadBytes: TBytes;
+  lBLen: NativeUInt;
+  lStreamLen, lReadOffset, lReadCount: Int64;
+
+begin
+  THexStrTestTool.FromHex(AHexStr, lBytes);
+  THexStrTestTool.FromHex(AHexStr, lCopyBytes);
+  lBLen:=Length(lBytes);
+  if (AOffset = 0) and (ACount = 0) then
+    ACount:=lBLen;
+  Assert.IsTrue(lBLen >= AOffset+ACount,
+    Format('Read size is bigger than source data. Source Size: %d bytes, '+
+      'Read request is between %d and %d bytes.',
+      [lBLen, AOffset, AOffset+ACount]));
+
+  Stream:=TStreamFactory.NewBytesStream(lBytes);
+  Stream.Position:=AOffset;
+  lReadBytes:=TBytesFactory.CreateAndWipeMemBuf(Stream, ACount, AAddTrailingNulls);
+  Assert.AreEqual<Int64>(ACount, Length(lReadBytes)-AAddTrailingNulls,
+    'Number of requested and actaully read bytes are not equal.');
+  TBytesValidator.AreEqual(lReadBytes, lCopyBytes, AOffset, AAddTrailingNulls, False);
+  TBytesValidator.CalcOffsetAndSize(lCopyBytes, AOffset, ACount);
+  TWipeTestTool.CheckWiped(lBytes, AOffset, ACount);
+end;
 
 // To avoid false positive "memory leak" error we explicitly initialize
 // TEncoding.Unicode.

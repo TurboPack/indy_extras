@@ -884,7 +884,7 @@ begin
   if Result > 0 then
     Result:=AStream.Read(ABytes, ACount);
   if Result < ACount then
-    SetLength(ABytes, AAddTrailingNulls);
+    SetLength(ABytes, Result+AAddTrailingNulls);
 end;
 
 class function TBytesFactory.Create(const AStream: TStream;
@@ -902,6 +902,7 @@ begin
   lPos:=AStream.Position;
   AStream.WipeMemoryData(lPos,
     CreateFromStream(AStream, Result, ACount, AAddTrailingNulls));
+
 end;
 
 end.
