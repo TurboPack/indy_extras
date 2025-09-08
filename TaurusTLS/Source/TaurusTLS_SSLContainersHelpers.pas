@@ -171,7 +171,7 @@ type
 
     class function CreateFromStream(const AStream: TStream;
       out ABytes: TBytes; ACount: NativeUInt;
-      AAddTrailingNulls: TTrailingNulls = 0): NativeInt;
+      AAddTrailingNulls: TTrailingNulls = 0): NativeUInt;
       overload; static;
 
     ///  <summary>
@@ -869,17 +869,17 @@ end;
 
 class function TBytesFactory.CreateFromStream(const AStream: TStream;
   out ABytes: TBytes; ACount: NativeUInt;
-  AAddTrailingNulls: TTrailingNulls = 0): NativeInt;
+  AAddTrailingNulls: TTrailingNulls = 0): NativeUInt;
 begin
   if (ACount <= 0) and (not Assigned(AStream)) then
     ACount:=AStream.Size;
   Result:=ACount;
 {$IFDEF FPC}
-  {$WARN 5093 off}
+  {$WARN 5092 off}
 {$ENDIF}
   SetLength(ABytes, ACount+AAddTrailingNulls);
 {$IFDEF FPC}
-  {$WARN 5093 on}
+  {$WARN 5092 on}
 {$ENDIF}
   if Result > 0 then
     Result:=AStream.Read(ABytes, ACount);
