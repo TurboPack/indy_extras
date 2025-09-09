@@ -7,68 +7,31 @@ uses
   DUnitX.TestFramework, DUnitX.Types,
   DUnitX.InternalDataProvider, DUnitX.TestDataProvider,
   IdGlobal, IdCTypes,
-  TaurusTLS_SSLContainersHelpers;
+  TaurusTLS.UT.TestClasses, TaurusTLS_SSLContainersHelpers;
 
 type
-  THexStrTestTool = record
-    class procedure CheckHex(AHexStr: AnsiString; ACharSize: cardinal);
-      overload; static;
-    class procedure CheckHex(AHexStr: string);
-      overload; static;
-    class function FromHex(AHexStr: string; ACodePage: cardinal): TBytes;
-      overload; static;
-    class procedure FromHex(AHexStr: string; ACodePage: cardinal;
-      out AStr: AnsiString); overload; static;
-    class procedure FromHex(AHexStr: string; out AStr: RawByteString);
-      overload; static;
-    class procedure FromHex(AHexStr: string; out AStr: UTF8String);
-      overload; static;
-    class procedure FromHex(AHexStr: string; out AStr: UnicodeString);
-      overload; static;
-    class procedure FromHex(AHexStr: string; out ABytes: TBytes);
-      overload; static;
-  end;
-
-  TWipeTestTool = record
-    class procedure CheckWiped(AData: pointer; ASize: NativeUInt); overload; static;
-    class procedure CheckWiped(AData: TBytes); overload; static;
-    class procedure CheckWiped(AData: TBytes; AOffset, ASize: NativeUInt); overload; static;
-    class procedure CheckWiped(AData: RawByteString); overload; static;
-    class procedure CheckWiped(AData: UnicodeString); overload; static;
-  end;
-
-  TBytesValidator = record
-  public type
-    TTrailingNulls = TBytesFactory.TTrailingNulls;
-  public
-    class procedure AreEqual(const ABytes: TBytes; const AStr: string;
-      AWithTrailingNull: boolean); overload; static;
-    class procedure AreEqual(const ABytes: TBytes; const AStr: RawByteString;
-      AWithTrailingNull: boolean); overload; static;
-    class procedure AreEqual(const ABytes, ASrcBytes: TBytes;
-      AOffset: NativeUInt; ATrailingNulls: TTrailingNulls;
-      AllowOutOfBounds: boolean); overload; static;
-    class procedure AreEqual(const ABytes: TBytes; const AStream: TStream;
-      AOffset: Longint; ATrailingNulls: TTrailingNulls); overload; static;
-    class procedure CalcOffsetAndSize(ADataSize: NativeUInt;
-      var AOffset, ACount: Int64); overload; static;
-    class procedure CalcOffsetAndSize(ABytes: TBytes;
-      var AOffset, ACount: Int64); overload; static;
-    class procedure CalcOffsetAndSize(AStream: TStream;
-      var AOffset, ACount: Int64); overload; static;
-  end;
-
   TStreamFactory = class
+    // Initializes AStream with content of ABytes
     class function SetupStream(AStream: TStream; ABytes: TBytes): TStream;
       overload; static;
+    // Initializes AStream with bytes array converted from HexEncoded string
     class function SetupStream(AStream: TStream; AHexStr: UnicodeString): TStream;
       overload; static;
+    // Creates new TMemoryStream instance and allocate memory buffer
+    /// of specified size
     class function NewMemoryStream(ASize: Int64 = 0): TStream; static;
+    // Creates new TBytesStream instance and allocate empty memory buffer
+    /// of specified size
     class function NewBytesStream(ASize: NativeUInt = 0): TStream; overload; static;
+    // Creates new TBytesStream instance and initialize it with content of
+    // specified bytes array
     class function NewBytesStream(ABytes: TBytes): TStream; overload; static;
+    // Creates a new TFileStream instance with specified file mode
     class function NewFileStream(AFileName: string; AMode: word): TStream; static;
+    // Saves content of TStream to a file
     class procedure SaveToFile(AFileName: string; AHexStr: UnicodeString;
       AMode: word = fmCreate+fmShareDenyWrite); static;
+    // Converts HexEncoded string to bytes array and saves it into file.
     class function SaveToFileTempFile(AHexStr: UnicodeString): string; static;
   end;
 
@@ -145,6 +108,7 @@ const
 type
   [TestFixture]
   [Category('Wiper')]
+  // Verifies TWiper class methods
   TWiperFixture = class
   public
     [TestCase('Empty', '')]
@@ -153,10 +117,12 @@ type
     [TestCase('Latin_Chars', cLatinChars)]
     [TestCase('Cyrillic_Chars', cCyrChars)]
     [TestCase('Greek_Chars', cGreekChars)]
+    // Verifies TWipeTestTool.CheckWiped with bytes array
     procedure WipeBytes(AHexStr: string);
 
     [TestCase('Empty', '')]
     [TestCase('Latin_Chars', cLatinChars)]
+    // Verifies TWipeTestTool.CheckWiped with AnsiString
     procedure WipeAnsiStr(AHexStr: string);
 
     [TestCase('Empty', '')]
@@ -164,12 +130,14 @@ type
     [TestCase('Latin_Chars', cLatinChars)]
     [TestCase('Cyrillic_Chars', cCyrChars)]
     [TestCase('Greek_Chars', cGreekChars)]
+    // Verifies TWipeTestTool.CheckWiped with UTF8String
     procedure WipeUTF8Str(AHexStr: string);
 
     [TestCase('Empty', '')]
     [TestCase('Single_byte', 'e2')]
     [TestCase('''Test string''', cTestString)]
     [TestCase('Latin_Chars', cLatinChars)]
+    // Verifies TWipeTestTool.CheckWiped with RawByteString
     procedure WipeRawByteStr(AHexStr: string);
 
     [TestCase('Empty', '')]
@@ -178,11 +146,13 @@ type
     [TestCase('Latin_Chars', cLatinChars)]
     [TestCase('Cyrillic_Chars', cCyrChars)]
     [TestCase('Greek_Chars', cGreekChars)]
+    // Verifies TWipeTestTool.CheckWiped with UnicodeString
     procedure WipeUnicodeStr(AHexStr: string);
   end;
 
   [TestFixture]
   [Category('BytesHelper')]
+  // Verifies TBytesFactory methods
   TBytesHelpersFixture = class
   public
     [TestCase('Empty_WithoutTermNull',',False')]
@@ -195,6 +165,7 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
+    // Verifies TBytesFactory.Create method with UnicodeString
     procedure CreateUnicodeStr(AHexStr: string; AWithTrailingNull: boolean);
 
     [TestCase('CP_ACP_Empty_WithoutTermNull',',False,0')]
@@ -207,6 +178,7 @@ type
     [TestCase('CP_1251_Cyrillic_WithTermNull', cCyrChars+',True,1251')]
     [TestCase('CP_1253_Greek_WithoutTermNull', cGreekChars+',False,1253')]
     [TestCase('CP_1253_Greek_WithTermNull', cGreekChars+',True,1253')]
+    // Verifies TBytesFactory.Create method with AnsiString
     procedure CreateAnsiStr(AHexStr: string; AWithTrailingNull: boolean;
       ACodePage: cardinal = CP_ACP);
 
@@ -220,7 +192,9 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
+    // Verifies TBytesFactory.Create method with UTF8String
     procedure CreateUTF8Str(AHexStr: string; AWithTrailingNull: boolean);
+
     [TestCase('Empty_WithoutTermNull',',False')]
     [TestCase('Empty_WithTermNull',',True')]
     [TestCase('English_WithoutTermNull', cTestString+',False')]
@@ -231,8 +205,9 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
-
+    // Verifies TBytesFactory.CreateAndWipe method with UnicodeString
     procedure CreateAndWipeUnicodeStr(AHexStr: string; AWithTrailingNull: boolean);
+
     [TestCase('English_WithoutTermNull', cRBTestString+',False')]
     [TestCase('English_WithTermNull', cRBTestString+',True')]
     [TestCase('Lanin_WithoutTermNull', cRBLatinChars+',False')]
@@ -241,8 +216,9 @@ type
     [TestCase('Cyrillic_WithTermNull', cRBCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cRBGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cRBGreekChars+',True')]
-
+    // Verifies TBytesFactory.CreateAndWipe method with RawByteString
     procedure CreateAndWipeRBStr(AHexStr: string; AWithTrailingNull: boolean);
+
     [TestCase('CP_ACP_Empty_WithoutTermNull',',False,0')]
     [TestCase('CP_ACP_Empty_WithTermNull',',True,0')]
     [TestCase('CP_ACP_English_WithoutTermNull', cTestString+',False,0')]
@@ -253,6 +229,7 @@ type
     [TestCase('CP_1251_Cyrillic_WithTermNull', cCyrChars+',True,1251')]
     [TestCase('CP_1253_Greek_WithoutTermNull', cGreekChars+',False,1253')]
     [TestCase('CP_1253_Greek_WithTermNull', cGreekChars+',True,1253')]
+    // Verifies TBytesFactory.CreateAndWipe method with AnsiString
     procedure CreateAndWipeAnsiStr(AHexStr: string; AWithTrailingNull: boolean;
       ACodePage: cardinal = CP_ACP);
 
@@ -266,6 +243,7 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
+    // Verifies TBytesFactory.CreateAndWipe method with UTF8String
     procedure CreateAndWipeUTF8Str(AHexStr: string; AWithTrailingNull: boolean);
 
     [TestCase('Empty_WithoutTermNull',',False')]
@@ -278,6 +256,7 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
+    // Verifies TBytesFactory.CreateAsUTF8 method with UnicodeString
     procedure CreateAsUTF8UnicodeStr(AHexStr: string; AWithTrailingNull: boolean);
 
     [TestCase('CP_ACP_Empty_WithoutTermNull',',False,0')]
@@ -290,6 +269,7 @@ type
     [TestCase('CP_1251_Cyrillic_WithTermNull', cCyrChars+',True,1251')]
     [TestCase('CP_1253_Greek_WithoutTermNull', cGreekChars+',False,1253')]
     [TestCase('CP_1253_Greek_WithTermNull', cGreekChars+',True,1253')]
+    // Verifies TBytesFactory.CreateAsUTF8 method with AnsiString
     procedure CreateAsUTF8AnsiStr(AHexStr: string; AWithTrailingNull: boolean;
       ACodePage: cardinal = CP_ACP);
 
@@ -303,7 +283,10 @@ type
     [TestCase('Cyrillic_WithTermNull', cCyrChars+',True')]
     [TestCase('Greek_WithoutTermNull', cGreekChars+',False')]
     [TestCase('Greek_WithTermNull', cGreekChars+',True')]
-    procedure CreateAsUTF8AndWipeUnicodeStr(AHexStr: string; AWithTrailingNull: boolean);
+    // Verifies TBytesFactory.CreateAsUTF8AndWipe method with UnicodeString
+    procedure CreateAsUTF8AndWipeUnicodeStr(AHexStr: string;
+      AWithTrailingNull: boolean);
+
     [TestCase('CP_ACP_Empty_WithoutTermNull',',False,0')]
     [TestCase('CP_ACP_Empty_WithTermNull',',True,0')]
     [TestCase('CP_ACP_English_WithoutTermNull', cTestString+',False,0')]
@@ -314,12 +297,14 @@ type
     [TestCase('CP_1251_Cyrillic_WithTermNull', cCyrChars+',True,1251')]
     [TestCase('CP_1253_Greek_WithoutTermNull', cGreekChars+',False,1253')]
     [TestCase('CP_1253_Greek_WithTermNull', cGreekChars+',True,1253')]
+    // Verifies TBytesFactory.CreateAsUTF8AndWipe method with AnsiString
     procedure CreateAsUTF8AndWipeAnsiStr(AHexStr: string; AWithTrailingNull: boolean;
       ACodePage: cardinal = CP_ACP);
   end;
 
   [TestFixture]
   [Category('BytesHelperStream')]
+  // Verifies TBytesFactory stream methods
   TBytesHelpersStreamFixture = class
   public type
     TTrailingNulls = TBytesFactory.TTrailingNulls;
@@ -328,11 +313,13 @@ type
     procedure FreeStream;
     procedure SetStream(AStream: TStream);
   protected
+    // CHeck whether FStream is ready for use
     procedure CheckStream;
     property Stream: TStream read FStream write SetStream;
   public
     [Teardown]
     procedure Teardown;
+
     [TestCase('Empty_WithoutTermNull',',0,0,0')]
     [TestCase('Empty_WithOneTermNull',',0,0,1')]
     [TestCase('Empty_WithTwoTermNulls',',0,0,2')]
@@ -342,12 +329,16 @@ type
     [TestCase('English_WithTwoTermNulls_Read_1_8', cTestString+',1,8,2')]
     [TestCase('Latin_WithoutTermNull_Read_8_64', cLatinChars+',0,8,64')]
     [TestCase('Latin_WithOneTermNull_Read_16_32', cLatinChars+',1,16,32')]
+    // Verifies TBytesFactory.Create method with TStream parameter
     procedure CreateFromStream(AHexStr: UnicodeString; AOffset, ACount: Int64;
       AAddTrailingNulls: TTrailingNulls);
+
     [AutoNameTestCase('256,248,16,2')]
     [AutoNameTestCase('256,272,256,1')]
     [AutoNameTestCase('256,272,0,2')]
-    procedure CreateFormStreamOutOfRange(ASize, AReadOffset, AReadLen: Int64;
+    // Verifies TBytesFactory.Create method attemting to read
+    // out of the stream size
+    procedure CreateFormStreamOutOfRange(ASize, AReadOffset, AReadCount: Int64;
       AAddTrailingNulls: TTrailingNulls);
 
     [TestCase('Empty_WithoutTermNull',',0,0,0')]
@@ -359,192 +350,12 @@ type
     [TestCase('English_WithTwoTermNulls_Read_1_8', cTestString+',1,8,2')]
     [TestCase('Latin_WithoutTermNull_Read_8_64', cLatinChars+',0,8,64')]
     [TestCase('Latin_WithOneTermNull_Read_16_32', cLatinChars+',1,16,32')]
+    // Verifies TBytesFactory.CreateAndWipeMemBuf method
     procedure CreateFromStreamAndWipe(AHexStr: UnicodeString;
       AOffset, ACount: Int64; AAddTrailingNulls: TTrailingNulls);
   end;
 
 implementation
-
-{ THexStrTestTool }
-
-class procedure THexStrTestTool.CheckHex(AHexStr: string);
-var
-  lLen, i: NativeUInt;
-
-begin
-  lLen:=Length(AHexStr);
-  Assert.IsTrue(lLen mod (SizeOf(WideChar)) = 0,
-    Format('Length(AHexStr) must be divisible by %d.', [SizeOf(WideChar)]));
-  for i:=1 to lLen do
-    Assert.IsTrue(CharInSet(AHexStr[i], ['0'..'9','a'..'f','A'..'F']),
-      'AHexStr[%d] is not valid hexdemical symbol.')
-end;
-
-class function THexStrTestTool.FromHex(AHexStr: string; ACodePage: cardinal): TBytes;
-var
-  lEnc, lUEnc: TEncoding;
-  lBytes: TBytes;
-  lBytesSize: NativeUInt;
-
-begin
-  lBytesSize:=Length(AHexStr);
-  if lBytesSize = 0 then
-    Exit;
-
-  lBytesSize:=lBytesSize div 2;
-  lUEnc:=TEncoding.Unicode;
-  CheckHex(AHexStr);
-
-  if ACodePage = $FFFF then
-    lEnc:=nil
-  else
-    lEnc:=TEncoding.GetEncoding(ACodePage);
-  try
-    if Assigned(lEnc) then
-    begin
-      SetLength(lBytes, lBytesSize);
-      HexToBin(PChar(AHexStr), 0, lBytes, 0, lBytesSize);
-      Result:=TEncoding.Convert(lUEnc, lEnc, lBytes)
-    end
-    else
-      Result:=BytesOf(AHexStr);
-  finally
-    lEnc.Free;
-  end;
-end;
-
-class procedure THexStrTestTool.FromHex(AHexStr: string; ACodePage: cardinal;
-  out AStr: AnsiString);
-var
-  lBytes: TBytes;
-  lLen: NativeUInt;
-
-begin
-  lBytes:=FromHex(AHexStr, ACodePage);
-  lLen:=Length(lBytes);
-  if lLen > 0 then
-  begin
-    SetLength(AStr, lLen);
-    SetCodePage(RawByteString(AStr), ACodePage, False);
-    Move(PByte(lBytes)^, PAnsiChar(AStr)^, lLen);
-  end
-  else
-    AStr:='';
-end;
-
-class procedure THexStrTestTool.FromHex(AHexStr: string;
-  out AStr: RawByteString);
-var
-  lLen: NativeUInt;
-
-begin
-  CheckHex(AHexStr);
-  lLen:=Length(AHexStr) div 2;
-  if lLen = 0 then
-    Exit;
-  SetLength(AStr, lLen);
-  SetLength(AStr, HexToBin(PChar(AHexStr), PAnsiChar(AStr), lLen));
-end;
-
-class procedure THexStrTestTool.FromHex(AHexStr: string;
-  out AStr: UTF8String);
-begin
-  FromHex(AHexStr, CP_UTF8, AnsiString(AStr));
-end;
-
-class procedure THexStrTestTool.FromHex(AHexStr: string;
-  out AStr: UnicodeString);
-var
-  lBytes: TBytes;
-  lLen: NativeUInt;
-
-begin
-  lBytes:=FromHex(AHexStr, 1200 {//UTF16-LE});
-  lLen:=Length(lBytes);
-  if lLen > 0 then
-  begin
-    SetLength(AStr, lLen div SizeOf(WideChar));
-    Move(PByte(lBytes)^, PChar(AStr)^, lLen);
-  end
-  else
-    AStr:='';
-end;
-
-class procedure THexStrTestTool.FromHex(AHexStr: string; out ABytes: TBytes);
-begin
-  ABytes:=BytesOf(AHexStr);
-end;
-
-class procedure THexStrTestTool.CheckHex(AHexStr: AnsiString; ACharSize: cardinal);
-var
-  lLen, i: NativeUInt;
-
-begin
-  lLen:=Length(AHexStr);
-  Assert.IsTrue(lLen mod (2*ACharSize) = 0,
-    Format('Length(AHexStr) must be divisible by %d.', [2*ACharSize]));
-  for i:=1 to lLen do
-    Assert.IsTrue(AHexStr[i] in ['0'..'9','a'..'f','A'..'F'],
-      'AHexStr[%d] is not valid hexdemical symbol.')
-end;
-
-{ TWipeTestTool }
-
-class procedure TWipeTestTool.CheckWiped(AData: pointer; ASize: NativeUInt);
-var
-  lLongPtr: PNativeUInt;
-  lBytePtr: PByte;
-
-begin
-  if (ASize = 0) or (not Assigned(AData)) then
-    Exit;
-  lLongPtr:=AData;
-{$POINTERMATH ON}
-  while (lLongPtr+1) < (PByte(AData)+ASize) do
-    if lLongPtr^ <> 0 then
-      Assert.Fail('Data is not wiped out.')
-    else
-      Inc(lLongPtr);
-  lBytePtr:=PByte(lLongPtr);
-  while lBytePtr < (PByte(AData)+ASize) do
-    if lBytePtr^ <> 0 then
-      Assert.Fail('Data is not wiped out.')
-    else
-      Inc(lBytePtr);
-{$POINTERMATH OFF}
-end;
-
-class procedure TWipeTestTool.CheckWiped(AData: TBytes);
-var
-  lLen: NativeUInt;
-
-begin
-  lLen:=Length(AData);
-  if lLen > 0 then
-    CheckWiped(AData, Low(AData), High(AData));
-
-//  CheckWiped(PByte(AData), Length(AData)*SizeOf(Byte));
-end;
-
-class procedure TWipeTestTool.CheckWiped(AData: TBytes; AOffset,
-  ASize: NativeUInt);
-begin
-  if Length(AData) = 0 then
-    Exit;
-  Assert.IsTrue(Length(AData) >= (AOffset+ASize),
-    'Read out of array bounary.');
-  CheckWiped(PByte(@AData[AOffset]), ASize*SizeOf(Byte));
-end;
-
-class procedure TWipeTestTool.CheckWiped(AData: RawByteString);
-begin
-  CheckWiped(PAnsiChar(AData), Length(AData)*SizeOf(AnsiChar));
-end;
-
-class procedure TWipeTestTool.CheckWiped(AData: UnicodeString);
-begin
-  CheckWiped(PWideChar(AData), Length(AData)*SizeOf(WideChar));
-end;
 
 { TWiperFixture }
 
@@ -587,7 +398,7 @@ var
 begin
   THexStrTestTool.FromHex(AHexStr, lStr);
   TWiper.Wipe(lStr);
-  TWipeTestTool.CheckWiped(lStr);
+  TWipeTestTool.CheckWiped(AnsiString(lStr));
 end;
 
 procedure TWiperFixture.WipeUnicodeStr(AHexStr: string);
@@ -598,145 +409,6 @@ begin
   THexStrTestTool.FromHex(AHexStr, lStr);
   TWiper.Wipe(lStr);
   TWipeTestTool.CheckWiped(lStr);
-end;
-
-{ TBytesTester }
-
-class procedure TBytesValidator.AreEqual(const ABytes: TBytes;
-  const AStr: string; AWithTrailingNull: boolean);
-var
-  lBLen, lSLen: NativeUInt;
-
-begin
-  lBLen:=Length(ABytes);
-  lSLen:=Length(AStr);
-  if AWithTrailingNull then
-    Inc(lSLen);
-  Assert.AreEqual<NativeUInt>(lBLen, lSLen*SizeOf(WideChar),
-    'Length in bytes of ABytes and A and AStr are not equal.');
-  Assert.AreEqualMemory(PByte(ABytes), PWideChar(AStr), lBLen);
-end;
-
-class procedure TBytesValidator.AreEqual(const ABytes: TBytes;
-  const AStr: RawByteString; AWithTrailingNull: boolean);
-var
-  lBLen, lSLen: NativeUInt;
-
-begin
-  lBLen:=Length(ABytes);
-  lSLen:=Length(AStr);
-  if AWithTrailingNull then
-    Inc(lSLen);
-  Assert.AreEqual<NativeUInt>(lBLen, lSLen*SizeOf(AnsiChar),
-    'Length in bytes of ABytes and A and AStr are not equal.');
-  Assert.AreEqualMemory(PByte(ABytes), PAnsiChar(AStr), lBLen);
-end;
-
-class procedure TBytesValidator.AreEqual(const ABytes, ASrcBytes: TBytes;
-  AOffset: NativeUInt; ATrailingNulls: TTrailingNulls; AllowOutOfBounds: boolean);
-var
-  lALen, lBLen, lSrcLen: NativeUInt;
-  i: integer;
-
-begin
-  lALen:=Length(ABytes);
-  Assert.IsTrue(lALen-ATrailingNulls >= 0,
-    Format('Length(ABytes): "%d" should be greater or equal ATrailingNulls: "%d".',
-    [lALen, ATrailingNulls]));
-  if lALen > ATrailingNulls then
-  begin
-    lBLen:=lALen-ATrailingNulls;
-    lSrcLen:=Length(ASrcBytes);
-    if not AllowOutOfBounds then
-      Assert.IsTrue(lSrcLen >= AOffset+lBLen,
-        Format('Trying to read outside of ASrcBytes boundary. '+
-        'Length(ASrcBytes): %d bytes, less than Length(ASrcBytes)+ACount: %d bytes(s)',
-        [lSrcLen, AOffset+lBLen]));
-    if (lSrcLen-AOffset) > 0 then
-    begin
-      lSrcLen:=lSrcLen-AOffset;
-      if lSrcLen > lBLen then
-        lSrcLen:=lBLen;
-    end
-    else
-      lSrcLen:=0;
-    Assert.AreEqual(lSrcLen, lBLen,
-      'Length(ABytes) is not equal expected read length.');
-    if lSrcLen > 0 then
-      Assert.AreEqualMemory(PByte(ABytes), PByte(@ASrcBytes[AOffset]), lBLen,
-        'ASrcBytes and ABytes are not equal.');
-  end;
-  for i := ATrailingNulls-1 downto Low(TTrailingNulls) do
-    Assert.AreEqual<byte>(0, ABytes[lALen-i-1],
-      Format('No trailing null at position', [lALen-i-1]));
-end;
-
-class procedure TBytesValidator.AreEqual(const ABytes: TBytes;
-  const AStream: TStream; AOffset: Longint; ATrailingNulls: TTrailingNulls);
-var
-  lALen, lBLen: NativeUInt;
-  lBytes: TBytes;
-  lStreamPos, lStreamSize: Int64;
-  i: integer;
-
-begin
-  Assert.IsNotNull(AStream, 'AStream must not be ''nil''.');
-  lALen:=Length(ABytes);
-  Assert.IsTrue(lALen-ATrailingNulls >= 0,
-    Format('Length(ABytes): "%d" should be greater or equal ATrailingNulls: "%d".',
-    [lALen, ATrailingNulls]));
-  lStreamSize:=AStream.Size;
-  SetLength(lBytes, lALen);
-  if lALen > ATrailingNulls then
-  begin
-    lBLen:=lALen-ATrailingNulls;
-    Assert.IsTrue(lStreamSize >= AOffset+lBLen,
-      Format('Trying to read behind the End of File. File Size: %d bytes '+
-      'less than File Size+ACount: %d byte(s)', [lStreamSize, AOffset+lBLen]));
-    lStreamPos:=AStream.Position;
-    try
-      Assert.AreEqual<Int64>(lBLen, AStream.Read(lBytes, lBLen),
-        'Data has read less than reguested.');
-    finally
-      AStream.Position:=lStreamPos;
-    end;
-  end;
-  Assert.AreEqualMemory(PByte(lBytes), PByte(ABytes), lALen,
-    'ABytes and content of AStream are not equal.');
-end;
-
-class procedure TBytesValidator.CalcOffsetAndSize(ADataSize: NativeUInt;
-  var AOffset, ACount: Int64);
-
-begin
-  if (ADataSize = 0) or (ACount = 0) then
-  begin
-    AOffset:=0;
-    ACount:=ADataSize;
-    Exit;
-  end;
-
-  if (AOffset+ACount) > ADataSize then
-    ACount:=ACount-AOffset+ADataSize;
-end;
-
-class procedure TBytesValidator.CalcOffsetAndSize(ABytes: TBytes; var AOffset,
-  ACount: Int64);
-begin
-  CalcOffsetAndSize(Length(ABytes), AOffset, ACount);
-end;
-
-class procedure TBytesValidator.CalcOffsetAndSize(AStream: TStream; var AOffset,
-  ACount: Int64);
-var
-  lSize: NativeUInt;
-
-begin
-  if Assigned(AStream) then
-    lSize:=AStream.Size
-  else
-    lSize:=0;
-  CalcOffsetAndSize(lSize, AOffset, ACount);
 end;
 
 { TStreamFactory }
@@ -756,6 +428,7 @@ var
   lBytes: TBytes;
 
 begin
+  Result:=AStream;
   THexStrTestTool.FromHex(AHexStr, lBytes);
   SetupStream(AStream, lBytes);
 end;
@@ -908,7 +581,7 @@ begin
   THexStrTestTool.FromHex(AHexStr, lStr);
   THexStrTestTool.FromHex(AHexStr, lCopyStr);
   lBytes:=TBytesFactory.CreateAndWipe(lCopyStr, AWithTrailingNull);
-  TWipeTestTool.CheckWiped(lCopyStr);
+  TWipeTestTool.CheckWiped(AnsiString(lCopyStr));
   TBytesValidator.AreEqual(lBytes, lStr, AWithTrailingNull);
 end;
 
@@ -1017,7 +690,6 @@ procedure TBytesHelpersStreamFixture.CreateFromStream(AHexStr: UnicodeString;
 var
   lBytes, lReadBytes: TBytes;
   lBLen: NativeUInt;
-  lStreamLen: Int64;
 
 begin
   THexStrTestTool.FromHex(AHexStr, lBytes);
@@ -1034,53 +706,35 @@ begin
   lReadBytes:=TBytesFactory.Create(Stream, ACount, AAddTrailingNulls);
   Assert.AreEqual<Int64>(ACount, Length(lReadBytes)-AAddTrailingNulls,
     'Number of requested and actaully read bytes are not equal.');
-  TBytesValidator.AreEqual(lReadBytes, lBytes, AOffset, AAddTrailingNulls, False);
+
+  TBytesValidator.CalcOffsetAndSize(Stream, AOffset, ACount);
+  TBytesValidator.AreEqual(lReadBytes, lBytes, AOffset, AAddTrailingNulls);
 end;
 
 procedure TBytesHelpersStreamFixture.CreateFormStreamOutOfRange(ASize,
-  AReadOffset, AReadLen: Int64; AAddTrailingNulls: TTrailingNulls);
+  AReadOffset, AReadCount: Int64; AAddTrailingNulls: TTrailingNulls);
 var
   lBytes, lReadBytes: TBytes;
-  lBLen, lReadOffset, lReadLen, lExpectedLen: NativeInt;
   i: NativeUInt;
-
-  function GetReadLen(lSize, lOffset, lLen: NativeInt) : NativeUInt;
-  var
-    lTmp: Int64;
-
-  begin
-    lTmp:=(lSize-lOffset);
-    if lTmp > 0 then
-      Result:=lReadLen-lTmp
-    else
-      Result:=0
-  end;
 
 begin
   Assert.IsTrue(ASize > 0,
     'ASize should be greater than zero. Test can''t be executed.');
-
-  if AReadLen = 0 then
-  begin
-    lReadLen:=ASize;
-    lReadOffset:=0;
-  end
-  else
-  begin
-    lReadLen:=AReadLen;
-    lReadOffset:=AReadOffset;
-  end;
-  lExpectedLen:=GetReadLen(ASize, lReadOffset, lReadLen);
-
+  // Initialize test bytes array
   SetLength(lBytes, ASize);
+  Randomize;
   for i:=Low(byte) to ASize-1 do
     lBytes[i]:=Byte(Random(255));
 
+  // Create, initialize and position TByteStream
   Stream:=TStreamFactory.NewBytesStream(lBytes);
   Stream.Position:=AReadOffset;
-  lReadBytes:=TBytesFactory.Create(Stream, AReadLen, AAddTrailingNulls);
-  lBLen:=Length(lReadBytes);
-  TBytesValidator.AreEqual(lReadBytes, lBytes, lReadOffset, AAddTrailingNulls, True);
+  lReadBytes:=TBytesFactory.Create(Stream, AReadCount, AAddTrailingNulls);
+
+  // Calculate expected Read offset and Read count based on the Stream size
+  TBytesValidator.CalcOffsetAndSize(Stream, AReadOffset, AReadCount);
+  // Compare lReadBytes array and subarry from lBytes starting AReadOffset positon
+  TBytesValidator.AreEqual(lReadBytes, lBytes, AReadOffset, AAddTrailingNulls);
 end;
 
 procedure TBytesHelpersStreamFixture.CreateFromStreamAndWipe(
@@ -1088,8 +742,7 @@ procedure TBytesHelpersStreamFixture.CreateFromStreamAndWipe(
   AAddTrailingNulls: TTrailingNulls);
 var
   lBytes, lCopyBytes, lReadBytes: TBytes;
-  lBLen: NativeUInt;
-  lStreamLen, lReadOffset, lReadCount: Int64;
+  lBLen, lReadLen: Int64;
 
 begin
   THexStrTestTool.FromHex(AHexStr, lBytes);
@@ -1105,11 +758,18 @@ begin
   Stream:=TStreamFactory.NewBytesStream(lBytes);
   Stream.Position:=AOffset;
   lReadBytes:=TBytesFactory.CreateAndWipeMemBuf(Stream, ACount, AAddTrailingNulls);
+  lReadLen:=Length(lReadBytes);
   Assert.AreEqual<Int64>(ACount, Length(lReadBytes)-AAddTrailingNulls,
     'Number of requested and actaully read bytes are not equal.');
-  TBytesValidator.AreEqual(lReadBytes, lCopyBytes, AOffset, AAddTrailingNulls, False);
+
   TBytesValidator.CalcOffsetAndSize(lCopyBytes, AOffset, ACount);
+  TBytesValidator.AreEqual(lReadBytes, lCopyBytes, AOffset, AAddTrailingNulls);
+
   TWipeTestTool.CheckWiped(lBytes, AOffset, ACount);
+  TBytesValidator.AreEqual(lBytes, lCopyBytes, 0, 0, AOffset);
+  TBytesValidator.AreEqual(lBytes, lCopyBytes,
+    AOffset+lReadLen-AAddTrailingNulls, AOffset+lReadLen-AAddTrailingNulls,
+    lBLen-AOffset-lReadLen-AAddTrailingNulls);
 end;
 
 // To avoid false positive "memory leak" error we explicitly initialize
@@ -1118,6 +778,7 @@ procedure InitEncoding;
 begin
   TEncoding.Unicode;
 end;
+
 
 initialization
   TDUnitX.RegisterTestFixture(TWiperFixture);
