@@ -62,7 +62,7 @@ type
     ///  </summary>
     function NewBio: ITaurusTLS_Bio;
     ///  <summary>
-    ///  Retuns internal data storage in form of <see name="System.SysUtils.TBytes" />
+    ///  Retuns internal data storage in form of System.SysUtils.TBytes
     ///  <remarks>
     ///  Be caution, do not modify this memory content any time.
     ///  </remarks>
@@ -104,7 +104,7 @@ type
         ///  <param name="ABytes">Reference to the <c>array of bytes</c> used as a memory
         ///  storage for the <c>OpenSSL</c> operations.
         ///  </param>
-        ///  <param name="AOwner">Instance of <see name="TTaurusTLS_Bytes" /> class
+        ///  <param name="AOwner">Instance of <see cref="TTaurusTLS_Bytes" /> class
         ///  created this instance.
         ///  </param>
         constructor Create(ABytes: TBytes; AOwner: TTaurusTLS_Bytes);
@@ -154,7 +154,7 @@ type
     constructor Create(const ABytes: TBytes); overload;
     ///  <summary>
     ///  Creates the <see cref="TTaurusTLS_Bytes" /> interface instance and initialize
-    ///  <c>array of bytes</c> with size <see name="ASize" /> and fill it with "zero" values.
+    ///  <c>array of bytes</c> with size (ASize) and fill it with "zero" values.
     ///  </summary>
     ///  <param name="ASize">A size of <c>array of bytes</c> to be use
     ///  as a storage for <c>OpenSSL BIO</c> functions.

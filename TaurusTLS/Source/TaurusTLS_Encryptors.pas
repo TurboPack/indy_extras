@@ -51,7 +51,7 @@ type
     FMode: TIdC_INT;
   public
     ///  <summary>
-    ///  Initializes the instance internal fileds based on <see name="ACipher">value</see>
+    ///  Initializes the instance internal fileds based on ACipher value
     ///  </summary>
     ///  <param name="ACipher">
     ///  Pointer to the <c>EVP_CIPHER</c> initialized by one of
@@ -185,9 +185,8 @@ type
   ///  <summary>
   ///  The <c>TTaurusTLS_CustomEncryptor</c> class is the base class
   ///  for classes implementing the symmetric Encryption and Decryption operations
-  ///  on array of bytes.
+  ///  on array of bytes (TBytes).
   ///  </summary>
-  ///  <seealso name="TBytes" />
   TTaurusTLS_CustomEncryptor = class abstract
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} private
     FCipher: TTaurusTLS_Cipher;
@@ -508,12 +507,12 @@ type
     ///  </summary>
     class property DefaultEncodeMode: TTaurusTLS_SimleAESEncodeMode read GetEncoderMode;
     ///  <summary>
-    ///  Returns string representing symbol name of <see name="AKeySize">property</see>
+    ///  Returns string representing symbol name of AKeySize property
     ///  </summary>
     class property KeySizeName[AKeySize: TTaurusTLS_AESKeySize]: string
       read GetKeySizeName;
     ///  <summary>
-    ///  Returns string representing symbol name of <see name="AEncoderMode">property</see>
+    ///  Returns string representing symbol name of AEncoderMode property
     ///  </summary>
     class property EncodeModeName[AEncoderMode: TTaurusTLS_SimleAESEncodeMode]: string
       read GetEncodingModeName;
