@@ -184,9 +184,9 @@ type
     ///  Methods notifies the Owner that the object is releasing and destroying
     ///  </summary>
     ///  <remarks>
-    ///  Uses internaly by the <see cref="TTaurusTLS_EncryptedBytes" />
+    ///  Uses internaly by the <see cref="TTaurusTLS_BytesVault" />
     ///  </remarks>
-    ///  <seealso cref="TTaurusTLS_EncryptedBytes" />
+    ///  <seealso cref="TTaurusTLS_BytesVault" />
     procedure ReleaseNotify(const ASender: TTaurusTLS_Bytes);
   end;
 
@@ -198,7 +198,7 @@ type
   ///  The decrypted <c>array of bytes</c> is cleared automatically with "zero" values
   ///  when all <see cref="ITaurusTLS_Bio" /> instances are released.
   ///  </summary>
-  TTaurusTLS_EncryptedBytes = class(TInterfacedObject, ITaurusTLS_Bytes,
+  TTaurusTLS_BytesVault = class(TInterfacedObject, ITaurusTLS_Bytes,
     ITaurusTLS_BytesHost)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected type
     ///  <inheritdoc />
@@ -217,10 +217,10 @@ type
       ///  </summary>
       ///  <param name="ABytes"><c>array of bytes</c> keeps decrypted value
       ///  </param>
-      ///  <param name="AHost">reference to the <see cref="TTaurusTLS_EncryptedBytes" /> instance
+      ///  <param name="AHost">reference to the <see cref="TTaurusTLS_BytesVault" /> instance
       ///  created this instance
       ///  </param>
-      constructor Create(ABytes: TBytes; AHost: TTaurusTLS_EncryptedBytes);
+      constructor Create(ABytes: TBytes; AHost: TTaurusTLS_BytesVault);
       destructor Destroy; override;
     end;
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} private
@@ -252,7 +252,7 @@ type
     ///  <summary>
     ///  Implements <see cref="ITaurusTLS_BytesHost.ReleaseNotify" /> method.
     ///  This method is called by the instance of
-    ///  <see cref="TTaurusTLS_EncryptedBytes.TPlainBytes" /> when all references
+    ///  <see cref="TTaurusTLS_BytesVault.TPlainBytes" /> when all references
     ///  to it are released.
     ///  </summary>
     procedure ReleaseNotify(const ASender: TTaurusTLS_Bytes);
@@ -333,11 +333,11 @@ type
   end;
 
   /// <summary>
-  ///  Helper class for the <see cref="TTaurusTLS_EncryptedBytes" /> to create
+  ///  Helper class for the <see cref="TTaurusTLS_BytesVault" /> to create
   ///  new instances initializiing <c>internal encrypted array of bytes</c>
   ///  from a content of TStream instance.
   ///  </summary>
-  TTaurusTLS_EncryptedBytesHelper = class helper for TTaurusTLS_EncryptedBytes
+  TTaurusTLS_BytesVaultHelper = class helper for TTaurusTLS_BytesVault
   public type
     /// <summary>
     ///  Number of trailing null bytes to add to the <c>array of bytes</c>
@@ -569,10 +569,10 @@ begin
   inherited;
 end;
 
-{ TTaurusTLS_EncryptedBytes.TPlainBytes }
+{ TTaurusTLS_BytesVault.TPlainBytes }
 
-constructor TTaurusTLS_EncryptedBytes.TPlainBytes.Create(ABytes: TBytes;
-  AHost: TTaurusTLS_EncryptedBytes);
+constructor TTaurusTLS_BytesVault.TPlainBytes.Create(ABytes: TBytes;
+  AHost: TTaurusTLS_BytesVault);
 begin
   // Assert is added intentionally to avoid this class improper usage.
   Assert(Assigned(AHost),
@@ -581,15 +581,15 @@ begin
   inherited Create(ABytes);
 end;
 
-destructor TTaurusTLS_EncryptedBytes.TPlainBytes.Destroy;
+destructor TTaurusTLS_BytesVault.TPlainBytes.Destroy;
 begin
   FHost.ReleaseNotify(Self);
   inherited;
 end;
 
-{ TTaurusTLS_EncryptedBytes }
+{ TTaurusTLS_BytesVault }
 
-constructor TTaurusTLS_EncryptedBytes.Create(ABytes: TBytes;
+constructor TTaurusTLS_BytesVault.Create(ABytes: TBytes;
   AEncryptor: TTaurusTLS_CustomEncryptor);
 begin
   CheckEncryptor(AEncryptor);
@@ -597,13 +597,13 @@ begin
   SetBytes(ABytes);
 end;
 
-destructor TTaurusTLS_EncryptedBytes.Destroy;
+destructor TTaurusTLS_BytesVault.Destroy;
 begin
   FreeAndNil(FEncryptor);
   inherited;
 end;
 
-class procedure TTaurusTLS_EncryptedBytes.CheckEncryptor(
+class procedure TTaurusTLS_BytesVault.CheckEncryptor(
   AEncryptor: TTaurusTLS_CustomEncryptor);
 begin
   // Assert is added intentionally to avoid this class improper usage.
@@ -611,28 +611,28 @@ begin
     ClassName+'.Create: parameter AEncryptor must not be ''nil''.');
 end;
 
-function TTaurusTLS_EncryptedBytes.DecryptBytes: TBytes;
+function TTaurusTLS_BytesVault.DecryptBytes: TBytes;
 begin
   FEncryptor.Decrypt(FEncryptedBytes, Result);
 end;
 
-function TTaurusTLS_EncryptedBytes.EncrypBytes(ASrc: TBytes): TBytes;
+function TTaurusTLS_BytesVault.EncrypBytes(ASrc: TBytes): TBytes;
 begin
   FEncryptor.Encrypt(ASrc, Result);
 end;
 
-function TTaurusTLS_EncryptedBytes.GetBytes: TBytes;
+function TTaurusTLS_BytesVault.GetBytes: TBytes;
 begin
   Result:=FEncryptedBytes;
 end;
 
-procedure TTaurusTLS_EncryptedBytes.NewPlainBytes(const ABytes: TBytes;
+procedure TTaurusTLS_BytesVault.NewPlainBytes(const ABytes: TBytes;
   out APlainBytes: TPlainBytes);
 begin
   APlainBytes:=TPlainBytes.Create(ABytes, Self);
 end;
 
-function TTaurusTLS_EncryptedBytes.GetPlainBytes: ITaurusTLS_Bytes;
+function TTaurusTLS_BytesVault.GetPlainBytes: ITaurusTLS_Bytes;
 var
   lOldPlainBytes, lNewPlainBytes: TPlainBytes;
   lNewPlainData: TBytes;
@@ -657,12 +657,12 @@ begin
   end;
 end;
 
-function TTaurusTLS_EncryptedBytes.NewBio: ITaurusTLS_Bio;
+function TTaurusTLS_BytesVault.NewBio: ITaurusTLS_Bio;
 begin
   Result:=GetPlainBytes.NewBio;
 end;
 
-procedure TTaurusTLS_EncryptedBytes.ReleaseNotify(const ASender: TTaurusTLS_Bytes);
+procedure TTaurusTLS_BytesVault.ReleaseNotify(const ASender: TTaurusTLS_Bytes);
 {$IFDEF DEBUG}
 var
   lOldBytes: TTaurusTLS_Bytes;
@@ -682,7 +682,7 @@ begin
 {$ENDIF}
 end;
 
-procedure TTaurusTLS_EncryptedBytes.SetBytes(const ABytes: TBytes);
+procedure TTaurusTLS_BytesVault.SetBytes(const ABytes: TBytes);
 var
   lBytes: TBytes;
 
@@ -714,41 +714,41 @@ begin
     FillChar(TMemoryStream(Self).Memory^, lSize, AValue);
 end;
 
-{ TTaurusTLS_EncryptedBytesHelper }
+{ TTaurusTLS_BytesVaultHelper }
 
-class function TTaurusTLS_EncryptedBytesHelper.Create(
+class function TTaurusTLS_BytesVaultHelper.Create(
   var AStr: UnicodeString; AEncryptor: TTaurusTLS_CustomEncryptor;
   AWithTrailingNull: boolean): ITaurusTLS_Bytes;
 begin
-  Result:=TTaurusTLS_EncryptedBytes.Create(
+  Result:=TTaurusTLS_BytesVault.Create(
     TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
 end;
 
-class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: AnsiString;
+class function TTaurusTLS_BytesVaultHelper.Create(var AStr: AnsiString;
   AEncryptor: TTaurusTLS_CustomEncryptor;
   AWithTrailingNull: boolean): ITaurusTLS_Bytes;
 begin
-  Result:=TTaurusTLS_EncryptedBytes.Create(
+  Result:=TTaurusTLS_BytesVault.Create(
     TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
 end;
 
-class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: RawByteString;
+class function TTaurusTLS_BytesVaultHelper.Create(var AStr: RawByteString;
   AEncryptor: TTaurusTLS_CustomEncryptor;
   AWithTrailingNull: boolean): ITaurusTLS_Bytes;
 begin
-  Result:=TTaurusTLS_EncryptedBytes.Create(
+  Result:=TTaurusTLS_BytesVault.Create(
     TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
 end;
 
-class function TTaurusTLS_EncryptedBytesHelper.Create(var AStr: UTF8String;
+class function TTaurusTLS_BytesVaultHelper.Create(var AStr: UTF8String;
   AEncryptor: TTaurusTLS_CustomEncryptor;
   AWithTrailingNull: boolean): ITaurusTLS_Bytes;
 begin
-  Result:=TTaurusTLS_EncryptedBytes.Create(
+  Result:=TTaurusTLS_BytesVault.Create(
     TBytesFactory.CreateAndWipe(AStr, AWithTrailingNull), AEncryptor);
 end;
 
-class function TTaurusTLS_EncryptedBytesHelper.Create(
+class function TTaurusTLS_BytesVaultHelper.Create(
   const AStream: TStream; AEncryptor: TTaurusTLS_CustomEncryptor;
   AAddTrailingNulls: TTrailingNulls; AWipeSrcMem: boolean): ITaurusTLS_Bytes;
 var
@@ -761,7 +761,7 @@ begin
       lBytes:=TBytesFactory.CreateAndWipeMemBuf(AStream, 0, AAddTrailingNulls)
     else
       lBytes:=TBytesFactory.Create(AStream, 0, AAddTrailingNulls);
-    Result:=TTaurusTLS_EncryptedBytes.Create(lBytes, AEncryptor);
+    Result:=TTaurusTLS_BytesVault.Create(lBytes, AEncryptor);
   except
     TWiper.Wipe(lBytes);
     raise;

@@ -313,7 +313,7 @@ type
     procedure FreeStream;
     procedure SetStream(AStream: TStream);
   protected
-    // CHeck whether FStream is ready for use
+    // Checks whether FStream is ready for use
     procedure CheckStream;
     property Stream: TStream read FStream write SetStream;
   public

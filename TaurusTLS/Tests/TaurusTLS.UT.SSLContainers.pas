@@ -118,8 +118,8 @@ type
   end;
 
   [TestFixture]
-  [Category('EncryptedBytes')]
-  TEnryptedBytesFixture = class(TCustomBytesFixture)
+  [Category('BytesVault')]
+  TBytesVaultFixture = class(TCustomBytesFixture)
   protected
     procedure IsEncrypted(const ABytes: TBytes); overload;
     procedure IsEncrypted(AData: pointer; ADataLen: NativeUInt); overload;
@@ -461,9 +461,9 @@ begin
   TestWipeBio;
 end;
 
-{ TEnryptedBytesFixture }
+{ TBytesVaultFixture }
 
-procedure TEnryptedBytesFixture.IsEncrypted(AData: pointer;
+procedure TBytesVaultFixture.IsEncrypted(AData: pointer;
   ADataLen: NativeUInt);
 var
   lLen: NativeUInt;
@@ -479,7 +479,7 @@ begin
     'Plain and Encrypted data looks the same...');
 end;
 
-procedure TEnryptedBytesFixture.IsEncrypted(const ABytes: TBytes);
+procedure TBytesVaultFixture.IsEncrypted(const ABytes: TBytes);
 var
   lLen: NativeUInt;
 
@@ -489,7 +489,7 @@ begin
   IsEncrypted(@ABytes[0], lLen);
 end;
 
-procedure TEnryptedBytesFixture.IsUnEncrypted(ABio: ITaurusTLS_Bio);
+procedure TBytesVaultFixture.IsUnEncrypted(ABio: ITaurusTLS_Bio);
 var
   lMemPtr: Pointer;
   lLen: TIdC_INT;
@@ -499,19 +499,19 @@ begin
   TestData(lMemPtr, lLen);
 end;
 
-class function TEnryptedBytesFixture.NewBytes(
+class function TBytesVaultFixture.NewBytes(
   AHexStr: string): ITaurusTLS_Bytes;
 begin
   Result:=NewBytes(HexToBytes(AHexStr));
 end;
 
-class function TEnryptedBytesFixture.NewBytes(ABytes: TBytes): ITaurusTLS_Bytes;
+class function TBytesVaultFixture.NewBytes(ABytes: TBytes): ITaurusTLS_Bytes;
 begin
-  Result:=TTaurusTLS_EncryptedBytes.Create(ABytes,
+  Result:=TTaurusTLS_BytesVault.Create(ABytes,
     TTaurusTLS_SimpleAESEncryptor.Create(aks192, emOFB));
 end;
 
-procedure TEnryptedBytesFixture.Bytes(ASize: NativeUInt);
+procedure TBytesVaultFixture.Bytes(ASize: NativeUInt);
 var
   lBytes: ITaurusTLS_Bytes;
 
@@ -521,7 +521,7 @@ begin
   IsEncrypted(lBytes.Bytes);
 end;
 
-procedure TEnryptedBytesFixture.Bytes(AHexStr: string);
+procedure TBytesVaultFixture.Bytes(AHexStr: string);
 var
   lBytes: ITaurusTLS_Bytes;
 
@@ -531,7 +531,7 @@ begin
   IsEncrypted(lBytes.Bytes);
 end;
 
-procedure TEnryptedBytesFixture.Bio(ASize: NativeUInt);
+procedure TBytesVaultFixture.Bio(ASize: NativeUInt);
 var
   lBytes: ITaurusTLS_Bytes;
   lBio: ITaurusTLS_Bio;
@@ -543,7 +543,7 @@ begin
   IsUnencrypted(lBio);
 end;
 
-procedure TEnryptedBytesFixture.BioRepeat(ASize, ACount: NativeUInt);
+procedure TBytesVaultFixture.BioRepeat(ASize, ACount: NativeUInt);
 var
   lBytes: ITaurusTLS_Bytes;
   i: NativeUInt;
@@ -555,7 +555,7 @@ begin
     TestBioIntf(lBytes.NewBio);
 end;
 
-procedure TEnryptedBytesFixture.BioRepeatOneLock(ASize, ACount: NativeUInt);
+procedure TBytesVaultFixture.BioRepeatOneLock(ASize, ACount: NativeUInt);
 var
   lBytes: ITaurusTLS_Bytes;
   lBio: ITaurusTLS_Bio;
@@ -570,7 +570,7 @@ begin
     TestBioIntf(lBytes.NewBio);
 end;
 
-procedure TEnryptedBytesFixture.Bio(AHexStr: string);
+procedure TBytesVaultFixture.Bio(AHexStr: string);
 var
   lBytes: ITaurusTLS_Bytes;
   lBio: ITaurusTLS_Bio;
@@ -585,6 +585,6 @@ end;
 initialization
   TDUnitX.RegisterTestFixture(TBytesFixture);
   TDUnitX.RegisterTestFixture(TWipingBytesFixture);
-  TDUnitX.RegisterTestFixture(TEnryptedBytesFixture);
+  TDUnitX.RegisterTestFixture(TBytesVaultFixture);
 
 end.
