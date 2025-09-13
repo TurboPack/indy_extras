@@ -633,7 +633,7 @@ type
     ///  <c>OpenSSL</c> functions expect UTF8-encoded null-terminated string
     ///  as a passphrase. Loaded content will be processed as a UTF8-encoded
     ///  null-terminated string.
-    ///  </rematks>
+    ///  </remarks>
     ///  </param>
     ///  <param name="AEncryptor">
     ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
