@@ -148,6 +148,10 @@ type
     [TestCase('Greek_Chars', cGreekChars)]
     // Verifies TWipeTestTool.CheckWiped with UnicodeString
     procedure WipeUnicodeStr(AHexStr: string);
+
+    [Test]
+    // Verifies string constant handling
+    procedure WipeStringConstant;
   end;
 
   [TestFixture]
@@ -389,6 +393,43 @@ begin
   THexStrTestTool.FromHex(AHexStr, lStr);
   TWiper.Wipe(lStr);
   TWipeTestTool.CheckWiped(lStr);
+end;
+
+procedure TWiperFixture.WipeStringConstant;
+const
+  cRBStr: RawByteString = 'Test RawByteString';
+  cAnsiStr: RawByteString = 'Test AnsiString';
+  cUTF8Str: RawByteString = 'Test string';
+  cUStr: UnicodeString = 'Test UnicodeString';
+
+  procedure CheckRBStr(const AConst: RawByteString; AErrMsq: string);
+  var
+    lVal: RawByteString;
+
+  begin
+    lVal:=AConst;
+    Assert.AreEqual(-1, StringRefCount(lVal),
+      'Not a constant assignet to AVal. Can not be tested.');
+    TWiper.Wipe(lVal);
+    Assert.AreEqual(AConst, lVal, AErrMsq);
+  end;
+
+  procedure CheckUnicodeStr(const AConst: UnicodeString;  AErrMsq: string);
+  var
+    lVal: UnicodeString;
+
+  begin
+    Assert.AreEqual(-1, StringRefCount(lVal),
+      'Not a constant assignet to AVal. Can not be tested.');
+    TWiper.Wipe(lVal);
+    Assert.AreEqual(AConst, lVal, AErrMsq);
+  end;
+
+begin
+  CheckRBStr(cRBStr, 'RawByte string and constantant values are not equal.');
+  CheckRBStr(cAnsiStr, 'RawByte string and constantant values are not equal.');
+  CheckRBStr(cUTF8Str, 'RawByte string and constantant values are not equal.');
+  CheckRBStr(cRBStr, 'RawByte string and constantant values are not equal.');
 end;
 
 procedure TWiperFixture.WipeUTF8Str(AHexStr: string);

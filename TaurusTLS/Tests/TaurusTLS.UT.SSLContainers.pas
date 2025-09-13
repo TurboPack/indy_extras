@@ -153,6 +153,32 @@ type
     procedure BioRepeatOneLock(ASize, ACount: NativeUInt);
   end;
 
+  [TestFixture]
+  [Category('PassphraseVault')]
+  TPassphraseVaultFixture = class(TCustomBytesFixture)
+  protected
+    procedure CheckPassphrase(AVault: ITaurusTLS_PassphraseVault;
+      const APassStr: UTF8String);
+  public
+    [TestCase('''Empty String''', '')]
+    [TestCase('''Cyrillic''', '1A043804400438043B04380446043004')]
+    [TestCase('''The Book (German)''',
+      '64006900650020004200FC006300680065007200')]
+    procedure UnicodePassphrase(AHexStr: string);
+    [TestCase('''Empty String''', '')]
+    [TestCase('''Test String''', '5465737420537472696E67')]
+    procedure RawBytePassphrase(AHexStr: string);
+    [TestCase('''Empty String''', '')]
+    [TestCase('''Test String''', '5465737420537472696E67')]
+    procedure AnsiPassphrase(AHexStr: string);
+    [TestCase('''Empty String''', '')]
+    [TestCase('''Test String''', '5465737420537472696E67')]
+    [TestCase('Cyrillic', 'D09AD0B8D180D0B8D0BBD0B8D186D0B0')]
+    [TestCase('''The Book (German)''', '6469652042C3BC63686572')]
+    procedure UTF8Passphrase(AHexStr: string);
+  end;
+
+
 implementation
 
 uses
@@ -582,9 +608,91 @@ begin
   IsUnencrypted(lBio);
 end;
 
+{ TPassphraseVaultFixture }
+
+procedure TPassphraseVaultFixture.CheckPassphrase(
+  AVault: ITaurusTLS_PassphraseVault; const APassStr: UTF8String);
+var
+  lPassStr: PAnsiChar;
+  lPassIntf: ITaurusTLS_Passphrase;
+
+begin
+  Assert.IsNotNull(AVault, 'AVault is ''nil''.');
+  lPassIntf:=AVault.Passphrase;
+  Assert.IsNotNull(AVault, 'lPassIntf is ''nil''.');
+  lPassStr:=lPassIntf.PassphraseStr;
+  Assert.AreEqual<AnsiString>(AnsiString(APassStr), AnsiString(lPassStr),
+    'APassStr and lPassStr are not equal.');
+end;
+
+procedure TPassphraseVaultFixture.UnicodePassphrase(AHexStr: string);
+var
+  lPass, lPassCopy: UTF8String;
+  lVault: ITaurusTLS_PassphraseVault;
+
+begin
+  THexStrTestTool.FromHex(AHexStr, lPass);
+  // we need a full copy as original string should be wiped out
+  lPassCopy:=Copy(lPass, 1, Length(lPass));
+  lVault:=TTaurusTLS_PassphraseVault.Create(lPass,
+    TTaurusTLS_SimpleAESFactory.NewEncryptor);
+
+  TWipeTestTool.CheckWiped(AnsiString(lPass));
+  CheckPassphrase(lVault, lPassCopy);
+end;
+
+procedure TPassphraseVaultFixture.RawBytePassphrase(AHexStr: string);
+var
+  lPass, lPassCopy: UTF8String;
+  lVault: ITaurusTLS_PassphraseVault;
+
+begin
+  THexStrTestTool.FromHex(AHexStr, lPass);
+  // we need a full copy as original string should be wiped out
+  lPassCopy:=Copy(lPass, 1, Length(lPass));
+  lVault:=TTaurusTLS_PassphraseVault.Create(lPass,
+    TTaurusTLS_SimpleAESFactory.NewEncryptor);
+
+  TWipeTestTool.CheckWiped(AnsiString(lPass));
+  CheckPassphrase(lVault, lPassCopy);
+end;
+
+procedure TPassphraseVaultFixture.AnsiPassphrase(AHexStr: string);
+var
+  lPass, lPassCopy: UTF8String;
+  lVault: ITaurusTLS_PassphraseVault;
+
+begin
+  THexStrTestTool.FromHex(AHexStr, lPass);
+  // we need a full copy as original string should be wiped out
+  lPassCopy:=Copy(lPass, 1, Length(lPass));
+  lVault:=TTaurusTLS_PassphraseVault.Create(lPass,
+    TTaurusTLS_SimpleAESFactory.NewEncryptor);
+
+  TWipeTestTool.CheckWiped(AnsiString(lPass));
+  CheckPassphrase(lVault, lPassCopy);
+end;
+
+procedure TPassphraseVaultFixture.UTF8Passphrase(AHexStr: string);
+var
+  lPass, lPassCopy: UTF8String;
+  lVault: ITaurusTLS_PassphraseVault;
+
+begin
+  THexStrTestTool.FromHex(AHexStr, lPass);
+  // we need a full copy as original string should be wiped out
+  lPassCopy:=Copy(lPass, 1, Length(lPass));
+  lVault:=TTaurusTLS_PassphraseVault.Create(lPass,
+    TTaurusTLS_SimpleAESFactory.NewEncryptor);
+
+  TWipeTestTool.CheckWiped(AnsiString(lPass));
+  CheckPassphrase(lVault, lPassCopy);
+end;
+
 initialization
   TDUnitX.RegisterTestFixture(TBytesFixture);
   TDUnitX.RegisterTestFixture(TWipingBytesFixture);
   TDUnitX.RegisterTestFixture(TBytesVaultFixture);
+  TDUnitX.RegisterTestFixture(TPassphraseVaultFixture);
 
 end.

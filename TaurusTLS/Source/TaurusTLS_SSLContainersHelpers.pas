@@ -594,12 +594,14 @@ end;
 
 class procedure TWiper.Wipe(var AStr: RawByteString);
 begin
-  Wipe(PAnsiChar(AStr), Length(AStr)*SizeOf(AnsiChar));
+  // Check if AStr is constant
+  if StringRefCount(AStr) >= 0 then
+    Wipe(PAnsiChar(AStr), Length(AStr)*SizeOf(AnsiChar));
 end;
 
 class procedure TWiper.Wipe(var AStr: UTF8String);
 begin
-  Wipe(PAnsiChar(AStr), Length(AStr)*SizeOf(AnsiChar));
+  Wipe(RawByteString(AStr));
 end;
 
 class procedure TWiper.Wipe(var AStr: AnsiString);
@@ -609,7 +611,9 @@ end;
 
 class procedure TWiper.Wipe(var AStr: UnicodeString);
 begin
-  Wipe(PWideChar(AStr), Length(AStr)*SizeOf(WideChar));
+  // Check if AStr is constant
+  if StringRefCount(AStr) >= 0 then
+    Wipe(PWideChar(AStr), Length(AStr)*SizeOf(WideChar));
 end;
 
 class procedure TWiper.Wipe(var AData: TBytes);

@@ -264,17 +264,16 @@ type
     ///  </summary>
     procedure NewPlainBytes(const ABytes: TBytes; out APlainBytes: TPlainBytes);
       virtual;
-
     ///  <summary>
     ///  Check if internal instance of <see cref="ITaurusTLS_Bytes" /> to store
     ///  <c>decrypted array of bytes</c> exists.
     ///  If does not exists - creates new one.
     ///  </summary>
     ///  <returns>
-    ///  Return instance of <see cref="ITaurusTLS_Bytes" /> which keeps
-    ///  <c>decrypted array of bytes</c>.
+    ///  Return instance of <see cref="TPlainBytes" />
+    ///  which keeps <c>decrypted array of bytes</c>.
     ///  </returns>
-    function GetPlainBytes: ITaurusTLS_Bytes;
+    function GetPlainBytes: TPlainBytes;
 
     class procedure CheckEncryptor(AEncryptor: TTaurusTLS_CustomEncryptor); static;
     ///  <summary>
@@ -490,6 +489,161 @@ type
       {$IFDEF USE_INLINE}inline;{$ENDIF}
   end;
 
+  ITaurusTLS_Passphrase = interface;
+
+  ///  <summary>
+  ///  Declares interface to store UTF8-encoded null-terminated string
+  ///  in <c>encrypted</c> form and provide access to decryped content
+  ///  by request. Instances of this interface can be used to store
+  ///  sensitive data strings like passwords or passphrases and
+  ///  provide access to decrypted string only on time when they are needed
+  ///  to pass to the <c>OpenSSL</c> functions.
+  ///  </summary>
+  ITaurusTLS_PassphraseVault = interface
+  ['{43197D9D-2D60-40DD-B3D5-EE0B7504EDD3}']
+    ///  <summary>
+    ///  Returns instance of <see cref="ITaurusTLS_Passphrase" /> interface
+    ///  which contains decrypted UTF8-encoded null-terminated string
+    ///  </summary>
+    function GetPassphrase: ITaurusTLS_Passphrase;
+    ///  <summary>
+    ///  Property returning instance of <see cref="ITaurusTLS_Passphrase" />
+    ///  interfacewhich contains decrypted UTF8-encoded null-terminated string.
+    ///  </summary>
+    property Passphrase: ITaurusTLS_Passphrase read GetPassphrase;
+  end;
+
+  ///  <summary>
+  ///  Declares interface providing access to the decrypted null-terminated
+  ///  UTF8-encoded string
+  ///  </summary>
+  ITaurusTLS_Passphrase = interface
+  ['{72FDDCB8-691F-43C9-944D-CF99F0F69AE2}']
+    ///  <summary>
+    ///  Returns pointer to the decrypted UTF8-encoded null-terminated
+    ///  string
+    ///  </summary>
+    function GetPassphraseStr: PAnsiChar;
+    ///  <summary>
+    ///  Returns pointer to the decrypted UTF8-encoded null-terminated
+    ///  string.
+    ///  </summary>
+    property PassphraseStr: PAnsiChar read GetPassphraseStr;
+  end;
+
+  TTaurusTLS_PassphraseVault = class sealed(TTaurusTLS_BytesVault,
+    ITaurusTLS_PassphraseVault)
+  private type
+    TPlainBytes = TTaurusTLS_BytesVault.TPlainBytes;
+    TPassphrase = class(TPlainBytes, ITaurusTLS_Passphrase)
+    protected
+      function GetPassphraseStr: PAnsiChar;
+    end;
+
+  protected
+    ///  <summary>
+    ///  Creates instance of <see cref="TPassphrase" /> and initialize it
+    ///  with decrypted UTF8-encoded null-terminated string.
+    ///  </summary>
+    procedure NewPlainBytes(const ABytes: TBytes; out APlainBytes: TPlainBytes);
+      override;
+    ///  <summary>
+    ///  Implements <see cref="ITaurusTLS_PassphraseVault.GetPassphrase" />
+    ///  method.
+    ///  </summary>
+    function GetPassphrase: ITaurusTLS_Passphrase;
+  public
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="TTaurusTLS_PassphraseVault" />
+    ///  class, encrypts and stores <c>APassphrase</c> UnicodeString internally.
+    ///  The content of this string is accessible via
+    ///  <see cref="ITaurusTLS_PassphraseVault" /> property.
+    ///  </summary>
+    ///  <param name="APassphrase">
+    ///  An UnicodeString to be encrypted and stored in memory.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
+    ///  <c>encryption</c> and <c>decryption</c> of <c>APassphrase</c>
+    ///  </param>
+    constructor Create(var APassphrase: UnicodeString;
+      AEncryptor: TTaurusTLS_CustomEncryptor); overload;
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="TTaurusTLS_PassphraseVault" />
+    ///  class, encrypts and stores <c>APassphrase</c> RawByteString internally.
+    ///  The content of this string is accessible via
+    ///  <see cref="ITaurusTLS_PassphraseVault" /> property.
+    ///  </summary>
+    ///  <param name="APassphrase">
+    ///  An RawByteString to be encrypted and stored in memory.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
+    ///  <c>encryption</c> and <c>decryption</c> of <c>APassphrase</c>
+    ///  </param>
+    constructor Create(var APassphrase: RawByteString;
+      AEncryptor: TTaurusTLS_CustomEncryptor); overload;
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="TTaurusTLS_PassphraseVault" />
+    ///  class, encrypts and stores <c>APassphrase</c> AnsiString internally.
+    ///  The content of this string is accessible via
+    ///  <see cref="ITaurusTLS_PassphraseVault" /> property.
+    ///  </summary>
+    ///  <param name="APassphrase">
+    ///  An AnsiString to be encrypted and stored in memory.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
+    ///  <c>encryption</c> and <c>decryption</c> of <c>APassphrase</c>
+    ///  </param>
+    constructor Create(var APassphrase: AnsiString;
+      AEncryptor: TTaurusTLS_CustomEncryptor); overload;
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="TTaurusTLS_PassphraseVault" />
+    ///  class, encrypts and stores <c>APassphrase</c> UTF8String internally.
+    ///  The content of this string is accessible via
+    ///  <see cref="ITaurusTLS_PassphraseVault" /> property.
+    ///  </summary>
+    ///  <param name="APassphrase">
+    ///  An UTF8String to be encrypted and stored in memory.
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
+    ///  <c>encryption</c> and <c>decryption</c> of <c>APassphrase</c>
+    ///  </param>
+    constructor Create(var APassphrase: UTF8String;
+      AEncryptor: TTaurusTLS_CustomEncryptor); overload;
+
+    ///  <summary>
+    ///  Creates an instance of <see cref="TTaurusTLS_PassphraseVault" />
+    ///  class, encrypts and stores content of <c>AStream</c> parameter internally.
+    ///  Stored content is accessible via <see cref="ITaurusTLS_PassphraseVault" />
+    ///  property.
+    ///  </summary>
+    ///  <param name="AStream">
+    ///  An instance of <see cref="TStream" /> class which content is stored
+    ///  in ecnrypted form in memory.
+    ///  <remarks>
+    ///  <c>AStream</c> content is loaded as is and zero bytes added as a trailing
+    ///  null symbol before content is encrypted im memory.
+    ///  <c>OpenSSL</c> functions expect UTF8-encoded null-terminated string
+    ///  as a passphrase. Loaded content will be processed as a UTF8-encoded
+    ///  null-terminated string.
+    ///  </rematks>
+    ///  </param>
+    ///  <param name="AEncryptor">
+    ///  A <see cref="TTaurusTLS_CustomEncryptor" /> instance used for
+    ///  <c>encryption</c> and <c>decryption</c> of <c>APassphrase</c>
+    ///  </param>
+    constructor Create(AStream: TStream;
+      AEncryptor: TTaurusTLS_CustomEncryptor);overload;
+  end;
+
+
 implementation
 
 uses
@@ -632,7 +786,7 @@ begin
   APlainBytes:=TPlainBytes.Create(ABytes, Self);
 end;
 
-function TTaurusTLS_BytesVault.GetPlainBytes: ITaurusTLS_Bytes;
+function TTaurusTLS_BytesVault.GetPlainBytes: TPlainBytes;
 var
   lOldPlainBytes, lNewPlainBytes: TPlainBytes;
   lNewPlainData: TBytes;
@@ -659,7 +813,7 @@ end;
 
 function TTaurusTLS_BytesVault.NewBio: ITaurusTLS_Bio;
 begin
-  Result:=GetPlainBytes.NewBio;
+  Result:=(GetPlainBytes as ITaurusTLS_Bytes).NewBio;
 end;
 
 procedure TTaurusTLS_BytesVault.ReleaseNotify(const ASender: TTaurusTLS_Bytes);
@@ -766,6 +920,67 @@ begin
     TWiper.Wipe(lBytes);
     raise;
   end;
+end;
+
+{ TTaurusTLS_PassphraseVault.TPassphrase }
+
+function TTaurusTLS_PassphraseVault.TPassphrase.GetPassphraseStr: PAnsiChar;
+begin
+  Result:=PAnsiChar(GetBytes);
+end;
+
+{ TTaurusTLS_PassphraseVault }
+
+constructor TTaurusTLS_PassphraseVault.Create(var APassphrase: UnicodeString;
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  Create(TBytesFactory.CreateAsUTF8AndWipe(APassphrase, True), AEncryptor);
+end;
+
+constructor TTaurusTLS_PassphraseVault.Create(var APassphrase: RawByteString;
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  Create(TBytesFactory.CreateAsUTF8AndWipe(AnsiString(APassphrase), True),
+    AEncryptor);
+end;
+
+constructor TTaurusTLS_PassphraseVault.Create(var APassphrase: AnsiString;
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  Create(TBytesFactory.CreateAsUTF8AndWipe(APassphrase, True), AEncryptor);
+end;
+
+constructor TTaurusTLS_PassphraseVault.Create(var APassphrase: UTF8String;
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  Create(TBytesFactory.CreateAndWipe(APassphrase, True), AEncryptor);
+end;
+
+constructor TTaurusTLS_PassphraseVault.Create(AStream: TStream;
+  AEncryptor: TTaurusTLS_CustomEncryptor);
+begin
+  Create(TBytesFactory.CreateAndWipeMemBuf(AStream, 0, 1), AEncryptor);
+end;
+
+function TTaurusTLS_PassphraseVault.GetPassphrase: ITaurusTLS_Passphrase;
+var
+  lBytes: TPlainBytes;
+
+begin
+  lBytes:=nil;
+  try
+    lBytes:=GetPlainBytes;
+    Result:= lBytes as ITaurusTLS_Passphrase;
+  except
+    lBytes.Free;
+    raise;
+  end;
+end;
+
+procedure TTaurusTLS_PassphraseVault.NewPlainBytes(const ABytes: TBytes;
+  out APlainBytes: TPlainBytes);
+begin
+  APlainBytes:=TPassphrase.Create(ABytes, Self);
 end;
 
 end.
