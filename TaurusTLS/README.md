@@ -79,6 +79,7 @@ The run-time package should depend upon your Indy package files and include the 
 - Source\TaurusTLS_NTLM.pas
 - Source\TaurusTLS_ResourceStrings.pas
 - Source\TaurusTLS_SSLContainers.pas
+- Source\TaurusTLS_SSLContainersHelpers.pas
 - Source\TaurusTLS_Utils.pas
 - Source\TaurusTLS_X509.pas
 - Source\TaurusTLSConsts.pas
