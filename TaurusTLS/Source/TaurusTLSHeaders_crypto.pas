@@ -34,6 +34,7 @@ uses
   TaurusTLSConsts,
   {$ENDIF}
   TaurusTLSHeaders_bio,
+  TaurusTLSHeaders_core,
   TaurusTLSHeaders_types,
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_provider,
@@ -462,6 +463,14 @@ var
   SSLeay_version: function (type_ : TIdC_INT) : PIdAnsiChar; cdecl = nil; {removed 1.1.0}
   SSLeay: function : TIdC_ULONG; cdecl = nil; {removed 1.1.0}
 
+  OSSL_LIB_CTX_new : function : POSSL_LIB_CTX; cdecl = nil; {introduced 3.0.0}
+  OSSL_LIB_CTX_new_from_dispatch : function(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; cdecl = nil; {introduced 3.0.0}
+  OSSL_LIB_CTX_new_child : function(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; cdecl = nil; {introduced 3.0.0}
+  OSSL_LIB_CTX_load_config : function(ctx : POSSL_LIB_CTX; const config_file : PIdAnsiChar) : TIdC_INT; cdecl = nil;  {introduced 3.0.0}
+  OSSL_LIB_CTX_free : procedure(ctx : POSSL_LIB_CTX);  cdecl = nil; {introduced 3.0.0}
+  OSSL_LIB_CTX_get0_global_default : function : POSSL_LIB_CTX; cdecl = nil; {introduced 3.0.0}
+  OSSL_LIB_CTX_set0_default : function(libctx : POSSL_LIB_CTX) : POSSL_LIB_CTX; cdecl = nil; {introduced 3.0.0}
+
 {$ELSE}
 
   function CRYPTO_THREAD_lock_new: PCRYPTO_RWLOCK cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -648,9 +657,15 @@ var
 
   function CRYPTO_THREAD_get_current_id: CRYPTO_THREAD_ID cdecl; external CLibCrypto; {introduced 1.1.0}
   function CRYPTO_THREAD_compare_id(a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OSSL_LIB_CTX_new : POSSL_LIB_CTX; cdecl; external CLibCrypto; {introduced 3.0.0}
+  function OSSL_LIB_CTX_new_from_dispatch(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX cdecl; external CLibCrypto; {introduced 3.0.0}
+  function OSSL_LIB_CTX_new_child(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX cdecl; external CLibCrypto; {introduced 3.0.0}
+  function OSSL_LIB_CTX_load_config(ctx : POSSL_LIB_CTX; const config_file : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;  {introduced 3.0.0}
+  procedure OSSL_LIB_CTX_free(ctx : POSSL_LIB_CTX) cdecl; external CLibCrypto; {introduced 3.0.0}
+  function OSSL_LIB_CTX_get0_global_default : POSSL_LIB_CTX cdecl; external CLibCrypto; {introduced 3.0.0}
+  function OSSL_LIB_CTX_set0_default(libctx : POSSL_LIB_CTX) : POSSL_LIB_CTX cdecl; external CLibCrypto; {introduced 3.0.0}
 
-
-function OPENSSL_malloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
+  function OPENSSL_malloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
 function OPENSSL_zalloc(num: TIdC_SIZET): Pointer; {removed 1.0.0}
 function OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; {removed 1.0.0}
 function OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; {removed 1.0.0}
@@ -765,6 +780,14 @@ const
   FIPS_mode_set_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSLeay_version_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   SSLeay_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+
+  OSSL_LIB_CTX_new_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);  {removed 1.1.0}
+  OSSL_LIB_CTX_new_from_dispatch_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
+  OSSL_LIB_CTX_new_child_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
+  OSSL_LIB_CTX_load_config_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
+  OSSL_LIB_CTX_free_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
+  OSSL_LIB_CTX_get0_global_default_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
+  OSSL_LIB_CTX_set0_default_introduced  = (byte(3) shl 8 or byte(0)) shl 8 or byte(0); {removed 1.1.0}
 
 // OPENSSL_FILE = __FILE__ = C preprocessor macro
 // OPENSSL_LINE = __LINE__ = C preprocessor macro
@@ -983,6 +1006,13 @@ const
   SSLeay_version_procname = 'SSLeay_version'; {removed 1.1.0}
   SSLeay_procname = 'SSLeay'; {removed 1.1.0}
 
+  OSSL_LIB_CTX_new_procname = 'OSSL_LIB_CTX_new';
+  OSSL_LIB_CTX_new_from_dispatch_procname = 'OSSL_LIB_CTX_new_from_dispatch';
+  OSSL_LIB_CTX_new_child_procname = 'OSSL_LIB_CTX_new_child';
+  OSSL_LIB_CTX_load_config_procname = 'OSSL_LIB_CTX_load_config';
+  OSSL_LIB_CTX_free_procname = '(OSSL_LIB_CTX_free';
+  OSSL_LIB_CTX_get0_global_default_procname = 'OSSL_LIB_CTX_get0_global_default';
+  OSSL_LIB_CTX_set0_default_procname = 'OSSL_LIB_CTX_set0_default';
 
 // OPENSSL_FILE = __FILE__ = C preprocessor macro
 // OPENSSL_LINE = __LINE__ = C preprocessor macro
@@ -1784,7 +1814,40 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLeay_procname);
 end;
 
- 
+function ERR_OSSL_LIB_CTX_new : POSSL_LIB_CTX;  {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_procname);
+end;
+
+function ERR_OSSL_LIB_CTX_new_from_dispatch(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_from_dispatch_procname);
+end;
+
+function ERR_OSSL_LIB_CTX_new_child(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_child_procname);
+end;
+
+function ERR_OSSL_LIB_CTX_load_config(ctx : POSSL_LIB_CTX; const config_file : PIdAnsiChar) : TIdC_INT;  {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_load_config_procname);
+end;
+
+procedure ERR_OSSL_LIB_CTX_free(ctx : POSSL_LIB_CTX); {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_free_procname);
+end;
+
+function ERR_OSSL_LIB_CTX_get0_global_default : POSSL_LIB_CTX; {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_get0_global_default_procname);
+end;
+
+function ERR_OSSL_LIB_CTX_set0_default(libctx : POSSL_LIB_CTX) : POSSL_LIB_CTX; {introduced 3.0.0}
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_set0_default_procname);
+end;
 
   {$I TaurusTLSNoRetValOn.inc} 
 
@@ -4383,7 +4446,222 @@ begin
     {$ifend}
   end;
 
- 
+  OSSL_LIB_CTX_new := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_new_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_new);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_new_allownil)}
+    OSSL_LIB_CTX_new := @ERR_OSSL_LIB_CTX_new;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_introduced)}
+    if LibVersion < OSSL_LIB_CTX_new_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_new)}
+      OSSL_LIB_CTX_new := @FC_OSSL_LIB_CTX_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_removed)}
+    if OSSL_LIB_CTX_new_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_new)}
+      OSSL_LIB_CTX_new := @_OSSL_LIB_CTX_new;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_new_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_new');
+    {$ifend}
+  end;
+
+   OSSL_LIB_CTX_new_from_dispatch := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_new_from_dispatch_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_new_from_dispatch);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_new_from_dispatch_allownil)}
+    OSSL_LIB_CTX_new_from_dispatch := @ERR_OSSL_LIB_CTX_new_from_dispatch;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_from_dispatch_introduced)}
+    if LibVersion < OSSL_LIB_CTX_new_from_dispatch_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_new_from_dispatch)}
+      OSSL_LIB_CTX_new_from_dispatch := @FC_OSSL_LIB_CTX_new_from_dispatch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_from_dispatch_removed)}
+    if OSSL_LIB_CTX_new_from_dispatch_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_new_from_dispatch)}
+      OSSL_LIB_CTX_new_from_dispatch := @_OSSL_LIB_CTX_new_from_dispatch;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_new_from_dispatch_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_new_from_dispatch');
+    {$ifend}
+  end;
+
+   OSSL_LIB_CTX_new_child := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_new_child_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_new_child);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_new_child_allownil)}
+    OSSL_LIB_CTX_new_child := @ERR_OSSL_LIB_CTX_new_child;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_child_introduced)}
+    if LibVersion < OSSL_LIB_CTX_new_child_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_new_child)}
+      OSSL_LIB_CTX_new_child := @FC_OSSL_LIB_CTX_new_child;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_new_child_removed)}
+    if OSSL_LIB_CTX_new_child_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_new_child)}
+      OSSL_LIB_CTX_new_child := @_OSSL_LIB_CTX_new_child;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_new_child_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_new_child');
+    {$ifend}
+  end;
+
+   OSSL_LIB_CTX_load_config := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_load_config_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_load_config);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_load_config_allownil)}
+    OSSL_LIB_CTX_load_config := @ERR_OSSL_LIB_CTX_load_config;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_load_config_introduced)}
+    if LibVersion < OSSL_LIB_CTX_load_config_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_load_config)}
+      OSSL_LIB_CTX_load_config := @FC_OSSL_LIB_CTX_load_config;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_load_config_removed)}
+    if OSSL_LIB_CTX_load_config_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_load_config)}
+      OSSL_LIB_CTX_load_config := @_OSSL_LIB_CTX_load_config;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_load_config_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_load_config');
+    {$ifend}
+  end;
+
+  OSSL_LIB_CTX_free := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_free_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_free);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_free_allownil)}
+    OSSL_LIB_CTX_free := @ERR_OSSL_LIB_CTX_free;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_free_introduced)}
+    if LibVersion < OSSL_LIB_CTX_free_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_free)}
+      OSSL_LIB_CTX_free := @FC_OSSL_LIB_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_free_removed)}
+    if OSSL_LIB_CTX_free_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_free)}
+      OSSL_LIB_CTX_free := @_OSSL_LIB_CTX_free;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_free_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_free');
+    {$ifend}
+  end;
+
+  OSSL_LIB_CTX_get0_global_default := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_get0_global_default_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_get0_global_default);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_get0_global_default_allownil)}
+    OSSL_LIB_CTX_get0_global_default := @ERR_OSSL_LIB_CTX_get0_global_default;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_get0_global_default_introduced)}
+    if LibVersion < OSSL_LIB_CTX_get0_global_default_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_get0_global_default)}
+      OSSL_LIB_CTX_get0_global_default := @FC_OSSL_LIB_CTX_get0_global_default;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_get0_global_default_removed)}
+    if OSSL_LIB_CTX_get0_global_default_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_get0_global_default)}
+      OSSL_LIB_CTX_get0_global_default := @_OSSL_LIB_CTX_get0_global_default;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_get0_global_default_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_get0_global_default');
+    {$ifend}
+  end;
+
+  OSSL_LIB_CTX_set0_default := LoadLibFunction(ADllHandle, OSSL_LIB_CTX_set0_default_procname);
+  FuncLoadError := not assigned(OSSL_LIB_CTX_set0_default);
+  if FuncLoadError then
+  begin
+    {$if not defined(OSSL_LIB_CTX_set0_default_allownil)}
+    OSSL_LIB_CTX_set0_default := @ERR_OSSL_LIB_CTX_set0_default;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_set0_default_introduced)}
+    if LibVersion < OSSL_LIB_CTX_set0_default_introduced then
+    begin
+      {$if declared(FC_OSSL_LIB_CTX_set0_default)}
+      OSSL_LIB_CTX_set0_default := @FC_OSSL_LIB_CTX_set0_default;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OSSL_LIB_CTX_set0_default_removed)}
+    if OSSL_LIB_CTX_set0_default_removed <= LibVersion then
+    begin
+      {$if declared(_OSSL_LIB_CTX_set0_default)}
+      OSSL_LIB_CTX_set0_default := @_OSSL_LIB_CTX_set0_default;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OSSL_LIB_CTX_set0_default_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OSSL_LIB_CTX_set0_default');
+    {$ifend}
+  end;
 end;
 
 procedure Unload;
@@ -4469,6 +4747,14 @@ begin
   CRYPTO_THREAD_compare_id := nil; {introduced 1.1.0}
   SSLeay_version := nil; {removed 1.1.0}
   SSLeay := nil; {removed 1.1.0}
+
+  OSSL_LIB_CTX_new := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_new_from_dispatch := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_new_child := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_load_config := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_free := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_get0_global_default := nil; {removed 1.1.0}
+  OSSL_LIB_CTX_set0_default := nil; {removed 1.1.0}
 end;
 {$ELSE}
 function OPENSSL_malloc(num: TIdC_SIZET): Pointer;
