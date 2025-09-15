@@ -236,9 +236,9 @@ type
   PASN1_SCTX = type Pointer;
 
   PBIO = type Pointer;
-  PPBIO  = type Pointer;
+  PPBIO  = ^PBIO;
   PBIGNUM = type Pointer;
-  PPBIGNUM  = type Pointer;
+  PPBIGNUM  = ^PBIGNUM;
   PBN_CTX = type Pointer;
   PBN_BLINDING = type Pointer;
   PBN_MONT_CTX = type Pointer;

@@ -276,6 +276,10 @@
 				<UnitName Value="TaurusTLSHeaders_openssl_encoderer"/>
 			</Item>
 			<Item>
+				<Filename Value="..\..\Source\TaurusTLSHeaders_params.pas"/>
+				<UnitName Value="TaurusTLSHeaders_params"/>
+			</Item>
+			<Item>
 				<Filename Value="..\..\Source\TaurusTLSHeaders_pem.pas"/>
 				<UnitName Value="TaurusTLSHeaders_pem"/>
 			</Item>

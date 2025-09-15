@@ -69,6 +69,7 @@ uses
   TaurusTLSHeaders_openssl_decodererr,
   TaurusTLSHeaders_openssl_encoder,
   TaurusTLSHeaders_openssl_encoderer,
+  TaurusTLSHeaders_params,
   TaurusTLSHeaders_pem,
   TaurusTLSHeaders_pemerr,
   TaurusTLSHeaders_pkcs12,

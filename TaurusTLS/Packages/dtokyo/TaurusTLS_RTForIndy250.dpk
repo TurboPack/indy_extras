@@ -96,6 +96,7 @@ contains
   TaurusTLSHeaders_openssl_decodererr in '..\..\Source\TaurusTLSHeaders_openssl_decodererr.pas',
   TaurusTLSHeaders_openssl_encoder in '..\..\Source\TaurusTLSHeaders_openssl_encoder.pas',
   TaurusTLSHeaders_openssl_encoderer in '..\..\Source\TaurusTLSHeaders_openssl_encoderer.pas',
+  TaurusTLSHeaders_params in '..\..\Source\TaurusTLSHeaders_params.pas',
   TaurusTLSHeaders_pem in '..\..\Source\TaurusTLSHeaders_pem.pas',
   TaurusTLSHeaders_pemerr in '..\..\Source\TaurusTLSHeaders_pemerr.pas',
   TaurusTLSHeaders_pkcs12 in '..\..\Source\TaurusTLSHeaders_pkcs12.pas',

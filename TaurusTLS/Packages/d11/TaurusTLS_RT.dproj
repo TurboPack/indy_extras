@@ -252,6 +252,7 @@
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_openssl_decodererr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_openssl_encoder.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_openssl_encoderer.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_params.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pem.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pemerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_pkcs12.pas"/>
