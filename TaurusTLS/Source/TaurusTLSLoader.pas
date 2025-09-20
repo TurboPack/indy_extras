@@ -274,7 +274,7 @@ end;
 {$IFDEF LOADLIB_UNAVAIL}
 function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
 begin
-  Result := {$IFDEF WINDOWS}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
+  Result := {$IFDEF WINDOWS}{$IFDEF DCC}WinAPI.{$ENDIF}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
 end;
 
 {$ENDIF}

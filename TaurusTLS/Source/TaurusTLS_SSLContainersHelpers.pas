@@ -20,7 +20,8 @@ interface
 
 uses
   Classes, SysUtils,
-  IdGlobal, IdCTypes;
+  IdGlobal, IdCTypes,
+  TaurusTLSHeaders_types;
 
 type
   ///  <summary>
@@ -663,6 +664,12 @@ begin
     Inc(lResultLen, SizeOf(AnsiChar));
   Result:=Create(lPtr, lDataLen, lResultLen);
 end;
+
+{$LEGACYIFEND ON}
+{$IF NOT DEFINED(CP_UTF8)}
+const
+  CP_UTF8 = 65001;
+{$IFEND}
 
 class function TBytesFactory.UnicodeToUTF8(AStr: PWideChar; ALen: integer;
   AWithTrailingNull: boolean): TBytes;
