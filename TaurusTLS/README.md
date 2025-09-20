@@ -74,12 +74,9 @@ I suggest that you have 2 separate packages; a runtime only package and a design
 The run-time package should depend upon your Indy package files and include the following:
 
 - Source\TaurusTLS.pas
-- Source\TaurusTLS_Encryptors.pas
 - Source\TaurusTLS_Files.pas
 - Source\TaurusTLS_NTLM.pas
 - Source\TaurusTLS_ResourceStrings.pas
-- Source\TaurusTLS_SSLContainers.pas
-- Source\TaurusTLS_SSLContainersHelpers.pas
 - Source\TaurusTLS_Utils.pas
 - Source\TaurusTLS_X509.pas
 - Source\TaurusTLSConsts.pas
