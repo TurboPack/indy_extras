@@ -486,6 +486,10 @@ begin
       LXMLNode := LRoot.ChildNodes[i];
       if LXMLNode.HasChildNodes then
       begin
+        if not VarIsNull(LXMLNode['VerInfo_Build']) then
+        begin
+          LXMLNode['VerInfo_Build'] := ABuild;
+        end;
         if not VarIsNull(LXMLNode['VerInfo_Keys']) then
         begin
           LXMLNode['VerInfo_Keys'] := 'CompanyName=' + ACompanyName +
