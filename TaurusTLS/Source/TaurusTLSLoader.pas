@@ -567,12 +567,18 @@ initialization
 {$ENDIF}
 
 finalization
-
-if GLibCryptoLoadList <> nil then
-  GLibCryptoLoadList.Free;
-if GLibSSLLoadList <> nil then
-  GLibSSLLoadList.Free;
-if GUnLoadList <> nil then
-  GUnLoadList.Free;
-
+  //IMPORTANT!!! Pointers should be set to nil just in case
+  //the TaurusTLS library is being reloaded.
+  if GLibCryptoLoadList <> nil then
+  begin
+    FreeAndNil(GLibCryptoLoadList);
+  end;
+  if GLibSSLLoadList <> nil then
+  begin
+    FreeAndNil(GLibSSLLoadList);
+  end;
+  if GUnLoadList <> nil then
+  begin
+    FreeAndNil(GUnLoadList);
+  end;
 end.
