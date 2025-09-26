@@ -206,10 +206,9 @@ uses
   {$ENDIF}
 {$ENDIF}
     , TaurusTLSConsts,
-  IdThreadSafe,
-  SysUtils
+  IdThreadSafe
 {$ENDIF}
-    ;
+  ,SysUtils;
 
 {$IF not declared(NilHandle)}
 

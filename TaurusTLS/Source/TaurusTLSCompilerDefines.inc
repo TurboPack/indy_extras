@@ -1142,6 +1142,9 @@
   {$DEFINE WIN32_OR_WIN64}
 {$ENDIF}
 
+{$UNDEF STATICLOAD_OPENSSL}
+{$UNDEF OPENSSL_USE_SHARED_LIBRARY}
+
 {$IFDEF WINDOWS}
   //Define these two if you wish to have TaurusTLS staticly load the OpenSSL
   //.DLL's instead of dynamically.
