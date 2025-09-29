@@ -84,7 +84,7 @@ type
     * send down an integer, a data pointer or a function pointer, as well as be
     * used to get information from a UI.
   *)
-  UI_ctrl_f = procedure;
+  UI_ctrl_f = procedure; cdecl;
 
   (*
     * The UI_STRING type is the data structure that contains all the needed info
@@ -107,16 +107,17 @@ type
     );
 
   (* Create and manipulate methods *)
-  UI_method_opener_cb = function(ui: PUI): TIdC_INT;
-  UI_method_writer_cb = function(ui: PUI; uis: PUI_STRING): TIdC_INT;
-  UI_method_flusher_cb = function(ui: PUI): TIdC_INT;
-  UI_method_reader_cb = function(ui: PUI; uis: PUI_STRING): TIdC_INT;
-  UI_method_closer_cb = function(ui: PUI): TIdC_INT;
+  UI_method_opener_cb = function(ui: PUI): TIdC_INT; cdecl;
+  UI_method_writer_cb = function(ui: PUI; uis: PUI_STRING): TIdC_INT; cdecl;
+  UI_method_flusher_cb = function(ui: PUI): TIdC_INT; cdecl;
+  UI_method_reader_cb = function(ui: PUI; uis: PUI_STRING): TIdC_INT; cdecl;
+  UI_method_closer_cb = function(ui: PUI): TIdC_INT; cdecl;
   UI_method_data_duplicator_cb = function(ui: PUI; ui_data: Pointer): Pointer;
-  UI_method_data_destructor_cb = procedure(ui: PUI; ui_data: Pointer);
+    cdecl;
+  UI_method_data_destructor_cb = procedure(ui: PUI; ui_data: Pointer); cdecl;
   UI_method_prompt_constructor_cb = function(ui: PUI;
     const object_desc: PIdAnsiChar; const object_name: PIdAnsiChar)
-    : PIdAnsiChar;
+    : PIdAnsiChar; cdecl;
 
   (*
     * All the following functions return -1 or NULL on error and in some cases
