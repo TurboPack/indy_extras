@@ -961,7 +961,7 @@ end;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+  Register_SSLLoader(Load,'LibCrypto');
+  Register_SSLUnloader(Unload);
 {$ENDIF}
 end.
