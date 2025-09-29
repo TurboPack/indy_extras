@@ -142,7 +142,7 @@
 	<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
-		<VerInfo_Build>29</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<ItemGroup>
 		<DelphiCompile Include="$(MainSource)">
@@ -233,6 +233,7 @@
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ssl3.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_sslerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_stack.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_store.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_storeerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_tls1.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ts.pas"/>

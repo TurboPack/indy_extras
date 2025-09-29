@@ -356,6 +356,10 @@
 				<UnitName Value="TaurusTLSHeaders_stack"/>
 			</Item>
 			<Item>
+				<Filename Value="..\..\Source\TaurusTLSHeaders_store.pas"/>
+				<UnitName Value="TaurusTLSHeaders_store"/>
+			</Item>
+			<Item>
 				<Filename Value="..\..\Source\TaurusTLSHeaders_storeerr.pas"/>
 				<UnitName Value="TaurusTLSHeaders_storeerr"/>
 			</Item>

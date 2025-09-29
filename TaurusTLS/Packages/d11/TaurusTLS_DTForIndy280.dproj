@@ -66,7 +66,7 @@
 		<DCC_CBuilderOutput>All</DCC_CBuilderOutput>
 		<SanitizedProjectName>TaurusTLS_DTForIndy280</SanitizedProjectName>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-		<VerInfo_Build>21</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.34;InternalName=TaurusTLS_DTForIndy280.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.34;Comments=</VerInfo_Keys>
 		<DesignOnlyPackage>true</DesignOnlyPackage>
@@ -102,7 +102,7 @@
 		<DCC_RangeChecking>true</DCC_RangeChecking>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-		<VerInfo_Build>21</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<DCC_RemoteDebug>false</DCC_RemoteDebug>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -202,6 +202,7 @@
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ssl3.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_sslerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_stack.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_store.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_storeerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_tls1.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ts.pas"/>

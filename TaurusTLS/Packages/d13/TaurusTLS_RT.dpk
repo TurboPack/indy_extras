@@ -118,6 +118,7 @@ contains
   TaurusTLSHeaders_ssl3 in '..\..\Source\TaurusTLSHeaders_ssl3.pas',
   TaurusTLSHeaders_sslerr in '..\..\Source\TaurusTLSHeaders_sslerr.pas',
   TaurusTLSHeaders_stack in '..\..\Source\TaurusTLSHeaders_stack.pas',
+  TaurusTLSHeaders_store in '..\..\Source\TaurusTLSHeaders_store.pas',
   TaurusTLSHeaders_storeerr in '..\..\Source\TaurusTLSHeaders_storeerr.pas',
   TaurusTLSHeaders_tls1 in '..\..\Source\TaurusTLSHeaders_tls1.pas',
   TaurusTLSHeaders_ts in '..\..\Source\TaurusTLSHeaders_ts.pas',

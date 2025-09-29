@@ -55,7 +55,7 @@
 		<Base>true</Base>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base)'!=''">
-		<VerInfo_Build>21</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<DCC_UnitSearchPath>.\$(Platform)\$(Config);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
 		<DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>

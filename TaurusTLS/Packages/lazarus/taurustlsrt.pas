@@ -89,6 +89,7 @@ uses
   TaurusTLSHeaders_ssl3,
   TaurusTLSHeaders_sslerr,
   TaurusTLSHeaders_stack,
+  TaurusTLSHeaders_store,
   TaurusTLSHeaders_storeerr,
   TaurusTLSHeaders_tls1,
   TaurusTLSHeaders_ts,

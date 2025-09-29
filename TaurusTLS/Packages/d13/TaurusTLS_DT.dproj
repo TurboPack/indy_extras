@@ -158,7 +158,7 @@
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
 		<DCC_UnitSearchPath>..\..\Source\;.\$(Platform)\$(Config);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-		<VerInfo_Build>29</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<ItemGroup>
 		<DelphiCompile Include="$(MainSource)">

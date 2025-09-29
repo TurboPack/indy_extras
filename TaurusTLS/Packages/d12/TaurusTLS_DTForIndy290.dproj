@@ -93,7 +93,7 @@
 		<DCC_Description>TaurusTLS Design-Time-Only package</DCC_Description>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<DCC_UnitSearchPath>..\..\Source\;.\$(Platform)\$(Config);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-		<VerInfo_Build>21</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
 		<DCC_CBuilderOutput>None</DCC_CBuilderOutput>
@@ -119,7 +119,7 @@
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.34;InternalName=TaurusTLS_DTForIndy290.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy290.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.34;Comments=</VerInfo_Keys>
 		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;TaurusTLS_RTForIndy290;IndyCore;IndySystem;$(DCC_UsePackage)</DCC_UsePackage>
-		<VerInfo_Build>1</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Win64)'!=''">
 		<DCC_UsePackage>rtl;IndyCore290;IndySystem290;IndyProtocols290;TaurusTLS290;TaurusTLS_RT;TaurusTLS_RTForIndy290;IndyCore;IndySystem;$(DCC_UsePackage)</DCC_UsePackage>
@@ -148,7 +148,7 @@
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.34;InternalName=TaurusTLS_DTForIndy290.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy290.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.34;Comments=</VerInfo_Keys>
 		<DllSuffix>290</DllSuffix>
 		<DCC_UnitSearchPath>..\..\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-		<VerInfo_Build>4</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2)'!=''">
 		<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -157,7 +157,7 @@
 		<DCC_DebugInformation>0</DCC_DebugInformation>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-		<VerInfo_Build>21</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<ItemGroup>
 		<DelphiCompile Include="$(MainSource)">

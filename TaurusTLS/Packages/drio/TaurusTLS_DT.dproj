@@ -119,7 +119,7 @@
 		<DCC_RemoteDebug>true</DCC_RemoteDebug>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-		<VerInfo_Build>19</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<DllSuffix>260</DllSuffix>
 		<DCC_RemoteDebug>false</DCC_RemoteDebug>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>

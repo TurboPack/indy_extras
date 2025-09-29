@@ -73,7 +73,7 @@
 		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.34;InternalName=TaurusTLS_DT.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DT.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.34;Comments=</VerInfo_Keys>
-		<VerInfo_Build>18</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1)'!=''">
 		<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -96,7 +96,7 @@
 		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DllSuffix>230</DllSuffix>
-		<VerInfo_Build>19</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 	</PropertyGroup>
 	<ItemGroup>

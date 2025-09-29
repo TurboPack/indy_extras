@@ -113,7 +113,7 @@
 		<DCC_HppOutput>.\$(Platform)\$(Config)</DCC_HppOutput>
 		<DCC_ObjOutput>.\$(Platform)\$(Config)</DCC_ObjOutput>
 		<DCC_BpiOutput>.\$(Platform)\$(Config)</DCC_BpiOutput>
-		<VerInfo_Build>25</VerInfo_Build>
+		<VerInfo_Build>34</VerInfo_Build>
 		<DCC_RemoteDebug>false</DCC_RemoteDebug>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 	</PropertyGroup>
