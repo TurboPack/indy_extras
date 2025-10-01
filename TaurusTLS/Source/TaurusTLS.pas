@@ -1458,17 +1458,11 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-{$IFDEF fpc}
-    function GetProxyTargetHost: string;
-    function GetURIHost: string;
-{$ELSE}
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
-    function GetProxyTargetHost: string;
-{$IFEND}
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
-    function GetURIHost: string;
-{$IFEND}
-{$ENDIF}
+    //Rename to avoid warning about inherited methods.
+    //It's probably best to have our own methods because some versions of
+    //Indy available do not have these in the base class while others do.
+    function TaurusGetProxyTargetHost: string;
+    function TaurusGetURIHost: string;
     //This needs to be private, not strict private
     //so we can set it in the clone method for FTP data
     //channel SNI.
@@ -3838,10 +3832,10 @@ begin
   begin
     if fHostname = '' then
     begin
-      fHostname := GetURIHost;
+      fHostname := TaurusGetURIHost;
       if fHostname = '' then
       begin
-        fHostname := GetProxyTargetHost;
+        fHostname := TaurusGetProxyTargetHost;
         if fHostname = '' then
         begin
           fHostname := Host;
@@ -3942,9 +3936,7 @@ begin
   end;
 end;
 
-{$IFDEF fpc}
-
-function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
+function TTaurusTLSIOHandlerSocket.TaurusGetProxyTargetHost: string;
 var
   // under ARC, convert a weak reference to a strong reference before working with it
   LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
@@ -3971,7 +3963,7 @@ begin
 
 end;
 
-function TTaurusTLSIOHandlerSocket.GetURIHost: string;
+function TTaurusTLSIOHandlerSocket.TaurusGetURIHost: string;
 var
   LURI: TIdURI;
 begin
@@ -3986,56 +3978,6 @@ begin
     end;
   end;
 end;
-
-{$ELSE}
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetProxyTargetHost)}
-
-function TTaurusTLSIOHandlerSocket.GetProxyTargetHost: string;
-var
-  // under ARC, convert a weak reference to a strong reference before working with it
-  LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
-begin
-  Result := '';
-  // RLebeau: not reading from the property as it will create a
-  // default Proxy object if one is not already assigned...
-  LTransparentProxy := FTransparentProxy;
-  if Assigned(LTransparentProxy) then
-  begin
-    if LTransparentProxy.Enabled then
-    begin
-      repeat
-        LNextTransparentProxy := LTransparentProxy.ChainedProxy;
-        if not Assigned(LNextTransparentProxy) then
-          break;
-        if not LNextTransparentProxy.Enabled then
-          break;
-        LTransparentProxy := LNextTransparentProxy;
-      until False;
-      Result := LTransparentProxy.Host;
-    end;
-  end;
-
-end;
-{$IFEND}
-{$IF NOT DECLARED(IdSSL.TIdSSLIOHandlerSocketBase.GetURIHost)}
-
-function TTaurusTLSIOHandlerSocket.GetURIHost: string;
-var
-  LURI: TIdURI;
-begin
-  Result := '';
-  if URIToCheck <> '' then
-  begin
-    LURI := TIdURI.Create(URIToCheck);
-    try
-      Result := LURI.Host;
-    finally
-      LURI.Free;
-    end;
-  end;
-end;
-{$IFEND}
-{$ENDIF}
 
 procedure TTaurusTLSIOHandlerSocket.StatusInfo(const AsslSocket: PSSL;
   AWhere, Aret: TIdC_INT);
