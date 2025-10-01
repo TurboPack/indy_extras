@@ -361,7 +361,7 @@ begin
         LPubKey := LIni.ReadString(LServers[i], 'CertificateFile', '');
         if (LPrivKey <> '') and (LPubKey <> '') then
         begin
-          LCert := Result.Certificates.Add;
+          LCert := Result.Certificates.AddX509File;
           LCert.PrivateKey := LPrivKey;
           LCert.PublicKey := LPubKey;
           LCert.RootKey := LIni.ReadString(LServers[i], 'RootCertFile', '');

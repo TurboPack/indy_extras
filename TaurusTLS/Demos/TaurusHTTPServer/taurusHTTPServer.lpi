@@ -26,6 +26,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="TaurusTLSRT"/>
+      </Item>
+      <Item>
         <PackageName Value="indylaz"/>
       </Item>
     </RequiredPackages>
@@ -49,7 +52,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\..\Source"/>
-      <OtherUnitFiles Value="..\..\Source"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

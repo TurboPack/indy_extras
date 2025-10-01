@@ -744,8 +744,8 @@ type
   /// </summary>
   TTaurusTLSX509Files = class(TOwnedCollection)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} protected
-    function GetItem(Index: Integer): TTaurusTLSX509File;
-    procedure SetItem(Index: Integer; const Value: TTaurusTLSX509File);
+    function GetX509FilesItem(Index: Integer): TTaurusTLSX509File;
+    procedure SetX509FilesItem(Index: Integer; const Value: TTaurusTLSX509File);
   public
 
     /// <summary>
@@ -758,13 +758,13 @@ type
     constructor Create(AOwner: TPersistent);
 
     /// <summary>Use this method to add a new item to the collection.</summary>
-    function Add: TTaurusTLSX509File;
+    function AddX509File: TTaurusTLSX509File;
 
     /// <summary>
     /// Individual TTaurus​TLSX509File objects that the collection contains.
     /// </summary>
-    property Items[Index: Integer]: TTaurusTLSX509File read GetItem
-      write SetItem; default;
+    property Items[Index: Integer]: TTaurusTLSX509File read GetX509FilesItem
+      write SetX509FilesItem; default;
 
   end;
 
@@ -3125,7 +3125,7 @@ end;
 
 { TTaurusTLSX509Files }
 
-function TTaurusTLSX509Files.Add: TTaurusTLSX509File;
+function TTaurusTLSX509Files.AddX509File: TTaurusTLSX509File;
 begin
   Result := TTaurusTLSX509File(inherited Add);
 end;
@@ -3135,12 +3135,12 @@ begin
   inherited Create(AOwner, TTaurusTLSX509File);
 end;
 
-function TTaurusTLSX509Files.GetItem(Index: Integer): TTaurusTLSX509File;
+function TTaurusTLSX509Files.GetX509FilesItem(Index: Integer): TTaurusTLSX509File;
 begin
   Result := TTaurusTLSX509File(inherited GetItem(Index));
 end;
 
-procedure TTaurusTLSX509Files.SetItem(Index: Integer;
+procedure TTaurusTLSX509Files.SetX509FilesItem(Index: Integer;
   const Value: TTaurusTLSX509File);
 begin
   inherited SetItem(Index, Value);
