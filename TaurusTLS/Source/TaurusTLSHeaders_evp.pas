@@ -35,7 +35,8 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_types;
+  TaurusTLSHeaders_types,
+  TaurusTLSHeaders_core;
 
 const
   EVP_MAX_MD_SIZE = 64; // longest known is SHA512
@@ -1820,15 +1821,15 @@ var
   EVP_MAC_get0_description : function(const mac : PEVP_MAC) : PIdAnsiChar; cdecl = nil;
   EVP_MAC_get0_provider : function(const mac :PEVP_MAC) : POSSL_PROVIDER; cdecl = nil;
 
-  EVP_MAC_get_params : function(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+  EVP_MAC_get_params : function(mac : PEVP_MAC; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
 
   EVP_MAC_CTX_new : function (mac : PEVP_MAC) : PEVP_MAC_CTX; cdecl = nil; {introduced 3.0.0}
   EVP_MAC_CTX_free : procedure (ctx : PEVP_MAC_CTX ); cdecl = nil;  {introduced 3.0.0}
 
   EVP_MAC_CTX_dup : function(const  src : PEVP_MAC_CTX) : PEVP_MAC_CTX; cdecl = nil;
   EVP_MAC_CTX_get0_mac : function(ctx : PEVP_MAC_CTX) : PEVP_MAC; cdecl = nil;
-  EVP_MAC_CTX_get_params : function(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
-  EVP_MAC_CTX_set_params : function(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+  EVP_MAC_CTX_get_params : function(ctx : PEVP_MAC_CTX; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
+  EVP_MAC_CTX_set_params : function(ctx : PEVP_MAC_CTX; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
 
   EVP_MAC_CTX_get_mac_size : function (ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl = nil;
   EVP_MAC_CTX_get_block_size : function (ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl = nil;
@@ -1838,8 +1839,8 @@ var
     const data : PIdAnsiChar; datalen : TIdC_SIZET; _out : PIdAnsiChar;
     outsize : TIdC_SIZET;  var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl = nil;
   EVP_MAC_init: function(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
-     const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
-  EVP_MAC_init_SKEY : function(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+     const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
+  EVP_MAC_init_SKEY : function(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
   EVP_MAC_update : function(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl = nil;
   EVP_MAC_final : function(ctx : PEVP_MAC_CTX;
@@ -2612,15 +2613,15 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
   function EVP_MAC_get0_description(const mac : PEVP_MAC) : PIdAnsiChar; cdecl; external CLibCrypto;
   function EVP_MAC_get0_provider(const mac :PEVP_MAC) : POSSL_PROVIDER; cdecl; external CLibCrypto;
 
-  function EVP_MAC_get_params(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_get_params(mac : PEVP_MAC; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
 
   function EVP_MAC_CTX_new(mac : PEVP_MAC) : PEVP_MAC_CTX cdecl; external CLibCrypto;  {introduced 3.0.0}
   procedure EVP_MAC_CTX_free (ctx : PEVP_MAC_CTX ) cdecl; external CLibCrypto;   {introduced 3.0.0}
 
   function EVP_MAC_CTX_dup(const  src : PEVP_MAC_CTX) : PEVP_MAC_CTX; cdecl; external CLibCrypto;
   function EVP_MAC_CTX_get0_mac(ctx : PEVP_MAC_CTX) : PEVP_MAC; cdecl; external CLibCrypto;
-  function EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
-  function EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
 
   function EVP_MAC_CTX_get_mac_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl; external CLibCrypto;
   function EVP_MAC_CTX_get_block_size(ctx : PEVP_MAC_CTX) : TIdC_SIZET; cdecl; external CLibCrypto;
@@ -2631,8 +2632,8 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
     _out : PIdAnsiChar; outsize : TIdC_SIZET;
     var outlen : TIdC_SIZET) : PIdAnsiChar; cdecl; external CLibCrypto;
   function EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
-                 const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
-  function EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+                 const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
+  function EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
 
   function EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
@@ -7442,7 +7443,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get0_provider_procname);
 end;
 
-function ERR_EVP_MAC_get_params(mac : PEVP_MAC; params : array of OSSL_PARAM) : TIdC_INT;
+function ERR_EVP_MAC_get_params(mac : PEVP_MAC; params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_get_params_procname);
 end;
@@ -7467,12 +7468,12 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get0_mac_procname);
 end;
 
-  function ERR_EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : array of OSSL_PARAM) : TIdC_INT;
+  function ERR_EVP_MAC_CTX_get_params(ctx : PEVP_MAC_CTX; params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_get_params_procname);
 end;
 
-  function ERR_EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : array of OSSL_PARAM) : TIdC_INT;
+  function ERR_EVP_MAC_CTX_set_params(ctx : PEVP_MAC_CTX; const  params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_CTX_set_params_procname);
 end;
@@ -7488,12 +7489,12 @@ begin
 end;
 
 function ERR_EVP_MAC_init(ctx : PEVP_MAC_CTX; const key : PIdAnsiChar; keylen : TIdC_SIZET;
-                 const  params : array of OSSL_PARAM) : TIdC_INT;
+                 const  params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_init_procname);
 end;
 
-function ERR_EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : array of OSSL_PARAM) : TIdC_INT;
+function ERR_EVP_MAC_init_SKEY(ctx : PEVP_MAC_CTX;  skey : PEVP_SKEY; const  params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_MAC_init_SKEY_procname);
 end;

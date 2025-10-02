@@ -237,7 +237,8 @@ var
 
   ERR_new: procedure ; cdecl = nil; {introduced 3.0.0}
   ERR_set_debug: procedure (const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar); cdecl = nil;  {introduced 3.0.0}
-  ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
+//  ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
+  ERR_set_error: procedure (lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar); cdecl varargs = nil; {introduced 3.0.0}
 
 
   ERR_set_error_data: procedure (data: PIdAnsiChar; flags: TIdC_INT); cdecl = nil;
@@ -290,8 +291,8 @@ var
 
   procedure ERR_new cdecl; external CLibCrypto; {introduced 3.0.0}
   procedure ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar) cdecl; external CLibCrypto;  {introduced 3.0.0}
-  procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
-
+//  procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
+  procedure ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar) cdecl; varargs; external CLibCrypto; {introduced 3.0.0}
 
   procedure ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT) cdecl; external CLibCrypto;
 
@@ -434,7 +435,8 @@ procedure  _ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_
 begin
   ERR_new;
   ERR_set_debug(file_,line, '');
-  ERR_set_error(lib,reason,'',[]);
+//  ERR_set_error(lib,reason,'',[]);
+    ERR_set_error(lib,reason,'');
 end;
 
 procedure  _X509err(const f,r : TIdC_INT); cdecl;
@@ -472,7 +474,8 @@ begin
 end;
 
   {introduced 3.0.0}
-procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const);
+//procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const);
+procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar) cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_error_procname);
 end;

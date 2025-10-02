@@ -258,7 +258,7 @@ begin
         if Ldefault_passwd_cb(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
         begin
-          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil);
           Exit;
         end;
       end
@@ -266,7 +266,7 @@ begin
       begin
         // We could call  PEM_def_callback(), but I'm not sure how well
         // that works with console apps or some GUI's.  Fail the call.
-        ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+        ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil);
         Exit;
       end;
       LP12 := d2i_PKCS12_bio(b, nil);
@@ -342,13 +342,13 @@ begin
         if Ldefault_passwd_callback(@LPassword[0], MAX_SSL_PASSWORD_LENGTH, 0,
           SSL_CTX_get_default_passwd_cb_userdata(ctx)) <= 0 then
         begin
-          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+          ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil);
           Exit;
         end;
       end
       else
       begin
-        ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil, []);
+        ERR_set_error(ERR_LIB_PEM, PEM_R_BAD_PASSWORD_READ, nil);
         Exit;
       end;
       LP12 := d2i_PKCS12_bio(Lb, nil);

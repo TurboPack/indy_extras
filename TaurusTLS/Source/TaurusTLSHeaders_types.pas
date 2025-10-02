@@ -159,172 +159,252 @@ type
   end;
 
   // moved from asn1
-  PASN1_VALUE = type Pointer;
-  PPASN1_VALUE = ^PASN1_VALUE;
+  ASN1_VALUE    = record end;
+  PASN1_VALUE   = ^ASN1_VALUE;
+  PPASN1_VALUE  = ^PASN1_VALUE;
 
   // moved from e_os2
   ossl_ssize_t = type {$IFDEF WIN64}TIdC_INT64{$ELSE}TIdC_INT{$ENDIF};
 
-  PASN1_OBJECT = type Pointer;
+  ASN1_OBJECT   = record end;
+  PASN1_OBJECT  = ^ASN1_OBJECT;
   PPASN1_OBJECT = ^PASN1_OBJECT;
 
-  ASN1_INTEGER = type asn1_string_st;
-  PASN1_INTEGER = ^ASN1_INTEGER;
-  PPASN1_INTEGER = ^PASN1_INTEGER;
+  ASN1_INTEGER    = type asn1_string_st;
+  PASN1_INTEGER   = ^ASN1_INTEGER;
+  PPASN1_INTEGER  = ^PASN1_INTEGER;
 
-  ASN1_ENUMERATED = type asn1_string_st;
-  PASN1_ENUMERATED = ^ASN1_ENUMERATED;
+  ASN1_ENUMERATED   = type asn1_string_st;
+  PASN1_ENUMERATED  = ^ASN1_ENUMERATED;
 
-  ASN1_BIT_STRING = type asn1_string_st;
-  PASN1_BIT_STRING = ^ASN1_BIT_STRING;
+  ASN1_BIT_STRING   = type asn1_string_st;
+  PASN1_BIT_STRING  = ^ASN1_BIT_STRING;
   PPASN1_BIT_STRING = ^PASN1_BIT_STRING;
 
-  ASN1_OCTET_STRING = type asn1_string_st;
-  PASN1_OCTET_STRING = ^ASN1_OCTET_STRING;
+  ASN1_OCTET_STRING   = type asn1_string_st;
+  PASN1_OCTET_STRING  = ^ASN1_OCTET_STRING;
   PPASN1_OCTET_STRING = ^PASN1_OCTET_STRING;
 
-  ASN1_PRINTABLESTRING = type asn1_string_st;
+  ASN1_PRINTABLESTRING  = type asn1_string_st;
   PASN1_PRINTABLESTRING = ^ASN1_PRINTABLESTRING;
 
-  ASN1_T61STRING = type asn1_string_st;
+  ASN1_T61STRING  = type asn1_string_st;
   PASN1_T61STRING = ^ASN1_T61STRING;
 
-  ASN1_IA5STRING = type asn1_string_st;
+  ASN1_IA5STRING  = type asn1_string_st;
   PASN1_IA5STRING = ^ASN1_IA5STRING;
 
-  ASN1_GENERALSTRING = type asn1_string_st;
+  ASN1_GENERALSTRING  = type asn1_string_st;
   PASN1_GENERALSTRING = ^ASN1_GENERALSTRING;
 
-  ASN1_UNIVERSALSTRING = type asn1_string_st;
+  ASN1_UNIVERSALSTRING  = type asn1_string_st;
   PASN1_UNIVERSALSTRING = ^ASN1_UNIVERSALSTRING;
 
-  ASN1_BMPSTRING = type asn1_string_st;
+  ASN1_BMPSTRING  = type asn1_string_st;
   PASN1_BMPSTRING = ^ASN1_BMPSTRING;
 
-  ASN1_UTCTIME = type asn1_string_st;
-  PASN1_UTCTIME = ^ASN1_UTCTIME;
-  PPASN1_UTCTIME = ^PASN1_UTCTIME;
+  ASN1_UTCTIME    = type asn1_string_st;
+  PASN1_UTCTIME   = ^ASN1_UTCTIME;
+  PPASN1_UTCTIME  = ^PASN1_UTCTIME;
 
-  ASN1_TIME = type asn1_string_st;
-  PASN1_TIME = ^ASN1_TIME;
+  ASN1_TIME   = type asn1_string_st;
+  PASN1_TIME  = ^ASN1_TIME;
   PPASN1_TIME = ^PASN1_TIME;
 
-  ASN1_GENERALIZEDTIME = type asn1_string_st;
-  PASN1_GENERALIZEDTIME = ^ASN1_GENERALIZEDTIME;
-  PPASN1_GENERALIZEDTIME = ^PASN1_GENERALIZEDTIME;
+  ASN1_GENERALIZEDTIME    = type asn1_string_st;
+  PASN1_GENERALIZEDTIME   = ^ASN1_GENERALIZEDTIME;
+  PPASN1_GENERALIZEDTIME  = ^PASN1_GENERALIZEDTIME;
 
-  ASN1_VISIBLESTRING = type asn1_string_st;
+  ASN1_VISIBLESTRING  = type asn1_string_st;
   PASN1_VISIBLESTRING = ^ASN1_VISIBLESTRING;
 
-  ASN1_UTF8STRING = type asn1_string_st;
-  PASN1_UTF8STRING = ^ASN1_UTF8STRING;
+  ASN1_UTF8STRING   = type asn1_string_st;
+  PASN1_UTF8STRING  = ^ASN1_UTF8STRING;
 
-  ASN1_STRING = type asn1_string_st;
-  PASN1_STRING = ^ASN1_STRING;
+  ASN1_STRING   = type asn1_string_st;
+  PASN1_STRING  = ^ASN1_STRING;
   PPASN1_STRING = ^PASN1_STRING;
 
-  ASN1_BOOLEAN = type TIdC_INT;
+  ASN1_BOOLEAN  = type TIdC_INT;
   PASN1_BOOLEAN = ^ASN1_BOOLEAN;
 
-  ASN1_NULL = type TIdC_INT;
-  PASN1_NULL = ^ASN1_NULL;
+  ASN1_NULL   = type TIdC_INT;
+  PASN1_NULL  = ^ASN1_NULL;
 
-  PASN1_ITEM = type Pointer;
+  ASN1_ITEM   = record end;
+  PASN1_ITEM  = type Pointer;
 
-  PASN1_PCTX = type Pointer;
+  ASN1_PCTX   = record end;
+  PASN1_PCTX = ^ASN1_PCTX;
 
-  PASN1_SCTX = type Pointer;
+  ASN1_SCTX   = record end;
+  PASN1_SCTX  = ^ASN1_SCTX;
 
-  PBIO = type Pointer;
-  PPBIO  = ^PBIO;
-  PBIGNUM = type Pointer;
+  BIO   = record end;
+  PBIO  = ^BIO;
+  PPBIO = ^PBIO;
+
+  BIGNUM    = record end;
+  PBIGNUM   = ^BIGNUM;
   PPBIGNUM  = ^PBIGNUM;
-  PBN_CTX = type Pointer;
-  PBN_BLINDING = type Pointer;
-  PBN_MONT_CTX = type Pointer;
-  PBN_RECP_CTX = type Pointer;
-  PBN_GENCB = type Pointer;
 
-  PBUF_MEM = Pointer;
+  BN_CTX  = record end;
+  PBN_CTX = ^BN_CTX;
 
-  PEVP_CIPHER = type Pointer;
-  PPEVP_CIPHER = ^PEVP_CIPHER;
-  PEVP_CIPHER_CTX = type Pointer;
-  PEVP_MD = type Pointer;
-  PPEVP_MD = ^PEVP_MD;
-  PEVP_MD_CTX = type Pointer;
+  BN_BLINDING   = record end;
+  PBN_BLINDING  = ^BN_BLINDING;
 
-  PEVP_PKEY = type Pointer;
-  PPEVP_PKEY = ^PEVP_PKEY;
-  PEVP_SKEY = type Pointer;
-  PPEVP_SKEY = ^PEVP_SKEY;
-  PEVP_PKEY_ASN1_METHOD = type Pointer;
-  PPEVP_PKEY_ASN1_METHOD = ^PEVP_PKEY_ASN1_METHOD;
+  BN_MONT_CTX   = record end;
+  PBN_MONT_CTX  = ^BN_MONT_CTX;
 
-  PEVP_PKEY_METHOD = type Pointer;
+  BN_RECP_CTX   = record end;
+  PBN_RECP_CTX  = ^BN_RECP_CTX;
+
+  BN_GENCB    = record end;
+  PBN_GENCB   = ^BN_GENCB;
+
+  BUF_MEM   = record end;
+  PBUF_MEM  = ^BUF_MEM;
+
+  EVP_CIPHER    = record end;
+  PEVP_CIPHER   = ^EVP_CIPHER;
+  PPEVP_CIPHER  = ^PEVP_CIPHER;
+
+  EVP_CIPHER_CTX  = record end;
+  PEVP_CIPHER_CTX = ^EVP_CIPHER_CTX;
+
+  EVP_MD    = record end;
+  PEVP_MD   = ^EVP_MD;
+  PPEVP_MD  = ^PEVP_MD;
+
+  EVP_MD_CTX  = record end;
+  PEVP_MD_CTX = ^EVP_MD_CTX;
+
+  EVP_PKEY    = record end;
+  PEVP_PKEY   = type Pointer;
+  PPEVP_PKEY  = ^PEVP_PKEY;
+
+  EVP_SKEY    = record end;
+  PEVP_SKEY   = ^EVP_SKEY;
+  PPEVP_SKEY  = ^PEVP_SKEY;
+
+  EVP_PKEY_ASN1_METHOD    = record end;
+  PEVP_PKEY_ASN1_METHOD   = ^EVP_PKEY_ASN1_METHOD;
+  PPEVP_PKEY_ASN1_METHOD  = ^PEVP_PKEY_ASN1_METHOD;
+
+  EVP_PKEY_METHOD   = record end;
+  PEVP_PKEY_METHOD  = ^EVP_PKEY_METHOD;
   PPEVP_PKEY_METHOD = ^PEVP_PKEY_METHOD;
-  PEVP_PKEY_CTX = type Pointer;
-  PPEVP_PKEY_CTX = ^PEVP_PKEY_CTX;
 
-  PEVP_ENCODE_CTX = type Pointer;
+  EVP_PKEY_CTX    = record end;
+  PEVP_PKEY_CTX   = ^EVP_PKEY_CTX;
+  PPEVP_PKEY_CTX  = ^PEVP_PKEY_CTX;
 
-  PHMAC_CTX = type Pointer;
+  EVP_ENCODE_CTX  = record end;
+  PEVP_ENCODE_CTX = ^EVP_ENCODE_CTX;
 
-  PEVP_MAC = type Pointer;
-  PEVP_MAC_CTX = type Pointer;
+  HMAC_CTX  = record end;
+  PHMAC_CTX = ^HMAC_CTX;
 
-  PDH = type Pointer;
-  PPDH = ^PDH;
+  EVP_MAC   = record end;
+  PEVP_MAC  = ^EVP_MAC;
+
+  EVP_MAC_CTX   = record end;
+  PEVP_MAC_CTX  = ^EVP_MAC_CTX;
+
+  DH    = record end;
+  PDH   = ^DH;
+  PPDH  = ^PDH;
+
   PDH_METHOD = type Pointer;
 
-  PDSA = type Pointer;
+  DSA   = record end;
+  PDSA  = ^DSA;
   PPDSA = ^PDSA;
-  PDSA_METHOD = type Pointer;
 
-  PRSA = type Pointer;
+  DSA_METHOD  = record end;
+  PDSA_METHOD = ^DSA_METHOD;
+
+  RSA   = record end;
+  PRSA  = ^RSA;
   PPRSA = ^PRSA;
-  PRSA_METHOD = type Pointer;
 
-  PEC_KEY = type Pointer;
-  PPEC_KEY = ^PEC_KEY;
-  PEC_KEY_METHOD = type Pointer;
+  RSA_METHOD  = record end;
+  PRSA_METHOD = ^RSA_METHOD;
 
-  PRAND_METHOD = type Pointer;
-  PRAND_DRBG = type Pointer;
+  EC_KEY    = record end;
+  PEC_KEY   = ^EC_KEY;
+  PPEC_KEY  = ^PEC_KEY;
 
-  PSSL_DANE = type Pointer;
-  PX509 = type Pointer;
-  PPX509 = ^PX509;
-  PStack_Of_X509 = type Pointer;
+  EC_KEY_METHOD   = record end;
+  PEC_KEY_METHOD  = ^EC_KEY_METHOD;
+
+  RAND_METHOD   = record end;
+  PRAND_METHOD  = ^RAND_METHOD;
+
+  RAND_DRBG   = record end;
+  PRAND_DRBG  = ^RAND_DRBG;
+
+  SSL_DANE  = record end;
+  PSSL_DANE = ^SSL_DANE;
+
+  X509    = record end;
+  PX509   = ^X509;
+  PPX509  = ^PX509;
+
+  Stack_Of_X509   = record end;
+  PStack_Of_X509  = ^Stack_Of_X509;
   PPStack_Of_X509 = ^PStack_Of_X509;
-  PX509_CRL = type Pointer;
-  PPX509_CRL = ^PX509_CRL;
-  PX509_CRL_METHOD = type Pointer;
-  PX509_REVOKED = type Pointer;
-  PPX509_REVOKED = ^PX509_REVOKED;
-  PX509_NAME = type Pointer;
+
+  X509_CRL    = record end;
+  PX509_CRL   = ^X509_CRL;
+  PPX509_CRL  = ^PX509_CRL;
+
+  X509_CRL_METHOD   = record end;
+  PX509_CRL_METHOD  = ^X509_CRL_METHOD;
+
+  X509_REVOKED    = record end;
+  PX509_REVOKED   = ^X509_REVOKED;
+  PPX509_REVOKED  = ^PX509_REVOKED;
+
+  X509_NAME   = record end;
+  PX509_NAME  = ^X509_NAME;
   PPX509_NAME = ^PX509_NAME;
-  PX509_PUBKEY = type Pointer;
+
+  X509_PUBKEY   = record end;
+  PX509_PUBKEY  = ^X509_PUBKEY;
   PPX509_PUBKEY = ^PX509_PUBKEY;
-  PX509_STORE = type Pointer;
-  PX509_STORE_CTX = type Pointer;
 
-  PX509_OBJECT = type Pointer;
-  PX509_LOOKUP = type Pointer;
-  PX509_LOOKUP_METHOD = type Pointer;
-  PX509_VERIFY_PARAM = type Pointer;
+  X509_STORE  = record end;
+  PX509_STORE = ^X509_STORE;
 
-  PX509_SIG_INFO = type Pointer;
+  X509_STORE_CTX  = record end;
+  PX509_STORE_CTX = ^X509_STORE_CTX;
 
-  pkcs8_priv_key_info_st = type Pointer;
-  PKCS8_PRIV_KEY_INFO = pkcs8_priv_key_info_st;
-  PPKCS8_PRIV_KEY_INFO = ^PKCS8_PRIV_KEY_INFO;
-  PPPKCS8_PRIV_KEY_INFO = ^PPKCS8_PRIV_KEY_INFO;
+  X509_OBJECT   = record end;
+  PX509_OBJECT  = ^X509_OBJECT;
+
+  X509_LOOKUP   = record end;
+  PX509_LOOKUP  = ^X509_LOOKUP;
+
+  X509_LOOKUP_METHOD  = record end;
+  PX509_LOOKUP_METHOD = ^X509_LOOKUP_METHOD;
+
+  X509_VERIFY_PARAM   = record end;
+  PX509_VERIFY_PARAM  = ^X509_VERIFY_PARAM;
+
+  X509_SIG_INFO   = record end;
+  PX509_SIG_INFO  = ^X509_SIG_INFO;
+
+  pkcs8_priv_key_info_st  = record end;
+  PKCS8_PRIV_KEY_INFO     = ^pkcs8_priv_key_info_st;
+  PPKCS8_PRIV_KEY_INFO    = ^PKCS8_PRIV_KEY_INFO;
+  PPPKCS8_PRIV_KEY_INFO   = ^PPKCS8_PRIV_KEY_INFO;
 
 // moved from x509 to prevent circular references
-  X509_REQ = type Pointer; // X509_req_st
-  PX509_REQ = ^X509_REQ;
-  PPX509_REQ = ^PX509_REQ;
+  X509_REQ    = record end; // X509_req_st
+  PX509_REQ   = ^X509_REQ;
+  PPX509_REQ  = ^PX509_REQ;
 
 // moved from x509v3 to prevent circular references
   (* Context specific info *)
@@ -338,54 +418,105 @@ type
     db: Pointer;
   (* Maybe more here *)
   end;
-  PX509V3_CTX = type Pointer;
-  PCONF = type Pointer;
-  POPENSSL_INIT_SETTINGS = type Pointer;
 
-  PUI = type Pointer;
-  PUI_METHOD = type Pointer;
+  X509V3_CTX  = record end;
+  PX509V3_CTX = ^X509V3_CTX;
 
-  PENGINE = type Pointer;
-  PPENGINE = ^PENGINE;
-  PSSL = type Pointer;
-  PSSL_CTX = type Pointer;
-  PPSSL_CTX  = ^PSSL_CTX;
+  CONF  = record end;
+  PCONF = ^CONF;
 
-  PCOMP_CTX = type Pointer;
-  PCOMP_METHOD = type Pointer;
+  OPENSSL_INIT_SETTINGS   = record end;
+  POPENSSL_INIT_SETTINGS  = ^OPENSSL_INIT_SETTINGS;
 
-  PX509_POLICY_NODE = type Pointer;
-  PX509_POLICY_LEVEL = type Pointer;
-  PX509_POLICY_TREE = type Pointer;
-  X509_POLICY_CACHE_st = type Pointer;
-  PX509_POLICY_CACHE = type Pointer;
+  UI  = record end;
+  PUI = ^UI;
 
-  AUTHORITY_KEYID_st = type Pointer;
-  AUTHORITY_KEYID = AUTHORITY_KEYID_st;
-  PAUTHORITY_KEYID = ^AUTHORITY_KEYID;
-  PDIST_POINT = type Pointer;
-  PISSUING_DIST_POINT = type Pointer;
-  PNAME_CONSTRAINTS = type Pointer;
+  UI_METHOD   = record end;
+  PUI_METHOD = ^UI_METHOD;
 
-  PCRYPTO_EX_DATA = type Pointer;
+  ENGINE    = record end;
+  PENGINE   = ^ENGINE;
+  PPENGINE  = ^PENGINE;
 
-  POCSP_REQ_CTX = type Pointer;
-  POCSP_RESPONSE = type Pointer;
-  POCSP_RESPID = type Pointer;
+  SSL   = record end;
+  PSSL  = ^SSL;
 
-  PSCT = type Pointer;
+  SSL_CTX   = record end;
+  PSSL_CTX  = ^SSL_CTX;
+  PPSSL_CTX = ^PSSL_CTX;
+
+  COMP_CTX    = record end;
+  PCOMP_CTX = ^COMP_CTX;
+
+  COMP_METHOD   = record end;
+  PCOMP_METHOD  = ^COMP_METHOD;
+
+  X509_POLICY_NODE  = record end;
+  PX509_POLICY_NODE = ^X509_POLICY_NODE;
+
+  X509_POLICY_LEVEL   = record end;
+  PX509_POLICY_LEVEL  = ^X509_POLICY_LEVEL;
+
+  X509_POLICY_TREE  = record end;
+  PX509_POLICY_TREE = ^X509_POLICY_TREE;
+
+  X509_POLICY_CACHE_st = record end;
+  PX509_POLICY_CACHE = ^X509_POLICY_CACHE_st;
+
+//  AUTHORITY_KEYID_st = type Pointer; // removed as not needed
+//  AUTHORITY_KEYID = AUTHORITY_KEYID_st; replaced with dummy record
+  AUTHORITY_KEYID   = record end;
+  PAUTHORITY_KEYID  = ^AUTHORITY_KEYID;
+
+  DIST_POINT  = record end;
+  PDIST_POINT = ^DIST_POINT;
+
+  ISSUING_DIST_POINT  = record end;
+  PISSUING_DIST_POINT = ^ISSUING_DIST_POINT;
+
+  NAME_CONSTRAINTS  = record end;
+  PNAME_CONSTRAINTS = ^NAME_CONSTRAINTS;
+
+  CRYPTO_EX_DATA  = record end;
+  PCRYPTO_EX_DATA = ^CRYPTO_EX_DATA;
+
+  OCSP_REQ_CTX  = record end;
+  POCSP_REQ_CTX = ^OCSP_REQ_CTX;
+
+  OCSP_RESPONSE   = record end;
+  POCSP_RESPONSE  = ^OCSP_RESPONSE;
+
+  OCSP_RESPID   = record end;
+  POCSP_RESPID  = ^OCSP_RESPID;
+
+  SCT   = record end;
+  PSCT  = ^SCT;
   PPSCT = ^PSCT;
-  PSCT_CTX = type Pointer;
-  PCTLOG = type Pointer;
+
+  SCT_CTX   = record end;
+  PSCT_CTX  = ^SCT_CTX;
+
+  CTLOG   = record end;
+  PCTLOG  = ^CTLOG;
   PPCTLOG = ^PCTLOG;
-  PCTLOG_STORE = type Pointer;
-  PCT_POLICY_EVAL_CTX = type Pointer;
 
-  POSSL_STORE_INFO = type Pointer;
-  POSSL_STORE_SEARCH = type Pointer;
+  CTLOG_STORE   = record end;
+  PCTLOG_STORE  = ^CTLOG_STORE;
 
-  PEVP_KDF = type Pointer;
-  PEVP_KDF_CTX = type Pointer;
+  CT_POLICY_EVAL_CTX  = record end;
+  PCT_POLICY_EVAL_CTX = ^CT_POLICY_EVAL_CTX;
+
+  OSSL_STORE_INFO   = record end;
+  POSSL_STORE_INFO  = ^OSSL_STORE_INFO;
+
+  OSSL_STORE_SEARCH   = record end;
+  POSSL_STORE_SEARCH  = ^OSSL_STORE_SEARCH;
+
+  EVP_KDF   = record end;
+  PEVP_KDF  = ^EVP_KDF;
+
+  EVP_KDF_CTX   = record end;
+  PEVP_KDF_CTX  = ^EVP_KDF_CTX;
 
 // moved from unit "asn1" to prevent circular references'
 const
@@ -487,25 +618,43 @@ type
   PX509_ALGOR = ^X509_ALGOR;
   PPX509_ALGOR = ^PX509_ALGOR;
 
-  i2d_of_void = type Pointer;
-  Pi2d_of_void = ^i2d_of_void;
+//  i2d_of_void = type Pointer;
+//  Pi2d_of_void = ^i2d_of_void;
+  i2d_of_void = function(const data: Pointer; pp: PPIdAnsiChar): Pointer; cdecl;
 
-  d2i_of_void = type Pointer;
-  Pd2i_of_void = ^d2i_of_void;
+//  d2i_of_void = type Pointer;
+//  Pd2i_of_void = ^d2i_of_void;
+  d2i_of_void = function(data: PPointer; pp: PPIdAnsiChar; length: TIdC_Long): pointer;
+    cdecl;
 
   {OSSL_LIB_CTX is defined in types.h from 3.0.0 onwards}
   //  typedef struct ossl_lib_ctx_st OSSL_LIB_CTX;
-  POSSL_LIB_CTX = Pointer;
-  POSSL_ENCODER = Pointer;
-  POSSL_PROVIDER = Pointer;
-  POSSL_DECODER = Pointer;
-  POSSL_DECODER_CTX = Pointer;
-  OSSL_PARAM = record
-  end;
-  POSSL_PARAM = ^OSSL_PARAM;
-  POSSL_ENCODER_CTX = Pointer;
+  OSSL_LIB_CTX  = record end;
+  POSSL_LIB_CTX = ^OSSL_LIB_CTX;
+
+  OSSL_ALGORITHM  = record end;
+  POSSL_ALGORITHM = ^OSSL_ALGORITHM;
+
+  OSSL_ENCODER  = record end;
+  POSSL_ENCODER = ^OSSL_ENCODER;
+
+  OSSL_ENCODER_CTX  = record end;
+  POSSL_ENCODER_CTX = ^OSSL_ENCODER_CTX;
+
+  OSSL_PROVIDER   = record end;
+  POSSL_PROVIDER  = ^OSSL_PROVIDER;
+
+  OSSL_DECODER  = record end;
+  POSSL_DECODER = ^OSSL_DECODER;
+
+  OSSL_DECODER_CTX  = record end;
+  POSSL_DECODER_CTX = ^OSSL_DECODER_CTX;
+
+//  OSSL_PARAM = record end;
+//  POSSL_PARAM = ^OSSL_PARAM;
+//  POSSL_PARAM_ARRAY = POSSL_PARAM; // declaration of "array of OSSL_PARAM"
+
   pem_password_cb = function(buf: PIdAnsiChar; size: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
-  POSSL_ALGORITHM = Pointer;
 
 implementation
 

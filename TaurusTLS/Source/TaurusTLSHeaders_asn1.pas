@@ -876,7 +876,7 @@ var
 
   ASN1_d2i_bio: function(xnew: pxnew; d2i: pd2i_of_void; in_: PBIO; x: PPointer): Pointer; cdecl = nil;
   ASN1_item_d2i_bio: function (const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer; cdecl = nil;
-  ASN1_i2d_bio: function (i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT; cdecl = nil;
+  ASN1_i2d_bio: function (i2d: i2d_of_void; out_: PBIO; x: PByte): TIdC_INT; cdecl = nil;
 
   //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
   //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
@@ -1207,7 +1207,7 @@ var
   //                          CHECKED_PPTR_OF(type, x)))
 
   function ASN1_item_d2i_bio(const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer cdecl; external CLibCrypto;
-  function ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_i2d_bio(i2d: i2d_of_void; out_: PBIO; x: PByte): TIdC_INT cdecl; external CLibCrypto;
 
   //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
   //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
@@ -2666,7 +2666,7 @@ begin
 end;
 
 
-function  ERR_ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT; 
+function  ERR_ASN1_i2d_bio(i2d: i2d_of_void; out_: PBIO; x: PByte): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_i2d_bio_procname);
 end;

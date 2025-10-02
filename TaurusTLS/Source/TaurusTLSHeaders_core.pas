@@ -129,7 +129,9 @@ uses
           return_size : TIdC_SSIZET;
         end;
 
-      OSSL_PARAM = ossl_param_st;
+      OSSL_PARAM        = ossl_param_st;
+      POSSL_PARAM       = ^OSSL_PARAM;
+      POSSL_PARAM_ARRAY = POSSL_PARAM; // declaration of "array of OSSL_PARAM"
 
     { Currently supported OSSL_PARAM data types  }
     {
@@ -256,10 +258,10 @@ type
      * libcrypto may use the OSSL_PARAM array to create arguments for an
      * application callback it knows about.
       }
-    OSSL_CALLBACK = function(params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+    OSSL_CALLBACK = function(params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;
 
-    OSSL_INOUT_CALLBACK = function(in_params: array of OSSL_PARAM;
-                                  out_params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+    OSSL_INOUT_CALLBACK = function(in_params: POSSL_PARAM_ARRAY;
+                                  out_params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;
 
     {
      * Passphrase callback function signature
@@ -269,7 +271,7 @@ type
       }
     OSSL_PASSPHRASE_CALLBACK = function(pass: PIdAnsiChar; pass_size: TIdC_SSIZET;
                                        pass_len: PIdC_SSIZET;
-                                       params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+                                       params: POSSL_PARAM_ARRAY; arg: pointer): TIdC_INT cdecl;
 
 
 implementation

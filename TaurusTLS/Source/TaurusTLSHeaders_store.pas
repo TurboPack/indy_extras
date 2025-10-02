@@ -29,7 +29,8 @@ uses
   {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   TaurusTLSConsts,
   {$ENDIF}
-  TaurusTLSHeaders_types;
+  TaurusTLSHeaders_types,
+  TaurusTLSHeaders_core;
 
 type
   POSSL_STORE_CTX  = type Pointer;
@@ -84,13 +85,13 @@ var
 
   OSSL_STORE_open_ex : function(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                    const ui_method : PUI_METHOD; ui_data : Pointer;
-                   const params : Array of OSSL_PARAM;
+                   const params : POSSL_PARAM_ARRAY;
                    post_process : OSSL_STORE_post_process_info_fn;
                    post_process_data : Pointer) : POSSL_STORE_CTX cdecl = nil;
   OSSL_STORE_load : function(ctx : POSSL_STORE_CTX) : POSSL_STORE_INFO cdecl = nil;
   OSSL_STORE_delete : function(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                       const ui_method : PUI_METHOD; ui_data : Pointer;
-                      const  params : array of OSSL_PARAM) : TIdC_INT cdecl = nil;
+                      const  params : POSSL_PARAM_ARRAY) : TIdC_INT cdecl = nil;
   OSSL_STORE_eof : function(ctx : POSSL_STORE_CTX) : TIdC_INT cdecl = nil;
   OSSL_STORE_error: function(ctx : POSSL_STORE_CTX) : TIdC_INT cdecl = nil;
   OSSL_STORE_close : function(ctx : POSSL_STORE_CTX) : TIdC_INT cdecl = nil;
@@ -98,7 +99,7 @@ var
   OSSL_STORE_attach : function(bio : PBIO; const scheme : PIdAnsiChar;
                              libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                              const ui_method : PUI_METHOD; ui_data : Pointer;
-                             const  params : array of OSSL_PARAM;
+                             const  params : POSSL_PARAM_ARRAY;
                              post_process : OSSL_STORE_post_process_info_fn;
                              post_process_data : Pointer) : POSSL_STORE_CTX cdecl = nil;
 
@@ -207,14 +208,14 @@ var
 
   function OSSL_STORE_open_ex(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                    const ui_method : PUI_METHOD; ui_data : Pointer;
-                   const params : Array of OSSL_PARAM;
+                   const params : POSSL_PARAM_ARRAY;
                    post_process : OSSL_STORE_post_process_info_fn;
                    post_process_data : Pointer) : POSSL_STORE_CTX cdecl; external CLibCrypto;
   function OSSL_STORE_load(ctx : POSSL_STORE_CTX) : POSSL_STORE_INFO cdecl; external CLibCrypto;
 
   function OSSL_STORE_delete(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                       const ui_method : PUI_METHOD; ui_data : Pointer;
-                      const  params : array of OSSL_PARAM) : TIdC_INT cdecl; external CLibCrypto;
+                      const  params : POSSL_PARAM_ARRAY) : TIdC_INT cdecl; external CLibCrypto;
   function OSSL_STORE_eof(ctx : POSSL_STORE_CTX) : TIdC_INT cdecl; external CLibCrypto;
   function OSSL_STORE_error(ctx : POSSL_STORE_CTX) : TIdC_INT  cdecl; external CLibCrypto;
   function OSSL_STORE_close(ctx : POSSL_STORE_CTX) : TIdC_INT cdecl; external CLibCrypto;
@@ -222,7 +223,7 @@ var
   function OSSL_STORE_attach(bio : PBIO; const scheme : PIdAnsiChar;
                              libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                              const ui_method : PUI_METHOD; ui_data : Pointer;
-                             const  params : array of OSSL_PARAM;
+                             const  params : POSSL_PARAM_ARRAY;
                              post_process : OSSL_STORE_post_process_info_fn;
                              post_process_data : Pointer) : POSSL_STORE_CTX cdecl; external CLibCrypto;
 
@@ -463,7 +464,7 @@ end;
 
 function ERR_OSSL_STORE_open_ex(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                    const ui_method : PUI_METHOD; ui_data : Pointer;
-                   const params : Array of OSSL_PARAM;
+                   const params : POSSL_PARAM_ARRAY;
                    post_process : OSSL_STORE_post_process_info_fn;
                    post_process_data : Pointer) : POSSL_STORE_CTX;
 begin
@@ -482,7 +483,7 @@ end;
 
 function ERR_OSSL_STORE_delete(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                       const ui_method : PUI_METHOD; ui_data : Pointer;
-                      const  params : array of OSSL_PARAM) : TIdC_INT;
+                      const  params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_delete_procname);
 end;
@@ -500,7 +501,7 @@ end;
 function ERR_OSSL_STORE_attach(bio : PBIO; const scheme : PIdAnsiChar;
                              libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                              const ui_method : PUI_METHOD; ui_data : Pointer;
-                             const  params : array of OSSL_PARAM;
+                             const  params : POSSL_PARAM_ARRAY;
                              post_process : OSSL_STORE_post_process_info_fn;
                              post_process_data : Pointer) : POSSL_STORE_CTX;
 begin
