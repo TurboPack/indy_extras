@@ -69,13 +69,13 @@ var
   OSSL_DECODER_gettable_params : function(decoder : POSSL_DECODER)
     : POSSL_PARAM;  cdecl = nil;
   OSSL_DECODER_get_params : function(decoder : POSSL_DECODER;
-    params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+    params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
 
   OSSL_DECODER_settable_ctx_params : function(encoder : POSSL_DECODER)
     : POSSL_PARAM; cdecl = nil;
   OSSL_DECODER_CTX_new : function : POSSL_DECODER_CTX; cdecl = nil;
   OSSL_DECODER_CTX_set_params: function(ctx : POSSL_DECODER_CTX;
-     params : array of OSSL_PARAM) : TIdC_INT; cdecl = nil;
+     params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl = nil;
   OSSL_DECODER_CTX_free : procedure(ctx : POSSL_DECODER_CTX);  cdecl = nil;
 
 //* Utilities that help set specific parameters */
@@ -177,13 +177,13 @@ var
   function OSSL_DECODER_gettable_params(decoder : POSSL_DECODER)
     : POSSL_PARAM;  cdecl; external CLibCrypto;
   function OSSL_DECODER_get_params(decoder : POSSL_DECODER;
-    params : array of OSSL_PARAM) : TIdC_INT; cdecl; external CLibCrypto;
+    params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl; external CLibCrypto;
 
   function OSSL_DECODER_settable_ctx_params(encoder : POSSL_DECODER)
     : POSSL_PARAM; cdecl; external CLibCrypto;
   function OSSL_DECODER_CTX_new: POSSL_DECODER_CTX; cdecl; external CLibCrypto;
   function OSSL_DECODER_CTX_set_params(ctx : POSSL_DECODER_CTX;
-     params : array of OSSL_PARAM) : TIdC_INT cdecl; external CLibCrypto;
+     params : POSSL_PARAM_ARRAY) : TIdC_INT cdecl; external CLibCrypto;
   procedure OSSL_DECODER_CTX_free(ctx : POSSL_DECODER_CTX)
     cdecl; external CLibCrypto;
 
@@ -508,7 +508,7 @@ const
   end;
 
   function ERR_OSSL_DECODER_get_params(decoder : POSSL_DECODER;
-    params : array of OSSL_PARAM) : TIdC_INT;
+    params : POSSL_PARAM_ARRAY) : TIdC_INT;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException
       (OSSL_DECODER_get_params_procname);
@@ -528,7 +528,7 @@ const
   end;
 
 function ERR_OSSL_DECODER_CTX_set_params(ctx : POSSL_DECODER_CTX;
-     params : array of OSSL_PARAM) : TIdC_INT;
+     params : POSSL_PARAM_ARRAY) : TIdC_INT;
 begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException
       (OSSL_DECODER_CTX_set_params_procname);
