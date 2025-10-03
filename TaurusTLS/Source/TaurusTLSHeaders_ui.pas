@@ -1152,17 +1152,17 @@ const
 
   {$I TaurusTLSNoRetValOff.inc} 
 
-function ERR_UI_new: PUI;
+function ERR_UI_new: PUI; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_new_procname);
 end;
 
-function ERR_UI_new_method(const method: PUI_Method): PUI;
+function ERR_UI_new_method(const method: PUI_Method): PUI; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_new_method_procname);
 end;
 
-procedure ERR_UI_free(ui: PUI);
+procedure ERR_UI_free(ui: PUI); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_free_procname);
 end;
@@ -1213,28 +1213,28 @@ end;
 
 function ERR_UI_add_input_string(ui: PUI; const prompt: PIdAnsiChar;
   flags: TIdC_INT; result_buf: PIdAnsiChar; minsize: TIdC_INT;
-  maxsize: TIdC_INT): TIdC_INT;
+  maxsize: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_input_string_procname);
 end;
 
 function ERR_UI_dup_input_string(ui: PUI; const prompt: PIdAnsiChar;
   flags: TIdC_INT; result_buf: PIdAnsiChar; minsize: TIdC_INT;
-  maxsize: TIdC_INT): TIdC_INT;
+  maxsize: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_input_string_procname);
 end;
 
 function ERR_UI_add_verify_string(ui: PUI; const prompt: PIdAnsiChar;
   flags: TIdC_INT; result_buf: PIdAnsiChar; minsize: TIdC_INT;
-  maxsize: TIdC_INT; const test_buf: PIdAnsiChar): TIdC_INT;
+  maxsize: TIdC_INT; const test_buf: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_verify_string_procname);
 end;
 
 function ERR_UI_dup_verify_string(ui: PUI; const prompt: PIdAnsiChar;
   flags: TIdC_INT; result_buf: PIdAnsiChar; minsize: TIdC_INT;
-  maxsize: TIdC_INT; const test_buf: PIdAnsiChar): TIdC_INT;
+  maxsize: TIdC_INT; const test_buf: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_verify_string_procname);
 end;
@@ -1242,7 +1242,7 @@ end;
 function ERR_UI_add_input_boolean(ui: PUI; const prompt: PIdAnsiChar;
   const action_desc: PIdAnsiChar; const ok_chars: PIdAnsiChar;
   const cancel_chars: PIdAnsiChar; flags: TIdC_INT; result_buf: PIdAnsiChar)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_input_boolean_procname);
 end;
@@ -1250,27 +1250,27 @@ end;
 function ERR_UI_dup_input_boolean(ui: PUI; const prompt: PIdAnsiChar;
   const action_desc: PIdAnsiChar; const ok_chars: PIdAnsiChar;
   const cancel_chars: PIdAnsiChar; flags: TIdC_INT; result_buf: PIdAnsiChar)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_input_boolean_procname);
 end;
 
-function ERR_UI_add_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_add_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_info_string_procname);
 end;
 
-function ERR_UI_dup_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_dup_info_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_info_string_procname);
 end;
 
-function ERR_UI_add_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_add_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_error_string_procname);
 end;
 
-function ERR_UI_dup_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT;
+function ERR_UI_dup_error_string(ui: PUI; const _text: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_error_string_procname);
 end;
@@ -1294,7 +1294,7 @@ end;
   *       "Enter pass phrase for foo.key:"
 *)
 function ERR_UI_construct_prompt(ui_method: PUI; const object_desc: PIdAnsiChar;
-  const object_name: PIdAnsiChar): PIdAnsiChar;
+  const object_name: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_construct_prompt_procname);
 end;
@@ -1310,7 +1310,7 @@ end;
   * Note that the UI_TaurusTLS() method completely ignores the user data. Other
   * methods may not, however.
 *)
-function ERR_UI_add_user_data(ui: PUI; user_data: Pointer): Pointer;
+function ERR_UI_add_user_data(ui: PUI; user_data: Pointer): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_add_user_data_procname);
 end;
@@ -1320,30 +1320,30 @@ end;
   * This uses the duplicator method function.  The destroy function will
   * be used to free the user data in this case.
 *)
-function ERR_UI_dup_user_data(ui: PUI; user_data: Pointer): TIdC_INT;
+function ERR_UI_dup_user_data(ui: PUI; user_data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_dup_user_data_procname);
 end;
 
 (* We need a user data retrieving function as well. *)
-function ERR_UI_get0_user_data(ui: PUI): Pointer;
+function ERR_UI_get0_user_data(ui: PUI): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_user_data_procname);
 end;
 
 (* Return the result associated with a prompt given with the index i. *)
-function ERR_UI_get0_result(ui: PUI; i: TIdC_INT): PIdAnsiChar;
+function ERR_UI_get0_result(ui: PUI; i: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_result_procname);
 end;
 
-function ERR_UI_get_result_length(ui: PUI; i: TIdC_INT): TIdC_INT;
+function ERR_UI_get_result_length(ui: PUI; i: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_result_length_procname);
 end;
 
 (* When all strings have been added, process the whole thing. *)
-function ERR_UI_process(ui: PUI): TIdC_INT;
+function ERR_UI_process(ui: PUI): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_process_procname);
 end;
@@ -1354,7 +1354,7 @@ end;
   * used to get information from a UI.
 *)
 function ERR_UI_ctrl(ui: PUI; cmd: TIdC_INT; i: TIdC_LONG; p: Pointer;
-  f: UI_ctrl_f): TIdC_INT;
+  f: UI_ctrl_f): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_ctrl_procname);
 end;
@@ -1365,39 +1365,39 @@ end;
 
 // # define UI_get_ex_new_index(l, p, newf, dupf, freef) \
 // CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_UI, l, p, newf, dupf, freef)
-function ERR_UI_set_ex_data(r: PUI; idx: TIdC_INT; arg: Pointer): TIdC_INT;
+function ERR_UI_set_ex_data(r: PUI; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_set_ex_data_procname);
 end;
 
-function ERR_UI_get_ex_data(r: PUI; idx: TIdC_INT): Pointer;
+function ERR_UI_get_ex_data(r: PUI; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_ex_data_procname);
 end;
 
 (* Use specific methods instead of the built-in one *)
-procedure ERR_UI_set_default_method(const meth: PUI_Method);
+procedure ERR_UI_set_default_method(const meth: PUI_Method); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_set_default_method_procname);
 end;
 
-function ERR_UI_get_default_method: PUI_Method;
+function ERR_UI_get_default_method: PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_default_method_procname);
 end;
 
-function ERR_UI_get_method(ui: PUI): PUI_Method;
+function ERR_UI_get_method(ui: PUI): PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_method_procname);
 end;
 
-function ERR_UI_set_method(ui: PUI; const meth: PUI_Method): PUI_Method;
+function ERR_UI_set_method(ui: PUI; const meth: PUI_Method): PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_set_method_procname);
 end;
 
 (* The method with all the built-in thingies *)
-function ERR_UI_TaurusTLS: PUI_Method;
+function ERR_UI_TaurusTLS: PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_TaurusTLS_procname);
 end;
@@ -1406,7 +1406,7 @@ end;
   * NULL method.  Literally does nothing, but may serve as a placeholder
   * to avoid internal default.
 *)
-function ERR_UI_null: PUI_Method;
+function ERR_UI_null: PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_null_procname);
 end;
@@ -1454,120 +1454,120 @@ end;
   the reader take a UI_STRING.
 *)
 
-function ERR_UI_create_method(const name: PIdAnsiChar): PUI_Method;
+function ERR_UI_create_method(const name: PIdAnsiChar): PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_create_method_procname);
 end;
 
-procedure ERR_UI_destroy_method(ui_method: PUI_Method);
+procedure ERR_UI_destroy_method(ui_method: PUI_Method); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_destroy_method_procname);
 end;
 
 function ERR_UI_method_set_opener(method: PUI_Method;
-  opener: UI_method_opener_cb): TIdC_INT;
+  opener: UI_method_opener_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_opener_procname);
 end;
 
 function ERR_UI_method_set_writer(method: PUI_Method;
-  writer: UI_method_writer_cb): TIdC_INT;
+  writer: UI_method_writer_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_writer_procname);
 end;
 
 function ERR_UI_method_set_flusher(method: PUI_Method;
-  flusher: UI_method_flusher_cb): TIdC_INT;
+  flusher: UI_method_flusher_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_flusher_procname);
 end;
 
 function ERR_UI_method_set_reader(method: PUI_Method;
-  reader: UI_method_reader_cb): TIdC_INT;
+  reader: UI_method_reader_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_reader_procname);
 end;
 
 function ERR_UI_method_set_closer(method: PUI_Method;
-  closer: UI_method_closer_cb): TIdC_INT;
+  closer: UI_method_closer_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_closer_procname);
 end;
 
 function ERR_UI_method_set_data_duplicator(method: PUI_Method;
   duplicator: UI_method_data_duplicator_cb;
-  destructor_: UI_method_data_destructor_cb): TIdC_INT;
+  destructor_: UI_method_data_destructor_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_method_set_data_duplicator_procname);
 end;
 
 function ERR_UI_method_set_prompt_constructor(method: PUI_Method;
-  prompt_constructor: UI_method_prompt_constructor_cb): TIdC_INT;
+  prompt_constructor: UI_method_prompt_constructor_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_method_set_prompt_constructor_procname);
 end;
 
 function ERR_UI_method_set_ex_data(method: PUI_Method; idx: TIdC_INT;
-  data: Pointer): TIdC_INT;
+  data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_set_ex_data_procname);
 end;
 
 function ERR_UI_method_get_opener(const method: PUI_Method)
-  : UI_method_opener_cb;
+  : UI_method_opener_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_opener_procname);
 end;
 
 function ERR_UI_method_get_writer(const method: PUI_Method)
-  : UI_method_writer_cb;
+  : UI_method_writer_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_writer_procname);
 end;
 
 function ERR_UI_method_get_flusher(const method: PUI_Method)
-  : UI_method_flusher_cb;
+  : UI_method_flusher_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_flusher_procname);
 end;
 
 function ERR_UI_method_get_reader(const method: PUI_Method)
-  : UI_method_reader_cb;
+  : UI_method_reader_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_reader_procname);
 end;
 
 function ERR_UI_method_get_closer(const method: PUI_Method)
-  : UI_method_closer_cb;
+  : UI_method_closer_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_closer_procname);
 end;
 
 function ERR_UI_method_get_prompt_constructor(const method: PUI_Method)
-  : UI_method_prompt_constructor_cb;
+  : UI_method_prompt_constructor_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_method_get_prompt_constructor_procname);
 end;
 
 function ERR_UI_method_get_data_duplicator(const method: PUI_Method)
-  : UI_method_data_duplicator_cb;
+  : UI_method_data_duplicator_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_method_get_data_duplicator_procname);
 end;
 
 function ERR_UI_method_get_data_destructor(const method: PUI_Method)
-  : UI_method_data_destructor_cb;
+  : UI_method_data_destructor_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_method_get_data_destructor_procname);
 end;
 
 function ERR_UI_method_get_ex_data(const method: PUI_Method; idx: TIdC_INT)
-  : Pointer;
+  : Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_method_get_ex_data_procname);
 end;
@@ -1578,19 +1578,19 @@ end;
 *)
 
 (* Return type of the UI_STRING *)
-function ERR_UI_get_string_type(uis: PUI_STRING): UI_string_types;
+function ERR_UI_get_string_type(uis: PUI_STRING): UI_string_types; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_string_type_procname);
 end;
 
 (* Return input flags of the UI_STRING *)
-function ERR_UI_get_input_flags(uis: PUI_STRING): TIdC_INT;
+function ERR_UI_get_input_flags(uis: PUI_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_input_flags_procname);
 end;
 
 (* Return the actual string to output (the prompt, info or error) *)
-function ERR_UI_get0_output_string(uis: PUI_STRING): PIdAnsiChar;
+function ERR_UI_get0_output_string(uis: PUI_STRING): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_output_string_procname);
 end;
@@ -1599,18 +1599,18 @@ end;
   * Return the optional action string to output (the boolean prompt
   * instruction)
 *)
-function ERR_UI_get0_action_string(uis: PUI_STRING): PIdAnsiChar;
+function ERR_UI_get0_action_string(uis: PUI_STRING): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_action_string_procname);
 end;
 
 (* Return the result of a prompt *)
-function ERR_UI_get0_result_string(uis: PUI_STRING): PIdAnsiChar;
+function ERR_UI_get0_result_string(uis: PUI_STRING): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_result_string_procname);
 end;
 
-function ERR_UI_get_result_string_length(uis: PUI_STRING): TIdC_INT;
+function ERR_UI_get_result_string_length(uis: PUI_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_result_string_length_procname);
 end;
@@ -1618,55 +1618,56 @@ end;
 (*
   * Return the string to test the result against.  Only useful with verifies.
 *)
-function ERR_UI_get0_test_string(uis: PUI_STRING): PIdAnsiChar;
+function ERR_UI_get0_test_string(uis: PUI_STRING): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get0_test_string_procname);
 end;
 
 (* Return the required minimum size of the result *)
-function ERR_UI_get_result_minsize(uis: PUI_STRING): TIdC_INT;
+function ERR_UI_get_result_minsize(uis: PUI_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_result_minsize_procname);
 end;
 
 (* Return the required maximum size of the result *)
-function ERR_UI_get_result_maxsize(uis: PUI_STRING): TIdC_INT;
+function ERR_UI_get_result_maxsize(uis: PUI_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_get_result_maxsize_procname);
 end;
 
 (* Set the result of a UI_STRING. *)
 function ERR_UI_set_result(ui: PUI; uis: PUI_STRING; const _result: PIdAnsiChar)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_set_result_procname);
 end;
 
 function ERR_UI_set_result_ex(ui: PUI; uis: PUI_STRING;
-  const _result: PIdAnsiChar; len: TIdC_INT): TIdC_INT;
+  const _result: PIdAnsiChar; len: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_set_result_ex_procname);
 end;
 
 (* A couple of popular utility functions *)
 function ERR_UI_UTIL_read_pw_string(buf: PIdAnsiChar; _length: TIdC_INT;
-  const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT;
+  const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_UTIL_read_pw_string_procname);
 end;
 
 function ERR_UI_UTIL_read_pw(buf: PIdAnsiChar; buff: PIdAnsiChar;
-  size: TIdC_INT; const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT;
+  size: TIdC_INT; const prompt: PIdAnsiChar; verify: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(UI_UTIL_read_pw_procname);
 end;
 
 function ERR_UI_UTIL_wrap_read_pem_callback(cb: pem_password_cb;
-  rwflag: TIdC_INT): PUI_Method;
+  rwflag: TIdC_INT): PUI_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (UI_UTIL_wrap_read_pem_callback_procname);
 end;
+
 
   {$I TaurusTLSNoRetValOn.inc} 
   {$I TaurusTLSUnusedParamOff.inc}
@@ -1682,13 +1683,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_new_allownil)}
-    UI_new := @ERR_UI_new;
+    UI_new := ERR_UI_new;
 {$IFEND}
 {$IF declared(UI_new_introduced)}
     if LibVersion < UI_new_introduced then
     begin
 {$IF declared(FC_UI_new)}
-      UI_new := @FC_UI_new;
+      UI_new := FC_UI_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1697,7 +1698,7 @@ begin
     if UI_new_removed <= LibVersion then
     begin
 {$IF declared(_UI_new)}
-      UI_new := @_UI_new;
+      UI_new := _UI_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1713,13 +1714,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_new_method_allownil)}
-    UI_new_method := @ERR_UI_new_method;
+    UI_new_method := ERR_UI_new_method;
 {$IFEND}
 {$IF declared(UI_new_method_introduced)}
     if LibVersion < UI_new_method_introduced then
     begin
 {$IF declared(FC_UI_new_method)}
-      UI_new_method := @FC_UI_new_method;
+      UI_new_method := FC_UI_new_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1728,7 +1729,7 @@ begin
     if UI_new_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_new_method)}
-      UI_new_method := @_UI_new_method;
+      UI_new_method := _UI_new_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1744,13 +1745,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_free_allownil)}
-    UI_free := @ERR_UI_free;
+    UI_free := ERR_UI_free;
 {$IFEND}
 {$IF declared(UI_free_introduced)}
     if LibVersion < UI_free_introduced then
     begin
 {$IF declared(FC_UI_free)}
-      UI_free := @FC_UI_free;
+      UI_free := FC_UI_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1759,7 +1760,7 @@ begin
     if UI_free_removed <= LibVersion then
     begin
 {$IF declared(_UI_free)}
-      UI_free := @_UI_free;
+      UI_free := _UI_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1776,13 +1777,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_input_string_allownil)}
-    UI_add_input_string := @ERR_UI_add_input_string;
+    UI_add_input_string := ERR_UI_add_input_string;
 {$IFEND}
 {$IF declared(UI_add_input_string_introduced)}
     if LibVersion < UI_add_input_string_introduced then
     begin
 {$IF declared(FC_UI_add_input_string)}
-      UI_add_input_string := @FC_UI_add_input_string;
+      UI_add_input_string := FC_UI_add_input_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1791,7 +1792,7 @@ begin
     if UI_add_input_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_input_string)}
-      UI_add_input_string := @_UI_add_input_string;
+      UI_add_input_string := _UI_add_input_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1808,13 +1809,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_input_string_allownil)}
-    UI_dup_input_string := @ERR_UI_dup_input_string;
+    UI_dup_input_string := ERR_UI_dup_input_string;
 {$IFEND}
 {$IF declared(UI_dup_input_string_introduced)}
     if LibVersion < UI_dup_input_string_introduced then
     begin
 {$IF declared(FC_UI_dup_input_string)}
-      UI_dup_input_string := @FC_UI_dup_input_string;
+      UI_dup_input_string := FC_UI_dup_input_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1823,7 +1824,7 @@ begin
     if UI_dup_input_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_input_string)}
-      UI_dup_input_string := @_UI_dup_input_string;
+      UI_dup_input_string := _UI_dup_input_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1840,13 +1841,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_verify_string_allownil)}
-    UI_add_verify_string := @ERR_UI_add_verify_string;
+    UI_add_verify_string := ERR_UI_add_verify_string;
 {$IFEND}
 {$IF declared(UI_add_verify_string_introduced)}
     if LibVersion < UI_add_verify_string_introduced then
     begin
 {$IF declared(FC_UI_add_verify_string)}
-      UI_add_verify_string := @FC_UI_add_verify_string;
+      UI_add_verify_string := FC_UI_add_verify_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1855,7 +1856,7 @@ begin
     if UI_add_verify_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_verify_string)}
-      UI_add_verify_string := @_UI_add_verify_string;
+      UI_add_verify_string := _UI_add_verify_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1872,13 +1873,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_verify_string_allownil)}
-    UI_dup_verify_string := @ERR_UI_dup_verify_string;
+    UI_dup_verify_string := ERR_UI_dup_verify_string;
 {$IFEND}
 {$IF declared(UI_dup_verify_string_introduced)}
     if LibVersion < UI_dup_verify_string_introduced then
     begin
 {$IF declared(FC_UI_dup_verify_string)}
-      UI_dup_verify_string := @FC_UI_dup_verify_string;
+      UI_dup_verify_string := FC_UI_dup_verify_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1887,7 +1888,7 @@ begin
     if UI_dup_verify_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_verify_string)}
-      UI_dup_verify_string := @_UI_dup_verify_string;
+      UI_dup_verify_string := _UI_dup_verify_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1904,13 +1905,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_input_boolean_allownil)}
-    UI_add_input_boolean := @ERR_UI_add_input_boolean;
+    UI_add_input_boolean := ERR_UI_add_input_boolean;
 {$IFEND}
 {$IF declared(UI_add_input_boolean_introduced)}
     if LibVersion < UI_add_input_boolean_introduced then
     begin
 {$IF declared(FC_UI_add_input_boolean)}
-      UI_add_input_boolean := @FC_UI_add_input_boolean;
+      UI_add_input_boolean := FC_UI_add_input_boolean;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1919,7 +1920,7 @@ begin
     if UI_add_input_boolean_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_input_boolean)}
-      UI_add_input_boolean := @_UI_add_input_boolean;
+      UI_add_input_boolean := _UI_add_input_boolean;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1936,13 +1937,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_input_boolean_allownil)}
-    UI_dup_input_boolean := @ERR_UI_dup_input_boolean;
+    UI_dup_input_boolean := ERR_UI_dup_input_boolean;
 {$IFEND}
 {$IF declared(UI_dup_input_boolean_introduced)}
     if LibVersion < UI_dup_input_boolean_introduced then
     begin
 {$IF declared(FC_UI_dup_input_boolean)}
-      UI_dup_input_boolean := @FC_UI_dup_input_boolean;
+      UI_dup_input_boolean := FC_UI_dup_input_boolean;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1951,7 +1952,7 @@ begin
     if UI_dup_input_boolean_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_input_boolean)}
-      UI_dup_input_boolean := @_UI_dup_input_boolean;
+      UI_dup_input_boolean := _UI_dup_input_boolean;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1968,13 +1969,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_info_string_allownil)}
-    UI_add_info_string := @ERR_UI_add_info_string;
+    UI_add_info_string := ERR_UI_add_info_string;
 {$IFEND}
 {$IF declared(UI_add_info_string_introduced)}
     if LibVersion < UI_add_info_string_introduced then
     begin
 {$IF declared(FC_UI_add_info_string)}
-      UI_add_info_string := @FC_UI_add_info_string;
+      UI_add_info_string := FC_UI_add_info_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1983,7 +1984,7 @@ begin
     if UI_add_info_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_info_string)}
-      UI_add_info_string := @_UI_add_info_string;
+      UI_add_info_string := _UI_add_info_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2000,13 +2001,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_info_string_allownil)}
-    UI_dup_info_string := @ERR_UI_dup_info_string;
+    UI_dup_info_string := ERR_UI_dup_info_string;
 {$IFEND}
 {$IF declared(UI_dup_info_string_introduced)}
     if LibVersion < UI_dup_info_string_introduced then
     begin
 {$IF declared(FC_UI_dup_info_string)}
-      UI_dup_info_string := @FC_UI_dup_info_string;
+      UI_dup_info_string := FC_UI_dup_info_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2015,7 +2016,7 @@ begin
     if UI_dup_info_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_info_string)}
-      UI_dup_info_string := @_UI_dup_info_string;
+      UI_dup_info_string := _UI_dup_info_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2032,13 +2033,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_error_string_allownil)}
-    UI_add_error_string := @ERR_UI_add_error_string;
+    UI_add_error_string := ERR_UI_add_error_string;
 {$IFEND}
 {$IF declared(UI_add_error_string_introduced)}
     if LibVersion < UI_add_error_string_introduced then
     begin
 {$IF declared(FC_UI_add_error_string)}
-      UI_add_error_string := @FC_UI_add_error_string;
+      UI_add_error_string := FC_UI_add_error_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2047,7 +2048,7 @@ begin
     if UI_add_error_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_error_string)}
-      UI_add_error_string := @_UI_add_error_string;
+      UI_add_error_string := _UI_add_error_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2064,13 +2065,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_error_string_allownil)}
-    UI_dup_error_string := @ERR_UI_dup_error_string;
+    UI_dup_error_string := ERR_UI_dup_error_string;
 {$IFEND}
 {$IF declared(UI_dup_error_string_introduced)}
     if LibVersion < UI_dup_error_string_introduced then
     begin
 {$IF declared(FC_UI_dup_error_string)}
-      UI_dup_error_string := @FC_UI_dup_error_string;
+      UI_dup_error_string := FC_UI_dup_error_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2079,7 +2080,7 @@ begin
     if UI_dup_error_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_error_string)}
-      UI_dup_error_string := @_UI_dup_error_string;
+      UI_dup_error_string := _UI_dup_error_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2096,13 +2097,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_construct_prompt_allownil)}
-    UI_construct_prompt := @ERR_UI_construct_prompt;
+    UI_construct_prompt := ERR_UI_construct_prompt;
 {$IFEND}
 {$IF declared(UI_construct_prompt_introduced)}
     if LibVersion < UI_construct_prompt_introduced then
     begin
 {$IF declared(FC_UI_construct_prompt)}
-      UI_construct_prompt := @FC_UI_construct_prompt;
+      UI_construct_prompt := FC_UI_construct_prompt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2111,7 +2112,7 @@ begin
     if UI_construct_prompt_removed <= LibVersion then
     begin
 {$IF declared(_UI_construct_prompt)}
-      UI_construct_prompt := @_UI_construct_prompt;
+      UI_construct_prompt := _UI_construct_prompt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2127,13 +2128,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_add_user_data_allownil)}
-    UI_add_user_data := @ERR_UI_add_user_data;
+    UI_add_user_data := ERR_UI_add_user_data;
 {$IFEND}
 {$IF declared(UI_add_user_data_introduced)}
     if LibVersion < UI_add_user_data_introduced then
     begin
 {$IF declared(FC_UI_add_user_data)}
-      UI_add_user_data := @FC_UI_add_user_data;
+      UI_add_user_data := FC_UI_add_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2142,7 +2143,7 @@ begin
     if UI_add_user_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_add_user_data)}
-      UI_add_user_data := @_UI_add_user_data;
+      UI_add_user_data := _UI_add_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2158,13 +2159,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_dup_user_data_allownil)}
-    UI_dup_user_data := @ERR_UI_dup_user_data;
+    UI_dup_user_data := ERR_UI_dup_user_data;
 {$IFEND}
 {$IF declared(UI_dup_user_data_introduced)}
     if LibVersion < UI_dup_user_data_introduced then
     begin
 {$IF declared(FC_UI_dup_user_data)}
-      UI_dup_user_data := @FC_UI_dup_user_data;
+      UI_dup_user_data := FC_UI_dup_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2173,7 +2174,7 @@ begin
     if UI_dup_user_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_dup_user_data)}
-      UI_dup_user_data := @_UI_dup_user_data;
+      UI_dup_user_data := _UI_dup_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2189,13 +2190,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_user_data_allownil)}
-    UI_get0_user_data := @ERR_UI_get0_user_data;
+    UI_get0_user_data := ERR_UI_get0_user_data;
 {$IFEND}
 {$IF declared(UI_get0_user_data_introduced)}
     if LibVersion < UI_get0_user_data_introduced then
     begin
 {$IF declared(FC_UI_get0_user_data)}
-      UI_get0_user_data := @FC_UI_get0_user_data;
+      UI_get0_user_data := FC_UI_get0_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2204,7 +2205,7 @@ begin
     if UI_get0_user_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_user_data)}
-      UI_get0_user_data := @_UI_get0_user_data;
+      UI_get0_user_data := _UI_get0_user_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2220,13 +2221,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_result_allownil)}
-    UI_get0_result := @ERR_UI_get0_result;
+    UI_get0_result := ERR_UI_get0_result;
 {$IFEND}
 {$IF declared(UI_get0_result_introduced)}
     if LibVersion < UI_get0_result_introduced then
     begin
 {$IF declared(FC_UI_get0_result)}
-      UI_get0_result := @FC_UI_get0_result;
+      UI_get0_result := FC_UI_get0_result;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2235,7 +2236,7 @@ begin
     if UI_get0_result_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_result)}
-      UI_get0_result := @_UI_get0_result;
+      UI_get0_result := _UI_get0_result;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2252,13 +2253,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_result_length_allownil)}
-    UI_get_result_length := @ERR_UI_get_result_length;
+    UI_get_result_length := ERR_UI_get_result_length;
 {$IFEND}
 {$IF declared(UI_get_result_length_introduced)}
     if LibVersion < UI_get_result_length_introduced then
     begin
 {$IF declared(FC_UI_get_result_length)}
-      UI_get_result_length := @FC_UI_get_result_length;
+      UI_get_result_length := FC_UI_get_result_length;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2267,7 +2268,7 @@ begin
     if UI_get_result_length_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_result_length)}
-      UI_get_result_length := @_UI_get_result_length;
+      UI_get_result_length := _UI_get_result_length;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2283,13 +2284,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_process_allownil)}
-    UI_process := @ERR_UI_process;
+    UI_process := ERR_UI_process;
 {$IFEND}
 {$IF declared(UI_process_introduced)}
     if LibVersion < UI_process_introduced then
     begin
 {$IF declared(FC_UI_process)}
-      UI_process := @FC_UI_process;
+      UI_process := FC_UI_process;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2298,7 +2299,7 @@ begin
     if UI_process_removed <= LibVersion then
     begin
 {$IF declared(_UI_process)}
-      UI_process := @_UI_process;
+      UI_process := _UI_process;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2314,13 +2315,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_ctrl_allownil)}
-    UI_ctrl := @ERR_UI_ctrl;
+    UI_ctrl := ERR_UI_ctrl;
 {$IFEND}
 {$IF declared(UI_ctrl_introduced)}
     if LibVersion < UI_ctrl_introduced then
     begin
 {$IF declared(FC_UI_ctrl)}
-      UI_ctrl := @FC_UI_ctrl;
+      UI_ctrl := FC_UI_ctrl;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2329,7 +2330,7 @@ begin
     if UI_ctrl_removed <= LibVersion then
     begin
 {$IF declared(_UI_ctrl)}
-      UI_ctrl := @_UI_ctrl;
+      UI_ctrl := _UI_ctrl;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2345,13 +2346,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_set_ex_data_allownil)}
-    UI_set_ex_data := @ERR_UI_set_ex_data;
+    UI_set_ex_data := ERR_UI_set_ex_data;
 {$IFEND}
 {$IF declared(UI_set_ex_data_introduced)}
     if LibVersion < UI_set_ex_data_introduced then
     begin
 {$IF declared(FC_UI_set_ex_data)}
-      UI_set_ex_data := @FC_UI_set_ex_data;
+      UI_set_ex_data := FC_UI_set_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2360,7 +2361,7 @@ begin
     if UI_set_ex_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_set_ex_data)}
-      UI_set_ex_data := @_UI_set_ex_data;
+      UI_set_ex_data := _UI_set_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2376,13 +2377,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_ex_data_allownil)}
-    UI_get_ex_data := @ERR_UI_get_ex_data;
+    UI_get_ex_data := ERR_UI_get_ex_data;
 {$IFEND}
 {$IF declared(UI_get_ex_data_introduced)}
     if LibVersion < UI_get_ex_data_introduced then
     begin
 {$IF declared(FC_UI_get_ex_data)}
-      UI_get_ex_data := @FC_UI_get_ex_data;
+      UI_get_ex_data := FC_UI_get_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2391,7 +2392,7 @@ begin
     if UI_get_ex_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_ex_data)}
-      UI_get_ex_data := @_UI_get_ex_data;
+      UI_get_ex_data := _UI_get_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2408,13 +2409,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_set_default_method_allownil)}
-    UI_set_default_method := @ERR_UI_set_default_method;
+    UI_set_default_method := ERR_UI_set_default_method;
 {$IFEND}
 {$IF declared(UI_set_default_method_introduced)}
     if LibVersion < UI_set_default_method_introduced then
     begin
 {$IF declared(FC_UI_set_default_method)}
-      UI_set_default_method := @FC_UI_set_default_method;
+      UI_set_default_method := FC_UI_set_default_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2423,7 +2424,7 @@ begin
     if UI_set_default_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_set_default_method)}
-      UI_set_default_method := @_UI_set_default_method;
+      UI_set_default_method := _UI_set_default_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2440,13 +2441,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_default_method_allownil)}
-    UI_get_default_method := @ERR_UI_get_default_method;
+    UI_get_default_method := ERR_UI_get_default_method;
 {$IFEND}
 {$IF declared(UI_get_default_method_introduced)}
     if LibVersion < UI_get_default_method_introduced then
     begin
 {$IF declared(FC_UI_get_default_method)}
-      UI_get_default_method := @FC_UI_get_default_method;
+      UI_get_default_method := FC_UI_get_default_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2455,7 +2456,7 @@ begin
     if UI_get_default_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_default_method)}
-      UI_get_default_method := @_UI_get_default_method;
+      UI_get_default_method := _UI_get_default_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2471,13 +2472,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_method_allownil)}
-    UI_get_method := @ERR_UI_get_method;
+    UI_get_method := ERR_UI_get_method;
 {$IFEND}
 {$IF declared(UI_get_method_introduced)}
     if LibVersion < UI_get_method_introduced then
     begin
 {$IF declared(FC_UI_get_method)}
-      UI_get_method := @FC_UI_get_method;
+      UI_get_method := FC_UI_get_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2486,7 +2487,7 @@ begin
     if UI_get_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_method)}
-      UI_get_method := @_UI_get_method;
+      UI_get_method := _UI_get_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2502,13 +2503,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_set_method_allownil)}
-    UI_set_method := @ERR_UI_set_method;
+    UI_set_method := ERR_UI_set_method;
 {$IFEND}
 {$IF declared(UI_set_method_introduced)}
     if LibVersion < UI_set_method_introduced then
     begin
 {$IF declared(FC_UI_set_method)}
-      UI_set_method := @FC_UI_set_method;
+      UI_set_method := FC_UI_set_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2517,7 +2518,7 @@ begin
     if UI_set_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_set_method)}
-      UI_set_method := @_UI_set_method;
+      UI_set_method := _UI_set_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2533,13 +2534,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_TaurusTLS_allownil)}
-    UI_TaurusTLS := @ERR_UI_TaurusTLS;
+    UI_TaurusTLS := ERR_UI_TaurusTLS;
 {$IFEND}
 {$IF declared(UI_TaurusTLS_introduced)}
     if LibVersion < UI_TaurusTLS_introduced then
     begin
 {$IF declared(FC_UI_TaurusTLS)}
-      UI_TaurusTLS := @FC_UI_TaurusTLS;
+      UI_TaurusTLS := FC_UI_TaurusTLS;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2548,7 +2549,7 @@ begin
     if UI_TaurusTLS_removed <= LibVersion then
     begin
 {$IF declared(_UI_TaurusTLS)}
-      UI_TaurusTLS := @_UI_TaurusTLS;
+      UI_TaurusTLS := _UI_TaurusTLS;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2564,13 +2565,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_null_allownil)}
-    UI_null := @ERR_UI_null;
+    UI_null := ERR_UI_null;
 {$IFEND}
 {$IF declared(UI_null_introduced)}
     if LibVersion < UI_null_introduced then
     begin
 {$IF declared(FC_UI_null)}
-      UI_null := @FC_UI_null;
+      UI_null := FC_UI_null;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2579,7 +2580,7 @@ begin
     if UI_null_removed <= LibVersion then
     begin
 {$IF declared(_UI_null)}
-      UI_null := @_UI_null;
+      UI_null := _UI_null;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2595,13 +2596,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_create_method_allownil)}
-    UI_create_method := @ERR_UI_create_method;
+    UI_create_method := ERR_UI_create_method;
 {$IFEND}
 {$IF declared(UI_create_method_introduced)}
     if LibVersion < UI_create_method_introduced then
     begin
 {$IF declared(FC_UI_create_method)}
-      UI_create_method := @FC_UI_create_method;
+      UI_create_method := FC_UI_create_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2610,7 +2611,7 @@ begin
     if UI_create_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_create_method)}
-      UI_create_method := @_UI_create_method;
+      UI_create_method := _UI_create_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2626,13 +2627,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_destroy_method_allownil)}
-    UI_destroy_method := @ERR_UI_destroy_method;
+    UI_destroy_method := ERR_UI_destroy_method;
 {$IFEND}
 {$IF declared(UI_destroy_method_introduced)}
     if LibVersion < UI_destroy_method_introduced then
     begin
 {$IF declared(FC_UI_destroy_method)}
-      UI_destroy_method := @FC_UI_destroy_method;
+      UI_destroy_method := FC_UI_destroy_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2641,7 +2642,7 @@ begin
     if UI_destroy_method_removed <= LibVersion then
     begin
 {$IF declared(_UI_destroy_method)}
-      UI_destroy_method := @_UI_destroy_method;
+      UI_destroy_method := _UI_destroy_method;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2658,13 +2659,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_opener_allownil)}
-    UI_method_set_opener := @ERR_UI_method_set_opener;
+    UI_method_set_opener := ERR_UI_method_set_opener;
 {$IFEND}
 {$IF declared(UI_method_set_opener_introduced)}
     if LibVersion < UI_method_set_opener_introduced then
     begin
 {$IF declared(FC_UI_method_set_opener)}
-      UI_method_set_opener := @FC_UI_method_set_opener;
+      UI_method_set_opener := FC_UI_method_set_opener;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2673,7 +2674,7 @@ begin
     if UI_method_set_opener_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_opener)}
-      UI_method_set_opener := @_UI_method_set_opener;
+      UI_method_set_opener := _UI_method_set_opener;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2690,13 +2691,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_writer_allownil)}
-    UI_method_set_writer := @ERR_UI_method_set_writer;
+    UI_method_set_writer := ERR_UI_method_set_writer;
 {$IFEND}
 {$IF declared(UI_method_set_writer_introduced)}
     if LibVersion < UI_method_set_writer_introduced then
     begin
 {$IF declared(FC_UI_method_set_writer)}
-      UI_method_set_writer := @FC_UI_method_set_writer;
+      UI_method_set_writer := FC_UI_method_set_writer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2705,7 +2706,7 @@ begin
     if UI_method_set_writer_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_writer)}
-      UI_method_set_writer := @_UI_method_set_writer;
+      UI_method_set_writer := _UI_method_set_writer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2722,13 +2723,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_flusher_allownil)}
-    UI_method_set_flusher := @ERR_UI_method_set_flusher;
+    UI_method_set_flusher := ERR_UI_method_set_flusher;
 {$IFEND}
 {$IF declared(UI_method_set_flusher_introduced)}
     if LibVersion < UI_method_set_flusher_introduced then
     begin
 {$IF declared(FC_UI_method_set_flusher)}
-      UI_method_set_flusher := @FC_UI_method_set_flusher;
+      UI_method_set_flusher := FC_UI_method_set_flusher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2737,7 +2738,7 @@ begin
     if UI_method_set_flusher_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_flusher)}
-      UI_method_set_flusher := @_UI_method_set_flusher;
+      UI_method_set_flusher := _UI_method_set_flusher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2754,13 +2755,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_reader_allownil)}
-    UI_method_set_reader := @ERR_UI_method_set_reader;
+    UI_method_set_reader := ERR_UI_method_set_reader;
 {$IFEND}
 {$IF declared(UI_method_set_reader_introduced)}
     if LibVersion < UI_method_set_reader_introduced then
     begin
 {$IF declared(FC_UI_method_set_reader)}
-      UI_method_set_reader := @FC_UI_method_set_reader;
+      UI_method_set_reader := FC_UI_method_set_reader;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2769,7 +2770,7 @@ begin
     if UI_method_set_reader_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_reader)}
-      UI_method_set_reader := @_UI_method_set_reader;
+      UI_method_set_reader := _UI_method_set_reader;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2786,13 +2787,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_closer_allownil)}
-    UI_method_set_closer := @ERR_UI_method_set_closer;
+    UI_method_set_closer := ERR_UI_method_set_closer;
 {$IFEND}
 {$IF declared(UI_method_set_closer_introduced)}
     if LibVersion < UI_method_set_closer_introduced then
     begin
 {$IF declared(FC_UI_method_set_closer)}
-      UI_method_set_closer := @FC_UI_method_set_closer;
+      UI_method_set_closer := FC_UI_method_set_closer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2801,7 +2802,7 @@ begin
     if UI_method_set_closer_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_closer)}
-      UI_method_set_closer := @_UI_method_set_closer;
+      UI_method_set_closer := _UI_method_set_closer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2818,13 +2819,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_data_duplicator_allownil)}
-    UI_method_set_data_duplicator := @ERR_UI_method_set_data_duplicator;
+    UI_method_set_data_duplicator := ERR_UI_method_set_data_duplicator;
 {$IFEND}
 {$IF declared(UI_method_set_data_duplicator_introduced)}
     if LibVersion < UI_method_set_data_duplicator_introduced then
     begin
 {$IF declared(FC_UI_method_set_data_duplicator)}
-      UI_method_set_data_duplicator := @FC_UI_method_set_data_duplicator;
+      UI_method_set_data_duplicator := FC_UI_method_set_data_duplicator;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2833,7 +2834,7 @@ begin
     if UI_method_set_data_duplicator_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_data_duplicator)}
-      UI_method_set_data_duplicator := @_UI_method_set_data_duplicator;
+      UI_method_set_data_duplicator := _UI_method_set_data_duplicator;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2850,13 +2851,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_prompt_constructor_allownil)}
-    UI_method_set_prompt_constructor := @ERR_UI_method_set_prompt_constructor;
+    UI_method_set_prompt_constructor := ERR_UI_method_set_prompt_constructor;
 {$IFEND}
 {$IF declared(UI_method_set_prompt_constructor_introduced)}
     if LibVersion < UI_method_set_prompt_constructor_introduced then
     begin
 {$IF declared(FC_UI_method_set_prompt_constructor)}
-      UI_method_set_prompt_constructor := @FC_UI_method_set_prompt_constructor;
+      UI_method_set_prompt_constructor := FC_UI_method_set_prompt_constructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2865,7 +2866,7 @@ begin
     if UI_method_set_prompt_constructor_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_prompt_constructor)}
-      UI_method_set_prompt_constructor := @_UI_method_set_prompt_constructor;
+      UI_method_set_prompt_constructor := _UI_method_set_prompt_constructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2882,13 +2883,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_set_ex_data_allownil)}
-    UI_method_set_ex_data := @ERR_UI_method_set_ex_data;
+    UI_method_set_ex_data := ERR_UI_method_set_ex_data;
 {$IFEND}
 {$IF declared(UI_method_set_ex_data_introduced)}
     if LibVersion < UI_method_set_ex_data_introduced then
     begin
 {$IF declared(FC_UI_method_set_ex_data)}
-      UI_method_set_ex_data := @FC_UI_method_set_ex_data;
+      UI_method_set_ex_data := FC_UI_method_set_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2897,7 +2898,7 @@ begin
     if UI_method_set_ex_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_set_ex_data)}
-      UI_method_set_ex_data := @_UI_method_set_ex_data;
+      UI_method_set_ex_data := _UI_method_set_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2914,13 +2915,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_opener_allownil)}
-    UI_method_get_opener := @ERR_UI_method_get_opener;
+    UI_method_get_opener := ERR_UI_method_get_opener;
 {$IFEND}
 {$IF declared(UI_method_get_opener_introduced)}
     if LibVersion < UI_method_get_opener_introduced then
     begin
 {$IF declared(FC_UI_method_get_opener)}
-      UI_method_get_opener := @FC_UI_method_get_opener;
+      UI_method_get_opener := FC_UI_method_get_opener;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2929,7 +2930,7 @@ begin
     if UI_method_get_opener_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_opener)}
-      UI_method_get_opener := @_UI_method_get_opener;
+      UI_method_get_opener := _UI_method_get_opener;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2946,13 +2947,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_writer_allownil)}
-    UI_method_get_writer := @ERR_UI_method_get_writer;
+    UI_method_get_writer := ERR_UI_method_get_writer;
 {$IFEND}
 {$IF declared(UI_method_get_writer_introduced)}
     if LibVersion < UI_method_get_writer_introduced then
     begin
 {$IF declared(FC_UI_method_get_writer)}
-      UI_method_get_writer := @FC_UI_method_get_writer;
+      UI_method_get_writer := FC_UI_method_get_writer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2961,7 +2962,7 @@ begin
     if UI_method_get_writer_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_writer)}
-      UI_method_get_writer := @_UI_method_get_writer;
+      UI_method_get_writer := _UI_method_get_writer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2978,13 +2979,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_flusher_allownil)}
-    UI_method_get_flusher := @ERR_UI_method_get_flusher;
+    UI_method_get_flusher := ERR_UI_method_get_flusher;
 {$IFEND}
 {$IF declared(UI_method_get_flusher_introduced)}
     if LibVersion < UI_method_get_flusher_introduced then
     begin
 {$IF declared(FC_UI_method_get_flusher)}
-      UI_method_get_flusher := @FC_UI_method_get_flusher;
+      UI_method_get_flusher := FC_UI_method_get_flusher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2993,7 +2994,7 @@ begin
     if UI_method_get_flusher_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_flusher)}
-      UI_method_get_flusher := @_UI_method_get_flusher;
+      UI_method_get_flusher := _UI_method_get_flusher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3010,13 +3011,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_reader_allownil)}
-    UI_method_get_reader := @ERR_UI_method_get_reader;
+    UI_method_get_reader := ERR_UI_method_get_reader;
 {$IFEND}
 {$IF declared(UI_method_get_reader_introduced)}
     if LibVersion < UI_method_get_reader_introduced then
     begin
 {$IF declared(FC_UI_method_get_reader)}
-      UI_method_get_reader := @FC_UI_method_get_reader;
+      UI_method_get_reader := FC_UI_method_get_reader;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3025,7 +3026,7 @@ begin
     if UI_method_get_reader_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_reader)}
-      UI_method_get_reader := @_UI_method_get_reader;
+      UI_method_get_reader := _UI_method_get_reader;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3042,13 +3043,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_closer_allownil)}
-    UI_method_get_closer := @ERR_UI_method_get_closer;
+    UI_method_get_closer := ERR_UI_method_get_closer;
 {$IFEND}
 {$IF declared(UI_method_get_closer_introduced)}
     if LibVersion < UI_method_get_closer_introduced then
     begin
 {$IF declared(FC_UI_method_get_closer)}
-      UI_method_get_closer := @FC_UI_method_get_closer;
+      UI_method_get_closer := FC_UI_method_get_closer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3057,7 +3058,7 @@ begin
     if UI_method_get_closer_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_closer)}
-      UI_method_get_closer := @_UI_method_get_closer;
+      UI_method_get_closer := _UI_method_get_closer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3074,13 +3075,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_prompt_constructor_allownil)}
-    UI_method_get_prompt_constructor := @ERR_UI_method_get_prompt_constructor;
+    UI_method_get_prompt_constructor := ERR_UI_method_get_prompt_constructor;
 {$IFEND}
 {$IF declared(UI_method_get_prompt_constructor_introduced)}
     if LibVersion < UI_method_get_prompt_constructor_introduced then
     begin
 {$IF declared(FC_UI_method_get_prompt_constructor)}
-      UI_method_get_prompt_constructor := @FC_UI_method_get_prompt_constructor;
+      UI_method_get_prompt_constructor := FC_UI_method_get_prompt_constructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3089,7 +3090,7 @@ begin
     if UI_method_get_prompt_constructor_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_prompt_constructor)}
-      UI_method_get_prompt_constructor := @_UI_method_get_prompt_constructor;
+      UI_method_get_prompt_constructor := _UI_method_get_prompt_constructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3106,13 +3107,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_data_duplicator_allownil)}
-    UI_method_get_data_duplicator := @ERR_UI_method_get_data_duplicator;
+    UI_method_get_data_duplicator := ERR_UI_method_get_data_duplicator;
 {$IFEND}
 {$IF declared(UI_method_get_data_duplicator_introduced)}
     if LibVersion < UI_method_get_data_duplicator_introduced then
     begin
 {$IF declared(FC_UI_method_get_data_duplicator)}
-      UI_method_get_data_duplicator := @FC_UI_method_get_data_duplicator;
+      UI_method_get_data_duplicator := FC_UI_method_get_data_duplicator;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3121,7 +3122,7 @@ begin
     if UI_method_get_data_duplicator_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_data_duplicator)}
-      UI_method_get_data_duplicator := @_UI_method_get_data_duplicator;
+      UI_method_get_data_duplicator := _UI_method_get_data_duplicator;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3138,13 +3139,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_data_destructor_allownil)}
-    UI_method_get_data_destructor := @ERR_UI_method_get_data_destructor;
+    UI_method_get_data_destructor := ERR_UI_method_get_data_destructor;
 {$IFEND}
 {$IF declared(UI_method_get_data_destructor_introduced)}
     if LibVersion < UI_method_get_data_destructor_introduced then
     begin
 {$IF declared(FC_UI_method_get_data_destructor)}
-      UI_method_get_data_destructor := @FC_UI_method_get_data_destructor;
+      UI_method_get_data_destructor := FC_UI_method_get_data_destructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3153,7 +3154,7 @@ begin
     if UI_method_get_data_destructor_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_data_destructor)}
-      UI_method_get_data_destructor := @_UI_method_get_data_destructor;
+      UI_method_get_data_destructor := _UI_method_get_data_destructor;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3170,13 +3171,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_method_get_ex_data_allownil)}
-    UI_method_get_ex_data := @ERR_UI_method_get_ex_data;
+    UI_method_get_ex_data := ERR_UI_method_get_ex_data;
 {$IFEND}
 {$IF declared(UI_method_get_ex_data_introduced)}
     if LibVersion < UI_method_get_ex_data_introduced then
     begin
 {$IF declared(FC_UI_method_get_ex_data)}
-      UI_method_get_ex_data := @FC_UI_method_get_ex_data;
+      UI_method_get_ex_data := FC_UI_method_get_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3185,7 +3186,7 @@ begin
     if UI_method_get_ex_data_removed <= LibVersion then
     begin
 {$IF declared(_UI_method_get_ex_data)}
-      UI_method_get_ex_data := @_UI_method_get_ex_data;
+      UI_method_get_ex_data := _UI_method_get_ex_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3202,13 +3203,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_string_type_allownil)}
-    UI_get_string_type := @ERR_UI_get_string_type;
+    UI_get_string_type := ERR_UI_get_string_type;
 {$IFEND}
 {$IF declared(UI_get_string_type_introduced)}
     if LibVersion < UI_get_string_type_introduced then
     begin
 {$IF declared(FC_UI_get_string_type)}
-      UI_get_string_type := @FC_UI_get_string_type;
+      UI_get_string_type := FC_UI_get_string_type;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3217,7 +3218,7 @@ begin
     if UI_get_string_type_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_string_type)}
-      UI_get_string_type := @_UI_get_string_type;
+      UI_get_string_type := _UI_get_string_type;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3234,13 +3235,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_input_flags_allownil)}
-    UI_get_input_flags := @ERR_UI_get_input_flags;
+    UI_get_input_flags := ERR_UI_get_input_flags;
 {$IFEND}
 {$IF declared(UI_get_input_flags_introduced)}
     if LibVersion < UI_get_input_flags_introduced then
     begin
 {$IF declared(FC_UI_get_input_flags)}
-      UI_get_input_flags := @FC_UI_get_input_flags;
+      UI_get_input_flags := FC_UI_get_input_flags;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3249,7 +3250,7 @@ begin
     if UI_get_input_flags_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_input_flags)}
-      UI_get_input_flags := @_UI_get_input_flags;
+      UI_get_input_flags := _UI_get_input_flags;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3266,13 +3267,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_output_string_allownil)}
-    UI_get0_output_string := @ERR_UI_get0_output_string;
+    UI_get0_output_string := ERR_UI_get0_output_string;
 {$IFEND}
 {$IF declared(UI_get0_output_string_introduced)}
     if LibVersion < UI_get0_output_string_introduced then
     begin
 {$IF declared(FC_UI_get0_output_string)}
-      UI_get0_output_string := @FC_UI_get0_output_string;
+      UI_get0_output_string := FC_UI_get0_output_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3281,7 +3282,7 @@ begin
     if UI_get0_output_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_output_string)}
-      UI_get0_output_string := @_UI_get0_output_string;
+      UI_get0_output_string := _UI_get0_output_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3298,13 +3299,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_action_string_allownil)}
-    UI_get0_action_string := @ERR_UI_get0_action_string;
+    UI_get0_action_string := ERR_UI_get0_action_string;
 {$IFEND}
 {$IF declared(UI_get0_action_string_introduced)}
     if LibVersion < UI_get0_action_string_introduced then
     begin
 {$IF declared(FC_UI_get0_action_string)}
-      UI_get0_action_string := @FC_UI_get0_action_string;
+      UI_get0_action_string := FC_UI_get0_action_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3313,7 +3314,7 @@ begin
     if UI_get0_action_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_action_string)}
-      UI_get0_action_string := @_UI_get0_action_string;
+      UI_get0_action_string := _UI_get0_action_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3330,13 +3331,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_result_string_allownil)}
-    UI_get0_result_string := @ERR_UI_get0_result_string;
+    UI_get0_result_string := ERR_UI_get0_result_string;
 {$IFEND}
 {$IF declared(UI_get0_result_string_introduced)}
     if LibVersion < UI_get0_result_string_introduced then
     begin
 {$IF declared(FC_UI_get0_result_string)}
-      UI_get0_result_string := @FC_UI_get0_result_string;
+      UI_get0_result_string := FC_UI_get0_result_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3345,7 +3346,7 @@ begin
     if UI_get0_result_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_result_string)}
-      UI_get0_result_string := @_UI_get0_result_string;
+      UI_get0_result_string := _UI_get0_result_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3362,13 +3363,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_result_string_length_allownil)}
-    UI_get_result_string_length := @ERR_UI_get_result_string_length;
+    UI_get_result_string_length := ERR_UI_get_result_string_length;
 {$IFEND}
 {$IF declared(UI_get_result_string_length_introduced)}
     if LibVersion < UI_get_result_string_length_introduced then
     begin
 {$IF declared(FC_UI_get_result_string_length)}
-      UI_get_result_string_length := @FC_UI_get_result_string_length;
+      UI_get_result_string_length := FC_UI_get_result_string_length;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3377,7 +3378,7 @@ begin
     if UI_get_result_string_length_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_result_string_length)}
-      UI_get_result_string_length := @_UI_get_result_string_length;
+      UI_get_result_string_length := _UI_get_result_string_length;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3394,13 +3395,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get0_test_string_allownil)}
-    UI_get0_test_string := @ERR_UI_get0_test_string;
+    UI_get0_test_string := ERR_UI_get0_test_string;
 {$IFEND}
 {$IF declared(UI_get0_test_string_introduced)}
     if LibVersion < UI_get0_test_string_introduced then
     begin
 {$IF declared(FC_UI_get0_test_string)}
-      UI_get0_test_string := @FC_UI_get0_test_string;
+      UI_get0_test_string := FC_UI_get0_test_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3409,7 +3410,7 @@ begin
     if UI_get0_test_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_get0_test_string)}
-      UI_get0_test_string := @_UI_get0_test_string;
+      UI_get0_test_string := _UI_get0_test_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3426,13 +3427,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_result_minsize_allownil)}
-    UI_get_result_minsize := @ERR_UI_get_result_minsize;
+    UI_get_result_minsize := ERR_UI_get_result_minsize;
 {$IFEND}
 {$IF declared(UI_get_result_minsize_introduced)}
     if LibVersion < UI_get_result_minsize_introduced then
     begin
 {$IF declared(FC_UI_get_result_minsize)}
-      UI_get_result_minsize := @FC_UI_get_result_minsize;
+      UI_get_result_minsize := FC_UI_get_result_minsize;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3441,7 +3442,7 @@ begin
     if UI_get_result_minsize_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_result_minsize)}
-      UI_get_result_minsize := @_UI_get_result_minsize;
+      UI_get_result_minsize := _UI_get_result_minsize;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3458,13 +3459,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_get_result_maxsize_allownil)}
-    UI_get_result_maxsize := @ERR_UI_get_result_maxsize;
+    UI_get_result_maxsize := ERR_UI_get_result_maxsize;
 {$IFEND}
 {$IF declared(UI_get_result_maxsize_introduced)}
     if LibVersion < UI_get_result_maxsize_introduced then
     begin
 {$IF declared(FC_UI_get_result_maxsize)}
-      UI_get_result_maxsize := @FC_UI_get_result_maxsize;
+      UI_get_result_maxsize := FC_UI_get_result_maxsize;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3473,7 +3474,7 @@ begin
     if UI_get_result_maxsize_removed <= LibVersion then
     begin
 {$IF declared(_UI_get_result_maxsize)}
-      UI_get_result_maxsize := @_UI_get_result_maxsize;
+      UI_get_result_maxsize := _UI_get_result_maxsize;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3489,13 +3490,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_set_result_allownil)}
-    UI_set_result := @ERR_UI_set_result;
+    UI_set_result := ERR_UI_set_result;
 {$IFEND}
 {$IF declared(UI_set_result_introduced)}
     if LibVersion < UI_set_result_introduced then
     begin
 {$IF declared(FC_UI_set_result)}
-      UI_set_result := @FC_UI_set_result;
+      UI_set_result := FC_UI_set_result;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3504,7 +3505,7 @@ begin
     if UI_set_result_removed <= LibVersion then
     begin
 {$IF declared(_UI_set_result)}
-      UI_set_result := @_UI_set_result;
+      UI_set_result := _UI_set_result;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3520,13 +3521,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_set_result_ex_allownil)}
-    UI_set_result_ex := @ERR_UI_set_result_ex;
+    UI_set_result_ex := ERR_UI_set_result_ex;
 {$IFEND}
 {$IF declared(UI_set_result_ex_introduced)}
     if LibVersion < UI_set_result_ex_introduced then
     begin
 {$IF declared(FC_UI_set_result_ex)}
-      UI_set_result_ex := @FC_UI_set_result_ex;
+      UI_set_result_ex := FC_UI_set_result_ex;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3535,7 +3536,7 @@ begin
     if UI_set_result_ex_removed <= LibVersion then
     begin
 {$IF declared(_UI_set_result_ex)}
-      UI_set_result_ex := @_UI_set_result_ex;
+      UI_set_result_ex := _UI_set_result_ex;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3552,13 +3553,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_UTIL_read_pw_string_allownil)}
-    UI_UTIL_read_pw_string := @ERR_UI_UTIL_read_pw_string;
+    UI_UTIL_read_pw_string := ERR_UI_UTIL_read_pw_string;
 {$IFEND}
 {$IF declared(UI_UTIL_read_pw_string_introduced)}
     if LibVersion < UI_UTIL_read_pw_string_introduced then
     begin
 {$IF declared(FC_UI_UTIL_read_pw_string)}
-      UI_UTIL_read_pw_string := @FC_UI_UTIL_read_pw_string;
+      UI_UTIL_read_pw_string := FC_UI_UTIL_read_pw_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3567,7 +3568,7 @@ begin
     if UI_UTIL_read_pw_string_removed <= LibVersion then
     begin
 {$IF declared(_UI_UTIL_read_pw_string)}
-      UI_UTIL_read_pw_string := @_UI_UTIL_read_pw_string;
+      UI_UTIL_read_pw_string := _UI_UTIL_read_pw_string;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3583,13 +3584,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_UTIL_read_pw_allownil)}
-    UI_UTIL_read_pw := @ERR_UI_UTIL_read_pw;
+    UI_UTIL_read_pw := ERR_UI_UTIL_read_pw;
 {$IFEND}
 {$IF declared(UI_UTIL_read_pw_introduced)}
     if LibVersion < UI_UTIL_read_pw_introduced then
     begin
 {$IF declared(FC_UI_UTIL_read_pw)}
-      UI_UTIL_read_pw := @FC_UI_UTIL_read_pw;
+      UI_UTIL_read_pw := FC_UI_UTIL_read_pw;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3598,7 +3599,7 @@ begin
     if UI_UTIL_read_pw_removed <= LibVersion then
     begin
 {$IF declared(_UI_UTIL_read_pw)}
-      UI_UTIL_read_pw := @_UI_UTIL_read_pw;
+      UI_UTIL_read_pw := _UI_UTIL_read_pw;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3615,13 +3616,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(UI_UTIL_wrap_read_pem_callback_allownil)}
-    UI_UTIL_wrap_read_pem_callback := @ERR_UI_UTIL_wrap_read_pem_callback;
+    UI_UTIL_wrap_read_pem_callback := ERR_UI_UTIL_wrap_read_pem_callback;
 {$IFEND}
 {$IF declared(UI_UTIL_wrap_read_pem_callback_introduced)}
     if LibVersion < UI_UTIL_wrap_read_pem_callback_introduced then
     begin
 {$IF declared(FC_UI_UTIL_wrap_read_pem_callback)}
-      UI_UTIL_wrap_read_pem_callback := @FC_UI_UTIL_wrap_read_pem_callback;
+      UI_UTIL_wrap_read_pem_callback := FC_UI_UTIL_wrap_read_pem_callback;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -3630,7 +3631,7 @@ begin
     if UI_UTIL_wrap_read_pem_callback_removed <= LibVersion then
     begin
 {$IF declared(_UI_UTIL_wrap_read_pem_callback)}
-      UI_UTIL_wrap_read_pem_callback := @_UI_UTIL_wrap_read_pem_callback;
+      UI_UTIL_wrap_read_pem_callback := _UI_UTIL_wrap_read_pem_callback;
 {$IFEND}
       FuncLoadError := false;
     end;

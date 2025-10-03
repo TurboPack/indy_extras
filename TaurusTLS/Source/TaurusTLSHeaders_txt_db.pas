@@ -115,32 +115,32 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_TXT_DB_read(in_: PBIO; num: TIdC_INT): PTXT_DB; 
+function  ERR_TXT_DB_read(in_: PBIO; num: TIdC_INT): PTXT_DB;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_read_procname);
 end;
 
 
-function  ERR_TXT_DB_write(out_: PBIO; db: PTXT_DB): TIdC_LONG; 
+function  ERR_TXT_DB_write(out_: PBIO; db: PTXT_DB): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_write_procname);
 end;
 
 
   //function TXT_DB_create_index(db: PTXT_DB; field: TIdC_INT; qual: TXT_DB_create_index_qual; hash: OPENSSL_LH_HashFunc; cmp: OPENSSL_LH_COMPFUNC): TIdC_INT;
-procedure  ERR_TXT_DB_free(db: PTXT_DB); 
+procedure  ERR_TXT_DB_free(db: PTXT_DB);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_free_procname);
 end;
 
 
-function  ERR_TXT_DB_get_by_index(db: PTXT_DB; idx: TIdC_INT; value: POPENSSL_STRING): POPENSSL_STRING; 
+function  ERR_TXT_DB_get_by_index(db: PTXT_DB; idx: TIdC_INT; value: POPENSSL_STRING): POPENSSL_STRING; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_get_by_index_procname);
 end;
 
 
-function  ERR_TXT_DB_insert(db: PTXT_DB; value: POPENSSL_STRING): TIdC_INT; 
+function  ERR_TXT_DB_insert(db: PTXT_DB; value: POPENSSL_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TXT_DB_insert_procname);
 end;
@@ -159,13 +159,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TXT_DB_read_allownil)}
-    TXT_DB_read := @ERR_TXT_DB_read;
+    TXT_DB_read := ERR_TXT_DB_read;
     {$ifend}
     {$if declared(TXT_DB_read_introduced)}
     if LibVersion < TXT_DB_read_introduced then
     begin
       {$if declared(FC_TXT_DB_read)}
-      TXT_DB_read := @FC_TXT_DB_read;
+      TXT_DB_read := FC_TXT_DB_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -174,7 +174,7 @@ begin
     if TXT_DB_read_removed <= LibVersion then
     begin
       {$if declared(_TXT_DB_read)}
-      TXT_DB_read := @_TXT_DB_read;
+      TXT_DB_read := _TXT_DB_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -191,13 +191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TXT_DB_write_allownil)}
-    TXT_DB_write := @ERR_TXT_DB_write;
+    TXT_DB_write := ERR_TXT_DB_write;
     {$ifend}
     {$if declared(TXT_DB_write_introduced)}
     if LibVersion < TXT_DB_write_introduced then
     begin
       {$if declared(FC_TXT_DB_write)}
-      TXT_DB_write := @FC_TXT_DB_write;
+      TXT_DB_write := FC_TXT_DB_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -206,7 +206,7 @@ begin
     if TXT_DB_write_removed <= LibVersion then
     begin
       {$if declared(_TXT_DB_write)}
-      TXT_DB_write := @_TXT_DB_write;
+      TXT_DB_write := _TXT_DB_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -223,13 +223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TXT_DB_free_allownil)}
-    TXT_DB_free := @ERR_TXT_DB_free;
+    TXT_DB_free := ERR_TXT_DB_free;
     {$ifend}
     {$if declared(TXT_DB_free_introduced)}
     if LibVersion < TXT_DB_free_introduced then
     begin
       {$if declared(FC_TXT_DB_free)}
-      TXT_DB_free := @FC_TXT_DB_free;
+      TXT_DB_free := FC_TXT_DB_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -238,7 +238,7 @@ begin
     if TXT_DB_free_removed <= LibVersion then
     begin
       {$if declared(_TXT_DB_free)}
-      TXT_DB_free := @_TXT_DB_free;
+      TXT_DB_free := _TXT_DB_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -255,13 +255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TXT_DB_get_by_index_allownil)}
-    TXT_DB_get_by_index := @ERR_TXT_DB_get_by_index;
+    TXT_DB_get_by_index := ERR_TXT_DB_get_by_index;
     {$ifend}
     {$if declared(TXT_DB_get_by_index_introduced)}
     if LibVersion < TXT_DB_get_by_index_introduced then
     begin
       {$if declared(FC_TXT_DB_get_by_index)}
-      TXT_DB_get_by_index := @FC_TXT_DB_get_by_index;
+      TXT_DB_get_by_index := FC_TXT_DB_get_by_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -270,7 +270,7 @@ begin
     if TXT_DB_get_by_index_removed <= LibVersion then
     begin
       {$if declared(_TXT_DB_get_by_index)}
-      TXT_DB_get_by_index := @_TXT_DB_get_by_index;
+      TXT_DB_get_by_index := _TXT_DB_get_by_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -287,13 +287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TXT_DB_insert_allownil)}
-    TXT_DB_insert := @ERR_TXT_DB_insert;
+    TXT_DB_insert := ERR_TXT_DB_insert;
     {$ifend}
     {$if declared(TXT_DB_insert_introduced)}
     if LibVersion < TXT_DB_insert_introduced then
     begin
       {$if declared(FC_TXT_DB_insert)}
-      TXT_DB_insert := @FC_TXT_DB_insert;
+      TXT_DB_insert := FC_TXT_DB_insert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -302,7 +302,7 @@ begin
     if TXT_DB_insert_removed <= LibVersion then
     begin
       {$if declared(_TXT_DB_insert)}
-      TXT_DB_insert := @_TXT_DB_insert;
+      TXT_DB_insert := _TXT_DB_insert;
       {$ifend}
       FuncLoadError := false;
     end;
