@@ -3162,7 +3162,8 @@ end;
 {$I TaurusTLSUnusedParamOn.inc}
 {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc} 
-procedure  ERR_X509_CRL_set_default_method(const meth: PX509_CRL_METHOD); 
+
+procedure  ERR_X509_CRL_set_default_method(const meth: PX509_CRL_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_default_method_procname);
 end;
@@ -3172,167 +3173,167 @@ end;
 //    crl_free: function(crl: PX509_CRL): TIdC_INT;
 //    crl_lookup: function(crl: PX509_CRL; ret: PPX509_REVOKED; ser: PASN1_INTEGER; issuer: PX509_NAME): TIdC_INT;
 //    crl_verify: function(crl: PX509_CRL, pk: PEVP_PKEY): TIdC_INT): PX509_CRL_METHOD;
-procedure  ERR_X509_CRL_METHOD_free(m: PX509_CRL_METHOD); 
+procedure  ERR_X509_CRL_METHOD_free(m: PX509_CRL_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_METHOD_free_procname);
 end;
 
 
 
-procedure  ERR_X509_CRL_set_meth_data(crl: PX509_CRL; dat: Pointer); 
+procedure  ERR_X509_CRL_set_meth_data(crl: PX509_CRL; dat: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_meth_data_procname);
 end;
 
 
-function  ERR_X509_CRL_get_meth_data(crl: PX509_CRL): Pointer; 
+function  ERR_X509_CRL_get_meth_data(crl: PX509_CRL): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_meth_data_procname);
 end;
 
 
 
-function  ERR_X509_verify_cert_error_string(n: TIdC_LONG): PIdAnsiChar; 
+function  ERR_X509_verify_cert_error_string(n: TIdC_LONG): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_verify_cert_error_string_procname);
 end;
 
 
 
-function  ERR_X509_verify(a: PX509; r: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_verify(a: PX509; r: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_verify_procname);
 end;
 
 
 
-function  ERR_X509_REQ_verify(a: PX509_REQ; r: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_REQ_verify(a: PX509_REQ; r: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_verify_procname);
 end;
 
 
-function  ERR_X509_CRL_verify(a: PX509_CRL; r: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_CRL_verify(a: PX509_CRL; r: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_verify_procname);
 end;
 
 
-function  ERR_NETSCAPE_SPKI_verify(a: PNETSCAPE_SPKI; r: PEVP_PKEY): TIdC_INT; 
+function  ERR_NETSCAPE_SPKI_verify(a: PNETSCAPE_SPKI; r: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_verify_procname);
 end;
 
 
 
-function  ERR_NETSCAPE_SPKI_b64_decode(const _str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI; 
+function  ERR_NETSCAPE_SPKI_b64_decode(const _str: PIdAnsiChar; len: TIdC_INT): PNETSCAPE_SPKI;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_b64_decode_procname);
 end;
 
 
-function  ERR_NETSCAPE_SPKI_b64_encode(x: PNETSCAPE_SPKI): PIdAnsiChar; 
+function  ERR_NETSCAPE_SPKI_b64_encode(x: PNETSCAPE_SPKI): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_b64_encode_procname);
 end;
 
 
-function  ERR_NETSCAPE_SPKI_get_pubkey(x: PNETSCAPE_SPKI): PEVP_PKEY; 
+function  ERR_NETSCAPE_SPKI_get_pubkey(x: PNETSCAPE_SPKI): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_get_pubkey_procname);
 end;
 
 
-function  ERR_NETSCAPE_SPKI_set_pubkey(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_NETSCAPE_SPKI_set_pubkey(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_set_pubkey_procname);
 end;
 
 
 
-function  ERR_NETSCAPE_SPKI_print(out_: PBIO; spki: PNETSCAPE_SPKI): TIdC_INT; 
+function  ERR_NETSCAPE_SPKI_print(out_: PBIO; spki: PNETSCAPE_SPKI): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_print_procname);
 end;
 
 
 
-function  ERR_X509_signature_dump(bp: PBIO; const sig: PASN1_STRING; indent: TIdC_INT): TIdC_INT; 
+function  ERR_X509_signature_dump(bp: PBIO; const sig: PASN1_STRING; indent: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_signature_dump_procname);
 end;
 
-function  ERR_X509_signature_print(bp: PBIO; const alg: PX509_ALGOR; const sig: PASN1_STRING): TIdC_INT;
+function  ERR_X509_signature_print(bp: PBIO; const alg: PX509_ALGOR; const sig: PASN1_STRING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_signature_print_procname);
 end;
 
-function  ERR_X509_sign(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT;
+function  ERR_X509_sign(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_sign_procname);
 end;
 
-function  ERR_X509_sign_ctx(x: PX509; ctx: PEVP_MD_CTX): TIdC_INT; 
+function  ERR_X509_sign_ctx(x: PX509; ctx: PEVP_MD_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_sign_ctx_procname);
 end;
 
-function  ERR_X509_http_nbio(rctx: POCSP_REQ_CTX; pcert: PPX509): TIdC_INT; 
+function  ERR_X509_http_nbio(rctx: POCSP_REQ_CTX; pcert: PPX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_http_nbio_procname);
 end;
 
-function  ERR_X509_REQ_sign(x: PX509_REQ; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
+function  ERR_X509_REQ_sign(x: PX509_REQ; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_sign_procname);
 end;
 
-function  ERR_X509_REQ_sign_ctx(x: PX509_REQ; ctx: PEVP_MD_CTX): TIdC_INT; 
+function  ERR_X509_REQ_sign_ctx(x: PX509_REQ; ctx: PEVP_MD_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_sign_ctx_procname);
 end;
 
-function  ERR_X509_CRL_sign(x: PX509_CRL; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
+function  ERR_X509_CRL_sign(x: PX509_CRL; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_sign_procname);
 end;
 
-function  ERR_X509_CRL_sign_ctx(x: PX509_CRL; ctx: PEVP_MD_CTX): TIdC_INT; 
+function  ERR_X509_CRL_sign_ctx(x: PX509_CRL; ctx: PEVP_MD_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_sign_ctx_procname);
 end;
 
-function  ERR_X509_CRL_http_nbio(rctx: POCSP_REQ_CTX; pcrl: PPX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_http_nbio(rctx: POCSP_REQ_CTX; pcrl: PPX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_http_nbio_procname);
 end;
 
-function  ERR_NETSCAPE_SPKI_sign(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT; 
+function  ERR_NETSCAPE_SPKI_sign(x: PNETSCAPE_SPKI; pkey: PEVP_PKEY; const md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NETSCAPE_SPKI_sign_procname);
 end;
 
-function  ERR_X509_pubkey_digest(const data: PX509; const type_: PEVP_MD; md: PByte; len: PIdC_UINT): TIdC_INT; 
+function  ERR_X509_pubkey_digest(const data: PX509; const type_: PEVP_MD; md: PByte; len: PIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_pubkey_digest_procname);
 end;
 
-function  ERR_X509_digest(const data: PX509; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
+function  ERR_X509_digest(const data: PX509; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_digest_procname);
 end;
 
-function  ERR_X509_CRL_digest(const data: PX509_CRL; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
+function  ERR_X509_CRL_digest(const data: PX509_CRL; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_digest_procname);
 end;
 
-function  ERR_X509_REQ_digest(const data: PX509_REQ; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
+function  ERR_X509_REQ_digest(const data: PX509_REQ; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_digest_procname);
 end;
 
-function  ERR_X509_NAME_digest(const data: PX509_NAME; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT; 
+function  ERR_X509_NAME_digest(const data: PX509_NAME; const type_: PEVP_MD; md: PByte; var len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_digest_procname);
 end;
@@ -3376,620 +3377,620 @@ end;
   //EVP_PKEY *d2i_PUBKEY_fp(FILE *fp, EVP_PKEY **a);
   //# endif
 
-function  ERR_d2i_X509_bio(bp: PBIO; x509: PPX509): PX509; 
+function  ERR_d2i_X509_bio(bp: PBIO; x509: PPX509): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_bio_procname);
 end;
 
-function  ERR_i2d_X509_bio(bp: PBIO; x509: PX509): TIdC_INT; 
+function  ERR_i2d_X509_bio(bp: PBIO; x509: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_bio_procname);
 end;
 
-function  ERR_d2i_X509_CRL_bio(bp: PBIO; crl: PPX509_CRL): PX509_CRL; 
+function  ERR_d2i_X509_CRL_bio(bp: PBIO; crl: PPX509_CRL): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_CRL_bio_procname);
 end;
 
-function  ERR_i2d_X509_CRL_bio(bp: PBIO; crl: PX509_CRL): TIdC_INT; 
+function  ERR_i2d_X509_CRL_bio(bp: PBIO; crl: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_CRL_bio_procname);
 end;
 
-function  ERR_d2i_X509_REQ_bio(bp: PBIO; req: PPX509_REQ): PX509_REQ; 
+function  ERR_d2i_X509_REQ_bio(bp: PBIO; req: PPX509_REQ): PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_REQ_bio_procname);
 end;
 
-function  ERR_i2d_X509_REQ_bio(bp: PBIO; req: PX509_REQ): TIdC_INT; 
+function  ERR_i2d_X509_REQ_bio(bp: PBIO; req: PX509_REQ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_REQ_bio_procname);
 end;
 
-function  ERR_d2i_RSAPrivateKey_bio(bp: PBIO; rsa: PPRSA): PRSA; 
+function  ERR_d2i_RSAPrivateKey_bio(bp: PBIO; rsa: PPRSA): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSAPrivateKey_bio_procname);
 end;
 
-function  ERR_i2d_RSAPrivateKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
+function  ERR_i2d_RSAPrivateKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSAPrivateKey_bio_procname);
 end;
 
-function  ERR_d2i_RSAPublicKey_bio(bp: PBIO; rsa: PPRSA): PRSA; 
+function  ERR_d2i_RSAPublicKey_bio(bp: PBIO; rsa: PPRSA): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSAPublicKey_bio_procname);
 end;
 
-function  ERR_i2d_RSAPublicKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
+function  ERR_i2d_RSAPublicKey_bio(bp: PBIO; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSAPublicKey_bio_procname);
 end;
 
-function  ERR_d2i_RSA_PUBKEY_bio(bp: PBIO; rsa: PPRSA): PRSA; 
+function  ERR_d2i_RSA_PUBKEY_bio(bp: PBIO; rsa: PPRSA): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSA_PUBKEY_bio_procname);
 end;
 
-function  ERR_i2d_RSA_PUBKEY_bio(bp: PBIO; rsa: PRSA): TIdC_INT; 
+function  ERR_i2d_RSA_PUBKEY_bio(bp: PBIO; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSA_PUBKEY_bio_procname);
 end;
 
-function  ERR_d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): PDSA;
+function  ERR_d2i_DSA_PUBKEY_bio(bp: PBIO; dsa: PPDSA): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_PUBKEY_bio_procname);
 end;
 
-function  ERR_i2d_DSA_PUBKEY_bio(bp: PBIO; dsa: PDSA): TIdC_INT; 
+function  ERR_i2d_DSA_PUBKEY_bio(bp: PBIO; dsa: PDSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSA_PUBKEY_bio_procname);
 end;
 
-function  ERR_d2i_DSAPrivateKey_bio(bp: PBIO; dsa: PPDSA): PDSA; 
+function  ERR_d2i_DSAPrivateKey_bio(bp: PBIO; dsa: PPDSA): PDSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPrivateKey_bio_procname);
 end;
 
-function  ERR_i2d_DSAPrivateKey_bio(bp: PBIO; dsa: PDSA): TIdC_INT; 
+function  ERR_i2d_DSAPrivateKey_bio(bp: PBIO; dsa: PDSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSAPrivateKey_bio_procname);
 end;
 
-function  ERR_d2i_EC_PUBKEY_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY; 
+function  ERR_d2i_EC_PUBKEY_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_EC_PUBKEY_bio_procname);
 end;
 
-function  ERR_i2d_EC_PUBKEY_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_i2d_EC_PUBKEY_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_EC_PUBKEY_bio_procname);
 end;
 
-function  ERR_d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY;
+function  ERR_d2i_ECPrivateKey_bio(bp: PBIO; eckey: PPEC_KEY): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ECPrivateKey_bio_procname);
 end;
 
 
-function  ERR_i2d_ECPrivateKey_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_i2d_ECPrivateKey_bio(bp: PBIO; eckey: PEC_KEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ECPrivateKey_bio_procname);
 end;
 
 
 
-function  ERR_d2i_PKCS8_bio(bp: PBIO; p8: PPX509_SIG): PX509_SIG; 
+function  ERR_d2i_PKCS8_bio(bp: PBIO; p8: PPX509_SIG): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS8_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS8_bio(bp: PBIO; p8: PX509_SIG): TIdC_INT; 
+function  ERR_i2d_PKCS8_bio(bp: PBIO; p8: PX509_SIG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS8_bio_procname);
 end;
 
 
-function  ERR_d2i_PKCS8_PRIV_KEY_INFO_bio(bp: PBIO; p8inf: PPPKCS8_PRIV_KEY_INFO): PPKCS8_PRIV_KEY_INFO; 
+function  ERR_d2i_PKCS8_PRIV_KEY_INFO_bio(bp: PBIO; p8inf: PPPKCS8_PRIV_KEY_INFO): PPKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS8_PRIV_KEY_INFO_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS8_PRIV_KEY_INFO_bio(bp: PBIO; p8inf: PPKCS8_PRIV_KEY_INFO): TIdC_INT; 
+function  ERR_i2d_PKCS8_PRIV_KEY_INFO_bio(bp: PBIO; p8inf: PPKCS8_PRIV_KEY_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS8_PRIV_KEY_INFO_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS8PrivateKeyInfo_bio(bp: PBIO; key: PEVP_PKEY): TIdC_INT; 
+function  ERR_i2d_PKCS8PrivateKeyInfo_bio(bp: PBIO; key: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS8PrivateKeyInfo_bio_procname);
 end;
 
 
-function  ERR_i2d_PrivateKey_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_i2d_PrivateKey_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PrivateKey_bio_procname);
 end;
 
 
-function  ERR_d2i_PrivateKey_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY; 
+function  ERR_d2i_PrivateKey_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PrivateKey_bio_procname);
 end;
 
 function ERR_d2i_PrivateKey_ex_bio(bp : PBIO; a :PPEVP_PKEY;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PrivateKey_ex_bio_procname);
 end;
 
 
-function  ERR_i2d_PUBKEY_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_i2d_PUBKEY_bio(bp: PBIO; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PUBKEY_bio_procname);
 end;
 
 
-function  ERR_d2i_PUBKEY_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY; 
+function  ERR_d2i_PUBKEY_bio(bp: PBIO; a: PPEVP_PKEY): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PUBKEY_bio_procname);
 end;
 
 
 
-function  ERR_X509_dup(x509: PX509): PX509; 
+function  ERR_X509_dup(x509: PX509): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_dup_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_dup(xa: PX509_ATTRIBUTE): PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_dup(xa: PX509_ATTRIBUTE): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_dup_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_dup(ex: PX509_EXTENSION): PX509_EXTENSION; 
+function  ERR_X509_EXTENSION_dup(ex: PX509_EXTENSION): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_dup_procname);
 end;
 
 
-function  ERR_X509_CRL_dup(crl: PX509_CRL): PX509_CRL; 
+function  ERR_X509_CRL_dup(crl: PX509_CRL): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_dup_procname);
 end;
 
 
-function  ERR_X509_REVOKED_dup(rev: PX509_REVOKED): PX509_REVOKED; 
+function  ERR_X509_REVOKED_dup(rev: PX509_REVOKED): PX509_REVOKED;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_dup_procname);
 end;
 
 
-function  ERR_X509_REQ_dup(req: PX509_REQ): PX509_REQ; 
+function  ERR_X509_REQ_dup(req: PX509_REQ): PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_dup_procname);
 end;
 
 
-function  ERR_X509_ALGOR_dup(xn: PX509_ALGOR): PX509_ALGOR; 
+function  ERR_X509_ALGOR_dup(xn: PX509_ALGOR): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_dup_procname);
 end;
 
 
-function  ERR_X509_ALGOR_set0(alg: PX509_ALGOR; aobj: PASN1_OBJECT; ptype: TIdC_INT; pval: Pointer): TIdC_INT; 
+function  ERR_X509_ALGOR_set0(alg: PX509_ALGOR; aobj: PASN1_OBJECT; ptype: TIdC_INT; pval: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_set0_procname);
 end;
 
 
-procedure  ERR_X509_ALGOR_get0(const paobj: PPASN1_OBJECT; pptype: PIdC_INT; const ppval: PPointer; const algor: PX509_ALGOR); 
+procedure  ERR_X509_ALGOR_get0(const paobj: PPASN1_OBJECT; pptype: PIdC_INT; const ppval: PPointer; const algor: PX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_get0_procname);
 end;
 
 
-procedure  ERR_X509_ALGOR_set_md(alg: PX509_ALGOR; const md: PEVP_MD); 
+procedure  ERR_X509_ALGOR_set_md(alg: PX509_ALGOR; const md: PEVP_MD);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_set_md_procname);
 end;
 
 
-function  ERR_X509_ALGOR_cmp(const a: PX509_ALGOR; const b: PX509_ALGOR): TIdC_INT; 
+function  ERR_X509_ALGOR_cmp(const a: PX509_ALGOR; const b: PX509_ALGOR): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_cmp_procname);
 end;
 
 
 
-function  ERR_X509_NAME_dup(xn: PX509_NAME): PX509_NAME; 
+function  ERR_X509_NAME_dup(xn: PX509_NAME): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_dup_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_dup(ne: PX509_NAME_ENTRY): PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_ENTRY_dup(ne: PX509_NAME_ENTRY): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_dup_procname);
 end;
 
 
 
-function  ERR_X509_cmp_time(const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT;
+function  ERR_X509_cmp_time(const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_time_procname);
 end;
 
 
-function  ERR_X509_cmp_current_time(const s: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_cmp_current_time(const s: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_current_time_procname);
 end;
 
 
-function  ERR_X509_time_adj(s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; 
+function  ERR_X509_time_adj(s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_time_adj_procname);
 end;
 
 
-function  ERR_X509_time_adj_ex(s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; 
+function  ERR_X509_time_adj_ex(s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_time_adj_ex_procname);
 end;
 
 
-function  ERR_X509_gmtime_adj(s: PASN1_TIME; adj: TIdC_LONG): PASN1_TIME; 
+function  ERR_X509_gmtime_adj(s: PASN1_TIME; adj: TIdC_LONG): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_gmtime_adj_procname);
 end;
 
 
 
-function  ERR_X509_get_default_cert_area: PIdAnsiChar; 
+function  ERR_X509_get_default_cert_area: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_cert_area_procname);
 end;
 
 
-function  ERR_X509_get_default_cert_dir: PIdAnsiChar; 
+function  ERR_X509_get_default_cert_dir: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_cert_dir_procname);
 end;
 
 
-function  ERR_X509_get_default_cert_file: PIdAnsiChar; 
+function  ERR_X509_get_default_cert_file: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_cert_file_procname);
 end;
 
 
-function  ERR_X509_get_default_cert_dir_env: PIdAnsiChar; 
+function  ERR_X509_get_default_cert_dir_env: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_cert_dir_env_procname);
 end;
 
 
-function  ERR_X509_get_default_cert_file_env: PIdAnsiChar; 
+function  ERR_X509_get_default_cert_file_env: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_cert_file_env_procname);
 end;
 
 
-function  ERR_X509_get_default_private_dir: PIdAnsiChar; 
+function  ERR_X509_get_default_private_dir: PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_default_private_dir_procname);
 end;
 
 
 
-function  ERR_X509_to_X509_REQ(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): PX509_REQ; 
+function  ERR_X509_to_X509_REQ(x: PX509; pkey: PEVP_PKEY; const md: PEVP_MD): PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_to_X509_REQ_procname);
 end;
 
 
-function  ERR_X509_REQ_to_X509(r: PX509_REQ; days: TIdC_INT; pkey: PEVP_PKEY): PX509; 
+function  ERR_X509_REQ_to_X509(r: PX509_REQ; days: TIdC_INT; pkey: PEVP_PKEY): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_to_X509_procname);
 end;
 
 
 
-function  ERR_X509_ALGOR_new: PX509_ALGOR; 
+function  ERR_X509_ALGOR_new: PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_new_procname);
 end;
 
 
-procedure  ERR_X509_ALGOR_free(v1: PX509_ALGOR); 
+procedure  ERR_X509_ALGOR_free(v1: PX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ALGOR_free_procname);
 end;
 
 
-function  ERR_d2i_X509_ALGOR(a: PPX509_ALGOR; const in_: PPByte; len: TIdC_LONG): PX509_ALGOR; 
+function  ERR_d2i_X509_ALGOR(a: PPX509_ALGOR; const in_: PPByte; len: TIdC_LONG): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_ALGOR_procname);
 end;
 
 
-function  ERR_i2d_X509_ALGOR(a: PX509_ALGOR; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_ALGOR(a: PX509_ALGOR; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_ALGOR_procname);
 end;
 
 
   //DECLARE_ASN1_ENCODE_FUNCTIONS(X509_ALGORS, X509_ALGORS, X509_ALGORS)
-function  ERR_X509_VAL_new: PX509_VAL; 
+function  ERR_X509_VAL_new: PX509_VAL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VAL_new_procname);
 end;
 
 
-procedure  ERR_X509_VAL_free(v1: PX509_VAL); 
+procedure  ERR_X509_VAL_free(v1: PX509_VAL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VAL_free_procname);
 end;
 
 
-function  ERR_d2i_X509_VAL(a: PPX509_VAL; const in_: PPByte; len: TIdC_LONG): PX509_VAL; 
+function  ERR_d2i_X509_VAL(a: PPX509_VAL; const in_: PPByte; len: TIdC_LONG): PX509_VAL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_VAL_procname);
 end;
 
 
-function  ERR_i2d_X509_VAL(a: PX509_VAL; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_VAL(a: PX509_VAL; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_VAL_procname);
 end;
 
 
 
-function  ERR_X509_PUBKEY_new: PX509_PUBKEY; 
+function  ERR_X509_PUBKEY_new: PX509_PUBKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_new_procname);
 end;
 
 
-procedure  ERR_X509_PUBKEY_free(v1: PX509_PUBKEY); 
+procedure  ERR_X509_PUBKEY_free(v1: PX509_PUBKEY);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_free_procname);
 end;
 
 
-function  ERR_d2i_X509_PUBKEY(a: PPX509_PUBKEY; const in_: PPByte; len: TIdC_LONG): PX509_PUBKEY; 
+function  ERR_d2i_X509_PUBKEY(a: PPX509_PUBKEY; const in_: PPByte; len: TIdC_LONG): PX509_PUBKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_PUBKEY_procname);
 end;
 
 
-function  ERR_i2d_X509_PUBKEY(a: PX509_PUBKEY; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_PUBKEY(a: PX509_PUBKEY; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_PUBKEY_procname);
 end;
 
 
 
-function  ERR_X509_PUBKEY_set(x: PPX509_PUBKEY; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_PUBKEY_set(x: PPX509_PUBKEY; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_set_procname);
 end;
 
 
-function  ERR_X509_PUBKEY_get0(key: PX509_PUBKEY): PEVP_PKEY; 
+function  ERR_X509_PUBKEY_get0(key: PX509_PUBKEY): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_get0_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_PUBKEY_get(key: PX509_PUBKEY): PEVP_PKEY; 
+function  ERR_X509_PUBKEY_get(key: PX509_PUBKEY): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_get_procname);
 end;
 
 
 //  function X509_get_pubkey_parameters(pkey: PEVP_PKEY; chain: P STACK_OF(X509)): TIdC_INT;
-function  ERR_X509_get_pathlen(x: PX509): TIdC_LONG; 
+function  ERR_X509_get_pathlen(x: PX509): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_pathlen_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_i2d_PUBKEY(a: PEVP_PKEY; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_PUBKEY(a: PEVP_PKEY; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PUBKEY_procname);
 end;
 
 
-function  ERR_d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_d2i_PUBKEY(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PUBKEY_procname);
 end;
 
 
 
-function  ERR_i2d_RSA_PUBKEY(a: PRSA; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_RSA_PUBKEY(a: PRSA; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_RSA_PUBKEY_procname);
 end;
 
 
-function  ERR_d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; _length: TIdC_LONG): PRSA; 
+function  ERR_d2i_RSA_PUBKEY(a: PPRSA; const pp: PPByte; _length: TIdC_LONG): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_RSA_PUBKEY_procname);
 end;
 
 
 
-function  ERR_i2d_DSA_PUBKEY(a: PDSA; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DSA_PUBKEY(a: PDSA; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSA_PUBKEY_procname);
 end;
 
 
-function  ERR_d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSA_PUBKEY(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_PUBKEY_procname);
 end;
 
 
 
-function  ERR_i2d_EC_PUBKEY(a: PEC_KEY; pp: PPByte): TIdC_INT;
+function  ERR_i2d_EC_PUBKEY(a: PEC_KEY; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_EC_PUBKEY_procname);
 end;
 
 
-function  ERR_d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY; 
+function  ERR_d2i_EC_PUBKEY(a: PPEC_KEY; const pp: PPByte; _length: TIdC_LONG): PEC_KEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_EC_PUBKEY_procname);
 end;
 
 
 
-function  ERR_X509_SIG_new: PX509_SIG; 
+function  ERR_X509_SIG_new: PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_new_procname);
 end;
 
 
-procedure  ERR_X509_SIG_free(v1: PX509_SIG); 
+procedure  ERR_X509_SIG_free(v1: PX509_SIG);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_free_procname);
 end;
 
 
-function  ERR_d2i_X509_SIG(a: PPX509_SIG; const in_: PPByte; len: TIdC_LONG): PX509_SIG; 
+function  ERR_d2i_X509_SIG(a: PPX509_SIG; const in_: PPByte; len: TIdC_LONG): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_SIG_procname);
 end;
 
 
-function  ERR_i2d_X509_SIG(a: PX509_SIG; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_SIG(a: PX509_SIG; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_SIG_procname);
 end;
 
 
-procedure  ERR_X509_SIG_get0(const sig: PX509_SIG; const palg: PPX509_ALGOR; const pdigest: PPASN1_OCTET_STRING); 
+procedure  ERR_X509_SIG_get0(const sig: PX509_SIG; const palg: PPX509_ALGOR; const pdigest: PPASN1_OCTET_STRING);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_get0_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_SIG_getm(sig: X509_SIG; palg: PPX509_ALGOR; pdigest: PPASN1_OCTET_STRING); 
+procedure  ERR_X509_SIG_getm(sig: X509_SIG; palg: PPX509_ALGOR; pdigest: PPASN1_OCTET_STRING);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_getm_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_REQ_INFO_new: PX509_REQ_INFO; 
+function  ERR_X509_REQ_INFO_new: PX509_REQ_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_INFO_new_procname);
 end;
 
 
-procedure  ERR_X509_REQ_INFO_free(v1: PX509_REQ_INFO); 
+procedure  ERR_X509_REQ_INFO_free(v1: PX509_REQ_INFO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_INFO_free_procname);
 end;
 
 
-function  ERR_d2i_X509_REQ_INFO(a: PPX509_REQ_INFO; const in_: PPByte; len: TIdC_LONG): PX509_REQ_INFO; 
+function  ERR_d2i_X509_REQ_INFO(a: PPX509_REQ_INFO; const in_: PPByte; len: TIdC_LONG): PX509_REQ_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_REQ_INFO_procname);
 end;
 
 
-function  ERR_i2d_X509_REQ_INFO(a: PX509_REQ_INFO; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_REQ_INFO(a: PX509_REQ_INFO; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_REQ_INFO_procname);
 end;
 
 
 
-function  ERR_X509_REQ_new: PX509_REQ; 
+function  ERR_X509_REQ_new: PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_new_procname);
 end;
 
 
-procedure  ERR_X509_REQ_free(v1: PX509_REQ); 
+procedure  ERR_X509_REQ_free(v1: PX509_REQ);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_free_procname);
 end;
 
 
-function  ERR_d2i_X509_REQ(a: PPX509_REQ; const in_: PPByte; len: TIdC_LONG): PX509_REQ; 
+function  ERR_d2i_X509_REQ(a: PPX509_REQ; const in_: PPByte; len: TIdC_LONG): PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_REQ_procname);
 end;
 
 
-function  ERR_i2d_X509_REQ(a: PX509_REQ; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_REQ(a: PX509_REQ; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_REQ_procname);
 end;
 
 
 
-function  ERR_X509_ATTRIBUTE_new: PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_new: PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_new_procname);
 end;
 
 
-procedure  ERR_X509_ATTRIBUTE_free(v1: PX509_ATTRIBUTE); 
+procedure  ERR_X509_ATTRIBUTE_free(v1: PX509_ATTRIBUTE);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_free_procname);
 end;
 
 
-function  ERR_d2i_X509_ATTRIBUTE(a: PPX509_ATTRIBUTE; const in_: PPByte; len: TIdC_LONG): PX509_ATTRIBUTE; 
+function  ERR_d2i_X509_ATTRIBUTE(a: PPX509_ATTRIBUTE; const in_: PPByte; len: TIdC_LONG): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_ATTRIBUTE_procname);
 end;
 
 
-function  ERR_i2d_X509_ATTRIBUTE(a: PX509_ATTRIBUTE; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_ATTRIBUTE(a: PX509_ATTRIBUTE; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_ATTRIBUTE_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_create(nid: TIdC_INT; trtype: TIdC_INT; value: Pointer): PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_create(nid: TIdC_INT; trtype: TIdC_INT; value: Pointer): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_create_procname);
 end;
 
 
 
-function  ERR_X509_EXTENSION_new: PX509_EXTENSION; 
+function  ERR_X509_EXTENSION_new: PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_new_procname);
 end;
 
 
-procedure  ERR_X509_EXTENSION_free(v1: PX509_EXTENSION); 
+procedure  ERR_X509_EXTENSION_free(v1: PX509_EXTENSION);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_free_procname);
 end;
 
 
-function  ERR_d2i_X509_EXTENSION(a: PPX509_EXTENSION; const in_: PPByte; len: TIdC_LONG): PX509_EXTENSION; 
+function  ERR_d2i_X509_EXTENSION(a: PPX509_EXTENSION; const in_: PPByte; len: TIdC_LONG): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_EXTENSION_procname);
 end;
 
 
-function  ERR_i2d_X509_EXTENSION(a: PX509_EXTENSION; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_EXTENSION(a: PX509_EXTENSION; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_EXTENSION_procname);
 end;
@@ -3997,57 +3998,57 @@ end;
 
   //DECLARE_ASN1_ENCODE_FUNCTIONS(X509_EXTENSIONS, X509_EXTENSIONS, X509_EXTENSIONS)
 
-function  ERR_X509_NAME_ENTRY_new: PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_ENTRY_new: PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_new_procname);
 end;
 
 
-procedure  ERR_X509_NAME_ENTRY_free(v1: PX509_NAME_ENTRY); 
+procedure  ERR_X509_NAME_ENTRY_free(v1: PX509_NAME_ENTRY);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_free_procname);
 end;
 
 
-function  ERR_d2i_X509_NAME_ENTRY(a: PPX509_NAME_ENTRY; const in_: PPByte; len: TIdC_LONG): PX509_NAME_ENTRY; 
+function  ERR_d2i_X509_NAME_ENTRY(a: PPX509_NAME_ENTRY; const in_: PPByte; len: TIdC_LONG): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_NAME_ENTRY_procname);
 end;
 
 
-function  ERR_i2d_X509_NAME_ENTRY(a: PX509_NAME_ENTRY; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_NAME_ENTRY(a: PX509_NAME_ENTRY; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_NAME_ENTRY_procname);
 end;
 
 
 
-function  ERR_X509_NAME_new: PX509_NAME; 
+function  ERR_X509_NAME_new: PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_new_procname);
 end;
 
 
-procedure  ERR_X509_NAME_free(v1: PX509_NAME); 
+procedure  ERR_X509_NAME_free(v1: PX509_NAME);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_free_procname);
 end;
 
 
-function  ERR_d2i_X509_NAME(a: PPX509_NAME; const in_: PPByte; len: TIdC_LONG): PX509_NAME; 
+function  ERR_d2i_X509_NAME(a: PPX509_NAME; const in_: PPByte; len: TIdC_LONG): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_NAME_procname);
 end;
 
 
-function  ERR_i2d_X509_NAME(a: PX509_NAME; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_NAME(a: PX509_NAME; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_NAME_procname);
 end;
 
 
 
-function  ERR_X509_NAME_set(xn: PPX509_NAME; name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_NAME_set(xn: PPX509_NAME; name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_set_procname);
 end;
@@ -4056,25 +4057,25 @@ end;
 
   //DECLARE_ASN1_FUNCTIONS(X509_CINF)
 
-function  ERR_X509_new: PX509; 
+function  ERR_X509_new: PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_new_procname);
 end;
 
 
-procedure  ERR_X509_free(v1: PX509); 
+procedure  ERR_X509_free(v1: PX509);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_free_procname);
 end;
 
 
-function  ERR_d2i_X509(a: PPX509; const in_: PPByte; len: TIdC_LONG): PX509; 
+function  ERR_d2i_X509(a: PPX509; const in_: PPByte; len: TIdC_LONG): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_procname);
 end;
 
 
-function  ERR_i2d_X509(a: PX509; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509(a: PX509; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_procname);
 end;
@@ -4085,96 +4086,96 @@ end;
   //
   //#define X509_get_ex_new_index(l, p, newf, dupf, freef) \
   //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509, l, p, newf, dupf, freef)
-function  ERR_X509_set_ex_data(r: PX509; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function  ERR_X509_set_ex_data(r: PX509; idx: TIdC_INT; arg: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_ex_data_procname);
 end;
 
 
-function  ERR_X509_get_ex_data(r: PX509; idx: TIdC_INT): Pointer; 
+function  ERR_X509_get_ex_data(r: PX509; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ex_data_procname);
 end;
 
 
-function  ERR_i2d_X509_AUX(a: PX509; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_AUX(a: PX509; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_AUX_procname);
 end;
 
 
-function  ERR_d2i_X509_AUX(a: PPX509; const pp: PPByte; _length: TIdC_LONG): PX509; 
+function  ERR_d2i_X509_AUX(a: PPX509; const pp: PPByte; _length: TIdC_LONG): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_AUX_procname);
 end;
 
 
 
-function  ERR_i2d_re_X509_tbs(x: PX509; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_re_X509_tbs(x: PX509; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_re_X509_tbs_procname);
 end;
 
 
 
-function  ERR_X509_SIG_INFO_get(const siginf: PX509_SIG_INFO; mdnid: PIdC_INT; pknid: PIdC_INT; secbits: PIdC_INT; flags: PIdC_UINT32): TIdC_INT; 
+function  ERR_X509_SIG_INFO_get(const siginf: PX509_SIG_INFO; mdnid: PIdC_INT; pknid: PIdC_INT; secbits: PIdC_INT; flags: PIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_INFO_get_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_SIG_INFO_set(siginf: PX509_SIG_INFO; mdnid: TIdC_INT; pknid: TIdC_INT; secbits: TIdC_INT; flags: TIdC_UINT32); 
+procedure  ERR_X509_SIG_INFO_set(siginf: PX509_SIG_INFO; mdnid: TIdC_INT; pknid: TIdC_INT; secbits: TIdC_INT; flags: TIdC_UINT32);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_SIG_INFO_set_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_get_signature_info(x: PX509; mdnid: PIdC_INT; pknid: PIdC_INT; secbits: PIdC_INT; flags: PIdC_UINT32): TIdC_INT; 
+function  ERR_X509_get_signature_info(x: PX509; mdnid: PIdC_INT; pknid: PIdC_INT; secbits: PIdC_INT; flags: PIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_signature_info_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_X509_get0_signature(var sig: PASN1_BIT_STRING; var alg: PX509_ALGOR; const x: PX509); 
+procedure  ERR_X509_get0_signature(var sig: PASN1_BIT_STRING; var alg: PX509_ALGOR; const x: PX509);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_signature_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_get_signature_nid(const x: PX509): TIdC_INT; 
+function  ERR_X509_get_signature_nid(const x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_signature_nid_procname);
 end;
 
 
 
-function  ERR_X509_trusted(const x: PX509): TIdC_INT; 
+function  ERR_X509_trusted(const x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_trusted_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_alias_set1(x: PX509; const name: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_alias_set1(x: PX509; const name: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_alias_set1_procname);
 end;
 
 
-function  ERR_X509_keyid_set1(x: PX509; const id: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_keyid_set1(x: PX509; const id: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_keyid_set1_procname);
 end;
 
 
-function  ERR_X509_alias_get0(x: PX509; len: PIdC_INT): PByte; 
+function  ERR_X509_alias_get0(x: PX509; len: PIdC_INT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_alias_get0_procname);
 end;
 
 
-function  ERR_X509_keyid_get0(x: PX509; len: PIdC_INT): PByte; 
+function  ERR_X509_keyid_get0(x: PX509; len: PIdC_INT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_keyid_get0_procname);
 end;
@@ -4182,31 +4183,31 @@ end;
 
 //  TIdC_INT (*X509_TRUST_set_default(TIdC_INT (*trust) (TIdC_INT, X509 *, TIdC_INT))) (TIdC_INT, X509 *,
 //                                                                  TIdC_INT);
-function  ERR_X509_TRUST_set(t: PIdC_INT; trust: TIdC_INT): TIdC_INT; 
+function  ERR_X509_TRUST_set(t: PIdC_INT; trust: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_set_procname);
 end;
 
 
-function  ERR_X509_add1_trust_object(x: PX509; const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_X509_add1_trust_object(x: PX509; const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_add1_trust_object_procname);
 end;
 
 
-function  ERR_X509_add1_reject_object(x: PX509; const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_X509_add1_reject_object(x: PX509; const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_add1_reject_object_procname);
 end;
 
 
-procedure  ERR_X509_trust_clear(x: PX509); 
+procedure  ERR_X509_trust_clear(x: PX509);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_trust_clear_procname);
 end;
 
 
-procedure  ERR_X509_reject_clear(x: PX509); 
+procedure  ERR_X509_reject_clear(x: PX509);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_reject_clear_procname);
 end;
@@ -4216,105 +4217,105 @@ end;
   //STACK_OF(ASN1_OBJECT) *X509_get0_trust_objects(X509 *x);
   //STACK_OF(ASN1_OBJECT) *X509_get0_reject_objects(X509 *x);
   //
-function  ERR_X509_REVOKED_new: PX509_REVOKED; 
+function  ERR_X509_REVOKED_new: PX509_REVOKED;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_new_procname);
 end;
 
 
-procedure  ERR_X509_REVOKED_free(v1: PX509_REVOKED); 
+procedure  ERR_X509_REVOKED_free(v1: PX509_REVOKED);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_free_procname);
 end;
 
 
-function  ERR_d2i_X509_REVOKED(a: PPX509_REVOKED; const in_: PPByte; len: TIdC_LONG): PX509_REVOKED; 
+function  ERR_d2i_X509_REVOKED(a: PPX509_REVOKED; const in_: PPByte; len: TIdC_LONG): PX509_REVOKED;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_REVOKED_procname);
 end;
 
 
-function  ERR_i2d_X509_REVOKED(a: PX509_REVOKED; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_REVOKED(a: PX509_REVOKED; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_REVOKED_procname);
 end;
 
 
-function  ERR_X509_CRL_INFO_new: PX509_CRL_INFO; 
+function  ERR_X509_CRL_INFO_new: PX509_CRL_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_INFO_new_procname);
 end;
 
 
-procedure  ERR_X509_CRL_INFO_free(v1: PX509_CRL_INFO); 
+procedure  ERR_X509_CRL_INFO_free(v1: PX509_CRL_INFO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_INFO_free_procname);
 end;
 
 
-function  ERR_d2i_X509_CRL_INFO(a: PPX509_CRL_INFO; const in_: PPByte; len: TIdC_LONG): PX509_CRL_INFO; 
+function  ERR_d2i_X509_CRL_INFO(a: PPX509_CRL_INFO; const in_: PPByte; len: TIdC_LONG): PX509_CRL_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_CRL_INFO_procname);
 end;
 
 
-function  ERR_i2d_X509_CRL_INFO(a: PX509_CRL_INFO; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_CRL_INFO(a: PX509_CRL_INFO; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_CRL_INFO_procname);
 end;
 
 
-function  ERR_X509_CRL_new: PX509_CRL; 
+function  ERR_X509_CRL_new: PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_new_procname);
 end;
 
 
-procedure  ERR_X509_CRL_free(v1: PX509_CRL); 
+procedure  ERR_X509_CRL_free(v1: PX509_CRL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_free_procname);
 end;
 
 
-function  ERR_d2i_X509_CRL(a: PPX509_CRL; const in_: PPByte; len: TIdC_LONG): PX509_CRL; 
+function  ERR_d2i_X509_CRL(a: PPX509_CRL; const in_: PPByte; len: TIdC_LONG): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_X509_CRL_procname);
 end;
 
 
-function  ERR_i2d_X509_CRL(a: PX509_CRL; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_X509_CRL(a: PX509_CRL; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_X509_CRL_procname);
 end;
 
 
 
-function  ERR_X509_CRL_add0_revoked(crl: PX509_CRL; rev: PX509_REVOKED): TIdC_INT; 
+function  ERR_X509_CRL_add0_revoked(crl: PX509_CRL; rev: PX509_REVOKED): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_add0_revoked_procname);
 end;
 
 
-function  ERR_X509_CRL_get0_by_serial(crl: PX509_CRL; ret: PPX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT; 
+function  ERR_X509_CRL_get0_by_serial(crl: PX509_CRL; ret: PPX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_by_serial_procname);
 end;
 
 
-function  ERR_X509_CRL_get0_by_cert(crl: PX509_CRL; ret: PPX509_REVOKED; x: PX509): TIdC_INT; 
+function  ERR_X509_CRL_get0_by_cert(crl: PX509_CRL; ret: PPX509_REVOKED; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_by_cert_procname);
 end;
 
 
 
-function  ERR_X509_PKEY_new: PX509_PKEY; 
+function  ERR_X509_PKEY_new: PX509_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PKEY_new_procname);
 end;
 
 
-procedure  ERR_X509_PKEY_free(a: PX509_PKEY); 
+procedure  ERR_X509_PKEY_free(a: PX509_PKEY);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PKEY_free_procname);
 end;
@@ -4323,19 +4324,19 @@ end;
   //DECLARE_ASN1_FUNCTIONS(NETSCAPE_SPKAC)
   //DECLARE_ASN1_FUNCTIONS(NETSCAPE_CERT_SEQUENCE)
 
-function  ERR_X509_INFO_new: PX509_INFO; 
+function  ERR_X509_INFO_new: PX509_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_INFO_new_procname);
 end;
 
 
-procedure  ERR_X509_INFO_free(a: PX509_INFO); 
+procedure  ERR_X509_INFO_free(a: PX509_INFO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_INFO_free_procname);
 end;
 
 
-function  ERR_X509_NAME_oneline(const a: PX509_NAME; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar; 
+function  ERR_X509_NAME_oneline(const a: PX509_NAME; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_oneline_procname);
 end;
@@ -4352,136 +4353,136 @@ end;
 //                X509_ALGOR *algor2, ASN1_BIT_STRING *signature,
 //                char *data, EVP_PKEY *pkey, const EVP_MD *type);
 
-function  ERR_ASN1_item_digest(const it: PASN1_ITEM; const type_: PEVP_MD; data: Pointer; md: PByte; len: PIdC_UINT): TIdC_INT; 
+function  ERR_ASN1_item_digest(const it: PASN1_ITEM; const type_: PEVP_MD; data: Pointer; md: PByte; len: PIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_digest_procname);
 end;
 
 
 
-function  ERR_ASN1_item_verify(const it: PASN1_ITEM; algor1: PX509_ALGOR; signature: PASN1_BIT_STRING; data: Pointer; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_ASN1_item_verify(const it: PASN1_ITEM; algor1: PX509_ALGOR; signature: PASN1_BIT_STRING; data: Pointer; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_verify_procname);
 end;
 
 
 
-function  ERR_ASN1_item_sign(const it: PASN1_ITEM; algor1: PX509_ALGOR; algor2: PX509_ALGOR; signature: PASN1_BIT_STRING; data: Pointer; pkey: PEVP_PKEY; const type_: PEVP_MD): TIdC_INT; 
+function  ERR_ASN1_item_sign(const it: PASN1_ITEM; algor1: PX509_ALGOR; algor2: PX509_ALGOR; signature: PASN1_BIT_STRING; data: Pointer; pkey: PEVP_PKEY; const type_: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_sign_procname);
 end;
 
 
-function  ERR_ASN1_item_sign_ctx(const it: PASN1_ITEM; algor1: PX509_ALGOR; algor2: PX509_ALGOR; signature: PASN1_BIT_STRING; asn: Pointer; ctx: PEVP_MD_CTX): TIdC_INT; 
+function  ERR_ASN1_item_sign_ctx(const it: PASN1_ITEM; algor1: PX509_ALGOR; algor2: PX509_ALGOR; signature: PASN1_BIT_STRING; asn: Pointer; ctx: PEVP_MD_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_sign_ctx_procname);
 end;
 
 
 
-function  ERR_X509_get_version(const x: PX509): TIdC_LONG; 
+function  ERR_X509_get_version(const x: PX509): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_set_version(x: PX509; version: TIdC_LONG): TIdC_INT; 
+function  ERR_X509_set_version(x: PX509; version: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_version_procname);
 end;
 
 
-function  ERR_X509_set_serialNumber(x: PX509; serial: PASN1_INTEGER): TIdC_INT; 
+function  ERR_X509_set_serialNumber(x: PX509; serial: PASN1_INTEGER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_serialNumber_procname);
 end;
 
 
-function  ERR_X509_get_serialNumber(x: PX509): PASN1_INTEGER; 
+function  ERR_X509_get_serialNumber(x: PX509): PASN1_INTEGER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_serialNumber_procname);
 end;
 
 
-function  ERR_X509_get0_serialNumber(const x: PX509): PASN1_INTEGER; 
+function  ERR_X509_get0_serialNumber(const x: PX509): PASN1_INTEGER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_serialNumber_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_set_issuer_name(x: PX509; name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_set_issuer_name(x: PX509; name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_issuer_name_procname);
 end;
 
 
-function  ERR_X509_get_issuer_name(const a: PX509): PX509_NAME; 
+function  ERR_X509_get_issuer_name(const a: PX509): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_issuer_name_procname);
 end;
 
 
-function  ERR_X509_set_subject_name(x: PX509; name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_set_subject_name(x: PX509; name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_subject_name_procname);
 end;
 
 
-function  ERR_X509_get_subject_name(const a: PX509): PX509_NAME; 
+function  ERR_X509_get_subject_name(const a: PX509): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_subject_name_procname);
 end;
 
 
-function  ERR_X509_get0_notBefore(const x: PX509): PASN1_TIME; 
+function  ERR_X509_get0_notBefore(const x: PX509): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_notBefore_procname);
 end;
 
   {introduced 1.1.0}
-function  ERR_X509_getm_notBefore(const x: PX509): PASN1_TIME; 
+function  ERR_X509_getm_notBefore(const x: PX509): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_getm_notBefore_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_set1_notBefore(x: PX509; const tm: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_set1_notBefore(x: PX509; const tm: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set1_notBefore_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_get0_notAfter(const x: PX509): PASN1_TIME; 
+function  ERR_X509_get0_notAfter(const x: PX509): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_notAfter_procname);
 end;
 
   {introduced 1.1.0}
-function  ERR_X509_getm_notAfter(const x: PX509): PASN1_TIME; 
+function  ERR_X509_getm_notAfter(const x: PX509): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_getm_notAfter_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_set1_notAfter(x: PX509; const tm: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_set1_notAfter(x: PX509; const tm: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set1_notAfter_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_set_pubkey(x: PX509; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_set_pubkey(x: PX509; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_set_pubkey_procname);
 end;
 
 
-function  ERR_X509_up_ref(x: PX509): TIdC_INT; 
+function  ERR_X509_up_ref(x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_up_ref_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_get_signature_type(const x: PX509): TIdC_INT; 
+function  ERR_X509_get_signature_type(const x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_signature_type_procname);
 end;
@@ -4492,339 +4493,339 @@ end;
    * This one is only used so that a binary form can output, as in
    * i2d_X509_PUBKEY(X509_get_X509_PUBKEY(x), &buf)
    *)
-function  ERR_X509_get_X509_PUBKEY(const x: PX509): PX509_PUBKEY; 
+function  ERR_X509_get_X509_PUBKEY(const x: PX509): PX509_PUBKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_X509_PUBKEY_procname);
 end;
 
  {introduced 1.1.0}
 //  const STACK_OF(X509_EXTENSION) *X509_get0_extensions(const X509 *x);
-procedure  ERR_X509_get0_uids(const x: PX509; const piuid: PPASN1_BIT_STRING; const psuid: PPASN1_BIT_STRING); 
+procedure  ERR_X509_get0_uids(const x: PX509; const piuid: PPASN1_BIT_STRING; const psuid: PPASN1_BIT_STRING);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_uids_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_get0_tbs_sigalg(const x: PX509): PX509_ALGOR; 
+function  ERR_X509_get0_tbs_sigalg(const x: PX509): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_tbs_sigalg_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_get0_pubkey(const x: PX509): PEVP_PKEY; 
+function  ERR_X509_get0_pubkey(const x: PX509): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_pubkey_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_get_pubkey(x: PX509): PEVP_PKEY; 
+function  ERR_X509_get_pubkey(x: PX509): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_pubkey_procname);
 end;
 
 
-function  ERR_X509_get0_pubkey_bitstr(const x: PX509): PASN1_BIT_STRING; 
+function  ERR_X509_get0_pubkey_bitstr(const x: PX509): PASN1_BIT_STRING;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get0_pubkey_bitstr_procname);
 end;
 
 
-function  ERR_X509_certificate_type(const x: PX509; const pubkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_certificate_type(const x: PX509; const pubkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_certificate_type_procname);
 end;
 
 
 
-function  ERR_X509_REQ_get_version(const req: PX509_REQ): TIdC_LONG; 
+function  ERR_X509_REQ_get_version(const req: PX509_REQ): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REQ_set_version(x: PX509_REQ; version: TIdC_LONG): TIdC_INT; 
+function  ERR_X509_REQ_set_version(x: PX509_REQ; version: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_set_version_procname);
 end;
 
 
-function  ERR_X509_REQ_get_subject_name(const req: PX509_REQ): PX509_NAME; 
+function  ERR_X509_REQ_get_subject_name(const req: PX509_REQ): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_subject_name_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REQ_set_subject_name(req: PX509_REQ; name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_REQ_set_subject_name(req: PX509_REQ; name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_set_subject_name_procname);
 end;
 
 
-procedure  ERR_X509_REQ_get0_signature(const req: PX509_REQ; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR); 
+procedure  ERR_X509_REQ_get0_signature(const req: PX509_REQ; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get0_signature_procname);
 end;
 
- {introduced 1.1.0} 
-function  ERR_X509_REQ_get_signature_nid(const req: PX509_REQ): TIdC_INT; 
+ {introduced 1.1.0}
+function  ERR_X509_REQ_get_signature_nid(const req: PX509_REQ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_signature_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_i2d_re_X509_REQ_tbs(req: PX509_REQ; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_re_X509_REQ_tbs(req: PX509_REQ; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_re_X509_REQ_tbs_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REQ_set_pubkey(x: PX509_REQ; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_REQ_set_pubkey(x: PX509_REQ; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_set_pubkey_procname);
 end;
 
 
-function  ERR_X509_REQ_get_pubkey(req: PX509_REQ): PEVP_PKEY; 
+function  ERR_X509_REQ_get_pubkey(req: PX509_REQ): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_pubkey_procname);
 end;
 
 
-function  ERR_X509_REQ_get0_pubkey(req: PX509_REQ): PEVP_PKEY; 
+function  ERR_X509_REQ_get0_pubkey(req: PX509_REQ): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get0_pubkey_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REQ_get_X509_PUBKEY(req: PX509_REQ): PX509_PUBKEY; 
+function  ERR_X509_REQ_get_X509_PUBKEY(req: PX509_REQ): PX509_PUBKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_X509_PUBKEY_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REQ_extension_nid(nid: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_extension_nid(nid: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_extension_nid_procname);
 end;
 
 
-function  ERR_X509_REQ_get_extension_nids: PIdC_INT; 
+function  ERR_X509_REQ_get_extension_nids: PIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_extension_nids_procname);
 end;
 
 
-procedure  ERR_X509_REQ_set_extension_nids(nids: PIdC_INT); 
+procedure  ERR_X509_REQ_set_extension_nids(nids: PIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_set_extension_nids_procname);
 end;
 
 
-function  ERR_X509_REQ_get_extensions(req : PX509_REQ) : PSTACK_OF_X509_EXTENSION;
+function  ERR_X509_REQ_get_extensions(req : PX509_REQ) : PSTACK_OF_X509_EXTENSION; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_extensions_procname);
 end;
 
 function  ERR_X509_REQ_add_extensions_nid(req : PX509_REQ; exts :PSTACK_OF_X509_EXTENSION;
-                                  nid : TIdC_INT) : TIdC_INT;
+                                  nid : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add_extensions_nid_procname);
 end;
 
-function ERR_X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT;
+function ERR_X509_REQ_add_extensions(req : PX509_REQ; exts : PSTACK_OF_X509_EXTENSION) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add_extensions_procname);
 end;
 
-function  ERR_X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT;
+function  ERR_X509_REQ_get_attr_count(const req: PX509_REQ): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_count_procname);
 end;
 
 
-function  ERR_X509_REQ_get_attr_by_NID(const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_get_attr_by_NID(const req: PX509_REQ; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_by_NID_procname);
 end;
 
 
-function  ERR_X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;
+function  ERR_X509_REQ_get_attr_by_OBJ(const req: PX509_REQ; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_REQ_get_attr(const req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_X509_REQ_get_attr(const req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_get_attr_procname);
 end;
 
 
-function  ERR_X509_REQ_delete_attr(req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_X509_REQ_delete_attr(req: PX509_REQ; loc: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_delete_attr_procname);
 end;
 
 
-function  ERR_X509_REQ_add1_attr(req: PX509_REQ; attr: PX509_ATTRIBUTE): TIdC_INT; 
+function  ERR_X509_REQ_add1_attr(req: PX509_REQ; attr: PX509_ATTRIBUTE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add1_attr_procname);
 end;
 
 
-function  ERR_X509_REQ_add1_attr_by_OBJ(req: PX509_REQ; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_add1_attr_by_OBJ(req: PX509_REQ; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add1_attr_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_REQ_add1_attr_by_NID(req: PX509_REQ; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_add1_attr_by_NID(req: PX509_REQ; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add1_attr_by_NID_procname);
 end;
 
 
-function  ERR_X509_REQ_add1_attr_by_txt(req: PX509_REQ; const attrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REQ_add1_attr_by_txt(req: PX509_REQ; const attrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_add1_attr_by_txt_procname);
 end;
 
 
 
-function  ERR_X509_CRL_set_version(x: PX509_CRL; version: TIdC_LONG): TIdC_INT; 
+function  ERR_X509_CRL_set_version(x: PX509_CRL; version: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_version_procname);
 end;
 
 
-function  ERR_X509_CRL_set_issuer_name(x: PX509_CRL; name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_CRL_set_issuer_name(x: PX509_CRL; name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set_issuer_name_procname);
 end;
 
 
-function  ERR_X509_CRL_set1_lastUpdate(x: PX509_CRL; const tm: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_CRL_set1_lastUpdate(x: PX509_CRL; const tm: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set1_lastUpdate_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_set1_nextUpdate(x: PX509_CRL; const tm: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_CRL_set1_nextUpdate(x: PX509_CRL; const tm: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_set1_nextUpdate_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_sort(crl: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_sort(crl: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_sort_procname);
 end;
 
 
-function  ERR_X509_CRL_up_ref(crl: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_up_ref(crl: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_up_ref_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_CRL_get_version(const crl: PX509_CRL): TIdC_LONG; 
+function  ERR_X509_CRL_get_version(const crl: PX509_CRL): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_get0_lastUpdate(const crl: PX509_CRL): PASN1_TIME; 
+function  ERR_X509_CRL_get0_lastUpdate(const crl: PX509_CRL): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_lastUpdate_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_get0_nextUpdate(const crl: PX509_CRL): PASN1_TIME; 
+function  ERR_X509_CRL_get0_nextUpdate(const crl: PX509_CRL): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_nextUpdate_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_get_issuer(const crl: PX509_CRL): PX509_NAME; 
+function  ERR_X509_CRL_get_issuer(const crl: PX509_CRL): PX509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_issuer_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_get0_extensions(const crl : PX509_CRL) : PSTACK_OF_X509_EXTENSION;
+function  ERR_X509_CRL_get0_extensions(const crl : PX509_CRL) : PSTACK_OF_X509_EXTENSION; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_extensions_procname);
 end;
 
-function ERR_X509_CRL_get_REVOKED(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED;
+function ERR_X509_CRL_get_REVOKED(crl : PX509_CRL) : PSTACK_OF_X509_REVOKED; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_REVOKED_procname);
 end;
 
-procedure  ERR_X509_CRL_get0_signature(const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR); 
+procedure  ERR_X509_CRL_get0_signature(const crl: PX509_CRL; const psig: PPASN1_BIT_STRING; const palg: PPX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get0_signature_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_get_signature_nid(const crl: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_get_signature_nid(const crl: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_signature_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_i2d_re_X509_CRL_tbs(req: PX509_CRL; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_re_X509_CRL_tbs(req: PX509_CRL; pp: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_re_X509_CRL_tbs_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_REVOKED_get0_serialNumber(const x: PX509_REVOKED): PASN1_INTEGER; 
+function  ERR_X509_REVOKED_get0_serialNumber(const x: PX509_REVOKED): PASN1_INTEGER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get0_serialNumber_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REVOKED_set_serialNumber(x: PX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT; 
+function  ERR_X509_REVOKED_set_serialNumber(x: PX509_REVOKED; serial: PASN1_INTEGER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_set_serialNumber_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get0_revocationDate(const x: PX509_REVOKED): PASN1_TIME; 
+function  ERR_X509_REVOKED_get0_revocationDate(const x: PX509_REVOKED): PASN1_TIME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get0_revocationDate_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_REVOKED_set_revocationDate(r: PX509_REVOKED; tm: PASN1_TIME): TIdC_INT; 
+function  ERR_X509_REVOKED_set_revocationDate(r: PX509_REVOKED; tm: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_set_revocationDate_procname);
 end;
 
-function ERR_X509_REVOKED_get0_extensions(const r : PX509_REVOKED) : PSTACK_OF_X509_EXTENSION;
+function ERR_X509_REVOKED_get0_extensions(const r : PX509_REVOKED) : PSTACK_OF_X509_EXTENSION; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get0_extensions_procname);
 end;
 
-function  ERR_X509_CRL_diff(base: PX509_CRL; newer: PX509_CRL; skey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_UINT): PX509_CRL; 
+function  ERR_X509_CRL_diff(base: PX509_CRL; newer: PX509_CRL; skey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_UINT): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_diff_procname);
 end;
 
 
 
-function  ERR_X509_REQ_check_private_key(x509: PX509_REQ; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_REQ_check_private_key(x509: PX509_REQ; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_check_private_key_procname);
 end;
 
 
 
-function  ERR_X509_check_private_key(const x509: PX509; const pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_X509_check_private_key(const x509: PX509; const pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_check_private_key_procname);
 end;
@@ -4833,7 +4834,7 @@ end;
   //TIdC_INT X509_chain_check_suiteb(TIdC_INT *perror_depth,
   //                            X509 *x, STACK_OF(X509) *chain,
   //                            unsigned TIdC_LONG flags);
-function  ERR_X509_CRL_check_suiteb(crl: PX509_CRL; pk: PEVP_PKEY; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_CRL_check_suiteb(crl: PX509_CRL; pk: PEVP_PKEY; flags: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_check_suiteb_procname);
 end;
@@ -4841,83 +4842,83 @@ end;
 
   //STACK_OF(X509) *X509_chain_up_ref(STACK_OF(X509) *chain);
 
-function  ERR_X509_issuer_and_serial_cmp(const a: PX509; const b: PX509): TIdC_INT; 
+function  ERR_X509_issuer_and_serial_cmp(const a: PX509; const b: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_issuer_and_serial_cmp_procname);
 end;
 
 
-function  ERR_X509_issuer_and_serial_hash(a: PX509): TIdC_ULONG; 
+function  ERR_X509_issuer_and_serial_hash(a: PX509): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_issuer_and_serial_hash_procname);
 end;
 
 
 
-function  ERR_X509_issuer_name_cmp(const a: PX509; const b: PX509): TIdC_INT; 
+function  ERR_X509_issuer_name_cmp(const a: PX509; const b: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_issuer_name_cmp_procname);
 end;
 
 
-function  ERR_X509_issuer_name_hash(a: PX509): TIdC_uLONG; 
+function  ERR_X509_issuer_name_hash(a: PX509): TIdC_uLONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_issuer_name_hash_procname);
 end;
 
 
 
-function  ERR_X509_subject_name_cmp(const a: PX509; const b: PX509): TIdC_INT; 
+function  ERR_X509_subject_name_cmp(const a: PX509; const b: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_subject_name_cmp_procname);
 end;
 
 
-function  ERR_X509_subject_name_hash(x: PX509): TIdC_ULONG; 
+function  ERR_X509_subject_name_hash(x: PX509): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_subject_name_hash_procname);
 end;
 
 
 
-function  ERR_X509_cmp(const a: PX509; const b: PX509): TIdC_INT; 
+function  ERR_X509_cmp(const a: PX509; const b: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_procname);
 end;
 
 
-function  ERR_X509_NAME_cmp(const a: PX509_NAME; const b: PX509_NAME): TIdC_INT; 
+function  ERR_X509_NAME_cmp(const a: PX509_NAME; const b: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_cmp_procname);
 end;
 
 
-function  ERR_X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; 
+function  ERR_X509_NAME_hash(x: PX509_NAME): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_hash_procname);
 end;
 
- 
-function  ERR_X509_NAME_hash_old(x: PX509_NAME): TIdC_ULONG; 
+
+function  ERR_X509_NAME_hash_old(x: PX509_NAME): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_hash_old_procname);
 end;
 
 
 
-function  ERR_X509_CRL_cmp(const a: PX509_CRL; const b: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_cmp(const a: PX509_CRL; const b: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_cmp_procname);
 end;
 
 
-function  ERR_X509_CRL_match(const a: PX509_CRL; const b: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_match(const a: PX509_CRL; const b: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_match_procname);
 end;
 
 
-function  ERR_X509_aux_print(out_: PBIO; x: PX509; indent: TIdC_INT): TIdC_INT; 
+function  ERR_X509_aux_print(out_: PBIO; x: PX509; indent: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_aux_print_procname);
 end;
@@ -4933,74 +4934,74 @@ end;
   //                          unsigned TIdC_LONG flags);
   //# endif
 
-function  ERR_X509_NAME_print(bp: PBIO; const name: PX509_NAME; obase: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_print(bp: PBIO; const name: PX509_NAME; obase: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_print_procname);
 end;
 
 
-function  ERR_X509_NAME_print_ex(out_: PBIO; const nm: PX509_NAME; indent: TIdC_INT; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_NAME_print_ex(out_: PBIO; const nm: PX509_NAME; indent: TIdC_INT; flags: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_print_ex_procname);
 end;
 
 
-function  ERR_X509_print_ex(bp: PBIO; x: PX509; nmflag: TIdC_ULONG; cflag: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_print_ex(bp: PBIO; x: PX509; nmflag: TIdC_ULONG; cflag: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_print_ex_procname);
 end;
 
 
-function  ERR_X509_print(bp: PBIO; x: PX509): TIdC_INT; 
+function  ERR_X509_print(bp: PBIO; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_print_procname);
 end;
 
 
-function  ERR_X509_ocspid_print(bp: PBIO; x: PX509): TIdC_INT; 
+function  ERR_X509_ocspid_print(bp: PBIO; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ocspid_print_procname);
 end;
 
 
-function  ERR_X509_CRL_print_ex(out_: PBIO; x: PX509_CRL; nmflag: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_CRL_print_ex(out_: PBIO; x: PX509_CRL; nmflag: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_print_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_CRL_print(bp: PBIO; x: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_print(bp: PBIO; x: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_print_procname);
 end;
 
 
-function  ERR_X509_REQ_print_ex(bp: PBIO; x: PX509_REQ; nmflag: TIdC_ULONG; cflag: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_REQ_print_ex(bp: PBIO; x: PX509_REQ; nmflag: TIdC_ULONG; cflag: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_print_ex_procname);
 end;
 
 
-function  ERR_X509_REQ_print(bp: PBIO; req: PX509_REQ): TIdC_INT; 
+function  ERR_X509_REQ_print(bp: PBIO; req: PX509_REQ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REQ_print_procname);
 end;
 
 
 
-function  ERR_X509_NAME_entry_count(const name: PX509_NAME): TIdC_INT; 
+function  ERR_X509_NAME_entry_count(const name: PX509_NAME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_entry_count_procname);
 end;
 
 
-function  ERR_X509_NAME_get_text_by_NID(name: PX509_NAME; nid: TIdC_INT; buf: PIdAnsiChar; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_get_text_by_NID(name: PX509_NAME; nid: TIdC_INT; buf: PIdAnsiChar; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get_text_by_NID_procname);
 end;
 
 
-function  ERR_X509_NAME_get_text_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; buf: PIdAnsiChar; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_get_text_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; buf: PIdAnsiChar; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get_text_by_OBJ_procname);
 end;
@@ -5011,104 +5012,104 @@ end;
    * NOTE: you should be passing -1, not 0 as lastpos. The functions that use
    * lastpos, search after that position on.
    *)
-function  ERR_X509_NAME_get_index_by_NID(name: PX509_NAME; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_get_index_by_NID(name: PX509_NAME; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get_index_by_NID_procname);
 end;
 
 
-function  ERR_X509_NAME_get_index_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_get_index_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get_index_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_NAME_get_entry(const name: PX509_NAME; loc: TIdC_INT): PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_get_entry(const name: PX509_NAME; loc: TIdC_INT): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get_entry_procname);
 end;
 
 
-function  ERR_X509_NAME_delete_entry(name: PX509_NAME; loc: TIdC_INT): pX509_NAME_ENTRY; 
+function  ERR_X509_NAME_delete_entry(name: PX509_NAME; loc: TIdC_INT): pX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_delete_entry_procname);
 end;
 
 
-function  ERR_X509_NAME_add_entry(name: PX509_NAME; const ne: PX509_NAME_ENTRY; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_add_entry(name: PX509_NAME; const ne: PX509_NAME_ENTRY; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_add_entry_procname);
 end;
 
 
-function  ERR_X509_NAME_add_entry_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_add_entry_by_OBJ(name: PX509_NAME; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_add_entry_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_NAME_add_entry_by_NID(name: PX509_NAME; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_add_entry_by_NID(name: PX509_NAME; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_add_entry_by_NID_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_create_by_txt(ne: PPX509_NAME_ENTRY; const field: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_ENTRY_create_by_txt(ne: PPX509_NAME_ENTRY; const field: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_create_by_txt_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_create_by_NID(ne: PPX509_NAME_ENTRY; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_ENTRY_create_by_NID(ne: PPX509_NAME_ENTRY; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_create_by_NID_procname);
 end;
 
 
-function  ERR_X509_NAME_add_entry_by_txt(name: PX509_NAME; const field: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_add_entry_by_txt(name: PX509_NAME; const field: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT; loc: TIdC_INT; set_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_add_entry_by_txt_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_create_by_OBJ(ne: PPX509_NAME_ENTRY; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY; 
+function  ERR_X509_NAME_ENTRY_create_by_OBJ(ne: PPX509_NAME_ENTRY; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_NAME_ENTRY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_create_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_set_object(ne: PX509_NAME_ENTRY; const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_X509_NAME_ENTRY_set_object(ne: PX509_NAME_ENTRY; const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_set_object_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_set_data(ne: PX509_NAME_ENTRY; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_NAME_ENTRY_set_data(ne: PX509_NAME_ENTRY; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_set_data_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_get_object(const ne: PX509_NAME_ENTRY): PASN1_OBJECT; 
+function  ERR_X509_NAME_ENTRY_get_object(const ne: PX509_NAME_ENTRY): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_get_object_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_get_data(const ne: PX509_NAME_ENTRY): PASN1_STRING; 
+function  ERR_X509_NAME_ENTRY_get_data(const ne: PX509_NAME_ENTRY): PASN1_STRING;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_get_data_procname);
 end;
 
 
-function  ERR_X509_NAME_ENTRY_set(const ne: PX509_NAME_ENTRY): TIdC_INT; 
+function  ERR_X509_NAME_ENTRY_set(const ne: PX509_NAME_ENTRY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_ENTRY_set_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_NAME_get0_der(nm: PX509_NAME; const pder: PPByte; pderlen: PIdC_SIZET): TIdC_INT; 
+function  ERR_X509_NAME_get0_der(nm: PX509_NAME; const pder: PPByte; pderlen: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_get0_der_procname);
 end;
@@ -5127,214 +5128,214 @@ end;
   //STACK_OF(X509_EXTENSION) *X509v3_add_ext(STACK_OF(X509_EXTENSION) **x,
   //                                         X509_EXTENSION *ex, TIdC_INT loc);
 
-function  ERR_X509_get_ext_count(const x: PX509): TIdC_INT; 
+function  ERR_X509_get_ext_count(const x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_count_procname);
 end;
 
 
-function  ERR_X509_get_ext_by_NID(const x: PX509; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_get_ext_by_NID(const x: PX509; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_by_NID_procname);
 end;
 
 
-function  ERR_X509_get_ext_by_OBJ(const x: PX509; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_get_ext_by_OBJ(const x: PX509; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_get_ext_by_critical(const x: PX509; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_get_ext_by_critical(const x: PX509; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_by_critical_procname);
 end;
 
 
-function  ERR_X509_get_ext(const x: PX509; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_get_ext(const x: PX509; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_procname);
 end;
 
 
-function  ERR_X509_delete_ext(x: PX509; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_delete_ext(x: PX509; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_delete_ext_procname);
 end;
 
 
-function  ERR_X509_add_ext(x: PX509; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT; 
+function  ERR_X509_add_ext(x: PX509; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_add_ext_procname);
 end;
 
 
-function  ERR_X509_get_ext_d2i(const x: PX509; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer; 
+function  ERR_X509_get_ext_d2i(const x: PX509; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_get_ext_d2i_procname);
 end;
 
 
-function  ERR_X509_add1_ext_i2d(x: PX509; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_add1_ext_i2d(x: PX509; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_add1_ext_i2d_procname);
 end;
 
 
 
-function  ERR_X509_CRL_get_ext_count(const x: PX509_CRL): TIdC_INT; 
+function  ERR_X509_CRL_get_ext_count(const x: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_count_procname);
 end;
 
 
-function  ERR_X509_CRL_get_ext_by_NID(const x: PX509_CRL; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_CRL_get_ext_by_NID(const x: PX509_CRL; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_by_NID_procname);
 end;
 
 
-function  ERR_X509_CRL_get_ext_by_OBJ(const x: PX509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;
+function  ERR_X509_CRL_get_ext_by_OBJ(const x: PX509_CRL; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_CRL_get_ext_by_critical(const x: PX509_CRL; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_CRL_get_ext_by_critical(const x: PX509_CRL; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_by_critical_procname);
 end;
 
 
-function  ERR_X509_CRL_get_ext(const x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_CRL_get_ext(const x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_procname);
 end;
 
 
-function  ERR_X509_CRL_delete_ext(x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_CRL_delete_ext(x: PX509_CRL; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_delete_ext_procname);
 end;
 
 
-function  ERR_X509_CRL_add_ext(x: PX509_CRL; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT; 
+function  ERR_X509_CRL_add_ext(x: PX509_CRL; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_add_ext_procname);
 end;
 
 
-function  ERR_X509_CRL_get_ext_d2i(const x: PX509_CRL; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer; 
+function  ERR_X509_CRL_get_ext_d2i(const x: PX509_CRL; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_get_ext_d2i_procname);
 end;
 
 
-function  ERR_X509_CRL_add1_ext_i2d(x: PX509_CRL; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_CRL_add1_ext_i2d(x: PX509_CRL; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_CRL_add1_ext_i2d_procname);
 end;
 
 
 
-function  ERR_X509_REVOKED_get_ext_count(const x: PX509_REVOKED): TIdC_INT; 
+function  ERR_X509_REVOKED_get_ext_count(const x: PX509_REVOKED): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_count_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get_ext_by_NID(const x: PX509_REVOKED; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REVOKED_get_ext_by_NID(const x: PX509_REVOKED; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_by_NID_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get_ext_by_OBJ(const x: PX509_REVOKED; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REVOKED_get_ext_by_OBJ(const x: PX509_REVOKED; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get_ext_by_critical(const x: PX509_REVOKED; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REVOKED_get_ext_by_critical(const x: PX509_REVOKED; crit: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_by_critical_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get_ext(const x: PX509_REVOKED; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_REVOKED_get_ext(const x: PX509_REVOKED; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_procname);
 end;
 
 
-function  ERR_X509_REVOKED_delete_ext(x: PX509_REVOKED; loc: TIdC_INT): PX509_EXTENSION; 
+function  ERR_X509_REVOKED_delete_ext(x: PX509_REVOKED; loc: TIdC_INT): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_delete_ext_procname);
 end;
 
 
-function  ERR_X509_REVOKED_add_ext(x: PX509_REVOKED; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT; 
+function  ERR_X509_REVOKED_add_ext(x: PX509_REVOKED; ex: PX509_EXTENSION; loc: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_add_ext_procname);
 end;
 
 
-function  ERR_X509_REVOKED_get_ext_d2i(const x: PX509_REVOKED; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer; 
+function  ERR_X509_REVOKED_get_ext_d2i(const x: PX509_REVOKED; nid: TIdC_INT; crit: PIdC_INT; idx: PIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_get_ext_d2i_procname);
 end;
 
 
-function  ERR_X509_REVOKED_add1_ext_i2d(x: PX509_REVOKED; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_REVOKED_add1_ext_i2d(x: PX509_REVOKED; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; flags: TIdC_ULONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_REVOKED_add1_ext_i2d_procname);
 end;
 
 
 
-function  ERR_X509_EXTENSION_create_by_NID(ex: PPX509_EXTENSION; nid: TIdC_INT; crit: TIdC_INT; data: PASN1_OCTET_STRING): PX509_EXTENSION; 
+function  ERR_X509_EXTENSION_create_by_NID(ex: PPX509_EXTENSION; nid: TIdC_INT; crit: TIdC_INT; data: PASN1_OCTET_STRING): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_create_by_NID_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_create_by_OBJ(ex: PPX509_EXTENSION; const obj: PASN1_OBJECT; crit: TIdC_INT; data: PASN1_OCTET_STRING): PX509_EXTENSION; 
+function  ERR_X509_EXTENSION_create_by_OBJ(ex: PPX509_EXTENSION; const obj: PASN1_OBJECT; crit: TIdC_INT; data: PASN1_OCTET_STRING): PX509_EXTENSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_create_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_set_object(ex: PX509_EXTENSION; const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_X509_EXTENSION_set_object(ex: PX509_EXTENSION; const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_set_object_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_set_critical(ex: PX509_EXTENSION; crit: TIdC_INT): TIdC_INT; 
+function  ERR_X509_EXTENSION_set_critical(ex: PX509_EXTENSION; crit: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_set_critical_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_set_data(ex: PX509_EXTENSION; data: PASN1_OCTET_STRING): TIdC_INT; 
+function  ERR_X509_EXTENSION_set_data(ex: PX509_EXTENSION; data: PASN1_OCTET_STRING): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_set_data_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_get_object(ex: PX509_EXTENSION): PASN1_OBJECT; 
+function  ERR_X509_EXTENSION_get_object(ex: PX509_EXTENSION): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_get_object_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_get_data(ne: PX509_EXTENSION): PASN1_OCTET_STRING; 
+function  ERR_X509_EXTENSION_get_data(ne: PX509_EXTENSION): PASN1_OCTET_STRING;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_get_data_procname);
 end;
 
 
-function  ERR_X509_EXTENSION_get_critical(const ex: PX509_EXTENSION): TIdC_INT; 
+function  ERR_X509_EXTENSION_get_critical(const ex: PX509_EXTENSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_EXTENSION_get_critical_procname);
 end;
@@ -5366,117 +5367,117 @@ end;
   //                                                  TIdC_INT len);
   //void *X509at_get0_data_by_OBJ(STACK_OF(X509_ATTRIBUTE) *x,
   //                              const ASN1_OBJECT *obj, TIdC_INT lastpos, TIdC_INT type);
-function  ERR_X509_ATTRIBUTE_create_by_NID(attr: PPX509_ATTRIBUTE; nid: TIdC_INT; atrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_create_by_NID(attr: PPX509_ATTRIBUTE; nid: TIdC_INT; atrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_create_by_NID_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_create_by_OBJ(attr: PPX509_ATTRIBUTE; const obj: PASN1_OBJECT; atrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_create_by_OBJ(attr: PPX509_ATTRIBUTE; const obj: PASN1_OBJECT; atrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_create_by_OBJ_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_create_by_txt(attr: PPX509_ATTRIBUTE; const atrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_X509_ATTRIBUTE_create_by_txt(attr: PPX509_ATTRIBUTE; const atrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_create_by_txt_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_set1_object(attr: PX509_ATTRIBUTE; const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_X509_ATTRIBUTE_set1_object(attr: PX509_ATTRIBUTE; const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_set1_object_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_set1_data(attr: PX509_ATTRIBUTE; attrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): TIdC_INT; 
+function  ERR_X509_ATTRIBUTE_set1_data(attr: PX509_ATTRIBUTE; attrtype: TIdC_INT; const data: Pointer; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_set1_data_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_get0_data(attr: PX509_ATTRIBUTE; idx: TIdC_INT; atrtype: TIdC_INT; data: Pointer): Pointer; 
+function  ERR_X509_ATTRIBUTE_get0_data(attr: PX509_ATTRIBUTE; idx: TIdC_INT; atrtype: TIdC_INT; data: Pointer): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_get0_data_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_count(const attr: PX509_ATTRIBUTE): TIdC_INT; 
+function  ERR_X509_ATTRIBUTE_count(const attr: PX509_ATTRIBUTE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_count_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_get0_object(attr: PX509_ATTRIBUTE): PASN1_OBJECT; 
+function  ERR_X509_ATTRIBUTE_get0_object(attr: PX509_ATTRIBUTE): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_get0_object_procname);
 end;
 
 
-function  ERR_X509_ATTRIBUTE_get0_type(attr: PX509_ATTRIBUTE; idx: TIdC_INT): PASN1_TYPE; 
+function  ERR_X509_ATTRIBUTE_get0_type(attr: PX509_ATTRIBUTE; idx: TIdC_INT): PASN1_TYPE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_ATTRIBUTE_get0_type_procname);
 end;
 
 
 
-function  ERR_EVP_PKEY_get_attr_count(const key: PEVP_PKEY): TIdC_INT; 
+function  ERR_EVP_PKEY_get_attr_count(const key: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_get_attr_count_procname);
 end;
 
 
-function  ERR_EVP_PKEY_get_attr_by_NID(const key: PEVP_PKEY; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_PKEY_get_attr_by_NID(const key: PEVP_PKEY; nid: TIdC_INT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_get_attr_by_NID_procname);
 end;
 
 
-function  ERR_EVP_PKEY_get_attr_by_OBJ(const key: PEVP_PKEY; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_PKEY_get_attr_by_OBJ(const key: PEVP_PKEY; const obj: PASN1_OBJECT; lastpos: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_get_attr_by_OBJ_procname);
 end;
 
 
-function  ERR_EVP_PKEY_get_attr(const key: PEVP_PKEY; loc: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_EVP_PKEY_get_attr(const key: PEVP_PKEY; loc: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_get_attr_procname);
 end;
 
 
-function  ERR_EVP_PKEY_delete_attr(key: PEVP_PKEY; loc: TIdC_INT): PX509_ATTRIBUTE; 
+function  ERR_EVP_PKEY_delete_attr(key: PEVP_PKEY; loc: TIdC_INT): PX509_ATTRIBUTE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_delete_attr_procname);
 end;
 
 
-function  ERR_EVP_PKEY_add1_attr(key: PEVP_PKEY; attr: PX509_ATTRIBUTE): TIdC_INT; 
+function  ERR_EVP_PKEY_add1_attr(key: PEVP_PKEY; attr: PX509_ATTRIBUTE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_add1_attr_procname);
 end;
 
 
-function  ERR_EVP_PKEY_add1_attr_by_OBJ(key: PEVP_PKEY; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_PKEY_add1_attr_by_OBJ(key: PEVP_PKEY; const obj: PASN1_OBJECT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_add1_attr_by_OBJ_procname);
 end;
 
 
-function  ERR_EVP_PKEY_add1_attr_by_NID(key: PEVP_PKEY; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_PKEY_add1_attr_by_NID(key: PEVP_PKEY; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_add1_attr_by_NID_procname);
 end;
 
 
-function  ERR_EVP_PKEY_add1_attr_by_txt(key: PEVP_PKEY; const attrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_EVP_PKEY_add1_attr_by_txt(key: PEVP_PKEY; const attrname: PIdAnsiChar; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY_add1_attr_by_txt_procname);
 end;
 
 
 
-function  ERR_X509_verify_cert(ctx: PX509_STORE_CTX): TIdC_INT; 
+function  ERR_X509_verify_cert(ctx: PX509_STORE_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_verify_cert_procname);
 end;
@@ -5494,40 +5495,40 @@ end;
   //DECLARE_ASN1_FUNCTIONS(SCRYPT_PARAMS)
   //#endif
 
-function  ERR_PKCS5_pbe_set0_algor(algor: PX509_ALGOR; alg: TIdC_INT; iter: TIdC_INT; const salt: PByte; saltlen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS5_pbe_set0_algor(algor: PX509_ALGOR; alg: TIdC_INT; iter: TIdC_INT; const salt: PByte; saltlen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbe_set0_algor_procname);
 end;
 
 
 
-function  ERR_PKCS5_pbe_set(alg: TIdC_INT; iter: TIdC_INT; const salt: PByte; saltlen: TIdC_INT): PX509_ALGOR; 
+function  ERR_PKCS5_pbe_set(alg: TIdC_INT; iter: TIdC_INT; const salt: PByte; saltlen: TIdC_INT): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbe_set_procname);
 end;
 
 
-function  ERR_PKCS5_pbe2_set(const cipher: PEVP_CIPHER; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT): PX509_ALGOR; 
+function  ERR_PKCS5_pbe2_set(const cipher: PEVP_CIPHER; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbe2_set_procname);
 end;
 
 
-function  ERR_PKCS5_pbe2_set_iv(const cipher: PEVP_CIPHER; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; aiv: PByte; prf_nid: TIdC_INT): PX509_ALGOR; 
+function  ERR_PKCS5_pbe2_set_iv(const cipher: PEVP_CIPHER; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; aiv: PByte; prf_nid: TIdC_INT): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbe2_set_iv_procname);
 end;
 
 
 
-function  ERR_PKCS5_pbe2_set_scrypt(const cipher: PEVP_CIPHER; const salt: PByte; saltlen: TIdC_INT; aiv: PByte; N: TIdC_UINT64; r: TIdC_UINT64; p: TIdC_UINT64): PX509_ALGOR; 
+function  ERR_PKCS5_pbe2_set_scrypt(const cipher: PEVP_CIPHER; const salt: PByte; saltlen: TIdC_INT; aiv: PByte; N: TIdC_UINT64; r: TIdC_UINT64; p: TIdC_UINT64): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbe2_set_scrypt_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS5_pbkdf2_set(iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; prf_nid: TIdC_INT; keylen: TIdC_INT): PX509_ALGOR; 
+function  ERR_PKCS5_pbkdf2_set(iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; prf_nid: TIdC_INT; keylen: TIdC_INT): PX509_ALGOR;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS5_pbkdf2_set_procname);
 end;
@@ -5538,26 +5539,26 @@ end;
 
   //DECLARE_ASN1_FUNCTIONS(PKCS8_PRIV_KEY_INFO)
 
-function  ERR_EVP_PKCS82PKEY(const p8: PPKCS8_PRIV_KEY_INFO): PEVP_PKEY; 
+function  ERR_EVP_PKCS82PKEY(const p8: PPKCS8_PRIV_KEY_INFO): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKCS82PKEY_procname);
 end;
 
 
-function  ERR_EVP_PKEY2PKCS8(pkey: PEVP_PKEY): PKCS8_PRIV_KEY_INFO; 
+function  ERR_EVP_PKEY2PKCS8(pkey: PEVP_PKEY): PKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_PKEY2PKCS8_procname);
 end;
 
 
 
-function  ERR_PKCS8_pkey_set0(priv: PPKCS8_PRIV_KEY_INFO; aobj: PASN1_OBJECT; version: TIdC_INT; ptype: TIdC_INT; pval: Pointer; penc: PByte; penclen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS8_pkey_set0(priv: PPKCS8_PRIV_KEY_INFO; aobj: PASN1_OBJECT; version: TIdC_INT; ptype: TIdC_INT; pval: Pointer; penc: PByte; penclen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_pkey_set0_procname);
 end;
 
 
-function  ERR_PKCS8_pkey_get0(const ppkalg: PPASN1_OBJECT; const pk: PPByte; ppklen: PIdC_INT; const pa: PPX509_ALGOR; const p8: PPKCS8_PRIV_KEY_INFO): TIdC_INT; 
+function  ERR_PKCS8_pkey_get0(const ppkalg: PPASN1_OBJECT; const pk: PPByte; ppklen: PIdC_INT; const pa: PPX509_ALGOR; const p8: PPKCS8_PRIV_KEY_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_pkey_get0_procname);
 end;
@@ -5566,45 +5567,45 @@ end;
 
   //const STACK_OF(X509_ATTRIBUTE) *
   //PKCS8_pkey_get0_attrs(const PKCS8_PRIV_KEY_INFO *p8);
-function  ERR_PKCS8_pkey_add1_attr_by_NID(p8: PPKCS8_PRIV_KEY_INFO; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS8_pkey_add1_attr_by_NID(p8: PPKCS8_PRIV_KEY_INFO; nid: TIdC_INT; type_: TIdC_INT; const bytes: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_pkey_add1_attr_by_NID_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_PUBKEY_set0_param(pub: PX509_PUBKEY; aobj: PASN1_OBJECT; ptype: TIdC_INT; pval: Pointer; penc: PByte; penclen: TIdC_INT): TIdC_INT; 
+function  ERR_X509_PUBKEY_set0_param(pub: PX509_PUBKEY; aobj: PASN1_OBJECT; ptype: TIdC_INT; pval: Pointer; penc: PByte; penclen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_set0_param_procname);
 end;
 
 
-function  ERR_X509_PUBKEY_get0_param(ppkalg: PPASN1_OBJECT; const pk: PPByte; ppklen: PIdC_INT; pa: PPX509_ALGOR; pub: PX509_PUBKEY): TIdC_INT; 
+function  ERR_X509_PUBKEY_get0_param(ppkalg: PPASN1_OBJECT; const pk: PPByte; ppklen: PIdC_INT; pa: PPX509_ALGOR; pub: PX509_PUBKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_PUBKEY_get0_param_procname);
 end;
 
 
 
-function  ERR_X509_check_trust(x: PX509; id: TIdC_INT; flags: TIdC_INT): TIdC_INT; 
+function  ERR_X509_check_trust(x: PX509; id: TIdC_INT; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_check_trust_procname);
 end;
 
 
-function  ERR_X509_TRUST_get_count: TIdC_INT; 
+function  ERR_X509_TRUST_get_count: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get_count_procname);
 end;
 
 
-function  ERR_X509_TRUST_get0(idx: TIdC_INT): PX509_TRUST; 
+function  ERR_X509_TRUST_get0(idx: TIdC_INT): PX509_TRUST;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get0_procname);
 end;
 
 
-function  ERR_X509_TRUST_get_by_id(id: TIdC_INT): TIdC_INT; 
+function  ERR_X509_TRUST_get_by_id(id: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get_by_id_procname);
 end;
@@ -5612,25 +5613,25 @@ end;
 
 //  TIdC_INT X509_TRUST_add(TIdC_INT id, TIdC_INT flags, TIdC_INT (*ck) (X509_TRUST *, X509 *, TIdC_INT),
 //                     const PIdAnsiChar *name, TIdC_INT arg1, void *arg2);
-procedure  ERR_X509_TRUST_cleanup; 
+procedure  ERR_X509_TRUST_cleanup;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_cleanup_procname);
 end;
 
 
-function  ERR_X509_TRUST_get_flags(const xp: PX509_TRUST): TIdC_INT; 
+function  ERR_X509_TRUST_get_flags(const xp: PX509_TRUST): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get_flags_procname);
 end;
 
 
-function  ERR_X509_TRUST_get0_name(const xp: PX509_TRUST): PIdAnsiChar; 
+function  ERR_X509_TRUST_get0_name(const xp: PX509_TRUST): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get0_name_procname);
 end;
 
 
-function  ERR_X509_TRUST_get_trust(const xp: PX509_TRUST): TIdC_INT; 
+function  ERR_X509_TRUST_get_trust(const xp: PX509_TRUST): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_TRUST_get_trust_procname);
 end;
@@ -5639,7 +5640,7 @@ end;
 
 //  unsigned long X509_NAME_hash_ex(const X509_NAME *x, OSSL_LIB_CTX *libctx,
 //                                const char *propq, int *ok);
-function  ERR_X509_NAME_hash_ex(const x: PX509_NAME; libctx: POSSL_LIB_CTX; const propq: PIdAnsiChar; ok: PIdC_INT): TIdC_ULONG; 
+function  ERR_X509_NAME_hash_ex(const x: PX509_NAME; libctx: POSSL_LIB_CTX; const propq: PIdAnsiChar; ok: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_NAME_hash_ex_procname);
 end;
@@ -5659,13 +5660,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set_default_method_allownil)}
-    X509_CRL_set_default_method := @ERR_X509_CRL_set_default_method;
+    X509_CRL_set_default_method := ERR_X509_CRL_set_default_method;
     {$ifend}
     {$if declared(X509_CRL_set_default_method_introduced)}
     if LibVersion < X509_CRL_set_default_method_introduced then
     begin
       {$if declared(FC_X509_CRL_set_default_method)}
-      X509_CRL_set_default_method := @FC_X509_CRL_set_default_method;
+      X509_CRL_set_default_method := FC_X509_CRL_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5674,7 +5675,7 @@ begin
     if X509_CRL_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set_default_method)}
-      X509_CRL_set_default_method := @_X509_CRL_set_default_method;
+      X509_CRL_set_default_method := _X509_CRL_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5691,13 +5692,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_METHOD_free_allownil)}
-    X509_CRL_METHOD_free := @ERR_X509_CRL_METHOD_free;
+    X509_CRL_METHOD_free := ERR_X509_CRL_METHOD_free;
     {$ifend}
     {$if declared(X509_CRL_METHOD_free_introduced)}
     if LibVersion < X509_CRL_METHOD_free_introduced then
     begin
       {$if declared(FC_X509_CRL_METHOD_free)}
-      X509_CRL_METHOD_free := @FC_X509_CRL_METHOD_free;
+      X509_CRL_METHOD_free := FC_X509_CRL_METHOD_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5706,7 +5707,7 @@ begin
     if X509_CRL_METHOD_free_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_METHOD_free)}
-      X509_CRL_METHOD_free := @_X509_CRL_METHOD_free;
+      X509_CRL_METHOD_free := _X509_CRL_METHOD_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5723,13 +5724,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set_meth_data_allownil)}
-    X509_CRL_set_meth_data := @ERR_X509_CRL_set_meth_data;
+    X509_CRL_set_meth_data := ERR_X509_CRL_set_meth_data;
     {$ifend}
     {$if declared(X509_CRL_set_meth_data_introduced)}
     if LibVersion < X509_CRL_set_meth_data_introduced then
     begin
       {$if declared(FC_X509_CRL_set_meth_data)}
-      X509_CRL_set_meth_data := @FC_X509_CRL_set_meth_data;
+      X509_CRL_set_meth_data := FC_X509_CRL_set_meth_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5738,7 +5739,7 @@ begin
     if X509_CRL_set_meth_data_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set_meth_data)}
-      X509_CRL_set_meth_data := @_X509_CRL_set_meth_data;
+      X509_CRL_set_meth_data := _X509_CRL_set_meth_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5755,13 +5756,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_meth_data_allownil)}
-    X509_CRL_get_meth_data := @ERR_X509_CRL_get_meth_data;
+    X509_CRL_get_meth_data := ERR_X509_CRL_get_meth_data;
     {$ifend}
     {$if declared(X509_CRL_get_meth_data_introduced)}
     if LibVersion < X509_CRL_get_meth_data_introduced then
     begin
       {$if declared(FC_X509_CRL_get_meth_data)}
-      X509_CRL_get_meth_data := @FC_X509_CRL_get_meth_data;
+      X509_CRL_get_meth_data := FC_X509_CRL_get_meth_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5770,7 +5771,7 @@ begin
     if X509_CRL_get_meth_data_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_meth_data)}
-      X509_CRL_get_meth_data := @_X509_CRL_get_meth_data;
+      X509_CRL_get_meth_data := _X509_CRL_get_meth_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5787,13 +5788,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_verify_cert_error_string_allownil)}
-    X509_verify_cert_error_string := @ERR_X509_verify_cert_error_string;
+    X509_verify_cert_error_string := ERR_X509_verify_cert_error_string;
     {$ifend}
     {$if declared(X509_verify_cert_error_string_introduced)}
     if LibVersion < X509_verify_cert_error_string_introduced then
     begin
       {$if declared(FC_X509_verify_cert_error_string)}
-      X509_verify_cert_error_string := @FC_X509_verify_cert_error_string;
+      X509_verify_cert_error_string := FC_X509_verify_cert_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5802,7 +5803,7 @@ begin
     if X509_verify_cert_error_string_removed <= LibVersion then
     begin
       {$if declared(_X509_verify_cert_error_string)}
-      X509_verify_cert_error_string := @_X509_verify_cert_error_string;
+      X509_verify_cert_error_string := _X509_verify_cert_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5819,13 +5820,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_verify_allownil)}
-    X509_verify := @ERR_X509_verify;
+    X509_verify := ERR_X509_verify;
     {$ifend}
     {$if declared(X509_verify_introduced)}
     if LibVersion < X509_verify_introduced then
     begin
       {$if declared(FC_X509_verify)}
-      X509_verify := @FC_X509_verify;
+      X509_verify := FC_X509_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5834,7 +5835,7 @@ begin
     if X509_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_verify)}
-      X509_verify := @_X509_verify;
+      X509_verify := _X509_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5851,13 +5852,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_verify_allownil)}
-    X509_REQ_verify := @ERR_X509_REQ_verify;
+    X509_REQ_verify := ERR_X509_REQ_verify;
     {$ifend}
     {$if declared(X509_REQ_verify_introduced)}
     if LibVersion < X509_REQ_verify_introduced then
     begin
       {$if declared(FC_X509_REQ_verify)}
-      X509_REQ_verify := @FC_X509_REQ_verify;
+      X509_REQ_verify := FC_X509_REQ_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5866,7 +5867,7 @@ begin
     if X509_REQ_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_verify)}
-      X509_REQ_verify := @_X509_REQ_verify;
+      X509_REQ_verify := _X509_REQ_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5883,13 +5884,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_verify_allownil)}
-    X509_CRL_verify := @ERR_X509_CRL_verify;
+    X509_CRL_verify := ERR_X509_CRL_verify;
     {$ifend}
     {$if declared(X509_CRL_verify_introduced)}
     if LibVersion < X509_CRL_verify_introduced then
     begin
       {$if declared(FC_X509_CRL_verify)}
-      X509_CRL_verify := @FC_X509_CRL_verify;
+      X509_CRL_verify := FC_X509_CRL_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5898,7 +5899,7 @@ begin
     if X509_CRL_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_verify)}
-      X509_CRL_verify := @_X509_CRL_verify;
+      X509_CRL_verify := _X509_CRL_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5915,13 +5916,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_verify_allownil)}
-    NETSCAPE_SPKI_verify := @ERR_NETSCAPE_SPKI_verify;
+    NETSCAPE_SPKI_verify := ERR_NETSCAPE_SPKI_verify;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_verify_introduced)}
     if LibVersion < NETSCAPE_SPKI_verify_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_verify)}
-      NETSCAPE_SPKI_verify := @FC_NETSCAPE_SPKI_verify;
+      NETSCAPE_SPKI_verify := FC_NETSCAPE_SPKI_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5930,7 +5931,7 @@ begin
     if NETSCAPE_SPKI_verify_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_verify)}
-      NETSCAPE_SPKI_verify := @_NETSCAPE_SPKI_verify;
+      NETSCAPE_SPKI_verify := _NETSCAPE_SPKI_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5947,13 +5948,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_b64_decode_allownil)}
-    NETSCAPE_SPKI_b64_decode := @ERR_NETSCAPE_SPKI_b64_decode;
+    NETSCAPE_SPKI_b64_decode := ERR_NETSCAPE_SPKI_b64_decode;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_b64_decode_introduced)}
     if LibVersion < NETSCAPE_SPKI_b64_decode_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_b64_decode)}
-      NETSCAPE_SPKI_b64_decode := @FC_NETSCAPE_SPKI_b64_decode;
+      NETSCAPE_SPKI_b64_decode := FC_NETSCAPE_SPKI_b64_decode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5962,7 +5963,7 @@ begin
     if NETSCAPE_SPKI_b64_decode_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_b64_decode)}
-      NETSCAPE_SPKI_b64_decode := @_NETSCAPE_SPKI_b64_decode;
+      NETSCAPE_SPKI_b64_decode := _NETSCAPE_SPKI_b64_decode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5979,13 +5980,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_b64_encode_allownil)}
-    NETSCAPE_SPKI_b64_encode := @ERR_NETSCAPE_SPKI_b64_encode;
+    NETSCAPE_SPKI_b64_encode := ERR_NETSCAPE_SPKI_b64_encode;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_b64_encode_introduced)}
     if LibVersion < NETSCAPE_SPKI_b64_encode_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_b64_encode)}
-      NETSCAPE_SPKI_b64_encode := @FC_NETSCAPE_SPKI_b64_encode;
+      NETSCAPE_SPKI_b64_encode := FC_NETSCAPE_SPKI_b64_encode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5994,7 +5995,7 @@ begin
     if NETSCAPE_SPKI_b64_encode_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_b64_encode)}
-      NETSCAPE_SPKI_b64_encode := @_NETSCAPE_SPKI_b64_encode;
+      NETSCAPE_SPKI_b64_encode := _NETSCAPE_SPKI_b64_encode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6011,13 +6012,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_get_pubkey_allownil)}
-    NETSCAPE_SPKI_get_pubkey := @ERR_NETSCAPE_SPKI_get_pubkey;
+    NETSCAPE_SPKI_get_pubkey := ERR_NETSCAPE_SPKI_get_pubkey;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_get_pubkey_introduced)}
     if LibVersion < NETSCAPE_SPKI_get_pubkey_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_get_pubkey)}
-      NETSCAPE_SPKI_get_pubkey := @FC_NETSCAPE_SPKI_get_pubkey;
+      NETSCAPE_SPKI_get_pubkey := FC_NETSCAPE_SPKI_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6026,7 +6027,7 @@ begin
     if NETSCAPE_SPKI_get_pubkey_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_get_pubkey)}
-      NETSCAPE_SPKI_get_pubkey := @_NETSCAPE_SPKI_get_pubkey;
+      NETSCAPE_SPKI_get_pubkey := _NETSCAPE_SPKI_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6043,13 +6044,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_set_pubkey_allownil)}
-    NETSCAPE_SPKI_set_pubkey := @ERR_NETSCAPE_SPKI_set_pubkey;
+    NETSCAPE_SPKI_set_pubkey := ERR_NETSCAPE_SPKI_set_pubkey;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_set_pubkey_introduced)}
     if LibVersion < NETSCAPE_SPKI_set_pubkey_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_set_pubkey)}
-      NETSCAPE_SPKI_set_pubkey := @FC_NETSCAPE_SPKI_set_pubkey;
+      NETSCAPE_SPKI_set_pubkey := FC_NETSCAPE_SPKI_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6058,7 +6059,7 @@ begin
     if NETSCAPE_SPKI_set_pubkey_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_set_pubkey)}
-      NETSCAPE_SPKI_set_pubkey := @_NETSCAPE_SPKI_set_pubkey;
+      NETSCAPE_SPKI_set_pubkey := _NETSCAPE_SPKI_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6075,13 +6076,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_print_allownil)}
-    NETSCAPE_SPKI_print := @ERR_NETSCAPE_SPKI_print;
+    NETSCAPE_SPKI_print := ERR_NETSCAPE_SPKI_print;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_print_introduced)}
     if LibVersion < NETSCAPE_SPKI_print_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_print)}
-      NETSCAPE_SPKI_print := @FC_NETSCAPE_SPKI_print;
+      NETSCAPE_SPKI_print := FC_NETSCAPE_SPKI_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6090,7 +6091,7 @@ begin
     if NETSCAPE_SPKI_print_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_print)}
-      NETSCAPE_SPKI_print := @_NETSCAPE_SPKI_print;
+      NETSCAPE_SPKI_print := _NETSCAPE_SPKI_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6107,13 +6108,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_signature_dump_allownil)}
-    X509_signature_dump := @ERR_X509_signature_dump;
+    X509_signature_dump := ERR_X509_signature_dump;
     {$ifend}
     {$if declared(X509_signature_dump_introduced)}
     if LibVersion < X509_signature_dump_introduced then
     begin
       {$if declared(FC_X509_signature_dump)}
-      X509_signature_dump := @FC_X509_signature_dump;
+      X509_signature_dump := FC_X509_signature_dump;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6122,7 +6123,7 @@ begin
     if X509_signature_dump_removed <= LibVersion then
     begin
       {$if declared(_X509_signature_dump)}
-      X509_signature_dump := @_X509_signature_dump;
+      X509_signature_dump := _X509_signature_dump;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6139,13 +6140,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_signature_print_allownil)}
-    X509_signature_print := @ERR_X509_signature_print;
+    X509_signature_print := ERR_X509_signature_print;
     {$ifend}
     {$if declared(X509_signature_print_introduced)}
     if LibVersion < X509_signature_print_introduced then
     begin
       {$if declared(FC_X509_signature_print)}
-      X509_signature_print := @FC_X509_signature_print;
+      X509_signature_print := FC_X509_signature_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6154,7 +6155,7 @@ begin
     if X509_signature_print_removed <= LibVersion then
     begin
       {$if declared(_X509_signature_print)}
-      X509_signature_print := @_X509_signature_print;
+      X509_signature_print := _X509_signature_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6171,13 +6172,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_sign_allownil)}
-    X509_sign := @ERR_X509_sign;
+    X509_sign := ERR_X509_sign;
     {$ifend}
     {$if declared(X509_sign_introduced)}
     if LibVersion < X509_sign_introduced then
     begin
       {$if declared(FC_X509_sign)}
-      X509_sign := @FC_X509_sign;
+      X509_sign := FC_X509_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6186,7 +6187,7 @@ begin
     if X509_sign_removed <= LibVersion then
     begin
       {$if declared(_X509_sign)}
-      X509_sign := @_X509_sign;
+      X509_sign := _X509_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6203,13 +6204,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_sign_ctx_allownil)}
-    X509_sign_ctx := @ERR_X509_sign_ctx;
+    X509_sign_ctx := ERR_X509_sign_ctx;
     {$ifend}
     {$if declared(X509_sign_ctx_introduced)}
     if LibVersion < X509_sign_ctx_introduced then
     begin
       {$if declared(FC_X509_sign_ctx)}
-      X509_sign_ctx := @FC_X509_sign_ctx;
+      X509_sign_ctx := FC_X509_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6218,7 +6219,7 @@ begin
     if X509_sign_ctx_removed <= LibVersion then
     begin
       {$if declared(_X509_sign_ctx)}
-      X509_sign_ctx := @_X509_sign_ctx;
+      X509_sign_ctx := _X509_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6235,13 +6236,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_http_nbio_allownil)}
-    X509_http_nbio := @ERR_X509_http_nbio;
+    X509_http_nbio := ERR_X509_http_nbio;
     {$ifend}
     {$if declared(X509_http_nbio_introduced)}
     if LibVersion < X509_http_nbio_introduced then
     begin
       {$if declared(FC_X509_http_nbio)}
-      X509_http_nbio := @FC_X509_http_nbio;
+      X509_http_nbio := FC_X509_http_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6250,7 +6251,7 @@ begin
     if X509_http_nbio_removed <= LibVersion then
     begin
       {$if declared(_X509_http_nbio)}
-      X509_http_nbio := @_X509_http_nbio;
+      X509_http_nbio := _X509_http_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6267,13 +6268,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_sign_allownil)}
-    X509_REQ_sign := @ERR_X509_REQ_sign;
+    X509_REQ_sign := ERR_X509_REQ_sign;
     {$ifend}
     {$if declared(X509_REQ_sign_introduced)}
     if LibVersion < X509_REQ_sign_introduced then
     begin
       {$if declared(FC_X509_REQ_sign)}
-      X509_REQ_sign := @FC_X509_REQ_sign;
+      X509_REQ_sign := FC_X509_REQ_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6282,7 +6283,7 @@ begin
     if X509_REQ_sign_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_sign)}
-      X509_REQ_sign := @_X509_REQ_sign;
+      X509_REQ_sign := _X509_REQ_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6299,13 +6300,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_sign_ctx_allownil)}
-    X509_REQ_sign_ctx := @ERR_X509_REQ_sign_ctx;
+    X509_REQ_sign_ctx := ERR_X509_REQ_sign_ctx;
     {$ifend}
     {$if declared(X509_REQ_sign_ctx_introduced)}
     if LibVersion < X509_REQ_sign_ctx_introduced then
     begin
       {$if declared(FC_X509_REQ_sign_ctx)}
-      X509_REQ_sign_ctx := @FC_X509_REQ_sign_ctx;
+      X509_REQ_sign_ctx := FC_X509_REQ_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6314,7 +6315,7 @@ begin
     if X509_REQ_sign_ctx_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_sign_ctx)}
-      X509_REQ_sign_ctx := @_X509_REQ_sign_ctx;
+      X509_REQ_sign_ctx := _X509_REQ_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6331,13 +6332,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_sign_allownil)}
-    X509_CRL_sign := @ERR_X509_CRL_sign;
+    X509_CRL_sign := ERR_X509_CRL_sign;
     {$ifend}
     {$if declared(X509_CRL_sign_introduced)}
     if LibVersion < X509_CRL_sign_introduced then
     begin
       {$if declared(FC_X509_CRL_sign)}
-      X509_CRL_sign := @FC_X509_CRL_sign;
+      X509_CRL_sign := FC_X509_CRL_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6346,7 +6347,7 @@ begin
     if X509_CRL_sign_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_sign)}
-      X509_CRL_sign := @_X509_CRL_sign;
+      X509_CRL_sign := _X509_CRL_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6363,13 +6364,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_sign_ctx_allownil)}
-    X509_CRL_sign_ctx := @ERR_X509_CRL_sign_ctx;
+    X509_CRL_sign_ctx := ERR_X509_CRL_sign_ctx;
     {$ifend}
     {$if declared(X509_CRL_sign_ctx_introduced)}
     if LibVersion < X509_CRL_sign_ctx_introduced then
     begin
       {$if declared(FC_X509_CRL_sign_ctx)}
-      X509_CRL_sign_ctx := @FC_X509_CRL_sign_ctx;
+      X509_CRL_sign_ctx := FC_X509_CRL_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6378,7 +6379,7 @@ begin
     if X509_CRL_sign_ctx_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_sign_ctx)}
-      X509_CRL_sign_ctx := @_X509_CRL_sign_ctx;
+      X509_CRL_sign_ctx := _X509_CRL_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6395,13 +6396,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_http_nbio_allownil)}
-    X509_CRL_http_nbio := @ERR_X509_CRL_http_nbio;
+    X509_CRL_http_nbio := ERR_X509_CRL_http_nbio;
     {$ifend}
     {$if declared(X509_CRL_http_nbio_introduced)}
     if LibVersion < X509_CRL_http_nbio_introduced then
     begin
       {$if declared(FC_X509_CRL_http_nbio)}
-      X509_CRL_http_nbio := @FC_X509_CRL_http_nbio;
+      X509_CRL_http_nbio := FC_X509_CRL_http_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6410,7 +6411,7 @@ begin
     if X509_CRL_http_nbio_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_http_nbio)}
-      X509_CRL_http_nbio := @_X509_CRL_http_nbio;
+      X509_CRL_http_nbio := _X509_CRL_http_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6427,13 +6428,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NETSCAPE_SPKI_sign_allownil)}
-    NETSCAPE_SPKI_sign := @ERR_NETSCAPE_SPKI_sign;
+    NETSCAPE_SPKI_sign := ERR_NETSCAPE_SPKI_sign;
     {$ifend}
     {$if declared(NETSCAPE_SPKI_sign_introduced)}
     if LibVersion < NETSCAPE_SPKI_sign_introduced then
     begin
       {$if declared(FC_NETSCAPE_SPKI_sign)}
-      NETSCAPE_SPKI_sign := @FC_NETSCAPE_SPKI_sign;
+      NETSCAPE_SPKI_sign := FC_NETSCAPE_SPKI_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6442,7 +6443,7 @@ begin
     if NETSCAPE_SPKI_sign_removed <= LibVersion then
     begin
       {$if declared(_NETSCAPE_SPKI_sign)}
-      NETSCAPE_SPKI_sign := @_NETSCAPE_SPKI_sign;
+      NETSCAPE_SPKI_sign := _NETSCAPE_SPKI_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6459,13 +6460,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_pubkey_digest_allownil)}
-    X509_pubkey_digest := @ERR_X509_pubkey_digest;
+    X509_pubkey_digest := ERR_X509_pubkey_digest;
     {$ifend}
     {$if declared(X509_pubkey_digest_introduced)}
     if LibVersion < X509_pubkey_digest_introduced then
     begin
       {$if declared(FC_X509_pubkey_digest)}
-      X509_pubkey_digest := @FC_X509_pubkey_digest;
+      X509_pubkey_digest := FC_X509_pubkey_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6474,7 +6475,7 @@ begin
     if X509_pubkey_digest_removed <= LibVersion then
     begin
       {$if declared(_X509_pubkey_digest)}
-      X509_pubkey_digest := @_X509_pubkey_digest;
+      X509_pubkey_digest := _X509_pubkey_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6491,13 +6492,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_digest_allownil)}
-    X509_digest := @ERR_X509_digest;
+    X509_digest := ERR_X509_digest;
     {$ifend}
     {$if declared(X509_digest_introduced)}
     if LibVersion < X509_digest_introduced then
     begin
       {$if declared(FC_X509_digest)}
-      X509_digest := @FC_X509_digest;
+      X509_digest := FC_X509_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6506,7 +6507,7 @@ begin
     if X509_digest_removed <= LibVersion then
     begin
       {$if declared(_X509_digest)}
-      X509_digest := @_X509_digest;
+      X509_digest := _X509_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6523,13 +6524,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_digest_allownil)}
-    X509_CRL_digest := @ERR_X509_CRL_digest;
+    X509_CRL_digest := ERR_X509_CRL_digest;
     {$ifend}
     {$if declared(X509_CRL_digest_introduced)}
     if LibVersion < X509_CRL_digest_introduced then
     begin
       {$if declared(FC_X509_CRL_digest)}
-      X509_CRL_digest := @FC_X509_CRL_digest;
+      X509_CRL_digest := FC_X509_CRL_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6538,7 +6539,7 @@ begin
     if X509_CRL_digest_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_digest)}
-      X509_CRL_digest := @_X509_CRL_digest;
+      X509_CRL_digest := _X509_CRL_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6555,13 +6556,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_digest_allownil)}
-    X509_REQ_digest := @ERR_X509_REQ_digest;
+    X509_REQ_digest := ERR_X509_REQ_digest;
     {$ifend}
     {$if declared(X509_REQ_digest_introduced)}
     if LibVersion < X509_REQ_digest_introduced then
     begin
       {$if declared(FC_X509_REQ_digest)}
-      X509_REQ_digest := @FC_X509_REQ_digest;
+      X509_REQ_digest := FC_X509_REQ_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6570,7 +6571,7 @@ begin
     if X509_REQ_digest_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_digest)}
-      X509_REQ_digest := @_X509_REQ_digest;
+      X509_REQ_digest := _X509_REQ_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6587,13 +6588,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_digest_allownil)}
-    X509_NAME_digest := @ERR_X509_NAME_digest;
+    X509_NAME_digest := ERR_X509_NAME_digest;
     {$ifend}
     {$if declared(X509_NAME_digest_introduced)}
     if LibVersion < X509_NAME_digest_introduced then
     begin
       {$if declared(FC_X509_NAME_digest)}
-      X509_NAME_digest := @FC_X509_NAME_digest;
+      X509_NAME_digest := FC_X509_NAME_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6602,7 +6603,7 @@ begin
     if X509_NAME_digest_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_digest)}
-      X509_NAME_digest := @_X509_NAME_digest;
+      X509_NAME_digest := _X509_NAME_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6619,13 +6620,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_bio_allownil)}
-    d2i_X509_bio := @ERR_d2i_X509_bio;
+    d2i_X509_bio := ERR_d2i_X509_bio;
     {$ifend}
     {$if declared(d2i_X509_bio_introduced)}
     if LibVersion < d2i_X509_bio_introduced then
     begin
       {$if declared(FC_d2i_X509_bio)}
-      d2i_X509_bio := @FC_d2i_X509_bio;
+      d2i_X509_bio := FC_d2i_X509_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6634,7 +6635,7 @@ begin
     if d2i_X509_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_bio)}
-      d2i_X509_bio := @_d2i_X509_bio;
+      d2i_X509_bio := _d2i_X509_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6651,13 +6652,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_bio_allownil)}
-    i2d_X509_bio := @ERR_i2d_X509_bio;
+    i2d_X509_bio := ERR_i2d_X509_bio;
     {$ifend}
     {$if declared(i2d_X509_bio_introduced)}
     if LibVersion < i2d_X509_bio_introduced then
     begin
       {$if declared(FC_i2d_X509_bio)}
-      i2d_X509_bio := @FC_i2d_X509_bio;
+      i2d_X509_bio := FC_i2d_X509_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6666,7 +6667,7 @@ begin
     if i2d_X509_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_bio)}
-      i2d_X509_bio := @_i2d_X509_bio;
+      i2d_X509_bio := _i2d_X509_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6683,13 +6684,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_CRL_bio_allownil)}
-    d2i_X509_CRL_bio := @ERR_d2i_X509_CRL_bio;
+    d2i_X509_CRL_bio := ERR_d2i_X509_CRL_bio;
     {$ifend}
     {$if declared(d2i_X509_CRL_bio_introduced)}
     if LibVersion < d2i_X509_CRL_bio_introduced then
     begin
       {$if declared(FC_d2i_X509_CRL_bio)}
-      d2i_X509_CRL_bio := @FC_d2i_X509_CRL_bio;
+      d2i_X509_CRL_bio := FC_d2i_X509_CRL_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6698,7 +6699,7 @@ begin
     if d2i_X509_CRL_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_CRL_bio)}
-      d2i_X509_CRL_bio := @_d2i_X509_CRL_bio;
+      d2i_X509_CRL_bio := _d2i_X509_CRL_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6715,13 +6716,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_CRL_bio_allownil)}
-    i2d_X509_CRL_bio := @ERR_i2d_X509_CRL_bio;
+    i2d_X509_CRL_bio := ERR_i2d_X509_CRL_bio;
     {$ifend}
     {$if declared(i2d_X509_CRL_bio_introduced)}
     if LibVersion < i2d_X509_CRL_bio_introduced then
     begin
       {$if declared(FC_i2d_X509_CRL_bio)}
-      i2d_X509_CRL_bio := @FC_i2d_X509_CRL_bio;
+      i2d_X509_CRL_bio := FC_i2d_X509_CRL_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6730,7 +6731,7 @@ begin
     if i2d_X509_CRL_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_CRL_bio)}
-      i2d_X509_CRL_bio := @_i2d_X509_CRL_bio;
+      i2d_X509_CRL_bio := _i2d_X509_CRL_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6747,13 +6748,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_REQ_bio_allownil)}
-    d2i_X509_REQ_bio := @ERR_d2i_X509_REQ_bio;
+    d2i_X509_REQ_bio := ERR_d2i_X509_REQ_bio;
     {$ifend}
     {$if declared(d2i_X509_REQ_bio_introduced)}
     if LibVersion < d2i_X509_REQ_bio_introduced then
     begin
       {$if declared(FC_d2i_X509_REQ_bio)}
-      d2i_X509_REQ_bio := @FC_d2i_X509_REQ_bio;
+      d2i_X509_REQ_bio := FC_d2i_X509_REQ_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6762,7 +6763,7 @@ begin
     if d2i_X509_REQ_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_REQ_bio)}
-      d2i_X509_REQ_bio := @_d2i_X509_REQ_bio;
+      d2i_X509_REQ_bio := _d2i_X509_REQ_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6779,13 +6780,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_REQ_bio_allownil)}
-    i2d_X509_REQ_bio := @ERR_i2d_X509_REQ_bio;
+    i2d_X509_REQ_bio := ERR_i2d_X509_REQ_bio;
     {$ifend}
     {$if declared(i2d_X509_REQ_bio_introduced)}
     if LibVersion < i2d_X509_REQ_bio_introduced then
     begin
       {$if declared(FC_i2d_X509_REQ_bio)}
-      i2d_X509_REQ_bio := @FC_i2d_X509_REQ_bio;
+      i2d_X509_REQ_bio := FC_i2d_X509_REQ_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6794,7 +6795,7 @@ begin
     if i2d_X509_REQ_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_REQ_bio)}
-      i2d_X509_REQ_bio := @_i2d_X509_REQ_bio;
+      i2d_X509_REQ_bio := _i2d_X509_REQ_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6811,13 +6812,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_RSAPrivateKey_bio_allownil)}
-    d2i_RSAPrivateKey_bio := @ERR_d2i_RSAPrivateKey_bio;
+    d2i_RSAPrivateKey_bio := ERR_d2i_RSAPrivateKey_bio;
     {$ifend}
     {$if declared(d2i_RSAPrivateKey_bio_introduced)}
     if LibVersion < d2i_RSAPrivateKey_bio_introduced then
     begin
       {$if declared(FC_d2i_RSAPrivateKey_bio)}
-      d2i_RSAPrivateKey_bio := @FC_d2i_RSAPrivateKey_bio;
+      d2i_RSAPrivateKey_bio := FC_d2i_RSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6826,7 +6827,7 @@ begin
     if d2i_RSAPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_RSAPrivateKey_bio)}
-      d2i_RSAPrivateKey_bio := @_d2i_RSAPrivateKey_bio;
+      d2i_RSAPrivateKey_bio := _d2i_RSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6843,13 +6844,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_RSAPrivateKey_bio_allownil)}
-    i2d_RSAPrivateKey_bio := @ERR_i2d_RSAPrivateKey_bio;
+    i2d_RSAPrivateKey_bio := ERR_i2d_RSAPrivateKey_bio;
     {$ifend}
     {$if declared(i2d_RSAPrivateKey_bio_introduced)}
     if LibVersion < i2d_RSAPrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2d_RSAPrivateKey_bio)}
-      i2d_RSAPrivateKey_bio := @FC_i2d_RSAPrivateKey_bio;
+      i2d_RSAPrivateKey_bio := FC_i2d_RSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6858,7 +6859,7 @@ begin
     if i2d_RSAPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_RSAPrivateKey_bio)}
-      i2d_RSAPrivateKey_bio := @_i2d_RSAPrivateKey_bio;
+      i2d_RSAPrivateKey_bio := _i2d_RSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6875,13 +6876,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_RSAPublicKey_bio_allownil)}
-    d2i_RSAPublicKey_bio := @ERR_d2i_RSAPublicKey_bio;
+    d2i_RSAPublicKey_bio := ERR_d2i_RSAPublicKey_bio;
     {$ifend}
     {$if declared(d2i_RSAPublicKey_bio_introduced)}
     if LibVersion < d2i_RSAPublicKey_bio_introduced then
     begin
       {$if declared(FC_d2i_RSAPublicKey_bio)}
-      d2i_RSAPublicKey_bio := @FC_d2i_RSAPublicKey_bio;
+      d2i_RSAPublicKey_bio := FC_d2i_RSAPublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6890,7 +6891,7 @@ begin
     if d2i_RSAPublicKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_RSAPublicKey_bio)}
-      d2i_RSAPublicKey_bio := @_d2i_RSAPublicKey_bio;
+      d2i_RSAPublicKey_bio := _d2i_RSAPublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6907,13 +6908,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_RSAPublicKey_bio_allownil)}
-    i2d_RSAPublicKey_bio := @ERR_i2d_RSAPublicKey_bio;
+    i2d_RSAPublicKey_bio := ERR_i2d_RSAPublicKey_bio;
     {$ifend}
     {$if declared(i2d_RSAPublicKey_bio_introduced)}
     if LibVersion < i2d_RSAPublicKey_bio_introduced then
     begin
       {$if declared(FC_i2d_RSAPublicKey_bio)}
-      i2d_RSAPublicKey_bio := @FC_i2d_RSAPublicKey_bio;
+      i2d_RSAPublicKey_bio := FC_i2d_RSAPublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6922,7 +6923,7 @@ begin
     if i2d_RSAPublicKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_RSAPublicKey_bio)}
-      i2d_RSAPublicKey_bio := @_i2d_RSAPublicKey_bio;
+      i2d_RSAPublicKey_bio := _i2d_RSAPublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6939,13 +6940,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_RSA_PUBKEY_bio_allownil)}
-    d2i_RSA_PUBKEY_bio := @ERR_d2i_RSA_PUBKEY_bio;
+    d2i_RSA_PUBKEY_bio := ERR_d2i_RSA_PUBKEY_bio;
     {$ifend}
     {$if declared(d2i_RSA_PUBKEY_bio_introduced)}
     if LibVersion < d2i_RSA_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_d2i_RSA_PUBKEY_bio)}
-      d2i_RSA_PUBKEY_bio := @FC_d2i_RSA_PUBKEY_bio;
+      d2i_RSA_PUBKEY_bio := FC_d2i_RSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6954,7 +6955,7 @@ begin
     if d2i_RSA_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_RSA_PUBKEY_bio)}
-      d2i_RSA_PUBKEY_bio := @_d2i_RSA_PUBKEY_bio;
+      d2i_RSA_PUBKEY_bio := _d2i_RSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6971,13 +6972,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_RSA_PUBKEY_bio_allownil)}
-    i2d_RSA_PUBKEY_bio := @ERR_i2d_RSA_PUBKEY_bio;
+    i2d_RSA_PUBKEY_bio := ERR_i2d_RSA_PUBKEY_bio;
     {$ifend}
     {$if declared(i2d_RSA_PUBKEY_bio_introduced)}
     if LibVersion < i2d_RSA_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_i2d_RSA_PUBKEY_bio)}
-      i2d_RSA_PUBKEY_bio := @FC_i2d_RSA_PUBKEY_bio;
+      i2d_RSA_PUBKEY_bio := FC_i2d_RSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6986,7 +6987,7 @@ begin
     if i2d_RSA_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_RSA_PUBKEY_bio)}
-      i2d_RSA_PUBKEY_bio := @_i2d_RSA_PUBKEY_bio;
+      i2d_RSA_PUBKEY_bio := _i2d_RSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7003,13 +7004,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSA_PUBKEY_bio_allownil)}
-    d2i_DSA_PUBKEY_bio := @ERR_d2i_DSA_PUBKEY_bio;
+    d2i_DSA_PUBKEY_bio := ERR_d2i_DSA_PUBKEY_bio;
     {$ifend}
     {$if declared(d2i_DSA_PUBKEY_bio_introduced)}
     if LibVersion < d2i_DSA_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_d2i_DSA_PUBKEY_bio)}
-      d2i_DSA_PUBKEY_bio := @FC_d2i_DSA_PUBKEY_bio;
+      d2i_DSA_PUBKEY_bio := FC_d2i_DSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7018,7 +7019,7 @@ begin
     if d2i_DSA_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSA_PUBKEY_bio)}
-      d2i_DSA_PUBKEY_bio := @_d2i_DSA_PUBKEY_bio;
+      d2i_DSA_PUBKEY_bio := _d2i_DSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7035,13 +7036,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSA_PUBKEY_bio_allownil)}
-    i2d_DSA_PUBKEY_bio := @ERR_i2d_DSA_PUBKEY_bio;
+    i2d_DSA_PUBKEY_bio := ERR_i2d_DSA_PUBKEY_bio;
     {$ifend}
     {$if declared(i2d_DSA_PUBKEY_bio_introduced)}
     if LibVersion < i2d_DSA_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_i2d_DSA_PUBKEY_bio)}
-      i2d_DSA_PUBKEY_bio := @FC_i2d_DSA_PUBKEY_bio;
+      i2d_DSA_PUBKEY_bio := FC_i2d_DSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7050,7 +7051,7 @@ begin
     if i2d_DSA_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSA_PUBKEY_bio)}
-      i2d_DSA_PUBKEY_bio := @_i2d_DSA_PUBKEY_bio;
+      i2d_DSA_PUBKEY_bio := _i2d_DSA_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7067,13 +7068,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSAPrivateKey_bio_allownil)}
-    d2i_DSAPrivateKey_bio := @ERR_d2i_DSAPrivateKey_bio;
+    d2i_DSAPrivateKey_bio := ERR_d2i_DSAPrivateKey_bio;
     {$ifend}
     {$if declared(d2i_DSAPrivateKey_bio_introduced)}
     if LibVersion < d2i_DSAPrivateKey_bio_introduced then
     begin
       {$if declared(FC_d2i_DSAPrivateKey_bio)}
-      d2i_DSAPrivateKey_bio := @FC_d2i_DSAPrivateKey_bio;
+      d2i_DSAPrivateKey_bio := FC_d2i_DSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7082,7 +7083,7 @@ begin
     if d2i_DSAPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSAPrivateKey_bio)}
-      d2i_DSAPrivateKey_bio := @_d2i_DSAPrivateKey_bio;
+      d2i_DSAPrivateKey_bio := _d2i_DSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7099,13 +7100,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSAPrivateKey_bio_allownil)}
-    i2d_DSAPrivateKey_bio := @ERR_i2d_DSAPrivateKey_bio;
+    i2d_DSAPrivateKey_bio := ERR_i2d_DSAPrivateKey_bio;
     {$ifend}
     {$if declared(i2d_DSAPrivateKey_bio_introduced)}
     if LibVersion < i2d_DSAPrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2d_DSAPrivateKey_bio)}
-      i2d_DSAPrivateKey_bio := @FC_i2d_DSAPrivateKey_bio;
+      i2d_DSAPrivateKey_bio := FC_i2d_DSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7114,7 +7115,7 @@ begin
     if i2d_DSAPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSAPrivateKey_bio)}
-      i2d_DSAPrivateKey_bio := @_i2d_DSAPrivateKey_bio;
+      i2d_DSAPrivateKey_bio := _i2d_DSAPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7131,13 +7132,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_EC_PUBKEY_bio_allownil)}
-    d2i_EC_PUBKEY_bio := @ERR_d2i_EC_PUBKEY_bio;
+    d2i_EC_PUBKEY_bio := ERR_d2i_EC_PUBKEY_bio;
     {$ifend}
     {$if declared(d2i_EC_PUBKEY_bio_introduced)}
     if LibVersion < d2i_EC_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_d2i_EC_PUBKEY_bio)}
-      d2i_EC_PUBKEY_bio := @FC_d2i_EC_PUBKEY_bio;
+      d2i_EC_PUBKEY_bio := FC_d2i_EC_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7146,7 +7147,7 @@ begin
     if d2i_EC_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_EC_PUBKEY_bio)}
-      d2i_EC_PUBKEY_bio := @_d2i_EC_PUBKEY_bio;
+      d2i_EC_PUBKEY_bio := _d2i_EC_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7163,13 +7164,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_EC_PUBKEY_bio_allownil)}
-    i2d_EC_PUBKEY_bio := @ERR_i2d_EC_PUBKEY_bio;
+    i2d_EC_PUBKEY_bio := ERR_i2d_EC_PUBKEY_bio;
     {$ifend}
     {$if declared(i2d_EC_PUBKEY_bio_introduced)}
     if LibVersion < i2d_EC_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_i2d_EC_PUBKEY_bio)}
-      i2d_EC_PUBKEY_bio := @FC_i2d_EC_PUBKEY_bio;
+      i2d_EC_PUBKEY_bio := FC_i2d_EC_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7178,7 +7179,7 @@ begin
     if i2d_EC_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_EC_PUBKEY_bio)}
-      i2d_EC_PUBKEY_bio := @_i2d_EC_PUBKEY_bio;
+      i2d_EC_PUBKEY_bio := _i2d_EC_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7195,13 +7196,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_ECPrivateKey_bio_allownil)}
-    d2i_ECPrivateKey_bio := @ERR_d2i_ECPrivateKey_bio;
+    d2i_ECPrivateKey_bio := ERR_d2i_ECPrivateKey_bio;
     {$ifend}
     {$if declared(d2i_ECPrivateKey_bio_introduced)}
     if LibVersion < d2i_ECPrivateKey_bio_introduced then
     begin
       {$if declared(FC_d2i_ECPrivateKey_bio)}
-      d2i_ECPrivateKey_bio := @FC_d2i_ECPrivateKey_bio;
+      d2i_ECPrivateKey_bio := FC_d2i_ECPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7210,7 +7211,7 @@ begin
     if d2i_ECPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_ECPrivateKey_bio)}
-      d2i_ECPrivateKey_bio := @_d2i_ECPrivateKey_bio;
+      d2i_ECPrivateKey_bio := _d2i_ECPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7227,13 +7228,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_ECPrivateKey_bio_allownil)}
-    i2d_ECPrivateKey_bio := @ERR_i2d_ECPrivateKey_bio;
+    i2d_ECPrivateKey_bio := ERR_i2d_ECPrivateKey_bio;
     {$ifend}
     {$if declared(i2d_ECPrivateKey_bio_introduced)}
     if LibVersion < i2d_ECPrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2d_ECPrivateKey_bio)}
-      i2d_ECPrivateKey_bio := @FC_i2d_ECPrivateKey_bio;
+      i2d_ECPrivateKey_bio := FC_i2d_ECPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7242,7 +7243,7 @@ begin
     if i2d_ECPrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_ECPrivateKey_bio)}
-      i2d_ECPrivateKey_bio := @_i2d_ECPrivateKey_bio;
+      i2d_ECPrivateKey_bio := _i2d_ECPrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7259,13 +7260,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS8_bio_allownil)}
-    d2i_PKCS8_bio := @ERR_d2i_PKCS8_bio;
+    d2i_PKCS8_bio := ERR_d2i_PKCS8_bio;
     {$ifend}
     {$if declared(d2i_PKCS8_bio_introduced)}
     if LibVersion < d2i_PKCS8_bio_introduced then
     begin
       {$if declared(FC_d2i_PKCS8_bio)}
-      d2i_PKCS8_bio := @FC_d2i_PKCS8_bio;
+      d2i_PKCS8_bio := FC_d2i_PKCS8_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7274,7 +7275,7 @@ begin
     if d2i_PKCS8_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS8_bio)}
-      d2i_PKCS8_bio := @_d2i_PKCS8_bio;
+      d2i_PKCS8_bio := _d2i_PKCS8_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7291,13 +7292,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS8_bio_allownil)}
-    i2d_PKCS8_bio := @ERR_i2d_PKCS8_bio;
+    i2d_PKCS8_bio := ERR_i2d_PKCS8_bio;
     {$ifend}
     {$if declared(i2d_PKCS8_bio_introduced)}
     if LibVersion < i2d_PKCS8_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS8_bio)}
-      i2d_PKCS8_bio := @FC_i2d_PKCS8_bio;
+      i2d_PKCS8_bio := FC_i2d_PKCS8_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7306,7 +7307,7 @@ begin
     if i2d_PKCS8_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS8_bio)}
-      i2d_PKCS8_bio := @_i2d_PKCS8_bio;
+      i2d_PKCS8_bio := _i2d_PKCS8_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7323,13 +7324,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS8_PRIV_KEY_INFO_bio_allownil)}
-    d2i_PKCS8_PRIV_KEY_INFO_bio := @ERR_d2i_PKCS8_PRIV_KEY_INFO_bio;
+    d2i_PKCS8_PRIV_KEY_INFO_bio := ERR_d2i_PKCS8_PRIV_KEY_INFO_bio;
     {$ifend}
     {$if declared(d2i_PKCS8_PRIV_KEY_INFO_bio_introduced)}
     if LibVersion < d2i_PKCS8_PRIV_KEY_INFO_bio_introduced then
     begin
       {$if declared(FC_d2i_PKCS8_PRIV_KEY_INFO_bio)}
-      d2i_PKCS8_PRIV_KEY_INFO_bio := @FC_d2i_PKCS8_PRIV_KEY_INFO_bio;
+      d2i_PKCS8_PRIV_KEY_INFO_bio := FC_d2i_PKCS8_PRIV_KEY_INFO_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7338,7 +7339,7 @@ begin
     if d2i_PKCS8_PRIV_KEY_INFO_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS8_PRIV_KEY_INFO_bio)}
-      d2i_PKCS8_PRIV_KEY_INFO_bio := @_d2i_PKCS8_PRIV_KEY_INFO_bio;
+      d2i_PKCS8_PRIV_KEY_INFO_bio := _d2i_PKCS8_PRIV_KEY_INFO_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7355,13 +7356,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS8_PRIV_KEY_INFO_bio_allownil)}
-    i2d_PKCS8_PRIV_KEY_INFO_bio := @ERR_i2d_PKCS8_PRIV_KEY_INFO_bio;
+    i2d_PKCS8_PRIV_KEY_INFO_bio := ERR_i2d_PKCS8_PRIV_KEY_INFO_bio;
     {$ifend}
     {$if declared(i2d_PKCS8_PRIV_KEY_INFO_bio_introduced)}
     if LibVersion < i2d_PKCS8_PRIV_KEY_INFO_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS8_PRIV_KEY_INFO_bio)}
-      i2d_PKCS8_PRIV_KEY_INFO_bio := @FC_i2d_PKCS8_PRIV_KEY_INFO_bio;
+      i2d_PKCS8_PRIV_KEY_INFO_bio := FC_i2d_PKCS8_PRIV_KEY_INFO_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7370,7 +7371,7 @@ begin
     if i2d_PKCS8_PRIV_KEY_INFO_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS8_PRIV_KEY_INFO_bio)}
-      i2d_PKCS8_PRIV_KEY_INFO_bio := @_i2d_PKCS8_PRIV_KEY_INFO_bio;
+      i2d_PKCS8_PRIV_KEY_INFO_bio := _i2d_PKCS8_PRIV_KEY_INFO_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7387,13 +7388,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS8PrivateKeyInfo_bio_allownil)}
-    i2d_PKCS8PrivateKeyInfo_bio := @ERR_i2d_PKCS8PrivateKeyInfo_bio;
+    i2d_PKCS8PrivateKeyInfo_bio := ERR_i2d_PKCS8PrivateKeyInfo_bio;
     {$ifend}
     {$if declared(i2d_PKCS8PrivateKeyInfo_bio_introduced)}
     if LibVersion < i2d_PKCS8PrivateKeyInfo_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS8PrivateKeyInfo_bio)}
-      i2d_PKCS8PrivateKeyInfo_bio := @FC_i2d_PKCS8PrivateKeyInfo_bio;
+      i2d_PKCS8PrivateKeyInfo_bio := FC_i2d_PKCS8PrivateKeyInfo_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7402,7 +7403,7 @@ begin
     if i2d_PKCS8PrivateKeyInfo_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS8PrivateKeyInfo_bio)}
-      i2d_PKCS8PrivateKeyInfo_bio := @_i2d_PKCS8PrivateKeyInfo_bio;
+      i2d_PKCS8PrivateKeyInfo_bio := _i2d_PKCS8PrivateKeyInfo_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7419,13 +7420,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PrivateKey_bio_allownil)}
-    i2d_PrivateKey_bio := @ERR_i2d_PrivateKey_bio;
+    i2d_PrivateKey_bio := ERR_i2d_PrivateKey_bio;
     {$ifend}
     {$if declared(i2d_PrivateKey_bio_introduced)}
     if LibVersion < i2d_PrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2d_PrivateKey_bio)}
-      i2d_PrivateKey_bio := @FC_i2d_PrivateKey_bio;
+      i2d_PrivateKey_bio := FC_i2d_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7434,7 +7435,7 @@ begin
     if i2d_PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PrivateKey_bio)}
-      i2d_PrivateKey_bio := @_i2d_PrivateKey_bio;
+      i2d_PrivateKey_bio := _i2d_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7451,13 +7452,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PrivateKey_bio_allownil)}
-    d2i_PrivateKey_bio := @ERR_d2i_PrivateKey_bio;
+    d2i_PrivateKey_bio := ERR_d2i_PrivateKey_bio;
     {$ifend}
     {$if declared(d2i_PrivateKey_bio_introduced)}
     if LibVersion < d2i_PrivateKey_bio_introduced then
     begin
       {$if declared(FC_d2i_PrivateKey_bio)}
-      d2i_PrivateKey_bio := @FC_d2i_PrivateKey_bio;
+      d2i_PrivateKey_bio := FC_d2i_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7466,7 +7467,7 @@ begin
     if d2i_PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PrivateKey_bio)}
-      d2i_PrivateKey_bio := @_d2i_PrivateKey_bio;
+      d2i_PrivateKey_bio := _d2i_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7482,13 +7483,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PrivateKey_ex_bio_allownil)}
-    d2i_PrivateKey_ex_bio := @ERR_d2i_PrivateKey_ex_bio;
+    d2i_PrivateKey_ex_bio := ERR_d2i_PrivateKey_ex_bio;
     {$ifend}
     {$if declared(d2i_PrivateKey_ex_bio_introduced)}
     if LibVersion < d2i_PrivateKey_ex_bio_introduced then
     begin
       {$if declared(FC_d2i_PrivateKey_ex_bio)}
-      d2i_PrivateKey_ex_bio := @FC_d2i_PrivateKey_ex_bio;
+      d2i_PrivateKey_ex_bio := FC_d2i_PrivateKey_ex_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7497,7 +7498,7 @@ begin
     if d2i_PrivateKey_ex_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PrivateKey_ex_bio)}
-      d2i_PrivateKey_ex_bio := @_d2i_PrivateKey_ex_bio;
+      d2i_PrivateKey_ex_bio := _d2i_PrivateKey_ex_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7513,13 +7514,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PUBKEY_bio_allownil)}
-    i2d_PUBKEY_bio := @ERR_i2d_PUBKEY_bio;
+    i2d_PUBKEY_bio := ERR_i2d_PUBKEY_bio;
     {$ifend}
     {$if declared(i2d_PUBKEY_bio_introduced)}
     if LibVersion < i2d_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_i2d_PUBKEY_bio)}
-      i2d_PUBKEY_bio := @FC_i2d_PUBKEY_bio;
+      i2d_PUBKEY_bio := FC_i2d_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7528,7 +7529,7 @@ begin
     if i2d_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PUBKEY_bio)}
-      i2d_PUBKEY_bio := @_i2d_PUBKEY_bio;
+      i2d_PUBKEY_bio := _i2d_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7545,13 +7546,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PUBKEY_bio_allownil)}
-    d2i_PUBKEY_bio := @ERR_d2i_PUBKEY_bio;
+    d2i_PUBKEY_bio := ERR_d2i_PUBKEY_bio;
     {$ifend}
     {$if declared(d2i_PUBKEY_bio_introduced)}
     if LibVersion < d2i_PUBKEY_bio_introduced then
     begin
       {$if declared(FC_d2i_PUBKEY_bio)}
-      d2i_PUBKEY_bio := @FC_d2i_PUBKEY_bio;
+      d2i_PUBKEY_bio := FC_d2i_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7560,7 +7561,7 @@ begin
     if d2i_PUBKEY_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PUBKEY_bio)}
-      d2i_PUBKEY_bio := @_d2i_PUBKEY_bio;
+      d2i_PUBKEY_bio := _d2i_PUBKEY_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7577,13 +7578,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_dup_allownil)}
-    X509_dup := @ERR_X509_dup;
+    X509_dup := ERR_X509_dup;
     {$ifend}
     {$if declared(X509_dup_introduced)}
     if LibVersion < X509_dup_introduced then
     begin
       {$if declared(FC_X509_dup)}
-      X509_dup := @FC_X509_dup;
+      X509_dup := FC_X509_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7592,7 +7593,7 @@ begin
     if X509_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_dup)}
-      X509_dup := @_X509_dup;
+      X509_dup := _X509_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7609,13 +7610,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_dup_allownil)}
-    X509_ATTRIBUTE_dup := @ERR_X509_ATTRIBUTE_dup;
+    X509_ATTRIBUTE_dup := ERR_X509_ATTRIBUTE_dup;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_dup_introduced)}
     if LibVersion < X509_ATTRIBUTE_dup_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_dup)}
-      X509_ATTRIBUTE_dup := @FC_X509_ATTRIBUTE_dup;
+      X509_ATTRIBUTE_dup := FC_X509_ATTRIBUTE_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7624,7 +7625,7 @@ begin
     if X509_ATTRIBUTE_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_dup)}
-      X509_ATTRIBUTE_dup := @_X509_ATTRIBUTE_dup;
+      X509_ATTRIBUTE_dup := _X509_ATTRIBUTE_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7641,13 +7642,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_dup_allownil)}
-    X509_EXTENSION_dup := @ERR_X509_EXTENSION_dup;
+    X509_EXTENSION_dup := ERR_X509_EXTENSION_dup;
     {$ifend}
     {$if declared(X509_EXTENSION_dup_introduced)}
     if LibVersion < X509_EXTENSION_dup_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_dup)}
-      X509_EXTENSION_dup := @FC_X509_EXTENSION_dup;
+      X509_EXTENSION_dup := FC_X509_EXTENSION_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7656,7 +7657,7 @@ begin
     if X509_EXTENSION_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_dup)}
-      X509_EXTENSION_dup := @_X509_EXTENSION_dup;
+      X509_EXTENSION_dup := _X509_EXTENSION_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7673,13 +7674,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_dup_allownil)}
-    X509_CRL_dup := @ERR_X509_CRL_dup;
+    X509_CRL_dup := ERR_X509_CRL_dup;
     {$ifend}
     {$if declared(X509_CRL_dup_introduced)}
     if LibVersion < X509_CRL_dup_introduced then
     begin
       {$if declared(FC_X509_CRL_dup)}
-      X509_CRL_dup := @FC_X509_CRL_dup;
+      X509_CRL_dup := FC_X509_CRL_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7688,7 +7689,7 @@ begin
     if X509_CRL_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_dup)}
-      X509_CRL_dup := @_X509_CRL_dup;
+      X509_CRL_dup := _X509_CRL_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7705,13 +7706,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_dup_allownil)}
-    X509_REVOKED_dup := @ERR_X509_REVOKED_dup;
+    X509_REVOKED_dup := ERR_X509_REVOKED_dup;
     {$ifend}
     {$if declared(X509_REVOKED_dup_introduced)}
     if LibVersion < X509_REVOKED_dup_introduced then
     begin
       {$if declared(FC_X509_REVOKED_dup)}
-      X509_REVOKED_dup := @FC_X509_REVOKED_dup;
+      X509_REVOKED_dup := FC_X509_REVOKED_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7720,7 +7721,7 @@ begin
     if X509_REVOKED_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_dup)}
-      X509_REVOKED_dup := @_X509_REVOKED_dup;
+      X509_REVOKED_dup := _X509_REVOKED_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7737,13 +7738,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_dup_allownil)}
-    X509_REQ_dup := @ERR_X509_REQ_dup;
+    X509_REQ_dup := ERR_X509_REQ_dup;
     {$ifend}
     {$if declared(X509_REQ_dup_introduced)}
     if LibVersion < X509_REQ_dup_introduced then
     begin
       {$if declared(FC_X509_REQ_dup)}
-      X509_REQ_dup := @FC_X509_REQ_dup;
+      X509_REQ_dup := FC_X509_REQ_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7752,7 +7753,7 @@ begin
     if X509_REQ_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_dup)}
-      X509_REQ_dup := @_X509_REQ_dup;
+      X509_REQ_dup := _X509_REQ_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7769,13 +7770,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_dup_allownil)}
-    X509_ALGOR_dup := @ERR_X509_ALGOR_dup;
+    X509_ALGOR_dup := ERR_X509_ALGOR_dup;
     {$ifend}
     {$if declared(X509_ALGOR_dup_introduced)}
     if LibVersion < X509_ALGOR_dup_introduced then
     begin
       {$if declared(FC_X509_ALGOR_dup)}
-      X509_ALGOR_dup := @FC_X509_ALGOR_dup;
+      X509_ALGOR_dup := FC_X509_ALGOR_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7784,7 +7785,7 @@ begin
     if X509_ALGOR_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_dup)}
-      X509_ALGOR_dup := @_X509_ALGOR_dup;
+      X509_ALGOR_dup := _X509_ALGOR_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7801,13 +7802,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_set0_allownil)}
-    X509_ALGOR_set0 := @ERR_X509_ALGOR_set0;
+    X509_ALGOR_set0 := ERR_X509_ALGOR_set0;
     {$ifend}
     {$if declared(X509_ALGOR_set0_introduced)}
     if LibVersion < X509_ALGOR_set0_introduced then
     begin
       {$if declared(FC_X509_ALGOR_set0)}
-      X509_ALGOR_set0 := @FC_X509_ALGOR_set0;
+      X509_ALGOR_set0 := FC_X509_ALGOR_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7816,7 +7817,7 @@ begin
     if X509_ALGOR_set0_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_set0)}
-      X509_ALGOR_set0 := @_X509_ALGOR_set0;
+      X509_ALGOR_set0 := _X509_ALGOR_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7833,13 +7834,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_get0_allownil)}
-    X509_ALGOR_get0 := @ERR_X509_ALGOR_get0;
+    X509_ALGOR_get0 := ERR_X509_ALGOR_get0;
     {$ifend}
     {$if declared(X509_ALGOR_get0_introduced)}
     if LibVersion < X509_ALGOR_get0_introduced then
     begin
       {$if declared(FC_X509_ALGOR_get0)}
-      X509_ALGOR_get0 := @FC_X509_ALGOR_get0;
+      X509_ALGOR_get0 := FC_X509_ALGOR_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7848,7 +7849,7 @@ begin
     if X509_ALGOR_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_get0)}
-      X509_ALGOR_get0 := @_X509_ALGOR_get0;
+      X509_ALGOR_get0 := _X509_ALGOR_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7865,13 +7866,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_set_md_allownil)}
-    X509_ALGOR_set_md := @ERR_X509_ALGOR_set_md;
+    X509_ALGOR_set_md := ERR_X509_ALGOR_set_md;
     {$ifend}
     {$if declared(X509_ALGOR_set_md_introduced)}
     if LibVersion < X509_ALGOR_set_md_introduced then
     begin
       {$if declared(FC_X509_ALGOR_set_md)}
-      X509_ALGOR_set_md := @FC_X509_ALGOR_set_md;
+      X509_ALGOR_set_md := FC_X509_ALGOR_set_md;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7880,7 +7881,7 @@ begin
     if X509_ALGOR_set_md_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_set_md)}
-      X509_ALGOR_set_md := @_X509_ALGOR_set_md;
+      X509_ALGOR_set_md := _X509_ALGOR_set_md;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7897,13 +7898,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_cmp_allownil)}
-    X509_ALGOR_cmp := @ERR_X509_ALGOR_cmp;
+    X509_ALGOR_cmp := ERR_X509_ALGOR_cmp;
     {$ifend}
     {$if declared(X509_ALGOR_cmp_introduced)}
     if LibVersion < X509_ALGOR_cmp_introduced then
     begin
       {$if declared(FC_X509_ALGOR_cmp)}
-      X509_ALGOR_cmp := @FC_X509_ALGOR_cmp;
+      X509_ALGOR_cmp := FC_X509_ALGOR_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7912,7 +7913,7 @@ begin
     if X509_ALGOR_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_cmp)}
-      X509_ALGOR_cmp := @_X509_ALGOR_cmp;
+      X509_ALGOR_cmp := _X509_ALGOR_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7929,13 +7930,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_dup_allownil)}
-    X509_NAME_dup := @ERR_X509_NAME_dup;
+    X509_NAME_dup := ERR_X509_NAME_dup;
     {$ifend}
     {$if declared(X509_NAME_dup_introduced)}
     if LibVersion < X509_NAME_dup_introduced then
     begin
       {$if declared(FC_X509_NAME_dup)}
-      X509_NAME_dup := @FC_X509_NAME_dup;
+      X509_NAME_dup := FC_X509_NAME_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7944,7 +7945,7 @@ begin
     if X509_NAME_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_dup)}
-      X509_NAME_dup := @_X509_NAME_dup;
+      X509_NAME_dup := _X509_NAME_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7961,13 +7962,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_dup_allownil)}
-    X509_NAME_ENTRY_dup := @ERR_X509_NAME_ENTRY_dup;
+    X509_NAME_ENTRY_dup := ERR_X509_NAME_ENTRY_dup;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_dup_introduced)}
     if LibVersion < X509_NAME_ENTRY_dup_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_dup)}
-      X509_NAME_ENTRY_dup := @FC_X509_NAME_ENTRY_dup;
+      X509_NAME_ENTRY_dup := FC_X509_NAME_ENTRY_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7976,7 +7977,7 @@ begin
     if X509_NAME_ENTRY_dup_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_dup)}
-      X509_NAME_ENTRY_dup := @_X509_NAME_ENTRY_dup;
+      X509_NAME_ENTRY_dup := _X509_NAME_ENTRY_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7993,13 +7994,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_cmp_time_allownil)}
-    X509_cmp_time := @ERR_X509_cmp_time;
+    X509_cmp_time := ERR_X509_cmp_time;
     {$ifend}
     {$if declared(X509_cmp_time_introduced)}
     if LibVersion < X509_cmp_time_introduced then
     begin
       {$if declared(FC_X509_cmp_time)}
-      X509_cmp_time := @FC_X509_cmp_time;
+      X509_cmp_time := FC_X509_cmp_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8008,7 +8009,7 @@ begin
     if X509_cmp_time_removed <= LibVersion then
     begin
       {$if declared(_X509_cmp_time)}
-      X509_cmp_time := @_X509_cmp_time;
+      X509_cmp_time := _X509_cmp_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8025,13 +8026,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_cmp_current_time_allownil)}
-    X509_cmp_current_time := @ERR_X509_cmp_current_time;
+    X509_cmp_current_time := ERR_X509_cmp_current_time;
     {$ifend}
     {$if declared(X509_cmp_current_time_introduced)}
     if LibVersion < X509_cmp_current_time_introduced then
     begin
       {$if declared(FC_X509_cmp_current_time)}
-      X509_cmp_current_time := @FC_X509_cmp_current_time;
+      X509_cmp_current_time := FC_X509_cmp_current_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8040,7 +8041,7 @@ begin
     if X509_cmp_current_time_removed <= LibVersion then
     begin
       {$if declared(_X509_cmp_current_time)}
-      X509_cmp_current_time := @_X509_cmp_current_time;
+      X509_cmp_current_time := _X509_cmp_current_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8057,13 +8058,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_time_adj_allownil)}
-    X509_time_adj := @ERR_X509_time_adj;
+    X509_time_adj := ERR_X509_time_adj;
     {$ifend}
     {$if declared(X509_time_adj_introduced)}
     if LibVersion < X509_time_adj_introduced then
     begin
       {$if declared(FC_X509_time_adj)}
-      X509_time_adj := @FC_X509_time_adj;
+      X509_time_adj := FC_X509_time_adj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8072,7 +8073,7 @@ begin
     if X509_time_adj_removed <= LibVersion then
     begin
       {$if declared(_X509_time_adj)}
-      X509_time_adj := @_X509_time_adj;
+      X509_time_adj := _X509_time_adj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8089,13 +8090,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_time_adj_ex_allownil)}
-    X509_time_adj_ex := @ERR_X509_time_adj_ex;
+    X509_time_adj_ex := ERR_X509_time_adj_ex;
     {$ifend}
     {$if declared(X509_time_adj_ex_introduced)}
     if LibVersion < X509_time_adj_ex_introduced then
     begin
       {$if declared(FC_X509_time_adj_ex)}
-      X509_time_adj_ex := @FC_X509_time_adj_ex;
+      X509_time_adj_ex := FC_X509_time_adj_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8104,7 +8105,7 @@ begin
     if X509_time_adj_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_time_adj_ex)}
-      X509_time_adj_ex := @_X509_time_adj_ex;
+      X509_time_adj_ex := _X509_time_adj_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8121,13 +8122,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_gmtime_adj_allownil)}
-    X509_gmtime_adj := @ERR_X509_gmtime_adj;
+    X509_gmtime_adj := ERR_X509_gmtime_adj;
     {$ifend}
     {$if declared(X509_gmtime_adj_introduced)}
     if LibVersion < X509_gmtime_adj_introduced then
     begin
       {$if declared(FC_X509_gmtime_adj)}
-      X509_gmtime_adj := @FC_X509_gmtime_adj;
+      X509_gmtime_adj := FC_X509_gmtime_adj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8136,7 +8137,7 @@ begin
     if X509_gmtime_adj_removed <= LibVersion then
     begin
       {$if declared(_X509_gmtime_adj)}
-      X509_gmtime_adj := @_X509_gmtime_adj;
+      X509_gmtime_adj := _X509_gmtime_adj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8153,13 +8154,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_cert_area_allownil)}
-    X509_get_default_cert_area := @ERR_X509_get_default_cert_area;
+    X509_get_default_cert_area := ERR_X509_get_default_cert_area;
     {$ifend}
     {$if declared(X509_get_default_cert_area_introduced)}
     if LibVersion < X509_get_default_cert_area_introduced then
     begin
       {$if declared(FC_X509_get_default_cert_area)}
-      X509_get_default_cert_area := @FC_X509_get_default_cert_area;
+      X509_get_default_cert_area := FC_X509_get_default_cert_area;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8168,7 +8169,7 @@ begin
     if X509_get_default_cert_area_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_cert_area)}
-      X509_get_default_cert_area := @_X509_get_default_cert_area;
+      X509_get_default_cert_area := _X509_get_default_cert_area;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8185,13 +8186,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_cert_dir_allownil)}
-    X509_get_default_cert_dir := @ERR_X509_get_default_cert_dir;
+    X509_get_default_cert_dir := ERR_X509_get_default_cert_dir;
     {$ifend}
     {$if declared(X509_get_default_cert_dir_introduced)}
     if LibVersion < X509_get_default_cert_dir_introduced then
     begin
       {$if declared(FC_X509_get_default_cert_dir)}
-      X509_get_default_cert_dir := @FC_X509_get_default_cert_dir;
+      X509_get_default_cert_dir := FC_X509_get_default_cert_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8200,7 +8201,7 @@ begin
     if X509_get_default_cert_dir_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_cert_dir)}
-      X509_get_default_cert_dir := @_X509_get_default_cert_dir;
+      X509_get_default_cert_dir := _X509_get_default_cert_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8217,13 +8218,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_cert_file_allownil)}
-    X509_get_default_cert_file := @ERR_X509_get_default_cert_file;
+    X509_get_default_cert_file := ERR_X509_get_default_cert_file;
     {$ifend}
     {$if declared(X509_get_default_cert_file_introduced)}
     if LibVersion < X509_get_default_cert_file_introduced then
     begin
       {$if declared(FC_X509_get_default_cert_file)}
-      X509_get_default_cert_file := @FC_X509_get_default_cert_file;
+      X509_get_default_cert_file := FC_X509_get_default_cert_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8232,7 +8233,7 @@ begin
     if X509_get_default_cert_file_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_cert_file)}
-      X509_get_default_cert_file := @_X509_get_default_cert_file;
+      X509_get_default_cert_file := _X509_get_default_cert_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8249,13 +8250,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_cert_dir_env_allownil)}
-    X509_get_default_cert_dir_env := @ERR_X509_get_default_cert_dir_env;
+    X509_get_default_cert_dir_env := ERR_X509_get_default_cert_dir_env;
     {$ifend}
     {$if declared(X509_get_default_cert_dir_env_introduced)}
     if LibVersion < X509_get_default_cert_dir_env_introduced then
     begin
       {$if declared(FC_X509_get_default_cert_dir_env)}
-      X509_get_default_cert_dir_env := @FC_X509_get_default_cert_dir_env;
+      X509_get_default_cert_dir_env := FC_X509_get_default_cert_dir_env;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8264,7 +8265,7 @@ begin
     if X509_get_default_cert_dir_env_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_cert_dir_env)}
-      X509_get_default_cert_dir_env := @_X509_get_default_cert_dir_env;
+      X509_get_default_cert_dir_env := _X509_get_default_cert_dir_env;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8281,13 +8282,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_cert_file_env_allownil)}
-    X509_get_default_cert_file_env := @ERR_X509_get_default_cert_file_env;
+    X509_get_default_cert_file_env := ERR_X509_get_default_cert_file_env;
     {$ifend}
     {$if declared(X509_get_default_cert_file_env_introduced)}
     if LibVersion < X509_get_default_cert_file_env_introduced then
     begin
       {$if declared(FC_X509_get_default_cert_file_env)}
-      X509_get_default_cert_file_env := @FC_X509_get_default_cert_file_env;
+      X509_get_default_cert_file_env := FC_X509_get_default_cert_file_env;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8296,7 +8297,7 @@ begin
     if X509_get_default_cert_file_env_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_cert_file_env)}
-      X509_get_default_cert_file_env := @_X509_get_default_cert_file_env;
+      X509_get_default_cert_file_env := _X509_get_default_cert_file_env;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8313,13 +8314,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_default_private_dir_allownil)}
-    X509_get_default_private_dir := @ERR_X509_get_default_private_dir;
+    X509_get_default_private_dir := ERR_X509_get_default_private_dir;
     {$ifend}
     {$if declared(X509_get_default_private_dir_introduced)}
     if LibVersion < X509_get_default_private_dir_introduced then
     begin
       {$if declared(FC_X509_get_default_private_dir)}
-      X509_get_default_private_dir := @FC_X509_get_default_private_dir;
+      X509_get_default_private_dir := FC_X509_get_default_private_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8328,7 +8329,7 @@ begin
     if X509_get_default_private_dir_removed <= LibVersion then
     begin
       {$if declared(_X509_get_default_private_dir)}
-      X509_get_default_private_dir := @_X509_get_default_private_dir;
+      X509_get_default_private_dir := _X509_get_default_private_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8345,13 +8346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_to_X509_REQ_allownil)}
-    X509_to_X509_REQ := @ERR_X509_to_X509_REQ;
+    X509_to_X509_REQ := ERR_X509_to_X509_REQ;
     {$ifend}
     {$if declared(X509_to_X509_REQ_introduced)}
     if LibVersion < X509_to_X509_REQ_introduced then
     begin
       {$if declared(FC_X509_to_X509_REQ)}
-      X509_to_X509_REQ := @FC_X509_to_X509_REQ;
+      X509_to_X509_REQ := FC_X509_to_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8360,7 +8361,7 @@ begin
     if X509_to_X509_REQ_removed <= LibVersion then
     begin
       {$if declared(_X509_to_X509_REQ)}
-      X509_to_X509_REQ := @_X509_to_X509_REQ;
+      X509_to_X509_REQ := _X509_to_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8377,13 +8378,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_to_X509_allownil)}
-    X509_REQ_to_X509 := @ERR_X509_REQ_to_X509;
+    X509_REQ_to_X509 := ERR_X509_REQ_to_X509;
     {$ifend}
     {$if declared(X509_REQ_to_X509_introduced)}
     if LibVersion < X509_REQ_to_X509_introduced then
     begin
       {$if declared(FC_X509_REQ_to_X509)}
-      X509_REQ_to_X509 := @FC_X509_REQ_to_X509;
+      X509_REQ_to_X509 := FC_X509_REQ_to_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8392,7 +8393,7 @@ begin
     if X509_REQ_to_X509_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_to_X509)}
-      X509_REQ_to_X509 := @_X509_REQ_to_X509;
+      X509_REQ_to_X509 := _X509_REQ_to_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8409,13 +8410,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_new_allownil)}
-    X509_ALGOR_new := @ERR_X509_ALGOR_new;
+    X509_ALGOR_new := ERR_X509_ALGOR_new;
     {$ifend}
     {$if declared(X509_ALGOR_new_introduced)}
     if LibVersion < X509_ALGOR_new_introduced then
     begin
       {$if declared(FC_X509_ALGOR_new)}
-      X509_ALGOR_new := @FC_X509_ALGOR_new;
+      X509_ALGOR_new := FC_X509_ALGOR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8424,7 +8425,7 @@ begin
     if X509_ALGOR_new_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_new)}
-      X509_ALGOR_new := @_X509_ALGOR_new;
+      X509_ALGOR_new := _X509_ALGOR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8441,13 +8442,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ALGOR_free_allownil)}
-    X509_ALGOR_free := @ERR_X509_ALGOR_free;
+    X509_ALGOR_free := ERR_X509_ALGOR_free;
     {$ifend}
     {$if declared(X509_ALGOR_free_introduced)}
     if LibVersion < X509_ALGOR_free_introduced then
     begin
       {$if declared(FC_X509_ALGOR_free)}
-      X509_ALGOR_free := @FC_X509_ALGOR_free;
+      X509_ALGOR_free := FC_X509_ALGOR_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8456,7 +8457,7 @@ begin
     if X509_ALGOR_free_removed <= LibVersion then
     begin
       {$if declared(_X509_ALGOR_free)}
-      X509_ALGOR_free := @_X509_ALGOR_free;
+      X509_ALGOR_free := _X509_ALGOR_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8473,13 +8474,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_ALGOR_allownil)}
-    d2i_X509_ALGOR := @ERR_d2i_X509_ALGOR;
+    d2i_X509_ALGOR := ERR_d2i_X509_ALGOR;
     {$ifend}
     {$if declared(d2i_X509_ALGOR_introduced)}
     if LibVersion < d2i_X509_ALGOR_introduced then
     begin
       {$if declared(FC_d2i_X509_ALGOR)}
-      d2i_X509_ALGOR := @FC_d2i_X509_ALGOR;
+      d2i_X509_ALGOR := FC_d2i_X509_ALGOR;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8488,7 +8489,7 @@ begin
     if d2i_X509_ALGOR_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_ALGOR)}
-      d2i_X509_ALGOR := @_d2i_X509_ALGOR;
+      d2i_X509_ALGOR := _d2i_X509_ALGOR;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8505,13 +8506,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_ALGOR_allownil)}
-    i2d_X509_ALGOR := @ERR_i2d_X509_ALGOR;
+    i2d_X509_ALGOR := ERR_i2d_X509_ALGOR;
     {$ifend}
     {$if declared(i2d_X509_ALGOR_introduced)}
     if LibVersion < i2d_X509_ALGOR_introduced then
     begin
       {$if declared(FC_i2d_X509_ALGOR)}
-      i2d_X509_ALGOR := @FC_i2d_X509_ALGOR;
+      i2d_X509_ALGOR := FC_i2d_X509_ALGOR;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8520,7 +8521,7 @@ begin
     if i2d_X509_ALGOR_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_ALGOR)}
-      i2d_X509_ALGOR := @_i2d_X509_ALGOR;
+      i2d_X509_ALGOR := _i2d_X509_ALGOR;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8537,13 +8538,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VAL_new_allownil)}
-    X509_VAL_new := @ERR_X509_VAL_new;
+    X509_VAL_new := ERR_X509_VAL_new;
     {$ifend}
     {$if declared(X509_VAL_new_introduced)}
     if LibVersion < X509_VAL_new_introduced then
     begin
       {$if declared(FC_X509_VAL_new)}
-      X509_VAL_new := @FC_X509_VAL_new;
+      X509_VAL_new := FC_X509_VAL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8552,7 +8553,7 @@ begin
     if X509_VAL_new_removed <= LibVersion then
     begin
       {$if declared(_X509_VAL_new)}
-      X509_VAL_new := @_X509_VAL_new;
+      X509_VAL_new := _X509_VAL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8569,13 +8570,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VAL_free_allownil)}
-    X509_VAL_free := @ERR_X509_VAL_free;
+    X509_VAL_free := ERR_X509_VAL_free;
     {$ifend}
     {$if declared(X509_VAL_free_introduced)}
     if LibVersion < X509_VAL_free_introduced then
     begin
       {$if declared(FC_X509_VAL_free)}
-      X509_VAL_free := @FC_X509_VAL_free;
+      X509_VAL_free := FC_X509_VAL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8584,7 +8585,7 @@ begin
     if X509_VAL_free_removed <= LibVersion then
     begin
       {$if declared(_X509_VAL_free)}
-      X509_VAL_free := @_X509_VAL_free;
+      X509_VAL_free := _X509_VAL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8601,13 +8602,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_VAL_allownil)}
-    d2i_X509_VAL := @ERR_d2i_X509_VAL;
+    d2i_X509_VAL := ERR_d2i_X509_VAL;
     {$ifend}
     {$if declared(d2i_X509_VAL_introduced)}
     if LibVersion < d2i_X509_VAL_introduced then
     begin
       {$if declared(FC_d2i_X509_VAL)}
-      d2i_X509_VAL := @FC_d2i_X509_VAL;
+      d2i_X509_VAL := FC_d2i_X509_VAL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8616,7 +8617,7 @@ begin
     if d2i_X509_VAL_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_VAL)}
-      d2i_X509_VAL := @_d2i_X509_VAL;
+      d2i_X509_VAL := _d2i_X509_VAL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8633,13 +8634,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_VAL_allownil)}
-    i2d_X509_VAL := @ERR_i2d_X509_VAL;
+    i2d_X509_VAL := ERR_i2d_X509_VAL;
     {$ifend}
     {$if declared(i2d_X509_VAL_introduced)}
     if LibVersion < i2d_X509_VAL_introduced then
     begin
       {$if declared(FC_i2d_X509_VAL)}
-      i2d_X509_VAL := @FC_i2d_X509_VAL;
+      i2d_X509_VAL := FC_i2d_X509_VAL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8648,7 +8649,7 @@ begin
     if i2d_X509_VAL_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_VAL)}
-      i2d_X509_VAL := @_i2d_X509_VAL;
+      i2d_X509_VAL := _i2d_X509_VAL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8665,13 +8666,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_new_allownil)}
-    X509_PUBKEY_new := @ERR_X509_PUBKEY_new;
+    X509_PUBKEY_new := ERR_X509_PUBKEY_new;
     {$ifend}
     {$if declared(X509_PUBKEY_new_introduced)}
     if LibVersion < X509_PUBKEY_new_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_new)}
-      X509_PUBKEY_new := @FC_X509_PUBKEY_new;
+      X509_PUBKEY_new := FC_X509_PUBKEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8680,7 +8681,7 @@ begin
     if X509_PUBKEY_new_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_new)}
-      X509_PUBKEY_new := @_X509_PUBKEY_new;
+      X509_PUBKEY_new := _X509_PUBKEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8697,13 +8698,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_free_allownil)}
-    X509_PUBKEY_free := @ERR_X509_PUBKEY_free;
+    X509_PUBKEY_free := ERR_X509_PUBKEY_free;
     {$ifend}
     {$if declared(X509_PUBKEY_free_introduced)}
     if LibVersion < X509_PUBKEY_free_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_free)}
-      X509_PUBKEY_free := @FC_X509_PUBKEY_free;
+      X509_PUBKEY_free := FC_X509_PUBKEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8712,7 +8713,7 @@ begin
     if X509_PUBKEY_free_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_free)}
-      X509_PUBKEY_free := @_X509_PUBKEY_free;
+      X509_PUBKEY_free := _X509_PUBKEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8729,13 +8730,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_PUBKEY_allownil)}
-    d2i_X509_PUBKEY := @ERR_d2i_X509_PUBKEY;
+    d2i_X509_PUBKEY := ERR_d2i_X509_PUBKEY;
     {$ifend}
     {$if declared(d2i_X509_PUBKEY_introduced)}
     if LibVersion < d2i_X509_PUBKEY_introduced then
     begin
       {$if declared(FC_d2i_X509_PUBKEY)}
-      d2i_X509_PUBKEY := @FC_d2i_X509_PUBKEY;
+      d2i_X509_PUBKEY := FC_d2i_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8744,7 +8745,7 @@ begin
     if d2i_X509_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_PUBKEY)}
-      d2i_X509_PUBKEY := @_d2i_X509_PUBKEY;
+      d2i_X509_PUBKEY := _d2i_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8761,13 +8762,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_PUBKEY_allownil)}
-    i2d_X509_PUBKEY := @ERR_i2d_X509_PUBKEY;
+    i2d_X509_PUBKEY := ERR_i2d_X509_PUBKEY;
     {$ifend}
     {$if declared(i2d_X509_PUBKEY_introduced)}
     if LibVersion < i2d_X509_PUBKEY_introduced then
     begin
       {$if declared(FC_i2d_X509_PUBKEY)}
-      i2d_X509_PUBKEY := @FC_i2d_X509_PUBKEY;
+      i2d_X509_PUBKEY := FC_i2d_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8776,7 +8777,7 @@ begin
     if i2d_X509_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_PUBKEY)}
-      i2d_X509_PUBKEY := @_i2d_X509_PUBKEY;
+      i2d_X509_PUBKEY := _i2d_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8793,13 +8794,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_set_allownil)}
-    X509_PUBKEY_set := @ERR_X509_PUBKEY_set;
+    X509_PUBKEY_set := ERR_X509_PUBKEY_set;
     {$ifend}
     {$if declared(X509_PUBKEY_set_introduced)}
     if LibVersion < X509_PUBKEY_set_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_set)}
-      X509_PUBKEY_set := @FC_X509_PUBKEY_set;
+      X509_PUBKEY_set := FC_X509_PUBKEY_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8808,7 +8809,7 @@ begin
     if X509_PUBKEY_set_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_set)}
-      X509_PUBKEY_set := @_X509_PUBKEY_set;
+      X509_PUBKEY_set := _X509_PUBKEY_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8825,13 +8826,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_get0_allownil)}
-    X509_PUBKEY_get0 := @ERR_X509_PUBKEY_get0;
+    X509_PUBKEY_get0 := ERR_X509_PUBKEY_get0;
     {$ifend}
     {$if declared(X509_PUBKEY_get0_introduced)}
     if LibVersion < X509_PUBKEY_get0_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_get0)}
-      X509_PUBKEY_get0 := @FC_X509_PUBKEY_get0;
+      X509_PUBKEY_get0 := FC_X509_PUBKEY_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8840,7 +8841,7 @@ begin
     if X509_PUBKEY_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_get0)}
-      X509_PUBKEY_get0 := @_X509_PUBKEY_get0;
+      X509_PUBKEY_get0 := _X509_PUBKEY_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8857,13 +8858,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_get_allownil)}
-    X509_PUBKEY_get := @ERR_X509_PUBKEY_get;
+    X509_PUBKEY_get := ERR_X509_PUBKEY_get;
     {$ifend}
     {$if declared(X509_PUBKEY_get_introduced)}
     if LibVersion < X509_PUBKEY_get_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_get)}
-      X509_PUBKEY_get := @FC_X509_PUBKEY_get;
+      X509_PUBKEY_get := FC_X509_PUBKEY_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8872,7 +8873,7 @@ begin
     if X509_PUBKEY_get_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_get)}
-      X509_PUBKEY_get := @_X509_PUBKEY_get;
+      X509_PUBKEY_get := _X509_PUBKEY_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8889,13 +8890,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_pathlen_allownil)}
-    X509_get_pathlen := @ERR_X509_get_pathlen;
+    X509_get_pathlen := ERR_X509_get_pathlen;
     {$ifend}
     {$if declared(X509_get_pathlen_introduced)}
     if LibVersion < X509_get_pathlen_introduced then
     begin
       {$if declared(FC_X509_get_pathlen)}
-      X509_get_pathlen := @FC_X509_get_pathlen;
+      X509_get_pathlen := FC_X509_get_pathlen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8904,7 +8905,7 @@ begin
     if X509_get_pathlen_removed <= LibVersion then
     begin
       {$if declared(_X509_get_pathlen)}
-      X509_get_pathlen := @_X509_get_pathlen;
+      X509_get_pathlen := _X509_get_pathlen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8921,13 +8922,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PUBKEY_allownil)}
-    i2d_PUBKEY := @ERR_i2d_PUBKEY;
+    i2d_PUBKEY := ERR_i2d_PUBKEY;
     {$ifend}
     {$if declared(i2d_PUBKEY_introduced)}
     if LibVersion < i2d_PUBKEY_introduced then
     begin
       {$if declared(FC_i2d_PUBKEY)}
-      i2d_PUBKEY := @FC_i2d_PUBKEY;
+      i2d_PUBKEY := FC_i2d_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8936,7 +8937,7 @@ begin
     if i2d_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_i2d_PUBKEY)}
-      i2d_PUBKEY := @_i2d_PUBKEY;
+      i2d_PUBKEY := _i2d_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8953,13 +8954,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PUBKEY_allownil)}
-    d2i_PUBKEY := @ERR_d2i_PUBKEY;
+    d2i_PUBKEY := ERR_d2i_PUBKEY;
     {$ifend}
     {$if declared(d2i_PUBKEY_introduced)}
     if LibVersion < d2i_PUBKEY_introduced then
     begin
       {$if declared(FC_d2i_PUBKEY)}
-      d2i_PUBKEY := @FC_d2i_PUBKEY;
+      d2i_PUBKEY := FC_d2i_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8968,7 +8969,7 @@ begin
     if d2i_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_d2i_PUBKEY)}
-      d2i_PUBKEY := @_d2i_PUBKEY;
+      d2i_PUBKEY := _d2i_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8985,13 +8986,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_RSA_PUBKEY_allownil)}
-    i2d_RSA_PUBKEY := @ERR_i2d_RSA_PUBKEY;
+    i2d_RSA_PUBKEY := ERR_i2d_RSA_PUBKEY;
     {$ifend}
     {$if declared(i2d_RSA_PUBKEY_introduced)}
     if LibVersion < i2d_RSA_PUBKEY_introduced then
     begin
       {$if declared(FC_i2d_RSA_PUBKEY)}
-      i2d_RSA_PUBKEY := @FC_i2d_RSA_PUBKEY;
+      i2d_RSA_PUBKEY := FC_i2d_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9000,7 +9001,7 @@ begin
     if i2d_RSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_i2d_RSA_PUBKEY)}
-      i2d_RSA_PUBKEY := @_i2d_RSA_PUBKEY;
+      i2d_RSA_PUBKEY := _i2d_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9017,13 +9018,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_RSA_PUBKEY_allownil)}
-    d2i_RSA_PUBKEY := @ERR_d2i_RSA_PUBKEY;
+    d2i_RSA_PUBKEY := ERR_d2i_RSA_PUBKEY;
     {$ifend}
     {$if declared(d2i_RSA_PUBKEY_introduced)}
     if LibVersion < d2i_RSA_PUBKEY_introduced then
     begin
       {$if declared(FC_d2i_RSA_PUBKEY)}
-      d2i_RSA_PUBKEY := @FC_d2i_RSA_PUBKEY;
+      d2i_RSA_PUBKEY := FC_d2i_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9032,7 +9033,7 @@ begin
     if d2i_RSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_d2i_RSA_PUBKEY)}
-      d2i_RSA_PUBKEY := @_d2i_RSA_PUBKEY;
+      d2i_RSA_PUBKEY := _d2i_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9049,13 +9050,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSA_PUBKEY_allownil)}
-    i2d_DSA_PUBKEY := @ERR_i2d_DSA_PUBKEY;
+    i2d_DSA_PUBKEY := ERR_i2d_DSA_PUBKEY;
     {$ifend}
     {$if declared(i2d_DSA_PUBKEY_introduced)}
     if LibVersion < i2d_DSA_PUBKEY_introduced then
     begin
       {$if declared(FC_i2d_DSA_PUBKEY)}
-      i2d_DSA_PUBKEY := @FC_i2d_DSA_PUBKEY;
+      i2d_DSA_PUBKEY := FC_i2d_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9064,7 +9065,7 @@ begin
     if i2d_DSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSA_PUBKEY)}
-      i2d_DSA_PUBKEY := @_i2d_DSA_PUBKEY;
+      i2d_DSA_PUBKEY := _i2d_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9081,13 +9082,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSA_PUBKEY_allownil)}
-    d2i_DSA_PUBKEY := @ERR_d2i_DSA_PUBKEY;
+    d2i_DSA_PUBKEY := ERR_d2i_DSA_PUBKEY;
     {$ifend}
     {$if declared(d2i_DSA_PUBKEY_introduced)}
     if LibVersion < d2i_DSA_PUBKEY_introduced then
     begin
       {$if declared(FC_d2i_DSA_PUBKEY)}
-      d2i_DSA_PUBKEY := @FC_d2i_DSA_PUBKEY;
+      d2i_DSA_PUBKEY := FC_d2i_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9096,7 +9097,7 @@ begin
     if d2i_DSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSA_PUBKEY)}
-      d2i_DSA_PUBKEY := @_d2i_DSA_PUBKEY;
+      d2i_DSA_PUBKEY := _d2i_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9113,13 +9114,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_EC_PUBKEY_allownil)}
-    i2d_EC_PUBKEY := @ERR_i2d_EC_PUBKEY;
+    i2d_EC_PUBKEY := ERR_i2d_EC_PUBKEY;
     {$ifend}
     {$if declared(i2d_EC_PUBKEY_introduced)}
     if LibVersion < i2d_EC_PUBKEY_introduced then
     begin
       {$if declared(FC_i2d_EC_PUBKEY)}
-      i2d_EC_PUBKEY := @FC_i2d_EC_PUBKEY;
+      i2d_EC_PUBKEY := FC_i2d_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9128,7 +9129,7 @@ begin
     if i2d_EC_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_i2d_EC_PUBKEY)}
-      i2d_EC_PUBKEY := @_i2d_EC_PUBKEY;
+      i2d_EC_PUBKEY := _i2d_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9145,13 +9146,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_EC_PUBKEY_allownil)}
-    d2i_EC_PUBKEY := @ERR_d2i_EC_PUBKEY;
+    d2i_EC_PUBKEY := ERR_d2i_EC_PUBKEY;
     {$ifend}
     {$if declared(d2i_EC_PUBKEY_introduced)}
     if LibVersion < d2i_EC_PUBKEY_introduced then
     begin
       {$if declared(FC_d2i_EC_PUBKEY)}
-      d2i_EC_PUBKEY := @FC_d2i_EC_PUBKEY;
+      d2i_EC_PUBKEY := FC_d2i_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9160,7 +9161,7 @@ begin
     if d2i_EC_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_d2i_EC_PUBKEY)}
-      d2i_EC_PUBKEY := @_d2i_EC_PUBKEY;
+      d2i_EC_PUBKEY := _d2i_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9177,13 +9178,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_new_allownil)}
-    X509_SIG_new := @ERR_X509_SIG_new;
+    X509_SIG_new := ERR_X509_SIG_new;
     {$ifend}
     {$if declared(X509_SIG_new_introduced)}
     if LibVersion < X509_SIG_new_introduced then
     begin
       {$if declared(FC_X509_SIG_new)}
-      X509_SIG_new := @FC_X509_SIG_new;
+      X509_SIG_new := FC_X509_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9192,7 +9193,7 @@ begin
     if X509_SIG_new_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_new)}
-      X509_SIG_new := @_X509_SIG_new;
+      X509_SIG_new := _X509_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9209,13 +9210,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_free_allownil)}
-    X509_SIG_free := @ERR_X509_SIG_free;
+    X509_SIG_free := ERR_X509_SIG_free;
     {$ifend}
     {$if declared(X509_SIG_free_introduced)}
     if LibVersion < X509_SIG_free_introduced then
     begin
       {$if declared(FC_X509_SIG_free)}
-      X509_SIG_free := @FC_X509_SIG_free;
+      X509_SIG_free := FC_X509_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9224,7 +9225,7 @@ begin
     if X509_SIG_free_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_free)}
-      X509_SIG_free := @_X509_SIG_free;
+      X509_SIG_free := _X509_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9241,13 +9242,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_SIG_allownil)}
-    d2i_X509_SIG := @ERR_d2i_X509_SIG;
+    d2i_X509_SIG := ERR_d2i_X509_SIG;
     {$ifend}
     {$if declared(d2i_X509_SIG_introduced)}
     if LibVersion < d2i_X509_SIG_introduced then
     begin
       {$if declared(FC_d2i_X509_SIG)}
-      d2i_X509_SIG := @FC_d2i_X509_SIG;
+      d2i_X509_SIG := FC_d2i_X509_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9256,7 +9257,7 @@ begin
     if d2i_X509_SIG_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_SIG)}
-      d2i_X509_SIG := @_d2i_X509_SIG;
+      d2i_X509_SIG := _d2i_X509_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9273,13 +9274,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_SIG_allownil)}
-    i2d_X509_SIG := @ERR_i2d_X509_SIG;
+    i2d_X509_SIG := ERR_i2d_X509_SIG;
     {$ifend}
     {$if declared(i2d_X509_SIG_introduced)}
     if LibVersion < i2d_X509_SIG_introduced then
     begin
       {$if declared(FC_i2d_X509_SIG)}
-      i2d_X509_SIG := @FC_i2d_X509_SIG;
+      i2d_X509_SIG := FC_i2d_X509_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9288,7 +9289,7 @@ begin
     if i2d_X509_SIG_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_SIG)}
-      i2d_X509_SIG := @_i2d_X509_SIG;
+      i2d_X509_SIG := _i2d_X509_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9305,13 +9306,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_get0_allownil)}
-    X509_SIG_get0 := @ERR_X509_SIG_get0;
+    X509_SIG_get0 := ERR_X509_SIG_get0;
     {$ifend}
     {$if declared(X509_SIG_get0_introduced)}
     if LibVersion < X509_SIG_get0_introduced then
     begin
       {$if declared(FC_X509_SIG_get0)}
-      X509_SIG_get0 := @FC_X509_SIG_get0;
+      X509_SIG_get0 := FC_X509_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9320,7 +9321,7 @@ begin
     if X509_SIG_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_get0)}
-      X509_SIG_get0 := @_X509_SIG_get0;
+      X509_SIG_get0 := _X509_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9337,13 +9338,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_getm_allownil)}
-    X509_SIG_getm := @ERR_X509_SIG_getm;
+    X509_SIG_getm := ERR_X509_SIG_getm;
     {$ifend}
     {$if declared(X509_SIG_getm_introduced)}
     if LibVersion < X509_SIG_getm_introduced then
     begin
       {$if declared(FC_X509_SIG_getm)}
-      X509_SIG_getm := @FC_X509_SIG_getm;
+      X509_SIG_getm := FC_X509_SIG_getm;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9352,7 +9353,7 @@ begin
     if X509_SIG_getm_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_getm)}
-      X509_SIG_getm := @_X509_SIG_getm;
+      X509_SIG_getm := _X509_SIG_getm;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9369,13 +9370,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_INFO_new_allownil)}
-    X509_REQ_INFO_new := @ERR_X509_REQ_INFO_new;
+    X509_REQ_INFO_new := ERR_X509_REQ_INFO_new;
     {$ifend}
     {$if declared(X509_REQ_INFO_new_introduced)}
     if LibVersion < X509_REQ_INFO_new_introduced then
     begin
       {$if declared(FC_X509_REQ_INFO_new)}
-      X509_REQ_INFO_new := @FC_X509_REQ_INFO_new;
+      X509_REQ_INFO_new := FC_X509_REQ_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9384,7 +9385,7 @@ begin
     if X509_REQ_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_INFO_new)}
-      X509_REQ_INFO_new := @_X509_REQ_INFO_new;
+      X509_REQ_INFO_new := _X509_REQ_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9401,13 +9402,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_INFO_free_allownil)}
-    X509_REQ_INFO_free := @ERR_X509_REQ_INFO_free;
+    X509_REQ_INFO_free := ERR_X509_REQ_INFO_free;
     {$ifend}
     {$if declared(X509_REQ_INFO_free_introduced)}
     if LibVersion < X509_REQ_INFO_free_introduced then
     begin
       {$if declared(FC_X509_REQ_INFO_free)}
-      X509_REQ_INFO_free := @FC_X509_REQ_INFO_free;
+      X509_REQ_INFO_free := FC_X509_REQ_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9416,7 +9417,7 @@ begin
     if X509_REQ_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_INFO_free)}
-      X509_REQ_INFO_free := @_X509_REQ_INFO_free;
+      X509_REQ_INFO_free := _X509_REQ_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9433,13 +9434,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_REQ_INFO_allownil)}
-    d2i_X509_REQ_INFO := @ERR_d2i_X509_REQ_INFO;
+    d2i_X509_REQ_INFO := ERR_d2i_X509_REQ_INFO;
     {$ifend}
     {$if declared(d2i_X509_REQ_INFO_introduced)}
     if LibVersion < d2i_X509_REQ_INFO_introduced then
     begin
       {$if declared(FC_d2i_X509_REQ_INFO)}
-      d2i_X509_REQ_INFO := @FC_d2i_X509_REQ_INFO;
+      d2i_X509_REQ_INFO := FC_d2i_X509_REQ_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9448,7 +9449,7 @@ begin
     if d2i_X509_REQ_INFO_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_REQ_INFO)}
-      d2i_X509_REQ_INFO := @_d2i_X509_REQ_INFO;
+      d2i_X509_REQ_INFO := _d2i_X509_REQ_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9465,13 +9466,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_REQ_INFO_allownil)}
-    i2d_X509_REQ_INFO := @ERR_i2d_X509_REQ_INFO;
+    i2d_X509_REQ_INFO := ERR_i2d_X509_REQ_INFO;
     {$ifend}
     {$if declared(i2d_X509_REQ_INFO_introduced)}
     if LibVersion < i2d_X509_REQ_INFO_introduced then
     begin
       {$if declared(FC_i2d_X509_REQ_INFO)}
-      i2d_X509_REQ_INFO := @FC_i2d_X509_REQ_INFO;
+      i2d_X509_REQ_INFO := FC_i2d_X509_REQ_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9480,7 +9481,7 @@ begin
     if i2d_X509_REQ_INFO_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_REQ_INFO)}
-      i2d_X509_REQ_INFO := @_i2d_X509_REQ_INFO;
+      i2d_X509_REQ_INFO := _i2d_X509_REQ_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9497,13 +9498,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_new_allownil)}
-    X509_REQ_new := @ERR_X509_REQ_new;
+    X509_REQ_new := ERR_X509_REQ_new;
     {$ifend}
     {$if declared(X509_REQ_new_introduced)}
     if LibVersion < X509_REQ_new_introduced then
     begin
       {$if declared(FC_X509_REQ_new)}
-      X509_REQ_new := @FC_X509_REQ_new;
+      X509_REQ_new := FC_X509_REQ_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9512,7 +9513,7 @@ begin
     if X509_REQ_new_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_new)}
-      X509_REQ_new := @_X509_REQ_new;
+      X509_REQ_new := _X509_REQ_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9529,13 +9530,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_free_allownil)}
-    X509_REQ_free := @ERR_X509_REQ_free;
+    X509_REQ_free := ERR_X509_REQ_free;
     {$ifend}
     {$if declared(X509_REQ_free_introduced)}
     if LibVersion < X509_REQ_free_introduced then
     begin
       {$if declared(FC_X509_REQ_free)}
-      X509_REQ_free := @FC_X509_REQ_free;
+      X509_REQ_free := FC_X509_REQ_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9544,7 +9545,7 @@ begin
     if X509_REQ_free_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_free)}
-      X509_REQ_free := @_X509_REQ_free;
+      X509_REQ_free := _X509_REQ_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9561,13 +9562,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_REQ_allownil)}
-    d2i_X509_REQ := @ERR_d2i_X509_REQ;
+    d2i_X509_REQ := ERR_d2i_X509_REQ;
     {$ifend}
     {$if declared(d2i_X509_REQ_introduced)}
     if LibVersion < d2i_X509_REQ_introduced then
     begin
       {$if declared(FC_d2i_X509_REQ)}
-      d2i_X509_REQ := @FC_d2i_X509_REQ;
+      d2i_X509_REQ := FC_d2i_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9576,7 +9577,7 @@ begin
     if d2i_X509_REQ_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_REQ)}
-      d2i_X509_REQ := @_d2i_X509_REQ;
+      d2i_X509_REQ := _d2i_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9593,13 +9594,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_REQ_allownil)}
-    i2d_X509_REQ := @ERR_i2d_X509_REQ;
+    i2d_X509_REQ := ERR_i2d_X509_REQ;
     {$ifend}
     {$if declared(i2d_X509_REQ_introduced)}
     if LibVersion < i2d_X509_REQ_introduced then
     begin
       {$if declared(FC_i2d_X509_REQ)}
-      i2d_X509_REQ := @FC_i2d_X509_REQ;
+      i2d_X509_REQ := FC_i2d_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9608,7 +9609,7 @@ begin
     if i2d_X509_REQ_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_REQ)}
-      i2d_X509_REQ := @_i2d_X509_REQ;
+      i2d_X509_REQ := _i2d_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9625,13 +9626,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_new_allownil)}
-    X509_ATTRIBUTE_new := @ERR_X509_ATTRIBUTE_new;
+    X509_ATTRIBUTE_new := ERR_X509_ATTRIBUTE_new;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_new_introduced)}
     if LibVersion < X509_ATTRIBUTE_new_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_new)}
-      X509_ATTRIBUTE_new := @FC_X509_ATTRIBUTE_new;
+      X509_ATTRIBUTE_new := FC_X509_ATTRIBUTE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9640,7 +9641,7 @@ begin
     if X509_ATTRIBUTE_new_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_new)}
-      X509_ATTRIBUTE_new := @_X509_ATTRIBUTE_new;
+      X509_ATTRIBUTE_new := _X509_ATTRIBUTE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9657,13 +9658,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_free_allownil)}
-    X509_ATTRIBUTE_free := @ERR_X509_ATTRIBUTE_free;
+    X509_ATTRIBUTE_free := ERR_X509_ATTRIBUTE_free;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_free_introduced)}
     if LibVersion < X509_ATTRIBUTE_free_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_free)}
-      X509_ATTRIBUTE_free := @FC_X509_ATTRIBUTE_free;
+      X509_ATTRIBUTE_free := FC_X509_ATTRIBUTE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9672,7 +9673,7 @@ begin
     if X509_ATTRIBUTE_free_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_free)}
-      X509_ATTRIBUTE_free := @_X509_ATTRIBUTE_free;
+      X509_ATTRIBUTE_free := _X509_ATTRIBUTE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9689,13 +9690,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_ATTRIBUTE_allownil)}
-    d2i_X509_ATTRIBUTE := @ERR_d2i_X509_ATTRIBUTE;
+    d2i_X509_ATTRIBUTE := ERR_d2i_X509_ATTRIBUTE;
     {$ifend}
     {$if declared(d2i_X509_ATTRIBUTE_introduced)}
     if LibVersion < d2i_X509_ATTRIBUTE_introduced then
     begin
       {$if declared(FC_d2i_X509_ATTRIBUTE)}
-      d2i_X509_ATTRIBUTE := @FC_d2i_X509_ATTRIBUTE;
+      d2i_X509_ATTRIBUTE := FC_d2i_X509_ATTRIBUTE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9704,7 +9705,7 @@ begin
     if d2i_X509_ATTRIBUTE_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_ATTRIBUTE)}
-      d2i_X509_ATTRIBUTE := @_d2i_X509_ATTRIBUTE;
+      d2i_X509_ATTRIBUTE := _d2i_X509_ATTRIBUTE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9721,13 +9722,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_ATTRIBUTE_allownil)}
-    i2d_X509_ATTRIBUTE := @ERR_i2d_X509_ATTRIBUTE;
+    i2d_X509_ATTRIBUTE := ERR_i2d_X509_ATTRIBUTE;
     {$ifend}
     {$if declared(i2d_X509_ATTRIBUTE_introduced)}
     if LibVersion < i2d_X509_ATTRIBUTE_introduced then
     begin
       {$if declared(FC_i2d_X509_ATTRIBUTE)}
-      i2d_X509_ATTRIBUTE := @FC_i2d_X509_ATTRIBUTE;
+      i2d_X509_ATTRIBUTE := FC_i2d_X509_ATTRIBUTE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9736,7 +9737,7 @@ begin
     if i2d_X509_ATTRIBUTE_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_ATTRIBUTE)}
-      i2d_X509_ATTRIBUTE := @_i2d_X509_ATTRIBUTE;
+      i2d_X509_ATTRIBUTE := _i2d_X509_ATTRIBUTE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9753,13 +9754,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_create_allownil)}
-    X509_ATTRIBUTE_create := @ERR_X509_ATTRIBUTE_create;
+    X509_ATTRIBUTE_create := ERR_X509_ATTRIBUTE_create;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_create_introduced)}
     if LibVersion < X509_ATTRIBUTE_create_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_create)}
-      X509_ATTRIBUTE_create := @FC_X509_ATTRIBUTE_create;
+      X509_ATTRIBUTE_create := FC_X509_ATTRIBUTE_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9768,7 +9769,7 @@ begin
     if X509_ATTRIBUTE_create_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_create)}
-      X509_ATTRIBUTE_create := @_X509_ATTRIBUTE_create;
+      X509_ATTRIBUTE_create := _X509_ATTRIBUTE_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9785,13 +9786,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_new_allownil)}
-    X509_EXTENSION_new := @ERR_X509_EXTENSION_new;
+    X509_EXTENSION_new := ERR_X509_EXTENSION_new;
     {$ifend}
     {$if declared(X509_EXTENSION_new_introduced)}
     if LibVersion < X509_EXTENSION_new_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_new)}
-      X509_EXTENSION_new := @FC_X509_EXTENSION_new;
+      X509_EXTENSION_new := FC_X509_EXTENSION_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9800,7 +9801,7 @@ begin
     if X509_EXTENSION_new_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_new)}
-      X509_EXTENSION_new := @_X509_EXTENSION_new;
+      X509_EXTENSION_new := _X509_EXTENSION_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9817,13 +9818,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_free_allownil)}
-    X509_EXTENSION_free := @ERR_X509_EXTENSION_free;
+    X509_EXTENSION_free := ERR_X509_EXTENSION_free;
     {$ifend}
     {$if declared(X509_EXTENSION_free_introduced)}
     if LibVersion < X509_EXTENSION_free_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_free)}
-      X509_EXTENSION_free := @FC_X509_EXTENSION_free;
+      X509_EXTENSION_free := FC_X509_EXTENSION_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9832,7 +9833,7 @@ begin
     if X509_EXTENSION_free_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_free)}
-      X509_EXTENSION_free := @_X509_EXTENSION_free;
+      X509_EXTENSION_free := _X509_EXTENSION_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9849,13 +9850,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_EXTENSION_allownil)}
-    d2i_X509_EXTENSION := @ERR_d2i_X509_EXTENSION;
+    d2i_X509_EXTENSION := ERR_d2i_X509_EXTENSION;
     {$ifend}
     {$if declared(d2i_X509_EXTENSION_introduced)}
     if LibVersion < d2i_X509_EXTENSION_introduced then
     begin
       {$if declared(FC_d2i_X509_EXTENSION)}
-      d2i_X509_EXTENSION := @FC_d2i_X509_EXTENSION;
+      d2i_X509_EXTENSION := FC_d2i_X509_EXTENSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9864,7 +9865,7 @@ begin
     if d2i_X509_EXTENSION_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_EXTENSION)}
-      d2i_X509_EXTENSION := @_d2i_X509_EXTENSION;
+      d2i_X509_EXTENSION := _d2i_X509_EXTENSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9881,13 +9882,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_EXTENSION_allownil)}
-    i2d_X509_EXTENSION := @ERR_i2d_X509_EXTENSION;
+    i2d_X509_EXTENSION := ERR_i2d_X509_EXTENSION;
     {$ifend}
     {$if declared(i2d_X509_EXTENSION_introduced)}
     if LibVersion < i2d_X509_EXTENSION_introduced then
     begin
       {$if declared(FC_i2d_X509_EXTENSION)}
-      i2d_X509_EXTENSION := @FC_i2d_X509_EXTENSION;
+      i2d_X509_EXTENSION := FC_i2d_X509_EXTENSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9896,7 +9897,7 @@ begin
     if i2d_X509_EXTENSION_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_EXTENSION)}
-      i2d_X509_EXTENSION := @_i2d_X509_EXTENSION;
+      i2d_X509_EXTENSION := _i2d_X509_EXTENSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9913,13 +9914,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_new_allownil)}
-    X509_NAME_ENTRY_new := @ERR_X509_NAME_ENTRY_new;
+    X509_NAME_ENTRY_new := ERR_X509_NAME_ENTRY_new;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_new_introduced)}
     if LibVersion < X509_NAME_ENTRY_new_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_new)}
-      X509_NAME_ENTRY_new := @FC_X509_NAME_ENTRY_new;
+      X509_NAME_ENTRY_new := FC_X509_NAME_ENTRY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9928,7 +9929,7 @@ begin
     if X509_NAME_ENTRY_new_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_new)}
-      X509_NAME_ENTRY_new := @_X509_NAME_ENTRY_new;
+      X509_NAME_ENTRY_new := _X509_NAME_ENTRY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9945,13 +9946,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_free_allownil)}
-    X509_NAME_ENTRY_free := @ERR_X509_NAME_ENTRY_free;
+    X509_NAME_ENTRY_free := ERR_X509_NAME_ENTRY_free;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_free_introduced)}
     if LibVersion < X509_NAME_ENTRY_free_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_free)}
-      X509_NAME_ENTRY_free := @FC_X509_NAME_ENTRY_free;
+      X509_NAME_ENTRY_free := FC_X509_NAME_ENTRY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9960,7 +9961,7 @@ begin
     if X509_NAME_ENTRY_free_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_free)}
-      X509_NAME_ENTRY_free := @_X509_NAME_ENTRY_free;
+      X509_NAME_ENTRY_free := _X509_NAME_ENTRY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9977,13 +9978,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_NAME_ENTRY_allownil)}
-    d2i_X509_NAME_ENTRY := @ERR_d2i_X509_NAME_ENTRY;
+    d2i_X509_NAME_ENTRY := ERR_d2i_X509_NAME_ENTRY;
     {$ifend}
     {$if declared(d2i_X509_NAME_ENTRY_introduced)}
     if LibVersion < d2i_X509_NAME_ENTRY_introduced then
     begin
       {$if declared(FC_d2i_X509_NAME_ENTRY)}
-      d2i_X509_NAME_ENTRY := @FC_d2i_X509_NAME_ENTRY;
+      d2i_X509_NAME_ENTRY := FC_d2i_X509_NAME_ENTRY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9992,7 +9993,7 @@ begin
     if d2i_X509_NAME_ENTRY_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_NAME_ENTRY)}
-      d2i_X509_NAME_ENTRY := @_d2i_X509_NAME_ENTRY;
+      d2i_X509_NAME_ENTRY := _d2i_X509_NAME_ENTRY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10009,13 +10010,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_NAME_ENTRY_allownil)}
-    i2d_X509_NAME_ENTRY := @ERR_i2d_X509_NAME_ENTRY;
+    i2d_X509_NAME_ENTRY := ERR_i2d_X509_NAME_ENTRY;
     {$ifend}
     {$if declared(i2d_X509_NAME_ENTRY_introduced)}
     if LibVersion < i2d_X509_NAME_ENTRY_introduced then
     begin
       {$if declared(FC_i2d_X509_NAME_ENTRY)}
-      i2d_X509_NAME_ENTRY := @FC_i2d_X509_NAME_ENTRY;
+      i2d_X509_NAME_ENTRY := FC_i2d_X509_NAME_ENTRY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10024,7 +10025,7 @@ begin
     if i2d_X509_NAME_ENTRY_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_NAME_ENTRY)}
-      i2d_X509_NAME_ENTRY := @_i2d_X509_NAME_ENTRY;
+      i2d_X509_NAME_ENTRY := _i2d_X509_NAME_ENTRY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10041,13 +10042,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_new_allownil)}
-    X509_NAME_new := @ERR_X509_NAME_new;
+    X509_NAME_new := ERR_X509_NAME_new;
     {$ifend}
     {$if declared(X509_NAME_new_introduced)}
     if LibVersion < X509_NAME_new_introduced then
     begin
       {$if declared(FC_X509_NAME_new)}
-      X509_NAME_new := @FC_X509_NAME_new;
+      X509_NAME_new := FC_X509_NAME_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10056,7 +10057,7 @@ begin
     if X509_NAME_new_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_new)}
-      X509_NAME_new := @_X509_NAME_new;
+      X509_NAME_new := _X509_NAME_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10073,13 +10074,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_free_allownil)}
-    X509_NAME_free := @ERR_X509_NAME_free;
+    X509_NAME_free := ERR_X509_NAME_free;
     {$ifend}
     {$if declared(X509_NAME_free_introduced)}
     if LibVersion < X509_NAME_free_introduced then
     begin
       {$if declared(FC_X509_NAME_free)}
-      X509_NAME_free := @FC_X509_NAME_free;
+      X509_NAME_free := FC_X509_NAME_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10088,7 +10089,7 @@ begin
     if X509_NAME_free_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_free)}
-      X509_NAME_free := @_X509_NAME_free;
+      X509_NAME_free := _X509_NAME_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10105,13 +10106,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_NAME_allownil)}
-    d2i_X509_NAME := @ERR_d2i_X509_NAME;
+    d2i_X509_NAME := ERR_d2i_X509_NAME;
     {$ifend}
     {$if declared(d2i_X509_NAME_introduced)}
     if LibVersion < d2i_X509_NAME_introduced then
     begin
       {$if declared(FC_d2i_X509_NAME)}
-      d2i_X509_NAME := @FC_d2i_X509_NAME;
+      d2i_X509_NAME := FC_d2i_X509_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10120,7 +10121,7 @@ begin
     if d2i_X509_NAME_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_NAME)}
-      d2i_X509_NAME := @_d2i_X509_NAME;
+      d2i_X509_NAME := _d2i_X509_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10137,13 +10138,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_NAME_allownil)}
-    i2d_X509_NAME := @ERR_i2d_X509_NAME;
+    i2d_X509_NAME := ERR_i2d_X509_NAME;
     {$ifend}
     {$if declared(i2d_X509_NAME_introduced)}
     if LibVersion < i2d_X509_NAME_introduced then
     begin
       {$if declared(FC_i2d_X509_NAME)}
-      i2d_X509_NAME := @FC_i2d_X509_NAME;
+      i2d_X509_NAME := FC_i2d_X509_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10152,7 +10153,7 @@ begin
     if i2d_X509_NAME_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_NAME)}
-      i2d_X509_NAME := @_i2d_X509_NAME;
+      i2d_X509_NAME := _i2d_X509_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10169,13 +10170,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_set_allownil)}
-    X509_NAME_set := @ERR_X509_NAME_set;
+    X509_NAME_set := ERR_X509_NAME_set;
     {$ifend}
     {$if declared(X509_NAME_set_introduced)}
     if LibVersion < X509_NAME_set_introduced then
     begin
       {$if declared(FC_X509_NAME_set)}
-      X509_NAME_set := @FC_X509_NAME_set;
+      X509_NAME_set := FC_X509_NAME_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10184,7 +10185,7 @@ begin
     if X509_NAME_set_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_set)}
-      X509_NAME_set := @_X509_NAME_set;
+      X509_NAME_set := _X509_NAME_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10201,13 +10202,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_new_allownil)}
-    X509_new := @ERR_X509_new;
+    X509_new := ERR_X509_new;
     {$ifend}
     {$if declared(X509_new_introduced)}
     if LibVersion < X509_new_introduced then
     begin
       {$if declared(FC_X509_new)}
-      X509_new := @FC_X509_new;
+      X509_new := FC_X509_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10216,7 +10217,7 @@ begin
     if X509_new_removed <= LibVersion then
     begin
       {$if declared(_X509_new)}
-      X509_new := @_X509_new;
+      X509_new := _X509_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10233,13 +10234,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_free_allownil)}
-    X509_free := @ERR_X509_free;
+    X509_free := ERR_X509_free;
     {$ifend}
     {$if declared(X509_free_introduced)}
     if LibVersion < X509_free_introduced then
     begin
       {$if declared(FC_X509_free)}
-      X509_free := @FC_X509_free;
+      X509_free := FC_X509_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10248,7 +10249,7 @@ begin
     if X509_free_removed <= LibVersion then
     begin
       {$if declared(_X509_free)}
-      X509_free := @_X509_free;
+      X509_free := _X509_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10265,13 +10266,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_allownil)}
-    d2i_X509 := @ERR_d2i_X509;
+    d2i_X509 := ERR_d2i_X509;
     {$ifend}
     {$if declared(d2i_X509_introduced)}
     if LibVersion < d2i_X509_introduced then
     begin
       {$if declared(FC_d2i_X509)}
-      d2i_X509 := @FC_d2i_X509;
+      d2i_X509 := FC_d2i_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10280,7 +10281,7 @@ begin
     if d2i_X509_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509)}
-      d2i_X509 := @_d2i_X509;
+      d2i_X509 := _d2i_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10297,13 +10298,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_allownil)}
-    i2d_X509 := @ERR_i2d_X509;
+    i2d_X509 := ERR_i2d_X509;
     {$ifend}
     {$if declared(i2d_X509_introduced)}
     if LibVersion < i2d_X509_introduced then
     begin
       {$if declared(FC_i2d_X509)}
-      i2d_X509 := @FC_i2d_X509;
+      i2d_X509 := FC_i2d_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10312,7 +10313,7 @@ begin
     if i2d_X509_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509)}
-      i2d_X509 := @_i2d_X509;
+      i2d_X509 := _i2d_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10329,13 +10330,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_ex_data_allownil)}
-    X509_set_ex_data := @ERR_X509_set_ex_data;
+    X509_set_ex_data := ERR_X509_set_ex_data;
     {$ifend}
     {$if declared(X509_set_ex_data_introduced)}
     if LibVersion < X509_set_ex_data_introduced then
     begin
       {$if declared(FC_X509_set_ex_data)}
-      X509_set_ex_data := @FC_X509_set_ex_data;
+      X509_set_ex_data := FC_X509_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10344,7 +10345,7 @@ begin
     if X509_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_set_ex_data)}
-      X509_set_ex_data := @_X509_set_ex_data;
+      X509_set_ex_data := _X509_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10361,13 +10362,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ex_data_allownil)}
-    X509_get_ex_data := @ERR_X509_get_ex_data;
+    X509_get_ex_data := ERR_X509_get_ex_data;
     {$ifend}
     {$if declared(X509_get_ex_data_introduced)}
     if LibVersion < X509_get_ex_data_introduced then
     begin
       {$if declared(FC_X509_get_ex_data)}
-      X509_get_ex_data := @FC_X509_get_ex_data;
+      X509_get_ex_data := FC_X509_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10376,7 +10377,7 @@ begin
     if X509_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ex_data)}
-      X509_get_ex_data := @_X509_get_ex_data;
+      X509_get_ex_data := _X509_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10393,13 +10394,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_AUX_allownil)}
-    i2d_X509_AUX := @ERR_i2d_X509_AUX;
+    i2d_X509_AUX := ERR_i2d_X509_AUX;
     {$ifend}
     {$if declared(i2d_X509_AUX_introduced)}
     if LibVersion < i2d_X509_AUX_introduced then
     begin
       {$if declared(FC_i2d_X509_AUX)}
-      i2d_X509_AUX := @FC_i2d_X509_AUX;
+      i2d_X509_AUX := FC_i2d_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10408,7 +10409,7 @@ begin
     if i2d_X509_AUX_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_AUX)}
-      i2d_X509_AUX := @_i2d_X509_AUX;
+      i2d_X509_AUX := _i2d_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10425,13 +10426,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_AUX_allownil)}
-    d2i_X509_AUX := @ERR_d2i_X509_AUX;
+    d2i_X509_AUX := ERR_d2i_X509_AUX;
     {$ifend}
     {$if declared(d2i_X509_AUX_introduced)}
     if LibVersion < d2i_X509_AUX_introduced then
     begin
       {$if declared(FC_d2i_X509_AUX)}
-      d2i_X509_AUX := @FC_d2i_X509_AUX;
+      d2i_X509_AUX := FC_d2i_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10440,7 +10441,7 @@ begin
     if d2i_X509_AUX_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_AUX)}
-      d2i_X509_AUX := @_d2i_X509_AUX;
+      d2i_X509_AUX := _d2i_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10457,13 +10458,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_re_X509_tbs_allownil)}
-    i2d_re_X509_tbs := @ERR_i2d_re_X509_tbs;
+    i2d_re_X509_tbs := ERR_i2d_re_X509_tbs;
     {$ifend}
     {$if declared(i2d_re_X509_tbs_introduced)}
     if LibVersion < i2d_re_X509_tbs_introduced then
     begin
       {$if declared(FC_i2d_re_X509_tbs)}
-      i2d_re_X509_tbs := @FC_i2d_re_X509_tbs;
+      i2d_re_X509_tbs := FC_i2d_re_X509_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10472,7 +10473,7 @@ begin
     if i2d_re_X509_tbs_removed <= LibVersion then
     begin
       {$if declared(_i2d_re_X509_tbs)}
-      i2d_re_X509_tbs := @_i2d_re_X509_tbs;
+      i2d_re_X509_tbs := _i2d_re_X509_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10489,13 +10490,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_INFO_get_allownil)}
-    X509_SIG_INFO_get := @ERR_X509_SIG_INFO_get;
+    X509_SIG_INFO_get := ERR_X509_SIG_INFO_get;
     {$ifend}
     {$if declared(X509_SIG_INFO_get_introduced)}
     if LibVersion < X509_SIG_INFO_get_introduced then
     begin
       {$if declared(FC_X509_SIG_INFO_get)}
-      X509_SIG_INFO_get := @FC_X509_SIG_INFO_get;
+      X509_SIG_INFO_get := FC_X509_SIG_INFO_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10504,7 +10505,7 @@ begin
     if X509_SIG_INFO_get_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_INFO_get)}
-      X509_SIG_INFO_get := @_X509_SIG_INFO_get;
+      X509_SIG_INFO_get := _X509_SIG_INFO_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10521,13 +10522,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_SIG_INFO_set_allownil)}
-    X509_SIG_INFO_set := @ERR_X509_SIG_INFO_set;
+    X509_SIG_INFO_set := ERR_X509_SIG_INFO_set;
     {$ifend}
     {$if declared(X509_SIG_INFO_set_introduced)}
     if LibVersion < X509_SIG_INFO_set_introduced then
     begin
       {$if declared(FC_X509_SIG_INFO_set)}
-      X509_SIG_INFO_set := @FC_X509_SIG_INFO_set;
+      X509_SIG_INFO_set := FC_X509_SIG_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10536,7 +10537,7 @@ begin
     if X509_SIG_INFO_set_removed <= LibVersion then
     begin
       {$if declared(_X509_SIG_INFO_set)}
-      X509_SIG_INFO_set := @_X509_SIG_INFO_set;
+      X509_SIG_INFO_set := _X509_SIG_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10553,13 +10554,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_signature_info_allownil)}
-    X509_get_signature_info := @ERR_X509_get_signature_info;
+    X509_get_signature_info := ERR_X509_get_signature_info;
     {$ifend}
     {$if declared(X509_get_signature_info_introduced)}
     if LibVersion < X509_get_signature_info_introduced then
     begin
       {$if declared(FC_X509_get_signature_info)}
-      X509_get_signature_info := @FC_X509_get_signature_info;
+      X509_get_signature_info := FC_X509_get_signature_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10568,7 +10569,7 @@ begin
     if X509_get_signature_info_removed <= LibVersion then
     begin
       {$if declared(_X509_get_signature_info)}
-      X509_get_signature_info := @_X509_get_signature_info;
+      X509_get_signature_info := _X509_get_signature_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10585,13 +10586,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_signature_allownil)}
-    X509_get0_signature := @ERR_X509_get0_signature;
+    X509_get0_signature := ERR_X509_get0_signature;
     {$ifend}
     {$if declared(X509_get0_signature_introduced)}
     if LibVersion < X509_get0_signature_introduced then
     begin
       {$if declared(FC_X509_get0_signature)}
-      X509_get0_signature := @FC_X509_get0_signature;
+      X509_get0_signature := FC_X509_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10600,7 +10601,7 @@ begin
     if X509_get0_signature_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_signature)}
-      X509_get0_signature := @_X509_get0_signature;
+      X509_get0_signature := _X509_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10617,13 +10618,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_signature_nid_allownil)}
-    X509_get_signature_nid := @ERR_X509_get_signature_nid;
+    X509_get_signature_nid := ERR_X509_get_signature_nid;
     {$ifend}
     {$if declared(X509_get_signature_nid_introduced)}
     if LibVersion < X509_get_signature_nid_introduced then
     begin
       {$if declared(FC_X509_get_signature_nid)}
-      X509_get_signature_nid := @FC_X509_get_signature_nid;
+      X509_get_signature_nid := FC_X509_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10632,7 +10633,7 @@ begin
     if X509_get_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_get_signature_nid)}
-      X509_get_signature_nid := @_X509_get_signature_nid;
+      X509_get_signature_nid := _X509_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10649,13 +10650,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_trusted_allownil)}
-    X509_trusted := @ERR_X509_trusted;
+    X509_trusted := ERR_X509_trusted;
     {$ifend}
     {$if declared(X509_trusted_introduced)}
     if LibVersion < X509_trusted_introduced then
     begin
       {$if declared(FC_X509_trusted)}
-      X509_trusted := @FC_X509_trusted;
+      X509_trusted := FC_X509_trusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10664,7 +10665,7 @@ begin
     if X509_trusted_removed <= LibVersion then
     begin
       {$if declared(_X509_trusted)}
-      X509_trusted := @_X509_trusted;
+      X509_trusted := _X509_trusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10681,13 +10682,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_alias_set1_allownil)}
-    X509_alias_set1 := @ERR_X509_alias_set1;
+    X509_alias_set1 := ERR_X509_alias_set1;
     {$ifend}
     {$if declared(X509_alias_set1_introduced)}
     if LibVersion < X509_alias_set1_introduced then
     begin
       {$if declared(FC_X509_alias_set1)}
-      X509_alias_set1 := @FC_X509_alias_set1;
+      X509_alias_set1 := FC_X509_alias_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10696,7 +10697,7 @@ begin
     if X509_alias_set1_removed <= LibVersion then
     begin
       {$if declared(_X509_alias_set1)}
-      X509_alias_set1 := @_X509_alias_set1;
+      X509_alias_set1 := _X509_alias_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10713,13 +10714,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_keyid_set1_allownil)}
-    X509_keyid_set1 := @ERR_X509_keyid_set1;
+    X509_keyid_set1 := ERR_X509_keyid_set1;
     {$ifend}
     {$if declared(X509_keyid_set1_introduced)}
     if LibVersion < X509_keyid_set1_introduced then
     begin
       {$if declared(FC_X509_keyid_set1)}
-      X509_keyid_set1 := @FC_X509_keyid_set1;
+      X509_keyid_set1 := FC_X509_keyid_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10728,7 +10729,7 @@ begin
     if X509_keyid_set1_removed <= LibVersion then
     begin
       {$if declared(_X509_keyid_set1)}
-      X509_keyid_set1 := @_X509_keyid_set1;
+      X509_keyid_set1 := _X509_keyid_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10745,13 +10746,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_alias_get0_allownil)}
-    X509_alias_get0 := @ERR_X509_alias_get0;
+    X509_alias_get0 := ERR_X509_alias_get0;
     {$ifend}
     {$if declared(X509_alias_get0_introduced)}
     if LibVersion < X509_alias_get0_introduced then
     begin
       {$if declared(FC_X509_alias_get0)}
-      X509_alias_get0 := @FC_X509_alias_get0;
+      X509_alias_get0 := FC_X509_alias_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10760,7 +10761,7 @@ begin
     if X509_alias_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_alias_get0)}
-      X509_alias_get0 := @_X509_alias_get0;
+      X509_alias_get0 := _X509_alias_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10777,13 +10778,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_keyid_get0_allownil)}
-    X509_keyid_get0 := @ERR_X509_keyid_get0;
+    X509_keyid_get0 := ERR_X509_keyid_get0;
     {$ifend}
     {$if declared(X509_keyid_get0_introduced)}
     if LibVersion < X509_keyid_get0_introduced then
     begin
       {$if declared(FC_X509_keyid_get0)}
-      X509_keyid_get0 := @FC_X509_keyid_get0;
+      X509_keyid_get0 := FC_X509_keyid_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10792,7 +10793,7 @@ begin
     if X509_keyid_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_keyid_get0)}
-      X509_keyid_get0 := @_X509_keyid_get0;
+      X509_keyid_get0 := _X509_keyid_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10809,13 +10810,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_set_allownil)}
-    X509_TRUST_set := @ERR_X509_TRUST_set;
+    X509_TRUST_set := ERR_X509_TRUST_set;
     {$ifend}
     {$if declared(X509_TRUST_set_introduced)}
     if LibVersion < X509_TRUST_set_introduced then
     begin
       {$if declared(FC_X509_TRUST_set)}
-      X509_TRUST_set := @FC_X509_TRUST_set;
+      X509_TRUST_set := FC_X509_TRUST_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10824,7 +10825,7 @@ begin
     if X509_TRUST_set_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_set)}
-      X509_TRUST_set := @_X509_TRUST_set;
+      X509_TRUST_set := _X509_TRUST_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10841,13 +10842,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_add1_trust_object_allownil)}
-    X509_add1_trust_object := @ERR_X509_add1_trust_object;
+    X509_add1_trust_object := ERR_X509_add1_trust_object;
     {$ifend}
     {$if declared(X509_add1_trust_object_introduced)}
     if LibVersion < X509_add1_trust_object_introduced then
     begin
       {$if declared(FC_X509_add1_trust_object)}
-      X509_add1_trust_object := @FC_X509_add1_trust_object;
+      X509_add1_trust_object := FC_X509_add1_trust_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10856,7 +10857,7 @@ begin
     if X509_add1_trust_object_removed <= LibVersion then
     begin
       {$if declared(_X509_add1_trust_object)}
-      X509_add1_trust_object := @_X509_add1_trust_object;
+      X509_add1_trust_object := _X509_add1_trust_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10873,13 +10874,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_add1_reject_object_allownil)}
-    X509_add1_reject_object := @ERR_X509_add1_reject_object;
+    X509_add1_reject_object := ERR_X509_add1_reject_object;
     {$ifend}
     {$if declared(X509_add1_reject_object_introduced)}
     if LibVersion < X509_add1_reject_object_introduced then
     begin
       {$if declared(FC_X509_add1_reject_object)}
-      X509_add1_reject_object := @FC_X509_add1_reject_object;
+      X509_add1_reject_object := FC_X509_add1_reject_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10888,7 +10889,7 @@ begin
     if X509_add1_reject_object_removed <= LibVersion then
     begin
       {$if declared(_X509_add1_reject_object)}
-      X509_add1_reject_object := @_X509_add1_reject_object;
+      X509_add1_reject_object := _X509_add1_reject_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10905,13 +10906,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_trust_clear_allownil)}
-    X509_trust_clear := @ERR_X509_trust_clear;
+    X509_trust_clear := ERR_X509_trust_clear;
     {$ifend}
     {$if declared(X509_trust_clear_introduced)}
     if LibVersion < X509_trust_clear_introduced then
     begin
       {$if declared(FC_X509_trust_clear)}
-      X509_trust_clear := @FC_X509_trust_clear;
+      X509_trust_clear := FC_X509_trust_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10920,7 +10921,7 @@ begin
     if X509_trust_clear_removed <= LibVersion then
     begin
       {$if declared(_X509_trust_clear)}
-      X509_trust_clear := @_X509_trust_clear;
+      X509_trust_clear := _X509_trust_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10937,13 +10938,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_reject_clear_allownil)}
-    X509_reject_clear := @ERR_X509_reject_clear;
+    X509_reject_clear := ERR_X509_reject_clear;
     {$ifend}
     {$if declared(X509_reject_clear_introduced)}
     if LibVersion < X509_reject_clear_introduced then
     begin
       {$if declared(FC_X509_reject_clear)}
-      X509_reject_clear := @FC_X509_reject_clear;
+      X509_reject_clear := FC_X509_reject_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10952,7 +10953,7 @@ begin
     if X509_reject_clear_removed <= LibVersion then
     begin
       {$if declared(_X509_reject_clear)}
-      X509_reject_clear := @_X509_reject_clear;
+      X509_reject_clear := _X509_reject_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10969,13 +10970,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_new_allownil)}
-    X509_REVOKED_new := @ERR_X509_REVOKED_new;
+    X509_REVOKED_new := ERR_X509_REVOKED_new;
     {$ifend}
     {$if declared(X509_REVOKED_new_introduced)}
     if LibVersion < X509_REVOKED_new_introduced then
     begin
       {$if declared(FC_X509_REVOKED_new)}
-      X509_REVOKED_new := @FC_X509_REVOKED_new;
+      X509_REVOKED_new := FC_X509_REVOKED_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10984,7 +10985,7 @@ begin
     if X509_REVOKED_new_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_new)}
-      X509_REVOKED_new := @_X509_REVOKED_new;
+      X509_REVOKED_new := _X509_REVOKED_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11001,13 +11002,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_free_allownil)}
-    X509_REVOKED_free := @ERR_X509_REVOKED_free;
+    X509_REVOKED_free := ERR_X509_REVOKED_free;
     {$ifend}
     {$if declared(X509_REVOKED_free_introduced)}
     if LibVersion < X509_REVOKED_free_introduced then
     begin
       {$if declared(FC_X509_REVOKED_free)}
-      X509_REVOKED_free := @FC_X509_REVOKED_free;
+      X509_REVOKED_free := FC_X509_REVOKED_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11016,7 +11017,7 @@ begin
     if X509_REVOKED_free_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_free)}
-      X509_REVOKED_free := @_X509_REVOKED_free;
+      X509_REVOKED_free := _X509_REVOKED_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11033,13 +11034,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_REVOKED_allownil)}
-    d2i_X509_REVOKED := @ERR_d2i_X509_REVOKED;
+    d2i_X509_REVOKED := ERR_d2i_X509_REVOKED;
     {$ifend}
     {$if declared(d2i_X509_REVOKED_introduced)}
     if LibVersion < d2i_X509_REVOKED_introduced then
     begin
       {$if declared(FC_d2i_X509_REVOKED)}
-      d2i_X509_REVOKED := @FC_d2i_X509_REVOKED;
+      d2i_X509_REVOKED := FC_d2i_X509_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11048,7 +11049,7 @@ begin
     if d2i_X509_REVOKED_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_REVOKED)}
-      d2i_X509_REVOKED := @_d2i_X509_REVOKED;
+      d2i_X509_REVOKED := _d2i_X509_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11065,13 +11066,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_REVOKED_allownil)}
-    i2d_X509_REVOKED := @ERR_i2d_X509_REVOKED;
+    i2d_X509_REVOKED := ERR_i2d_X509_REVOKED;
     {$ifend}
     {$if declared(i2d_X509_REVOKED_introduced)}
     if LibVersion < i2d_X509_REVOKED_introduced then
     begin
       {$if declared(FC_i2d_X509_REVOKED)}
-      i2d_X509_REVOKED := @FC_i2d_X509_REVOKED;
+      i2d_X509_REVOKED := FC_i2d_X509_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11080,7 +11081,7 @@ begin
     if i2d_X509_REVOKED_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_REVOKED)}
-      i2d_X509_REVOKED := @_i2d_X509_REVOKED;
+      i2d_X509_REVOKED := _i2d_X509_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11097,13 +11098,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_INFO_new_allownil)}
-    X509_CRL_INFO_new := @ERR_X509_CRL_INFO_new;
+    X509_CRL_INFO_new := ERR_X509_CRL_INFO_new;
     {$ifend}
     {$if declared(X509_CRL_INFO_new_introduced)}
     if LibVersion < X509_CRL_INFO_new_introduced then
     begin
       {$if declared(FC_X509_CRL_INFO_new)}
-      X509_CRL_INFO_new := @FC_X509_CRL_INFO_new;
+      X509_CRL_INFO_new := FC_X509_CRL_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11112,7 +11113,7 @@ begin
     if X509_CRL_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_INFO_new)}
-      X509_CRL_INFO_new := @_X509_CRL_INFO_new;
+      X509_CRL_INFO_new := _X509_CRL_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11129,13 +11130,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_INFO_free_allownil)}
-    X509_CRL_INFO_free := @ERR_X509_CRL_INFO_free;
+    X509_CRL_INFO_free := ERR_X509_CRL_INFO_free;
     {$ifend}
     {$if declared(X509_CRL_INFO_free_introduced)}
     if LibVersion < X509_CRL_INFO_free_introduced then
     begin
       {$if declared(FC_X509_CRL_INFO_free)}
-      X509_CRL_INFO_free := @FC_X509_CRL_INFO_free;
+      X509_CRL_INFO_free := FC_X509_CRL_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11144,7 +11145,7 @@ begin
     if X509_CRL_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_INFO_free)}
-      X509_CRL_INFO_free := @_X509_CRL_INFO_free;
+      X509_CRL_INFO_free := _X509_CRL_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11161,13 +11162,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_CRL_INFO_allownil)}
-    d2i_X509_CRL_INFO := @ERR_d2i_X509_CRL_INFO;
+    d2i_X509_CRL_INFO := ERR_d2i_X509_CRL_INFO;
     {$ifend}
     {$if declared(d2i_X509_CRL_INFO_introduced)}
     if LibVersion < d2i_X509_CRL_INFO_introduced then
     begin
       {$if declared(FC_d2i_X509_CRL_INFO)}
-      d2i_X509_CRL_INFO := @FC_d2i_X509_CRL_INFO;
+      d2i_X509_CRL_INFO := FC_d2i_X509_CRL_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11176,7 +11177,7 @@ begin
     if d2i_X509_CRL_INFO_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_CRL_INFO)}
-      d2i_X509_CRL_INFO := @_d2i_X509_CRL_INFO;
+      d2i_X509_CRL_INFO := _d2i_X509_CRL_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11193,13 +11194,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_CRL_INFO_allownil)}
-    i2d_X509_CRL_INFO := @ERR_i2d_X509_CRL_INFO;
+    i2d_X509_CRL_INFO := ERR_i2d_X509_CRL_INFO;
     {$ifend}
     {$if declared(i2d_X509_CRL_INFO_introduced)}
     if LibVersion < i2d_X509_CRL_INFO_introduced then
     begin
       {$if declared(FC_i2d_X509_CRL_INFO)}
-      i2d_X509_CRL_INFO := @FC_i2d_X509_CRL_INFO;
+      i2d_X509_CRL_INFO := FC_i2d_X509_CRL_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11208,7 +11209,7 @@ begin
     if i2d_X509_CRL_INFO_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_CRL_INFO)}
-      i2d_X509_CRL_INFO := @_i2d_X509_CRL_INFO;
+      i2d_X509_CRL_INFO := _i2d_X509_CRL_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11225,13 +11226,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_new_allownil)}
-    X509_CRL_new := @ERR_X509_CRL_new;
+    X509_CRL_new := ERR_X509_CRL_new;
     {$ifend}
     {$if declared(X509_CRL_new_introduced)}
     if LibVersion < X509_CRL_new_introduced then
     begin
       {$if declared(FC_X509_CRL_new)}
-      X509_CRL_new := @FC_X509_CRL_new;
+      X509_CRL_new := FC_X509_CRL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11240,7 +11241,7 @@ begin
     if X509_CRL_new_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_new)}
-      X509_CRL_new := @_X509_CRL_new;
+      X509_CRL_new := _X509_CRL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11257,13 +11258,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_free_allownil)}
-    X509_CRL_free := @ERR_X509_CRL_free;
+    X509_CRL_free := ERR_X509_CRL_free;
     {$ifend}
     {$if declared(X509_CRL_free_introduced)}
     if LibVersion < X509_CRL_free_introduced then
     begin
       {$if declared(FC_X509_CRL_free)}
-      X509_CRL_free := @FC_X509_CRL_free;
+      X509_CRL_free := FC_X509_CRL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11272,7 +11273,7 @@ begin
     if X509_CRL_free_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_free)}
-      X509_CRL_free := @_X509_CRL_free;
+      X509_CRL_free := _X509_CRL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11289,13 +11290,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_X509_CRL_allownil)}
-    d2i_X509_CRL := @ERR_d2i_X509_CRL;
+    d2i_X509_CRL := ERR_d2i_X509_CRL;
     {$ifend}
     {$if declared(d2i_X509_CRL_introduced)}
     if LibVersion < d2i_X509_CRL_introduced then
     begin
       {$if declared(FC_d2i_X509_CRL)}
-      d2i_X509_CRL := @FC_d2i_X509_CRL;
+      d2i_X509_CRL := FC_d2i_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11304,7 +11305,7 @@ begin
     if d2i_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_d2i_X509_CRL)}
-      d2i_X509_CRL := @_d2i_X509_CRL;
+      d2i_X509_CRL := _d2i_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11321,13 +11322,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_X509_CRL_allownil)}
-    i2d_X509_CRL := @ERR_i2d_X509_CRL;
+    i2d_X509_CRL := ERR_i2d_X509_CRL;
     {$ifend}
     {$if declared(i2d_X509_CRL_introduced)}
     if LibVersion < i2d_X509_CRL_introduced then
     begin
       {$if declared(FC_i2d_X509_CRL)}
-      i2d_X509_CRL := @FC_i2d_X509_CRL;
+      i2d_X509_CRL := FC_i2d_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11336,7 +11337,7 @@ begin
     if i2d_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_i2d_X509_CRL)}
-      i2d_X509_CRL := @_i2d_X509_CRL;
+      i2d_X509_CRL := _i2d_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11353,13 +11354,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_add0_revoked_allownil)}
-    X509_CRL_add0_revoked := @ERR_X509_CRL_add0_revoked;
+    X509_CRL_add0_revoked := ERR_X509_CRL_add0_revoked;
     {$ifend}
     {$if declared(X509_CRL_add0_revoked_introduced)}
     if LibVersion < X509_CRL_add0_revoked_introduced then
     begin
       {$if declared(FC_X509_CRL_add0_revoked)}
-      X509_CRL_add0_revoked := @FC_X509_CRL_add0_revoked;
+      X509_CRL_add0_revoked := FC_X509_CRL_add0_revoked;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11368,7 +11369,7 @@ begin
     if X509_CRL_add0_revoked_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_add0_revoked)}
-      X509_CRL_add0_revoked := @_X509_CRL_add0_revoked;
+      X509_CRL_add0_revoked := _X509_CRL_add0_revoked;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11385,13 +11386,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_by_serial_allownil)}
-    X509_CRL_get0_by_serial := @ERR_X509_CRL_get0_by_serial;
+    X509_CRL_get0_by_serial := ERR_X509_CRL_get0_by_serial;
     {$ifend}
     {$if declared(X509_CRL_get0_by_serial_introduced)}
     if LibVersion < X509_CRL_get0_by_serial_introduced then
     begin
       {$if declared(FC_X509_CRL_get0_by_serial)}
-      X509_CRL_get0_by_serial := @FC_X509_CRL_get0_by_serial;
+      X509_CRL_get0_by_serial := FC_X509_CRL_get0_by_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11400,7 +11401,7 @@ begin
     if X509_CRL_get0_by_serial_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_by_serial)}
-      X509_CRL_get0_by_serial := @_X509_CRL_get0_by_serial;
+      X509_CRL_get0_by_serial := _X509_CRL_get0_by_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11417,13 +11418,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_by_cert_allownil)}
-    X509_CRL_get0_by_cert := @ERR_X509_CRL_get0_by_cert;
+    X509_CRL_get0_by_cert := ERR_X509_CRL_get0_by_cert;
     {$ifend}
     {$if declared(X509_CRL_get0_by_cert_introduced)}
     if LibVersion < X509_CRL_get0_by_cert_introduced then
     begin
       {$if declared(FC_X509_CRL_get0_by_cert)}
-      X509_CRL_get0_by_cert := @FC_X509_CRL_get0_by_cert;
+      X509_CRL_get0_by_cert := FC_X509_CRL_get0_by_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11432,7 +11433,7 @@ begin
     if X509_CRL_get0_by_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_by_cert)}
-      X509_CRL_get0_by_cert := @_X509_CRL_get0_by_cert;
+      X509_CRL_get0_by_cert := _X509_CRL_get0_by_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11449,13 +11450,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PKEY_new_allownil)}
-    X509_PKEY_new := @ERR_X509_PKEY_new;
+    X509_PKEY_new := ERR_X509_PKEY_new;
     {$ifend}
     {$if declared(X509_PKEY_new_introduced)}
     if LibVersion < X509_PKEY_new_introduced then
     begin
       {$if declared(FC_X509_PKEY_new)}
-      X509_PKEY_new := @FC_X509_PKEY_new;
+      X509_PKEY_new := FC_X509_PKEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11464,7 +11465,7 @@ begin
     if X509_PKEY_new_removed <= LibVersion then
     begin
       {$if declared(_X509_PKEY_new)}
-      X509_PKEY_new := @_X509_PKEY_new;
+      X509_PKEY_new := _X509_PKEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11481,13 +11482,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PKEY_free_allownil)}
-    X509_PKEY_free := @ERR_X509_PKEY_free;
+    X509_PKEY_free := ERR_X509_PKEY_free;
     {$ifend}
     {$if declared(X509_PKEY_free_introduced)}
     if LibVersion < X509_PKEY_free_introduced then
     begin
       {$if declared(FC_X509_PKEY_free)}
-      X509_PKEY_free := @FC_X509_PKEY_free;
+      X509_PKEY_free := FC_X509_PKEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11496,7 +11497,7 @@ begin
     if X509_PKEY_free_removed <= LibVersion then
     begin
       {$if declared(_X509_PKEY_free)}
-      X509_PKEY_free := @_X509_PKEY_free;
+      X509_PKEY_free := _X509_PKEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11513,13 +11514,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_INFO_new_allownil)}
-    X509_INFO_new := @ERR_X509_INFO_new;
+    X509_INFO_new := ERR_X509_INFO_new;
     {$ifend}
     {$if declared(X509_INFO_new_introduced)}
     if LibVersion < X509_INFO_new_introduced then
     begin
       {$if declared(FC_X509_INFO_new)}
-      X509_INFO_new := @FC_X509_INFO_new;
+      X509_INFO_new := FC_X509_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11528,7 +11529,7 @@ begin
     if X509_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_X509_INFO_new)}
-      X509_INFO_new := @_X509_INFO_new;
+      X509_INFO_new := _X509_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11545,13 +11546,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_INFO_free_allownil)}
-    X509_INFO_free := @ERR_X509_INFO_free;
+    X509_INFO_free := ERR_X509_INFO_free;
     {$ifend}
     {$if declared(X509_INFO_free_introduced)}
     if LibVersion < X509_INFO_free_introduced then
     begin
       {$if declared(FC_X509_INFO_free)}
-      X509_INFO_free := @FC_X509_INFO_free;
+      X509_INFO_free := FC_X509_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11560,7 +11561,7 @@ begin
     if X509_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_X509_INFO_free)}
-      X509_INFO_free := @_X509_INFO_free;
+      X509_INFO_free := _X509_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11577,13 +11578,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_oneline_allownil)}
-    X509_NAME_oneline := @ERR_X509_NAME_oneline;
+    X509_NAME_oneline := ERR_X509_NAME_oneline;
     {$ifend}
     {$if declared(X509_NAME_oneline_introduced)}
     if LibVersion < X509_NAME_oneline_introduced then
     begin
       {$if declared(FC_X509_NAME_oneline)}
-      X509_NAME_oneline := @FC_X509_NAME_oneline;
+      X509_NAME_oneline := FC_X509_NAME_oneline;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11592,7 +11593,7 @@ begin
     if X509_NAME_oneline_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_oneline)}
-      X509_NAME_oneline := @_X509_NAME_oneline;
+      X509_NAME_oneline := _X509_NAME_oneline;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11609,13 +11610,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_digest_allownil)}
-    ASN1_item_digest := @ERR_ASN1_item_digest;
+    ASN1_item_digest := ERR_ASN1_item_digest;
     {$ifend}
     {$if declared(ASN1_item_digest_introduced)}
     if LibVersion < ASN1_item_digest_introduced then
     begin
       {$if declared(FC_ASN1_item_digest)}
-      ASN1_item_digest := @FC_ASN1_item_digest;
+      ASN1_item_digest := FC_ASN1_item_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11624,7 +11625,7 @@ begin
     if ASN1_item_digest_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_digest)}
-      ASN1_item_digest := @_ASN1_item_digest;
+      ASN1_item_digest := _ASN1_item_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11641,13 +11642,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_verify_allownil)}
-    ASN1_item_verify := @ERR_ASN1_item_verify;
+    ASN1_item_verify := ERR_ASN1_item_verify;
     {$ifend}
     {$if declared(ASN1_item_verify_introduced)}
     if LibVersion < ASN1_item_verify_introduced then
     begin
       {$if declared(FC_ASN1_item_verify)}
-      ASN1_item_verify := @FC_ASN1_item_verify;
+      ASN1_item_verify := FC_ASN1_item_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11656,7 +11657,7 @@ begin
     if ASN1_item_verify_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_verify)}
-      ASN1_item_verify := @_ASN1_item_verify;
+      ASN1_item_verify := _ASN1_item_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11673,13 +11674,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_sign_allownil)}
-    ASN1_item_sign := @ERR_ASN1_item_sign;
+    ASN1_item_sign := ERR_ASN1_item_sign;
     {$ifend}
     {$if declared(ASN1_item_sign_introduced)}
     if LibVersion < ASN1_item_sign_introduced then
     begin
       {$if declared(FC_ASN1_item_sign)}
-      ASN1_item_sign := @FC_ASN1_item_sign;
+      ASN1_item_sign := FC_ASN1_item_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11688,7 +11689,7 @@ begin
     if ASN1_item_sign_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_sign)}
-      ASN1_item_sign := @_ASN1_item_sign;
+      ASN1_item_sign := _ASN1_item_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11705,13 +11706,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_sign_ctx_allownil)}
-    ASN1_item_sign_ctx := @ERR_ASN1_item_sign_ctx;
+    ASN1_item_sign_ctx := ERR_ASN1_item_sign_ctx;
     {$ifend}
     {$if declared(ASN1_item_sign_ctx_introduced)}
     if LibVersion < ASN1_item_sign_ctx_introduced then
     begin
       {$if declared(FC_ASN1_item_sign_ctx)}
-      ASN1_item_sign_ctx := @FC_ASN1_item_sign_ctx;
+      ASN1_item_sign_ctx := FC_ASN1_item_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11720,7 +11721,7 @@ begin
     if ASN1_item_sign_ctx_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_sign_ctx)}
-      ASN1_item_sign_ctx := @_ASN1_item_sign_ctx;
+      ASN1_item_sign_ctx := _ASN1_item_sign_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11737,13 +11738,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_version_allownil)}
-    X509_get_version := @ERR_X509_get_version;
+    X509_get_version := ERR_X509_get_version;
     {$ifend}
     {$if declared(X509_get_version_introduced)}
     if LibVersion < X509_get_version_introduced then
     begin
       {$if declared(FC_X509_get_version)}
-      X509_get_version := @FC_X509_get_version;
+      X509_get_version := FC_X509_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11752,7 +11753,7 @@ begin
     if X509_get_version_removed <= LibVersion then
     begin
       {$if declared(_X509_get_version)}
-      X509_get_version := @_X509_get_version;
+      X509_get_version := _X509_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11769,13 +11770,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_version_allownil)}
-    X509_set_version := @ERR_X509_set_version;
+    X509_set_version := ERR_X509_set_version;
     {$ifend}
     {$if declared(X509_set_version_introduced)}
     if LibVersion < X509_set_version_introduced then
     begin
       {$if declared(FC_X509_set_version)}
-      X509_set_version := @FC_X509_set_version;
+      X509_set_version := FC_X509_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11784,7 +11785,7 @@ begin
     if X509_set_version_removed <= LibVersion then
     begin
       {$if declared(_X509_set_version)}
-      X509_set_version := @_X509_set_version;
+      X509_set_version := _X509_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11801,13 +11802,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_serialNumber_allownil)}
-    X509_set_serialNumber := @ERR_X509_set_serialNumber;
+    X509_set_serialNumber := ERR_X509_set_serialNumber;
     {$ifend}
     {$if declared(X509_set_serialNumber_introduced)}
     if LibVersion < X509_set_serialNumber_introduced then
     begin
       {$if declared(FC_X509_set_serialNumber)}
-      X509_set_serialNumber := @FC_X509_set_serialNumber;
+      X509_set_serialNumber := FC_X509_set_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11816,7 +11817,7 @@ begin
     if X509_set_serialNumber_removed <= LibVersion then
     begin
       {$if declared(_X509_set_serialNumber)}
-      X509_set_serialNumber := @_X509_set_serialNumber;
+      X509_set_serialNumber := _X509_set_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11833,13 +11834,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_serialNumber_allownil)}
-    X509_get_serialNumber := @ERR_X509_get_serialNumber;
+    X509_get_serialNumber := ERR_X509_get_serialNumber;
     {$ifend}
     {$if declared(X509_get_serialNumber_introduced)}
     if LibVersion < X509_get_serialNumber_introduced then
     begin
       {$if declared(FC_X509_get_serialNumber)}
-      X509_get_serialNumber := @FC_X509_get_serialNumber;
+      X509_get_serialNumber := FC_X509_get_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11848,7 +11849,7 @@ begin
     if X509_get_serialNumber_removed <= LibVersion then
     begin
       {$if declared(_X509_get_serialNumber)}
-      X509_get_serialNumber := @_X509_get_serialNumber;
+      X509_get_serialNumber := _X509_get_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11865,13 +11866,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_serialNumber_allownil)}
-    X509_get0_serialNumber := @ERR_X509_get0_serialNumber;
+    X509_get0_serialNumber := ERR_X509_get0_serialNumber;
     {$ifend}
     {$if declared(X509_get0_serialNumber_introduced)}
     if LibVersion < X509_get0_serialNumber_introduced then
     begin
       {$if declared(FC_X509_get0_serialNumber)}
-      X509_get0_serialNumber := @FC_X509_get0_serialNumber;
+      X509_get0_serialNumber := FC_X509_get0_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11880,7 +11881,7 @@ begin
     if X509_get0_serialNumber_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_serialNumber)}
-      X509_get0_serialNumber := @_X509_get0_serialNumber;
+      X509_get0_serialNumber := _X509_get0_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11897,13 +11898,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_issuer_name_allownil)}
-    X509_set_issuer_name := @ERR_X509_set_issuer_name;
+    X509_set_issuer_name := ERR_X509_set_issuer_name;
     {$ifend}
     {$if declared(X509_set_issuer_name_introduced)}
     if LibVersion < X509_set_issuer_name_introduced then
     begin
       {$if declared(FC_X509_set_issuer_name)}
-      X509_set_issuer_name := @FC_X509_set_issuer_name;
+      X509_set_issuer_name := FC_X509_set_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11912,7 +11913,7 @@ begin
     if X509_set_issuer_name_removed <= LibVersion then
     begin
       {$if declared(_X509_set_issuer_name)}
-      X509_set_issuer_name := @_X509_set_issuer_name;
+      X509_set_issuer_name := _X509_set_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11929,13 +11930,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_issuer_name_allownil)}
-    X509_get_issuer_name := @ERR_X509_get_issuer_name;
+    X509_get_issuer_name := ERR_X509_get_issuer_name;
     {$ifend}
     {$if declared(X509_get_issuer_name_introduced)}
     if LibVersion < X509_get_issuer_name_introduced then
     begin
       {$if declared(FC_X509_get_issuer_name)}
-      X509_get_issuer_name := @FC_X509_get_issuer_name;
+      X509_get_issuer_name := FC_X509_get_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11944,7 +11945,7 @@ begin
     if X509_get_issuer_name_removed <= LibVersion then
     begin
       {$if declared(_X509_get_issuer_name)}
-      X509_get_issuer_name := @_X509_get_issuer_name;
+      X509_get_issuer_name := _X509_get_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11961,13 +11962,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_subject_name_allownil)}
-    X509_set_subject_name := @ERR_X509_set_subject_name;
+    X509_set_subject_name := ERR_X509_set_subject_name;
     {$ifend}
     {$if declared(X509_set_subject_name_introduced)}
     if LibVersion < X509_set_subject_name_introduced then
     begin
       {$if declared(FC_X509_set_subject_name)}
-      X509_set_subject_name := @FC_X509_set_subject_name;
+      X509_set_subject_name := FC_X509_set_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11976,7 +11977,7 @@ begin
     if X509_set_subject_name_removed <= LibVersion then
     begin
       {$if declared(_X509_set_subject_name)}
-      X509_set_subject_name := @_X509_set_subject_name;
+      X509_set_subject_name := _X509_set_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11993,13 +11994,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_subject_name_allownil)}
-    X509_get_subject_name := @ERR_X509_get_subject_name;
+    X509_get_subject_name := ERR_X509_get_subject_name;
     {$ifend}
     {$if declared(X509_get_subject_name_introduced)}
     if LibVersion < X509_get_subject_name_introduced then
     begin
       {$if declared(FC_X509_get_subject_name)}
-      X509_get_subject_name := @FC_X509_get_subject_name;
+      X509_get_subject_name := FC_X509_get_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12008,7 +12009,7 @@ begin
     if X509_get_subject_name_removed <= LibVersion then
     begin
       {$if declared(_X509_get_subject_name)}
-      X509_get_subject_name := @_X509_get_subject_name;
+      X509_get_subject_name := _X509_get_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12025,13 +12026,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_notBefore_allownil)}
-    X509_get0_notBefore := @ERR_X509_get0_notBefore;
+    X509_get0_notBefore := ERR_X509_get0_notBefore;
     {$ifend}
     {$if declared(X509_get0_notBefore_introduced)}
     if LibVersion < X509_get0_notBefore_introduced then
     begin
       {$if declared(FC_X509_get0_notBefore)}
-      X509_get0_notBefore := @FC_X509_get0_notBefore;
+      X509_get0_notBefore := FC_X509_get0_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12040,7 +12041,7 @@ begin
     if X509_get0_notBefore_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_notBefore)}
-      X509_get0_notBefore := @_X509_get0_notBefore;
+      X509_get0_notBefore := _X509_get0_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12057,13 +12058,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_getm_notBefore_allownil)}
-    X509_getm_notBefore := @ERR_X509_getm_notBefore;
+    X509_getm_notBefore := ERR_X509_getm_notBefore;
     {$ifend}
     {$if declared(X509_getm_notBefore_introduced)}
     if LibVersion < X509_getm_notBefore_introduced then
     begin
       {$if declared(FC_X509_getm_notBefore)}
-      X509_getm_notBefore := @FC_X509_getm_notBefore;
+      X509_getm_notBefore := FC_X509_getm_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12072,7 +12073,7 @@ begin
     if X509_getm_notBefore_removed <= LibVersion then
     begin
       {$if declared(_X509_getm_notBefore)}
-      X509_getm_notBefore := @_X509_getm_notBefore;
+      X509_getm_notBefore := _X509_getm_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12089,13 +12090,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set1_notBefore_allownil)}
-    X509_set1_notBefore := @ERR_X509_set1_notBefore;
+    X509_set1_notBefore := ERR_X509_set1_notBefore;
     {$ifend}
     {$if declared(X509_set1_notBefore_introduced)}
     if LibVersion < X509_set1_notBefore_introduced then
     begin
       {$if declared(FC_X509_set1_notBefore)}
-      X509_set1_notBefore := @FC_X509_set1_notBefore;
+      X509_set1_notBefore := FC_X509_set1_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12104,7 +12105,7 @@ begin
     if X509_set1_notBefore_removed <= LibVersion then
     begin
       {$if declared(_X509_set1_notBefore)}
-      X509_set1_notBefore := @_X509_set1_notBefore;
+      X509_set1_notBefore := _X509_set1_notBefore;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12121,13 +12122,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_notAfter_allownil)}
-    X509_get0_notAfter := @ERR_X509_get0_notAfter;
+    X509_get0_notAfter := ERR_X509_get0_notAfter;
     {$ifend}
     {$if declared(X509_get0_notAfter_introduced)}
     if LibVersion < X509_get0_notAfter_introduced then
     begin
       {$if declared(FC_X509_get0_notAfter)}
-      X509_get0_notAfter := @FC_X509_get0_notAfter;
+      X509_get0_notAfter := FC_X509_get0_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12136,7 +12137,7 @@ begin
     if X509_get0_notAfter_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_notAfter)}
-      X509_get0_notAfter := @_X509_get0_notAfter;
+      X509_get0_notAfter := _X509_get0_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12153,13 +12154,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_getm_notAfter_allownil)}
-    X509_getm_notAfter := @ERR_X509_getm_notAfter;
+    X509_getm_notAfter := ERR_X509_getm_notAfter;
     {$ifend}
     {$if declared(X509_getm_notAfter_introduced)}
     if LibVersion < X509_getm_notAfter_introduced then
     begin
       {$if declared(FC_X509_getm_notAfter)}
-      X509_getm_notAfter := @FC_X509_getm_notAfter;
+      X509_getm_notAfter := FC_X509_getm_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12168,7 +12169,7 @@ begin
     if X509_getm_notAfter_removed <= LibVersion then
     begin
       {$if declared(_X509_getm_notAfter)}
-      X509_getm_notAfter := @_X509_getm_notAfter;
+      X509_getm_notAfter := _X509_getm_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12185,13 +12186,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set1_notAfter_allownil)}
-    X509_set1_notAfter := @ERR_X509_set1_notAfter;
+    X509_set1_notAfter := ERR_X509_set1_notAfter;
     {$ifend}
     {$if declared(X509_set1_notAfter_introduced)}
     if LibVersion < X509_set1_notAfter_introduced then
     begin
       {$if declared(FC_X509_set1_notAfter)}
-      X509_set1_notAfter := @FC_X509_set1_notAfter;
+      X509_set1_notAfter := FC_X509_set1_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12200,7 +12201,7 @@ begin
     if X509_set1_notAfter_removed <= LibVersion then
     begin
       {$if declared(_X509_set1_notAfter)}
-      X509_set1_notAfter := @_X509_set1_notAfter;
+      X509_set1_notAfter := _X509_set1_notAfter;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12217,13 +12218,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_set_pubkey_allownil)}
-    X509_set_pubkey := @ERR_X509_set_pubkey;
+    X509_set_pubkey := ERR_X509_set_pubkey;
     {$ifend}
     {$if declared(X509_set_pubkey_introduced)}
     if LibVersion < X509_set_pubkey_introduced then
     begin
       {$if declared(FC_X509_set_pubkey)}
-      X509_set_pubkey := @FC_X509_set_pubkey;
+      X509_set_pubkey := FC_X509_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12232,7 +12233,7 @@ begin
     if X509_set_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_set_pubkey)}
-      X509_set_pubkey := @_X509_set_pubkey;
+      X509_set_pubkey := _X509_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12249,13 +12250,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_up_ref_allownil)}
-    X509_up_ref := @ERR_X509_up_ref;
+    X509_up_ref := ERR_X509_up_ref;
     {$ifend}
     {$if declared(X509_up_ref_introduced)}
     if LibVersion < X509_up_ref_introduced then
     begin
       {$if declared(FC_X509_up_ref)}
-      X509_up_ref := @FC_X509_up_ref;
+      X509_up_ref := FC_X509_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12264,7 +12265,7 @@ begin
     if X509_up_ref_removed <= LibVersion then
     begin
       {$if declared(_X509_up_ref)}
-      X509_up_ref := @_X509_up_ref;
+      X509_up_ref := _X509_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12281,13 +12282,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_signature_type_allownil)}
-    X509_get_signature_type := @ERR_X509_get_signature_type;
+    X509_get_signature_type := ERR_X509_get_signature_type;
     {$ifend}
     {$if declared(X509_get_signature_type_introduced)}
     if LibVersion < X509_get_signature_type_introduced then
     begin
       {$if declared(FC_X509_get_signature_type)}
-      X509_get_signature_type := @FC_X509_get_signature_type;
+      X509_get_signature_type := FC_X509_get_signature_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12296,7 +12297,7 @@ begin
     if X509_get_signature_type_removed <= LibVersion then
     begin
       {$if declared(_X509_get_signature_type)}
-      X509_get_signature_type := @_X509_get_signature_type;
+      X509_get_signature_type := _X509_get_signature_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12313,13 +12314,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_X509_PUBKEY_allownil)}
-    X509_get_X509_PUBKEY := @ERR_X509_get_X509_PUBKEY;
+    X509_get_X509_PUBKEY := ERR_X509_get_X509_PUBKEY;
     {$ifend}
     {$if declared(X509_get_X509_PUBKEY_introduced)}
     if LibVersion < X509_get_X509_PUBKEY_introduced then
     begin
       {$if declared(FC_X509_get_X509_PUBKEY)}
-      X509_get_X509_PUBKEY := @FC_X509_get_X509_PUBKEY;
+      X509_get_X509_PUBKEY := FC_X509_get_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12328,7 +12329,7 @@ begin
     if X509_get_X509_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_X509_get_X509_PUBKEY)}
-      X509_get_X509_PUBKEY := @_X509_get_X509_PUBKEY;
+      X509_get_X509_PUBKEY := _X509_get_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12345,13 +12346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_uids_allownil)}
-    X509_get0_uids := @ERR_X509_get0_uids;
+    X509_get0_uids := ERR_X509_get0_uids;
     {$ifend}
     {$if declared(X509_get0_uids_introduced)}
     if LibVersion < X509_get0_uids_introduced then
     begin
       {$if declared(FC_X509_get0_uids)}
-      X509_get0_uids := @FC_X509_get0_uids;
+      X509_get0_uids := FC_X509_get0_uids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12360,7 +12361,7 @@ begin
     if X509_get0_uids_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_uids)}
-      X509_get0_uids := @_X509_get0_uids;
+      X509_get0_uids := _X509_get0_uids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12377,13 +12378,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_tbs_sigalg_allownil)}
-    X509_get0_tbs_sigalg := @ERR_X509_get0_tbs_sigalg;
+    X509_get0_tbs_sigalg := ERR_X509_get0_tbs_sigalg;
     {$ifend}
     {$if declared(X509_get0_tbs_sigalg_introduced)}
     if LibVersion < X509_get0_tbs_sigalg_introduced then
     begin
       {$if declared(FC_X509_get0_tbs_sigalg)}
-      X509_get0_tbs_sigalg := @FC_X509_get0_tbs_sigalg;
+      X509_get0_tbs_sigalg := FC_X509_get0_tbs_sigalg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12392,7 +12393,7 @@ begin
     if X509_get0_tbs_sigalg_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_tbs_sigalg)}
-      X509_get0_tbs_sigalg := @_X509_get0_tbs_sigalg;
+      X509_get0_tbs_sigalg := _X509_get0_tbs_sigalg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12409,13 +12410,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_pubkey_allownil)}
-    X509_get0_pubkey := @ERR_X509_get0_pubkey;
+    X509_get0_pubkey := ERR_X509_get0_pubkey;
     {$ifend}
     {$if declared(X509_get0_pubkey_introduced)}
     if LibVersion < X509_get0_pubkey_introduced then
     begin
       {$if declared(FC_X509_get0_pubkey)}
-      X509_get0_pubkey := @FC_X509_get0_pubkey;
+      X509_get0_pubkey := FC_X509_get0_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12424,7 +12425,7 @@ begin
     if X509_get0_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_pubkey)}
-      X509_get0_pubkey := @_X509_get0_pubkey;
+      X509_get0_pubkey := _X509_get0_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12441,13 +12442,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_pubkey_allownil)}
-    X509_get_pubkey := @ERR_X509_get_pubkey;
+    X509_get_pubkey := ERR_X509_get_pubkey;
     {$ifend}
     {$if declared(X509_get_pubkey_introduced)}
     if LibVersion < X509_get_pubkey_introduced then
     begin
       {$if declared(FC_X509_get_pubkey)}
-      X509_get_pubkey := @FC_X509_get_pubkey;
+      X509_get_pubkey := FC_X509_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12456,7 +12457,7 @@ begin
     if X509_get_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_get_pubkey)}
-      X509_get_pubkey := @_X509_get_pubkey;
+      X509_get_pubkey := _X509_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12473,13 +12474,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get0_pubkey_bitstr_allownil)}
-    X509_get0_pubkey_bitstr := @ERR_X509_get0_pubkey_bitstr;
+    X509_get0_pubkey_bitstr := ERR_X509_get0_pubkey_bitstr;
     {$ifend}
     {$if declared(X509_get0_pubkey_bitstr_introduced)}
     if LibVersion < X509_get0_pubkey_bitstr_introduced then
     begin
       {$if declared(FC_X509_get0_pubkey_bitstr)}
-      X509_get0_pubkey_bitstr := @FC_X509_get0_pubkey_bitstr;
+      X509_get0_pubkey_bitstr := FC_X509_get0_pubkey_bitstr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12488,7 +12489,7 @@ begin
     if X509_get0_pubkey_bitstr_removed <= LibVersion then
     begin
       {$if declared(_X509_get0_pubkey_bitstr)}
-      X509_get0_pubkey_bitstr := @_X509_get0_pubkey_bitstr;
+      X509_get0_pubkey_bitstr := _X509_get0_pubkey_bitstr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12505,13 +12506,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_certificate_type_allownil)}
-    X509_certificate_type := @ERR_X509_certificate_type;
+    X509_certificate_type := ERR_X509_certificate_type;
     {$ifend}
     {$if declared(X509_certificate_type_introduced)}
     if LibVersion < X509_certificate_type_introduced then
     begin
       {$if declared(FC_X509_certificate_type)}
-      X509_certificate_type := @FC_X509_certificate_type;
+      X509_certificate_type := FC_X509_certificate_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12520,7 +12521,7 @@ begin
     if X509_certificate_type_removed <= LibVersion then
     begin
       {$if declared(_X509_certificate_type)}
-      X509_certificate_type := @_X509_certificate_type;
+      X509_certificate_type := _X509_certificate_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12537,13 +12538,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_version_allownil)}
-    X509_REQ_get_version := @ERR_X509_REQ_get_version;
+    X509_REQ_get_version := ERR_X509_REQ_get_version;
     {$ifend}
     {$if declared(X509_REQ_get_version_introduced)}
     if LibVersion < X509_REQ_get_version_introduced then
     begin
       {$if declared(FC_X509_REQ_get_version)}
-      X509_REQ_get_version := @FC_X509_REQ_get_version;
+      X509_REQ_get_version := FC_X509_REQ_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12552,7 +12553,7 @@ begin
     if X509_REQ_get_version_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_version)}
-      X509_REQ_get_version := @_X509_REQ_get_version;
+      X509_REQ_get_version := _X509_REQ_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12569,13 +12570,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_set_version_allownil)}
-    X509_REQ_set_version := @ERR_X509_REQ_set_version;
+    X509_REQ_set_version := ERR_X509_REQ_set_version;
     {$ifend}
     {$if declared(X509_REQ_set_version_introduced)}
     if LibVersion < X509_REQ_set_version_introduced then
     begin
       {$if declared(FC_X509_REQ_set_version)}
-      X509_REQ_set_version := @FC_X509_REQ_set_version;
+      X509_REQ_set_version := FC_X509_REQ_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12584,7 +12585,7 @@ begin
     if X509_REQ_set_version_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_set_version)}
-      X509_REQ_set_version := @_X509_REQ_set_version;
+      X509_REQ_set_version := _X509_REQ_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12601,13 +12602,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_subject_name_allownil)}
-    X509_REQ_get_subject_name := @ERR_X509_REQ_get_subject_name;
+    X509_REQ_get_subject_name := ERR_X509_REQ_get_subject_name;
     {$ifend}
     {$if declared(X509_REQ_get_subject_name_introduced)}
     if LibVersion < X509_REQ_get_subject_name_introduced then
     begin
       {$if declared(FC_X509_REQ_get_subject_name)}
-      X509_REQ_get_subject_name := @FC_X509_REQ_get_subject_name;
+      X509_REQ_get_subject_name := FC_X509_REQ_get_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12616,7 +12617,7 @@ begin
     if X509_REQ_get_subject_name_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_subject_name)}
-      X509_REQ_get_subject_name := @_X509_REQ_get_subject_name;
+      X509_REQ_get_subject_name := _X509_REQ_get_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12633,13 +12634,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_set_subject_name_allownil)}
-    X509_REQ_set_subject_name := @ERR_X509_REQ_set_subject_name;
+    X509_REQ_set_subject_name := ERR_X509_REQ_set_subject_name;
     {$ifend}
     {$if declared(X509_REQ_set_subject_name_introduced)}
     if LibVersion < X509_REQ_set_subject_name_introduced then
     begin
       {$if declared(FC_X509_REQ_set_subject_name)}
-      X509_REQ_set_subject_name := @FC_X509_REQ_set_subject_name;
+      X509_REQ_set_subject_name := FC_X509_REQ_set_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12648,7 +12649,7 @@ begin
     if X509_REQ_set_subject_name_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_set_subject_name)}
-      X509_REQ_set_subject_name := @_X509_REQ_set_subject_name;
+      X509_REQ_set_subject_name := _X509_REQ_set_subject_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12665,13 +12666,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get0_signature_allownil)}
-    X509_REQ_get0_signature := @ERR_X509_REQ_get0_signature;
+    X509_REQ_get0_signature := ERR_X509_REQ_get0_signature;
     {$ifend}
     {$if declared(X509_REQ_get0_signature_introduced)}
     if LibVersion < X509_REQ_get0_signature_introduced then
     begin
       {$if declared(FC_X509_REQ_get0_signature)}
-      X509_REQ_get0_signature := @FC_X509_REQ_get0_signature;
+      X509_REQ_get0_signature := FC_X509_REQ_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12680,7 +12681,7 @@ begin
     if X509_REQ_get0_signature_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get0_signature)}
-      X509_REQ_get0_signature := @_X509_REQ_get0_signature;
+      X509_REQ_get0_signature := _X509_REQ_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12697,13 +12698,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_signature_nid_allownil)}
-    X509_REQ_get_signature_nid := @ERR_X509_REQ_get_signature_nid;
+    X509_REQ_get_signature_nid := ERR_X509_REQ_get_signature_nid;
     {$ifend}
     {$if declared(X509_REQ_get_signature_nid_introduced)}
     if LibVersion < X509_REQ_get_signature_nid_introduced then
     begin
       {$if declared(FC_X509_REQ_get_signature_nid)}
-      X509_REQ_get_signature_nid := @FC_X509_REQ_get_signature_nid;
+      X509_REQ_get_signature_nid := FC_X509_REQ_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12712,7 +12713,7 @@ begin
     if X509_REQ_get_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_signature_nid)}
-      X509_REQ_get_signature_nid := @_X509_REQ_get_signature_nid;
+      X509_REQ_get_signature_nid := _X509_REQ_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12729,13 +12730,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_re_X509_REQ_tbs_allownil)}
-    i2d_re_X509_REQ_tbs := @ERR_i2d_re_X509_REQ_tbs;
+    i2d_re_X509_REQ_tbs := ERR_i2d_re_X509_REQ_tbs;
     {$ifend}
     {$if declared(i2d_re_X509_REQ_tbs_introduced)}
     if LibVersion < i2d_re_X509_REQ_tbs_introduced then
     begin
       {$if declared(FC_i2d_re_X509_REQ_tbs)}
-      i2d_re_X509_REQ_tbs := @FC_i2d_re_X509_REQ_tbs;
+      i2d_re_X509_REQ_tbs := FC_i2d_re_X509_REQ_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12744,7 +12745,7 @@ begin
     if i2d_re_X509_REQ_tbs_removed <= LibVersion then
     begin
       {$if declared(_i2d_re_X509_REQ_tbs)}
-      i2d_re_X509_REQ_tbs := @_i2d_re_X509_REQ_tbs;
+      i2d_re_X509_REQ_tbs := _i2d_re_X509_REQ_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12761,13 +12762,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_set_pubkey_allownil)}
-    X509_REQ_set_pubkey := @ERR_X509_REQ_set_pubkey;
+    X509_REQ_set_pubkey := ERR_X509_REQ_set_pubkey;
     {$ifend}
     {$if declared(X509_REQ_set_pubkey_introduced)}
     if LibVersion < X509_REQ_set_pubkey_introduced then
     begin
       {$if declared(FC_X509_REQ_set_pubkey)}
-      X509_REQ_set_pubkey := @FC_X509_REQ_set_pubkey;
+      X509_REQ_set_pubkey := FC_X509_REQ_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12776,7 +12777,7 @@ begin
     if X509_REQ_set_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_set_pubkey)}
-      X509_REQ_set_pubkey := @_X509_REQ_set_pubkey;
+      X509_REQ_set_pubkey := _X509_REQ_set_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12793,13 +12794,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_pubkey_allownil)}
-    X509_REQ_get_pubkey := @ERR_X509_REQ_get_pubkey;
+    X509_REQ_get_pubkey := ERR_X509_REQ_get_pubkey;
     {$ifend}
     {$if declared(X509_REQ_get_pubkey_introduced)}
     if LibVersion < X509_REQ_get_pubkey_introduced then
     begin
       {$if declared(FC_X509_REQ_get_pubkey)}
-      X509_REQ_get_pubkey := @FC_X509_REQ_get_pubkey;
+      X509_REQ_get_pubkey := FC_X509_REQ_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12808,7 +12809,7 @@ begin
     if X509_REQ_get_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_pubkey)}
-      X509_REQ_get_pubkey := @_X509_REQ_get_pubkey;
+      X509_REQ_get_pubkey := _X509_REQ_get_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12825,13 +12826,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get0_pubkey_allownil)}
-    X509_REQ_get0_pubkey := @ERR_X509_REQ_get0_pubkey;
+    X509_REQ_get0_pubkey := ERR_X509_REQ_get0_pubkey;
     {$ifend}
     {$if declared(X509_REQ_get0_pubkey_introduced)}
     if LibVersion < X509_REQ_get0_pubkey_introduced then
     begin
       {$if declared(FC_X509_REQ_get0_pubkey)}
-      X509_REQ_get0_pubkey := @FC_X509_REQ_get0_pubkey;
+      X509_REQ_get0_pubkey := FC_X509_REQ_get0_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12840,7 +12841,7 @@ begin
     if X509_REQ_get0_pubkey_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get0_pubkey)}
-      X509_REQ_get0_pubkey := @_X509_REQ_get0_pubkey;
+      X509_REQ_get0_pubkey := _X509_REQ_get0_pubkey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12857,13 +12858,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_X509_PUBKEY_allownil)}
-    X509_REQ_get_X509_PUBKEY := @ERR_X509_REQ_get_X509_PUBKEY;
+    X509_REQ_get_X509_PUBKEY := ERR_X509_REQ_get_X509_PUBKEY;
     {$ifend}
     {$if declared(X509_REQ_get_X509_PUBKEY_introduced)}
     if LibVersion < X509_REQ_get_X509_PUBKEY_introduced then
     begin
       {$if declared(FC_X509_REQ_get_X509_PUBKEY)}
-      X509_REQ_get_X509_PUBKEY := @FC_X509_REQ_get_X509_PUBKEY;
+      X509_REQ_get_X509_PUBKEY := FC_X509_REQ_get_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12872,7 +12873,7 @@ begin
     if X509_REQ_get_X509_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_X509_PUBKEY)}
-      X509_REQ_get_X509_PUBKEY := @_X509_REQ_get_X509_PUBKEY;
+      X509_REQ_get_X509_PUBKEY := _X509_REQ_get_X509_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12889,13 +12890,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_extension_nid_allownil)}
-    X509_REQ_extension_nid := @ERR_X509_REQ_extension_nid;
+    X509_REQ_extension_nid := ERR_X509_REQ_extension_nid;
     {$ifend}
     {$if declared(X509_REQ_extension_nid_introduced)}
     if LibVersion < X509_REQ_extension_nid_introduced then
     begin
       {$if declared(FC_X509_REQ_extension_nid)}
-      X509_REQ_extension_nid := @FC_X509_REQ_extension_nid;
+      X509_REQ_extension_nid := FC_X509_REQ_extension_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12904,7 +12905,7 @@ begin
     if X509_REQ_extension_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_extension_nid)}
-      X509_REQ_extension_nid := @_X509_REQ_extension_nid;
+      X509_REQ_extension_nid := _X509_REQ_extension_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12921,13 +12922,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_extension_nids_allownil)}
-    X509_REQ_get_extension_nids := @ERR_X509_REQ_get_extension_nids;
+    X509_REQ_get_extension_nids := ERR_X509_REQ_get_extension_nids;
     {$ifend}
     {$if declared(X509_REQ_get_extension_nids_introduced)}
     if LibVersion < X509_REQ_get_extension_nids_introduced then
     begin
       {$if declared(FC_X509_REQ_get_extension_nids)}
-      X509_REQ_get_extension_nids := @FC_X509_REQ_get_extension_nids;
+      X509_REQ_get_extension_nids := FC_X509_REQ_get_extension_nids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12936,7 +12937,7 @@ begin
     if X509_REQ_get_extension_nids_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_extension_nids)}
-      X509_REQ_get_extension_nids := @_X509_REQ_get_extension_nids;
+      X509_REQ_get_extension_nids := _X509_REQ_get_extension_nids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12953,13 +12954,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_set_extension_nids_allownil)}
-    X509_REQ_set_extension_nids := @ERR_X509_REQ_set_extension_nids;
+    X509_REQ_set_extension_nids := ERR_X509_REQ_set_extension_nids;
     {$ifend}
     {$if declared(X509_REQ_set_extension_nids_introduced)}
     if LibVersion < X509_REQ_set_extension_nids_introduced then
     begin
       {$if declared(FC_X509_REQ_set_extension_nids)}
-      X509_REQ_set_extension_nids := @FC_X509_REQ_set_extension_nids;
+      X509_REQ_set_extension_nids := FC_X509_REQ_set_extension_nids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12968,7 +12969,7 @@ begin
     if X509_REQ_set_extension_nids_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_set_extension_nids)}
-      X509_REQ_set_extension_nids := @_X509_REQ_set_extension_nids;
+      X509_REQ_set_extension_nids := _X509_REQ_set_extension_nids;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12984,13 +12985,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_extensions_allownil)}
-    X509_REQ_get_extensions := @ERR_X509_REQ_get_extensions;
+    X509_REQ_get_extensions := ERR_X509_REQ_get_extensions;
     {$ifend}
     {$if declared(X509_REQ_get_extensions_introduced)}
     if LibVersion < X509_REQ_get_extensions_introduced then
     begin
       {$if declared(FC_X509_REQ_get_extensions)}
-      X509_REQ_get_extensions := @FC_X509_REQ_get_extensions;
+      X509_REQ_get_extensions := FC_X509_REQ_get_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12999,7 +13000,7 @@ begin
     if X509_REQ_get_extensions_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_extensions)}
-      X509_REQ_get_extensions := @_X509_REQ_get_extensions;
+      X509_REQ_get_extensions := _X509_REQ_get_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13015,13 +13016,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add_extensions_nid_allownil)}
-    X509_REQ_add_extensions_nid := @ERR_X509_REQ_add_extensions_nid;
+    X509_REQ_add_extensions_nid := ERR_X509_REQ_add_extensions_nid;
     {$ifend}
     {$if declared(X509_REQ_add_extensions_nid_introduced)}
     if LibVersion < X509_REQ_add_extensions_nid_introduced then
     begin
       {$if declared(FC_X509_REQ_get_extensions)}
-      X509_REQ_add_extensions_nid := @FC_X509_REQ_add_extensions_nid;
+      X509_REQ_add_extensions_nid := FC_X509_REQ_add_extensions_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13030,7 +13031,7 @@ begin
     if X509_REQ_add_extensions_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add_extensions_nid)}
-      X509_REQ_add_extensions_nid := @_X509_REQ_add_extensions_nid;
+      X509_REQ_add_extensions_nid := _X509_REQ_add_extensions_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13046,13 +13047,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add_extensions_nid_allownil)}
-    X509_REQ_add_extensions := @ERR_X509_REQ_add_extensions;
+    X509_REQ_add_extensions := ERR_X509_REQ_add_extensions;
     {$ifend}
     {$if declared(X509_REQ_add_extensions_nid_introduced)}
     if LibVersion < X509_REQ_add_extensions_introduced then
     begin
       {$if declared(FC_X509_REQ_get_extensions)}
-      X509_REQ_add_extensions := @FC_X509_REQ_add_extensions;
+      X509_REQ_add_extensions := FC_X509_REQ_add_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13061,7 +13062,7 @@ begin
     if X509_REQ_add_extensions_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add_extensions_nid)}
-      X509_REQ_add_extensions := @_X509_REQ_add_extensions;
+      X509_REQ_add_extensions := _X509_REQ_add_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13077,13 +13078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_attr_count_allownil)}
-    X509_REQ_get_attr_count := @ERR_X509_REQ_get_attr_count;
+    X509_REQ_get_attr_count := ERR_X509_REQ_get_attr_count;
     {$ifend}
     {$if declared(X509_REQ_get_attr_count_introduced)}
     if LibVersion < X509_REQ_get_attr_count_introduced then
     begin
       {$if declared(FC_X509_REQ_get_attr_count)}
-      X509_REQ_get_attr_count := @FC_X509_REQ_get_attr_count;
+      X509_REQ_get_attr_count := FC_X509_REQ_get_attr_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13092,7 +13093,7 @@ begin
     if X509_REQ_get_attr_count_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_attr_count)}
-      X509_REQ_get_attr_count := @_X509_REQ_get_attr_count;
+      X509_REQ_get_attr_count := _X509_REQ_get_attr_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13109,13 +13110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_attr_by_NID_allownil)}
-    X509_REQ_get_attr_by_NID := @ERR_X509_REQ_get_attr_by_NID;
+    X509_REQ_get_attr_by_NID := ERR_X509_REQ_get_attr_by_NID;
     {$ifend}
     {$if declared(X509_REQ_get_attr_by_NID_introduced)}
     if LibVersion < X509_REQ_get_attr_by_NID_introduced then
     begin
       {$if declared(FC_X509_REQ_get_attr_by_NID)}
-      X509_REQ_get_attr_by_NID := @FC_X509_REQ_get_attr_by_NID;
+      X509_REQ_get_attr_by_NID := FC_X509_REQ_get_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13124,7 +13125,7 @@ begin
     if X509_REQ_get_attr_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_attr_by_NID)}
-      X509_REQ_get_attr_by_NID := @_X509_REQ_get_attr_by_NID;
+      X509_REQ_get_attr_by_NID := _X509_REQ_get_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13141,13 +13142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_attr_by_OBJ_allownil)}
-    X509_REQ_get_attr_by_OBJ := @ERR_X509_REQ_get_attr_by_OBJ;
+    X509_REQ_get_attr_by_OBJ := ERR_X509_REQ_get_attr_by_OBJ;
     {$ifend}
     {$if declared(X509_REQ_get_attr_by_OBJ_introduced)}
     if LibVersion < X509_REQ_get_attr_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_REQ_get_attr_by_OBJ)}
-      X509_REQ_get_attr_by_OBJ := @FC_X509_REQ_get_attr_by_OBJ;
+      X509_REQ_get_attr_by_OBJ := FC_X509_REQ_get_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13156,7 +13157,7 @@ begin
     if X509_REQ_get_attr_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_attr_by_OBJ)}
-      X509_REQ_get_attr_by_OBJ := @_X509_REQ_get_attr_by_OBJ;
+      X509_REQ_get_attr_by_OBJ := _X509_REQ_get_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13173,13 +13174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_get_attr_allownil)}
-    X509_REQ_get_attr := @ERR_X509_REQ_get_attr;
+    X509_REQ_get_attr := ERR_X509_REQ_get_attr;
     {$ifend}
     {$if declared(X509_REQ_get_attr_introduced)}
     if LibVersion < X509_REQ_get_attr_introduced then
     begin
       {$if declared(FC_X509_REQ_get_attr)}
-      X509_REQ_get_attr := @FC_X509_REQ_get_attr;
+      X509_REQ_get_attr := FC_X509_REQ_get_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13188,7 +13189,7 @@ begin
     if X509_REQ_get_attr_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_get_attr)}
-      X509_REQ_get_attr := @_X509_REQ_get_attr;
+      X509_REQ_get_attr := _X509_REQ_get_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13205,13 +13206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_delete_attr_allownil)}
-    X509_REQ_delete_attr := @ERR_X509_REQ_delete_attr;
+    X509_REQ_delete_attr := ERR_X509_REQ_delete_attr;
     {$ifend}
     {$if declared(X509_REQ_delete_attr_introduced)}
     if LibVersion < X509_REQ_delete_attr_introduced then
     begin
       {$if declared(FC_X509_REQ_delete_attr)}
-      X509_REQ_delete_attr := @FC_X509_REQ_delete_attr;
+      X509_REQ_delete_attr := FC_X509_REQ_delete_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13220,7 +13221,7 @@ begin
     if X509_REQ_delete_attr_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_delete_attr)}
-      X509_REQ_delete_attr := @_X509_REQ_delete_attr;
+      X509_REQ_delete_attr := _X509_REQ_delete_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13237,13 +13238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add1_attr_allownil)}
-    X509_REQ_add1_attr := @ERR_X509_REQ_add1_attr;
+    X509_REQ_add1_attr := ERR_X509_REQ_add1_attr;
     {$ifend}
     {$if declared(X509_REQ_add1_attr_introduced)}
     if LibVersion < X509_REQ_add1_attr_introduced then
     begin
       {$if declared(FC_X509_REQ_add1_attr)}
-      X509_REQ_add1_attr := @FC_X509_REQ_add1_attr;
+      X509_REQ_add1_attr := FC_X509_REQ_add1_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13252,7 +13253,7 @@ begin
     if X509_REQ_add1_attr_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add1_attr)}
-      X509_REQ_add1_attr := @_X509_REQ_add1_attr;
+      X509_REQ_add1_attr := _X509_REQ_add1_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13269,13 +13270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add1_attr_by_OBJ_allownil)}
-    X509_REQ_add1_attr_by_OBJ := @ERR_X509_REQ_add1_attr_by_OBJ;
+    X509_REQ_add1_attr_by_OBJ := ERR_X509_REQ_add1_attr_by_OBJ;
     {$ifend}
     {$if declared(X509_REQ_add1_attr_by_OBJ_introduced)}
     if LibVersion < X509_REQ_add1_attr_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_REQ_add1_attr_by_OBJ)}
-      X509_REQ_add1_attr_by_OBJ := @FC_X509_REQ_add1_attr_by_OBJ;
+      X509_REQ_add1_attr_by_OBJ := FC_X509_REQ_add1_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13284,7 +13285,7 @@ begin
     if X509_REQ_add1_attr_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add1_attr_by_OBJ)}
-      X509_REQ_add1_attr_by_OBJ := @_X509_REQ_add1_attr_by_OBJ;
+      X509_REQ_add1_attr_by_OBJ := _X509_REQ_add1_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13301,13 +13302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add1_attr_by_NID_allownil)}
-    X509_REQ_add1_attr_by_NID := @ERR_X509_REQ_add1_attr_by_NID;
+    X509_REQ_add1_attr_by_NID := ERR_X509_REQ_add1_attr_by_NID;
     {$ifend}
     {$if declared(X509_REQ_add1_attr_by_NID_introduced)}
     if LibVersion < X509_REQ_add1_attr_by_NID_introduced then
     begin
       {$if declared(FC_X509_REQ_add1_attr_by_NID)}
-      X509_REQ_add1_attr_by_NID := @FC_X509_REQ_add1_attr_by_NID;
+      X509_REQ_add1_attr_by_NID := FC_X509_REQ_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13316,7 +13317,7 @@ begin
     if X509_REQ_add1_attr_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add1_attr_by_NID)}
-      X509_REQ_add1_attr_by_NID := @_X509_REQ_add1_attr_by_NID;
+      X509_REQ_add1_attr_by_NID := _X509_REQ_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13333,13 +13334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_add1_attr_by_txt_allownil)}
-    X509_REQ_add1_attr_by_txt := @ERR_X509_REQ_add1_attr_by_txt;
+    X509_REQ_add1_attr_by_txt := ERR_X509_REQ_add1_attr_by_txt;
     {$ifend}
     {$if declared(X509_REQ_add1_attr_by_txt_introduced)}
     if LibVersion < X509_REQ_add1_attr_by_txt_introduced then
     begin
       {$if declared(FC_X509_REQ_add1_attr_by_txt)}
-      X509_REQ_add1_attr_by_txt := @FC_X509_REQ_add1_attr_by_txt;
+      X509_REQ_add1_attr_by_txt := FC_X509_REQ_add1_attr_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13348,7 +13349,7 @@ begin
     if X509_REQ_add1_attr_by_txt_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_add1_attr_by_txt)}
-      X509_REQ_add1_attr_by_txt := @_X509_REQ_add1_attr_by_txt;
+      X509_REQ_add1_attr_by_txt := _X509_REQ_add1_attr_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13365,13 +13366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set_version_allownil)}
-    X509_CRL_set_version := @ERR_X509_CRL_set_version;
+    X509_CRL_set_version := ERR_X509_CRL_set_version;
     {$ifend}
     {$if declared(X509_CRL_set_version_introduced)}
     if LibVersion < X509_CRL_set_version_introduced then
     begin
       {$if declared(FC_X509_CRL_set_version)}
-      X509_CRL_set_version := @FC_X509_CRL_set_version;
+      X509_CRL_set_version := FC_X509_CRL_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13380,7 +13381,7 @@ begin
     if X509_CRL_set_version_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set_version)}
-      X509_CRL_set_version := @_X509_CRL_set_version;
+      X509_CRL_set_version := _X509_CRL_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13397,13 +13398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set_issuer_name_allownil)}
-    X509_CRL_set_issuer_name := @ERR_X509_CRL_set_issuer_name;
+    X509_CRL_set_issuer_name := ERR_X509_CRL_set_issuer_name;
     {$ifend}
     {$if declared(X509_CRL_set_issuer_name_introduced)}
     if LibVersion < X509_CRL_set_issuer_name_introduced then
     begin
       {$if declared(FC_X509_CRL_set_issuer_name)}
-      X509_CRL_set_issuer_name := @FC_X509_CRL_set_issuer_name;
+      X509_CRL_set_issuer_name := FC_X509_CRL_set_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13412,7 +13413,7 @@ begin
     if X509_CRL_set_issuer_name_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set_issuer_name)}
-      X509_CRL_set_issuer_name := @_X509_CRL_set_issuer_name;
+      X509_CRL_set_issuer_name := _X509_CRL_set_issuer_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13429,13 +13430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set1_lastUpdate_allownil)}
-    X509_CRL_set1_lastUpdate := @ERR_X509_CRL_set1_lastUpdate;
+    X509_CRL_set1_lastUpdate := ERR_X509_CRL_set1_lastUpdate;
     {$ifend}
     {$if declared(X509_CRL_set1_lastUpdate_introduced)}
     if LibVersion < X509_CRL_set1_lastUpdate_introduced then
     begin
       {$if declared(FC_X509_CRL_set1_lastUpdate)}
-      X509_CRL_set1_lastUpdate := @FC_X509_CRL_set1_lastUpdate;
+      X509_CRL_set1_lastUpdate := FC_X509_CRL_set1_lastUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13444,7 +13445,7 @@ begin
     if X509_CRL_set1_lastUpdate_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set1_lastUpdate)}
-      X509_CRL_set1_lastUpdate := @_X509_CRL_set1_lastUpdate;
+      X509_CRL_set1_lastUpdate := _X509_CRL_set1_lastUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13461,13 +13462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_set1_nextUpdate_allownil)}
-    X509_CRL_set1_nextUpdate := @ERR_X509_CRL_set1_nextUpdate;
+    X509_CRL_set1_nextUpdate := ERR_X509_CRL_set1_nextUpdate;
     {$ifend}
     {$if declared(X509_CRL_set1_nextUpdate_introduced)}
     if LibVersion < X509_CRL_set1_nextUpdate_introduced then
     begin
       {$if declared(FC_X509_CRL_set1_nextUpdate)}
-      X509_CRL_set1_nextUpdate := @FC_X509_CRL_set1_nextUpdate;
+      X509_CRL_set1_nextUpdate := FC_X509_CRL_set1_nextUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13476,7 +13477,7 @@ begin
     if X509_CRL_set1_nextUpdate_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_set1_nextUpdate)}
-      X509_CRL_set1_nextUpdate := @_X509_CRL_set1_nextUpdate;
+      X509_CRL_set1_nextUpdate := _X509_CRL_set1_nextUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13493,13 +13494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_sort_allownil)}
-    X509_CRL_sort := @ERR_X509_CRL_sort;
+    X509_CRL_sort := ERR_X509_CRL_sort;
     {$ifend}
     {$if declared(X509_CRL_sort_introduced)}
     if LibVersion < X509_CRL_sort_introduced then
     begin
       {$if declared(FC_X509_CRL_sort)}
-      X509_CRL_sort := @FC_X509_CRL_sort;
+      X509_CRL_sort := FC_X509_CRL_sort;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13508,7 +13509,7 @@ begin
     if X509_CRL_sort_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_sort)}
-      X509_CRL_sort := @_X509_CRL_sort;
+      X509_CRL_sort := _X509_CRL_sort;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13525,13 +13526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_up_ref_allownil)}
-    X509_CRL_up_ref := @ERR_X509_CRL_up_ref;
+    X509_CRL_up_ref := ERR_X509_CRL_up_ref;
     {$ifend}
     {$if declared(X509_CRL_up_ref_introduced)}
     if LibVersion < X509_CRL_up_ref_introduced then
     begin
       {$if declared(FC_X509_CRL_up_ref)}
-      X509_CRL_up_ref := @FC_X509_CRL_up_ref;
+      X509_CRL_up_ref := FC_X509_CRL_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13540,7 +13541,7 @@ begin
     if X509_CRL_up_ref_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_up_ref)}
-      X509_CRL_up_ref := @_X509_CRL_up_ref;
+      X509_CRL_up_ref := _X509_CRL_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13557,13 +13558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_version_allownil)}
-    X509_CRL_get_version := @ERR_X509_CRL_get_version;
+    X509_CRL_get_version := ERR_X509_CRL_get_version;
     {$ifend}
     {$if declared(X509_CRL_get_version_introduced)}
     if LibVersion < X509_CRL_get_version_introduced then
     begin
       {$if declared(FC_X509_CRL_get_version)}
-      X509_CRL_get_version := @FC_X509_CRL_get_version;
+      X509_CRL_get_version := FC_X509_CRL_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13572,7 +13573,7 @@ begin
     if X509_CRL_get_version_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_version)}
-      X509_CRL_get_version := @_X509_CRL_get_version;
+      X509_CRL_get_version := _X509_CRL_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13589,13 +13590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_lastUpdate_allownil)}
-    X509_CRL_get0_lastUpdate := @ERR_X509_CRL_get0_lastUpdate;
+    X509_CRL_get0_lastUpdate := ERR_X509_CRL_get0_lastUpdate;
     {$ifend}
     {$if declared(X509_CRL_get0_lastUpdate_introduced)}
     if LibVersion < X509_CRL_get0_lastUpdate_introduced then
     begin
       {$if declared(FC_X509_CRL_get0_lastUpdate)}
-      X509_CRL_get0_lastUpdate := @FC_X509_CRL_get0_lastUpdate;
+      X509_CRL_get0_lastUpdate := FC_X509_CRL_get0_lastUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13604,7 +13605,7 @@ begin
     if X509_CRL_get0_lastUpdate_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_lastUpdate)}
-      X509_CRL_get0_lastUpdate := @_X509_CRL_get0_lastUpdate;
+      X509_CRL_get0_lastUpdate := _X509_CRL_get0_lastUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13621,13 +13622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_nextUpdate_allownil)}
-    X509_CRL_get0_nextUpdate := @ERR_X509_CRL_get0_nextUpdate;
+    X509_CRL_get0_nextUpdate := ERR_X509_CRL_get0_nextUpdate;
     {$ifend}
     {$if declared(X509_CRL_get0_nextUpdate_introduced)}
     if LibVersion < X509_CRL_get0_nextUpdate_introduced then
     begin
       {$if declared(FC_X509_CRL_get0_nextUpdate)}
-      X509_CRL_get0_nextUpdate := @FC_X509_CRL_get0_nextUpdate;
+      X509_CRL_get0_nextUpdate := FC_X509_CRL_get0_nextUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13636,7 +13637,7 @@ begin
     if X509_CRL_get0_nextUpdate_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_nextUpdate)}
-      X509_CRL_get0_nextUpdate := @_X509_CRL_get0_nextUpdate;
+      X509_CRL_get0_nextUpdate := _X509_CRL_get0_nextUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13653,13 +13654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_issuer_allownil)}
-    X509_CRL_get_issuer := @ERR_X509_CRL_get_issuer;
+    X509_CRL_get_issuer := ERR_X509_CRL_get_issuer;
     {$ifend}
     {$if declared(X509_CRL_get_issuer_introduced)}
     if LibVersion < X509_CRL_get_issuer_introduced then
     begin
       {$if declared(FC_X509_CRL_get_issuer)}
-      X509_CRL_get_issuer := @FC_X509_CRL_get_issuer;
+      X509_CRL_get_issuer := FC_X509_CRL_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13668,7 +13669,7 @@ begin
     if X509_CRL_get_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_issuer)}
-      X509_CRL_get_issuer := @_X509_CRL_get_issuer;
+      X509_CRL_get_issuer := _X509_CRL_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13684,13 +13685,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_extensions_allownil)}
-    X509_CRL_get0_extensions := @ERR_X509_CRL_get0_extensions;
+    X509_CRL_get0_extensions := ERR_X509_CRL_get0_extensions;
     {$ifend}
     {$if declared(X509_CRL_get0_extensions_introduced)}
     if LibVersion < X509_CRL_get0_extensions_introduced then
     begin
       {$if declared(FC_X509_CRL_get_issuer)}
-      X509_CRL_get0_extensions := @FC_X509_CRL_get0_extensions;
+      X509_CRL_get0_extensions := FC_X509_CRL_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13699,7 +13700,7 @@ begin
     if X509_CRL_get0_extensions_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_extensions)}
-      X509_CRL_get0_extensions := @_X509_CRL_get0_extensions;
+      X509_CRL_get0_extensions := _X509_CRL_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13715,13 +13716,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_REVOKED_allownil)}
-    X509_CRL_get_REVOKED := @ERR_X509_CRL_get_REVOKED;
+    X509_CRL_get_REVOKED := ERR_X509_CRL_get_REVOKED;
     {$ifend}
     {$if declared(X509_CRL_get_REVOKED_introduced)}
     if LibVersion < X509_CRL_get_REVOKED_introduced then
     begin
       {$if declared(FC_X509_CRL_get_REVOKED)}
-      X509_CRL_get_REVOKED := @FC_X509_CRL_get_REVOKED;
+      X509_CRL_get_REVOKED := FC_X509_CRL_get_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13730,7 +13731,7 @@ begin
     if X509_CRL_get_REVOKED_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_REVOKED)}
-      X509_CRL_get_REVOKED := @_X509_CRL_get_REVOKED;
+      X509_CRL_get_REVOKED := _X509_CRL_get_REVOKED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13747,13 +13748,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get0_signature_allownil)}
-    X509_CRL_get0_signature := @ERR_X509_CRL_get0_signature;
+    X509_CRL_get0_signature := ERR_X509_CRL_get0_signature;
     {$ifend}
     {$if declared(X509_CRL_get0_signature_introduced)}
     if LibVersion < X509_CRL_get0_signature_introduced then
     begin
       {$if declared(FC_X509_CRL_get0_signature)}
-      X509_CRL_get0_signature := @FC_X509_CRL_get0_signature;
+      X509_CRL_get0_signature := FC_X509_CRL_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13762,7 +13763,7 @@ begin
     if X509_CRL_get0_signature_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get0_signature)}
-      X509_CRL_get0_signature := @_X509_CRL_get0_signature;
+      X509_CRL_get0_signature := _X509_CRL_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13779,13 +13780,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_signature_nid_allownil)}
-    X509_CRL_get_signature_nid := @ERR_X509_CRL_get_signature_nid;
+    X509_CRL_get_signature_nid := ERR_X509_CRL_get_signature_nid;
     {$ifend}
     {$if declared(X509_CRL_get_signature_nid_introduced)}
     if LibVersion < X509_CRL_get_signature_nid_introduced then
     begin
       {$if declared(FC_X509_CRL_get_signature_nid)}
-      X509_CRL_get_signature_nid := @FC_X509_CRL_get_signature_nid;
+      X509_CRL_get_signature_nid := FC_X509_CRL_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13794,7 +13795,7 @@ begin
     if X509_CRL_get_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_signature_nid)}
-      X509_CRL_get_signature_nid := @_X509_CRL_get_signature_nid;
+      X509_CRL_get_signature_nid := _X509_CRL_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13811,13 +13812,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_re_X509_CRL_tbs_allownil)}
-    i2d_re_X509_CRL_tbs := @ERR_i2d_re_X509_CRL_tbs;
+    i2d_re_X509_CRL_tbs := ERR_i2d_re_X509_CRL_tbs;
     {$ifend}
     {$if declared(i2d_re_X509_CRL_tbs_introduced)}
     if LibVersion < i2d_re_X509_CRL_tbs_introduced then
     begin
       {$if declared(FC_i2d_re_X509_CRL_tbs)}
-      i2d_re_X509_CRL_tbs := @FC_i2d_re_X509_CRL_tbs;
+      i2d_re_X509_CRL_tbs := FC_i2d_re_X509_CRL_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13826,7 +13827,7 @@ begin
     if i2d_re_X509_CRL_tbs_removed <= LibVersion then
     begin
       {$if declared(_i2d_re_X509_CRL_tbs)}
-      i2d_re_X509_CRL_tbs := @_i2d_re_X509_CRL_tbs;
+      i2d_re_X509_CRL_tbs := _i2d_re_X509_CRL_tbs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13843,13 +13844,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get0_serialNumber_allownil)}
-    X509_REVOKED_get0_serialNumber := @ERR_X509_REVOKED_get0_serialNumber;
+    X509_REVOKED_get0_serialNumber := ERR_X509_REVOKED_get0_serialNumber;
     {$ifend}
     {$if declared(X509_REVOKED_get0_serialNumber_introduced)}
     if LibVersion < X509_REVOKED_get0_serialNumber_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get0_serialNumber)}
-      X509_REVOKED_get0_serialNumber := @FC_X509_REVOKED_get0_serialNumber;
+      X509_REVOKED_get0_serialNumber := FC_X509_REVOKED_get0_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13858,7 +13859,7 @@ begin
     if X509_REVOKED_get0_serialNumber_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get0_serialNumber)}
-      X509_REVOKED_get0_serialNumber := @_X509_REVOKED_get0_serialNumber;
+      X509_REVOKED_get0_serialNumber := _X509_REVOKED_get0_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13875,13 +13876,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_set_serialNumber_allownil)}
-    X509_REVOKED_set_serialNumber := @ERR_X509_REVOKED_set_serialNumber;
+    X509_REVOKED_set_serialNumber := ERR_X509_REVOKED_set_serialNumber;
     {$ifend}
     {$if declared(X509_REVOKED_set_serialNumber_introduced)}
     if LibVersion < X509_REVOKED_set_serialNumber_introduced then
     begin
       {$if declared(FC_X509_REVOKED_set_serialNumber)}
-      X509_REVOKED_set_serialNumber := @FC_X509_REVOKED_set_serialNumber;
+      X509_REVOKED_set_serialNumber := FC_X509_REVOKED_set_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13890,7 +13891,7 @@ begin
     if X509_REVOKED_set_serialNumber_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_set_serialNumber)}
-      X509_REVOKED_set_serialNumber := @_X509_REVOKED_set_serialNumber;
+      X509_REVOKED_set_serialNumber := _X509_REVOKED_set_serialNumber;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13907,13 +13908,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get0_revocationDate_allownil)}
-    X509_REVOKED_get0_revocationDate := @ERR_X509_REVOKED_get0_revocationDate;
+    X509_REVOKED_get0_revocationDate := ERR_X509_REVOKED_get0_revocationDate;
     {$ifend}
     {$if declared(X509_REVOKED_get0_revocationDate_introduced)}
     if LibVersion < X509_REVOKED_get0_revocationDate_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get0_revocationDate)}
-      X509_REVOKED_get0_revocationDate := @FC_X509_REVOKED_get0_revocationDate;
+      X509_REVOKED_get0_revocationDate := FC_X509_REVOKED_get0_revocationDate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13922,7 +13923,7 @@ begin
     if X509_REVOKED_get0_revocationDate_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get0_revocationDate)}
-      X509_REVOKED_get0_revocationDate := @_X509_REVOKED_get0_revocationDate;
+      X509_REVOKED_get0_revocationDate := _X509_REVOKED_get0_revocationDate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13939,13 +13940,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_set_revocationDate_allownil)}
-    X509_REVOKED_set_revocationDate := @ERR_X509_REVOKED_set_revocationDate;
+    X509_REVOKED_set_revocationDate := ERR_X509_REVOKED_set_revocationDate;
     {$ifend}
     {$if declared(X509_REVOKED_set_revocationDate_introduced)}
     if LibVersion < X509_REVOKED_set_revocationDate_introduced then
     begin
       {$if declared(FC_X509_REVOKED_set_revocationDate)}
-      X509_REVOKED_set_revocationDate := @FC_X509_REVOKED_set_revocationDate;
+      X509_REVOKED_set_revocationDate := FC_X509_REVOKED_set_revocationDate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13954,7 +13955,7 @@ begin
     if X509_REVOKED_set_revocationDate_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_set_revocationDate)}
-      X509_REVOKED_set_revocationDate := @_X509_REVOKED_set_revocationDate;
+      X509_REVOKED_set_revocationDate := _X509_REVOKED_set_revocationDate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13970,13 +13971,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get0_extensions_allownil)}
-    X509_REVOKED_get0_extensions := @ERR_X509_REVOKED_get0_extensions;
+    X509_REVOKED_get0_extensions := ERR_X509_REVOKED_get0_extensions;
     {$ifend}
     {$if declared(X509_REVOKED_get0_extensions_introduced)}
     if LibVersion < X509_REVOKED_get0_extensions_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get0_extensions)}
-      X509_REVOKED_get0_extensions := @FC_X509_REVOKED_get0_extensions;
+      X509_REVOKED_get0_extensions := FC_X509_REVOKED_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13985,7 +13986,7 @@ begin
     if X509_REVOKED_get0_extensions_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get0_extensions)}
-      X509_REVOKED_get0_extensions := @_X509_REVOKED_get0_extensions;
+      X509_REVOKED_get0_extensions := _X509_REVOKED_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14001,13 +14002,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_diff_allownil)}
-    X509_CRL_diff := @ERR_X509_CRL_diff;
+    X509_CRL_diff := ERR_X509_CRL_diff;
     {$ifend}
     {$if declared(X509_CRL_diff_introduced)}
     if LibVersion < X509_CRL_diff_introduced then
     begin
       {$if declared(FC_X509_CRL_diff)}
-      X509_CRL_diff := @FC_X509_CRL_diff;
+      X509_CRL_diff := FC_X509_CRL_diff;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14016,7 +14017,7 @@ begin
     if X509_CRL_diff_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_diff)}
-      X509_CRL_diff := @_X509_CRL_diff;
+      X509_CRL_diff := _X509_CRL_diff;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14033,13 +14034,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_check_private_key_allownil)}
-    X509_REQ_check_private_key := @ERR_X509_REQ_check_private_key;
+    X509_REQ_check_private_key := ERR_X509_REQ_check_private_key;
     {$ifend}
     {$if declared(X509_REQ_check_private_key_introduced)}
     if LibVersion < X509_REQ_check_private_key_introduced then
     begin
       {$if declared(FC_X509_REQ_check_private_key)}
-      X509_REQ_check_private_key := @FC_X509_REQ_check_private_key;
+      X509_REQ_check_private_key := FC_X509_REQ_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14048,7 +14049,7 @@ begin
     if X509_REQ_check_private_key_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_check_private_key)}
-      X509_REQ_check_private_key := @_X509_REQ_check_private_key;
+      X509_REQ_check_private_key := _X509_REQ_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14065,13 +14066,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_check_private_key_allownil)}
-    X509_check_private_key := @ERR_X509_check_private_key;
+    X509_check_private_key := ERR_X509_check_private_key;
     {$ifend}
     {$if declared(X509_check_private_key_introduced)}
     if LibVersion < X509_check_private_key_introduced then
     begin
       {$if declared(FC_X509_check_private_key)}
-      X509_check_private_key := @FC_X509_check_private_key;
+      X509_check_private_key := FC_X509_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14080,7 +14081,7 @@ begin
     if X509_check_private_key_removed <= LibVersion then
     begin
       {$if declared(_X509_check_private_key)}
-      X509_check_private_key := @_X509_check_private_key;
+      X509_check_private_key := _X509_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14097,13 +14098,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_check_suiteb_allownil)}
-    X509_CRL_check_suiteb := @ERR_X509_CRL_check_suiteb;
+    X509_CRL_check_suiteb := ERR_X509_CRL_check_suiteb;
     {$ifend}
     {$if declared(X509_CRL_check_suiteb_introduced)}
     if LibVersion < X509_CRL_check_suiteb_introduced then
     begin
       {$if declared(FC_X509_CRL_check_suiteb)}
-      X509_CRL_check_suiteb := @FC_X509_CRL_check_suiteb;
+      X509_CRL_check_suiteb := FC_X509_CRL_check_suiteb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14112,7 +14113,7 @@ begin
     if X509_CRL_check_suiteb_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_check_suiteb)}
-      X509_CRL_check_suiteb := @_X509_CRL_check_suiteb;
+      X509_CRL_check_suiteb := _X509_CRL_check_suiteb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14129,13 +14130,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_issuer_and_serial_cmp_allownil)}
-    X509_issuer_and_serial_cmp := @ERR_X509_issuer_and_serial_cmp;
+    X509_issuer_and_serial_cmp := ERR_X509_issuer_and_serial_cmp;
     {$ifend}
     {$if declared(X509_issuer_and_serial_cmp_introduced)}
     if LibVersion < X509_issuer_and_serial_cmp_introduced then
     begin
       {$if declared(FC_X509_issuer_and_serial_cmp)}
-      X509_issuer_and_serial_cmp := @FC_X509_issuer_and_serial_cmp;
+      X509_issuer_and_serial_cmp := FC_X509_issuer_and_serial_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14144,7 +14145,7 @@ begin
     if X509_issuer_and_serial_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_issuer_and_serial_cmp)}
-      X509_issuer_and_serial_cmp := @_X509_issuer_and_serial_cmp;
+      X509_issuer_and_serial_cmp := _X509_issuer_and_serial_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14161,13 +14162,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_issuer_and_serial_hash_allownil)}
-    X509_issuer_and_serial_hash := @ERR_X509_issuer_and_serial_hash;
+    X509_issuer_and_serial_hash := ERR_X509_issuer_and_serial_hash;
     {$ifend}
     {$if declared(X509_issuer_and_serial_hash_introduced)}
     if LibVersion < X509_issuer_and_serial_hash_introduced then
     begin
       {$if declared(FC_X509_issuer_and_serial_hash)}
-      X509_issuer_and_serial_hash := @FC_X509_issuer_and_serial_hash;
+      X509_issuer_and_serial_hash := FC_X509_issuer_and_serial_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14176,7 +14177,7 @@ begin
     if X509_issuer_and_serial_hash_removed <= LibVersion then
     begin
       {$if declared(_X509_issuer_and_serial_hash)}
-      X509_issuer_and_serial_hash := @_X509_issuer_and_serial_hash;
+      X509_issuer_and_serial_hash := _X509_issuer_and_serial_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14193,13 +14194,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_issuer_name_cmp_allownil)}
-    X509_issuer_name_cmp := @ERR_X509_issuer_name_cmp;
+    X509_issuer_name_cmp := ERR_X509_issuer_name_cmp;
     {$ifend}
     {$if declared(X509_issuer_name_cmp_introduced)}
     if LibVersion < X509_issuer_name_cmp_introduced then
     begin
       {$if declared(FC_X509_issuer_name_cmp)}
-      X509_issuer_name_cmp := @FC_X509_issuer_name_cmp;
+      X509_issuer_name_cmp := FC_X509_issuer_name_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14208,7 +14209,7 @@ begin
     if X509_issuer_name_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_issuer_name_cmp)}
-      X509_issuer_name_cmp := @_X509_issuer_name_cmp;
+      X509_issuer_name_cmp := _X509_issuer_name_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14225,13 +14226,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_issuer_name_hash_allownil)}
-    X509_issuer_name_hash := @ERR_X509_issuer_name_hash;
+    X509_issuer_name_hash := ERR_X509_issuer_name_hash;
     {$ifend}
     {$if declared(X509_issuer_name_hash_introduced)}
     if LibVersion < X509_issuer_name_hash_introduced then
     begin
       {$if declared(FC_X509_issuer_name_hash)}
-      X509_issuer_name_hash := @FC_X509_issuer_name_hash;
+      X509_issuer_name_hash := FC_X509_issuer_name_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14240,7 +14241,7 @@ begin
     if X509_issuer_name_hash_removed <= LibVersion then
     begin
       {$if declared(_X509_issuer_name_hash)}
-      X509_issuer_name_hash := @_X509_issuer_name_hash;
+      X509_issuer_name_hash := _X509_issuer_name_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14257,13 +14258,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_subject_name_cmp_allownil)}
-    X509_subject_name_cmp := @ERR_X509_subject_name_cmp;
+    X509_subject_name_cmp := ERR_X509_subject_name_cmp;
     {$ifend}
     {$if declared(X509_subject_name_cmp_introduced)}
     if LibVersion < X509_subject_name_cmp_introduced then
     begin
       {$if declared(FC_X509_subject_name_cmp)}
-      X509_subject_name_cmp := @FC_X509_subject_name_cmp;
+      X509_subject_name_cmp := FC_X509_subject_name_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14272,7 +14273,7 @@ begin
     if X509_subject_name_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_subject_name_cmp)}
-      X509_subject_name_cmp := @_X509_subject_name_cmp;
+      X509_subject_name_cmp := _X509_subject_name_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14289,13 +14290,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_subject_name_hash_allownil)}
-    X509_subject_name_hash := @ERR_X509_subject_name_hash;
+    X509_subject_name_hash := ERR_X509_subject_name_hash;
     {$ifend}
     {$if declared(X509_subject_name_hash_introduced)}
     if LibVersion < X509_subject_name_hash_introduced then
     begin
       {$if declared(FC_X509_subject_name_hash)}
-      X509_subject_name_hash := @FC_X509_subject_name_hash;
+      X509_subject_name_hash := FC_X509_subject_name_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14304,7 +14305,7 @@ begin
     if X509_subject_name_hash_removed <= LibVersion then
     begin
       {$if declared(_X509_subject_name_hash)}
-      X509_subject_name_hash := @_X509_subject_name_hash;
+      X509_subject_name_hash := _X509_subject_name_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14321,13 +14322,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_cmp_allownil)}
-    X509_cmp := @ERR_X509_cmp;
+    X509_cmp := ERR_X509_cmp;
     {$ifend}
     {$if declared(X509_cmp_introduced)}
     if LibVersion < X509_cmp_introduced then
     begin
       {$if declared(FC_X509_cmp)}
-      X509_cmp := @FC_X509_cmp;
+      X509_cmp := FC_X509_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14336,7 +14337,7 @@ begin
     if X509_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_cmp)}
-      X509_cmp := @_X509_cmp;
+      X509_cmp := _X509_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14353,13 +14354,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_cmp_allownil)}
-    X509_NAME_cmp := @ERR_X509_NAME_cmp;
+    X509_NAME_cmp := ERR_X509_NAME_cmp;
     {$ifend}
     {$if declared(X509_NAME_cmp_introduced)}
     if LibVersion < X509_NAME_cmp_introduced then
     begin
       {$if declared(FC_X509_NAME_cmp)}
-      X509_NAME_cmp := @FC_X509_NAME_cmp;
+      X509_NAME_cmp := FC_X509_NAME_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14368,7 +14369,7 @@ begin
     if X509_NAME_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_cmp)}
-      X509_NAME_cmp := @_X509_NAME_cmp;
+      X509_NAME_cmp := _X509_NAME_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14385,13 +14386,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_hash_allownil)}
-    X509_NAME_hash := @ERR_X509_NAME_hash;
+    X509_NAME_hash := ERR_X509_NAME_hash;
     {$ifend}
     {$if declared(X509_NAME_hash_introduced)}
     if LibVersion < X509_NAME_hash_introduced then
     begin
       {$if declared(FC_X509_NAME_hash)}
-      X509_NAME_hash := @FC_X509_NAME_hash;
+      X509_NAME_hash := FC_X509_NAME_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14400,7 +14401,7 @@ begin
     if X509_NAME_hash_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_hash)}
-      X509_NAME_hash := @_X509_NAME_hash;
+      X509_NAME_hash := _X509_NAME_hash;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14417,13 +14418,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_hash_old_allownil)}
-    X509_NAME_hash_old := @ERR_X509_NAME_hash_old;
+    X509_NAME_hash_old := ERR_X509_NAME_hash_old;
     {$ifend}
     {$if declared(X509_NAME_hash_old_introduced)}
     if LibVersion < X509_NAME_hash_old_introduced then
     begin
       {$if declared(FC_X509_NAME_hash_old)}
-      X509_NAME_hash_old := @FC_X509_NAME_hash_old;
+      X509_NAME_hash_old := FC_X509_NAME_hash_old;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14432,7 +14433,7 @@ begin
     if X509_NAME_hash_old_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_hash_old)}
-      X509_NAME_hash_old := @_X509_NAME_hash_old;
+      X509_NAME_hash_old := _X509_NAME_hash_old;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14449,13 +14450,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_cmp_allownil)}
-    X509_CRL_cmp := @ERR_X509_CRL_cmp;
+    X509_CRL_cmp := ERR_X509_CRL_cmp;
     {$ifend}
     {$if declared(X509_CRL_cmp_introduced)}
     if LibVersion < X509_CRL_cmp_introduced then
     begin
       {$if declared(FC_X509_CRL_cmp)}
-      X509_CRL_cmp := @FC_X509_CRL_cmp;
+      X509_CRL_cmp := FC_X509_CRL_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14464,7 +14465,7 @@ begin
     if X509_CRL_cmp_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_cmp)}
-      X509_CRL_cmp := @_X509_CRL_cmp;
+      X509_CRL_cmp := _X509_CRL_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14481,13 +14482,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_match_allownil)}
-    X509_CRL_match := @ERR_X509_CRL_match;
+    X509_CRL_match := ERR_X509_CRL_match;
     {$ifend}
     {$if declared(X509_CRL_match_introduced)}
     if LibVersion < X509_CRL_match_introduced then
     begin
       {$if declared(FC_X509_CRL_match)}
-      X509_CRL_match := @FC_X509_CRL_match;
+      X509_CRL_match := FC_X509_CRL_match;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14496,7 +14497,7 @@ begin
     if X509_CRL_match_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_match)}
-      X509_CRL_match := @_X509_CRL_match;
+      X509_CRL_match := _X509_CRL_match;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14513,13 +14514,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_aux_print_allownil)}
-    X509_aux_print := @ERR_X509_aux_print;
+    X509_aux_print := ERR_X509_aux_print;
     {$ifend}
     {$if declared(X509_aux_print_introduced)}
     if LibVersion < X509_aux_print_introduced then
     begin
       {$if declared(FC_X509_aux_print)}
-      X509_aux_print := @FC_X509_aux_print;
+      X509_aux_print := FC_X509_aux_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14528,7 +14529,7 @@ begin
     if X509_aux_print_removed <= LibVersion then
     begin
       {$if declared(_X509_aux_print)}
-      X509_aux_print := @_X509_aux_print;
+      X509_aux_print := _X509_aux_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14545,13 +14546,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_print_allownil)}
-    X509_NAME_print := @ERR_X509_NAME_print;
+    X509_NAME_print := ERR_X509_NAME_print;
     {$ifend}
     {$if declared(X509_NAME_print_introduced)}
     if LibVersion < X509_NAME_print_introduced then
     begin
       {$if declared(FC_X509_NAME_print)}
-      X509_NAME_print := @FC_X509_NAME_print;
+      X509_NAME_print := FC_X509_NAME_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14560,7 +14561,7 @@ begin
     if X509_NAME_print_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_print)}
-      X509_NAME_print := @_X509_NAME_print;
+      X509_NAME_print := _X509_NAME_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14577,13 +14578,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_print_ex_allownil)}
-    X509_NAME_print_ex := @ERR_X509_NAME_print_ex;
+    X509_NAME_print_ex := ERR_X509_NAME_print_ex;
     {$ifend}
     {$if declared(X509_NAME_print_ex_introduced)}
     if LibVersion < X509_NAME_print_ex_introduced then
     begin
       {$if declared(FC_X509_NAME_print_ex)}
-      X509_NAME_print_ex := @FC_X509_NAME_print_ex;
+      X509_NAME_print_ex := FC_X509_NAME_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14592,7 +14593,7 @@ begin
     if X509_NAME_print_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_print_ex)}
-      X509_NAME_print_ex := @_X509_NAME_print_ex;
+      X509_NAME_print_ex := _X509_NAME_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14609,13 +14610,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_print_ex_allownil)}
-    X509_print_ex := @ERR_X509_print_ex;
+    X509_print_ex := ERR_X509_print_ex;
     {$ifend}
     {$if declared(X509_print_ex_introduced)}
     if LibVersion < X509_print_ex_introduced then
     begin
       {$if declared(FC_X509_print_ex)}
-      X509_print_ex := @FC_X509_print_ex;
+      X509_print_ex := FC_X509_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14624,7 +14625,7 @@ begin
     if X509_print_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_print_ex)}
-      X509_print_ex := @_X509_print_ex;
+      X509_print_ex := _X509_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14641,13 +14642,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_print_allownil)}
-    X509_print := @ERR_X509_print;
+    X509_print := ERR_X509_print;
     {$ifend}
     {$if declared(X509_print_introduced)}
     if LibVersion < X509_print_introduced then
     begin
       {$if declared(FC_X509_print)}
-      X509_print := @FC_X509_print;
+      X509_print := FC_X509_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14656,7 +14657,7 @@ begin
     if X509_print_removed <= LibVersion then
     begin
       {$if declared(_X509_print)}
-      X509_print := @_X509_print;
+      X509_print := _X509_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14673,13 +14674,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ocspid_print_allownil)}
-    X509_ocspid_print := @ERR_X509_ocspid_print;
+    X509_ocspid_print := ERR_X509_ocspid_print;
     {$ifend}
     {$if declared(X509_ocspid_print_introduced)}
     if LibVersion < X509_ocspid_print_introduced then
     begin
       {$if declared(FC_X509_ocspid_print)}
-      X509_ocspid_print := @FC_X509_ocspid_print;
+      X509_ocspid_print := FC_X509_ocspid_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14688,7 +14689,7 @@ begin
     if X509_ocspid_print_removed <= LibVersion then
     begin
       {$if declared(_X509_ocspid_print)}
-      X509_ocspid_print := @_X509_ocspid_print;
+      X509_ocspid_print := _X509_ocspid_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14705,13 +14706,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_print_ex_allownil)}
-    X509_CRL_print_ex := @ERR_X509_CRL_print_ex;
+    X509_CRL_print_ex := ERR_X509_CRL_print_ex;
     {$ifend}
     {$if declared(X509_CRL_print_ex_introduced)}
     if LibVersion < X509_CRL_print_ex_introduced then
     begin
       {$if declared(FC_X509_CRL_print_ex)}
-      X509_CRL_print_ex := @FC_X509_CRL_print_ex;
+      X509_CRL_print_ex := FC_X509_CRL_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14720,7 +14721,7 @@ begin
     if X509_CRL_print_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_print_ex)}
-      X509_CRL_print_ex := @_X509_CRL_print_ex;
+      X509_CRL_print_ex := _X509_CRL_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14737,13 +14738,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_print_allownil)}
-    X509_CRL_print := @ERR_X509_CRL_print;
+    X509_CRL_print := ERR_X509_CRL_print;
     {$ifend}
     {$if declared(X509_CRL_print_introduced)}
     if LibVersion < X509_CRL_print_introduced then
     begin
       {$if declared(FC_X509_CRL_print)}
-      X509_CRL_print := @FC_X509_CRL_print;
+      X509_CRL_print := FC_X509_CRL_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14752,7 +14753,7 @@ begin
     if X509_CRL_print_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_print)}
-      X509_CRL_print := @_X509_CRL_print;
+      X509_CRL_print := _X509_CRL_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14769,13 +14770,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_print_ex_allownil)}
-    X509_REQ_print_ex := @ERR_X509_REQ_print_ex;
+    X509_REQ_print_ex := ERR_X509_REQ_print_ex;
     {$ifend}
     {$if declared(X509_REQ_print_ex_introduced)}
     if LibVersion < X509_REQ_print_ex_introduced then
     begin
       {$if declared(FC_X509_REQ_print_ex)}
-      X509_REQ_print_ex := @FC_X509_REQ_print_ex;
+      X509_REQ_print_ex := FC_X509_REQ_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14784,7 +14785,7 @@ begin
     if X509_REQ_print_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_print_ex)}
-      X509_REQ_print_ex := @_X509_REQ_print_ex;
+      X509_REQ_print_ex := _X509_REQ_print_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14801,13 +14802,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REQ_print_allownil)}
-    X509_REQ_print := @ERR_X509_REQ_print;
+    X509_REQ_print := ERR_X509_REQ_print;
     {$ifend}
     {$if declared(X509_REQ_print_introduced)}
     if LibVersion < X509_REQ_print_introduced then
     begin
       {$if declared(FC_X509_REQ_print)}
-      X509_REQ_print := @FC_X509_REQ_print;
+      X509_REQ_print := FC_X509_REQ_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14816,7 +14817,7 @@ begin
     if X509_REQ_print_removed <= LibVersion then
     begin
       {$if declared(_X509_REQ_print)}
-      X509_REQ_print := @_X509_REQ_print;
+      X509_REQ_print := _X509_REQ_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14833,13 +14834,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_entry_count_allownil)}
-    X509_NAME_entry_count := @ERR_X509_NAME_entry_count;
+    X509_NAME_entry_count := ERR_X509_NAME_entry_count;
     {$ifend}
     {$if declared(X509_NAME_entry_count_introduced)}
     if LibVersion < X509_NAME_entry_count_introduced then
     begin
       {$if declared(FC_X509_NAME_entry_count)}
-      X509_NAME_entry_count := @FC_X509_NAME_entry_count;
+      X509_NAME_entry_count := FC_X509_NAME_entry_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14848,7 +14849,7 @@ begin
     if X509_NAME_entry_count_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_entry_count)}
-      X509_NAME_entry_count := @_X509_NAME_entry_count;
+      X509_NAME_entry_count := _X509_NAME_entry_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14865,13 +14866,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get_text_by_NID_allownil)}
-    X509_NAME_get_text_by_NID := @ERR_X509_NAME_get_text_by_NID;
+    X509_NAME_get_text_by_NID := ERR_X509_NAME_get_text_by_NID;
     {$ifend}
     {$if declared(X509_NAME_get_text_by_NID_introduced)}
     if LibVersion < X509_NAME_get_text_by_NID_introduced then
     begin
       {$if declared(FC_X509_NAME_get_text_by_NID)}
-      X509_NAME_get_text_by_NID := @FC_X509_NAME_get_text_by_NID;
+      X509_NAME_get_text_by_NID := FC_X509_NAME_get_text_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14880,7 +14881,7 @@ begin
     if X509_NAME_get_text_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get_text_by_NID)}
-      X509_NAME_get_text_by_NID := @_X509_NAME_get_text_by_NID;
+      X509_NAME_get_text_by_NID := _X509_NAME_get_text_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14897,13 +14898,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get_text_by_OBJ_allownil)}
-    X509_NAME_get_text_by_OBJ := @ERR_X509_NAME_get_text_by_OBJ;
+    X509_NAME_get_text_by_OBJ := ERR_X509_NAME_get_text_by_OBJ;
     {$ifend}
     {$if declared(X509_NAME_get_text_by_OBJ_introduced)}
     if LibVersion < X509_NAME_get_text_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_NAME_get_text_by_OBJ)}
-      X509_NAME_get_text_by_OBJ := @FC_X509_NAME_get_text_by_OBJ;
+      X509_NAME_get_text_by_OBJ := FC_X509_NAME_get_text_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14912,7 +14913,7 @@ begin
     if X509_NAME_get_text_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get_text_by_OBJ)}
-      X509_NAME_get_text_by_OBJ := @_X509_NAME_get_text_by_OBJ;
+      X509_NAME_get_text_by_OBJ := _X509_NAME_get_text_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14929,13 +14930,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get_index_by_NID_allownil)}
-    X509_NAME_get_index_by_NID := @ERR_X509_NAME_get_index_by_NID;
+    X509_NAME_get_index_by_NID := ERR_X509_NAME_get_index_by_NID;
     {$ifend}
     {$if declared(X509_NAME_get_index_by_NID_introduced)}
     if LibVersion < X509_NAME_get_index_by_NID_introduced then
     begin
       {$if declared(FC_X509_NAME_get_index_by_NID)}
-      X509_NAME_get_index_by_NID := @FC_X509_NAME_get_index_by_NID;
+      X509_NAME_get_index_by_NID := FC_X509_NAME_get_index_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14944,7 +14945,7 @@ begin
     if X509_NAME_get_index_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get_index_by_NID)}
-      X509_NAME_get_index_by_NID := @_X509_NAME_get_index_by_NID;
+      X509_NAME_get_index_by_NID := _X509_NAME_get_index_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14961,13 +14962,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get_index_by_OBJ_allownil)}
-    X509_NAME_get_index_by_OBJ := @ERR_X509_NAME_get_index_by_OBJ;
+    X509_NAME_get_index_by_OBJ := ERR_X509_NAME_get_index_by_OBJ;
     {$ifend}
     {$if declared(X509_NAME_get_index_by_OBJ_introduced)}
     if LibVersion < X509_NAME_get_index_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_NAME_get_index_by_OBJ)}
-      X509_NAME_get_index_by_OBJ := @FC_X509_NAME_get_index_by_OBJ;
+      X509_NAME_get_index_by_OBJ := FC_X509_NAME_get_index_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14976,7 +14977,7 @@ begin
     if X509_NAME_get_index_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get_index_by_OBJ)}
-      X509_NAME_get_index_by_OBJ := @_X509_NAME_get_index_by_OBJ;
+      X509_NAME_get_index_by_OBJ := _X509_NAME_get_index_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14993,13 +14994,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get_entry_allownil)}
-    X509_NAME_get_entry := @ERR_X509_NAME_get_entry;
+    X509_NAME_get_entry := ERR_X509_NAME_get_entry;
     {$ifend}
     {$if declared(X509_NAME_get_entry_introduced)}
     if LibVersion < X509_NAME_get_entry_introduced then
     begin
       {$if declared(FC_X509_NAME_get_entry)}
-      X509_NAME_get_entry := @FC_X509_NAME_get_entry;
+      X509_NAME_get_entry := FC_X509_NAME_get_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15008,7 +15009,7 @@ begin
     if X509_NAME_get_entry_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get_entry)}
-      X509_NAME_get_entry := @_X509_NAME_get_entry;
+      X509_NAME_get_entry := _X509_NAME_get_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15025,13 +15026,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_delete_entry_allownil)}
-    X509_NAME_delete_entry := @ERR_X509_NAME_delete_entry;
+    X509_NAME_delete_entry := ERR_X509_NAME_delete_entry;
     {$ifend}
     {$if declared(X509_NAME_delete_entry_introduced)}
     if LibVersion < X509_NAME_delete_entry_introduced then
     begin
       {$if declared(FC_X509_NAME_delete_entry)}
-      X509_NAME_delete_entry := @FC_X509_NAME_delete_entry;
+      X509_NAME_delete_entry := FC_X509_NAME_delete_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15040,7 +15041,7 @@ begin
     if X509_NAME_delete_entry_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_delete_entry)}
-      X509_NAME_delete_entry := @_X509_NAME_delete_entry;
+      X509_NAME_delete_entry := _X509_NAME_delete_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15057,13 +15058,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_add_entry_allownil)}
-    X509_NAME_add_entry := @ERR_X509_NAME_add_entry;
+    X509_NAME_add_entry := ERR_X509_NAME_add_entry;
     {$ifend}
     {$if declared(X509_NAME_add_entry_introduced)}
     if LibVersion < X509_NAME_add_entry_introduced then
     begin
       {$if declared(FC_X509_NAME_add_entry)}
-      X509_NAME_add_entry := @FC_X509_NAME_add_entry;
+      X509_NAME_add_entry := FC_X509_NAME_add_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15072,7 +15073,7 @@ begin
     if X509_NAME_add_entry_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_add_entry)}
-      X509_NAME_add_entry := @_X509_NAME_add_entry;
+      X509_NAME_add_entry := _X509_NAME_add_entry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15089,13 +15090,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_add_entry_by_OBJ_allownil)}
-    X509_NAME_add_entry_by_OBJ := @ERR_X509_NAME_add_entry_by_OBJ;
+    X509_NAME_add_entry_by_OBJ := ERR_X509_NAME_add_entry_by_OBJ;
     {$ifend}
     {$if declared(X509_NAME_add_entry_by_OBJ_introduced)}
     if LibVersion < X509_NAME_add_entry_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_NAME_add_entry_by_OBJ)}
-      X509_NAME_add_entry_by_OBJ := @FC_X509_NAME_add_entry_by_OBJ;
+      X509_NAME_add_entry_by_OBJ := FC_X509_NAME_add_entry_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15104,7 +15105,7 @@ begin
     if X509_NAME_add_entry_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_add_entry_by_OBJ)}
-      X509_NAME_add_entry_by_OBJ := @_X509_NAME_add_entry_by_OBJ;
+      X509_NAME_add_entry_by_OBJ := _X509_NAME_add_entry_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15121,13 +15122,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_add_entry_by_NID_allownil)}
-    X509_NAME_add_entry_by_NID := @ERR_X509_NAME_add_entry_by_NID;
+    X509_NAME_add_entry_by_NID := ERR_X509_NAME_add_entry_by_NID;
     {$ifend}
     {$if declared(X509_NAME_add_entry_by_NID_introduced)}
     if LibVersion < X509_NAME_add_entry_by_NID_introduced then
     begin
       {$if declared(FC_X509_NAME_add_entry_by_NID)}
-      X509_NAME_add_entry_by_NID := @FC_X509_NAME_add_entry_by_NID;
+      X509_NAME_add_entry_by_NID := FC_X509_NAME_add_entry_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15136,7 +15137,7 @@ begin
     if X509_NAME_add_entry_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_add_entry_by_NID)}
-      X509_NAME_add_entry_by_NID := @_X509_NAME_add_entry_by_NID;
+      X509_NAME_add_entry_by_NID := _X509_NAME_add_entry_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15153,13 +15154,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_create_by_txt_allownil)}
-    X509_NAME_ENTRY_create_by_txt := @ERR_X509_NAME_ENTRY_create_by_txt;
+    X509_NAME_ENTRY_create_by_txt := ERR_X509_NAME_ENTRY_create_by_txt;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_create_by_txt_introduced)}
     if LibVersion < X509_NAME_ENTRY_create_by_txt_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_create_by_txt)}
-      X509_NAME_ENTRY_create_by_txt := @FC_X509_NAME_ENTRY_create_by_txt;
+      X509_NAME_ENTRY_create_by_txt := FC_X509_NAME_ENTRY_create_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15168,7 +15169,7 @@ begin
     if X509_NAME_ENTRY_create_by_txt_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_create_by_txt)}
-      X509_NAME_ENTRY_create_by_txt := @_X509_NAME_ENTRY_create_by_txt;
+      X509_NAME_ENTRY_create_by_txt := _X509_NAME_ENTRY_create_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15185,13 +15186,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_create_by_NID_allownil)}
-    X509_NAME_ENTRY_create_by_NID := @ERR_X509_NAME_ENTRY_create_by_NID;
+    X509_NAME_ENTRY_create_by_NID := ERR_X509_NAME_ENTRY_create_by_NID;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_create_by_NID_introduced)}
     if LibVersion < X509_NAME_ENTRY_create_by_NID_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_create_by_NID)}
-      X509_NAME_ENTRY_create_by_NID := @FC_X509_NAME_ENTRY_create_by_NID;
+      X509_NAME_ENTRY_create_by_NID := FC_X509_NAME_ENTRY_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15200,7 +15201,7 @@ begin
     if X509_NAME_ENTRY_create_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_create_by_NID)}
-      X509_NAME_ENTRY_create_by_NID := @_X509_NAME_ENTRY_create_by_NID;
+      X509_NAME_ENTRY_create_by_NID := _X509_NAME_ENTRY_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15217,13 +15218,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_add_entry_by_txt_allownil)}
-    X509_NAME_add_entry_by_txt := @ERR_X509_NAME_add_entry_by_txt;
+    X509_NAME_add_entry_by_txt := ERR_X509_NAME_add_entry_by_txt;
     {$ifend}
     {$if declared(X509_NAME_add_entry_by_txt_introduced)}
     if LibVersion < X509_NAME_add_entry_by_txt_introduced then
     begin
       {$if declared(FC_X509_NAME_add_entry_by_txt)}
-      X509_NAME_add_entry_by_txt := @FC_X509_NAME_add_entry_by_txt;
+      X509_NAME_add_entry_by_txt := FC_X509_NAME_add_entry_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15232,7 +15233,7 @@ begin
     if X509_NAME_add_entry_by_txt_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_add_entry_by_txt)}
-      X509_NAME_add_entry_by_txt := @_X509_NAME_add_entry_by_txt;
+      X509_NAME_add_entry_by_txt := _X509_NAME_add_entry_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15249,13 +15250,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_create_by_OBJ_allownil)}
-    X509_NAME_ENTRY_create_by_OBJ := @ERR_X509_NAME_ENTRY_create_by_OBJ;
+    X509_NAME_ENTRY_create_by_OBJ := ERR_X509_NAME_ENTRY_create_by_OBJ;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_create_by_OBJ_introduced)}
     if LibVersion < X509_NAME_ENTRY_create_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_create_by_OBJ)}
-      X509_NAME_ENTRY_create_by_OBJ := @FC_X509_NAME_ENTRY_create_by_OBJ;
+      X509_NAME_ENTRY_create_by_OBJ := FC_X509_NAME_ENTRY_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15264,7 +15265,7 @@ begin
     if X509_NAME_ENTRY_create_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_create_by_OBJ)}
-      X509_NAME_ENTRY_create_by_OBJ := @_X509_NAME_ENTRY_create_by_OBJ;
+      X509_NAME_ENTRY_create_by_OBJ := _X509_NAME_ENTRY_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15281,13 +15282,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_set_object_allownil)}
-    X509_NAME_ENTRY_set_object := @ERR_X509_NAME_ENTRY_set_object;
+    X509_NAME_ENTRY_set_object := ERR_X509_NAME_ENTRY_set_object;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_set_object_introduced)}
     if LibVersion < X509_NAME_ENTRY_set_object_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_set_object)}
-      X509_NAME_ENTRY_set_object := @FC_X509_NAME_ENTRY_set_object;
+      X509_NAME_ENTRY_set_object := FC_X509_NAME_ENTRY_set_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15296,7 +15297,7 @@ begin
     if X509_NAME_ENTRY_set_object_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_set_object)}
-      X509_NAME_ENTRY_set_object := @_X509_NAME_ENTRY_set_object;
+      X509_NAME_ENTRY_set_object := _X509_NAME_ENTRY_set_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15313,13 +15314,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_set_data_allownil)}
-    X509_NAME_ENTRY_set_data := @ERR_X509_NAME_ENTRY_set_data;
+    X509_NAME_ENTRY_set_data := ERR_X509_NAME_ENTRY_set_data;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_set_data_introduced)}
     if LibVersion < X509_NAME_ENTRY_set_data_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_set_data)}
-      X509_NAME_ENTRY_set_data := @FC_X509_NAME_ENTRY_set_data;
+      X509_NAME_ENTRY_set_data := FC_X509_NAME_ENTRY_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15328,7 +15329,7 @@ begin
     if X509_NAME_ENTRY_set_data_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_set_data)}
-      X509_NAME_ENTRY_set_data := @_X509_NAME_ENTRY_set_data;
+      X509_NAME_ENTRY_set_data := _X509_NAME_ENTRY_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15345,13 +15346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_get_object_allownil)}
-    X509_NAME_ENTRY_get_object := @ERR_X509_NAME_ENTRY_get_object;
+    X509_NAME_ENTRY_get_object := ERR_X509_NAME_ENTRY_get_object;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_get_object_introduced)}
     if LibVersion < X509_NAME_ENTRY_get_object_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_get_object)}
-      X509_NAME_ENTRY_get_object := @FC_X509_NAME_ENTRY_get_object;
+      X509_NAME_ENTRY_get_object := FC_X509_NAME_ENTRY_get_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15360,7 +15361,7 @@ begin
     if X509_NAME_ENTRY_get_object_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_get_object)}
-      X509_NAME_ENTRY_get_object := @_X509_NAME_ENTRY_get_object;
+      X509_NAME_ENTRY_get_object := _X509_NAME_ENTRY_get_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15377,13 +15378,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_get_data_allownil)}
-    X509_NAME_ENTRY_get_data := @ERR_X509_NAME_ENTRY_get_data;
+    X509_NAME_ENTRY_get_data := ERR_X509_NAME_ENTRY_get_data;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_get_data_introduced)}
     if LibVersion < X509_NAME_ENTRY_get_data_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_get_data)}
-      X509_NAME_ENTRY_get_data := @FC_X509_NAME_ENTRY_get_data;
+      X509_NAME_ENTRY_get_data := FC_X509_NAME_ENTRY_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15392,7 +15393,7 @@ begin
     if X509_NAME_ENTRY_get_data_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_get_data)}
-      X509_NAME_ENTRY_get_data := @_X509_NAME_ENTRY_get_data;
+      X509_NAME_ENTRY_get_data := _X509_NAME_ENTRY_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15409,13 +15410,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_ENTRY_set_allownil)}
-    X509_NAME_ENTRY_set := @ERR_X509_NAME_ENTRY_set;
+    X509_NAME_ENTRY_set := ERR_X509_NAME_ENTRY_set;
     {$ifend}
     {$if declared(X509_NAME_ENTRY_set_introduced)}
     if LibVersion < X509_NAME_ENTRY_set_introduced then
     begin
       {$if declared(FC_X509_NAME_ENTRY_set)}
-      X509_NAME_ENTRY_set := @FC_X509_NAME_ENTRY_set;
+      X509_NAME_ENTRY_set := FC_X509_NAME_ENTRY_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15424,7 +15425,7 @@ begin
     if X509_NAME_ENTRY_set_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_ENTRY_set)}
-      X509_NAME_ENTRY_set := @_X509_NAME_ENTRY_set;
+      X509_NAME_ENTRY_set := _X509_NAME_ENTRY_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15441,13 +15442,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_get0_der_allownil)}
-    X509_NAME_get0_der := @ERR_X509_NAME_get0_der;
+    X509_NAME_get0_der := ERR_X509_NAME_get0_der;
     {$ifend}
     {$if declared(X509_NAME_get0_der_introduced)}
     if LibVersion < X509_NAME_get0_der_introduced then
     begin
       {$if declared(FC_X509_NAME_get0_der)}
-      X509_NAME_get0_der := @FC_X509_NAME_get0_der;
+      X509_NAME_get0_der := FC_X509_NAME_get0_der;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15456,7 +15457,7 @@ begin
     if X509_NAME_get0_der_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_get0_der)}
-      X509_NAME_get0_der := @_X509_NAME_get0_der;
+      X509_NAME_get0_der := _X509_NAME_get0_der;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15473,13 +15474,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_count_allownil)}
-    X509_get_ext_count := @ERR_X509_get_ext_count;
+    X509_get_ext_count := ERR_X509_get_ext_count;
     {$ifend}
     {$if declared(X509_get_ext_count_introduced)}
     if LibVersion < X509_get_ext_count_introduced then
     begin
       {$if declared(FC_X509_get_ext_count)}
-      X509_get_ext_count := @FC_X509_get_ext_count;
+      X509_get_ext_count := FC_X509_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15488,7 +15489,7 @@ begin
     if X509_get_ext_count_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext_count)}
-      X509_get_ext_count := @_X509_get_ext_count;
+      X509_get_ext_count := _X509_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15505,13 +15506,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_by_NID_allownil)}
-    X509_get_ext_by_NID := @ERR_X509_get_ext_by_NID;
+    X509_get_ext_by_NID := ERR_X509_get_ext_by_NID;
     {$ifend}
     {$if declared(X509_get_ext_by_NID_introduced)}
     if LibVersion < X509_get_ext_by_NID_introduced then
     begin
       {$if declared(FC_X509_get_ext_by_NID)}
-      X509_get_ext_by_NID := @FC_X509_get_ext_by_NID;
+      X509_get_ext_by_NID := FC_X509_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15520,7 +15521,7 @@ begin
     if X509_get_ext_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext_by_NID)}
-      X509_get_ext_by_NID := @_X509_get_ext_by_NID;
+      X509_get_ext_by_NID := _X509_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15537,13 +15538,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_by_OBJ_allownil)}
-    X509_get_ext_by_OBJ := @ERR_X509_get_ext_by_OBJ;
+    X509_get_ext_by_OBJ := ERR_X509_get_ext_by_OBJ;
     {$ifend}
     {$if declared(X509_get_ext_by_OBJ_introduced)}
     if LibVersion < X509_get_ext_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_get_ext_by_OBJ)}
-      X509_get_ext_by_OBJ := @FC_X509_get_ext_by_OBJ;
+      X509_get_ext_by_OBJ := FC_X509_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15552,7 +15553,7 @@ begin
     if X509_get_ext_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext_by_OBJ)}
-      X509_get_ext_by_OBJ := @_X509_get_ext_by_OBJ;
+      X509_get_ext_by_OBJ := _X509_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15569,13 +15570,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_by_critical_allownil)}
-    X509_get_ext_by_critical := @ERR_X509_get_ext_by_critical;
+    X509_get_ext_by_critical := ERR_X509_get_ext_by_critical;
     {$ifend}
     {$if declared(X509_get_ext_by_critical_introduced)}
     if LibVersion < X509_get_ext_by_critical_introduced then
     begin
       {$if declared(FC_X509_get_ext_by_critical)}
-      X509_get_ext_by_critical := @FC_X509_get_ext_by_critical;
+      X509_get_ext_by_critical := FC_X509_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15584,7 +15585,7 @@ begin
     if X509_get_ext_by_critical_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext_by_critical)}
-      X509_get_ext_by_critical := @_X509_get_ext_by_critical;
+      X509_get_ext_by_critical := _X509_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15601,13 +15602,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_allownil)}
-    X509_get_ext := @ERR_X509_get_ext;
+    X509_get_ext := ERR_X509_get_ext;
     {$ifend}
     {$if declared(X509_get_ext_introduced)}
     if LibVersion < X509_get_ext_introduced then
     begin
       {$if declared(FC_X509_get_ext)}
-      X509_get_ext := @FC_X509_get_ext;
+      X509_get_ext := FC_X509_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15616,7 +15617,7 @@ begin
     if X509_get_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext)}
-      X509_get_ext := @_X509_get_ext;
+      X509_get_ext := _X509_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15633,13 +15634,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_delete_ext_allownil)}
-    X509_delete_ext := @ERR_X509_delete_ext;
+    X509_delete_ext := ERR_X509_delete_ext;
     {$ifend}
     {$if declared(X509_delete_ext_introduced)}
     if LibVersion < X509_delete_ext_introduced then
     begin
       {$if declared(FC_X509_delete_ext)}
-      X509_delete_ext := @FC_X509_delete_ext;
+      X509_delete_ext := FC_X509_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15648,7 +15649,7 @@ begin
     if X509_delete_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_delete_ext)}
-      X509_delete_ext := @_X509_delete_ext;
+      X509_delete_ext := _X509_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15665,13 +15666,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_add_ext_allownil)}
-    X509_add_ext := @ERR_X509_add_ext;
+    X509_add_ext := ERR_X509_add_ext;
     {$ifend}
     {$if declared(X509_add_ext_introduced)}
     if LibVersion < X509_add_ext_introduced then
     begin
       {$if declared(FC_X509_add_ext)}
-      X509_add_ext := @FC_X509_add_ext;
+      X509_add_ext := FC_X509_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15680,7 +15681,7 @@ begin
     if X509_add_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_add_ext)}
-      X509_add_ext := @_X509_add_ext;
+      X509_add_ext := _X509_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15697,13 +15698,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_get_ext_d2i_allownil)}
-    X509_get_ext_d2i := @ERR_X509_get_ext_d2i;
+    X509_get_ext_d2i := ERR_X509_get_ext_d2i;
     {$ifend}
     {$if declared(X509_get_ext_d2i_introduced)}
     if LibVersion < X509_get_ext_d2i_introduced then
     begin
       {$if declared(FC_X509_get_ext_d2i)}
-      X509_get_ext_d2i := @FC_X509_get_ext_d2i;
+      X509_get_ext_d2i := FC_X509_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15712,7 +15713,7 @@ begin
     if X509_get_ext_d2i_removed <= LibVersion then
     begin
       {$if declared(_X509_get_ext_d2i)}
-      X509_get_ext_d2i := @_X509_get_ext_d2i;
+      X509_get_ext_d2i := _X509_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15729,13 +15730,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_add1_ext_i2d_allownil)}
-    X509_add1_ext_i2d := @ERR_X509_add1_ext_i2d;
+    X509_add1_ext_i2d := ERR_X509_add1_ext_i2d;
     {$ifend}
     {$if declared(X509_add1_ext_i2d_introduced)}
     if LibVersion < X509_add1_ext_i2d_introduced then
     begin
       {$if declared(FC_X509_add1_ext_i2d)}
-      X509_add1_ext_i2d := @FC_X509_add1_ext_i2d;
+      X509_add1_ext_i2d := FC_X509_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15744,7 +15745,7 @@ begin
     if X509_add1_ext_i2d_removed <= LibVersion then
     begin
       {$if declared(_X509_add1_ext_i2d)}
-      X509_add1_ext_i2d := @_X509_add1_ext_i2d;
+      X509_add1_ext_i2d := _X509_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15761,13 +15762,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_count_allownil)}
-    X509_CRL_get_ext_count := @ERR_X509_CRL_get_ext_count;
+    X509_CRL_get_ext_count := ERR_X509_CRL_get_ext_count;
     {$ifend}
     {$if declared(X509_CRL_get_ext_count_introduced)}
     if LibVersion < X509_CRL_get_ext_count_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext_count)}
-      X509_CRL_get_ext_count := @FC_X509_CRL_get_ext_count;
+      X509_CRL_get_ext_count := FC_X509_CRL_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15776,7 +15777,7 @@ begin
     if X509_CRL_get_ext_count_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext_count)}
-      X509_CRL_get_ext_count := @_X509_CRL_get_ext_count;
+      X509_CRL_get_ext_count := _X509_CRL_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15793,13 +15794,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_by_NID_allownil)}
-    X509_CRL_get_ext_by_NID := @ERR_X509_CRL_get_ext_by_NID;
+    X509_CRL_get_ext_by_NID := ERR_X509_CRL_get_ext_by_NID;
     {$ifend}
     {$if declared(X509_CRL_get_ext_by_NID_introduced)}
     if LibVersion < X509_CRL_get_ext_by_NID_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext_by_NID)}
-      X509_CRL_get_ext_by_NID := @FC_X509_CRL_get_ext_by_NID;
+      X509_CRL_get_ext_by_NID := FC_X509_CRL_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15808,7 +15809,7 @@ begin
     if X509_CRL_get_ext_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext_by_NID)}
-      X509_CRL_get_ext_by_NID := @_X509_CRL_get_ext_by_NID;
+      X509_CRL_get_ext_by_NID := _X509_CRL_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15825,13 +15826,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_by_OBJ_allownil)}
-    X509_CRL_get_ext_by_OBJ := @ERR_X509_CRL_get_ext_by_OBJ;
+    X509_CRL_get_ext_by_OBJ := ERR_X509_CRL_get_ext_by_OBJ;
     {$ifend}
     {$if declared(X509_CRL_get_ext_by_OBJ_introduced)}
     if LibVersion < X509_CRL_get_ext_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext_by_OBJ)}
-      X509_CRL_get_ext_by_OBJ := @FC_X509_CRL_get_ext_by_OBJ;
+      X509_CRL_get_ext_by_OBJ := FC_X509_CRL_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15840,7 +15841,7 @@ begin
     if X509_CRL_get_ext_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext_by_OBJ)}
-      X509_CRL_get_ext_by_OBJ := @_X509_CRL_get_ext_by_OBJ;
+      X509_CRL_get_ext_by_OBJ := _X509_CRL_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15857,13 +15858,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_by_critical_allownil)}
-    X509_CRL_get_ext_by_critical := @ERR_X509_CRL_get_ext_by_critical;
+    X509_CRL_get_ext_by_critical := ERR_X509_CRL_get_ext_by_critical;
     {$ifend}
     {$if declared(X509_CRL_get_ext_by_critical_introduced)}
     if LibVersion < X509_CRL_get_ext_by_critical_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext_by_critical)}
-      X509_CRL_get_ext_by_critical := @FC_X509_CRL_get_ext_by_critical;
+      X509_CRL_get_ext_by_critical := FC_X509_CRL_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15872,7 +15873,7 @@ begin
     if X509_CRL_get_ext_by_critical_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext_by_critical)}
-      X509_CRL_get_ext_by_critical := @_X509_CRL_get_ext_by_critical;
+      X509_CRL_get_ext_by_critical := _X509_CRL_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15889,13 +15890,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_allownil)}
-    X509_CRL_get_ext := @ERR_X509_CRL_get_ext;
+    X509_CRL_get_ext := ERR_X509_CRL_get_ext;
     {$ifend}
     {$if declared(X509_CRL_get_ext_introduced)}
     if LibVersion < X509_CRL_get_ext_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext)}
-      X509_CRL_get_ext := @FC_X509_CRL_get_ext;
+      X509_CRL_get_ext := FC_X509_CRL_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15904,7 +15905,7 @@ begin
     if X509_CRL_get_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext)}
-      X509_CRL_get_ext := @_X509_CRL_get_ext;
+      X509_CRL_get_ext := _X509_CRL_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15921,13 +15922,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_delete_ext_allownil)}
-    X509_CRL_delete_ext := @ERR_X509_CRL_delete_ext;
+    X509_CRL_delete_ext := ERR_X509_CRL_delete_ext;
     {$ifend}
     {$if declared(X509_CRL_delete_ext_introduced)}
     if LibVersion < X509_CRL_delete_ext_introduced then
     begin
       {$if declared(FC_X509_CRL_delete_ext)}
-      X509_CRL_delete_ext := @FC_X509_CRL_delete_ext;
+      X509_CRL_delete_ext := FC_X509_CRL_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15936,7 +15937,7 @@ begin
     if X509_CRL_delete_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_delete_ext)}
-      X509_CRL_delete_ext := @_X509_CRL_delete_ext;
+      X509_CRL_delete_ext := _X509_CRL_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15953,13 +15954,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_add_ext_allownil)}
-    X509_CRL_add_ext := @ERR_X509_CRL_add_ext;
+    X509_CRL_add_ext := ERR_X509_CRL_add_ext;
     {$ifend}
     {$if declared(X509_CRL_add_ext_introduced)}
     if LibVersion < X509_CRL_add_ext_introduced then
     begin
       {$if declared(FC_X509_CRL_add_ext)}
-      X509_CRL_add_ext := @FC_X509_CRL_add_ext;
+      X509_CRL_add_ext := FC_X509_CRL_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15968,7 +15969,7 @@ begin
     if X509_CRL_add_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_add_ext)}
-      X509_CRL_add_ext := @_X509_CRL_add_ext;
+      X509_CRL_add_ext := _X509_CRL_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15985,13 +15986,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_get_ext_d2i_allownil)}
-    X509_CRL_get_ext_d2i := @ERR_X509_CRL_get_ext_d2i;
+    X509_CRL_get_ext_d2i := ERR_X509_CRL_get_ext_d2i;
     {$ifend}
     {$if declared(X509_CRL_get_ext_d2i_introduced)}
     if LibVersion < X509_CRL_get_ext_d2i_introduced then
     begin
       {$if declared(FC_X509_CRL_get_ext_d2i)}
-      X509_CRL_get_ext_d2i := @FC_X509_CRL_get_ext_d2i;
+      X509_CRL_get_ext_d2i := FC_X509_CRL_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16000,7 +16001,7 @@ begin
     if X509_CRL_get_ext_d2i_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_get_ext_d2i)}
-      X509_CRL_get_ext_d2i := @_X509_CRL_get_ext_d2i;
+      X509_CRL_get_ext_d2i := _X509_CRL_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16017,13 +16018,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_CRL_add1_ext_i2d_allownil)}
-    X509_CRL_add1_ext_i2d := @ERR_X509_CRL_add1_ext_i2d;
+    X509_CRL_add1_ext_i2d := ERR_X509_CRL_add1_ext_i2d;
     {$ifend}
     {$if declared(X509_CRL_add1_ext_i2d_introduced)}
     if LibVersion < X509_CRL_add1_ext_i2d_introduced then
     begin
       {$if declared(FC_X509_CRL_add1_ext_i2d)}
-      X509_CRL_add1_ext_i2d := @FC_X509_CRL_add1_ext_i2d;
+      X509_CRL_add1_ext_i2d := FC_X509_CRL_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16032,7 +16033,7 @@ begin
     if X509_CRL_add1_ext_i2d_removed <= LibVersion then
     begin
       {$if declared(_X509_CRL_add1_ext_i2d)}
-      X509_CRL_add1_ext_i2d := @_X509_CRL_add1_ext_i2d;
+      X509_CRL_add1_ext_i2d := _X509_CRL_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16049,13 +16050,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_count_allownil)}
-    X509_REVOKED_get_ext_count := @ERR_X509_REVOKED_get_ext_count;
+    X509_REVOKED_get_ext_count := ERR_X509_REVOKED_get_ext_count;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_count_introduced)}
     if LibVersion < X509_REVOKED_get_ext_count_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext_count)}
-      X509_REVOKED_get_ext_count := @FC_X509_REVOKED_get_ext_count;
+      X509_REVOKED_get_ext_count := FC_X509_REVOKED_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16064,7 +16065,7 @@ begin
     if X509_REVOKED_get_ext_count_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext_count)}
-      X509_REVOKED_get_ext_count := @_X509_REVOKED_get_ext_count;
+      X509_REVOKED_get_ext_count := _X509_REVOKED_get_ext_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16081,13 +16082,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_by_NID_allownil)}
-    X509_REVOKED_get_ext_by_NID := @ERR_X509_REVOKED_get_ext_by_NID;
+    X509_REVOKED_get_ext_by_NID := ERR_X509_REVOKED_get_ext_by_NID;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_by_NID_introduced)}
     if LibVersion < X509_REVOKED_get_ext_by_NID_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext_by_NID)}
-      X509_REVOKED_get_ext_by_NID := @FC_X509_REVOKED_get_ext_by_NID;
+      X509_REVOKED_get_ext_by_NID := FC_X509_REVOKED_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16096,7 +16097,7 @@ begin
     if X509_REVOKED_get_ext_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext_by_NID)}
-      X509_REVOKED_get_ext_by_NID := @_X509_REVOKED_get_ext_by_NID;
+      X509_REVOKED_get_ext_by_NID := _X509_REVOKED_get_ext_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16113,13 +16114,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_by_OBJ_allownil)}
-    X509_REVOKED_get_ext_by_OBJ := @ERR_X509_REVOKED_get_ext_by_OBJ;
+    X509_REVOKED_get_ext_by_OBJ := ERR_X509_REVOKED_get_ext_by_OBJ;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_by_OBJ_introduced)}
     if LibVersion < X509_REVOKED_get_ext_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext_by_OBJ)}
-      X509_REVOKED_get_ext_by_OBJ := @FC_X509_REVOKED_get_ext_by_OBJ;
+      X509_REVOKED_get_ext_by_OBJ := FC_X509_REVOKED_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16128,7 +16129,7 @@ begin
     if X509_REVOKED_get_ext_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext_by_OBJ)}
-      X509_REVOKED_get_ext_by_OBJ := @_X509_REVOKED_get_ext_by_OBJ;
+      X509_REVOKED_get_ext_by_OBJ := _X509_REVOKED_get_ext_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16145,13 +16146,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_by_critical_allownil)}
-    X509_REVOKED_get_ext_by_critical := @ERR_X509_REVOKED_get_ext_by_critical;
+    X509_REVOKED_get_ext_by_critical := ERR_X509_REVOKED_get_ext_by_critical;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_by_critical_introduced)}
     if LibVersion < X509_REVOKED_get_ext_by_critical_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext_by_critical)}
-      X509_REVOKED_get_ext_by_critical := @FC_X509_REVOKED_get_ext_by_critical;
+      X509_REVOKED_get_ext_by_critical := FC_X509_REVOKED_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16160,7 +16161,7 @@ begin
     if X509_REVOKED_get_ext_by_critical_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext_by_critical)}
-      X509_REVOKED_get_ext_by_critical := @_X509_REVOKED_get_ext_by_critical;
+      X509_REVOKED_get_ext_by_critical := _X509_REVOKED_get_ext_by_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16177,13 +16178,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_allownil)}
-    X509_REVOKED_get_ext := @ERR_X509_REVOKED_get_ext;
+    X509_REVOKED_get_ext := ERR_X509_REVOKED_get_ext;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_introduced)}
     if LibVersion < X509_REVOKED_get_ext_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext)}
-      X509_REVOKED_get_ext := @FC_X509_REVOKED_get_ext;
+      X509_REVOKED_get_ext := FC_X509_REVOKED_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16192,7 +16193,7 @@ begin
     if X509_REVOKED_get_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext)}
-      X509_REVOKED_get_ext := @_X509_REVOKED_get_ext;
+      X509_REVOKED_get_ext := _X509_REVOKED_get_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16209,13 +16210,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_delete_ext_allownil)}
-    X509_REVOKED_delete_ext := @ERR_X509_REVOKED_delete_ext;
+    X509_REVOKED_delete_ext := ERR_X509_REVOKED_delete_ext;
     {$ifend}
     {$if declared(X509_REVOKED_delete_ext_introduced)}
     if LibVersion < X509_REVOKED_delete_ext_introduced then
     begin
       {$if declared(FC_X509_REVOKED_delete_ext)}
-      X509_REVOKED_delete_ext := @FC_X509_REVOKED_delete_ext;
+      X509_REVOKED_delete_ext := FC_X509_REVOKED_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16224,7 +16225,7 @@ begin
     if X509_REVOKED_delete_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_delete_ext)}
-      X509_REVOKED_delete_ext := @_X509_REVOKED_delete_ext;
+      X509_REVOKED_delete_ext := _X509_REVOKED_delete_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16241,13 +16242,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_add_ext_allownil)}
-    X509_REVOKED_add_ext := @ERR_X509_REVOKED_add_ext;
+    X509_REVOKED_add_ext := ERR_X509_REVOKED_add_ext;
     {$ifend}
     {$if declared(X509_REVOKED_add_ext_introduced)}
     if LibVersion < X509_REVOKED_add_ext_introduced then
     begin
       {$if declared(FC_X509_REVOKED_add_ext)}
-      X509_REVOKED_add_ext := @FC_X509_REVOKED_add_ext;
+      X509_REVOKED_add_ext := FC_X509_REVOKED_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16256,7 +16257,7 @@ begin
     if X509_REVOKED_add_ext_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_add_ext)}
-      X509_REVOKED_add_ext := @_X509_REVOKED_add_ext;
+      X509_REVOKED_add_ext := _X509_REVOKED_add_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16273,13 +16274,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_get_ext_d2i_allownil)}
-    X509_REVOKED_get_ext_d2i := @ERR_X509_REVOKED_get_ext_d2i;
+    X509_REVOKED_get_ext_d2i := ERR_X509_REVOKED_get_ext_d2i;
     {$ifend}
     {$if declared(X509_REVOKED_get_ext_d2i_introduced)}
     if LibVersion < X509_REVOKED_get_ext_d2i_introduced then
     begin
       {$if declared(FC_X509_REVOKED_get_ext_d2i)}
-      X509_REVOKED_get_ext_d2i := @FC_X509_REVOKED_get_ext_d2i;
+      X509_REVOKED_get_ext_d2i := FC_X509_REVOKED_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16288,7 +16289,7 @@ begin
     if X509_REVOKED_get_ext_d2i_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_get_ext_d2i)}
-      X509_REVOKED_get_ext_d2i := @_X509_REVOKED_get_ext_d2i;
+      X509_REVOKED_get_ext_d2i := _X509_REVOKED_get_ext_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16305,13 +16306,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_REVOKED_add1_ext_i2d_allownil)}
-    X509_REVOKED_add1_ext_i2d := @ERR_X509_REVOKED_add1_ext_i2d;
+    X509_REVOKED_add1_ext_i2d := ERR_X509_REVOKED_add1_ext_i2d;
     {$ifend}
     {$if declared(X509_REVOKED_add1_ext_i2d_introduced)}
     if LibVersion < X509_REVOKED_add1_ext_i2d_introduced then
     begin
       {$if declared(FC_X509_REVOKED_add1_ext_i2d)}
-      X509_REVOKED_add1_ext_i2d := @FC_X509_REVOKED_add1_ext_i2d;
+      X509_REVOKED_add1_ext_i2d := FC_X509_REVOKED_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16320,7 +16321,7 @@ begin
     if X509_REVOKED_add1_ext_i2d_removed <= LibVersion then
     begin
       {$if declared(_X509_REVOKED_add1_ext_i2d)}
-      X509_REVOKED_add1_ext_i2d := @_X509_REVOKED_add1_ext_i2d;
+      X509_REVOKED_add1_ext_i2d := _X509_REVOKED_add1_ext_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16337,13 +16338,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_create_by_NID_allownil)}
-    X509_EXTENSION_create_by_NID := @ERR_X509_EXTENSION_create_by_NID;
+    X509_EXTENSION_create_by_NID := ERR_X509_EXTENSION_create_by_NID;
     {$ifend}
     {$if declared(X509_EXTENSION_create_by_NID_introduced)}
     if LibVersion < X509_EXTENSION_create_by_NID_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_create_by_NID)}
-      X509_EXTENSION_create_by_NID := @FC_X509_EXTENSION_create_by_NID;
+      X509_EXTENSION_create_by_NID := FC_X509_EXTENSION_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16352,7 +16353,7 @@ begin
     if X509_EXTENSION_create_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_create_by_NID)}
-      X509_EXTENSION_create_by_NID := @_X509_EXTENSION_create_by_NID;
+      X509_EXTENSION_create_by_NID := _X509_EXTENSION_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16369,13 +16370,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_create_by_OBJ_allownil)}
-    X509_EXTENSION_create_by_OBJ := @ERR_X509_EXTENSION_create_by_OBJ;
+    X509_EXTENSION_create_by_OBJ := ERR_X509_EXTENSION_create_by_OBJ;
     {$ifend}
     {$if declared(X509_EXTENSION_create_by_OBJ_introduced)}
     if LibVersion < X509_EXTENSION_create_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_create_by_OBJ)}
-      X509_EXTENSION_create_by_OBJ := @FC_X509_EXTENSION_create_by_OBJ;
+      X509_EXTENSION_create_by_OBJ := FC_X509_EXTENSION_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16384,7 +16385,7 @@ begin
     if X509_EXTENSION_create_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_create_by_OBJ)}
-      X509_EXTENSION_create_by_OBJ := @_X509_EXTENSION_create_by_OBJ;
+      X509_EXTENSION_create_by_OBJ := _X509_EXTENSION_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16401,13 +16402,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_set_object_allownil)}
-    X509_EXTENSION_set_object := @ERR_X509_EXTENSION_set_object;
+    X509_EXTENSION_set_object := ERR_X509_EXTENSION_set_object;
     {$ifend}
     {$if declared(X509_EXTENSION_set_object_introduced)}
     if LibVersion < X509_EXTENSION_set_object_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_set_object)}
-      X509_EXTENSION_set_object := @FC_X509_EXTENSION_set_object;
+      X509_EXTENSION_set_object := FC_X509_EXTENSION_set_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16416,7 +16417,7 @@ begin
     if X509_EXTENSION_set_object_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_set_object)}
-      X509_EXTENSION_set_object := @_X509_EXTENSION_set_object;
+      X509_EXTENSION_set_object := _X509_EXTENSION_set_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16433,13 +16434,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_set_critical_allownil)}
-    X509_EXTENSION_set_critical := @ERR_X509_EXTENSION_set_critical;
+    X509_EXTENSION_set_critical := ERR_X509_EXTENSION_set_critical;
     {$ifend}
     {$if declared(X509_EXTENSION_set_critical_introduced)}
     if LibVersion < X509_EXTENSION_set_critical_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_set_critical)}
-      X509_EXTENSION_set_critical := @FC_X509_EXTENSION_set_critical;
+      X509_EXTENSION_set_critical := FC_X509_EXTENSION_set_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16448,7 +16449,7 @@ begin
     if X509_EXTENSION_set_critical_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_set_critical)}
-      X509_EXTENSION_set_critical := @_X509_EXTENSION_set_critical;
+      X509_EXTENSION_set_critical := _X509_EXTENSION_set_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16465,13 +16466,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_set_data_allownil)}
-    X509_EXTENSION_set_data := @ERR_X509_EXTENSION_set_data;
+    X509_EXTENSION_set_data := ERR_X509_EXTENSION_set_data;
     {$ifend}
     {$if declared(X509_EXTENSION_set_data_introduced)}
     if LibVersion < X509_EXTENSION_set_data_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_set_data)}
-      X509_EXTENSION_set_data := @FC_X509_EXTENSION_set_data;
+      X509_EXTENSION_set_data := FC_X509_EXTENSION_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16480,7 +16481,7 @@ begin
     if X509_EXTENSION_set_data_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_set_data)}
-      X509_EXTENSION_set_data := @_X509_EXTENSION_set_data;
+      X509_EXTENSION_set_data := _X509_EXTENSION_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16497,13 +16498,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_get_object_allownil)}
-    X509_EXTENSION_get_object := @ERR_X509_EXTENSION_get_object;
+    X509_EXTENSION_get_object := ERR_X509_EXTENSION_get_object;
     {$ifend}
     {$if declared(X509_EXTENSION_get_object_introduced)}
     if LibVersion < X509_EXTENSION_get_object_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_get_object)}
-      X509_EXTENSION_get_object := @FC_X509_EXTENSION_get_object;
+      X509_EXTENSION_get_object := FC_X509_EXTENSION_get_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16512,7 +16513,7 @@ begin
     if X509_EXTENSION_get_object_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_get_object)}
-      X509_EXTENSION_get_object := @_X509_EXTENSION_get_object;
+      X509_EXTENSION_get_object := _X509_EXTENSION_get_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16529,13 +16530,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_get_data_allownil)}
-    X509_EXTENSION_get_data := @ERR_X509_EXTENSION_get_data;
+    X509_EXTENSION_get_data := ERR_X509_EXTENSION_get_data;
     {$ifend}
     {$if declared(X509_EXTENSION_get_data_introduced)}
     if LibVersion < X509_EXTENSION_get_data_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_get_data)}
-      X509_EXTENSION_get_data := @FC_X509_EXTENSION_get_data;
+      X509_EXTENSION_get_data := FC_X509_EXTENSION_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16544,7 +16545,7 @@ begin
     if X509_EXTENSION_get_data_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_get_data)}
-      X509_EXTENSION_get_data := @_X509_EXTENSION_get_data;
+      X509_EXTENSION_get_data := _X509_EXTENSION_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16561,13 +16562,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_EXTENSION_get_critical_allownil)}
-    X509_EXTENSION_get_critical := @ERR_X509_EXTENSION_get_critical;
+    X509_EXTENSION_get_critical := ERR_X509_EXTENSION_get_critical;
     {$ifend}
     {$if declared(X509_EXTENSION_get_critical_introduced)}
     if LibVersion < X509_EXTENSION_get_critical_introduced then
     begin
       {$if declared(FC_X509_EXTENSION_get_critical)}
-      X509_EXTENSION_get_critical := @FC_X509_EXTENSION_get_critical;
+      X509_EXTENSION_get_critical := FC_X509_EXTENSION_get_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16576,7 +16577,7 @@ begin
     if X509_EXTENSION_get_critical_removed <= LibVersion then
     begin
       {$if declared(_X509_EXTENSION_get_critical)}
-      X509_EXTENSION_get_critical := @_X509_EXTENSION_get_critical;
+      X509_EXTENSION_get_critical := _X509_EXTENSION_get_critical;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16593,13 +16594,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_create_by_NID_allownil)}
-    X509_ATTRIBUTE_create_by_NID := @ERR_X509_ATTRIBUTE_create_by_NID;
+    X509_ATTRIBUTE_create_by_NID := ERR_X509_ATTRIBUTE_create_by_NID;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_create_by_NID_introduced)}
     if LibVersion < X509_ATTRIBUTE_create_by_NID_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_create_by_NID)}
-      X509_ATTRIBUTE_create_by_NID := @FC_X509_ATTRIBUTE_create_by_NID;
+      X509_ATTRIBUTE_create_by_NID := FC_X509_ATTRIBUTE_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16608,7 +16609,7 @@ begin
     if X509_ATTRIBUTE_create_by_NID_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_create_by_NID)}
-      X509_ATTRIBUTE_create_by_NID := @_X509_ATTRIBUTE_create_by_NID;
+      X509_ATTRIBUTE_create_by_NID := _X509_ATTRIBUTE_create_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16625,13 +16626,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_create_by_OBJ_allownil)}
-    X509_ATTRIBUTE_create_by_OBJ := @ERR_X509_ATTRIBUTE_create_by_OBJ;
+    X509_ATTRIBUTE_create_by_OBJ := ERR_X509_ATTRIBUTE_create_by_OBJ;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_create_by_OBJ_introduced)}
     if LibVersion < X509_ATTRIBUTE_create_by_OBJ_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_create_by_OBJ)}
-      X509_ATTRIBUTE_create_by_OBJ := @FC_X509_ATTRIBUTE_create_by_OBJ;
+      X509_ATTRIBUTE_create_by_OBJ := FC_X509_ATTRIBUTE_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16640,7 +16641,7 @@ begin
     if X509_ATTRIBUTE_create_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_create_by_OBJ)}
-      X509_ATTRIBUTE_create_by_OBJ := @_X509_ATTRIBUTE_create_by_OBJ;
+      X509_ATTRIBUTE_create_by_OBJ := _X509_ATTRIBUTE_create_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16657,13 +16658,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_create_by_txt_allownil)}
-    X509_ATTRIBUTE_create_by_txt := @ERR_X509_ATTRIBUTE_create_by_txt;
+    X509_ATTRIBUTE_create_by_txt := ERR_X509_ATTRIBUTE_create_by_txt;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_create_by_txt_introduced)}
     if LibVersion < X509_ATTRIBUTE_create_by_txt_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_create_by_txt)}
-      X509_ATTRIBUTE_create_by_txt := @FC_X509_ATTRIBUTE_create_by_txt;
+      X509_ATTRIBUTE_create_by_txt := FC_X509_ATTRIBUTE_create_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16672,7 +16673,7 @@ begin
     if X509_ATTRIBUTE_create_by_txt_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_create_by_txt)}
-      X509_ATTRIBUTE_create_by_txt := @_X509_ATTRIBUTE_create_by_txt;
+      X509_ATTRIBUTE_create_by_txt := _X509_ATTRIBUTE_create_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16689,13 +16690,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_set1_object_allownil)}
-    X509_ATTRIBUTE_set1_object := @ERR_X509_ATTRIBUTE_set1_object;
+    X509_ATTRIBUTE_set1_object := ERR_X509_ATTRIBUTE_set1_object;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_set1_object_introduced)}
     if LibVersion < X509_ATTRIBUTE_set1_object_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_set1_object)}
-      X509_ATTRIBUTE_set1_object := @FC_X509_ATTRIBUTE_set1_object;
+      X509_ATTRIBUTE_set1_object := FC_X509_ATTRIBUTE_set1_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16704,7 +16705,7 @@ begin
     if X509_ATTRIBUTE_set1_object_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_set1_object)}
-      X509_ATTRIBUTE_set1_object := @_X509_ATTRIBUTE_set1_object;
+      X509_ATTRIBUTE_set1_object := _X509_ATTRIBUTE_set1_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16721,13 +16722,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_set1_data_allownil)}
-    X509_ATTRIBUTE_set1_data := @ERR_X509_ATTRIBUTE_set1_data;
+    X509_ATTRIBUTE_set1_data := ERR_X509_ATTRIBUTE_set1_data;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_set1_data_introduced)}
     if LibVersion < X509_ATTRIBUTE_set1_data_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_set1_data)}
-      X509_ATTRIBUTE_set1_data := @FC_X509_ATTRIBUTE_set1_data;
+      X509_ATTRIBUTE_set1_data := FC_X509_ATTRIBUTE_set1_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16736,7 +16737,7 @@ begin
     if X509_ATTRIBUTE_set1_data_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_set1_data)}
-      X509_ATTRIBUTE_set1_data := @_X509_ATTRIBUTE_set1_data;
+      X509_ATTRIBUTE_set1_data := _X509_ATTRIBUTE_set1_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16753,13 +16754,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_get0_data_allownil)}
-    X509_ATTRIBUTE_get0_data := @ERR_X509_ATTRIBUTE_get0_data;
+    X509_ATTRIBUTE_get0_data := ERR_X509_ATTRIBUTE_get0_data;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_get0_data_introduced)}
     if LibVersion < X509_ATTRIBUTE_get0_data_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_get0_data)}
-      X509_ATTRIBUTE_get0_data := @FC_X509_ATTRIBUTE_get0_data;
+      X509_ATTRIBUTE_get0_data := FC_X509_ATTRIBUTE_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16768,7 +16769,7 @@ begin
     if X509_ATTRIBUTE_get0_data_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_get0_data)}
-      X509_ATTRIBUTE_get0_data := @_X509_ATTRIBUTE_get0_data;
+      X509_ATTRIBUTE_get0_data := _X509_ATTRIBUTE_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16785,13 +16786,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_count_allownil)}
-    X509_ATTRIBUTE_count := @ERR_X509_ATTRIBUTE_count;
+    X509_ATTRIBUTE_count := ERR_X509_ATTRIBUTE_count;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_count_introduced)}
     if LibVersion < X509_ATTRIBUTE_count_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_count)}
-      X509_ATTRIBUTE_count := @FC_X509_ATTRIBUTE_count;
+      X509_ATTRIBUTE_count := FC_X509_ATTRIBUTE_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16800,7 +16801,7 @@ begin
     if X509_ATTRIBUTE_count_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_count)}
-      X509_ATTRIBUTE_count := @_X509_ATTRIBUTE_count;
+      X509_ATTRIBUTE_count := _X509_ATTRIBUTE_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16817,13 +16818,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_get0_object_allownil)}
-    X509_ATTRIBUTE_get0_object := @ERR_X509_ATTRIBUTE_get0_object;
+    X509_ATTRIBUTE_get0_object := ERR_X509_ATTRIBUTE_get0_object;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_get0_object_introduced)}
     if LibVersion < X509_ATTRIBUTE_get0_object_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_get0_object)}
-      X509_ATTRIBUTE_get0_object := @FC_X509_ATTRIBUTE_get0_object;
+      X509_ATTRIBUTE_get0_object := FC_X509_ATTRIBUTE_get0_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16832,7 +16833,7 @@ begin
     if X509_ATTRIBUTE_get0_object_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_get0_object)}
-      X509_ATTRIBUTE_get0_object := @_X509_ATTRIBUTE_get0_object;
+      X509_ATTRIBUTE_get0_object := _X509_ATTRIBUTE_get0_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16849,13 +16850,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_ATTRIBUTE_get0_type_allownil)}
-    X509_ATTRIBUTE_get0_type := @ERR_X509_ATTRIBUTE_get0_type;
+    X509_ATTRIBUTE_get0_type := ERR_X509_ATTRIBUTE_get0_type;
     {$ifend}
     {$if declared(X509_ATTRIBUTE_get0_type_introduced)}
     if LibVersion < X509_ATTRIBUTE_get0_type_introduced then
     begin
       {$if declared(FC_X509_ATTRIBUTE_get0_type)}
-      X509_ATTRIBUTE_get0_type := @FC_X509_ATTRIBUTE_get0_type;
+      X509_ATTRIBUTE_get0_type := FC_X509_ATTRIBUTE_get0_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16864,7 +16865,7 @@ begin
     if X509_ATTRIBUTE_get0_type_removed <= LibVersion then
     begin
       {$if declared(_X509_ATTRIBUTE_get0_type)}
-      X509_ATTRIBUTE_get0_type := @_X509_ATTRIBUTE_get0_type;
+      X509_ATTRIBUTE_get0_type := _X509_ATTRIBUTE_get0_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16881,13 +16882,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_get_attr_count_allownil)}
-    EVP_PKEY_get_attr_count := @ERR_EVP_PKEY_get_attr_count;
+    EVP_PKEY_get_attr_count := ERR_EVP_PKEY_get_attr_count;
     {$ifend}
     {$if declared(EVP_PKEY_get_attr_count_introduced)}
     if LibVersion < EVP_PKEY_get_attr_count_introduced then
     begin
       {$if declared(FC_EVP_PKEY_get_attr_count)}
-      EVP_PKEY_get_attr_count := @FC_EVP_PKEY_get_attr_count;
+      EVP_PKEY_get_attr_count := FC_EVP_PKEY_get_attr_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16896,7 +16897,7 @@ begin
     if EVP_PKEY_get_attr_count_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_get_attr_count)}
-      EVP_PKEY_get_attr_count := @_EVP_PKEY_get_attr_count;
+      EVP_PKEY_get_attr_count := _EVP_PKEY_get_attr_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16913,13 +16914,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_get_attr_by_NID_allownil)}
-    EVP_PKEY_get_attr_by_NID := @ERR_EVP_PKEY_get_attr_by_NID;
+    EVP_PKEY_get_attr_by_NID := ERR_EVP_PKEY_get_attr_by_NID;
     {$ifend}
     {$if declared(EVP_PKEY_get_attr_by_NID_introduced)}
     if LibVersion < EVP_PKEY_get_attr_by_NID_introduced then
     begin
       {$if declared(FC_EVP_PKEY_get_attr_by_NID)}
-      EVP_PKEY_get_attr_by_NID := @FC_EVP_PKEY_get_attr_by_NID;
+      EVP_PKEY_get_attr_by_NID := FC_EVP_PKEY_get_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16928,7 +16929,7 @@ begin
     if EVP_PKEY_get_attr_by_NID_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_get_attr_by_NID)}
-      EVP_PKEY_get_attr_by_NID := @_EVP_PKEY_get_attr_by_NID;
+      EVP_PKEY_get_attr_by_NID := _EVP_PKEY_get_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16945,13 +16946,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_get_attr_by_OBJ_allownil)}
-    EVP_PKEY_get_attr_by_OBJ := @ERR_EVP_PKEY_get_attr_by_OBJ;
+    EVP_PKEY_get_attr_by_OBJ := ERR_EVP_PKEY_get_attr_by_OBJ;
     {$ifend}
     {$if declared(EVP_PKEY_get_attr_by_OBJ_introduced)}
     if LibVersion < EVP_PKEY_get_attr_by_OBJ_introduced then
     begin
       {$if declared(FC_EVP_PKEY_get_attr_by_OBJ)}
-      EVP_PKEY_get_attr_by_OBJ := @FC_EVP_PKEY_get_attr_by_OBJ;
+      EVP_PKEY_get_attr_by_OBJ := FC_EVP_PKEY_get_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16960,7 +16961,7 @@ begin
     if EVP_PKEY_get_attr_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_get_attr_by_OBJ)}
-      EVP_PKEY_get_attr_by_OBJ := @_EVP_PKEY_get_attr_by_OBJ;
+      EVP_PKEY_get_attr_by_OBJ := _EVP_PKEY_get_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16977,13 +16978,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_get_attr_allownil)}
-    EVP_PKEY_get_attr := @ERR_EVP_PKEY_get_attr;
+    EVP_PKEY_get_attr := ERR_EVP_PKEY_get_attr;
     {$ifend}
     {$if declared(EVP_PKEY_get_attr_introduced)}
     if LibVersion < EVP_PKEY_get_attr_introduced then
     begin
       {$if declared(FC_EVP_PKEY_get_attr)}
-      EVP_PKEY_get_attr := @FC_EVP_PKEY_get_attr;
+      EVP_PKEY_get_attr := FC_EVP_PKEY_get_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16992,7 +16993,7 @@ begin
     if EVP_PKEY_get_attr_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_get_attr)}
-      EVP_PKEY_get_attr := @_EVP_PKEY_get_attr;
+      EVP_PKEY_get_attr := _EVP_PKEY_get_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17009,13 +17010,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_delete_attr_allownil)}
-    EVP_PKEY_delete_attr := @ERR_EVP_PKEY_delete_attr;
+    EVP_PKEY_delete_attr := ERR_EVP_PKEY_delete_attr;
     {$ifend}
     {$if declared(EVP_PKEY_delete_attr_introduced)}
     if LibVersion < EVP_PKEY_delete_attr_introduced then
     begin
       {$if declared(FC_EVP_PKEY_delete_attr)}
-      EVP_PKEY_delete_attr := @FC_EVP_PKEY_delete_attr;
+      EVP_PKEY_delete_attr := FC_EVP_PKEY_delete_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17024,7 +17025,7 @@ begin
     if EVP_PKEY_delete_attr_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_delete_attr)}
-      EVP_PKEY_delete_attr := @_EVP_PKEY_delete_attr;
+      EVP_PKEY_delete_attr := _EVP_PKEY_delete_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17041,13 +17042,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_add1_attr_allownil)}
-    EVP_PKEY_add1_attr := @ERR_EVP_PKEY_add1_attr;
+    EVP_PKEY_add1_attr := ERR_EVP_PKEY_add1_attr;
     {$ifend}
     {$if declared(EVP_PKEY_add1_attr_introduced)}
     if LibVersion < EVP_PKEY_add1_attr_introduced then
     begin
       {$if declared(FC_EVP_PKEY_add1_attr)}
-      EVP_PKEY_add1_attr := @FC_EVP_PKEY_add1_attr;
+      EVP_PKEY_add1_attr := FC_EVP_PKEY_add1_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17056,7 +17057,7 @@ begin
     if EVP_PKEY_add1_attr_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_add1_attr)}
-      EVP_PKEY_add1_attr := @_EVP_PKEY_add1_attr;
+      EVP_PKEY_add1_attr := _EVP_PKEY_add1_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17073,13 +17074,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_add1_attr_by_OBJ_allownil)}
-    EVP_PKEY_add1_attr_by_OBJ := @ERR_EVP_PKEY_add1_attr_by_OBJ;
+    EVP_PKEY_add1_attr_by_OBJ := ERR_EVP_PKEY_add1_attr_by_OBJ;
     {$ifend}
     {$if declared(EVP_PKEY_add1_attr_by_OBJ_introduced)}
     if LibVersion < EVP_PKEY_add1_attr_by_OBJ_introduced then
     begin
       {$if declared(FC_EVP_PKEY_add1_attr_by_OBJ)}
-      EVP_PKEY_add1_attr_by_OBJ := @FC_EVP_PKEY_add1_attr_by_OBJ;
+      EVP_PKEY_add1_attr_by_OBJ := FC_EVP_PKEY_add1_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17088,7 +17089,7 @@ begin
     if EVP_PKEY_add1_attr_by_OBJ_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_add1_attr_by_OBJ)}
-      EVP_PKEY_add1_attr_by_OBJ := @_EVP_PKEY_add1_attr_by_OBJ;
+      EVP_PKEY_add1_attr_by_OBJ := _EVP_PKEY_add1_attr_by_OBJ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17105,13 +17106,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_add1_attr_by_NID_allownil)}
-    EVP_PKEY_add1_attr_by_NID := @ERR_EVP_PKEY_add1_attr_by_NID;
+    EVP_PKEY_add1_attr_by_NID := ERR_EVP_PKEY_add1_attr_by_NID;
     {$ifend}
     {$if declared(EVP_PKEY_add1_attr_by_NID_introduced)}
     if LibVersion < EVP_PKEY_add1_attr_by_NID_introduced then
     begin
       {$if declared(FC_EVP_PKEY_add1_attr_by_NID)}
-      EVP_PKEY_add1_attr_by_NID := @FC_EVP_PKEY_add1_attr_by_NID;
+      EVP_PKEY_add1_attr_by_NID := FC_EVP_PKEY_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17120,7 +17121,7 @@ begin
     if EVP_PKEY_add1_attr_by_NID_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_add1_attr_by_NID)}
-      EVP_PKEY_add1_attr_by_NID := @_EVP_PKEY_add1_attr_by_NID;
+      EVP_PKEY_add1_attr_by_NID := _EVP_PKEY_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17137,13 +17138,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY_add1_attr_by_txt_allownil)}
-    EVP_PKEY_add1_attr_by_txt := @ERR_EVP_PKEY_add1_attr_by_txt;
+    EVP_PKEY_add1_attr_by_txt := ERR_EVP_PKEY_add1_attr_by_txt;
     {$ifend}
     {$if declared(EVP_PKEY_add1_attr_by_txt_introduced)}
     if LibVersion < EVP_PKEY_add1_attr_by_txt_introduced then
     begin
       {$if declared(FC_EVP_PKEY_add1_attr_by_txt)}
-      EVP_PKEY_add1_attr_by_txt := @FC_EVP_PKEY_add1_attr_by_txt;
+      EVP_PKEY_add1_attr_by_txt := FC_EVP_PKEY_add1_attr_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17152,7 +17153,7 @@ begin
     if EVP_PKEY_add1_attr_by_txt_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY_add1_attr_by_txt)}
-      EVP_PKEY_add1_attr_by_txt := @_EVP_PKEY_add1_attr_by_txt;
+      EVP_PKEY_add1_attr_by_txt := _EVP_PKEY_add1_attr_by_txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17169,13 +17170,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_verify_cert_allownil)}
-    X509_verify_cert := @ERR_X509_verify_cert;
+    X509_verify_cert := ERR_X509_verify_cert;
     {$ifend}
     {$if declared(X509_verify_cert_introduced)}
     if LibVersion < X509_verify_cert_introduced then
     begin
       {$if declared(FC_X509_verify_cert)}
-      X509_verify_cert := @FC_X509_verify_cert;
+      X509_verify_cert := FC_X509_verify_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17184,7 +17185,7 @@ begin
     if X509_verify_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_verify_cert)}
-      X509_verify_cert := @_X509_verify_cert;
+      X509_verify_cert := _X509_verify_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17201,13 +17202,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbe_set0_algor_allownil)}
-    PKCS5_pbe_set0_algor := @ERR_PKCS5_pbe_set0_algor;
+    PKCS5_pbe_set0_algor := ERR_PKCS5_pbe_set0_algor;
     {$ifend}
     {$if declared(PKCS5_pbe_set0_algor_introduced)}
     if LibVersion < PKCS5_pbe_set0_algor_introduced then
     begin
       {$if declared(FC_PKCS5_pbe_set0_algor)}
-      PKCS5_pbe_set0_algor := @FC_PKCS5_pbe_set0_algor;
+      PKCS5_pbe_set0_algor := FC_PKCS5_pbe_set0_algor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17216,7 +17217,7 @@ begin
     if PKCS5_pbe_set0_algor_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbe_set0_algor)}
-      PKCS5_pbe_set0_algor := @_PKCS5_pbe_set0_algor;
+      PKCS5_pbe_set0_algor := _PKCS5_pbe_set0_algor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17233,13 +17234,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbe_set_allownil)}
-    PKCS5_pbe_set := @ERR_PKCS5_pbe_set;
+    PKCS5_pbe_set := ERR_PKCS5_pbe_set;
     {$ifend}
     {$if declared(PKCS5_pbe_set_introduced)}
     if LibVersion < PKCS5_pbe_set_introduced then
     begin
       {$if declared(FC_PKCS5_pbe_set)}
-      PKCS5_pbe_set := @FC_PKCS5_pbe_set;
+      PKCS5_pbe_set := FC_PKCS5_pbe_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17248,7 +17249,7 @@ begin
     if PKCS5_pbe_set_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbe_set)}
-      PKCS5_pbe_set := @_PKCS5_pbe_set;
+      PKCS5_pbe_set := _PKCS5_pbe_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17265,13 +17266,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbe2_set_allownil)}
-    PKCS5_pbe2_set := @ERR_PKCS5_pbe2_set;
+    PKCS5_pbe2_set := ERR_PKCS5_pbe2_set;
     {$ifend}
     {$if declared(PKCS5_pbe2_set_introduced)}
     if LibVersion < PKCS5_pbe2_set_introduced then
     begin
       {$if declared(FC_PKCS5_pbe2_set)}
-      PKCS5_pbe2_set := @FC_PKCS5_pbe2_set;
+      PKCS5_pbe2_set := FC_PKCS5_pbe2_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17280,7 +17281,7 @@ begin
     if PKCS5_pbe2_set_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbe2_set)}
-      PKCS5_pbe2_set := @_PKCS5_pbe2_set;
+      PKCS5_pbe2_set := _PKCS5_pbe2_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17297,13 +17298,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbe2_set_iv_allownil)}
-    PKCS5_pbe2_set_iv := @ERR_PKCS5_pbe2_set_iv;
+    PKCS5_pbe2_set_iv := ERR_PKCS5_pbe2_set_iv;
     {$ifend}
     {$if declared(PKCS5_pbe2_set_iv_introduced)}
     if LibVersion < PKCS5_pbe2_set_iv_introduced then
     begin
       {$if declared(FC_PKCS5_pbe2_set_iv)}
-      PKCS5_pbe2_set_iv := @FC_PKCS5_pbe2_set_iv;
+      PKCS5_pbe2_set_iv := FC_PKCS5_pbe2_set_iv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17312,7 +17313,7 @@ begin
     if PKCS5_pbe2_set_iv_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbe2_set_iv)}
-      PKCS5_pbe2_set_iv := @_PKCS5_pbe2_set_iv;
+      PKCS5_pbe2_set_iv := _PKCS5_pbe2_set_iv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17329,13 +17330,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbe2_set_scrypt_allownil)}
-    PKCS5_pbe2_set_scrypt := @ERR_PKCS5_pbe2_set_scrypt;
+    PKCS5_pbe2_set_scrypt := ERR_PKCS5_pbe2_set_scrypt;
     {$ifend}
     {$if declared(PKCS5_pbe2_set_scrypt_introduced)}
     if LibVersion < PKCS5_pbe2_set_scrypt_introduced then
     begin
       {$if declared(FC_PKCS5_pbe2_set_scrypt)}
-      PKCS5_pbe2_set_scrypt := @FC_PKCS5_pbe2_set_scrypt;
+      PKCS5_pbe2_set_scrypt := FC_PKCS5_pbe2_set_scrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17344,7 +17345,7 @@ begin
     if PKCS5_pbe2_set_scrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbe2_set_scrypt)}
-      PKCS5_pbe2_set_scrypt := @_PKCS5_pbe2_set_scrypt;
+      PKCS5_pbe2_set_scrypt := _PKCS5_pbe2_set_scrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17361,13 +17362,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS5_pbkdf2_set_allownil)}
-    PKCS5_pbkdf2_set := @ERR_PKCS5_pbkdf2_set;
+    PKCS5_pbkdf2_set := ERR_PKCS5_pbkdf2_set;
     {$ifend}
     {$if declared(PKCS5_pbkdf2_set_introduced)}
     if LibVersion < PKCS5_pbkdf2_set_introduced then
     begin
       {$if declared(FC_PKCS5_pbkdf2_set)}
-      PKCS5_pbkdf2_set := @FC_PKCS5_pbkdf2_set;
+      PKCS5_pbkdf2_set := FC_PKCS5_pbkdf2_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17376,7 +17377,7 @@ begin
     if PKCS5_pbkdf2_set_removed <= LibVersion then
     begin
       {$if declared(_PKCS5_pbkdf2_set)}
-      PKCS5_pbkdf2_set := @_PKCS5_pbkdf2_set;
+      PKCS5_pbkdf2_set := _PKCS5_pbkdf2_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17393,13 +17394,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKCS82PKEY_allownil)}
-    EVP_PKCS82PKEY := @ERR_EVP_PKCS82PKEY;
+    EVP_PKCS82PKEY := ERR_EVP_PKCS82PKEY;
     {$ifend}
     {$if declared(EVP_PKCS82PKEY_introduced)}
     if LibVersion < EVP_PKCS82PKEY_introduced then
     begin
       {$if declared(FC_EVP_PKCS82PKEY)}
-      EVP_PKCS82PKEY := @FC_EVP_PKCS82PKEY;
+      EVP_PKCS82PKEY := FC_EVP_PKCS82PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17408,7 +17409,7 @@ begin
     if EVP_PKCS82PKEY_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKCS82PKEY)}
-      EVP_PKCS82PKEY := @_EVP_PKCS82PKEY;
+      EVP_PKCS82PKEY := _EVP_PKCS82PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17425,13 +17426,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EVP_PKEY2PKCS8_allownil)}
-    EVP_PKEY2PKCS8 := @ERR_EVP_PKEY2PKCS8;
+    EVP_PKEY2PKCS8 := ERR_EVP_PKEY2PKCS8;
     {$ifend}
     {$if declared(EVP_PKEY2PKCS8_introduced)}
     if LibVersion < EVP_PKEY2PKCS8_introduced then
     begin
       {$if declared(FC_EVP_PKEY2PKCS8)}
-      EVP_PKEY2PKCS8 := @FC_EVP_PKEY2PKCS8;
+      EVP_PKEY2PKCS8 := FC_EVP_PKEY2PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17440,7 +17441,7 @@ begin
     if EVP_PKEY2PKCS8_removed <= LibVersion then
     begin
       {$if declared(_EVP_PKEY2PKCS8)}
-      EVP_PKEY2PKCS8 := @_EVP_PKEY2PKCS8;
+      EVP_PKEY2PKCS8 := _EVP_PKEY2PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17457,13 +17458,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_pkey_set0_allownil)}
-    PKCS8_pkey_set0 := @ERR_PKCS8_pkey_set0;
+    PKCS8_pkey_set0 := ERR_PKCS8_pkey_set0;
     {$ifend}
     {$if declared(PKCS8_pkey_set0_introduced)}
     if LibVersion < PKCS8_pkey_set0_introduced then
     begin
       {$if declared(FC_PKCS8_pkey_set0)}
-      PKCS8_pkey_set0 := @FC_PKCS8_pkey_set0;
+      PKCS8_pkey_set0 := FC_PKCS8_pkey_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17472,7 +17473,7 @@ begin
     if PKCS8_pkey_set0_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_pkey_set0)}
-      PKCS8_pkey_set0 := @_PKCS8_pkey_set0;
+      PKCS8_pkey_set0 := _PKCS8_pkey_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17489,13 +17490,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_pkey_get0_allownil)}
-    PKCS8_pkey_get0 := @ERR_PKCS8_pkey_get0;
+    PKCS8_pkey_get0 := ERR_PKCS8_pkey_get0;
     {$ifend}
     {$if declared(PKCS8_pkey_get0_introduced)}
     if LibVersion < PKCS8_pkey_get0_introduced then
     begin
       {$if declared(FC_PKCS8_pkey_get0)}
-      PKCS8_pkey_get0 := @FC_PKCS8_pkey_get0;
+      PKCS8_pkey_get0 := FC_PKCS8_pkey_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17504,7 +17505,7 @@ begin
     if PKCS8_pkey_get0_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_pkey_get0)}
-      PKCS8_pkey_get0 := @_PKCS8_pkey_get0;
+      PKCS8_pkey_get0 := _PKCS8_pkey_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17521,13 +17522,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_pkey_add1_attr_by_NID_allownil)}
-    PKCS8_pkey_add1_attr_by_NID := @ERR_PKCS8_pkey_add1_attr_by_NID;
+    PKCS8_pkey_add1_attr_by_NID := ERR_PKCS8_pkey_add1_attr_by_NID;
     {$ifend}
     {$if declared(PKCS8_pkey_add1_attr_by_NID_introduced)}
     if LibVersion < PKCS8_pkey_add1_attr_by_NID_introduced then
     begin
       {$if declared(FC_PKCS8_pkey_add1_attr_by_NID)}
-      PKCS8_pkey_add1_attr_by_NID := @FC_PKCS8_pkey_add1_attr_by_NID;
+      PKCS8_pkey_add1_attr_by_NID := FC_PKCS8_pkey_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17536,7 +17537,7 @@ begin
     if PKCS8_pkey_add1_attr_by_NID_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_pkey_add1_attr_by_NID)}
-      PKCS8_pkey_add1_attr_by_NID := @_PKCS8_pkey_add1_attr_by_NID;
+      PKCS8_pkey_add1_attr_by_NID := _PKCS8_pkey_add1_attr_by_NID;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17553,13 +17554,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_set0_param_allownil)}
-    X509_PUBKEY_set0_param := @ERR_X509_PUBKEY_set0_param;
+    X509_PUBKEY_set0_param := ERR_X509_PUBKEY_set0_param;
     {$ifend}
     {$if declared(X509_PUBKEY_set0_param_introduced)}
     if LibVersion < X509_PUBKEY_set0_param_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_set0_param)}
-      X509_PUBKEY_set0_param := @FC_X509_PUBKEY_set0_param;
+      X509_PUBKEY_set0_param := FC_X509_PUBKEY_set0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17568,7 +17569,7 @@ begin
     if X509_PUBKEY_set0_param_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_set0_param)}
-      X509_PUBKEY_set0_param := @_X509_PUBKEY_set0_param;
+      X509_PUBKEY_set0_param := _X509_PUBKEY_set0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17585,13 +17586,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_PUBKEY_get0_param_allownil)}
-    X509_PUBKEY_get0_param := @ERR_X509_PUBKEY_get0_param;
+    X509_PUBKEY_get0_param := ERR_X509_PUBKEY_get0_param;
     {$ifend}
     {$if declared(X509_PUBKEY_get0_param_introduced)}
     if LibVersion < X509_PUBKEY_get0_param_introduced then
     begin
       {$if declared(FC_X509_PUBKEY_get0_param)}
-      X509_PUBKEY_get0_param := @FC_X509_PUBKEY_get0_param;
+      X509_PUBKEY_get0_param := FC_X509_PUBKEY_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17600,7 +17601,7 @@ begin
     if X509_PUBKEY_get0_param_removed <= LibVersion then
     begin
       {$if declared(_X509_PUBKEY_get0_param)}
-      X509_PUBKEY_get0_param := @_X509_PUBKEY_get0_param;
+      X509_PUBKEY_get0_param := _X509_PUBKEY_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17617,13 +17618,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_check_trust_allownil)}
-    X509_check_trust := @ERR_X509_check_trust;
+    X509_check_trust := ERR_X509_check_trust;
     {$ifend}
     {$if declared(X509_check_trust_introduced)}
     if LibVersion < X509_check_trust_introduced then
     begin
       {$if declared(FC_X509_check_trust)}
-      X509_check_trust := @FC_X509_check_trust;
+      X509_check_trust := FC_X509_check_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17632,7 +17633,7 @@ begin
     if X509_check_trust_removed <= LibVersion then
     begin
       {$if declared(_X509_check_trust)}
-      X509_check_trust := @_X509_check_trust;
+      X509_check_trust := _X509_check_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17649,13 +17650,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get_count_allownil)}
-    X509_TRUST_get_count := @ERR_X509_TRUST_get_count;
+    X509_TRUST_get_count := ERR_X509_TRUST_get_count;
     {$ifend}
     {$if declared(X509_TRUST_get_count_introduced)}
     if LibVersion < X509_TRUST_get_count_introduced then
     begin
       {$if declared(FC_X509_TRUST_get_count)}
-      X509_TRUST_get_count := @FC_X509_TRUST_get_count;
+      X509_TRUST_get_count := FC_X509_TRUST_get_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17664,7 +17665,7 @@ begin
     if X509_TRUST_get_count_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get_count)}
-      X509_TRUST_get_count := @_X509_TRUST_get_count;
+      X509_TRUST_get_count := _X509_TRUST_get_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17681,13 +17682,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get0_allownil)}
-    X509_TRUST_get0 := @ERR_X509_TRUST_get0;
+    X509_TRUST_get0 := ERR_X509_TRUST_get0;
     {$ifend}
     {$if declared(X509_TRUST_get0_introduced)}
     if LibVersion < X509_TRUST_get0_introduced then
     begin
       {$if declared(FC_X509_TRUST_get0)}
-      X509_TRUST_get0 := @FC_X509_TRUST_get0;
+      X509_TRUST_get0 := FC_X509_TRUST_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17696,7 +17697,7 @@ begin
     if X509_TRUST_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get0)}
-      X509_TRUST_get0 := @_X509_TRUST_get0;
+      X509_TRUST_get0 := _X509_TRUST_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17713,13 +17714,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get_by_id_allownil)}
-    X509_TRUST_get_by_id := @ERR_X509_TRUST_get_by_id;
+    X509_TRUST_get_by_id := ERR_X509_TRUST_get_by_id;
     {$ifend}
     {$if declared(X509_TRUST_get_by_id_introduced)}
     if LibVersion < X509_TRUST_get_by_id_introduced then
     begin
       {$if declared(FC_X509_TRUST_get_by_id)}
-      X509_TRUST_get_by_id := @FC_X509_TRUST_get_by_id;
+      X509_TRUST_get_by_id := FC_X509_TRUST_get_by_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17728,7 +17729,7 @@ begin
     if X509_TRUST_get_by_id_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get_by_id)}
-      X509_TRUST_get_by_id := @_X509_TRUST_get_by_id;
+      X509_TRUST_get_by_id := _X509_TRUST_get_by_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17745,13 +17746,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_cleanup_allownil)}
-    X509_TRUST_cleanup := @ERR_X509_TRUST_cleanup;
+    X509_TRUST_cleanup := ERR_X509_TRUST_cleanup;
     {$ifend}
     {$if declared(X509_TRUST_cleanup_introduced)}
     if LibVersion < X509_TRUST_cleanup_introduced then
     begin
       {$if declared(FC_X509_TRUST_cleanup)}
-      X509_TRUST_cleanup := @FC_X509_TRUST_cleanup;
+      X509_TRUST_cleanup := FC_X509_TRUST_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17760,7 +17761,7 @@ begin
     if X509_TRUST_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_cleanup)}
-      X509_TRUST_cleanup := @_X509_TRUST_cleanup;
+      X509_TRUST_cleanup := _X509_TRUST_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17777,13 +17778,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get_flags_allownil)}
-    X509_TRUST_get_flags := @ERR_X509_TRUST_get_flags;
+    X509_TRUST_get_flags := ERR_X509_TRUST_get_flags;
     {$ifend}
     {$if declared(X509_TRUST_get_flags_introduced)}
     if LibVersion < X509_TRUST_get_flags_introduced then
     begin
       {$if declared(FC_X509_TRUST_get_flags)}
-      X509_TRUST_get_flags := @FC_X509_TRUST_get_flags;
+      X509_TRUST_get_flags := FC_X509_TRUST_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17792,7 +17793,7 @@ begin
     if X509_TRUST_get_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get_flags)}
-      X509_TRUST_get_flags := @_X509_TRUST_get_flags;
+      X509_TRUST_get_flags := _X509_TRUST_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17809,13 +17810,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get0_name_allownil)}
-    X509_TRUST_get0_name := @ERR_X509_TRUST_get0_name;
+    X509_TRUST_get0_name := ERR_X509_TRUST_get0_name;
     {$ifend}
     {$if declared(X509_TRUST_get0_name_introduced)}
     if LibVersion < X509_TRUST_get0_name_introduced then
     begin
       {$if declared(FC_X509_TRUST_get0_name)}
-      X509_TRUST_get0_name := @FC_X509_TRUST_get0_name;
+      X509_TRUST_get0_name := FC_X509_TRUST_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17824,7 +17825,7 @@ begin
     if X509_TRUST_get0_name_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get0_name)}
-      X509_TRUST_get0_name := @_X509_TRUST_get0_name;
+      X509_TRUST_get0_name := _X509_TRUST_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17841,13 +17842,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_TRUST_get_trust_allownil)}
-    X509_TRUST_get_trust := @ERR_X509_TRUST_get_trust;
+    X509_TRUST_get_trust := ERR_X509_TRUST_get_trust;
     {$ifend}
     {$if declared(X509_TRUST_get_trust_introduced)}
     if LibVersion < X509_TRUST_get_trust_introduced then
     begin
       {$if declared(FC_X509_TRUST_get_trust)}
-      X509_TRUST_get_trust := @FC_X509_TRUST_get_trust;
+      X509_TRUST_get_trust := FC_X509_TRUST_get_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17856,7 +17857,7 @@ begin
     if X509_TRUST_get_trust_removed <= LibVersion then
     begin
       {$if declared(_X509_TRUST_get_trust)}
-      X509_TRUST_get_trust := @_X509_TRUST_get_trust;
+      X509_TRUST_get_trust := _X509_TRUST_get_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17873,13 +17874,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_NAME_hash_ex_allownil)}
-    X509_NAME_hash_ex := @ERR_X509_NAME_hash_ex;
+    X509_NAME_hash_ex := ERR_X509_NAME_hash_ex;
     {$ifend}
     {$if declared(X509_NAME_hash_ex_introduced)}
     if LibVersion < X509_NAME_hash_ex_introduced then
     begin
       {$if declared(FC_X509_NAME_hash_ex)}
-      X509_NAME_hash_ex := @FC_X509_NAME_hash_ex;
+      X509_NAME_hash_ex := FC_X509_NAME_hash_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17888,7 +17889,7 @@ begin
     if X509_NAME_hash_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_NAME_hash_ex)}
-      X509_NAME_hash_ex := @_X509_NAME_hash_ex;
+      X509_NAME_hash_ex := _X509_NAME_hash_ex;
       {$ifend}
       FuncLoadError := false;
     end;

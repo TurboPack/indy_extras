@@ -1605,7 +1605,7 @@ begin
 end;
 
 function FC_X509_STORE_load_file_ex(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
-   libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;
+   libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   Result := X509_STORE_load_file(ctx,file_);
 end;
@@ -1632,14 +1632,14 @@ end;
 {$I TaurusTLSUnusedParamOn.inc}
 {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; 
+function  ERR_X509_STORE_set_depth(store: PX509_STORE; depth: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_depth_procname);
 end;
 
 
 
-procedure  ERR_X509_STORE_CTX_set_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT); 
+procedure  ERR_X509_STORE_CTX_set_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_depth_procname);
 end;
@@ -1647,155 +1647,156 @@ end;
 
 
 function ERR_X509_OBJECT_idx_by_subject(h : PSTACK_OF_X509_OBJECT;
-     _type : X509_LOOKUP_TYPE; name : PX509_NAME) : TIdC_INT;
+     _type : X509_LOOKUP_TYPE; name : PX509_NAME) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_idx_by_subject_procname);
 end;
 
 function  ERR_X509_OBJECT_retrieve_by_subject(h : PSTACK_OF_X509_OBJECT;
-     _type : X509_LOOKUP_TYPE; name : PX509_NAME) : PX509_OBJECT;
+     _type : X509_LOOKUP_TYPE; name : PX509_NAME) : PX509_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_retrieve_by_subject_procname);
 end;
 
 
 function ERR_X509_OBJECT_retrieve_match(h : PSTACK_OF_X509_OBJECT;
-    x : PX509_OBJECT) : PX509_OBJECT;
+    x : PX509_OBJECT) : PX509_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_retrieve_match_procname);
 end;
 
-function  ERR_X509_OBJECT_up_ref_count(a: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_OBJECT_up_ref_count(a: PX509_OBJECT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_up_ref_count_procname);
 end;
 
 
-function  ERR_X509_OBJECT_new: PX509_OBJECT; 
+function  ERR_X509_OBJECT_new: PX509_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_new_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_OBJECT_free(a: PX509_OBJECT); 
+procedure  ERR_X509_OBJECT_free(a: PX509_OBJECT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_OBJECT_get_type(const a: PX509_OBJECT): X509_LOOKUP_TYPE; 
+function  ERR_X509_OBJECT_get_type(const a: PX509_OBJECT): X509_LOOKUP_TYPE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_get_type_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_OBJECT_get0_X509(const a: PX509_OBJECT): PX509; 
+function  ERR_X509_OBJECT_get0_X509(const a: PX509_OBJECT): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_get0_X509_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_OBJECT_set1_X509(a: PX509_OBJECT; obj: PX509): TIdC_INT; 
+function  ERR_X509_OBJECT_set1_X509(a: PX509_OBJECT; obj: PX509): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_set1_X509_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_OBJECT_get0_X509_CRL(a: PX509_OBJECT): PX509_CRL; 
+function  ERR_X509_OBJECT_get0_X509_CRL(a: PX509_OBJECT): PX509_CRL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_get0_X509_CRL_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_OBJECT_set1_X509_CRL(a: PX509_OBJECT; obj: PX509_CRL): TIdC_INT; 
+function  ERR_X509_OBJECT_set1_X509_CRL(a: PX509_OBJECT; obj: PX509_CRL): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_OBJECT_set1_X509_CRL_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_new: PX509_STORE; 
+function  ERR_X509_STORE_new: PX509_STORE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_new_procname);
 end;
 
 
-procedure  ERR_X509_STORE_free(v: PX509_STORE); 
+procedure  ERR_X509_STORE_free(v: PX509_STORE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_free_procname);
 end;
 
 
-function  ERR_X509_STORE_lock(ctx: PX509_STORE): TIdC_INT; 
+function  ERR_X509_STORE_lock(ctx: PX509_STORE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_lock_procname);
 end;
 
+
  {introduced 1.1.0}
-function  ERR_X509_STORE_unlock(ctx: PX509_STORE): TIdC_INT; 
+function  ERR_X509_STORE_unlock(ctx: PX509_STORE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_unlock_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_up_ref(v: PX509_STORE): TIdC_INT; 
+function  ERR_X509_STORE_up_ref(v: PX509_STORE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_up_ref_procname);
 end;
 
  {introduced 3.3.0}
-function ERR_X509_STORE_get1_objects(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT;
+function ERR_X509_STORE_get1_objects(xs : PX509_STORE) : PSTACK_OF_X509_OBJECT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_get1_objects_procname);
 end;
 
  {introduced 1.1.0}
-function ERR_X509_STORE_get0_objects(v : PX509_STORE) : PSTACK_OF_X509_OBJECT;
+function ERR_X509_STORE_get0_objects(v : PX509_STORE) : PSTACK_OF_X509_OBJECT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_get0_objects_procname);
 end;
 
-function ERR_X509_STORE_CTX_get1_certs(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509;
+function ERR_X509_STORE_CTX_get1_certs(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_CTX_get1_certs_procname);
 end;
 
-function ERR_X509_STORE_CTX_get1_crls(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL;
+function ERR_X509_STORE_CTX_get1_crls(st : PX509_STORE_CTX; nm : PX509_NAME) : PSTACK_OF_X509_CRL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( X509_STORE_CTX_get1_crls_procname);
 end;
 
-function  ERR_X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT;
+function  ERR_X509_STORE_set_flags(ctx: PX509_STORE; flags: TIdC_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_flags_procname);
 end;
 
 
-function  ERR_X509_STORE_set_purpose(ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT; 
+function  ERR_X509_STORE_set_purpose(ctx: PX509_STORE; purpose: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_purpose_procname);
 end;
 
 
-function  ERR_X509_STORE_set_trust(ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT; 
+function  ERR_X509_STORE_set_trust(ctx: PX509_STORE; trust: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_trust_procname);
 end;
 
 
-function  ERR_X509_STORE_set1_param(ctx: PX509_STORE; pm: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_STORE_set1_param(ctx: PX509_STORE; pm: PX509_VERIFY_PARAM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set1_param_procname);
 end;
 
 
-function  ERR_X509_STORE_get0_param(ctx: PX509_STORE): PX509_VERIFY_PARAM; 
+function  ERR_X509_STORE_get0_param(ctx: PX509_STORE): PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get0_param_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_X509_STORE_set_verify(ctx: PX509_STORE; verify: X509_STORE_CTX_verify_fn); 
+procedure  ERR_X509_STORE_set_verify(ctx: PX509_STORE; verify: X509_STORE_CTX_verify_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_verify_procname);
 end;
@@ -1803,19 +1804,19 @@ end;
  {introduced 1.1.0}
   //#define X509_STORE_set_verify_func(ctx, func) \
   //            X509_STORE_set_verify((ctx),(func))
-procedure  ERR_X509_STORE_CTX_set_verify(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_fn); 
+procedure  ERR_X509_STORE_CTX_set_verify(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_verify_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_verify(ctx: PX509_STORE): X509_STORE_CTX_verify_fn; 
+function  ERR_X509_STORE_get_verify(ctx: PX509_STORE): X509_STORE_CTX_verify_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_verify_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_verify_cb(ctx: PX509_STORE; verify_cb: X509_STORE_CTX_verify_cb); 
+procedure  ERR_X509_STORE_set_verify_cb(ctx: PX509_STORE; verify_cb: X509_STORE_CTX_verify_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_verify_cb_procname);
 end;
@@ -1823,309 +1824,315 @@ end;
 
   //# define X509_STORE_set_verify_cb_func(ctx,func) \
   //            X509_STORE_set_verify_cb((ctx),(func))
-function  ERR_X509_STORE_get_verify_cb(ctx: PX509_STORE): X509_STORE_CTX_verify_cb; 
+function  ERR_X509_STORE_get_verify_cb(ctx: PX509_STORE): X509_STORE_CTX_verify_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_verify_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_get_issuer(ctx: PX509_STORE; get_issuer: X509_STORE_CTX_get_issuer_fn); 
+procedure  ERR_X509_STORE_set_get_issuer(ctx: PX509_STORE; get_issuer: X509_STORE_CTX_get_issuer_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_get_issuer_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_get_issuer(ctx: PX509_STORE): X509_STORE_CTX_get_issuer_fn; 
+function  ERR_X509_STORE_get_get_issuer(ctx: PX509_STORE): X509_STORE_CTX_get_issuer_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_get_issuer_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_check_issued(ctx: PX509_STORE; check_issued: X509_STORE_CTX_check_issued_fn); 
+procedure  ERR_X509_STORE_set_check_issued(ctx: PX509_STORE; check_issued:
+X509_STORE_CTX_check_issued_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_check_issued_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_check_issued(ctx: PX509_STORE): X509_STORE_CTX_check_issued_fn; 
+function  ERR_X509_STORE_get_check_issued(ctx: PX509_STORE): X509_STORE_CTX_check_issued_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_check_issued_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_check_revocation(ctx: PX509_STORE; check_revocation: X509_STORE_CTX_check_revocation_fn); 
+procedure  ERR_X509_STORE_set_check_revocation(ctx: PX509_STORE; check_revocation:
+X509_STORE_CTX_check_revocation_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_check_revocation_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_check_revocation(ctx: PX509_STORE): X509_STORE_CTX_check_revocation_fn; 
+function  ERR_X509_STORE_get_check_revocation(ctx: PX509_STORE): X509_STORE_CTX_check_revocation_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_check_revocation_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_get_crl(ctx: PX509_STORE; get_crl: X509_STORE_CTX_get_crl_fn); 
+procedure  ERR_X509_STORE_set_get_crl(ctx: PX509_STORE; get_crl: X509_STORE_CTX_get_crl_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_get_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_get_crl(ctx: PX509_STORE): X509_STORE_CTX_get_crl_fn; 
+function  ERR_X509_STORE_get_get_crl(ctx: PX509_STORE): X509_STORE_CTX_get_crl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_get_crl_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_check_crl(ctx: PX509_STORE; check_crl: X509_STORE_CTX_check_crl_fn); 
+procedure  ERR_X509_STORE_set_check_crl(ctx: PX509_STORE; check_crl: X509_STORE_CTX_check_crl_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_check_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_check_crl(ctx: PX509_STORE): X509_STORE_CTX_check_crl_fn; 
+function  ERR_X509_STORE_get_check_crl(ctx: PX509_STORE): X509_STORE_CTX_check_crl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_check_crl_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_cert_crl(ctx: PX509_STORE; cert_crl: X509_STORE_CTX_cert_crl_fn); 
+procedure  ERR_X509_STORE_set_cert_crl(ctx: PX509_STORE; cert_crl: X509_STORE_CTX_cert_crl_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_cert_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_cert_crl(ctx: PX509_STORE): X509_STORE_CTX_cert_crl_fn; 
+function  ERR_X509_STORE_get_cert_crl(ctx: PX509_STORE): X509_STORE_CTX_cert_crl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_cert_crl_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_STORE_set_check_policy(ctx: PX509_STORE; check_policy: X509_STORE_CTX_check_policy_fn); 
+procedure  ERR_X509_STORE_set_check_policy(ctx: PX509_STORE; check_policy:
+X509_STORE_CTX_check_policy_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_check_policy_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_check_policy(ctx: PX509_STORE): X509_STORE_CTX_check_policy_fn; 
+function  ERR_X509_STORE_get_check_policy(ctx: PX509_STORE): X509_STORE_CTX_check_policy_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_check_policy_procname);
 end;
 
  {introduced 1.1.0}
-procedure ERR_X509_STORE_set_lookup_certs(ctx: PX509_STORE; lookup_certs: X509_STORE_CTX_lookup_certs_fn);
+procedure ERR_X509_STORE_set_lookup_certs(ctx: PX509_STORE; lookup_certs:
+X509_STORE_CTX_lookup_certs_fn); cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_lookup_certs_procname);
 end;
 
-function ERR_X509_STORE_get_lookup_certs(ctx: PX509_STORE): X509_STORE_CTX_lookup_certs_fn;
+function ERR_X509_STORE_get_lookup_certs(ctx: PX509_STORE): X509_STORE_CTX_lookup_certs_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_lookup_certs_procname);
 end;
 
-procedure ERR_X509_STORE_set_lookup_crls(ctx: PX509_STORE; lookup_crls: X509_STORE_CTX_lookup_crls_fn);
+procedure ERR_X509_STORE_set_lookup_crls(ctx: PX509_STORE; lookup_crls:
+X509_STORE_CTX_lookup_crls_fn); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_lookup_crls_procname);
 end;
 //  #define X509_STORE_set_lookup_crls_cb(ctx, func) \
 //      X509_STORE_set_lookup_crls((ctx), (func))
-function ERR_X509_STORE_get_lookup_crls(ctx: PX509_STORE): X509_STORE_CTX_lookup_crls_fn;
+function ERR_X509_STORE_get_lookup_crls(ctx: PX509_STORE): X509_STORE_CTX_lookup_crls_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_lookup_crls_procname);
 end;
 
-procedure  ERR_X509_STORE_set_cleanup(ctx: PX509_STORE; cleanup: X509_STORE_CTX_cleanup_fn); 
+procedure  ERR_X509_STORE_set_cleanup(ctx: PX509_STORE; cleanup: X509_STORE_CTX_cleanup_fn);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_cleanup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_cleanup(ctx: PX509_STORE): X509_STORE_CTX_cleanup_fn; 
+function  ERR_X509_STORE_get_cleanup(ctx: PX509_STORE): X509_STORE_CTX_cleanup_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_cleanup_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_STORE_set_ex_data(ctx: PX509_STORE; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_X509_STORE_set_ex_data(ctx: PX509_STORE; idx: TIdC_INT; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_ex_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_get_ex_data(ctx: PX509_STORE; idx: TIdC_INT): Pointer; 
+function  ERR_X509_STORE_get_ex_data(ctx: PX509_STORE; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_get_ex_data_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_STORE_CTX_new: PX509_STORE_CTX; 
+function  ERR_X509_STORE_CTX_new: PX509_STORE_CTX;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_new_procname);
 end;
 
 
 
-function  ERR_X509_STORE_CTX_get1_issuer(issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get1_issuer(issuer: PPX509; ctx: PX509_STORE_CTX; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get1_issuer_procname);
 end;
 
 
 
-procedure  ERR_X509_STORE_CTX_free(ctx: PX509_STORE_CTX); 
+procedure  ERR_X509_STORE_CTX_free(ctx: PX509_STORE_CTX);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_free_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT;
+
+function  ERR_X509_STORE_CTX_init(ctx: PX509_STORE_CTX; store: PX509_STORE; x509: PX509; chain: PSTACK_OF_X509) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_init_procname);
 end;
 
-procedure ERR_X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509);
+procedure ERR_X509_STORE_CTX_set0_trusted_stack(ctx: PX509_STORE_CTX; sk: PSTACK_OF_X509); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_trusted_stack_procname);
 end;
 
-procedure  ERR_X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX);
+procedure  ERR_X509_STORE_CTX_cleanup(ctx: PX509_STORE_CTX);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_cleanup_procname);
 end;
 
 
 
-function  ERR_X509_STORE_CTX_get0_store(ctx: PX509_STORE_CTX): PX509_STORE; 
+function  ERR_X509_STORE_CTX_get0_store(ctx: PX509_STORE_CTX): PX509_STORE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_store_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get0_cert(ctx: PX509_STORE_CTX): PX509; 
+function  ERR_X509_STORE_CTX_get0_cert(ctx: PX509_STORE_CTX): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_cert_procname);
 end;
 
  {introduced 1.1.0}
 
-function ERR_X509_STORE_CTX_get0_untrusted(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+function ERR_X509_STORE_CTX_get0_untrusted(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_untrusted_procname);
 end;
 
-procedure ERR_X509_STORE_CTX_set0_untrusted(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509);
+procedure ERR_X509_STORE_CTX_set0_untrusted(ctx : PX509_STORE_CTX; sk : PSTACK_OF_X509); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_untrusted_procname);
 end;
 
-procedure  ERR_X509_STORE_CTX_set_verify_cb(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb); 
+procedure  ERR_X509_STORE_CTX_set_verify_cb(ctx: PX509_STORE_CTX; verify: X509_STORE_CTX_verify_cb); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_verify_cb_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_verify_cb(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb; 
+function  ERR_X509_STORE_CTX_get_verify_cb(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_verify_cb_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_verify(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn; 
+function  ERR_X509_STORE_CTX_get_verify(ctx: PX509_STORE_CTX): X509_STORE_CTX_verify_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_verify_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_get_issuer(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_issuer_fn; 
+function  ERR_X509_STORE_CTX_get_get_issuer(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_issuer_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_get_issuer_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_check_issued(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_issued_fn; 
+function  ERR_X509_STORE_CTX_get_check_issued(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_issued_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_check_issued_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_check_revocation(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_revocation_fn; 
+function  ERR_X509_STORE_CTX_get_check_revocation(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_revocation_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_check_revocation_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_get_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_crl_fn; 
+function  ERR_X509_STORE_CTX_get_get_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_get_crl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_get_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_check_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn; 
+function  ERR_X509_STORE_CTX_get_check_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_crl_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_check_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_cert_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn; 
+function  ERR_X509_STORE_CTX_get_cert_crl(ctx: PX509_STORE_CTX): X509_STORE_CTX_cert_crl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_cert_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_check_policy(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn; 
+function  ERR_X509_STORE_CTX_get_check_policy(ctx: PX509_STORE_CTX): X509_STORE_CTX_check_policy_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_check_policy_procname);
 end;
 
  {introduced 1.1.0}
-function ERR_X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;
+function ERR_X509_STORE_CTX_get_lookup_certs(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_certs_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_lookup_certs_procname);
 end;
 
-function ERR_X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn;
+function ERR_X509_STORE_CTX_get_lookup_crls(ctx: PX509_STORE_CTX): X509_STORE_CTX_lookup_crls_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_lookup_crls_procname);
 end;
 
-function  ERR_X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn;
+function  ERR_X509_STORE_CTX_get_cleanup(ctx: PX509_STORE_CTX): X509_STORE_CTX_cleanup_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_cleanup_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_STORE_add_lookup(v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP; 
+function  ERR_X509_STORE_add_lookup(v: PX509_STORE; m: PX509_LOOKUP_METHOD): PX509_LOOKUP;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_add_lookup_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_hash_dir: PX509_LOOKUP_METHOD; 
+function  ERR_X509_LOOKUP_hash_dir: PX509_LOOKUP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_hash_dir_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_file: PX509_LOOKUP_METHOD; 
+function  ERR_X509_LOOKUP_file: PX509_LOOKUP_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_file_procname);
 end;
 
-function  ERR_X509_LOOKUP_store: PX509_LOOKUP_METHOD;
+function  ERR_X509_LOOKUP_store: PX509_LOOKUP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_store_procname);
 end;
 
-function  ERR_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; 
+function  ERR_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_new_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD); 
+procedure  ERR_X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_free_procname);
 end;
@@ -2152,394 +2159,394 @@ end;
   //TIdC_INT (*X509_LOOKUP_meth_get_shutdown(const X509_LOOKUP_METHOD* method))
   //    (X509_LOOKUP *ctx);
 
-function  ERR_X509_LOOKUP_meth_set_ctrl(method: PX509_LOOKUP_METHOD; ctrl_fn: X509_LOOKUP_ctrl_fn): TIdC_INT; 
+function  ERR_X509_LOOKUP_meth_set_ctrl(method: PX509_LOOKUP_METHOD; ctrl_fn: X509_LOOKUP_ctrl_fn): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_set_ctrl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_meth_get_ctrl(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_ctrl_fn; 
+function  ERR_X509_LOOKUP_meth_get_ctrl(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_ctrl_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_get_ctrl_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_LOOKUP_meth_set_get_by_subject(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_subject_fn): TIdC_INT; 
+function  ERR_X509_LOOKUP_meth_set_get_by_subject(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_subject_fn): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_set_get_by_subject_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_meth_get_get_by_subject(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_subject_fn; 
+function  ERR_X509_LOOKUP_meth_get_get_by_subject(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_subject_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_get_get_by_subject_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_LOOKUP_meth_set_get_by_issuer_serial(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_issuer_serial_fn): TIdC_INT; 
+function  ERR_X509_LOOKUP_meth_set_get_by_issuer_serial(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_issuer_serial_fn): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_set_get_by_issuer_serial_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_meth_get_get_by_issuer_serial(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_issuer_serial_fn; 
+function  ERR_X509_LOOKUP_meth_get_get_by_issuer_serial(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_issuer_serial_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_get_get_by_issuer_serial_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_LOOKUP_meth_set_get_by_fingerprint(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_fingerprint_fn): TIdC_INT; 
+function  ERR_X509_LOOKUP_meth_set_get_by_fingerprint(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_fingerprint_fn): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_set_get_by_fingerprint_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_meth_get_get_by_fingerprint(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_fingerprint_fn; 
+function  ERR_X509_LOOKUP_meth_get_get_by_fingerprint(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_fingerprint_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_get_get_by_fingerprint_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_LOOKUP_meth_set_get_by_alias(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_alias_fn): TIdC_INT; 
+function  ERR_X509_LOOKUP_meth_set_get_by_alias(method: PX509_LOOKUP_METHOD; fn: X509_LOOKUP_get_by_alias_fn): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_set_get_by_alias_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_meth_get_get_by_alias(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_alias_fn; 
+function  ERR_X509_LOOKUP_meth_get_get_by_alias(const method: PX509_LOOKUP_METHOD): X509_LOOKUP_get_by_alias_fn;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_meth_get_get_by_alias_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_STORE_add_cert(ctx: PX509_STORE; x: PX509): TIdC_INT; 
+function  ERR_X509_STORE_add_cert(ctx: PX509_STORE; x: PX509): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_add_cert_procname);
 end;
 
 
-function  ERR_X509_STORE_add_crl(ctx: PX509_STORE; x: PX509_CRL): TIdC_INT; 
+function  ERR_X509_STORE_add_crl(ctx: PX509_STORE; x: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_add_crl_procname);
 end;
 
 
 
-function  ERR_X509_STORE_CTX_get_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_by_subject_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_obj_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME): PX509_OBJECT; 
+function  ERR_X509_STORE_CTX_get_obj_by_subject(vs: PX509_STORE_CTX; type_: X509_LOOKUP_TYPE; name: PX509_NAME): PX509_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_obj_by_subject_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_LOOKUP_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT; 
+function  ERR_X509_LOOKUP_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT; const argc: PIdAnsiChar; argl: TIdC_LONG; ret: PPIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_ctrl_procname);
 end;
 
 
 
-function  ERR_X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;
+function  ERR_X509_load_cert_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_file_procname);
 end;
 
-function ERR_X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT;
+function ERR_X509_load_cert_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_file_ex_procname);
 end;
 
-function  ERR_X509_load_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_load_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_crl_file_procname);
 end;
 
 
-function  ERR_X509_load_cert_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_X509_load_cert_crl_file(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_crl_file_procname);
 end;
 
-function ERR_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT;
+function ERR_X509_load_cert_crl_file_ex(ctx: PX509_LOOKUP; const file_: PIdAnsiChar; type_: TIdC_INT; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): TIdC_INT;   cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_load_cert_crl_file_ex_procname);
 end;
 
-function  ERR_X509_LOOKUP_new(method: PX509_LOOKUP_METHOD): PX509_LOOKUP; 
+function  ERR_X509_LOOKUP_new(method: PX509_LOOKUP_METHOD): PX509_LOOKUP;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_new_procname);
 end;
 
 
-procedure  ERR_X509_LOOKUP_free(ctx: PX509_LOOKUP); 
+procedure  ERR_X509_LOOKUP_free(ctx: PX509_LOOKUP);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_free_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_init(ctx: PX509_LOOKUP): TIdC_INT; 
+function  ERR_X509_LOOKUP_init(ctx: PX509_LOOKUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_init_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_by_subject(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_LOOKUP_by_subject(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; ret: PX509_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_by_subject_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_by_issuer_serial(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_LOOKUP_by_issuer_serial(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; name: PX509_NAME; serial: PASN1_INTEGER; ret: PX509_OBJECT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_by_issuer_serial_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_by_fingerprint(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_LOOKUP_by_fingerprint(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const bytes: PByte; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_by_fingerprint_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT; 
+function  ERR_X509_LOOKUP_by_alias(ctx: PX509_LOOKUP; type_: X509_LOOKUP_TYPE; const _str: PIdAnsiChar; len: TIdC_INT; ret: PX509_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_by_alias_procname);
 end;
 
 
-function  ERR_X509_LOOKUP_set_method_data(ctx: PX509_LOOKUP; data: Pointer): TIdC_INT; 
+function  ERR_X509_LOOKUP_set_method_data(ctx: PX509_LOOKUP; data: Pointer): TIdC_INT;   cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_set_method_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_get_method_data(const ctx: PX509_LOOKUP): Pointer; 
+function  ERR_X509_LOOKUP_get_method_data(const ctx: PX509_LOOKUP): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_get_method_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; 
+function  ERR_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_get_store_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_LOOKUP_shutdown(ctx: PX509_LOOKUP): TIdC_INT; 
+function  ERR_X509_LOOKUP_shutdown(ctx: PX509_LOOKUP): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_LOOKUP_shutdown_procname);
 end;
 
 function ERR_X509_STORE_load_file_ex(ctx : PX509_STORE;  const file_ : PIdAnsiChar;
-   libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;
+   libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_file_ex_procname);
 end;
 
-function ERR_X509_STORE_load_file(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_load_file(ctx: PX509_STORE; const file_ : PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_file_procname);
 end;
 
-function ERR_X509_STORE_load_path(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_load_path(ctx : PX509_STORE; const dir :  PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_path_procname);
 end;
 
-function  ERR_X509_STORE_load_locations(ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT; 
+function  ERR_X509_STORE_load_locations(ctx: PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_locations_procname);
 end;
 
 function ERR_X509_STORE_load_locations_ex(ctx : PX509_STORE; const file_: PIdAnsiChar; const dir: PIdAnsiChar;
-  libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;
+  libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_locations_ex_procname);
 end;
 
-function  ERR_X509_STORE_set_default_paths(ctx: PX509_STORE): TIdC_INT;
+function  ERR_X509_STORE_set_default_paths(ctx: PX509_STORE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_default_paths_procname);
 end;
 
-function ERR_X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_set_default_paths_ex( ctx : PX509_STORE; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_set_default_paths_ex_procname);
 end;
 
-function ERR_X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_load_store(ctx : PX509_STORE; const uri : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_store_procname);
 end;
 
-function ERR_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;
+function ERR_X509_STORE_load_store_ex(ctx : PX509_STORE; const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; propq : PIdAnsiChar) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_load_store_ex_procname);
 end;
 
-function  ERR_X509_STORE_CTX_set_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_X509_STORE_CTX_set_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_ex_data_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer; 
+function  ERR_X509_STORE_CTX_get_ex_data(ctx: PX509_STORE_CTX; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_ex_data_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_error(ctx: PX509_STORE_CTX): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get_error(ctx: PX509_STORE_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_error_procname);
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set_error(ctx: PX509_STORE_CTX; s: TIdC_INT);
+procedure  ERR_X509_STORE_CTX_set_error(ctx: PX509_STORE_CTX; s: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_error_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_error_depth(ctx: PX509_STORE_CTX): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get_error_depth(ctx: PX509_STORE_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_error_depth_procname);
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set_error_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT); 
+procedure  ERR_X509_STORE_CTX_set_error_depth(ctx: PX509_STORE_CTX; depth: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_error_depth_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get_current_cert(ctx: PX509_STORE_CTX): PX509; 
+function  ERR_X509_STORE_CTX_get_current_cert(ctx: PX509_STORE_CTX): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_current_cert_procname);
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set_current_cert(ctx: PX509_STORE_CTX; x: PX509); 
+procedure  ERR_X509_STORE_CTX_set_current_cert(ctx: PX509_STORE_CTX; x: PX509);   cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_current_cert_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_STORE_CTX_get0_current_issuer(ctx: PX509_STORE_CTX): PX509; 
+function  ERR_X509_STORE_CTX_get0_current_issuer(ctx: PX509_STORE_CTX): PX509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_current_issuer_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get0_current_crl(ctx: PX509_STORE_CTX): PX509_CRL; 
+function  ERR_X509_STORE_CTX_get0_current_crl(ctx: PX509_STORE_CTX): PX509_CRL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_current_crl_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get0_parent_ctx(ctx: PX509_STORE_CTX): PX509_STORE_CTX; 
+function  ERR_X509_STORE_CTX_get0_parent_ctx(ctx: PX509_STORE_CTX): PX509_STORE_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_parent_ctx_procname);
 end;
 
-function ERR_X509_STORE_CTX_get0_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+function ERR_X509_STORE_CTX_get0_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_chain_procname);
 end;
 
-function ERR_X509_STORE_CTX_get1_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509;
+function ERR_X509_STORE_CTX_get1_chain(ctx : PX509_STORE_CTX) : PSTACK_OF_X509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get1_chain_procname);
 end;
 
-procedure  ERR_X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509); 
+procedure  ERR_X509_STORE_CTX_set_cert(c: PX509_STORE_CTX; x: PX509);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_cert_procname);
 end;
 
 
-procedure ERR_X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509);
+procedure ERR_X509_STORE_CTX_set0_verified_chain(c : PX509_STORE_CTX; sk : PSTACK_OF_X509);   cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_verified_chain_procname);
 end;
 
-procedure ERR_X509_STORE_CTX_set0_crls(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL);
+procedure ERR_X509_STORE_CTX_set0_crls(c : PX509_STORE_CTX; sk : PSTACK_OF_X509_CRL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_crls_procname);
 end;
 
-function  ERR_X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT;
+function  ERR_X509_STORE_CTX_set_purpose(ctx: PX509_STORE_CTX; purpose: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_purpose_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT; 
+function  ERR_X509_STORE_CTX_set_trust(ctx: PX509_STORE_CTX; trust: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_trust_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT; 
+function  ERR_X509_STORE_CTX_purpose_inherit(ctx: PX509_STORE_CTX; def_purpose: TIdC_INT; purpose: TIdC_INT; trust: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_purpose_inherit_procname);
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set_flags(ctx: PX509_STORE_CTX; flags: TIdC_ULONG);
+procedure  ERR_X509_STORE_CTX_set_flags(ctx: PX509_STORE_CTX; flags: TIdC_ULONG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_flags_procname);
 end;
 
 
-procedure ERR_X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TIdC_TIMET);
+procedure ERR_X509_STORE_CTX_set_time(ctx: PX509_STORE_CTX; flags: TIdC_ULONG; t: TIdC_TIMET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_time_procname);
 end;
 
-function  ERR_X509_STORE_CTX_get0_policy_tree(ctx: PX509_STORE_CTX): PX509_POLICY_TREE; 
+function  ERR_X509_STORE_CTX_get0_policy_tree(ctx: PX509_STORE_CTX): PX509_POLICY_TREE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_policy_tree_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_explicit_policy(ctx: PX509_STORE_CTX): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get_explicit_policy(ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_explicit_policy_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_get_num_untrusted(ctx: PX509_STORE_CTX): TIdC_INT; 
+function  ERR_X509_STORE_CTX_get_num_untrusted(ctx: PX509_STORE_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get_num_untrusted_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_STORE_CTX_get0_param(ctx: PX509_STORE_CTX): PX509_VERIFY_PARAM; 
+function  ERR_X509_STORE_CTX_get0_param(ctx: PX509_STORE_CTX): PX509_VERIFY_PARAM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_get0_param_procname);
 end;
 
 
-procedure  ERR_X509_STORE_CTX_set0_param(ctx: PX509_STORE_CTX; param: PX509_VERIFY_PARAM); 
+procedure  ERR_X509_STORE_CTX_set0_param(ctx: PX509_STORE_CTX; param: PX509_VERIFY_PARAM);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_param_procname);
 end;
 
 
-function  ERR_X509_STORE_CTX_set_default(ctx: PX509_STORE_CTX; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_X509_STORE_CTX_set_default(ctx: PX509_STORE_CTX; const name: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set_default_procname);
 end;
@@ -2550,7 +2557,7 @@ end;
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-procedure  ERR_X509_STORE_CTX_set0_dane(ctx: PX509_STORE_CTX; dane: PSSL_DANE); 
+procedure  ERR_X509_STORE_CTX_set0_dane(ctx: PX509_STORE_CTX; dane: PSSL_DANE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_STORE_CTX_set0_dane_procname);
 end;
@@ -2559,277 +2566,277 @@ end;
 
   (* X509_VERIFY_PARAM functions *)
 
-function  ERR_X509_VERIFY_PARAM_new: PX509_VERIFY_PARAM; 
+function  ERR_X509_VERIFY_PARAM_new: PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_new_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_free(param: PX509_VERIFY_PARAM); 
+procedure  ERR_X509_VERIFY_PARAM_free(param: PX509_VERIFY_PARAM);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_free_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_inherit(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_inherit(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_inherit_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set1(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1(to_: PX509_VERIFY_PARAM; const from: PX509_VERIFY_PARAM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set1_name(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1_name(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_name_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_flags_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_clear_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_clear_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_clear_flags_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_get_flags(param: PX509_VERIFY_PARAM): TIdC_ULONG; 
+function  ERR_X509_VERIFY_PARAM_get_flags(param: PX509_VERIFY_PARAM): TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_flags_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set_purpose(param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set_purpose(param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_purpose_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set_trust(param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set_trust(param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_trust_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_set_depth(param: PX509_VERIFY_PARAM; depth: TIdC_INT); 
+procedure  ERR_X509_VERIFY_PARAM_set_depth(param: PX509_VERIFY_PARAM; depth: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_depth_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT); 
+procedure  ERR_X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_auth_level_procname);
 end;
 
  {introduced 1.1.0}
-function ERR_X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET;
+function ERR_X509_VERIFY_PARAM_get_time(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_time_procname);
 end;
 
-procedure ERR_X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);
+procedure ERR_X509_VERIFY_PARAM_set_time(param: PX509_VERIFY_PARAM; t: TIdC_TIMET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_time_procname);
 end;
 
-function  ERR_X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT;
+function  ERR_X509_VERIFY_PARAM_add0_policy(param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_add0_policy_procname);
 end;
 
 
-function ERR_X509_VERIFY_PARAM_set1_policies(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT;
+function ERR_X509_VERIFY_PARAM_set1_policies(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_policies_procname);
 end;
 
-function  ERR_X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_inh_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32; 
+function  ERR_X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_inh_flags_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_X509_VERIFY_PARAM_set1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_host_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_add1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_add1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_add1_host_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_set_hostflags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT); 
+procedure  ERR_X509_VERIFY_PARAM_set_hostflags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set_hostflags_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_get_hostflags(const param: PX509_VERIFY_PARAM): TIdC_UINT; 
+function  ERR_X509_VERIFY_PARAM_get_hostflags(const param: PX509_VERIFY_PARAM): TIdC_UINT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_hostflags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_VERIFY_PARAM_get0_peername(v1: PX509_VERIFY_PARAM): PIdAnsiChar; 
+function  ERR_X509_VERIFY_PARAM_get0_peername(v1: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get0_peername_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_move_peername(v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM); 
+procedure  ERR_X509_VERIFY_PARAM_move_peername(v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_move_peername_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_VERIFY_PARAM_set1_email(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1_email(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_email_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set1_ip(param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1_ip(param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_ip_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_set1_ip_asc(param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_set1_ip_asc(param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_set1_ip_asc_procname);
 end;
 
 
 
-function  ERR_X509_VERIFY_PARAM_get_depth(const param: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_get_depth(const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_depth_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_get_auth_level(const param: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_get_auth_level(const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_auth_level_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_X509_VERIFY_PARAM_get0_name(const param: PX509_VERIFY_PARAM): PIdAnsiChar; 
+function  ERR_X509_VERIFY_PARAM_get0_name(const param: PX509_VERIFY_PARAM): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get0_name_procname);
 end;
 
 
 
-function  ERR_X509_VERIFY_PARAM_add0_table(param: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_add0_table(param: PX509_VERIFY_PARAM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_add0_table_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_get_count: TIdC_INT; 
+function  ERR_X509_VERIFY_PARAM_get_count: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_count_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_get0(id: TIdC_INT): PX509_VERIFY_PARAM; 
+function  ERR_X509_VERIFY_PARAM_get0(id: TIdC_INT): PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get0_procname);
 end;
 
 
-function  ERR_X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): PX509_VERIFY_PARAM;
+function  ERR_X509_VERIFY_PARAM_lookup(const name: PIdAnsiChar): PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_lookup_procname);
 end;
 
 
-procedure  ERR_X509_VERIFY_PARAM_table_cleanup; 
+procedure  ERR_X509_VERIFY_PARAM_table_cleanup; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_table_cleanup_procname);
 end;
 
 
 function ERR_X509_policy_check(ptree : PX509_POLICY_TREE; certs : PSTACK_OF_X509;
-    policy_oids : PSTACK_OF_ASN1_OBJECT; flags : TIdC_UINT) : TIdC_INT;
+    policy_oids : PSTACK_OF_ASN1_OBJECT; flags : TIdC_UINT) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_check_procname);
 end;
 
 
-procedure  ERR_X509_policy_tree_free(tree: PX509_POLICY_TREE);
+procedure  ERR_X509_policy_tree_free(tree: PX509_POLICY_TREE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_free_procname);
 end;
 
 
-function  ERR_X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT; 
+function  ERR_X509_policy_tree_level_count(const tree: PX509_POLICY_TREE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_level_count_procname);
 end;
 
 
-function  ERR_X509_policy_tree_get0_level(const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL; 
+function  ERR_X509_policy_tree_get0_level(const tree: PX509_POLICY_TREE; i: TIdC_INT): PX509_POLICY_LEVEL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_level_procname);
 end;
 
 
-function ERR_X509_policy_tree_get0_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
+function ERR_X509_policy_tree_get0_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_policies_procname);
 end;
 
-function ERR_X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;
+function ERR_X509_policy_tree_get0_user_policies(const tree : PX509_POLICY_TREE) : PSTACK_OF_X509_POLICY_NODE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_tree_get0_user_policies_procname);
 end;
 
-function  ERR_X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT; 
+function  ERR_X509_policy_level_node_count(level: PX509_POLICY_LEVEL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_level_node_count_procname);
 end;
 
 
 
-function  ERR_X509_policy_level_get0_node(level: PX509_POLICY_LEVEL; i: TIdC_INT): PX509_POLICY_NODE; 
+function  ERR_X509_policy_level_get0_node(level: PX509_POLICY_LEVEL; i: TIdC_INT): PX509_POLICY_NODE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_level_get0_node_procname);
 end;
 
 
 
-function  ERR_X509_policy_node_get0_policy(const node: PX509_POLICY_NODE): PASN1_OBJECT; 
+function  ERR_X509_policy_node_get0_policy(const node: PX509_POLICY_NODE): PASN1_OBJECT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_node_get0_policy_procname);
 end;
 
 
-function ERR_X509_policy_node_get0_qualifiers(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO;
+function ERR_X509_policy_node_get0_qualifiers(const mode : PX509_POLICY_NODE) : PSTACK_OF_POLICYQUALINFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_node_get0_qualifiers_procname);
 end;
 
-function  ERR_X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE;
+function  ERR_X509_policy_node_get0_parent(const node: PX509_POLICY_NODE): PX509_POLICY_NODE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_policy_node_get0_parent_procname);
 end;
@@ -2848,13 +2855,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_depth_allownil)}
-    X509_STORE_set_depth := @ERR_X509_STORE_set_depth;
+    X509_STORE_set_depth := ERR_X509_STORE_set_depth;
     {$ifend}
     {$if declared(X509_STORE_set_depth_introduced)}
     if LibVersion < X509_STORE_set_depth_introduced then
     begin
       {$if declared(FC_X509_STORE_set_depth)}
-      X509_STORE_set_depth := @FC_X509_STORE_set_depth;
+      X509_STORE_set_depth := FC_X509_STORE_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2863,7 +2870,7 @@ begin
     if X509_STORE_set_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_depth)}
-      X509_STORE_set_depth := @_X509_STORE_set_depth;
+      X509_STORE_set_depth := _X509_STORE_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2880,13 +2887,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_depth_allownil)}
-    X509_STORE_CTX_set_depth := @ERR_X509_STORE_CTX_set_depth;
+    X509_STORE_CTX_set_depth := ERR_X509_STORE_CTX_set_depth;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_depth_introduced)}
     if LibVersion < X509_STORE_CTX_set_depth_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_depth)}
-      X509_STORE_CTX_set_depth := @FC_X509_STORE_CTX_set_depth;
+      X509_STORE_CTX_set_depth := FC_X509_STORE_CTX_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2895,7 +2902,7 @@ begin
     if X509_STORE_CTX_set_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_depth)}
-      X509_STORE_CTX_set_depth := @_X509_STORE_CTX_set_depth;
+      X509_STORE_CTX_set_depth := _X509_STORE_CTX_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2912,13 +2919,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_idx_by_subject_allownil)}
-    X509_OBJECT_idx_by_subject := @ERR_X509_OBJECT_idx_by_subject;
+    X509_OBJECT_idx_by_subject := ERR_X509_OBJECT_idx_by_subject;
     {$ifend}
     {$if declared(X509_OBJECT_idx_by_subject_introduced)}
     if LibVersion < X509_OBJECT_idx_by_subject_introduced then
     begin
       {$if declared(FC_X509_OBJECT_idx_by_subject)}
-      X509_OBJECT_idx_by_subject := @FC_X509_OBJECT_idx_by_subject;
+      X509_OBJECT_idx_by_subject := FC_X509_OBJECT_idx_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2927,7 +2934,7 @@ begin
     if X509_OBJECT_idx_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_idx_by_subject)}
-      X509_OBJECT_idx_by_subject := @_X509_OBJECT_idx_by_subject;
+      X509_OBJECT_idx_by_subject := _X509_OBJECT_idx_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2943,13 +2950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_retrieve_by_subject_allownil)}
-    X509_OBJECT_retrieve_by_subject := @ERR_X509_OBJECT_retrieve_by_subject;
+    X509_OBJECT_retrieve_by_subject := ERR_X509_OBJECT_retrieve_by_subject;
     {$ifend}
     {$if declared(X509_OBJECT_retrieve_by_subject_introduced)}
     if LibVersion < X509_OBJECT_retrieve_by_subject_introduced then
     begin
       {$if declared(FC_X509_OBJECT_retrieve_by_subject)}
-      X509_OBJECT_retrieve_by_subject := @FC_X509_OBJECT_retrieve_by_subject;
+      X509_OBJECT_retrieve_by_subject := FC_X509_OBJECT_retrieve_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2958,7 +2965,7 @@ begin
     if X509_OBJECT_retrieve_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_retrieve_by_subject)}
-      X509_OBJECT_retrieve_by_subject := @_X509_OBJECT_retrieve_by_subject;
+      X509_OBJECT_retrieve_by_subject := _X509_OBJECT_retrieve_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2975,13 +2982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_retrieve_match_allownil)}
-    X509_OBJECT_retrieve_match := @ERR_X509_OBJECT_retrieve_match;
+    X509_OBJECT_retrieve_match := ERR_X509_OBJECT_retrieve_match;
     {$ifend}
     {$if declared(X509_OBJECT_retrieve_match_introduced)}
     if LibVersion < X509_OBJECT_retrieve_match_introduced then
     begin
       {$if declared(FC_X509_OBJECT_retrieve_match)}
-      X509_OBJECT_retrieve_match := @FC_X509_OBJECT_retrieve_match;
+      X509_OBJECT_retrieve_match := FC_X509_OBJECT_retrieve_match;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2990,7 +2997,7 @@ begin
     if X509_OBJECT_retrieve_match_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_retrieve_match)}
-      X509_OBJECT_retrieve_match := @_X509_OBJECT_retrieve_match;
+      X509_OBJECT_retrieve_match := _X509_OBJECT_retrieve_match;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3006,13 +3013,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_up_ref_count_allownil)}
-    X509_OBJECT_up_ref_count := @ERR_X509_OBJECT_up_ref_count;
+    X509_OBJECT_up_ref_count := ERR_X509_OBJECT_up_ref_count;
     {$ifend}
     {$if declared(X509_OBJECT_up_ref_count_introduced)}
     if LibVersion < X509_OBJECT_up_ref_count_introduced then
     begin
       {$if declared(FC_X509_OBJECT_up_ref_count)}
-      X509_OBJECT_up_ref_count := @FC_X509_OBJECT_up_ref_count;
+      X509_OBJECT_up_ref_count := FC_X509_OBJECT_up_ref_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3021,7 +3028,7 @@ begin
     if X509_OBJECT_up_ref_count_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_up_ref_count)}
-      X509_OBJECT_up_ref_count := @_X509_OBJECT_up_ref_count;
+      X509_OBJECT_up_ref_count := _X509_OBJECT_up_ref_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3038,13 +3045,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_new_allownil)}
-    X509_OBJECT_new := @ERR_X509_OBJECT_new;
+    X509_OBJECT_new := ERR_X509_OBJECT_new;
     {$ifend}
     {$if declared(X509_OBJECT_new_introduced)}
     if LibVersion < X509_OBJECT_new_introduced then
     begin
       {$if declared(FC_X509_OBJECT_new)}
-      X509_OBJECT_new := @FC_X509_OBJECT_new;
+      X509_OBJECT_new := FC_X509_OBJECT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3053,7 +3060,7 @@ begin
     if X509_OBJECT_new_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_new)}
-      X509_OBJECT_new := @_X509_OBJECT_new;
+      X509_OBJECT_new := _X509_OBJECT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3070,13 +3077,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_free_allownil)}
-    X509_OBJECT_free := @ERR_X509_OBJECT_free;
+    X509_OBJECT_free := ERR_X509_OBJECT_free;
     {$ifend}
     {$if declared(X509_OBJECT_free_introduced)}
     if LibVersion < X509_OBJECT_free_introduced then
     begin
       {$if declared(FC_X509_OBJECT_free)}
-      X509_OBJECT_free := @FC_X509_OBJECT_free;
+      X509_OBJECT_free := FC_X509_OBJECT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3085,7 +3092,7 @@ begin
     if X509_OBJECT_free_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_free)}
-      X509_OBJECT_free := @_X509_OBJECT_free;
+      X509_OBJECT_free := _X509_OBJECT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3102,13 +3109,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_get_type_allownil)}
-    X509_OBJECT_get_type := @ERR_X509_OBJECT_get_type;
+    X509_OBJECT_get_type := ERR_X509_OBJECT_get_type;
     {$ifend}
     {$if declared(X509_OBJECT_get_type_introduced)}
     if LibVersion < X509_OBJECT_get_type_introduced then
     begin
       {$if declared(FC_X509_OBJECT_get_type)}
-      X509_OBJECT_get_type := @FC_X509_OBJECT_get_type;
+      X509_OBJECT_get_type := FC_X509_OBJECT_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3117,7 +3124,7 @@ begin
     if X509_OBJECT_get_type_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_get_type)}
-      X509_OBJECT_get_type := @_X509_OBJECT_get_type;
+      X509_OBJECT_get_type := _X509_OBJECT_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3134,13 +3141,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_get0_X509_allownil)}
-    X509_OBJECT_get0_X509 := @ERR_X509_OBJECT_get0_X509;
+    X509_OBJECT_get0_X509 := ERR_X509_OBJECT_get0_X509;
     {$ifend}
     {$if declared(X509_OBJECT_get0_X509_introduced)}
     if LibVersion < X509_OBJECT_get0_X509_introduced then
     begin
       {$if declared(FC_X509_OBJECT_get0_X509)}
-      X509_OBJECT_get0_X509 := @FC_X509_OBJECT_get0_X509;
+      X509_OBJECT_get0_X509 := FC_X509_OBJECT_get0_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3149,7 +3156,7 @@ begin
     if X509_OBJECT_get0_X509_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_get0_X509)}
-      X509_OBJECT_get0_X509 := @_X509_OBJECT_get0_X509;
+      X509_OBJECT_get0_X509 := _X509_OBJECT_get0_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3166,13 +3173,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_set1_X509_allownil)}
-    X509_OBJECT_set1_X509 := @ERR_X509_OBJECT_set1_X509;
+    X509_OBJECT_set1_X509 := ERR_X509_OBJECT_set1_X509;
     {$ifend}
     {$if declared(X509_OBJECT_set1_X509_introduced)}
     if LibVersion < X509_OBJECT_set1_X509_introduced then
     begin
       {$if declared(FC_X509_OBJECT_set1_X509)}
-      X509_OBJECT_set1_X509 := @FC_X509_OBJECT_set1_X509;
+      X509_OBJECT_set1_X509 := FC_X509_OBJECT_set1_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3181,7 +3188,7 @@ begin
     if X509_OBJECT_set1_X509_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_set1_X509)}
-      X509_OBJECT_set1_X509 := @_X509_OBJECT_set1_X509;
+      X509_OBJECT_set1_X509 := _X509_OBJECT_set1_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3198,13 +3205,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_get0_X509_CRL_allownil)}
-    X509_OBJECT_get0_X509_CRL := @ERR_X509_OBJECT_get0_X509_CRL;
+    X509_OBJECT_get0_X509_CRL := ERR_X509_OBJECT_get0_X509_CRL;
     {$ifend}
     {$if declared(X509_OBJECT_get0_X509_CRL_introduced)}
     if LibVersion < X509_OBJECT_get0_X509_CRL_introduced then
     begin
       {$if declared(FC_X509_OBJECT_get0_X509_CRL)}
-      X509_OBJECT_get0_X509_CRL := @FC_X509_OBJECT_get0_X509_CRL;
+      X509_OBJECT_get0_X509_CRL := FC_X509_OBJECT_get0_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3213,7 +3220,7 @@ begin
     if X509_OBJECT_get0_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_get0_X509_CRL)}
-      X509_OBJECT_get0_X509_CRL := @_X509_OBJECT_get0_X509_CRL;
+      X509_OBJECT_get0_X509_CRL := _X509_OBJECT_get0_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3230,13 +3237,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_OBJECT_set1_X509_CRL_allownil)}
-    X509_OBJECT_set1_X509_CRL := @ERR_X509_OBJECT_set1_X509_CRL;
+    X509_OBJECT_set1_X509_CRL := ERR_X509_OBJECT_set1_X509_CRL;
     {$ifend}
     {$if declared(X509_OBJECT_set1_X509_CRL_introduced)}
     if LibVersion < X509_OBJECT_set1_X509_CRL_introduced then
     begin
       {$if declared(FC_X509_OBJECT_set1_X509_CRL)}
-      X509_OBJECT_set1_X509_CRL := @FC_X509_OBJECT_set1_X509_CRL;
+      X509_OBJECT_set1_X509_CRL := FC_X509_OBJECT_set1_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3245,7 +3252,7 @@ begin
     if X509_OBJECT_set1_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_X509_OBJECT_set1_X509_CRL)}
-      X509_OBJECT_set1_X509_CRL := @_X509_OBJECT_set1_X509_CRL;
+      X509_OBJECT_set1_X509_CRL := _X509_OBJECT_set1_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3262,13 +3269,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_new_allownil)}
-    X509_STORE_new := @ERR_X509_STORE_new;
+    X509_STORE_new := ERR_X509_STORE_new;
     {$ifend}
     {$if declared(X509_STORE_new_introduced)}
     if LibVersion < X509_STORE_new_introduced then
     begin
       {$if declared(FC_X509_STORE_new)}
-      X509_STORE_new := @FC_X509_STORE_new;
+      X509_STORE_new := FC_X509_STORE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3277,7 +3284,7 @@ begin
     if X509_STORE_new_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_new)}
-      X509_STORE_new := @_X509_STORE_new;
+      X509_STORE_new := _X509_STORE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3294,13 +3301,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_free_allownil)}
-    X509_STORE_free := @ERR_X509_STORE_free;
+    X509_STORE_free := ERR_X509_STORE_free;
     {$ifend}
     {$if declared(X509_STORE_free_introduced)}
     if LibVersion < X509_STORE_free_introduced then
     begin
       {$if declared(FC_X509_STORE_free)}
-      X509_STORE_free := @FC_X509_STORE_free;
+      X509_STORE_free := FC_X509_STORE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3309,7 +3316,7 @@ begin
     if X509_STORE_free_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_free)}
-      X509_STORE_free := @_X509_STORE_free;
+      X509_STORE_free := _X509_STORE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3326,13 +3333,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_lock_allownil)}
-    X509_STORE_lock := @ERR_X509_STORE_lock;
+    X509_STORE_lock := ERR_X509_STORE_lock;
     {$ifend}
     {$if declared(X509_STORE_lock_introduced)}
     if LibVersion < X509_STORE_lock_introduced then
     begin
       {$if declared(FC_X509_STORE_lock)}
-      X509_STORE_lock := @FC_X509_STORE_lock;
+      X509_STORE_lock := FC_X509_STORE_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3341,7 +3348,7 @@ begin
     if X509_STORE_lock_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_lock)}
-      X509_STORE_lock := @_X509_STORE_lock;
+      X509_STORE_lock := _X509_STORE_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3358,13 +3365,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_unlock_allownil)}
-    X509_STORE_unlock := @ERR_X509_STORE_unlock;
+    X509_STORE_unlock := ERR_X509_STORE_unlock;
     {$ifend}
     {$if declared(X509_STORE_unlock_introduced)}
     if LibVersion < X509_STORE_unlock_introduced then
     begin
       {$if declared(FC_X509_STORE_unlock)}
-      X509_STORE_unlock := @FC_X509_STORE_unlock;
+      X509_STORE_unlock := FC_X509_STORE_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3373,7 +3380,7 @@ begin
     if X509_STORE_unlock_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_unlock)}
-      X509_STORE_unlock := @_X509_STORE_unlock;
+      X509_STORE_unlock := _X509_STORE_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3390,13 +3397,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_up_ref_allownil)}
-    X509_STORE_up_ref := @ERR_X509_STORE_up_ref;
+    X509_STORE_up_ref := ERR_X509_STORE_up_ref;
     {$ifend}
     {$if declared(X509_STORE_up_ref_introduced)}
     if LibVersion < X509_STORE_up_ref_introduced then
     begin
       {$if declared(FC_X509_STORE_up_ref)}
-      X509_STORE_up_ref := @FC_X509_STORE_up_ref;
+      X509_STORE_up_ref := FC_X509_STORE_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3405,7 +3412,7 @@ begin
     if X509_STORE_up_ref_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_up_ref)}
-      X509_STORE_up_ref := @_X509_STORE_up_ref;
+      X509_STORE_up_ref := _X509_STORE_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3422,13 +3429,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_flags_allownil)}
-    X509_STORE_set_flags := @ERR_X509_STORE_set_flags;
+    X509_STORE_set_flags := ERR_X509_STORE_set_flags;
     {$ifend}
     {$if declared(X509_STORE_set_flags_introduced)}
     if LibVersion < X509_STORE_set_flags_introduced then
     begin
       {$if declared(FC_X509_STORE_set_flags)}
-      X509_STORE_set_flags := @FC_X509_STORE_set_flags;
+      X509_STORE_set_flags := FC_X509_STORE_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3437,7 +3444,7 @@ begin
     if X509_STORE_set_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_flags)}
-      X509_STORE_set_flags := @_X509_STORE_set_flags;
+      X509_STORE_set_flags := _X509_STORE_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3454,13 +3461,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_purpose_allownil)}
-    X509_STORE_set_purpose := @ERR_X509_STORE_set_purpose;
+    X509_STORE_set_purpose := ERR_X509_STORE_set_purpose;
     {$ifend}
     {$if declared(X509_STORE_set_purpose_introduced)}
     if LibVersion < X509_STORE_set_purpose_introduced then
     begin
       {$if declared(FC_X509_STORE_set_purpose)}
-      X509_STORE_set_purpose := @FC_X509_STORE_set_purpose;
+      X509_STORE_set_purpose := FC_X509_STORE_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3469,7 +3476,7 @@ begin
     if X509_STORE_set_purpose_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_purpose)}
-      X509_STORE_set_purpose := @_X509_STORE_set_purpose;
+      X509_STORE_set_purpose := _X509_STORE_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3486,13 +3493,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_trust_allownil)}
-    X509_STORE_set_trust := @ERR_X509_STORE_set_trust;
+    X509_STORE_set_trust := ERR_X509_STORE_set_trust;
     {$ifend}
     {$if declared(X509_STORE_set_trust_introduced)}
     if LibVersion < X509_STORE_set_trust_introduced then
     begin
       {$if declared(FC_X509_STORE_set_trust)}
-      X509_STORE_set_trust := @FC_X509_STORE_set_trust;
+      X509_STORE_set_trust := FC_X509_STORE_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3501,7 +3508,7 @@ begin
     if X509_STORE_set_trust_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_trust)}
-      X509_STORE_set_trust := @_X509_STORE_set_trust;
+      X509_STORE_set_trust := _X509_STORE_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3518,13 +3525,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set1_param_allownil)}
-    X509_STORE_set1_param := @ERR_X509_STORE_set1_param;
+    X509_STORE_set1_param := ERR_X509_STORE_set1_param;
     {$ifend}
     {$if declared(X509_STORE_set1_param_introduced)}
     if LibVersion < X509_STORE_set1_param_introduced then
     begin
       {$if declared(FC_X509_STORE_set1_param)}
-      X509_STORE_set1_param := @FC_X509_STORE_set1_param;
+      X509_STORE_set1_param := FC_X509_STORE_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3533,7 +3540,7 @@ begin
     if X509_STORE_set1_param_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set1_param)}
-      X509_STORE_set1_param := @_X509_STORE_set1_param;
+      X509_STORE_set1_param := _X509_STORE_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3550,13 +3557,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get0_param_allownil)}
-    X509_STORE_get0_param := @ERR_X509_STORE_get0_param;
+    X509_STORE_get0_param := ERR_X509_STORE_get0_param;
     {$ifend}
     {$if declared(X509_STORE_get0_param_introduced)}
     if LibVersion < X509_STORE_get0_param_introduced then
     begin
       {$if declared(FC_X509_STORE_get0_param)}
-      X509_STORE_get0_param := @FC_X509_STORE_get0_param;
+      X509_STORE_get0_param := FC_X509_STORE_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3565,7 +3572,7 @@ begin
     if X509_STORE_get0_param_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get0_param)}
-      X509_STORE_get0_param := @_X509_STORE_get0_param;
+      X509_STORE_get0_param := _X509_STORE_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3582,13 +3589,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_verify_allownil)}
-    X509_STORE_set_verify := @ERR_X509_STORE_set_verify;
+    X509_STORE_set_verify := ERR_X509_STORE_set_verify;
     {$ifend}
     {$if declared(X509_STORE_set_verify_introduced)}
     if LibVersion < X509_STORE_set_verify_introduced then
     begin
       {$if declared(FC_X509_STORE_set_verify)}
-      X509_STORE_set_verify := @FC_X509_STORE_set_verify;
+      X509_STORE_set_verify := FC_X509_STORE_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3597,7 +3604,7 @@ begin
     if X509_STORE_set_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_verify)}
-      X509_STORE_set_verify := @_X509_STORE_set_verify;
+      X509_STORE_set_verify := _X509_STORE_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3614,13 +3621,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_verify_allownil)}
-    X509_STORE_CTX_set_verify := @ERR_X509_STORE_CTX_set_verify;
+    X509_STORE_CTX_set_verify := ERR_X509_STORE_CTX_set_verify;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_verify_introduced)}
     if LibVersion < X509_STORE_CTX_set_verify_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_verify)}
-      X509_STORE_CTX_set_verify := @FC_X509_STORE_CTX_set_verify;
+      X509_STORE_CTX_set_verify := FC_X509_STORE_CTX_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3629,7 +3636,7 @@ begin
     if X509_STORE_CTX_set_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_verify)}
-      X509_STORE_CTX_set_verify := @_X509_STORE_CTX_set_verify;
+      X509_STORE_CTX_set_verify := _X509_STORE_CTX_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3646,13 +3653,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_verify_allownil)}
-    X509_STORE_get_verify := @ERR_X509_STORE_get_verify;
+    X509_STORE_get_verify := ERR_X509_STORE_get_verify;
     {$ifend}
     {$if declared(X509_STORE_get_verify_introduced)}
     if LibVersion < X509_STORE_get_verify_introduced then
     begin
       {$if declared(FC_X509_STORE_get_verify)}
-      X509_STORE_get_verify := @FC_X509_STORE_get_verify;
+      X509_STORE_get_verify := FC_X509_STORE_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3661,7 +3668,7 @@ begin
     if X509_STORE_get_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_verify)}
-      X509_STORE_get_verify := @_X509_STORE_get_verify;
+      X509_STORE_get_verify := _X509_STORE_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3678,13 +3685,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_verify_cb_allownil)}
-    X509_STORE_set_verify_cb := @ERR_X509_STORE_set_verify_cb;
+    X509_STORE_set_verify_cb := ERR_X509_STORE_set_verify_cb;
     {$ifend}
     {$if declared(X509_STORE_set_verify_cb_introduced)}
     if LibVersion < X509_STORE_set_verify_cb_introduced then
     begin
       {$if declared(FC_X509_STORE_set_verify_cb)}
-      X509_STORE_set_verify_cb := @FC_X509_STORE_set_verify_cb;
+      X509_STORE_set_verify_cb := FC_X509_STORE_set_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3693,7 +3700,7 @@ begin
     if X509_STORE_set_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_verify_cb)}
-      X509_STORE_set_verify_cb := @_X509_STORE_set_verify_cb;
+      X509_STORE_set_verify_cb := _X509_STORE_set_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3709,13 +3716,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get1_objects_allownil)}
-    X509_STORE_get1_objects := @ERR_X509_STORE_get1_objects;
+    X509_STORE_get1_objects := ERR_X509_STORE_get1_objects;
     {$ifend}
     {$if declared(X509_STORE_get1_objects_introduced)}
     if LibVersion < X509_STORE_get1_objects_introduced then
     begin
       {$if declared(FC_X509_STORE_get1_objects)}
-      X509_STORE_get1_objects := @FC_X509_STORE_get1_objects;
+      X509_STORE_get1_objects := FC_X509_STORE_get1_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3724,7 +3731,7 @@ begin
     if X509_STORE_get1_objects_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get1_objects)}
-      X509_STORE_get1_objects := @_X509_STORE_get1_objects;
+      X509_STORE_get1_objects := _X509_STORE_get1_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3739,13 +3746,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get0_objects_allownil)}
-    X509_STORE_get0_objects := @ERR_X509_STORE_get0_objects;
+    X509_STORE_get0_objects := ERR_X509_STORE_get0_objects;
     {$ifend}
     {$if declared(X509_STORE_get0_objects_introduced)}
     if LibVersion < X509_STORE_get0_objects_introduced then
     begin
       {$if declared(FC_X509_STORE_get0_objects)}
-      X509_STORE_get0_objects := @FC_X509_STORE_get0_objects;
+      X509_STORE_get0_objects := FC_X509_STORE_get0_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3754,7 +3761,7 @@ begin
     if X509_STORE_get0_objects_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get0_objects)}
-      X509_STORE_get0_objects := @_X509_STORE_get0_objects;
+      X509_STORE_get0_objects := _X509_STORE_get0_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3769,13 +3776,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get1_certs_allownil)}
-    X509_STORE_CTX_get1_certs := @ERR_X509_STORE_CTX_get1_certs;
+    X509_STORE_CTX_get1_certs := ERR_X509_STORE_CTX_get1_certs;
     {$ifend}
     {$if declared(X509_STORE_CTX_get1_certs_introduced)}
     if LibVersion < X509_STORE_CTX_get1_certs_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get1_certs)}
-      X509_STORE_CTX_get1_certs := @FC_X509_STORE_CTX_get1_certs;
+      X509_STORE_CTX_get1_certs := FC_X509_STORE_CTX_get1_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3784,7 +3791,7 @@ begin
     if X509_STORE_CTX_get1_certs_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get1_certs)}
-      X509_STORE_CTX_get1_certs := @_X509_STORE_CTX_get1_certs;
+      X509_STORE_CTX_get1_certs := _X509_STORE_CTX_get1_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3799,13 +3806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get1_crls_allownil)}
-    X509_STORE_CTX_get1_crls := @ERR_X509_STORE_CTX_get1_crls;
+    X509_STORE_CTX_get1_crls := ERR_X509_STORE_CTX_get1_crls;
     {$ifend}
     {$if declared(X509_STORE_CTX_get1_crls_introduced)}
     if LibVersion < X509_STORE_CTX_get1_crls_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get1_crls)}
-      X509_STORE_CTX_get1_crls := @FC_X509_STORE_CTX_get1_crls;
+      X509_STORE_CTX_get1_crls := FC_X509_STORE_CTX_get1_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3814,7 +3821,7 @@ begin
     if X509_STORE_CTX_get1_crls_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get1_crls)}
-      X509_STORE_CTX_get1_crls := @_X509_STORE_CTX_get1_crls;
+      X509_STORE_CTX_get1_crls := _X509_STORE_CTX_get1_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3830,13 +3837,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_verify_cb_allownil)}
-    X509_STORE_get_verify_cb := @ERR_X509_STORE_get_verify_cb;
+    X509_STORE_get_verify_cb := ERR_X509_STORE_get_verify_cb;
     {$ifend}
     {$if declared(X509_STORE_get_verify_cb_introduced)}
     if LibVersion < X509_STORE_get_verify_cb_introduced then
     begin
       {$if declared(FC_X509_STORE_get_verify_cb)}
-      X509_STORE_get_verify_cb := @FC_X509_STORE_get_verify_cb;
+      X509_STORE_get_verify_cb := FC_X509_STORE_get_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3845,7 +3852,7 @@ begin
     if X509_STORE_get_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_verify_cb)}
-      X509_STORE_get_verify_cb := @_X509_STORE_get_verify_cb;
+      X509_STORE_get_verify_cb := _X509_STORE_get_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3862,13 +3869,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_get_issuer_allownil)}
-    X509_STORE_set_get_issuer := @ERR_X509_STORE_set_get_issuer;
+    X509_STORE_set_get_issuer := ERR_X509_STORE_set_get_issuer;
     {$ifend}
     {$if declared(X509_STORE_set_get_issuer_introduced)}
     if LibVersion < X509_STORE_set_get_issuer_introduced then
     begin
       {$if declared(FC_X509_STORE_set_get_issuer)}
-      X509_STORE_set_get_issuer := @FC_X509_STORE_set_get_issuer;
+      X509_STORE_set_get_issuer := FC_X509_STORE_set_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3877,7 +3884,7 @@ begin
     if X509_STORE_set_get_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_get_issuer)}
-      X509_STORE_set_get_issuer := @_X509_STORE_set_get_issuer;
+      X509_STORE_set_get_issuer := _X509_STORE_set_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3894,13 +3901,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_get_issuer_allownil)}
-    X509_STORE_get_get_issuer := @ERR_X509_STORE_get_get_issuer;
+    X509_STORE_get_get_issuer := ERR_X509_STORE_get_get_issuer;
     {$ifend}
     {$if declared(X509_STORE_get_get_issuer_introduced)}
     if LibVersion < X509_STORE_get_get_issuer_introduced then
     begin
       {$if declared(FC_X509_STORE_get_get_issuer)}
-      X509_STORE_get_get_issuer := @FC_X509_STORE_get_get_issuer;
+      X509_STORE_get_get_issuer := FC_X509_STORE_get_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3909,7 +3916,7 @@ begin
     if X509_STORE_get_get_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_get_issuer)}
-      X509_STORE_get_get_issuer := @_X509_STORE_get_get_issuer;
+      X509_STORE_get_get_issuer := _X509_STORE_get_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3926,13 +3933,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_check_issued_allownil)}
-    X509_STORE_set_check_issued := @ERR_X509_STORE_set_check_issued;
+    X509_STORE_set_check_issued := ERR_X509_STORE_set_check_issued;
     {$ifend}
     {$if declared(X509_STORE_set_check_issued_introduced)}
     if LibVersion < X509_STORE_set_check_issued_introduced then
     begin
       {$if declared(FC_X509_STORE_set_check_issued)}
-      X509_STORE_set_check_issued := @FC_X509_STORE_set_check_issued;
+      X509_STORE_set_check_issued := FC_X509_STORE_set_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3941,7 +3948,7 @@ begin
     if X509_STORE_set_check_issued_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_check_issued)}
-      X509_STORE_set_check_issued := @_X509_STORE_set_check_issued;
+      X509_STORE_set_check_issued := _X509_STORE_set_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3958,13 +3965,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_check_issued_allownil)}
-    X509_STORE_get_check_issued := @ERR_X509_STORE_get_check_issued;
+    X509_STORE_get_check_issued := ERR_X509_STORE_get_check_issued;
     {$ifend}
     {$if declared(X509_STORE_get_check_issued_introduced)}
     if LibVersion < X509_STORE_get_check_issued_introduced then
     begin
       {$if declared(FC_X509_STORE_get_check_issued)}
-      X509_STORE_get_check_issued := @FC_X509_STORE_get_check_issued;
+      X509_STORE_get_check_issued := FC_X509_STORE_get_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3973,7 +3980,7 @@ begin
     if X509_STORE_get_check_issued_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_check_issued)}
-      X509_STORE_get_check_issued := @_X509_STORE_get_check_issued;
+      X509_STORE_get_check_issued := _X509_STORE_get_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3990,13 +3997,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_check_revocation_allownil)}
-    X509_STORE_set_check_revocation := @ERR_X509_STORE_set_check_revocation;
+    X509_STORE_set_check_revocation := ERR_X509_STORE_set_check_revocation;
     {$ifend}
     {$if declared(X509_STORE_set_check_revocation_introduced)}
     if LibVersion < X509_STORE_set_check_revocation_introduced then
     begin
       {$if declared(FC_X509_STORE_set_check_revocation)}
-      X509_STORE_set_check_revocation := @FC_X509_STORE_set_check_revocation;
+      X509_STORE_set_check_revocation := FC_X509_STORE_set_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4005,7 +4012,7 @@ begin
     if X509_STORE_set_check_revocation_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_check_revocation)}
-      X509_STORE_set_check_revocation := @_X509_STORE_set_check_revocation;
+      X509_STORE_set_check_revocation := _X509_STORE_set_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4022,13 +4029,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_check_revocation_allownil)}
-    X509_STORE_get_check_revocation := @ERR_X509_STORE_get_check_revocation;
+    X509_STORE_get_check_revocation := ERR_X509_STORE_get_check_revocation;
     {$ifend}
     {$if declared(X509_STORE_get_check_revocation_introduced)}
     if LibVersion < X509_STORE_get_check_revocation_introduced then
     begin
       {$if declared(FC_X509_STORE_get_check_revocation)}
-      X509_STORE_get_check_revocation := @FC_X509_STORE_get_check_revocation;
+      X509_STORE_get_check_revocation := FC_X509_STORE_get_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4037,7 +4044,7 @@ begin
     if X509_STORE_get_check_revocation_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_check_revocation)}
-      X509_STORE_get_check_revocation := @_X509_STORE_get_check_revocation;
+      X509_STORE_get_check_revocation := _X509_STORE_get_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4054,13 +4061,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_get_crl_allownil)}
-    X509_STORE_set_get_crl := @ERR_X509_STORE_set_get_crl;
+    X509_STORE_set_get_crl := ERR_X509_STORE_set_get_crl;
     {$ifend}
     {$if declared(X509_STORE_set_get_crl_introduced)}
     if LibVersion < X509_STORE_set_get_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_set_get_crl)}
-      X509_STORE_set_get_crl := @FC_X509_STORE_set_get_crl;
+      X509_STORE_set_get_crl := FC_X509_STORE_set_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4069,7 +4076,7 @@ begin
     if X509_STORE_set_get_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_get_crl)}
-      X509_STORE_set_get_crl := @_X509_STORE_set_get_crl;
+      X509_STORE_set_get_crl := _X509_STORE_set_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4086,13 +4093,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_get_crl_allownil)}
-    X509_STORE_get_get_crl := @ERR_X509_STORE_get_get_crl;
+    X509_STORE_get_get_crl := ERR_X509_STORE_get_get_crl;
     {$ifend}
     {$if declared(X509_STORE_get_get_crl_introduced)}
     if LibVersion < X509_STORE_get_get_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_get_get_crl)}
-      X509_STORE_get_get_crl := @FC_X509_STORE_get_get_crl;
+      X509_STORE_get_get_crl := FC_X509_STORE_get_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4101,7 +4108,7 @@ begin
     if X509_STORE_get_get_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_get_crl)}
-      X509_STORE_get_get_crl := @_X509_STORE_get_get_crl;
+      X509_STORE_get_get_crl := _X509_STORE_get_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4118,13 +4125,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_check_crl_allownil)}
-    X509_STORE_set_check_crl := @ERR_X509_STORE_set_check_crl;
+    X509_STORE_set_check_crl := ERR_X509_STORE_set_check_crl;
     {$ifend}
     {$if declared(X509_STORE_set_check_crl_introduced)}
     if LibVersion < X509_STORE_set_check_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_set_check_crl)}
-      X509_STORE_set_check_crl := @FC_X509_STORE_set_check_crl;
+      X509_STORE_set_check_crl := FC_X509_STORE_set_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4133,7 +4140,7 @@ begin
     if X509_STORE_set_check_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_check_crl)}
-      X509_STORE_set_check_crl := @_X509_STORE_set_check_crl;
+      X509_STORE_set_check_crl := _X509_STORE_set_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4150,13 +4157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_check_crl_allownil)}
-    X509_STORE_get_check_crl := @ERR_X509_STORE_get_check_crl;
+    X509_STORE_get_check_crl := ERR_X509_STORE_get_check_crl;
     {$ifend}
     {$if declared(X509_STORE_get_check_crl_introduced)}
     if LibVersion < X509_STORE_get_check_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_get_check_crl)}
-      X509_STORE_get_check_crl := @FC_X509_STORE_get_check_crl;
+      X509_STORE_get_check_crl := FC_X509_STORE_get_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4165,7 +4172,7 @@ begin
     if X509_STORE_get_check_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_check_crl)}
-      X509_STORE_get_check_crl := @_X509_STORE_get_check_crl;
+      X509_STORE_get_check_crl := _X509_STORE_get_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4182,13 +4189,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_cert_crl_allownil)}
-    X509_STORE_set_cert_crl := @ERR_X509_STORE_set_cert_crl;
+    X509_STORE_set_cert_crl := ERR_X509_STORE_set_cert_crl;
     {$ifend}
     {$if declared(X509_STORE_set_cert_crl_introduced)}
     if LibVersion < X509_STORE_set_cert_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_set_cert_crl)}
-      X509_STORE_set_cert_crl := @FC_X509_STORE_set_cert_crl;
+      X509_STORE_set_cert_crl := FC_X509_STORE_set_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4197,7 +4204,7 @@ begin
     if X509_STORE_set_cert_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_cert_crl)}
-      X509_STORE_set_cert_crl := @_X509_STORE_set_cert_crl;
+      X509_STORE_set_cert_crl := _X509_STORE_set_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4214,13 +4221,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_cert_crl_allownil)}
-    X509_STORE_get_cert_crl := @ERR_X509_STORE_get_cert_crl;
+    X509_STORE_get_cert_crl := ERR_X509_STORE_get_cert_crl;
     {$ifend}
     {$if declared(X509_STORE_get_cert_crl_introduced)}
     if LibVersion < X509_STORE_get_cert_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_get_cert_crl)}
-      X509_STORE_get_cert_crl := @FC_X509_STORE_get_cert_crl;
+      X509_STORE_get_cert_crl := FC_X509_STORE_get_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4229,7 +4236,7 @@ begin
     if X509_STORE_get_cert_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_cert_crl)}
-      X509_STORE_get_cert_crl := @_X509_STORE_get_cert_crl;
+      X509_STORE_get_cert_crl := _X509_STORE_get_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4246,13 +4253,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_check_policy_allownil)}
-    X509_STORE_set_check_policy := @ERR_X509_STORE_set_check_policy;
+    X509_STORE_set_check_policy := ERR_X509_STORE_set_check_policy;
     {$ifend}
     {$if declared(X509_STORE_set_check_policy_introduced)}
     if LibVersion < X509_STORE_set_check_policy_introduced then
     begin
       {$if declared(FC_X509_STORE_set_check_policy)}
-      X509_STORE_set_check_policy := @FC_X509_STORE_set_check_policy;
+      X509_STORE_set_check_policy := FC_X509_STORE_set_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4261,7 +4268,7 @@ begin
     if X509_STORE_set_check_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_check_policy)}
-      X509_STORE_set_check_policy := @_X509_STORE_set_check_policy;
+      X509_STORE_set_check_policy := _X509_STORE_set_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4277,13 +4284,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_check_policy_allownil)}
-    X509_STORE_get_check_policy := @ERR_X509_STORE_get_check_policy;
+    X509_STORE_get_check_policy := ERR_X509_STORE_get_check_policy;
     {$ifend}
     {$if declared(X509_STORE_get_check_policy_introduced)}
     if LibVersion < X509_STORE_get_check_policy_introduced then
     begin
       {$if declared(FC_X509_STORE_get_check_policy)}
-      X509_STORE_get_check_policy := @FC_X509_STORE_get_check_policy;
+      X509_STORE_get_check_policy := FC_X509_STORE_get_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4292,7 +4299,7 @@ begin
     if X509_STORE_get_check_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_check_policy)}
-      X509_STORE_get_check_policy := @_X509_STORE_get_check_policy;
+      X509_STORE_get_check_policy := _X509_STORE_get_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4309,13 +4316,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_tree_get0_user_policies_allownil)}
-    X509_policy_tree_get0_user_policies := @ERR_X509_policy_tree_get0_user_policies;
+    X509_policy_tree_get0_user_policies := ERR_X509_policy_tree_get0_user_policies;
     {$ifend}
     {$if declared(X509_policy_tree_get0_user_policies_introduced)}
     if LibVersion < X509_policy_tree_get0_user_policies_introduced then
     begin
       {$if declared(FC_X509_policy_tree_get0_user_policies)}
-      X509_policy_tree_get0_user_policies := @FC_X509_policy_tree_get0_user_policies;
+      X509_policy_tree_get0_user_policies := FC_X509_policy_tree_get0_user_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4324,7 +4331,7 @@ begin
     if X509_policy_tree_get0_user_policies_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_tree_get0_user_policies)}
-      X509_policy_tree_get0_user_policies := @_X509_policy_tree_get0_user_policies;
+      X509_policy_tree_get0_user_policies := _X509_policy_tree_get0_user_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4340,13 +4347,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_tree_get0_policies_allownil)}
-    X509_policy_tree_get0_policies := @ERR_X509_policy_tree_get0_policies;
+    X509_policy_tree_get0_policies := ERR_X509_policy_tree_get0_policies;
     {$ifend}
     {$if declared(X509_policy_tree_get0_policies_introduced)}
     if LibVersion < X509_policy_tree_get0_policies_introduced then
     begin
       {$if declared(FC_X509_policy_tree_get0_policies)}
-      X509_policy_tree_get0_policies := @FC_X509_policy_tree_get0_policies;
+      X509_policy_tree_get0_policies := FC_X509_policy_tree_get0_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4355,7 +4362,7 @@ begin
     if X509_policy_tree_get0_policies_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_tree_get0_policies)}
-      X509_policy_tree_get0_policies := @_X509_policy_tree_get0_policies;
+      X509_policy_tree_get0_policies := _X509_policy_tree_get0_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4371,13 +4378,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_lookup_certs_allownil)}
-    X509_STORE_set_lookup_certs := @ERR_X509_STORE_set_lookup_certs;
+    X509_STORE_set_lookup_certs := ERR_X509_STORE_set_lookup_certs;
     {$ifend}
     {$if declared(X509_STORE_set_lookup_certs_introduced)}
     if LibVersion < X509_STORE_set_lookup_certs_introduced then
     begin
       {$if declared(FC_X509_STORE_set_lookup_certs)}
-      X509_STORE_set_lookup_certs := @FC_X509_STORE_set_lookup_certs;
+      X509_STORE_set_lookup_certs := FC_X509_STORE_set_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4386,7 +4393,7 @@ begin
     if X509_STORE_set_lookup_certs_removed <= LibVersion then
     begin                                   s
       {$if declared(_X509_STORE_set_lookup_certs)}
-      X509_STORE_set_lookup_certs := @_X509_STORE_set_lookup_certs;
+      X509_STORE_set_lookup_certs := _X509_STORE_set_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4402,13 +4409,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_lookup_certs_allownil)}
-    X509_STORE_get_lookup_certs := @ERR_X509_STORE_get_lookup_certs;
+    X509_STORE_get_lookup_certs := ERR_X509_STORE_get_lookup_certs;
     {$ifend}
     {$if declared(X509_STORE_get_lookup_certs_introduced)}
     if LibVersion < X509_STORE_get_lookup_certs_introduced then
     begin
       {$if declared(FC_X509_STORE_get_lookup_certs)}
-      X509_STORE_get_lookup_certs := @FC_X509_STORE_get_lookup_certs;
+      X509_STORE_get_lookup_certs := FC_X509_STORE_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4417,7 +4424,7 @@ begin
     if X509_STORE_get_lookup_certs_removed <= LibVersion then
     begin                                   s
       {$if declared(_X509_STORE_get_lookup_certs)}
-      X509_STORE_get_lookup_certs := @_X509_STORE_get_lookup_certs;
+      X509_STORE_get_lookup_certs := _X509_STORE_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4433,13 +4440,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_lookup_crls_allownil)}
-    X509_STORE_set_lookup_crls := @ERR_X509_STORE_set_lookup_crls;
+    X509_STORE_set_lookup_crls := ERR_X509_STORE_set_lookup_crls;
     {$ifend}
     {$if declared(X509_STORE_set_lookup_crls_introduced)}
     if LibVersion < X509_STORE_set_lookup_crls_introduced then
     begin
       {$if declared(FC_X509_STORE_set_lookup_crls)}
-      X509_STORE_set_lookup_crls := @FC_X509_STORE_set_lookup_crls;
+      X509_STORE_set_lookup_crls := FC_X509_STORE_set_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4448,7 +4455,7 @@ begin
     if X509_STORE_set_lookup_crls_removed <= LibVersion then
     begin                                   s
       {$if declared(_X509_STORE_set_lookup_crls)}
-      X509_STORE_set_lookup_crls := @_X509_STORE_set_lookup_crls;
+      X509_STORE_set_lookup_crls := _X509_STORE_set_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4464,13 +4471,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_lookup_crls_allownil)}
-    X509_STORE_get_lookup_crls := @ERR_X509_STORE_get_lookup_crls;
+    X509_STORE_get_lookup_crls := ERR_X509_STORE_get_lookup_crls;
     {$ifend}
     {$if declared(X509_STORE_get_lookup_crls_introduced)}
     if LibVersion < X509_STORE_get_lookup_crls_introduced then
     begin
       {$if declared(FC_X509_STORE_get_lookup_crls)}
-      X509_STORE_get_lookup_crls := @FC_X509_STORE_get_lookup_crls;
+      X509_STORE_get_lookup_crls := FC_X509_STORE_get_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4479,7 +4486,7 @@ begin
     if X509_STORE_get_lookup_crls_removed <= LibVersion then
     begin                                   s
       {$if declared(_X509_STORE_get_lookup_crls)}
-      X509_STORE_get_lookup_crls := @_X509_STORE_get_lookup_crls;
+      X509_STORE_get_lookup_crls := _X509_STORE_get_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4496,13 +4503,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_cleanup_allownil)}
-    X509_STORE_set_cleanup := @ERR_X509_STORE_set_cleanup;
+    X509_STORE_set_cleanup := ERR_X509_STORE_set_cleanup;
     {$ifend}
     {$if declared(X509_STORE_set_cleanup_introduced)}
     if LibVersion < X509_STORE_set_cleanup_introduced then
     begin
       {$if declared(FC_X509_STORE_set_cleanup)}
-      X509_STORE_set_cleanup := @FC_X509_STORE_set_cleanup;
+      X509_STORE_set_cleanup := FC_X509_STORE_set_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4511,7 +4518,7 @@ begin
     if X509_STORE_set_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_cleanup)}
-      X509_STORE_set_cleanup := @_X509_STORE_set_cleanup;
+      X509_STORE_set_cleanup := _X509_STORE_set_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4528,13 +4535,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_cleanup_allownil)}
-    X509_STORE_get_cleanup := @ERR_X509_STORE_get_cleanup;
+    X509_STORE_get_cleanup := ERR_X509_STORE_get_cleanup;
     {$ifend}
     {$if declared(X509_STORE_get_cleanup_introduced)}
     if LibVersion < X509_STORE_get_cleanup_introduced then
     begin
       {$if declared(FC_X509_STORE_get_cleanup)}
-      X509_STORE_get_cleanup := @FC_X509_STORE_get_cleanup;
+      X509_STORE_get_cleanup := FC_X509_STORE_get_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4543,7 +4550,7 @@ begin
     if X509_STORE_get_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_cleanup)}
-      X509_STORE_get_cleanup := @_X509_STORE_get_cleanup;
+      X509_STORE_get_cleanup := _X509_STORE_get_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4560,13 +4567,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_ex_data_allownil)}
-    X509_STORE_set_ex_data := @ERR_X509_STORE_set_ex_data;
+    X509_STORE_set_ex_data := ERR_X509_STORE_set_ex_data;
     {$ifend}
     {$if declared(X509_STORE_set_ex_data_introduced)}
     if LibVersion < X509_STORE_set_ex_data_introduced then
     begin
       {$if declared(FC_X509_STORE_set_ex_data)}
-      X509_STORE_set_ex_data := @FC_X509_STORE_set_ex_data;
+      X509_STORE_set_ex_data := FC_X509_STORE_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4575,7 +4582,7 @@ begin
     if X509_STORE_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_ex_data)}
-      X509_STORE_set_ex_data := @_X509_STORE_set_ex_data;
+      X509_STORE_set_ex_data := _X509_STORE_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4592,13 +4599,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_get_ex_data_allownil)}
-    X509_STORE_get_ex_data := @ERR_X509_STORE_get_ex_data;
+    X509_STORE_get_ex_data := ERR_X509_STORE_get_ex_data;
     {$ifend}
     {$if declared(X509_STORE_get_ex_data_introduced)}
     if LibVersion < X509_STORE_get_ex_data_introduced then
     begin
       {$if declared(FC_X509_STORE_get_ex_data)}
-      X509_STORE_get_ex_data := @FC_X509_STORE_get_ex_data;
+      X509_STORE_get_ex_data := FC_X509_STORE_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4607,7 +4614,7 @@ begin
     if X509_STORE_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_get_ex_data)}
-      X509_STORE_get_ex_data := @_X509_STORE_get_ex_data;
+      X509_STORE_get_ex_data := _X509_STORE_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4624,13 +4631,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_new_allownil)}
-    X509_STORE_CTX_new := @ERR_X509_STORE_CTX_new;
+    X509_STORE_CTX_new := ERR_X509_STORE_CTX_new;
     {$ifend}
     {$if declared(X509_STORE_CTX_new_introduced)}
     if LibVersion < X509_STORE_CTX_new_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_new)}
-      X509_STORE_CTX_new := @FC_X509_STORE_CTX_new;
+      X509_STORE_CTX_new := FC_X509_STORE_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4639,7 +4646,7 @@ begin
     if X509_STORE_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_new)}
-      X509_STORE_CTX_new := @_X509_STORE_CTX_new;
+      X509_STORE_CTX_new := _X509_STORE_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4656,13 +4663,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get1_issuer_allownil)}
-    X509_STORE_CTX_get1_issuer := @ERR_X509_STORE_CTX_get1_issuer;
+    X509_STORE_CTX_get1_issuer := ERR_X509_STORE_CTX_get1_issuer;
     {$ifend}
     {$if declared(X509_STORE_CTX_get1_issuer_introduced)}
     if LibVersion < X509_STORE_CTX_get1_issuer_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get1_issuer)}
-      X509_STORE_CTX_get1_issuer := @FC_X509_STORE_CTX_get1_issuer;
+      X509_STORE_CTX_get1_issuer := FC_X509_STORE_CTX_get1_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4671,7 +4678,7 @@ begin
     if X509_STORE_CTX_get1_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get1_issuer)}
-      X509_STORE_CTX_get1_issuer := @_X509_STORE_CTX_get1_issuer;
+      X509_STORE_CTX_get1_issuer := _X509_STORE_CTX_get1_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4688,13 +4695,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_free_allownil)}
-    X509_STORE_CTX_free := @ERR_X509_STORE_CTX_free;
+    X509_STORE_CTX_free := ERR_X509_STORE_CTX_free;
     {$ifend}
     {$if declared(X509_STORE_CTX_free_introduced)}
     if LibVersion < X509_STORE_CTX_free_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_free)}
-      X509_STORE_CTX_free := @FC_X509_STORE_CTX_free;
+      X509_STORE_CTX_free := FC_X509_STORE_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4703,7 +4710,7 @@ begin
     if X509_STORE_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_free)}
-      X509_STORE_CTX_free := @_X509_STORE_CTX_free;
+      X509_STORE_CTX_free := _X509_STORE_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4719,13 +4726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_init_allownil)}
-    X509_STORE_CTX_init := @ERR_X509_STORE_CTX_init;
+    X509_STORE_CTX_init := ERR_X509_STORE_CTX_init;
     {$ifend}
     {$if declared(X509_STORE_CTX_init_introduced)}
     if LibVersion < X509_STORE_CTX_init_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_init)}
-      X509_STORE_CTX_init := @FC_X509_STORE_CTX_init;
+      X509_STORE_CTX_init := FC_X509_STORE_CTX_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4734,7 +4741,7 @@ begin
     if X509_STORE_CTX_init_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_init)}
-      X509_STORE_CTX_init := @_X509_STORE_CTX_init;
+      X509_STORE_CTX_init := _X509_STORE_CTX_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4750,13 +4757,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set0_trusted_stack_allownil)}
-    X509_STORE_CTX_set0_trusted_stack := @ERR_X509_STORE_CTX_set0_trusted_stack;
+    X509_STORE_CTX_set0_trusted_stack := ERR_X509_STORE_CTX_set0_trusted_stack;
     {$ifend}
     {$if declared(X509_STORE_CTX_set0_trusted_stack_introduced)}
     if LibVersion < X509_STORE_CTX_set0_trusted_stack_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set0_trusted_stack)}
-      X509_STORE_CTX_set0_trusted_stack := @FC_X509_STORE_CTX_set0_trusted_stack;
+      X509_STORE_CTX_set0_trusted_stack := FC_X509_STORE_CTX_set0_trusted_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4765,7 +4772,7 @@ begin
     if X509_STORE_CTX_set0_trusted_stack_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set0_trusted_stack)}
-      X509_STORE_CTX_set0_trusted_stack := @_X509_STORE_CTX_set0_trusted_stack;
+      X509_STORE_CTX_set0_trusted_stack := _X509_STORE_CTX_set0_trusted_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4781,13 +4788,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_cleanup_allownil)}
-    X509_STORE_CTX_cleanup := @ERR_X509_STORE_CTX_cleanup;
+    X509_STORE_CTX_cleanup := ERR_X509_STORE_CTX_cleanup;
     {$ifend}
     {$if declared(X509_STORE_CTX_cleanup_introduced)}
     if LibVersion < X509_STORE_CTX_cleanup_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_cleanup)}
-      X509_STORE_CTX_cleanup := @FC_X509_STORE_CTX_cleanup;
+      X509_STORE_CTX_cleanup := FC_X509_STORE_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4796,7 +4803,7 @@ begin
     if X509_STORE_CTX_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_cleanup)}
-      X509_STORE_CTX_cleanup := @_X509_STORE_CTX_cleanup;
+      X509_STORE_CTX_cleanup := _X509_STORE_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4813,13 +4820,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_store_allownil)}
-    X509_STORE_CTX_get0_store := @ERR_X509_STORE_CTX_get0_store;
+    X509_STORE_CTX_get0_store := ERR_X509_STORE_CTX_get0_store;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_store_introduced)}
     if LibVersion < X509_STORE_CTX_get0_store_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_store)}
-      X509_STORE_CTX_get0_store := @FC_X509_STORE_CTX_get0_store;
+      X509_STORE_CTX_get0_store := FC_X509_STORE_CTX_get0_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4828,7 +4835,7 @@ begin
     if X509_STORE_CTX_get0_store_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_store)}
-      X509_STORE_CTX_get0_store := @_X509_STORE_CTX_get0_store;
+      X509_STORE_CTX_get0_store := _X509_STORE_CTX_get0_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4845,13 +4852,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_cert_allownil)}
-    X509_STORE_CTX_get0_cert := @ERR_X509_STORE_CTX_get0_cert;
+    X509_STORE_CTX_get0_cert := ERR_X509_STORE_CTX_get0_cert;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_cert_introduced)}
     if LibVersion < X509_STORE_CTX_get0_cert_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_cert)}
-      X509_STORE_CTX_get0_cert := @FC_X509_STORE_CTX_get0_cert;
+      X509_STORE_CTX_get0_cert := FC_X509_STORE_CTX_get0_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4860,7 +4867,7 @@ begin
     if X509_STORE_CTX_get0_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_cert)}
-      X509_STORE_CTX_get0_cert := @_X509_STORE_CTX_get0_cert;
+      X509_STORE_CTX_get0_cert := _X509_STORE_CTX_get0_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4876,13 +4883,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_untrusted_allownil)}
-    X509_STORE_CTX_get0_untrusted := @ERR_X509_STORE_CTX_get0_untrusted;
+    X509_STORE_CTX_get0_untrusted := ERR_X509_STORE_CTX_get0_untrusted;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_untrusted_introduced)}
     if LibVersion < X509_STORE_CTX_get0_untrusted_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_untrusted)}
-      X509_STORE_CTX_get0_untrusted := @FC_X509_STORE_CTX_get0_untrusted;
+      X509_STORE_CTX_get0_untrusted := FC_X509_STORE_CTX_get0_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4891,7 +4898,7 @@ begin
     if X509_STORE_CTX_get0_untrusted_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_untrusted)}
-      X509_STORE_CTX_get0_untrusted := @_X509_STORE_CTX_get0_untrusted;
+      X509_STORE_CTX_get0_untrusted := _X509_STORE_CTX_get0_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4907,13 +4914,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set0_untrusted_allownil)}
-    X509_STORE_CTX_set0_untrusted := @ERR_X509_STORE_CTX_set0_untrusted;
+    X509_STORE_CTX_set0_untrusted := ERR_X509_STORE_CTX_set0_untrusted;
     {$ifend}
     {$if declared(X509_STORE_CTX_set0_untrusted_introduced)}
     if LibVersion < X509_STORE_CTX_set0_untrusted_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set0_untrusted)}
-      X509_STORE_CTX_set0_untrusted := @FC_X509_STORE_CTX_set0_untrusted;
+      X509_STORE_CTX_set0_untrusted := FC_X509_STORE_CTX_set0_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4922,7 +4929,7 @@ begin
     if X509_STORE_CTX_set0_untrusted_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set0_untrusted)}
-      X509_STORE_CTX_set0_untrusted := @_X509_STORE_CTX_set0_untrusted;
+      X509_STORE_CTX_set0_untrusted := _X509_STORE_CTX_set0_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4940,13 +4947,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_verify_cb_allownil)}
-    X509_STORE_CTX_set_verify_cb := @ERR_X509_STORE_CTX_set_verify_cb;
+    X509_STORE_CTX_set_verify_cb := ERR_X509_STORE_CTX_set_verify_cb;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_verify_cb_introduced)}
     if LibVersion < X509_STORE_CTX_set_verify_cb_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_verify_cb)}
-      X509_STORE_CTX_set_verify_cb := @FC_X509_STORE_CTX_set_verify_cb;
+      X509_STORE_CTX_set_verify_cb := FC_X509_STORE_CTX_set_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4955,7 +4962,7 @@ begin
     if X509_STORE_CTX_set_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_verify_cb)}
-      X509_STORE_CTX_set_verify_cb := @_X509_STORE_CTX_set_verify_cb;
+      X509_STORE_CTX_set_verify_cb := _X509_STORE_CTX_set_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4972,13 +4979,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_verify_cb_allownil)}
-    X509_STORE_CTX_get_verify_cb := @ERR_X509_STORE_CTX_get_verify_cb;
+    X509_STORE_CTX_get_verify_cb := ERR_X509_STORE_CTX_get_verify_cb;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_verify_cb_introduced)}
     if LibVersion < X509_STORE_CTX_get_verify_cb_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_verify_cb)}
-      X509_STORE_CTX_get_verify_cb := @FC_X509_STORE_CTX_get_verify_cb;
+      X509_STORE_CTX_get_verify_cb := FC_X509_STORE_CTX_get_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4987,7 +4994,7 @@ begin
     if X509_STORE_CTX_get_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_verify_cb)}
-      X509_STORE_CTX_get_verify_cb := @_X509_STORE_CTX_get_verify_cb;
+      X509_STORE_CTX_get_verify_cb := _X509_STORE_CTX_get_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5004,13 +5011,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_verify_allownil)}
-    X509_STORE_CTX_get_verify := @ERR_X509_STORE_CTX_get_verify;
+    X509_STORE_CTX_get_verify := ERR_X509_STORE_CTX_get_verify;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_verify_introduced)}
     if LibVersion < X509_STORE_CTX_get_verify_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_verify)}
-      X509_STORE_CTX_get_verify := @FC_X509_STORE_CTX_get_verify;
+      X509_STORE_CTX_get_verify := FC_X509_STORE_CTX_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5019,7 +5026,7 @@ begin
     if X509_STORE_CTX_get_verify_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_verify)}
-      X509_STORE_CTX_get_verify := @_X509_STORE_CTX_get_verify;
+      X509_STORE_CTX_get_verify := _X509_STORE_CTX_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5036,13 +5043,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_get_issuer_allownil)}
-    X509_STORE_CTX_get_get_issuer := @ERR_X509_STORE_CTX_get_get_issuer;
+    X509_STORE_CTX_get_get_issuer := ERR_X509_STORE_CTX_get_get_issuer;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_get_issuer_introduced)}
     if LibVersion < X509_STORE_CTX_get_get_issuer_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_get_issuer)}
-      X509_STORE_CTX_get_get_issuer := @FC_X509_STORE_CTX_get_get_issuer;
+      X509_STORE_CTX_get_get_issuer := FC_X509_STORE_CTX_get_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5051,7 +5058,7 @@ begin
     if X509_STORE_CTX_get_get_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_get_issuer)}
-      X509_STORE_CTX_get_get_issuer := @_X509_STORE_CTX_get_get_issuer;
+      X509_STORE_CTX_get_get_issuer := _X509_STORE_CTX_get_get_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5068,13 +5075,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_check_issued_allownil)}
-    X509_STORE_CTX_get_check_issued := @ERR_X509_STORE_CTX_get_check_issued;
+    X509_STORE_CTX_get_check_issued := ERR_X509_STORE_CTX_get_check_issued;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_check_issued_introduced)}
     if LibVersion < X509_STORE_CTX_get_check_issued_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_check_issued)}
-      X509_STORE_CTX_get_check_issued := @FC_X509_STORE_CTX_get_check_issued;
+      X509_STORE_CTX_get_check_issued := FC_X509_STORE_CTX_get_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5083,7 +5090,7 @@ begin
     if X509_STORE_CTX_get_check_issued_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_check_issued)}
-      X509_STORE_CTX_get_check_issued := @_X509_STORE_CTX_get_check_issued;
+      X509_STORE_CTX_get_check_issued := _X509_STORE_CTX_get_check_issued;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5100,13 +5107,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_check_revocation_allownil)}
-    X509_STORE_CTX_get_check_revocation := @ERR_X509_STORE_CTX_get_check_revocation;
+    X509_STORE_CTX_get_check_revocation := ERR_X509_STORE_CTX_get_check_revocation;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_check_revocation_introduced)}
     if LibVersion < X509_STORE_CTX_get_check_revocation_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_check_revocation)}
-      X509_STORE_CTX_get_check_revocation := @FC_X509_STORE_CTX_get_check_revocation;
+      X509_STORE_CTX_get_check_revocation := FC_X509_STORE_CTX_get_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5115,7 +5122,7 @@ begin
     if X509_STORE_CTX_get_check_revocation_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_check_revocation)}
-      X509_STORE_CTX_get_check_revocation := @_X509_STORE_CTX_get_check_revocation;
+      X509_STORE_CTX_get_check_revocation := _X509_STORE_CTX_get_check_revocation;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5132,13 +5139,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_get_crl_allownil)}
-    X509_STORE_CTX_get_get_crl := @ERR_X509_STORE_CTX_get_get_crl;
+    X509_STORE_CTX_get_get_crl := ERR_X509_STORE_CTX_get_get_crl;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_get_crl_introduced)}
     if LibVersion < X509_STORE_CTX_get_get_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_get_crl)}
-      X509_STORE_CTX_get_get_crl := @FC_X509_STORE_CTX_get_get_crl;
+      X509_STORE_CTX_get_get_crl := FC_X509_STORE_CTX_get_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5147,7 +5154,7 @@ begin
     if X509_STORE_CTX_get_get_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_get_crl)}
-      X509_STORE_CTX_get_get_crl := @_X509_STORE_CTX_get_get_crl;
+      X509_STORE_CTX_get_get_crl := _X509_STORE_CTX_get_get_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5164,13 +5171,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_check_crl_allownil)}
-    X509_STORE_CTX_get_check_crl := @ERR_X509_STORE_CTX_get_check_crl;
+    X509_STORE_CTX_get_check_crl := ERR_X509_STORE_CTX_get_check_crl;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_check_crl_introduced)}
     if LibVersion < X509_STORE_CTX_get_check_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_check_crl)}
-      X509_STORE_CTX_get_check_crl := @FC_X509_STORE_CTX_get_check_crl;
+      X509_STORE_CTX_get_check_crl := FC_X509_STORE_CTX_get_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5179,7 +5186,7 @@ begin
     if X509_STORE_CTX_get_check_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_check_crl)}
-      X509_STORE_CTX_get_check_crl := @_X509_STORE_CTX_get_check_crl;
+      X509_STORE_CTX_get_check_crl := _X509_STORE_CTX_get_check_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5196,13 +5203,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_cert_crl_allownil)}
-    X509_STORE_CTX_get_cert_crl := @ERR_X509_STORE_CTX_get_cert_crl;
+    X509_STORE_CTX_get_cert_crl := ERR_X509_STORE_CTX_get_cert_crl;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_cert_crl_introduced)}
     if LibVersion < X509_STORE_CTX_get_cert_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_cert_crl)}
-      X509_STORE_CTX_get_cert_crl := @FC_X509_STORE_CTX_get_cert_crl;
+      X509_STORE_CTX_get_cert_crl := FC_X509_STORE_CTX_get_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5211,7 +5218,7 @@ begin
     if X509_STORE_CTX_get_cert_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_cert_crl)}
-      X509_STORE_CTX_get_cert_crl := @_X509_STORE_CTX_get_cert_crl;
+      X509_STORE_CTX_get_cert_crl := _X509_STORE_CTX_get_cert_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5228,13 +5235,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_check_policy_allownil)}
-    X509_STORE_CTX_get_check_policy := @ERR_X509_STORE_CTX_get_check_policy;
+    X509_STORE_CTX_get_check_policy := ERR_X509_STORE_CTX_get_check_policy;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_check_policy_introduced)}
     if LibVersion < X509_STORE_CTX_get_check_policy_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_check_policy)}
-      X509_STORE_CTX_get_check_policy := @FC_X509_STORE_CTX_get_check_policy;
+      X509_STORE_CTX_get_check_policy := FC_X509_STORE_CTX_get_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5243,7 +5250,7 @@ begin
     if X509_STORE_CTX_get_check_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_check_policy)}
-      X509_STORE_CTX_get_check_policy := @_X509_STORE_CTX_get_check_policy;
+      X509_STORE_CTX_get_check_policy := _X509_STORE_CTX_get_check_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5259,13 +5266,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_lookup_cert_allownil)}
-    X509_STORE_CTX_get_lookup_certs := @ERR_X509_STORE_CTX_get_lookup_certs;
+    X509_STORE_CTX_get_lookup_certs := ERR_X509_STORE_CTX_get_lookup_certs;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_lookup_certs_introduced)}
     if LibVersion < X509_STORE_CTX_get_lookup_certs_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_lookup_certs)}
-      X509_STORE_CTX_get_lookup_certs := @FC_X509_STORE_CTX_get_lookup_certs;
+      X509_STORE_CTX_get_lookup_certs := FC_X509_STORE_CTX_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5274,7 +5281,7 @@ begin
     if X509_STORE_CTX_get_lookup_certs_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_lookup_certs)}
-      X509_STORE_CTX_get_lookup_certs := @_X509_STORE_CTX_get_lookup_certs;
+      X509_STORE_CTX_get_lookup_certs := _X509_STORE_CTX_get_lookup_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5290,13 +5297,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_lookup_crls_allownil)}
-    X509_STORE_CTX_get_lookup_crls := @ERR_X509_STORE_CTX_get_lookup_crls;
+    X509_STORE_CTX_get_lookup_crls := ERR_X509_STORE_CTX_get_lookup_crls;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_lookup_crls_introduced)}
     if LibVersion < X509_STORE_CTX_get_lookup_crls_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_lookup_crls)}
-      X509_STORE_CTX_get_lookup_crls := @FC_X509_STORE_CTX_get_lookup_crls;
+      X509_STORE_CTX_get_lookup_crls := FC_X509_STORE_CTX_get_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5305,7 +5312,7 @@ begin
     if X509_STORE_CTX_get_lookup_crls_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_lookup_crls)}
-      X509_STORE_CTX_get_lookup_crls := @_X509_STORE_CTX_get_lookup_crls;
+      X509_STORE_CTX_get_lookup_crls := _X509_STORE_CTX_get_lookup_crls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5322,13 +5329,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_cleanup_allownil)}
-    X509_STORE_CTX_get_cleanup := @ERR_X509_STORE_CTX_get_cleanup;
+    X509_STORE_CTX_get_cleanup := ERR_X509_STORE_CTX_get_cleanup;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_cleanup_introduced)}
     if LibVersion < X509_STORE_CTX_get_cleanup_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_cleanup)}
-      X509_STORE_CTX_get_cleanup := @FC_X509_STORE_CTX_get_cleanup;
+      X509_STORE_CTX_get_cleanup := FC_X509_STORE_CTX_get_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5337,7 +5344,7 @@ begin
     if X509_STORE_CTX_get_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_cleanup)}
-      X509_STORE_CTX_get_cleanup := @_X509_STORE_CTX_get_cleanup;
+      X509_STORE_CTX_get_cleanup := _X509_STORE_CTX_get_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5354,13 +5361,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_add_lookup_allownil)}
-    X509_STORE_add_lookup := @ERR_X509_STORE_add_lookup;
+    X509_STORE_add_lookup := ERR_X509_STORE_add_lookup;
     {$ifend}
     {$if declared(X509_STORE_add_lookup_introduced)}
     if LibVersion < X509_STORE_add_lookup_introduced then
     begin
       {$if declared(FC_X509_STORE_add_lookup)}
-      X509_STORE_add_lookup := @FC_X509_STORE_add_lookup;
+      X509_STORE_add_lookup := FC_X509_STORE_add_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5369,7 +5376,7 @@ begin
     if X509_STORE_add_lookup_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_add_lookup)}
-      X509_STORE_add_lookup := @_X509_STORE_add_lookup;
+      X509_STORE_add_lookup := _X509_STORE_add_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5386,13 +5393,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_hash_dir_allownil)}
-    X509_LOOKUP_hash_dir := @ERR_X509_LOOKUP_hash_dir;
+    X509_LOOKUP_hash_dir := ERR_X509_LOOKUP_hash_dir;
     {$ifend}
     {$if declared(X509_LOOKUP_hash_dir_introduced)}
     if LibVersion < X509_LOOKUP_hash_dir_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_hash_dir)}
-      X509_LOOKUP_hash_dir := @FC_X509_LOOKUP_hash_dir;
+      X509_LOOKUP_hash_dir := FC_X509_LOOKUP_hash_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5401,7 +5408,7 @@ begin
     if X509_LOOKUP_hash_dir_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_hash_dir)}
-      X509_LOOKUP_hash_dir := @_X509_LOOKUP_hash_dir;
+      X509_LOOKUP_hash_dir := _X509_LOOKUP_hash_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5418,13 +5425,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_file_allownil)}
-    X509_LOOKUP_file := @ERR_X509_LOOKUP_file;
+    X509_LOOKUP_file := ERR_X509_LOOKUP_file;
     {$ifend}
     {$if declared(X509_LOOKUP_file_introduced)}
     if LibVersion < X509_LOOKUP_file_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_file)}
-      X509_LOOKUP_file := @FC_X509_LOOKUP_file;
+      X509_LOOKUP_file := FC_X509_LOOKUP_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5433,7 +5440,7 @@ begin
     if X509_LOOKUP_file_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_file)}
-      X509_LOOKUP_file := @_X509_LOOKUP_file;
+      X509_LOOKUP_file := _X509_LOOKUP_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5449,13 +5456,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_store_allownil)}
-    X509_LOOKUP_store := @ERR_X509_LOOKUP_store;
+    X509_LOOKUP_store := ERR_X509_LOOKUP_store;
     {$ifend}
     {$if declared(X509_LOOKUP_store_introduced)}
     if LibVersion < X509_LOOKUP_store_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_store)}
-      X509_LOOKUP_store := @FC_X509_LOOKUP_store;
+      X509_LOOKUP_store := FC_X509_LOOKUP_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5464,7 +5471,7 @@ begin
     if X509_LOOKUP_store_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_store)}
-      X509_LOOKUP_store := @_X509_LOOKUP_store;
+      X509_LOOKUP_store := _X509_LOOKUP_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5481,13 +5488,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_new_allownil)}
-    X509_LOOKUP_meth_new := @ERR_X509_LOOKUP_meth_new;
+    X509_LOOKUP_meth_new := ERR_X509_LOOKUP_meth_new;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_new_introduced)}
     if LibVersion < X509_LOOKUP_meth_new_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_new)}
-      X509_LOOKUP_meth_new := @FC_X509_LOOKUP_meth_new;
+      X509_LOOKUP_meth_new := FC_X509_LOOKUP_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5496,7 +5503,7 @@ begin
     if X509_LOOKUP_meth_new_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_new)}
-      X509_LOOKUP_meth_new := @_X509_LOOKUP_meth_new;
+      X509_LOOKUP_meth_new := _X509_LOOKUP_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5513,13 +5520,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_free_allownil)}
-    X509_LOOKUP_meth_free := @ERR_X509_LOOKUP_meth_free;
+    X509_LOOKUP_meth_free := ERR_X509_LOOKUP_meth_free;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_free_introduced)}
     if LibVersion < X509_LOOKUP_meth_free_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_free)}
-      X509_LOOKUP_meth_free := @FC_X509_LOOKUP_meth_free;
+      X509_LOOKUP_meth_free := FC_X509_LOOKUP_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5528,7 +5535,7 @@ begin
     if X509_LOOKUP_meth_free_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_free)}
-      X509_LOOKUP_meth_free := @_X509_LOOKUP_meth_free;
+      X509_LOOKUP_meth_free := _X509_LOOKUP_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5545,13 +5552,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_set_ctrl_allownil)}
-    X509_LOOKUP_meth_set_ctrl := @ERR_X509_LOOKUP_meth_set_ctrl;
+    X509_LOOKUP_meth_set_ctrl := ERR_X509_LOOKUP_meth_set_ctrl;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_set_ctrl_introduced)}
     if LibVersion < X509_LOOKUP_meth_set_ctrl_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_set_ctrl)}
-      X509_LOOKUP_meth_set_ctrl := @FC_X509_LOOKUP_meth_set_ctrl;
+      X509_LOOKUP_meth_set_ctrl := FC_X509_LOOKUP_meth_set_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5560,7 +5567,7 @@ begin
     if X509_LOOKUP_meth_set_ctrl_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_set_ctrl)}
-      X509_LOOKUP_meth_set_ctrl := @_X509_LOOKUP_meth_set_ctrl;
+      X509_LOOKUP_meth_set_ctrl := _X509_LOOKUP_meth_set_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5577,13 +5584,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_get_ctrl_allownil)}
-    X509_LOOKUP_meth_get_ctrl := @ERR_X509_LOOKUP_meth_get_ctrl;
+    X509_LOOKUP_meth_get_ctrl := ERR_X509_LOOKUP_meth_get_ctrl;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_get_ctrl_introduced)}
     if LibVersion < X509_LOOKUP_meth_get_ctrl_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_get_ctrl)}
-      X509_LOOKUP_meth_get_ctrl := @FC_X509_LOOKUP_meth_get_ctrl;
+      X509_LOOKUP_meth_get_ctrl := FC_X509_LOOKUP_meth_get_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5592,7 +5599,7 @@ begin
     if X509_LOOKUP_meth_get_ctrl_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_get_ctrl)}
-      X509_LOOKUP_meth_get_ctrl := @_X509_LOOKUP_meth_get_ctrl;
+      X509_LOOKUP_meth_get_ctrl := _X509_LOOKUP_meth_get_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5609,13 +5616,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_set_get_by_subject_allownil)}
-    X509_LOOKUP_meth_set_get_by_subject := @ERR_X509_LOOKUP_meth_set_get_by_subject;
+    X509_LOOKUP_meth_set_get_by_subject := ERR_X509_LOOKUP_meth_set_get_by_subject;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_set_get_by_subject_introduced)}
     if LibVersion < X509_LOOKUP_meth_set_get_by_subject_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_set_get_by_subject)}
-      X509_LOOKUP_meth_set_get_by_subject := @FC_X509_LOOKUP_meth_set_get_by_subject;
+      X509_LOOKUP_meth_set_get_by_subject := FC_X509_LOOKUP_meth_set_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5624,7 +5631,7 @@ begin
     if X509_LOOKUP_meth_set_get_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_set_get_by_subject)}
-      X509_LOOKUP_meth_set_get_by_subject := @_X509_LOOKUP_meth_set_get_by_subject;
+      X509_LOOKUP_meth_set_get_by_subject := _X509_LOOKUP_meth_set_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5641,13 +5648,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_get_get_by_subject_allownil)}
-    X509_LOOKUP_meth_get_get_by_subject := @ERR_X509_LOOKUP_meth_get_get_by_subject;
+    X509_LOOKUP_meth_get_get_by_subject := ERR_X509_LOOKUP_meth_get_get_by_subject;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_get_get_by_subject_introduced)}
     if LibVersion < X509_LOOKUP_meth_get_get_by_subject_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_get_get_by_subject)}
-      X509_LOOKUP_meth_get_get_by_subject := @FC_X509_LOOKUP_meth_get_get_by_subject;
+      X509_LOOKUP_meth_get_get_by_subject := FC_X509_LOOKUP_meth_get_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5656,7 +5663,7 @@ begin
     if X509_LOOKUP_meth_get_get_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_get_get_by_subject)}
-      X509_LOOKUP_meth_get_get_by_subject := @_X509_LOOKUP_meth_get_get_by_subject;
+      X509_LOOKUP_meth_get_get_by_subject := _X509_LOOKUP_meth_get_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5673,13 +5680,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_set_get_by_issuer_serial_allownil)}
-    X509_LOOKUP_meth_set_get_by_issuer_serial := @ERR_X509_LOOKUP_meth_set_get_by_issuer_serial;
+    X509_LOOKUP_meth_set_get_by_issuer_serial := ERR_X509_LOOKUP_meth_set_get_by_issuer_serial;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_set_get_by_issuer_serial_introduced)}
     if LibVersion < X509_LOOKUP_meth_set_get_by_issuer_serial_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_set_get_by_issuer_serial)}
-      X509_LOOKUP_meth_set_get_by_issuer_serial := @FC_X509_LOOKUP_meth_set_get_by_issuer_serial;
+      X509_LOOKUP_meth_set_get_by_issuer_serial := FC_X509_LOOKUP_meth_set_get_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5688,7 +5695,7 @@ begin
     if X509_LOOKUP_meth_set_get_by_issuer_serial_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_set_get_by_issuer_serial)}
-      X509_LOOKUP_meth_set_get_by_issuer_serial := @_X509_LOOKUP_meth_set_get_by_issuer_serial;
+      X509_LOOKUP_meth_set_get_by_issuer_serial := _X509_LOOKUP_meth_set_get_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5705,13 +5712,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_get_get_by_issuer_serial_allownil)}
-    X509_LOOKUP_meth_get_get_by_issuer_serial := @ERR_X509_LOOKUP_meth_get_get_by_issuer_serial;
+    X509_LOOKUP_meth_get_get_by_issuer_serial := ERR_X509_LOOKUP_meth_get_get_by_issuer_serial;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_get_get_by_issuer_serial_introduced)}
     if LibVersion < X509_LOOKUP_meth_get_get_by_issuer_serial_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_get_get_by_issuer_serial)}
-      X509_LOOKUP_meth_get_get_by_issuer_serial := @FC_X509_LOOKUP_meth_get_get_by_issuer_serial;
+      X509_LOOKUP_meth_get_get_by_issuer_serial := FC_X509_LOOKUP_meth_get_get_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5720,7 +5727,7 @@ begin
     if X509_LOOKUP_meth_get_get_by_issuer_serial_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_get_get_by_issuer_serial)}
-      X509_LOOKUP_meth_get_get_by_issuer_serial := @_X509_LOOKUP_meth_get_get_by_issuer_serial;
+      X509_LOOKUP_meth_get_get_by_issuer_serial := _X509_LOOKUP_meth_get_get_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5737,13 +5744,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_set_get_by_fingerprint_allownil)}
-    X509_LOOKUP_meth_set_get_by_fingerprint := @ERR_X509_LOOKUP_meth_set_get_by_fingerprint;
+    X509_LOOKUP_meth_set_get_by_fingerprint := ERR_X509_LOOKUP_meth_set_get_by_fingerprint;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_set_get_by_fingerprint_introduced)}
     if LibVersion < X509_LOOKUP_meth_set_get_by_fingerprint_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_set_get_by_fingerprint)}
-      X509_LOOKUP_meth_set_get_by_fingerprint := @FC_X509_LOOKUP_meth_set_get_by_fingerprint;
+      X509_LOOKUP_meth_set_get_by_fingerprint := FC_X509_LOOKUP_meth_set_get_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5752,7 +5759,7 @@ begin
     if X509_LOOKUP_meth_set_get_by_fingerprint_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_set_get_by_fingerprint)}
-      X509_LOOKUP_meth_set_get_by_fingerprint := @_X509_LOOKUP_meth_set_get_by_fingerprint;
+      X509_LOOKUP_meth_set_get_by_fingerprint := _X509_LOOKUP_meth_set_get_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5769,13 +5776,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_get_get_by_fingerprint_allownil)}
-    X509_LOOKUP_meth_get_get_by_fingerprint := @ERR_X509_LOOKUP_meth_get_get_by_fingerprint;
+    X509_LOOKUP_meth_get_get_by_fingerprint := ERR_X509_LOOKUP_meth_get_get_by_fingerprint;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_get_get_by_fingerprint_introduced)}
     if LibVersion < X509_LOOKUP_meth_get_get_by_fingerprint_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_get_get_by_fingerprint)}
-      X509_LOOKUP_meth_get_get_by_fingerprint := @FC_X509_LOOKUP_meth_get_get_by_fingerprint;
+      X509_LOOKUP_meth_get_get_by_fingerprint := FC_X509_LOOKUP_meth_get_get_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5784,7 +5791,7 @@ begin
     if X509_LOOKUP_meth_get_get_by_fingerprint_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_get_get_by_fingerprint)}
-      X509_LOOKUP_meth_get_get_by_fingerprint := @_X509_LOOKUP_meth_get_get_by_fingerprint;
+      X509_LOOKUP_meth_get_get_by_fingerprint := _X509_LOOKUP_meth_get_get_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5801,13 +5808,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_set_get_by_alias_allownil)}
-    X509_LOOKUP_meth_set_get_by_alias := @ERR_X509_LOOKUP_meth_set_get_by_alias;
+    X509_LOOKUP_meth_set_get_by_alias := ERR_X509_LOOKUP_meth_set_get_by_alias;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_set_get_by_alias_introduced)}
     if LibVersion < X509_LOOKUP_meth_set_get_by_alias_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_set_get_by_alias)}
-      X509_LOOKUP_meth_set_get_by_alias := @FC_X509_LOOKUP_meth_set_get_by_alias;
+      X509_LOOKUP_meth_set_get_by_alias := FC_X509_LOOKUP_meth_set_get_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5816,7 +5823,7 @@ begin
     if X509_LOOKUP_meth_set_get_by_alias_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_set_get_by_alias)}
-      X509_LOOKUP_meth_set_get_by_alias := @_X509_LOOKUP_meth_set_get_by_alias;
+      X509_LOOKUP_meth_set_get_by_alias := _X509_LOOKUP_meth_set_get_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5833,13 +5840,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_meth_get_get_by_alias_allownil)}
-    X509_LOOKUP_meth_get_get_by_alias := @ERR_X509_LOOKUP_meth_get_get_by_alias;
+    X509_LOOKUP_meth_get_get_by_alias := ERR_X509_LOOKUP_meth_get_get_by_alias;
     {$ifend}
     {$if declared(X509_LOOKUP_meth_get_get_by_alias_introduced)}
     if LibVersion < X509_LOOKUP_meth_get_get_by_alias_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_meth_get_get_by_alias)}
-      X509_LOOKUP_meth_get_get_by_alias := @FC_X509_LOOKUP_meth_get_get_by_alias;
+      X509_LOOKUP_meth_get_get_by_alias := FC_X509_LOOKUP_meth_get_get_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5848,7 +5855,7 @@ begin
     if X509_LOOKUP_meth_get_get_by_alias_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_meth_get_get_by_alias)}
-      X509_LOOKUP_meth_get_get_by_alias := @_X509_LOOKUP_meth_get_get_by_alias;
+      X509_LOOKUP_meth_get_get_by_alias := _X509_LOOKUP_meth_get_get_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5865,13 +5872,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_add_cert_allownil)}
-    X509_STORE_add_cert := @ERR_X509_STORE_add_cert;
+    X509_STORE_add_cert := ERR_X509_STORE_add_cert;
     {$ifend}
     {$if declared(X509_STORE_add_cert_introduced)}
     if LibVersion < X509_STORE_add_cert_introduced then
     begin
       {$if declared(FC_X509_STORE_add_cert)}
-      X509_STORE_add_cert := @FC_X509_STORE_add_cert;
+      X509_STORE_add_cert := FC_X509_STORE_add_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5880,7 +5887,7 @@ begin
     if X509_STORE_add_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_add_cert)}
-      X509_STORE_add_cert := @_X509_STORE_add_cert;
+      X509_STORE_add_cert := _X509_STORE_add_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5897,13 +5904,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_add_crl_allownil)}
-    X509_STORE_add_crl := @ERR_X509_STORE_add_crl;
+    X509_STORE_add_crl := ERR_X509_STORE_add_crl;
     {$ifend}
     {$if declared(X509_STORE_add_crl_introduced)}
     if LibVersion < X509_STORE_add_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_add_crl)}
-      X509_STORE_add_crl := @FC_X509_STORE_add_crl;
+      X509_STORE_add_crl := FC_X509_STORE_add_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5912,7 +5919,7 @@ begin
     if X509_STORE_add_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_add_crl)}
-      X509_STORE_add_crl := @_X509_STORE_add_crl;
+      X509_STORE_add_crl := _X509_STORE_add_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5929,13 +5936,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_by_subject_allownil)}
-    X509_STORE_CTX_get_by_subject := @ERR_X509_STORE_CTX_get_by_subject;
+    X509_STORE_CTX_get_by_subject := ERR_X509_STORE_CTX_get_by_subject;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_by_subject_introduced)}
     if LibVersion < X509_STORE_CTX_get_by_subject_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_by_subject)}
-      X509_STORE_CTX_get_by_subject := @FC_X509_STORE_CTX_get_by_subject;
+      X509_STORE_CTX_get_by_subject := FC_X509_STORE_CTX_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5944,7 +5951,7 @@ begin
     if X509_STORE_CTX_get_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_by_subject)}
-      X509_STORE_CTX_get_by_subject := @_X509_STORE_CTX_get_by_subject;
+      X509_STORE_CTX_get_by_subject := _X509_STORE_CTX_get_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5961,13 +5968,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_obj_by_subject_allownil)}
-    X509_STORE_CTX_get_obj_by_subject := @ERR_X509_STORE_CTX_get_obj_by_subject;
+    X509_STORE_CTX_get_obj_by_subject := ERR_X509_STORE_CTX_get_obj_by_subject;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_obj_by_subject_introduced)}
     if LibVersion < X509_STORE_CTX_get_obj_by_subject_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_obj_by_subject)}
-      X509_STORE_CTX_get_obj_by_subject := @FC_X509_STORE_CTX_get_obj_by_subject;
+      X509_STORE_CTX_get_obj_by_subject := FC_X509_STORE_CTX_get_obj_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5976,7 +5983,7 @@ begin
     if X509_STORE_CTX_get_obj_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_obj_by_subject)}
-      X509_STORE_CTX_get_obj_by_subject := @_X509_STORE_CTX_get_obj_by_subject;
+      X509_STORE_CTX_get_obj_by_subject := _X509_STORE_CTX_get_obj_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5993,13 +6000,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_ctrl_allownil)}
-    X509_LOOKUP_ctrl := @ERR_X509_LOOKUP_ctrl;
+    X509_LOOKUP_ctrl := ERR_X509_LOOKUP_ctrl;
     {$ifend}
     {$if declared(X509_LOOKUP_ctrl_introduced)}
     if LibVersion < X509_LOOKUP_ctrl_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_ctrl)}
-      X509_LOOKUP_ctrl := @FC_X509_LOOKUP_ctrl;
+      X509_LOOKUP_ctrl := FC_X509_LOOKUP_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6008,7 +6015,7 @@ begin
     if X509_LOOKUP_ctrl_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_ctrl)}
-      X509_LOOKUP_ctrl := @_X509_LOOKUP_ctrl;
+      X509_LOOKUP_ctrl := _X509_LOOKUP_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6025,13 +6032,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_load_cert_file_allownil)}
-    X509_load_cert_file := @ERR_X509_load_cert_file;
+    X509_load_cert_file := ERR_X509_load_cert_file;
     {$ifend}
     {$if declared(X509_load_cert_file_introduced)}
     if LibVersion < X509_load_cert_file_introduced then
     begin
       {$if declared(FC_X509_load_cert_file)}
-      X509_load_cert_file := @FC_X509_load_cert_file;
+      X509_load_cert_file := FC_X509_load_cert_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6040,7 +6047,7 @@ begin
     if X509_load_cert_file_removed <= LibVersion then
     begin
       {$if declared(_X509_load_cert_file)}
-      X509_load_cert_file := @_X509_load_cert_file;
+      X509_load_cert_file := _X509_load_cert_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6056,13 +6063,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_load_cert_file_ex_allownil)}
-    X509_load_cert_file_ex := @ERR_X509_load_cert_file_ex;
+    X509_load_cert_file_ex := ERR_X509_load_cert_file_ex;
     {$ifend}
     {$if declared(X509_load_cert_file_ex_introduced)}
     if LibVersion < X509_load_cert_file_ex_introduced then
     begin
       {$if declared(FC_X509_load_cert_file_ex)}
-      X509_load_cert_file_ex := @FC_X509_load_cert_file_ex;
+      X509_load_cert_file_ex := FC_X509_load_cert_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6071,7 +6078,7 @@ begin
     if X509_load_cert_file_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_load_cert_file_ex)}
-      X509_load_cert_file_ex := @_X509_load_cert_file_ex;
+      X509_load_cert_file_ex := _X509_load_cert_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6087,13 +6094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_load_crl_file_allownil)}
-    X509_load_crl_file := @ERR_X509_load_crl_file;
+    X509_load_crl_file := ERR_X509_load_crl_file;
     {$ifend}
     {$if declared(X509_load_crl_file_introduced)}
     if LibVersion < X509_load_crl_file_introduced then
     begin
       {$if declared(FC_X509_load_crl_file)}
-      X509_load_crl_file := @FC_X509_load_crl_file;
+      X509_load_crl_file := FC_X509_load_crl_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6102,7 +6109,7 @@ begin
     if X509_load_crl_file_removed <= LibVersion then
     begin
       {$if declared(_X509_load_crl_file)}
-      X509_load_crl_file := @_X509_load_crl_file;
+      X509_load_crl_file := _X509_load_crl_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6119,13 +6126,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_load_cert_crl_file_allownil)}
-    X509_load_cert_crl_file := @ERR_X509_load_cert_crl_file;
+    X509_load_cert_crl_file := ERR_X509_load_cert_crl_file;
     {$ifend}
     {$if declared(X509_load_cert_crl_file_introduced)}
     if LibVersion < X509_load_cert_crl_file_introduced then
     begin
       {$if declared(FC_X509_load_cert_crl_file)}
-      X509_load_cert_crl_file := @FC_X509_load_cert_crl_file;
+      X509_load_cert_crl_file := FC_X509_load_cert_crl_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6134,7 +6141,7 @@ begin
     if X509_load_cert_crl_file_removed <= LibVersion then
     begin
       {$if declared(_X509_load_cert_crl_file)}
-      X509_load_cert_crl_file := @_X509_load_cert_crl_file;
+      X509_load_cert_crl_file := _X509_load_cert_crl_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6150,13 +6157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_load_cert_crl_file_ex_allownil)}
-    X509_load_cert_crl_file_ex := @ERR_X509_load_cert_crl_file_ex;
+    X509_load_cert_crl_file_ex := ERR_X509_load_cert_crl_file_ex;
     {$ifend}
     {$if declared(X509_load_cert_crl_file_ex_introduced)}
     if LibVersion < X509_load_cert_crl_file_ex_introduced then
     begin
       {$if declared(FC_X509_load_cert_crl_file_ex)}
-      X509_load_cert_crl_file_ex := @FC_X509_load_cert_crl_file_ex;
+      X509_load_cert_crl_file_ex := FC_X509_load_cert_crl_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6165,7 +6172,7 @@ begin
     if X509_load_cert_crl_file_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_load_cert_crl_file_ex)}
-      X509_load_cert_crl_file_ex := @_X509_load_cert_crl_file_ex;
+      X509_load_cert_crl_file_ex := _X509_load_cert_crl_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6181,13 +6188,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_new_allownil)}
-    X509_LOOKUP_new := @ERR_X509_LOOKUP_new;
+    X509_LOOKUP_new := ERR_X509_LOOKUP_new;
     {$ifend}
     {$if declared(X509_LOOKUP_new_introduced)}
     if LibVersion < X509_LOOKUP_new_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_new)}
-      X509_LOOKUP_new := @FC_X509_LOOKUP_new;
+      X509_LOOKUP_new := FC_X509_LOOKUP_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6196,7 +6203,7 @@ begin
     if X509_LOOKUP_new_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_new)}
-      X509_LOOKUP_new := @_X509_LOOKUP_new;
+      X509_LOOKUP_new := _X509_LOOKUP_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6213,13 +6220,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_free_allownil)}
-    X509_LOOKUP_free := @ERR_X509_LOOKUP_free;
+    X509_LOOKUP_free := ERR_X509_LOOKUP_free;
     {$ifend}
     {$if declared(X509_LOOKUP_free_introduced)}
     if LibVersion < X509_LOOKUP_free_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_free)}
-      X509_LOOKUP_free := @FC_X509_LOOKUP_free;
+      X509_LOOKUP_free := FC_X509_LOOKUP_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6228,7 +6235,7 @@ begin
     if X509_LOOKUP_free_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_free)}
-      X509_LOOKUP_free := @_X509_LOOKUP_free;
+      X509_LOOKUP_free := _X509_LOOKUP_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6245,13 +6252,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_init_allownil)}
-    X509_LOOKUP_init := @ERR_X509_LOOKUP_init;
+    X509_LOOKUP_init := ERR_X509_LOOKUP_init;
     {$ifend}
     {$if declared(X509_LOOKUP_init_introduced)}
     if LibVersion < X509_LOOKUP_init_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_init)}
-      X509_LOOKUP_init := @FC_X509_LOOKUP_init;
+      X509_LOOKUP_init := FC_X509_LOOKUP_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6260,7 +6267,7 @@ begin
     if X509_LOOKUP_init_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_init)}
-      X509_LOOKUP_init := @_X509_LOOKUP_init;
+      X509_LOOKUP_init := _X509_LOOKUP_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6277,13 +6284,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_by_subject_allownil)}
-    X509_LOOKUP_by_subject := @ERR_X509_LOOKUP_by_subject;
+    X509_LOOKUP_by_subject := ERR_X509_LOOKUP_by_subject;
     {$ifend}
     {$if declared(X509_LOOKUP_by_subject_introduced)}
     if LibVersion < X509_LOOKUP_by_subject_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_by_subject)}
-      X509_LOOKUP_by_subject := @FC_X509_LOOKUP_by_subject;
+      X509_LOOKUP_by_subject := FC_X509_LOOKUP_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6292,7 +6299,7 @@ begin
     if X509_LOOKUP_by_subject_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_by_subject)}
-      X509_LOOKUP_by_subject := @_X509_LOOKUP_by_subject;
+      X509_LOOKUP_by_subject := _X509_LOOKUP_by_subject;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6309,13 +6316,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_by_issuer_serial_allownil)}
-    X509_LOOKUP_by_issuer_serial := @ERR_X509_LOOKUP_by_issuer_serial;
+    X509_LOOKUP_by_issuer_serial := ERR_X509_LOOKUP_by_issuer_serial;
     {$ifend}
     {$if declared(X509_LOOKUP_by_issuer_serial_introduced)}
     if LibVersion < X509_LOOKUP_by_issuer_serial_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_by_issuer_serial)}
-      X509_LOOKUP_by_issuer_serial := @FC_X509_LOOKUP_by_issuer_serial;
+      X509_LOOKUP_by_issuer_serial := FC_X509_LOOKUP_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6324,7 +6331,7 @@ begin
     if X509_LOOKUP_by_issuer_serial_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_by_issuer_serial)}
-      X509_LOOKUP_by_issuer_serial := @_X509_LOOKUP_by_issuer_serial;
+      X509_LOOKUP_by_issuer_serial := _X509_LOOKUP_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6341,13 +6348,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_by_fingerprint_allownil)}
-    X509_LOOKUP_by_fingerprint := @ERR_X509_LOOKUP_by_fingerprint;
+    X509_LOOKUP_by_fingerprint := ERR_X509_LOOKUP_by_fingerprint;
     {$ifend}
     {$if declared(X509_LOOKUP_by_fingerprint_introduced)}
     if LibVersion < X509_LOOKUP_by_fingerprint_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_by_fingerprint)}
-      X509_LOOKUP_by_fingerprint := @FC_X509_LOOKUP_by_fingerprint;
+      X509_LOOKUP_by_fingerprint := FC_X509_LOOKUP_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6356,7 +6363,7 @@ begin
     if X509_LOOKUP_by_fingerprint_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_by_fingerprint)}
-      X509_LOOKUP_by_fingerprint := @_X509_LOOKUP_by_fingerprint;
+      X509_LOOKUP_by_fingerprint := _X509_LOOKUP_by_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6373,13 +6380,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_by_alias_allownil)}
-    X509_LOOKUP_by_alias := @ERR_X509_LOOKUP_by_alias;
+    X509_LOOKUP_by_alias := ERR_X509_LOOKUP_by_alias;
     {$ifend}
     {$if declared(X509_LOOKUP_by_alias_introduced)}
     if LibVersion < X509_LOOKUP_by_alias_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_by_alias)}
-      X509_LOOKUP_by_alias := @FC_X509_LOOKUP_by_alias;
+      X509_LOOKUP_by_alias := FC_X509_LOOKUP_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6388,7 +6395,7 @@ begin
     if X509_LOOKUP_by_alias_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_by_alias)}
-      X509_LOOKUP_by_alias := @_X509_LOOKUP_by_alias;
+      X509_LOOKUP_by_alias := _X509_LOOKUP_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6405,13 +6412,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_set_method_data_allownil)}
-    X509_LOOKUP_set_method_data := @ERR_X509_LOOKUP_set_method_data;
+    X509_LOOKUP_set_method_data := ERR_X509_LOOKUP_set_method_data;
     {$ifend}
     {$if declared(X509_LOOKUP_set_method_data_introduced)}
     if LibVersion < X509_LOOKUP_set_method_data_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_set_method_data)}
-      X509_LOOKUP_set_method_data := @FC_X509_LOOKUP_set_method_data;
+      X509_LOOKUP_set_method_data := FC_X509_LOOKUP_set_method_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6420,7 +6427,7 @@ begin
     if X509_LOOKUP_set_method_data_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_set_method_data)}
-      X509_LOOKUP_set_method_data := @_X509_LOOKUP_set_method_data;
+      X509_LOOKUP_set_method_data := _X509_LOOKUP_set_method_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6437,13 +6444,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_get_method_data_allownil)}
-    X509_LOOKUP_get_method_data := @ERR_X509_LOOKUP_get_method_data;
+    X509_LOOKUP_get_method_data := ERR_X509_LOOKUP_get_method_data;
     {$ifend}
     {$if declared(X509_LOOKUP_get_method_data_introduced)}
     if LibVersion < X509_LOOKUP_get_method_data_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_get_method_data)}
-      X509_LOOKUP_get_method_data := @FC_X509_LOOKUP_get_method_data;
+      X509_LOOKUP_get_method_data := FC_X509_LOOKUP_get_method_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6452,7 +6459,7 @@ begin
     if X509_LOOKUP_get_method_data_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_get_method_data)}
-      X509_LOOKUP_get_method_data := @_X509_LOOKUP_get_method_data;
+      X509_LOOKUP_get_method_data := _X509_LOOKUP_get_method_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6469,13 +6476,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_get_store_allownil)}
-    X509_LOOKUP_get_store := @ERR_X509_LOOKUP_get_store;
+    X509_LOOKUP_get_store := ERR_X509_LOOKUP_get_store;
     {$ifend}
     {$if declared(X509_LOOKUP_get_store_introduced)}
     if LibVersion < X509_LOOKUP_get_store_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_get_store)}
-      X509_LOOKUP_get_store := @FC_X509_LOOKUP_get_store;
+      X509_LOOKUP_get_store := FC_X509_LOOKUP_get_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6484,7 +6491,7 @@ begin
     if X509_LOOKUP_get_store_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_get_store)}
-      X509_LOOKUP_get_store := @_X509_LOOKUP_get_store;
+      X509_LOOKUP_get_store := _X509_LOOKUP_get_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6501,13 +6508,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_LOOKUP_shutdown_allownil)}
-    X509_LOOKUP_shutdown := @ERR_X509_LOOKUP_shutdown;
+    X509_LOOKUP_shutdown := ERR_X509_LOOKUP_shutdown;
     {$ifend}
     {$if declared(X509_LOOKUP_shutdown_introduced)}
     if LibVersion < X509_LOOKUP_shutdown_introduced then
     begin
       {$if declared(FC_X509_LOOKUP_shutdown)}
-      X509_LOOKUP_shutdown := @FC_X509_LOOKUP_shutdown;
+      X509_LOOKUP_shutdown := FC_X509_LOOKUP_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6516,7 +6523,7 @@ begin
     if X509_LOOKUP_shutdown_removed <= LibVersion then
     begin
       {$if declared(_X509_LOOKUP_shutdown)}
-      X509_LOOKUP_shutdown := @_X509_LOOKUP_shutdown;
+      X509_LOOKUP_shutdown := _X509_LOOKUP_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6532,13 +6539,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_file_ex_allownil)}
-    X509_STORE_load_file_ex := @ERR_X509_STORE_load_file_ex;
+    X509_STORE_load_file_ex := ERR_X509_STORE_load_file_ex;
     {$ifend}
     {$if declared(X509_STORE_load_file_ex_introduced)}
     if LibVersion < X509_STORE_load_file_ex_introduced then
     begin
       {$if declared(FC_X509_STORE_load_file_ex)}
-      X509_STORE_load_file_ex := @FC_X509_STORE_load_file_ex;
+      X509_STORE_load_file_ex := FC_X509_STORE_load_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6547,7 +6554,7 @@ begin
     if X509_STORE_load_file_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_file_ex)}
-      X509_STORE_load_file_ex := @_X509_STORE_load_file_ex;
+      X509_STORE_load_file_ex := _X509_STORE_load_file_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6563,13 +6570,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_file_allownil)}
-    X509_STORE_load_file := @ERR_X509_STORE_load_file;
+    X509_STORE_load_file := ERR_X509_STORE_load_file;
     {$ifend}
     {$if declared(X509_STORE_load_file_introduced)}
     if LibVersion < X509_STORE_load_file_introduced then
     begin
       {$if declared(FC_X509_STORE_load_file)}
-      X509_STORE_load_file := @FC_X509_STORE_load_file;
+      X509_STORE_load_file := FC_X509_STORE_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6578,7 +6585,7 @@ begin
     if X509_STORE_load_file_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_file)}
-      X509_STORE_load_file := @_X509_STORE_load_file;
+      X509_STORE_load_file := _X509_STORE_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6594,13 +6601,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_path_allownil)}
-    X509_STORE_load_path := @ERR_X509_STORE_load_path;
+    X509_STORE_load_path := ERR_X509_STORE_load_path;
     {$ifend}
     {$if declared(X509_STORE_load_path_introduced)}
     if LibVersion < X509_STORE_load_path_introduced then
     begin
       {$if declared(FC_X509_STORE_load_path)}
-      X509_STORE_load_path := @FC_X509_STORE_load_path;
+      X509_STORE_load_path := FC_X509_STORE_load_path;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6609,7 +6616,7 @@ begin
     if X509_STORE_load_path_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_path)}
-      X509_STORE_load_path := @_X509_STORE_load_path;
+      X509_STORE_load_path := _X509_STORE_load_path;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6625,13 +6632,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_locations_allownil)}
-    X509_STORE_load_locations := @ERR_X509_STORE_load_locations;
+    X509_STORE_load_locations := ERR_X509_STORE_load_locations;
     {$ifend}
     {$if declared(X509_STORE_load_locations_introduced)}
     if LibVersion < X509_STORE_load_locations_introduced then
     begin
       {$if declared(FC_X509_STORE_load_locations)}
-      X509_STORE_load_locations := @FC_X509_STORE_load_locations;
+      X509_STORE_load_locations := FC_X509_STORE_load_locations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6640,7 +6647,7 @@ begin
     if X509_STORE_load_locations_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_locations)}
-      X509_STORE_load_locations := @_X509_STORE_load_locations;
+      X509_STORE_load_locations := _X509_STORE_load_locations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6656,13 +6663,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_locations_ex_allownil)}
-    X509_STORE_load_locations_ex := @ERR_X509_STORE_load_locations_ex;
+    X509_STORE_load_locations_ex := ERR_X509_STORE_load_locations_ex;
     {$ifend}
     {$if declared(X509_STORE_load_locations_ex_introduced)}
     if LibVersion < X509_STORE_load_locations_ex_introduced then
     begin
       {$if declared(FC_X509_STORE_load_locations_ex)}
-      X509_STORE_load_locations_ex := @FC_X509_STORE_load_locations_ex;
+      X509_STORE_load_locations_ex := FC_X509_STORE_load_locations_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6671,7 +6678,7 @@ begin
     if X509_STORE_load_locations_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_locations_ex)}
-      X509_STORE_load_locations_ex := @_X509_STORE_load_locations_ex;
+      X509_STORE_load_locations_ex := _X509_STORE_load_locations_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6687,13 +6694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_default_paths_allownil)}
-    X509_STORE_set_default_paths := @ERR_X509_STORE_set_default_paths;
+    X509_STORE_set_default_paths := ERR_X509_STORE_set_default_paths;
     {$ifend}
     {$if declared(X509_STORE_set_default_paths_introduced)}
     if LibVersion < X509_STORE_set_default_paths_introduced then
     begin
       {$if declared(FC_X509_STORE_set_default_paths)}
-      X509_STORE_set_default_paths := @FC_X509_STORE_set_default_paths;
+      X509_STORE_set_default_paths := FC_X509_STORE_set_default_paths;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6702,7 +6709,7 @@ begin
     if X509_STORE_set_default_paths_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_default_paths)}
-      X509_STORE_set_default_paths := @_X509_STORE_set_default_paths;
+      X509_STORE_set_default_paths := _X509_STORE_set_default_paths;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6718,13 +6725,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_set_default_paths_ex_allownil)}
-    X509_STORE_set_default_paths_ex := @ERR_X509_STORE_set_default_paths_ex;
+    X509_STORE_set_default_paths_ex := ERR_X509_STORE_set_default_paths_ex;
     {$ifend}
     {$if declared(X509_STORE_set_default_paths_ex_introduced)}
     if LibVersion < X509_STORE_set_default_paths_ex_introduced then
     begin
       {$if declared(FC_X509_STORE_set_default_paths_ex)}
-      X509_STORE_set_default_paths_ex := @FC_X509_STORE_set_default_paths_ex;
+      X509_STORE_set_default_paths_ex := FC_X509_STORE_set_default_paths_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6733,7 +6740,7 @@ begin
     if X509_STORE_set_default_paths_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_set_default_paths_ex)}
-      X509_STORE_set_default_paths_ex := @_X509_STORE_set_default_paths_ex;
+      X509_STORE_set_default_paths_ex := _X509_STORE_set_default_paths_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6749,13 +6756,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_store_allownil)}
-    X509_STORE_load_store := @ERR_X509_STORE_load_store;
+    X509_STORE_load_store := ERR_X509_STORE_load_store;
     {$ifend}
     {$if declared(X509_STORE_load_store_introduced)}
     if LibVersion < X509_STORE_load_store_introduced then
     begin
       {$if declared(FC_X509_STORE_load_store)}
-      X509_STORE_load_store := @FC_X509_STORE_load_store;
+      X509_STORE_load_store := FC_X509_STORE_load_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6764,7 +6771,7 @@ begin
     if X509_STORE_load_store_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_store)}
-      X509_STORE_load_store := @_X509_STORE_load_store;
+      X509_STORE_load_store := _X509_STORE_load_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6780,13 +6787,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_load_store_ex_allownil)}
-    X509_STORE_load_store_ex := @ERR_X509_STORE_load_store_ex;
+    X509_STORE_load_store_ex := ERR_X509_STORE_load_store_ex;
     {$ifend}
     {$if declared(X509_STORE_load_store_ex_introduced)}
     if LibVersion < X509_STORE_load_store_ex_introduced then
     begin
       {$if declared(FC_X509_STORE_load_store_ex)}
-      X509_STORE_load_store_ex := @FC_X509_STORE_load_store_ex;
+      X509_STORE_load_store_ex := FC_X509_STORE_load_store_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6795,7 +6802,7 @@ begin
     if X509_STORE_load_store_ex_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_load_store_ex)}
-      X509_STORE_load_store_ex := @_X509_STORE_load_store_ex;
+      X509_STORE_load_store_ex := _X509_STORE_load_store_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6812,13 +6819,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_ex_data_allownil)}
-    X509_STORE_CTX_set_ex_data := @ERR_X509_STORE_CTX_set_ex_data;
+    X509_STORE_CTX_set_ex_data := ERR_X509_STORE_CTX_set_ex_data;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_ex_data_introduced)}
     if LibVersion < X509_STORE_CTX_set_ex_data_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_ex_data)}
-      X509_STORE_CTX_set_ex_data := @FC_X509_STORE_CTX_set_ex_data;
+      X509_STORE_CTX_set_ex_data := FC_X509_STORE_CTX_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6827,7 +6834,7 @@ begin
     if X509_STORE_CTX_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_ex_data)}
-      X509_STORE_CTX_set_ex_data := @_X509_STORE_CTX_set_ex_data;
+      X509_STORE_CTX_set_ex_data := _X509_STORE_CTX_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6844,13 +6851,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_ex_data_allownil)}
-    X509_STORE_CTX_get_ex_data := @ERR_X509_STORE_CTX_get_ex_data;
+    X509_STORE_CTX_get_ex_data := ERR_X509_STORE_CTX_get_ex_data;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_ex_data_introduced)}
     if LibVersion < X509_STORE_CTX_get_ex_data_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_ex_data)}
-      X509_STORE_CTX_get_ex_data := @FC_X509_STORE_CTX_get_ex_data;
+      X509_STORE_CTX_get_ex_data := FC_X509_STORE_CTX_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6859,7 +6866,7 @@ begin
     if X509_STORE_CTX_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_ex_data)}
-      X509_STORE_CTX_get_ex_data := @_X509_STORE_CTX_get_ex_data;
+      X509_STORE_CTX_get_ex_data := _X509_STORE_CTX_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6876,13 +6883,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_error_allownil)}
-    X509_STORE_CTX_get_error := @ERR_X509_STORE_CTX_get_error;
+    X509_STORE_CTX_get_error := ERR_X509_STORE_CTX_get_error;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_error_introduced)}
     if LibVersion < X509_STORE_CTX_get_error_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_error)}
-      X509_STORE_CTX_get_error := @FC_X509_STORE_CTX_get_error;
+      X509_STORE_CTX_get_error := FC_X509_STORE_CTX_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6891,7 +6898,7 @@ begin
     if X509_STORE_CTX_get_error_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_error)}
-      X509_STORE_CTX_get_error := @_X509_STORE_CTX_get_error;
+      X509_STORE_CTX_get_error := _X509_STORE_CTX_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6908,13 +6915,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_error_allownil)}
-    X509_STORE_CTX_set_error := @ERR_X509_STORE_CTX_set_error;
+    X509_STORE_CTX_set_error := ERR_X509_STORE_CTX_set_error;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_error_introduced)}
     if LibVersion < X509_STORE_CTX_set_error_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_error)}
-      X509_STORE_CTX_set_error := @FC_X509_STORE_CTX_set_error;
+      X509_STORE_CTX_set_error := FC_X509_STORE_CTX_set_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6923,7 +6930,7 @@ begin
     if X509_STORE_CTX_set_error_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_error)}
-      X509_STORE_CTX_set_error := @_X509_STORE_CTX_set_error;
+      X509_STORE_CTX_set_error := _X509_STORE_CTX_set_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6940,13 +6947,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_error_depth_allownil)}
-    X509_STORE_CTX_get_error_depth := @ERR_X509_STORE_CTX_get_error_depth;
+    X509_STORE_CTX_get_error_depth := ERR_X509_STORE_CTX_get_error_depth;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_error_depth_introduced)}
     if LibVersion < X509_STORE_CTX_get_error_depth_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_error_depth)}
-      X509_STORE_CTX_get_error_depth := @FC_X509_STORE_CTX_get_error_depth;
+      X509_STORE_CTX_get_error_depth := FC_X509_STORE_CTX_get_error_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6955,7 +6962,7 @@ begin
     if X509_STORE_CTX_get_error_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_error_depth)}
-      X509_STORE_CTX_get_error_depth := @_X509_STORE_CTX_get_error_depth;
+      X509_STORE_CTX_get_error_depth := _X509_STORE_CTX_get_error_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6972,13 +6979,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_error_depth_allownil)}
-    X509_STORE_CTX_set_error_depth := @ERR_X509_STORE_CTX_set_error_depth;
+    X509_STORE_CTX_set_error_depth := ERR_X509_STORE_CTX_set_error_depth;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_error_depth_introduced)}
     if LibVersion < X509_STORE_CTX_set_error_depth_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_error_depth)}
-      X509_STORE_CTX_set_error_depth := @FC_X509_STORE_CTX_set_error_depth;
+      X509_STORE_CTX_set_error_depth := FC_X509_STORE_CTX_set_error_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6987,7 +6994,7 @@ begin
     if X509_STORE_CTX_set_error_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_error_depth)}
-      X509_STORE_CTX_set_error_depth := @_X509_STORE_CTX_set_error_depth;
+      X509_STORE_CTX_set_error_depth := _X509_STORE_CTX_set_error_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7004,13 +7011,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_current_cert_allownil)}
-    X509_STORE_CTX_get_current_cert := @ERR_X509_STORE_CTX_get_current_cert;
+    X509_STORE_CTX_get_current_cert := ERR_X509_STORE_CTX_get_current_cert;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_current_cert_introduced)}
     if LibVersion < X509_STORE_CTX_get_current_cert_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_current_cert)}
-      X509_STORE_CTX_get_current_cert := @FC_X509_STORE_CTX_get_current_cert;
+      X509_STORE_CTX_get_current_cert := FC_X509_STORE_CTX_get_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7019,7 +7026,7 @@ begin
     if X509_STORE_CTX_get_current_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_current_cert)}
-      X509_STORE_CTX_get_current_cert := @_X509_STORE_CTX_get_current_cert;
+      X509_STORE_CTX_get_current_cert := _X509_STORE_CTX_get_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7036,13 +7043,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_current_cert_allownil)}
-    X509_STORE_CTX_set_current_cert := @ERR_X509_STORE_CTX_set_current_cert;
+    X509_STORE_CTX_set_current_cert := ERR_X509_STORE_CTX_set_current_cert;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_current_cert_introduced)}
     if LibVersion < X509_STORE_CTX_set_current_cert_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_current_cert)}
-      X509_STORE_CTX_set_current_cert := @FC_X509_STORE_CTX_set_current_cert;
+      X509_STORE_CTX_set_current_cert := FC_X509_STORE_CTX_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7051,7 +7058,7 @@ begin
     if X509_STORE_CTX_set_current_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_current_cert)}
-      X509_STORE_CTX_set_current_cert := @_X509_STORE_CTX_set_current_cert;
+      X509_STORE_CTX_set_current_cert := _X509_STORE_CTX_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7068,13 +7075,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_current_issuer_allownil)}
-    X509_STORE_CTX_get0_current_issuer := @ERR_X509_STORE_CTX_get0_current_issuer;
+    X509_STORE_CTX_get0_current_issuer := ERR_X509_STORE_CTX_get0_current_issuer;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_current_issuer_introduced)}
     if LibVersion < X509_STORE_CTX_get0_current_issuer_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_current_issuer)}
-      X509_STORE_CTX_get0_current_issuer := @FC_X509_STORE_CTX_get0_current_issuer;
+      X509_STORE_CTX_get0_current_issuer := FC_X509_STORE_CTX_get0_current_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7083,7 +7090,7 @@ begin
     if X509_STORE_CTX_get0_current_issuer_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_current_issuer)}
-      X509_STORE_CTX_get0_current_issuer := @_X509_STORE_CTX_get0_current_issuer;
+      X509_STORE_CTX_get0_current_issuer := _X509_STORE_CTX_get0_current_issuer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7100,13 +7107,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_current_crl_allownil)}
-    X509_STORE_CTX_get0_current_crl := @ERR_X509_STORE_CTX_get0_current_crl;
+    X509_STORE_CTX_get0_current_crl := ERR_X509_STORE_CTX_get0_current_crl;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_current_crl_introduced)}
     if LibVersion < X509_STORE_CTX_get0_current_crl_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_current_crl)}
-      X509_STORE_CTX_get0_current_crl := @FC_X509_STORE_CTX_get0_current_crl;
+      X509_STORE_CTX_get0_current_crl := FC_X509_STORE_CTX_get0_current_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7115,7 +7122,7 @@ begin
     if X509_STORE_CTX_get0_current_crl_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_current_crl)}
-      X509_STORE_CTX_get0_current_crl := @_X509_STORE_CTX_get0_current_crl;
+      X509_STORE_CTX_get0_current_crl := _X509_STORE_CTX_get0_current_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7132,13 +7139,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_parent_ctx_allownil)}
-    X509_STORE_CTX_get0_parent_ctx := @ERR_X509_STORE_CTX_get0_parent_ctx;
+    X509_STORE_CTX_get0_parent_ctx := ERR_X509_STORE_CTX_get0_parent_ctx;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_parent_ctx_introduced)}
     if LibVersion < X509_STORE_CTX_get0_parent_ctx_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_parent_ctx)}
-      X509_STORE_CTX_get0_parent_ctx := @FC_X509_STORE_CTX_get0_parent_ctx;
+      X509_STORE_CTX_get0_parent_ctx := FC_X509_STORE_CTX_get0_parent_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7147,7 +7154,7 @@ begin
     if X509_STORE_CTX_get0_parent_ctx_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_parent_ctx)}
-      X509_STORE_CTX_get0_parent_ctx := @_X509_STORE_CTX_get0_parent_ctx;
+      X509_STORE_CTX_get0_parent_ctx := _X509_STORE_CTX_get0_parent_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7163,13 +7170,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_chain_allownil)}
-    X509_STORE_CTX_get0_chain := @ERR_X509_STORE_CTX_get0_chain;
+    X509_STORE_CTX_get0_chain := ERR_X509_STORE_CTX_get0_chain;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_chain_introduced)}
     if LibVersion < X509_STORE_CTX_get0_chain_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_chain)}
-      X509_STORE_CTX_get0_chain := @FC_X509_STORE_CTX_get0_chain;
+      X509_STORE_CTX_get0_chain := FC_X509_STORE_CTX_get0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7178,7 +7185,7 @@ begin
     if X509_STORE_CTX_get0_chain_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_chain)}
-      X509_STORE_CTX_get0_chain := @_X509_STORE_CTX_get0_chain;
+      X509_STORE_CTX_get0_chain := _X509_STORE_CTX_get0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7194,13 +7201,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get1_chain_allownil)}
-    X509_STORE_CTX_get1_chain := @ERR_X509_STORE_CTX_get1_chain;
+    X509_STORE_CTX_get1_chain := ERR_X509_STORE_CTX_get1_chain;
     {$ifend}
     {$if declared(X509_STORE_CTX_get1_chain_introduced)}
     if LibVersion < X509_STORE_CTX_get1_chain_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get1_chain)}
-      X509_STORE_CTX_get1_chain := @FC_X509_STORE_CTX_get1_chain;
+      X509_STORE_CTX_get1_chain := FC_X509_STORE_CTX_get1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7209,7 +7216,7 @@ begin
     if X509_STORE_CTX_get1_chain_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get1_chain)}
-      X509_STORE_CTX_get1_chain := @_X509_STORE_CTX_get1_chain;
+      X509_STORE_CTX_get1_chain := _X509_STORE_CTX_get1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7225,13 +7232,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_cert_allownil)}
-    X509_STORE_CTX_set_cert := @ERR_X509_STORE_CTX_set_cert;
+    X509_STORE_CTX_set_cert := ERR_X509_STORE_CTX_set_cert;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_cert_introduced)}
     if LibVersion < X509_STORE_CTX_set_cert_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_cert)}
-      X509_STORE_CTX_set_cert := @FC_X509_STORE_CTX_set_cert;
+      X509_STORE_CTX_set_cert := FC_X509_STORE_CTX_set_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7240,7 +7247,7 @@ begin
     if X509_STORE_CTX_set_cert_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_cert)}
-      X509_STORE_CTX_set_cert := @_X509_STORE_CTX_set_cert;
+      X509_STORE_CTX_set_cert := _X509_STORE_CTX_set_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7257,13 +7264,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_purpose_allownil)}
-    X509_STORE_CTX_set_purpose := @ERR_X509_STORE_CTX_set_purpose;
+    X509_STORE_CTX_set_purpose := ERR_X509_STORE_CTX_set_purpose;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_purpose_introduced)}
     if LibVersion < X509_STORE_CTX_set_purpose_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_purpose)}
-      X509_STORE_CTX_set_purpose := @FC_X509_STORE_CTX_set_purpose;
+      X509_STORE_CTX_set_purpose := FC_X509_STORE_CTX_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7272,7 +7279,7 @@ begin
     if X509_STORE_CTX_set_purpose_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_purpose)}
-      X509_STORE_CTX_set_purpose := @_X509_STORE_CTX_set_purpose;
+      X509_STORE_CTX_set_purpose := _X509_STORE_CTX_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7289,13 +7296,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_trust_allownil)}
-    X509_STORE_CTX_set_trust := @ERR_X509_STORE_CTX_set_trust;
+    X509_STORE_CTX_set_trust := ERR_X509_STORE_CTX_set_trust;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_trust_introduced)}
     if LibVersion < X509_STORE_CTX_set_trust_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_trust)}
-      X509_STORE_CTX_set_trust := @FC_X509_STORE_CTX_set_trust;
+      X509_STORE_CTX_set_trust := FC_X509_STORE_CTX_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7304,7 +7311,7 @@ begin
     if X509_STORE_CTX_set_trust_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_trust)}
-      X509_STORE_CTX_set_trust := @_X509_STORE_CTX_set_trust;
+      X509_STORE_CTX_set_trust := _X509_STORE_CTX_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7321,13 +7328,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_purpose_inherit_allownil)}
-    X509_STORE_CTX_purpose_inherit := @ERR_X509_STORE_CTX_purpose_inherit;
+    X509_STORE_CTX_purpose_inherit := ERR_X509_STORE_CTX_purpose_inherit;
     {$ifend}
     {$if declared(X509_STORE_CTX_purpose_inherit_introduced)}
     if LibVersion < X509_STORE_CTX_purpose_inherit_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_purpose_inherit)}
-      X509_STORE_CTX_purpose_inherit := @FC_X509_STORE_CTX_purpose_inherit;
+      X509_STORE_CTX_purpose_inherit := FC_X509_STORE_CTX_purpose_inherit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7336,7 +7343,7 @@ begin
     if X509_STORE_CTX_purpose_inherit_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_purpose_inherit)}
-      X509_STORE_CTX_purpose_inherit := @_X509_STORE_CTX_purpose_inherit;
+      X509_STORE_CTX_purpose_inherit := _X509_STORE_CTX_purpose_inherit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7352,13 +7359,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_flags_allownil)}
-    X509_STORE_CTX_set_flags := @ERR_X509_STORE_CTX_set_flags;
+    X509_STORE_CTX_set_flags := ERR_X509_STORE_CTX_set_flags;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_flags_introduced)}
     if LibVersion < X509_STORE_CTX_set_flags_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_flags)}
-      X509_STORE_CTX_set_flags := @FC_X509_STORE_CTX_set_flags;
+      X509_STORE_CTX_set_flags := FC_X509_STORE_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7367,7 +7374,7 @@ begin
     if X509_STORE_CTX_set_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_flags)}
-      X509_STORE_CTX_set_flags := @_X509_STORE_CTX_set_flags;
+      X509_STORE_CTX_set_flags := _X509_STORE_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7383,13 +7390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_time_allownil)}
-    X509_STORE_CTX_set_time := @ERR_X509_STORE_CTX_set_time;
+    X509_STORE_CTX_set_time := ERR_X509_STORE_CTX_set_time;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_time_introduced)}
     if LibVersion < X509_STORE_CTX_set_time_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_time)}
-      X509_STORE_CTX_set_time := @FC_X509_STORE_CTX_set_time;
+      X509_STORE_CTX_set_time := FC_X509_STORE_CTX_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7398,7 +7405,7 @@ begin
     if X509_STORE_CTX_set_time_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_time)}
-      X509_STORE_CTX_set_time := @_X509_STORE_CTX_set_time;
+      X509_STORE_CTX_set_time := _X509_STORE_CTX_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7415,13 +7422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_policy_tree_allownil)}
-    X509_STORE_CTX_get0_policy_tree := @ERR_X509_STORE_CTX_get0_policy_tree;
+    X509_STORE_CTX_get0_policy_tree := ERR_X509_STORE_CTX_get0_policy_tree;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_policy_tree_introduced)}
     if LibVersion < X509_STORE_CTX_get0_policy_tree_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_policy_tree)}
-      X509_STORE_CTX_get0_policy_tree := @FC_X509_STORE_CTX_get0_policy_tree;
+      X509_STORE_CTX_get0_policy_tree := FC_X509_STORE_CTX_get0_policy_tree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7430,7 +7437,7 @@ begin
     if X509_STORE_CTX_get0_policy_tree_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_policy_tree)}
-      X509_STORE_CTX_get0_policy_tree := @_X509_STORE_CTX_get0_policy_tree;
+      X509_STORE_CTX_get0_policy_tree := _X509_STORE_CTX_get0_policy_tree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7447,13 +7454,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_explicit_policy_allownil)}
-    X509_STORE_CTX_get_explicit_policy := @ERR_X509_STORE_CTX_get_explicit_policy;
+    X509_STORE_CTX_get_explicit_policy := ERR_X509_STORE_CTX_get_explicit_policy;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_explicit_policy_introduced)}
     if LibVersion < X509_STORE_CTX_get_explicit_policy_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_explicit_policy)}
-      X509_STORE_CTX_get_explicit_policy := @FC_X509_STORE_CTX_get_explicit_policy;
+      X509_STORE_CTX_get_explicit_policy := FC_X509_STORE_CTX_get_explicit_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7462,7 +7469,7 @@ begin
     if X509_STORE_CTX_get_explicit_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_explicit_policy)}
-      X509_STORE_CTX_get_explicit_policy := @_X509_STORE_CTX_get_explicit_policy;
+      X509_STORE_CTX_get_explicit_policy := _X509_STORE_CTX_get_explicit_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7479,13 +7486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get_num_untrusted_allownil)}
-    X509_STORE_CTX_get_num_untrusted := @ERR_X509_STORE_CTX_get_num_untrusted;
+    X509_STORE_CTX_get_num_untrusted := ERR_X509_STORE_CTX_get_num_untrusted;
     {$ifend}
     {$if declared(X509_STORE_CTX_get_num_untrusted_introduced)}
     if LibVersion < X509_STORE_CTX_get_num_untrusted_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get_num_untrusted)}
-      X509_STORE_CTX_get_num_untrusted := @FC_X509_STORE_CTX_get_num_untrusted;
+      X509_STORE_CTX_get_num_untrusted := FC_X509_STORE_CTX_get_num_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7494,7 +7501,7 @@ begin
     if X509_STORE_CTX_get_num_untrusted_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get_num_untrusted)}
-      X509_STORE_CTX_get_num_untrusted := @_X509_STORE_CTX_get_num_untrusted;
+      X509_STORE_CTX_get_num_untrusted := _X509_STORE_CTX_get_num_untrusted;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7511,13 +7518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_get0_param_allownil)}
-    X509_STORE_CTX_get0_param := @ERR_X509_STORE_CTX_get0_param;
+    X509_STORE_CTX_get0_param := ERR_X509_STORE_CTX_get0_param;
     {$ifend}
     {$if declared(X509_STORE_CTX_get0_param_introduced)}
     if LibVersion < X509_STORE_CTX_get0_param_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_get0_param)}
-      X509_STORE_CTX_get0_param := @FC_X509_STORE_CTX_get0_param;
+      X509_STORE_CTX_get0_param := FC_X509_STORE_CTX_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7526,7 +7533,7 @@ begin
     if X509_STORE_CTX_get0_param_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_get0_param)}
-      X509_STORE_CTX_get0_param := @_X509_STORE_CTX_get0_param;
+      X509_STORE_CTX_get0_param := _X509_STORE_CTX_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7543,13 +7550,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set0_param_allownil)}
-    X509_STORE_CTX_set0_param := @ERR_X509_STORE_CTX_set0_param;
+    X509_STORE_CTX_set0_param := ERR_X509_STORE_CTX_set0_param;
     {$ifend}
     {$if declared(X509_STORE_CTX_set0_param_introduced)}
     if LibVersion < X509_STORE_CTX_set0_param_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set0_param)}
-      X509_STORE_CTX_set0_param := @FC_X509_STORE_CTX_set0_param;
+      X509_STORE_CTX_set0_param := FC_X509_STORE_CTX_set0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7558,7 +7565,7 @@ begin
     if X509_STORE_CTX_set0_param_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set0_param)}
-      X509_STORE_CTX_set0_param := @_X509_STORE_CTX_set0_param;
+      X509_STORE_CTX_set0_param := _X509_STORE_CTX_set0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7575,13 +7582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set_default_allownil)}
-    X509_STORE_CTX_set_default := @ERR_X509_STORE_CTX_set_default;
+    X509_STORE_CTX_set_default := ERR_X509_STORE_CTX_set_default;
     {$ifend}
     {$if declared(X509_STORE_CTX_set_default_introduced)}
     if LibVersion < X509_STORE_CTX_set_default_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set_default)}
-      X509_STORE_CTX_set_default := @FC_X509_STORE_CTX_set_default;
+      X509_STORE_CTX_set_default := FC_X509_STORE_CTX_set_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7590,7 +7597,7 @@ begin
     if X509_STORE_CTX_set_default_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set_default)}
-      X509_STORE_CTX_set_default := @_X509_STORE_CTX_set_default;
+      X509_STORE_CTX_set_default := _X509_STORE_CTX_set_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7607,13 +7614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_STORE_CTX_set0_dane_allownil)}
-    X509_STORE_CTX_set0_dane := @ERR_X509_STORE_CTX_set0_dane;
+    X509_STORE_CTX_set0_dane := ERR_X509_STORE_CTX_set0_dane;
     {$ifend}
     {$if declared(X509_STORE_CTX_set0_dane_introduced)}
     if LibVersion < X509_STORE_CTX_set0_dane_introduced then
     begin
       {$if declared(FC_X509_STORE_CTX_set0_dane)}
-      X509_STORE_CTX_set0_dane := @FC_X509_STORE_CTX_set0_dane;
+      X509_STORE_CTX_set0_dane := FC_X509_STORE_CTX_set0_dane;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7622,7 +7629,7 @@ begin
     if X509_STORE_CTX_set0_dane_removed <= LibVersion then
     begin
       {$if declared(_X509_STORE_CTX_set0_dane)}
-      X509_STORE_CTX_set0_dane := @_X509_STORE_CTX_set0_dane;
+      X509_STORE_CTX_set0_dane := _X509_STORE_CTX_set0_dane;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7639,13 +7646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_new_allownil)}
-    X509_VERIFY_PARAM_new := @ERR_X509_VERIFY_PARAM_new;
+    X509_VERIFY_PARAM_new := ERR_X509_VERIFY_PARAM_new;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_new_introduced)}
     if LibVersion < X509_VERIFY_PARAM_new_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_new)}
-      X509_VERIFY_PARAM_new := @FC_X509_VERIFY_PARAM_new;
+      X509_VERIFY_PARAM_new := FC_X509_VERIFY_PARAM_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7654,7 +7661,7 @@ begin
     if X509_VERIFY_PARAM_new_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_new)}
-      X509_VERIFY_PARAM_new := @_X509_VERIFY_PARAM_new;
+      X509_VERIFY_PARAM_new := _X509_VERIFY_PARAM_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7671,13 +7678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_free_allownil)}
-    X509_VERIFY_PARAM_free := @ERR_X509_VERIFY_PARAM_free;
+    X509_VERIFY_PARAM_free := ERR_X509_VERIFY_PARAM_free;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_free_introduced)}
     if LibVersion < X509_VERIFY_PARAM_free_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_free)}
-      X509_VERIFY_PARAM_free := @FC_X509_VERIFY_PARAM_free;
+      X509_VERIFY_PARAM_free := FC_X509_VERIFY_PARAM_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7686,7 +7693,7 @@ begin
     if X509_VERIFY_PARAM_free_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_free)}
-      X509_VERIFY_PARAM_free := @_X509_VERIFY_PARAM_free;
+      X509_VERIFY_PARAM_free := _X509_VERIFY_PARAM_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7703,13 +7710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_inherit_allownil)}
-    X509_VERIFY_PARAM_inherit := @ERR_X509_VERIFY_PARAM_inherit;
+    X509_VERIFY_PARAM_inherit := ERR_X509_VERIFY_PARAM_inherit;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_inherit_introduced)}
     if LibVersion < X509_VERIFY_PARAM_inherit_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_inherit)}
-      X509_VERIFY_PARAM_inherit := @FC_X509_VERIFY_PARAM_inherit;
+      X509_VERIFY_PARAM_inherit := FC_X509_VERIFY_PARAM_inherit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7718,7 +7725,7 @@ begin
     if X509_VERIFY_PARAM_inherit_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_inherit)}
-      X509_VERIFY_PARAM_inherit := @_X509_VERIFY_PARAM_inherit;
+      X509_VERIFY_PARAM_inherit := _X509_VERIFY_PARAM_inherit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7735,13 +7742,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_allownil)}
-    X509_VERIFY_PARAM_set1 := @ERR_X509_VERIFY_PARAM_set1;
+    X509_VERIFY_PARAM_set1 := ERR_X509_VERIFY_PARAM_set1;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1)}
-      X509_VERIFY_PARAM_set1 := @FC_X509_VERIFY_PARAM_set1;
+      X509_VERIFY_PARAM_set1 := FC_X509_VERIFY_PARAM_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7750,7 +7757,7 @@ begin
     if X509_VERIFY_PARAM_set1_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1)}
-      X509_VERIFY_PARAM_set1 := @_X509_VERIFY_PARAM_set1;
+      X509_VERIFY_PARAM_set1 := _X509_VERIFY_PARAM_set1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7767,13 +7774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_name_allownil)}
-    X509_VERIFY_PARAM_set1_name := @ERR_X509_VERIFY_PARAM_set1_name;
+    X509_VERIFY_PARAM_set1_name := ERR_X509_VERIFY_PARAM_set1_name;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_name_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_name_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_name)}
-      X509_VERIFY_PARAM_set1_name := @FC_X509_VERIFY_PARAM_set1_name;
+      X509_VERIFY_PARAM_set1_name := FC_X509_VERIFY_PARAM_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7782,7 +7789,7 @@ begin
     if X509_VERIFY_PARAM_set1_name_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_name)}
-      X509_VERIFY_PARAM_set1_name := @_X509_VERIFY_PARAM_set1_name;
+      X509_VERIFY_PARAM_set1_name := _X509_VERIFY_PARAM_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7799,13 +7806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_flags_allownil)}
-    X509_VERIFY_PARAM_set_flags := @ERR_X509_VERIFY_PARAM_set_flags;
+    X509_VERIFY_PARAM_set_flags := ERR_X509_VERIFY_PARAM_set_flags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_flags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_flags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_flags)}
-      X509_VERIFY_PARAM_set_flags := @FC_X509_VERIFY_PARAM_set_flags;
+      X509_VERIFY_PARAM_set_flags := FC_X509_VERIFY_PARAM_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7814,7 +7821,7 @@ begin
     if X509_VERIFY_PARAM_set_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_flags)}
-      X509_VERIFY_PARAM_set_flags := @_X509_VERIFY_PARAM_set_flags;
+      X509_VERIFY_PARAM_set_flags := _X509_VERIFY_PARAM_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7831,13 +7838,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_clear_flags_allownil)}
-    X509_VERIFY_PARAM_clear_flags := @ERR_X509_VERIFY_PARAM_clear_flags;
+    X509_VERIFY_PARAM_clear_flags := ERR_X509_VERIFY_PARAM_clear_flags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_clear_flags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_clear_flags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_clear_flags)}
-      X509_VERIFY_PARAM_clear_flags := @FC_X509_VERIFY_PARAM_clear_flags;
+      X509_VERIFY_PARAM_clear_flags := FC_X509_VERIFY_PARAM_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7846,7 +7853,7 @@ begin
     if X509_VERIFY_PARAM_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_clear_flags)}
-      X509_VERIFY_PARAM_clear_flags := @_X509_VERIFY_PARAM_clear_flags;
+      X509_VERIFY_PARAM_clear_flags := _X509_VERIFY_PARAM_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7863,13 +7870,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_flags_allownil)}
-    X509_VERIFY_PARAM_get_flags := @ERR_X509_VERIFY_PARAM_get_flags;
+    X509_VERIFY_PARAM_get_flags := ERR_X509_VERIFY_PARAM_get_flags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_flags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_flags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_flags)}
-      X509_VERIFY_PARAM_get_flags := @FC_X509_VERIFY_PARAM_get_flags;
+      X509_VERIFY_PARAM_get_flags := FC_X509_VERIFY_PARAM_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7878,7 +7885,7 @@ begin
     if X509_VERIFY_PARAM_get_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_flags)}
-      X509_VERIFY_PARAM_get_flags := @_X509_VERIFY_PARAM_get_flags;
+      X509_VERIFY_PARAM_get_flags := _X509_VERIFY_PARAM_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7895,13 +7902,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_purpose_allownil)}
-    X509_VERIFY_PARAM_set_purpose := @ERR_X509_VERIFY_PARAM_set_purpose;
+    X509_VERIFY_PARAM_set_purpose := ERR_X509_VERIFY_PARAM_set_purpose;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_purpose_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_purpose_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_purpose)}
-      X509_VERIFY_PARAM_set_purpose := @FC_X509_VERIFY_PARAM_set_purpose;
+      X509_VERIFY_PARAM_set_purpose := FC_X509_VERIFY_PARAM_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7910,7 +7917,7 @@ begin
     if X509_VERIFY_PARAM_set_purpose_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_purpose)}
-      X509_VERIFY_PARAM_set_purpose := @_X509_VERIFY_PARAM_set_purpose;
+      X509_VERIFY_PARAM_set_purpose := _X509_VERIFY_PARAM_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7927,13 +7934,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_trust_allownil)}
-    X509_VERIFY_PARAM_set_trust := @ERR_X509_VERIFY_PARAM_set_trust;
+    X509_VERIFY_PARAM_set_trust := ERR_X509_VERIFY_PARAM_set_trust;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_trust_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_trust_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_trust)}
-      X509_VERIFY_PARAM_set_trust := @FC_X509_VERIFY_PARAM_set_trust;
+      X509_VERIFY_PARAM_set_trust := FC_X509_VERIFY_PARAM_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7942,7 +7949,7 @@ begin
     if X509_VERIFY_PARAM_set_trust_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_trust)}
-      X509_VERIFY_PARAM_set_trust := @_X509_VERIFY_PARAM_set_trust;
+      X509_VERIFY_PARAM_set_trust := _X509_VERIFY_PARAM_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7959,13 +7966,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_depth_allownil)}
-    X509_VERIFY_PARAM_set_depth := @ERR_X509_VERIFY_PARAM_set_depth;
+    X509_VERIFY_PARAM_set_depth := ERR_X509_VERIFY_PARAM_set_depth;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_depth_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_depth_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_depth)}
-      X509_VERIFY_PARAM_set_depth := @FC_X509_VERIFY_PARAM_set_depth;
+      X509_VERIFY_PARAM_set_depth := FC_X509_VERIFY_PARAM_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7974,7 +7981,7 @@ begin
     if X509_VERIFY_PARAM_set_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_depth)}
-      X509_VERIFY_PARAM_set_depth := @_X509_VERIFY_PARAM_set_depth;
+      X509_VERIFY_PARAM_set_depth := _X509_VERIFY_PARAM_set_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7991,13 +7998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_auth_level_allownil)}
-    X509_VERIFY_PARAM_set_auth_level := @ERR_X509_VERIFY_PARAM_set_auth_level;
+    X509_VERIFY_PARAM_set_auth_level := ERR_X509_VERIFY_PARAM_set_auth_level;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_auth_level_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_auth_level_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_auth_level)}
-      X509_VERIFY_PARAM_set_auth_level := @FC_X509_VERIFY_PARAM_set_auth_level;
+      X509_VERIFY_PARAM_set_auth_level := FC_X509_VERIFY_PARAM_set_auth_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8006,7 +8013,7 @@ begin
     if X509_VERIFY_PARAM_set_auth_level_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_auth_level)}
-      X509_VERIFY_PARAM_set_auth_level := @_X509_VERIFY_PARAM_set_auth_level;
+      X509_VERIFY_PARAM_set_auth_level := _X509_VERIFY_PARAM_set_auth_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8023,13 +8030,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_add0_policy_allownil)}
-    X509_VERIFY_PARAM_add0_policy := @ERR_X509_VERIFY_PARAM_add0_policy;
+    X509_VERIFY_PARAM_add0_policy := ERR_X509_VERIFY_PARAM_add0_policy;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_add0_policy_introduced)}
     if LibVersion < X509_VERIFY_PARAM_add0_policy_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_add0_policy)}
-      X509_VERIFY_PARAM_add0_policy := @FC_X509_VERIFY_PARAM_add0_policy;
+      X509_VERIFY_PARAM_add0_policy := FC_X509_VERIFY_PARAM_add0_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8038,7 +8045,7 @@ begin
     if X509_VERIFY_PARAM_add0_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_add0_policy)}
-      X509_VERIFY_PARAM_add0_policy := @_X509_VERIFY_PARAM_add0_policy;
+      X509_VERIFY_PARAM_add0_policy := _X509_VERIFY_PARAM_add0_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8055,13 +8062,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_time_allownil)}
-    X509_VERIFY_PARAM_get_time := @ERR_X509_VERIFY_PARAM_get_time;
+    X509_VERIFY_PARAM_get_time := ERR_X509_VERIFY_PARAM_get_time;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_time_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_time_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_time)}
-      X509_VERIFY_PARAM_get_time := @FC_X509_VERIFY_PARAM_get_time;
+      X509_VERIFY_PARAM_get_time := FC_X509_VERIFY_PARAM_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8070,7 +8077,7 @@ begin
     if X509_VERIFY_PARAM_get_time_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_time)}
-      X509_VERIFY_PARAM_get_time := @_X509_VERIFY_PARAM_get_time;
+      X509_VERIFY_PARAM_get_time := _X509_VERIFY_PARAM_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8087,13 +8094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_time_allownil)}
-    X509_VERIFY_PARAM_set_time := @ERR_X509_VERIFY_PARAM_set_time;
+    X509_VERIFY_PARAM_set_time := ERR_X509_VERIFY_PARAM_set_time;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_time_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_time_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_time)}
-      X509_VERIFY_PARAM_set_time := @FC_X509_VERIFY_PARAM_set_time;
+      X509_VERIFY_PARAM_set_time := FC_X509_VERIFY_PARAM_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8102,7 +8109,7 @@ begin
     if X509_VERIFY_PARAM_set_time_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_time)}
-      X509_VERIFY_PARAM_set_time := @_X509_VERIFY_PARAM_set_time;
+      X509_VERIFY_PARAM_set_time := _X509_VERIFY_PARAM_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8120,13 +8127,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_policies_allownil)}
-    X509_VERIFY_PARAM_set1_policies := @ERR_X509_VERIFY_PARAM_set1_policies;
+    X509_VERIFY_PARAM_set1_policies := ERR_X509_VERIFY_PARAM_set1_policies;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_policies_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_policies_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_policies)}
-      X509_VERIFY_PARAM_set1_policies := @FC_X509_VERIFY_PARAM_set1_policies;
+      X509_VERIFY_PARAM_set1_policies := FC_X509_VERIFY_PARAM_set1_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8135,7 +8142,7 @@ begin
     if X509_VERIFY_PARAM_set1_policies_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_policies)}
-      X509_VERIFY_PARAM_set1_policies := @_X509_VERIFY_PARAM_set1_policies;
+      X509_VERIFY_PARAM_set1_policies := _X509_VERIFY_PARAM_set1_policies;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8152,13 +8159,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_inh_flags_allownil)}
-    X509_VERIFY_PARAM_set_inh_flags := @ERR_X509_VERIFY_PARAM_set_inh_flags;
+    X509_VERIFY_PARAM_set_inh_flags := ERR_X509_VERIFY_PARAM_set_inh_flags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_inh_flags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_inh_flags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_inh_flags)}
-      X509_VERIFY_PARAM_set_inh_flags := @FC_X509_VERIFY_PARAM_set_inh_flags;
+      X509_VERIFY_PARAM_set_inh_flags := FC_X509_VERIFY_PARAM_set_inh_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8167,7 +8174,7 @@ begin
     if X509_VERIFY_PARAM_set_inh_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_inh_flags)}
-      X509_VERIFY_PARAM_set_inh_flags := @_X509_VERIFY_PARAM_set_inh_flags;
+      X509_VERIFY_PARAM_set_inh_flags := _X509_VERIFY_PARAM_set_inh_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8184,13 +8191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_inh_flags_allownil)}
-    X509_VERIFY_PARAM_get_inh_flags := @ERR_X509_VERIFY_PARAM_get_inh_flags;
+    X509_VERIFY_PARAM_get_inh_flags := ERR_X509_VERIFY_PARAM_get_inh_flags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_inh_flags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_inh_flags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_inh_flags)}
-      X509_VERIFY_PARAM_get_inh_flags := @FC_X509_VERIFY_PARAM_get_inh_flags;
+      X509_VERIFY_PARAM_get_inh_flags := FC_X509_VERIFY_PARAM_get_inh_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8199,7 +8206,7 @@ begin
     if X509_VERIFY_PARAM_get_inh_flags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_inh_flags)}
-      X509_VERIFY_PARAM_get_inh_flags := @_X509_VERIFY_PARAM_get_inh_flags;
+      X509_VERIFY_PARAM_get_inh_flags := _X509_VERIFY_PARAM_get_inh_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8216,13 +8223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_host_allownil)}
-    X509_VERIFY_PARAM_set1_host := @ERR_X509_VERIFY_PARAM_set1_host;
+    X509_VERIFY_PARAM_set1_host := ERR_X509_VERIFY_PARAM_set1_host;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_host_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_host_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_host)}
-      X509_VERIFY_PARAM_set1_host := @FC_X509_VERIFY_PARAM_set1_host;
+      X509_VERIFY_PARAM_set1_host := FC_X509_VERIFY_PARAM_set1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8231,7 +8238,7 @@ begin
     if X509_VERIFY_PARAM_set1_host_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_host)}
-      X509_VERIFY_PARAM_set1_host := @_X509_VERIFY_PARAM_set1_host;
+      X509_VERIFY_PARAM_set1_host := _X509_VERIFY_PARAM_set1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8248,13 +8255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_add1_host_allownil)}
-    X509_VERIFY_PARAM_add1_host := @ERR_X509_VERIFY_PARAM_add1_host;
+    X509_VERIFY_PARAM_add1_host := ERR_X509_VERIFY_PARAM_add1_host;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_add1_host_introduced)}
     if LibVersion < X509_VERIFY_PARAM_add1_host_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_add1_host)}
-      X509_VERIFY_PARAM_add1_host := @FC_X509_VERIFY_PARAM_add1_host;
+      X509_VERIFY_PARAM_add1_host := FC_X509_VERIFY_PARAM_add1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8263,7 +8270,7 @@ begin
     if X509_VERIFY_PARAM_add1_host_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_add1_host)}
-      X509_VERIFY_PARAM_add1_host := @_X509_VERIFY_PARAM_add1_host;
+      X509_VERIFY_PARAM_add1_host := _X509_VERIFY_PARAM_add1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8280,13 +8287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set_hostflags_allownil)}
-    X509_VERIFY_PARAM_set_hostflags := @ERR_X509_VERIFY_PARAM_set_hostflags;
+    X509_VERIFY_PARAM_set_hostflags := ERR_X509_VERIFY_PARAM_set_hostflags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set_hostflags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set_hostflags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set_hostflags)}
-      X509_VERIFY_PARAM_set_hostflags := @FC_X509_VERIFY_PARAM_set_hostflags;
+      X509_VERIFY_PARAM_set_hostflags := FC_X509_VERIFY_PARAM_set_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8295,7 +8302,7 @@ begin
     if X509_VERIFY_PARAM_set_hostflags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set_hostflags)}
-      X509_VERIFY_PARAM_set_hostflags := @_X509_VERIFY_PARAM_set_hostflags;
+      X509_VERIFY_PARAM_set_hostflags := _X509_VERIFY_PARAM_set_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8312,13 +8319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_hostflags_allownil)}
-    X509_VERIFY_PARAM_get_hostflags := @ERR_X509_VERIFY_PARAM_get_hostflags;
+    X509_VERIFY_PARAM_get_hostflags := ERR_X509_VERIFY_PARAM_get_hostflags;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_hostflags_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_hostflags_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_hostflags)}
-      X509_VERIFY_PARAM_get_hostflags := @FC_X509_VERIFY_PARAM_get_hostflags;
+      X509_VERIFY_PARAM_get_hostflags := FC_X509_VERIFY_PARAM_get_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8327,7 +8334,7 @@ begin
     if X509_VERIFY_PARAM_get_hostflags_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_hostflags)}
-      X509_VERIFY_PARAM_get_hostflags := @_X509_VERIFY_PARAM_get_hostflags;
+      X509_VERIFY_PARAM_get_hostflags := _X509_VERIFY_PARAM_get_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8344,13 +8351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get0_peername_allownil)}
-    X509_VERIFY_PARAM_get0_peername := @ERR_X509_VERIFY_PARAM_get0_peername;
+    X509_VERIFY_PARAM_get0_peername := ERR_X509_VERIFY_PARAM_get0_peername;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get0_peername_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get0_peername_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get0_peername)}
-      X509_VERIFY_PARAM_get0_peername := @FC_X509_VERIFY_PARAM_get0_peername;
+      X509_VERIFY_PARAM_get0_peername := FC_X509_VERIFY_PARAM_get0_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8359,7 +8366,7 @@ begin
     if X509_VERIFY_PARAM_get0_peername_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get0_peername)}
-      X509_VERIFY_PARAM_get0_peername := @_X509_VERIFY_PARAM_get0_peername;
+      X509_VERIFY_PARAM_get0_peername := _X509_VERIFY_PARAM_get0_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8376,13 +8383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_move_peername_allownil)}
-    X509_VERIFY_PARAM_move_peername := @ERR_X509_VERIFY_PARAM_move_peername;
+    X509_VERIFY_PARAM_move_peername := ERR_X509_VERIFY_PARAM_move_peername;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_move_peername_introduced)}
     if LibVersion < X509_VERIFY_PARAM_move_peername_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_move_peername)}
-      X509_VERIFY_PARAM_move_peername := @FC_X509_VERIFY_PARAM_move_peername;
+      X509_VERIFY_PARAM_move_peername := FC_X509_VERIFY_PARAM_move_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8391,7 +8398,7 @@ begin
     if X509_VERIFY_PARAM_move_peername_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_move_peername)}
-      X509_VERIFY_PARAM_move_peername := @_X509_VERIFY_PARAM_move_peername;
+      X509_VERIFY_PARAM_move_peername := _X509_VERIFY_PARAM_move_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8408,13 +8415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_email_allownil)}
-    X509_VERIFY_PARAM_set1_email := @ERR_X509_VERIFY_PARAM_set1_email;
+    X509_VERIFY_PARAM_set1_email := ERR_X509_VERIFY_PARAM_set1_email;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_email_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_email_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_email)}
-      X509_VERIFY_PARAM_set1_email := @FC_X509_VERIFY_PARAM_set1_email;
+      X509_VERIFY_PARAM_set1_email := FC_X509_VERIFY_PARAM_set1_email;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8423,7 +8430,7 @@ begin
     if X509_VERIFY_PARAM_set1_email_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_email)}
-      X509_VERIFY_PARAM_set1_email := @_X509_VERIFY_PARAM_set1_email;
+      X509_VERIFY_PARAM_set1_email := _X509_VERIFY_PARAM_set1_email;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8440,13 +8447,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_ip_allownil)}
-    X509_VERIFY_PARAM_set1_ip := @ERR_X509_VERIFY_PARAM_set1_ip;
+    X509_VERIFY_PARAM_set1_ip := ERR_X509_VERIFY_PARAM_set1_ip;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_ip_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_ip_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_ip)}
-      X509_VERIFY_PARAM_set1_ip := @FC_X509_VERIFY_PARAM_set1_ip;
+      X509_VERIFY_PARAM_set1_ip := FC_X509_VERIFY_PARAM_set1_ip;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8455,7 +8462,7 @@ begin
     if X509_VERIFY_PARAM_set1_ip_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_ip)}
-      X509_VERIFY_PARAM_set1_ip := @_X509_VERIFY_PARAM_set1_ip;
+      X509_VERIFY_PARAM_set1_ip := _X509_VERIFY_PARAM_set1_ip;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8472,13 +8479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_set1_ip_asc_allownil)}
-    X509_VERIFY_PARAM_set1_ip_asc := @ERR_X509_VERIFY_PARAM_set1_ip_asc;
+    X509_VERIFY_PARAM_set1_ip_asc := ERR_X509_VERIFY_PARAM_set1_ip_asc;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_set1_ip_asc_introduced)}
     if LibVersion < X509_VERIFY_PARAM_set1_ip_asc_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_set1_ip_asc)}
-      X509_VERIFY_PARAM_set1_ip_asc := @FC_X509_VERIFY_PARAM_set1_ip_asc;
+      X509_VERIFY_PARAM_set1_ip_asc := FC_X509_VERIFY_PARAM_set1_ip_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8487,7 +8494,7 @@ begin
     if X509_VERIFY_PARAM_set1_ip_asc_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_set1_ip_asc)}
-      X509_VERIFY_PARAM_set1_ip_asc := @_X509_VERIFY_PARAM_set1_ip_asc;
+      X509_VERIFY_PARAM_set1_ip_asc := _X509_VERIFY_PARAM_set1_ip_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8504,13 +8511,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_depth_allownil)}
-    X509_VERIFY_PARAM_get_depth := @ERR_X509_VERIFY_PARAM_get_depth;
+    X509_VERIFY_PARAM_get_depth := ERR_X509_VERIFY_PARAM_get_depth;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_depth_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_depth_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_depth)}
-      X509_VERIFY_PARAM_get_depth := @FC_X509_VERIFY_PARAM_get_depth;
+      X509_VERIFY_PARAM_get_depth := FC_X509_VERIFY_PARAM_get_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8519,7 +8526,7 @@ begin
     if X509_VERIFY_PARAM_get_depth_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_depth)}
-      X509_VERIFY_PARAM_get_depth := @_X509_VERIFY_PARAM_get_depth;
+      X509_VERIFY_PARAM_get_depth := _X509_VERIFY_PARAM_get_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8536,13 +8543,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_auth_level_allownil)}
-    X509_VERIFY_PARAM_get_auth_level := @ERR_X509_VERIFY_PARAM_get_auth_level;
+    X509_VERIFY_PARAM_get_auth_level := ERR_X509_VERIFY_PARAM_get_auth_level;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_auth_level_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_auth_level_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_auth_level)}
-      X509_VERIFY_PARAM_get_auth_level := @FC_X509_VERIFY_PARAM_get_auth_level;
+      X509_VERIFY_PARAM_get_auth_level := FC_X509_VERIFY_PARAM_get_auth_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8551,7 +8558,7 @@ begin
     if X509_VERIFY_PARAM_get_auth_level_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_auth_level)}
-      X509_VERIFY_PARAM_get_auth_level := @_X509_VERIFY_PARAM_get_auth_level;
+      X509_VERIFY_PARAM_get_auth_level := _X509_VERIFY_PARAM_get_auth_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8568,13 +8575,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get0_name_allownil)}
-    X509_VERIFY_PARAM_get0_name := @ERR_X509_VERIFY_PARAM_get0_name;
+    X509_VERIFY_PARAM_get0_name := ERR_X509_VERIFY_PARAM_get0_name;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get0_name_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get0_name_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get0_name)}
-      X509_VERIFY_PARAM_get0_name := @FC_X509_VERIFY_PARAM_get0_name;
+      X509_VERIFY_PARAM_get0_name := FC_X509_VERIFY_PARAM_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8583,7 +8590,7 @@ begin
     if X509_VERIFY_PARAM_get0_name_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get0_name)}
-      X509_VERIFY_PARAM_get0_name := @_X509_VERIFY_PARAM_get0_name;
+      X509_VERIFY_PARAM_get0_name := _X509_VERIFY_PARAM_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8600,13 +8607,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_add0_table_allownil)}
-    X509_VERIFY_PARAM_add0_table := @ERR_X509_VERIFY_PARAM_add0_table;
+    X509_VERIFY_PARAM_add0_table := ERR_X509_VERIFY_PARAM_add0_table;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_add0_table_introduced)}
     if LibVersion < X509_VERIFY_PARAM_add0_table_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_add0_table)}
-      X509_VERIFY_PARAM_add0_table := @FC_X509_VERIFY_PARAM_add0_table;
+      X509_VERIFY_PARAM_add0_table := FC_X509_VERIFY_PARAM_add0_table;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8615,7 +8622,7 @@ begin
     if X509_VERIFY_PARAM_add0_table_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_add0_table)}
-      X509_VERIFY_PARAM_add0_table := @_X509_VERIFY_PARAM_add0_table;
+      X509_VERIFY_PARAM_add0_table := _X509_VERIFY_PARAM_add0_table;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8632,13 +8639,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get_count_allownil)}
-    X509_VERIFY_PARAM_get_count := @ERR_X509_VERIFY_PARAM_get_count;
+    X509_VERIFY_PARAM_get_count := ERR_X509_VERIFY_PARAM_get_count;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get_count_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get_count_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get_count)}
-      X509_VERIFY_PARAM_get_count := @FC_X509_VERIFY_PARAM_get_count;
+      X509_VERIFY_PARAM_get_count := FC_X509_VERIFY_PARAM_get_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8647,7 +8654,7 @@ begin
     if X509_VERIFY_PARAM_get_count_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get_count)}
-      X509_VERIFY_PARAM_get_count := @_X509_VERIFY_PARAM_get_count;
+      X509_VERIFY_PARAM_get_count := _X509_VERIFY_PARAM_get_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8664,13 +8671,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_get0_allownil)}
-    X509_VERIFY_PARAM_get0 := @ERR_X509_VERIFY_PARAM_get0;
+    X509_VERIFY_PARAM_get0 := ERR_X509_VERIFY_PARAM_get0;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_get0_introduced)}
     if LibVersion < X509_VERIFY_PARAM_get0_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_get0)}
-      X509_VERIFY_PARAM_get0 := @FC_X509_VERIFY_PARAM_get0;
+      X509_VERIFY_PARAM_get0 := FC_X509_VERIFY_PARAM_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8679,7 +8686,7 @@ begin
     if X509_VERIFY_PARAM_get0_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_get0)}
-      X509_VERIFY_PARAM_get0 := @_X509_VERIFY_PARAM_get0;
+      X509_VERIFY_PARAM_get0 := _X509_VERIFY_PARAM_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8696,13 +8703,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_lookup_allownil)}
-    X509_VERIFY_PARAM_lookup := @ERR_X509_VERIFY_PARAM_lookup;
+    X509_VERIFY_PARAM_lookup := ERR_X509_VERIFY_PARAM_lookup;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_lookup_introduced)}
     if LibVersion < X509_VERIFY_PARAM_lookup_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_lookup)}
-      X509_VERIFY_PARAM_lookup := @FC_X509_VERIFY_PARAM_lookup;
+      X509_VERIFY_PARAM_lookup := FC_X509_VERIFY_PARAM_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8711,7 +8718,7 @@ begin
     if X509_VERIFY_PARAM_lookup_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_lookup)}
-      X509_VERIFY_PARAM_lookup := @_X509_VERIFY_PARAM_lookup;
+      X509_VERIFY_PARAM_lookup := _X509_VERIFY_PARAM_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8728,13 +8735,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_VERIFY_PARAM_table_cleanup_allownil)}
-    X509_VERIFY_PARAM_table_cleanup := @ERR_X509_VERIFY_PARAM_table_cleanup;
+    X509_VERIFY_PARAM_table_cleanup := ERR_X509_VERIFY_PARAM_table_cleanup;
     {$ifend}
     {$if declared(X509_VERIFY_PARAM_table_cleanup_introduced)}
     if LibVersion < X509_VERIFY_PARAM_table_cleanup_introduced then
     begin
       {$if declared(FC_X509_VERIFY_PARAM_table_cleanup)}
-      X509_VERIFY_PARAM_table_cleanup := @FC_X509_VERIFY_PARAM_table_cleanup;
+      X509_VERIFY_PARAM_table_cleanup := FC_X509_VERIFY_PARAM_table_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8743,7 +8750,7 @@ begin
     if X509_VERIFY_PARAM_table_cleanup_removed <= LibVersion then
     begin
       {$if declared(_X509_VERIFY_PARAM_table_cleanup)}
-      X509_VERIFY_PARAM_table_cleanup := @_X509_VERIFY_PARAM_table_cleanup;
+      X509_VERIFY_PARAM_table_cleanup := _X509_VERIFY_PARAM_table_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8759,13 +8766,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_check_allownil)}
-    X509_policy_check := @ERR_X509_policy_check;
+    X509_policy_check := ERR_X509_policy_check;
     {$ifend}
     {$if declared(X509_policy_check_introduced)}
     if LibVersion < X509_policy_check_introduced then
     begin
       {$if declared(FC_X509_policy_check)}
-      X509_policy_check := @FC_X509_policy_check;
+      X509_policy_check := FC_X509_policy_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8774,7 +8781,7 @@ begin
     if X509_policy_check_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_check)}
-      X509_policy_check := @_X509_policy_check;
+      X509_policy_check := _X509_policy_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8790,13 +8797,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_tree_free_allownil)}
-    X509_policy_tree_free := @ERR_X509_policy_tree_free;
+    X509_policy_tree_free := ERR_X509_policy_tree_free;
     {$ifend}
     {$if declared(X509_policy_tree_free_introduced)}
     if LibVersion < X509_policy_tree_free_introduced then
     begin
       {$if declared(FC_X509_policy_tree_free)}
-      X509_policy_tree_free := @FC_X509_policy_tree_free;
+      X509_policy_tree_free := FC_X509_policy_tree_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8805,7 +8812,7 @@ begin
     if X509_policy_tree_free_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_tree_free)}
-      X509_policy_tree_free := @_X509_policy_tree_free;
+      X509_policy_tree_free := _X509_policy_tree_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8822,13 +8829,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_tree_level_count_allownil)}
-    X509_policy_tree_level_count := @ERR_X509_policy_tree_level_count;
+    X509_policy_tree_level_count := ERR_X509_policy_tree_level_count;
     {$ifend}
     {$if declared(X509_policy_tree_level_count_introduced)}
     if LibVersion < X509_policy_tree_level_count_introduced then
     begin
       {$if declared(FC_X509_policy_tree_level_count)}
-      X509_policy_tree_level_count := @FC_X509_policy_tree_level_count;
+      X509_policy_tree_level_count := FC_X509_policy_tree_level_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8837,7 +8844,7 @@ begin
     if X509_policy_tree_level_count_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_tree_level_count)}
-      X509_policy_tree_level_count := @_X509_policy_tree_level_count;
+      X509_policy_tree_level_count := _X509_policy_tree_level_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8854,13 +8861,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_tree_get0_level_allownil)}
-    X509_policy_tree_get0_level := @ERR_X509_policy_tree_get0_level;
+    X509_policy_tree_get0_level := ERR_X509_policy_tree_get0_level;
     {$ifend}
     {$if declared(X509_policy_tree_get0_level_introduced)}
     if LibVersion < X509_policy_tree_get0_level_introduced then
     begin
       {$if declared(FC_X509_policy_tree_get0_level)}
-      X509_policy_tree_get0_level := @FC_X509_policy_tree_get0_level;
+      X509_policy_tree_get0_level := FC_X509_policy_tree_get0_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8869,7 +8876,7 @@ begin
     if X509_policy_tree_get0_level_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_tree_get0_level)}
-      X509_policy_tree_get0_level := @_X509_policy_tree_get0_level;
+      X509_policy_tree_get0_level := _X509_policy_tree_get0_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8885,13 +8892,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_level_node_count_allownil)}
-    X509_policy_level_node_count := @ERR_X509_policy_level_node_count;
+    X509_policy_level_node_count := ERR_X509_policy_level_node_count;
     {$ifend}
     {$if declared(X509_policy_level_node_count_introduced)}
     if LibVersion < X509_policy_level_node_count_introduced then
     begin
       {$if declared(FC_X509_policy_level_node_count)}
-      X509_policy_level_node_count := @FC_X509_policy_level_node_count;
+      X509_policy_level_node_count := FC_X509_policy_level_node_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8900,7 +8907,7 @@ begin
     if X509_policy_level_node_count_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_level_node_count)}
-      X509_policy_level_node_count := @_X509_policy_level_node_count;
+      X509_policy_level_node_count := _X509_policy_level_node_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8917,13 +8924,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_level_node_count_allownil)}
-    X509_policy_level_node_count := @ERR_X509_policy_level_node_count;
+    X509_policy_level_node_count := ERR_X509_policy_level_node_count;
     {$ifend}
     {$if declared(X509_policy_level_node_count_introduced)}
     if LibVersion < X509_policy_level_node_count_introduced then
     begin
       {$if declared(FC_X509_policy_level_node_count)}
-      X509_policy_level_node_count := @FC_X509_policy_level_node_count;
+      X509_policy_level_node_count := FC_X509_policy_level_node_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8932,7 +8939,7 @@ begin
     if X509_policy_level_node_count_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_level_node_count)}
-      X509_policy_level_node_count := @_X509_policy_level_node_count;
+      X509_policy_level_node_count := _X509_policy_level_node_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8949,13 +8956,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_level_get0_node_allownil)}
-    X509_policy_level_get0_node := @ERR_X509_policy_level_get0_node;
+    X509_policy_level_get0_node := ERR_X509_policy_level_get0_node;
     {$ifend}
     {$if declared(X509_policy_level_get0_node_introduced)}
     if LibVersion < X509_policy_level_get0_node_introduced then
     begin
       {$if declared(FC_X509_policy_level_get0_node)}
-      X509_policy_level_get0_node := @FC_X509_policy_level_get0_node;
+      X509_policy_level_get0_node := FC_X509_policy_level_get0_node;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8964,7 +8971,7 @@ begin
     if X509_policy_level_get0_node_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_level_get0_node)}
-      X509_policy_level_get0_node := @_X509_policy_level_get0_node;
+      X509_policy_level_get0_node := _X509_policy_level_get0_node;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8981,13 +8988,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_node_get0_policy_allownil)}
-    X509_policy_node_get0_policy := @ERR_X509_policy_node_get0_policy;
+    X509_policy_node_get0_policy := ERR_X509_policy_node_get0_policy;
     {$ifend}
     {$if declared(X509_policy_node_get0_policy_introduced)}
     if LibVersion < X509_policy_node_get0_policy_introduced then
     begin
       {$if declared(FC_X509_policy_node_get0_policy)}
-      X509_policy_node_get0_policy := @FC_X509_policy_node_get0_policy;
+      X509_policy_node_get0_policy := FC_X509_policy_node_get0_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -8996,7 +9003,7 @@ begin
     if X509_policy_node_get0_policy_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_node_get0_policy)}
-      X509_policy_node_get0_policy := @_X509_policy_node_get0_policy;
+      X509_policy_node_get0_policy := _X509_policy_node_get0_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9012,13 +9019,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_node_get0_qualifiers_allownil)}
-    X509_policy_node_get0_qualifiers := @ERR_X509_policy_node_get0_qualifiers;
+    X509_policy_node_get0_qualifiers := ERR_X509_policy_node_get0_qualifiers;
     {$ifend}
     {$if declared(X509_policy_node_get0_qualifiers_introduced)}
     if LibVersion < X509_policy_node_get0_qualifiers_introduced then
     begin
       {$if declared(FC_X509_policy_node_get0_qualifiers)}
-      X509_policy_node_get0_qualifiers := @FC_X509_policy_node_get0_qualifiers;
+      X509_policy_node_get0_qualifiers := FC_X509_policy_node_get0_qualifiers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9027,7 +9034,7 @@ begin
     if X509_policy_node_get0_qualifiers_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_node_get0_qualifiers)}
-      X509_policy_node_get0_qualifiers := @_X509_policy_node_get0_qualifiers;
+      X509_policy_node_get0_qualifiers := _X509_policy_node_get0_qualifiers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9043,13 +9050,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509_policy_node_get0_parent_allownil)}
-    X509_policy_node_get0_parent := @ERR_X509_policy_node_get0_parent;
+    X509_policy_node_get0_parent := ERR_X509_policy_node_get0_parent;
     {$ifend}
     {$if declared(X509_policy_node_get0_parent_introduced)}
     if LibVersion < X509_policy_node_get0_parent_introduced then
     begin
       {$if declared(FC_X509_policy_node_get0_parent)}
-      X509_policy_node_get0_parent := @FC_X509_policy_node_get0_parent;
+      X509_policy_node_get0_parent := FC_X509_policy_node_get0_parent;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -9058,7 +9065,7 @@ begin
     if X509_policy_node_get0_parent_removed <= LibVersion then
     begin
       {$if declared(_X509_policy_node_get0_parent)}
-      X509_policy_node_get0_parent := @_X509_policy_node_get0_parent;
+      X509_policy_node_get0_parent := _X509_policy_node_get0_parent;
       {$ifend}
       FuncLoadError := false;
     end;
