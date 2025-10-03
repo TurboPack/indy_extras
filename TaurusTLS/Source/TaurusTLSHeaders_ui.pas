@@ -90,7 +90,7 @@ type
     * The UI_STRING type is the data structure that contains all the needed info
     * about a string or a prompt, including test data for a verification prompt.
   *)
-  ui_string_st = type Pointer;
+  ui_string_st = record end;
   UI_STRING = ui_string_st;
   PUI_STRING = ^UI_STRING;
   // DEFINE_STACK_OF(UI_STRING)

@@ -38,42 +38,42 @@ uses
   TaurusTLSHeaders_x509;
 
 type
-  CMS_ContentInfo_st = type Pointer;
+  CMS_ContentInfo_st = record end;
   CMS_ContentInfo = CMS_ContentInfo_st;
   PCMS_ContentInfo = ^CMS_ContentInfo;
   PPCMS_ContentInfo = ^PCMS_ContentInfo;
 
-  CMS_SignerInfo_st = type Pointer;
+  CMS_SignerInfo_st = record end;
   CMS_SignerInfo = CMS_SignerInfo_st;
   PCMS_SignerInfo = ^CMS_SignerInfo;
 
-  CMS_CertificateChoices_st = type Pointer;
+  CMS_CertificateChoices_st = record end;
   CMS_CertificateChoices = CMS_CertificateChoices_st;
   PCMS_CertificateChoices = ^CMS_CertificateChoices;
 
-  CMS_RevocationInfoChoice_st = type Pointer;
+  CMS_RevocationInfoChoice_st = record end;
   CMS_RevocationInfoChoice = CMS_RevocationInfoChoice_st;
   PCMS_RevocationInfoChoice = ^CMS_RevocationInfoChoice;
 
-  CMS_RecipientInfo_st = type Pointer;
+  CMS_RecipientInfo_st = record end;
   CMS_RecipientInfo = CMS_RecipientInfo_st;
   PCMS_RecipientInfo = ^CMS_RecipientInfo;
   PPCMS_RecipientInfo = ^PCMS_RecipientInfo;
 
-  CMS_ReceiptRequest_st = type Pointer;
+  CMS_ReceiptRequest_st = record end;
   CMS_ReceiptRequest = CMS_ReceiptRequest_st;
   PCMS_ReceiptRequest = ^CMS_ReceiptRequest;
   PPCMS_ReceiptRequest = ^PCMS_ReceiptRequest;
 
-  CMS_Receipt_st = type Pointer;
+  CMS_Receipt_st = record end;
   CMS_Receipt = CMS_Receipt_st;
   PCMS_Receipt = ^CMS_Receipt;
 
-  CMS_RecipientEncryptedKey_st = type Pointer;
+  CMS_RecipientEncryptedKey_st = record end;
   CMS_RecipientEncryptedKey = CMS_RecipientEncryptedKey_st;
   PCMS_RecipientEncryptedKey = ^CMS_RecipientEncryptedKey;
 
-  CMS_OtherKeyAttribute_st = type Pointer;
+  CMS_OtherKeyAttribute_st = record end;
   CMS_OtherKeyAttribute = CMS_OtherKeyAttribute_st;
   PCMS_OtherKeyAttribute = ^CMS_OtherKeyAttribute;
   PPCMS_OtherKeyAttribute = ^PCMS_OtherKeyAttribute;

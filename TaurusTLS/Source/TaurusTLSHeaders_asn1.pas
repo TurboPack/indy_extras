@@ -246,8 +246,10 @@ const
   ASN1_PCTX_FLAGS_NO_STRUCT_NAME = $100;
 
 type
-  PSTACK_OF_ASN1_OBJECT = type Pointer;
-  PSTACK_OF_X509_ALGOR = type Pointer;
+  STACK_OF_ASN1_OBJECT = record end;
+  PSTACK_OF_ASN1_OBJECT = ^STACK_OF_ASN1_OBJECT;
+  STACK_OF_X509_ALGOR = record end;
+  PSTACK_OF_X509_ALGOR = ^STACK_OF_X509_ALGOR;
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
 //  asn1_string_st = record
@@ -286,7 +288,8 @@ type
   end;
   ASN1_STRING_TABLE = asn1_string_table_st;
   PASN1_STRING_TABLE = ^ASN1_STRING_TABLE;
-  PSTACK_OF_ASN1_STRING_TABLE = type Pointer;
+  STACK_OF_ASN1_STRING_TABLE = record end;
+  PSTACK_OF_ASN1_STRING_TABLE = ^STACK_OF_ASN1_STRING_TABLE;
 // DEFINE_STACK_OF(ASN1_STRING_TABLE)
 
   (*                  !!!
@@ -434,10 +437,14 @@ type
 //
 //# endif
 
-  PSTACK_OF_ASN1_INTEGER = type pointer;
-  PSTACK_OF_ASN1_GENERALSTRING = type pointer;
-  PSTACK_OF_ASN1_UTF8STRING = type pointer;
-  PSTACK_OF_ASN1_TYPE = type pointer;
+  STACK_OF_ASN1_INTEGER = record end;
+  PSTACK_OF_ASN1_INTEGER = ^STACK_OF_ASN1_INTEGER;
+  STACK_OF_ASN1_GENERALSTRING = record end;
+  PSTACK_OF_ASN1_GENERALSTRING = ^STACK_OF_ASN1_GENERALSTRING;
+  STACK_OF_ASN1_UTF8STRING = record end;
+  PSTACK_OF_ASN1_UTF8STRING = ^STACK_OF_ASN1_UTF8STRING;
+  STACK_OF_ASN1_TYPE = record end;
+  PSTACK_OF_ASN1_TYPE = ^STACK_OF_ASN1_TYPE;
 //
 //typedef STACK_OF(ASN1_TYPE) ASN1_SEQUENCE_ANY;
 //

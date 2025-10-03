@@ -84,9 +84,11 @@ const
   CT_R_UNSUPPORTED_VERSION                        = 103;
 
 type
-  PSTACK_OF_SCT = type pointer;
+  STACK_OF_SCT = record end;
+  PSTACK_OF_SCT = ^STACK_OF_SCT;
   PPSTACK_OF_SCT = ^PSTACK_OF_SCT;
-  PSTACK_OF_CTLOG = type pointer;
+  STACK_OF_CTLOG = record end;
+  PSTACK_OF_CTLOG = ^STACK_OF_CTLOG;
   ct_log_entry_type_t = (CT_LOG_ENTRY_TYPE_NOT_SET = -1,
     CT_LOG_ENTRY_TYPE_X509 = 0, CT_LOG_ENTRY_TYPE_PRECERT = 1);
   sct_version_t = (SCT_VERSION_NOT_SET = -1, SCT_VERSION_V1 = 0);

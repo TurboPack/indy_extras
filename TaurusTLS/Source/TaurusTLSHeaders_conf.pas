@@ -47,13 +47,15 @@ type
   end;
   PCONF_VALUE = ^CONF_VALUE;
 
-  PSTACK_OF_CONF_VALUE = type pointer;
+  STACK_OF_CONF_VALUE = record end;
+  PSTACK_OF_CONF_VALUE = ^STACK_OF_CONF_VALUE;
 //DEFINE_STACK_OF(CONF_VALUE)
-  Plhash_st_CONF_VALUE = type pointer;
+  lhash_st_CONF_VALUE = record end;
+  Plhash_st_CONF_VALUE = ^lhash_st_CONF_VALUE;
 //DEFINE_LHASH_OF(CONF_VALUE);
 
-  conf_st = type Pointer;
-  conf_method_st = type Pointer;
+  conf_st = record end;
+  conf_method_st = record end;
   CONF_METHOD = conf_method_st;
   PCONF_METHOD = ^conf_method_st;
   CONF = conf_st;
@@ -74,15 +76,17 @@ type
 
 //* Module definitions */
 
-  conf_imodule_st = type Pointer;
+  conf_imodule_st = record end;
   CONF_IMODULE = conf_imodule_st;
   PCONF_IMODULE = ^CONF_IMODULE;
-  conf_module_st = type Pointer;
+  conf_module_st = record end;
   CONF_MODULE = conf_module_st;
   PCONF_MODULE = ^CONF_MODULE;
 
-  PSTACK_OF_CONF_MODULE = type pointer;
-  PSTACK_OF_CONF_IMODULE = type pointer;
+  STACK_OF_CONF_MODULE = record end;
+  PSTACK_OF_CONF_MODULE = ^STACK_OF_CONF_MODULE;
+  STACK_OF_CONF_IMODULE = record end;
+  PSTACK_OF_CONF_IMODULE = ^STACK_OF_CONF_IMODULE;
 //DEFINE_STACK_OF(CONF_MODULE)
 //DEFINE_STACK_OF(CONF_IMODULE)
 

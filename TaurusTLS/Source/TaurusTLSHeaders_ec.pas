@@ -70,21 +70,21 @@ type
     POINT_CONVERSION_HYBRID = 6
   );
 
-  EC_METHOD = type Pointer; // ec_method_st
+  EC_METHOD = record end; // ec_method_st
   PEC_METHOD = ^EC_METHOD;
 
-  EC_GROUP = type Pointer; // ec_group_st
+  EC_GROUP = record end; // ec_group_st
   PEC_GROUP = ^EC_GROUP;
   PPEC_GROUP = ^PEC_GROUP;
 
-  EC_POINT = type Pointer; // ec_point_st
+  EC_POINT = record end; // ec_point_st
   PEC_POINT = ^EC_POINT;
   PPEC_POINT = ^PEC_POINT;
 
-  ECPKPARAMETERS = type Pointer; // ecpk_parameters_st
+  ECPKPARAMETERS = record end; // ecpk_parameters_st
   PECPKPARAMETERS = ^ECPKPARAMETERS;
 
-  ECPARAMETERS = type Pointer; // ec_parameters_st
+  ECPARAMETERS = record end; // ec_parameters_st
   PECPARAMETERS = ^ECPARAMETERS;
 
   EC_builtin_curve = record
@@ -93,7 +93,7 @@ type
   end;
   PEC_builtin_curve = ^EC_builtin_curve;
 
-  ECDSA_SIG = type Pointer; // ECDSA_SIG_st
+  ECDSA_SIG = record end; // ECDSA_SIG_st
   PECDSA_SIG = ^ECDSA_SIG;
   PPECDSA_SIG = ^PECDSA_SIG;
 

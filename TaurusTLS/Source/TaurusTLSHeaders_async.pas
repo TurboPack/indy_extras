@@ -44,12 +44,12 @@ const
   ASYNC_FINISH = 3;
 
 type
-  async_job_st = type Pointer;
+  async_job_st = record end;
   ASYNC_JOB = async_job_st;
   PASYNC_JOB = ^ASYNC_JOB;
   PPASYNC_JOB = ^PASYNC_JOB;
 
-  async_wait_ctx_st = type Pointer;
+  async_wait_ctx_st = record end;
   ASYNC_WAIT_CTX = async_wait_ctx_st;
   PASYNC_WAIT_CTX = ^ASYNC_WAIT_CTX;
 

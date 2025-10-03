@@ -232,7 +232,7 @@ type
   PASN1_NULL  = ^ASN1_NULL;
 
   ASN1_ITEM   = record end;
-  PASN1_ITEM  = type Pointer;
+  PASN1_ITEM  = ^ASN1_ITEM;
 
   ASN1_PCTX   = record end;
   PASN1_PCTX = ^ASN1_PCTX;
@@ -281,7 +281,7 @@ type
   PEVP_MD_CTX = ^EVP_MD_CTX;
 
   EVP_PKEY    = record end;
-  PEVP_PKEY   = type Pointer;
+  PEVP_PKEY   = ^EVP_PKEY;
   PPEVP_PKEY  = ^PEVP_PKEY;
 
   EVP_SKEY    = record end;
@@ -316,7 +316,8 @@ type
   PDH   = ^DH;
   PPDH  = ^PDH;
 
-  PDH_METHOD = type Pointer;
+  DH_METHOD = record end;
+  PDH_METHOD = ^DH_METHOD;
 
   DSA   = record end;
   PDSA  = ^DSA;

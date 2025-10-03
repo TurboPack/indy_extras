@@ -39,7 +39,7 @@ uses
   TaurusTLSHeaders_x509;
 
 type
-  EVP_CIPHER_INFO = type Pointer;
+  EVP_CIPHER_INFO = record end;
   PEVP_CIPHER_INFO = ^EVP_CIPHER_INFO;
 
 const

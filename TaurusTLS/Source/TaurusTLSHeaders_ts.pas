@@ -115,10 +115,10 @@ const
     or TS_VFY_DATA or TS_VFY_NONCE or TS_VFY_SIGNER or TS_VFY_TSA_NAME;
 
 type
-  TS_msg_imprint_st = type Pointer;
-  TS_req_st = type Pointer;
-  TS_accuracy_st = type Pointer;
-  TS_tst_info_st = type Pointer;
+  TS_msg_imprint_st = record end;
+  TS_req_st = record end;
+  TS_accuracy_st = record end;
+  TS_tst_info_st = record end;
 
   TS_MSG_IMPRINT = TS_msg_imprint_st;
   PTS_MSG_IMPRINT = ^TS_MSG_IMPRINT;
@@ -136,12 +136,12 @@ type
   PTS_TST_INFO = ^TS_TST_INFO;
   PPTS_TST_INFO = ^PTS_TST_INFO;
 
-  TS_status_info_st = type Pointer;
-  ESS_issuer_serial_st = type Pointer;
-  ESS_cert_id_st = type Pointer;
-  ESS_signing_cert_st = type Pointer;
-  ESS_cert_id_v2_st = type Pointer;
-  ESS_signing_cert_v2_st = type Pointer;
+  TS_status_info_st = record end;
+  ESS_issuer_serial_st = record end;
+  ESS_cert_id_st = record end;
+  ESS_signing_cert_st = record end;
+  ESS_cert_id_v2_st = record end;
+  ESS_signing_cert_v2_st = record end;
 
   TS_STATUS_INFO = TS_status_info_st;
   PTS_STATUS_INFO = ^TS_STATUS_INFO;
@@ -170,13 +170,13 @@ type
   PPESS_SIGNING_CERT_V2 = ^PESS_SIGNING_CERT_V2;
 
 // DEFINE_STACK_OF(ESS_CERT_ID_V2)
-  TS_resp_st = type Pointer;
+  TS_resp_st = record end;
   TS_RESP = TS_resp_st;
   PTS_RESP = ^TS_RESP;
   PPTS_RESP = ^PTS_RESP;
 
   (* Forward declaration. *)
-  TS_resp_ctx = type Pointer;
+  TS_resp_ctx = record end;
   PTS_resp_ctx = ^TS_resp_ctx;
   PPTS_resp_ctx = ^PTS_resp_ctx;
 
@@ -198,7 +198,7 @@ type
   TS_extension_cb = function({struct} v1: PTS_resp_ctx; v2: PX509_Extension; v3: Pointer): TIdC_INT;
 
 //  TS_VERIFY_CTX = TS_verify_ctx;
-  TS_VERIFY_CTX = type Pointer;
+  TS_VERIFY_CTX = record end;
   PTS_VERIFY_CTX = ^TS_VERIFY_CTX;
 
     { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:

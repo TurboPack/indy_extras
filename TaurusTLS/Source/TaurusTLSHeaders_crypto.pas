@@ -122,7 +122,7 @@ type
     _val : TIdC_ULONG;
   end;
   PCRYPTO_THREADID = ^CRYPTO_THREADID;
-  CRYPTO_RWLOCK = type Pointer;
+  CRYPTO_RWLOCK = record end;
   PCRYPTO_RWLOCK = ^CRYPTO_RWLOCK;
   //crypto_ex_data_st = record
   //  sk: PStackOfVoid;

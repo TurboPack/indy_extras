@@ -53,7 +53,7 @@ const
   EVP_PKEY_CTRL_DSA_PARAMGEN_MD = EVP_PKEY_ALG_CTRL + 3;
 
 type
-  DSA_SIG = type Pointer; // DSA_SIG_st
+  DSA_SIG = record end; // DSA_SIG_st
   PDSA_SIG = ^DSA_SIG;
   PPDSA_SIG = ^PDSA_SIG;
 

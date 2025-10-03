@@ -63,24 +63,24 @@ const
   PKCS12_OK       = 1;
 
 type
-  PKCS12_MAC_DATA_st = type Pointer;
+  PKCS12_MAC_DATA_st = record end;
   PKCS12_MAC_DATA = PKCS12_MAC_DATA_st;
   PPKCS12_MAC_DATA = ^PKCS12_MAC_DATA;
   PPPKCS12_MAC_DATA = ^PPKCS12_MAC_DATA;
 
-  PKCS12_st = type Pointer;
+  PKCS12_st = record end;
   PKCS12 = PKCS12_st;
   PPKCS12 = ^PKCS12;
   PPPKCS12 = ^PPKCS12;
 
-  PKCS12_SAFEBAG_st = type Pointer;
+  PKCS12_SAFEBAG_st = record end;
   PKCS12_SAFEBAG = PKCS12_SAFEBAG_st;
   PPKCS12_SAFEBAG = ^PKCS12_SAFEBAG;
   PPPKCS12_SAFEBAG = ^PPKCS12_SAFEBAG;
 
 //  DEFINE_STACK_OF(PKCS12_SAFEBAG)
 
-  pkcs12_bag_st = type Pointer;
+  pkcs12_bag_st = record end;
   PKCS12_BAGS = pkcs12_bag_st;
   PPKCS12_BAGS = ^PKCS12_BAGS;
   PPPKCS12_BAGS = ^PPKCS12_BAGS;

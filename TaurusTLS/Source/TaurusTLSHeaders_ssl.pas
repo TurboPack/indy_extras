@@ -1011,18 +1011,27 @@ type
    *)
   ssl_crock_st = PSSL;
   TLS_SESSION_TICKET_EXT = tls_session_ticket_ext_st;
-  PSSL_METHOD = type pointer;
-  PSSL_CIPHER = type pointer;
+  SSL_METHOD = record end;
+  PSSL_METHOD = ^SSL_METHOD;
+  SSL_CIPHER = record end;
+  PSSL_CIPHER = ^SSL_CIPHER;
   PPSSL_CIPHER = ^PSSL_CIPHER;
-  PSSL_SESSION = type pointer;
+  SSL_SESSION = record end;
+  PSSL_SESSION = ^SSL_SESSION;
   PPSSL_SESSION = ^PSSL_SESSION;
-  Plhash_st_SSL_SESSION = type pointer;
-  PTLS_SIGALGS = type pointer;
-  PSSL_CONF_CTX = type pointer;
-  PSSL_COMP = type pointer;
-  PSTACK_OF_SSL_CIPHER = type pointer;
+  lhash_st_SSL_SESSION = record end;
+  Plhash_st_SSL_SESSION = ^lhash_st_SSL_SESSION;
+  TLS_SIGALGS = record end;
+  PTLS_SIGALGS = ^TLS_SIGALGS;
+  SSL_CONF_CTX = record end;
+  PSSL_CONF_CTX = ^SSL_CONF_CTX;
+  SSL_COMP = record end;
+  PSSL_COMP = ^SSL_COMP;
+  STACK_OF_SSL_CIPHER = record end;
+  PSTACK_OF_SSL_CIPHER = ^STACK_OF_SSL_CIPHER;
   PPSTACK_OF_SSL_CIPHER = ^PSTACK_OF_SSL_CIPHER;
-  PSTACK_OF_SSL_COMP = type pointer;
+  STACK_OF_SSL_COMP = record end;
+  PSTACK_OF_SSL_COMP = ^STACK_OF_SSL_COMP;
 
   ssl_shutdown_ex_args_st = record
     quic_error_code : TIdC_UINT64;
@@ -1044,7 +1053,8 @@ type
   end;
   SRTP_PROTECTION_PROFILE = srtp_protection_profile_st;
   PSRTP_PROTECTION_PROFILE = ^SRTP_PROTECTION_PROFILE;
-  PSTACK_OF_SRTP_PROTECTION_PROFILE = type pointer;
+  STACK_OF_SRTP_PROTECTION_PROFILE = record end;
+  PSTACK_OF_SRTP_PROTECTION_PROFILE = ^STACK_OF_SRTP_PROTECTION_PROFILE;
 
   ssl_conn_close_info_st = record
     error_code, frame_type : TIdC_UINT64;

@@ -374,7 +374,8 @@ type
   end;
   ACCESS_DESCRIPTION = ACCESS_DESCRIPTION_st;
   PACCESS_DESCRIPTION = ^ACCESS_DESCRIPTION;
-  PSTACK_OF_ACCESS_DESCRIPTION = type pointer;
+  STACK_OF_ACCESS_DESCRIPTION = record end;
+  PSTACK_OF_ACCESS_DESCRIPTION = ^STACK_OF_ACCESS_DESCRIPTION;
 
   AUTHORITY_INFO_ACCESS = PSTACK_OF_ACCESS_DESCRIPTION;
 
@@ -423,7 +424,8 @@ type
   end;
   SXNETID = SXNET_ID_st;
   PSXNETID = ^SXNETID;
-  PSTACK_OF_SXNETID = type pointer;
+  STACK_OF_SXNETID = record end;
+  PSTACK_OF_SXNETID = ^STACK_OF_SXNETID;
 
   SXNET_st = record
     version : PASN1_INTEGER;
@@ -458,7 +460,8 @@ type
   end;
   POLICYQUALINFO = POLICYQUALINFO_st;
   PPOLICYQUALINFO = ^POLICYQUALINFO;
-  PSTACK_OF_POLICYQUALINFO = type pointer;
+  STACK_OF_POLICYQUALINFO = record end;
+  PSTACK_OF_POLICYQUALINFO = ^STACK_OF_POLICYQUALINFO;
 
   POLICYINFO_st = record
     policyid : PASN1_OBJECT;
@@ -467,7 +470,8 @@ type
   POLICYINFO = POLICYINFO_st;
   PPOLICYINFO = ^POLICYINFO;
 
-  PSTACK_OF_POLICYINFO = type pointer;
+  STACK_OF_POLICYINFO = record end;
+  PSTACK_OF_POLICYINFO = ^STACK_OF_POLICYINFO;
   CERTIFICATEPOLICIES = PSTACK_OF_POLICYINFO;
 
   POLICY_MAPPING_st = record
@@ -476,7 +480,8 @@ type
   end;
   POLICY_MAPPING = POLICY_MAPPING_st;
   PPOLICY_MAPPING = ^POLICY_MAPPING;
-  PSTACK_OF_POLICY_MAPPING = type pointer;
+  STACK_OF_POLICY_MAPPING = record end;
+  PSTACK_OF_POLICY_MAPPING = ^STACK_OF_POLICY_MAPPING;
   POLICY_MAPPINGS = PSTACK_OF_POLICY_MAPPING;
 
   GENERAL_SUBTREE_st = record
@@ -486,7 +491,8 @@ type
   end;
   GENERAL_SUBTREE = GENERAL_SUBTREE_st;
   PGENERAL_SUBTREE = ^GENERAL_SUBTREE;
-  PSTACK_OF_GENERAL_SUBTREE = type pointer;
+  STACK_OF_GENERAL_SUBTREE = record end;
+  PSTACK_OF_GENERAL_SUBTREE = ^STACK_OF_GENERAL_SUBTREE;
 
   NAME_CONSTRAINTS_st = record
     permittedSubtrees : PSTACK_OF_GENERAL_SUBTREE;
@@ -525,7 +531,8 @@ type
     indirectCRL : TIdC_INT;
     onlyattr : TIdC_INT;
   end;
-  PSTACK_OF_ASN1_STRING = type pointer;
+  STACK_OF_ASN1_STRING = record end;
+  PSTACK_OF_ASN1_STRING = ^STACK_OF_ASN1_STRING;
 
 //  # define X509V3_conf_err(val) ERR_add_error_data(6, \
 //                          "section:", (val)->section, \
@@ -561,8 +568,10 @@ type
     usr_data: Pointer;
   end;
   X509_PURPOSE = x509_purpose_st;
-  PSTACK_OF_X509_PURPOSE = type pointer;
-  PSTACK_OF_X509_POLICY_NODE = type pointer;
+  STACK_OF_X509_PURPOSE = record end;
+  PSTACK_OF_X509_PURPOSE = ^STACK_OF_X509_PURPOSE;
+  STACK_OF_X509_POLICY_NODE = record end;
+  PSTACK_OF_X509_POLICY_NODE = ^STACK_OF_X509_POLICY_NODE;
 
 //  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
 
@@ -620,7 +629,8 @@ type
   IPAddressOrRange = IPAddressOrRange_st;
   PIPAddressOrRange = ^IPAddressOrRange;
 
-  PSTACK_OF_IPAddressOrRange = type pointer;
+  STACK_OF_IPAddressOrRange = record end;
+  PSTACK_OF_IPAddressOrRange = ^STACK_OF_IPAddressOrRange;
   PIPAddressOrRanges = PSTACK_OF_IPAddressOrRange;
 
   IPAddressChoice_st = record
@@ -645,19 +655,19 @@ type
 //  DECLARE_ASN1_FUNCTIONS(IPAddressChoice)
 //  DECLARE_ASN1_FUNCTIONS(IPAddressFamily)
 
-  NamingAuthority_st = type Pointer;
+  NamingAuthority_st = record end;
   NAMING_AUTHORITY = NamingAuthority_st;
   PNAMING_AUTHORITY = ^NAMING_AUTHORITY;
 
-  ProfessionInfo_st = type Pointer;
+  ProfessionInfo_st = record end;
   PROFESSION_INFO = ProfessionInfo_st;
   PPROFESSION_INFO = ^PROFESSION_INFO;
 
-  Admissions_st = type Pointer;
+  Admissions_st = record end;
   ADMISSIONS = Admissions_st;
   PADMISSIONS = ^ADMISSIONS;
 
-  AdmissionSyntax_st = type Pointer;
+  AdmissionSyntax_st = record end;
   ADMISSION_SYNTAX = AdmissionSyntax_st;
   PADMISSION_SYNTAX = ^ADMISSION_SYNTAX;
 //  DECLARE_ASN1_FUNCTIONS(NAMING_AUTHORITY)

@@ -42,7 +42,7 @@ uses
   TaurusTLSHeaders_types;
 
 type
-  X509_ALGORS = type Pointer;
+  X509_ALGORS = record end;
 
 const
   (* Flags for X509_get_signature_info() *)
@@ -268,41 +268,45 @@ type
   PX509_VAL = ^X509_VAL;
   PPX509_VAL = ^PX509_VAL;
 
-  X509_SIG = type Pointer; // X509_sig_st
+  X509_SIG = record end; // X509_sig_st
   PX509_SIG = ^X509_SIG;
   PPX509_SIG = ^PX509_SIG;
 
-  X509_NAME_ENTRY = type Pointer; // X509_name_entry_st
+  X509_NAME_ENTRY = record end; // X509_name_entry_st
   PX509_NAME_ENTRY = ^X509_NAME_ENTRY;
   PPX509_NAME_ENTRY = ^PX509_NAME_ENTRY;
 
   //DEFINE_STACK_OF(X509_NAME_ENTRY)
-  PSTACK_OF_X509_NAME_ENTRY = type pointer;
+  STACK_OF_X509_NAME_ENTRY = record end;
+  PSTACK_OF_X509_NAME_ENTRY = ^STACK_OF_X509_NAME_ENTRY;
   //
   //DEFINE_STACK_OF(X509_NAME)
-  PSTACK_OF_X509_NAME = type pointer;
+  STACK_OF_X509_NAME = record end;
+  PSTACK_OF_X509_NAME = ^STACK_OF_X509_NAME;
 
-  X509_EXTENSION = type Pointer; // X509_extension_st
+  X509_EXTENSION = record end; // X509_extension_st
   PX509_EXTENSION = ^X509_EXTENSION;
   PPX509_EXTENSION = ^PX509_EXTENSION;
 
   //typedef STACK_OF(X509_EXTENSION) X509_EXTENSIONS;
   //
-  PSTACK_OF_X509_EXTENSION = type Pointer;
+  STACK_OF_X509_EXTENSION = record end;
+  PSTACK_OF_X509_EXTENSION = ^STACK_OF_X509_EXTENSION;
   PX509_EXTENSIONS = PSTACK_OF_X509_EXTENSION;
-  X509_ATTRIBUTE = type Pointer; // x509_attributes_st
+  X509_ATTRIBUTE = record end; // x509_attributes_st
   PX509_ATTRIBUTE = ^X509_ATTRIBUTE;
   PPX509_ATTRIBUTE = ^PX509_ATTRIBUTE;
 
-  PSTACK_OF_X509_ATTRIBUTE = type Pointer;
+  STACK_OF_X509_ATTRIBUTE = record end;
+  PSTACK_OF_X509_ATTRIBUTE = ^STACK_OF_X509_ATTRIBUTE;
 
-  X509_REQ_INFO = type Pointer; // X509_req_info_st
+  X509_REQ_INFO = record end; // X509_req_info_st
   PX509_REQ_INFO = ^X509_REQ_INFO;
   PPX509_REQ_INFO = ^PX509_REQ_INFO;
 
-  X509_CERT_AUX = type Pointer; // x509_cert_aux_st
+  X509_CERT_AUX = record end; // x509_cert_aux_st
 
-  X509_CINF = type Pointer; // x509_cinf_st
+  X509_CINF = record end; // x509_cinf_st
 
   //DEFINE_STACK_OF(X509)
 
@@ -320,12 +324,15 @@ type
   X509_TRUST = x509_trust_st;
   PX509_TRUST = ^X509_TRUST;
 
-  PSTACK_OF_X509_TRUST = type Pointer;
-  PSTACK_OF_X509_REVOKED = type Pointer;
-  X509_CRL_INFO = type Pointer; // X509_crl_info_st
+  STACK_OF_X509_TRUST = record end;
+  PSTACK_OF_X509_TRUST = ^STACK_OF_X509_TRUST;
+  STACK_OF_X509_REVOKED = record end;
+  PSTACK_OF_X509_REVOKED = ^STACK_OF_X509_REVOKED;
+  X509_CRL_INFO = record end; // X509_crl_info_st
   PX509_CRL_INFO = ^X509_CRL_INFO;
   PPX509_CRL_INFO = ^PX509_CRL_INFO;
-  PSTACK_OF_X509_CRL = type Pointer;
+  STACK_OF_X509_CRL = record end;
+  PSTACK_OF_X509_CRL = ^STACK_OF_X509_CRL;
 
   private_key_st = record
     version: TIdC_INT;
@@ -454,11 +461,15 @@ type
     parameter : PASN1_TYPE;
   end;
 
-  PSTACK_OF_ASIdOrRange = type Pointer;
+  STACK_OF_ASIdOrRange = record end;
+  PSTACK_OF_ASIdOrRange = ^STACK_OF_ASIdOrRange;
 
-  PSTACK_OF_DIST_POINT = type Pointer;
-  PSTACK_OF_GENERAL_NAME = type Pointer;
-  PSTACK_OF_IPAddressFamily = type Pointer;
+  STACK_OF_DIST_POINT = record end;
+  PSTACK_OF_DIST_POINT = ^STACK_OF_DIST_POINT;
+  STACK_OF_GENERAL_NAME = record end;
+  PSTACK_OF_GENERAL_NAME = ^STACK_OF_GENERAL_NAME;
+  STACK_OF_IPAddressFamily = record end;
+  PSTACK_OF_IPAddressFamily = ^STACK_OF_IPAddressFamily;
   PASIdOrRanges = PSTACK_OF_ASIdOrRange;
 
   ASIdentifierChoice_union = record
@@ -479,7 +490,7 @@ type
     rdi : PASIdentifierChoice;
   end;
 
-  PX509_CERT_AUX = pointer;
+  PX509_CERT_AUX = ^X509_CERT_AUX;
 
 
 {X509 = record

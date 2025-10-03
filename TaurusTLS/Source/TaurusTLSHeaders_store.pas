@@ -33,9 +33,11 @@ uses
   TaurusTLSHeaders_core;
 
 type
-  POSSL_STORE_CTX  = type Pointer;
+  OSSL_STORE_CTX  = record end;
+  POSSL_STORE_CTX  = ^OSSL_STORE_CTX;
   PPOSSL_STORE_CTX = ^POSSL_STORE_CTX;
-  POSSL_STORE_LOADER = type Pointer;
+  OSSL_STORE_LOADER = record end;
+  POSSL_STORE_LOADER = ^OSSL_STORE_LOADER;
   PPOSSL_STORE_LOADER = ^POSSL_STORE_LOADER;
 
 {*

@@ -39,7 +39,7 @@ uses
 
 //* Opaque */
 type
-  CMAC_CTX_st = type Pointer;
+  CMAC_CTX_st = record end;
   CMAC_CTX = CMAC_CTX_st;
   PCMAC_CTX = ^CMAC_CTX;
 
