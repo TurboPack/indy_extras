@@ -339,82 +339,82 @@ const
   {$I TaurusTLSNoRetValOff.inc}
 
 //* Search an OSSL_PARAM array for a matching name */
-  function ERR_OSSL_PARAM_locate(p : POSSL_PARAM; const key : PIdAnsiChar) : POSSL_PARAM;
+  function ERR_OSSL_PARAM_locate(p : POSSL_PARAM; const key : PIdAnsiChar) : POSSL_PARAM;  cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_locate_procname);
   end;
 
-  function ERR_OSSL_PARAM_locate_const(const  p : POSSL_PARAM; const key : PIdAnsiChar) : POSSL_PARAM;
+  function ERR_OSSL_PARAM_locate_const(const  p : POSSL_PARAM; const key : PIdAnsiChar) : POSSL_PARAM; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_locate_const_procname);
   end;
 
 ///* Basic parameter type run-time construction */
-  function ERR_OSSL_PARAM_construct_int(const key : PIdAnsiChar;  buf : PIdC_INT) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_int(const key : PIdAnsiChar;  buf : PIdC_INT) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_int_procname);
   end;
-  function ERR_OSSL_PARAM_construct_uint(const key : PIdAnsiChar; buf : PIDC_UINT) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_uint(const key : PIdAnsiChar; buf : PIDC_UINT) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_uint_procname);
   end;
-  function ERR_OSSL_PARAM_construct_long(const key : PIdAnsiChar; buf : PIdC_LONG) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_long(const key : PIdAnsiChar; buf : PIdC_LONG) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_long_procname);
   end;
-  function ERR_OSSL_PARAM_construct_ulong(const key : PIdAnsiChar; buf : PIdC_ULONG) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_ulong(const key : PIdAnsiChar; buf : PIdC_ULONG) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_ulong_procname);
   end;
-  function ERR_OSSL_PARAM_construct_int32(const key : PIdAnsiChar; buf : PIdC_INT32) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_int32(const key : PIdAnsiChar; buf : PIdC_INT32) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_int32_procname);
   end;
-  function ERR_OSSL_PARAM_construct_uint32(const key : PIdAnsiChar; buf : PIdC_UINT32) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_uint32(const key : PIdAnsiChar; buf : PIdC_UINT32) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_uint32_procname);
   end;
-  function ERR_OSSL_PARAM_construct_int64(const key : PIdAnsiChar; buf : PIdC_INT64) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_int64(const key : PIdAnsiChar; buf : PIdC_INT64) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_int64_procname);
   end;
-  function ERR_OSSL_PARAM_construct_uint64(const key : PIdAnsiChar; buf : PIdC_UINT64) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_uint64(const key : PIdAnsiChar; buf : PIdC_UINT64) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_uint64_procname);
   end;
-  function ERR_OSSL_PARAM_construct_size_t(const key : PIdAnsiChar; buf : PIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_size_t(const key : PIdAnsiChar; buf : PIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_size_t_procname);
   end;
-  function ERR_OSSL_PARAM_construct_time_t(const key : PIdAnsiChar; buf : PIdC_TIMET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_time_t(const key : PIdAnsiChar; buf : PIdC_TIMET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_time_t_procname);
   end;
-  function ERR_OSSL_PARAM_construct_BN(const key : PIdAnsiChar; buf : PIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_BN(const key : PIdAnsiChar; buf : PIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_BN_procname);
   end;
-  function ERR_OSSL_PARAM_construct_double(const key : PIdAnsiChar; buf : PIdC_DOUBLE) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_double(const key : PIdAnsiChar; buf : PIdC_DOUBLE) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_double_procname);
   end;
-  function ERR_OSSL_PARAM_construct_utf8_string(const key : PIdAnsiChar; buf : PIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_utf8_string(const key : PIdAnsiChar; buf : PIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_utf8_string_procname);
   end;
-  function ERR_OSSL_PARAM_construct_utf8_ptr(const key : PIdAnsiChar; buf : PPIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_utf8_ptr(const key : PIdAnsiChar; buf : PPIdAnsiChar; bsize : TIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_utf8_ptr_procname);
   end;
-  function ERR_OSSL_PARAM_construct_octet_string(const key : PIdAnsiChar; buf : Pointer; bsize : TIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_octet_string(const key : PIdAnsiChar; buf : Pointer; bsize : TIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_octet_string_procname);
   end;
-  function ERR_OSSL_PARAM_construct_octet_ptr(const key : PIdAnsiChar; buf : PPointer; bsize : TIdC_SIZET) : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_octet_ptr(const key : PIdAnsiChar; buf : PPointer; bsize : TIdC_SIZET) : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_octet_ptr_procname);
   end;
-  function ERR_OSSL_PARAM_construct_end : OSSL_PARAM;
+  function ERR_OSSL_PARAM_construct_end : OSSL_PARAM; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_construct_end_procname);
   end;
@@ -422,188 +422,189 @@ const
   function ERR_OSSL_PARAM_allocate_from_text(to_ : POSSL_PARAM;
                                   const paramdefs : POSSL_PARAM;
                                   const key, value : PIdAnsiChar;
-                                  value_n : TIdC_SIZET; found : PIdC_INT) : TIdC_INT;
+                                  value_n : TIdC_SIZET; found : PIdC_INT) : TIdC_INT; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_allocate_from_text_procname);
   end;
 
-  function ERR_OSSL_PARAM_get_int(const p : POSSL_PARAM; _val : PIdC_INT): TIdC_INT;
+  function ERR_OSSL_PARAM_get_int(const p : POSSL_PARAM; _val : PIdC_INT): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_int_procname);
   end;
-  function ERR_OSSL_PARAM_get_uint(const p : POSSL_PARAM; _val : PIdC_UINT): TIdC_INT;
+  function ERR_OSSL_PARAM_get_uint(const p : POSSL_PARAM; _val : PIdC_UINT): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_uint_procname);
   end;
-  function ERR_OSSL_PARAM_get_long(const p : POSSL_PARAM; _val : PIdC_LONG): TIdC_INT;
+  function ERR_OSSL_PARAM_get_long(const p : POSSL_PARAM; _val : PIdC_LONG): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_long_procname);
   end;
-  function ERR_OSSL_PARAM_get_ulong(const p : POSSL_PARAM; _val : PIdC_ULONG): TIdC_INT;
+  function ERR_OSSL_PARAM_get_ulong(const p : POSSL_PARAM; _val : PIdC_ULONG): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_ulong_procname);
   end;
-  function ERR_OSSL_PARAM_get_int32(const p : POSSL_PARAM; _val : PIdC_INT32): TIdC_INT;
+  function ERR_OSSL_PARAM_get_int32(const p : POSSL_PARAM; _val : PIdC_INT32): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_int32_procname);
   end;
-  function ERR_OSSL_PARAM_get_uint32(const p : POSSL_PARAM; _val : PIdC_UINT32): TIdC_INT;
+  function ERR_OSSL_PARAM_get_uint32(const p : POSSL_PARAM; _val : PIdC_UINT32): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_uint32_procname);
   end;
-  function ERR_OSSL_PARAM_get_int64(const p : POSSL_PARAM; _val : PIdC_INT64): TIdC_INT;
+  function ERR_OSSL_PARAM_get_int64(const p : POSSL_PARAM; _val : PIdC_INT64): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_int64_procname);
   end;
-  function ERR_OSSL_PARAM_get_uint64(const p : POSSL_PARAM; _val : PIdC_UINT64): TIdC_INT;
+  function ERR_OSSL_PARAM_get_uint64(const p : POSSL_PARAM; _val : PIdC_UINT64): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_uint64_procname);
   end;
 
-  function ERR_OSSL_PARAM_get_size_t(const p : POSSL_PARAM; _val : PIdC_SIZET): TIdC_INT;
+  function ERR_OSSL_PARAM_get_size_t(const p : POSSL_PARAM; _val : PIdC_SIZET): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_size_t_procname);
   end;
-  function ERR_OSSL_PARAM_get_time_t(const p : POSSL_PARAM; _val : PIdC_TIMET): TIdC_INT;
+  function ERR_OSSL_PARAM_get_time_t(const p : POSSL_PARAM; _val : PIdC_TIMET): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_time_t_procname);
   end;
 
-  function ERR_OSSL_PARAM_set_int(p : POSSL_PARAM; _val : TIdC_INT): TIdC_INT;
+  function ERR_OSSL_PARAM_set_int(p : POSSL_PARAM; _val : TIdC_INT): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_int_procname);
   end;
-  function ERR_OSSL_PARAM_set_uint(p : POSSL_PARAM; _val : TIdC_UINT): TIdC_INT;
+  function ERR_OSSL_PARAM_set_uint(p : POSSL_PARAM; _val : TIdC_UINT): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_uint_procname);
   end;
-  function ERR_OSSL_PARAM_set_long(p : POSSL_PARAM; _val : TIdC_LONG): TIdC_INT;
+  function ERR_OSSL_PARAM_set_long(p : POSSL_PARAM; _val : TIdC_LONG): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_long_procname);
   end;
-  function ERR_OSSL_PARAM_set_ulong(p : POSSL_PARAM; _val : TIdC_ULONG): TIdC_INT;
+  function ERR_OSSL_PARAM_set_ulong(p : POSSL_PARAM; _val : TIdC_ULONG): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_ulong_procname);
   end;
-  function ERR_OSSL_PARAM_set_int32(p : POSSL_PARAM; _val : TIdC_INT32): TIdC_INT;
+  function ERR_OSSL_PARAM_set_int32(p : POSSL_PARAM; _val : TIdC_INT32): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_int32_procname);
   end;
-  function ERR_OSSL_PARAM_set_uint32(p : POSSL_PARAM; _val : TIdC_UINT32): TIdC_INT;
+  function ERR_OSSL_PARAM_set_uint32(p : POSSL_PARAM; _val : TIdC_UINT32): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_uint32_procname);
   end;
-  function ERR_OSSL_PARAM_set_int64(p : POSSL_PARAM; _val : TIdC_INT64): TIdC_INT;
+  function ERR_OSSL_PARAM_set_int64(p : POSSL_PARAM; _val : TIdC_INT64): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_int64_procname);
   end;
-  function ERR_OSSL_PARAM_set_uint64(p : POSSL_PARAM; _val : TIdC_UINT64): TIdC_INT;
+  function ERR_OSSL_PARAM_set_uint64(p : POSSL_PARAM; _val : TIdC_UINT64): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_uint64_procname);
   end;
 
-  function ERR_OSSL_PARAM_set_size_t(p : POSSL_PARAM; _val : TIdC_SIZET): TIdC_INT;
+  function ERR_OSSL_PARAM_set_size_t(p : POSSL_PARAM; _val : TIdC_SIZET): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_size_t_procname);
   end;
-  function ERR_OSSL_PARAM_set_time_t(p : POSSL_PARAM; _val : TIdC_TIMET): TIdC_INT;
+  function ERR_OSSL_PARAM_set_time_t(p : POSSL_PARAM; _val : TIdC_TIMET): TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_time_t_procname);
   end;
-  function ERR_OSSL_PARAM_get_double(const p : POSSL_PARAM; _val : PIdC_DOUBLE) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_double(const p : POSSL_PARAM; _val : PIdC_DOUBLE) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_double_procname);
   end;
 
 
-  function ERR_OSSL_PARAM_set_double(p : POSSL_PARAM; _val : TIdC_DOUBLE) : TIdC_INT;
+  function ERR_OSSL_PARAM_set_double(p : POSSL_PARAM; _val : TIdC_DOUBLE) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_double_procname);
   end;
-  function ERR_OSSL_PARAM_get_BN(const p : POSSL_PARAM; _val : PPBIGNUM) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_BN(const p : POSSL_PARAM; _val : PPBIGNUM) : TIdC_INT; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_BN_procname);
   end;
 
-  function ERR_OSSL_PARAM_set_BN(p : POSSL_PARAM; const _val : PBIGNUM) : TIdC_INT;
+  function ERR_OSSL_PARAM_set_BN(p : POSSL_PARAM; const _val : PBIGNUM) : TIdC_INT; cdecl;
   begin
       ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_BN_procname);
   end;
 
-  function ERR_OSSL_PARAM_get_utf8_string(const  p : POSSL_PARAM; _val : PPIdAnsiChar; max_len : TIdC_SIZET) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_utf8_string(const  p : POSSL_PARAM; _val : PPIdAnsiChar; max_len : TIdC_SIZET) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_utf8_string_procname);
   end;
 
-  function ERR_OSSL_PARAM_set_utf8_string(p : POSSL_PARAM; const _val : PIdAnsiChar) : TIdC_INT;
+  function ERR_OSSL_PARAM_set_utf8_string(p : POSSL_PARAM; const _val : PIdAnsiChar) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_utf8_string_procname);
   end;
 
   function ERR_OSSL_PARAM_get_octet_string(const p : POSSL_PARAM; _val : PPointer; max_len : TIdC_SIZET;
-    used_len : PIdC_SIZET) : TIdC_INT;
+    used_len : PIdC_SIZET) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_octet_string_procname);
   end;
 
 
-  function ERR_OSSL_PARAM_set_octet_string(p : POSSL_PARAM; const _val : Pointer; len : TIdC_SIZET) : TIdC_INT;
+  function ERR_OSSL_PARAM_set_octet_string(p : POSSL_PARAM; const _val : Pointer; len : TIdC_SIZET) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_octet_string_procname);
   end;
 
-  function ERR_OSSL_PARAM_get_utf8_ptr(const p : POSSL_PARAM; const _val : PPIdAnsiChar) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_utf8_ptr(const p : POSSL_PARAM; const _val : PPIdAnsiChar) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_utf8_ptr_procname);
   end;
 
-  function ERR_OSSL_PARAM_set_utf8_ptr(p : POSSL_PARAM; const _val : PIdAnsiChar) : TIdC_INT;
+  function ERR_OSSL_PARAM_set_utf8_ptr(p : POSSL_PARAM; const _val : PIdAnsiChar) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_utf8_ptr_procname);
   end;
 
   function ERR_OSSL_PARAM_get_octet_ptr(const p : POSSL_PARAM; const _val : PPointer;
-     used_len : TIdC_SIZET) : TIdC_INT;
+     used_len : TIdC_SIZET) : TIdC_INT; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_octet_ptr_procname);
   end;
   function ERR_OSSL_PARAM_set_octet_ptr(p : POSSL_PARAM; const _val : Pointer;
-     used_len : TIdC_SIZET) : TIdC_INT;
+     used_len : TIdC_SIZET) : TIdC_INT; cdecl;
   begin
      ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_octet_ptr_procname);
   end;
 
-  function ERR_OSSL_PARAM_get_utf8_string_ptr(const p : POSSL_PARAM; const _val : PPIdAnsiChar) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_utf8_string_ptr(const p : POSSL_PARAM; const _val : PPIdAnsiChar) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_utf8_string_ptr_procname);
   end;
-  function ERR_OSSL_PARAM_get_octet_string_ptr(const p : POSSL_PARAM; const _val : PPointer; used_len : PIdC_SIZET) : TIdC_INT;
+  function ERR_OSSL_PARAM_get_octet_string_ptr(const p : POSSL_PARAM; const _val : PPointer; used_len : PIdC_SIZET) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_get_octet_string_ptr_procname);
   end;
 
-  function ERR_OSSL_PARAM_modified(const p : POSSL_PARAM) : TIdC_INT;
+  function ERR_OSSL_PARAM_modified(const p : POSSL_PARAM) : TIdC_INT; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_modified_procname);
   end;
-  procedure ERR_OSSL_PARAM_set_all_unmodified(p : POSSL_PARAM);
+  procedure ERR_OSSL_PARAM_set_all_unmodified(p : POSSL_PARAM); cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_set_all_unmodified_procname);
   end;
-  function ERR_OSSL_PARAM_dup(const  p : POSSL_PARAM) : POSSL_PARAM;
+  function ERR_OSSL_PARAM_dup(const  p : POSSL_PARAM) : POSSL_PARAM; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_dup_procname);
   end;
 
-  function ERR_OSSL_PARAM_merge(const p1, p2 : POSSL_PARAM) : POSSL_PARAM ;
+  function ERR_OSSL_PARAM_merge(const p1, p2 : POSSL_PARAM) : POSSL_PARAM ; cdecl;
   begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_merge_procname);
   end;
 
-procedure ERR_OSSL_PARAM_free(p : POSSL_PARAM);
+procedure ERR_OSSL_PARAM_free(p : POSSL_PARAM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_PARAM_free_procname);
 end;
+
 
   {$I TaurusTLSNoRetValOn.inc}
 
@@ -616,13 +617,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_locate_allownil)}
-    OSSL_PARAM_locate := @ERR_OSSL_PARAM_locate;
+    OSSL_PARAM_locate := ERR_OSSL_PARAM_locate;
     {$ifend}
     {$if declared(OSSL_PARAM_locate_introduced)}
     if LibVersion < OSSL_PARAM_locate_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_locate)}
-      OSSL_PARAM_locate := @FC_OSSL_PARAM_locate;
+      OSSL_PARAM_locate := FC_OSSL_PARAM_locate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -631,7 +632,7 @@ begin
     if OSSL_PARAM_locate_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_locate)}
-      OSSL_PARAM_locate := @_OSSL_PARAM_locate;
+      OSSL_PARAM_locate := _OSSL_PARAM_locate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -648,13 +649,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_locate_const_allownil)}
-    OSSL_PARAM_locate_const := @ERR_OSSL_PARAM_locate_const;
+    OSSL_PARAM_locate_const := ERR_OSSL_PARAM_locate_const;
     {$ifend}
     {$if declared(OSSL_PARAM_locate_const_introduced)}
     if LibVersion < OSSL_PARAM_locate_const_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_locate_const)}
-      OSSL_PARAM_locate_const := @FC_OSSL_PARAM_locate_const;
+      OSSL_PARAM_locate_const := FC_OSSL_PARAM_locate_const;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -663,7 +664,7 @@ begin
     if OSSL_PARAM_locate_const_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_locate_const)}
-      OSSL_PARAM_locate_const := @_OSSL_PARAM_locate_const;
+      OSSL_PARAM_locate_const := _OSSL_PARAM_locate_const;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -680,13 +681,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_int_allownil)}
-    OSSL_PARAM_construct_int := @ERR_OSSL_PARAM_construct_int;
+    OSSL_PARAM_construct_int := ERR_OSSL_PARAM_construct_int;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_int_introduced)}
     if LibVersion < OSSL_PARAM_construct_int_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_int)}
-      OSSL_PARAM_construct_int := @FC_OSSL_PARAM_construct_int;
+      OSSL_PARAM_construct_int := FC_OSSL_PARAM_construct_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -695,7 +696,7 @@ begin
     if OSSL_PARAM_construct_int_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_int)}
-      OSSL_PARAM_construct_int := @_OSSL_PARAM_construct_int;
+      OSSL_PARAM_construct_int := _OSSL_PARAM_construct_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -711,13 +712,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_uint_allownil)}
-    OSSL_PARAM_construct_uint := @ERR_OSSL_PARAM_construct_uint;
+    OSSL_PARAM_construct_uint := ERR_OSSL_PARAM_construct_uint;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_uint_introduced)}
     if LibVersion < OSSL_PARAM_construct_uint_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_uint)}
-      OSSL_PARAM_construct_uint := @FC_OSSL_PARAM_construct_uint;
+      OSSL_PARAM_construct_uint := FC_OSSL_PARAM_construct_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -726,7 +727,7 @@ begin
     if OSSL_PARAM_construct_uint_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_uint)}
-      OSSL_PARAM_construct_uint := @_OSSL_PARAM_construct_uint;
+      OSSL_PARAM_construct_uint := _OSSL_PARAM_construct_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -742,13 +743,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_long_allownil)}
-    OSSL_PARAM_construct_long := @ERR_OSSL_PARAM_construct_long;
+    OSSL_PARAM_construct_long := ERR_OSSL_PARAM_construct_long;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_long_introduced)}
     if LibVersion < OSSL_PARAM_construct_long_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_long)}
-      OSSL_PARAM_construct_long := @FC_OSSL_PARAM_construct_long;
+      OSSL_PARAM_construct_long := FC_OSSL_PARAM_construct_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -757,7 +758,7 @@ begin
     if OSSL_PARAM_construct_long_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_long)}
-      OSSL_PARAM_construct_long := @_OSSL_PARAM_construct_long;
+      OSSL_PARAM_construct_long := _OSSL_PARAM_construct_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -773,13 +774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_ulong_allownil)}
-    OSSL_PARAM_construct_ulong := @ERR_OSSL_PARAM_construct_ulong;
+    OSSL_PARAM_construct_ulong := ERR_OSSL_PARAM_construct_ulong;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_ulong_introduced)}
     if LibVersion < OSSL_PARAM_construct_ulong_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_ulong)}
-      OSSL_PARAM_construct_ulong := @FC_OSSL_PARAM_construct_ulong;
+      OSSL_PARAM_construct_ulong := FC_OSSL_PARAM_construct_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -788,7 +789,7 @@ begin
     if OSSL_PARAM_construct_ulong_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_ulong)}
-      OSSL_PARAM_construct_ulong := @_OSSL_PARAM_construct_ulong;
+      OSSL_PARAM_construct_ulong := _OSSL_PARAM_construct_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -804,13 +805,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_int32_allownil)}
-    OSSL_PARAM_construct_int32 := @ERR_OSSL_PARAM_construct_int32;
+    OSSL_PARAM_construct_int32 := ERR_OSSL_PARAM_construct_int32;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_int32_introduced)}
     if LibVersion < OSSL_PARAM_construct_int32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_int32)}
-      OSSL_PARAM_construct_int32 := @FC_OSSL_PARAM_construct_int32;
+      OSSL_PARAM_construct_int32 := FC_OSSL_PARAM_construct_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -819,7 +820,7 @@ begin
     if OSSL_PARAM_construct_int32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_int32)}
-      OSSL_PARAM_construct_int32 := @_OSSL_PARAM_construct_int32;
+      OSSL_PARAM_construct_int32 := _OSSL_PARAM_construct_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -835,13 +836,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_uint32_allownil)}
-    OSSL_PARAM_construct_uint32 := @ERR_OSSL_PARAM_construct_uint32;
+    OSSL_PARAM_construct_uint32 := ERR_OSSL_PARAM_construct_uint32;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_uint32_introduced)}
     if LibVersion < OSSL_PARAM_construct_uint32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_uint32)}
-      OSSL_PARAM_construct_uint32 := @FC_OSSL_PARAM_construct_uint32;
+      OSSL_PARAM_construct_uint32 := FC_OSSL_PARAM_construct_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -850,7 +851,7 @@ begin
     if OSSL_PARAM_construct_uint32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_uint32)}
-      OSSL_PARAM_construct_uint32 := @_OSSL_PARAM_construct_uint32;
+      OSSL_PARAM_construct_uint32 := _OSSL_PARAM_construct_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -866,13 +867,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_int64_allownil)}
-    OSSL_PARAM_construct_int64 := @ERR_OSSL_PARAM_construct_int64;
+    OSSL_PARAM_construct_int64 := ERR_OSSL_PARAM_construct_int64;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_int64_introduced)}
     if LibVersion < OSSL_PARAM_construct_int64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_int64)}
-      OSSL_PARAM_construct_int64 := @FC_OSSL_PARAM_construct_int64;
+      OSSL_PARAM_construct_int64 := FC_OSSL_PARAM_construct_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -881,7 +882,7 @@ begin
     if OSSL_PARAM_construct_int64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_int64)}
-      OSSL_PARAM_construct_int64 := @_OSSL_PARAM_construct_int64;
+      OSSL_PARAM_construct_int64 := _OSSL_PARAM_construct_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -897,13 +898,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_uint64_allownil)}
-    OSSL_PARAM_construct_uint64 := @ERR_OSSL_PARAM_construct_uint64;
+    OSSL_PARAM_construct_uint64 := ERR_OSSL_PARAM_construct_uint64;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_uint64_introduced)}
     if LibVersion < OSSL_PARAM_construct_uint64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_uint64)}
-      OSSL_PARAM_construct_uint64 := @FC_OSSL_PARAM_construct_uint64;
+      OSSL_PARAM_construct_uint64 := FC_OSSL_PARAM_construct_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -912,7 +913,7 @@ begin
     if OSSL_PARAM_construct_uint64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_uint64)}
-      OSSL_PARAM_construct_uint64 := @_OSSL_PARAM_construct_uint64;
+      OSSL_PARAM_construct_uint64 := _OSSL_PARAM_construct_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -928,13 +929,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_size_t_allownil)}
-    OSSL_PARAM_construct_size_t := @ERR_OSSL_PARAM_construct_size_t;
+    OSSL_PARAM_construct_size_t := ERR_OSSL_PARAM_construct_size_t;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_size_t_introduced)}
     if LibVersion < OSSL_PARAM_construct_size_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_size_t)}
-      OSSL_PARAM_construct_size_t := @FC_OSSL_PARAM_construct_size_t;
+      OSSL_PARAM_construct_size_t := FC_OSSL_PARAM_construct_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -943,7 +944,7 @@ begin
     if OSSL_PARAM_construct_size_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_size_t)}
-      OSSL_PARAM_construct_size_t := @_OSSL_PARAM_construct_size_t;
+      OSSL_PARAM_construct_size_t := _OSSL_PARAM_construct_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -959,13 +960,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_time_t_allownil)}
-    OSSL_PARAM_construct_time_t := @ERR_OSSL_PARAM_construct_time_t;
+    OSSL_PARAM_construct_time_t := ERR_OSSL_PARAM_construct_time_t;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_time_t_introduced)}
     if LibVersion < OSSL_PARAM_construct_time_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_time_t)}
-      OSSL_PARAM_construct_time_t := @FC_OSSL_PARAM_construct_time_t;
+      OSSL_PARAM_construct_time_t := FC_OSSL_PARAM_construct_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -974,7 +975,7 @@ begin
     if OSSL_PARAM_construct_time_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_time_t)}
-      OSSL_PARAM_construct_time_t := @_OSSL_PARAM_construct_time_t;
+      OSSL_PARAM_construct_time_t := _OSSL_PARAM_construct_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -990,13 +991,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_BN_allownil)}
-    OSSL_PARAM_construct_BN := @ERR_OSSL_PARAM_construct_BN;
+    OSSL_PARAM_construct_BN := ERR_OSSL_PARAM_construct_BN;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_BN_introduced)}
     if LibVersion < OSSL_PARAM_construct_BN_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_BN)}
-      OSSL_PARAM_construct_BN := @FC_OSSL_PARAM_construct_BN;
+      OSSL_PARAM_construct_BN := FC_OSSL_PARAM_construct_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1005,7 +1006,7 @@ begin
     if OSSL_PARAM_construct_BN_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_BN)}
-      OSSL_PARAM_construct_BN := @_OSSL_PARAM_construct_BN;
+      OSSL_PARAM_construct_BN := _OSSL_PARAM_construct_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1021,13 +1022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_double_allownil)}
-    OSSL_PARAM_construct_double := @ERR_OSSL_PARAM_construct_double;
+    OSSL_PARAM_construct_double := ERR_OSSL_PARAM_construct_double;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_double_introduced)}
     if LibVersion < OSSL_PARAM_construct_double_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_double)}
-      OSSL_PARAM_construct_double := @FC_OSSL_PARAM_construct_double;
+      OSSL_PARAM_construct_double := FC_OSSL_PARAM_construct_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1036,7 +1037,7 @@ begin
     if OSSL_PARAM_construct_double_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_double)}
-      OSSL_PARAM_construct_double := @_OSSL_PARAM_construct_double;
+      OSSL_PARAM_construct_double := _OSSL_PARAM_construct_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1052,13 +1053,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_utf8_string_allownil)}
-    OSSL_PARAM_construct_utf8_string := @ERR_OSSL_PARAM_construct_utf8_string;
+    OSSL_PARAM_construct_utf8_string := ERR_OSSL_PARAM_construct_utf8_string;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_utf8_string_introduced)}
     if LibVersion < OSSL_PARAM_construct_utf8_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_utf8_string)}
-      OSSL_PARAM_construct_utf8_string := @FC_OSSL_PARAM_construct_utf8_string;
+      OSSL_PARAM_construct_utf8_string := FC_OSSL_PARAM_construct_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1067,7 +1068,7 @@ begin
     if OSSL_PARAM_construct_utf8_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_utf8_string)}
-      OSSL_PARAM_construct_utf8_string := @_OSSL_PARAM_construct_utf8_string;
+      OSSL_PARAM_construct_utf8_string := _OSSL_PARAM_construct_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1083,13 +1084,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_utf8_ptr_allownil)}
-    OSSL_PARAM_construct_utf8_ptr := @ERR_OSSL_PARAM_construct_utf8_ptr;
+    OSSL_PARAM_construct_utf8_ptr := ERR_OSSL_PARAM_construct_utf8_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_utf8_ptr_introduced)}
     if LibVersion < OSSL_PARAM_construct_utf8_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_utf8_ptr)}
-      OSSL_PARAM_construct_utf8_ptr := @FC_OSSL_PARAM_construct_utf8_ptr;
+      OSSL_PARAM_construct_utf8_ptr := FC_OSSL_PARAM_construct_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1098,7 +1099,7 @@ begin
     if OSSL_PARAM_construct_utf8_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_utf8_ptr)}
-      OSSL_PARAM_construct_utf8_ptr := @_OSSL_PARAM_construct_utf8_ptr;
+      OSSL_PARAM_construct_utf8_ptr := _OSSL_PARAM_construct_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1114,13 +1115,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_octet_string_allownil)}
-    OSSL_PARAM_construct_octet_string := @ERR_OSSL_PARAM_construct_octet_string;
+    OSSL_PARAM_construct_octet_string := ERR_OSSL_PARAM_construct_octet_string;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_octet_string_introduced)}
     if LibVersion < OSSL_PARAM_construct_octet_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_octet_string)}
-      OSSL_PARAM_construct_octet_string := @FC_OSSL_PARAM_construct_octet_string;
+      OSSL_PARAM_construct_octet_string := FC_OSSL_PARAM_construct_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1129,7 +1130,7 @@ begin
     if OSSL_PARAM_construct_octet_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_octet_string)}
-      OSSL_PARAM_construct_octet_string := @_OSSL_PARAM_construct_octet_string;
+      OSSL_PARAM_construct_octet_string := _OSSL_PARAM_construct_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1145,13 +1146,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_octet_ptr_allownil)}
-    OSSL_PARAM_construct_octet_ptr := @ERR_OSSL_PARAM_construct_octet_ptr;
+    OSSL_PARAM_construct_octet_ptr := ERR_OSSL_PARAM_construct_octet_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_octet_ptr_introduced)}
     if LibVersion < OSSL_PARAM_construct_octet_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_octet_ptr)}
-      OSSL_PARAM_construct_octet_ptr := @FC_OSSL_PARAM_construct_octet_ptr;
+      OSSL_PARAM_construct_octet_ptr := FC_OSSL_PARAM_construct_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1160,7 +1161,7 @@ begin
     if OSSL_PARAM_construct_octet_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_octet_ptr)}
-      OSSL_PARAM_construct_octet_ptr := @_OSSL_PARAM_construct_octet_ptr;
+      OSSL_PARAM_construct_octet_ptr := _OSSL_PARAM_construct_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1176,13 +1177,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_construct_end_allownil)}
-    OSSL_PARAM_construct_end := @ERR_OSSL_PARAM_construct_end;
+    OSSL_PARAM_construct_end := ERR_OSSL_PARAM_construct_end;
     {$ifend}
     {$if declared(OSSL_PARAM_construct_end_introduced)}
     if LibVersion < OSSL_PARAM_construct_end_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_construct_end)}
-      OSSL_PARAM_construct_end := @FC_OSSL_PARAM_construct_end;
+      OSSL_PARAM_construct_end := FC_OSSL_PARAM_construct_end;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1191,7 +1192,7 @@ begin
     if OSSL_PARAM_construct_end_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_construct_end)}
-      OSSL_PARAM_construct_end := @_OSSL_PARAM_construct_end;
+      OSSL_PARAM_construct_end := _OSSL_PARAM_construct_end;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1207,13 +1208,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_allocate_from_text_allownil)}
-    OSSL_PARAM_allocate_from_text := @ERR_OSSL_PARAM_allocate_from_text;
+    OSSL_PARAM_allocate_from_text := ERR_OSSL_PARAM_allocate_from_text;
     {$ifend}
     {$if declared(OSSL_PARAM_allocate_from_text_introduced)}
     if LibVersion < OSSL_PARAM_allocate_from_text_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_allocate_from_text)}
-      OSSL_PARAM_allocate_from_text := @FC_OSSL_PARAM_allocate_from_text;
+      OSSL_PARAM_allocate_from_text := FC_OSSL_PARAM_allocate_from_text;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1222,7 +1223,7 @@ begin
     if OSSL_PARAM_allocate_from_text_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_allocate_from_text)}
-      OSSL_PARAM_allocate_from_text := @_OSSL_PARAM_allocate_from_text;
+      OSSL_PARAM_allocate_from_text := _OSSL_PARAM_allocate_from_text;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1238,13 +1239,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_int_allownil)}
-    OSSL_PARAM_get_int := @ERR_OSSL_PARAM_get_int;
+    OSSL_PARAM_get_int := ERR_OSSL_PARAM_get_int;
     {$ifend}
     {$if declared(OSSL_PARAM_get_int_introduced)}
     if LibVersion < OSSL_PARAM_get_int_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_int)}
-      OSSL_PARAM_get_int := @FC_OSSL_PARAM_get_int;
+      OSSL_PARAM_get_int := FC_OSSL_PARAM_get_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1253,7 +1254,7 @@ begin
     if OSSL_PARAM_get_int_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_int)}
-      OSSL_PARAM_get_int := @_OSSL_PARAM_get_int;
+      OSSL_PARAM_get_int := _OSSL_PARAM_get_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1269,13 +1270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_uint_allownil)}
-    OSSL_PARAM_get_uint := @ERR_OSSL_PARAM_get_uint;
+    OSSL_PARAM_get_uint := ERR_OSSL_PARAM_get_uint;
     {$ifend}
     {$if declared(OSSL_PARAM_get_uint_introduced)}
     if LibVersion < OSSL_PARAM_get_uint_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_uint)}
-      OSSL_PARAM_get_uint := @FC_OSSL_PARAM_get_uint;
+      OSSL_PARAM_get_uint := FC_OSSL_PARAM_get_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1284,7 +1285,7 @@ begin
     if OSSL_PARAM_get_uint_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_uint)}
-      OSSL_PARAM_get_uint := @_OSSL_PARAM_get_uint;
+      OSSL_PARAM_get_uint := _OSSL_PARAM_get_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1300,13 +1301,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_long_allownil)}
-    OSSL_PARAM_get_long := @ERR_OSSL_PARAM_get_long;
+    OSSL_PARAM_get_long := ERR_OSSL_PARAM_get_long;
     {$ifend}
     {$if declared(OSSL_PARAM_get_long_introduced)}
     if LibVersion < OSSL_PARAM_get_long_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_long)}
-      OSSL_PARAM_get_long := @FC_OSSL_PARAM_get_long;
+      OSSL_PARAM_get_long := FC_OSSL_PARAM_get_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1315,7 +1316,7 @@ begin
     if OSSL_PARAM_get_long_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_long)}
-      OSSL_PARAM_get_long := @_OSSL_PARAM_get_long;
+      OSSL_PARAM_get_long := _OSSL_PARAM_get_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1331,13 +1332,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_ulong_allownil)}
-    OSSL_PARAM_get_ulong := @ERR_OSSL_PARAM_get_ulong;
+    OSSL_PARAM_get_ulong := ERR_OSSL_PARAM_get_ulong;
     {$ifend}
     {$if declared(OSSL_PARAM_get_ulong_introduced)}
     if LibVersion < OSSL_PARAM_get_ulong_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_ulong)}
-      OSSL_PARAM_get_ulong := @FC_OSSL_PARAM_get_ulong;
+      OSSL_PARAM_get_ulong := FC_OSSL_PARAM_get_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1346,7 +1347,7 @@ begin
     if OSSL_PARAM_get_ulong_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_ulong)}
-      OSSL_PARAM_get_ulong := @_OSSL_PARAM_get_ulong;
+      OSSL_PARAM_get_ulong := _OSSL_PARAM_get_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1362,13 +1363,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_int32_allownil)}
-    OSSL_PARAM_get_int32 := @ERR_OSSL_PARAM_get_int32;
+    OSSL_PARAM_get_int32 := ERR_OSSL_PARAM_get_int32;
     {$ifend}
     {$if declared(OSSL_PARAM_get_int32_introduced)}
     if LibVersion < OSSL_PARAM_get_int32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_int32)}
-      OSSL_PARAM_get_int32 := @FC_OSSL_PARAM_get_int32;
+      OSSL_PARAM_get_int32 := FC_OSSL_PARAM_get_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1377,7 +1378,7 @@ begin
     if OSSL_PARAM_get_int32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_int32)}
-      OSSL_PARAM_get_int32 := @_OSSL_PARAM_get_int32;
+      OSSL_PARAM_get_int32 := _OSSL_PARAM_get_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1393,13 +1394,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_uint32_allownil)}
-    OSSL_PARAM_get_uint32 := @ERR_OSSL_PARAM_get_uint32;
+    OSSL_PARAM_get_uint32 := ERR_OSSL_PARAM_get_uint32;
     {$ifend}
     {$if declared(OSSL_PARAM_get_uint32_introduced)}
     if LibVersion < OSSL_PARAM_get_uint32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_uint32)}
-      OSSL_PARAM_get_uint32 := @FC_OSSL_PARAM_get_uint32;
+      OSSL_PARAM_get_uint32 := FC_OSSL_PARAM_get_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1408,7 +1409,7 @@ begin
     if OSSL_PARAM_get_uint32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_uint32)}
-      OSSL_PARAM_get_uint32 := @_OSSL_PARAM_get_uint32;
+      OSSL_PARAM_get_uint32 := _OSSL_PARAM_get_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1424,13 +1425,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_int64_allownil)}
-    OSSL_PARAM_get_int64 := @ERR_OSSL_PARAM_get_int64;
+    OSSL_PARAM_get_int64 := ERR_OSSL_PARAM_get_int64;
     {$ifend}
     {$if declared(OSSL_PARAM_get_int64_introduced)}
     if LibVersion < OSSL_PARAM_get_int64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_int64)}
-      OSSL_PARAM_get_int64 := @FC_OSSL_PARAM_get_int64;
+      OSSL_PARAM_get_int64 := FC_OSSL_PARAM_get_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1439,7 +1440,7 @@ begin
     if OSSL_PARAM_get_int64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_int64)}
-      OSSL_PARAM_get_int64 := @_OSSL_PARAM_get_int64;
+      OSSL_PARAM_get_int64 := _OSSL_PARAM_get_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1455,13 +1456,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_uint64_allownil)}
-    OSSL_PARAM_get_uint64 := @ERR_OSSL_PARAM_get_uint64;
+    OSSL_PARAM_get_uint64 := ERR_OSSL_PARAM_get_uint64;
     {$ifend}
     {$if declared(OSSL_PARAM_get_uint64_introduced)}
     if LibVersion < OSSL_PARAM_get_uint64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_uint64)}
-      OSSL_PARAM_get_uint64 := @FC_OSSL_PARAM_get_uint64;
+      OSSL_PARAM_get_uint64 := FC_OSSL_PARAM_get_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1470,7 +1471,7 @@ begin
     if OSSL_PARAM_get_uint64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_uint64)}
-      OSSL_PARAM_get_uint64 := @_OSSL_PARAM_get_uint64;
+      OSSL_PARAM_get_uint64 := _OSSL_PARAM_get_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1486,13 +1487,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_size_t_allownil)}
-    OSSL_PARAM_get_size_t := @ERR_OSSL_PARAM_get_size_t;
+    OSSL_PARAM_get_size_t := ERR_OSSL_PARAM_get_size_t;
     {$ifend}
     {$if declared(OSSL_PARAM_get_size_t_introduced)}
     if LibVersion < OSSL_PARAM_get_size_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_size_t)}
-      OSSL_PARAM_get_size_t := @FC_OSSL_PARAM_get_size_t;
+      OSSL_PARAM_get_size_t := FC_OSSL_PARAM_get_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1501,7 +1502,7 @@ begin
     if OSSL_PARAM_get_size_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_size_t)}
-      OSSL_PARAM_get_size_t := @_OSSL_PARAM_get_size_t;
+      OSSL_PARAM_get_size_t := _OSSL_PARAM_get_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1517,13 +1518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_time_t_allownil)}
-    OSSL_PARAM_get_time_t := @ERR_OSSL_PARAM_get_time_t;
+    OSSL_PARAM_get_time_t := ERR_OSSL_PARAM_get_time_t;
     {$ifend}
     {$if declared(OSSL_PARAM_get_time_t_introduced)}
     if LibVersion < OSSL_PARAM_get_time_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_time_t)}
-      OSSL_PARAM_get_time_t := @FC_OSSL_PARAM_get_time_t;
+      OSSL_PARAM_get_time_t := FC_OSSL_PARAM_get_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1532,7 +1533,7 @@ begin
     if OSSL_PARAM_get_time_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_time_t)}
-      OSSL_PARAM_get_time_t := @_OSSL_PARAM_get_time_t;
+      OSSL_PARAM_get_time_t := _OSSL_PARAM_get_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1548,13 +1549,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_int_allownil)}
-    OSSL_PARAM_set_int := @ERR_OSSL_PARAM_set_int;
+    OSSL_PARAM_set_int := ERR_OSSL_PARAM_set_int;
     {$ifend}
     {$if declared(OSSL_PARAM_set_int_introduced)}
     if LibVersion < OSSL_PARAM_set_int_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_int)}
-      OSSL_PARAM_set_int := @FC_OSSL_PARAM_set_int;
+      OSSL_PARAM_set_int := FC_OSSL_PARAM_set_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1563,7 +1564,7 @@ begin
     if OSSL_PARAM_set_int_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_int)}
-      OSSL_PARAM_set_int := @_OSSL_PARAM_set_int;
+      OSSL_PARAM_set_int := _OSSL_PARAM_set_int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1579,13 +1580,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_uint_allownil)}
-    OSSL_PARAM_set_uint := @ERR_OSSL_PARAM_set_uint;
+    OSSL_PARAM_set_uint := ERR_OSSL_PARAM_set_uint;
     {$ifend}
     {$if declared(OSSL_PARAM_set_uint_introduced)}
     if LibVersion < OSSL_PARAM_set_uint_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_uint)}
-      OSSL_PARAM_set_uint := @FC_OSSL_PARAM_set_uint;
+      OSSL_PARAM_set_uint := FC_OSSL_PARAM_set_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1594,7 +1595,7 @@ begin
     if OSSL_PARAM_set_uint_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_uint)}
-      OSSL_PARAM_set_uint := @_OSSL_PARAM_set_uint;
+      OSSL_PARAM_set_uint := _OSSL_PARAM_set_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1610,13 +1611,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_long_allownil)}
-    OSSL_PARAM_set_long := @ERR_OSSL_PARAM_set_long;
+    OSSL_PARAM_set_long := ERR_OSSL_PARAM_set_long;
     {$ifend}
     {$if declared(OSSL_PARAM_set_long_introduced)}
     if LibVersion < OSSL_PARAM_set_long_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_long)}
-      OSSL_PARAM_set_long := @FC_OSSL_PARAM_set_long;
+      OSSL_PARAM_set_long := FC_OSSL_PARAM_set_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1625,7 +1626,7 @@ begin
     if OSSL_PARAM_set_long_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_long)}
-      OSSL_PARAM_set_long := @_OSSL_PARAM_set_long;
+      OSSL_PARAM_set_long := _OSSL_PARAM_set_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1641,13 +1642,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_ulong_allownil)}
-    OSSL_PARAM_set_ulong := @ERR_OSSL_PARAM_set_ulong;
+    OSSL_PARAM_set_ulong := ERR_OSSL_PARAM_set_ulong;
     {$ifend}
     {$if declared(OSSL_PARAM_set_ulong_introduced)}
     if LibVersion < OSSL_PARAM_set_ulong_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_ulong)}
-      OSSL_PARAM_set_ulong := @FC_OSSL_PARAM_set_ulong;
+      OSSL_PARAM_set_ulong := FC_OSSL_PARAM_set_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1656,7 +1657,7 @@ begin
     if OSSL_PARAM_set_ulong_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_ulong)}
-      OSSL_PARAM_set_ulong := @_OSSL_PARAM_set_ulong;
+      OSSL_PARAM_set_ulong := _OSSL_PARAM_set_ulong;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1672,13 +1673,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_int32_allownil)}
-    OSSL_PARAM_set_int32 := @ERR_OSSL_PARAM_set_int32;
+    OSSL_PARAM_set_int32 := ERR_OSSL_PARAM_set_int32;
     {$ifend}
     {$if declared(OSSL_PARAM_set_int32_introduced)}
     if LibVersion < OSSL_PARAM_set_int32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_int32)}
-      OSSL_PARAM_set_int32 := @FC_OSSL_PARAM_set_int32;
+      OSSL_PARAM_set_int32 := FC_OSSL_PARAM_set_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1687,7 +1688,7 @@ begin
     if OSSL_PARAM_set_int32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_int32)}
-      OSSL_PARAM_set_int32 := @_OSSL_PARAM_set_int32;
+      OSSL_PARAM_set_int32 := _OSSL_PARAM_set_int32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1703,13 +1704,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_uint32_allownil)}
-    OSSL_PARAM_set_uint32 := @ERR_OSSL_PARAM_set_uint32;
+    OSSL_PARAM_set_uint32 := ERR_OSSL_PARAM_set_uint32;
     {$ifend}
     {$if declared(OSSL_PARAM_set_uint32_introduced)}
     if LibVersion < OSSL_PARAM_set_uint32_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_uint32)}
-      OSSL_PARAM_set_uint32 := @FC_OSSL_PARAM_set_uint32;
+      OSSL_PARAM_set_uint32 := FC_OSSL_PARAM_set_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1718,7 +1719,7 @@ begin
     if OSSL_PARAM_set_uint32_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_uint32)}
-      OSSL_PARAM_set_uint32 := @_OSSL_PARAM_set_uint32;
+      OSSL_PARAM_set_uint32 := _OSSL_PARAM_set_uint32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1734,13 +1735,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_int64_allownil)}
-    OSSL_PARAM_set_int64 := @ERR_OSSL_PARAM_set_int64;
+    OSSL_PARAM_set_int64 := ERR_OSSL_PARAM_set_int64;
     {$ifend}
     {$if declared(OSSL_PARAM_set_int64_introduced)}
     if LibVersion < OSSL_PARAM_set_int64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_int64)}
-      OSSL_PARAM_set_int64 := @FC_OSSL_PARAM_set_int64;
+      OSSL_PARAM_set_int64 := FC_OSSL_PARAM_set_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1749,7 +1750,7 @@ begin
     if OSSL_PARAM_set_int64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_int64)}
-      OSSL_PARAM_set_int64 := @_OSSL_PARAM_set_int64;
+      OSSL_PARAM_set_int64 := _OSSL_PARAM_set_int64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1765,13 +1766,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_uint64_allownil)}
-    OSSL_PARAM_set_uint64 := @ERR_OSSL_PARAM_set_uint64;
+    OSSL_PARAM_set_uint64 := ERR_OSSL_PARAM_set_uint64;
     {$ifend}
     {$if declared(OSSL_PARAM_set_uint64_introduced)}
     if LibVersion < OSSL_PARAM_set_uint64_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_uint64)}
-      OSSL_PARAM_set_uint64 := @FC_OSSL_PARAM_set_uint64;
+      OSSL_PARAM_set_uint64 := FC_OSSL_PARAM_set_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1780,7 +1781,7 @@ begin
     if OSSL_PARAM_set_uint64_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_uint64)}
-      OSSL_PARAM_set_uint64 := @_OSSL_PARAM_set_uint64;
+      OSSL_PARAM_set_uint64 := _OSSL_PARAM_set_uint64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1796,13 +1797,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_size_t_allownil)}
-    OSSL_PARAM_set_size_t := @ERR_OSSL_PARAM_set_size_t;
+    OSSL_PARAM_set_size_t := ERR_OSSL_PARAM_set_size_t;
     {$ifend}
     {$if declared(OSSL_PARAM_set_size_t_introduced)}
     if LibVersion < OSSL_PARAM_set_size_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_size_t)}
-      OSSL_PARAM_set_size_t := @FC_OSSL_PARAM_set_size_t;
+      OSSL_PARAM_set_size_t := FC_OSSL_PARAM_set_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1811,7 +1812,7 @@ begin
     if OSSL_PARAM_set_size_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_size_t)}
-      OSSL_PARAM_set_size_t := @_OSSL_PARAM_set_size_t;
+      OSSL_PARAM_set_size_t := _OSSL_PARAM_set_size_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1827,13 +1828,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_time_t_allownil)}
-    OSSL_PARAM_set_time_t := @ERR_OSSL_PARAM_set_time_t;
+    OSSL_PARAM_set_time_t := ERR_OSSL_PARAM_set_time_t;
     {$ifend}
     {$if declared(OSSL_PARAM_set_time_t_introduced)}
     if LibVersion < OSSL_PARAM_set_time_t_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_time_t)}
-      OSSL_PARAM_set_time_t := @FC_OSSL_PARAM_set_time_t;
+      OSSL_PARAM_set_time_t := FC_OSSL_PARAM_set_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1842,7 +1843,7 @@ begin
     if OSSL_PARAM_set_time_t_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_time_t)}
-      OSSL_PARAM_set_time_t := @_OSSL_PARAM_set_time_t;
+      OSSL_PARAM_set_time_t := _OSSL_PARAM_set_time_t;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1858,13 +1859,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_double_allownil)}
-    OSSL_PARAM_get_double := @ERR_OSSL_PARAM_get_double;
+    OSSL_PARAM_get_double := ERR_OSSL_PARAM_get_double;
     {$ifend}
     {$if declared(OSSL_PARAM_get_double_introduced)}
     if LibVersion < OSSL_PARAM_get_double_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_double)}
-      OSSL_PARAM_get_double := @FC_OSSL_PARAM_get_double;
+      OSSL_PARAM_get_double := FC_OSSL_PARAM_get_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1873,7 +1874,7 @@ begin
     if OSSL_PARAM_get_double_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_double)}
-      OSSL_PARAM_get_double := @_OSSL_PARAM_get_double;
+      OSSL_PARAM_get_double := _OSSL_PARAM_get_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1889,13 +1890,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_double_allownil)}
-    OSSL_PARAM_set_double := @ERR_OSSL_PARAM_set_double;
+    OSSL_PARAM_set_double := ERR_OSSL_PARAM_set_double;
     {$ifend}
     {$if declared(OSSL_PARAM_set_double_introduced)}
     if LibVersion < OSSL_PARAM_set_double_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_double)}
-      OSSL_PARAM_set_double := @FC_OSSL_PARAM_set_double;
+      OSSL_PARAM_set_double := FC_OSSL_PARAM_set_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1904,7 +1905,7 @@ begin
     if OSSL_PARAM_set_double_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_double)}
-      OSSL_PARAM_set_double := @_OSSL_PARAM_set_double;
+      OSSL_PARAM_set_double := _OSSL_PARAM_set_double;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1920,13 +1921,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_BN_allownil)}
-    OSSL_PARAM_get_BN := @ERR_OSSL_PARAM_get_BN;
+    OSSL_PARAM_get_BN := ERR_OSSL_PARAM_get_BN;
     {$ifend}
     {$if declared(OSSL_PARAM_get_BN_introduced)}
     if LibVersion < OSSL_PARAM_get_BN_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_BN)}
-      OSSL_PARAM_get_BN := @FC_OSSL_PARAM_get_BN;
+      OSSL_PARAM_get_BN := FC_OSSL_PARAM_get_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1935,7 +1936,7 @@ begin
     if OSSL_PARAM_get_BN_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_BN)}
-      OSSL_PARAM_get_BN := @_OSSL_PARAM_get_BN;
+      OSSL_PARAM_get_BN := _OSSL_PARAM_get_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1951,13 +1952,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_BN_allownil)}
-    OSSL_PARAM_set_BN := @ERR_OSSL_PARAM_set_BN;
+    OSSL_PARAM_set_BN := ERR_OSSL_PARAM_set_BN;
     {$ifend}
     {$if declared(OSSL_PARAM_set_BN_introduced)}
     if LibVersion < OSSL_PARAM_set_BN_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_BN)}
-      OSSL_PARAM_set_BN := @FC_OSSL_PARAM_set_BN;
+      OSSL_PARAM_set_BN := FC_OSSL_PARAM_set_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1966,7 +1967,7 @@ begin
     if OSSL_PARAM_set_BN_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_BN)}
-      OSSL_PARAM_set_BN := @_OSSL_PARAM_set_BN;
+      OSSL_PARAM_set_BN := _OSSL_PARAM_set_BN;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1982,13 +1983,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_utf8_string_allownil)}
-    OSSL_PARAM_get_utf8_string := @ERR_OSSL_PARAM_get_utf8_string;
+    OSSL_PARAM_get_utf8_string := ERR_OSSL_PARAM_get_utf8_string;
     {$ifend}
     {$if declared(OSSL_PARAM_get_utf8_string_introduced)}
     if LibVersion < OSSL_PARAM_get_utf8_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_utf8_string)}
-      OSSL_PARAM_get_utf8_string := @FC_OSSL_PARAM_get_utf8_string;
+      OSSL_PARAM_get_utf8_string := FC_OSSL_PARAM_get_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1997,7 +1998,7 @@ begin
     if OSSL_PARAM_get_utf8_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_utf8_string)}
-      OSSL_PARAM_get_utf8_string := @_OSSL_PARAM_get_utf8_string;
+      OSSL_PARAM_get_utf8_string := _OSSL_PARAM_get_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2013,13 +2014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_utf8_string_allownil)}
-    OSSL_PARAM_set_utf8_string := @ERR_OSSL_PARAM_set_utf8_string;
+    OSSL_PARAM_set_utf8_string := ERR_OSSL_PARAM_set_utf8_string;
     {$ifend}
     {$if declared(OSSL_PARAM_set_utf8_string_introduced)}
     if LibVersion < OSSL_PARAM_set_utf8_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_utf8_string)}
-      OSSL_PARAM_set_utf8_string := @FC_OSSL_PARAM_set_utf8_string;
+      OSSL_PARAM_set_utf8_string := FC_OSSL_PARAM_set_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2028,7 +2029,7 @@ begin
     if OSSL_PARAM_set_utf8_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_utf8_string)}
-      OSSL_PARAM_set_utf8_string := @_OSSL_PARAM_set_utf8_string;
+      OSSL_PARAM_set_utf8_string := _OSSL_PARAM_set_utf8_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2044,13 +2045,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_octet_string_allownil)}
-    OSSL_PARAM_get_octet_string := @ERR_OSSL_PARAM_get_octet_string;
+    OSSL_PARAM_get_octet_string := ERR_OSSL_PARAM_get_octet_string;
     {$ifend}
     {$if declared(OSSL_PARAM_get_octet_string_introduced)}
     if LibVersion < OSSL_PARAM_get_octet_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_octet_string)}
-      OSSL_PARAM_get_octet_string := @FC_OSSL_PARAM_get_octet_string;
+      OSSL_PARAM_get_octet_string := FC_OSSL_PARAM_get_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2059,7 +2060,7 @@ begin
     if OSSL_PARAM_get_octet_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_octet_string)}
-      OSSL_PARAM_get_octet_string := @_OSSL_PARAM_get_octet_string;
+      OSSL_PARAM_get_octet_string := _OSSL_PARAM_get_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2075,13 +2076,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_octet_string_allownil)}
-    OSSL_PARAM_set_octet_string := @ERR_OSSL_PARAM_set_octet_string;
+    OSSL_PARAM_set_octet_string := ERR_OSSL_PARAM_set_octet_string;
     {$ifend}
     {$if declared(OSSL_PARAM_set_octet_string_introduced)}
     if LibVersion < OSSL_PARAM_set_octet_string_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_octet_string)}
-      OSSL_PARAM_set_octet_string := @FC_OSSL_PARAM_set_octet_string;
+      OSSL_PARAM_set_octet_string := FC_OSSL_PARAM_set_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2090,7 +2091,7 @@ begin
     if OSSL_PARAM_set_octet_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_octet_string)}
-      OSSL_PARAM_set_octet_string := @_OSSL_PARAM_set_octet_string;
+      OSSL_PARAM_set_octet_string := _OSSL_PARAM_set_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2106,13 +2107,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_utf8_ptr_allownil)}
-    OSSL_PARAM_get_utf8_ptr := @ERR_OSSL_PARAM_get_utf8_ptr;
+    OSSL_PARAM_get_utf8_ptr := ERR_OSSL_PARAM_get_utf8_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_get_utf8_ptr_introduced)}
     if LibVersion < OSSL_PARAM_get_utf8_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_utf8_ptr)}
-      OSSL_PARAM_get_utf8_ptr := @FC_OSSL_PARAM_get_utf8_ptr;
+      OSSL_PARAM_get_utf8_ptr := FC_OSSL_PARAM_get_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2121,7 +2122,7 @@ begin
     if OSSL_PARAM_get_utf8_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_utf8_ptr)}
-      OSSL_PARAM_get_utf8_ptr := @_OSSL_PARAM_get_utf8_ptr;
+      OSSL_PARAM_get_utf8_ptr := _OSSL_PARAM_get_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2137,13 +2138,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_utf8_ptr_allownil)}
-    OSSL_PARAM_set_utf8_ptr := @ERR_OSSL_PARAM_set_utf8_ptr;
+    OSSL_PARAM_set_utf8_ptr := ERR_OSSL_PARAM_set_utf8_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_set_utf8_ptr_introduced)}
     if LibVersion < OSSL_PARAM_set_utf8_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_utf8_ptr)}
-      OSSL_PARAM_set_utf8_ptr := @FC_OSSL_PARAM_set_utf8_ptr;
+      OSSL_PARAM_set_utf8_ptr := FC_OSSL_PARAM_set_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2152,7 +2153,7 @@ begin
     if OSSL_PARAM_set_utf8_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_utf8_ptr)}
-      OSSL_PARAM_set_utf8_ptr := @_OSSL_PARAM_set_utf8_ptr;
+      OSSL_PARAM_set_utf8_ptr := _OSSL_PARAM_set_utf8_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2168,13 +2169,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_octet_ptr_allownil)}
-    OSSL_PARAM_get_octet_ptr := @ERR_OSSL_PARAM_get_octet_ptr;
+    OSSL_PARAM_get_octet_ptr := ERR_OSSL_PARAM_get_octet_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_get_octet_ptr_introduced)}
     if LibVersion < OSSL_PARAM_get_octet_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_octet_ptr)}
-      OSSL_PARAM_get_octet_ptr := @FC_OSSL_PARAM_get_octet_ptr;
+      OSSL_PARAM_get_octet_ptr := FC_OSSL_PARAM_get_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2183,7 +2184,7 @@ begin
     if OSSL_PARAM_get_octet_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_octet_ptr)}
-      OSSL_PARAM_get_octet_ptr := @_OSSL_PARAM_get_octet_ptr;
+      OSSL_PARAM_get_octet_ptr := _OSSL_PARAM_get_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2199,13 +2200,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_octet_ptr_allownil)}
-    OSSL_PARAM_set_octet_ptr := @ERR_OSSL_PARAM_set_octet_ptr;
+    OSSL_PARAM_set_octet_ptr := ERR_OSSL_PARAM_set_octet_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_set_octet_ptr_introduced)}
     if LibVersion < OSSL_PARAM_set_octet_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_octet_ptr)}
-      OSSL_PARAM_set_octet_ptr := @FC_OSSL_PARAM_set_octet_ptr;
+      OSSL_PARAM_set_octet_ptr := FC_OSSL_PARAM_set_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2214,7 +2215,7 @@ begin
     if OSSL_PARAM_set_octet_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_octet_ptr)}
-      OSSL_PARAM_set_octet_ptr := @_OSSL_PARAM_set_octet_ptr;
+      OSSL_PARAM_set_octet_ptr := _OSSL_PARAM_set_octet_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2230,13 +2231,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_utf8_string_ptr_allownil)}
-    OSSL_PARAM_get_utf8_string_ptr := @ERR_OSSL_PARAM_get_utf8_string_ptr;
+    OSSL_PARAM_get_utf8_string_ptr := ERR_OSSL_PARAM_get_utf8_string_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_get_utf8_string_ptr_introduced)}
     if LibVersion < OSSL_PARAM_get_utf8_string_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_utf8_string_ptr)}
-      OSSL_PARAM_get_utf8_string_ptr := @FC_OSSL_PARAM_get_utf8_string_ptr;
+      OSSL_PARAM_get_utf8_string_ptr := FC_OSSL_PARAM_get_utf8_string_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2245,7 +2246,7 @@ begin
     if OSSL_PARAM_get_utf8_string_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_utf8_string_ptr)}
-      OSSL_PARAM_get_utf8_string_ptr := @_OSSL_PARAM_get_utf8_string_ptr;
+      OSSL_PARAM_get_utf8_string_ptr := _OSSL_PARAM_get_utf8_string_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2261,13 +2262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_get_octet_string_ptr_allownil)}
-    OSSL_PARAM_get_octet_string_ptr := @ERR_OSSL_PARAM_get_octet_string_ptr;
+    OSSL_PARAM_get_octet_string_ptr := ERR_OSSL_PARAM_get_octet_string_ptr;
     {$ifend}
     {$if declared(OSSL_PARAM_get_octet_string_ptr_introduced)}
     if LibVersion < OSSL_PARAM_get_octet_string_ptr_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_get_octet_string_ptr)}
-      OSSL_PARAM_get_octet_string_ptr := @FC_OSSL_PARAM_get_octet_string_ptr;
+      OSSL_PARAM_get_octet_string_ptr := FC_OSSL_PARAM_get_octet_string_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2276,7 +2277,7 @@ begin
     if OSSL_PARAM_get_octet_string_ptr_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_get_octet_string_ptr)}
-      OSSL_PARAM_get_octet_string_ptr := @_OSSL_PARAM_get_octet_string_ptr;
+      OSSL_PARAM_get_octet_string_ptr := _OSSL_PARAM_get_octet_string_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2292,13 +2293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_modified_allownil)}
-    OSSL_PARAM_modified := @ERR_OSSL_PARAM_modified;
+    OSSL_PARAM_modified := ERR_OSSL_PARAM_modified;
     {$ifend}
     {$if declared(OSSL_PARAM_modified_introduced)}
     if LibVersion < OSSL_PARAM_modified_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_modified)}
-      OSSL_PARAM_modified := @FC_OSSL_PARAM_modified;
+      OSSL_PARAM_modified := FC_OSSL_PARAM_modified;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2307,7 +2308,7 @@ begin
     if OSSL_PARAM_modified_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_modified)}
-      OSSL_PARAM_modified := @_OSSL_PARAM_modified;
+      OSSL_PARAM_modified := _OSSL_PARAM_modified;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2323,13 +2324,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_set_all_unmodified_allownil)}
-    OSSL_PARAM_set_all_unmodified := @ERR_OSSL_PARAM_set_all_unmodified;
+    OSSL_PARAM_set_all_unmodified := ERR_OSSL_PARAM_set_all_unmodified;
     {$ifend}
     {$if declared(OSSL_PARAM_set_all_unmodified_introduced)}
     if LibVersion < OSSL_PARAM_set_all_unmodified_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_set_all_unmodified)}
-      OSSL_PARAM_set_all_unmodified := @FC_OSSL_PARAM_set_all_unmodified;
+      OSSL_PARAM_set_all_unmodified := FC_OSSL_PARAM_set_all_unmodified;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2338,7 +2339,7 @@ begin
     if OSSL_PARAM_set_all_unmodified_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_set_all_unmodified)}
-      OSSL_PARAM_set_all_unmodified := @_OSSL_PARAM_set_all_unmodified;
+      OSSL_PARAM_set_all_unmodified := _OSSL_PARAM_set_all_unmodified;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2354,13 +2355,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_dup_allownil)}
-    OSSL_PARAM_dup := @ERR_OSSL_PARAM_dup;
+    OSSL_PARAM_dup := ERR_OSSL_PARAM_dup;
     {$ifend}
     {$if declared(OSSL_PARAM_dup_introduced)}
     if LibVersion < OSSL_PARAM_dup_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_dup)}
-      OSSL_PARAM_dup := @FC_OSSL_PARAM_dup;
+      OSSL_PARAM_dup := FC_OSSL_PARAM_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2369,7 +2370,7 @@ begin
     if OSSL_PARAM_dup_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_dup)}
-      OSSL_PARAM_dup := @_OSSL_PARAM_dup;
+      OSSL_PARAM_dup := _OSSL_PARAM_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2385,13 +2386,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_merge_allownil)}
-    OSSL_PARAM_merge := @ERR_OSSL_PARAM_merge;
+    OSSL_PARAM_merge := ERR_OSSL_PARAM_merge;
     {$ifend}
     {$if declared(OSSL_PARAM_merge_introduced)}
     if LibVersion < OSSL_PARAM_merge_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_merge)}
-      OSSL_PARAM_merge := @FC_OSSL_PARAM_merge;
+      OSSL_PARAM_merge := FC_OSSL_PARAM_merge;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2400,7 +2401,7 @@ begin
     if OSSL_PARAM_merge_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_merge)}
-      OSSL_PARAM_merge := @_OSSL_PARAM_merge;
+      OSSL_PARAM_merge := _OSSL_PARAM_merge;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2416,13 +2417,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_PARAM_free_allownil)}
-    OSSL_PARAM_free := @ERR_OSSL_PARAM_free;
+    OSSL_PARAM_free := ERR_OSSL_PARAM_free;
     {$ifend}
     {$if declared(OSSL_PARAM_free_introduced)}
     if LibVersion < OSSL_PARAM_free_introduced then
     begin
       {$if declared(FC_OSSL_PARAM_free)}
-      OSSL_PARAM_free := @FC_OSSL_PARAM_free;
+      OSSL_PARAM_free := FC_OSSL_PARAM_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2431,7 +2432,7 @@ begin
     if OSSL_PARAM_free_removed <= LibVersion then
     begin
       {$if declared(_OSSL_PARAM_free)}
-      OSSL_PARAM_free := @_OSSL_PARAM_free;
+      OSSL_PARAM_free := _OSSL_PARAM_free;
       {$ifend}
       FuncLoadError := false;
     end;
