@@ -5003,12 +5003,12 @@ begin
 end;
 
 
-function ERR_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl; cdecl;
+function ERR_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_fetch_procname);
 end;
 
-procedure ERR_EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl; cdecl;
+procedure ERR_EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EVP_CIPHER_free_procname);
 end;
