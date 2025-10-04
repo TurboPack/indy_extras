@@ -163,7 +163,7 @@ var
   OSSL_STORE_SEARCH_get_type : function(const criterion : POSSL_STORE_SEARCH) : TIdC_INT  cdecl = nil;
   OSSL_STORE_SEARCH_get0_name : function(const criterion : POSSL_STORE_SEARCH) : PX509_NAME  cdecl = nil;
   OSSL_STORE_SEARCH_get0_serial : function(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl = nil;
-  OSSL_STORE_SEARCH_get0_bytes : function(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : Pointer  cdecl = nil;
+  OSSL_STORE_SEARCH_get0_bytes : function(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte  cdecl = nil;
   OSSL_STORE_SEARCH_get0_string : function(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl = nil;
   OSSL_STORE_SEARCH_get0_digest : function(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD  cdecl = nil;
 
@@ -290,7 +290,7 @@ var
   function OSSL_STORE_SEARCH_get_type(const criterion : POSSL_STORE_SEARCH) : TIdC_INT   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_name(const criterion : POSSL_STORE_SEARCH) : PX509_NAME   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_serial(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl; external CLibCrypto;
-  function OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : Pointer   cdecl; external CLibCrypto;
+  function OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_string(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_digest(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD   cdecl; external CLibCrypto;
 
@@ -459,7 +459,7 @@ const
 function ERR_OSSL_STORE_open(const uri : PIdAnsiChar; const ui_method : PUI_METHOD;
                 ui_data : Pointer;
                 post_process : OSSL_STORE_post_process_info_fn;
-                post_process_data : Pointer) : POSSL_STORE_CTX; {introduced 1.1.0}
+                post_process_data : Pointer) : POSSL_STORE_CTX; {introduced 1.1.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_open_procname);
 end;
@@ -468,34 +468,34 @@ function ERR_OSSL_STORE_open_ex(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX;
                    const ui_method : PUI_METHOD; ui_data : Pointer;
                    const params : POSSL_PARAM_ARRAY;
                    post_process : OSSL_STORE_post_process_info_fn;
-                   post_process_data : Pointer) : POSSL_STORE_CTX;
+                   post_process_data : Pointer) : POSSL_STORE_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_open_ex_procname);
 end;
 
-function ERR_OSSL_STORE_close(ctx : POSSL_STORE_CTX) : TIdC_INT;
+function ERR_OSSL_STORE_close(ctx : POSSL_STORE_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_close_procname);
 end;
 
-function ERR_OSSL_STORE_load(ctx : POSSL_STORE_CTX) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_load(ctx : POSSL_STORE_CTX) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_load_procname);
 end;
 
 function ERR_OSSL_STORE_delete(const uri : PIdAnsiChar; libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar;
                       const ui_method : PUI_METHOD; ui_data : Pointer;
-                      const  params : POSSL_PARAM_ARRAY) : TIdC_INT;
+                      const  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_delete_procname);
 end;
 
-function ERR_OSSL_STORE_eof(ctx : POSSL_STORE_CTX) : TIdC_INT;
+function ERR_OSSL_STORE_eof(ctx : POSSL_STORE_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_eof_procname);
 end;
 
-function ERR_OSSL_STORE_error(ctx : POSSL_STORE_CTX) : TIdC_INT;
+function ERR_OSSL_STORE_error(ctx : POSSL_STORE_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_error_procname);
 end;
@@ -505,260 +505,262 @@ function ERR_OSSL_STORE_attach(bio : PBIO; const scheme : PIdAnsiChar;
                              const ui_method : PUI_METHOD; ui_data : Pointer;
                              const  params : POSSL_PARAM_ARRAY;
                              post_process : OSSL_STORE_post_process_info_fn;
-                             post_process_data : Pointer) : POSSL_STORE_CTX;
+                             post_process_data : Pointer) : POSSL_STORE_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_attach_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new(type_ : TIdC_INT; data : Pointer) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new(type_ : TIdC_INT; data : Pointer) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_NAME(name : PIdAnsiChar) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_NAME(name : PIdAnsiChar) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_NAME_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_set0_NAME_description(info : POSSL_STORE_INFO; desc : PIdAnsiChar) : TIdC_INT;
+function ERR_OSSL_STORE_INFO_set0_NAME_description(info : POSSL_STORE_INFO; desc : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_set0_NAME_description_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_PARAMS(params : PEVP_PKEY) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_PARAMS(params : PEVP_PKEY) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_PARAMS_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_PUBKEY(pubkey : PEVP_PKEY) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_PUBKEY(pubkey : PEVP_PKEY) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_PUBKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_PKEY(pkey : PEVP_PKEY) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_PKEY(pkey : PEVP_PKEY) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_PKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_CERT(x509 : PX509) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_CERT(x509 : PX509) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_CERT_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_new_CRL(crl : PX509_CRL) : POSSL_STORE_INFO;
+function ERR_OSSL_STORE_INFO_new_CRL(crl : PX509_CRL) : POSSL_STORE_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_new_CRL_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get_type(const info : POSSL_STORE_INFO) : TIdC_INT;
+function ERR_OSSL_STORE_INFO_get_type(const info : POSSL_STORE_INFO) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get_type_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_data(type_ : TIdC_INT; const info : POSSL_STORE_INFO) : Pointer;
+function ERR_OSSL_STORE_INFO_get0_data(type_ : TIdC_INT; const info : POSSL_STORE_INFO) : Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_data_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_NAME(const info : POSSL_STORE_INFO) : PIdAnsiChar;
+function ERR_OSSL_STORE_INFO_get0_NAME(const info : POSSL_STORE_INFO) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_NAME_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_NAME(const info : POSSL_STORE_INFO) : PIdAnsiChar;
+function ERR_OSSL_STORE_INFO_get1_NAME(const info : POSSL_STORE_INFO) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_NAME_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_NAME_description(const info : POSSL_STORE_INFO) : PIdAnsiChar;
+function ERR_OSSL_STORE_INFO_get0_NAME_description(const info : POSSL_STORE_INFO) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_NAME_description_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_NAME_description(const info : POSSL_STORE_INFO) : PIdAnsiChar;
+function ERR_OSSL_STORE_INFO_get1_NAME_description(const info : POSSL_STORE_INFO) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_NAME_description_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_PARAMS(const info : POSSL_STORE_INFO) : PEVP_PKEY;
+function ERR_OSSL_STORE_INFO_get0_PARAMS(const info : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_PARAMS_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_PARAMS(const info  : POSSL_STORE_INFO) : PEVP_PKEY;
+function ERR_OSSL_STORE_INFO_get1_PARAMS(const info  : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_PARAMS_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_PUBKEY(const info : POSSL_STORE_INFO) : PEVP_PKEY;
+function ERR_OSSL_STORE_INFO_get0_PUBKEY(const info : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_PUBKEY_procname);
 end;
-  function ERR_OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY;
+  function ERR_OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_PUBKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY;
+function ERR_OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_PKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY;
+function ERR_OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_PKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_CERT(const info : POSSL_STORE_INFO) : PX509;
+function ERR_OSSL_STORE_INFO_get0_CERT(const info : POSSL_STORE_INFO) : PX509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_CERT_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_CERT(const info : POSSL_STORE_INFO) : PX509;
+function ERR_OSSL_STORE_INFO_get1_CERT(const info : POSSL_STORE_INFO) : PX509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_CERT_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_CRL(const info : POSSL_STORE_INFO) : PX509_CRL;
+function ERR_OSSL_STORE_INFO_get0_CRL(const info : POSSL_STORE_INFO) : PX509_CRL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_CRL_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_CRL(const info : POSSL_STORE_INFO) : PX509_CRL;
+function ERR_OSSL_STORE_INFO_get1_CRL(const info : POSSL_STORE_INFO) : PX509_CRL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_CRL_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_type_string(type_ : TIdC_INT) : PIdAnsiChar;
+function ERR_OSSL_STORE_INFO_type_string(type_ : TIdC_INT) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_type_string_procname);
 end;
 
-procedure ERR_OSSL_STORE_INFO_free(info : POSSL_STORE_INFO);
+procedure ERR_OSSL_STORE_INFO_free(info : POSSL_STORE_INFO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_free_procname);
 end;
 
-function ERR_OSSL_STORE_supports_search(ctx : POSSL_STORE_CTX; search_type : TIdC_INT) : TIdC_INT;
+function ERR_OSSL_STORE_supports_search(ctx : POSSL_STORE_CTX; search_type : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_supports_search_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_by_name(name : PX509_NAME) : POSSL_STORE_SEARCH;
+function ERR_OSSL_STORE_SEARCH_by_name(name : PX509_NAME) : POSSL_STORE_SEARCH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_by_name_procname);
 end;
 
 function ERR_OSSL_STORE_SEARCH_by_issuer_serial(name : PX509_NAME;
-    const serial : PASN1_INTEGER) : POSSL_STORE_SEARCH;
+    const serial : PASN1_INTEGER) : POSSL_STORE_SEARCH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_by_issuer_serial_procname);
 end;
 
 function ERR_OSSL_STORE_SEARCH_by_key_fingerprint(const digest : PEVP_MD;
-    const bytes : PIdAnsiChar; len : TIdC_SIZET) : POSSL_STORE_SEARCH;
+    const bytes : PIdAnsiChar; len : TIdC_SIZET) : POSSL_STORE_SEARCH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_by_key_fingerprint_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_by_alias(const alias : PIdAnsiChar) : POSSL_STORE_SEARCH;
+function ERR_OSSL_STORE_SEARCH_by_alias(const alias : PIdAnsiChar) : POSSL_STORE_SEARCH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_by_alias_procname);
 end;
 
-procedure ERR_OSSL_STORE_SEARCH_free(search : POSSL_STORE_SEARCH);
+procedure ERR_OSSL_STORE_SEARCH_free(search : POSSL_STORE_SEARCH); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_free_procname);
 end;
 
 //* Search term accessors */
-function ERR_OSSL_STORE_SEARCH_get_type(const criterion : POSSL_STORE_SEARCH) : TIdC_INT;
+function ERR_OSSL_STORE_SEARCH_get_type(const criterion : POSSL_STORE_SEARCH) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get_type_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_name(const criterion : POSSL_STORE_SEARCH) : PX509_NAME;
+function ERR_OSSL_STORE_SEARCH_get0_name(const criterion : POSSL_STORE_SEARCH) : PX509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_name_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_serial(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER;
+function ERR_OSSL_STORE_SEARCH_get0_serial(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_serial_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte;
+function ERR_OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_bytes_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_string(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar;
+function ERR_OSSL_STORE_SEARCH_get0_string(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_string_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_digest(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD;
+function ERR_OSSL_STORE_SEARCH_get0_digest(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_digest_procname);
 end;
 
-function ERR_OSSL_STORE_expect(ctx : POSSL_STORE_CTX; expected_type : TIdC_INT) : TIdC_INT;
+function ERR_OSSL_STORE_expect(ctx : POSSL_STORE_CTX; expected_type : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_expect_procname);
 end;
 
-function ERR_OSSL_STORE_find(ctx : POSSL_STORE_CTX; const  search : POSSL_STORE_SEARCH) : TIdC_INT;
+function ERR_OSSL_STORE_find(ctx : POSSL_STORE_CTX; const  search : POSSL_STORE_SEARCH) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_find_procname);
 end;
 
 function ERR_OSSL_STORE_LOADER_fetch(libctx : POSSL_LIB_CTX;
-    const scheme, properties : PIdAnsiChar) : POSSL_STORE_LOADER;
+    const scheme, properties : PIdAnsiChar) : POSSL_STORE_LOADER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( OSSL_STORE_LOADER_fetch_procname);
 end;
 
-function ERR_OSSL_STORE_LOADER_up_ref(loader : POSSL_STORE_LOADER) : TIdC_INT;
+function ERR_OSSL_STORE_LOADER_up_ref(loader : POSSL_STORE_LOADER) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_up_ref_procname);
 end;
 
-procedure ERR_OSSL_STORE_LOADER_free(loader : POSSL_STORE_LOADER);
+procedure ERR_OSSL_STORE_LOADER_free(loader : POSSL_STORE_LOADER); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_free_procname);
 end;
 
-function ERR_OSSL_STORE_LOADER_get0_provider(const loader : POSSL_STORE_LOADER) : POSSL_PROVIDER;
+function ERR_OSSL_STORE_LOADER_get0_provider(const loader : POSSL_STORE_LOADER) : POSSL_PROVIDER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_get0_provider_procname);
 end;
 
-function ERR_OSSL_STORE_LOADER_get0_properties(const loader : POSSL_STORE_LOADER) : PIdAnsiChar;
+function ERR_OSSL_STORE_LOADER_get0_properties(const loader : POSSL_STORE_LOADER) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_get0_properties_procname);
 end;
 
-function ERR_OSSL_STORE_LOADER_get0_description(const loader : POSSL_STORE_LOADER) : PIdAnsiChar;
+function ERR_OSSL_STORE_LOADER_get0_description(const loader : POSSL_STORE_LOADER) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_get0_description_procname);
 end;
 function ERR_OSSL_STORE_LOADER_is_a(const loader : POSSL_STORE_LOADER;
-                           const scheme : PIdAnsiChar) : TIdC_INT;
+                           const scheme : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( OSSL_STORE_LOADER_is_a_procname);
 end;
 procedure ERR_OSSL_STORE_LOADER_do_all_provided(libctx : POSSL_LIB_CTX;
                                        fn : OSSL_STORE_LOADER_do_all_provided_fn;
-                                       arg : Pointer);
+                                       arg : Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_LOADER_do_all_provided_procname);
 end;
 function ERR_OSSL_STORE_LOADER_names_do_all(const loader : POSSL_STORE_LOADER;
                                    fn : OSSL_STORE_LOADER_names_do_all_fn;
-                                   data : Pointer) : TIdC_INT;
+                                   data : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( OSSL_STORE_LOADER_names_do_all_procname);
 end;
+
+
  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
@@ -771,13 +773,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_open_allownil)}
-    OSSL_STORE_open := @ERR_OSSL_STORE_open;
+    OSSL_STORE_open := ERR_OSSL_STORE_open;
     {$ifend}
     {$if declared(OSSL_STORE_open_introduced)}
     if LibVersion < OSSL_STORE_open_introduced then
     begin
       {$if declared(FC_OSSL_STORE_open)}
-      OSSL_STORE_open := @FC_OSSL_STORE_open;
+      OSSL_STORE_open := FC_OSSL_STORE_open;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -786,7 +788,7 @@ begin
     if OSSL_STORE_open_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_open)}
-      OSSL_STORE_open := @_OSSL_STORE_open;
+      OSSL_STORE_open := _OSSL_STORE_open;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -802,13 +804,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_open_ex_allownil)}
-    OSSL_STORE_open_ex := @ERR_OSSL_STORE_open_ex;
+    OSSL_STORE_open_ex := ERR_OSSL_STORE_open_ex;
     {$ifend}
     {$if declared(OSSL_STORE_open_ex_introduced)}
     if LibVersion < OSSL_STORE_open_ex_introduced then
     begin
       {$if declared(FC_OSSL_STORE_open_ex)}
-      OSSL_STORE_open_ex := @FC_OSSL_STORE_open_ex;
+      OSSL_STORE_open_ex := FC_OSSL_STORE_open_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -817,7 +819,7 @@ begin
     if OSSL_STORE_open_ex_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_open_ex)}
-      OSSL_STORE_open_ex := @_OSSL_STORE_open_ex;
+      OSSL_STORE_open_ex := _OSSL_STORE_open_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -833,13 +835,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_close_allownil)}
-    OSSL_STORE_close := @ERR_OSSL_STORE_close;
+    OSSL_STORE_close := ERR_OSSL_STORE_close;
     {$ifend}
     {$if declared(OSSL_STORE_close_introduced)}
     if LibVersion < OSSL_STORE_close_introduced then
     begin
       {$if declared(FC_OSSL_STORE_close)}
-      OSSL_STORE_close := @FC_OSSL_STORE_close;
+      OSSL_STORE_close := FC_OSSL_STORE_close;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -848,7 +850,7 @@ begin
     if OSSL_STORE_close_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_close)}
-      OSSL_STORE_close := @_OSSL_STORE_close;
+      OSSL_STORE_close := _OSSL_STORE_close;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -864,13 +866,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_load_allownil)}
-    OSSL_STORE_load := @ERR_OSSL_STORE_load;
+    OSSL_STORE_load := ERR_OSSL_STORE_load;
     {$ifend}
     {$if declared(OSSL_STORE_load_introduced)}
     if LibVersion < OSSL_STORE_load_introduced then
     begin
       {$if declared(FC_OSSL_STORE_load)}
-      OSSL_STORE_load := @FC_OSSL_STORE_load;
+      OSSL_STORE_load := FC_OSSL_STORE_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -879,7 +881,7 @@ begin
     if OSSL_STORE_load_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_load)}
-      OSSL_STORE_load := @_OSSL_STORE_load;
+      OSSL_STORE_load := _OSSL_STORE_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -895,13 +897,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_delete_allownil)}
-    OSSL_STORE_delete := @ERR_OSSL_STORE_delete;
+    OSSL_STORE_delete := ERR_OSSL_STORE_delete;
     {$ifend}
     {$if declared(OSSL_STORE_delete_introduced)}
     if LibVersion < OSSL_STORE_delete_introduced then
     begin
       {$if declared(FC_OSSL_STORE_delete)}
-      OSSL_STORE_delete := @FC_OSSL_STORE_delete;
+      OSSL_STORE_delete := FC_OSSL_STORE_delete;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -910,7 +912,7 @@ begin
     if OSSL_STORE_delete_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_delete)}
-      OSSL_STORE_delete := @_OSSL_STORE_delete;
+      OSSL_STORE_delete := _OSSL_STORE_delete;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -926,13 +928,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_eof_allownil)}
-    OSSL_STORE_eof := @ERR_OSSL_STORE_eof;
+    OSSL_STORE_eof := ERR_OSSL_STORE_eof;
     {$ifend}
     {$if declared(OSSL_STORE_eof_introduced)}
     if LibVersion < OSSL_STORE_eof_introduced then
     begin
       {$if declared(FC_OSSL_STORE_eof)}
-      OSSL_STORE_eof := @FC_OSSL_STORE_eof;
+      OSSL_STORE_eof := FC_OSSL_STORE_eof;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -941,7 +943,7 @@ begin
     if OSSL_STORE_eof_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_eof)}
-      OSSL_STORE_eof := @_OSSL_STORE_eof;
+      OSSL_STORE_eof := _OSSL_STORE_eof;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -957,13 +959,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_error_allownil)}
-    OSSL_STORE_error := @ERR_OSSL_STORE_error;
+    OSSL_STORE_error := ERR_OSSL_STORE_error;
     {$ifend}
     {$if declared(OSSL_STORE_error_introduced)}
     if LibVersion < OSSL_STORE_error_introduced then
     begin
       {$if declared(FC_OSSL_STORE_error)}
-      OSSL_STORE_error := @FC_OSSL_STORE_error;
+      OSSL_STORE_error := FC_OSSL_STORE_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -972,7 +974,7 @@ begin
     if OSSL_STORE_error_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_error)}
-      OSSL_STORE_error := @_OSSL_STORE_error;
+      OSSL_STORE_error := _OSSL_STORE_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -988,13 +990,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_attach_allownil)}
-    OSSL_STORE_attach := @ERR_OSSL_STORE_attach;
+    OSSL_STORE_attach := ERR_OSSL_STORE_attach;
     {$ifend}
     {$if declared(OSSL_STORE_attach_introduced)}
     if LibVersion < OSSL_STORE_attach_introduced then
     begin
       {$if declared(FC_OSSL_STORE_attach)}
-      OSSL_STORE_attach := @FC_OSSL_STORE_attach;
+      OSSL_STORE_attach := FC_OSSL_STORE_attach;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1003,7 +1005,7 @@ begin
     if OSSL_STORE_attach_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_attach)}
-      OSSL_STORE_attach := @_OSSL_STORE_attach;
+      OSSL_STORE_attach := _OSSL_STORE_attach;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1019,13 +1021,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_allownil)}
-    OSSL_STORE_INFO_new := @ERR_OSSL_STORE_INFO_new;
+    OSSL_STORE_INFO_new := ERR_OSSL_STORE_INFO_new;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new)}
-      OSSL_STORE_INFO_new := @FC_OSSL_STORE_INFO_new;
+      OSSL_STORE_INFO_new := FC_OSSL_STORE_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1034,7 +1036,7 @@ begin
     if OSSL_STORE_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new)}
-      OSSL_STORE_INFO_new := @_OSSL_STORE_INFO_new;
+      OSSL_STORE_INFO_new := _OSSL_STORE_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1050,13 +1052,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_NAME_allownil)}
-    OSSL_STORE_INFO_new_NAME := @ERR_OSSL_STORE_INFO_new_NAME;
+    OSSL_STORE_INFO_new_NAME := ERR_OSSL_STORE_INFO_new_NAME;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_NAME_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_NAME_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_NAME)}
-      OSSL_STORE_INFO_new_NAME := @FC_OSSL_STORE_INFO_new_NAME;
+      OSSL_STORE_INFO_new_NAME := FC_OSSL_STORE_INFO_new_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1065,7 +1067,7 @@ begin
     if OSSL_STORE_INFO_new_NAME_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_NAME)}
-      OSSL_STORE_INFO_new_NAME := @_OSSL_STORE_INFO_new_NAME;
+      OSSL_STORE_INFO_new_NAME := _OSSL_STORE_INFO_new_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1081,13 +1083,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_set0_NAME_description_allownil)}
-    OSSL_STORE_INFO_set0_NAME_description := @ERR_OSSL_STORE_INFO_set0_NAME_description;
+    OSSL_STORE_INFO_set0_NAME_description := ERR_OSSL_STORE_INFO_set0_NAME_description;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_set0_NAME_description_introduced)}
     if LibVersion < OSSL_STORE_INFO_set0_NAME_description_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_set0_NAME_description)}
-      OSSL_STORE_INFO_set0_NAME_description := @FC_OSSL_STORE_INFO_set0_NAME_description;
+      OSSL_STORE_INFO_set0_NAME_description := FC_OSSL_STORE_INFO_set0_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1096,7 +1098,7 @@ begin
     if OSSL_STORE_INFO_set0_NAME_description_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_set0_NAME_description)}
-      OSSL_STORE_INFO_set0_NAME_description := @_OSSL_STORE_INFO_set0_NAME_description;
+      OSSL_STORE_INFO_set0_NAME_description := _OSSL_STORE_INFO_set0_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1112,13 +1114,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_PARAMS_allownil)}
-    OSSL_STORE_INFO_new_PARAMS := @ERR_OSSL_STORE_INFO_new_PARAMS;
+    OSSL_STORE_INFO_new_PARAMS := ERR_OSSL_STORE_INFO_new_PARAMS;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_PARAMS_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_PARAMS_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_PARAMS)}
-      OSSL_STORE_INFO_new_PARAMS := @FC_OSSL_STORE_INFO_new_PARAMS;
+      OSSL_STORE_INFO_new_PARAMS := FC_OSSL_STORE_INFO_new_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1127,7 +1129,7 @@ begin
     if OSSL_STORE_INFO_new_PARAMS_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_PARAMS)}
-      OSSL_STORE_INFO_new_PARAMS := @_OSSL_STORE_INFO_new_PARAMS;
+      OSSL_STORE_INFO_new_PARAMS := _OSSL_STORE_INFO_new_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1143,13 +1145,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_PUBKEY_allownil)}
-    OSSL_STORE_INFO_new_PUBKEY := @ERR_OSSL_STORE_INFO_new_PUBKEY;
+    OSSL_STORE_INFO_new_PUBKEY := ERR_OSSL_STORE_INFO_new_PUBKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_PUBKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_PUBKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_PUBKEY)}
-      OSSL_STORE_INFO_new_PUBKEY := @FC_OSSL_STORE_INFO_new_PUBKEY;
+      OSSL_STORE_INFO_new_PUBKEY := FC_OSSL_STORE_INFO_new_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1158,7 +1160,7 @@ begin
     if OSSL_STORE_INFO_new_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_PUBKEY)}
-      OSSL_STORE_INFO_new_PUBKEY := @_OSSL_STORE_INFO_new_PUBKEY;
+      OSSL_STORE_INFO_new_PUBKEY := _OSSL_STORE_INFO_new_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1174,13 +1176,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_PKEY_allownil)}
-    OSSL_STORE_INFO_new_PKEY := @ERR_OSSL_STORE_INFO_new_PKEY;
+    OSSL_STORE_INFO_new_PKEY := ERR_OSSL_STORE_INFO_new_PKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_PKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_PKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_PKEY)}
-      OSSL_STORE_INFO_new_PKEY := @FC_OSSL_STORE_INFO_new_PKEY;
+      OSSL_STORE_INFO_new_PKEY := FC_OSSL_STORE_INFO_new_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1189,7 +1191,7 @@ begin
     if OSSL_STORE_INFO_new_PKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_PKEY)}
-      OSSL_STORE_INFO_new_PKEY := @_OSSL_STORE_INFO_new_PKEY;
+      OSSL_STORE_INFO_new_PKEY := _OSSL_STORE_INFO_new_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1205,13 +1207,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_CERT_allownil)}
-    OSSL_STORE_INFO_new_CERT := @ERR_OSSL_STORE_INFO_new_CERT;
+    OSSL_STORE_INFO_new_CERT := ERR_OSSL_STORE_INFO_new_CERT;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_CERT_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_CERT_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_CERT)}
-      OSSL_STORE_INFO_new_CERT := @FC_OSSL_STORE_INFO_new_CERT;
+      OSSL_STORE_INFO_new_CERT := FC_OSSL_STORE_INFO_new_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1220,7 +1222,7 @@ begin
     if OSSL_STORE_INFO_new_CERT_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_CERT)}
-      OSSL_STORE_INFO_new_CERT := @_OSSL_STORE_INFO_new_CERT;
+      OSSL_STORE_INFO_new_CERT := _OSSL_STORE_INFO_new_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1236,13 +1238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_new_CRL_allownil)}
-    OSSL_STORE_INFO_new_CRL := @ERR_OSSL_STORE_INFO_new_CRL;
+    OSSL_STORE_INFO_new_CRL := ERR_OSSL_STORE_INFO_new_CRL;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_new_CRL_introduced)}
     if LibVersion < OSSL_STORE_INFO_new_CRL_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_new_CRL)}
-      OSSL_STORE_INFO_new_CRL := @FC_OSSL_STORE_INFO_new_CRL;
+      OSSL_STORE_INFO_new_CRL := FC_OSSL_STORE_INFO_new_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1251,7 +1253,7 @@ begin
     if OSSL_STORE_INFO_new_CRL_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_new_CRL)}
-      OSSL_STORE_INFO_new_CRL := @_OSSL_STORE_INFO_new_CRL;
+      OSSL_STORE_INFO_new_CRL := _OSSL_STORE_INFO_new_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1267,13 +1269,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get_type_allownil)}
-    OSSL_STORE_INFO_get_type := @ERR_OSSL_STORE_INFO_get_type;
+    OSSL_STORE_INFO_get_type := ERR_OSSL_STORE_INFO_get_type;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get_type_introduced)}
     if LibVersion < OSSL_STORE_INFO_get_type_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get_type)}
-      OSSL_STORE_INFO_get_type := @FC_OSSL_STORE_INFO_get_type;
+      OSSL_STORE_INFO_get_type := FC_OSSL_STORE_INFO_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1282,7 +1284,7 @@ begin
     if OSSL_STORE_INFO_get_type_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get_type)}
-      OSSL_STORE_INFO_get_type := @_OSSL_STORE_INFO_get_type;
+      OSSL_STORE_INFO_get_type := _OSSL_STORE_INFO_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1298,13 +1300,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_data_allownil)}
-    OSSL_STORE_INFO_get0_data := @ERR_OSSL_STORE_INFO_get0_data;
+    OSSL_STORE_INFO_get0_data := ERR_OSSL_STORE_INFO_get0_data;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_data_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_data_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_data)}
-      OSSL_STORE_INFO_get0_data := @FC_OSSL_STORE_INFO_get0_data;
+      OSSL_STORE_INFO_get0_data := FC_OSSL_STORE_INFO_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1313,7 +1315,7 @@ begin
     if OSSL_STORE_INFO_get0_data_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_data)}
-      OSSL_STORE_INFO_get0_data := @_OSSL_STORE_INFO_get0_data;
+      OSSL_STORE_INFO_get0_data := _OSSL_STORE_INFO_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1329,13 +1331,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_NAME_allownil)}
-    OSSL_STORE_INFO_get0_NAME := @ERR_OSSL_STORE_INFO_get0_NAME;
+    OSSL_STORE_INFO_get0_NAME := ERR_OSSL_STORE_INFO_get0_NAME;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_NAME_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_NAME_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_NAME)}
-      OSSL_STORE_INFO_get0_NAME := @FC_OSSL_STORE_INFO_get0_NAME;
+      OSSL_STORE_INFO_get0_NAME := FC_OSSL_STORE_INFO_get0_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1344,7 +1346,7 @@ begin
     if OSSL_STORE_INFO_get0_NAME_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_NAME)}
-      OSSL_STORE_INFO_get0_NAME := @_OSSL_STORE_INFO_get0_NAME;
+      OSSL_STORE_INFO_get0_NAME := _OSSL_STORE_INFO_get0_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1360,13 +1362,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_NAME_allownil)}
-    OSSL_STORE_INFO_get1_NAME := @ERR_OSSL_STORE_INFO_get1_NAME;
+    OSSL_STORE_INFO_get1_NAME := ERR_OSSL_STORE_INFO_get1_NAME;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_NAME_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_NAME_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_NAME)}
-      OSSL_STORE_INFO_get1_NAME := @FC_OSSL_STORE_INFO_get1_NAME;
+      OSSL_STORE_INFO_get1_NAME := FC_OSSL_STORE_INFO_get1_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1375,7 +1377,7 @@ begin
     if OSSL_STORE_INFO_get1_NAME_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_NAME)}
-      OSSL_STORE_INFO_get1_NAME := @_OSSL_STORE_INFO_get1_NAME;
+      OSSL_STORE_INFO_get1_NAME := _OSSL_STORE_INFO_get1_NAME;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1391,13 +1393,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_NAME_description_allownil)}
-    OSSL_STORE_INFO_get0_NAME_description := @ERR_OSSL_STORE_INFO_get0_NAME_description;
+    OSSL_STORE_INFO_get0_NAME_description := ERR_OSSL_STORE_INFO_get0_NAME_description;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_NAME_description_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_NAME_description_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_NAME_description)}
-      OSSL_STORE_INFO_get0_NAME_description := @FC_OSSL_STORE_INFO_get0_NAME_description;
+      OSSL_STORE_INFO_get0_NAME_description := FC_OSSL_STORE_INFO_get0_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1406,7 +1408,7 @@ begin
     if OSSL_STORE_INFO_get0_NAME_description_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_NAME_description)}
-      OSSL_STORE_INFO_get0_NAME_description := @_OSSL_STORE_INFO_get0_NAME_description;
+      OSSL_STORE_INFO_get0_NAME_description := _OSSL_STORE_INFO_get0_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1422,13 +1424,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_NAME_description_allownil)}
-    OSSL_STORE_INFO_get1_NAME_description := @ERR_OSSL_STORE_INFO_get1_NAME_description;
+    OSSL_STORE_INFO_get1_NAME_description := ERR_OSSL_STORE_INFO_get1_NAME_description;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_NAME_description_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_NAME_description_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_NAME_description)}
-      OSSL_STORE_INFO_get1_NAME_description := @FC_OSSL_STORE_INFO_get1_NAME_description;
+      OSSL_STORE_INFO_get1_NAME_description := FC_OSSL_STORE_INFO_get1_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1437,7 +1439,7 @@ begin
     if OSSL_STORE_INFO_get1_NAME_description_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_NAME_description)}
-      OSSL_STORE_INFO_get1_NAME_description := @_OSSL_STORE_INFO_get1_NAME_description;
+      OSSL_STORE_INFO_get1_NAME_description := _OSSL_STORE_INFO_get1_NAME_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1453,13 +1455,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_PARAMS_allownil)}
-    OSSL_STORE_INFO_get0_PARAMS := @ERR_OSSL_STORE_INFO_get0_PARAMS;
+    OSSL_STORE_INFO_get0_PARAMS := ERR_OSSL_STORE_INFO_get0_PARAMS;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_PARAMS_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_PARAMS_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_PARAMS)}
-      OSSL_STORE_INFO_get0_PARAMS := @FC_OSSL_STORE_INFO_get0_PARAMS;
+      OSSL_STORE_INFO_get0_PARAMS := FC_OSSL_STORE_INFO_get0_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1468,7 +1470,7 @@ begin
     if OSSL_STORE_INFO_get0_PARAMS_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_PARAMS)}
-      OSSL_STORE_INFO_get0_PARAMS := @_OSSL_STORE_INFO_get0_PARAMS;
+      OSSL_STORE_INFO_get0_PARAMS := _OSSL_STORE_INFO_get0_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1484,13 +1486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_PARAMS_allownil)}
-    OSSL_STORE_INFO_get1_PARAMS := @ERR_OSSL_STORE_INFO_get1_PARAMS;
+    OSSL_STORE_INFO_get1_PARAMS := ERR_OSSL_STORE_INFO_get1_PARAMS;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_PARAMS_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_PARAMS_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_PARAMS)}
-      OSSL_STORE_INFO_get1_PARAMS := @FC_OSSL_STORE_INFO_get1_PARAMS;
+      OSSL_STORE_INFO_get1_PARAMS := FC_OSSL_STORE_INFO_get1_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1499,7 +1501,7 @@ begin
     if OSSL_STORE_INFO_get1_PARAMS_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_PARAMS)}
-      OSSL_STORE_INFO_get1_PARAMS := @_OSSL_STORE_INFO_get1_PARAMS;
+      OSSL_STORE_INFO_get1_PARAMS := _OSSL_STORE_INFO_get1_PARAMS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1515,13 +1517,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_PUBKEY_allownil)}
-    OSSL_STORE_INFO_get0_PUBKEY := @ERR_OSSL_STORE_INFO_get0_PUBKEY;
+    OSSL_STORE_INFO_get0_PUBKEY := ERR_OSSL_STORE_INFO_get0_PUBKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_PUBKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_PUBKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_PUBKEY)}
-      OSSL_STORE_INFO_get0_PUBKEY := @FC_OSSL_STORE_INFO_get0_PUBKEY;
+      OSSL_STORE_INFO_get0_PUBKEY := FC_OSSL_STORE_INFO_get0_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1530,7 +1532,7 @@ begin
     if OSSL_STORE_INFO_get0_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_PUBKEY)}
-      OSSL_STORE_INFO_get0_PUBKEY := @_OSSL_STORE_INFO_get0_PUBKEY;
+      OSSL_STORE_INFO_get0_PUBKEY := _OSSL_STORE_INFO_get0_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1546,13 +1548,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_PUBKEY_allownil)}
-    OSSL_STORE_INFO_get1_PUBKEY := @ERR_OSSL_STORE_INFO_get1_PUBKEY;
+    OSSL_STORE_INFO_get1_PUBKEY := ERR_OSSL_STORE_INFO_get1_PUBKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_PUBKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_PUBKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_PUBKEY)}
-      OSSL_STORE_INFO_get1_PUBKEY := @FC_OSSL_STORE_INFO_get1_PUBKEY;
+      OSSL_STORE_INFO_get1_PUBKEY := FC_OSSL_STORE_INFO_get1_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1561,7 +1563,7 @@ begin
     if OSSL_STORE_INFO_get1_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_PUBKEY)}
-      OSSL_STORE_INFO_get1_PUBKEY := @_OSSL_STORE_INFO_get1_PUBKEY;
+      OSSL_STORE_INFO_get1_PUBKEY := _OSSL_STORE_INFO_get1_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1577,13 +1579,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_PKEY_allownil)}
-    OSSL_STORE_INFO_get0_PKEY := @ERR_OSSL_STORE_INFO_get0_PKEY;
+    OSSL_STORE_INFO_get0_PKEY := ERR_OSSL_STORE_INFO_get0_PKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_PKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_PKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_PKEY)}
-      OSSL_STORE_INFO_get0_PKEY := @FC_OSSL_STORE_INFO_get0_PKEY;
+      OSSL_STORE_INFO_get0_PKEY := FC_OSSL_STORE_INFO_get0_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1592,7 +1594,7 @@ begin
     if OSSL_STORE_INFO_get0_PKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_PKEY)}
-      OSSL_STORE_INFO_get0_PKEY := @_OSSL_STORE_INFO_get0_PKEY;
+      OSSL_STORE_INFO_get0_PKEY := _OSSL_STORE_INFO_get0_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1608,13 +1610,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_PKEY_allownil)}
-    OSSL_STORE_INFO_get1_PKEY := @ERR_OSSL_STORE_INFO_get1_PKEY;
+    OSSL_STORE_INFO_get1_PKEY := ERR_OSSL_STORE_INFO_get1_PKEY;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_PKEY_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_PKEY_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_PKEY)}
-      OSSL_STORE_INFO_get1_PKEY := @FC_OSSL_STORE_INFO_get1_PKEY;
+      OSSL_STORE_INFO_get1_PKEY := FC_OSSL_STORE_INFO_get1_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1623,7 +1625,7 @@ begin
     if OSSL_STORE_INFO_get1_PKEY_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_PKEY)}
-      OSSL_STORE_INFO_get1_PKEY := @_OSSL_STORE_INFO_get1_PKEY;
+      OSSL_STORE_INFO_get1_PKEY := _OSSL_STORE_INFO_get1_PKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1639,13 +1641,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_attach_allownil)}
-    OSSL_STORE_attach := @ERR_OSSL_STORE_attach;
+    OSSL_STORE_attach := ERR_OSSL_STORE_attach;
     {$ifend}
     {$if declared(OSSL_STORE_attach_introduced)}
     if LibVersion < OSSL_STORE_attach_introduced then
     begin
       {$if declared(FC_OSSL_STORE_attach)}
-      OSSL_STORE_attach := @FC_OSSL_STORE_attach;
+      OSSL_STORE_attach := FC_OSSL_STORE_attach;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1654,7 +1656,7 @@ begin
     if OSSL_STORE_attach_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_attach)}
-      OSSL_STORE_attach := @_OSSL_STORE_attach;
+      OSSL_STORE_attach := _OSSL_STORE_attach;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1670,13 +1672,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_CERT_allownil)}
-    OSSL_STORE_INFO_get1_CERT := @ERR_OSSL_STORE_INFO_get1_CERT;
+    OSSL_STORE_INFO_get1_CERT := ERR_OSSL_STORE_INFO_get1_CERT;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_CERT_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_CERT_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_CERT)}
-      OSSL_STORE_INFO_get1_CERT := @FC_OSSL_STORE_INFO_get1_CERT;
+      OSSL_STORE_INFO_get1_CERT := FC_OSSL_STORE_INFO_get1_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1685,7 +1687,7 @@ begin
     if OSSL_STORE_INFO_get1_CERT_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_CERT)}
-      OSSL_STORE_INFO_get1_CERT := @_OSSL_STORE_INFO_get1_CERT;
+      OSSL_STORE_INFO_get1_CERT := _OSSL_STORE_INFO_get1_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1701,13 +1703,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get0_CRL_allownil)}
-    OSSL_STORE_INFO_get0_CRL := @ERR_OSSL_STORE_INFO_get0_CRL;
+    OSSL_STORE_INFO_get0_CRL := ERR_OSSL_STORE_INFO_get0_CRL;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get0_CRL_introduced)}
     if LibVersion < OSSL_STORE_INFO_get0_CRL_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get0_CRL)}
-      OSSL_STORE_INFO_get0_CRL := @FC_OSSL_STORE_INFO_get0_CRL;
+      OSSL_STORE_INFO_get0_CRL := FC_OSSL_STORE_INFO_get0_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1716,7 +1718,7 @@ begin
     if OSSL_STORE_INFO_get0_CRL_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get0_CRL)}
-      OSSL_STORE_INFO_get0_CRL := @_OSSL_STORE_INFO_get0_CRL;
+      OSSL_STORE_INFO_get0_CRL := _OSSL_STORE_INFO_get0_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1731,13 +1733,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_get1_CRL_allownil)}
-    OSSL_STORE_INFO_get1_CRL := @ERR_OSSL_STORE_INFO_get1_CRL;
+    OSSL_STORE_INFO_get1_CRL := ERR_OSSL_STORE_INFO_get1_CRL;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_get1_CRL_introduced)}
     if LibVersion < OSSL_STORE_INFO_get1_CRL_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_get1_CRL)}
-      OSSL_STORE_INFO_get1_CRL := @FC_OSSL_STORE_INFO_get1_CRL;
+      OSSL_STORE_INFO_get1_CRL := FC_OSSL_STORE_INFO_get1_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1746,7 +1748,7 @@ begin
     if OSSL_STORE_INFO_get1_CRL_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_get1_CRL)}
-      OSSL_STORE_INFO_get1_CRL := @_OSSL_STORE_INFO_get1_CRL;
+      OSSL_STORE_INFO_get1_CRL := _OSSL_STORE_INFO_get1_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1762,13 +1764,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_type_string_allownil)}
-    OSSL_STORE_INFO_type_string := @ERR_OSSL_STORE_INFO_type_string;
+    OSSL_STORE_INFO_type_string := ERR_OSSL_STORE_INFO_type_string;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_type_string_introduced)}
     if LibVersion < OSSL_STORE_INFO_type_string_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_type_string)}
-      OSSL_STORE_INFO_type_string := @FC_OSSL_STORE_INFO_type_string;
+      OSSL_STORE_INFO_type_string := FC_OSSL_STORE_INFO_type_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1777,7 +1779,7 @@ begin
     if OSSL_STORE_INFO_type_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_type_string)}
-      OSSL_STORE_INFO_type_string := @_OSSL_STORE_INFO_type_string;
+      OSSL_STORE_INFO_type_string := _OSSL_STORE_INFO_type_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1793,13 +1795,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_INFO_free_allownil)}
-    OSSL_STORE_INFO_free := @ERR_OSSL_STORE_INFO_free;
+    OSSL_STORE_INFO_free := ERR_OSSL_STORE_INFO_free;
     {$ifend}
     {$if declared(OSSL_STORE_INFO_free_introduced)}
     if LibVersion < OSSL_STORE_INFO_free_introduced then
     begin
       {$if declared(FC_OSSL_STORE_INFO_free)}
-      OSSL_STORE_INFO_free := @FC_OSSL_STORE_INFO_free;
+      OSSL_STORE_INFO_free := FC_OSSL_STORE_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1808,7 +1810,7 @@ begin
     if OSSL_STORE_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_INFO_free)}
-      OSSL_STORE_INFO_free := @_OSSL_STORE_INFO_free;
+      OSSL_STORE_INFO_free := _OSSL_STORE_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1825,13 +1827,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_supports_search_allownil)}
-    OSSL_STORE_supports_search := @ERR_OSSL_STORE_supports_search;
+    OSSL_STORE_supports_search := ERR_OSSL_STORE_supports_search;
     {$ifend}
     {$if declared(OSSL_STORE_supports_search_introduced)}
     if LibVersion < OSSL_STORE_supports_search_introduced then
     begin
       {$if declared(FC_OSSL_STORE_supports_search)}
-      OSSL_STORE_supports_search := @FC_OSSL_STORE_supports_search;
+      OSSL_STORE_supports_search := FC_OSSL_STORE_supports_search;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1840,7 +1842,7 @@ begin
     if OSSL_STORE_supports_search_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_supports_search)}
-      OSSL_STORE_supports_search := @_OSSL_STORE_supports_search;
+      OSSL_STORE_supports_search := _OSSL_STORE_supports_search;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1856,13 +1858,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_by_name_allownil)}
-    OSSL_STORE_SEARCH_by_name := @ERR_OSSL_STORE_SEARCH_by_name;
+    OSSL_STORE_SEARCH_by_name := ERR_OSSL_STORE_SEARCH_by_name;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_by_name_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_by_name_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_by_name)}
-      OSSL_STORE_SEARCH_by_name := @FC_OSSL_STORE_SEARCH_by_name;
+      OSSL_STORE_SEARCH_by_name := FC_OSSL_STORE_SEARCH_by_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1871,7 +1873,7 @@ begin
     if OSSL_STORE_SEARCH_by_name_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_by_name)}
-      OSSL_STORE_SEARCH_by_name := @_OSSL_STORE_SEARCH_by_name;
+      OSSL_STORE_SEARCH_by_name := _OSSL_STORE_SEARCH_by_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1887,13 +1889,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_by_issuer_serial_allownil)}
-    OSSL_STORE_SEARCH_by_issuer_serial := @ERR_OSSL_STORE_SEARCH_by_issuer_serial;
+    OSSL_STORE_SEARCH_by_issuer_serial := ERR_OSSL_STORE_SEARCH_by_issuer_serial;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_by_issuer_serial_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_by_issuer_serial_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_by_issuer_serial)}
-      OSSL_STORE_SEARCH_by_issuer_serial := @FC_OSSL_STORE_SEARCH_by_issuer_serial;
+      OSSL_STORE_SEARCH_by_issuer_serial := FC_OSSL_STORE_SEARCH_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1902,7 +1904,7 @@ begin
     if OSSL_STORE_SEARCH_by_issuer_serial_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_by_issuer_serial)}
-      OSSL_STORE_SEARCH_by_issuer_serial := @_OSSL_STORE_SEARCH_by_issuer_serial;
+      OSSL_STORE_SEARCH_by_issuer_serial := _OSSL_STORE_SEARCH_by_issuer_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1918,13 +1920,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_by_key_fingerprint_allownil)}
-    OSSL_STORE_SEARCH_by_key_fingerprint := @ERR_OSSL_STORE_SEARCH_by_key_fingerprint;
+    OSSL_STORE_SEARCH_by_key_fingerprint := ERR_OSSL_STORE_SEARCH_by_key_fingerprint;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_by_key_fingerprint_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_by_key_fingerprint_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_by_key_fingerprint)}
-      OSSL_STORE_SEARCH_by_key_fingerprint := @FC_OSSL_STORE_SEARCH_by_key_fingerprint;
+      OSSL_STORE_SEARCH_by_key_fingerprint := FC_OSSL_STORE_SEARCH_by_key_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1933,7 +1935,7 @@ begin
     if OSSL_STORE_SEARCH_by_key_fingerprint_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_by_key_fingerprint)}
-      OSSL_STORE_SEARCH_by_key_fingerprint := @_OSSL_STORE_SEARCH_by_key_fingerprint;
+      OSSL_STORE_SEARCH_by_key_fingerprint := _OSSL_STORE_SEARCH_by_key_fingerprint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1949,13 +1951,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_by_alias_allownil)}
-    OSSL_STORE_SEARCH_by_alias := @ERR_OSSL_STORE_SEARCH_by_alias;
+    OSSL_STORE_SEARCH_by_alias := ERR_OSSL_STORE_SEARCH_by_alias;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_by_alias_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_by_alias_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_by_alias)}
-      OSSL_STORE_SEARCH_by_alias := @FC_OSSL_STORE_SEARCH_by_alias;
+      OSSL_STORE_SEARCH_by_alias := FC_OSSL_STORE_SEARCH_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1964,7 +1966,7 @@ begin
     if OSSL_STORE_SEARCH_by_alias_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_by_alias)}
-      OSSL_STORE_SEARCH_by_alias := @_OSSL_STORE_SEARCH_by_alias;
+      OSSL_STORE_SEARCH_by_alias := _OSSL_STORE_SEARCH_by_alias;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1980,13 +1982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_free_allownil)}
-    OSSL_STORE_SEARCH_free := @ERR_OSSL_STORE_SEARCH_free;
+    OSSL_STORE_SEARCH_free := ERR_OSSL_STORE_SEARCH_free;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_free_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_free_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_free)}
-      OSSL_STORE_SEARCH_free := @FC_OSSL_STORE_SEARCH_free;
+      OSSL_STORE_SEARCH_free := FC_OSSL_STORE_SEARCH_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1995,7 +1997,7 @@ begin
     if OSSL_STORE_SEARCH_free_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_free)}
-      OSSL_STORE_SEARCH_free := @_OSSL_STORE_SEARCH_free;
+      OSSL_STORE_SEARCH_free := _OSSL_STORE_SEARCH_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2011,13 +2013,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get_type_allownil)}
-    OSSL_STORE_SEARCH_get_type := @ERR_OSSL_STORE_SEARCH_get_type;
+    OSSL_STORE_SEARCH_get_type := ERR_OSSL_STORE_SEARCH_get_type;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get_type_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get_type_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get_type)}
-      OSSL_STORE_SEARCH_get_type := @FC_OSSL_STORE_SEARCH_get_type;
+      OSSL_STORE_SEARCH_get_type := FC_OSSL_STORE_SEARCH_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2026,7 +2028,7 @@ begin
     if OSSL_STORE_SEARCH_get_type_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get_type)}
-      OSSL_STORE_SEARCH_get_type := @_OSSL_STORE_SEARCH_get_type;
+      OSSL_STORE_SEARCH_get_type := _OSSL_STORE_SEARCH_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2042,13 +2044,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get0_name_allownil)}
-    OSSL_STORE_SEARCH_get0_name := @ERR_OSSL_STORE_SEARCH_get0_name;
+    OSSL_STORE_SEARCH_get0_name := ERR_OSSL_STORE_SEARCH_get0_name;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get0_name_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get0_name_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get0_name)}
-      OSSL_STORE_SEARCH_get0_name := @FC_OSSL_STORE_SEARCH_get0_name;
+      OSSL_STORE_SEARCH_get0_name := FC_OSSL_STORE_SEARCH_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2057,7 +2059,7 @@ begin
     if OSSL_STORE_SEARCH_get0_name_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get0_name)}
-      OSSL_STORE_SEARCH_get0_name := @_OSSL_STORE_SEARCH_get0_name;
+      OSSL_STORE_SEARCH_get0_name := _OSSL_STORE_SEARCH_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2073,13 +2075,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get0_serial_allownil)}
-    OSSL_STORE_SEARCH_get0_serial := @ERR_OSSL_STORE_SEARCH_get0_serial;
+    OSSL_STORE_SEARCH_get0_serial := ERR_OSSL_STORE_SEARCH_get0_serial;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get0_serial_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get0_serial_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get0_serial)}
-      OSSL_STORE_SEARCH_get0_serial := @FC_OSSL_STORE_SEARCH_get0_serial;
+      OSSL_STORE_SEARCH_get0_serial := FC_OSSL_STORE_SEARCH_get0_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2088,7 +2090,7 @@ begin
     if OSSL_STORE_SEARCH_get0_serial_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get0_serial)}
-      OSSL_STORE_SEARCH_get0_serial := @_OSSL_STORE_SEARCH_get0_serial;
+      OSSL_STORE_SEARCH_get0_serial := _OSSL_STORE_SEARCH_get0_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2104,13 +2106,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get0_bytes_allownil)}
-    OSSL_STORE_SEARCH_get0_bytes := @ERR_OSSL_STORE_SEARCH_get0_bytes;
+    OSSL_STORE_SEARCH_get0_bytes := ERR_OSSL_STORE_SEARCH_get0_bytes;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get0_bytes_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get0_bytes_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get0_bytes)}
-      OSSL_STORE_SEARCH_get0_bytes := @FC_OSSL_STORE_SEARCH_get0_bytes;
+      OSSL_STORE_SEARCH_get0_bytes := FC_OSSL_STORE_SEARCH_get0_bytes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2119,7 +2121,7 @@ begin
     if OSSL_STORE_SEARCH_get0_bytes_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get0_bytes)}
-      OSSL_STORE_SEARCH_get0_bytes := @_OSSL_STORE_SEARCH_get0_bytes;
+      OSSL_STORE_SEARCH_get0_bytes := _OSSL_STORE_SEARCH_get0_bytes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2135,13 +2137,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get0_string_allownil)}
-    OSSL_STORE_SEARCH_get0_string := @ERR_OSSL_STORE_SEARCH_get0_string;
+    OSSL_STORE_SEARCH_get0_string := ERR_OSSL_STORE_SEARCH_get0_string;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get0_string_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get0_string_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get0_string)}
-      OSSL_STORE_SEARCH_get0_string := @FC_OSSL_STORE_SEARCH_get0_string;
+      OSSL_STORE_SEARCH_get0_string := FC_OSSL_STORE_SEARCH_get0_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2150,7 +2152,7 @@ begin
     if OSSL_STORE_SEARCH_get0_string_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get0_string)}
-      OSSL_STORE_SEARCH_get0_string := @_OSSL_STORE_SEARCH_get0_string;
+      OSSL_STORE_SEARCH_get0_string := _OSSL_STORE_SEARCH_get0_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2166,13 +2168,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_SEARCH_get0_digest_allownil)}
-    OSSL_STORE_SEARCH_get0_digest := @ERR_OSSL_STORE_SEARCH_get0_digest;
+    OSSL_STORE_SEARCH_get0_digest := ERR_OSSL_STORE_SEARCH_get0_digest;
     {$ifend}
     {$if declared(OSSL_STORE_SEARCH_get0_digest_introduced)}
     if LibVersion < OSSL_STORE_SEARCH_get0_digest_introduced then
     begin
       {$if declared(FC_OSSL_STORE_SEARCH_get0_digest)}
-      OSSL_STORE_SEARCH_get0_digest := @FC_OSSL_STORE_SEARCH_get0_digest;
+      OSSL_STORE_SEARCH_get0_digest := FC_OSSL_STORE_SEARCH_get0_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2181,7 +2183,7 @@ begin
     if OSSL_STORE_SEARCH_get0_digest_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_SEARCH_get0_digest)}
-      OSSL_STORE_SEARCH_get0_digest := @_OSSL_STORE_SEARCH_get0_digest;
+      OSSL_STORE_SEARCH_get0_digest := _OSSL_STORE_SEARCH_get0_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2197,13 +2199,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_expect_allownil)}
-    OSSL_STORE_expect := @ERR_OSSL_STORE_expect;
+    OSSL_STORE_expect := ERR_OSSL_STORE_expect;
     {$ifend}
     {$if declared(OSSL_STORE_expect_introduced)}
     if LibVersion < OSSL_STORE_expect_introduced then
     begin
       {$if declared(FC_OSSL_STORE_expect)}
-      OSSL_STORE_expect := @FC_OSSL_STORE_expect;
+      OSSL_STORE_expect := FC_OSSL_STORE_expect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2212,7 +2214,7 @@ begin
     if OSSL_STORE_expect_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_expect)}
-      OSSL_STORE_expect := @_OSSL_STORE_expect;
+      OSSL_STORE_expect := _OSSL_STORE_expect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2228,13 +2230,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_find_allownil)}
-    OSSL_STORE_find := @ERR_OSSL_STORE_find;
+    OSSL_STORE_find := ERR_OSSL_STORE_find;
     {$ifend}
     {$if declared(OSSL_STORE_find_introduced)}
     if LibVersion < OSSL_STORE_find_introduced then
     begin
       {$if declared(FC_OSSL_STORE_find)}
-      OSSL_STORE_find := @FC_OSSL_STORE_find;
+      OSSL_STORE_find := FC_OSSL_STORE_find;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2243,7 +2245,7 @@ begin
     if OSSL_STORE_find_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_find)}
-      OSSL_STORE_find := @_OSSL_STORE_find;
+      OSSL_STORE_find := _OSSL_STORE_find;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2260,13 +2262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_fetch_allownil)}
-    OSSL_STORE_LOADER_fetch := @ERR_OSSL_STORE_LOADER_fetch;
+    OSSL_STORE_LOADER_fetch := ERR_OSSL_STORE_LOADER_fetch;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_fetch_introduced)}
     if LibVersion < OSSL_STORE_LOADER_fetch_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_fetch)}
-      OSSL_STORE_LOADER_fetch := @FC_OSSL_STORE_LOADER_fetch;
+      OSSL_STORE_LOADER_fetch := FC_OSSL_STORE_LOADER_fetch;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2275,7 +2277,7 @@ begin
     if OSSL_STORE_LOADER_fetch_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_fetch)}
-      OSSL_STORE_LOADER_fetch := @_OSSL_STORE_LOADER_fetch;
+      OSSL_STORE_LOADER_fetch := _OSSL_STORE_LOADER_fetch;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2291,13 +2293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_up_ref_allownil)}
-    OSSL_STORE_LOADER_up_ref := @ERR_OSSL_STORE_LOADER_up_ref;
+    OSSL_STORE_LOADER_up_ref := ERR_OSSL_STORE_LOADER_up_ref;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_up_ref_introduced)}
     if LibVersion < OSSL_STORE_LOADER_up_ref_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_up_ref)}
-      OSSL_STORE_LOADER_up_ref := @FC_OSSL_STORE_LOADER_up_ref;
+      OSSL_STORE_LOADER_up_ref := FC_OSSL_STORE_LOADER_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2306,7 +2308,7 @@ begin
     if OSSL_STORE_LOADER_up_ref_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_up_ref)}
-      OSSL_STORE_LOADER_up_ref := @_OSSL_STORE_LOADER_up_ref;
+      OSSL_STORE_LOADER_up_ref := _OSSL_STORE_LOADER_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2322,13 +2324,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_free_allownil)}
-    OSSL_STORE_LOADER_free := @ERR_OSSL_STORE_LOADER_free;
+    OSSL_STORE_LOADER_free := ERR_OSSL_STORE_LOADER_free;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_free_introduced)}
     if LibVersion < OSSL_STORE_LOADER_free_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_free)}
-      OSSL_STORE_LOADER_free := @FC_OSSL_STORE_LOADER_free;
+      OSSL_STORE_LOADER_free := FC_OSSL_STORE_LOADER_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2337,7 +2339,7 @@ begin
     if OSSL_STORE_LOADER_free_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_free)}
-      OSSL_STORE_LOADER_free := @_OSSL_STORE_LOADER_free;
+      OSSL_STORE_LOADER_free := _OSSL_STORE_LOADER_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2353,13 +2355,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_get0_provider_allownil)}
-    OSSL_STORE_LOADER_get0_provider := @ERR_OSSL_STORE_LOADER_get0_provider;
+    OSSL_STORE_LOADER_get0_provider := ERR_OSSL_STORE_LOADER_get0_provider;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_get0_provider_introduced)}
     if LibVersion < OSSL_STORE_LOADER_get0_provider_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_get0_provider)}
-      OSSL_STORE_LOADER_get0_provider := @FC_OSSL_STORE_LOADER_get0_provider;
+      OSSL_STORE_LOADER_get0_provider := FC_OSSL_STORE_LOADER_get0_provider;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2368,7 +2370,7 @@ begin
     if OSSL_STORE_LOADER_get0_provider_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_get0_provider)}
-      OSSL_STORE_LOADER_get0_provider := @_OSSL_STORE_LOADER_get0_provider;
+      OSSL_STORE_LOADER_get0_provider := _OSSL_STORE_LOADER_get0_provider;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2384,13 +2386,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_get0_properties_allownil)}
-    OSSL_STORE_LOADER_get0_properties := @ERR_OSSL_STORE_LOADER_get0_properties;
+    OSSL_STORE_LOADER_get0_properties := ERR_OSSL_STORE_LOADER_get0_properties;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_get0_properties_introduced)}
     if LibVersion < OSSL_STORE_LOADER_get0_properties_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_get0_properties)}
-      OSSL_STORE_LOADER_get0_properties := @FC_OSSL_STORE_LOADER_get0_properties;
+      OSSL_STORE_LOADER_get0_properties := FC_OSSL_STORE_LOADER_get0_properties;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2399,7 +2401,7 @@ begin
     if OSSL_STORE_LOADER_get0_properties_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_get0_properties)}
-      OSSL_STORE_LOADER_get0_properties := @_OSSL_STORE_LOADER_get0_properties;
+      OSSL_STORE_LOADER_get0_properties := _OSSL_STORE_LOADER_get0_properties;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2415,13 +2417,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_get0_description_allownil)}
-    OSSL_STORE_LOADER_get0_description := @ERR_OSSL_STORE_LOADER_get0_description;
+    OSSL_STORE_LOADER_get0_description := ERR_OSSL_STORE_LOADER_get0_description;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_get0_description_introduced)}
     if LibVersion < OSSL_STORE_LOADER_get0_description_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_get0_description)}
-      OSSL_STORE_LOADER_get0_description := @FC_OSSL_STORE_LOADER_get0_description;
+      OSSL_STORE_LOADER_get0_description := FC_OSSL_STORE_LOADER_get0_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2430,7 +2432,7 @@ begin
     if OSSL_STORE_LOADER_get0_description_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_get0_description)}
-      OSSL_STORE_LOADER_get0_description := @_OSSL_STORE_LOADER_get0_description;
+      OSSL_STORE_LOADER_get0_description := _OSSL_STORE_LOADER_get0_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2446,13 +2448,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_is_a_allownil)}
-    OSSL_STORE_LOADER_is_a := @ERR_OSSL_STORE_LOADER_is_a;
+    OSSL_STORE_LOADER_is_a := ERR_OSSL_STORE_LOADER_is_a;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_is_a_introduced)}
     if LibVersion < OSSL_STORE_LOADER_is_a_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_is_a)}
-      OSSL_STORE_LOADER_is_a := @FC_OSSL_STORE_LOADER_is_a;
+      OSSL_STORE_LOADER_is_a := FC_OSSL_STORE_LOADER_is_a;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2461,7 +2463,7 @@ begin
     if OSSL_STORE_LOADER_is_a_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_is_a)}
-      OSSL_STORE_LOADER_is_a := @_OSSL_STORE_LOADER_is_a;
+      OSSL_STORE_LOADER_is_a := _OSSL_STORE_LOADER_is_a;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2477,13 +2479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_do_all_provided_allownil)}
-    OSSL_STORE_LOADER_do_all_provided := @ERR_OSSL_STORE_LOADER_do_all_provided;
+    OSSL_STORE_LOADER_do_all_provided := ERR_OSSL_STORE_LOADER_do_all_provided;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_do_all_provided_introduced)}
     if LibVersion < OSSL_STORE_LOADER_do_all_provided_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_do_all_provided)}
-      OSSL_STORE_LOADER_do_all_provided := @FC_OSSL_STORE_LOADER_do_all_provided;
+      OSSL_STORE_LOADER_do_all_provided := FC_OSSL_STORE_LOADER_do_all_provided;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2492,7 +2494,7 @@ begin
     if OSSL_STORE_LOADER_do_all_provided_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_do_all_provided)}
-      OSSL_STORE_LOADER_do_all_provided := @_OSSL_STORE_LOADER_do_all_provided;
+      OSSL_STORE_LOADER_do_all_provided := _OSSL_STORE_LOADER_do_all_provided;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2508,13 +2510,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_STORE_LOADER_names_do_all_allownil)}
-    OSSL_STORE_LOADER_names_do_all := @ERR_OSSL_STORE_LOADER_names_do_all;
+    OSSL_STORE_LOADER_names_do_all := ERR_OSSL_STORE_LOADER_names_do_all;
     {$ifend}
     {$if declared(OSSL_STORE_LOADER_names_do_all_introduced)}
     if LibVersion < OSSL_STORE_LOADER_names_do_all_introduced then
     begin
       {$if declared(FC_OSSL_STORE_LOADER_names_do_all)}
-      OSSL_STORE_LOADER_names_do_all := @FC_OSSL_STORE_LOADER_names_do_all;
+      OSSL_STORE_LOADER_names_do_all := FC_OSSL_STORE_LOADER_names_do_all;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2523,7 +2525,7 @@ begin
     if OSSL_STORE_LOADER_names_do_all_removed <= LibVersion then
     begin
       {$if declared(_OSSL_STORE_LOADER_names_do_all)}
-      OSSL_STORE_LOADER_names_do_all := @_OSSL_STORE_LOADER_names_do_all;
+      OSSL_STORE_LOADER_names_do_all := _OSSL_STORE_LOADER_names_do_all;
       {$ifend}
       FuncLoadError := false;
     end;

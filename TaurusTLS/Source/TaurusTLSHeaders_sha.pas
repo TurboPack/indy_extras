@@ -221,148 +221,147 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_SHA1_Init(c: PSHA_CTX): TIdC_INT; 
+
+function  ERR_SHA1_Init(c: PSHA_CTX): TIdC_INT;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_Init_procname);
 end;
 
 
-function  ERR_SHA1_Update(c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SHA1_Update(c: PSHA_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_Update_procname);
 end;
 
 
-function  ERR_SHA1_Final(md: PByte; c: PSHA_CTX): TIdC_INT; 
+function  ERR_SHA1_Final(md: PByte; c: PSHA_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_Final_procname);
 end;
 
 
-function  ERR_SHA1(const d: PByte; n: TIdC_SIZET; md: PByte): PByte; 
+function  ERR_SHA1(const d: PByte; n: TIdC_SIZET; md: PByte): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_procname);
 end;
 
 
-procedure  ERR_SHA1_Transform(c: PSHA_CTX; const data: PByte); 
+procedure  ERR_SHA1_Transform(c: PSHA_CTX; const data: PByte); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_Transform_procname);
 end;
 
 
 
-function  ERR_SHA224_Init(c: PSHA256_CTX): TIdC_INT; 
+function  ERR_SHA224_Init(c: PSHA256_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA224_Init_procname);
 end;
 
 
-function  ERR_SHA224_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SHA224_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA224_Update_procname);
 end;
 
 
-function  ERR_SHA224_Final(md: PByte; c: PSHA256_CTX): TIdC_INT; 
+function  ERR_SHA224_Final(md: PByte; c: PSHA256_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA224_Final_procname);
 end;
 
 
-function  ERR_SHA224(const d: PByte; n: TIdC_SIZET; md: PByte): PByte; 
+function  ERR_SHA224(const d: PByte; n: TIdC_SIZET; md: PByte): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA224_procname);
 end;
 
 
 
-function  ERR_SHA256_Init(c: PSHA256_CTX): TIdC_INT; 
+function  ERR_SHA256_Init(c: PSHA256_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA256_Init_procname);
 end;
 
 
-function  ERR_SHA256_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SHA256_Update(c: PSHA256_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA256_Update_procname);
 end;
 
 
-function  ERR_SHA256_Final(md: PByte; c: PSHA256_CTX): TIdC_INT; 
+function  ERR_SHA256_Final(md: PByte; c: PSHA256_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA256_Final_procname);
 end;
 
 
-function  ERR_SHA256(const d: PByte; n: TIdC_SIZET; md: PByte): PByte; 
+function  ERR_SHA256(const d: PByte; n: TIdC_SIZET; md: PByte): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA256_procname);
 end;
 
 
-procedure  ERR_SHA256_Transform(c: PSHA256_CTX; const data: PByte); 
+procedure  ERR_SHA256_Transform(c: PSHA256_CTX; const data: PByte);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA256_Transform_procname);
 end;
 
 
 
-function  ERR_SHA384_Init(c: PSHA512_CTX): TIdC_INT; 
+function  ERR_SHA384_Init(c: PSHA512_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA384_Init_procname);
 end;
 
 
-function  ERR_SHA384_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SHA384_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA384_Update_procname);
 end;
 
 
-function  ERR_SHA384_Final(md: PByte; c: PSHA512_CTX): TIdC_INT; 
+function  ERR_SHA384_Final(md: PByte; c: PSHA512_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA384_Final_procname);
 end;
 
 
-function  ERR_SHA384(const d: PByte; n: TIdC_SIZET; md: PByte): PByte; 
+function  ERR_SHA384(const d: PByte; n: TIdC_SIZET; md: PByte): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA384_procname);
 end;
 
 
 
-function  ERR_SHA512_Init(c: PSHA512_CTX): TIdC_INT; 
+function  ERR_SHA512_Init(c: PSHA512_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA512_Init_procname);
 end;
 
 
-function  ERR_SHA512_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SHA512_Update(c: PSHA512_CTX; const data: Pointer; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA512_Update_procname);
 end;
 
 
-function  ERR_SHA512_Final(md: PByte; c: PSHA512_CTX): TIdC_INT; 
+function  ERR_SHA512_Final(md: PByte; c: PSHA512_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA512_Final_procname);
 end;
 
 
-function  ERR_SHA512(const d: PByte; n: TIdC_SIZET; md: PByte): PByte; 
+function  ERR_SHA512(const d: PByte; n: TIdC_SIZET; md: PByte): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA512_procname);
 end;
 
 
-procedure  ERR_SHA512_Transform(c: PSHA512_CTX; const data: PByte); 
+procedure  ERR_SHA512_Transform(c: PSHA512_CTX; const data: PByte);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA512_Transform_procname);
 end;
-
-
 
   {$I TaurusTLSNoRetValOn.inc} 
   {$I TaurusTLSUnusedParamOff.inc}

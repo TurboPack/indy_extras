@@ -1816,11 +1816,11 @@ var
   //                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
   //                                        const SSL_CIPHER **cipher, void *arg);
 
-  SSL_CTX_get_options: function (const ctx: PSSL_CTX): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
+  SSL_CTX_get_options: function (const ctx: PSSL_CTX): TIdC_UINT64; cdecl = nil; {introduced 1.1.0}
   SSL_get_options: function (const s: PSSL): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  SSL_CTX_clear_options: function (ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
+  SSL_CTX_clear_options: function (ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64; cdecl = nil; {introduced 1.1.0}
   SSL_clear_options: function (s: PSSL; op: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  SSL_CTX_set_options: function (ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
+  SSL_CTX_set_options: function (ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64; cdecl = nil; {introduced 1.1.0}
   SSL_set_options: function (s: PSSL; op: TIdC_ULONG): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
 
   //# define SSL_CTX_set_mode(ctx,op) \
@@ -2188,7 +2188,7 @@ var
 
   SSL_get_peer_certificate: function (const s: PSSL): PX509; cdecl = nil; {removed 3.0.0}
 
-  SSL_get_peer_cert_chain : function(const s: PSSL) : PSTACK_OF_X509;
+  SSL_get_peer_cert_chain : function(const s: PSSL) : PSTACK_OF_X509;  cdecl = nil;
 
   SSL_CTX_get_verify_mode: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
   SSL_CTX_get_verify_depth: function (const ctx: PSSL_CTX): TIdC_INT; cdecl = nil;
@@ -2626,8 +2626,8 @@ var
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-  SSL_set_ct_validation_callback : function(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
-  SSL_CTX_set_ct_validation_callback : function(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+  SSL_set_ct_validation_callback : function(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;  cdecl = nil;
+  SSL_CTX_set_ct_validation_callback : function(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;  cdecl = nil;
 
   //#define SSL_disable_ct(s) \
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
@@ -2738,11 +2738,11 @@ var
   //                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
   //                                        const SSL_CIPHER **cipher, void *arg);
 
-  function SSL_CTX_get_options(const ctx: PSSL_CTX): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_CTX_get_options(const ctx: PSSL_CTX): TIdC_UINT64 cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_get_options(const s: PSSL): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_CTX_clear_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_CTX_clear_options(ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64 cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_clear_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
+  function SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64 cdecl; external CLibSSL; {introduced 1.1.0}
   function SSL_set_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG cdecl; external CLibSSL; {introduced 1.1.0}
 
   //# define SSL_CTX_set_mode(ctx,op) \
@@ -6191,9 +6191,9 @@ type
                           // supplying session-id's from other
                           // processes - spooky :-)
   end;
-  PSTACK_OF_COMP = pointer;
+  STACK_OF_COMP = record end;
+  PSTACK_OF_COMP = ^STACK_OF_COMP;
   PSSL_CTX_info_callback = pointer;
-  PX509_VERIFY_PARAM = pointer;
   PCERT = pointer;
   PGEN_SESSION_CB = pointer;
   PSSL_CTEX_tlsext_servername_callback = pointer;
@@ -6227,13 +6227,14 @@ const
 
   {$I TaurusTLSUnusedParamOff.inc}
 
+
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
-                        const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
+                        const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0} cdecl;
 begin
   Result := SSL_CTX_new(meth);
 end;
 
-function FC_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0}
+function FC_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0} cdecl;
 begin
   Result := SSL_write_ex(s,buf,num,written);
 end;
@@ -6241,27 +6242,27 @@ end;
 //* Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value,
 // * they cannot be used to clear bits. */
 
-function  FC_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_LONG):TIdC_LONG; cdecl;
+function  FC_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_UINT64):TIdC_UINT64; cdecl; cdecl;
 begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_OPTIONS, op, nil);
 end;
 
-function  FC_SSL_CTX_clear_options(ctx : PSSL_CTX; op : TIdC_LONG):TIdC_LONG; cdecl;
+function  FC_SSL_CTX_clear_options(ctx : PSSL_CTX; op : TIdC_UINT64):TIdC_UINT64; cdecl;
 begin
   Result := SSL_CTX_ctrl(ctx,SSL_CTRL_CLEAR_OPTIONS,op,nil);
 end;
 
-function  FC_SSL_CTX_get_options(ctx: PSSL_CTX) : TIdC_LONG; cdecl;
+function  FC_SSL_CTX_get_options(const ctx: PSSL_CTX) : TIdC_UINT64; cdecl;
 begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_OPTIONS,0,nil);
 end;
 
-function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl;
+function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; cdecl;
 begin
   Result := DTLSv1_get_timeout(s,tv);
 end;
 
-function FC_SSL_handle_events(s : PSSL) : TIdC_INT cdecl;  {introduced 3.2.0}
+function FC_SSL_handle_events(s : PSSL) : TIdC_INT cdecl;  {introduced 3.2.0} cdecl;
 begin
   Result := DTLSv1_handle_timeout(s);
 end;
@@ -6278,7 +6279,7 @@ type
   {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc}
 
-function  FC_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
+function  FC_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl; cdecl;
 begin
   if opts and OPENSSL_INIT_LOAD_SSL_STRINGS <> 0 then
     SSL_load_error_strings;
@@ -6288,451 +6289,451 @@ end;
 
 function FC_SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
-                           args_len : TIdC_SIZET) : TIdC_INT cdecl;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl; cdecl;
 begin
   Result := SSL_shutdown(ssl);
 end;
 
-function  ERR_SSL_CTX_set_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG;
+function  ERR_SSL_CTX_set_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_mode_procname);
 end;
 
 
-function  ERR_SSL_CTX_clear_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG; 
+function  ERR_SSL_CTX_clear_mode(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_clear_mode_procname);
 end;
 
- 
 
-function  ERR_SSL_CTX_sess_set_cache_size(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_sess_set_cache_size(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_set_cache_size_procname);
 end;
 
- 
-function  ERR_SSL_CTX_sess_get_cache_size(ctx: PSSL_CTX): TIdC_LONG; 
+
+function  ERR_SSL_CTX_sess_get_cache_size(ctx: PSSL_CTX): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_get_cache_size_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set_session_cache_mode(ctx: PSSL_CTX; m: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set_session_cache_mode(ctx: PSSL_CTX; m: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_session_cache_mode_procname);
 end;
 
- 
-function  ERR_SSL_CTX_get_session_cache_mode(ctx: PSSL_CTX): TIdC_LONG; 
+
+function  ERR_SSL_CTX_get_session_cache_mode(ctx: PSSL_CTX): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_session_cache_mode_procname);
 end;
 
- 
 
-function  ERR_SSL_clear_num_renegotiations(ssl: PSSL): TIdC_LONG; 
+
+function  ERR_SSL_clear_num_renegotiations(ssl: PSSL): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_clear_num_renegotiations_procname);
 end;
 
- 
-function  ERR_SSL_total_renegotiations(ssl: PSSL): TIdC_LONG; 
+
+function  ERR_SSL_total_renegotiations(ssl: PSSL): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_total_renegotiations_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set_tmp_dh(ctx: PSSL_CTX; dh: PDH): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set_tmp_dh(ctx: PSSL_CTX; dh: PDH): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tmp_dh_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set_tmp_ecdh(ctx: PSSL_CTX; ecdh: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set_tmp_ecdh(ctx: PSSL_CTX; ecdh: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tmp_ecdh_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set_dh_auto(ctx: PSSL_CTX; onoff: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set_dh_auto(ctx: PSSL_CTX; onoff: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_dh_auto_procname);
 end;
 
- 
-function  ERR_SSL_set_dh_auto(s: PSSL; onoff: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set_dh_auto(s: PSSL; onoff: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_dh_auto_procname);
 end;
 
- 
-function  ERR_SSL_set_tmp_dh(ssl: PSSL; dh: PDH): TIdC_LONG; 
+
+function  ERR_SSL_set_tmp_dh(ssl: PSSL; dh: PDH): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tmp_dh_procname);
 end;
 
- 
-function  ERR_SSL_set_tmp_ecdh(ssl: PSSL; ecdh: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set_tmp_ecdh(ssl: PSSL; ecdh: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tmp_ecdh_procname);
 end;
 
- 
-function  ERR_SSL_CTX_add_extra_chain_cert(ctx: PSSL_CTX; x509: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_add_extra_chain_cert(ctx: PSSL_CTX; x509: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_extra_chain_cert_procname);
 end;
 
- 
-function  ERR_SSL_CTX_get_extra_chain_certs(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_get_extra_chain_certs(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_extra_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_get_extra_chain_certs_only(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_get_extra_chain_certs_only(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_extra_chain_certs_only_procname);
 end;
 
- 
-function  ERR_SSL_CTX_clear_extra_chain_certs(ctx: PSSL_CTX): TIdC_LONG; 
+
+function  ERR_SSL_CTX_clear_extra_chain_certs(ctx: PSSL_CTX): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_clear_extra_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set0_chain(ctx: PSSL_CTX; sk: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set0_chain(ctx: PSSL_CTX; sk: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set0_chain_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_chain(ctx: PSSL_CTX; sk: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_chain(ctx: PSSL_CTX; sk: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_chain_procname);
 end;
 
- 
-function  ERR_SSL_CTX_add0_chain_cert(ctx: PSSL_CTX; x509: PX509): TIdC_LONG; 
+
+function  ERR_SSL_CTX_add0_chain_cert(ctx: PSSL_CTX; x509: PX509): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add0_chain_cert_procname);
 end;
 
- 
-function  ERR_SSL_CTX_add1_chain_cert(ctx: PSSL_CTX; x509: PX509): TIdC_LONG; 
+
+function  ERR_SSL_CTX_add1_chain_cert(ctx: PSSL_CTX; x509: PX509): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add1_chain_cert_procname);
 end;
 
- 
-function  ERR_SSL_CTX_get0_chain_certs(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_get0_chain_certs(ctx: PSSL_CTX; px509: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_clear_chain_certs(ctx: PSSL_CTX): TIdC_LONG; 
+
+function  ERR_SSL_CTX_clear_chain_certs(ctx: PSSL_CTX): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_clear_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_build_cert_chain(ctx: PSSL_CTX; flags: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_build_cert_chain(ctx: PSSL_CTX; flags: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_build_cert_chain_procname);
 end;
 
- 
-function  ERR_SSL_CTX_select_current_cert(ctx: PSSL_CTX; x509: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_select_current_cert(ctx: PSSL_CTX; x509: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_select_current_cert_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set_current_cert(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set_current_cert(ctx: PSSL_CTX; op: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_current_cert_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set0_verify_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set0_verify_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set0_verify_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_verify_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_verify_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_verify_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set0_chain_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set0_chain_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set0_chain_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_chain_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_chain_cert_store(ctx: PSSL_CTX; st: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_chain_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_set0_chain(s: PSSL; sk: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set0_chain(s: PSSL; sk: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_chain_procname);
 end;
 
- 
-function  ERR_SSL_set1_chain(s: PSSL; sk: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_chain(s: PSSL; sk: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_chain_procname);
 end;
 
- 
-function  ERR_SSL_add0_chain_cert(s: PSSL; x509: PByte): TIdC_LONG; 
+
+function  ERR_SSL_add0_chain_cert(s: PSSL; x509: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add0_chain_cert_procname);
 end;
 
- 
-function  ERR_SSL_add1_chain_cert(s: PSSL; x509: PByte): TIdC_LONG; 
+
+function  ERR_SSL_add1_chain_cert(s: PSSL; x509: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add1_chain_cert_procname);
 end;
 
- 
-function  ERR_SSL_get0_chain_certs(s: PSSL; px509: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get0_chain_certs(s: PSSL; px509: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_clear_chain_certs(s: PSSL): TIdC_LONG; 
+
+function  ERR_SSL_clear_chain_certs(s: PSSL): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_clear_chain_certs_procname);
 end;
 
- 
-function  ERR_SSL_build_cert_chain(s: PSSL; flags: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_build_cert_chain(s: PSSL; flags: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_build_cert_chain_procname);
 end;
 
- 
-function  ERR_SSL_select_current_cert(s: PSSL; x509: PByte): TIdC_LONG; 
+
+function  ERR_SSL_select_current_cert(s: PSSL; x509: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_select_current_cert_procname);
 end;
 
- 
-function  ERR_SSL_set_current_cert(s: PSSL; op: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set_current_cert(s: PSSL; op: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_current_cert_procname);
 end;
 
- 
-function  ERR_SSL_set0_verify_cert_store(s: PSSL; st: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set0_verify_cert_store(s: PSSL; st: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_verify_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_set1_verify_cert_store(s: PSSL; st: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_verify_cert_store(s: PSSL; st: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_verify_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_set0_chain_cert_store(s: PSSL; st: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set0_chain_cert_store(s: PSSL; st: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_chain_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_set1_chain_cert_store(s: PSSL; st: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_chain_cert_store(s: PSSL; st: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_chain_cert_store_procname);
 end;
 
- 
-function  ERR_SSL_get1_groups(s: PSSL; glist: PIdC_INT): TIdC_LONG; 
+
+function  ERR_SSL_get1_groups(s: PSSL; glist: PIdC_INT): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get1_groups_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_groups(ctx: PSSL_CTX; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_groups(ctx: PSSL_CTX; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_groups_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_groups_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_groups_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_groups_list_procname);
 end;
 
- 
-function  ERR_SSL_set1_groups(s: PSSL; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set1_groups(s: PSSL; glist: PByte; glistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_groups_procname);
 end;
 
- 
-function  ERR_SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_groups_list(s: PSSL; _str: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_groups_list_procname);
 end;
 
- 
-function  ERR_SSL_get_shared_group(s: PSSL; n: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_get_shared_group(s: PSSL; n: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_shared_group_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_sigalgs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_sigalgs_list_procname);
 end;
 
- 
-function  ERR_SSL_set1_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set1_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_sigalgs_procname);
 end;
 
- 
-function  ERR_SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_sigalgs_list_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_client_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_client_sigalgs(ctx: PSSL_CTX; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_client_sigalgs_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_client_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_client_sigalgs_list(ctx: PSSL_CTX; s: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_client_sigalgs_list_procname);
 end;
 
- 
-function  ERR_SSL_set1_client_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set1_client_sigalgs(s: PSSL; slist: PIdC_INT; slistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_client_sigalgs_procname);
 end;
 
- 
-function  ERR_SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG; 
+
+function  ERR_SSL_set1_client_sigalgs_list(s: PSSL; _str: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_client_sigalgs_list_procname);
 end;
 
- 
-function  ERR_SSL_get0_certificate_types(s: PSSL; clist: PByte): TIdC_LONG; 
+
+function  ERR_SSL_get0_certificate_types(s: PSSL; clist: PByte): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_certificate_types_procname);
 end;
 
- 
-function  ERR_SSL_CTX_set1_client_certificate_types(ctx: PSSL_CTX; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_CTX_set1_client_certificate_types(ctx: PSSL_CTX; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_client_certificate_types_procname);
 end;
 
- 
-function  ERR_SSL_set1_client_certificate_types(s: PSSL; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG; 
+
+function  ERR_SSL_set1_client_certificate_types(s: PSSL; clist: PByte; clistlen: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_client_certificate_types_procname);
 end;
 
- 
-function  ERR_SSL_get_signature_nid(s: PSSL; pn: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get_signature_nid(s: PSSL; pn: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_signature_nid_procname);
 end;
 
- 
-function  ERR_SSL_get_peer_signature_nid(s: PSSL; pn: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get_peer_signature_nid(s: PSSL; pn: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_signature_nid_procname);
 end;
 
- 
-function  ERR_SSL_get_peer_tmp_key(s: PSSL; pk: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get_peer_tmp_key(s: PSSL; pk: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_tmp_key_procname);
 end;
 
- 
-function  ERR_SSL_get_tmp_key(s: PSSL; pk: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get_tmp_key(s: PSSL; pk: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_tmp_key_procname);
 end;
 
- 
-function  ERR_SSL_get0_raw_cipherlist(s: PSSL; plst: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get0_raw_cipherlist(s: PSSL; plst: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_raw_cipherlist_procname);
 end;
 
- 
-function  ERR_SSL_get0_ec_point_formats(s: PSSL; plst: Pointer): TIdC_LONG; 
+
+function  ERR_SSL_get0_ec_point_formats(s: PSSL; plst: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_ec_point_formats_procname);
 end;
 
- 
+
 
   //typedef TIdC_INT (*tls_session_secret_cb_fn)(s: PSSL, void *secret, TIdC_INT *secret_len,
   //                                        STACK_OF(SSL_CIPHER) *peer_ciphers,
   //                                        const SSL_CIPHER **cipher, void *arg);
 
-function  ERR_SSL_CTX_get_options(const ctx: PSSL_CTX): TIdC_ULONG; 
+function  ERR_SSL_CTX_get_options(const ctx: PSSL_CTX): TIdC_UINT64;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_options(const s: PSSL): TIdC_ULONG; 
+function  ERR_SSL_get_options(const s: PSSL): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_clear_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_CTX_clear_options(ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_clear_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_clear_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_clear_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_clear_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_ULONG): TIdC_ULONG;
+function  ERR_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_UINT64): TIdC_UINT64; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_options_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG;
+function  ERR_SSL_set_options(s: PSSL; op: TIdC_ULONG): TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_options_procname);
 end;
@@ -6744,12 +6745,12 @@ end;
   //# define SSL_CTX_clear_mode(ctx,op) \
   //        SSL_CTX_ctrl((ctx),SSL_CTRL_CLEAR_MODE,(op),NULL)
 
-procedure ERR_SSL_CTX_set_msg_callback(ctx: PSSL_CTX; cb : Tmsg_callback);
+procedure ERR_SSL_CTX_set_msg_callback(ctx: PSSL_CTX; cb : Tmsg_callback); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_msg_callback_procname);
 end;
 
-procedure ERR_SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback);
+procedure ERR_SSL_set_msg_callback(ssl: PSSL; cb : Tmsg_callback); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_msg_callback_procname);
 end;
@@ -6767,30 +6768,30 @@ end;
 
   // # endif
 
-function ERR_SSL_CTX_sessions(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION;
+function ERR_SSL_CTX_sessions(ctx: PSSL_CTX) : Plhash_st_SSL_SESSION; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_sessions_procname);
 end;
 
-procedure  ERR_SSL_CTX_sess_set_new_cb(ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb); 
+procedure  ERR_SSL_CTX_sess_set_new_cb(ctx: PSSL_CTX; new_session_cb: SSL_CTX_sess_new_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_set_new_cb_procname);
 end;
 
 
-function  ERR_SSL_CTX_sess_get_new_cb(ctx: PSSL_CTX): SSL_CTX_sess_new_cb; 
+function  ERR_SSL_CTX_sess_get_new_cb(ctx: PSSL_CTX): SSL_CTX_sess_new_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_get_new_cb_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_sess_set_remove_cb(ctx: PSSL_CTX; remove_session_cb: SSL_CTX_sess_remove_cb); 
+procedure  ERR_SSL_CTX_sess_set_remove_cb(ctx: PSSL_CTX; remove_session_cb: SSL_CTX_sess_remove_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_set_remove_cb_procname);
 end;
 
 
-function  ERR_SSL_CTX_sess_get_remove_cb(ctx: PSSL_CTX): SSL_CTX_sess_remove_cb; 
+function  ERR_SSL_CTX_sess_get_remove_cb(ctx: PSSL_CTX): SSL_CTX_sess_remove_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_sess_get_remove_cb_procname);
 end;
@@ -6806,56 +6807,56 @@ end;
   //SSL_SESSION *(*SSL_CTX_sess_get_get_cb(ctx: PSSL_CTX)) (struct ssl_st *ssl,
   //                                                       const d: PByteata,
   //                                                       TIdC_INT len, TIdC_INT *copy);
-procedure  ERR_SSL_CTX_set_info_callback(ctx: PSSL_CTX; cb: SSL_CTX_info_callback); 
+procedure  ERR_SSL_CTX_set_info_callback(ctx: PSSL_CTX; cb: SSL_CTX_info_callback);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_info_callback_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_info_callback(ctx: PSSL_CTX): SSL_CTX_info_callback; 
+function  ERR_SSL_CTX_get_info_callback(ctx: PSSL_CTX): SSL_CTX_info_callback;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_info_callback_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_client_cert_cb(ctx: PSSL_CTX; client_cert_cb: SSL_CTX_client_cert_cb); 
+procedure  ERR_SSL_CTX_set_client_cert_cb(ctx: PSSL_CTX; client_cert_cb: SSL_CTX_client_cert_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_client_cert_cb_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_client_cert_cb(ctx: PSSL_CTX): SSL_CTX_client_cert_cb; 
+function  ERR_SSL_CTX_get_client_cert_cb(ctx: PSSL_CTX): SSL_CTX_client_cert_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_client_cert_cb_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_client_cert_engine(ctx: PSSL_CTX; e: PENGINE): TIdC_INT; 
+function  ERR_SSL_CTX_set_client_cert_engine(ctx: PSSL_CTX; e: PENGINE): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_client_cert_engine_procname);
 end;
 
 
 
-procedure  ERR_SSL_CTX_set_cookie_generate_cb(ctx: PSSL_CTX; app_gen_cookie_cb: SSL_CTX_cookie_verify_cb); 
+procedure  ERR_SSL_CTX_set_cookie_generate_cb(ctx: PSSL_CTX; app_gen_cookie_cb: SSL_CTX_cookie_verify_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cookie_generate_cb_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_cookie_verify_cb(ctx: PSSL_CTX; app_verify_cookie_cb: SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb); 
+procedure  ERR_SSL_CTX_set_cookie_verify_cb(ctx: PSSL_CTX; app_verify_cookie_cb: SSL_CTX_set_cookie_verify_cb_app_verify_cookie_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cookie_verify_cb_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_stateless_cookie_generate_cb(ctx: PSSL_CTX; gen_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb); 
+procedure  ERR_SSL_CTX_set_stateless_cookie_generate_cb(ctx: PSSL_CTX; gen_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_generate_cb_gen_stateless_cookie_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_stateless_cookie_generate_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_stateless_cookie_verify_cb(ctx: PSSL_CTX; verify_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb); 
+procedure  ERR_SSL_CTX_set_stateless_cookie_verify_cb(ctx: PSSL_CTX; verify_stateless_cookie_cb: SSL_CTX_set_stateless_cookie_verify_cb_verify_stateless_cookie_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_stateless_cookie_verify_cb_procname);
 end;
@@ -6867,37 +6868,37 @@ end;
   //__owur TIdC_INT SSL_set_alpn_protos(ssl: PSSL, const Byte *protos,
   //                               TIdC_UINT protos_len);
 
-procedure  ERR_SSL_CTX_set_alpn_select_cb(ctx: PSSL_CTX; cb: SSL_CTX_alpn_select_cb_func; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_alpn_select_cb(ctx: PSSL_CTX; cb: SSL_CTX_alpn_select_cb_func; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_alpn_select_cb_procname);
 end;
 
 
-procedure  ERR_SSL_get0_alpn_selected(const ssl: PSSL; const data: PPByte; len: PIdC_UINT); 
+procedure  ERR_SSL_get0_alpn_selected(const ssl: PSSL; const data: PPByte; len: PIdC_UINT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_alpn_selected_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_psk_client_callback(ctx: PSSL_CTX; cb: SSL_psk_client_cb_func); 
+procedure  ERR_SSL_CTX_set_psk_client_callback(ctx: PSSL_CTX; cb: SSL_psk_client_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_psk_client_callback_procname);
 end;
 
 
-procedure  ERR_SSL_set_psk_client_callback(ssl: PSSL; cb: SSL_psk_client_cb_func); 
+procedure  ERR_SSL_set_psk_client_callback(ssl: PSSL; cb: SSL_psk_client_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_psk_client_callback_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_psk_server_callback(ctx: PSSL_CTX; cb: SSL_psk_server_cb_func); 
+procedure  ERR_SSL_CTX_set_psk_server_callback(ctx: PSSL_CTX; cb: SSL_psk_server_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_psk_server_callback_procname);
 end;
 
 
-procedure  ERR_SSL_set_psk_server_callback(ssl: PSSL; cb: SSL_psk_server_cb_func); 
+procedure  ERR_SSL_set_psk_server_callback(ssl: PSSL; cb: SSL_psk_server_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_psk_server_callback_procname);
 end;
@@ -6909,25 +6910,25 @@ end;
   //const PIdAnsiChar *SSL_get_psk_identity_hint(const s: PSSL);
   //const PIdAnsiChar *SSL_get_psk_identity(const s: PSSL);
 
-procedure  ERR_SSL_set_psk_find_session_callback(s: PSSL; cb: SSL_psk_find_session_cb_func); 
+procedure  ERR_SSL_set_psk_find_session_callback(s: PSSL; cb: SSL_psk_find_session_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_psk_find_session_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_psk_find_session_callback(ctx: PSSL_CTX; cb: SSL_psk_find_session_cb_func); 
+procedure  ERR_SSL_CTX_set_psk_find_session_callback(ctx: PSSL_CTX; cb: SSL_psk_find_session_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_psk_find_session_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_psk_use_session_callback(s: PSSL; cb: SSL_psk_use_session_cb_func); 
+procedure  ERR_SSL_set_psk_use_session_callback(s: PSSL; cb: SSL_psk_use_session_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_psk_use_session_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_psk_use_session_callback(ctx: PSSL_CTX; cb: SSL_psk_use_session_cb_func); 
+procedure  ERR_SSL_CTX_set_psk_use_session_callback(ctx: PSSL_CTX; cb: SSL_psk_use_session_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_psk_use_session_callback_procname);
 end;
@@ -6937,7 +6938,7 @@ end;
   ///* Register callbacks to handle custom TLS Extensions for client or server. */
 
 function ERR_SSL_CTX_has_client_custom_ext(const ctx: PSSL_CTX;
-              ext_type : TIdC_UINT) : TIdC_INT;
+              ext_type : TIdC_UINT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_has_client_custom_ext_procname);
 end;
@@ -6948,7 +6949,7 @@ function ERR_SSL_CTX_add_client_custom_ext(ctx: PSSL_CTX;
                                            free_cb : custom_ext_free_cb;
                                            add_arg : Pointer;
                                            parse_cb : custom_ext_parse_cb;
-                                           parse_arg : Pointer) : TIdC_INT;
+                                           parse_arg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_add_client_custom_ext_procname);
 end;
@@ -6959,7 +6960,7 @@ function ERR_SSL_CTX_add_server_custom_ext(ctx: PSSL_CTX;
                                          free_cb : custom_ext_free_cb;
                                          add_arg : Pointer;
                                          parse_cb : custom_ext_parse_cb;
-                                         parse_arg : Pointer) : TIdC_INT;
+                                         parse_arg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_server_custom_ext_procname);
 end;
@@ -6970,12 +6971,12 @@ function ERR_SSL_CTX_add_custom_ext(ctx: PSSL_CTX;  ext_type : TIdC_UINT;
                                    free_cb : SSL_custom_ext_free_cb_ex;
                                    add_arg : Pointer;
                                    parse_cb : SSL_custom_ext_parse_cb_ex;
-                                   parse_arg : Pointer) : TIdC_INT;
+                                   parse_arg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_custom_ext_procname);
 end;
 
-function ERR_SSL_extension_supported( ext_type : TIdC_UINT) : TIdC_INT;
+function ERR_SSL_extension_supported( ext_type : TIdC_UINT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_extension_supported_procname);
 end;
@@ -6995,7 +6996,7 @@ end;
    * is intended for debugging use with tools like Wireshark. The cb function
    * should log line followed by a newline.
    *)
-procedure  ERR_SSL_CTX_set_keylog_callback(ctx: PSSL_CTX; cb: SSL_CTX_keylog_cb_func); 
+procedure  ERR_SSL_CTX_set_keylog_callback(ctx: PSSL_CTX; cb: SSL_CTX_keylog_cb_func);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_keylog_callback_procname);
 end;
@@ -7005,55 +7006,55 @@ end;
    * SSL_CTX_get_keylog_callback returns the callback configured by
    * SSL_CTX_set_keylog_callback.
    *)
-function  ERR_SSL_CTX_get_keylog_callback(const ctx: PSSL_CTX): SSL_CTX_keylog_cb_func; 
+function  ERR_SSL_CTX_get_keylog_callback(const ctx: PSSL_CTX): SSL_CTX_keylog_cb_func;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_keylog_callback_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_max_early_data(ctx: PSSL_CTX; max_early_data: TIdC_UINT32): TIdC_INT; 
+function  ERR_SSL_CTX_set_max_early_data(ctx: PSSL_CTX; max_early_data: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32; 
+function  ERR_SSL_CTX_get_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_max_early_data(s: PSSL; max_early_data: TIdC_UINT32): TIdC_INT; 
+function  ERR_SSL_set_max_early_data(s: PSSL; max_early_data: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_max_early_data(const s: PSSL): TIdC_UINT32; 
+function  ERR_SSL_get_max_early_data(const s: PSSL): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_recv_max_early_data(ctx: PSSL_CTX; recv_max_early_data: TIdC_UINT32): TIdC_INT; 
+function  ERR_SSL_CTX_set_recv_max_early_data(ctx: PSSL_CTX; recv_max_early_data: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_recv_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_recv_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32; 
+function  ERR_SSL_CTX_get_recv_max_early_data(const ctx: PSSL_CTX): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_recv_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_recv_max_early_data(s: PSSL; recv_max_early_data: TIdC_UINT32): TIdC_INT; 
+function  ERR_SSL_set_recv_max_early_data(s: PSSL; recv_max_early_data: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_recv_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_recv_max_early_data(const s: PSSL): TIdC_UINT32; 
+function  ERR_SSL_get_recv_max_early_data(const s: PSSL): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_recv_max_early_data_procname);
 end;
@@ -7076,35 +7077,35 @@ end;
   //# define SSL_CTX_get_app_data(ctx)       (SSL_CTX_get_ex_data(ctx,0))
   //# define SSL_CTX_set_app_data(ctx,arg)   (SSL_CTX_set_ex_data(ctx,0, \
   //                                                            (PIdAnsiChar *)(arg)))
-function  ERR_SSL_get_app_data(const ssl: PSSL): Pointer ; 
+function  ERR_SSL_get_app_data(const ssl: PSSL): Pointer ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_app_data_procname);
 end;
 
-  
-function  ERR_SSL_set_app_data(ssl: PSSL; data: Pointer): TIdC_INT; 
+
+function  ERR_SSL_set_app_data(ssl: PSSL; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_app_data_procname);
 end;
 
- 
+
 
   ///* Is the SSL_connection established? */
   //# define SSL_in_connect_init(a)          (SSL_in_init(a) && !SSL_is_server(a))
   //# define SSL_in_accept_init(a)           (SSL_in_init(a) && SSL_is_server(a))
-function  ERR_SSL_in_init(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_in_init(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_in_init_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_in_before(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_in_before(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_in_before_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_is_init_finished(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_is_init_finished(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_init_finished_procname);
 end;
@@ -7117,13 +7118,13 @@ end;
    *   -- that we expected from peer (SSL_get_peer_finished).
    * Returns length (0 == no Finished so far), copies up to 'count' bytes.
    *)
-function  ERR_SSL_get_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET;
+function  ERR_SSL_get_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_finished_procname);
 end;
 
 
-function  ERR_SSL_get_peer_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET;
+function  ERR_SSL_get_peer_finished(const s: PSSL; var buf; count: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_finished_procname);
 end;
@@ -7134,12 +7135,12 @@ end;
   //#  define TaurusTLS_add_ssl_algorithms()   SSL_library_init()
   //#  define SSLeay_add_ssl_algorithms()    SSL_library_init()
   //# endif
-function  ERR_SSLeay_add_ssl_algorithms: TIdC_INT; 
+function  ERR_SSLeay_add_ssl_algorithms: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLeay_add_ssl_algorithms_procname);
 end;
 
- 
+
 
   ///* More backward compatibility */
   //# define SSL_get_cipher(s) \
@@ -7182,490 +7183,490 @@ end;
   //#  define SSL_set_tmp_rsa_callback(ssl, cb)        while(0) (cb)(NULL, 0, 0)
   //# endif
   //
-function  ERR_BIO_f_ssl: PBIO_METHOD; 
+function  ERR_BIO_f_ssl: PBIO_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_ssl_procname);
 end;
 
 
-function  ERR_BIO_new_ssl(ctx: PSSL_CTX; client: TIdC_INT): PBIO; 
+function  ERR_BIO_new_ssl(ctx: PSSL_CTX; client: TIdC_INT): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_ssl_procname);
 end;
 
 
-function  ERR_BIO_new_ssl_connect(ctx: PSSL_CTX): PBIO; 
+function  ERR_BIO_new_ssl_connect(ctx: PSSL_CTX): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_ssl_connect_procname);
 end;
 
 
-function  ERR_BIO_new_buffer_ssl_connect(ctx: PSSL_CTX): PBIO; 
+function  ERR_BIO_new_buffer_ssl_connect(ctx: PSSL_CTX): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_buffer_ssl_connect_procname);
 end;
 
 
-function  ERR_BIO_ssl_copy_session_id(to_: PBIO; from: PBIO): TIdC_INT; 
+function  ERR_BIO_ssl_copy_session_id(to_: PBIO; from: PBIO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ssl_copy_session_id_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_cipher_list(v1: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cipher_list_procname);
 end;
 
 
-function  ERR_SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX; 
+function  ERR_SSL_CTX_new(const meth: PSSL_METHOD): PSSL_CTX;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_new_procname);
 end;
 
 function ERR_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
-                            const meth : PSSL_METHOD) : PSSL_CTX;
+                            const meth : PSSL_METHOD) : PSSL_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_new_ex_procname);
 end;
 
-function  ERR_SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG; 
+function  ERR_SSL_CTX_set_timeout(ctx: PSSL_CTX; t: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_timeout_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG; 
+function  ERR_SSL_CTX_get_timeout(const ctx: PSSL_CTX): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_timeout_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_cert_store(const v1: PSSL_CTX): PX509_STORE; 
+function  ERR_SSL_CTX_get_cert_store(const v1: PSSL_CTX): PX509_STORE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_cert_store_procname);
 end;
 
 
-function  ERR_SSL_want(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_want(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_want_procname);
 end;
 
 
-function  ERR_SSL_clear(s: PSSL): TIdC_INT; 
+function  ERR_SSL_clear(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_clear_procname);
 end;
 
 
 
-procedure  ERR_BIO_ssl_shutdown(ssl_bio: PBIO);
+procedure  ERR_BIO_ssl_shutdown(ssl_bio: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ssl_shutdown_procname);
 end;
 
 
-function  ERR_SSL_CTX_up_ref(ctx: PSSL_CTX): TIdC_INT;
+function  ERR_SSL_CTX_up_ref(ctx: PSSL_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_up_ref_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_free(v1: PSSL_CTX); 
+procedure  ERR_SSL_CTX_free(v1: PSSL_CTX);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_free_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_cert_store(v1: PSSL_CTX; v2: PX509_STORE); 
+procedure  ERR_SSL_CTX_set_cert_store(v1: PSSL_CTX; v2: PX509_STORE);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cert_store_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set1_cert_store(v1: PSSL_CTX; v2: PX509_STORE); 
+procedure  ERR_SSL_CTX_set1_cert_store(v1: PSSL_CTX; v2: PX509_STORE);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_cert_store_procname);
 end;
 
  {introduced 3.4.0}
-procedure ERR_SSL_CTX_flush_sessions_ex(ctx : PSSL_CTX; tm : TIdC_TIMET);
+procedure ERR_SSL_CTX_flush_sessions_ex(ctx : PSSL_CTX; tm : TIdC_TIMET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_flush_sessions_ex_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_CTX_flush_sessions(ctx: PSSL_CTX; tm: TIdC_LONG); 
+procedure  ERR_SSL_CTX_flush_sessions(ctx: PSSL_CTX; tm: TIdC_LONG);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_flush_sessions_procname);
 end;
 
 
 
-function  ERR_SSL_get_current_cipher(const s: PSSL): PSSL_CIPHER; 
+function  ERR_SSL_get_current_cipher(const s: PSSL): PSSL_CIPHER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_current_cipher_procname);
 end;
 
 
-function  ERR_SSL_get_pending_cipher(const s: PSSL): PSSL_CIPHER; 
+function  ERR_SSL_get_pending_cipher(const s: PSSL): PSSL_CIPHER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_pending_cipher_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_bits(const c: PSSL_CIPHER; var alg_bits: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CIPHER_get_bits(const c: PSSL_CIPHER; var alg_bits: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_bits_procname);
 end;
 
 
-function  ERR_SSL_CIPHER_get_version(const c: PSSL_CIPHER): PIdAnsiChar; 
+function  ERR_SSL_CIPHER_get_version(const c: PSSL_CIPHER): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_version_procname);
 end;
 
 
-function  ERR_SSL_CIPHER_get_name(const c: PSSL_CIPHER): PIdAnsiChar; 
+function  ERR_SSL_CIPHER_get_name(const c: PSSL_CIPHER): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_name_procname);
 end;
 
 
-function  ERR_SSL_CIPHER_standard_name(const c: PSSL_CIPHER): PIdAnsiChar; 
+function  ERR_SSL_CIPHER_standard_name(const c: PSSL_CIPHER): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_standard_name_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_cipher_name(const rfc_name: PIdAnsiChar): PIdAnsiChar; 
+function  ERR_OPENSSL_cipher_name(const rfc_name: PIdAnsiChar): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_cipher_name_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_id(const c: PSSL_CIPHER): TIdC_UINT32; 
+function  ERR_SSL_CIPHER_get_id(const c: PSSL_CIPHER): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_id_procname);
 end;
 
 
-function  ERR_SSL_CIPHER_get_protocol_id(const c: PSSL_CIPHER): TIdC_UINT16; 
+function  ERR_SSL_CIPHER_get_protocol_id(const c: PSSL_CIPHER): TIdC_UINT16;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_protocol_id_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_kx_nid(const c: PSSL_CIPHER): TIdC_INT; 
+function  ERR_SSL_CIPHER_get_kx_nid(const c: PSSL_CIPHER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_kx_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_auth_nid(const c: PSSL_CIPHER): TIdC_INT; 
+function  ERR_SSL_CIPHER_get_auth_nid(const c: PSSL_CIPHER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_auth_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_handshake_digest(const c: PSSL_CIPHER): PEVP_MD; 
+function  ERR_SSL_CIPHER_get_handshake_digest(const c: PSSL_CIPHER): PEVP_MD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_handshake_digest_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_is_aead(const c: PSSL_CIPHER): TIdC_INT; 
+function  ERR_SSL_CIPHER_is_aead(const c: PSSL_CIPHER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_is_aead_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_get_fd(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_fd(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_fd_procname);
 end;
 
 
-function  ERR_SSL_get_rfd(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_rfd(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_rfd_procname);
 end;
 
 
-function  ERR_SSL_get_wfd(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_wfd(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_wfd_procname);
 end;
 
 
-function  ERR_SSL_get_cipher_list(const s: PSSL; n: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_get_cipher_list(const s: PSSL; n: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_cipher_list_procname);
 end;
 
 
-function  ERR_SSL_get_shared_ciphers(const s: PSSL; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_get_shared_ciphers(const s: PSSL; buf: PIdAnsiChar; size: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_shared_ciphers_procname);
 end;
 
 
-function  ERR_SSL_get_read_ahead(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_read_ahead(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_read_ahead_procname);
 end;
 
 
-function  ERR_SSL_pending(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_pending(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_pending_procname);
 end;
 
 
-function  ERR_SSL_has_pending(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_has_pending(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_has_pending_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_fd(s: PSSL; fd: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_fd(s: PSSL; fd: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_fd_procname);
 end;
 
 
-function  ERR_SSL_set_rfd(s: PSSL; fd: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_rfd(s: PSSL; fd: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_rfd_procname);
 end;
 
 
-function  ERR_SSL_set_wfd(s: PSSL; fd: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_wfd(s: PSSL; fd: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_wfd_procname);
 end;
 
 
-procedure  ERR_SSL_set0_rbio(s: PSSL; rbio: PBIO); 
+procedure  ERR_SSL_set0_rbio(s: PSSL; rbio: PBIO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_rbio_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set0_wbio(s: PSSL; wbio: PBIO); 
+procedure  ERR_SSL_set0_wbio(s: PSSL; wbio: PBIO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_wbio_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_bio(s: PSSL; rbio: PBIO; wbio: PBIO); 
+procedure  ERR_SSL_set_bio(s: PSSL; rbio: PBIO; wbio: PBIO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_bio_procname);
 end;
 
 
-function  ERR_SSL_get_rbio(const s: PSSL): PBIO; 
+function  ERR_SSL_get_rbio(const s: PSSL): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_rbio_procname);
 end;
 
 
-function  ERR_SSL_get_wbio(const s: PSSL): PBIO; 
+function  ERR_SSL_get_wbio(const s: PSSL): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_wbio_procname);
 end;
 
 
-function  ERR_SSL_set_cipher_list(s: PSSL; const _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_cipher_list(s: PSSL; const _str: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_cipher_list_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_ciphersuites(ctx: PSSL_CTX; const _str: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ciphersuites_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_ciphersuites(s: PSSL; const _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_ciphersuites(s: PSSL; const _str: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ciphersuites_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_verify_mode(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_verify_mode(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_verify_mode_procname);
 end;
 
 
-function  ERR_SSL_get_verify_depth(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_verify_depth(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_verify_depth_procname);
 end;
 
 
-function  ERR_SSL_get_verify_callback(const s: PSSL): SSL_verify_cb; 
+function  ERR_SSL_get_verify_callback(const s: PSSL): SSL_verify_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_verify_callback_procname);
 end;
 
 
-procedure  ERR_SSL_set_read_ahead(s: PSSL; yes: TIdC_INT); 
+procedure  ERR_SSL_set_read_ahead(s: PSSL; yes: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_read_ahead_procname);
 end;
 
 
-procedure  ERR_SSL_set_verify(s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb); 
+procedure  ERR_SSL_set_verify(s: PSSL; mode: TIdC_INT; callback: SSL_verify_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_verify_procname);
 end;
 
 
-procedure  ERR_SSL_set_verify_depth(s: PSSL; depth: TIdC_INT); 
+procedure  ERR_SSL_set_verify_depth(s: PSSL; depth: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_verify_depth_procname);
 end;
 
 
-procedure ERR_SSL_set_cert_cb(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer);
+procedure ERR_SSL_set_cert_cb(s: PSSL; cb : SSL_CTX_set_cert_cb_cb; arg : Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_cert_cb_procname);
 end;
 
-function  ERR_SSL_use_RSAPrivateKey(ssl: PSSL; rsa: PRSA): TIdC_INT; 
+function  ERR_SSL_use_RSAPrivateKey(ssl: PSSL; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_RSAPrivateKey_procname);
 end;
 
 
-function  ERR_SSL_use_RSAPrivateKey_ASN1(ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; 
+function  ERR_SSL_use_RSAPrivateKey_ASN1(ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_RSAPrivateKey_ASN1_procname);
 end;
 
 
-function  ERR_SSL_use_PrivateKey(ssl: PSSL; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_SSL_use_PrivateKey(ssl: PSSL; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_PrivateKey_procname);
 end;
 
 
-function  ERR_SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT; 
+function  ERR_SSL_use_PrivateKey_ASN1(pk: TIdC_INT; ssl: PSSL; const d: PByte; len: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_PrivateKey_ASN1_procname);
 end;
 
 
-function  ERR_SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT; 
+function  ERR_SSL_use_certificate(ssl: PSSL; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_certificate_procname);
 end;
 
 
-function  ERR_SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_use_certificate_ASN1(ssl: PSSL; const d: PByte; len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_certificate_ASN1_procname);
 end;
 
 
 function ERR_SSL_use_cert_and_key(ssl: PSSL; x509: PX509; privatekey : PEVP_PKEY;
-                              chain : PSTACK_OF_X509;  _override : TIdC_INT) : TIdC_INT;
+                              chain : PSTACK_OF_X509;  _override : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_cert_and_key_procname);
 end;
 
   (* Set serverinfo data for the current active cert. *)
-function  ERR_SSL_CTX_use_serverinfo(ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_CTX_use_serverinfo(ctx: PSSL_CTX; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_serverinfo_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_serverinfo_ex(ctx: PSSL_CTX; version: TIdC_UINT; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_CTX_use_serverinfo_ex(ctx: PSSL_CTX; version: TIdC_UINT; const serverinfo: PByte; serverinfo_length: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_serverinfo_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_use_serverinfo_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_use_serverinfo_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_serverinfo_file_procname);
 end;
 
 
 
-function  ERR_SSL_use_RSAPrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_use_RSAPrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_RSAPrivateKey_file_procname);
 end;
 
 
 
-function  ERR_SSL_use_PrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_use_PrivateKey_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_PrivateKey_file_procname);
 end;
 
 
-function  ERR_SSL_use_certificate_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_use_certificate_file(ssl: PSSL; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_certificate_file_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_use_RSAPrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_use_RSAPrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_RSAPrivateKey_file_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_PrivateKey_file_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_certificate_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_use_certificate_file(ctx: PSSL_CTX; const file_: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_certificate_file_procname);
 end;
 
 
   (* PEM type *)
-function  ERR_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX; const file_: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_certificate_chain_file_procname);
 end;
 
 
-function  ERR_SSL_use_certificate_chain_file(ssl: PSSL; const file_: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_use_certificate_chain_file(ssl: PSSL; const file_: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_use_certificate_chain_file_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_load_client_CA_file(const file_: PIdAnsiChar): PSTACK_OF_X509_NAME; 
+function  ERR_SSL_load_client_CA_file(const file_: PIdAnsiChar): PSTACK_OF_X509_NAME;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_load_client_CA_file_procname);
 end;
 
 
-function  ERR_SSL_add_file_cert_subjects_to_stack(stackCAs: PSTACK_OF_X509_NAME; const file_: PIdAnsiChar):TIdC_INT; 
+function  ERR_SSL_add_file_cert_subjects_to_stack(stackCAs: PSTACK_OF_X509_NAME; const file_: PIdAnsiChar):TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add_file_cert_subjects_to_stack_procname);
 end;
 
 
-function  ERR_SSL_add_dir_cert_subjects_to_stack(stackCAs: PSTACK_OF_X509_NAME; const dir_: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_add_dir_cert_subjects_to_stack(stackCAs: PSTACK_OF_X509_NAME; const dir_: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add_dir_cert_subjects_to_stack_procname);
 end;
@@ -7677,551 +7678,551 @@ end;
   //    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS \
   //                     | OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL)
   //# endif
-procedure  ERR_SSL_load_error_strings; 
+procedure  ERR_SSL_load_error_strings;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_load_error_strings_procname);
 end;
 
- 
 
-function  ERR_SSL_state_string(const s: PSSL): PIdAnsiChar; 
+
+function  ERR_SSL_state_string(const s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_state_string_procname);
 end;
 
 
-function  ERR_SSL_rstate_string(const s: PSSL): PIdAnsiChar; 
+function  ERR_SSL_rstate_string(const s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_rstate_string_procname);
 end;
 
 
-function  ERR_SSL_state_string_long(const s: PSSL): PIdAnsiChar; 
+function  ERR_SSL_state_string_long(const s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_state_string_long_procname);
 end;
 
 
-function  ERR_SSL_rstate_string_long(const s: PSSL): PIdAnsiChar; 
+function  ERR_SSL_rstate_string_long(const s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_rstate_string_long_procname);
 end;
 
-function ERR_SSL_SESSION_get_time_ex(const s : PSSL_SESSION) : TIdC_TIMET;
+function ERR_SSL_SESSION_get_time_ex(const s : PSSL_SESSION) : TIdC_TIMET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_time_ex_procname);
 end;
 
-function ERR_SSL_SESSION_set_time_ex(s : PSSL_SESSION; t : TIdC_TIMET) : TIdC_TIMET;
+function ERR_SSL_SESSION_set_time_ex(s : PSSL_SESSION; t : TIdC_TIMET) : TIdC_TIMET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_time_ex_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get_time(const s: PSSL_SESSION): TIdC_LONG; 
+function  ERR_SSL_SESSION_get_time(const s: PSSL_SESSION): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_time_procname);
 end;
 
 
-function  ERR_SSL_SESSION_set_time(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG; 
+function  ERR_SSL_SESSION_set_time(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_time_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get_timeout(const s: PSSL_SESSION): TIdC_LONG; 
+function  ERR_SSL_SESSION_get_timeout(const s: PSSL_SESSION): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_timeout_procname);
 end;
 
 
-function  ERR_SSL_SESSION_set_timeout(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG; 
+function  ERR_SSL_SESSION_set_timeout(s: PSSL_SESSION; t: TIdC_LONG): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_timeout_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_get_protocol_version(const s: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_protocol_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set_protocol_version(s: PSSL_SESSION; version: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_SESSION_set_protocol_version(s: PSSL_SESSION; version: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_protocol_version_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_SESSION_get0_hostname(const s: PSSL_SESSION): PIdAnsiChar; 
+function  ERR_SSL_SESSION_get0_hostname(const s: PSSL_SESSION): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_hostname_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set1_hostname(s: PSSL_SESSION; const hostname: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_hostname(s: PSSL_SESSION; const hostname: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_hostname_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_SESSION_get0_alpn_selected(const s: PSSL_SESSION; const alpn: PPByte; len: PIdC_SIZET); 
+procedure  ERR_SSL_SESSION_get0_alpn_selected(const s: PSSL_SESSION; const alpn: PPByte; len: PIdC_SIZET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_alpn_selected_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set1_alpn_selected(s: PSSL_SESSION; const alpn: PByte; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_alpn_selected(s: PSSL_SESSION; const alpn: PByte; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_alpn_selected_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get0_cipher(const s: PSSL_SESSION): PSSL_CIPHER; 
+function  ERR_SSL_SESSION_get0_cipher(const s: PSSL_SESSION): PSSL_CIPHER;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_cipher_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set_cipher(s: PSSL_SESSION; const cipher: PSSL_CIPHER): TIdC_INT; 
+function  ERR_SSL_SESSION_set_cipher(s: PSSL_SESSION; const cipher: PSSL_CIPHER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_cipher_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_has_ticket(const s: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_has_ticket(const s: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_has_ticket_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_ticket_lifetime_hint(const s: PSSL_SESSION): TIdC_ULONG; 
+function  ERR_SSL_SESSION_get_ticket_lifetime_hint(const s: PSSL_SESSION): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_ticket_lifetime_hint_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_SESSION_get0_ticket(const s: PSSL_SESSION; const tick: PPByte; len: PIdC_SIZET); 
+procedure  ERR_SSL_SESSION_get0_ticket(const s: PSSL_SESSION; const tick: PPByte; len: PIdC_SIZET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_ticket_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_max_early_data(const s: PSSL_SESSION): TIdC_UINT32; 
+function  ERR_SSL_SESSION_get_max_early_data(const s: PSSL_SESSION): TIdC_UINT32;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set_max_early_data(s: PSSL_SESSION; max_early_data: TIdC_UINT32): TIdC_INT; 
+function  ERR_SSL_SESSION_set_max_early_data(s: PSSL_SESSION; max_early_data: TIdC_UINT32): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_max_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_copy_session_id(to_: PSSL; const from: PSSL): TIdC_INT; 
+function  ERR_SSL_copy_session_id(to_: PSSL; const from: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_copy_session_id_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get0_peer(s: PSSL_SESSION): PX509; 
+function  ERR_SSL_SESSION_get0_peer(s: PSSL_SESSION): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_peer_procname);
 end;
 
 
-function  ERR_SSL_SESSION_set1_id_context(s: PSSL_SESSION; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_id_context(s: PSSL_SESSION; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_id_context_procname);
 end;
 
 
-function  ERR_SSL_SESSION_set1_id(s: PSSL_SESSION; const sid: PByte; sid_len: TIdC_UINT): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_id(s: PSSL_SESSION; const sid: PByte; sid_len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_id_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_is_resumable(const s: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_is_resumable(const s: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_is_resumable_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_SESSION_new: PSSL_SESSION; 
+function  ERR_SSL_SESSION_new: PSSL_SESSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_new_procname);
 end;
 
 
-function  ERR_SSL_SESSION_dup(src: PSSL_SESSION): PSSL_SESSION; 
+function  ERR_SSL_SESSION_dup(src: PSSL_SESSION): PSSL_SESSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_dup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_id(const s: PSSL_SESSION; len: PIdC_UINT): PByte; 
+function  ERR_SSL_SESSION_get_id(const s: PSSL_SESSION; len: PIdC_UINT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_id_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get0_id_context(const s: PSSL_SESSION; len: PIdC_UINT): PByte; 
+function  ERR_SSL_SESSION_get0_id_context(const s: PSSL_SESSION; len: PIdC_UINT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_id_context_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_compress_id(const s: PSSL_SESSION): TIdC_UINT; 
+function  ERR_SSL_SESSION_get_compress_id(const s: PSSL_SESSION): TIdC_UINT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_compress_id_procname);
 end;
 
 
-function  ERR_SSL_SESSION_print(fp: PBIO; const ses: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_print(fp: PBIO; const ses: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_print_procname);
 end;
 
 
-function  ERR_SSL_SESSION_print_keylog(bp: PBIO; const x: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_print_keylog(bp: PBIO; const x: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_print_keylog_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_up_ref(ses: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_SESSION_up_ref(ses: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_up_ref_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_SESSION_free(ses: PSSL_SESSION); 
+procedure  ERR_SSL_SESSION_free(ses: PSSL_SESSION);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_free_procname);
 end;
 
 
-function ERR_i2d_SSL_SESSION(in_ : PSSL_SESSION; pp : PPByte) : TIdC_INT;
+function ERR_i2d_SSL_SESSION(in_ : PSSL_SESSION; pp : PPByte) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_SSL_SESSION_procname);
 end;
 
-function  ERR_SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT;
+function  ERR_SSL_set_session(to_: PSSL; session: PSSL_SESSION): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_procname);
 end;
 
 
-function  ERR_SSL_CTX_add_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_CTX_add_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_session_procname);
 end;
 
 
-function  ERR_SSL_CTX_remove_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT; 
+function  ERR_SSL_CTX_remove_session(ctx: PSSL_CTX; session: PSSL_SESSION): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_remove_session_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_generate_session_id(ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT; 
+function  ERR_SSL_CTX_set_generate_session_id(ctx: PSSL_CTX; cb: GEN_SESSION_CB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_generate_session_id_procname);
 end;
 
 
-function  ERR_SSL_set_generate_session_id(s: PSSL; cb: GEN_SESSION_CB): TIdC_INT; 
+function  ERR_SSL_set_generate_session_id(s: PSSL; cb: GEN_SESSION_CB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_generate_session_id_procname);
 end;
 
 
-function  ERR_SSL_has_matching_session_id(const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT; 
+function  ERR_SSL_has_matching_session_id(const s: PSSL; const id: PByte; id_len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_has_matching_session_id_procname);
 end;
 
 
-function  ERR_d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION; 
+function  ERR_d2i_SSL_SESSION(a: PPSSL_SESSION; const pp: PPByte; _length: TIdC_LONG): PSSL_SESSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_SSL_SESSION_procname);
 end;
 
 
 
-function  ERR_SSL_get_peer_certificate(const s: PSSL): PX509; 
+function  ERR_SSL_get_peer_certificate(const s: PSSL): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_peer_certificate_procname);
 end;
 
-function ERR_SSL_get_peer_cert_chain(const s: PSSL) : PSTACK_OF_X509;
+function ERR_SSL_get_peer_cert_chain(const s: PSSL) : PSTACK_OF_X509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_peer_cert_chain_procname);
 end;
 
-function  ERR_SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT;
+function  ERR_SSL_CTX_get_verify_mode(const ctx: PSSL_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_verify_mode_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_verify_depth(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_get_verify_depth(const ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_verify_depth_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_verify_callback(const ctx: PSSL_CTX): SSL_verify_cb; 
+function  ERR_SSL_CTX_get_verify_callback(const ctx: PSSL_CTX): SSL_verify_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_verify_callback_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_verify(ctx: PSSL_CTX; mode: TIdC_INT; callback: SSL_verify_cb); 
+procedure  ERR_SSL_CTX_set_verify(ctx: PSSL_CTX; mode: TIdC_INT; callback: SSL_verify_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_verify_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_verify_depth(ctx: PSSL_CTX; depth: TIdC_INT); 
+procedure  ERR_SSL_CTX_set_verify_depth(ctx: PSSL_CTX; depth: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_verify_depth_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_cert_verify_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_cert_verify_callback_cb; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_cert_verify_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_cert_verify_callback_cb; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cert_verify_callback_procname);
 end;
 
 
-procedure  ERR_SSL_CTX_set_cert_cb(c: PSSL_CTX; cb: SSL_CTX_set_cert_cb_cb; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_cert_cb(c: PSSL_CTX; cb: SSL_CTX_set_cert_cb_cb; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_cert_cb_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_RSAPrivateKey(ctx: PSSL_CTX; rsa: PRSA): TIdC_INT; 
+function  ERR_SSL_CTX_use_RSAPrivateKey(ctx: PSSL_CTX; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_RSAPrivateKey_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; 
+function  ERR_SSL_CTX_use_RSAPrivateKey_ASN1(ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_RSAPrivateKey_ASN1_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_SSL_CTX_use_PrivateKey(ctx: PSSL_CTX; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_PrivateKey_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT; 
+function  ERR_SSL_CTX_use_PrivateKey_ASN1(pk: TIdC_INT; ctx: PSSL_CTX; const d: PByte; len: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_PrivateKey_ASN1_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT;
+function  ERR_SSL_CTX_use_certificate(ctx: PSSL_CTX; x: PX509): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_certificate_procname);
 end;
 
 
-function  ERR_SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT; 
+function  ERR_SSL_CTX_use_certificate_ASN1(ctx: PSSL_CTX; len: TIdC_INT; const d: PByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_certificate_ASN1_procname);
 end;
 
 
-function ERR_SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT;
+function ERR_SSL_CTX_use_cert_and_key(ctx: PSSL_CTX; x509: PX509; privatekey : PEVP_PKEY; chain : PSTACK_OF_X509; _override : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_use_cert_and_key_procname);
 end;
 
-procedure  ERR_SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb); 
+procedure  ERR_SSL_CTX_set_default_passwd_cb(ctx: PSSL_CTX; cb: pem_password_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_passwd_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer); 
+procedure  ERR_SSL_CTX_set_default_passwd_cb_userdata(ctx: PSSL_CTX; u: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_passwd_cb_userdata_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb; 
+function  ERR_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_default_passwd_cb_procname);
 end;
 
   {introduced 1.1.0}
-function  ERR_SSL_CTX_get_default_passwd_cb_userdata(ctx: PSSL_CTX): Pointer; 
+function  ERR_SSL_CTX_get_default_passwd_cb_userdata(ctx: PSSL_CTX): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_default_passwd_cb_userdata_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_default_passwd_cb(s: PSSL; cb: pem_password_cb); 
+procedure  ERR_SSL_set_default_passwd_cb(s: PSSL; cb: pem_password_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_default_passwd_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_default_passwd_cb_userdata(s: PSSL; u: Pointer); 
+procedure  ERR_SSL_set_default_passwd_cb_userdata(s: PSSL; u: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_default_passwd_cb_userdata_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_default_passwd_cb(s: PSSL): pem_password_cb; 
+function  ERR_SSL_get_default_passwd_cb(s: PSSL): pem_password_cb;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_default_passwd_cb_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_default_passwd_cb_userdata(s: PSSL): Pointer; 
+function  ERR_SSL_get_default_passwd_cb_userdata(s: PSSL): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_default_passwd_cb_userdata_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_CTX_check_private_key(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_check_private_key(const ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_check_private_key_procname);
 end;
 
 
-function  ERR_SSL_check_private_key(const ctx: PSSL): TIdC_INT; 
+function  ERR_SSL_check_private_key(const ctx: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_check_private_key_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_session_id_context(ctx: PSSL_CTX; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; 
+function  ERR_SSL_CTX_set_session_id_context(ctx: PSSL_CTX; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_session_id_context_procname);
 end;
 
 
 
-function  ERR_SSL_new(ctx: PSSL_CTX): PSSL; 
+function  ERR_SSL_new(ctx: PSSL_CTX): PSSL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_procname);
 end;
 
 
-function  ERR_SSL_up_ref(s: PSSL): TIdC_INT; 
+function  ERR_SSL_up_ref(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_up_ref_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_is_dtls(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_is_dtls(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_dtls_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_session_id_context(ssl: PSSL; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT; 
+function  ERR_SSL_set_session_id_context(ssl: PSSL; const sid_ctx: PByte; sid_ctx_len: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_id_context_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_purpose(ctx: PSSL_CTX; purpose: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_set_purpose(ctx: PSSL_CTX; purpose: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_purpose_procname);
 end;
 
 
-function  ERR_SSL_set_purpose(ssl: PSSL; purpose: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_purpose(ssl: PSSL; purpose: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_purpose_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_trust(ctx: PSSL_CTX; trust: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_set_trust(ctx: PSSL_CTX; trust: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_trust_procname);
 end;
 
 
-function  ERR_SSL_set_trust(ssl: PSSL; trust: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_trust(ssl: PSSL; trust: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_trust_procname);
 end;
 
 
 
-function  ERR_SSL_set1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_host_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_add1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_add1_host(s: PSSL; const hostname: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add1_host_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get0_peername(s: PSSL): PIdAnsiChar; 
+function  ERR_SSL_get0_peername(s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peername_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_hostflags(s: PSSL; flags: TIdC_UINT); 
+procedure  ERR_SSL_set_hostflags(s: PSSL; flags: TIdC_UINT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_hostflags_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_CTX_dane_enable(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_dane_enable(ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_dane_enable_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT;
+function  ERR_SSL_CTX_dane_mtype_set(ctx: PSSL_CTX; const md: PEVP_MD; mtype: TIdC_UINT8; _ord: TIdC_UINT8): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_dane_mtype_set_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_dane_enable(s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_dane_enable(s: PSSL; const basedomain: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_dane_enable_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_dane_tlsa_add(s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_dane_tlsa_add(s: PSSL; usage: TIdC_UINT8; selector: TIdC_UINT8; mtype: TIdC_UINT8; const data: PByte; dlen: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_dane_tlsa_add_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get0_dane_authority(s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT; 
+function  ERR_SSL_get0_dane_authority(s: PSSL; mcert: PPX509; mspki: PPEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_dane_authority_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get0_dane_tlsa(s: PSSL; usage: PIdC_UINT8; selector: PIdC_UINT8; mtype: PIdC_UINT8; const data: PPByte; dlen: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_get0_dane_tlsa(s: PSSL; usage: PIdC_UINT8; selector: PIdC_UINT8; mtype: PIdC_UINT8; const data: PPByte; dlen: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_dane_tlsa_procname);
 end;
@@ -8231,7 +8232,7 @@ end;
    * Bridge opacity barrier between libcrypt and libssl, also needed to support
    * offline testing in test/danetest.c
    *)
-function  ERR_SSL_get0_dane(ssl: PSSL): PSSL_DANE; 
+function  ERR_SSL_get0_dane(ssl: PSSL): PSSL_DANE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_dane_procname);
 end;
@@ -8241,108 +8242,108 @@ end;
   (*
    * DANE flags
    *)
-function  ERR_SSL_CTX_dane_set_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_CTX_dane_set_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_dane_set_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_dane_clear_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_CTX_dane_clear_flags(ctx: PSSL_CTX; flags: TIdC_ULONG): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_dane_clear_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_dane_set_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_dane_set_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_dane_set_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_dane_clear_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG; 
+function  ERR_SSL_dane_clear_flags(ssl: PSSL; flags: TIdC_ULONG): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_dane_clear_flags_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_CTX_set1_param(ctx: PSSL_CTX; vpm: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_SSL_CTX_set1_param(ctx: PSSL_CTX; vpm: PX509_VERIFY_PARAM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set1_param_procname);
 end;
 
 
-function  ERR_SSL_set1_param(ssl: PSSL; vpm: PX509_VERIFY_PARAM): TIdC_INT; 
+function  ERR_SSL_set1_param(ssl: PSSL; vpm: PX509_VERIFY_PARAM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_param_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_get0_param(ctx: PSSL_CTX): PX509_VERIFY_PARAM; 
+function  ERR_SSL_CTX_get0_param(ctx: PSSL_CTX): PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_param_procname);
 end;
 
 
-function  ERR_SSL_get0_param(ssl: PSSL): PX509_VERIFY_PARAM; 
+function  ERR_SSL_get0_param(ssl: PSSL): PX509_VERIFY_PARAM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_param_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_srp_username(ctx: PSSL_CTX; name: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_username(ctx: PSSL_CTX; name: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_username_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_srp_password(ctx: PSSL_CTX; password: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_password(ctx: PSSL_CTX; password: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_password_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_srp_strength(ctx: PSSL_CTX; strength: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_strength(ctx: PSSL_CTX; strength: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_strength_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_srp_client_pwd_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_client_pwd_callback_cb): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_client_pwd_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_client_pwd_callback_cb): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_client_pwd_callback_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_srp_verify_param_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_verify_param_callback_cb): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_verify_param_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_verify_param_callback_cb): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_verify_param_callback_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_srp_username_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_username_callback_cb): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_username_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_srp_username_callback_cb): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_username_callback_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_set_srp_cb_arg(ctx: PSSL_CTX; arg: Pointer): TIdC_INT; 
+function  ERR_SSL_CTX_set_srp_cb_arg(ctx: PSSL_CTX; arg: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_srp_cb_arg_procname);
 end;
 
 
-function  ERR_SSL_set_srp_server_param(s: PSSL; const N: PBIGNUm; const g: PBIGNUm; sa: PBIGNUm; v: PBIGNUm; info: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_srp_server_param(s: PSSL; const N: PBIGNUm; const g: PBIGNUm; sa: PBIGNUm; v: PBIGNUm; info: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_srp_server_param_procname);
 end;
 
 
-function  ERR_SSL_set_srp_server_param_pw(s: PSSL; const user: PIdAnsiChar; const pass: PIdAnsiChar; const grp: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_srp_server_param_pw(s: PSSL; const user: PIdAnsiChar; const pass: PIdAnsiChar; const grp: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_srp_server_param_pw_procname);
 end;
@@ -8358,67 +8359,67 @@ end;
   ///*
   // * ClientHello callback and helpers.
   // */
-procedure  ERR_SSL_CTX_set_client_hello_cb(c: PSSL_CTX; cb: SSL_client_hello_cb_fn; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_client_hello_cb(c: PSSL_CTX; cb: SSL_client_hello_cb_fn; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_client_hello_cb_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_isv2(s: PSSL): TIdC_INT; 
+function  ERR_SSL_client_hello_isv2(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_isv2_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_legacy_version(s: PSSL): TIdC_UINT; 
+function  ERR_SSL_client_hello_get0_legacy_version(s: PSSL): TIdC_UINT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_legacy_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_random(s: PSSL; const out_: PPByte): TIdC_SIZET; 
+function  ERR_SSL_client_hello_get0_random(s: PSSL; const out_: PPByte): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_random_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_session_id(s: PSSL; const out_: PPByte): TIdC_SIZET; 
+function  ERR_SSL_client_hello_get0_session_id(s: PSSL; const out_: PPByte): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_session_id_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_ciphers(s: PSSL; const out_: PPByte): TIdC_SIZET; 
+function  ERR_SSL_client_hello_get0_ciphers(s: PSSL; const out_: PPByte): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_ciphers_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_compression_methods(s: PSSL; const out_: PPByte): TIdC_SIZET; 
+function  ERR_SSL_client_hello_get0_compression_methods(s: PSSL; const out_: PPByte): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_compression_methods_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get1_extensions_present(s: PSSL; out_: PPIdC_INT; outlen: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_client_hello_get1_extensions_present(s: PSSL; out_: PPIdC_INT; outlen: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get1_extensions_present_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_client_hello_get0_ext(s: PSSL; type_: TIdC_UINT; const out_: PPByte; outlen: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_client_hello_get0_ext(s: PSSL; type_: TIdC_UINT; const out_: PPByte; outlen: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_hello_get0_ext_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_certs_clear(s: PSSL); 
+procedure  ERR_SSL_certs_clear(s: PSSL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_certs_clear_procname);
 end;
 
 
-procedure  ERR_SSL_free(ssl: PSSL); 
+procedure  ERR_SSL_free(ssl: PSSL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_free_procname);
 end;
@@ -8428,137 +8429,137 @@ end;
   (*
    * Windows application developer has to include windows.h to use these.
    *)
-function  ERR_SSL_waiting_for_async(s: PSSL): TIdC_INT; 
+function  ERR_SSL_waiting_for_async(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_waiting_for_async_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_all_async_fds(s: PSSL; fds: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_get_all_async_fds(s: PSSL; fds: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_all_async_fds_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_changed_async_fds(s: PSSL; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_get_changed_async_fds(s: PSSL; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_changed_async_fds_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_accept(ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_accept(ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_accept_procname);
 end;
 
 
-function  ERR_SSL_stateless(s: PSSL): TIdC_INT; 
+function  ERR_SSL_stateless(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_stateless_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_connect(ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_connect(ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_connect_procname);
 end;
 
 
-function  ERR_SSL_read(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT;
+function  ERR_SSL_read(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_procname);
 end;
 
 
-function  ERR_SSL_read_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
+function  ERR_SSL_read_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_ex_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_read_early_data(s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
+function  ERR_SSL_read_early_data(s: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_read_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_peek(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT;
+function  ERR_SSL_peek(ssl: PSSL; var buf; num: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_peek_procname);
 end;
 
 
-function  ERR_SSL_peek_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT;
+function  ERR_SSL_peek_ex(ssl: PSSL; var buf; num: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_peek_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_write(ssl: PSSL; const buf; num: TIdC_INT): TIdC_INT;
+function  ERR_SSL_write(ssl: PSSL; const buf; num: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_procname);
 end;
 
 
-function  ERR_SSL_write_ex(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT;
+function  ERR_SSL_write_ex(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex_procname);
 end;
 
  {introduced 3.3.0}
-function ERR_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT;
+function ERR_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_ex2_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_write_early_data(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT;
+function  ERR_SSL_write_early_data(s: PSSL; const buf; num: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_write_early_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_callback_ctrl(v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG; 
+function  ERR_SSL_callback_ctrl(v1: PSSL; v2: TIdC_INT; v3: SSL_callback_ctrl_v3): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_callback_ctrl_procname);
 end;
 
 
 
-function  ERR_SSL_ctrl(ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; 
+function  ERR_SSL_ctrl(ssl: PSSL; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_ctrl_procname);
 end;
 
 
-function  ERR_SSL_CTX_ctrl(ctx: PSSL_CTX; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; 
+function  ERR_SSL_CTX_ctrl(ctx: PSSL_CTX; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_ctrl_procname);
 end;
 
 
-function  ERR_SSL_CTX_callback_ctrl(v1: PSSL_CTX; v2: TIdC_INT; v3: SSL_CTX_callback_ctrl_v3): TIdC_LONG; 
+function  ERR_SSL_CTX_callback_ctrl(v1: PSSL_CTX; v2: TIdC_INT; v3: SSL_CTX_callback_ctrl_v3): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_callback_ctrl_procname);
 end;
 
 
 
-function  ERR_SSL_get_early_data_status(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_early_data_status(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_early_data_status_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_get_error(const s: PSSL; ret_code: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_get_error(const s: PSSL; ret_code: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_error_procname);
 end;
 
 
-function  ERR_SSL_get_version(const s: PSSL): PIdAnsiChar; 
+function  ERR_SSL_get_version(const s: PSSL): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_version_procname);
 end;
@@ -8566,7 +8567,7 @@ end;
 
 
   (* This sets the 'default' SSL version that SSL_new() will create *)
-function  ERR_SSL_CTX_set_ssl_version(ctx: PSSL_CTX; const meth: PSSL_METHOD): TIdC_INT; 
+function  ERR_SSL_CTX_set_ssl_version(ctx: PSSL_CTX; const meth: PSSL_METHOD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ssl_version_procname);
 end;
@@ -8574,154 +8575,154 @@ end;
 
 
   ///* Negotiate highest available SSL/TLS version */
-function  ERR_TLS_method: PSSL_METHOD; 
+function  ERR_TLS_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLS_method_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_TLS_server_method: PSSL_METHOD; 
+function  ERR_TLS_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLS_server_method_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_TLS_client_method: PSSL_METHOD; 
+function  ERR_TLS_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLS_client_method_procname);
 end;
 
  {introduced 1.1.0}
 
-function ERR_DTLS_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+function ERR_DTLS_method : PSSL_METHOD; cdecl; //* DTLS 1.0 and 1.2 */ cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_method_procname);
 end;
 
-function ERR_DTLS_server_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+function ERR_DTLS_server_method : PSSL_METHOD; cdecl; //* DTLS 1.0 and 1.2 */ cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_server_method_procname);
 end;
 
-function ERR_DTLS_client_method : PSSL_METHOD; //* DTLS 1.0 and 1.2 */
+function ERR_DTLS_client_method : PSSL_METHOD; cdecl; //* DTLS 1.0 and 1.2 */ cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_client_method_procname);
 end;
 
 
-function ERR_DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET;
+function ERR_DTLS_get_data_mtu(const s: PSSL) : TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_get_data_mtu_procname);
 end;
 
-function ERR_SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER;
+function ERR_SSL_get_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_ciphers_procname);
 end;
 
-function ERR_SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER;
+function ERR_SSL_CTX_get_ciphers(const ctx: PSSL_CTX) : PSTACK_OF_SSL_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_get_ciphers_procname);
 end;
 
-function ERR_SSL_get_client_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER;
+function ERR_SSL_get_client_ciphers(const s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_client_ciphers_procname);
 end;
 
-function ERR_SSL_get1_supported_ciphers(s: PSSL) : PSTACK_OF_SSL_CIPHER;
+function ERR_SSL_get1_supported_ciphers(s: PSSL) : PSTACK_OF_SSL_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get1_supported_ciphers_procname);
 end;
 
-function ERR_SSL_do_handshake(s: PSSL) : TIdC_INT;
+function ERR_SSL_do_handshake(s: PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_do_handshake_procname );
 end;
 
-function  ERR_SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT;
+function  ERR_SSL_key_update(s: PSSL; updatetype: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_key_update_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_key_update_type(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_get_key_update_type(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_key_update_type_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_renegotiate(s: PSSL): TIdC_INT; 
+function  ERR_SSL_renegotiate(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_renegotiate_procname);
 end;
 
 
-function  ERR_SSL_renegotiate_abbreviated(s: PSSL): TIdC_INT; 
+function  ERR_SSL_renegotiate_abbreviated(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_renegotiate_abbreviated_procname);
 end;
 
 
-function  ERR_SSL_shutdown(s: PSSL): TIdC_INT;
+function  ERR_SSL_shutdown(s: PSSL): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_shutdown_procname);
 end;
 
 function ERR_SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
-                           args_len : TIdC_SIZET) : TIdC_INT;
+                           args_len : TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ssl_shutdown_ex_procname);
 end;
 
-function ERR_SSL_stream_conclude(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT;
+function ERR_SSL_stream_conclude(ssl : PSSL; flags : TIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_stream_conclude_procname);
 end;
 
 function ERR_SSL_stream_reset(ssl : PSSL;
                             args : PSSL_STREAM_RESET_ARGS;
-                            args_len : TIdC_SIZET) : TIdC_INT;  {introduced 3.2.0}
+                            args_len : TIdC_SIZET) : TIdC_INT;  {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_stream_reset_procname);
 end;
 
-function ERR_SSL_get_stream_read_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0}
+function ERR_SSL_get_stream_read_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_read_state_procname);
 end;
 
-function ERR_SSL_get_stream_write_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0}
+function ERR_SSL_get_stream_write_state(ssl : PSSL) : TIdC_INT;  {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_write_state_procname);
 end;
 
-function ERR_SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0}
+function ERR_SSL_get_stream_read_error_code(ssl : PSSL; uapp_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_read_error_code_procname);
 end;
 
-function ERR_SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0}
+function ERR_SSL_get_stream_write_error_code(ssl : PSSL; app_error_code : PIdC_UINT64) : TIdC_INT;  {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_write_error_code_procname);
 end;
 
 function ERR_SSL_get_conn_close_info(ssl : PSSL;
                                  info : PSSL_CONN_CLOSE_INFO;
-                                 info_len : TIdC_SIZET) : TIdC_INT; {introduced 3.2.0}
+                                 info_len : TIdC_SIZET) : TIdC_INT; {introduced 3.2.0} cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_conn_close_info_procname);
 end;
 
  {introduced 3.3.0}
-function ERR_SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT;
+function ERR_SSL_get_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32; v : PIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_value_uint_procname);
 end;
 
  {introduced 3.3.0}
-function ERR_SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT;
+function ERR_SSL_set_value_uint(s : PSSL; class_ : TIdC_UINT32; id  : TIdC_UINT32;  v : TIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_set_value_uint_procname);
 end;
@@ -8732,153 +8733,153 @@ function ERR_SSL_poll(items : PSSL_POLL_ITEM;
                     stride : TIdC_SIZET;
                     timeout : Ptimeval;
                     flags : TIdC_UINT64;
-                    result_count : PIdC_SIZET) : TIdC_INT;
+                    result_count : PIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_poll_procname);
 end;
 
-procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT);
+procedure  ERR_SSL_CTX_set_post_handshake_auth(ctx: PSSL_CTX; _val: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_post_handshake_auth_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT); 
+procedure  ERR_SSL_set_post_handshake_auth(s: PSSL; _val: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_post_handshake_auth_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_renegotiate_pending(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_renegotiate_pending(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_renegotiate_pending_procname);
 end;
 
 
-function  ERR_SSL_verify_client_post_handshake(s: PSSL): TIdC_INT; 
+function  ERR_SSL_verify_client_post_handshake(s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_verify_client_post_handshake_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_CTX_get_ssl_method(const ctx: PSSL_CTX): PSSL_METHOD; 
+function  ERR_SSL_CTX_get_ssl_method(const ctx: PSSL_CTX): PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_ssl_method_procname);
 end;
 
 
-function  ERR_SSL_get_ssl_method(const s: PSSL): PSSL_METHOD; 
+function  ERR_SSL_get_ssl_method(const s: PSSL): PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_ssl_method_procname);
 end;
 
 
-function  ERR_SSL_set_ssl_method(s: PSSL; const method: PSSL_METHOD): TIdC_INT; 
+function  ERR_SSL_set_ssl_method(s: PSSL; const method: PSSL_METHOD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ssl_method_procname);
 end;
 
 
-function  ERR_SSL_alert_type_string_long(value: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_alert_type_string_long(value: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alert_type_string_long_procname);
 end;
 
 
-function  ERR_SSL_alert_type_string(value: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_alert_type_string(value: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alert_type_string_procname);
 end;
 
 
-function  ERR_SSL_alert_desc_string_long(value: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_alert_desc_string_long(value: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alert_desc_string_long_procname);
 end;
 
 
-function  ERR_SSL_alert_desc_string(value: TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_alert_desc_string(value: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alert_desc_string_procname);
 end;
 
-procedure ERR_SSL_set0_CA_list(s : PSSL; name_list : PSTACK_OF_X509_NAME);
+procedure ERR_SSL_set0_CA_list(s : PSSL; name_list : PSTACK_OF_X509_NAME); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_CA_list_procname);
 end;
 
-procedure ERR_SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME);
+procedure ERR_SSL_CTX_set0_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_set0_CA_list_procname);
 end;
 
-function ERR_SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+function ERR_SSL_get0_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get0_CA_list_procname);
 end;
 
-function ERR_SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME;
+function ERR_SSL_CTX_get0_CA_list(const ctx: PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_CA_list_procname);
 end;
 
-function ERR_SSL_add1_to_CA_list(ssl: PSSL; const x : PX509) : TIdC_INT;
+function ERR_SSL_add1_to_CA_list(ssl: PSSL; const x : PX509) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add1_to_CA_list_procname);
 end;
 
-function ERR_SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX; const x : PX509) : TIdC_INT;
+function ERR_SSL_CTX_add1_to_CA_list(ctx: PSSL_CTX; const x : PX509) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_add1_to_CA_list_procname);
 end;
 
-function ERR_SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+function ERR_SSL_get0_peer_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peer_CA_list_procname);
 end;
 
-procedure ERR_SSL_set_client_CA_list(s: PSSL;  name_list : PSTACK_OF_X509_NAME);
+procedure ERR_SSL_set_client_CA_list(s: PSSL;  name_list : PSTACK_OF_X509_NAME); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_set_client_CA_list_procname );
 end;
 
-procedure ERR_SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME);
+procedure ERR_SSL_CTX_set_client_CA_list(ctx: PSSL_CTX; name_list : PSTACK_OF_X509_NAME); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_set_client_CA_list_procname );
 end;
 
-function ERR_SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME;
+function ERR_SSL_get_client_CA_list(const s: PSSL) : PSTACK_OF_X509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_client_CA_list_procname);
 end;
 
-function ERR_SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : PSTACK_OF_X509_NAME;
+function ERR_SSL_CTX_get_client_CA_list(const s : PSSL_CTX) : PSTACK_OF_X509_NAME; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_CTX_get_client_CA_list_procname );
 end;
 
-function  ERR_SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT; 
+function  ERR_SSL_add_client_CA(ssl: PSSL; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add_client_CA_procname);
 end;
 
 
-function  ERR_SSL_CTX_add_client_CA(ctx: PSSL_CTX; x: PX509): TIdC_INT; 
+function  ERR_SSL_CTX_add_client_CA(ctx: PSSL_CTX; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_add_client_CA_procname);
 end;
 
 
 
-procedure  ERR_SSL_set_connect_state(s: PSSL); 
+procedure  ERR_SSL_set_connect_state(s: PSSL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_connect_state_procname);
 end;
 
 
-procedure  ERR_SSL_set_accept_state(s: PSSL); 
+procedure  ERR_SSL_set_accept_state(s: PSSL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_accept_state_procname);
 end;
@@ -8890,30 +8891,30 @@ end;
   //# if OPENSSL_API_COMPAT < 0x10100000L
   //#  define SSL_library_init() OPENSSL_init_ssl(0, NULL)
   //# endif
-function  ERR_SSL_library_init: TIdC_INT; 
+function  ERR_SSL_library_init: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_library_init_procname);
 end;
 
- 
+
 
   //__owur PIdAnsiChar *SSL_CIPHER_description(const SSL_CIPHER *, PIdAnsiChar *buf, TIdC_INT size);
   //__owur STACK_OF(X509_NAME) *SSL_dup_CA_list(const STACK_OF(X509_NAME) *sk);
-function  ERR_SSL_CIPHER_description(cipher: PSSL_CIPHER; buf: PIdAnsiChar; size_ :TIdC_INT): PIdAnsiChar; 
+function  ERR_SSL_CIPHER_description(cipher: PSSL_CIPHER; buf: PIdAnsiChar; size_ :TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_description_procname);
 end;
 
 
 
-function  ERR_SSL_dup(ssl: PSSL): PSSL; 
+function  ERR_SSL_dup(ssl: PSSL): PSSL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_dup_procname);
 end;
 
 
 
-function  ERR_SSL_get_certificate(const ssl: PSSL): PX509; 
+function  ERR_SSL_get_certificate(const ssl: PSSL): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_certificate_procname);
 end;
@@ -8922,228 +8923,228 @@ end;
   (*
    * EVP_PKEY
    *)
-function  ERR_SSL_get_privatekey(const ssl: PSSL): PEVP_PKEY; 
+function  ERR_SSL_get_privatekey(const ssl: PSSL): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_privatekey_procname);
 end;
 
 
 
-function  ERR_SSL_CTX_get0_certificate(const ctx: PSSL_CTX): PX509; 
+function  ERR_SSL_CTX_get0_certificate(const ctx: PSSL_CTX): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_certificate_procname);
 end;
 
 
-function  ERR_SSL_CTX_get0_privatekey(const ctx: PSSL_CTX): PEVP_PKEY; 
+function  ERR_SSL_CTX_get0_privatekey(const ctx: PSSL_CTX): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_privatekey_procname);
 end;
 
 
 
-procedure  ERR_SSL_CTX_set_quiet_shutdown(ctx: PSSL_CTX; mode: TIdC_INT); 
+procedure  ERR_SSL_CTX_set_quiet_shutdown(ctx: PSSL_CTX; mode: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_quiet_shutdown_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_quiet_shutdown(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_get_quiet_shutdown(const ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_quiet_shutdown_procname);
 end;
 
 
-procedure  ERR_SSL_set_quiet_shutdown(ssl: PSSL; mode: TIdC_INT); 
+procedure  ERR_SSL_set_quiet_shutdown(ssl: PSSL; mode: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_quiet_shutdown_procname);
 end;
 
 
-function  ERR_SSL_get_quiet_shutdown(const ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_get_quiet_shutdown(const ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_quiet_shutdown_procname);
 end;
 
 
-procedure  ERR_SSL_set_shutdown(ssl: PSSL; mode: TIdC_INT); 
+procedure  ERR_SSL_set_shutdown(ssl: PSSL; mode: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_shutdown_procname);
 end;
 
 
-function  ERR_SSL_get_shutdown(const ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_get_shutdown(const ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_shutdown_procname);
 end;
 
 
-function  ERR_SSL_version(const ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_version(const ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_version_procname);
 end;
 
 
-function  ERR_SSL_client_version(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_client_version(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_client_version_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_default_verify_paths(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_set_default_verify_paths(ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_verify_paths_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_default_verify_dir(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_set_default_verify_dir(ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_verify_dir_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_default_verify_file(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_set_default_verify_file(ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_verify_file_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_load_verify_locations(ctx: PSSL_CTX; const CAfile: PIdAnsiChar; const CApath: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_load_verify_locations(ctx: PSSL_CTX; const CAfile: PIdAnsiChar; const CApath: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_load_verify_locations_procname);
 end;
 
 
   //# define SSL_get0_session SSL_get_session/* just peek at pointer */
-function  ERR_SSL_get_session(const ssl: PSSL): PSSL_SESSION; 
+function  ERR_SSL_get_session(const ssl: PSSL): PSSL_SESSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_session_procname);
 end;
 
 
   (* obtain a reference count *)
-function  ERR_SSL_get1_session(ssl: PSSL): PSSL_SESSION; 
+function  ERR_SSL_get1_session(ssl: PSSL): PSSL_SESSION;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get1_session_procname);
 end;
 
 
-function  ERR_SSL_get_SSL_CTX(const ssl: PSSL): PSSL_CTX; 
+function  ERR_SSL_get_SSL_CTX(const ssl: PSSL): PSSL_CTX;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_SSL_CTX_procname);
 end;
 
 
-function  ERR_SSL_set_SSL_CTX(ssl: PSSL; ctx: PSSL_CTX): PSSL_CTX; 
+function  ERR_SSL_set_SSL_CTX(ssl: PSSL; ctx: PSSL_CTX): PSSL_CTX;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_SSL_CTX_procname);
 end;
 
 
-procedure  ERR_SSL_set_info_callback(ssl: PSSL; cb: SSL_info_callback); 
+procedure  ERR_SSL_set_info_callback(ssl: PSSL; cb: SSL_info_callback);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_info_callback_procname);
 end;
 
 
-function  ERR_SSL_get_info_callback(const ssl: PSSL): SSL_info_callback; 
+function  ERR_SSL_get_info_callback(const ssl: PSSL): SSL_info_callback;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_info_callback_procname);
 end;
 
 
-function  ERR_SSL_get_state(const ssl: PSSL): OSSL_HANDSHAKE_STATE; 
+function  ERR_SSL_get_state(const ssl: PSSL): OSSL_HANDSHAKE_STATE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_state_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_set_verify_result(ssl: PSSL; v: TIdC_LONG); 
+procedure  ERR_SSL_set_verify_result(ssl: PSSL; v: TIdC_LONG);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_verify_result_procname);
 end;
 
 
-function  ERR_SSL_get_verify_result(const ssl: PSSL): TIdC_LONG; 
+function  ERR_SSL_get_verify_result(const ssl: PSSL): TIdC_LONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_verify_result_procname);
 end;
 
-function ERR_SSL_get0_verified_chain(const s: PSSL) : PSTACK_OF_X509;
+function ERR_SSL_get0_verified_chain(const s: PSSL) : PSTACK_OF_X509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_verified_chain_procname);
 end;
 
-function  ERR_SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET;
+function  ERR_SSL_get_client_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_client_random_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_server_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_SSL_get_server_random(const ssl: PSSL; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_server_random_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_master_key(const sess: PSSL_SESSION; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_SSL_SESSION_get_master_key(const sess: PSSL_SESSION; out_: PByte; outlen: TIdC_SIZET): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_master_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_set1_master_key(sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_master_key(sess: PSSL_SESSION; const in_: PByte; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_master_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get_max_fragment_length(const sess: PSSL_SESSION): TIdC_UINT8; 
+function  ERR_SSL_SESSION_get_max_fragment_length(const sess: PSSL_SESSION): TIdC_UINT8;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_max_fragment_length_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_set_ex_data(ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_SSL_set_ex_data(ssl: PSSL; idx: TIdC_INT; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ex_data_procname);
 end;
 
 
-function  ERR_SSL_get_ex_data(const ssl: PSSL; idx: TIdC_INT): Pointer; 
+function  ERR_SSL_get_ex_data(const ssl: PSSL; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_ex_data_procname);
 end;
 
 
-function  ERR_SSL_SESSION_set_ex_data(ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_SSL_SESSION_set_ex_data(ss: PSSL_SESSION; idx: TIdC_INT; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set_ex_data_procname);
 end;
 
 
-function  ERR_SSL_SESSION_get_ex_data(const ss: PSSL_SESSION; idx: TIdC_INT): Pointer; 
+function  ERR_SSL_SESSION_get_ex_data(const ss: PSSL_SESSION; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get_ex_data_procname);
 end;
 
 
-function  ERR_SSL_CTX_set_ex_data(ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_SSL_CTX_set_ex_data(ssl: PSSL_CTX; idx: TIdC_INT; data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ex_data_procname);
 end;
 
 
-function  ERR_SSL_CTX_get_ex_data(const ssl: PSSL_CTX; idx: TIdC_INT): Pointer; 
+function  ERR_SSL_CTX_get_ex_data(const ssl: PSSL_CTX; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_ex_data_procname);
 end;
 
 
 
-function  ERR_SSL_get_ex_data_X509_STORE_CTX_idx: TIdC_INT; 
+function  ERR_SSL_get_ex_data_X509_STORE_CTX_idx: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_ex_data_X509_STORE_CTX_idx_procname);
 end;
@@ -9178,61 +9179,61 @@ end;
   //# define SSL_set_max_pipelines(ssl,m) \
   //        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
 
-procedure  ERR_SSL_CTX_set_default_read_buffer_len(ctx: PSSL_CTX; len: TIdC_SIZET); 
+procedure  ERR_SSL_CTX_set_default_read_buffer_len(ctx: PSSL_CTX; len: TIdC_SIZET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_read_buffer_len_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_default_read_buffer_len(s: PSSL; len: TIdC_SIZET); 
+procedure  ERR_SSL_set_default_read_buffer_len(s: PSSL; len: TIdC_SIZET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_default_read_buffer_len_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_CTX_set_tmp_dh_callback(ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh); 
+procedure  ERR_SSL_CTX_set_tmp_dh_callback(ctx: PSSL_CTX; dh: SSL_CTX_set_tmp_dh_callback_dh);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tmp_dh_callback_procname);
 end;
 
 
-procedure  ERR_SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh);
+procedure  ERR_SSL_set_tmp_dh_callback(ssl: PSSL; dh: SSL_set_tmp_dh_callback_dh); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tmp_dh_callback_procname);
 end;
 
-function ERR_SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD;
+function ERR_SSL_get_current_compression (const s: PSSL) : PCOMP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_current_compression_procname);
 end;
 
-function ERR_SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD;
+function ERR_SSL_get_current_expansion (const s: PSSL) : PCOMP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_current_expansion_procname);
 end;
 
-function ERR_SSL_COMP_get_name(const _comp : PCOMP_METHOD) : PIdAnsiChar;
+function ERR_SSL_COMP_get_name(const _comp : PCOMP_METHOD) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_name_procname);
 end;
 
-function ERR_SSL_COMP_get0_name(const _comp : PSSL_COMP) : PIdAnsiChar;
+function ERR_SSL_COMP_get0_name(const _comp : PSSL_COMP) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get0_name_procname);
 end;
 
-function ERR_SSL_COMP_get_id(const _comp : PSSL_COMP) : TIdC_INT;
+function ERR_SSL_COMP_get_id(const _comp : PSSL_COMP) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_id_procname);
 end;
 
-function ERR_SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP;
+function ERR_SSL_COMP_get_compression_methods : PSTACK_OF_SSL_COMP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_get_compression_methods_procname );
 end;
 
-function ERR_SSL_COMP_set0_compression_methods(meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP;
+function ERR_SSL_COMP_set0_compression_methods(meths : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_set0_compression_methods_procname );
 end;
@@ -9241,24 +9242,24 @@ end;
   //#  define SSL_COMP_free_compression_methods() while(0) continue
   //# endif
 
-function ERR_SSL_COMP_add_compression_method(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT;
+function ERR_SSL_COMP_add_compression_method(id : TIdC_INT; cm : PCOMP_METHOD) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_COMP_add_compression_method_procname);
 end;
 
-function ERR_SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER;
+function ERR_SSL_CIPHER_find(ssl: PSSL; const _ptr: PByte): PSSL_CIPHER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_find_procname);
 end;
 
 
-function  ERR_SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT; 
+function  ERR_SSL_CIPHER_get_cipher_nid(const c: PSSL_CIPHEr): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_cipher_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CIPHER_get_digest_nid(const c: PSSL_CIPHEr): TIdC_INT; 
+function  ERR_SSL_CIPHER_get_digest_nid(const c: PSSL_CIPHEr): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CIPHER_get_digest_nid_procname);
 end;
@@ -9269,14 +9270,14 @@ end;
   //                             STACK_OF(SSL_CIPHER) **scsvs);
 
   (* TLS extensions functions *)
-function  ERR_SSL_set_session_ticket_ext(s: PSSL; ext_data: Pointer; ext_len: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_set_session_ticket_ext(s: PSSL; ext_data: Pointer; ext_len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_ticket_ext_procname);
 end;
 
 
   //
-function  ERR_SSL_set_session_ticket_ext_cb(s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT; 
+function  ERR_SSL_set_session_ticket_ext_cb(s: PSSL; cb: tls_session_ticket_ext_cb_fn; arg: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_ticket_ext_cb_procname);
 end;
@@ -9286,278 +9287,278 @@ end;
   ///* Pre-shared secret session resumption functions */
 function ERR_SSL_set_session_secret_cb(s: PSSL;
                                        session_secret_cb : tls_session_secret_cb_fn;
-                                       arg : Pointer) : TIdC_INT;
+                                       arg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_session_secret_cb_procname);
 end;
 
-procedure  ERR_SSL_CTX_set_not_resumable_session_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb); 
+procedure  ERR_SSL_CTX_set_not_resumable_session_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_not_resumable_session_callback_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_not_resumable_session_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_not_resumable_session_callback(ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb); 
+procedure  ERR_SSL_set_not_resumable_session_callback(ssl: PSSL; cb: SSL_set_not_resumable_session_callback_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_not_resumable_session_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_record_padding_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_record_padding_callback_cb); 
+procedure  ERR_SSL_CTX_set_record_padding_callback(ctx: PSSL_CTX; cb: SSL_CTX_set_record_padding_callback_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_record_padding_callback_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_CTX_set_record_padding_callback_arg(ctx: PSSL_CTX; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_record_padding_callback_arg(ctx: PSSL_CTX; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_record_padding_callback_arg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_record_padding_callback_arg(const ctx: PSSL_CTX): Pointer; 
+function  ERR_SSL_CTX_get_record_padding_callback_arg(const ctx: PSSL_CTX): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_record_padding_callback_arg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_block_padding(ctx: PSSL_CTX; block_size: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_CTX_set_block_padding(ctx: PSSL_CTX; block_size: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_block_padding_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_set_record_padding_callback(ssl: PSSL; cb: SSL_set_record_padding_callback_cb); 
+procedure  ERR_SSL_set_record_padding_callback(ssl: PSSL; cb: SSL_set_record_padding_callback_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_record_padding_callback_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_set_record_padding_callback_arg(ssl: PSSL; arg: Pointer); 
+procedure  ERR_SSL_set_record_padding_callback_arg(ssl: PSSL; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_record_padding_callback_arg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_record_padding_callback_arg(const ssl: PSSL): Pointer; 
+function  ERR_SSL_get_record_padding_callback_arg(const ssl: PSSL): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_record_padding_callback_arg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_block_padding(ssl: PSSL; block_size: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_set_block_padding(ssl: PSSL; block_size: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_block_padding_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_set_num_tickets(s: PSSL; num_tickets: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_set_num_tickets(s: PSSL; num_tickets: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_num_tickets_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_num_tickets(const s: PSSL): TIdC_SIZET; 
+function  ERR_SSL_get_num_tickets(const s: PSSL): TIdC_SIZET;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_num_tickets_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_num_tickets(ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_CTX_set_num_tickets(ctx: PSSL_CTX; num_tickets: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_num_tickets_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET;
+function  ERR_SSL_CTX_get_num_tickets(const ctx: PSSL_CTX): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_num_tickets_procname);
 end;
 
  {introduced 3.2.0}
-function ERR_SSL_handle_events(s : PSSL) : TIdC_INT;
+function ERR_SSL_handle_events(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_handle_events_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT;
+function ERR_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_event_timeout_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+function ERR_SSL_get_rpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_rpoll_descriptor_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+function ERR_SSL_get_wpoll_descriptor(s : PSSL;  desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_wpoll_descriptor_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_SSL_net_read_desired(s : PSSL) : TIdC_INT;
+function ERR_SSL_net_read_desired(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_net_read_desired_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_SSL_net_write_desired(s : PSSL) : TIdC_INT;
+function ERR_SSL_net_write_desired(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_net_write_desired_procname);
 end;
 {introduced 3.2.0}
-function ERR_SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT;
+function ERR_SSL_set_blocking_mode(s : PSSL; blocking : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_blocking_mode_procname);
 end;
 {introduced 3.2.0}
-function ERR_SSL_get_blocking_mode(s : PSSL) : TIdC_INT;
+function ERR_SSL_get_blocking_mode(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_blocking_mode_procname);
 end;
 {introduced 3.2.0}
-function ERR_SSL_set1_initial_peer_addr(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT;
+function ERR_SSL_set1_initial_peer_addr(s : PSSL; peer_addr : PBIO_ADDR) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set1_initial_peer_addr_procname);
 end;
 {introduced 3.2.0}
-function ERR_SSL_get0_connection(s : PSSL) : PSSL;
+function ERR_SSL_get0_connection(s : PSSL) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_connection_procname);
 end;
 {introduced 3.2.0}
-function ERR_SSL_is_connection(s : PSSL) : TIdC_INT;
+function ERR_SSL_is_connection(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_connection_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_is_listener(ssl : PSSL) : TIdC_INT;
+function ERR_SSL_is_listener(ssl : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_listener_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_get0_listener(s : PSSL) : PSSL;
+function ERR_SSL_get0_listener(s : PSSL) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_listener_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_new_listener(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_new_listener(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_listener_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_new_listener_from(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_new_listener_from(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_listener_from_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_new_from_listener(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_new_from_listener(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_from_listener_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_accept_connection(ssl : PSSL; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_accept_connection(ssl : PSSL; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_accept_connection_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_get_accept_connection_queue_len(ssl : PSSL) : TIdC_SIZET;
+function ERR_SSL_get_accept_connection_queue_len(ssl : PSSL) : TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_accept_connection_queue_len_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_listen(ssl : PSSL) : TIdC_INT;
+function ERR_SSL_listen(ssl : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_listen_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_is_domain(s : PSSL) : TIdC_INT;
+function ERR_SSL_is_domain(s : PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_domain_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_get0_domain(s : PSSL) : PSSL;
+function ERR_SSL_get0_domain(s : PSSL) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_domain_procname);
 end;
 {introduced 3.5.0}
 
-function ERR_SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_new_domain(ctx : PSSL_CTX; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_domain_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT;
+function ERR_SSL_CTX_set_domain_flags(ctx : PSSL_CTX ; domain_flags : TIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_domain_flags_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT;
+function ERR_SSL_CTX_get_domain_flags(ctx : PSSL_CTX; domain_flags : PIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_domain_flags_procname);
 end;
 
 {introduced 3.5.0}
-function ERR_SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT;
+function ERR_SSL_get_domain_flags(ssl : PSSL; domain_flags  : PIdC_UINT64) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_domain_flags_procname);
 end;
 
-function ERR_SSL_get_stream_type(s : PSSL) : TIdC_INT;
+function ERR_SSL_get_stream_type(s : PSSL) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_type_procname);
 end;
 
-function ERR_SSL_get_stream_id(s : PSSL) : TIdC_UINT64;
+function ERR_SSL_get_stream_id(s : PSSL) : TIdC_UINT64; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_stream_id_procname);
 end;
 
-function ERR_SSL_is_stream_local(s : PSSL) : TIdC_INT;
+function ERR_SSL_is_stream_local(s : PSSL) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_stream_local_procname);
 end;
 
-function ERR_SSL_set_default_stream_mode(s : PSSL; mode : TIdC_UINT32) : TIdC_INT;
+function ERR_SSL_set_default_stream_mode(s : PSSL; mode : TIdC_UINT32) : TIdC_INT; cdecl;
 begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_default_stream_mode_procname);
 end;
 
-function ERR_SSL_new_stream(s : PSSL; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_new_stream(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_new_stream_procname);
 end;
 
-function ERR_SSL_set_incoming_stream_policy(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT;
+function ERR_SSL_set_incoming_stream_policy(s : PSSL; policy : TIdC_INT; aec : TIdC_UINT64) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_incoming_stream_policy_procname);
 end;
 
-function ERR_SSL_accept_stream(s : PSSL; flags : TIdC_UINT64) : PSSL;
+function ERR_SSL_accept_stream(s : PSSL; flags : TIdC_UINT64) : PSSL; cdecl;
 begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_accept_stream_procname);
 end;
 
-function ERR_SSL_get_accept_stream_queue_len(s : PSSL) : TIdC_SIZET;
+function ERR_SSL_get_accept_stream_queue_len(s : PSSL) : TIdC_SIZET; cdecl;
 begin
     ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_accept_stream_queue_len_procname);
 end;
@@ -9566,7 +9567,7 @@ end;
 function ERR_SSL_inject_net_dgram(s : PSSL; buf : PIdAnsiChar;
                                 buf_len : TIdC_SIZET;
                                 peer : PBIO_ADDR;
-                                _local : PBIO_ADDR) : TIdC_INT;
+                                _local : PBIO_ADDR) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_inject_net_dgram_procname);
 end;
@@ -9578,111 +9579,111 @@ end;
   //# endif
 
  {introduced 1.1.0}
-function  ERR_SSL_session_reused(const s: PSSL): TIdC_INT;
+function  ERR_SSL_session_reused(const s: PSSL): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_session_reused_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_is_server(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_is_server(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_is_server_procname);
 end;
 
 
 
-function  ERR_SSL_CONF_CTX_new: PSSL_CONF_CTX; 
+function  ERR_SSL_CONF_CTX_new: PSSL_CONF_CTX;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_new_procname);
 end;
 
 
-function  ERR_SSL_CONF_CTX_finish(cctx: PSSL_CONF_CTX): TIdC_INT; 
+function  ERR_SSL_CONF_CTX_finish(cctx: PSSL_CONF_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_finish_procname);
 end;
 
 
-procedure  ERR_SSL_CONF_CTX_free(cctx: PSSL_CONF_CTX); 
+procedure  ERR_SSL_CONF_CTX_free(cctx: PSSL_CONF_CTX);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_free_procname);
 end;
 
 
-function  ERR_SSL_CONF_CTX_set_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT; 
+function  ERR_SSL_CONF_CTX_set_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_set_flags_procname);
 end;
 
 
-function  ERR_SSL_CONF_CTX_clear_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT; 
+function  ERR_SSL_CONF_CTX_clear_flags(cctx: PSSL_CONF_CTX; flags: TIdC_UINT): TIdC_UINT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_clear_flags_procname);
 end;
 
 
-function  ERR_SSL_CONF_CTX_set1_prefix(cctx: PSSL_CONF_CTX; const pre: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CONF_CTX_set1_prefix(cctx: PSSL_CONF_CTX; const pre: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_set1_prefix_procname);
 end;
 
 
-function  ERR_SSL_CONF_cmd(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar; const value: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CONF_cmd(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar; const value: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_cmd_procname);
 end;
 
 
-function  ERR_SSL_CONF_cmd_argv(cctx: PSSL_CONF_CTX; pargc: PIdC_INT; pargv: PPPIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CONF_cmd_argv(cctx: PSSL_CONF_CTX; pargc: PIdC_INT; pargv: PPPIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_cmd_argv_procname);
 end;
 
 
-function  ERR_SSL_CONF_cmd_value_type(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CONF_cmd_value_type(cctx: PSSL_CONF_CTX; const cmd: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_cmd_value_type_procname);
 end;
 
 
 
-procedure  ERR_SSL_CONF_CTX_set_ssl(cctx: PSSL_CONF_CTX; ssl: PSSL); 
+procedure  ERR_SSL_CONF_CTX_set_ssl(cctx: PSSL_CONF_CTX; ssl: PSSL);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_set_ssl_procname);
 end;
 
 
-procedure  ERR_SSL_CONF_CTX_set_ssl_ctx(cctx: PSSL_CONF_CTX; ctx: PSSL_CTX); 
+procedure  ERR_SSL_CONF_CTX_set_ssl_ctx(cctx: PSSL_CONF_CTX; ctx: PSSL_CTX);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CONF_CTX_set_ssl_ctx_procname);
 end;
 
 
-procedure  ERR_SSL_add_ssl_module; 
+procedure  ERR_SSL_add_ssl_module;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_add_ssl_module_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_config(s: PSSL; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_config(s: PSSL; const name: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_config_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_config(ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_config(ctx: PSSL_CTX; const name: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_config_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure ERR_SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf; len: TIdC_SIZET; ssl: PSSL; arg: Pointer);
+procedure ERR_SSL_trace(write_p: TIdC_INT; version: TIdC_INT; content_type: TIdC_INT; const buf; len: TIdC_SIZET; ssl: PSSL; arg: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_trace_procname);
 end;
 
-function  ERR_DTLSv1_listen(s: PSSL; client: PBIO_ADDr): TIdC_INT; 
+function  ERR_DTLSv1_listen(s: PSSL; client: PBIO_ADDr): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLSv1_listen_procname);
 end;
@@ -9712,12 +9713,12 @@ end;
   // * NOTE: A side-effect of setting a CT callback is that an OCSP stapled response
   // *       will be requested.
   // */
-function ERR_SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+function ERR_SSL_set_ct_validation_callback(s: PSSL; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_ct_validation_callback_procname);
 end;
 
-function ERR_SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT;
+function ERR_SSL_CTX_set_ct_validation_callback(ctx: PSSL_CTX; callback: ssl_ct_validation_cb; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ct_validation_callback_procname);
 end;
@@ -9742,13 +9743,13 @@ end;
   // * least one valid SCT, or else handshake termination will be requested.  The
   // * handshake may continue anyway if SSL_VERIFY_NONE is in_ effect.
   // */
-function  ERR_SSL_enable_ct(s: PSSL; validation_mode: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_enable_ct(s: PSSL; validation_mode: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_enable_ct_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_enable_ct(ctx: PSSL_CTX; validation_mode: TIdC_INT): TIdC_INT; 
+function  ERR_SSL_CTX_enable_ct(ctx: PSSL_CTX; validation_mode: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_enable_ct_procname);
 end;
@@ -9758,13 +9759,13 @@ end;
   ///*
   // * Report whether a non-NULL callback is enabled.
   // */
-function  ERR_SSL_ct_is_enabled(const s: PSSL): TIdC_INT; 
+function  ERR_SSL_ct_is_enabled(const s: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_ct_is_enabled_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_ct_is_enabled(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_ct_is_enabled(const ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_ct_is_enabled_procname);
 end;
@@ -9772,111 +9773,111 @@ end;
  {introduced 1.1.0}
 
   ///* Gets the SCTs received from a connection */
-function ERR_SSL_get0_peer_scts(s: PSSL) : PSTACK_OF_SCT;
+function ERR_SSL_get0_peer_scts(s: PSSL) : PSTACK_OF_SCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peer_scts_procname);
 end;
 
-function  ERR_SSL_CTX_set_default_ctlog_list_file(ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_set_default_ctlog_list_file(ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_default_ctlog_list_file_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_set_ctlog_list_file(ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_ctlog_list_file(ctx: PSSL_CTX; const path: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_ctlog_list_file_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set0_ctlog_store(ctx: PSSL_CTX; logs: PCTLOG_STORE); 
+procedure  ERR_SSL_CTX_set0_ctlog_store(ctx: PSSL_CTX; logs: PCTLOG_STORE);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set0_ctlog_store_procname);
 end;
 
  {introduced 1.1.0}
 
-function ERR_SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : PCTLOG_STORE;
+function ERR_SSL_CTX_get0_ctlog_store(const ctx: PSSL_CTX) : PCTLOG_STORE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_ctlog_store_procname);
 end;
 
   // # endif /* OPENSSL_NO_CT */
 
-procedure  ERR_SSL_set_security_level(s: PSSL; level: TIdC_INT); 
+procedure  ERR_SSL_set_security_level(s: PSSL; level: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_security_level_procname);
 end;
 
  {introduced 1.1.0}
 
-function ERR_SSL_get_security_level(const s: PSSL) : TIdC_INT;
+function ERR_SSL_get_security_level(const s: PSSL) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_security_level_procname);
 end;
 
-procedure  ERR_SSL_set_security_callback(s: PSSL; cb: SSL_security_callback); 
+procedure  ERR_SSL_set_security_callback(s: PSSL; cb: SSL_security_callback);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_security_callback_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get_security_callback(const s: PSSL): SSL_security_callback; 
+function  ERR_SSL_get_security_callback(const s: PSSL): SSL_security_callback;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_security_callback_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set0_security_ex_data(s: PSSL; ex: Pointer); 
+procedure  ERR_SSL_set0_security_ex_data(s: PSSL; ex: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set0_security_ex_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_get0_security_ex_data(const s: PSSL): Pointer; 
+function  ERR_SSL_get0_security_ex_data(const s: PSSL): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_security_ex_data_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_security_level(ctx: PSSL_CTX; level: TIdC_INT); 
+procedure  ERR_SSL_CTX_set_security_level(ctx: PSSL_CTX; level: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_security_level_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_CTX_get_security_level(const ctx: PSSL_CTX): TIdC_INT; 
+function  ERR_SSL_CTX_get_security_level(const ctx: PSSL_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_security_level_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure ERR_SSL_CTX_set_security_callback(ctx: PSSL_CTX; cb: SSL_security_callback);
+procedure ERR_SSL_CTX_set_security_callback(ctx: PSSL_CTX; cb: SSL_security_callback); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_security_callback_procname);
 end;
 
-function ERR_SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback;
+function ERR_SSL_CTX_get_security_callback(const ctx: PSSL_CTX) : SSL_security_callback; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get_security_callback_procname);
 end;
 
-function  ERR_SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer; 
+function  ERR_SSL_CTX_get0_security_ex_data(const ctx: PSSL_CTX): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_get0_security_ex_data_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSL_CTX_set0_security_ex_data(ctx: PSSL_CTX; ex: Pointer); 
+procedure  ERR_SSL_CTX_set0_security_ex_data(ctx: PSSL_CTX; ex: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set0_security_ex_data_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; 
+function  ERR_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_init_ssl_procname);
 end;
@@ -9887,33 +9888,33 @@ end;
   //__owur const struct openssl_ssl_test_functions *SSL_test_functions(void);
   //# endif
 
-function  ERR_SSL_free_buffers(ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_free_buffers(ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_free_buffers_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_alloc_buffers(ssl: PSSL): TIdC_INT; 
+function  ERR_SSL_alloc_buffers(ssl: PSSL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_alloc_buffers_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_CTX_set_session_ticket_cb(ctx: PSSL_CTX; gen_cb: SSL_CTX_generate_session_ticket_fn; dec_cb: SSL_CTX_decrypt_session_ticket_fn; arg: Pointer): TIdC_INT; 
+function  ERR_SSL_CTX_set_session_ticket_cb(ctx: PSSL_CTX; gen_cb: SSL_CTX_generate_session_ticket_fn; dec_cb: SSL_CTX_decrypt_session_ticket_fn; arg: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_session_ticket_cb_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSL_SESSION_set1_ticket_appdata(ss: PSSL_SESSION; const data: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_SESSION_set1_ticket_appdata(ss: PSSL_SESSION; const data: Pointer; len: TIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_set1_ticket_appdata_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_SSL_SESSION_get0_ticket_appdata(ss: PSSL_SESSION; data: PPointer; len: PIdC_SIZET): TIdC_INT; 
+function  ERR_SSL_SESSION_get0_ticket_appdata(ss: PSSL_SESSION; data: PPointer; len: PIdC_SIZET): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_SESSION_get0_ticket_appdata_procname);
 end;
@@ -9922,128 +9923,128 @@ end;
 
   //extern const PIdAnsiChar SSL_version_str[];
 
-procedure  ERR_DTLS_set_timer_cb(s: PSSL; cb: DTLS_timer_cb); 
+procedure  ERR_DTLS_set_timer_cb(s: PSSL; cb: DTLS_timer_cb);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DTLS_set_timer_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_CTX_set_allow_early_data_cb(ctx: PSSL_CTX; cb: SSL_allow_early_data_cb_fN; arg: Pointer); 
+procedure  ERR_SSL_CTX_set_allow_early_data_cb(ctx: PSSL_CTX; cb: SSL_allow_early_data_cb_fN; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_allow_early_data_cb_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_SSL_set_allow_early_data_cb(s: PSSL; cb: SSL_allow_early_data_cb_fN; arg: Pointer); 
+procedure  ERR_SSL_set_allow_early_data_cb(s: PSSL; cb: SSL_allow_early_data_cb_fN; arg: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_allow_early_data_cb_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSLv2_method: PSSL_METHOD; 
+function  ERR_SSLv2_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv2_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv2
-function  ERR_SSLv2_server_method: PSSL_METHOD; 
+function  ERR_SSLv2_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv2_server_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv2
-function  ERR_SSLv2_client_method: PSSL_METHOD; 
+function  ERR_SSLv2_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv2_client_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv2
-function  ERR_SSLv3_method: PSSL_METHOD; 
+function  ERR_SSLv3_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv3_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3
-function  ERR_SSLv3_server_method: PSSL_METHOD; 
+function  ERR_SSLv3_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv3_server_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3
-function  ERR_SSLv3_client_method: PSSL_METHOD; 
+function  ERR_SSLv3_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv3_client_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3
-function  ERR_SSLv23_method: PSSL_METHOD; 
+function  ERR_SSLv23_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv23_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
-function  ERR_SSLv23_server_method: PSSL_METHOD; 
+function  ERR_SSLv23_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv23_server_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
-function  ERR_SSLv23_client_method: PSSL_METHOD; 
+function  ERR_SSLv23_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLv23_client_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
-function  ERR_TLSv1_method: PSSL_METHOD; 
+function  ERR_TLSv1_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // TLSv1.0
-function  ERR_TLSv1_server_method: PSSL_METHOD; 
+function  ERR_TLSv1_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_server_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // TLSv1.0
-function  ERR_TLSv1_client_method: PSSL_METHOD; 
+function  ERR_TLSv1_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_client_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} // TLSv1.0
-function  ERR_TLSv1_1_method: PSSL_METHOD; 
+function  ERR_TLSv1_1_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_1_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} //TLS1.1
-function  ERR_TLSv1_1_server_method: PSSL_METHOD; 
+function  ERR_TLSv1_1_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_1_server_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} //TLS1.1
-function  ERR_TLSv1_1_client_method: PSSL_METHOD; 
+function  ERR_TLSv1_1_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_1_client_method_procname);
 end;
 
  {removed 1.1.0 allow_nil} //TLS1.1
-function  ERR_TLSv1_2_method:  PSSL_METHOD; 
+function  ERR_TLSv1_2_method:  PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_2_method_procname);
 end;
 
  {removed 1.1.0 allow_nil}		// TLSv1.2
-function  ERR_TLSv1_2_server_method: PSSL_METHOD; 
+function  ERR_TLSv1_2_server_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_2_server_method_procname);
 end;
 
- {removed 1.1.0 allow_nil}	// TLSv1.2 
-function  ERR_TLSv1_2_client_method: PSSL_METHOD; 
+ {removed 1.1.0 allow_nil}	// TLSv1.2
+function  ERR_TLSv1_2_client_method: PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(TLSv1_2_client_method_procname);
 end;
@@ -10051,14 +10052,14 @@ end;
  {removed 1.1.0 allow_nil}	// TLSv1.2
 
   //X509 *SSL_get0_peer_certificate(const SSL *s);
-function  ERR_SSL_get0_peer_certificate(const s: PSSL): PX509; 
+function  ERR_SSL_get0_peer_certificate(const s: PSSL): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get0_peer_certificate_procname);
 end;
 
  {introduced 3.3.0}
   // X509 *SSL_get1_peer_certificate(const SSL *s);
-function  ERR_SSL_get1_peer_certificate(const s: PSSL): PX509; 
+function  ERR_SSL_get1_peer_certificate(const s: PSSL): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get1_peer_certificate_procname);
 end;
@@ -10076,13 +10077,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_mode_allownil)}
-    SSL_CTX_set_mode := @ERR_SSL_CTX_set_mode;
+    SSL_CTX_set_mode := ERR_SSL_CTX_set_mode;
     {$ifend}
     {$if declared(SSL_CTX_set_mode_introduced)}
     if LibVersion < SSL_CTX_set_mode_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_mode)}
-      SSL_CTX_set_mode := @FC_SSL_CTX_set_mode;
+      SSL_CTX_set_mode := FC_SSL_CTX_set_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10091,7 +10092,7 @@ begin
     if SSL_CTX_set_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_mode)}
-      SSL_CTX_set_mode := @_SSL_CTX_set_mode;
+      SSL_CTX_set_mode := _SSL_CTX_set_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10108,13 +10109,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_clear_mode_allownil)}
-    SSL_CTX_clear_mode := @ERR_SSL_CTX_clear_mode;
+    SSL_CTX_clear_mode := ERR_SSL_CTX_clear_mode;
     {$ifend}
     {$if declared(SSL_CTX_clear_mode_introduced)}
     if LibVersion < SSL_CTX_clear_mode_introduced then
     begin
       {$if declared(FC_SSL_CTX_clear_mode)}
-      SSL_CTX_clear_mode := @FC_SSL_CTX_clear_mode;
+      SSL_CTX_clear_mode := FC_SSL_CTX_clear_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10123,7 +10124,7 @@ begin
     if SSL_CTX_clear_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_clear_mode)}
-      SSL_CTX_clear_mode := @_SSL_CTX_clear_mode;
+      SSL_CTX_clear_mode := _SSL_CTX_clear_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10140,13 +10141,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_set_cache_size_allownil)}
-    SSL_CTX_sess_set_cache_size := @ERR_SSL_CTX_sess_set_cache_size;
+    SSL_CTX_sess_set_cache_size := ERR_SSL_CTX_sess_set_cache_size;
     {$ifend}
     {$if declared(SSL_CTX_sess_set_cache_size_introduced)}
     if LibVersion < SSL_CTX_sess_set_cache_size_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_set_cache_size)}
-      SSL_CTX_sess_set_cache_size := @FC_SSL_CTX_sess_set_cache_size;
+      SSL_CTX_sess_set_cache_size := FC_SSL_CTX_sess_set_cache_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10155,7 +10156,7 @@ begin
     if SSL_CTX_sess_set_cache_size_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_set_cache_size)}
-      SSL_CTX_sess_set_cache_size := @_SSL_CTX_sess_set_cache_size;
+      SSL_CTX_sess_set_cache_size := _SSL_CTX_sess_set_cache_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10172,13 +10173,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_get_cache_size_allownil)}
-    SSL_CTX_sess_get_cache_size := @ERR_SSL_CTX_sess_get_cache_size;
+    SSL_CTX_sess_get_cache_size := ERR_SSL_CTX_sess_get_cache_size;
     {$ifend}
     {$if declared(SSL_CTX_sess_get_cache_size_introduced)}
     if LibVersion < SSL_CTX_sess_get_cache_size_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_get_cache_size)}
-      SSL_CTX_sess_get_cache_size := @FC_SSL_CTX_sess_get_cache_size;
+      SSL_CTX_sess_get_cache_size := FC_SSL_CTX_sess_get_cache_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10187,7 +10188,7 @@ begin
     if SSL_CTX_sess_get_cache_size_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_get_cache_size)}
-      SSL_CTX_sess_get_cache_size := @_SSL_CTX_sess_get_cache_size;
+      SSL_CTX_sess_get_cache_size := _SSL_CTX_sess_get_cache_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10204,13 +10205,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_session_cache_mode_allownil)}
-    SSL_CTX_set_session_cache_mode := @ERR_SSL_CTX_set_session_cache_mode;
+    SSL_CTX_set_session_cache_mode := ERR_SSL_CTX_set_session_cache_mode;
     {$ifend}
     {$if declared(SSL_CTX_set_session_cache_mode_introduced)}
     if LibVersion < SSL_CTX_set_session_cache_mode_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_session_cache_mode)}
-      SSL_CTX_set_session_cache_mode := @FC_SSL_CTX_set_session_cache_mode;
+      SSL_CTX_set_session_cache_mode := FC_SSL_CTX_set_session_cache_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10219,7 +10220,7 @@ begin
     if SSL_CTX_set_session_cache_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_session_cache_mode)}
-      SSL_CTX_set_session_cache_mode := @_SSL_CTX_set_session_cache_mode;
+      SSL_CTX_set_session_cache_mode := _SSL_CTX_set_session_cache_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10236,13 +10237,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_session_cache_mode_allownil)}
-    SSL_CTX_get_session_cache_mode := @ERR_SSL_CTX_get_session_cache_mode;
+    SSL_CTX_get_session_cache_mode := ERR_SSL_CTX_get_session_cache_mode;
     {$ifend}
     {$if declared(SSL_CTX_get_session_cache_mode_introduced)}
     if LibVersion < SSL_CTX_get_session_cache_mode_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_session_cache_mode)}
-      SSL_CTX_get_session_cache_mode := @FC_SSL_CTX_get_session_cache_mode;
+      SSL_CTX_get_session_cache_mode := FC_SSL_CTX_get_session_cache_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10251,7 +10252,7 @@ begin
     if SSL_CTX_get_session_cache_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_session_cache_mode)}
-      SSL_CTX_get_session_cache_mode := @_SSL_CTX_get_session_cache_mode;
+      SSL_CTX_get_session_cache_mode := _SSL_CTX_get_session_cache_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10268,13 +10269,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_clear_num_renegotiations_allownil)}
-    SSL_clear_num_renegotiations := @ERR_SSL_clear_num_renegotiations;
+    SSL_clear_num_renegotiations := ERR_SSL_clear_num_renegotiations;
     {$ifend}
     {$if declared(SSL_clear_num_renegotiations_introduced)}
     if LibVersion < SSL_clear_num_renegotiations_introduced then
     begin
       {$if declared(FC_SSL_clear_num_renegotiations)}
-      SSL_clear_num_renegotiations := @FC_SSL_clear_num_renegotiations;
+      SSL_clear_num_renegotiations := FC_SSL_clear_num_renegotiations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10283,7 +10284,7 @@ begin
     if SSL_clear_num_renegotiations_removed <= LibVersion then
     begin
       {$if declared(_SSL_clear_num_renegotiations)}
-      SSL_clear_num_renegotiations := @_SSL_clear_num_renegotiations;
+      SSL_clear_num_renegotiations := _SSL_clear_num_renegotiations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10300,13 +10301,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_total_renegotiations_allownil)}
-    SSL_total_renegotiations := @ERR_SSL_total_renegotiations;
+    SSL_total_renegotiations := ERR_SSL_total_renegotiations;
     {$ifend}
     {$if declared(SSL_total_renegotiations_introduced)}
     if LibVersion < SSL_total_renegotiations_introduced then
     begin
       {$if declared(FC_SSL_total_renegotiations)}
-      SSL_total_renegotiations := @FC_SSL_total_renegotiations;
+      SSL_total_renegotiations := FC_SSL_total_renegotiations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10315,7 +10316,7 @@ begin
     if SSL_total_renegotiations_removed <= LibVersion then
     begin
       {$if declared(_SSL_total_renegotiations)}
-      SSL_total_renegotiations := @_SSL_total_renegotiations;
+      SSL_total_renegotiations := _SSL_total_renegotiations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10332,13 +10333,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_tmp_dh_allownil)}
-    SSL_CTX_set_tmp_dh := @ERR_SSL_CTX_set_tmp_dh;
+    SSL_CTX_set_tmp_dh := ERR_SSL_CTX_set_tmp_dh;
     {$ifend}
     {$if declared(SSL_CTX_set_tmp_dh_introduced)}
     if LibVersion < SSL_CTX_set_tmp_dh_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_tmp_dh)}
-      SSL_CTX_set_tmp_dh := @FC_SSL_CTX_set_tmp_dh;
+      SSL_CTX_set_tmp_dh := FC_SSL_CTX_set_tmp_dh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10347,7 +10348,7 @@ begin
     if SSL_CTX_set_tmp_dh_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_tmp_dh)}
-      SSL_CTX_set_tmp_dh := @_SSL_CTX_set_tmp_dh;
+      SSL_CTX_set_tmp_dh := _SSL_CTX_set_tmp_dh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10364,13 +10365,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_tmp_ecdh_allownil)}
-    SSL_CTX_set_tmp_ecdh := @ERR_SSL_CTX_set_tmp_ecdh;
+    SSL_CTX_set_tmp_ecdh := ERR_SSL_CTX_set_tmp_ecdh;
     {$ifend}
     {$if declared(SSL_CTX_set_tmp_ecdh_introduced)}
     if LibVersion < SSL_CTX_set_tmp_ecdh_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_tmp_ecdh)}
-      SSL_CTX_set_tmp_ecdh := @FC_SSL_CTX_set_tmp_ecdh;
+      SSL_CTX_set_tmp_ecdh := FC_SSL_CTX_set_tmp_ecdh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10379,7 +10380,7 @@ begin
     if SSL_CTX_set_tmp_ecdh_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_tmp_ecdh)}
-      SSL_CTX_set_tmp_ecdh := @_SSL_CTX_set_tmp_ecdh;
+      SSL_CTX_set_tmp_ecdh := _SSL_CTX_set_tmp_ecdh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10396,13 +10397,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_dh_auto_allownil)}
-    SSL_CTX_set_dh_auto := @ERR_SSL_CTX_set_dh_auto;
+    SSL_CTX_set_dh_auto := ERR_SSL_CTX_set_dh_auto;
     {$ifend}
     {$if declared(SSL_CTX_set_dh_auto_introduced)}
     if LibVersion < SSL_CTX_set_dh_auto_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_dh_auto)}
-      SSL_CTX_set_dh_auto := @FC_SSL_CTX_set_dh_auto;
+      SSL_CTX_set_dh_auto := FC_SSL_CTX_set_dh_auto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10411,7 +10412,7 @@ begin
     if SSL_CTX_set_dh_auto_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_dh_auto)}
-      SSL_CTX_set_dh_auto := @_SSL_CTX_set_dh_auto;
+      SSL_CTX_set_dh_auto := _SSL_CTX_set_dh_auto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10428,13 +10429,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_dh_auto_allownil)}
-    SSL_set_dh_auto := @ERR_SSL_set_dh_auto;
+    SSL_set_dh_auto := ERR_SSL_set_dh_auto;
     {$ifend}
     {$if declared(SSL_set_dh_auto_introduced)}
     if LibVersion < SSL_set_dh_auto_introduced then
     begin
       {$if declared(FC_SSL_set_dh_auto)}
-      SSL_set_dh_auto := @FC_SSL_set_dh_auto;
+      SSL_set_dh_auto := FC_SSL_set_dh_auto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10443,7 +10444,7 @@ begin
     if SSL_set_dh_auto_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_dh_auto)}
-      SSL_set_dh_auto := @_SSL_set_dh_auto;
+      SSL_set_dh_auto := _SSL_set_dh_auto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10460,13 +10461,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_tmp_dh_allownil)}
-    SSL_set_tmp_dh := @ERR_SSL_set_tmp_dh;
+    SSL_set_tmp_dh := ERR_SSL_set_tmp_dh;
     {$ifend}
     {$if declared(SSL_set_tmp_dh_introduced)}
     if LibVersion < SSL_set_tmp_dh_introduced then
     begin
       {$if declared(FC_SSL_set_tmp_dh)}
-      SSL_set_tmp_dh := @FC_SSL_set_tmp_dh;
+      SSL_set_tmp_dh := FC_SSL_set_tmp_dh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10475,7 +10476,7 @@ begin
     if SSL_set_tmp_dh_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_tmp_dh)}
-      SSL_set_tmp_dh := @_SSL_set_tmp_dh;
+      SSL_set_tmp_dh := _SSL_set_tmp_dh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10492,13 +10493,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_tmp_ecdh_allownil)}
-    SSL_set_tmp_ecdh := @ERR_SSL_set_tmp_ecdh;
+    SSL_set_tmp_ecdh := ERR_SSL_set_tmp_ecdh;
     {$ifend}
     {$if declared(SSL_set_tmp_ecdh_introduced)}
     if LibVersion < SSL_set_tmp_ecdh_introduced then
     begin
       {$if declared(FC_SSL_set_tmp_ecdh)}
-      SSL_set_tmp_ecdh := @FC_SSL_set_tmp_ecdh;
+      SSL_set_tmp_ecdh := FC_SSL_set_tmp_ecdh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10507,7 +10508,7 @@ begin
     if SSL_set_tmp_ecdh_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_tmp_ecdh)}
-      SSL_set_tmp_ecdh := @_SSL_set_tmp_ecdh;
+      SSL_set_tmp_ecdh := _SSL_set_tmp_ecdh;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10524,13 +10525,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_extra_chain_cert_allownil)}
-    SSL_CTX_add_extra_chain_cert := @ERR_SSL_CTX_add_extra_chain_cert;
+    SSL_CTX_add_extra_chain_cert := ERR_SSL_CTX_add_extra_chain_cert;
     {$ifend}
     {$if declared(SSL_CTX_add_extra_chain_cert_introduced)}
     if LibVersion < SSL_CTX_add_extra_chain_cert_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_extra_chain_cert)}
-      SSL_CTX_add_extra_chain_cert := @FC_SSL_CTX_add_extra_chain_cert;
+      SSL_CTX_add_extra_chain_cert := FC_SSL_CTX_add_extra_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10539,7 +10540,7 @@ begin
     if SSL_CTX_add_extra_chain_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_extra_chain_cert)}
-      SSL_CTX_add_extra_chain_cert := @_SSL_CTX_add_extra_chain_cert;
+      SSL_CTX_add_extra_chain_cert := _SSL_CTX_add_extra_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10556,13 +10557,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_extra_chain_certs_allownil)}
-    SSL_CTX_get_extra_chain_certs := @ERR_SSL_CTX_get_extra_chain_certs;
+    SSL_CTX_get_extra_chain_certs := ERR_SSL_CTX_get_extra_chain_certs;
     {$ifend}
     {$if declared(SSL_CTX_get_extra_chain_certs_introduced)}
     if LibVersion < SSL_CTX_get_extra_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_extra_chain_certs)}
-      SSL_CTX_get_extra_chain_certs := @FC_SSL_CTX_get_extra_chain_certs;
+      SSL_CTX_get_extra_chain_certs := FC_SSL_CTX_get_extra_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10571,7 +10572,7 @@ begin
     if SSL_CTX_get_extra_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_extra_chain_certs)}
-      SSL_CTX_get_extra_chain_certs := @_SSL_CTX_get_extra_chain_certs;
+      SSL_CTX_get_extra_chain_certs := _SSL_CTX_get_extra_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10588,13 +10589,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_extra_chain_certs_only_allownil)}
-    SSL_CTX_get_extra_chain_certs_only := @ERR_SSL_CTX_get_extra_chain_certs_only;
+    SSL_CTX_get_extra_chain_certs_only := ERR_SSL_CTX_get_extra_chain_certs_only;
     {$ifend}
     {$if declared(SSL_CTX_get_extra_chain_certs_only_introduced)}
     if LibVersion < SSL_CTX_get_extra_chain_certs_only_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_extra_chain_certs_only)}
-      SSL_CTX_get_extra_chain_certs_only := @FC_SSL_CTX_get_extra_chain_certs_only;
+      SSL_CTX_get_extra_chain_certs_only := FC_SSL_CTX_get_extra_chain_certs_only;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10603,7 +10604,7 @@ begin
     if SSL_CTX_get_extra_chain_certs_only_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_extra_chain_certs_only)}
-      SSL_CTX_get_extra_chain_certs_only := @_SSL_CTX_get_extra_chain_certs_only;
+      SSL_CTX_get_extra_chain_certs_only := _SSL_CTX_get_extra_chain_certs_only;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10620,13 +10621,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_clear_extra_chain_certs_allownil)}
-    SSL_CTX_clear_extra_chain_certs := @ERR_SSL_CTX_clear_extra_chain_certs;
+    SSL_CTX_clear_extra_chain_certs := ERR_SSL_CTX_clear_extra_chain_certs;
     {$ifend}
     {$if declared(SSL_CTX_clear_extra_chain_certs_introduced)}
     if LibVersion < SSL_CTX_clear_extra_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_CTX_clear_extra_chain_certs)}
-      SSL_CTX_clear_extra_chain_certs := @FC_SSL_CTX_clear_extra_chain_certs;
+      SSL_CTX_clear_extra_chain_certs := FC_SSL_CTX_clear_extra_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10635,7 +10636,7 @@ begin
     if SSL_CTX_clear_extra_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_clear_extra_chain_certs)}
-      SSL_CTX_clear_extra_chain_certs := @_SSL_CTX_clear_extra_chain_certs;
+      SSL_CTX_clear_extra_chain_certs := _SSL_CTX_clear_extra_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10652,13 +10653,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_chain_allownil)}
-    SSL_CTX_set0_chain := @ERR_SSL_CTX_set0_chain;
+    SSL_CTX_set0_chain := ERR_SSL_CTX_set0_chain;
     {$ifend}
     {$if declared(SSL_CTX_set0_chain_introduced)}
     if LibVersion < SSL_CTX_set0_chain_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_chain)}
-      SSL_CTX_set0_chain := @FC_SSL_CTX_set0_chain;
+      SSL_CTX_set0_chain := FC_SSL_CTX_set0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10667,7 +10668,7 @@ begin
     if SSL_CTX_set0_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_chain)}
-      SSL_CTX_set0_chain := @_SSL_CTX_set0_chain;
+      SSL_CTX_set0_chain := _SSL_CTX_set0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10684,13 +10685,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_chain_allownil)}
-    SSL_CTX_set1_chain := @ERR_SSL_CTX_set1_chain;
+    SSL_CTX_set1_chain := ERR_SSL_CTX_set1_chain;
     {$ifend}
     {$if declared(SSL_CTX_set1_chain_introduced)}
     if LibVersion < SSL_CTX_set1_chain_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_chain)}
-      SSL_CTX_set1_chain := @FC_SSL_CTX_set1_chain;
+      SSL_CTX_set1_chain := FC_SSL_CTX_set1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10699,7 +10700,7 @@ begin
     if SSL_CTX_set1_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_chain)}
-      SSL_CTX_set1_chain := @_SSL_CTX_set1_chain;
+      SSL_CTX_set1_chain := _SSL_CTX_set1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10716,13 +10717,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add0_chain_cert_allownil)}
-    SSL_CTX_add0_chain_cert := @ERR_SSL_CTX_add0_chain_cert;
+    SSL_CTX_add0_chain_cert := ERR_SSL_CTX_add0_chain_cert;
     {$ifend}
     {$if declared(SSL_CTX_add0_chain_cert_introduced)}
     if LibVersion < SSL_CTX_add0_chain_cert_introduced then
     begin
       {$if declared(FC_SSL_CTX_add0_chain_cert)}
-      SSL_CTX_add0_chain_cert := @FC_SSL_CTX_add0_chain_cert;
+      SSL_CTX_add0_chain_cert := FC_SSL_CTX_add0_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10731,7 +10732,7 @@ begin
     if SSL_CTX_add0_chain_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add0_chain_cert)}
-      SSL_CTX_add0_chain_cert := @_SSL_CTX_add0_chain_cert;
+      SSL_CTX_add0_chain_cert := _SSL_CTX_add0_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10748,13 +10749,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add1_chain_cert_allownil)}
-    SSL_CTX_add1_chain_cert := @ERR_SSL_CTX_add1_chain_cert;
+    SSL_CTX_add1_chain_cert := ERR_SSL_CTX_add1_chain_cert;
     {$ifend}
     {$if declared(SSL_CTX_add1_chain_cert_introduced)}
     if LibVersion < SSL_CTX_add1_chain_cert_introduced then
     begin
       {$if declared(FC_SSL_CTX_add1_chain_cert)}
-      SSL_CTX_add1_chain_cert := @FC_SSL_CTX_add1_chain_cert;
+      SSL_CTX_add1_chain_cert := FC_SSL_CTX_add1_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10763,7 +10764,7 @@ begin
     if SSL_CTX_add1_chain_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add1_chain_cert)}
-      SSL_CTX_add1_chain_cert := @_SSL_CTX_add1_chain_cert;
+      SSL_CTX_add1_chain_cert := _SSL_CTX_add1_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10780,13 +10781,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_chain_certs_allownil)}
-    SSL_CTX_get0_chain_certs := @ERR_SSL_CTX_get0_chain_certs;
+    SSL_CTX_get0_chain_certs := ERR_SSL_CTX_get0_chain_certs;
     {$ifend}
     {$if declared(SSL_CTX_get0_chain_certs_introduced)}
     if LibVersion < SSL_CTX_get0_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_chain_certs)}
-      SSL_CTX_get0_chain_certs := @FC_SSL_CTX_get0_chain_certs;
+      SSL_CTX_get0_chain_certs := FC_SSL_CTX_get0_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10795,7 +10796,7 @@ begin
     if SSL_CTX_get0_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_chain_certs)}
-      SSL_CTX_get0_chain_certs := @_SSL_CTX_get0_chain_certs;
+      SSL_CTX_get0_chain_certs := _SSL_CTX_get0_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10812,13 +10813,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_clear_chain_certs_allownil)}
-    SSL_CTX_clear_chain_certs := @ERR_SSL_CTX_clear_chain_certs;
+    SSL_CTX_clear_chain_certs := ERR_SSL_CTX_clear_chain_certs;
     {$ifend}
     {$if declared(SSL_CTX_clear_chain_certs_introduced)}
     if LibVersion < SSL_CTX_clear_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_CTX_clear_chain_certs)}
-      SSL_CTX_clear_chain_certs := @FC_SSL_CTX_clear_chain_certs;
+      SSL_CTX_clear_chain_certs := FC_SSL_CTX_clear_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10827,7 +10828,7 @@ begin
     if SSL_CTX_clear_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_clear_chain_certs)}
-      SSL_CTX_clear_chain_certs := @_SSL_CTX_clear_chain_certs;
+      SSL_CTX_clear_chain_certs := _SSL_CTX_clear_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10844,13 +10845,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_build_cert_chain_allownil)}
-    SSL_CTX_build_cert_chain := @ERR_SSL_CTX_build_cert_chain;
+    SSL_CTX_build_cert_chain := ERR_SSL_CTX_build_cert_chain;
     {$ifend}
     {$if declared(SSL_CTX_build_cert_chain_introduced)}
     if LibVersion < SSL_CTX_build_cert_chain_introduced then
     begin
       {$if declared(FC_SSL_CTX_build_cert_chain)}
-      SSL_CTX_build_cert_chain := @FC_SSL_CTX_build_cert_chain;
+      SSL_CTX_build_cert_chain := FC_SSL_CTX_build_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10859,7 +10860,7 @@ begin
     if SSL_CTX_build_cert_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_build_cert_chain)}
-      SSL_CTX_build_cert_chain := @_SSL_CTX_build_cert_chain;
+      SSL_CTX_build_cert_chain := _SSL_CTX_build_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10876,13 +10877,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_select_current_cert_allownil)}
-    SSL_CTX_select_current_cert := @ERR_SSL_CTX_select_current_cert;
+    SSL_CTX_select_current_cert := ERR_SSL_CTX_select_current_cert;
     {$ifend}
     {$if declared(SSL_CTX_select_current_cert_introduced)}
     if LibVersion < SSL_CTX_select_current_cert_introduced then
     begin
       {$if declared(FC_SSL_CTX_select_current_cert)}
-      SSL_CTX_select_current_cert := @FC_SSL_CTX_select_current_cert;
+      SSL_CTX_select_current_cert := FC_SSL_CTX_select_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10891,7 +10892,7 @@ begin
     if SSL_CTX_select_current_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_select_current_cert)}
-      SSL_CTX_select_current_cert := @_SSL_CTX_select_current_cert;
+      SSL_CTX_select_current_cert := _SSL_CTX_select_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10908,13 +10909,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_current_cert_allownil)}
-    SSL_CTX_set_current_cert := @ERR_SSL_CTX_set_current_cert;
+    SSL_CTX_set_current_cert := ERR_SSL_CTX_set_current_cert;
     {$ifend}
     {$if declared(SSL_CTX_set_current_cert_introduced)}
     if LibVersion < SSL_CTX_set_current_cert_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_current_cert)}
-      SSL_CTX_set_current_cert := @FC_SSL_CTX_set_current_cert;
+      SSL_CTX_set_current_cert := FC_SSL_CTX_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10923,7 +10924,7 @@ begin
     if SSL_CTX_set_current_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_current_cert)}
-      SSL_CTX_set_current_cert := @_SSL_CTX_set_current_cert;
+      SSL_CTX_set_current_cert := _SSL_CTX_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10940,13 +10941,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_verify_cert_store_allownil)}
-    SSL_CTX_set0_verify_cert_store := @ERR_SSL_CTX_set0_verify_cert_store;
+    SSL_CTX_set0_verify_cert_store := ERR_SSL_CTX_set0_verify_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set0_verify_cert_store_introduced)}
     if LibVersion < SSL_CTX_set0_verify_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_verify_cert_store)}
-      SSL_CTX_set0_verify_cert_store := @FC_SSL_CTX_set0_verify_cert_store;
+      SSL_CTX_set0_verify_cert_store := FC_SSL_CTX_set0_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10955,7 +10956,7 @@ begin
     if SSL_CTX_set0_verify_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_verify_cert_store)}
-      SSL_CTX_set0_verify_cert_store := @_SSL_CTX_set0_verify_cert_store;
+      SSL_CTX_set0_verify_cert_store := _SSL_CTX_set0_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10972,13 +10973,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_verify_cert_store_allownil)}
-    SSL_CTX_set1_verify_cert_store := @ERR_SSL_CTX_set1_verify_cert_store;
+    SSL_CTX_set1_verify_cert_store := ERR_SSL_CTX_set1_verify_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set1_verify_cert_store_introduced)}
     if LibVersion < SSL_CTX_set1_verify_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_verify_cert_store)}
-      SSL_CTX_set1_verify_cert_store := @FC_SSL_CTX_set1_verify_cert_store;
+      SSL_CTX_set1_verify_cert_store := FC_SSL_CTX_set1_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -10987,7 +10988,7 @@ begin
     if SSL_CTX_set1_verify_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_verify_cert_store)}
-      SSL_CTX_set1_verify_cert_store := @_SSL_CTX_set1_verify_cert_store;
+      SSL_CTX_set1_verify_cert_store := _SSL_CTX_set1_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11004,13 +11005,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_chain_cert_store_allownil)}
-    SSL_CTX_set0_chain_cert_store := @ERR_SSL_CTX_set0_chain_cert_store;
+    SSL_CTX_set0_chain_cert_store := ERR_SSL_CTX_set0_chain_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set0_chain_cert_store_introduced)}
     if LibVersion < SSL_CTX_set0_chain_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_chain_cert_store)}
-      SSL_CTX_set0_chain_cert_store := @FC_SSL_CTX_set0_chain_cert_store;
+      SSL_CTX_set0_chain_cert_store := FC_SSL_CTX_set0_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11019,7 +11020,7 @@ begin
     if SSL_CTX_set0_chain_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_chain_cert_store)}
-      SSL_CTX_set0_chain_cert_store := @_SSL_CTX_set0_chain_cert_store;
+      SSL_CTX_set0_chain_cert_store := _SSL_CTX_set0_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11036,13 +11037,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_chain_cert_store_allownil)}
-    SSL_CTX_set1_chain_cert_store := @ERR_SSL_CTX_set1_chain_cert_store;
+    SSL_CTX_set1_chain_cert_store := ERR_SSL_CTX_set1_chain_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set1_chain_cert_store_introduced)}
     if LibVersion < SSL_CTX_set1_chain_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_chain_cert_store)}
-      SSL_CTX_set1_chain_cert_store := @FC_SSL_CTX_set1_chain_cert_store;
+      SSL_CTX_set1_chain_cert_store := FC_SSL_CTX_set1_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11051,7 +11052,7 @@ begin
     if SSL_CTX_set1_chain_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_chain_cert_store)}
-      SSL_CTX_set1_chain_cert_store := @_SSL_CTX_set1_chain_cert_store;
+      SSL_CTX_set1_chain_cert_store := _SSL_CTX_set1_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11068,13 +11069,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_chain_allownil)}
-    SSL_set0_chain := @ERR_SSL_set0_chain;
+    SSL_set0_chain := ERR_SSL_set0_chain;
     {$ifend}
     {$if declared(SSL_set0_chain_introduced)}
     if LibVersion < SSL_set0_chain_introduced then
     begin
       {$if declared(FC_SSL_set0_chain)}
-      SSL_set0_chain := @FC_SSL_set0_chain;
+      SSL_set0_chain := FC_SSL_set0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11083,7 +11084,7 @@ begin
     if SSL_set0_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_chain)}
-      SSL_set0_chain := @_SSL_set0_chain;
+      SSL_set0_chain := _SSL_set0_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11100,13 +11101,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_chain_allownil)}
-    SSL_set1_chain := @ERR_SSL_set1_chain;
+    SSL_set1_chain := ERR_SSL_set1_chain;
     {$ifend}
     {$if declared(SSL_set1_chain_introduced)}
     if LibVersion < SSL_set1_chain_introduced then
     begin
       {$if declared(FC_SSL_set1_chain)}
-      SSL_set1_chain := @FC_SSL_set1_chain;
+      SSL_set1_chain := FC_SSL_set1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11115,7 +11116,7 @@ begin
     if SSL_set1_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_chain)}
-      SSL_set1_chain := @_SSL_set1_chain;
+      SSL_set1_chain := _SSL_set1_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11132,13 +11133,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add0_chain_cert_allownil)}
-    SSL_add0_chain_cert := @ERR_SSL_add0_chain_cert;
+    SSL_add0_chain_cert := ERR_SSL_add0_chain_cert;
     {$ifend}
     {$if declared(SSL_add0_chain_cert_introduced)}
     if LibVersion < SSL_add0_chain_cert_introduced then
     begin
       {$if declared(FC_SSL_add0_chain_cert)}
-      SSL_add0_chain_cert := @FC_SSL_add0_chain_cert;
+      SSL_add0_chain_cert := FC_SSL_add0_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11147,7 +11148,7 @@ begin
     if SSL_add0_chain_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_add0_chain_cert)}
-      SSL_add0_chain_cert := @_SSL_add0_chain_cert;
+      SSL_add0_chain_cert := _SSL_add0_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11164,13 +11165,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add1_chain_cert_allownil)}
-    SSL_add1_chain_cert := @ERR_SSL_add1_chain_cert;
+    SSL_add1_chain_cert := ERR_SSL_add1_chain_cert;
     {$ifend}
     {$if declared(SSL_add1_chain_cert_introduced)}
     if LibVersion < SSL_add1_chain_cert_introduced then
     begin
       {$if declared(FC_SSL_add1_chain_cert)}
-      SSL_add1_chain_cert := @FC_SSL_add1_chain_cert;
+      SSL_add1_chain_cert := FC_SSL_add1_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11179,7 +11180,7 @@ begin
     if SSL_add1_chain_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_add1_chain_cert)}
-      SSL_add1_chain_cert := @_SSL_add1_chain_cert;
+      SSL_add1_chain_cert := _SSL_add1_chain_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11196,13 +11197,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_chain_certs_allownil)}
-    SSL_get0_chain_certs := @ERR_SSL_get0_chain_certs;
+    SSL_get0_chain_certs := ERR_SSL_get0_chain_certs;
     {$ifend}
     {$if declared(SSL_get0_chain_certs_introduced)}
     if LibVersion < SSL_get0_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_get0_chain_certs)}
-      SSL_get0_chain_certs := @FC_SSL_get0_chain_certs;
+      SSL_get0_chain_certs := FC_SSL_get0_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11211,7 +11212,7 @@ begin
     if SSL_get0_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_chain_certs)}
-      SSL_get0_chain_certs := @_SSL_get0_chain_certs;
+      SSL_get0_chain_certs := _SSL_get0_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11228,13 +11229,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_clear_chain_certs_allownil)}
-    SSL_clear_chain_certs := @ERR_SSL_clear_chain_certs;
+    SSL_clear_chain_certs := ERR_SSL_clear_chain_certs;
     {$ifend}
     {$if declared(SSL_clear_chain_certs_introduced)}
     if LibVersion < SSL_clear_chain_certs_introduced then
     begin
       {$if declared(FC_SSL_clear_chain_certs)}
-      SSL_clear_chain_certs := @FC_SSL_clear_chain_certs;
+      SSL_clear_chain_certs := FC_SSL_clear_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11243,7 +11244,7 @@ begin
     if SSL_clear_chain_certs_removed <= LibVersion then
     begin
       {$if declared(_SSL_clear_chain_certs)}
-      SSL_clear_chain_certs := @_SSL_clear_chain_certs;
+      SSL_clear_chain_certs := _SSL_clear_chain_certs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11260,13 +11261,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_build_cert_chain_allownil)}
-    SSL_build_cert_chain := @ERR_SSL_build_cert_chain;
+    SSL_build_cert_chain := ERR_SSL_build_cert_chain;
     {$ifend}
     {$if declared(SSL_build_cert_chain_introduced)}
     if LibVersion < SSL_build_cert_chain_introduced then
     begin
       {$if declared(FC_SSL_build_cert_chain)}
-      SSL_build_cert_chain := @FC_SSL_build_cert_chain;
+      SSL_build_cert_chain := FC_SSL_build_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11275,7 +11276,7 @@ begin
     if SSL_build_cert_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_build_cert_chain)}
-      SSL_build_cert_chain := @_SSL_build_cert_chain;
+      SSL_build_cert_chain := _SSL_build_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11292,13 +11293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_select_current_cert_allownil)}
-    SSL_select_current_cert := @ERR_SSL_select_current_cert;
+    SSL_select_current_cert := ERR_SSL_select_current_cert;
     {$ifend}
     {$if declared(SSL_select_current_cert_introduced)}
     if LibVersion < SSL_select_current_cert_introduced then
     begin
       {$if declared(FC_SSL_select_current_cert)}
-      SSL_select_current_cert := @FC_SSL_select_current_cert;
+      SSL_select_current_cert := FC_SSL_select_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11307,7 +11308,7 @@ begin
     if SSL_select_current_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_select_current_cert)}
-      SSL_select_current_cert := @_SSL_select_current_cert;
+      SSL_select_current_cert := _SSL_select_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11324,13 +11325,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_current_cert_allownil)}
-    SSL_set_current_cert := @ERR_SSL_set_current_cert;
+    SSL_set_current_cert := ERR_SSL_set_current_cert;
     {$ifend}
     {$if declared(SSL_set_current_cert_introduced)}
     if LibVersion < SSL_set_current_cert_introduced then
     begin
       {$if declared(FC_SSL_set_current_cert)}
-      SSL_set_current_cert := @FC_SSL_set_current_cert;
+      SSL_set_current_cert := FC_SSL_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11339,7 +11340,7 @@ begin
     if SSL_set_current_cert_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_current_cert)}
-      SSL_set_current_cert := @_SSL_set_current_cert;
+      SSL_set_current_cert := _SSL_set_current_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11356,13 +11357,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_verify_cert_store_allownil)}
-    SSL_set0_verify_cert_store := @ERR_SSL_set0_verify_cert_store;
+    SSL_set0_verify_cert_store := ERR_SSL_set0_verify_cert_store;
     {$ifend}
     {$if declared(SSL_set0_verify_cert_store_introduced)}
     if LibVersion < SSL_set0_verify_cert_store_introduced then
     begin
       {$if declared(FC_SSL_set0_verify_cert_store)}
-      SSL_set0_verify_cert_store := @FC_SSL_set0_verify_cert_store;
+      SSL_set0_verify_cert_store := FC_SSL_set0_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11371,7 +11372,7 @@ begin
     if SSL_set0_verify_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_verify_cert_store)}
-      SSL_set0_verify_cert_store := @_SSL_set0_verify_cert_store;
+      SSL_set0_verify_cert_store := _SSL_set0_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11388,13 +11389,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_verify_cert_store_allownil)}
-    SSL_set1_verify_cert_store := @ERR_SSL_set1_verify_cert_store;
+    SSL_set1_verify_cert_store := ERR_SSL_set1_verify_cert_store;
     {$ifend}
     {$if declared(SSL_set1_verify_cert_store_introduced)}
     if LibVersion < SSL_set1_verify_cert_store_introduced then
     begin
       {$if declared(FC_SSL_set1_verify_cert_store)}
-      SSL_set1_verify_cert_store := @FC_SSL_set1_verify_cert_store;
+      SSL_set1_verify_cert_store := FC_SSL_set1_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11403,7 +11404,7 @@ begin
     if SSL_set1_verify_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_verify_cert_store)}
-      SSL_set1_verify_cert_store := @_SSL_set1_verify_cert_store;
+      SSL_set1_verify_cert_store := _SSL_set1_verify_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11420,13 +11421,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_chain_cert_store_allownil)}
-    SSL_set0_chain_cert_store := @ERR_SSL_set0_chain_cert_store;
+    SSL_set0_chain_cert_store := ERR_SSL_set0_chain_cert_store;
     {$ifend}
     {$if declared(SSL_set0_chain_cert_store_introduced)}
     if LibVersion < SSL_set0_chain_cert_store_introduced then
     begin
       {$if declared(FC_SSL_set0_chain_cert_store)}
-      SSL_set0_chain_cert_store := @FC_SSL_set0_chain_cert_store;
+      SSL_set0_chain_cert_store := FC_SSL_set0_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11435,7 +11436,7 @@ begin
     if SSL_set0_chain_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_chain_cert_store)}
-      SSL_set0_chain_cert_store := @_SSL_set0_chain_cert_store;
+      SSL_set0_chain_cert_store := _SSL_set0_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11452,13 +11453,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_chain_cert_store_allownil)}
-    SSL_set1_chain_cert_store := @ERR_SSL_set1_chain_cert_store;
+    SSL_set1_chain_cert_store := ERR_SSL_set1_chain_cert_store;
     {$ifend}
     {$if declared(SSL_set1_chain_cert_store_introduced)}
     if LibVersion < SSL_set1_chain_cert_store_introduced then
     begin
       {$if declared(FC_SSL_set1_chain_cert_store)}
-      SSL_set1_chain_cert_store := @FC_SSL_set1_chain_cert_store;
+      SSL_set1_chain_cert_store := FC_SSL_set1_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11467,7 +11468,7 @@ begin
     if SSL_set1_chain_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_chain_cert_store)}
-      SSL_set1_chain_cert_store := @_SSL_set1_chain_cert_store;
+      SSL_set1_chain_cert_store := _SSL_set1_chain_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11484,13 +11485,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get1_groups_allownil)}
-    SSL_get1_groups := @ERR_SSL_get1_groups;
+    SSL_get1_groups := ERR_SSL_get1_groups;
     {$ifend}
     {$if declared(SSL_get1_groups_introduced)}
     if LibVersion < SSL_get1_groups_introduced then
     begin
       {$if declared(FC_SSL_get1_groups)}
-      SSL_get1_groups := @FC_SSL_get1_groups;
+      SSL_get1_groups := FC_SSL_get1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11499,7 +11500,7 @@ begin
     if SSL_get1_groups_removed <= LibVersion then
     begin
       {$if declared(_SSL_get1_groups)}
-      SSL_get1_groups := @_SSL_get1_groups;
+      SSL_get1_groups := _SSL_get1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11516,13 +11517,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_groups_allownil)}
-    SSL_CTX_set1_groups := @ERR_SSL_CTX_set1_groups;
+    SSL_CTX_set1_groups := ERR_SSL_CTX_set1_groups;
     {$ifend}
     {$if declared(SSL_CTX_set1_groups_introduced)}
     if LibVersion < SSL_CTX_set1_groups_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_groups)}
-      SSL_CTX_set1_groups := @FC_SSL_CTX_set1_groups;
+      SSL_CTX_set1_groups := FC_SSL_CTX_set1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11531,7 +11532,7 @@ begin
     if SSL_CTX_set1_groups_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_groups)}
-      SSL_CTX_set1_groups := @_SSL_CTX_set1_groups;
+      SSL_CTX_set1_groups := _SSL_CTX_set1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11548,13 +11549,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_groups_list_allownil)}
-    SSL_CTX_set1_groups_list := @ERR_SSL_CTX_set1_groups_list;
+    SSL_CTX_set1_groups_list := ERR_SSL_CTX_set1_groups_list;
     {$ifend}
     {$if declared(SSL_CTX_set1_groups_list_introduced)}
     if LibVersion < SSL_CTX_set1_groups_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_groups_list)}
-      SSL_CTX_set1_groups_list := @FC_SSL_CTX_set1_groups_list;
+      SSL_CTX_set1_groups_list := FC_SSL_CTX_set1_groups_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11563,7 +11564,7 @@ begin
     if SSL_CTX_set1_groups_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_groups_list)}
-      SSL_CTX_set1_groups_list := @_SSL_CTX_set1_groups_list;
+      SSL_CTX_set1_groups_list := _SSL_CTX_set1_groups_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11580,13 +11581,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_groups_allownil)}
-    SSL_set1_groups := @ERR_SSL_set1_groups;
+    SSL_set1_groups := ERR_SSL_set1_groups;
     {$ifend}
     {$if declared(SSL_set1_groups_introduced)}
     if LibVersion < SSL_set1_groups_introduced then
     begin
       {$if declared(FC_SSL_set1_groups)}
-      SSL_set1_groups := @FC_SSL_set1_groups;
+      SSL_set1_groups := FC_SSL_set1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11595,7 +11596,7 @@ begin
     if SSL_set1_groups_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_groups)}
-      SSL_set1_groups := @_SSL_set1_groups;
+      SSL_set1_groups := _SSL_set1_groups;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11612,13 +11613,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_groups_list_allownil)}
-    SSL_set1_groups_list := @ERR_SSL_set1_groups_list;
+    SSL_set1_groups_list := ERR_SSL_set1_groups_list;
     {$ifend}
     {$if declared(SSL_set1_groups_list_introduced)}
     if LibVersion < SSL_set1_groups_list_introduced then
     begin
       {$if declared(FC_SSL_set1_groups_list)}
-      SSL_set1_groups_list := @FC_SSL_set1_groups_list;
+      SSL_set1_groups_list := FC_SSL_set1_groups_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11627,7 +11628,7 @@ begin
     if SSL_set1_groups_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_groups_list)}
-      SSL_set1_groups_list := @_SSL_set1_groups_list;
+      SSL_set1_groups_list := _SSL_set1_groups_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11644,13 +11645,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_shared_group_allownil)}
-    SSL_get_shared_group := @ERR_SSL_get_shared_group;
+    SSL_get_shared_group := ERR_SSL_get_shared_group;
     {$ifend}
     {$if declared(SSL_get_shared_group_introduced)}
     if LibVersion < SSL_get_shared_group_introduced then
     begin
       {$if declared(FC_SSL_get_shared_group)}
-      SSL_get_shared_group := @FC_SSL_get_shared_group;
+      SSL_get_shared_group := FC_SSL_get_shared_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11659,7 +11660,7 @@ begin
     if SSL_get_shared_group_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_shared_group)}
-      SSL_get_shared_group := @_SSL_get_shared_group;
+      SSL_get_shared_group := _SSL_get_shared_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11676,13 +11677,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_sigalgs_allownil)}
-    SSL_CTX_set1_sigalgs := @ERR_SSL_CTX_set1_sigalgs;
+    SSL_CTX_set1_sigalgs := ERR_SSL_CTX_set1_sigalgs;
     {$ifend}
     {$if declared(SSL_CTX_set1_sigalgs_introduced)}
     if LibVersion < SSL_CTX_set1_sigalgs_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_sigalgs)}
-      SSL_CTX_set1_sigalgs := @FC_SSL_CTX_set1_sigalgs;
+      SSL_CTX_set1_sigalgs := FC_SSL_CTX_set1_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11691,7 +11692,7 @@ begin
     if SSL_CTX_set1_sigalgs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_sigalgs)}
-      SSL_CTX_set1_sigalgs := @_SSL_CTX_set1_sigalgs;
+      SSL_CTX_set1_sigalgs := _SSL_CTX_set1_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11708,13 +11709,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_sigalgs_list_allownil)}
-    SSL_CTX_set1_sigalgs_list := @ERR_SSL_CTX_set1_sigalgs_list;
+    SSL_CTX_set1_sigalgs_list := ERR_SSL_CTX_set1_sigalgs_list;
     {$ifend}
     {$if declared(SSL_CTX_set1_sigalgs_list_introduced)}
     if LibVersion < SSL_CTX_set1_sigalgs_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_sigalgs_list)}
-      SSL_CTX_set1_sigalgs_list := @FC_SSL_CTX_set1_sigalgs_list;
+      SSL_CTX_set1_sigalgs_list := FC_SSL_CTX_set1_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11723,7 +11724,7 @@ begin
     if SSL_CTX_set1_sigalgs_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_sigalgs_list)}
-      SSL_CTX_set1_sigalgs_list := @_SSL_CTX_set1_sigalgs_list;
+      SSL_CTX_set1_sigalgs_list := _SSL_CTX_set1_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11740,13 +11741,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_sigalgs_allownil)}
-    SSL_set1_sigalgs := @ERR_SSL_set1_sigalgs;
+    SSL_set1_sigalgs := ERR_SSL_set1_sigalgs;
     {$ifend}
     {$if declared(SSL_set1_sigalgs_introduced)}
     if LibVersion < SSL_set1_sigalgs_introduced then
     begin
       {$if declared(FC_SSL_set1_sigalgs)}
-      SSL_set1_sigalgs := @FC_SSL_set1_sigalgs;
+      SSL_set1_sigalgs := FC_SSL_set1_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11755,7 +11756,7 @@ begin
     if SSL_set1_sigalgs_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_sigalgs)}
-      SSL_set1_sigalgs := @_SSL_set1_sigalgs;
+      SSL_set1_sigalgs := _SSL_set1_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11772,13 +11773,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_sigalgs_list_allownil)}
-    SSL_set1_sigalgs_list := @ERR_SSL_set1_sigalgs_list;
+    SSL_set1_sigalgs_list := ERR_SSL_set1_sigalgs_list;
     {$ifend}
     {$if declared(SSL_set1_sigalgs_list_introduced)}
     if LibVersion < SSL_set1_sigalgs_list_introduced then
     begin
       {$if declared(FC_SSL_set1_sigalgs_list)}
-      SSL_set1_sigalgs_list := @FC_SSL_set1_sigalgs_list;
+      SSL_set1_sigalgs_list := FC_SSL_set1_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11787,7 +11788,7 @@ begin
     if SSL_set1_sigalgs_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_sigalgs_list)}
-      SSL_set1_sigalgs_list := @_SSL_set1_sigalgs_list;
+      SSL_set1_sigalgs_list := _SSL_set1_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11804,13 +11805,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_client_sigalgs_allownil)}
-    SSL_CTX_set1_client_sigalgs := @ERR_SSL_CTX_set1_client_sigalgs;
+    SSL_CTX_set1_client_sigalgs := ERR_SSL_CTX_set1_client_sigalgs;
     {$ifend}
     {$if declared(SSL_CTX_set1_client_sigalgs_introduced)}
     if LibVersion < SSL_CTX_set1_client_sigalgs_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_client_sigalgs)}
-      SSL_CTX_set1_client_sigalgs := @FC_SSL_CTX_set1_client_sigalgs;
+      SSL_CTX_set1_client_sigalgs := FC_SSL_CTX_set1_client_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11819,7 +11820,7 @@ begin
     if SSL_CTX_set1_client_sigalgs_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_client_sigalgs)}
-      SSL_CTX_set1_client_sigalgs := @_SSL_CTX_set1_client_sigalgs;
+      SSL_CTX_set1_client_sigalgs := _SSL_CTX_set1_client_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11836,13 +11837,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_client_sigalgs_list_allownil)}
-    SSL_CTX_set1_client_sigalgs_list := @ERR_SSL_CTX_set1_client_sigalgs_list;
+    SSL_CTX_set1_client_sigalgs_list := ERR_SSL_CTX_set1_client_sigalgs_list;
     {$ifend}
     {$if declared(SSL_CTX_set1_client_sigalgs_list_introduced)}
     if LibVersion < SSL_CTX_set1_client_sigalgs_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_client_sigalgs_list)}
-      SSL_CTX_set1_client_sigalgs_list := @FC_SSL_CTX_set1_client_sigalgs_list;
+      SSL_CTX_set1_client_sigalgs_list := FC_SSL_CTX_set1_client_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11851,7 +11852,7 @@ begin
     if SSL_CTX_set1_client_sigalgs_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_client_sigalgs_list)}
-      SSL_CTX_set1_client_sigalgs_list := @_SSL_CTX_set1_client_sigalgs_list;
+      SSL_CTX_set1_client_sigalgs_list := _SSL_CTX_set1_client_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11868,13 +11869,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_client_sigalgs_allownil)}
-    SSL_set1_client_sigalgs := @ERR_SSL_set1_client_sigalgs;
+    SSL_set1_client_sigalgs := ERR_SSL_set1_client_sigalgs;
     {$ifend}
     {$if declared(SSL_set1_client_sigalgs_introduced)}
     if LibVersion < SSL_set1_client_sigalgs_introduced then
     begin
       {$if declared(FC_SSL_set1_client_sigalgs)}
-      SSL_set1_client_sigalgs := @FC_SSL_set1_client_sigalgs;
+      SSL_set1_client_sigalgs := FC_SSL_set1_client_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11883,7 +11884,7 @@ begin
     if SSL_set1_client_sigalgs_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_client_sigalgs)}
-      SSL_set1_client_sigalgs := @_SSL_set1_client_sigalgs;
+      SSL_set1_client_sigalgs := _SSL_set1_client_sigalgs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11900,13 +11901,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_client_sigalgs_list_allownil)}
-    SSL_set1_client_sigalgs_list := @ERR_SSL_set1_client_sigalgs_list;
+    SSL_set1_client_sigalgs_list := ERR_SSL_set1_client_sigalgs_list;
     {$ifend}
     {$if declared(SSL_set1_client_sigalgs_list_introduced)}
     if LibVersion < SSL_set1_client_sigalgs_list_introduced then
     begin
       {$if declared(FC_SSL_set1_client_sigalgs_list)}
-      SSL_set1_client_sigalgs_list := @FC_SSL_set1_client_sigalgs_list;
+      SSL_set1_client_sigalgs_list := FC_SSL_set1_client_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11915,7 +11916,7 @@ begin
     if SSL_set1_client_sigalgs_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_client_sigalgs_list)}
-      SSL_set1_client_sigalgs_list := @_SSL_set1_client_sigalgs_list;
+      SSL_set1_client_sigalgs_list := _SSL_set1_client_sigalgs_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11932,13 +11933,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_certificate_types_allownil)}
-    SSL_get0_certificate_types := @ERR_SSL_get0_certificate_types;
+    SSL_get0_certificate_types := ERR_SSL_get0_certificate_types;
     {$ifend}
     {$if declared(SSL_get0_certificate_types_introduced)}
     if LibVersion < SSL_get0_certificate_types_introduced then
     begin
       {$if declared(FC_SSL_get0_certificate_types)}
-      SSL_get0_certificate_types := @FC_SSL_get0_certificate_types;
+      SSL_get0_certificate_types := FC_SSL_get0_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11947,7 +11948,7 @@ begin
     if SSL_get0_certificate_types_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_certificate_types)}
-      SSL_get0_certificate_types := @_SSL_get0_certificate_types;
+      SSL_get0_certificate_types := _SSL_get0_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11964,13 +11965,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_client_certificate_types_allownil)}
-    SSL_CTX_set1_client_certificate_types := @ERR_SSL_CTX_set1_client_certificate_types;
+    SSL_CTX_set1_client_certificate_types := ERR_SSL_CTX_set1_client_certificate_types;
     {$ifend}
     {$if declared(SSL_CTX_set1_client_certificate_types_introduced)}
     if LibVersion < SSL_CTX_set1_client_certificate_types_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_client_certificate_types)}
-      SSL_CTX_set1_client_certificate_types := @FC_SSL_CTX_set1_client_certificate_types;
+      SSL_CTX_set1_client_certificate_types := FC_SSL_CTX_set1_client_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11979,7 +11980,7 @@ begin
     if SSL_CTX_set1_client_certificate_types_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_client_certificate_types)}
-      SSL_CTX_set1_client_certificate_types := @_SSL_CTX_set1_client_certificate_types;
+      SSL_CTX_set1_client_certificate_types := _SSL_CTX_set1_client_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -11996,13 +11997,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_client_certificate_types_allownil)}
-    SSL_set1_client_certificate_types := @ERR_SSL_set1_client_certificate_types;
+    SSL_set1_client_certificate_types := ERR_SSL_set1_client_certificate_types;
     {$ifend}
     {$if declared(SSL_set1_client_certificate_types_introduced)}
     if LibVersion < SSL_set1_client_certificate_types_introduced then
     begin
       {$if declared(FC_SSL_set1_client_certificate_types)}
-      SSL_set1_client_certificate_types := @FC_SSL_set1_client_certificate_types;
+      SSL_set1_client_certificate_types := FC_SSL_set1_client_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12011,7 +12012,7 @@ begin
     if SSL_set1_client_certificate_types_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_client_certificate_types)}
-      SSL_set1_client_certificate_types := @_SSL_set1_client_certificate_types;
+      SSL_set1_client_certificate_types := _SSL_set1_client_certificate_types;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12028,13 +12029,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_signature_nid_allownil)}
-    SSL_get_signature_nid := @ERR_SSL_get_signature_nid;
+    SSL_get_signature_nid := ERR_SSL_get_signature_nid;
     {$ifend}
     {$if declared(SSL_get_signature_nid_introduced)}
     if LibVersion < SSL_get_signature_nid_introduced then
     begin
       {$if declared(FC_SSL_get_signature_nid)}
-      SSL_get_signature_nid := @FC_SSL_get_signature_nid;
+      SSL_get_signature_nid := FC_SSL_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12043,7 +12044,7 @@ begin
     if SSL_get_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_signature_nid)}
-      SSL_get_signature_nid := @_SSL_get_signature_nid;
+      SSL_get_signature_nid := _SSL_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12060,13 +12061,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_peer_signature_nid_allownil)}
-    SSL_get_peer_signature_nid := @ERR_SSL_get_peer_signature_nid;
+    SSL_get_peer_signature_nid := ERR_SSL_get_peer_signature_nid;
     {$ifend}
     {$if declared(SSL_get_peer_signature_nid_introduced)}
     if LibVersion < SSL_get_peer_signature_nid_introduced then
     begin
       {$if declared(FC_SSL_get_peer_signature_nid)}
-      SSL_get_peer_signature_nid := @FC_SSL_get_peer_signature_nid;
+      SSL_get_peer_signature_nid := FC_SSL_get_peer_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12075,7 +12076,7 @@ begin
     if SSL_get_peer_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_peer_signature_nid)}
-      SSL_get_peer_signature_nid := @_SSL_get_peer_signature_nid;
+      SSL_get_peer_signature_nid := _SSL_get_peer_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12092,13 +12093,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_peer_tmp_key_allownil)}
-    SSL_get_peer_tmp_key := @ERR_SSL_get_peer_tmp_key;
+    SSL_get_peer_tmp_key := ERR_SSL_get_peer_tmp_key;
     {$ifend}
     {$if declared(SSL_get_peer_tmp_key_introduced)}
     if LibVersion < SSL_get_peer_tmp_key_introduced then
     begin
       {$if declared(FC_SSL_get_peer_tmp_key)}
-      SSL_get_peer_tmp_key := @FC_SSL_get_peer_tmp_key;
+      SSL_get_peer_tmp_key := FC_SSL_get_peer_tmp_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12107,7 +12108,7 @@ begin
     if SSL_get_peer_tmp_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_peer_tmp_key)}
-      SSL_get_peer_tmp_key := @_SSL_get_peer_tmp_key;
+      SSL_get_peer_tmp_key := _SSL_get_peer_tmp_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12124,13 +12125,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_tmp_key_allownil)}
-    SSL_get_tmp_key := @ERR_SSL_get_tmp_key;
+    SSL_get_tmp_key := ERR_SSL_get_tmp_key;
     {$ifend}
     {$if declared(SSL_get_tmp_key_introduced)}
     if LibVersion < SSL_get_tmp_key_introduced then
     begin
       {$if declared(FC_SSL_get_tmp_key)}
-      SSL_get_tmp_key := @FC_SSL_get_tmp_key;
+      SSL_get_tmp_key := FC_SSL_get_tmp_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12139,7 +12140,7 @@ begin
     if SSL_get_tmp_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_tmp_key)}
-      SSL_get_tmp_key := @_SSL_get_tmp_key;
+      SSL_get_tmp_key := _SSL_get_tmp_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12156,13 +12157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_raw_cipherlist_allownil)}
-    SSL_get0_raw_cipherlist := @ERR_SSL_get0_raw_cipherlist;
+    SSL_get0_raw_cipherlist := ERR_SSL_get0_raw_cipherlist;
     {$ifend}
     {$if declared(SSL_get0_raw_cipherlist_introduced)}
     if LibVersion < SSL_get0_raw_cipherlist_introduced then
     begin
       {$if declared(FC_SSL_get0_raw_cipherlist)}
-      SSL_get0_raw_cipherlist := @FC_SSL_get0_raw_cipherlist;
+      SSL_get0_raw_cipherlist := FC_SSL_get0_raw_cipherlist;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12171,7 +12172,7 @@ begin
     if SSL_get0_raw_cipherlist_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_raw_cipherlist)}
-      SSL_get0_raw_cipherlist := @_SSL_get0_raw_cipherlist;
+      SSL_get0_raw_cipherlist := _SSL_get0_raw_cipherlist;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12188,13 +12189,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_ec_point_formats_allownil)}
-    SSL_get0_ec_point_formats := @ERR_SSL_get0_ec_point_formats;
+    SSL_get0_ec_point_formats := ERR_SSL_get0_ec_point_formats;
     {$ifend}
     {$if declared(SSL_get0_ec_point_formats_introduced)}
     if LibVersion < SSL_get0_ec_point_formats_introduced then
     begin
       {$if declared(FC_SSL_get0_ec_point_formats)}
-      SSL_get0_ec_point_formats := @FC_SSL_get0_ec_point_formats;
+      SSL_get0_ec_point_formats := FC_SSL_get0_ec_point_formats;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12203,7 +12204,7 @@ begin
     if SSL_get0_ec_point_formats_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_ec_point_formats)}
-      SSL_get0_ec_point_formats := @_SSL_get0_ec_point_formats;
+      SSL_get0_ec_point_formats := _SSL_get0_ec_point_formats;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12220,13 +12221,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_options_allownil)}
-    SSL_CTX_get_options := @ERR_SSL_CTX_get_options;
+    SSL_CTX_get_options := ERR_SSL_CTX_get_options;
     {$ifend}
     {$if declared(SSL_CTX_get_options_introduced)}
     if LibVersion < SSL_CTX_get_options_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_options)}
-      SSL_CTX_get_options := @FC_SSL_CTX_get_options;
+      SSL_CTX_get_options := FC_SSL_CTX_get_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12235,7 +12236,7 @@ begin
     if SSL_CTX_get_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_options)}
-      SSL_CTX_get_options := @_SSL_CTX_get_options;
+      SSL_CTX_get_options := _SSL_CTX_get_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12252,13 +12253,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_options_allownil)}
-    SSL_get_options := @ERR_SSL_get_options;
+    SSL_get_options := ERR_SSL_get_options;
     {$ifend}
     {$if declared(SSL_get_options_introduced)}
     if LibVersion < SSL_get_options_introduced then
     begin
       {$if declared(FC_SSL_get_options)}
-      SSL_get_options := @FC_SSL_get_options;
+      SSL_get_options := FC_SSL_get_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12267,7 +12268,7 @@ begin
     if SSL_get_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_options)}
-      SSL_get_options := @_SSL_get_options;
+      SSL_get_options := _SSL_get_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12284,13 +12285,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_clear_options_allownil)}
-    SSL_CTX_clear_options := @ERR_SSL_CTX_clear_options;
+    SSL_CTX_clear_options := ERR_SSL_CTX_clear_options;
     {$ifend}
     {$if declared(SSL_CTX_clear_options_introduced)}
     if LibVersion < SSL_CTX_clear_options_introduced then
     begin
       {$if declared(FC_SSL_CTX_clear_options)}
-      SSL_CTX_clear_options := @FC_SSL_CTX_clear_options;
+      SSL_CTX_clear_options := FC_SSL_CTX_clear_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12299,7 +12300,7 @@ begin
     if SSL_CTX_clear_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_clear_options)}
-      SSL_CTX_clear_options := @_SSL_CTX_clear_options;
+      SSL_CTX_clear_options := _SSL_CTX_clear_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12316,13 +12317,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_clear_options_allownil)}
-    SSL_clear_options := @ERR_SSL_clear_options;
+    SSL_clear_options := ERR_SSL_clear_options;
     {$ifend}
     {$if declared(SSL_clear_options_introduced)}
     if LibVersion < SSL_clear_options_introduced then
     begin
       {$if declared(FC_SSL_clear_options)}
-      SSL_clear_options := @FC_SSL_clear_options;
+      SSL_clear_options := FC_SSL_clear_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12331,7 +12332,7 @@ begin
     if SSL_clear_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_clear_options)}
-      SSL_clear_options := @_SSL_clear_options;
+      SSL_clear_options := _SSL_clear_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12348,13 +12349,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_options_allownil)}
-    SSL_CTX_set_options := @ERR_SSL_CTX_set_options;
+    SSL_CTX_set_options := ERR_SSL_CTX_set_options;
     {$ifend}
     {$if declared(SSL_CTX_set_options_introduced)}
     if LibVersion < SSL_CTX_set_options_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_options)}
-      SSL_CTX_set_options := @FC_SSL_CTX_set_options;
+      SSL_CTX_set_options := FC_SSL_CTX_set_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12363,7 +12364,7 @@ begin
     if SSL_CTX_set_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_options)}
-      SSL_CTX_set_options := @_SSL_CTX_set_options;
+      SSL_CTX_set_options := _SSL_CTX_set_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12380,13 +12381,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_options_allownil)}
-    SSL_set_options := @ERR_SSL_set_options;
+    SSL_set_options := ERR_SSL_set_options;
     {$ifend}
     {$if declared(SSL_set_options_introduced)}
     if LibVersion < SSL_set_options_introduced then
     begin
       {$if declared(FC_SSL_set_options)}
-      SSL_set_options := @FC_SSL_set_options;
+      SSL_set_options := FC_SSL_set_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12395,7 +12396,7 @@ begin
     if SSL_set_options_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_options)}
-      SSL_set_options := @_SSL_set_options;
+      SSL_set_options := _SSL_set_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12411,13 +12412,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_msg_callback_allownil)}
-    SSL_CTX_set_msg_callback := @ERR_SSL_CTX_set_msg_callback;
+    SSL_CTX_set_msg_callback := ERR_SSL_CTX_set_msg_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_msg_callback_introduced)}
     if LibVersion < SSL_CTX_set_msg_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_msg_callback)}
-      SSL_CTX_set_msg_callback := @FC_SSL_CTX_set_msg_callback;
+      SSL_CTX_set_msg_callback := FC_SSL_CTX_set_msg_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12426,7 +12427,7 @@ begin
     if SSL_CTX_set_msg_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_msg_callback)}
-      SSL_CTX_set_msg_callback := @_SSL_CTX_set_msg_callback;
+      SSL_CTX_set_msg_callback := _SSL_CTX_set_msg_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12441,13 +12442,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_msg_callback_allownil)}
-    SSL_set_msg_callback := @ERR_SSL_set_msg_callback;
+    SSL_set_msg_callback := ERR_SSL_set_msg_callback;
     {$ifend}
     {$if declared(SSL_set_msg_callback_introduced)}
     if LibVersion < SSL_set_msg_callback_introduced then
     begin
       {$if declared(FC_SSL_set_msg_callback)}
-      SSL_set_msg_callback := @FC_SSL_set_msg_callback;
+      SSL_set_msg_callback := FC_SSL_set_msg_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12456,7 +12457,7 @@ begin
     if SSL_set_msg_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_msg_callback)}
-      SSL_set_msg_callback := @_SSL_set_msg_callback;
+      SSL_set_msg_callback := _SSL_set_msg_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12472,13 +12473,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sessions_allownil)}
-    SSL_CTX_sessions := @ERR_SSL_CTX_sessions;
+    SSL_CTX_sessions := ERR_SSL_CTX_sessions;
     {$ifend}
     {$if declared(SSL_CTX_sessions_introduced)}
     if LibVersion < SSL_CTX_sessions_introduced then
     begin
       {$if declared(FC_SSL_CTX_sessions)}
-      SSL_CTX_sessions := @FC_SSL_CTX_sessions;
+      SSL_CTX_sessions := FC_SSL_CTX_sessions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12487,7 +12488,7 @@ begin
     if SSL_CTX_sessions_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sessions)}
-      SSL_CTX_sessions := @_SSL_CTX_sessions;
+      SSL_CTX_sessions := _SSL_CTX_sessions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12504,13 +12505,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_set_new_cb_allownil)}
-    SSL_CTX_sess_set_new_cb := @ERR_SSL_CTX_sess_set_new_cb;
+    SSL_CTX_sess_set_new_cb := ERR_SSL_CTX_sess_set_new_cb;
     {$ifend}
     {$if declared(SSL_CTX_sess_set_new_cb_introduced)}
     if LibVersion < SSL_CTX_sess_set_new_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_set_new_cb)}
-      SSL_CTX_sess_set_new_cb := @FC_SSL_CTX_sess_set_new_cb;
+      SSL_CTX_sess_set_new_cb := FC_SSL_CTX_sess_set_new_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12519,7 +12520,7 @@ begin
     if SSL_CTX_sess_set_new_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_set_new_cb)}
-      SSL_CTX_sess_set_new_cb := @_SSL_CTX_sess_set_new_cb;
+      SSL_CTX_sess_set_new_cb := _SSL_CTX_sess_set_new_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12536,13 +12537,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_get_new_cb_allownil)}
-    SSL_CTX_sess_get_new_cb := @ERR_SSL_CTX_sess_get_new_cb;
+    SSL_CTX_sess_get_new_cb := ERR_SSL_CTX_sess_get_new_cb;
     {$ifend}
     {$if declared(SSL_CTX_sess_get_new_cb_introduced)}
     if LibVersion < SSL_CTX_sess_get_new_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_get_new_cb)}
-      SSL_CTX_sess_get_new_cb := @FC_SSL_CTX_sess_get_new_cb;
+      SSL_CTX_sess_get_new_cb := FC_SSL_CTX_sess_get_new_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12551,7 +12552,7 @@ begin
     if SSL_CTX_sess_get_new_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_get_new_cb)}
-      SSL_CTX_sess_get_new_cb := @_SSL_CTX_sess_get_new_cb;
+      SSL_CTX_sess_get_new_cb := _SSL_CTX_sess_get_new_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12568,13 +12569,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_set_remove_cb_allownil)}
-    SSL_CTX_sess_set_remove_cb := @ERR_SSL_CTX_sess_set_remove_cb;
+    SSL_CTX_sess_set_remove_cb := ERR_SSL_CTX_sess_set_remove_cb;
     {$ifend}
     {$if declared(SSL_CTX_sess_set_remove_cb_introduced)}
     if LibVersion < SSL_CTX_sess_set_remove_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_set_remove_cb)}
-      SSL_CTX_sess_set_remove_cb := @FC_SSL_CTX_sess_set_remove_cb;
+      SSL_CTX_sess_set_remove_cb := FC_SSL_CTX_sess_set_remove_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12583,7 +12584,7 @@ begin
     if SSL_CTX_sess_set_remove_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_set_remove_cb)}
-      SSL_CTX_sess_set_remove_cb := @_SSL_CTX_sess_set_remove_cb;
+      SSL_CTX_sess_set_remove_cb := _SSL_CTX_sess_set_remove_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12600,13 +12601,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_sess_get_remove_cb_allownil)}
-    SSL_CTX_sess_get_remove_cb := @ERR_SSL_CTX_sess_get_remove_cb;
+    SSL_CTX_sess_get_remove_cb := ERR_SSL_CTX_sess_get_remove_cb;
     {$ifend}
     {$if declared(SSL_CTX_sess_get_remove_cb_introduced)}
     if LibVersion < SSL_CTX_sess_get_remove_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_sess_get_remove_cb)}
-      SSL_CTX_sess_get_remove_cb := @FC_SSL_CTX_sess_get_remove_cb;
+      SSL_CTX_sess_get_remove_cb := FC_SSL_CTX_sess_get_remove_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12615,7 +12616,7 @@ begin
     if SSL_CTX_sess_get_remove_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_sess_get_remove_cb)}
-      SSL_CTX_sess_get_remove_cb := @_SSL_CTX_sess_get_remove_cb;
+      SSL_CTX_sess_get_remove_cb := _SSL_CTX_sess_get_remove_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12632,13 +12633,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_info_callback_allownil)}
-    SSL_CTX_set_info_callback := @ERR_SSL_CTX_set_info_callback;
+    SSL_CTX_set_info_callback := ERR_SSL_CTX_set_info_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_info_callback_introduced)}
     if LibVersion < SSL_CTX_set_info_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_info_callback)}
-      SSL_CTX_set_info_callback := @FC_SSL_CTX_set_info_callback;
+      SSL_CTX_set_info_callback := FC_SSL_CTX_set_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12647,7 +12648,7 @@ begin
     if SSL_CTX_set_info_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_info_callback)}
-      SSL_CTX_set_info_callback := @_SSL_CTX_set_info_callback;
+      SSL_CTX_set_info_callback := _SSL_CTX_set_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12664,13 +12665,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_info_callback_allownil)}
-    SSL_CTX_get_info_callback := @ERR_SSL_CTX_get_info_callback;
+    SSL_CTX_get_info_callback := ERR_SSL_CTX_get_info_callback;
     {$ifend}
     {$if declared(SSL_CTX_get_info_callback_introduced)}
     if LibVersion < SSL_CTX_get_info_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_info_callback)}
-      SSL_CTX_get_info_callback := @FC_SSL_CTX_get_info_callback;
+      SSL_CTX_get_info_callback := FC_SSL_CTX_get_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12679,7 +12680,7 @@ begin
     if SSL_CTX_get_info_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_info_callback)}
-      SSL_CTX_get_info_callback := @_SSL_CTX_get_info_callback;
+      SSL_CTX_get_info_callback := _SSL_CTX_get_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12696,13 +12697,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_client_cert_cb_allownil)}
-    SSL_CTX_set_client_cert_cb := @ERR_SSL_CTX_set_client_cert_cb;
+    SSL_CTX_set_client_cert_cb := ERR_SSL_CTX_set_client_cert_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_client_cert_cb_introduced)}
     if LibVersion < SSL_CTX_set_client_cert_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_client_cert_cb)}
-      SSL_CTX_set_client_cert_cb := @FC_SSL_CTX_set_client_cert_cb;
+      SSL_CTX_set_client_cert_cb := FC_SSL_CTX_set_client_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12711,7 +12712,7 @@ begin
     if SSL_CTX_set_client_cert_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_client_cert_cb)}
-      SSL_CTX_set_client_cert_cb := @_SSL_CTX_set_client_cert_cb;
+      SSL_CTX_set_client_cert_cb := _SSL_CTX_set_client_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12728,13 +12729,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_client_cert_cb_allownil)}
-    SSL_CTX_get_client_cert_cb := @ERR_SSL_CTX_get_client_cert_cb;
+    SSL_CTX_get_client_cert_cb := ERR_SSL_CTX_get_client_cert_cb;
     {$ifend}
     {$if declared(SSL_CTX_get_client_cert_cb_introduced)}
     if LibVersion < SSL_CTX_get_client_cert_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_client_cert_cb)}
-      SSL_CTX_get_client_cert_cb := @FC_SSL_CTX_get_client_cert_cb;
+      SSL_CTX_get_client_cert_cb := FC_SSL_CTX_get_client_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12743,7 +12744,7 @@ begin
     if SSL_CTX_get_client_cert_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_client_cert_cb)}
-      SSL_CTX_get_client_cert_cb := @_SSL_CTX_get_client_cert_cb;
+      SSL_CTX_get_client_cert_cb := _SSL_CTX_get_client_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12760,13 +12761,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_client_cert_engine_allownil)}
-    SSL_CTX_set_client_cert_engine := @ERR_SSL_CTX_set_client_cert_engine;
+    SSL_CTX_set_client_cert_engine := ERR_SSL_CTX_set_client_cert_engine;
     {$ifend}
     {$if declared(SSL_CTX_set_client_cert_engine_introduced)}
     if LibVersion < SSL_CTX_set_client_cert_engine_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_client_cert_engine)}
-      SSL_CTX_set_client_cert_engine := @FC_SSL_CTX_set_client_cert_engine;
+      SSL_CTX_set_client_cert_engine := FC_SSL_CTX_set_client_cert_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12775,7 +12776,7 @@ begin
     if SSL_CTX_set_client_cert_engine_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_client_cert_engine)}
-      SSL_CTX_set_client_cert_engine := @_SSL_CTX_set_client_cert_engine;
+      SSL_CTX_set_client_cert_engine := _SSL_CTX_set_client_cert_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12792,13 +12793,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cookie_generate_cb_allownil)}
-    SSL_CTX_set_cookie_generate_cb := @ERR_SSL_CTX_set_cookie_generate_cb;
+    SSL_CTX_set_cookie_generate_cb := ERR_SSL_CTX_set_cookie_generate_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_cookie_generate_cb_introduced)}
     if LibVersion < SSL_CTX_set_cookie_generate_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cookie_generate_cb)}
-      SSL_CTX_set_cookie_generate_cb := @FC_SSL_CTX_set_cookie_generate_cb;
+      SSL_CTX_set_cookie_generate_cb := FC_SSL_CTX_set_cookie_generate_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12807,7 +12808,7 @@ begin
     if SSL_CTX_set_cookie_generate_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cookie_generate_cb)}
-      SSL_CTX_set_cookie_generate_cb := @_SSL_CTX_set_cookie_generate_cb;
+      SSL_CTX_set_cookie_generate_cb := _SSL_CTX_set_cookie_generate_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12824,13 +12825,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cookie_verify_cb_allownil)}
-    SSL_CTX_set_cookie_verify_cb := @ERR_SSL_CTX_set_cookie_verify_cb;
+    SSL_CTX_set_cookie_verify_cb := ERR_SSL_CTX_set_cookie_verify_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_cookie_verify_cb_introduced)}
     if LibVersion < SSL_CTX_set_cookie_verify_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cookie_verify_cb)}
-      SSL_CTX_set_cookie_verify_cb := @FC_SSL_CTX_set_cookie_verify_cb;
+      SSL_CTX_set_cookie_verify_cb := FC_SSL_CTX_set_cookie_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12839,7 +12840,7 @@ begin
     if SSL_CTX_set_cookie_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cookie_verify_cb)}
-      SSL_CTX_set_cookie_verify_cb := @_SSL_CTX_set_cookie_verify_cb;
+      SSL_CTX_set_cookie_verify_cb := _SSL_CTX_set_cookie_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12856,13 +12857,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_stateless_cookie_generate_cb_allownil)}
-    SSL_CTX_set_stateless_cookie_generate_cb := @ERR_SSL_CTX_set_stateless_cookie_generate_cb;
+    SSL_CTX_set_stateless_cookie_generate_cb := ERR_SSL_CTX_set_stateless_cookie_generate_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_stateless_cookie_generate_cb_introduced)}
     if LibVersion < SSL_CTX_set_stateless_cookie_generate_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_stateless_cookie_generate_cb)}
-      SSL_CTX_set_stateless_cookie_generate_cb := @FC_SSL_CTX_set_stateless_cookie_generate_cb;
+      SSL_CTX_set_stateless_cookie_generate_cb := FC_SSL_CTX_set_stateless_cookie_generate_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12871,7 +12872,7 @@ begin
     if SSL_CTX_set_stateless_cookie_generate_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_stateless_cookie_generate_cb)}
-      SSL_CTX_set_stateless_cookie_generate_cb := @_SSL_CTX_set_stateless_cookie_generate_cb;
+      SSL_CTX_set_stateless_cookie_generate_cb := _SSL_CTX_set_stateless_cookie_generate_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12888,13 +12889,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_stateless_cookie_verify_cb_allownil)}
-    SSL_CTX_set_stateless_cookie_verify_cb := @ERR_SSL_CTX_set_stateless_cookie_verify_cb;
+    SSL_CTX_set_stateless_cookie_verify_cb := ERR_SSL_CTX_set_stateless_cookie_verify_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_stateless_cookie_verify_cb_introduced)}
     if LibVersion < SSL_CTX_set_stateless_cookie_verify_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_stateless_cookie_verify_cb)}
-      SSL_CTX_set_stateless_cookie_verify_cb := @FC_SSL_CTX_set_stateless_cookie_verify_cb;
+      SSL_CTX_set_stateless_cookie_verify_cb := FC_SSL_CTX_set_stateless_cookie_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12903,7 +12904,7 @@ begin
     if SSL_CTX_set_stateless_cookie_verify_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_stateless_cookie_verify_cb)}
-      SSL_CTX_set_stateless_cookie_verify_cb := @_SSL_CTX_set_stateless_cookie_verify_cb;
+      SSL_CTX_set_stateless_cookie_verify_cb := _SSL_CTX_set_stateless_cookie_verify_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12920,13 +12921,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_alpn_select_cb_allownil)}
-    SSL_CTX_set_alpn_select_cb := @ERR_SSL_CTX_set_alpn_select_cb;
+    SSL_CTX_set_alpn_select_cb := ERR_SSL_CTX_set_alpn_select_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_alpn_select_cb_introduced)}
     if LibVersion < SSL_CTX_set_alpn_select_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_alpn_select_cb)}
-      SSL_CTX_set_alpn_select_cb := @FC_SSL_CTX_set_alpn_select_cb;
+      SSL_CTX_set_alpn_select_cb := FC_SSL_CTX_set_alpn_select_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12935,7 +12936,7 @@ begin
     if SSL_CTX_set_alpn_select_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_alpn_select_cb)}
-      SSL_CTX_set_alpn_select_cb := @_SSL_CTX_set_alpn_select_cb;
+      SSL_CTX_set_alpn_select_cb := _SSL_CTX_set_alpn_select_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12952,13 +12953,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_alpn_selected_allownil)}
-    SSL_get0_alpn_selected := @ERR_SSL_get0_alpn_selected;
+    SSL_get0_alpn_selected := ERR_SSL_get0_alpn_selected;
     {$ifend}
     {$if declared(SSL_get0_alpn_selected_introduced)}
     if LibVersion < SSL_get0_alpn_selected_introduced then
     begin
       {$if declared(FC_SSL_get0_alpn_selected)}
-      SSL_get0_alpn_selected := @FC_SSL_get0_alpn_selected;
+      SSL_get0_alpn_selected := FC_SSL_get0_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12967,7 +12968,7 @@ begin
     if SSL_get0_alpn_selected_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_alpn_selected)}
-      SSL_get0_alpn_selected := @_SSL_get0_alpn_selected;
+      SSL_get0_alpn_selected := _SSL_get0_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12984,13 +12985,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_psk_client_callback_allownil)}
-    SSL_CTX_set_psk_client_callback := @ERR_SSL_CTX_set_psk_client_callback;
+    SSL_CTX_set_psk_client_callback := ERR_SSL_CTX_set_psk_client_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_psk_client_callback_introduced)}
     if LibVersion < SSL_CTX_set_psk_client_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_psk_client_callback)}
-      SSL_CTX_set_psk_client_callback := @FC_SSL_CTX_set_psk_client_callback;
+      SSL_CTX_set_psk_client_callback := FC_SSL_CTX_set_psk_client_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -12999,7 +13000,7 @@ begin
     if SSL_CTX_set_psk_client_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_psk_client_callback)}
-      SSL_CTX_set_psk_client_callback := @_SSL_CTX_set_psk_client_callback;
+      SSL_CTX_set_psk_client_callback := _SSL_CTX_set_psk_client_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13016,13 +13017,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_psk_client_callback_allownil)}
-    SSL_set_psk_client_callback := @ERR_SSL_set_psk_client_callback;
+    SSL_set_psk_client_callback := ERR_SSL_set_psk_client_callback;
     {$ifend}
     {$if declared(SSL_set_psk_client_callback_introduced)}
     if LibVersion < SSL_set_psk_client_callback_introduced then
     begin
       {$if declared(FC_SSL_set_psk_client_callback)}
-      SSL_set_psk_client_callback := @FC_SSL_set_psk_client_callback;
+      SSL_set_psk_client_callback := FC_SSL_set_psk_client_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13031,7 +13032,7 @@ begin
     if SSL_set_psk_client_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_psk_client_callback)}
-      SSL_set_psk_client_callback := @_SSL_set_psk_client_callback;
+      SSL_set_psk_client_callback := _SSL_set_psk_client_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13048,13 +13049,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_psk_server_callback_allownil)}
-    SSL_CTX_set_psk_server_callback := @ERR_SSL_CTX_set_psk_server_callback;
+    SSL_CTX_set_psk_server_callback := ERR_SSL_CTX_set_psk_server_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_psk_server_callback_introduced)}
     if LibVersion < SSL_CTX_set_psk_server_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_psk_server_callback)}
-      SSL_CTX_set_psk_server_callback := @FC_SSL_CTX_set_psk_server_callback;
+      SSL_CTX_set_psk_server_callback := FC_SSL_CTX_set_psk_server_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13063,7 +13064,7 @@ begin
     if SSL_CTX_set_psk_server_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_psk_server_callback)}
-      SSL_CTX_set_psk_server_callback := @_SSL_CTX_set_psk_server_callback;
+      SSL_CTX_set_psk_server_callback := _SSL_CTX_set_psk_server_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13080,13 +13081,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_psk_server_callback_allownil)}
-    SSL_set_psk_server_callback := @ERR_SSL_set_psk_server_callback;
+    SSL_set_psk_server_callback := ERR_SSL_set_psk_server_callback;
     {$ifend}
     {$if declared(SSL_set_psk_server_callback_introduced)}
     if LibVersion < SSL_set_psk_server_callback_introduced then
     begin
       {$if declared(FC_SSL_set_psk_server_callback)}
-      SSL_set_psk_server_callback := @FC_SSL_set_psk_server_callback;
+      SSL_set_psk_server_callback := FC_SSL_set_psk_server_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13095,7 +13096,7 @@ begin
     if SSL_set_psk_server_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_psk_server_callback)}
-      SSL_set_psk_server_callback := @_SSL_set_psk_server_callback;
+      SSL_set_psk_server_callback := _SSL_set_psk_server_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13112,13 +13113,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_psk_find_session_callback_allownil)}
-    SSL_set_psk_find_session_callback := @ERR_SSL_set_psk_find_session_callback;
+    SSL_set_psk_find_session_callback := ERR_SSL_set_psk_find_session_callback;
     {$ifend}
     {$if declared(SSL_set_psk_find_session_callback_introduced)}
     if LibVersion < SSL_set_psk_find_session_callback_introduced then
     begin
       {$if declared(FC_SSL_set_psk_find_session_callback)}
-      SSL_set_psk_find_session_callback := @FC_SSL_set_psk_find_session_callback;
+      SSL_set_psk_find_session_callback := FC_SSL_set_psk_find_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13127,7 +13128,7 @@ begin
     if SSL_set_psk_find_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_psk_find_session_callback)}
-      SSL_set_psk_find_session_callback := @_SSL_set_psk_find_session_callback;
+      SSL_set_psk_find_session_callback := _SSL_set_psk_find_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13144,13 +13145,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_psk_find_session_callback_allownil)}
-    SSL_CTX_set_psk_find_session_callback := @ERR_SSL_CTX_set_psk_find_session_callback;
+    SSL_CTX_set_psk_find_session_callback := ERR_SSL_CTX_set_psk_find_session_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_psk_find_session_callback_introduced)}
     if LibVersion < SSL_CTX_set_psk_find_session_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_psk_find_session_callback)}
-      SSL_CTX_set_psk_find_session_callback := @FC_SSL_CTX_set_psk_find_session_callback;
+      SSL_CTX_set_psk_find_session_callback := FC_SSL_CTX_set_psk_find_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13159,7 +13160,7 @@ begin
     if SSL_CTX_set_psk_find_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_psk_find_session_callback)}
-      SSL_CTX_set_psk_find_session_callback := @_SSL_CTX_set_psk_find_session_callback;
+      SSL_CTX_set_psk_find_session_callback := _SSL_CTX_set_psk_find_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13176,13 +13177,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_psk_use_session_callback_allownil)}
-    SSL_set_psk_use_session_callback := @ERR_SSL_set_psk_use_session_callback;
+    SSL_set_psk_use_session_callback := ERR_SSL_set_psk_use_session_callback;
     {$ifend}
     {$if declared(SSL_set_psk_use_session_callback_introduced)}
     if LibVersion < SSL_set_psk_use_session_callback_introduced then
     begin
       {$if declared(FC_SSL_set_psk_use_session_callback)}
-      SSL_set_psk_use_session_callback := @FC_SSL_set_psk_use_session_callback;
+      SSL_set_psk_use_session_callback := FC_SSL_set_psk_use_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13191,7 +13192,7 @@ begin
     if SSL_set_psk_use_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_psk_use_session_callback)}
-      SSL_set_psk_use_session_callback := @_SSL_set_psk_use_session_callback;
+      SSL_set_psk_use_session_callback := _SSL_set_psk_use_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13208,13 +13209,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_psk_use_session_callback_allownil)}
-    SSL_CTX_set_psk_use_session_callback := @ERR_SSL_CTX_set_psk_use_session_callback;
+    SSL_CTX_set_psk_use_session_callback := ERR_SSL_CTX_set_psk_use_session_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_psk_use_session_callback_introduced)}
     if LibVersion < SSL_CTX_set_psk_use_session_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_psk_use_session_callback)}
-      SSL_CTX_set_psk_use_session_callback := @FC_SSL_CTX_set_psk_use_session_callback;
+      SSL_CTX_set_psk_use_session_callback := FC_SSL_CTX_set_psk_use_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13223,7 +13224,7 @@ begin
     if SSL_CTX_set_psk_use_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_psk_use_session_callback)}
-      SSL_CTX_set_psk_use_session_callback := @_SSL_CTX_set_psk_use_session_callback;
+      SSL_CTX_set_psk_use_session_callback := _SSL_CTX_set_psk_use_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13239,13 +13240,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_has_client_custom_ext_allownil)}
-    SSL_CTX_has_client_custom_ext := @ERR_SSL_CTX_has_client_custom_ext;
+    SSL_CTX_has_client_custom_ext := ERR_SSL_CTX_has_client_custom_ext;
     {$ifend}
     {$if declared(SSL_CTX_has_client_custom_ext_introduced)}
     if LibVersion < SSL_CTX_has_client_custom_ext_introduced then
     begin
       {$if declared(FC_SSL_CTX_has_client_custom_ext)}
-      SSL_CTX_has_client_custom_ext := @FC_SSL_CTX_has_client_custom_ext;
+      SSL_CTX_has_client_custom_ext := FC_SSL_CTX_has_client_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13254,7 +13255,7 @@ begin
     if SSL_CTX_has_client_custom_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_has_client_custom_ext)}
-      SSL_CTX_has_client_custom_ext := @_SSL_CTX_has_client_custom_ext;
+      SSL_CTX_has_client_custom_ext := _SSL_CTX_has_client_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13270,13 +13271,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_client_custom_ext_allownil)}
-    SSL_CTX_add_client_custom_ext := @ERR_SSL_CTX_add_client_custom_ext;
+    SSL_CTX_add_client_custom_ext := ERR_SSL_CTX_add_client_custom_ext;
     {$ifend}
     {$if declared(SSL_CTX_add_client_custom_ext_introduced)}
     if LibVersion < SSL_CTX_add_client_custom_ext_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_client_custom_ext)}
-      SSL_CTX_add_client_custom_ext := @FC_SSL_CTX_add_client_custom_ext;
+      SSL_CTX_add_client_custom_ext := FC_SSL_CTX_add_client_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13285,7 +13286,7 @@ begin
     if SSL_CTX_add_client_custom_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_client_custom_ext)}
-      SSL_CTX_add_client_custom_ext := @_SSL_CTX_add_client_custom_ext;
+      SSL_CTX_add_client_custom_ext := _SSL_CTX_add_client_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13301,13 +13302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_server_custom_ext_allownil)}
-    SSL_CTX_add_server_custom_ext := @ERR_SSL_CTX_add_server_custom_ext;
+    SSL_CTX_add_server_custom_ext := ERR_SSL_CTX_add_server_custom_ext;
     {$ifend}
     {$if declared(SSL_CTX_add_server_custom_ext_introduced)}
     if LibVersion < SSL_CTX_add_server_custom_ext_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_server_custom_ext)}
-      SSL_CTX_add_server_custom_ext := @FC_SSL_CTX_add_server_custom_ext;
+      SSL_CTX_add_server_custom_ext := FC_SSL_CTX_add_server_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13316,7 +13317,7 @@ begin
     if SSL_CTX_add_server_custom_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_server_custom_ext)}
-      SSL_CTX_add_server_custom_ext := @_SSL_CTX_add_server_custom_ext;
+      SSL_CTX_add_server_custom_ext := _SSL_CTX_add_server_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13332,13 +13333,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_custom_ext_allownil)}
-    SSL_CTX_add_custom_ext := @ERR_SSL_CTX_add_custom_ext;
+    SSL_CTX_add_custom_ext := ERR_SSL_CTX_add_custom_ext;
     {$ifend}
     {$if declared(SSL_CTX_add_custom_ext_introduced)}
     if LibVersion < SSL_CTX_add_custom_ext_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_custom_ext)}
-      SSL_CTX_add_custom_ext := @FC_SSL_CTX_add_custom_ext;
+      SSL_CTX_add_custom_ext := FC_SSL_CTX_add_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13347,7 +13348,7 @@ begin
     if SSL_CTX_add_custom_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_custom_ext)}
-      SSL_CTX_add_custom_ext := @_SSL_CTX_add_custom_ext;
+      SSL_CTX_add_custom_ext := _SSL_CTX_add_custom_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13363,13 +13364,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_extension_supported_allownil)}
-    SSL_extension_supported := @ERR_SSL_extension_supported;
+    SSL_extension_supported := ERR_SSL_extension_supported;
     {$ifend}
     {$if declared(SSL_extension_supported_introduced)}
     if LibVersion < SSL_extension_supported_introduced then
     begin
       {$if declared(FC_SSL_extension_supported)}
-      SSL_extension_supported := @FC_SSL_extension_supported;
+      SSL_extension_supported := FC_SSL_extension_supported;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13378,7 +13379,7 @@ begin
     if SSL_extension_supported_removed <= LibVersion then
     begin
       {$if declared(_SSL_extension_supported)}
-      SSL_extension_supported := @_SSL_extension_supported;
+      SSL_extension_supported := _SSL_extension_supported;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13395,13 +13396,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_keylog_callback_allownil)}
-    SSL_CTX_set_keylog_callback := @ERR_SSL_CTX_set_keylog_callback;
+    SSL_CTX_set_keylog_callback := ERR_SSL_CTX_set_keylog_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_keylog_callback_introduced)}
     if LibVersion < SSL_CTX_set_keylog_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_keylog_callback)}
-      SSL_CTX_set_keylog_callback := @FC_SSL_CTX_set_keylog_callback;
+      SSL_CTX_set_keylog_callback := FC_SSL_CTX_set_keylog_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13410,7 +13411,7 @@ begin
     if SSL_CTX_set_keylog_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_keylog_callback)}
-      SSL_CTX_set_keylog_callback := @_SSL_CTX_set_keylog_callback;
+      SSL_CTX_set_keylog_callback := _SSL_CTX_set_keylog_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13427,13 +13428,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_keylog_callback_allownil)}
-    SSL_CTX_get_keylog_callback := @ERR_SSL_CTX_get_keylog_callback;
+    SSL_CTX_get_keylog_callback := ERR_SSL_CTX_get_keylog_callback;
     {$ifend}
     {$if declared(SSL_CTX_get_keylog_callback_introduced)}
     if LibVersion < SSL_CTX_get_keylog_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_keylog_callback)}
-      SSL_CTX_get_keylog_callback := @FC_SSL_CTX_get_keylog_callback;
+      SSL_CTX_get_keylog_callback := FC_SSL_CTX_get_keylog_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13442,7 +13443,7 @@ begin
     if SSL_CTX_get_keylog_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_keylog_callback)}
-      SSL_CTX_get_keylog_callback := @_SSL_CTX_get_keylog_callback;
+      SSL_CTX_get_keylog_callback := _SSL_CTX_get_keylog_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13459,13 +13460,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_max_early_data_allownil)}
-    SSL_CTX_set_max_early_data := @ERR_SSL_CTX_set_max_early_data;
+    SSL_CTX_set_max_early_data := ERR_SSL_CTX_set_max_early_data;
     {$ifend}
     {$if declared(SSL_CTX_set_max_early_data_introduced)}
     if LibVersion < SSL_CTX_set_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_max_early_data)}
-      SSL_CTX_set_max_early_data := @FC_SSL_CTX_set_max_early_data;
+      SSL_CTX_set_max_early_data := FC_SSL_CTX_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13474,7 +13475,7 @@ begin
     if SSL_CTX_set_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_max_early_data)}
-      SSL_CTX_set_max_early_data := @_SSL_CTX_set_max_early_data;
+      SSL_CTX_set_max_early_data := _SSL_CTX_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13491,13 +13492,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_max_early_data_allownil)}
-    SSL_CTX_get_max_early_data := @ERR_SSL_CTX_get_max_early_data;
+    SSL_CTX_get_max_early_data := ERR_SSL_CTX_get_max_early_data;
     {$ifend}
     {$if declared(SSL_CTX_get_max_early_data_introduced)}
     if LibVersion < SSL_CTX_get_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_max_early_data)}
-      SSL_CTX_get_max_early_data := @FC_SSL_CTX_get_max_early_data;
+      SSL_CTX_get_max_early_data := FC_SSL_CTX_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13506,7 +13507,7 @@ begin
     if SSL_CTX_get_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_max_early_data)}
-      SSL_CTX_get_max_early_data := @_SSL_CTX_get_max_early_data;
+      SSL_CTX_get_max_early_data := _SSL_CTX_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13523,13 +13524,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_max_early_data_allownil)}
-    SSL_set_max_early_data := @ERR_SSL_set_max_early_data;
+    SSL_set_max_early_data := ERR_SSL_set_max_early_data;
     {$ifend}
     {$if declared(SSL_set_max_early_data_introduced)}
     if LibVersion < SSL_set_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_set_max_early_data)}
-      SSL_set_max_early_data := @FC_SSL_set_max_early_data;
+      SSL_set_max_early_data := FC_SSL_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13538,7 +13539,7 @@ begin
     if SSL_set_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_max_early_data)}
-      SSL_set_max_early_data := @_SSL_set_max_early_data;
+      SSL_set_max_early_data := _SSL_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13555,13 +13556,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_max_early_data_allownil)}
-    SSL_get_max_early_data := @ERR_SSL_get_max_early_data;
+    SSL_get_max_early_data := ERR_SSL_get_max_early_data;
     {$ifend}
     {$if declared(SSL_get_max_early_data_introduced)}
     if LibVersion < SSL_get_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_get_max_early_data)}
-      SSL_get_max_early_data := @FC_SSL_get_max_early_data;
+      SSL_get_max_early_data := FC_SSL_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13570,7 +13571,7 @@ begin
     if SSL_get_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_max_early_data)}
-      SSL_get_max_early_data := @_SSL_get_max_early_data;
+      SSL_get_max_early_data := _SSL_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13587,13 +13588,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_recv_max_early_data_allownil)}
-    SSL_CTX_set_recv_max_early_data := @ERR_SSL_CTX_set_recv_max_early_data;
+    SSL_CTX_set_recv_max_early_data := ERR_SSL_CTX_set_recv_max_early_data;
     {$ifend}
     {$if declared(SSL_CTX_set_recv_max_early_data_introduced)}
     if LibVersion < SSL_CTX_set_recv_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_recv_max_early_data)}
-      SSL_CTX_set_recv_max_early_data := @FC_SSL_CTX_set_recv_max_early_data;
+      SSL_CTX_set_recv_max_early_data := FC_SSL_CTX_set_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13602,7 +13603,7 @@ begin
     if SSL_CTX_set_recv_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_recv_max_early_data)}
-      SSL_CTX_set_recv_max_early_data := @_SSL_CTX_set_recv_max_early_data;
+      SSL_CTX_set_recv_max_early_data := _SSL_CTX_set_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13619,13 +13620,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_recv_max_early_data_allownil)}
-    SSL_CTX_get_recv_max_early_data := @ERR_SSL_CTX_get_recv_max_early_data;
+    SSL_CTX_get_recv_max_early_data := ERR_SSL_CTX_get_recv_max_early_data;
     {$ifend}
     {$if declared(SSL_CTX_get_recv_max_early_data_introduced)}
     if LibVersion < SSL_CTX_get_recv_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_recv_max_early_data)}
-      SSL_CTX_get_recv_max_early_data := @FC_SSL_CTX_get_recv_max_early_data;
+      SSL_CTX_get_recv_max_early_data := FC_SSL_CTX_get_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13634,7 +13635,7 @@ begin
     if SSL_CTX_get_recv_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_recv_max_early_data)}
-      SSL_CTX_get_recv_max_early_data := @_SSL_CTX_get_recv_max_early_data;
+      SSL_CTX_get_recv_max_early_data := _SSL_CTX_get_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13651,13 +13652,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_recv_max_early_data_allownil)}
-    SSL_set_recv_max_early_data := @ERR_SSL_set_recv_max_early_data;
+    SSL_set_recv_max_early_data := ERR_SSL_set_recv_max_early_data;
     {$ifend}
     {$if declared(SSL_set_recv_max_early_data_introduced)}
     if LibVersion < SSL_set_recv_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_set_recv_max_early_data)}
-      SSL_set_recv_max_early_data := @FC_SSL_set_recv_max_early_data;
+      SSL_set_recv_max_early_data := FC_SSL_set_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13666,7 +13667,7 @@ begin
     if SSL_set_recv_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_recv_max_early_data)}
-      SSL_set_recv_max_early_data := @_SSL_set_recv_max_early_data;
+      SSL_set_recv_max_early_data := _SSL_set_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13683,13 +13684,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_recv_max_early_data_allownil)}
-    SSL_get_recv_max_early_data := @ERR_SSL_get_recv_max_early_data;
+    SSL_get_recv_max_early_data := ERR_SSL_get_recv_max_early_data;
     {$ifend}
     {$if declared(SSL_get_recv_max_early_data_introduced)}
     if LibVersion < SSL_get_recv_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_get_recv_max_early_data)}
-      SSL_get_recv_max_early_data := @FC_SSL_get_recv_max_early_data;
+      SSL_get_recv_max_early_data := FC_SSL_get_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13698,7 +13699,7 @@ begin
     if SSL_get_recv_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_recv_max_early_data)}
-      SSL_get_recv_max_early_data := @_SSL_get_recv_max_early_data;
+      SSL_get_recv_max_early_data := _SSL_get_recv_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13715,13 +13716,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_app_data_allownil)}
-    SSL_get_app_data := @ERR_SSL_get_app_data;
+    SSL_get_app_data := ERR_SSL_get_app_data;
     {$ifend}
     {$if declared(SSL_get_app_data_introduced)}
     if LibVersion < SSL_get_app_data_introduced then
     begin
       {$if declared(FC_SSL_get_app_data)}
-      SSL_get_app_data := @FC_SSL_get_app_data;
+      SSL_get_app_data := FC_SSL_get_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13730,7 +13731,7 @@ begin
     if SSL_get_app_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_app_data)}
-      SSL_get_app_data := @_SSL_get_app_data;
+      SSL_get_app_data := _SSL_get_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13747,13 +13748,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_app_data_allownil)}
-    SSL_set_app_data := @ERR_SSL_set_app_data;
+    SSL_set_app_data := ERR_SSL_set_app_data;
     {$ifend}
     {$if declared(SSL_set_app_data_introduced)}
     if LibVersion < SSL_set_app_data_introduced then
     begin
       {$if declared(FC_SSL_set_app_data)}
-      SSL_set_app_data := @FC_SSL_set_app_data;
+      SSL_set_app_data := FC_SSL_set_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13762,7 +13763,7 @@ begin
     if SSL_set_app_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_app_data)}
-      SSL_set_app_data := @_SSL_set_app_data;
+      SSL_set_app_data := _SSL_set_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13779,13 +13780,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_in_init_allownil)}
-    SSL_in_init := @ERR_SSL_in_init;
+    SSL_in_init := ERR_SSL_in_init;
     {$ifend}
     {$if declared(SSL_in_init_introduced)}
     if LibVersion < SSL_in_init_introduced then
     begin
       {$if declared(FC_SSL_in_init)}
-      SSL_in_init := @FC_SSL_in_init;
+      SSL_in_init := FC_SSL_in_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13794,7 +13795,7 @@ begin
     if SSL_in_init_removed <= LibVersion then
     begin
       {$if declared(_SSL_in_init)}
-      SSL_in_init := @_SSL_in_init;
+      SSL_in_init := _SSL_in_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13811,13 +13812,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_in_before_allownil)}
-    SSL_in_before := @ERR_SSL_in_before;
+    SSL_in_before := ERR_SSL_in_before;
     {$ifend}
     {$if declared(SSL_in_before_introduced)}
     if LibVersion < SSL_in_before_introduced then
     begin
       {$if declared(FC_SSL_in_before)}
-      SSL_in_before := @FC_SSL_in_before;
+      SSL_in_before := FC_SSL_in_before;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13826,7 +13827,7 @@ begin
     if SSL_in_before_removed <= LibVersion then
     begin
       {$if declared(_SSL_in_before)}
-      SSL_in_before := @_SSL_in_before;
+      SSL_in_before := _SSL_in_before;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13843,13 +13844,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_init_finished_allownil)}
-    SSL_is_init_finished := @ERR_SSL_is_init_finished;
+    SSL_is_init_finished := ERR_SSL_is_init_finished;
     {$ifend}
     {$if declared(SSL_is_init_finished_introduced)}
     if LibVersion < SSL_is_init_finished_introduced then
     begin
       {$if declared(FC_SSL_is_init_finished)}
-      SSL_is_init_finished := @FC_SSL_is_init_finished;
+      SSL_is_init_finished := FC_SSL_is_init_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13858,7 +13859,7 @@ begin
     if SSL_is_init_finished_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_init_finished)}
-      SSL_is_init_finished := @_SSL_is_init_finished;
+      SSL_is_init_finished := _SSL_is_init_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13875,13 +13876,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_finished_allownil)}
-    SSL_get_finished := @ERR_SSL_get_finished;
+    SSL_get_finished := ERR_SSL_get_finished;
     {$ifend}
     {$if declared(SSL_get_finished_introduced)}
     if LibVersion < SSL_get_finished_introduced then
     begin
       {$if declared(FC_SSL_get_finished)}
-      SSL_get_finished := @FC_SSL_get_finished;
+      SSL_get_finished := FC_SSL_get_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13890,7 +13891,7 @@ begin
     if SSL_get_finished_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_finished)}
-      SSL_get_finished := @_SSL_get_finished;
+      SSL_get_finished := _SSL_get_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13907,13 +13908,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_peer_finished_allownil)}
-    SSL_get_peer_finished := @ERR_SSL_get_peer_finished;
+    SSL_get_peer_finished := ERR_SSL_get_peer_finished;
     {$ifend}
     {$if declared(SSL_get_peer_finished_introduced)}
     if LibVersion < SSL_get_peer_finished_introduced then
     begin
       {$if declared(FC_SSL_get_peer_finished)}
-      SSL_get_peer_finished := @FC_SSL_get_peer_finished;
+      SSL_get_peer_finished := FC_SSL_get_peer_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13922,7 +13923,7 @@ begin
     if SSL_get_peer_finished_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_peer_finished)}
-      SSL_get_peer_finished := @_SSL_get_peer_finished;
+      SSL_get_peer_finished := _SSL_get_peer_finished;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13939,13 +13940,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLeay_add_ssl_algorithms_allownil)}
-    SSLeay_add_ssl_algorithms := @ERR_SSLeay_add_ssl_algorithms;
+    SSLeay_add_ssl_algorithms := ERR_SSLeay_add_ssl_algorithms;
     {$ifend}
     {$if declared(SSLeay_add_ssl_algorithms_introduced)}
     if LibVersion < SSLeay_add_ssl_algorithms_introduced then
     begin
       {$if declared(FC_SSLeay_add_ssl_algorithms)}
-      SSLeay_add_ssl_algorithms := @FC_SSLeay_add_ssl_algorithms;
+      SSLeay_add_ssl_algorithms := FC_SSLeay_add_ssl_algorithms;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13954,7 +13955,7 @@ begin
     if SSLeay_add_ssl_algorithms_removed <= LibVersion then
     begin
       {$if declared(_SSLeay_add_ssl_algorithms)}
-      SSLeay_add_ssl_algorithms := @_SSLeay_add_ssl_algorithms;
+      SSLeay_add_ssl_algorithms := _SSLeay_add_ssl_algorithms;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13971,13 +13972,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_ssl_allownil)}
-    BIO_f_ssl := @ERR_BIO_f_ssl;
+    BIO_f_ssl := ERR_BIO_f_ssl;
     {$ifend}
     {$if declared(BIO_f_ssl_introduced)}
     if LibVersion < BIO_f_ssl_introduced then
     begin
       {$if declared(FC_BIO_f_ssl)}
-      BIO_f_ssl := @FC_BIO_f_ssl;
+      BIO_f_ssl := FC_BIO_f_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -13986,7 +13987,7 @@ begin
     if BIO_f_ssl_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_ssl)}
-      BIO_f_ssl := @_BIO_f_ssl;
+      BIO_f_ssl := _BIO_f_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14003,13 +14004,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_ssl_allownil)}
-    BIO_new_ssl := @ERR_BIO_new_ssl;
+    BIO_new_ssl := ERR_BIO_new_ssl;
     {$ifend}
     {$if declared(BIO_new_ssl_introduced)}
     if LibVersion < BIO_new_ssl_introduced then
     begin
       {$if declared(FC_BIO_new_ssl)}
-      BIO_new_ssl := @FC_BIO_new_ssl;
+      BIO_new_ssl := FC_BIO_new_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14018,7 +14019,7 @@ begin
     if BIO_new_ssl_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_ssl)}
-      BIO_new_ssl := @_BIO_new_ssl;
+      BIO_new_ssl := _BIO_new_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14035,13 +14036,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_ssl_connect_allownil)}
-    BIO_new_ssl_connect := @ERR_BIO_new_ssl_connect;
+    BIO_new_ssl_connect := ERR_BIO_new_ssl_connect;
     {$ifend}
     {$if declared(BIO_new_ssl_connect_introduced)}
     if LibVersion < BIO_new_ssl_connect_introduced then
     begin
       {$if declared(FC_BIO_new_ssl_connect)}
-      BIO_new_ssl_connect := @FC_BIO_new_ssl_connect;
+      BIO_new_ssl_connect := FC_BIO_new_ssl_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14050,7 +14051,7 @@ begin
     if BIO_new_ssl_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_ssl_connect)}
-      BIO_new_ssl_connect := @_BIO_new_ssl_connect;
+      BIO_new_ssl_connect := _BIO_new_ssl_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14067,13 +14068,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_buffer_ssl_connect_allownil)}
-    BIO_new_buffer_ssl_connect := @ERR_BIO_new_buffer_ssl_connect;
+    BIO_new_buffer_ssl_connect := ERR_BIO_new_buffer_ssl_connect;
     {$ifend}
     {$if declared(BIO_new_buffer_ssl_connect_introduced)}
     if LibVersion < BIO_new_buffer_ssl_connect_introduced then
     begin
       {$if declared(FC_BIO_new_buffer_ssl_connect)}
-      BIO_new_buffer_ssl_connect := @FC_BIO_new_buffer_ssl_connect;
+      BIO_new_buffer_ssl_connect := FC_BIO_new_buffer_ssl_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14082,7 +14083,7 @@ begin
     if BIO_new_buffer_ssl_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_buffer_ssl_connect)}
-      BIO_new_buffer_ssl_connect := @_BIO_new_buffer_ssl_connect;
+      BIO_new_buffer_ssl_connect := _BIO_new_buffer_ssl_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14099,13 +14100,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ssl_copy_session_id_allownil)}
-    BIO_ssl_copy_session_id := @ERR_BIO_ssl_copy_session_id;
+    BIO_ssl_copy_session_id := ERR_BIO_ssl_copy_session_id;
     {$ifend}
     {$if declared(BIO_ssl_copy_session_id_introduced)}
     if LibVersion < BIO_ssl_copy_session_id_introduced then
     begin
       {$if declared(FC_BIO_ssl_copy_session_id)}
-      BIO_ssl_copy_session_id := @FC_BIO_ssl_copy_session_id;
+      BIO_ssl_copy_session_id := FC_BIO_ssl_copy_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14114,7 +14115,7 @@ begin
     if BIO_ssl_copy_session_id_removed <= LibVersion then
     begin
       {$if declared(_BIO_ssl_copy_session_id)}
-      BIO_ssl_copy_session_id := @_BIO_ssl_copy_session_id;
+      BIO_ssl_copy_session_id := _BIO_ssl_copy_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14131,13 +14132,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cipher_list_allownil)}
-    SSL_CTX_set_cipher_list := @ERR_SSL_CTX_set_cipher_list;
+    SSL_CTX_set_cipher_list := ERR_SSL_CTX_set_cipher_list;
     {$ifend}
     {$if declared(SSL_CTX_set_cipher_list_introduced)}
     if LibVersion < SSL_CTX_set_cipher_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cipher_list)}
-      SSL_CTX_set_cipher_list := @FC_SSL_CTX_set_cipher_list;
+      SSL_CTX_set_cipher_list := FC_SSL_CTX_set_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14146,7 +14147,7 @@ begin
     if SSL_CTX_set_cipher_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cipher_list)}
-      SSL_CTX_set_cipher_list := @_SSL_CTX_set_cipher_list;
+      SSL_CTX_set_cipher_list := _SSL_CTX_set_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14163,13 +14164,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_new_allownil)}
-    SSL_CTX_new := @ERR_SSL_CTX_new;
+    SSL_CTX_new := ERR_SSL_CTX_new;
     {$ifend}
     {$if declared(SSL_CTX_new_introduced)}
     if LibVersion < SSL_CTX_new_introduced then
     begin
       {$if declared(FC_SSL_CTX_new)}
-      SSL_CTX_new := @FC_SSL_CTX_new;
+      SSL_CTX_new := FC_SSL_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14178,7 +14179,7 @@ begin
     if SSL_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_new)}
-      SSL_CTX_new := @_SSL_CTX_new;
+      SSL_CTX_new := _SSL_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14194,13 +14195,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_new_ex_allownil)}
-    SSL_CTX_new_ex := @ERR_SSL_CTX_new_ex;
+    SSL_CTX_new_ex := ERR_SSL_CTX_new_ex;
     {$ifend}
     {$if declared(SSL_CTX_new_ex_introduced)}
     if LibVersion < SSL_CTX_new_ex_introduced then
     begin
       {$if declared(FC_SSL_CTX_new_ex)}
-      SSL_CTX_new_ex := @FC_SSL_CTX_new_ex;
+      SSL_CTX_new_ex := FC_SSL_CTX_new_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14209,7 +14210,7 @@ begin
     if SSL_CTX_new_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_new_ex)}
-      SSL_CTX_new_ex := @_SSL_CTX_new_ex;
+      SSL_CTX_new_ex := _SSL_CTX_new_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14225,13 +14226,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_timeout_allownil)}
-    SSL_CTX_set_timeout := @ERR_SSL_CTX_set_timeout;
+    SSL_CTX_set_timeout := ERR_SSL_CTX_set_timeout;
     {$ifend}
     {$if declared(SSL_CTX_set_timeout_introduced)}
     if LibVersion < SSL_CTX_set_timeout_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_timeout)}
-      SSL_CTX_set_timeout := @FC_SSL_CTX_set_timeout;
+      SSL_CTX_set_timeout := FC_SSL_CTX_set_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14240,7 +14241,7 @@ begin
     if SSL_CTX_set_timeout_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_timeout)}
-      SSL_CTX_set_timeout := @_SSL_CTX_set_timeout;
+      SSL_CTX_set_timeout := _SSL_CTX_set_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14257,13 +14258,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_timeout_allownil)}
-    SSL_CTX_get_timeout := @ERR_SSL_CTX_get_timeout;
+    SSL_CTX_get_timeout := ERR_SSL_CTX_get_timeout;
     {$ifend}
     {$if declared(SSL_CTX_get_timeout_introduced)}
     if LibVersion < SSL_CTX_get_timeout_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_timeout)}
-      SSL_CTX_get_timeout := @FC_SSL_CTX_get_timeout;
+      SSL_CTX_get_timeout := FC_SSL_CTX_get_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14272,7 +14273,7 @@ begin
     if SSL_CTX_get_timeout_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_timeout)}
-      SSL_CTX_get_timeout := @_SSL_CTX_get_timeout;
+      SSL_CTX_get_timeout := _SSL_CTX_get_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14289,13 +14290,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_cert_store_allownil)}
-    SSL_CTX_get_cert_store := @ERR_SSL_CTX_get_cert_store;
+    SSL_CTX_get_cert_store := ERR_SSL_CTX_get_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_get_cert_store_introduced)}
     if LibVersion < SSL_CTX_get_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_cert_store)}
-      SSL_CTX_get_cert_store := @FC_SSL_CTX_get_cert_store;
+      SSL_CTX_get_cert_store := FC_SSL_CTX_get_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14304,7 +14305,7 @@ begin
     if SSL_CTX_get_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_cert_store)}
-      SSL_CTX_get_cert_store := @_SSL_CTX_get_cert_store;
+      SSL_CTX_get_cert_store := _SSL_CTX_get_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14321,13 +14322,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_want_allownil)}
-    SSL_want := @ERR_SSL_want;
+    SSL_want := ERR_SSL_want;
     {$ifend}
     {$if declared(SSL_want_introduced)}
     if LibVersion < SSL_want_introduced then
     begin
       {$if declared(FC_SSL_want)}
-      SSL_want := @FC_SSL_want;
+      SSL_want := FC_SSL_want;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14336,7 +14337,7 @@ begin
     if SSL_want_removed <= LibVersion then
     begin
       {$if declared(_SSL_want)}
-      SSL_want := @_SSL_want;
+      SSL_want := _SSL_want;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14353,13 +14354,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_clear_allownil)}
-    SSL_clear := @ERR_SSL_clear;
+    SSL_clear := ERR_SSL_clear;
     {$ifend}
     {$if declared(SSL_clear_introduced)}
     if LibVersion < SSL_clear_introduced then
     begin
       {$if declared(FC_SSL_clear)}
-      SSL_clear := @FC_SSL_clear;
+      SSL_clear := FC_SSL_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14368,7 +14369,7 @@ begin
     if SSL_clear_removed <= LibVersion then
     begin
       {$if declared(_SSL_clear)}
-      SSL_clear := @_SSL_clear;
+      SSL_clear := _SSL_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14385,13 +14386,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ssl_shutdown_allownil)}
-    BIO_ssl_shutdown := @ERR_BIO_ssl_shutdown;
+    BIO_ssl_shutdown := ERR_BIO_ssl_shutdown;
     {$ifend}
     {$if declared(BIO_ssl_shutdown_introduced)}
     if LibVersion < BIO_ssl_shutdown_introduced then
     begin
       {$if declared(FC_BIO_ssl_shutdown)}
-      BIO_ssl_shutdown := @FC_BIO_ssl_shutdown;
+      BIO_ssl_shutdown := FC_BIO_ssl_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14400,7 +14401,7 @@ begin
     if BIO_ssl_shutdown_removed <= LibVersion then
     begin
       {$if declared(_BIO_ssl_shutdown)}
-      BIO_ssl_shutdown := @_BIO_ssl_shutdown;
+      BIO_ssl_shutdown := _BIO_ssl_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14417,13 +14418,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_up_ref_allownil)}
-    SSL_CTX_up_ref := @ERR_SSL_CTX_up_ref;
+    SSL_CTX_up_ref := ERR_SSL_CTX_up_ref;
     {$ifend}
     {$if declared(SSL_CTX_up_ref_introduced)}
     if LibVersion < SSL_CTX_up_ref_introduced then
     begin
       {$if declared(FC_SSL_CTX_up_ref)}
-      SSL_CTX_up_ref := @FC_SSL_CTX_up_ref;
+      SSL_CTX_up_ref := FC_SSL_CTX_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14432,7 +14433,7 @@ begin
     if SSL_CTX_up_ref_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_up_ref)}
-      SSL_CTX_up_ref := @_SSL_CTX_up_ref;
+      SSL_CTX_up_ref := _SSL_CTX_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14449,13 +14450,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_free_allownil)}
-    SSL_CTX_free := @ERR_SSL_CTX_free;
+    SSL_CTX_free := ERR_SSL_CTX_free;
     {$ifend}
     {$if declared(SSL_CTX_free_introduced)}
     if LibVersion < SSL_CTX_free_introduced then
     begin
       {$if declared(FC_SSL_CTX_free)}
-      SSL_CTX_free := @FC_SSL_CTX_free;
+      SSL_CTX_free := FC_SSL_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14464,7 +14465,7 @@ begin
     if SSL_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_free)}
-      SSL_CTX_free := @_SSL_CTX_free;
+      SSL_CTX_free := _SSL_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14481,13 +14482,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cert_store_allownil)}
-    SSL_CTX_set_cert_store := @ERR_SSL_CTX_set_cert_store;
+    SSL_CTX_set_cert_store := ERR_SSL_CTX_set_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set_cert_store_introduced)}
     if LibVersion < SSL_CTX_set_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cert_store)}
-      SSL_CTX_set_cert_store := @FC_SSL_CTX_set_cert_store;
+      SSL_CTX_set_cert_store := FC_SSL_CTX_set_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14496,7 +14497,7 @@ begin
     if SSL_CTX_set_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cert_store)}
-      SSL_CTX_set_cert_store := @_SSL_CTX_set_cert_store;
+      SSL_CTX_set_cert_store := _SSL_CTX_set_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14513,13 +14514,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_cert_store_allownil)}
-    SSL_CTX_set1_cert_store := @ERR_SSL_CTX_set1_cert_store;
+    SSL_CTX_set1_cert_store := ERR_SSL_CTX_set1_cert_store;
     {$ifend}
     {$if declared(SSL_CTX_set1_cert_store_introduced)}
     if LibVersion < SSL_CTX_set1_cert_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_cert_store)}
-      SSL_CTX_set1_cert_store := @FC_SSL_CTX_set1_cert_store;
+      SSL_CTX_set1_cert_store := FC_SSL_CTX_set1_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14528,7 +14529,7 @@ begin
     if SSL_CTX_set1_cert_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_cert_store)}
-      SSL_CTX_set1_cert_store := @_SSL_CTX_set1_cert_store;
+      SSL_CTX_set1_cert_store := _SSL_CTX_set1_cert_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14544,13 +14545,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_flush_sessions_ex_allownil)}
-    SSL_CTX_flush_sessions_ex := @ERR_SSL_CTX_flush_sessions_ex;
+    SSL_CTX_flush_sessions_ex := ERR_SSL_CTX_flush_sessions_ex;
     {$ifend}
     {$if declared(SSL_CTX_flush_sessions_ex_introduced)}
     if LibVersion < SSL_CTX_flush_sessions_ex_introduced then
     begin
       {$if declared(FC_SSL_CTX_flush_sessions_ex)}
-      SSL_CTX_flush_sessions_ex := @FC_SSL_CTX_flush_sessions_ex;
+      SSL_CTX_flush_sessions_ex := FC_SSL_CTX_flush_sessions_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14559,7 +14560,7 @@ begin
     if SSL_CTX_flush_sessions_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_flush_sessions_ex)}
-      SSL_CTX_flush_sessions_ex := @_SSL_CTX_flush_sessions_ex;
+      SSL_CTX_flush_sessions_ex := _SSL_CTX_flush_sessions_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14576,13 +14577,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_flush_sessions_allownil)}
-    SSL_CTX_flush_sessions := @ERR_SSL_CTX_flush_sessions;
+    SSL_CTX_flush_sessions := ERR_SSL_CTX_flush_sessions;
     {$ifend}
     {$if declared(SSL_CTX_flush_sessions_introduced)}
     if LibVersion < SSL_CTX_flush_sessions_introduced then
     begin
       {$if declared(FC_SSL_CTX_flush_sessions)}
-      SSL_CTX_flush_sessions := @FC_SSL_CTX_flush_sessions;
+      SSL_CTX_flush_sessions := FC_SSL_CTX_flush_sessions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14591,7 +14592,7 @@ begin
     if SSL_CTX_flush_sessions_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_flush_sessions)}
-      SSL_CTX_flush_sessions := @_SSL_CTX_flush_sessions;
+      SSL_CTX_flush_sessions := _SSL_CTX_flush_sessions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14608,13 +14609,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_current_cipher_allownil)}
-    SSL_get_current_cipher := @ERR_SSL_get_current_cipher;
+    SSL_get_current_cipher := ERR_SSL_get_current_cipher;
     {$ifend}
     {$if declared(SSL_get_current_cipher_introduced)}
     if LibVersion < SSL_get_current_cipher_introduced then
     begin
       {$if declared(FC_SSL_get_current_cipher)}
-      SSL_get_current_cipher := @FC_SSL_get_current_cipher;
+      SSL_get_current_cipher := FC_SSL_get_current_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14623,7 +14624,7 @@ begin
     if SSL_get_current_cipher_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_current_cipher)}
-      SSL_get_current_cipher := @_SSL_get_current_cipher;
+      SSL_get_current_cipher := _SSL_get_current_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14640,13 +14641,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_pending_cipher_allownil)}
-    SSL_get_pending_cipher := @ERR_SSL_get_pending_cipher;
+    SSL_get_pending_cipher := ERR_SSL_get_pending_cipher;
     {$ifend}
     {$if declared(SSL_get_pending_cipher_introduced)}
     if LibVersion < SSL_get_pending_cipher_introduced then
     begin
       {$if declared(FC_SSL_get_pending_cipher)}
-      SSL_get_pending_cipher := @FC_SSL_get_pending_cipher;
+      SSL_get_pending_cipher := FC_SSL_get_pending_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14655,7 +14656,7 @@ begin
     if SSL_get_pending_cipher_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_pending_cipher)}
-      SSL_get_pending_cipher := @_SSL_get_pending_cipher;
+      SSL_get_pending_cipher := _SSL_get_pending_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14672,13 +14673,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_bits_allownil)}
-    SSL_CIPHER_get_bits := @ERR_SSL_CIPHER_get_bits;
+    SSL_CIPHER_get_bits := ERR_SSL_CIPHER_get_bits;
     {$ifend}
     {$if declared(SSL_CIPHER_get_bits_introduced)}
     if LibVersion < SSL_CIPHER_get_bits_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_bits)}
-      SSL_CIPHER_get_bits := @FC_SSL_CIPHER_get_bits;
+      SSL_CIPHER_get_bits := FC_SSL_CIPHER_get_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14687,7 +14688,7 @@ begin
     if SSL_CIPHER_get_bits_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_bits)}
-      SSL_CIPHER_get_bits := @_SSL_CIPHER_get_bits;
+      SSL_CIPHER_get_bits := _SSL_CIPHER_get_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14704,13 +14705,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_version_allownil)}
-    SSL_CIPHER_get_version := @ERR_SSL_CIPHER_get_version;
+    SSL_CIPHER_get_version := ERR_SSL_CIPHER_get_version;
     {$ifend}
     {$if declared(SSL_CIPHER_get_version_introduced)}
     if LibVersion < SSL_CIPHER_get_version_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_version)}
-      SSL_CIPHER_get_version := @FC_SSL_CIPHER_get_version;
+      SSL_CIPHER_get_version := FC_SSL_CIPHER_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14719,7 +14720,7 @@ begin
     if SSL_CIPHER_get_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_version)}
-      SSL_CIPHER_get_version := @_SSL_CIPHER_get_version;
+      SSL_CIPHER_get_version := _SSL_CIPHER_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14736,13 +14737,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_name_allownil)}
-    SSL_CIPHER_get_name := @ERR_SSL_CIPHER_get_name;
+    SSL_CIPHER_get_name := ERR_SSL_CIPHER_get_name;
     {$ifend}
     {$if declared(SSL_CIPHER_get_name_introduced)}
     if LibVersion < SSL_CIPHER_get_name_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_name)}
-      SSL_CIPHER_get_name := @FC_SSL_CIPHER_get_name;
+      SSL_CIPHER_get_name := FC_SSL_CIPHER_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14751,7 +14752,7 @@ begin
     if SSL_CIPHER_get_name_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_name)}
-      SSL_CIPHER_get_name := @_SSL_CIPHER_get_name;
+      SSL_CIPHER_get_name := _SSL_CIPHER_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14768,13 +14769,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_standard_name_allownil)}
-    SSL_CIPHER_standard_name := @ERR_SSL_CIPHER_standard_name;
+    SSL_CIPHER_standard_name := ERR_SSL_CIPHER_standard_name;
     {$ifend}
     {$if declared(SSL_CIPHER_standard_name_introduced)}
     if LibVersion < SSL_CIPHER_standard_name_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_standard_name)}
-      SSL_CIPHER_standard_name := @FC_SSL_CIPHER_standard_name;
+      SSL_CIPHER_standard_name := FC_SSL_CIPHER_standard_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14783,7 +14784,7 @@ begin
     if SSL_CIPHER_standard_name_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_standard_name)}
-      SSL_CIPHER_standard_name := @_SSL_CIPHER_standard_name;
+      SSL_CIPHER_standard_name := _SSL_CIPHER_standard_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14800,13 +14801,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_cipher_name_allownil)}
-    OPENSSL_cipher_name := @ERR_OPENSSL_cipher_name;
+    OPENSSL_cipher_name := ERR_OPENSSL_cipher_name;
     {$ifend}
     {$if declared(OPENSSL_cipher_name_introduced)}
     if LibVersion < OPENSSL_cipher_name_introduced then
     begin
       {$if declared(FC_OPENSSL_cipher_name)}
-      OPENSSL_cipher_name := @FC_OPENSSL_cipher_name;
+      OPENSSL_cipher_name := FC_OPENSSL_cipher_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14815,7 +14816,7 @@ begin
     if OPENSSL_cipher_name_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_cipher_name)}
-      OPENSSL_cipher_name := @_OPENSSL_cipher_name;
+      OPENSSL_cipher_name := _OPENSSL_cipher_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14832,13 +14833,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_id_allownil)}
-    SSL_CIPHER_get_id := @ERR_SSL_CIPHER_get_id;
+    SSL_CIPHER_get_id := ERR_SSL_CIPHER_get_id;
     {$ifend}
     {$if declared(SSL_CIPHER_get_id_introduced)}
     if LibVersion < SSL_CIPHER_get_id_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_id)}
-      SSL_CIPHER_get_id := @FC_SSL_CIPHER_get_id;
+      SSL_CIPHER_get_id := FC_SSL_CIPHER_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14847,7 +14848,7 @@ begin
     if SSL_CIPHER_get_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_id)}
-      SSL_CIPHER_get_id := @_SSL_CIPHER_get_id;
+      SSL_CIPHER_get_id := _SSL_CIPHER_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14864,13 +14865,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_protocol_id_allownil)}
-    SSL_CIPHER_get_protocol_id := @ERR_SSL_CIPHER_get_protocol_id;
+    SSL_CIPHER_get_protocol_id := ERR_SSL_CIPHER_get_protocol_id;
     {$ifend}
     {$if declared(SSL_CIPHER_get_protocol_id_introduced)}
     if LibVersion < SSL_CIPHER_get_protocol_id_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_protocol_id)}
-      SSL_CIPHER_get_protocol_id := @FC_SSL_CIPHER_get_protocol_id;
+      SSL_CIPHER_get_protocol_id := FC_SSL_CIPHER_get_protocol_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14879,7 +14880,7 @@ begin
     if SSL_CIPHER_get_protocol_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_protocol_id)}
-      SSL_CIPHER_get_protocol_id := @_SSL_CIPHER_get_protocol_id;
+      SSL_CIPHER_get_protocol_id := _SSL_CIPHER_get_protocol_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14896,13 +14897,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_kx_nid_allownil)}
-    SSL_CIPHER_get_kx_nid := @ERR_SSL_CIPHER_get_kx_nid;
+    SSL_CIPHER_get_kx_nid := ERR_SSL_CIPHER_get_kx_nid;
     {$ifend}
     {$if declared(SSL_CIPHER_get_kx_nid_introduced)}
     if LibVersion < SSL_CIPHER_get_kx_nid_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_kx_nid)}
-      SSL_CIPHER_get_kx_nid := @FC_SSL_CIPHER_get_kx_nid;
+      SSL_CIPHER_get_kx_nid := FC_SSL_CIPHER_get_kx_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14911,7 +14912,7 @@ begin
     if SSL_CIPHER_get_kx_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_kx_nid)}
-      SSL_CIPHER_get_kx_nid := @_SSL_CIPHER_get_kx_nid;
+      SSL_CIPHER_get_kx_nid := _SSL_CIPHER_get_kx_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14928,13 +14929,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_auth_nid_allownil)}
-    SSL_CIPHER_get_auth_nid := @ERR_SSL_CIPHER_get_auth_nid;
+    SSL_CIPHER_get_auth_nid := ERR_SSL_CIPHER_get_auth_nid;
     {$ifend}
     {$if declared(SSL_CIPHER_get_auth_nid_introduced)}
     if LibVersion < SSL_CIPHER_get_auth_nid_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_auth_nid)}
-      SSL_CIPHER_get_auth_nid := @FC_SSL_CIPHER_get_auth_nid;
+      SSL_CIPHER_get_auth_nid := FC_SSL_CIPHER_get_auth_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14943,7 +14944,7 @@ begin
     if SSL_CIPHER_get_auth_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_auth_nid)}
-      SSL_CIPHER_get_auth_nid := @_SSL_CIPHER_get_auth_nid;
+      SSL_CIPHER_get_auth_nid := _SSL_CIPHER_get_auth_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14960,13 +14961,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_handshake_digest_allownil)}
-    SSL_CIPHER_get_handshake_digest := @ERR_SSL_CIPHER_get_handshake_digest;
+    SSL_CIPHER_get_handshake_digest := ERR_SSL_CIPHER_get_handshake_digest;
     {$ifend}
     {$if declared(SSL_CIPHER_get_handshake_digest_introduced)}
     if LibVersion < SSL_CIPHER_get_handshake_digest_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_handshake_digest)}
-      SSL_CIPHER_get_handshake_digest := @FC_SSL_CIPHER_get_handshake_digest;
+      SSL_CIPHER_get_handshake_digest := FC_SSL_CIPHER_get_handshake_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14975,7 +14976,7 @@ begin
     if SSL_CIPHER_get_handshake_digest_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_handshake_digest)}
-      SSL_CIPHER_get_handshake_digest := @_SSL_CIPHER_get_handshake_digest;
+      SSL_CIPHER_get_handshake_digest := _SSL_CIPHER_get_handshake_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -14992,13 +14993,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_is_aead_allownil)}
-    SSL_CIPHER_is_aead := @ERR_SSL_CIPHER_is_aead;
+    SSL_CIPHER_is_aead := ERR_SSL_CIPHER_is_aead;
     {$ifend}
     {$if declared(SSL_CIPHER_is_aead_introduced)}
     if LibVersion < SSL_CIPHER_is_aead_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_is_aead)}
-      SSL_CIPHER_is_aead := @FC_SSL_CIPHER_is_aead;
+      SSL_CIPHER_is_aead := FC_SSL_CIPHER_is_aead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15007,7 +15008,7 @@ begin
     if SSL_CIPHER_is_aead_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_is_aead)}
-      SSL_CIPHER_is_aead := @_SSL_CIPHER_is_aead;
+      SSL_CIPHER_is_aead := _SSL_CIPHER_is_aead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15024,13 +15025,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_fd_allownil)}
-    SSL_get_fd := @ERR_SSL_get_fd;
+    SSL_get_fd := ERR_SSL_get_fd;
     {$ifend}
     {$if declared(SSL_get_fd_introduced)}
     if LibVersion < SSL_get_fd_introduced then
     begin
       {$if declared(FC_SSL_get_fd)}
-      SSL_get_fd := @FC_SSL_get_fd;
+      SSL_get_fd := FC_SSL_get_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15039,7 +15040,7 @@ begin
     if SSL_get_fd_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_fd)}
-      SSL_get_fd := @_SSL_get_fd;
+      SSL_get_fd := _SSL_get_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15056,13 +15057,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_rfd_allownil)}
-    SSL_get_rfd := @ERR_SSL_get_rfd;
+    SSL_get_rfd := ERR_SSL_get_rfd;
     {$ifend}
     {$if declared(SSL_get_rfd_introduced)}
     if LibVersion < SSL_get_rfd_introduced then
     begin
       {$if declared(FC_SSL_get_rfd)}
-      SSL_get_rfd := @FC_SSL_get_rfd;
+      SSL_get_rfd := FC_SSL_get_rfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15071,7 +15072,7 @@ begin
     if SSL_get_rfd_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_rfd)}
-      SSL_get_rfd := @_SSL_get_rfd;
+      SSL_get_rfd := _SSL_get_rfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15088,13 +15089,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_wfd_allownil)}
-    SSL_get_wfd := @ERR_SSL_get_wfd;
+    SSL_get_wfd := ERR_SSL_get_wfd;
     {$ifend}
     {$if declared(SSL_get_wfd_introduced)}
     if LibVersion < SSL_get_wfd_introduced then
     begin
       {$if declared(FC_SSL_get_wfd)}
-      SSL_get_wfd := @FC_SSL_get_wfd;
+      SSL_get_wfd := FC_SSL_get_wfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15103,7 +15104,7 @@ begin
     if SSL_get_wfd_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_wfd)}
-      SSL_get_wfd := @_SSL_get_wfd;
+      SSL_get_wfd := _SSL_get_wfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15120,13 +15121,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_cipher_list_allownil)}
-    SSL_get_cipher_list := @ERR_SSL_get_cipher_list;
+    SSL_get_cipher_list := ERR_SSL_get_cipher_list;
     {$ifend}
     {$if declared(SSL_get_cipher_list_introduced)}
     if LibVersion < SSL_get_cipher_list_introduced then
     begin
       {$if declared(FC_SSL_get_cipher_list)}
-      SSL_get_cipher_list := @FC_SSL_get_cipher_list;
+      SSL_get_cipher_list := FC_SSL_get_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15135,7 +15136,7 @@ begin
     if SSL_get_cipher_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_cipher_list)}
-      SSL_get_cipher_list := @_SSL_get_cipher_list;
+      SSL_get_cipher_list := _SSL_get_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15152,13 +15153,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_shared_ciphers_allownil)}
-    SSL_get_shared_ciphers := @ERR_SSL_get_shared_ciphers;
+    SSL_get_shared_ciphers := ERR_SSL_get_shared_ciphers;
     {$ifend}
     {$if declared(SSL_get_shared_ciphers_introduced)}
     if LibVersion < SSL_get_shared_ciphers_introduced then
     begin
       {$if declared(FC_SSL_get_shared_ciphers)}
-      SSL_get_shared_ciphers := @FC_SSL_get_shared_ciphers;
+      SSL_get_shared_ciphers := FC_SSL_get_shared_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15167,7 +15168,7 @@ begin
     if SSL_get_shared_ciphers_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_shared_ciphers)}
-      SSL_get_shared_ciphers := @_SSL_get_shared_ciphers;
+      SSL_get_shared_ciphers := _SSL_get_shared_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15184,13 +15185,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_read_ahead_allownil)}
-    SSL_get_read_ahead := @ERR_SSL_get_read_ahead;
+    SSL_get_read_ahead := ERR_SSL_get_read_ahead;
     {$ifend}
     {$if declared(SSL_get_read_ahead_introduced)}
     if LibVersion < SSL_get_read_ahead_introduced then
     begin
       {$if declared(FC_SSL_get_read_ahead)}
-      SSL_get_read_ahead := @FC_SSL_get_read_ahead;
+      SSL_get_read_ahead := FC_SSL_get_read_ahead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15199,7 +15200,7 @@ begin
     if SSL_get_read_ahead_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_read_ahead)}
-      SSL_get_read_ahead := @_SSL_get_read_ahead;
+      SSL_get_read_ahead := _SSL_get_read_ahead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15216,13 +15217,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_pending_allownil)}
-    SSL_pending := @ERR_SSL_pending;
+    SSL_pending := ERR_SSL_pending;
     {$ifend}
     {$if declared(SSL_pending_introduced)}
     if LibVersion < SSL_pending_introduced then
     begin
       {$if declared(FC_SSL_pending)}
-      SSL_pending := @FC_SSL_pending;
+      SSL_pending := FC_SSL_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15231,7 +15232,7 @@ begin
     if SSL_pending_removed <= LibVersion then
     begin
       {$if declared(_SSL_pending)}
-      SSL_pending := @_SSL_pending;
+      SSL_pending := _SSL_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15248,13 +15249,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_has_pending_allownil)}
-    SSL_has_pending := @ERR_SSL_has_pending;
+    SSL_has_pending := ERR_SSL_has_pending;
     {$ifend}
     {$if declared(SSL_has_pending_introduced)}
     if LibVersion < SSL_has_pending_introduced then
     begin
       {$if declared(FC_SSL_has_pending)}
-      SSL_has_pending := @FC_SSL_has_pending;
+      SSL_has_pending := FC_SSL_has_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15263,7 +15264,7 @@ begin
     if SSL_has_pending_removed <= LibVersion then
     begin
       {$if declared(_SSL_has_pending)}
-      SSL_has_pending := @_SSL_has_pending;
+      SSL_has_pending := _SSL_has_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15280,13 +15281,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_fd_allownil)}
-    SSL_set_fd := @ERR_SSL_set_fd;
+    SSL_set_fd := ERR_SSL_set_fd;
     {$ifend}
     {$if declared(SSL_set_fd_introduced)}
     if LibVersion < SSL_set_fd_introduced then
     begin
       {$if declared(FC_SSL_set_fd)}
-      SSL_set_fd := @FC_SSL_set_fd;
+      SSL_set_fd := FC_SSL_set_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15295,7 +15296,7 @@ begin
     if SSL_set_fd_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_fd)}
-      SSL_set_fd := @_SSL_set_fd;
+      SSL_set_fd := _SSL_set_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15312,13 +15313,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_rfd_allownil)}
-    SSL_set_rfd := @ERR_SSL_set_rfd;
+    SSL_set_rfd := ERR_SSL_set_rfd;
     {$ifend}
     {$if declared(SSL_set_rfd_introduced)}
     if LibVersion < SSL_set_rfd_introduced then
     begin
       {$if declared(FC_SSL_set_rfd)}
-      SSL_set_rfd := @FC_SSL_set_rfd;
+      SSL_set_rfd := FC_SSL_set_rfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15327,7 +15328,7 @@ begin
     if SSL_set_rfd_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_rfd)}
-      SSL_set_rfd := @_SSL_set_rfd;
+      SSL_set_rfd := _SSL_set_rfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15344,13 +15345,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_wfd_allownil)}
-    SSL_set_wfd := @ERR_SSL_set_wfd;
+    SSL_set_wfd := ERR_SSL_set_wfd;
     {$ifend}
     {$if declared(SSL_set_wfd_introduced)}
     if LibVersion < SSL_set_wfd_introduced then
     begin
       {$if declared(FC_SSL_set_wfd)}
-      SSL_set_wfd := @FC_SSL_set_wfd;
+      SSL_set_wfd := FC_SSL_set_wfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15359,7 +15360,7 @@ begin
     if SSL_set_wfd_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_wfd)}
-      SSL_set_wfd := @_SSL_set_wfd;
+      SSL_set_wfd := _SSL_set_wfd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15376,13 +15377,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_rbio_allownil)}
-    SSL_set0_rbio := @ERR_SSL_set0_rbio;
+    SSL_set0_rbio := ERR_SSL_set0_rbio;
     {$ifend}
     {$if declared(SSL_set0_rbio_introduced)}
     if LibVersion < SSL_set0_rbio_introduced then
     begin
       {$if declared(FC_SSL_set0_rbio)}
-      SSL_set0_rbio := @FC_SSL_set0_rbio;
+      SSL_set0_rbio := FC_SSL_set0_rbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15391,7 +15392,7 @@ begin
     if SSL_set0_rbio_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_rbio)}
-      SSL_set0_rbio := @_SSL_set0_rbio;
+      SSL_set0_rbio := _SSL_set0_rbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15408,13 +15409,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_wbio_allownil)}
-    SSL_set0_wbio := @ERR_SSL_set0_wbio;
+    SSL_set0_wbio := ERR_SSL_set0_wbio;
     {$ifend}
     {$if declared(SSL_set0_wbio_introduced)}
     if LibVersion < SSL_set0_wbio_introduced then
     begin
       {$if declared(FC_SSL_set0_wbio)}
-      SSL_set0_wbio := @FC_SSL_set0_wbio;
+      SSL_set0_wbio := FC_SSL_set0_wbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15423,7 +15424,7 @@ begin
     if SSL_set0_wbio_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_wbio)}
-      SSL_set0_wbio := @_SSL_set0_wbio;
+      SSL_set0_wbio := _SSL_set0_wbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15440,13 +15441,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_bio_allownil)}
-    SSL_set_bio := @ERR_SSL_set_bio;
+    SSL_set_bio := ERR_SSL_set_bio;
     {$ifend}
     {$if declared(SSL_set_bio_introduced)}
     if LibVersion < SSL_set_bio_introduced then
     begin
       {$if declared(FC_SSL_set_bio)}
-      SSL_set_bio := @FC_SSL_set_bio;
+      SSL_set_bio := FC_SSL_set_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15455,7 +15456,7 @@ begin
     if SSL_set_bio_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_bio)}
-      SSL_set_bio := @_SSL_set_bio;
+      SSL_set_bio := _SSL_set_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15472,13 +15473,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_rbio_allownil)}
-    SSL_get_rbio := @ERR_SSL_get_rbio;
+    SSL_get_rbio := ERR_SSL_get_rbio;
     {$ifend}
     {$if declared(SSL_get_rbio_introduced)}
     if LibVersion < SSL_get_rbio_introduced then
     begin
       {$if declared(FC_SSL_get_rbio)}
-      SSL_get_rbio := @FC_SSL_get_rbio;
+      SSL_get_rbio := FC_SSL_get_rbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15487,7 +15488,7 @@ begin
     if SSL_get_rbio_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_rbio)}
-      SSL_get_rbio := @_SSL_get_rbio;
+      SSL_get_rbio := _SSL_get_rbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15504,13 +15505,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_wbio_allownil)}
-    SSL_get_wbio := @ERR_SSL_get_wbio;
+    SSL_get_wbio := ERR_SSL_get_wbio;
     {$ifend}
     {$if declared(SSL_get_wbio_introduced)}
     if LibVersion < SSL_get_wbio_introduced then
     begin
       {$if declared(FC_SSL_get_wbio)}
-      SSL_get_wbio := @FC_SSL_get_wbio;
+      SSL_get_wbio := FC_SSL_get_wbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15519,7 +15520,7 @@ begin
     if SSL_get_wbio_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_wbio)}
-      SSL_get_wbio := @_SSL_get_wbio;
+      SSL_get_wbio := _SSL_get_wbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15536,13 +15537,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_cipher_list_allownil)}
-    SSL_set_cipher_list := @ERR_SSL_set_cipher_list;
+    SSL_set_cipher_list := ERR_SSL_set_cipher_list;
     {$ifend}
     {$if declared(SSL_set_cipher_list_introduced)}
     if LibVersion < SSL_set_cipher_list_introduced then
     begin
       {$if declared(FC_SSL_set_cipher_list)}
-      SSL_set_cipher_list := @FC_SSL_set_cipher_list;
+      SSL_set_cipher_list := FC_SSL_set_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15551,7 +15552,7 @@ begin
     if SSL_set_cipher_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_cipher_list)}
-      SSL_set_cipher_list := @_SSL_set_cipher_list;
+      SSL_set_cipher_list := _SSL_set_cipher_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15568,13 +15569,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_ciphersuites_allownil)}
-    SSL_CTX_set_ciphersuites := @ERR_SSL_CTX_set_ciphersuites;
+    SSL_CTX_set_ciphersuites := ERR_SSL_CTX_set_ciphersuites;
     {$ifend}
     {$if declared(SSL_CTX_set_ciphersuites_introduced)}
     if LibVersion < SSL_CTX_set_ciphersuites_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_ciphersuites)}
-      SSL_CTX_set_ciphersuites := @FC_SSL_CTX_set_ciphersuites;
+      SSL_CTX_set_ciphersuites := FC_SSL_CTX_set_ciphersuites;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15583,7 +15584,7 @@ begin
     if SSL_CTX_set_ciphersuites_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_ciphersuites)}
-      SSL_CTX_set_ciphersuites := @_SSL_CTX_set_ciphersuites;
+      SSL_CTX_set_ciphersuites := _SSL_CTX_set_ciphersuites;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15600,13 +15601,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_ciphersuites_allownil)}
-    SSL_set_ciphersuites := @ERR_SSL_set_ciphersuites;
+    SSL_set_ciphersuites := ERR_SSL_set_ciphersuites;
     {$ifend}
     {$if declared(SSL_set_ciphersuites_introduced)}
     if LibVersion < SSL_set_ciphersuites_introduced then
     begin
       {$if declared(FC_SSL_set_ciphersuites)}
-      SSL_set_ciphersuites := @FC_SSL_set_ciphersuites;
+      SSL_set_ciphersuites := FC_SSL_set_ciphersuites;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15615,7 +15616,7 @@ begin
     if SSL_set_ciphersuites_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_ciphersuites)}
-      SSL_set_ciphersuites := @_SSL_set_ciphersuites;
+      SSL_set_ciphersuites := _SSL_set_ciphersuites;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15632,13 +15633,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_verify_mode_allownil)}
-    SSL_get_verify_mode := @ERR_SSL_get_verify_mode;
+    SSL_get_verify_mode := ERR_SSL_get_verify_mode;
     {$ifend}
     {$if declared(SSL_get_verify_mode_introduced)}
     if LibVersion < SSL_get_verify_mode_introduced then
     begin
       {$if declared(FC_SSL_get_verify_mode)}
-      SSL_get_verify_mode := @FC_SSL_get_verify_mode;
+      SSL_get_verify_mode := FC_SSL_get_verify_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15647,7 +15648,7 @@ begin
     if SSL_get_verify_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_verify_mode)}
-      SSL_get_verify_mode := @_SSL_get_verify_mode;
+      SSL_get_verify_mode := _SSL_get_verify_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15664,13 +15665,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_verify_depth_allownil)}
-    SSL_get_verify_depth := @ERR_SSL_get_verify_depth;
+    SSL_get_verify_depth := ERR_SSL_get_verify_depth;
     {$ifend}
     {$if declared(SSL_get_verify_depth_introduced)}
     if LibVersion < SSL_get_verify_depth_introduced then
     begin
       {$if declared(FC_SSL_get_verify_depth)}
-      SSL_get_verify_depth := @FC_SSL_get_verify_depth;
+      SSL_get_verify_depth := FC_SSL_get_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15679,7 +15680,7 @@ begin
     if SSL_get_verify_depth_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_verify_depth)}
-      SSL_get_verify_depth := @_SSL_get_verify_depth;
+      SSL_get_verify_depth := _SSL_get_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15696,13 +15697,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_verify_callback_allownil)}
-    SSL_get_verify_callback := @ERR_SSL_get_verify_callback;
+    SSL_get_verify_callback := ERR_SSL_get_verify_callback;
     {$ifend}
     {$if declared(SSL_get_verify_callback_introduced)}
     if LibVersion < SSL_get_verify_callback_introduced then
     begin
       {$if declared(FC_SSL_get_verify_callback)}
-      SSL_get_verify_callback := @FC_SSL_get_verify_callback;
+      SSL_get_verify_callback := FC_SSL_get_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15711,7 +15712,7 @@ begin
     if SSL_get_verify_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_verify_callback)}
-      SSL_get_verify_callback := @_SSL_get_verify_callback;
+      SSL_get_verify_callback := _SSL_get_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15728,13 +15729,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_read_ahead_allownil)}
-    SSL_set_read_ahead := @ERR_SSL_set_read_ahead;
+    SSL_set_read_ahead := ERR_SSL_set_read_ahead;
     {$ifend}
     {$if declared(SSL_set_read_ahead_introduced)}
     if LibVersion < SSL_set_read_ahead_introduced then
     begin
       {$if declared(FC_SSL_set_read_ahead)}
-      SSL_set_read_ahead := @FC_SSL_set_read_ahead;
+      SSL_set_read_ahead := FC_SSL_set_read_ahead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15743,7 +15744,7 @@ begin
     if SSL_set_read_ahead_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_read_ahead)}
-      SSL_set_read_ahead := @_SSL_set_read_ahead;
+      SSL_set_read_ahead := _SSL_set_read_ahead;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15760,13 +15761,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_verify_allownil)}
-    SSL_set_verify := @ERR_SSL_set_verify;
+    SSL_set_verify := ERR_SSL_set_verify;
     {$ifend}
     {$if declared(SSL_set_verify_introduced)}
     if LibVersion < SSL_set_verify_introduced then
     begin
       {$if declared(FC_SSL_set_verify)}
-      SSL_set_verify := @FC_SSL_set_verify;
+      SSL_set_verify := FC_SSL_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15775,7 +15776,7 @@ begin
     if SSL_set_verify_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_verify)}
-      SSL_set_verify := @_SSL_set_verify;
+      SSL_set_verify := _SSL_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15792,13 +15793,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_verify_depth_allownil)}
-    SSL_set_verify_depth := @ERR_SSL_set_verify_depth;
+    SSL_set_verify_depth := ERR_SSL_set_verify_depth;
     {$ifend}
     {$if declared(SSL_set_verify_depth_introduced)}
     if LibVersion < SSL_set_verify_depth_introduced then
     begin
       {$if declared(FC_SSL_set_verify_depth)}
-      SSL_set_verify_depth := @FC_SSL_set_verify_depth;
+      SSL_set_verify_depth := FC_SSL_set_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15807,7 +15808,7 @@ begin
     if SSL_set_verify_depth_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_verify_depth)}
-      SSL_set_verify_depth := @_SSL_set_verify_depth;
+      SSL_set_verify_depth := _SSL_set_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15823,13 +15824,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_cert_cb_allownil)}
-    SSL_set_cert_cb := @ERR_SSL_set_cert_cb;
+    SSL_set_cert_cb := ERR_SSL_set_cert_cb;
     {$ifend}
     {$if declared(SSL_set_cert_cb_introduced)}
     if LibVersion < SSL_set_cert_cb_introduced then
     begin
       {$if declared(FC_SSL_set_cert_cb)}
-      SSL_set_cert_cb := @FC_SSL_set_cert_cb;
+      SSL_set_cert_cb := FC_SSL_set_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15838,7 +15839,7 @@ begin
     if SSL_set_cert_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_cert_cb)}
-      SSL_set_cert_cb := @_SSL_set_cert_cb;
+      SSL_set_cert_cb := _SSL_set_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15854,13 +15855,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_RSAPrivateKey_allownil)}
-    SSL_use_RSAPrivateKey := @ERR_SSL_use_RSAPrivateKey;
+    SSL_use_RSAPrivateKey := ERR_SSL_use_RSAPrivateKey;
     {$ifend}
     {$if declared(SSL_use_RSAPrivateKey_introduced)}
     if LibVersion < SSL_use_RSAPrivateKey_introduced then
     begin
       {$if declared(FC_SSL_use_RSAPrivateKey)}
-      SSL_use_RSAPrivateKey := @FC_SSL_use_RSAPrivateKey;
+      SSL_use_RSAPrivateKey := FC_SSL_use_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15869,7 +15870,7 @@ begin
     if SSL_use_RSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_RSAPrivateKey)}
-      SSL_use_RSAPrivateKey := @_SSL_use_RSAPrivateKey;
+      SSL_use_RSAPrivateKey := _SSL_use_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15886,13 +15887,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_RSAPrivateKey_ASN1_allownil)}
-    SSL_use_RSAPrivateKey_ASN1 := @ERR_SSL_use_RSAPrivateKey_ASN1;
+    SSL_use_RSAPrivateKey_ASN1 := ERR_SSL_use_RSAPrivateKey_ASN1;
     {$ifend}
     {$if declared(SSL_use_RSAPrivateKey_ASN1_introduced)}
     if LibVersion < SSL_use_RSAPrivateKey_ASN1_introduced then
     begin
       {$if declared(FC_SSL_use_RSAPrivateKey_ASN1)}
-      SSL_use_RSAPrivateKey_ASN1 := @FC_SSL_use_RSAPrivateKey_ASN1;
+      SSL_use_RSAPrivateKey_ASN1 := FC_SSL_use_RSAPrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15901,7 +15902,7 @@ begin
     if SSL_use_RSAPrivateKey_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_RSAPrivateKey_ASN1)}
-      SSL_use_RSAPrivateKey_ASN1 := @_SSL_use_RSAPrivateKey_ASN1;
+      SSL_use_RSAPrivateKey_ASN1 := _SSL_use_RSAPrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15918,13 +15919,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_PrivateKey_allownil)}
-    SSL_use_PrivateKey := @ERR_SSL_use_PrivateKey;
+    SSL_use_PrivateKey := ERR_SSL_use_PrivateKey;
     {$ifend}
     {$if declared(SSL_use_PrivateKey_introduced)}
     if LibVersion < SSL_use_PrivateKey_introduced then
     begin
       {$if declared(FC_SSL_use_PrivateKey)}
-      SSL_use_PrivateKey := @FC_SSL_use_PrivateKey;
+      SSL_use_PrivateKey := FC_SSL_use_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15933,7 +15934,7 @@ begin
     if SSL_use_PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_PrivateKey)}
-      SSL_use_PrivateKey := @_SSL_use_PrivateKey;
+      SSL_use_PrivateKey := _SSL_use_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15950,13 +15951,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_PrivateKey_ASN1_allownil)}
-    SSL_use_PrivateKey_ASN1 := @ERR_SSL_use_PrivateKey_ASN1;
+    SSL_use_PrivateKey_ASN1 := ERR_SSL_use_PrivateKey_ASN1;
     {$ifend}
     {$if declared(SSL_use_PrivateKey_ASN1_introduced)}
     if LibVersion < SSL_use_PrivateKey_ASN1_introduced then
     begin
       {$if declared(FC_SSL_use_PrivateKey_ASN1)}
-      SSL_use_PrivateKey_ASN1 := @FC_SSL_use_PrivateKey_ASN1;
+      SSL_use_PrivateKey_ASN1 := FC_SSL_use_PrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15965,7 +15966,7 @@ begin
     if SSL_use_PrivateKey_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_PrivateKey_ASN1)}
-      SSL_use_PrivateKey_ASN1 := @_SSL_use_PrivateKey_ASN1;
+      SSL_use_PrivateKey_ASN1 := _SSL_use_PrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15982,13 +15983,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_certificate_allownil)}
-    SSL_use_certificate := @ERR_SSL_use_certificate;
+    SSL_use_certificate := ERR_SSL_use_certificate;
     {$ifend}
     {$if declared(SSL_use_certificate_introduced)}
     if LibVersion < SSL_use_certificate_introduced then
     begin
       {$if declared(FC_SSL_use_certificate)}
-      SSL_use_certificate := @FC_SSL_use_certificate;
+      SSL_use_certificate := FC_SSL_use_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -15997,7 +15998,7 @@ begin
     if SSL_use_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_certificate)}
-      SSL_use_certificate := @_SSL_use_certificate;
+      SSL_use_certificate := _SSL_use_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16014,13 +16015,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_certificate_ASN1_allownil)}
-    SSL_use_certificate_ASN1 := @ERR_SSL_use_certificate_ASN1;
+    SSL_use_certificate_ASN1 := ERR_SSL_use_certificate_ASN1;
     {$ifend}
     {$if declared(SSL_use_certificate_ASN1_introduced)}
     if LibVersion < SSL_use_certificate_ASN1_introduced then
     begin
       {$if declared(FC_SSL_use_certificate_ASN1)}
-      SSL_use_certificate_ASN1 := @FC_SSL_use_certificate_ASN1;
+      SSL_use_certificate_ASN1 := FC_SSL_use_certificate_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16029,7 +16030,7 @@ begin
     if SSL_use_certificate_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_certificate_ASN1)}
-      SSL_use_certificate_ASN1 := @_SSL_use_certificate_ASN1;
+      SSL_use_certificate_ASN1 := _SSL_use_certificate_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16046,13 +16047,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_serverinfo_allownil)}
-    SSL_CTX_use_serverinfo := @ERR_SSL_CTX_use_serverinfo;
+    SSL_CTX_use_serverinfo := ERR_SSL_CTX_use_serverinfo;
     {$ifend}
     {$if declared(SSL_CTX_use_serverinfo_introduced)}
     if LibVersion < SSL_CTX_use_serverinfo_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_serverinfo)}
-      SSL_CTX_use_serverinfo := @FC_SSL_CTX_use_serverinfo;
+      SSL_CTX_use_serverinfo := FC_SSL_CTX_use_serverinfo;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16061,7 +16062,7 @@ begin
     if SSL_CTX_use_serverinfo_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_serverinfo)}
-      SSL_CTX_use_serverinfo := @_SSL_CTX_use_serverinfo;
+      SSL_CTX_use_serverinfo := _SSL_CTX_use_serverinfo;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16078,13 +16079,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_serverinfo_ex_allownil)}
-    SSL_CTX_use_serverinfo_ex := @ERR_SSL_CTX_use_serverinfo_ex;
+    SSL_CTX_use_serverinfo_ex := ERR_SSL_CTX_use_serverinfo_ex;
     {$ifend}
     {$if declared(SSL_CTX_use_serverinfo_ex_introduced)}
     if LibVersion < SSL_CTX_use_serverinfo_ex_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_serverinfo_ex)}
-      SSL_CTX_use_serverinfo_ex := @FC_SSL_CTX_use_serverinfo_ex;
+      SSL_CTX_use_serverinfo_ex := FC_SSL_CTX_use_serverinfo_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16093,7 +16094,7 @@ begin
     if SSL_CTX_use_serverinfo_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_serverinfo_ex)}
-      SSL_CTX_use_serverinfo_ex := @_SSL_CTX_use_serverinfo_ex;
+      SSL_CTX_use_serverinfo_ex := _SSL_CTX_use_serverinfo_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16109,13 +16110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_cert_and_key_allownil)}
-    SSL_use_cert_and_key := @ERR_SSL_use_cert_and_key;
+    SSL_use_cert_and_key := ERR_SSL_use_cert_and_key;
     {$ifend}
     {$if declared(SSL_use_cert_and_key_introduced)}
     if LibVersion < SSL_use_cert_and_key_introduced then
     begin
       {$if declared(FC_SSL_use_cert_and_key)}
-      SSL_use_cert_and_key := @FC_SSL_use_cert_and_key;
+      SSL_use_cert_and_key := FC_SSL_use_cert_and_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16124,7 +16125,7 @@ begin
     if SSL_use_cert_and_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_cert_and_key)}
-      SSL_use_cert_and_key := @_SSL_use_cert_and_key;
+      SSL_use_cert_and_key := _SSL_use_cert_and_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16141,13 +16142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_serverinfo_file_allownil)}
-    SSL_CTX_use_serverinfo_file := @ERR_SSL_CTX_use_serverinfo_file;
+    SSL_CTX_use_serverinfo_file := ERR_SSL_CTX_use_serverinfo_file;
     {$ifend}
     {$if declared(SSL_CTX_use_serverinfo_file_introduced)}
     if LibVersion < SSL_CTX_use_serverinfo_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_serverinfo_file)}
-      SSL_CTX_use_serverinfo_file := @FC_SSL_CTX_use_serverinfo_file;
+      SSL_CTX_use_serverinfo_file := FC_SSL_CTX_use_serverinfo_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16156,7 +16157,7 @@ begin
     if SSL_CTX_use_serverinfo_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_serverinfo_file)}
-      SSL_CTX_use_serverinfo_file := @_SSL_CTX_use_serverinfo_file;
+      SSL_CTX_use_serverinfo_file := _SSL_CTX_use_serverinfo_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16173,13 +16174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_RSAPrivateKey_file_allownil)}
-    SSL_use_RSAPrivateKey_file := @ERR_SSL_use_RSAPrivateKey_file;
+    SSL_use_RSAPrivateKey_file := ERR_SSL_use_RSAPrivateKey_file;
     {$ifend}
     {$if declared(SSL_use_RSAPrivateKey_file_introduced)}
     if LibVersion < SSL_use_RSAPrivateKey_file_introduced then
     begin
       {$if declared(FC_SSL_use_RSAPrivateKey_file)}
-      SSL_use_RSAPrivateKey_file := @FC_SSL_use_RSAPrivateKey_file;
+      SSL_use_RSAPrivateKey_file := FC_SSL_use_RSAPrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16188,7 +16189,7 @@ begin
     if SSL_use_RSAPrivateKey_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_RSAPrivateKey_file)}
-      SSL_use_RSAPrivateKey_file := @_SSL_use_RSAPrivateKey_file;
+      SSL_use_RSAPrivateKey_file := _SSL_use_RSAPrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16205,13 +16206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_PrivateKey_file_allownil)}
-    SSL_use_PrivateKey_file := @ERR_SSL_use_PrivateKey_file;
+    SSL_use_PrivateKey_file := ERR_SSL_use_PrivateKey_file;
     {$ifend}
     {$if declared(SSL_use_PrivateKey_file_introduced)}
     if LibVersion < SSL_use_PrivateKey_file_introduced then
     begin
       {$if declared(FC_SSL_use_PrivateKey_file)}
-      SSL_use_PrivateKey_file := @FC_SSL_use_PrivateKey_file;
+      SSL_use_PrivateKey_file := FC_SSL_use_PrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16220,7 +16221,7 @@ begin
     if SSL_use_PrivateKey_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_PrivateKey_file)}
-      SSL_use_PrivateKey_file := @_SSL_use_PrivateKey_file;
+      SSL_use_PrivateKey_file := _SSL_use_PrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16237,13 +16238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_certificate_file_allownil)}
-    SSL_use_certificate_file := @ERR_SSL_use_certificate_file;
+    SSL_use_certificate_file := ERR_SSL_use_certificate_file;
     {$ifend}
     {$if declared(SSL_use_certificate_file_introduced)}
     if LibVersion < SSL_use_certificate_file_introduced then
     begin
       {$if declared(FC_SSL_use_certificate_file)}
-      SSL_use_certificate_file := @FC_SSL_use_certificate_file;
+      SSL_use_certificate_file := FC_SSL_use_certificate_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16252,7 +16253,7 @@ begin
     if SSL_use_certificate_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_certificate_file)}
-      SSL_use_certificate_file := @_SSL_use_certificate_file;
+      SSL_use_certificate_file := _SSL_use_certificate_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16269,13 +16270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_RSAPrivateKey_file_allownil)}
-    SSL_CTX_use_RSAPrivateKey_file := @ERR_SSL_CTX_use_RSAPrivateKey_file;
+    SSL_CTX_use_RSAPrivateKey_file := ERR_SSL_CTX_use_RSAPrivateKey_file;
     {$ifend}
     {$if declared(SSL_CTX_use_RSAPrivateKey_file_introduced)}
     if LibVersion < SSL_CTX_use_RSAPrivateKey_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_RSAPrivateKey_file)}
-      SSL_CTX_use_RSAPrivateKey_file := @FC_SSL_CTX_use_RSAPrivateKey_file;
+      SSL_CTX_use_RSAPrivateKey_file := FC_SSL_CTX_use_RSAPrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16284,7 +16285,7 @@ begin
     if SSL_CTX_use_RSAPrivateKey_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_RSAPrivateKey_file)}
-      SSL_CTX_use_RSAPrivateKey_file := @_SSL_CTX_use_RSAPrivateKey_file;
+      SSL_CTX_use_RSAPrivateKey_file := _SSL_CTX_use_RSAPrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16301,13 +16302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_PrivateKey_file_allownil)}
-    SSL_CTX_use_PrivateKey_file := @ERR_SSL_CTX_use_PrivateKey_file;
+    SSL_CTX_use_PrivateKey_file := ERR_SSL_CTX_use_PrivateKey_file;
     {$ifend}
     {$if declared(SSL_CTX_use_PrivateKey_file_introduced)}
     if LibVersion < SSL_CTX_use_PrivateKey_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_PrivateKey_file)}
-      SSL_CTX_use_PrivateKey_file := @FC_SSL_CTX_use_PrivateKey_file;
+      SSL_CTX_use_PrivateKey_file := FC_SSL_CTX_use_PrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16316,7 +16317,7 @@ begin
     if SSL_CTX_use_PrivateKey_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_PrivateKey_file)}
-      SSL_CTX_use_PrivateKey_file := @_SSL_CTX_use_PrivateKey_file;
+      SSL_CTX_use_PrivateKey_file := _SSL_CTX_use_PrivateKey_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16333,13 +16334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_certificate_file_allownil)}
-    SSL_CTX_use_certificate_file := @ERR_SSL_CTX_use_certificate_file;
+    SSL_CTX_use_certificate_file := ERR_SSL_CTX_use_certificate_file;
     {$ifend}
     {$if declared(SSL_CTX_use_certificate_file_introduced)}
     if LibVersion < SSL_CTX_use_certificate_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_certificate_file)}
-      SSL_CTX_use_certificate_file := @FC_SSL_CTX_use_certificate_file;
+      SSL_CTX_use_certificate_file := FC_SSL_CTX_use_certificate_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16348,7 +16349,7 @@ begin
     if SSL_CTX_use_certificate_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_certificate_file)}
-      SSL_CTX_use_certificate_file := @_SSL_CTX_use_certificate_file;
+      SSL_CTX_use_certificate_file := _SSL_CTX_use_certificate_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16365,13 +16366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_certificate_chain_file_allownil)}
-    SSL_CTX_use_certificate_chain_file := @ERR_SSL_CTX_use_certificate_chain_file;
+    SSL_CTX_use_certificate_chain_file := ERR_SSL_CTX_use_certificate_chain_file;
     {$ifend}
     {$if declared(SSL_CTX_use_certificate_chain_file_introduced)}
     if LibVersion < SSL_CTX_use_certificate_chain_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_certificate_chain_file)}
-      SSL_CTX_use_certificate_chain_file := @FC_SSL_CTX_use_certificate_chain_file;
+      SSL_CTX_use_certificate_chain_file := FC_SSL_CTX_use_certificate_chain_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16380,7 +16381,7 @@ begin
     if SSL_CTX_use_certificate_chain_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_certificate_chain_file)}
-      SSL_CTX_use_certificate_chain_file := @_SSL_CTX_use_certificate_chain_file;
+      SSL_CTX_use_certificate_chain_file := _SSL_CTX_use_certificate_chain_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16397,13 +16398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_use_certificate_chain_file_allownil)}
-    SSL_use_certificate_chain_file := @ERR_SSL_use_certificate_chain_file;
+    SSL_use_certificate_chain_file := ERR_SSL_use_certificate_chain_file;
     {$ifend}
     {$if declared(SSL_use_certificate_chain_file_introduced)}
     if LibVersion < SSL_use_certificate_chain_file_introduced then
     begin
       {$if declared(FC_SSL_use_certificate_chain_file)}
-      SSL_use_certificate_chain_file := @FC_SSL_use_certificate_chain_file;
+      SSL_use_certificate_chain_file := FC_SSL_use_certificate_chain_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16412,7 +16413,7 @@ begin
     if SSL_use_certificate_chain_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_use_certificate_chain_file)}
-      SSL_use_certificate_chain_file := @_SSL_use_certificate_chain_file;
+      SSL_use_certificate_chain_file := _SSL_use_certificate_chain_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16429,13 +16430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_load_client_CA_file_allownil)}
-    SSL_load_client_CA_file := @ERR_SSL_load_client_CA_file;
+    SSL_load_client_CA_file := ERR_SSL_load_client_CA_file;
     {$ifend}
     {$if declared(SSL_load_client_CA_file_introduced)}
     if LibVersion < SSL_load_client_CA_file_introduced then
     begin
       {$if declared(FC_SSL_load_client_CA_file)}
-      SSL_load_client_CA_file := @FC_SSL_load_client_CA_file;
+      SSL_load_client_CA_file := FC_SSL_load_client_CA_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16444,7 +16445,7 @@ begin
     if SSL_load_client_CA_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_load_client_CA_file)}
-      SSL_load_client_CA_file := @_SSL_load_client_CA_file;
+      SSL_load_client_CA_file := _SSL_load_client_CA_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16461,13 +16462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add_file_cert_subjects_to_stack_allownil)}
-    SSL_add_file_cert_subjects_to_stack := @ERR_SSL_add_file_cert_subjects_to_stack;
+    SSL_add_file_cert_subjects_to_stack := ERR_SSL_add_file_cert_subjects_to_stack;
     {$ifend}
     {$if declared(SSL_add_file_cert_subjects_to_stack_introduced)}
     if LibVersion < SSL_add_file_cert_subjects_to_stack_introduced then
     begin
       {$if declared(FC_SSL_add_file_cert_subjects_to_stack)}
-      SSL_add_file_cert_subjects_to_stack := @FC_SSL_add_file_cert_subjects_to_stack;
+      SSL_add_file_cert_subjects_to_stack := FC_SSL_add_file_cert_subjects_to_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16476,7 +16477,7 @@ begin
     if SSL_add_file_cert_subjects_to_stack_removed <= LibVersion then
     begin
       {$if declared(_SSL_add_file_cert_subjects_to_stack)}
-      SSL_add_file_cert_subjects_to_stack := @_SSL_add_file_cert_subjects_to_stack;
+      SSL_add_file_cert_subjects_to_stack := _SSL_add_file_cert_subjects_to_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16493,13 +16494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add_dir_cert_subjects_to_stack_allownil)}
-    SSL_add_dir_cert_subjects_to_stack := @ERR_SSL_add_dir_cert_subjects_to_stack;
+    SSL_add_dir_cert_subjects_to_stack := ERR_SSL_add_dir_cert_subjects_to_stack;
     {$ifend}
     {$if declared(SSL_add_dir_cert_subjects_to_stack_introduced)}
     if LibVersion < SSL_add_dir_cert_subjects_to_stack_introduced then
     begin
       {$if declared(FC_SSL_add_dir_cert_subjects_to_stack)}
-      SSL_add_dir_cert_subjects_to_stack := @FC_SSL_add_dir_cert_subjects_to_stack;
+      SSL_add_dir_cert_subjects_to_stack := FC_SSL_add_dir_cert_subjects_to_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16508,7 +16509,7 @@ begin
     if SSL_add_dir_cert_subjects_to_stack_removed <= LibVersion then
     begin
       {$if declared(_SSL_add_dir_cert_subjects_to_stack)}
-      SSL_add_dir_cert_subjects_to_stack := @_SSL_add_dir_cert_subjects_to_stack;
+      SSL_add_dir_cert_subjects_to_stack := _SSL_add_dir_cert_subjects_to_stack;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16525,13 +16526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_load_error_strings_allownil)}
-    SSL_load_error_strings := @ERR_SSL_load_error_strings;
+    SSL_load_error_strings := ERR_SSL_load_error_strings;
     {$ifend}
     {$if declared(SSL_load_error_strings_introduced)}
     if LibVersion < SSL_load_error_strings_introduced then
     begin
       {$if declared(FC_SSL_load_error_strings)}
-      SSL_load_error_strings := @FC_SSL_load_error_strings;
+      SSL_load_error_strings := FC_SSL_load_error_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16540,7 +16541,7 @@ begin
     if SSL_load_error_strings_removed <= LibVersion then
     begin
       {$if declared(_SSL_load_error_strings)}
-      SSL_load_error_strings := @_SSL_load_error_strings;
+      SSL_load_error_strings := _SSL_load_error_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16557,13 +16558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_state_string_allownil)}
-    SSL_state_string := @ERR_SSL_state_string;
+    SSL_state_string := ERR_SSL_state_string;
     {$ifend}
     {$if declared(SSL_state_string_introduced)}
     if LibVersion < SSL_state_string_introduced then
     begin
       {$if declared(FC_SSL_state_string)}
-      SSL_state_string := @FC_SSL_state_string;
+      SSL_state_string := FC_SSL_state_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16572,7 +16573,7 @@ begin
     if SSL_state_string_removed <= LibVersion then
     begin
       {$if declared(_SSL_state_string)}
-      SSL_state_string := @_SSL_state_string;
+      SSL_state_string := _SSL_state_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16589,13 +16590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_rstate_string_allownil)}
-    SSL_rstate_string := @ERR_SSL_rstate_string;
+    SSL_rstate_string := ERR_SSL_rstate_string;
     {$ifend}
     {$if declared(SSL_rstate_string_introduced)}
     if LibVersion < SSL_rstate_string_introduced then
     begin
       {$if declared(FC_SSL_rstate_string)}
-      SSL_rstate_string := @FC_SSL_rstate_string;
+      SSL_rstate_string := FC_SSL_rstate_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16604,7 +16605,7 @@ begin
     if SSL_rstate_string_removed <= LibVersion then
     begin
       {$if declared(_SSL_rstate_string)}
-      SSL_rstate_string := @_SSL_rstate_string;
+      SSL_rstate_string := _SSL_rstate_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16621,13 +16622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_state_string_long_allownil)}
-    SSL_state_string_long := @ERR_SSL_state_string_long;
+    SSL_state_string_long := ERR_SSL_state_string_long;
     {$ifend}
     {$if declared(SSL_state_string_long_introduced)}
     if LibVersion < SSL_state_string_long_introduced then
     begin
       {$if declared(FC_SSL_state_string_long)}
-      SSL_state_string_long := @FC_SSL_state_string_long;
+      SSL_state_string_long := FC_SSL_state_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16636,7 +16637,7 @@ begin
     if SSL_state_string_long_removed <= LibVersion then
     begin
       {$if declared(_SSL_state_string_long)}
-      SSL_state_string_long := @_SSL_state_string_long;
+      SSL_state_string_long := _SSL_state_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16653,13 +16654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_rstate_string_long_allownil)}
-    SSL_rstate_string_long := @ERR_SSL_rstate_string_long;
+    SSL_rstate_string_long := ERR_SSL_rstate_string_long;
     {$ifend}
     {$if declared(SSL_rstate_string_long_introduced)}
     if LibVersion < SSL_rstate_string_long_introduced then
     begin
       {$if declared(FC_SSL_rstate_string_long)}
-      SSL_rstate_string_long := @FC_SSL_rstate_string_long;
+      SSL_rstate_string_long := FC_SSL_rstate_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16668,7 +16669,7 @@ begin
     if SSL_rstate_string_long_removed <= LibVersion then
     begin
       {$if declared(_SSL_rstate_string_long)}
-      SSL_rstate_string_long := @_SSL_rstate_string_long;
+      SSL_rstate_string_long := _SSL_rstate_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16685,13 +16686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_time_ex_allownil)}
-    SSL_SESSION_get_time_ex := @ERR_SSL_SESSION_get_time_ex;
+    SSL_SESSION_get_time_ex := ERR_SSL_SESSION_get_time_ex;
     {$ifend}
     {$if declared(SSL_SESSION_get_time_ex_introduced)}
     if LibVersion < SSL_SESSION_get_time_ex_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_time_ex)}
-      SSL_SESSION_get_time_ex := @FC_SSL_SESSION_get_time_ex;
+      SSL_SESSION_get_time_ex := FC_SSL_SESSION_get_time_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16700,7 +16701,7 @@ begin
     if SSL_SESSION_get_time_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_time_ex)}
-      SSL_SESSION_get_time_ex := @_SSL_SESSION_get_time_ex;
+      SSL_SESSION_get_time_ex := _SSL_SESSION_get_time_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16717,13 +16718,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_time_ex_allownil)}
-    SSL_SESSION_set_time_ex := @ERR_SSL_SESSION_set_time_ex;
+    SSL_SESSION_set_time_ex := ERR_SSL_SESSION_set_time_ex;
     {$ifend}
     {$if declared(SSL_SESSION_set_time_ex_introduced)}
     if LibVersion < SSL_SESSION_set_time_ex_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_time_ex)}
-      SSL_SESSION_set_time_ex := @FC_SSL_SESSION_set_time_ex;
+      SSL_SESSION_set_time_ex := FC_SSL_SESSION_set_time_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16732,7 +16733,7 @@ begin
     if SSL_SESSION_set_time_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_time_ex)}
-      SSL_SESSION_set_time_ex := @_SSL_SESSION_set_time_ex;
+      SSL_SESSION_set_time_ex := _SSL_SESSION_set_time_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16748,13 +16749,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_time_allownil)}
-    SSL_SESSION_get_time := @ERR_SSL_SESSION_get_time;
+    SSL_SESSION_get_time := ERR_SSL_SESSION_get_time;
     {$ifend}
     {$if declared(SSL_SESSION_get_time_introduced)}
     if LibVersion < SSL_SESSION_get_time_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_time)}
-      SSL_SESSION_get_time := @FC_SSL_SESSION_get_time;
+      SSL_SESSION_get_time := FC_SSL_SESSION_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16763,7 +16764,7 @@ begin
     if SSL_SESSION_get_time_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_time)}
-      SSL_SESSION_get_time := @_SSL_SESSION_get_time;
+      SSL_SESSION_get_time := _SSL_SESSION_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16780,13 +16781,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_time_allownil)}
-    SSL_SESSION_set_time := @ERR_SSL_SESSION_set_time;
+    SSL_SESSION_set_time := ERR_SSL_SESSION_set_time;
     {$ifend}
     {$if declared(SSL_SESSION_set_time_introduced)}
     if LibVersion < SSL_SESSION_set_time_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_time)}
-      SSL_SESSION_set_time := @FC_SSL_SESSION_set_time;
+      SSL_SESSION_set_time := FC_SSL_SESSION_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16795,7 +16796,7 @@ begin
     if SSL_SESSION_set_time_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_time)}
-      SSL_SESSION_set_time := @_SSL_SESSION_set_time;
+      SSL_SESSION_set_time := _SSL_SESSION_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16812,13 +16813,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_timeout_allownil)}
-    SSL_SESSION_get_timeout := @ERR_SSL_SESSION_get_timeout;
+    SSL_SESSION_get_timeout := ERR_SSL_SESSION_get_timeout;
     {$ifend}
     {$if declared(SSL_SESSION_get_timeout_introduced)}
     if LibVersion < SSL_SESSION_get_timeout_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_timeout)}
-      SSL_SESSION_get_timeout := @FC_SSL_SESSION_get_timeout;
+      SSL_SESSION_get_timeout := FC_SSL_SESSION_get_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16827,7 +16828,7 @@ begin
     if SSL_SESSION_get_timeout_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_timeout)}
-      SSL_SESSION_get_timeout := @_SSL_SESSION_get_timeout;
+      SSL_SESSION_get_timeout := _SSL_SESSION_get_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16844,13 +16845,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_timeout_allownil)}
-    SSL_SESSION_set_timeout := @ERR_SSL_SESSION_set_timeout;
+    SSL_SESSION_set_timeout := ERR_SSL_SESSION_set_timeout;
     {$ifend}
     {$if declared(SSL_SESSION_set_timeout_introduced)}
     if LibVersion < SSL_SESSION_set_timeout_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_timeout)}
-      SSL_SESSION_set_timeout := @FC_SSL_SESSION_set_timeout;
+      SSL_SESSION_set_timeout := FC_SSL_SESSION_set_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16859,7 +16860,7 @@ begin
     if SSL_SESSION_set_timeout_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_timeout)}
-      SSL_SESSION_set_timeout := @_SSL_SESSION_set_timeout;
+      SSL_SESSION_set_timeout := _SSL_SESSION_set_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16876,13 +16877,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_protocol_version_allownil)}
-    SSL_SESSION_get_protocol_version := @ERR_SSL_SESSION_get_protocol_version;
+    SSL_SESSION_get_protocol_version := ERR_SSL_SESSION_get_protocol_version;
     {$ifend}
     {$if declared(SSL_SESSION_get_protocol_version_introduced)}
     if LibVersion < SSL_SESSION_get_protocol_version_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_protocol_version)}
-      SSL_SESSION_get_protocol_version := @FC_SSL_SESSION_get_protocol_version;
+      SSL_SESSION_get_protocol_version := FC_SSL_SESSION_get_protocol_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16891,7 +16892,7 @@ begin
     if SSL_SESSION_get_protocol_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_protocol_version)}
-      SSL_SESSION_get_protocol_version := @_SSL_SESSION_get_protocol_version;
+      SSL_SESSION_get_protocol_version := _SSL_SESSION_get_protocol_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16908,13 +16909,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_protocol_version_allownil)}
-    SSL_SESSION_set_protocol_version := @ERR_SSL_SESSION_set_protocol_version;
+    SSL_SESSION_set_protocol_version := ERR_SSL_SESSION_set_protocol_version;
     {$ifend}
     {$if declared(SSL_SESSION_set_protocol_version_introduced)}
     if LibVersion < SSL_SESSION_set_protocol_version_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_protocol_version)}
-      SSL_SESSION_set_protocol_version := @FC_SSL_SESSION_set_protocol_version;
+      SSL_SESSION_set_protocol_version := FC_SSL_SESSION_set_protocol_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16923,7 +16924,7 @@ begin
     if SSL_SESSION_set_protocol_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_protocol_version)}
-      SSL_SESSION_set_protocol_version := @_SSL_SESSION_set_protocol_version;
+      SSL_SESSION_set_protocol_version := _SSL_SESSION_set_protocol_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16940,13 +16941,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_hostname_allownil)}
-    SSL_SESSION_get0_hostname := @ERR_SSL_SESSION_get0_hostname;
+    SSL_SESSION_get0_hostname := ERR_SSL_SESSION_get0_hostname;
     {$ifend}
     {$if declared(SSL_SESSION_get0_hostname_introduced)}
     if LibVersion < SSL_SESSION_get0_hostname_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_hostname)}
-      SSL_SESSION_get0_hostname := @FC_SSL_SESSION_get0_hostname;
+      SSL_SESSION_get0_hostname := FC_SSL_SESSION_get0_hostname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16955,7 +16956,7 @@ begin
     if SSL_SESSION_get0_hostname_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_hostname)}
-      SSL_SESSION_get0_hostname := @_SSL_SESSION_get0_hostname;
+      SSL_SESSION_get0_hostname := _SSL_SESSION_get0_hostname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16972,13 +16973,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_hostname_allownil)}
-    SSL_SESSION_set1_hostname := @ERR_SSL_SESSION_set1_hostname;
+    SSL_SESSION_set1_hostname := ERR_SSL_SESSION_set1_hostname;
     {$ifend}
     {$if declared(SSL_SESSION_set1_hostname_introduced)}
     if LibVersion < SSL_SESSION_set1_hostname_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_hostname)}
-      SSL_SESSION_set1_hostname := @FC_SSL_SESSION_set1_hostname;
+      SSL_SESSION_set1_hostname := FC_SSL_SESSION_set1_hostname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -16987,7 +16988,7 @@ begin
     if SSL_SESSION_set1_hostname_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_hostname)}
-      SSL_SESSION_set1_hostname := @_SSL_SESSION_set1_hostname;
+      SSL_SESSION_set1_hostname := _SSL_SESSION_set1_hostname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17004,13 +17005,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_alpn_selected_allownil)}
-    SSL_SESSION_get0_alpn_selected := @ERR_SSL_SESSION_get0_alpn_selected;
+    SSL_SESSION_get0_alpn_selected := ERR_SSL_SESSION_get0_alpn_selected;
     {$ifend}
     {$if declared(SSL_SESSION_get0_alpn_selected_introduced)}
     if LibVersion < SSL_SESSION_get0_alpn_selected_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_alpn_selected)}
-      SSL_SESSION_get0_alpn_selected := @FC_SSL_SESSION_get0_alpn_selected;
+      SSL_SESSION_get0_alpn_selected := FC_SSL_SESSION_get0_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17019,7 +17020,7 @@ begin
     if SSL_SESSION_get0_alpn_selected_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_alpn_selected)}
-      SSL_SESSION_get0_alpn_selected := @_SSL_SESSION_get0_alpn_selected;
+      SSL_SESSION_get0_alpn_selected := _SSL_SESSION_get0_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17036,13 +17037,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_alpn_selected_allownil)}
-    SSL_SESSION_set1_alpn_selected := @ERR_SSL_SESSION_set1_alpn_selected;
+    SSL_SESSION_set1_alpn_selected := ERR_SSL_SESSION_set1_alpn_selected;
     {$ifend}
     {$if declared(SSL_SESSION_set1_alpn_selected_introduced)}
     if LibVersion < SSL_SESSION_set1_alpn_selected_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_alpn_selected)}
-      SSL_SESSION_set1_alpn_selected := @FC_SSL_SESSION_set1_alpn_selected;
+      SSL_SESSION_set1_alpn_selected := FC_SSL_SESSION_set1_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17051,7 +17052,7 @@ begin
     if SSL_SESSION_set1_alpn_selected_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_alpn_selected)}
-      SSL_SESSION_set1_alpn_selected := @_SSL_SESSION_set1_alpn_selected;
+      SSL_SESSION_set1_alpn_selected := _SSL_SESSION_set1_alpn_selected;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17068,13 +17069,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_cipher_allownil)}
-    SSL_SESSION_get0_cipher := @ERR_SSL_SESSION_get0_cipher;
+    SSL_SESSION_get0_cipher := ERR_SSL_SESSION_get0_cipher;
     {$ifend}
     {$if declared(SSL_SESSION_get0_cipher_introduced)}
     if LibVersion < SSL_SESSION_get0_cipher_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_cipher)}
-      SSL_SESSION_get0_cipher := @FC_SSL_SESSION_get0_cipher;
+      SSL_SESSION_get0_cipher := FC_SSL_SESSION_get0_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17083,7 +17084,7 @@ begin
     if SSL_SESSION_get0_cipher_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_cipher)}
-      SSL_SESSION_get0_cipher := @_SSL_SESSION_get0_cipher;
+      SSL_SESSION_get0_cipher := _SSL_SESSION_get0_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17100,13 +17101,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_cipher_allownil)}
-    SSL_SESSION_set_cipher := @ERR_SSL_SESSION_set_cipher;
+    SSL_SESSION_set_cipher := ERR_SSL_SESSION_set_cipher;
     {$ifend}
     {$if declared(SSL_SESSION_set_cipher_introduced)}
     if LibVersion < SSL_SESSION_set_cipher_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_cipher)}
-      SSL_SESSION_set_cipher := @FC_SSL_SESSION_set_cipher;
+      SSL_SESSION_set_cipher := FC_SSL_SESSION_set_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17115,7 +17116,7 @@ begin
     if SSL_SESSION_set_cipher_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_cipher)}
-      SSL_SESSION_set_cipher := @_SSL_SESSION_set_cipher;
+      SSL_SESSION_set_cipher := _SSL_SESSION_set_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17132,13 +17133,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_has_ticket_allownil)}
-    SSL_SESSION_has_ticket := @ERR_SSL_SESSION_has_ticket;
+    SSL_SESSION_has_ticket := ERR_SSL_SESSION_has_ticket;
     {$ifend}
     {$if declared(SSL_SESSION_has_ticket_introduced)}
     if LibVersion < SSL_SESSION_has_ticket_introduced then
     begin
       {$if declared(FC_SSL_SESSION_has_ticket)}
-      SSL_SESSION_has_ticket := @FC_SSL_SESSION_has_ticket;
+      SSL_SESSION_has_ticket := FC_SSL_SESSION_has_ticket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17147,7 +17148,7 @@ begin
     if SSL_SESSION_has_ticket_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_has_ticket)}
-      SSL_SESSION_has_ticket := @_SSL_SESSION_has_ticket;
+      SSL_SESSION_has_ticket := _SSL_SESSION_has_ticket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17164,13 +17165,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_ticket_lifetime_hint_allownil)}
-    SSL_SESSION_get_ticket_lifetime_hint := @ERR_SSL_SESSION_get_ticket_lifetime_hint;
+    SSL_SESSION_get_ticket_lifetime_hint := ERR_SSL_SESSION_get_ticket_lifetime_hint;
     {$ifend}
     {$if declared(SSL_SESSION_get_ticket_lifetime_hint_introduced)}
     if LibVersion < SSL_SESSION_get_ticket_lifetime_hint_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_ticket_lifetime_hint)}
-      SSL_SESSION_get_ticket_lifetime_hint := @FC_SSL_SESSION_get_ticket_lifetime_hint;
+      SSL_SESSION_get_ticket_lifetime_hint := FC_SSL_SESSION_get_ticket_lifetime_hint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17179,7 +17180,7 @@ begin
     if SSL_SESSION_get_ticket_lifetime_hint_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_ticket_lifetime_hint)}
-      SSL_SESSION_get_ticket_lifetime_hint := @_SSL_SESSION_get_ticket_lifetime_hint;
+      SSL_SESSION_get_ticket_lifetime_hint := _SSL_SESSION_get_ticket_lifetime_hint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17196,13 +17197,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_ticket_allownil)}
-    SSL_SESSION_get0_ticket := @ERR_SSL_SESSION_get0_ticket;
+    SSL_SESSION_get0_ticket := ERR_SSL_SESSION_get0_ticket;
     {$ifend}
     {$if declared(SSL_SESSION_get0_ticket_introduced)}
     if LibVersion < SSL_SESSION_get0_ticket_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_ticket)}
-      SSL_SESSION_get0_ticket := @FC_SSL_SESSION_get0_ticket;
+      SSL_SESSION_get0_ticket := FC_SSL_SESSION_get0_ticket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17211,7 +17212,7 @@ begin
     if SSL_SESSION_get0_ticket_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_ticket)}
-      SSL_SESSION_get0_ticket := @_SSL_SESSION_get0_ticket;
+      SSL_SESSION_get0_ticket := _SSL_SESSION_get0_ticket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17228,13 +17229,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_max_early_data_allownil)}
-    SSL_SESSION_get_max_early_data := @ERR_SSL_SESSION_get_max_early_data;
+    SSL_SESSION_get_max_early_data := ERR_SSL_SESSION_get_max_early_data;
     {$ifend}
     {$if declared(SSL_SESSION_get_max_early_data_introduced)}
     if LibVersion < SSL_SESSION_get_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_max_early_data)}
-      SSL_SESSION_get_max_early_data := @FC_SSL_SESSION_get_max_early_data;
+      SSL_SESSION_get_max_early_data := FC_SSL_SESSION_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17243,7 +17244,7 @@ begin
     if SSL_SESSION_get_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_max_early_data)}
-      SSL_SESSION_get_max_early_data := @_SSL_SESSION_get_max_early_data;
+      SSL_SESSION_get_max_early_data := _SSL_SESSION_get_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17260,13 +17261,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_max_early_data_allownil)}
-    SSL_SESSION_set_max_early_data := @ERR_SSL_SESSION_set_max_early_data;
+    SSL_SESSION_set_max_early_data := ERR_SSL_SESSION_set_max_early_data;
     {$ifend}
     {$if declared(SSL_SESSION_set_max_early_data_introduced)}
     if LibVersion < SSL_SESSION_set_max_early_data_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_max_early_data)}
-      SSL_SESSION_set_max_early_data := @FC_SSL_SESSION_set_max_early_data;
+      SSL_SESSION_set_max_early_data := FC_SSL_SESSION_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17275,7 +17276,7 @@ begin
     if SSL_SESSION_set_max_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_max_early_data)}
-      SSL_SESSION_set_max_early_data := @_SSL_SESSION_set_max_early_data;
+      SSL_SESSION_set_max_early_data := _SSL_SESSION_set_max_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17292,13 +17293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_copy_session_id_allownil)}
-    SSL_copy_session_id := @ERR_SSL_copy_session_id;
+    SSL_copy_session_id := ERR_SSL_copy_session_id;
     {$ifend}
     {$if declared(SSL_copy_session_id_introduced)}
     if LibVersion < SSL_copy_session_id_introduced then
     begin
       {$if declared(FC_SSL_copy_session_id)}
-      SSL_copy_session_id := @FC_SSL_copy_session_id;
+      SSL_copy_session_id := FC_SSL_copy_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17307,7 +17308,7 @@ begin
     if SSL_copy_session_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_copy_session_id)}
-      SSL_copy_session_id := @_SSL_copy_session_id;
+      SSL_copy_session_id := _SSL_copy_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17324,13 +17325,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_peer_allownil)}
-    SSL_SESSION_get0_peer := @ERR_SSL_SESSION_get0_peer;
+    SSL_SESSION_get0_peer := ERR_SSL_SESSION_get0_peer;
     {$ifend}
     {$if declared(SSL_SESSION_get0_peer_introduced)}
     if LibVersion < SSL_SESSION_get0_peer_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_peer)}
-      SSL_SESSION_get0_peer := @FC_SSL_SESSION_get0_peer;
+      SSL_SESSION_get0_peer := FC_SSL_SESSION_get0_peer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17339,7 +17340,7 @@ begin
     if SSL_SESSION_get0_peer_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_peer)}
-      SSL_SESSION_get0_peer := @_SSL_SESSION_get0_peer;
+      SSL_SESSION_get0_peer := _SSL_SESSION_get0_peer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17356,13 +17357,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_id_context_allownil)}
-    SSL_SESSION_set1_id_context := @ERR_SSL_SESSION_set1_id_context;
+    SSL_SESSION_set1_id_context := ERR_SSL_SESSION_set1_id_context;
     {$ifend}
     {$if declared(SSL_SESSION_set1_id_context_introduced)}
     if LibVersion < SSL_SESSION_set1_id_context_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_id_context)}
-      SSL_SESSION_set1_id_context := @FC_SSL_SESSION_set1_id_context;
+      SSL_SESSION_set1_id_context := FC_SSL_SESSION_set1_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17371,7 +17372,7 @@ begin
     if SSL_SESSION_set1_id_context_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_id_context)}
-      SSL_SESSION_set1_id_context := @_SSL_SESSION_set1_id_context;
+      SSL_SESSION_set1_id_context := _SSL_SESSION_set1_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17388,13 +17389,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_id_allownil)}
-    SSL_SESSION_set1_id := @ERR_SSL_SESSION_set1_id;
+    SSL_SESSION_set1_id := ERR_SSL_SESSION_set1_id;
     {$ifend}
     {$if declared(SSL_SESSION_set1_id_introduced)}
     if LibVersion < SSL_SESSION_set1_id_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_id)}
-      SSL_SESSION_set1_id := @FC_SSL_SESSION_set1_id;
+      SSL_SESSION_set1_id := FC_SSL_SESSION_set1_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17403,7 +17404,7 @@ begin
     if SSL_SESSION_set1_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_id)}
-      SSL_SESSION_set1_id := @_SSL_SESSION_set1_id;
+      SSL_SESSION_set1_id := _SSL_SESSION_set1_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17420,13 +17421,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_is_resumable_allownil)}
-    SSL_SESSION_is_resumable := @ERR_SSL_SESSION_is_resumable;
+    SSL_SESSION_is_resumable := ERR_SSL_SESSION_is_resumable;
     {$ifend}
     {$if declared(SSL_SESSION_is_resumable_introduced)}
     if LibVersion < SSL_SESSION_is_resumable_introduced then
     begin
       {$if declared(FC_SSL_SESSION_is_resumable)}
-      SSL_SESSION_is_resumable := @FC_SSL_SESSION_is_resumable;
+      SSL_SESSION_is_resumable := FC_SSL_SESSION_is_resumable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17435,7 +17436,7 @@ begin
     if SSL_SESSION_is_resumable_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_is_resumable)}
-      SSL_SESSION_is_resumable := @_SSL_SESSION_is_resumable;
+      SSL_SESSION_is_resumable := _SSL_SESSION_is_resumable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17452,13 +17453,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_new_allownil)}
-    SSL_SESSION_new := @ERR_SSL_SESSION_new;
+    SSL_SESSION_new := ERR_SSL_SESSION_new;
     {$ifend}
     {$if declared(SSL_SESSION_new_introduced)}
     if LibVersion < SSL_SESSION_new_introduced then
     begin
       {$if declared(FC_SSL_SESSION_new)}
-      SSL_SESSION_new := @FC_SSL_SESSION_new;
+      SSL_SESSION_new := FC_SSL_SESSION_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17467,7 +17468,7 @@ begin
     if SSL_SESSION_new_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_new)}
-      SSL_SESSION_new := @_SSL_SESSION_new;
+      SSL_SESSION_new := _SSL_SESSION_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17484,13 +17485,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_dup_allownil)}
-    SSL_SESSION_dup := @ERR_SSL_SESSION_dup;
+    SSL_SESSION_dup := ERR_SSL_SESSION_dup;
     {$ifend}
     {$if declared(SSL_SESSION_dup_introduced)}
     if LibVersion < SSL_SESSION_dup_introduced then
     begin
       {$if declared(FC_SSL_SESSION_dup)}
-      SSL_SESSION_dup := @FC_SSL_SESSION_dup;
+      SSL_SESSION_dup := FC_SSL_SESSION_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17499,7 +17500,7 @@ begin
     if SSL_SESSION_dup_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_dup)}
-      SSL_SESSION_dup := @_SSL_SESSION_dup;
+      SSL_SESSION_dup := _SSL_SESSION_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17516,13 +17517,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_id_allownil)}
-    SSL_SESSION_get_id := @ERR_SSL_SESSION_get_id;
+    SSL_SESSION_get_id := ERR_SSL_SESSION_get_id;
     {$ifend}
     {$if declared(SSL_SESSION_get_id_introduced)}
     if LibVersion < SSL_SESSION_get_id_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_id)}
-      SSL_SESSION_get_id := @FC_SSL_SESSION_get_id;
+      SSL_SESSION_get_id := FC_SSL_SESSION_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17531,7 +17532,7 @@ begin
     if SSL_SESSION_get_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_id)}
-      SSL_SESSION_get_id := @_SSL_SESSION_get_id;
+      SSL_SESSION_get_id := _SSL_SESSION_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17548,13 +17549,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_id_context_allownil)}
-    SSL_SESSION_get0_id_context := @ERR_SSL_SESSION_get0_id_context;
+    SSL_SESSION_get0_id_context := ERR_SSL_SESSION_get0_id_context;
     {$ifend}
     {$if declared(SSL_SESSION_get0_id_context_introduced)}
     if LibVersion < SSL_SESSION_get0_id_context_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_id_context)}
-      SSL_SESSION_get0_id_context := @FC_SSL_SESSION_get0_id_context;
+      SSL_SESSION_get0_id_context := FC_SSL_SESSION_get0_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17563,7 +17564,7 @@ begin
     if SSL_SESSION_get0_id_context_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_id_context)}
-      SSL_SESSION_get0_id_context := @_SSL_SESSION_get0_id_context;
+      SSL_SESSION_get0_id_context := _SSL_SESSION_get0_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17580,13 +17581,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_compress_id_allownil)}
-    SSL_SESSION_get_compress_id := @ERR_SSL_SESSION_get_compress_id;
+    SSL_SESSION_get_compress_id := ERR_SSL_SESSION_get_compress_id;
     {$ifend}
     {$if declared(SSL_SESSION_get_compress_id_introduced)}
     if LibVersion < SSL_SESSION_get_compress_id_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_compress_id)}
-      SSL_SESSION_get_compress_id := @FC_SSL_SESSION_get_compress_id;
+      SSL_SESSION_get_compress_id := FC_SSL_SESSION_get_compress_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17595,7 +17596,7 @@ begin
     if SSL_SESSION_get_compress_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_compress_id)}
-      SSL_SESSION_get_compress_id := @_SSL_SESSION_get_compress_id;
+      SSL_SESSION_get_compress_id := _SSL_SESSION_get_compress_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17612,13 +17613,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_print_allownil)}
-    SSL_SESSION_print := @ERR_SSL_SESSION_print;
+    SSL_SESSION_print := ERR_SSL_SESSION_print;
     {$ifend}
     {$if declared(SSL_SESSION_print_introduced)}
     if LibVersion < SSL_SESSION_print_introduced then
     begin
       {$if declared(FC_SSL_SESSION_print)}
-      SSL_SESSION_print := @FC_SSL_SESSION_print;
+      SSL_SESSION_print := FC_SSL_SESSION_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17627,7 +17628,7 @@ begin
     if SSL_SESSION_print_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_print)}
-      SSL_SESSION_print := @_SSL_SESSION_print;
+      SSL_SESSION_print := _SSL_SESSION_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17644,13 +17645,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_print_keylog_allownil)}
-    SSL_SESSION_print_keylog := @ERR_SSL_SESSION_print_keylog;
+    SSL_SESSION_print_keylog := ERR_SSL_SESSION_print_keylog;
     {$ifend}
     {$if declared(SSL_SESSION_print_keylog_introduced)}
     if LibVersion < SSL_SESSION_print_keylog_introduced then
     begin
       {$if declared(FC_SSL_SESSION_print_keylog)}
-      SSL_SESSION_print_keylog := @FC_SSL_SESSION_print_keylog;
+      SSL_SESSION_print_keylog := FC_SSL_SESSION_print_keylog;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17659,7 +17660,7 @@ begin
     if SSL_SESSION_print_keylog_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_print_keylog)}
-      SSL_SESSION_print_keylog := @_SSL_SESSION_print_keylog;
+      SSL_SESSION_print_keylog := _SSL_SESSION_print_keylog;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17676,13 +17677,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_up_ref_allownil)}
-    SSL_SESSION_up_ref := @ERR_SSL_SESSION_up_ref;
+    SSL_SESSION_up_ref := ERR_SSL_SESSION_up_ref;
     {$ifend}
     {$if declared(SSL_SESSION_up_ref_introduced)}
     if LibVersion < SSL_SESSION_up_ref_introduced then
     begin
       {$if declared(FC_SSL_SESSION_up_ref)}
-      SSL_SESSION_up_ref := @FC_SSL_SESSION_up_ref;
+      SSL_SESSION_up_ref := FC_SSL_SESSION_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17691,7 +17692,7 @@ begin
     if SSL_SESSION_up_ref_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_up_ref)}
-      SSL_SESSION_up_ref := @_SSL_SESSION_up_ref;
+      SSL_SESSION_up_ref := _SSL_SESSION_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17708,13 +17709,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_free_allownil)}
-    SSL_SESSION_free := @ERR_SSL_SESSION_free;
+    SSL_SESSION_free := ERR_SSL_SESSION_free;
     {$ifend}
     {$if declared(SSL_SESSION_free_introduced)}
     if LibVersion < SSL_SESSION_free_introduced then
     begin
       {$if declared(FC_SSL_SESSION_free)}
-      SSL_SESSION_free := @FC_SSL_SESSION_free;
+      SSL_SESSION_free := FC_SSL_SESSION_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17723,7 +17724,7 @@ begin
     if SSL_SESSION_free_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_free)}
-      SSL_SESSION_free := @_SSL_SESSION_free;
+      SSL_SESSION_free := _SSL_SESSION_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17739,13 +17740,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_SSL_SESSION_allownil)}
-    i2d_SSL_SESSION := @ERR_i2d_SSL_SESSION;
+    i2d_SSL_SESSION := ERR_i2d_SSL_SESSION;
     {$ifend}
     {$if declared(i2d_SSL_SESSION_introduced)}
     if LibVersion < i2d_SSL_SESSION_introduced then
     begin
       {$if declared(FC_i2d_SSL_SESSION)}
-      i2d_SSL_SESSION := @FC_i2d_SSL_SESSION;
+      i2d_SSL_SESSION := FC_i2d_SSL_SESSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17754,7 +17755,7 @@ begin
     if i2d_SSL_SESSION_removed <= LibVersion then
     begin
       {$if declared(_i2d_SSL_SESSION)}
-      i2d_SSL_SESSION := @_i2d_SSL_SESSION;
+      i2d_SSL_SESSION := _i2d_SSL_SESSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17770,13 +17771,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_session_allownil)}
-    SSL_set_session := @ERR_SSL_set_session;
+    SSL_set_session := ERR_SSL_set_session;
     {$ifend}
     {$if declared(SSL_set_session_introduced)}
     if LibVersion < SSL_set_session_introduced then
     begin
       {$if declared(FC_SSL_set_session)}
-      SSL_set_session := @FC_SSL_set_session;
+      SSL_set_session := FC_SSL_set_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17785,7 +17786,7 @@ begin
     if SSL_set_session_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_session)}
-      SSL_set_session := @_SSL_set_session;
+      SSL_set_session := _SSL_set_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17802,13 +17803,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_session_allownil)}
-    SSL_CTX_add_session := @ERR_SSL_CTX_add_session;
+    SSL_CTX_add_session := ERR_SSL_CTX_add_session;
     {$ifend}
     {$if declared(SSL_CTX_add_session_introduced)}
     if LibVersion < SSL_CTX_add_session_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_session)}
-      SSL_CTX_add_session := @FC_SSL_CTX_add_session;
+      SSL_CTX_add_session := FC_SSL_CTX_add_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17817,7 +17818,7 @@ begin
     if SSL_CTX_add_session_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_session)}
-      SSL_CTX_add_session := @_SSL_CTX_add_session;
+      SSL_CTX_add_session := _SSL_CTX_add_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17834,13 +17835,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_remove_session_allownil)}
-    SSL_CTX_remove_session := @ERR_SSL_CTX_remove_session;
+    SSL_CTX_remove_session := ERR_SSL_CTX_remove_session;
     {$ifend}
     {$if declared(SSL_CTX_remove_session_introduced)}
     if LibVersion < SSL_CTX_remove_session_introduced then
     begin
       {$if declared(FC_SSL_CTX_remove_session)}
-      SSL_CTX_remove_session := @FC_SSL_CTX_remove_session;
+      SSL_CTX_remove_session := FC_SSL_CTX_remove_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17849,7 +17850,7 @@ begin
     if SSL_CTX_remove_session_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_remove_session)}
-      SSL_CTX_remove_session := @_SSL_CTX_remove_session;
+      SSL_CTX_remove_session := _SSL_CTX_remove_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17866,13 +17867,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_generate_session_id_allownil)}
-    SSL_CTX_set_generate_session_id := @ERR_SSL_CTX_set_generate_session_id;
+    SSL_CTX_set_generate_session_id := ERR_SSL_CTX_set_generate_session_id;
     {$ifend}
     {$if declared(SSL_CTX_set_generate_session_id_introduced)}
     if LibVersion < SSL_CTX_set_generate_session_id_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_generate_session_id)}
-      SSL_CTX_set_generate_session_id := @FC_SSL_CTX_set_generate_session_id;
+      SSL_CTX_set_generate_session_id := FC_SSL_CTX_set_generate_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17881,7 +17882,7 @@ begin
     if SSL_CTX_set_generate_session_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_generate_session_id)}
-      SSL_CTX_set_generate_session_id := @_SSL_CTX_set_generate_session_id;
+      SSL_CTX_set_generate_session_id := _SSL_CTX_set_generate_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17898,13 +17899,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_generate_session_id_allownil)}
-    SSL_set_generate_session_id := @ERR_SSL_set_generate_session_id;
+    SSL_set_generate_session_id := ERR_SSL_set_generate_session_id;
     {$ifend}
     {$if declared(SSL_set_generate_session_id_introduced)}
     if LibVersion < SSL_set_generate_session_id_introduced then
     begin
       {$if declared(FC_SSL_set_generate_session_id)}
-      SSL_set_generate_session_id := @FC_SSL_set_generate_session_id;
+      SSL_set_generate_session_id := FC_SSL_set_generate_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17913,7 +17914,7 @@ begin
     if SSL_set_generate_session_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_generate_session_id)}
-      SSL_set_generate_session_id := @_SSL_set_generate_session_id;
+      SSL_set_generate_session_id := _SSL_set_generate_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17930,13 +17931,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_has_matching_session_id_allownil)}
-    SSL_has_matching_session_id := @ERR_SSL_has_matching_session_id;
+    SSL_has_matching_session_id := ERR_SSL_has_matching_session_id;
     {$ifend}
     {$if declared(SSL_has_matching_session_id_introduced)}
     if LibVersion < SSL_has_matching_session_id_introduced then
     begin
       {$if declared(FC_SSL_has_matching_session_id)}
-      SSL_has_matching_session_id := @FC_SSL_has_matching_session_id;
+      SSL_has_matching_session_id := FC_SSL_has_matching_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17945,7 +17946,7 @@ begin
     if SSL_has_matching_session_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_has_matching_session_id)}
-      SSL_has_matching_session_id := @_SSL_has_matching_session_id;
+      SSL_has_matching_session_id := _SSL_has_matching_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17962,13 +17963,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_SSL_SESSION_allownil)}
-    d2i_SSL_SESSION := @ERR_d2i_SSL_SESSION;
+    d2i_SSL_SESSION := ERR_d2i_SSL_SESSION;
     {$ifend}
     {$if declared(d2i_SSL_SESSION_introduced)}
     if LibVersion < d2i_SSL_SESSION_introduced then
     begin
       {$if declared(FC_d2i_SSL_SESSION)}
-      d2i_SSL_SESSION := @FC_d2i_SSL_SESSION;
+      d2i_SSL_SESSION := FC_d2i_SSL_SESSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17977,7 +17978,7 @@ begin
     if d2i_SSL_SESSION_removed <= LibVersion then
     begin
       {$if declared(_d2i_SSL_SESSION)}
-      d2i_SSL_SESSION := @_d2i_SSL_SESSION;
+      d2i_SSL_SESSION := _d2i_SSL_SESSION;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -17994,13 +17995,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_peer_certificate_allownil)}
-    SSL_get_peer_certificate := @ERR_SSL_get_peer_certificate;
+    SSL_get_peer_certificate := ERR_SSL_get_peer_certificate;
     {$ifend}
     {$if declared(SSL_get_peer_certificate_introduced)}
     if LibVersion < SSL_get_peer_certificate_introduced then
     begin
       {$if declared(FC_SSL_get_peer_certificate)}
-      SSL_get_peer_certificate := @FC_SSL_get_peer_certificate;
+      SSL_get_peer_certificate := FC_SSL_get_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18009,7 +18010,7 @@ begin
     if SSL_get_peer_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_peer_certificate)}
-      SSL_get_peer_certificate := @_SSL_get_peer_certificate;
+      SSL_get_peer_certificate := _SSL_get_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18025,13 +18026,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_peer_cert_chain_allownil)}
-    SSL_get_peer_cert_chain := @ERR_SSL_get_peer_cert_chain;
+    SSL_get_peer_cert_chain := ERR_SSL_get_peer_cert_chain;
     {$ifend}
     {$if declared(SSL_get_peer_cert_chain_introduced)}
     if LibVersion < SSL_get_peer_cert_chain_introduced then
     begin
       {$if declared(FC_SSL_get_peer_cert_chain)}
-      SSL_get_peer_cert_chain := @FC_SSL_get_peer_cert_chain;
+      SSL_get_peer_cert_chain := FC_SSL_get_peer_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18040,7 +18041,7 @@ begin
     if SSL_get_peer_cert_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_peer_cert_chain)}
-      SSL_get_peer_cert_chain := @_SSL_get_peer_cert_chain;
+      SSL_get_peer_cert_chain := _SSL_get_peer_cert_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18057,13 +18058,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_verify_mode_allownil)}
-    SSL_CTX_get_verify_mode := @ERR_SSL_CTX_get_verify_mode;
+    SSL_CTX_get_verify_mode := ERR_SSL_CTX_get_verify_mode;
     {$ifend}
     {$if declared(SSL_CTX_get_verify_mode_introduced)}
     if LibVersion < SSL_CTX_get_verify_mode_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_verify_mode)}
-      SSL_CTX_get_verify_mode := @FC_SSL_CTX_get_verify_mode;
+      SSL_CTX_get_verify_mode := FC_SSL_CTX_get_verify_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18072,7 +18073,7 @@ begin
     if SSL_CTX_get_verify_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_verify_mode)}
-      SSL_CTX_get_verify_mode := @_SSL_CTX_get_verify_mode;
+      SSL_CTX_get_verify_mode := _SSL_CTX_get_verify_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18089,13 +18090,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_verify_depth_allownil)}
-    SSL_CTX_get_verify_depth := @ERR_SSL_CTX_get_verify_depth;
+    SSL_CTX_get_verify_depth := ERR_SSL_CTX_get_verify_depth;
     {$ifend}
     {$if declared(SSL_CTX_get_verify_depth_introduced)}
     if LibVersion < SSL_CTX_get_verify_depth_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_verify_depth)}
-      SSL_CTX_get_verify_depth := @FC_SSL_CTX_get_verify_depth;
+      SSL_CTX_get_verify_depth := FC_SSL_CTX_get_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18104,7 +18105,7 @@ begin
     if SSL_CTX_get_verify_depth_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_verify_depth)}
-      SSL_CTX_get_verify_depth := @_SSL_CTX_get_verify_depth;
+      SSL_CTX_get_verify_depth := _SSL_CTX_get_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18121,13 +18122,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_verify_callback_allownil)}
-    SSL_CTX_get_verify_callback := @ERR_SSL_CTX_get_verify_callback;
+    SSL_CTX_get_verify_callback := ERR_SSL_CTX_get_verify_callback;
     {$ifend}
     {$if declared(SSL_CTX_get_verify_callback_introduced)}
     if LibVersion < SSL_CTX_get_verify_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_verify_callback)}
-      SSL_CTX_get_verify_callback := @FC_SSL_CTX_get_verify_callback;
+      SSL_CTX_get_verify_callback := FC_SSL_CTX_get_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18136,7 +18137,7 @@ begin
     if SSL_CTX_get_verify_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_verify_callback)}
-      SSL_CTX_get_verify_callback := @_SSL_CTX_get_verify_callback;
+      SSL_CTX_get_verify_callback := _SSL_CTX_get_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18153,13 +18154,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_verify_allownil)}
-    SSL_CTX_set_verify := @ERR_SSL_CTX_set_verify;
+    SSL_CTX_set_verify := ERR_SSL_CTX_set_verify;
     {$ifend}
     {$if declared(SSL_CTX_set_verify_introduced)}
     if LibVersion < SSL_CTX_set_verify_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_verify)}
-      SSL_CTX_set_verify := @FC_SSL_CTX_set_verify;
+      SSL_CTX_set_verify := FC_SSL_CTX_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18168,7 +18169,7 @@ begin
     if SSL_CTX_set_verify_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_verify)}
-      SSL_CTX_set_verify := @_SSL_CTX_set_verify;
+      SSL_CTX_set_verify := _SSL_CTX_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18185,13 +18186,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_verify_depth_allownil)}
-    SSL_CTX_set_verify_depth := @ERR_SSL_CTX_set_verify_depth;
+    SSL_CTX_set_verify_depth := ERR_SSL_CTX_set_verify_depth;
     {$ifend}
     {$if declared(SSL_CTX_set_verify_depth_introduced)}
     if LibVersion < SSL_CTX_set_verify_depth_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_verify_depth)}
-      SSL_CTX_set_verify_depth := @FC_SSL_CTX_set_verify_depth;
+      SSL_CTX_set_verify_depth := FC_SSL_CTX_set_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18200,7 +18201,7 @@ begin
     if SSL_CTX_set_verify_depth_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_verify_depth)}
-      SSL_CTX_set_verify_depth := @_SSL_CTX_set_verify_depth;
+      SSL_CTX_set_verify_depth := _SSL_CTX_set_verify_depth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18217,13 +18218,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cert_verify_callback_allownil)}
-    SSL_CTX_set_cert_verify_callback := @ERR_SSL_CTX_set_cert_verify_callback;
+    SSL_CTX_set_cert_verify_callback := ERR_SSL_CTX_set_cert_verify_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_cert_verify_callback_introduced)}
     if LibVersion < SSL_CTX_set_cert_verify_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cert_verify_callback)}
-      SSL_CTX_set_cert_verify_callback := @FC_SSL_CTX_set_cert_verify_callback;
+      SSL_CTX_set_cert_verify_callback := FC_SSL_CTX_set_cert_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18232,7 +18233,7 @@ begin
     if SSL_CTX_set_cert_verify_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cert_verify_callback)}
-      SSL_CTX_set_cert_verify_callback := @_SSL_CTX_set_cert_verify_callback;
+      SSL_CTX_set_cert_verify_callback := _SSL_CTX_set_cert_verify_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18249,13 +18250,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_cert_cb_allownil)}
-    SSL_CTX_set_cert_cb := @ERR_SSL_CTX_set_cert_cb;
+    SSL_CTX_set_cert_cb := ERR_SSL_CTX_set_cert_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_cert_cb_introduced)}
     if LibVersion < SSL_CTX_set_cert_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_cert_cb)}
-      SSL_CTX_set_cert_cb := @FC_SSL_CTX_set_cert_cb;
+      SSL_CTX_set_cert_cb := FC_SSL_CTX_set_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18264,7 +18265,7 @@ begin
     if SSL_CTX_set_cert_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_cert_cb)}
-      SSL_CTX_set_cert_cb := @_SSL_CTX_set_cert_cb;
+      SSL_CTX_set_cert_cb := _SSL_CTX_set_cert_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18281,13 +18282,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_RSAPrivateKey_allownil)}
-    SSL_CTX_use_RSAPrivateKey := @ERR_SSL_CTX_use_RSAPrivateKey;
+    SSL_CTX_use_RSAPrivateKey := ERR_SSL_CTX_use_RSAPrivateKey;
     {$ifend}
     {$if declared(SSL_CTX_use_RSAPrivateKey_introduced)}
     if LibVersion < SSL_CTX_use_RSAPrivateKey_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_RSAPrivateKey)}
-      SSL_CTX_use_RSAPrivateKey := @FC_SSL_CTX_use_RSAPrivateKey;
+      SSL_CTX_use_RSAPrivateKey := FC_SSL_CTX_use_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18296,7 +18297,7 @@ begin
     if SSL_CTX_use_RSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_RSAPrivateKey)}
-      SSL_CTX_use_RSAPrivateKey := @_SSL_CTX_use_RSAPrivateKey;
+      SSL_CTX_use_RSAPrivateKey := _SSL_CTX_use_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18313,13 +18314,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_RSAPrivateKey_ASN1_allownil)}
-    SSL_CTX_use_RSAPrivateKey_ASN1 := @ERR_SSL_CTX_use_RSAPrivateKey_ASN1;
+    SSL_CTX_use_RSAPrivateKey_ASN1 := ERR_SSL_CTX_use_RSAPrivateKey_ASN1;
     {$ifend}
     {$if declared(SSL_CTX_use_RSAPrivateKey_ASN1_introduced)}
     if LibVersion < SSL_CTX_use_RSAPrivateKey_ASN1_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_RSAPrivateKey_ASN1)}
-      SSL_CTX_use_RSAPrivateKey_ASN1 := @FC_SSL_CTX_use_RSAPrivateKey_ASN1;
+      SSL_CTX_use_RSAPrivateKey_ASN1 := FC_SSL_CTX_use_RSAPrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18328,7 +18329,7 @@ begin
     if SSL_CTX_use_RSAPrivateKey_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_RSAPrivateKey_ASN1)}
-      SSL_CTX_use_RSAPrivateKey_ASN1 := @_SSL_CTX_use_RSAPrivateKey_ASN1;
+      SSL_CTX_use_RSAPrivateKey_ASN1 := _SSL_CTX_use_RSAPrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18345,13 +18346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_PrivateKey_allownil)}
-    SSL_CTX_use_PrivateKey := @ERR_SSL_CTX_use_PrivateKey;
+    SSL_CTX_use_PrivateKey := ERR_SSL_CTX_use_PrivateKey;
     {$ifend}
     {$if declared(SSL_CTX_use_PrivateKey_introduced)}
     if LibVersion < SSL_CTX_use_PrivateKey_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_PrivateKey)}
-      SSL_CTX_use_PrivateKey := @FC_SSL_CTX_use_PrivateKey;
+      SSL_CTX_use_PrivateKey := FC_SSL_CTX_use_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18360,7 +18361,7 @@ begin
     if SSL_CTX_use_PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_PrivateKey)}
-      SSL_CTX_use_PrivateKey := @_SSL_CTX_use_PrivateKey;
+      SSL_CTX_use_PrivateKey := _SSL_CTX_use_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18377,13 +18378,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_PrivateKey_ASN1_allownil)}
-    SSL_CTX_use_PrivateKey_ASN1 := @ERR_SSL_CTX_use_PrivateKey_ASN1;
+    SSL_CTX_use_PrivateKey_ASN1 := ERR_SSL_CTX_use_PrivateKey_ASN1;
     {$ifend}
     {$if declared(SSL_CTX_use_PrivateKey_ASN1_introduced)}
     if LibVersion < SSL_CTX_use_PrivateKey_ASN1_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_PrivateKey_ASN1)}
-      SSL_CTX_use_PrivateKey_ASN1 := @FC_SSL_CTX_use_PrivateKey_ASN1;
+      SSL_CTX_use_PrivateKey_ASN1 := FC_SSL_CTX_use_PrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18392,7 +18393,7 @@ begin
     if SSL_CTX_use_PrivateKey_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_PrivateKey_ASN1)}
-      SSL_CTX_use_PrivateKey_ASN1 := @_SSL_CTX_use_PrivateKey_ASN1;
+      SSL_CTX_use_PrivateKey_ASN1 := _SSL_CTX_use_PrivateKey_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18409,13 +18410,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_certificate_allownil)}
-    SSL_CTX_use_certificate := @ERR_SSL_CTX_use_certificate;
+    SSL_CTX_use_certificate := ERR_SSL_CTX_use_certificate;
     {$ifend}
     {$if declared(SSL_CTX_use_certificate_introduced)}
     if LibVersion < SSL_CTX_use_certificate_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_certificate)}
-      SSL_CTX_use_certificate := @FC_SSL_CTX_use_certificate;
+      SSL_CTX_use_certificate := FC_SSL_CTX_use_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18424,7 +18425,7 @@ begin
     if SSL_CTX_use_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_certificate)}
-      SSL_CTX_use_certificate := @_SSL_CTX_use_certificate;
+      SSL_CTX_use_certificate := _SSL_CTX_use_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18441,13 +18442,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_certificate_ASN1_allownil)}
-    SSL_CTX_use_certificate_ASN1 := @ERR_SSL_CTX_use_certificate_ASN1;
+    SSL_CTX_use_certificate_ASN1 := ERR_SSL_CTX_use_certificate_ASN1;
     {$ifend}
     {$if declared(SSL_CTX_use_certificate_ASN1_introduced)}
     if LibVersion < SSL_CTX_use_certificate_ASN1_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_certificate_ASN1)}
-      SSL_CTX_use_certificate_ASN1 := @FC_SSL_CTX_use_certificate_ASN1;
+      SSL_CTX_use_certificate_ASN1 := FC_SSL_CTX_use_certificate_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18456,7 +18457,7 @@ begin
     if SSL_CTX_use_certificate_ASN1_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_certificate_ASN1)}
-      SSL_CTX_use_certificate_ASN1 := @_SSL_CTX_use_certificate_ASN1;
+      SSL_CTX_use_certificate_ASN1 := _SSL_CTX_use_certificate_ASN1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18472,13 +18473,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_use_cert_and_key_allownil)}
-    SSL_CTX_use_cert_and_key := @ERR_SSL_CTX_use_cert_and_key;
+    SSL_CTX_use_cert_and_key := ERR_SSL_CTX_use_cert_and_key;
     {$ifend}
     {$if declared(SSL_CTX_use_cert_and_key_introduced)}
     if LibVersion < SSL_CTX_use_cert_and_key_introduced then
     begin
       {$if declared(FC_SSL_CTX_use_cert_and_key)}
-      SSL_CTX_use_cert_and_key := @FC_SSL_CTX_use_cert_and_key;
+      SSL_CTX_use_cert_and_key := FC_SSL_CTX_use_cert_and_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18487,7 +18488,7 @@ begin
     if SSL_CTX_use_cert_and_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_use_cert_and_key)}
-      SSL_CTX_use_cert_and_key := @_SSL_CTX_use_cert_and_key;
+      SSL_CTX_use_cert_and_key := _SSL_CTX_use_cert_and_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18504,13 +18505,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_passwd_cb_allownil)}
-    SSL_CTX_set_default_passwd_cb := @ERR_SSL_CTX_set_default_passwd_cb;
+    SSL_CTX_set_default_passwd_cb := ERR_SSL_CTX_set_default_passwd_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_default_passwd_cb_introduced)}
     if LibVersion < SSL_CTX_set_default_passwd_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_passwd_cb)}
-      SSL_CTX_set_default_passwd_cb := @FC_SSL_CTX_set_default_passwd_cb;
+      SSL_CTX_set_default_passwd_cb := FC_SSL_CTX_set_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18519,7 +18520,7 @@ begin
     if SSL_CTX_set_default_passwd_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_passwd_cb)}
-      SSL_CTX_set_default_passwd_cb := @_SSL_CTX_set_default_passwd_cb;
+      SSL_CTX_set_default_passwd_cb := _SSL_CTX_set_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18536,13 +18537,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_passwd_cb_userdata_allownil)}
-    SSL_CTX_set_default_passwd_cb_userdata := @ERR_SSL_CTX_set_default_passwd_cb_userdata;
+    SSL_CTX_set_default_passwd_cb_userdata := ERR_SSL_CTX_set_default_passwd_cb_userdata;
     {$ifend}
     {$if declared(SSL_CTX_set_default_passwd_cb_userdata_introduced)}
     if LibVersion < SSL_CTX_set_default_passwd_cb_userdata_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_passwd_cb_userdata)}
-      SSL_CTX_set_default_passwd_cb_userdata := @FC_SSL_CTX_set_default_passwd_cb_userdata;
+      SSL_CTX_set_default_passwd_cb_userdata := FC_SSL_CTX_set_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18551,7 +18552,7 @@ begin
     if SSL_CTX_set_default_passwd_cb_userdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_passwd_cb_userdata)}
-      SSL_CTX_set_default_passwd_cb_userdata := @_SSL_CTX_set_default_passwd_cb_userdata;
+      SSL_CTX_set_default_passwd_cb_userdata := _SSL_CTX_set_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18568,13 +18569,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_default_passwd_cb_allownil)}
-    SSL_CTX_get_default_passwd_cb := @ERR_SSL_CTX_get_default_passwd_cb;
+    SSL_CTX_get_default_passwd_cb := ERR_SSL_CTX_get_default_passwd_cb;
     {$ifend}
     {$if declared(SSL_CTX_get_default_passwd_cb_introduced)}
     if LibVersion < SSL_CTX_get_default_passwd_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_default_passwd_cb)}
-      SSL_CTX_get_default_passwd_cb := @FC_SSL_CTX_get_default_passwd_cb;
+      SSL_CTX_get_default_passwd_cb := FC_SSL_CTX_get_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18583,7 +18584,7 @@ begin
     if SSL_CTX_get_default_passwd_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_default_passwd_cb)}
-      SSL_CTX_get_default_passwd_cb := @_SSL_CTX_get_default_passwd_cb;
+      SSL_CTX_get_default_passwd_cb := _SSL_CTX_get_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18600,13 +18601,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_default_passwd_cb_userdata_allownil)}
-    SSL_CTX_get_default_passwd_cb_userdata := @ERR_SSL_CTX_get_default_passwd_cb_userdata;
+    SSL_CTX_get_default_passwd_cb_userdata := ERR_SSL_CTX_get_default_passwd_cb_userdata;
     {$ifend}
     {$if declared(SSL_CTX_get_default_passwd_cb_userdata_introduced)}
     if LibVersion < SSL_CTX_get_default_passwd_cb_userdata_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_default_passwd_cb_userdata)}
-      SSL_CTX_get_default_passwd_cb_userdata := @FC_SSL_CTX_get_default_passwd_cb_userdata;
+      SSL_CTX_get_default_passwd_cb_userdata := FC_SSL_CTX_get_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18615,7 +18616,7 @@ begin
     if SSL_CTX_get_default_passwd_cb_userdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_default_passwd_cb_userdata)}
-      SSL_CTX_get_default_passwd_cb_userdata := @_SSL_CTX_get_default_passwd_cb_userdata;
+      SSL_CTX_get_default_passwd_cb_userdata := _SSL_CTX_get_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18632,13 +18633,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_default_passwd_cb_allownil)}
-    SSL_set_default_passwd_cb := @ERR_SSL_set_default_passwd_cb;
+    SSL_set_default_passwd_cb := ERR_SSL_set_default_passwd_cb;
     {$ifend}
     {$if declared(SSL_set_default_passwd_cb_introduced)}
     if LibVersion < SSL_set_default_passwd_cb_introduced then
     begin
       {$if declared(FC_SSL_set_default_passwd_cb)}
-      SSL_set_default_passwd_cb := @FC_SSL_set_default_passwd_cb;
+      SSL_set_default_passwd_cb := FC_SSL_set_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18647,7 +18648,7 @@ begin
     if SSL_set_default_passwd_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_default_passwd_cb)}
-      SSL_set_default_passwd_cb := @_SSL_set_default_passwd_cb;
+      SSL_set_default_passwd_cb := _SSL_set_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18664,13 +18665,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_default_passwd_cb_userdata_allownil)}
-    SSL_set_default_passwd_cb_userdata := @ERR_SSL_set_default_passwd_cb_userdata;
+    SSL_set_default_passwd_cb_userdata := ERR_SSL_set_default_passwd_cb_userdata;
     {$ifend}
     {$if declared(SSL_set_default_passwd_cb_userdata_introduced)}
     if LibVersion < SSL_set_default_passwd_cb_userdata_introduced then
     begin
       {$if declared(FC_SSL_set_default_passwd_cb_userdata)}
-      SSL_set_default_passwd_cb_userdata := @FC_SSL_set_default_passwd_cb_userdata;
+      SSL_set_default_passwd_cb_userdata := FC_SSL_set_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18679,7 +18680,7 @@ begin
     if SSL_set_default_passwd_cb_userdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_default_passwd_cb_userdata)}
-      SSL_set_default_passwd_cb_userdata := @_SSL_set_default_passwd_cb_userdata;
+      SSL_set_default_passwd_cb_userdata := _SSL_set_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18696,13 +18697,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_default_passwd_cb_allownil)}
-    SSL_get_default_passwd_cb := @ERR_SSL_get_default_passwd_cb;
+    SSL_get_default_passwd_cb := ERR_SSL_get_default_passwd_cb;
     {$ifend}
     {$if declared(SSL_get_default_passwd_cb_introduced)}
     if LibVersion < SSL_get_default_passwd_cb_introduced then
     begin
       {$if declared(FC_SSL_get_default_passwd_cb)}
-      SSL_get_default_passwd_cb := @FC_SSL_get_default_passwd_cb;
+      SSL_get_default_passwd_cb := FC_SSL_get_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18711,7 +18712,7 @@ begin
     if SSL_get_default_passwd_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_default_passwd_cb)}
-      SSL_get_default_passwd_cb := @_SSL_get_default_passwd_cb;
+      SSL_get_default_passwd_cb := _SSL_get_default_passwd_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18728,13 +18729,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_default_passwd_cb_userdata_allownil)}
-    SSL_get_default_passwd_cb_userdata := @ERR_SSL_get_default_passwd_cb_userdata;
+    SSL_get_default_passwd_cb_userdata := ERR_SSL_get_default_passwd_cb_userdata;
     {$ifend}
     {$if declared(SSL_get_default_passwd_cb_userdata_introduced)}
     if LibVersion < SSL_get_default_passwd_cb_userdata_introduced then
     begin
       {$if declared(FC_SSL_get_default_passwd_cb_userdata)}
-      SSL_get_default_passwd_cb_userdata := @FC_SSL_get_default_passwd_cb_userdata;
+      SSL_get_default_passwd_cb_userdata := FC_SSL_get_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18743,7 +18744,7 @@ begin
     if SSL_get_default_passwd_cb_userdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_default_passwd_cb_userdata)}
-      SSL_get_default_passwd_cb_userdata := @_SSL_get_default_passwd_cb_userdata;
+      SSL_get_default_passwd_cb_userdata := _SSL_get_default_passwd_cb_userdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18760,13 +18761,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_check_private_key_allownil)}
-    SSL_CTX_check_private_key := @ERR_SSL_CTX_check_private_key;
+    SSL_CTX_check_private_key := ERR_SSL_CTX_check_private_key;
     {$ifend}
     {$if declared(SSL_CTX_check_private_key_introduced)}
     if LibVersion < SSL_CTX_check_private_key_introduced then
     begin
       {$if declared(FC_SSL_CTX_check_private_key)}
-      SSL_CTX_check_private_key := @FC_SSL_CTX_check_private_key;
+      SSL_CTX_check_private_key := FC_SSL_CTX_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18775,7 +18776,7 @@ begin
     if SSL_CTX_check_private_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_check_private_key)}
-      SSL_CTX_check_private_key := @_SSL_CTX_check_private_key;
+      SSL_CTX_check_private_key := _SSL_CTX_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18792,13 +18793,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_check_private_key_allownil)}
-    SSL_check_private_key := @ERR_SSL_check_private_key;
+    SSL_check_private_key := ERR_SSL_check_private_key;
     {$ifend}
     {$if declared(SSL_check_private_key_introduced)}
     if LibVersion < SSL_check_private_key_introduced then
     begin
       {$if declared(FC_SSL_check_private_key)}
-      SSL_check_private_key := @FC_SSL_check_private_key;
+      SSL_check_private_key := FC_SSL_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18807,7 +18808,7 @@ begin
     if SSL_check_private_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_check_private_key)}
-      SSL_check_private_key := @_SSL_check_private_key;
+      SSL_check_private_key := _SSL_check_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18824,13 +18825,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_session_id_context_allownil)}
-    SSL_CTX_set_session_id_context := @ERR_SSL_CTX_set_session_id_context;
+    SSL_CTX_set_session_id_context := ERR_SSL_CTX_set_session_id_context;
     {$ifend}
     {$if declared(SSL_CTX_set_session_id_context_introduced)}
     if LibVersion < SSL_CTX_set_session_id_context_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_session_id_context)}
-      SSL_CTX_set_session_id_context := @FC_SSL_CTX_set_session_id_context;
+      SSL_CTX_set_session_id_context := FC_SSL_CTX_set_session_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18839,7 +18840,7 @@ begin
     if SSL_CTX_set_session_id_context_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_session_id_context)}
-      SSL_CTX_set_session_id_context := @_SSL_CTX_set_session_id_context;
+      SSL_CTX_set_session_id_context := _SSL_CTX_set_session_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18856,13 +18857,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_allownil)}
-    SSL_new := @ERR_SSL_new;
+    SSL_new := ERR_SSL_new;
     {$ifend}
     {$if declared(SSL_new_introduced)}
     if LibVersion < SSL_new_introduced then
     begin
       {$if declared(FC_SSL_new)}
-      SSL_new := @FC_SSL_new;
+      SSL_new := FC_SSL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18871,7 +18872,7 @@ begin
     if SSL_new_removed <= LibVersion then
     begin
       {$if declared(_SSL_new)}
-      SSL_new := @_SSL_new;
+      SSL_new := _SSL_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18888,13 +18889,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_up_ref_allownil)}
-    SSL_up_ref := @ERR_SSL_up_ref;
+    SSL_up_ref := ERR_SSL_up_ref;
     {$ifend}
     {$if declared(SSL_up_ref_introduced)}
     if LibVersion < SSL_up_ref_introduced then
     begin
       {$if declared(FC_SSL_up_ref)}
-      SSL_up_ref := @FC_SSL_up_ref;
+      SSL_up_ref := FC_SSL_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18903,7 +18904,7 @@ begin
     if SSL_up_ref_removed <= LibVersion then
     begin
       {$if declared(_SSL_up_ref)}
-      SSL_up_ref := @_SSL_up_ref;
+      SSL_up_ref := _SSL_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18920,13 +18921,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_dtls_allownil)}
-    SSL_is_dtls := @ERR_SSL_is_dtls;
+    SSL_is_dtls := ERR_SSL_is_dtls;
     {$ifend}
     {$if declared(SSL_is_dtls_introduced)}
     if LibVersion < SSL_is_dtls_introduced then
     begin
       {$if declared(FC_SSL_is_dtls)}
-      SSL_is_dtls := @FC_SSL_is_dtls;
+      SSL_is_dtls := FC_SSL_is_dtls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18935,7 +18936,7 @@ begin
     if SSL_is_dtls_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_dtls)}
-      SSL_is_dtls := @_SSL_is_dtls;
+      SSL_is_dtls := _SSL_is_dtls;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18952,13 +18953,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_session_id_context_allownil)}
-    SSL_set_session_id_context := @ERR_SSL_set_session_id_context;
+    SSL_set_session_id_context := ERR_SSL_set_session_id_context;
     {$ifend}
     {$if declared(SSL_set_session_id_context_introduced)}
     if LibVersion < SSL_set_session_id_context_introduced then
     begin
       {$if declared(FC_SSL_set_session_id_context)}
-      SSL_set_session_id_context := @FC_SSL_set_session_id_context;
+      SSL_set_session_id_context := FC_SSL_set_session_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18967,7 +18968,7 @@ begin
     if SSL_set_session_id_context_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_session_id_context)}
-      SSL_set_session_id_context := @_SSL_set_session_id_context;
+      SSL_set_session_id_context := _SSL_set_session_id_context;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18984,13 +18985,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_purpose_allownil)}
-    SSL_CTX_set_purpose := @ERR_SSL_CTX_set_purpose;
+    SSL_CTX_set_purpose := ERR_SSL_CTX_set_purpose;
     {$ifend}
     {$if declared(SSL_CTX_set_purpose_introduced)}
     if LibVersion < SSL_CTX_set_purpose_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_purpose)}
-      SSL_CTX_set_purpose := @FC_SSL_CTX_set_purpose;
+      SSL_CTX_set_purpose := FC_SSL_CTX_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -18999,7 +19000,7 @@ begin
     if SSL_CTX_set_purpose_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_purpose)}
-      SSL_CTX_set_purpose := @_SSL_CTX_set_purpose;
+      SSL_CTX_set_purpose := _SSL_CTX_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19016,13 +19017,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_purpose_allownil)}
-    SSL_set_purpose := @ERR_SSL_set_purpose;
+    SSL_set_purpose := ERR_SSL_set_purpose;
     {$ifend}
     {$if declared(SSL_set_purpose_introduced)}
     if LibVersion < SSL_set_purpose_introduced then
     begin
       {$if declared(FC_SSL_set_purpose)}
-      SSL_set_purpose := @FC_SSL_set_purpose;
+      SSL_set_purpose := FC_SSL_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19031,7 +19032,7 @@ begin
     if SSL_set_purpose_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_purpose)}
-      SSL_set_purpose := @_SSL_set_purpose;
+      SSL_set_purpose := _SSL_set_purpose;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19048,13 +19049,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_trust_allownil)}
-    SSL_CTX_set_trust := @ERR_SSL_CTX_set_trust;
+    SSL_CTX_set_trust := ERR_SSL_CTX_set_trust;
     {$ifend}
     {$if declared(SSL_CTX_set_trust_introduced)}
     if LibVersion < SSL_CTX_set_trust_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_trust)}
-      SSL_CTX_set_trust := @FC_SSL_CTX_set_trust;
+      SSL_CTX_set_trust := FC_SSL_CTX_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19063,7 +19064,7 @@ begin
     if SSL_CTX_set_trust_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_trust)}
-      SSL_CTX_set_trust := @_SSL_CTX_set_trust;
+      SSL_CTX_set_trust := _SSL_CTX_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19080,13 +19081,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_trust_allownil)}
-    SSL_set_trust := @ERR_SSL_set_trust;
+    SSL_set_trust := ERR_SSL_set_trust;
     {$ifend}
     {$if declared(SSL_set_trust_introduced)}
     if LibVersion < SSL_set_trust_introduced then
     begin
       {$if declared(FC_SSL_set_trust)}
-      SSL_set_trust := @FC_SSL_set_trust;
+      SSL_set_trust := FC_SSL_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19095,7 +19096,7 @@ begin
     if SSL_set_trust_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_trust)}
-      SSL_set_trust := @_SSL_set_trust;
+      SSL_set_trust := _SSL_set_trust;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19112,13 +19113,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_host_allownil)}
-    SSL_set1_host := @ERR_SSL_set1_host;
+    SSL_set1_host := ERR_SSL_set1_host;
     {$ifend}
     {$if declared(SSL_set1_host_introduced)}
     if LibVersion < SSL_set1_host_introduced then
     begin
       {$if declared(FC_SSL_set1_host)}
-      SSL_set1_host := @FC_SSL_set1_host;
+      SSL_set1_host := FC_SSL_set1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19127,7 +19128,7 @@ begin
     if SSL_set1_host_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_host)}
-      SSL_set1_host := @_SSL_set1_host;
+      SSL_set1_host := _SSL_set1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19144,13 +19145,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add1_host_allownil)}
-    SSL_add1_host := @ERR_SSL_add1_host;
+    SSL_add1_host := ERR_SSL_add1_host;
     {$ifend}
     {$if declared(SSL_add1_host_introduced)}
     if LibVersion < SSL_add1_host_introduced then
     begin
       {$if declared(FC_SSL_add1_host)}
-      SSL_add1_host := @FC_SSL_add1_host;
+      SSL_add1_host := FC_SSL_add1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19159,7 +19160,7 @@ begin
     if SSL_add1_host_removed <= LibVersion then
     begin
       {$if declared(_SSL_add1_host)}
-      SSL_add1_host := @_SSL_add1_host;
+      SSL_add1_host := _SSL_add1_host;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19176,13 +19177,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_peername_allownil)}
-    SSL_get0_peername := @ERR_SSL_get0_peername;
+    SSL_get0_peername := ERR_SSL_get0_peername;
     {$ifend}
     {$if declared(SSL_get0_peername_introduced)}
     if LibVersion < SSL_get0_peername_introduced then
     begin
       {$if declared(FC_SSL_get0_peername)}
-      SSL_get0_peername := @FC_SSL_get0_peername;
+      SSL_get0_peername := FC_SSL_get0_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19191,7 +19192,7 @@ begin
     if SSL_get0_peername_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_peername)}
-      SSL_get0_peername := @_SSL_get0_peername;
+      SSL_get0_peername := _SSL_get0_peername;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19208,13 +19209,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_hostflags_allownil)}
-    SSL_set_hostflags := @ERR_SSL_set_hostflags;
+    SSL_set_hostflags := ERR_SSL_set_hostflags;
     {$ifend}
     {$if declared(SSL_set_hostflags_introduced)}
     if LibVersion < SSL_set_hostflags_introduced then
     begin
       {$if declared(FC_SSL_set_hostflags)}
-      SSL_set_hostflags := @FC_SSL_set_hostflags;
+      SSL_set_hostflags := FC_SSL_set_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19223,7 +19224,7 @@ begin
     if SSL_set_hostflags_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_hostflags)}
-      SSL_set_hostflags := @_SSL_set_hostflags;
+      SSL_set_hostflags := _SSL_set_hostflags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19240,13 +19241,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_dane_enable_allownil)}
-    SSL_CTX_dane_enable := @ERR_SSL_CTX_dane_enable;
+    SSL_CTX_dane_enable := ERR_SSL_CTX_dane_enable;
     {$ifend}
     {$if declared(SSL_CTX_dane_enable_introduced)}
     if LibVersion < SSL_CTX_dane_enable_introduced then
     begin
       {$if declared(FC_SSL_CTX_dane_enable)}
-      SSL_CTX_dane_enable := @FC_SSL_CTX_dane_enable;
+      SSL_CTX_dane_enable := FC_SSL_CTX_dane_enable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19255,7 +19256,7 @@ begin
     if SSL_CTX_dane_enable_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_dane_enable)}
-      SSL_CTX_dane_enable := @_SSL_CTX_dane_enable;
+      SSL_CTX_dane_enable := _SSL_CTX_dane_enable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19272,13 +19273,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_dane_mtype_set_allownil)}
-    SSL_CTX_dane_mtype_set := @ERR_SSL_CTX_dane_mtype_set;
+    SSL_CTX_dane_mtype_set := ERR_SSL_CTX_dane_mtype_set;
     {$ifend}
     {$if declared(SSL_CTX_dane_mtype_set_introduced)}
     if LibVersion < SSL_CTX_dane_mtype_set_introduced then
     begin
       {$if declared(FC_SSL_CTX_dane_mtype_set)}
-      SSL_CTX_dane_mtype_set := @FC_SSL_CTX_dane_mtype_set;
+      SSL_CTX_dane_mtype_set := FC_SSL_CTX_dane_mtype_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19287,7 +19288,7 @@ begin
     if SSL_CTX_dane_mtype_set_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_dane_mtype_set)}
-      SSL_CTX_dane_mtype_set := @_SSL_CTX_dane_mtype_set;
+      SSL_CTX_dane_mtype_set := _SSL_CTX_dane_mtype_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19304,13 +19305,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_dane_enable_allownil)}
-    SSL_dane_enable := @ERR_SSL_dane_enable;
+    SSL_dane_enable := ERR_SSL_dane_enable;
     {$ifend}
     {$if declared(SSL_dane_enable_introduced)}
     if LibVersion < SSL_dane_enable_introduced then
     begin
       {$if declared(FC_SSL_dane_enable)}
-      SSL_dane_enable := @FC_SSL_dane_enable;
+      SSL_dane_enable := FC_SSL_dane_enable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19319,7 +19320,7 @@ begin
     if SSL_dane_enable_removed <= LibVersion then
     begin
       {$if declared(_SSL_dane_enable)}
-      SSL_dane_enable := @_SSL_dane_enable;
+      SSL_dane_enable := _SSL_dane_enable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19336,13 +19337,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_dane_tlsa_add_allownil)}
-    SSL_dane_tlsa_add := @ERR_SSL_dane_tlsa_add;
+    SSL_dane_tlsa_add := ERR_SSL_dane_tlsa_add;
     {$ifend}
     {$if declared(SSL_dane_tlsa_add_introduced)}
     if LibVersion < SSL_dane_tlsa_add_introduced then
     begin
       {$if declared(FC_SSL_dane_tlsa_add)}
-      SSL_dane_tlsa_add := @FC_SSL_dane_tlsa_add;
+      SSL_dane_tlsa_add := FC_SSL_dane_tlsa_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19351,7 +19352,7 @@ begin
     if SSL_dane_tlsa_add_removed <= LibVersion then
     begin
       {$if declared(_SSL_dane_tlsa_add)}
-      SSL_dane_tlsa_add := @_SSL_dane_tlsa_add;
+      SSL_dane_tlsa_add := _SSL_dane_tlsa_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19368,13 +19369,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_dane_authority_allownil)}
-    SSL_get0_dane_authority := @ERR_SSL_get0_dane_authority;
+    SSL_get0_dane_authority := ERR_SSL_get0_dane_authority;
     {$ifend}
     {$if declared(SSL_get0_dane_authority_introduced)}
     if LibVersion < SSL_get0_dane_authority_introduced then
     begin
       {$if declared(FC_SSL_get0_dane_authority)}
-      SSL_get0_dane_authority := @FC_SSL_get0_dane_authority;
+      SSL_get0_dane_authority := FC_SSL_get0_dane_authority;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19383,7 +19384,7 @@ begin
     if SSL_get0_dane_authority_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_dane_authority)}
-      SSL_get0_dane_authority := @_SSL_get0_dane_authority;
+      SSL_get0_dane_authority := _SSL_get0_dane_authority;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19400,13 +19401,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_dane_tlsa_allownil)}
-    SSL_get0_dane_tlsa := @ERR_SSL_get0_dane_tlsa;
+    SSL_get0_dane_tlsa := ERR_SSL_get0_dane_tlsa;
     {$ifend}
     {$if declared(SSL_get0_dane_tlsa_introduced)}
     if LibVersion < SSL_get0_dane_tlsa_introduced then
     begin
       {$if declared(FC_SSL_get0_dane_tlsa)}
-      SSL_get0_dane_tlsa := @FC_SSL_get0_dane_tlsa;
+      SSL_get0_dane_tlsa := FC_SSL_get0_dane_tlsa;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19415,7 +19416,7 @@ begin
     if SSL_get0_dane_tlsa_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_dane_tlsa)}
-      SSL_get0_dane_tlsa := @_SSL_get0_dane_tlsa;
+      SSL_get0_dane_tlsa := _SSL_get0_dane_tlsa;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19432,13 +19433,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_dane_allownil)}
-    SSL_get0_dane := @ERR_SSL_get0_dane;
+    SSL_get0_dane := ERR_SSL_get0_dane;
     {$ifend}
     {$if declared(SSL_get0_dane_introduced)}
     if LibVersion < SSL_get0_dane_introduced then
     begin
       {$if declared(FC_SSL_get0_dane)}
-      SSL_get0_dane := @FC_SSL_get0_dane;
+      SSL_get0_dane := FC_SSL_get0_dane;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19447,7 +19448,7 @@ begin
     if SSL_get0_dane_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_dane)}
-      SSL_get0_dane := @_SSL_get0_dane;
+      SSL_get0_dane := _SSL_get0_dane;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19464,13 +19465,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_dane_set_flags_allownil)}
-    SSL_CTX_dane_set_flags := @ERR_SSL_CTX_dane_set_flags;
+    SSL_CTX_dane_set_flags := ERR_SSL_CTX_dane_set_flags;
     {$ifend}
     {$if declared(SSL_CTX_dane_set_flags_introduced)}
     if LibVersion < SSL_CTX_dane_set_flags_introduced then
     begin
       {$if declared(FC_SSL_CTX_dane_set_flags)}
-      SSL_CTX_dane_set_flags := @FC_SSL_CTX_dane_set_flags;
+      SSL_CTX_dane_set_flags := FC_SSL_CTX_dane_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19479,7 +19480,7 @@ begin
     if SSL_CTX_dane_set_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_dane_set_flags)}
-      SSL_CTX_dane_set_flags := @_SSL_CTX_dane_set_flags;
+      SSL_CTX_dane_set_flags := _SSL_CTX_dane_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19496,13 +19497,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_dane_clear_flags_allownil)}
-    SSL_CTX_dane_clear_flags := @ERR_SSL_CTX_dane_clear_flags;
+    SSL_CTX_dane_clear_flags := ERR_SSL_CTX_dane_clear_flags;
     {$ifend}
     {$if declared(SSL_CTX_dane_clear_flags_introduced)}
     if LibVersion < SSL_CTX_dane_clear_flags_introduced then
     begin
       {$if declared(FC_SSL_CTX_dane_clear_flags)}
-      SSL_CTX_dane_clear_flags := @FC_SSL_CTX_dane_clear_flags;
+      SSL_CTX_dane_clear_flags := FC_SSL_CTX_dane_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19511,7 +19512,7 @@ begin
     if SSL_CTX_dane_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_dane_clear_flags)}
-      SSL_CTX_dane_clear_flags := @_SSL_CTX_dane_clear_flags;
+      SSL_CTX_dane_clear_flags := _SSL_CTX_dane_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19528,13 +19529,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_dane_set_flags_allownil)}
-    SSL_dane_set_flags := @ERR_SSL_dane_set_flags;
+    SSL_dane_set_flags := ERR_SSL_dane_set_flags;
     {$ifend}
     {$if declared(SSL_dane_set_flags_introduced)}
     if LibVersion < SSL_dane_set_flags_introduced then
     begin
       {$if declared(FC_SSL_dane_set_flags)}
-      SSL_dane_set_flags := @FC_SSL_dane_set_flags;
+      SSL_dane_set_flags := FC_SSL_dane_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19543,7 +19544,7 @@ begin
     if SSL_dane_set_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_dane_set_flags)}
-      SSL_dane_set_flags := @_SSL_dane_set_flags;
+      SSL_dane_set_flags := _SSL_dane_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19560,13 +19561,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_dane_clear_flags_allownil)}
-    SSL_dane_clear_flags := @ERR_SSL_dane_clear_flags;
+    SSL_dane_clear_flags := ERR_SSL_dane_clear_flags;
     {$ifend}
     {$if declared(SSL_dane_clear_flags_introduced)}
     if LibVersion < SSL_dane_clear_flags_introduced then
     begin
       {$if declared(FC_SSL_dane_clear_flags)}
-      SSL_dane_clear_flags := @FC_SSL_dane_clear_flags;
+      SSL_dane_clear_flags := FC_SSL_dane_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19575,7 +19576,7 @@ begin
     if SSL_dane_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_dane_clear_flags)}
-      SSL_dane_clear_flags := @_SSL_dane_clear_flags;
+      SSL_dane_clear_flags := _SSL_dane_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19592,13 +19593,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set1_param_allownil)}
-    SSL_CTX_set1_param := @ERR_SSL_CTX_set1_param;
+    SSL_CTX_set1_param := ERR_SSL_CTX_set1_param;
     {$ifend}
     {$if declared(SSL_CTX_set1_param_introduced)}
     if LibVersion < SSL_CTX_set1_param_introduced then
     begin
       {$if declared(FC_SSL_CTX_set1_param)}
-      SSL_CTX_set1_param := @FC_SSL_CTX_set1_param;
+      SSL_CTX_set1_param := FC_SSL_CTX_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19607,7 +19608,7 @@ begin
     if SSL_CTX_set1_param_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set1_param)}
-      SSL_CTX_set1_param := @_SSL_CTX_set1_param;
+      SSL_CTX_set1_param := _SSL_CTX_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19624,13 +19625,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_param_allownil)}
-    SSL_set1_param := @ERR_SSL_set1_param;
+    SSL_set1_param := ERR_SSL_set1_param;
     {$ifend}
     {$if declared(SSL_set1_param_introduced)}
     if LibVersion < SSL_set1_param_introduced then
     begin
       {$if declared(FC_SSL_set1_param)}
-      SSL_set1_param := @FC_SSL_set1_param;
+      SSL_set1_param := FC_SSL_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19639,7 +19640,7 @@ begin
     if SSL_set1_param_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_param)}
-      SSL_set1_param := @_SSL_set1_param;
+      SSL_set1_param := _SSL_set1_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19656,13 +19657,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_param_allownil)}
-    SSL_CTX_get0_param := @ERR_SSL_CTX_get0_param;
+    SSL_CTX_get0_param := ERR_SSL_CTX_get0_param;
     {$ifend}
     {$if declared(SSL_CTX_get0_param_introduced)}
     if LibVersion < SSL_CTX_get0_param_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_param)}
-      SSL_CTX_get0_param := @FC_SSL_CTX_get0_param;
+      SSL_CTX_get0_param := FC_SSL_CTX_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19671,7 +19672,7 @@ begin
     if SSL_CTX_get0_param_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_param)}
-      SSL_CTX_get0_param := @_SSL_CTX_get0_param;
+      SSL_CTX_get0_param := _SSL_CTX_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19688,13 +19689,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_param_allownil)}
-    SSL_get0_param := @ERR_SSL_get0_param;
+    SSL_get0_param := ERR_SSL_get0_param;
     {$ifend}
     {$if declared(SSL_get0_param_introduced)}
     if LibVersion < SSL_get0_param_introduced then
     begin
       {$if declared(FC_SSL_get0_param)}
-      SSL_get0_param := @FC_SSL_get0_param;
+      SSL_get0_param := FC_SSL_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19703,7 +19704,7 @@ begin
     if SSL_get0_param_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_param)}
-      SSL_get0_param := @_SSL_get0_param;
+      SSL_get0_param := _SSL_get0_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19720,13 +19721,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_username_allownil)}
-    SSL_CTX_set_srp_username := @ERR_SSL_CTX_set_srp_username;
+    SSL_CTX_set_srp_username := ERR_SSL_CTX_set_srp_username;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_username_introduced)}
     if LibVersion < SSL_CTX_set_srp_username_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_username)}
-      SSL_CTX_set_srp_username := @FC_SSL_CTX_set_srp_username;
+      SSL_CTX_set_srp_username := FC_SSL_CTX_set_srp_username;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19735,7 +19736,7 @@ begin
     if SSL_CTX_set_srp_username_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_username)}
-      SSL_CTX_set_srp_username := @_SSL_CTX_set_srp_username;
+      SSL_CTX_set_srp_username := _SSL_CTX_set_srp_username;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19752,13 +19753,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_password_allownil)}
-    SSL_CTX_set_srp_password := @ERR_SSL_CTX_set_srp_password;
+    SSL_CTX_set_srp_password := ERR_SSL_CTX_set_srp_password;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_password_introduced)}
     if LibVersion < SSL_CTX_set_srp_password_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_password)}
-      SSL_CTX_set_srp_password := @FC_SSL_CTX_set_srp_password;
+      SSL_CTX_set_srp_password := FC_SSL_CTX_set_srp_password;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19767,7 +19768,7 @@ begin
     if SSL_CTX_set_srp_password_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_password)}
-      SSL_CTX_set_srp_password := @_SSL_CTX_set_srp_password;
+      SSL_CTX_set_srp_password := _SSL_CTX_set_srp_password;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19784,13 +19785,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_strength_allownil)}
-    SSL_CTX_set_srp_strength := @ERR_SSL_CTX_set_srp_strength;
+    SSL_CTX_set_srp_strength := ERR_SSL_CTX_set_srp_strength;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_strength_introduced)}
     if LibVersion < SSL_CTX_set_srp_strength_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_strength)}
-      SSL_CTX_set_srp_strength := @FC_SSL_CTX_set_srp_strength;
+      SSL_CTX_set_srp_strength := FC_SSL_CTX_set_srp_strength;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19799,7 +19800,7 @@ begin
     if SSL_CTX_set_srp_strength_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_strength)}
-      SSL_CTX_set_srp_strength := @_SSL_CTX_set_srp_strength;
+      SSL_CTX_set_srp_strength := _SSL_CTX_set_srp_strength;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19816,13 +19817,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_client_pwd_callback_allownil)}
-    SSL_CTX_set_srp_client_pwd_callback := @ERR_SSL_CTX_set_srp_client_pwd_callback;
+    SSL_CTX_set_srp_client_pwd_callback := ERR_SSL_CTX_set_srp_client_pwd_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_client_pwd_callback_introduced)}
     if LibVersion < SSL_CTX_set_srp_client_pwd_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_client_pwd_callback)}
-      SSL_CTX_set_srp_client_pwd_callback := @FC_SSL_CTX_set_srp_client_pwd_callback;
+      SSL_CTX_set_srp_client_pwd_callback := FC_SSL_CTX_set_srp_client_pwd_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19831,7 +19832,7 @@ begin
     if SSL_CTX_set_srp_client_pwd_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_client_pwd_callback)}
-      SSL_CTX_set_srp_client_pwd_callback := @_SSL_CTX_set_srp_client_pwd_callback;
+      SSL_CTX_set_srp_client_pwd_callback := _SSL_CTX_set_srp_client_pwd_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19848,13 +19849,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_verify_param_callback_allownil)}
-    SSL_CTX_set_srp_verify_param_callback := @ERR_SSL_CTX_set_srp_verify_param_callback;
+    SSL_CTX_set_srp_verify_param_callback := ERR_SSL_CTX_set_srp_verify_param_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_verify_param_callback_introduced)}
     if LibVersion < SSL_CTX_set_srp_verify_param_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_verify_param_callback)}
-      SSL_CTX_set_srp_verify_param_callback := @FC_SSL_CTX_set_srp_verify_param_callback;
+      SSL_CTX_set_srp_verify_param_callback := FC_SSL_CTX_set_srp_verify_param_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19863,7 +19864,7 @@ begin
     if SSL_CTX_set_srp_verify_param_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_verify_param_callback)}
-      SSL_CTX_set_srp_verify_param_callback := @_SSL_CTX_set_srp_verify_param_callback;
+      SSL_CTX_set_srp_verify_param_callback := _SSL_CTX_set_srp_verify_param_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19880,13 +19881,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_username_callback_allownil)}
-    SSL_CTX_set_srp_username_callback := @ERR_SSL_CTX_set_srp_username_callback;
+    SSL_CTX_set_srp_username_callback := ERR_SSL_CTX_set_srp_username_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_username_callback_introduced)}
     if LibVersion < SSL_CTX_set_srp_username_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_username_callback)}
-      SSL_CTX_set_srp_username_callback := @FC_SSL_CTX_set_srp_username_callback;
+      SSL_CTX_set_srp_username_callback := FC_SSL_CTX_set_srp_username_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19895,7 +19896,7 @@ begin
     if SSL_CTX_set_srp_username_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_username_callback)}
-      SSL_CTX_set_srp_username_callback := @_SSL_CTX_set_srp_username_callback;
+      SSL_CTX_set_srp_username_callback := _SSL_CTX_set_srp_username_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19912,13 +19913,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_srp_cb_arg_allownil)}
-    SSL_CTX_set_srp_cb_arg := @ERR_SSL_CTX_set_srp_cb_arg;
+    SSL_CTX_set_srp_cb_arg := ERR_SSL_CTX_set_srp_cb_arg;
     {$ifend}
     {$if declared(SSL_CTX_set_srp_cb_arg_introduced)}
     if LibVersion < SSL_CTX_set_srp_cb_arg_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_srp_cb_arg)}
-      SSL_CTX_set_srp_cb_arg := @FC_SSL_CTX_set_srp_cb_arg;
+      SSL_CTX_set_srp_cb_arg := FC_SSL_CTX_set_srp_cb_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19927,7 +19928,7 @@ begin
     if SSL_CTX_set_srp_cb_arg_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_srp_cb_arg)}
-      SSL_CTX_set_srp_cb_arg := @_SSL_CTX_set_srp_cb_arg;
+      SSL_CTX_set_srp_cb_arg := _SSL_CTX_set_srp_cb_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19944,13 +19945,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_srp_server_param_allownil)}
-    SSL_set_srp_server_param := @ERR_SSL_set_srp_server_param;
+    SSL_set_srp_server_param := ERR_SSL_set_srp_server_param;
     {$ifend}
     {$if declared(SSL_set_srp_server_param_introduced)}
     if LibVersion < SSL_set_srp_server_param_introduced then
     begin
       {$if declared(FC_SSL_set_srp_server_param)}
-      SSL_set_srp_server_param := @FC_SSL_set_srp_server_param;
+      SSL_set_srp_server_param := FC_SSL_set_srp_server_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19959,7 +19960,7 @@ begin
     if SSL_set_srp_server_param_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_srp_server_param)}
-      SSL_set_srp_server_param := @_SSL_set_srp_server_param;
+      SSL_set_srp_server_param := _SSL_set_srp_server_param;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19976,13 +19977,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_srp_server_param_pw_allownil)}
-    SSL_set_srp_server_param_pw := @ERR_SSL_set_srp_server_param_pw;
+    SSL_set_srp_server_param_pw := ERR_SSL_set_srp_server_param_pw;
     {$ifend}
     {$if declared(SSL_set_srp_server_param_pw_introduced)}
     if LibVersion < SSL_set_srp_server_param_pw_introduced then
     begin
       {$if declared(FC_SSL_set_srp_server_param_pw)}
-      SSL_set_srp_server_param_pw := @FC_SSL_set_srp_server_param_pw;
+      SSL_set_srp_server_param_pw := FC_SSL_set_srp_server_param_pw;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -19991,7 +19992,7 @@ begin
     if SSL_set_srp_server_param_pw_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_srp_server_param_pw)}
-      SSL_set_srp_server_param_pw := @_SSL_set_srp_server_param_pw;
+      SSL_set_srp_server_param_pw := _SSL_set_srp_server_param_pw;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20008,13 +20009,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_client_hello_cb_allownil)}
-    SSL_CTX_set_client_hello_cb := @ERR_SSL_CTX_set_client_hello_cb;
+    SSL_CTX_set_client_hello_cb := ERR_SSL_CTX_set_client_hello_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_client_hello_cb_introduced)}
     if LibVersion < SSL_CTX_set_client_hello_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_client_hello_cb)}
-      SSL_CTX_set_client_hello_cb := @FC_SSL_CTX_set_client_hello_cb;
+      SSL_CTX_set_client_hello_cb := FC_SSL_CTX_set_client_hello_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20023,7 +20024,7 @@ begin
     if SSL_CTX_set_client_hello_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_client_hello_cb)}
-      SSL_CTX_set_client_hello_cb := @_SSL_CTX_set_client_hello_cb;
+      SSL_CTX_set_client_hello_cb := _SSL_CTX_set_client_hello_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20040,13 +20041,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_isv2_allownil)}
-    SSL_client_hello_isv2 := @ERR_SSL_client_hello_isv2;
+    SSL_client_hello_isv2 := ERR_SSL_client_hello_isv2;
     {$ifend}
     {$if declared(SSL_client_hello_isv2_introduced)}
     if LibVersion < SSL_client_hello_isv2_introduced then
     begin
       {$if declared(FC_SSL_client_hello_isv2)}
-      SSL_client_hello_isv2 := @FC_SSL_client_hello_isv2;
+      SSL_client_hello_isv2 := FC_SSL_client_hello_isv2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20055,7 +20056,7 @@ begin
     if SSL_client_hello_isv2_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_isv2)}
-      SSL_client_hello_isv2 := @_SSL_client_hello_isv2;
+      SSL_client_hello_isv2 := _SSL_client_hello_isv2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20072,13 +20073,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_legacy_version_allownil)}
-    SSL_client_hello_get0_legacy_version := @ERR_SSL_client_hello_get0_legacy_version;
+    SSL_client_hello_get0_legacy_version := ERR_SSL_client_hello_get0_legacy_version;
     {$ifend}
     {$if declared(SSL_client_hello_get0_legacy_version_introduced)}
     if LibVersion < SSL_client_hello_get0_legacy_version_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_legacy_version)}
-      SSL_client_hello_get0_legacy_version := @FC_SSL_client_hello_get0_legacy_version;
+      SSL_client_hello_get0_legacy_version := FC_SSL_client_hello_get0_legacy_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20087,7 +20088,7 @@ begin
     if SSL_client_hello_get0_legacy_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_legacy_version)}
-      SSL_client_hello_get0_legacy_version := @_SSL_client_hello_get0_legacy_version;
+      SSL_client_hello_get0_legacy_version := _SSL_client_hello_get0_legacy_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20104,13 +20105,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_random_allownil)}
-    SSL_client_hello_get0_random := @ERR_SSL_client_hello_get0_random;
+    SSL_client_hello_get0_random := ERR_SSL_client_hello_get0_random;
     {$ifend}
     {$if declared(SSL_client_hello_get0_random_introduced)}
     if LibVersion < SSL_client_hello_get0_random_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_random)}
-      SSL_client_hello_get0_random := @FC_SSL_client_hello_get0_random;
+      SSL_client_hello_get0_random := FC_SSL_client_hello_get0_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20119,7 +20120,7 @@ begin
     if SSL_client_hello_get0_random_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_random)}
-      SSL_client_hello_get0_random := @_SSL_client_hello_get0_random;
+      SSL_client_hello_get0_random := _SSL_client_hello_get0_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20136,13 +20137,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_session_id_allownil)}
-    SSL_client_hello_get0_session_id := @ERR_SSL_client_hello_get0_session_id;
+    SSL_client_hello_get0_session_id := ERR_SSL_client_hello_get0_session_id;
     {$ifend}
     {$if declared(SSL_client_hello_get0_session_id_introduced)}
     if LibVersion < SSL_client_hello_get0_session_id_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_session_id)}
-      SSL_client_hello_get0_session_id := @FC_SSL_client_hello_get0_session_id;
+      SSL_client_hello_get0_session_id := FC_SSL_client_hello_get0_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20151,7 +20152,7 @@ begin
     if SSL_client_hello_get0_session_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_session_id)}
-      SSL_client_hello_get0_session_id := @_SSL_client_hello_get0_session_id;
+      SSL_client_hello_get0_session_id := _SSL_client_hello_get0_session_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20168,13 +20169,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_ciphers_allownil)}
-    SSL_client_hello_get0_ciphers := @ERR_SSL_client_hello_get0_ciphers;
+    SSL_client_hello_get0_ciphers := ERR_SSL_client_hello_get0_ciphers;
     {$ifend}
     {$if declared(SSL_client_hello_get0_ciphers_introduced)}
     if LibVersion < SSL_client_hello_get0_ciphers_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_ciphers)}
-      SSL_client_hello_get0_ciphers := @FC_SSL_client_hello_get0_ciphers;
+      SSL_client_hello_get0_ciphers := FC_SSL_client_hello_get0_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20183,7 +20184,7 @@ begin
     if SSL_client_hello_get0_ciphers_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_ciphers)}
-      SSL_client_hello_get0_ciphers := @_SSL_client_hello_get0_ciphers;
+      SSL_client_hello_get0_ciphers := _SSL_client_hello_get0_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20200,13 +20201,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_compression_methods_allownil)}
-    SSL_client_hello_get0_compression_methods := @ERR_SSL_client_hello_get0_compression_methods;
+    SSL_client_hello_get0_compression_methods := ERR_SSL_client_hello_get0_compression_methods;
     {$ifend}
     {$if declared(SSL_client_hello_get0_compression_methods_introduced)}
     if LibVersion < SSL_client_hello_get0_compression_methods_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_compression_methods)}
-      SSL_client_hello_get0_compression_methods := @FC_SSL_client_hello_get0_compression_methods;
+      SSL_client_hello_get0_compression_methods := FC_SSL_client_hello_get0_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20215,7 +20216,7 @@ begin
     if SSL_client_hello_get0_compression_methods_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_compression_methods)}
-      SSL_client_hello_get0_compression_methods := @_SSL_client_hello_get0_compression_methods;
+      SSL_client_hello_get0_compression_methods := _SSL_client_hello_get0_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20232,13 +20233,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get1_extensions_present_allownil)}
-    SSL_client_hello_get1_extensions_present := @ERR_SSL_client_hello_get1_extensions_present;
+    SSL_client_hello_get1_extensions_present := ERR_SSL_client_hello_get1_extensions_present;
     {$ifend}
     {$if declared(SSL_client_hello_get1_extensions_present_introduced)}
     if LibVersion < SSL_client_hello_get1_extensions_present_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get1_extensions_present)}
-      SSL_client_hello_get1_extensions_present := @FC_SSL_client_hello_get1_extensions_present;
+      SSL_client_hello_get1_extensions_present := FC_SSL_client_hello_get1_extensions_present;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20247,7 +20248,7 @@ begin
     if SSL_client_hello_get1_extensions_present_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get1_extensions_present)}
-      SSL_client_hello_get1_extensions_present := @_SSL_client_hello_get1_extensions_present;
+      SSL_client_hello_get1_extensions_present := _SSL_client_hello_get1_extensions_present;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20264,13 +20265,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_hello_get0_ext_allownil)}
-    SSL_client_hello_get0_ext := @ERR_SSL_client_hello_get0_ext;
+    SSL_client_hello_get0_ext := ERR_SSL_client_hello_get0_ext;
     {$ifend}
     {$if declared(SSL_client_hello_get0_ext_introduced)}
     if LibVersion < SSL_client_hello_get0_ext_introduced then
     begin
       {$if declared(FC_SSL_client_hello_get0_ext)}
-      SSL_client_hello_get0_ext := @FC_SSL_client_hello_get0_ext;
+      SSL_client_hello_get0_ext := FC_SSL_client_hello_get0_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20279,7 +20280,7 @@ begin
     if SSL_client_hello_get0_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_hello_get0_ext)}
-      SSL_client_hello_get0_ext := @_SSL_client_hello_get0_ext;
+      SSL_client_hello_get0_ext := _SSL_client_hello_get0_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20296,13 +20297,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_certs_clear_allownil)}
-    SSL_certs_clear := @ERR_SSL_certs_clear;
+    SSL_certs_clear := ERR_SSL_certs_clear;
     {$ifend}
     {$if declared(SSL_certs_clear_introduced)}
     if LibVersion < SSL_certs_clear_introduced then
     begin
       {$if declared(FC_SSL_certs_clear)}
-      SSL_certs_clear := @FC_SSL_certs_clear;
+      SSL_certs_clear := FC_SSL_certs_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20311,7 +20312,7 @@ begin
     if SSL_certs_clear_removed <= LibVersion then
     begin
       {$if declared(_SSL_certs_clear)}
-      SSL_certs_clear := @_SSL_certs_clear;
+      SSL_certs_clear := _SSL_certs_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20328,13 +20329,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_free_allownil)}
-    SSL_free := @ERR_SSL_free;
+    SSL_free := ERR_SSL_free;
     {$ifend}
     {$if declared(SSL_free_introduced)}
     if LibVersion < SSL_free_introduced then
     begin
       {$if declared(FC_SSL_free)}
-      SSL_free := @FC_SSL_free;
+      SSL_free := FC_SSL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20343,7 +20344,7 @@ begin
     if SSL_free_removed <= LibVersion then
     begin
       {$if declared(_SSL_free)}
-      SSL_free := @_SSL_free;
+      SSL_free := _SSL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20360,13 +20361,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_waiting_for_async_allownil)}
-    SSL_waiting_for_async := @ERR_SSL_waiting_for_async;
+    SSL_waiting_for_async := ERR_SSL_waiting_for_async;
     {$ifend}
     {$if declared(SSL_waiting_for_async_introduced)}
     if LibVersion < SSL_waiting_for_async_introduced then
     begin
       {$if declared(FC_SSL_waiting_for_async)}
-      SSL_waiting_for_async := @FC_SSL_waiting_for_async;
+      SSL_waiting_for_async := FC_SSL_waiting_for_async;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20375,7 +20376,7 @@ begin
     if SSL_waiting_for_async_removed <= LibVersion then
     begin
       {$if declared(_SSL_waiting_for_async)}
-      SSL_waiting_for_async := @_SSL_waiting_for_async;
+      SSL_waiting_for_async := _SSL_waiting_for_async;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20392,13 +20393,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_all_async_fds_allownil)}
-    SSL_get_all_async_fds := @ERR_SSL_get_all_async_fds;
+    SSL_get_all_async_fds := ERR_SSL_get_all_async_fds;
     {$ifend}
     {$if declared(SSL_get_all_async_fds_introduced)}
     if LibVersion < SSL_get_all_async_fds_introduced then
     begin
       {$if declared(FC_SSL_get_all_async_fds)}
-      SSL_get_all_async_fds := @FC_SSL_get_all_async_fds;
+      SSL_get_all_async_fds := FC_SSL_get_all_async_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20407,7 +20408,7 @@ begin
     if SSL_get_all_async_fds_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_all_async_fds)}
-      SSL_get_all_async_fds := @_SSL_get_all_async_fds;
+      SSL_get_all_async_fds := _SSL_get_all_async_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20424,13 +20425,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_changed_async_fds_allownil)}
-    SSL_get_changed_async_fds := @ERR_SSL_get_changed_async_fds;
+    SSL_get_changed_async_fds := ERR_SSL_get_changed_async_fds;
     {$ifend}
     {$if declared(SSL_get_changed_async_fds_introduced)}
     if LibVersion < SSL_get_changed_async_fds_introduced then
     begin
       {$if declared(FC_SSL_get_changed_async_fds)}
-      SSL_get_changed_async_fds := @FC_SSL_get_changed_async_fds;
+      SSL_get_changed_async_fds := FC_SSL_get_changed_async_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20439,7 +20440,7 @@ begin
     if SSL_get_changed_async_fds_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_changed_async_fds)}
-      SSL_get_changed_async_fds := @_SSL_get_changed_async_fds;
+      SSL_get_changed_async_fds := _SSL_get_changed_async_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20456,13 +20457,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_accept_allownil)}
-    SSL_accept := @ERR_SSL_accept;
+    SSL_accept := ERR_SSL_accept;
     {$ifend}
     {$if declared(SSL_accept_introduced)}
     if LibVersion < SSL_accept_introduced then
     begin
       {$if declared(FC_SSL_accept)}
-      SSL_accept := @FC_SSL_accept;
+      SSL_accept := FC_SSL_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20471,7 +20472,7 @@ begin
     if SSL_accept_removed <= LibVersion then
     begin
       {$if declared(_SSL_accept)}
-      SSL_accept := @_SSL_accept;
+      SSL_accept := _SSL_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20488,13 +20489,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_stateless_allownil)}
-    SSL_stateless := @ERR_SSL_stateless;
+    SSL_stateless := ERR_SSL_stateless;
     {$ifend}
     {$if declared(SSL_stateless_introduced)}
     if LibVersion < SSL_stateless_introduced then
     begin
       {$if declared(FC_SSL_stateless)}
-      SSL_stateless := @FC_SSL_stateless;
+      SSL_stateless := FC_SSL_stateless;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20503,7 +20504,7 @@ begin
     if SSL_stateless_removed <= LibVersion then
     begin
       {$if declared(_SSL_stateless)}
-      SSL_stateless := @_SSL_stateless;
+      SSL_stateless := _SSL_stateless;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20520,13 +20521,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_connect_allownil)}
-    SSL_connect := @ERR_SSL_connect;
+    SSL_connect := ERR_SSL_connect;
     {$ifend}
     {$if declared(SSL_connect_introduced)}
     if LibVersion < SSL_connect_introduced then
     begin
       {$if declared(FC_SSL_connect)}
-      SSL_connect := @FC_SSL_connect;
+      SSL_connect := FC_SSL_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20535,7 +20536,7 @@ begin
     if SSL_connect_removed <= LibVersion then
     begin
       {$if declared(_SSL_connect)}
-      SSL_connect := @_SSL_connect;
+      SSL_connect := _SSL_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20552,13 +20553,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_read_allownil)}
-    SSL_read := @ERR_SSL_read;
+    SSL_read := ERR_SSL_read;
     {$ifend}
     {$if declared(SSL_read_introduced)}
     if LibVersion < SSL_read_introduced then
     begin
       {$if declared(FC_SSL_read)}
-      SSL_read := @FC_SSL_read;
+      SSL_read := FC_SSL_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20567,7 +20568,7 @@ begin
     if SSL_read_removed <= LibVersion then
     begin
       {$if declared(_SSL_read)}
-      SSL_read := @_SSL_read;
+      SSL_read := _SSL_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20584,13 +20585,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_read_ex_allownil)}
-    SSL_read_ex := @ERR_SSL_read_ex;
+    SSL_read_ex := ERR_SSL_read_ex;
     {$ifend}
     {$if declared(SSL_read_ex_introduced)}
     if LibVersion < SSL_read_ex_introduced then
     begin
       {$if declared(FC_SSL_read_ex)}
-      SSL_read_ex := @FC_SSL_read_ex;
+      SSL_read_ex := FC_SSL_read_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20599,7 +20600,7 @@ begin
     if SSL_read_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_read_ex)}
-      SSL_read_ex := @_SSL_read_ex;
+      SSL_read_ex := _SSL_read_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20616,13 +20617,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_read_early_data_allownil)}
-    SSL_read_early_data := @ERR_SSL_read_early_data;
+    SSL_read_early_data := ERR_SSL_read_early_data;
     {$ifend}
     {$if declared(SSL_read_early_data_introduced)}
     if LibVersion < SSL_read_early_data_introduced then
     begin
       {$if declared(FC_SSL_read_early_data)}
-      SSL_read_early_data := @FC_SSL_read_early_data;
+      SSL_read_early_data := FC_SSL_read_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20631,7 +20632,7 @@ begin
     if SSL_read_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_read_early_data)}
-      SSL_read_early_data := @_SSL_read_early_data;
+      SSL_read_early_data := _SSL_read_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20648,13 +20649,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_peek_allownil)}
-    SSL_peek := @ERR_SSL_peek;
+    SSL_peek := ERR_SSL_peek;
     {$ifend}
     {$if declared(SSL_peek_introduced)}
     if LibVersion < SSL_peek_introduced then
     begin
       {$if declared(FC_SSL_peek)}
-      SSL_peek := @FC_SSL_peek;
+      SSL_peek := FC_SSL_peek;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20663,7 +20664,7 @@ begin
     if SSL_peek_removed <= LibVersion then
     begin
       {$if declared(_SSL_peek)}
-      SSL_peek := @_SSL_peek;
+      SSL_peek := _SSL_peek;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20680,13 +20681,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_peek_ex_allownil)}
-    SSL_peek_ex := @ERR_SSL_peek_ex;
+    SSL_peek_ex := ERR_SSL_peek_ex;
     {$ifend}
     {$if declared(SSL_peek_ex_introduced)}
     if LibVersion < SSL_peek_ex_introduced then
     begin
       {$if declared(FC_SSL_peek_ex)}
-      SSL_peek_ex := @FC_SSL_peek_ex;
+      SSL_peek_ex := FC_SSL_peek_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20695,7 +20696,7 @@ begin
     if SSL_peek_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_peek_ex)}
-      SSL_peek_ex := @_SSL_peek_ex;
+      SSL_peek_ex := _SSL_peek_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20712,13 +20713,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_write_allownil)}
-    SSL_write := @ERR_SSL_write;
+    SSL_write := ERR_SSL_write;
     {$ifend}
     {$if declared(SSL_write_introduced)}
     if LibVersion < SSL_write_introduced then
     begin
       {$if declared(FC_SSL_write)}
-      SSL_write := @FC_SSL_write;
+      SSL_write := FC_SSL_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20727,7 +20728,7 @@ begin
     if SSL_write_removed <= LibVersion then
     begin
       {$if declared(_SSL_write)}
-      SSL_write := @_SSL_write;
+      SSL_write := _SSL_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20744,13 +20745,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_write_ex_allownil)}
-    SSL_write_ex := @ERR_SSL_write_ex;
+    SSL_write_ex := ERR_SSL_write_ex;
     {$ifend}
     {$if declared(SSL_write_ex_introduced)}
     if LibVersion < SSL_write_ex_introduced then
     begin
       {$if declared(FC_SSL_write_ex)}
-      SSL_write_ex := @FC_SSL_write_ex;
+      SSL_write_ex := FC_SSL_write_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20759,7 +20760,7 @@ begin
     if SSL_write_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_write_ex)}
-      SSL_write_ex := @_SSL_write_ex;
+      SSL_write_ex := _SSL_write_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20776,13 +20777,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_write_ex2_allownil)}
-    SSL_write_ex2 := @ERR_SSL_write_ex2;
+    SSL_write_ex2 := ERR_SSL_write_ex2;
     {$ifend}
     {$if declared(SSL_write_ex2_introduced)}
     if LibVersion < SSL_write_ex2_introduced then
     begin
       {$if declared(FC_SSL_write_ex2)}
-      SSL_write_ex2 := @FC_SSL_write_ex2;
+      SSL_write_ex2 := FC_SSL_write_ex2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20791,7 +20792,7 @@ begin
     if SSL_write_ex2_removed <= LibVersion then
     begin
       {$if declared(_SSL_write_ex2)}
-      SSL_write_ex2 := @_SSL_write_ex2;
+      SSL_write_ex2 := _SSL_write_ex2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20808,13 +20809,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_write_early_data_allownil)}
-    SSL_write_early_data := @ERR_SSL_write_early_data;
+    SSL_write_early_data := ERR_SSL_write_early_data;
     {$ifend}
     {$if declared(SSL_write_early_data_introduced)}
     if LibVersion < SSL_write_early_data_introduced then
     begin
       {$if declared(FC_SSL_write_early_data)}
-      SSL_write_early_data := @FC_SSL_write_early_data;
+      SSL_write_early_data := FC_SSL_write_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20823,7 +20824,7 @@ begin
     if SSL_write_early_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_write_early_data)}
-      SSL_write_early_data := @_SSL_write_early_data;
+      SSL_write_early_data := _SSL_write_early_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20840,13 +20841,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_callback_ctrl_allownil)}
-    SSL_callback_ctrl := @ERR_SSL_callback_ctrl;
+    SSL_callback_ctrl := ERR_SSL_callback_ctrl;
     {$ifend}
     {$if declared(SSL_callback_ctrl_introduced)}
     if LibVersion < SSL_callback_ctrl_introduced then
     begin
       {$if declared(FC_SSL_callback_ctrl)}
-      SSL_callback_ctrl := @FC_SSL_callback_ctrl;
+      SSL_callback_ctrl := FC_SSL_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20855,7 +20856,7 @@ begin
     if SSL_callback_ctrl_removed <= LibVersion then
     begin
       {$if declared(_SSL_callback_ctrl)}
-      SSL_callback_ctrl := @_SSL_callback_ctrl;
+      SSL_callback_ctrl := _SSL_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20872,13 +20873,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_ctrl_allownil)}
-    SSL_ctrl := @ERR_SSL_ctrl;
+    SSL_ctrl := ERR_SSL_ctrl;
     {$ifend}
     {$if declared(SSL_ctrl_introduced)}
     if LibVersion < SSL_ctrl_introduced then
     begin
       {$if declared(FC_SSL_ctrl)}
-      SSL_ctrl := @FC_SSL_ctrl;
+      SSL_ctrl := FC_SSL_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20887,7 +20888,7 @@ begin
     if SSL_ctrl_removed <= LibVersion then
     begin
       {$if declared(_SSL_ctrl)}
-      SSL_ctrl := @_SSL_ctrl;
+      SSL_ctrl := _SSL_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20904,13 +20905,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_ctrl_allownil)}
-    SSL_CTX_ctrl := @ERR_SSL_CTX_ctrl;
+    SSL_CTX_ctrl := ERR_SSL_CTX_ctrl;
     {$ifend}
     {$if declared(SSL_CTX_ctrl_introduced)}
     if LibVersion < SSL_CTX_ctrl_introduced then
     begin
       {$if declared(FC_SSL_CTX_ctrl)}
-      SSL_CTX_ctrl := @FC_SSL_CTX_ctrl;
+      SSL_CTX_ctrl := FC_SSL_CTX_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20919,7 +20920,7 @@ begin
     if SSL_CTX_ctrl_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_ctrl)}
-      SSL_CTX_ctrl := @_SSL_CTX_ctrl;
+      SSL_CTX_ctrl := _SSL_CTX_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20936,13 +20937,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_callback_ctrl_allownil)}
-    SSL_CTX_callback_ctrl := @ERR_SSL_CTX_callback_ctrl;
+    SSL_CTX_callback_ctrl := ERR_SSL_CTX_callback_ctrl;
     {$ifend}
     {$if declared(SSL_CTX_callback_ctrl_introduced)}
     if LibVersion < SSL_CTX_callback_ctrl_introduced then
     begin
       {$if declared(FC_SSL_CTX_callback_ctrl)}
-      SSL_CTX_callback_ctrl := @FC_SSL_CTX_callback_ctrl;
+      SSL_CTX_callback_ctrl := FC_SSL_CTX_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20951,7 +20952,7 @@ begin
     if SSL_CTX_callback_ctrl_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_callback_ctrl)}
-      SSL_CTX_callback_ctrl := @_SSL_CTX_callback_ctrl;
+      SSL_CTX_callback_ctrl := _SSL_CTX_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20968,13 +20969,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_early_data_status_allownil)}
-    SSL_get_early_data_status := @ERR_SSL_get_early_data_status;
+    SSL_get_early_data_status := ERR_SSL_get_early_data_status;
     {$ifend}
     {$if declared(SSL_get_early_data_status_introduced)}
     if LibVersion < SSL_get_early_data_status_introduced then
     begin
       {$if declared(FC_SSL_get_early_data_status)}
-      SSL_get_early_data_status := @FC_SSL_get_early_data_status;
+      SSL_get_early_data_status := FC_SSL_get_early_data_status;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -20983,7 +20984,7 @@ begin
     if SSL_get_early_data_status_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_early_data_status)}
-      SSL_get_early_data_status := @_SSL_get_early_data_status;
+      SSL_get_early_data_status := _SSL_get_early_data_status;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21000,13 +21001,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_error_allownil)}
-    SSL_get_error := @ERR_SSL_get_error;
+    SSL_get_error := ERR_SSL_get_error;
     {$ifend}
     {$if declared(SSL_get_error_introduced)}
     if LibVersion < SSL_get_error_introduced then
     begin
       {$if declared(FC_SSL_get_error)}
-      SSL_get_error := @FC_SSL_get_error;
+      SSL_get_error := FC_SSL_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21015,7 +21016,7 @@ begin
     if SSL_get_error_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_error)}
-      SSL_get_error := @_SSL_get_error;
+      SSL_get_error := _SSL_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21032,13 +21033,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_version_allownil)}
-    SSL_get_version := @ERR_SSL_get_version;
+    SSL_get_version := ERR_SSL_get_version;
     {$ifend}
     {$if declared(SSL_get_version_introduced)}
     if LibVersion < SSL_get_version_introduced then
     begin
       {$if declared(FC_SSL_get_version)}
-      SSL_get_version := @FC_SSL_get_version;
+      SSL_get_version := FC_SSL_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21047,7 +21048,7 @@ begin
     if SSL_get_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_version)}
-      SSL_get_version := @_SSL_get_version;
+      SSL_get_version := _SSL_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21064,13 +21065,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_ssl_version_allownil)}
-    SSL_CTX_set_ssl_version := @ERR_SSL_CTX_set_ssl_version;
+    SSL_CTX_set_ssl_version := ERR_SSL_CTX_set_ssl_version;
     {$ifend}
     {$if declared(SSL_CTX_set_ssl_version_introduced)}
     if LibVersion < SSL_CTX_set_ssl_version_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_ssl_version)}
-      SSL_CTX_set_ssl_version := @FC_SSL_CTX_set_ssl_version;
+      SSL_CTX_set_ssl_version := FC_SSL_CTX_set_ssl_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21079,7 +21080,7 @@ begin
     if SSL_CTX_set_ssl_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_ssl_version)}
-      SSL_CTX_set_ssl_version := @_SSL_CTX_set_ssl_version;
+      SSL_CTX_set_ssl_version := _SSL_CTX_set_ssl_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21096,13 +21097,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLS_method_allownil)}
-    TLS_method := @ERR_TLS_method;
+    TLS_method := ERR_TLS_method;
     {$ifend}
     {$if declared(TLS_method_introduced)}
     if LibVersion < TLS_method_introduced then
     begin
       {$if declared(FC_TLS_method)}
-      TLS_method := @FC_TLS_method;
+      TLS_method := FC_TLS_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21111,7 +21112,7 @@ begin
     if TLS_method_removed <= LibVersion then
     begin
       {$if declared(_TLS_method)}
-      TLS_method := @_TLS_method;
+      TLS_method := _TLS_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21128,13 +21129,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLS_server_method_allownil)}
-    TLS_server_method := @ERR_TLS_server_method;
+    TLS_server_method := ERR_TLS_server_method;
     {$ifend}
     {$if declared(TLS_server_method_introduced)}
     if LibVersion < TLS_server_method_introduced then
     begin
       {$if declared(FC_TLS_server_method)}
-      TLS_server_method := @FC_TLS_server_method;
+      TLS_server_method := FC_TLS_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21143,7 +21144,7 @@ begin
     if TLS_server_method_removed <= LibVersion then
     begin
       {$if declared(_TLS_server_method)}
-      TLS_server_method := @_TLS_server_method;
+      TLS_server_method := _TLS_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21160,13 +21161,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLS_client_method_allownil)}
-    TLS_client_method := @ERR_TLS_client_method;
+    TLS_client_method := ERR_TLS_client_method;
     {$ifend}
     {$if declared(TLS_client_method_introduced)}
     if LibVersion < TLS_client_method_introduced then
     begin
       {$if declared(FC_TLS_client_method)}
-      TLS_client_method := @FC_TLS_client_method;
+      TLS_client_method := FC_TLS_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21175,7 +21176,7 @@ begin
     if TLS_client_method_removed <= LibVersion then
     begin
       {$if declared(_TLS_client_method)}
-      TLS_client_method := @_TLS_client_method;
+      TLS_client_method := _TLS_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21191,13 +21192,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLS_method_allownil)}
-    DTLS_method := @ERR_DTLS_method;
+    DTLS_method := ERR_DTLS_method;
     {$ifend}
     {$if declared(DTLS_method_introduced)}
     if LibVersion < DTLS_method_introduced then
     begin
       {$if declared(FC_DTLS_method)}
-      DTLS_method := @FC_DTLS_method;
+      DTLS_method := FC_DTLS_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21206,7 +21207,7 @@ begin
     if DTLS_method_removed <= LibVersion then
     begin
       {$if declared(_DTLS_method)}
-      DTLS_method := @_DTLS_method;
+      DTLS_method := _DTLS_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21221,13 +21222,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLS_server_method_allownil)}
-    DTLS_server_method := @ERR_DTLS_server_method;
+    DTLS_server_method := ERR_DTLS_server_method;
     {$ifend}
     {$if declared(DTLS_server_method_introduced)}
     if LibVersion < DTLS_server_method_introduced then
     begin
       {$if declared(FC_DTLS_server_method)}
-      DTLS_server_method := @FC_DTLS_server_method;
+      DTLS_server_method := FC_DTLS_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21236,7 +21237,7 @@ begin
     if DTLS_server_method_removed <= LibVersion then
     begin
       {$if declared(_DTLS_server_method)}
-      DTLS_server_method := @_DTLS_server_method;
+      DTLS_server_method := _DTLS_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21251,13 +21252,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLS_client_method_allownil)}
-    DTLS_client_method := @ERR_DTLS_client_method;
+    DTLS_client_method := ERR_DTLS_client_method;
     {$ifend}
     {$if declared(DTLS_client_method_introduced)}
     if LibVersion < DTLS_client_method_introduced then
     begin
       {$if declared(FC_DTLS_client_method)}
-      DTLS_client_method := @FC_DTLS_client_method;
+      DTLS_client_method := FC_DTLS_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21266,7 +21267,7 @@ begin
     if DTLS_client_method_removed <= LibVersion then
     begin
       {$if declared(_DTLS_client_method)}
-      DTLS_client_method := @_DTLS_client_method;
+      DTLS_client_method := _DTLS_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21282,13 +21283,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLS_get_data_mtu_allownil)}
-    DTLS_get_data_mtu := @ERR_DTLS_get_data_mtu;
+    DTLS_get_data_mtu := ERR_DTLS_get_data_mtu;
     {$ifend}
     {$if declared(DTLS_get_data_mtu_introduced)}
     if LibVersion < DTLS_get_data_mtu_introduced then
     begin
       {$if declared(FC_DTLS_get_data_mtu)}
-      DTLS_get_data_mtu := @FC_DTLS_get_data_mtu;
+      DTLS_get_data_mtu := FC_DTLS_get_data_mtu;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21297,7 +21298,7 @@ begin
     if DTLS_get_data_mtu_removed <= LibVersion then
     begin
       {$if declared(_DTLS_get_data_mtu)}
-      DTLS_get_data_mtu := @_DTLS_get_data_mtu;
+      DTLS_get_data_mtu := _DTLS_get_data_mtu;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21314,13 +21315,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_key_update_allownil)}
-    SSL_key_update := @ERR_SSL_key_update;
+    SSL_key_update := ERR_SSL_key_update;
     {$ifend}
     {$if declared(SSL_key_update_introduced)}
     if LibVersion < SSL_key_update_introduced then
     begin
       {$if declared(FC_SSL_key_update)}
-      SSL_key_update := @FC_SSL_key_update;
+      SSL_key_update := FC_SSL_key_update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21329,7 +21330,7 @@ begin
     if SSL_key_update_removed <= LibVersion then
     begin
       {$if declared(_SSL_key_update)}
-      SSL_key_update := @_SSL_key_update;
+      SSL_key_update := _SSL_key_update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21345,13 +21346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSSL_get_ciphers_allownil)}
-    SSL_get_ciphers := @ERR_SSL_get_ciphers;
+    SSL_get_ciphers := ERR_SSL_get_ciphers;
     {$ifend}
     {$if declared(DSSL_get_ciphers_introduced)}
     if LibVersion < DSSL_get_ciphers_introduced then
     begin
       {$if declared(FC_DSSL_get_ciphers)}
-      SSL_get_ciphers := @FC_SSL_get_ciphers;
+      SSL_get_ciphers := FC_SSL_get_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21360,7 +21361,7 @@ begin
     if DSSL_get_ciphers_removed <= LibVersion then
     begin
       {$if declared(_DSSL_get_ciphers)}
-      DSSL_get_ciphers := @_SSL_get_ciphers;
+      DSSL_get_ciphers := _SSL_get_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21375,13 +21376,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_ciphers_allownil)}
-    SSL_CTX_get_ciphers := @ERR_SSL_CTX_get_ciphers;
+    SSL_CTX_get_ciphers := ERR_SSL_CTX_get_ciphers;
     {$ifend}
     {$if declared(SSL_CTX_get_ciphers_introduced)}
     if LibVersion < SSL_CTX_get_ciphers_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_ciphers)}
-      SSL_CTX_get_ciphers := @FC_SSL_CTX_get_ciphers;
+      SSL_CTX_get_ciphers := FC_SSL_CTX_get_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21390,7 +21391,7 @@ begin
     if SSL_CTX_get_ciphers_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_ciphers)}
-      SSL_CTX_get_ciphers := @_SSL_CTX_get_ciphers;
+      SSL_CTX_get_ciphers := _SSL_CTX_get_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21405,13 +21406,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_client_ciphers_allownil)}
-    SSL_get_client_ciphers := @ERR_SSL_get_client_ciphers;
+    SSL_get_client_ciphers := ERR_SSL_get_client_ciphers;
     {$ifend}
     {$if declared(SSL_get_client_ciphers_introduced)}
     if LibVersion < SSL_get_client_ciphers_introduced then
     begin
       {$if declared(FC_SSL_get_client_ciphers)}
-      SSL_get_client_ciphers := @FC_SSL_get_client_ciphers;
+      SSL_get_client_ciphers := FC_SSL_get_client_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21420,7 +21421,7 @@ begin
     if SSL_get_client_ciphers_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_client_ciphers)}
-      SSL_get_client_ciphers := @_SSL_get_client_ciphers;
+      SSL_get_client_ciphers := _SSL_get_client_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21435,13 +21436,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get1_supported_ciphers_allownil)}
-    SSL_get1_supported_ciphers := @ERR_SSL_get1_supported_ciphers;
+    SSL_get1_supported_ciphers := ERR_SSL_get1_supported_ciphers;
     {$ifend}
     {$if declared(SSL_get1_supported_ciphers_introduced)}
     if LibVersion < SSL_get1_supported_ciphers_introduced then
     begin
       {$if declared(FC_SSL_get1_supported_ciphers)}
-      SSL_get1_supported_ciphers := @FC_SSL_get1_supported_ciphers;
+      SSL_get1_supported_ciphers := FC_SSL_get1_supported_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21450,7 +21451,7 @@ begin
     if SSL_get1_supported_ciphers_removed <= LibVersion then
     begin
       {$if declared(_SSL_get1_supported_ciphers)}
-      SSL_get1_supported_ciphers := @_SSL_get1_supported_ciphers;
+      SSL_get1_supported_ciphers := _SSL_get1_supported_ciphers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21466,13 +21467,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_do_handshake_allownil)}
-    SSL_do_handshake := @ERR_SSL_do_handshake;
+    SSL_do_handshake := ERR_SSL_do_handshake;
     {$ifend}
     {$if declared(SSL_do_handshake_introduced)}
     if LibVersion < SSL_do_handshake_introduced then
     begin
       {$if declared(FC_SSL_do_handshake)}
-      SSL_do_handshake := @FC_SSL_do_handshake;
+      SSL_do_handshake := FC_SSL_do_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21481,7 +21482,7 @@ begin
     if SSL_do_handshake_removed <= LibVersion then
     begin
       {$if declared(_SSL_do_handshake)}
-      SSL_do_handshake := @_SSL_do_handshake;
+      SSL_do_handshake := _SSL_do_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21498,13 +21499,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_key_update_type_allownil)}
-    SSL_get_key_update_type := @ERR_SSL_get_key_update_type;
+    SSL_get_key_update_type := ERR_SSL_get_key_update_type;
     {$ifend}
     {$if declared(SSL_get_key_update_type_introduced)}
     if LibVersion < SSL_get_key_update_type_introduced then
     begin
       {$if declared(FC_SSL_get_key_update_type)}
-      SSL_get_key_update_type := @FC_SSL_get_key_update_type;
+      SSL_get_key_update_type := FC_SSL_get_key_update_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21513,7 +21514,7 @@ begin
     if SSL_get_key_update_type_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_key_update_type)}
-      SSL_get_key_update_type := @_SSL_get_key_update_type;
+      SSL_get_key_update_type := _SSL_get_key_update_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21530,13 +21531,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_renegotiate_allownil)}
-    SSL_renegotiate := @ERR_SSL_renegotiate;
+    SSL_renegotiate := ERR_SSL_renegotiate;
     {$ifend}
     {$if declared(SSL_renegotiate_introduced)}
     if LibVersion < SSL_renegotiate_introduced then
     begin
       {$if declared(FC_SSL_renegotiate)}
-      SSL_renegotiate := @FC_SSL_renegotiate;
+      SSL_renegotiate := FC_SSL_renegotiate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21545,7 +21546,7 @@ begin
     if SSL_renegotiate_removed <= LibVersion then
     begin
       {$if declared(_SSL_renegotiate)}
-      SSL_renegotiate := @_SSL_renegotiate;
+      SSL_renegotiate := _SSL_renegotiate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21562,13 +21563,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_renegotiate_abbreviated_allownil)}
-    SSL_renegotiate_abbreviated := @ERR_SSL_renegotiate_abbreviated;
+    SSL_renegotiate_abbreviated := ERR_SSL_renegotiate_abbreviated;
     {$ifend}
     {$if declared(SSL_renegotiate_abbreviated_introduced)}
     if LibVersion < SSL_renegotiate_abbreviated_introduced then
     begin
       {$if declared(FC_SSL_renegotiate_abbreviated)}
-      SSL_renegotiate_abbreviated := @FC_SSL_renegotiate_abbreviated;
+      SSL_renegotiate_abbreviated := FC_SSL_renegotiate_abbreviated;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21577,7 +21578,7 @@ begin
     if SSL_renegotiate_abbreviated_removed <= LibVersion then
     begin
       {$if declared(_SSL_renegotiate_abbreviated)}
-      SSL_renegotiate_abbreviated := @_SSL_renegotiate_abbreviated;
+      SSL_renegotiate_abbreviated := _SSL_renegotiate_abbreviated;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21594,13 +21595,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_shutdown_allownil)}
-    SSL_shutdown := @ERR_SSL_shutdown;
+    SSL_shutdown := ERR_SSL_shutdown;
     {$ifend}
     {$if declared(SSL_shutdown_introduced)}
     if LibVersion < SSL_shutdown_introduced then
     begin
       {$if declared(FC_SSL_shutdown)}
-      SSL_shutdown := @FC_SSL_shutdown;
+      SSL_shutdown := FC_SSL_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21609,7 +21610,7 @@ begin
     if SSL_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_shutdown)}
-      SSL_shutdown := @_SSL_shutdown;
+      SSL_shutdown := _SSL_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21626,13 +21627,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_shutdown_ex_allownil)}
-    SSL_shutdown_ex := @ERR_SSL_shutdown_ex;
+    SSL_shutdown_ex := ERR_SSL_shutdown_ex;
     {$ifend}
     {$if declared(SSL_shutdown_ex_introduced)}
     if LibVersion < SSL_shutdown_ex_introduced then
     begin
       {$if declared(FC_SSL_shutdown_ex)}
-      SSL_shutdown_ex := @FC_SSL_shutdown_ex;
+      SSL_shutdown_ex := FC_SSL_shutdown_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21641,7 +21642,7 @@ begin
     if SSL_shutdown_ex_removed <= LibVersion then
     begin
       {$if declared(_SSL_shutdown_ex)}
-      SSL_shutdown_ex := @_SSL_shutdown_ex;
+      SSL_shutdown_ex := _SSL_shutdown_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21657,13 +21658,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_stream_conclude_allownil)}
-    SSL_stream_conclude := @ERR_SSL_stream_conclude;
+    SSL_stream_conclude := ERR_SSL_stream_conclude;
     {$ifend}
     {$if declared(SSL_stream_conclude_introduced)}
     if LibVersion < SSL_stream_conclude_introduced then
     begin
       {$if declared(FC_SSL_stream_conclude)}
-      SSL_stream_conclude := @FC_SSL_stream_conclude;
+      SSL_stream_conclude := FC_SSL_stream_conclude;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21672,7 +21673,7 @@ begin
     if SSL_stream_conclude_removed <= LibVersion then
     begin
       {$if declared(_SSL_stream_conclude)}
-      SSL_stream_conclude := @_SSL_stream_conclude;
+      SSL_stream_conclude := _SSL_stream_conclude;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21688,13 +21689,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_read_state_allownil)}
-    SSL_get_stream_read_state := @ERR_SSL_get_stream_read_state;
+    SSL_get_stream_read_state := ERR_SSL_get_stream_read_state;
     {$ifend}
     {$if declared(SSL_get_stream_read_state_introduced)}
     if LibVersion < SSL_get_stream_read_state_introduced then
     begin
       {$if declared(FC_SSL_get_stream_read_state)}
-      SSL_get_stream_read_state := @FC_SSL_get_stream_read_state;
+      SSL_get_stream_read_state := FC_SSL_get_stream_read_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21703,7 +21704,7 @@ begin
     if SSL_get_stream_read_state_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_read_state)}
-      SSL_get_stream_read_state := @_SSL_get_stream_read_state;
+      SSL_get_stream_read_state := _SSL_get_stream_read_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21719,13 +21720,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_write_state_allownil)}
-    SSL_get_stream_write_state := @ERR_SSL_get_stream_write_state;
+    SSL_get_stream_write_state := ERR_SSL_get_stream_write_state;
     {$ifend}
     {$if declared(SSL_get_stream_write_state_introduced)}
     if LibVersion < SSL_get_stream_write_state_introduced then
     begin
       {$if declared(FC_SSL_get_stream_write_state)}
-      SSL_get_stream_write_state := @FC_SSL_get_stream_write_state;
+      SSL_get_stream_write_state := FC_SSL_get_stream_write_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21734,7 +21735,7 @@ begin
     if SSL_get_stream_write_state_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_write_state)}
-      SSL_get_stream_write_state := @_SSL_get_stream_write_state;
+      SSL_get_stream_write_state := _SSL_get_stream_write_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21750,13 +21751,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_read_error_code_allownil)}
-    SSL_get_stream_read_error_code := @ERR_SSL_get_stream_read_error_code;
+    SSL_get_stream_read_error_code := ERR_SSL_get_stream_read_error_code;
     {$ifend}
     {$if declared(SSL_get_stream_read_error_code_introduced)}
     if LibVersion < SSL_get_stream_read_error_code_introduced then
     begin
       {$if declared(FC_SSL_get_stream_read_error_code)}
-      SSL_get_stream_read_error_code := @FC_SSL_get_stream_read_error_code;
+      SSL_get_stream_read_error_code := FC_SSL_get_stream_read_error_code;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21765,7 +21766,7 @@ begin
     if SSL_get_stream_read_error_code_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_read_error_code)}
-      SSL_get_stream_read_error_code := @_SSL_get_stream_read_error_code;
+      SSL_get_stream_read_error_code := _SSL_get_stream_read_error_code;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21781,13 +21782,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_write_error_code_allownil)}
-    SSL_get_stream_write_error_code := @ERR_SSL_get_stream_write_error_code;
+    SSL_get_stream_write_error_code := ERR_SSL_get_stream_write_error_code;
     {$ifend}
     {$if declared(SSL_get_stream_write_error_code_introduced)}
     if LibVersion < SSL_get_stream_write_error_code_introduced then
     begin
       {$if declared(FC_SSL_get_stream_write_error_code)}
-      SSL_get_stream_write_error_code := @FC_SSL_get_stream_write_error_code;
+      SSL_get_stream_write_error_code := FC_SSL_get_stream_write_error_code;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21796,7 +21797,7 @@ begin
     if SSL_get_stream_write_error_code_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_write_error_code)}
-      SSL_get_stream_write_error_code := @_SSL_get_stream_write_error_code;
+      SSL_get_stream_write_error_code := _SSL_get_stream_write_error_code;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21812,13 +21813,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_conn_close_info_allownil)}
-    SSL_get_conn_close_info := @ERR_SSL_get_conn_close_info;
+    SSL_get_conn_close_info := ERR_SSL_get_conn_close_info;
     {$ifend}
     {$if declared(SSL_get_conn_close_info_introduced)}
     if LibVersion < SSL_get_conn_close_info_introduced then
     begin
       {$if declared(FC_SSL_get_conn_close_info)}
-      SSL_get_conn_close_info := @FC_SSL_get_conn_close_info;
+      SSL_get_conn_close_info := FC_SSL_get_conn_close_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21827,7 +21828,7 @@ begin
     if SSL_get_conn_close_info_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_conn_close_info)}
-      SSL_get_conn_close_info := @_SSL_get_conn_close_info;
+      SSL_get_conn_close_info := _SSL_get_conn_close_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21843,13 +21844,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_value_uint_allownil)}
-    SSL_get_value_uint := @ERR_SSL_get_value_uint;
+    SSL_get_value_uint := ERR_SSL_get_value_uint;
     {$ifend}
     {$if declared(SSL_get_value_uint_introduced)}
     if LibVersion < SSL_get_value_uint_introduced then
     begin
       {$if declared(FC_SSL_get_value_uint)}
-      SSL_get_value_uint := @FC_SSL_get_value_uint;
+      SSL_get_value_uint := FC_SSL_get_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21858,7 +21859,7 @@ begin
     if SSL_get_value_uint_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_value_uint)}
-      SSL_get_value_uint := @_SSL_get_value_uint;
+      SSL_get_value_uint := _SSL_get_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21874,13 +21875,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_value_uint_allownil)}
-    SSL_set_value_uint := @ERR_SSL_set_value_uint;
+    SSL_set_value_uint := ERR_SSL_set_value_uint;
     {$ifend}
     {$if declared(SSL_set_value_uint_introduced)}
     if LibVersion < SSL_set_value_uint_introduced then
     begin
       {$if declared(FC_SSL_set_value_uint)}
-      SSL_set_value_uint := @FC_SSL_set_value_uint;
+      SSL_set_value_uint := FC_SSL_set_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21889,7 +21890,7 @@ begin
     if SSL_set_value_uint_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_value_uint)}
-      SSL_set_value_uint := @_SSL_set_value_uint;
+      SSL_set_value_uint := _SSL_set_value_uint;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21905,13 +21906,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_poll_allownil)}
-    SSL_poll := @ERR_SSL_poll;
+    SSL_poll := ERR_SSL_poll;
     {$ifend}
     {$if declared(SSL_poll_introduced)}
     if LibVersion < SSL_poll_introduced then
     begin
       {$if declared(FC_SSL_poll)}
-      SSL_poll := @FC_SSL_poll;
+      SSL_poll := FC_SSL_poll;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21920,7 +21921,7 @@ begin
     if SSL_poll_removed <= LibVersion then
     begin
       {$if declared(_SSL_poll)}
-      SSL_poll := @_SSL_poll;
+      SSL_poll := _SSL_poll;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21936,13 +21937,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_stream_reset_allownil)}
-    SSL_stream_reset := @ERR_SSL_stream_reset;
+    SSL_stream_reset := ERR_SSL_stream_reset;
     {$ifend}
     {$if declared(SSL_stream_reset_introduced)}
     if LibVersion < SSL_stream_reset_introduced then
     begin
       {$if declared(FC_SSL_stream_reset)}
-      SSL_stream_reset := @FC_SSL_stream_reset;
+      SSL_stream_reset := FC_SSL_stream_reset;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21951,7 +21952,7 @@ begin
     if SSL_stream_reset_removed <= LibVersion then
     begin
       {$if declared(_SSL_stream_reset)}
-      SSL_stream_reset := @_SSL_stream_reset;
+      SSL_stream_reset := _SSL_stream_reset;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21967,13 +21968,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_post_handshake_auth_allownil)}
-    SSL_CTX_set_post_handshake_auth := @ERR_SSL_CTX_set_post_handshake_auth;
+    SSL_CTX_set_post_handshake_auth := ERR_SSL_CTX_set_post_handshake_auth;
     {$ifend}
     {$if declared(SSL_CTX_set_post_handshake_auth_introduced)}
     if LibVersion < SSL_CTX_set_post_handshake_auth_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_post_handshake_auth)}
-      SSL_CTX_set_post_handshake_auth := @FC_SSL_CTX_set_post_handshake_auth;
+      SSL_CTX_set_post_handshake_auth := FC_SSL_CTX_set_post_handshake_auth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21982,7 +21983,7 @@ begin
     if SSL_CTX_set_post_handshake_auth_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_post_handshake_auth)}
-      SSL_CTX_set_post_handshake_auth := @_SSL_CTX_set_post_handshake_auth;
+      SSL_CTX_set_post_handshake_auth := _SSL_CTX_set_post_handshake_auth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -21999,13 +22000,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_post_handshake_auth_allownil)}
-    SSL_set_post_handshake_auth := @ERR_SSL_set_post_handshake_auth;
+    SSL_set_post_handshake_auth := ERR_SSL_set_post_handshake_auth;
     {$ifend}
     {$if declared(SSL_set_post_handshake_auth_introduced)}
     if LibVersion < SSL_set_post_handshake_auth_introduced then
     begin
       {$if declared(FC_SSL_set_post_handshake_auth)}
-      SSL_set_post_handshake_auth := @FC_SSL_set_post_handshake_auth;
+      SSL_set_post_handshake_auth := FC_SSL_set_post_handshake_auth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22014,7 +22015,7 @@ begin
     if SSL_set_post_handshake_auth_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_post_handshake_auth)}
-      SSL_set_post_handshake_auth := @_SSL_set_post_handshake_auth;
+      SSL_set_post_handshake_auth := _SSL_set_post_handshake_auth;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22031,13 +22032,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_renegotiate_pending_allownil)}
-    SSL_renegotiate_pending := @ERR_SSL_renegotiate_pending;
+    SSL_renegotiate_pending := ERR_SSL_renegotiate_pending;
     {$ifend}
     {$if declared(SSL_renegotiate_pending_introduced)}
     if LibVersion < SSL_renegotiate_pending_introduced then
     begin
       {$if declared(FC_SSL_renegotiate_pending)}
-      SSL_renegotiate_pending := @FC_SSL_renegotiate_pending;
+      SSL_renegotiate_pending := FC_SSL_renegotiate_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22046,7 +22047,7 @@ begin
     if SSL_renegotiate_pending_removed <= LibVersion then
     begin
       {$if declared(_SSL_renegotiate_pending)}
-      SSL_renegotiate_pending := @_SSL_renegotiate_pending;
+      SSL_renegotiate_pending := _SSL_renegotiate_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22063,13 +22064,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_verify_client_post_handshake_allownil)}
-    SSL_verify_client_post_handshake := @ERR_SSL_verify_client_post_handshake;
+    SSL_verify_client_post_handshake := ERR_SSL_verify_client_post_handshake;
     {$ifend}
     {$if declared(SSL_verify_client_post_handshake_introduced)}
     if LibVersion < SSL_verify_client_post_handshake_introduced then
     begin
       {$if declared(FC_SSL_verify_client_post_handshake)}
-      SSL_verify_client_post_handshake := @FC_SSL_verify_client_post_handshake;
+      SSL_verify_client_post_handshake := FC_SSL_verify_client_post_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22078,7 +22079,7 @@ begin
     if SSL_verify_client_post_handshake_removed <= LibVersion then
     begin
       {$if declared(_SSL_verify_client_post_handshake)}
-      SSL_verify_client_post_handshake := @_SSL_verify_client_post_handshake;
+      SSL_verify_client_post_handshake := _SSL_verify_client_post_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22095,13 +22096,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_ssl_method_allownil)}
-    SSL_CTX_get_ssl_method := @ERR_SSL_CTX_get_ssl_method;
+    SSL_CTX_get_ssl_method := ERR_SSL_CTX_get_ssl_method;
     {$ifend}
     {$if declared(SSL_CTX_get_ssl_method_introduced)}
     if LibVersion < SSL_CTX_get_ssl_method_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_ssl_method)}
-      SSL_CTX_get_ssl_method := @FC_SSL_CTX_get_ssl_method;
+      SSL_CTX_get_ssl_method := FC_SSL_CTX_get_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22110,7 +22111,7 @@ begin
     if SSL_CTX_get_ssl_method_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_ssl_method)}
-      SSL_CTX_get_ssl_method := @_SSL_CTX_get_ssl_method;
+      SSL_CTX_get_ssl_method := _SSL_CTX_get_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22127,13 +22128,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_ssl_method_allownil)}
-    SSL_get_ssl_method := @ERR_SSL_get_ssl_method;
+    SSL_get_ssl_method := ERR_SSL_get_ssl_method;
     {$ifend}
     {$if declared(SSL_get_ssl_method_introduced)}
     if LibVersion < SSL_get_ssl_method_introduced then
     begin
       {$if declared(FC_SSL_get_ssl_method)}
-      SSL_get_ssl_method := @FC_SSL_get_ssl_method;
+      SSL_get_ssl_method := FC_SSL_get_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22142,7 +22143,7 @@ begin
     if SSL_get_ssl_method_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_ssl_method)}
-      SSL_get_ssl_method := @_SSL_get_ssl_method;
+      SSL_get_ssl_method := _SSL_get_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22159,13 +22160,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_ssl_method_allownil)}
-    SSL_set_ssl_method := @ERR_SSL_set_ssl_method;
+    SSL_set_ssl_method := ERR_SSL_set_ssl_method;
     {$ifend}
     {$if declared(SSL_set_ssl_method_introduced)}
     if LibVersion < SSL_set_ssl_method_introduced then
     begin
       {$if declared(FC_SSL_set_ssl_method)}
-      SSL_set_ssl_method := @FC_SSL_set_ssl_method;
+      SSL_set_ssl_method := FC_SSL_set_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22174,7 +22175,7 @@ begin
     if SSL_set_ssl_method_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_ssl_method)}
-      SSL_set_ssl_method := @_SSL_set_ssl_method;
+      SSL_set_ssl_method := _SSL_set_ssl_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22191,13 +22192,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_alert_type_string_long_allownil)}
-    SSL_alert_type_string_long := @ERR_SSL_alert_type_string_long;
+    SSL_alert_type_string_long := ERR_SSL_alert_type_string_long;
     {$ifend}
     {$if declared(SSL_alert_type_string_long_introduced)}
     if LibVersion < SSL_alert_type_string_long_introduced then
     begin
       {$if declared(FC_SSL_alert_type_string_long)}
-      SSL_alert_type_string_long := @FC_SSL_alert_type_string_long;
+      SSL_alert_type_string_long := FC_SSL_alert_type_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22206,7 +22207,7 @@ begin
     if SSL_alert_type_string_long_removed <= LibVersion then
     begin
       {$if declared(_SSL_alert_type_string_long)}
-      SSL_alert_type_string_long := @_SSL_alert_type_string_long;
+      SSL_alert_type_string_long := _SSL_alert_type_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22223,13 +22224,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_alert_type_string_allownil)}
-    SSL_alert_type_string := @ERR_SSL_alert_type_string;
+    SSL_alert_type_string := ERR_SSL_alert_type_string;
     {$ifend}
     {$if declared(SSL_alert_type_string_introduced)}
     if LibVersion < SSL_alert_type_string_introduced then
     begin
       {$if declared(FC_SSL_alert_type_string)}
-      SSL_alert_type_string := @FC_SSL_alert_type_string;
+      SSL_alert_type_string := FC_SSL_alert_type_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22238,7 +22239,7 @@ begin
     if SSL_alert_type_string_removed <= LibVersion then
     begin
       {$if declared(_SSL_alert_type_string)}
-      SSL_alert_type_string := @_SSL_alert_type_string;
+      SSL_alert_type_string := _SSL_alert_type_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22255,13 +22256,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_alert_desc_string_long_allownil)}
-    SSL_alert_desc_string_long := @ERR_SSL_alert_desc_string_long;
+    SSL_alert_desc_string_long := ERR_SSL_alert_desc_string_long;
     {$ifend}
     {$if declared(SSL_alert_desc_string_long_introduced)}
     if LibVersion < SSL_alert_desc_string_long_introduced then
     begin
       {$if declared(FC_SSL_alert_desc_string_long)}
-      SSL_alert_desc_string_long := @FC_SSL_alert_desc_string_long;
+      SSL_alert_desc_string_long := FC_SSL_alert_desc_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22270,7 +22271,7 @@ begin
     if SSL_alert_desc_string_long_removed <= LibVersion then
     begin
       {$if declared(_SSL_alert_desc_string_long)}
-      SSL_alert_desc_string_long := @_SSL_alert_desc_string_long;
+      SSL_alert_desc_string_long := _SSL_alert_desc_string_long;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22287,13 +22288,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_alert_desc_string_allownil)}
-    SSL_alert_desc_string := @ERR_SSL_alert_desc_string;
+    SSL_alert_desc_string := ERR_SSL_alert_desc_string;
     {$ifend}
     {$if declared(SSL_alert_desc_string_introduced)}
     if LibVersion < SSL_alert_desc_string_introduced then
     begin
       {$if declared(FC_SSL_alert_desc_string)}
-      SSL_alert_desc_string := @FC_SSL_alert_desc_string;
+      SSL_alert_desc_string := FC_SSL_alert_desc_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22302,7 +22303,7 @@ begin
     if SSL_alert_desc_string_removed <= LibVersion then
     begin
       {$if declared(_SSL_alert_desc_string)}
-      SSL_alert_desc_string := @_SSL_alert_desc_string;
+      SSL_alert_desc_string := _SSL_alert_desc_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22318,13 +22319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_CA_list_allownil)}
-    SSL_set0_CA_list := @ERR_SSL_set0_CA_list;
+    SSL_set0_CA_list := ERR_SSL_set0_CA_list;
     {$ifend}
     {$if declared(SSL_set0_CA_list_introduced)}
     if LibVersion < SSL_set0_CA_list_introduced then
     begin
       {$if declared(FC_SSL_set0_CA_list)}
-      SSL_set0_CA_list := @FC_SSL_set0_CA_list;
+      SSL_set0_CA_list := FC_SSL_set0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22333,7 +22334,7 @@ begin
     if SSL_set0_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_CA_list)}
-      SSL_set0_CA_list := @_SSL_set0_CA_list;
+      SSL_set0_CA_list := _SSL_set0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22349,13 +22350,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_CA_list_allownil)}
-    SSL_CTX_set0_CA_list := @ERR_SSL_CTX_set0_CA_list;
+    SSL_CTX_set0_CA_list := ERR_SSL_CTX_set0_CA_list;
     {$ifend}
     {$if declared(SSL_CTX_set0_CA_list_introduced)}
     if LibVersion < SSL_CTX_set0_CA_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_CA_list)}
-      SSL_CTX_set0_CA_list := @FC_SSL_CTX_set0_CA_list;
+      SSL_CTX_set0_CA_list := FC_SSL_CTX_set0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22364,7 +22365,7 @@ begin
     if SSL_CTX_set0_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_CA_list)}
-      SSL_CTX_set0_CA_list := @_SSL_CTX_set0_CA_list;
+      SSL_CTX_set0_CA_list := _SSL_CTX_set0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22380,13 +22381,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_CA_list_allownil)}
-    SSL_get0_CA_list := @ERR_SSL_get0_CA_list;
+    SSL_get0_CA_list := ERR_SSL_get0_CA_list;
     {$ifend}
     {$if declared(SSL_get0_CA_list_introduced)}
     if LibVersion < SSL_get0_CA_list_introduced then
     begin
       {$if declared(FC_SSL_get0_CA_list)}
-      SSL_get0_CA_list := @FC_SSL_get0_CA_list;
+      SSL_get0_CA_list := FC_SSL_get0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22395,7 +22396,7 @@ begin
     if SSL_get0_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_CA_list)}
-      SSL_get0_CA_list := @_SSL_get0_CA_list;
+      SSL_get0_CA_list := _SSL_get0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22411,13 +22412,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_CA_list_allownil)}
-    SSL_CTX_get0_CA_list := @ERR_SSL_CTX_get0_CA_list;
+    SSL_CTX_get0_CA_list := ERR_SSL_CTX_get0_CA_list;
     {$ifend}
     {$if declared(SSL_CTX_get0_CA_list_introduced)}
     if LibVersion < SSL_CTX_get0_CA_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_CA_list)}
-      SSL_CTX_get0_CA_list := @FC_SSL_CTX_get0_CA_list;
+      SSL_CTX_get0_CA_list := FC_SSL_CTX_get0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22426,7 +22427,7 @@ begin
     if SSL_CTX_get0_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_CA_list)}
-      SSL_CTX_get0_CA_list := @_SSL_CTX_get0_CA_list;
+      SSL_CTX_get0_CA_list := _SSL_CTX_get0_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22442,13 +22443,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add1_to_CA_list_allownil)}
-    SSL_add1_to_CA_list := @ERR_SSL_add1_to_CA_list;
+    SSL_add1_to_CA_list := ERR_SSL_add1_to_CA_list;
     {$ifend}
     {$if declared(SSL_add1_to_CA_list_introduced)}
     if LibVersion < SSL_add1_to_CA_list_introduced then
     begin
       {$if declared(FC_SSL_add1_to_CA_list)}
-      SSL_add1_to_CA_list := @FC_SSL_add1_to_CA_list;
+      SSL_add1_to_CA_list := FC_SSL_add1_to_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22457,7 +22458,7 @@ begin
     if SSL_add1_to_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_add1_to_CA_list)}
-      SSL_add1_to_CA_list := @_SSL_add1_to_CA_list;
+      SSL_add1_to_CA_list := _SSL_add1_to_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22473,13 +22474,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add1_to_CA_list_allownil)}
-    SSL_CTX_add1_to_CA_list := @ERR_SSL_CTX_add1_to_CA_list;
+    SSL_CTX_add1_to_CA_list := ERR_SSL_CTX_add1_to_CA_list;
     {$ifend}
     {$if declared(SSL_CTX_add1_to_CA_list_introduced)}
     if LibVersion < SSL_CTX_add1_to_CA_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_add1_to_CA_list)}
-      SSL_CTX_add1_to_CA_list := @FC_SSL_CTX_add1_to_CA_list;
+      SSL_CTX_add1_to_CA_list := FC_SSL_CTX_add1_to_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22488,7 +22489,7 @@ begin
     if SSL_CTX_add1_to_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add1_to_CA_list)}
-      SSL_CTX_add1_to_CA_list := @_SSL_CTX_add1_to_CA_list;
+      SSL_CTX_add1_to_CA_list := _SSL_CTX_add1_to_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22505,13 +22506,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_client_CA_list_allownil)}
-    SSL_CTX_set_client_CA_list := @ERR_SSL_CTX_set_client_CA_list;
+    SSL_CTX_set_client_CA_list := ERR_SSL_CTX_set_client_CA_list;
     {$ifend}
     {$if declared(SSL_CTX_set_client_CA_list_introduced)}
     if LibVersion < SSL_CTX_set_client_CA_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_client_CA_list)}
-      SSL_CTX_set_client_CA_list := @FC_SSL_CTX_set_client_CA_list;
+      SSL_CTX_set_client_CA_list := FC_SSL_CTX_set_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22520,7 +22521,7 @@ begin
     if SSL_CTX_set_client_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_client_CA_list)}
-      SSL_CTX_set_client_CA_list := @_SSL_CTX_set_client_CA_list;
+      SSL_CTX_set_client_CA_list := _SSL_CTX_set_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22536,13 +22537,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_peer_CA_list_allownil)}
-   SSL_get0_peer_CA_list := @ERR_SSL_get0_peer_CA_list;
+   SSL_get0_peer_CA_list := ERR_SSL_get0_peer_CA_list;
     {$ifend}
     {$if declared(SSL_get0_peer_CA_list_introduced)}
     if LibVersion <SSL_get0_peer_CA_list_introduced then
     begin
       {$if declared(FC_SSL_get0_peer_CA_list)}
-     SSL_get0_peer_CA_list := @FC_SSL_get0_peer_CA_list;
+     SSL_get0_peer_CA_list := FC_SSL_get0_peer_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22551,7 +22552,7 @@ begin
     ifSSL_get0_peer_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_peer_CA_list)}
-     SSL_get0_peer_CA_list := @_SSL_get0_peer_CA_list;
+     SSL_get0_peer_CA_list := _SSL_get0_peer_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22567,13 +22568,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_client_CA_list_allownil)}
-    SSL_set_client_CA_list := @ERR_SSL_set_client_CA_list;
+    SSL_set_client_CA_list := ERR_SSL_set_client_CA_list;
     {$ifend}
     {$if declared(SSL_set_client_CA_list_introduced)}
     if LibVersion < SSL_set_client_CA_list_introduced then
     begin
       {$if declared(FC_SSL_set_client_CA_list)}
-      SSL_set_client_CA_list := @FC_SSL_set_client_CA_list;
+      SSL_set_client_CA_list := FC_SSL_set_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22582,7 +22583,7 @@ begin
     if SSL_set_client_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_client_CA_list)}
-      SSL_set_client_CA_list := @_SSL_set_client_CA_list;
+      SSL_set_client_CA_list := _SSL_set_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22598,13 +22599,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_client_CA_list_allownil)}
-    SSL_get_client_CA_list := @ERR_SSL_get_client_CA_list;
+    SSL_get_client_CA_list := ERR_SSL_get_client_CA_list;
     {$ifend}
     {$if declared(SSL_get_client_CA_list_introduced)}
     if LibVersion < SSL_get_client_CA_list_introduced then
     begin
       {$if declared(FC_SSL_get_client_CA_list)}
-      SSL_get_client_CA_list := @FC_SSL_get_client_CA_list;
+      SSL_get_client_CA_list := FC_SSL_get_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22613,7 +22614,7 @@ begin
     if SSL_get_client_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_client_CA_list)}
-      SSL_get_client_CA_list := @_SSL_get_client_CA_list;
+      SSL_get_client_CA_list := _SSL_get_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22630,13 +22631,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_client_CA_list_allownil)}
-    SSL_CTX_get_client_CA_list := @ERR_SSL_CTX_get_client_CA_list;
+    SSL_CTX_get_client_CA_list := ERR_SSL_CTX_get_client_CA_list;
     {$ifend}
     {$if declared(SSL_CTX_get_client_CA_list_introduced)}
     if LibVersion < SSL_CTX_get_client_CA_list_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_client_CA_list)}
-      SSL_CTX_get_client_CA_list := @FC_SSL_CTX_get_client_CA_list;
+      SSL_CTX_get_client_CA_list := FC_SSL_CTX_get_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22645,7 +22646,7 @@ begin
     if SSL_CTX_get_client_CA_list_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_client_CA_list)}
-      SSL_CTX_get_client_CA_list := @_SSL_CTX_get_client_CA_list;
+      SSL_CTX_get_client_CA_list := _SSL_CTX_get_client_CA_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22661,13 +22662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add_client_CA_allownil)}
-    SSL_add_client_CA := @ERR_SSL_add_client_CA;
+    SSL_add_client_CA := ERR_SSL_add_client_CA;
     {$ifend}
     {$if declared(SSL_add_client_CA_introduced)}
     if LibVersion < SSL_add_client_CA_introduced then
     begin
       {$if declared(FC_SSL_add_client_CA)}
-      SSL_add_client_CA := @FC_SSL_add_client_CA;
+      SSL_add_client_CA := FC_SSL_add_client_CA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22676,7 +22677,7 @@ begin
     if SSL_add_client_CA_removed <= LibVersion then
     begin
       {$if declared(_SSL_add_client_CA)}
-      SSL_add_client_CA := @_SSL_add_client_CA;
+      SSL_add_client_CA := _SSL_add_client_CA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22693,13 +22694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_add_client_CA_allownil)}
-    SSL_CTX_add_client_CA := @ERR_SSL_CTX_add_client_CA;
+    SSL_CTX_add_client_CA := ERR_SSL_CTX_add_client_CA;
     {$ifend}
     {$if declared(SSL_CTX_add_client_CA_introduced)}
     if LibVersion < SSL_CTX_add_client_CA_introduced then
     begin
       {$if declared(FC_SSL_CTX_add_client_CA)}
-      SSL_CTX_add_client_CA := @FC_SSL_CTX_add_client_CA;
+      SSL_CTX_add_client_CA := FC_SSL_CTX_add_client_CA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22708,7 +22709,7 @@ begin
     if SSL_CTX_add_client_CA_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_add_client_CA)}
-      SSL_CTX_add_client_CA := @_SSL_CTX_add_client_CA;
+      SSL_CTX_add_client_CA := _SSL_CTX_add_client_CA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22725,13 +22726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_connect_state_allownil)}
-    SSL_set_connect_state := @ERR_SSL_set_connect_state;
+    SSL_set_connect_state := ERR_SSL_set_connect_state;
     {$ifend}
     {$if declared(SSL_set_connect_state_introduced)}
     if LibVersion < SSL_set_connect_state_introduced then
     begin
       {$if declared(FC_SSL_set_connect_state)}
-      SSL_set_connect_state := @FC_SSL_set_connect_state;
+      SSL_set_connect_state := FC_SSL_set_connect_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22740,7 +22741,7 @@ begin
     if SSL_set_connect_state_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_connect_state)}
-      SSL_set_connect_state := @_SSL_set_connect_state;
+      SSL_set_connect_state := _SSL_set_connect_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22757,13 +22758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_accept_state_allownil)}
-    SSL_set_accept_state := @ERR_SSL_set_accept_state;
+    SSL_set_accept_state := ERR_SSL_set_accept_state;
     {$ifend}
     {$if declared(SSL_set_accept_state_introduced)}
     if LibVersion < SSL_set_accept_state_introduced then
     begin
       {$if declared(FC_SSL_set_accept_state)}
-      SSL_set_accept_state := @FC_SSL_set_accept_state;
+      SSL_set_accept_state := FC_SSL_set_accept_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22772,7 +22773,7 @@ begin
     if SSL_set_accept_state_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_accept_state)}
-      SSL_set_accept_state := @_SSL_set_accept_state;
+      SSL_set_accept_state := _SSL_set_accept_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22789,13 +22790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_library_init_allownil)}
-    SSL_library_init := @ERR_SSL_library_init;
+    SSL_library_init := ERR_SSL_library_init;
     {$ifend}
     {$if declared(SSL_library_init_introduced)}
     if LibVersion < SSL_library_init_introduced then
     begin
       {$if declared(FC_SSL_library_init)}
-      SSL_library_init := @FC_SSL_library_init;
+      SSL_library_init := FC_SSL_library_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22804,7 +22805,7 @@ begin
     if SSL_library_init_removed <= LibVersion then
     begin
       {$if declared(_SSL_library_init)}
-      SSL_library_init := @_SSL_library_init;
+      SSL_library_init := _SSL_library_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22821,13 +22822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_description_allownil)}
-    SSL_CIPHER_description := @ERR_SSL_CIPHER_description;
+    SSL_CIPHER_description := ERR_SSL_CIPHER_description;
     {$ifend}
     {$if declared(SSL_CIPHER_description_introduced)}
     if LibVersion < SSL_CIPHER_description_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_description)}
-      SSL_CIPHER_description := @FC_SSL_CIPHER_description;
+      SSL_CIPHER_description := FC_SSL_CIPHER_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22836,7 +22837,7 @@ begin
     if SSL_CIPHER_description_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_description)}
-      SSL_CIPHER_description := @_SSL_CIPHER_description;
+      SSL_CIPHER_description := _SSL_CIPHER_description;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22853,13 +22854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_dup_allownil)}
-    SSL_dup := @ERR_SSL_dup;
+    SSL_dup := ERR_SSL_dup;
     {$ifend}
     {$if declared(SSL_dup_introduced)}
     if LibVersion < SSL_dup_introduced then
     begin
       {$if declared(FC_SSL_dup)}
-      SSL_dup := @FC_SSL_dup;
+      SSL_dup := FC_SSL_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22868,7 +22869,7 @@ begin
     if SSL_dup_removed <= LibVersion then
     begin
       {$if declared(_SSL_dup)}
-      SSL_dup := @_SSL_dup;
+      SSL_dup := _SSL_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22885,13 +22886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_certificate_allownil)}
-    SSL_get_certificate := @ERR_SSL_get_certificate;
+    SSL_get_certificate := ERR_SSL_get_certificate;
     {$ifend}
     {$if declared(SSL_get_certificate_introduced)}
     if LibVersion < SSL_get_certificate_introduced then
     begin
       {$if declared(FC_SSL_get_certificate)}
-      SSL_get_certificate := @FC_SSL_get_certificate;
+      SSL_get_certificate := FC_SSL_get_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22900,7 +22901,7 @@ begin
     if SSL_get_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_certificate)}
-      SSL_get_certificate := @_SSL_get_certificate;
+      SSL_get_certificate := _SSL_get_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22917,13 +22918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_privatekey_allownil)}
-    SSL_get_privatekey := @ERR_SSL_get_privatekey;
+    SSL_get_privatekey := ERR_SSL_get_privatekey;
     {$ifend}
     {$if declared(SSL_get_privatekey_introduced)}
     if LibVersion < SSL_get_privatekey_introduced then
     begin
       {$if declared(FC_SSL_get_privatekey)}
-      SSL_get_privatekey := @FC_SSL_get_privatekey;
+      SSL_get_privatekey := FC_SSL_get_privatekey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22932,7 +22933,7 @@ begin
     if SSL_get_privatekey_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_privatekey)}
-      SSL_get_privatekey := @_SSL_get_privatekey;
+      SSL_get_privatekey := _SSL_get_privatekey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22949,13 +22950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_certificate_allownil)}
-    SSL_CTX_get0_certificate := @ERR_SSL_CTX_get0_certificate;
+    SSL_CTX_get0_certificate := ERR_SSL_CTX_get0_certificate;
     {$ifend}
     {$if declared(SSL_CTX_get0_certificate_introduced)}
     if LibVersion < SSL_CTX_get0_certificate_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_certificate)}
-      SSL_CTX_get0_certificate := @FC_SSL_CTX_get0_certificate;
+      SSL_CTX_get0_certificate := FC_SSL_CTX_get0_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22964,7 +22965,7 @@ begin
     if SSL_CTX_get0_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_certificate)}
-      SSL_CTX_get0_certificate := @_SSL_CTX_get0_certificate;
+      SSL_CTX_get0_certificate := _SSL_CTX_get0_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22981,13 +22982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_privatekey_allownil)}
-    SSL_CTX_get0_privatekey := @ERR_SSL_CTX_get0_privatekey;
+    SSL_CTX_get0_privatekey := ERR_SSL_CTX_get0_privatekey;
     {$ifend}
     {$if declared(SSL_CTX_get0_privatekey_introduced)}
     if LibVersion < SSL_CTX_get0_privatekey_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_privatekey)}
-      SSL_CTX_get0_privatekey := @FC_SSL_CTX_get0_privatekey;
+      SSL_CTX_get0_privatekey := FC_SSL_CTX_get0_privatekey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -22996,7 +22997,7 @@ begin
     if SSL_CTX_get0_privatekey_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_privatekey)}
-      SSL_CTX_get0_privatekey := @_SSL_CTX_get0_privatekey;
+      SSL_CTX_get0_privatekey := _SSL_CTX_get0_privatekey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23013,13 +23014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_quiet_shutdown_allownil)}
-    SSL_CTX_set_quiet_shutdown := @ERR_SSL_CTX_set_quiet_shutdown;
+    SSL_CTX_set_quiet_shutdown := ERR_SSL_CTX_set_quiet_shutdown;
     {$ifend}
     {$if declared(SSL_CTX_set_quiet_shutdown_introduced)}
     if LibVersion < SSL_CTX_set_quiet_shutdown_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_quiet_shutdown)}
-      SSL_CTX_set_quiet_shutdown := @FC_SSL_CTX_set_quiet_shutdown;
+      SSL_CTX_set_quiet_shutdown := FC_SSL_CTX_set_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23028,7 +23029,7 @@ begin
     if SSL_CTX_set_quiet_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_quiet_shutdown)}
-      SSL_CTX_set_quiet_shutdown := @_SSL_CTX_set_quiet_shutdown;
+      SSL_CTX_set_quiet_shutdown := _SSL_CTX_set_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23045,13 +23046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_quiet_shutdown_allownil)}
-    SSL_CTX_get_quiet_shutdown := @ERR_SSL_CTX_get_quiet_shutdown;
+    SSL_CTX_get_quiet_shutdown := ERR_SSL_CTX_get_quiet_shutdown;
     {$ifend}
     {$if declared(SSL_CTX_get_quiet_shutdown_introduced)}
     if LibVersion < SSL_CTX_get_quiet_shutdown_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_quiet_shutdown)}
-      SSL_CTX_get_quiet_shutdown := @FC_SSL_CTX_get_quiet_shutdown;
+      SSL_CTX_get_quiet_shutdown := FC_SSL_CTX_get_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23060,7 +23061,7 @@ begin
     if SSL_CTX_get_quiet_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_quiet_shutdown)}
-      SSL_CTX_get_quiet_shutdown := @_SSL_CTX_get_quiet_shutdown;
+      SSL_CTX_get_quiet_shutdown := _SSL_CTX_get_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23077,13 +23078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_quiet_shutdown_allownil)}
-    SSL_set_quiet_shutdown := @ERR_SSL_set_quiet_shutdown;
+    SSL_set_quiet_shutdown := ERR_SSL_set_quiet_shutdown;
     {$ifend}
     {$if declared(SSL_set_quiet_shutdown_introduced)}
     if LibVersion < SSL_set_quiet_shutdown_introduced then
     begin
       {$if declared(FC_SSL_set_quiet_shutdown)}
-      SSL_set_quiet_shutdown := @FC_SSL_set_quiet_shutdown;
+      SSL_set_quiet_shutdown := FC_SSL_set_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23092,7 +23093,7 @@ begin
     if SSL_set_quiet_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_quiet_shutdown)}
-      SSL_set_quiet_shutdown := @_SSL_set_quiet_shutdown;
+      SSL_set_quiet_shutdown := _SSL_set_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23109,13 +23110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_quiet_shutdown_allownil)}
-    SSL_get_quiet_shutdown := @ERR_SSL_get_quiet_shutdown;
+    SSL_get_quiet_shutdown := ERR_SSL_get_quiet_shutdown;
     {$ifend}
     {$if declared(SSL_get_quiet_shutdown_introduced)}
     if LibVersion < SSL_get_quiet_shutdown_introduced then
     begin
       {$if declared(FC_SSL_get_quiet_shutdown)}
-      SSL_get_quiet_shutdown := @FC_SSL_get_quiet_shutdown;
+      SSL_get_quiet_shutdown := FC_SSL_get_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23124,7 +23125,7 @@ begin
     if SSL_get_quiet_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_quiet_shutdown)}
-      SSL_get_quiet_shutdown := @_SSL_get_quiet_shutdown;
+      SSL_get_quiet_shutdown := _SSL_get_quiet_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23141,13 +23142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_shutdown_allownil)}
-    SSL_set_shutdown := @ERR_SSL_set_shutdown;
+    SSL_set_shutdown := ERR_SSL_set_shutdown;
     {$ifend}
     {$if declared(SSL_set_shutdown_introduced)}
     if LibVersion < SSL_set_shutdown_introduced then
     begin
       {$if declared(FC_SSL_set_shutdown)}
-      SSL_set_shutdown := @FC_SSL_set_shutdown;
+      SSL_set_shutdown := FC_SSL_set_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23156,7 +23157,7 @@ begin
     if SSL_set_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_shutdown)}
-      SSL_set_shutdown := @_SSL_set_shutdown;
+      SSL_set_shutdown := _SSL_set_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23173,13 +23174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_shutdown_allownil)}
-    SSL_get_shutdown := @ERR_SSL_get_shutdown;
+    SSL_get_shutdown := ERR_SSL_get_shutdown;
     {$ifend}
     {$if declared(SSL_get_shutdown_introduced)}
     if LibVersion < SSL_get_shutdown_introduced then
     begin
       {$if declared(FC_SSL_get_shutdown)}
-      SSL_get_shutdown := @FC_SSL_get_shutdown;
+      SSL_get_shutdown := FC_SSL_get_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23188,7 +23189,7 @@ begin
     if SSL_get_shutdown_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_shutdown)}
-      SSL_get_shutdown := @_SSL_get_shutdown;
+      SSL_get_shutdown := _SSL_get_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23205,13 +23206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_version_allownil)}
-    SSL_version := @ERR_SSL_version;
+    SSL_version := ERR_SSL_version;
     {$ifend}
     {$if declared(SSL_version_introduced)}
     if LibVersion < SSL_version_introduced then
     begin
       {$if declared(FC_SSL_version)}
-      SSL_version := @FC_SSL_version;
+      SSL_version := FC_SSL_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23220,7 +23221,7 @@ begin
     if SSL_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_version)}
-      SSL_version := @_SSL_version;
+      SSL_version := _SSL_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23237,13 +23238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_client_version_allownil)}
-    SSL_client_version := @ERR_SSL_client_version;
+    SSL_client_version := ERR_SSL_client_version;
     {$ifend}
     {$if declared(SSL_client_version_introduced)}
     if LibVersion < SSL_client_version_introduced then
     begin
       {$if declared(FC_SSL_client_version)}
-      SSL_client_version := @FC_SSL_client_version;
+      SSL_client_version := FC_SSL_client_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23252,7 +23253,7 @@ begin
     if SSL_client_version_removed <= LibVersion then
     begin
       {$if declared(_SSL_client_version)}
-      SSL_client_version := @_SSL_client_version;
+      SSL_client_version := _SSL_client_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23269,13 +23270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_verify_paths_allownil)}
-    SSL_CTX_set_default_verify_paths := @ERR_SSL_CTX_set_default_verify_paths;
+    SSL_CTX_set_default_verify_paths := ERR_SSL_CTX_set_default_verify_paths;
     {$ifend}
     {$if declared(SSL_CTX_set_default_verify_paths_introduced)}
     if LibVersion < SSL_CTX_set_default_verify_paths_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_verify_paths)}
-      SSL_CTX_set_default_verify_paths := @FC_SSL_CTX_set_default_verify_paths;
+      SSL_CTX_set_default_verify_paths := FC_SSL_CTX_set_default_verify_paths;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23284,7 +23285,7 @@ begin
     if SSL_CTX_set_default_verify_paths_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_verify_paths)}
-      SSL_CTX_set_default_verify_paths := @_SSL_CTX_set_default_verify_paths;
+      SSL_CTX_set_default_verify_paths := _SSL_CTX_set_default_verify_paths;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23301,13 +23302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_verify_dir_allownil)}
-    SSL_CTX_set_default_verify_dir := @ERR_SSL_CTX_set_default_verify_dir;
+    SSL_CTX_set_default_verify_dir := ERR_SSL_CTX_set_default_verify_dir;
     {$ifend}
     {$if declared(SSL_CTX_set_default_verify_dir_introduced)}
     if LibVersion < SSL_CTX_set_default_verify_dir_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_verify_dir)}
-      SSL_CTX_set_default_verify_dir := @FC_SSL_CTX_set_default_verify_dir;
+      SSL_CTX_set_default_verify_dir := FC_SSL_CTX_set_default_verify_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23316,7 +23317,7 @@ begin
     if SSL_CTX_set_default_verify_dir_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_verify_dir)}
-      SSL_CTX_set_default_verify_dir := @_SSL_CTX_set_default_verify_dir;
+      SSL_CTX_set_default_verify_dir := _SSL_CTX_set_default_verify_dir;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23333,13 +23334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_verify_file_allownil)}
-    SSL_CTX_set_default_verify_file := @ERR_SSL_CTX_set_default_verify_file;
+    SSL_CTX_set_default_verify_file := ERR_SSL_CTX_set_default_verify_file;
     {$ifend}
     {$if declared(SSL_CTX_set_default_verify_file_introduced)}
     if LibVersion < SSL_CTX_set_default_verify_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_verify_file)}
-      SSL_CTX_set_default_verify_file := @FC_SSL_CTX_set_default_verify_file;
+      SSL_CTX_set_default_verify_file := FC_SSL_CTX_set_default_verify_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23348,7 +23349,7 @@ begin
     if SSL_CTX_set_default_verify_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_verify_file)}
-      SSL_CTX_set_default_verify_file := @_SSL_CTX_set_default_verify_file;
+      SSL_CTX_set_default_verify_file := _SSL_CTX_set_default_verify_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23365,13 +23366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_load_verify_locations_allownil)}
-    SSL_CTX_load_verify_locations := @ERR_SSL_CTX_load_verify_locations;
+    SSL_CTX_load_verify_locations := ERR_SSL_CTX_load_verify_locations;
     {$ifend}
     {$if declared(SSL_CTX_load_verify_locations_introduced)}
     if LibVersion < SSL_CTX_load_verify_locations_introduced then
     begin
       {$if declared(FC_SSL_CTX_load_verify_locations)}
-      SSL_CTX_load_verify_locations := @FC_SSL_CTX_load_verify_locations;
+      SSL_CTX_load_verify_locations := FC_SSL_CTX_load_verify_locations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23380,7 +23381,7 @@ begin
     if SSL_CTX_load_verify_locations_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_load_verify_locations)}
-      SSL_CTX_load_verify_locations := @_SSL_CTX_load_verify_locations;
+      SSL_CTX_load_verify_locations := _SSL_CTX_load_verify_locations;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23397,13 +23398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_session_allownil)}
-    SSL_get_session := @ERR_SSL_get_session;
+    SSL_get_session := ERR_SSL_get_session;
     {$ifend}
     {$if declared(SSL_get_session_introduced)}
     if LibVersion < SSL_get_session_introduced then
     begin
       {$if declared(FC_SSL_get_session)}
-      SSL_get_session := @FC_SSL_get_session;
+      SSL_get_session := FC_SSL_get_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23412,7 +23413,7 @@ begin
     if SSL_get_session_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_session)}
-      SSL_get_session := @_SSL_get_session;
+      SSL_get_session := _SSL_get_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23429,13 +23430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get1_session_allownil)}
-    SSL_get1_session := @ERR_SSL_get1_session;
+    SSL_get1_session := ERR_SSL_get1_session;
     {$ifend}
     {$if declared(SSL_get1_session_introduced)}
     if LibVersion < SSL_get1_session_introduced then
     begin
       {$if declared(FC_SSL_get1_session)}
-      SSL_get1_session := @FC_SSL_get1_session;
+      SSL_get1_session := FC_SSL_get1_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23444,7 +23445,7 @@ begin
     if SSL_get1_session_removed <= LibVersion then
     begin
       {$if declared(_SSL_get1_session)}
-      SSL_get1_session := @_SSL_get1_session;
+      SSL_get1_session := _SSL_get1_session;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23461,13 +23462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_SSL_CTX_allownil)}
-    SSL_get_SSL_CTX := @ERR_SSL_get_SSL_CTX;
+    SSL_get_SSL_CTX := ERR_SSL_get_SSL_CTX;
     {$ifend}
     {$if declared(SSL_get_SSL_CTX_introduced)}
     if LibVersion < SSL_get_SSL_CTX_introduced then
     begin
       {$if declared(FC_SSL_get_SSL_CTX)}
-      SSL_get_SSL_CTX := @FC_SSL_get_SSL_CTX;
+      SSL_get_SSL_CTX := FC_SSL_get_SSL_CTX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23476,7 +23477,7 @@ begin
     if SSL_get_SSL_CTX_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_SSL_CTX)}
-      SSL_get_SSL_CTX := @_SSL_get_SSL_CTX;
+      SSL_get_SSL_CTX := _SSL_get_SSL_CTX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23493,13 +23494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_SSL_CTX_allownil)}
-    SSL_set_SSL_CTX := @ERR_SSL_set_SSL_CTX;
+    SSL_set_SSL_CTX := ERR_SSL_set_SSL_CTX;
     {$ifend}
     {$if declared(SSL_set_SSL_CTX_introduced)}
     if LibVersion < SSL_set_SSL_CTX_introduced then
     begin
       {$if declared(FC_SSL_set_SSL_CTX)}
-      SSL_set_SSL_CTX := @FC_SSL_set_SSL_CTX;
+      SSL_set_SSL_CTX := FC_SSL_set_SSL_CTX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23508,7 +23509,7 @@ begin
     if SSL_set_SSL_CTX_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_SSL_CTX)}
-      SSL_set_SSL_CTX := @_SSL_set_SSL_CTX;
+      SSL_set_SSL_CTX := _SSL_set_SSL_CTX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23525,13 +23526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_info_callback_allownil)}
-    SSL_set_info_callback := @ERR_SSL_set_info_callback;
+    SSL_set_info_callback := ERR_SSL_set_info_callback;
     {$ifend}
     {$if declared(SSL_set_info_callback_introduced)}
     if LibVersion < SSL_set_info_callback_introduced then
     begin
       {$if declared(FC_SSL_set_info_callback)}
-      SSL_set_info_callback := @FC_SSL_set_info_callback;
+      SSL_set_info_callback := FC_SSL_set_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23540,7 +23541,7 @@ begin
     if SSL_set_info_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_info_callback)}
-      SSL_set_info_callback := @_SSL_set_info_callback;
+      SSL_set_info_callback := _SSL_set_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23557,13 +23558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_info_callback_allownil)}
-    SSL_get_info_callback := @ERR_SSL_get_info_callback;
+    SSL_get_info_callback := ERR_SSL_get_info_callback;
     {$ifend}
     {$if declared(SSL_get_info_callback_introduced)}
     if LibVersion < SSL_get_info_callback_introduced then
     begin
       {$if declared(FC_SSL_get_info_callback)}
-      SSL_get_info_callback := @FC_SSL_get_info_callback;
+      SSL_get_info_callback := FC_SSL_get_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23572,7 +23573,7 @@ begin
     if SSL_get_info_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_info_callback)}
-      SSL_get_info_callback := @_SSL_get_info_callback;
+      SSL_get_info_callback := _SSL_get_info_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23589,13 +23590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_state_allownil)}
-    SSL_get_state := @ERR_SSL_get_state;
+    SSL_get_state := ERR_SSL_get_state;
     {$ifend}
     {$if declared(SSL_get_state_introduced)}
     if LibVersion < SSL_get_state_introduced then
     begin
       {$if declared(FC_SSL_get_state)}
-      SSL_get_state := @FC_SSL_get_state;
+      SSL_get_state := FC_SSL_get_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23604,7 +23605,7 @@ begin
     if SSL_get_state_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_state)}
-      SSL_get_state := @_SSL_get_state;
+      SSL_get_state := _SSL_get_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23621,13 +23622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_verify_result_allownil)}
-    SSL_set_verify_result := @ERR_SSL_set_verify_result;
+    SSL_set_verify_result := ERR_SSL_set_verify_result;
     {$ifend}
     {$if declared(SSL_set_verify_result_introduced)}
     if LibVersion < SSL_set_verify_result_introduced then
     begin
       {$if declared(FC_SSL_set_verify_result)}
-      SSL_set_verify_result := @FC_SSL_set_verify_result;
+      SSL_set_verify_result := FC_SSL_set_verify_result;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23636,7 +23637,7 @@ begin
     if SSL_set_verify_result_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_verify_result)}
-      SSL_set_verify_result := @_SSL_set_verify_result;
+      SSL_set_verify_result := _SSL_set_verify_result;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23653,13 +23654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_verify_result_allownil)}
-    SSL_get_verify_result := @ERR_SSL_get_verify_result;
+    SSL_get_verify_result := ERR_SSL_get_verify_result;
     {$ifend}
     {$if declared(SSL_get_verify_result_introduced)}
     if LibVersion < SSL_get_verify_result_introduced then
     begin
       {$if declared(FC_SSL_get_verify_result)}
-      SSL_get_verify_result := @FC_SSL_get_verify_result;
+      SSL_get_verify_result := FC_SSL_get_verify_result;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23668,7 +23669,7 @@ begin
     if SSL_get_verify_result_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_verify_result)}
-      SSL_get_verify_result := @_SSL_get_verify_result;
+      SSL_get_verify_result := _SSL_get_verify_result;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23684,13 +23685,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_verified_chain_allownil)}
-    SSL_get0_verified_chain := @ERR_SSL_get0_verified_chain;
+    SSL_get0_verified_chain := ERR_SSL_get0_verified_chain;
     {$ifend}
     {$if declared(SSL_get0_verified_chain_introduced)}
     if LibVersion < SSL_get0_verified_chain_introduced then
     begin
       {$if declared(FC_SSL_get0_verified_chain)}
-      SSL_get0_verified_chain := @FC_SSL_get0_verified_chain;
+      SSL_get0_verified_chain := FC_SSL_get0_verified_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23699,7 +23700,7 @@ begin
     if SSL_get0_verified_chain_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_verified_chain)}
-      SSL_get0_verified_chain := @_SSL_get0_verified_chain;
+      SSL_get0_verified_chain := _SSL_get0_verified_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23715,13 +23716,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_client_random_allownil)}
-    SSL_get_client_random := @ERR_SSL_get_client_random;
+    SSL_get_client_random := ERR_SSL_get_client_random;
     {$ifend}
     {$if declared(SSL_get_client_random_introduced)}
     if LibVersion < SSL_get_client_random_introduced then
     begin
       {$if declared(FC_SSL_get_client_random)}
-      SSL_get_client_random := @FC_SSL_get_client_random;
+      SSL_get_client_random := FC_SSL_get_client_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23730,7 +23731,7 @@ begin
     if SSL_get_client_random_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_client_random)}
-      SSL_get_client_random := @_SSL_get_client_random;
+      SSL_get_client_random := _SSL_get_client_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23747,13 +23748,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_server_random_allownil)}
-    SSL_get_server_random := @ERR_SSL_get_server_random;
+    SSL_get_server_random := ERR_SSL_get_server_random;
     {$ifend}
     {$if declared(SSL_get_server_random_introduced)}
     if LibVersion < SSL_get_server_random_introduced then
     begin
       {$if declared(FC_SSL_get_server_random)}
-      SSL_get_server_random := @FC_SSL_get_server_random;
+      SSL_get_server_random := FC_SSL_get_server_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23762,7 +23763,7 @@ begin
     if SSL_get_server_random_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_server_random)}
-      SSL_get_server_random := @_SSL_get_server_random;
+      SSL_get_server_random := _SSL_get_server_random;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23779,13 +23780,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_master_key_allownil)}
-    SSL_SESSION_get_master_key := @ERR_SSL_SESSION_get_master_key;
+    SSL_SESSION_get_master_key := ERR_SSL_SESSION_get_master_key;
     {$ifend}
     {$if declared(SSL_SESSION_get_master_key_introduced)}
     if LibVersion < SSL_SESSION_get_master_key_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_master_key)}
-      SSL_SESSION_get_master_key := @FC_SSL_SESSION_get_master_key;
+      SSL_SESSION_get_master_key := FC_SSL_SESSION_get_master_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23794,7 +23795,7 @@ begin
     if SSL_SESSION_get_master_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_master_key)}
-      SSL_SESSION_get_master_key := @_SSL_SESSION_get_master_key;
+      SSL_SESSION_get_master_key := _SSL_SESSION_get_master_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23811,13 +23812,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_master_key_allownil)}
-    SSL_SESSION_set1_master_key := @ERR_SSL_SESSION_set1_master_key;
+    SSL_SESSION_set1_master_key := ERR_SSL_SESSION_set1_master_key;
     {$ifend}
     {$if declared(SSL_SESSION_set1_master_key_introduced)}
     if LibVersion < SSL_SESSION_set1_master_key_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_master_key)}
-      SSL_SESSION_set1_master_key := @FC_SSL_SESSION_set1_master_key;
+      SSL_SESSION_set1_master_key := FC_SSL_SESSION_set1_master_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23826,7 +23827,7 @@ begin
     if SSL_SESSION_set1_master_key_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_master_key)}
-      SSL_SESSION_set1_master_key := @_SSL_SESSION_set1_master_key;
+      SSL_SESSION_set1_master_key := _SSL_SESSION_set1_master_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23843,13 +23844,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_max_fragment_length_allownil)}
-    SSL_SESSION_get_max_fragment_length := @ERR_SSL_SESSION_get_max_fragment_length;
+    SSL_SESSION_get_max_fragment_length := ERR_SSL_SESSION_get_max_fragment_length;
     {$ifend}
     {$if declared(SSL_SESSION_get_max_fragment_length_introduced)}
     if LibVersion < SSL_SESSION_get_max_fragment_length_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_max_fragment_length)}
-      SSL_SESSION_get_max_fragment_length := @FC_SSL_SESSION_get_max_fragment_length;
+      SSL_SESSION_get_max_fragment_length := FC_SSL_SESSION_get_max_fragment_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23858,7 +23859,7 @@ begin
     if SSL_SESSION_get_max_fragment_length_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_max_fragment_length)}
-      SSL_SESSION_get_max_fragment_length := @_SSL_SESSION_get_max_fragment_length;
+      SSL_SESSION_get_max_fragment_length := _SSL_SESSION_get_max_fragment_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23875,13 +23876,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_ex_data_allownil)}
-    SSL_set_ex_data := @ERR_SSL_set_ex_data;
+    SSL_set_ex_data := ERR_SSL_set_ex_data;
     {$ifend}
     {$if declared(SSL_set_ex_data_introduced)}
     if LibVersion < SSL_set_ex_data_introduced then
     begin
       {$if declared(FC_SSL_set_ex_data)}
-      SSL_set_ex_data := @FC_SSL_set_ex_data;
+      SSL_set_ex_data := FC_SSL_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23890,7 +23891,7 @@ begin
     if SSL_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_ex_data)}
-      SSL_set_ex_data := @_SSL_set_ex_data;
+      SSL_set_ex_data := _SSL_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23907,13 +23908,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_ex_data_allownil)}
-    SSL_get_ex_data := @ERR_SSL_get_ex_data;
+    SSL_get_ex_data := ERR_SSL_get_ex_data;
     {$ifend}
     {$if declared(SSL_get_ex_data_introduced)}
     if LibVersion < SSL_get_ex_data_introduced then
     begin
       {$if declared(FC_SSL_get_ex_data)}
-      SSL_get_ex_data := @FC_SSL_get_ex_data;
+      SSL_get_ex_data := FC_SSL_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23922,7 +23923,7 @@ begin
     if SSL_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_ex_data)}
-      SSL_get_ex_data := @_SSL_get_ex_data;
+      SSL_get_ex_data := _SSL_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23939,13 +23940,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set_ex_data_allownil)}
-    SSL_SESSION_set_ex_data := @ERR_SSL_SESSION_set_ex_data;
+    SSL_SESSION_set_ex_data := ERR_SSL_SESSION_set_ex_data;
     {$ifend}
     {$if declared(SSL_SESSION_set_ex_data_introduced)}
     if LibVersion < SSL_SESSION_set_ex_data_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set_ex_data)}
-      SSL_SESSION_set_ex_data := @FC_SSL_SESSION_set_ex_data;
+      SSL_SESSION_set_ex_data := FC_SSL_SESSION_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23954,7 +23955,7 @@ begin
     if SSL_SESSION_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set_ex_data)}
-      SSL_SESSION_set_ex_data := @_SSL_SESSION_set_ex_data;
+      SSL_SESSION_set_ex_data := _SSL_SESSION_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23971,13 +23972,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get_ex_data_allownil)}
-    SSL_SESSION_get_ex_data := @ERR_SSL_SESSION_get_ex_data;
+    SSL_SESSION_get_ex_data := ERR_SSL_SESSION_get_ex_data;
     {$ifend}
     {$if declared(SSL_SESSION_get_ex_data_introduced)}
     if LibVersion < SSL_SESSION_get_ex_data_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get_ex_data)}
-      SSL_SESSION_get_ex_data := @FC_SSL_SESSION_get_ex_data;
+      SSL_SESSION_get_ex_data := FC_SSL_SESSION_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -23986,7 +23987,7 @@ begin
     if SSL_SESSION_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get_ex_data)}
-      SSL_SESSION_get_ex_data := @_SSL_SESSION_get_ex_data;
+      SSL_SESSION_get_ex_data := _SSL_SESSION_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24003,13 +24004,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_ex_data_allownil)}
-    SSL_CTX_set_ex_data := @ERR_SSL_CTX_set_ex_data;
+    SSL_CTX_set_ex_data := ERR_SSL_CTX_set_ex_data;
     {$ifend}
     {$if declared(SSL_CTX_set_ex_data_introduced)}
     if LibVersion < SSL_CTX_set_ex_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_ex_data)}
-      SSL_CTX_set_ex_data := @FC_SSL_CTX_set_ex_data;
+      SSL_CTX_set_ex_data := FC_SSL_CTX_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24018,7 +24019,7 @@ begin
     if SSL_CTX_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_ex_data)}
-      SSL_CTX_set_ex_data := @_SSL_CTX_set_ex_data;
+      SSL_CTX_set_ex_data := _SSL_CTX_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24035,13 +24036,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_ex_data_allownil)}
-    SSL_CTX_get_ex_data := @ERR_SSL_CTX_get_ex_data;
+    SSL_CTX_get_ex_data := ERR_SSL_CTX_get_ex_data;
     {$ifend}
     {$if declared(SSL_CTX_get_ex_data_introduced)}
     if LibVersion < SSL_CTX_get_ex_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_ex_data)}
-      SSL_CTX_get_ex_data := @FC_SSL_CTX_get_ex_data;
+      SSL_CTX_get_ex_data := FC_SSL_CTX_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24050,7 +24051,7 @@ begin
     if SSL_CTX_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_ex_data)}
-      SSL_CTX_get_ex_data := @_SSL_CTX_get_ex_data;
+      SSL_CTX_get_ex_data := _SSL_CTX_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24067,13 +24068,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_ex_data_X509_STORE_CTX_idx_allownil)}
-    SSL_get_ex_data_X509_STORE_CTX_idx := @ERR_SSL_get_ex_data_X509_STORE_CTX_idx;
+    SSL_get_ex_data_X509_STORE_CTX_idx := ERR_SSL_get_ex_data_X509_STORE_CTX_idx;
     {$ifend}
     {$if declared(SSL_get_ex_data_X509_STORE_CTX_idx_introduced)}
     if LibVersion < SSL_get_ex_data_X509_STORE_CTX_idx_introduced then
     begin
       {$if declared(FC_SSL_get_ex_data_X509_STORE_CTX_idx)}
-      SSL_get_ex_data_X509_STORE_CTX_idx := @FC_SSL_get_ex_data_X509_STORE_CTX_idx;
+      SSL_get_ex_data_X509_STORE_CTX_idx := FC_SSL_get_ex_data_X509_STORE_CTX_idx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24082,7 +24083,7 @@ begin
     if SSL_get_ex_data_X509_STORE_CTX_idx_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_ex_data_X509_STORE_CTX_idx)}
-      SSL_get_ex_data_X509_STORE_CTX_idx := @_SSL_get_ex_data_X509_STORE_CTX_idx;
+      SSL_get_ex_data_X509_STORE_CTX_idx := _SSL_get_ex_data_X509_STORE_CTX_idx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24099,13 +24100,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_read_buffer_len_allownil)}
-    SSL_CTX_set_default_read_buffer_len := @ERR_SSL_CTX_set_default_read_buffer_len;
+    SSL_CTX_set_default_read_buffer_len := ERR_SSL_CTX_set_default_read_buffer_len;
     {$ifend}
     {$if declared(SSL_CTX_set_default_read_buffer_len_introduced)}
     if LibVersion < SSL_CTX_set_default_read_buffer_len_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_read_buffer_len)}
-      SSL_CTX_set_default_read_buffer_len := @FC_SSL_CTX_set_default_read_buffer_len;
+      SSL_CTX_set_default_read_buffer_len := FC_SSL_CTX_set_default_read_buffer_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24114,7 +24115,7 @@ begin
     if SSL_CTX_set_default_read_buffer_len_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_read_buffer_len)}
-      SSL_CTX_set_default_read_buffer_len := @_SSL_CTX_set_default_read_buffer_len;
+      SSL_CTX_set_default_read_buffer_len := _SSL_CTX_set_default_read_buffer_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24131,13 +24132,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_default_read_buffer_len_allownil)}
-    SSL_set_default_read_buffer_len := @ERR_SSL_set_default_read_buffer_len;
+    SSL_set_default_read_buffer_len := ERR_SSL_set_default_read_buffer_len;
     {$ifend}
     {$if declared(SSL_set_default_read_buffer_len_introduced)}
     if LibVersion < SSL_set_default_read_buffer_len_introduced then
     begin
       {$if declared(FC_SSL_set_default_read_buffer_len)}
-      SSL_set_default_read_buffer_len := @FC_SSL_set_default_read_buffer_len;
+      SSL_set_default_read_buffer_len := FC_SSL_set_default_read_buffer_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24146,7 +24147,7 @@ begin
     if SSL_set_default_read_buffer_len_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_default_read_buffer_len)}
-      SSL_set_default_read_buffer_len := @_SSL_set_default_read_buffer_len;
+      SSL_set_default_read_buffer_len := _SSL_set_default_read_buffer_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24163,13 +24164,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_tmp_dh_callback_allownil)}
-    SSL_CTX_set_tmp_dh_callback := @ERR_SSL_CTX_set_tmp_dh_callback;
+    SSL_CTX_set_tmp_dh_callback := ERR_SSL_CTX_set_tmp_dh_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_tmp_dh_callback_introduced)}
     if LibVersion < SSL_CTX_set_tmp_dh_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_tmp_dh_callback)}
-      SSL_CTX_set_tmp_dh_callback := @FC_SSL_CTX_set_tmp_dh_callback;
+      SSL_CTX_set_tmp_dh_callback := FC_SSL_CTX_set_tmp_dh_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24178,7 +24179,7 @@ begin
     if SSL_CTX_set_tmp_dh_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_tmp_dh_callback)}
-      SSL_CTX_set_tmp_dh_callback := @_SSL_CTX_set_tmp_dh_callback;
+      SSL_CTX_set_tmp_dh_callback := _SSL_CTX_set_tmp_dh_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24194,13 +24195,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_current_compression_allownil)}
-    SSL_get_current_compression := @ERR_SSL_get_current_compression;
+    SSL_get_current_compression := ERR_SSL_get_current_compression;
     {$ifend}
     {$if declared(SSL_get_current_compression_introduced)}
     if LibVersion < SSL_get_current_compression_introduced then
     begin
       {$if declared(FC_SSL_get_current_compression)}
-      SSL_get_current_compression := @FC_SSL_get_current_compression;
+      SSL_get_current_compression := FC_SSL_get_current_compression;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24209,7 +24210,7 @@ begin
     if SSL_get_current_compression_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_current_compression)}
-      SSL_get_current_compression := @_SSL_get_current_compression;
+      SSL_get_current_compression := _SSL_get_current_compression;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24225,13 +24226,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_get_compression_methods_allownil)}
-    SSL_COMP_get_compression_methods := @ERR_SSL_COMP_get_compression_methods;
+    SSL_COMP_get_compression_methods := ERR_SSL_COMP_get_compression_methods;
     {$ifend}
     {$if declared(SSL_COMP_get_compression_methods_introduced)}
     if LibVersion < SSL_COMP_get_compression_methods_introduced then
     begin
       {$if declared(FC_SSL_COMP_get_compression_methods)}
-      SSL_COMP_get_compression_methods := @FC_SSL_COMP_get_compression_methods;
+      SSL_COMP_get_compression_methods := FC_SSL_COMP_get_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24240,7 +24241,7 @@ begin
     if SSL_COMP_get_compression_methods_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_get_compression_methods)}
-      SSL_COMP_get_compression_methods := @_SSL_COMP_get_compression_methods;
+      SSL_COMP_get_compression_methods := _SSL_COMP_get_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24255,13 +24256,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_current_expansion_allownil)}
-    SSL_get_current_expansion := @ERR_SSL_get_current_expansion;
+    SSL_get_current_expansion := ERR_SSL_get_current_expansion;
     {$ifend}
     {$if declared(SSL_get_current_expansion_introduced)}
     if LibVersion < SSL_get_current_expansion_introduced then
     begin
       {$if declared(FC_SSL_get_current_expansion)}
-      SSL_get_current_expansion := @FC_SSL_get_current_expansion;
+      SSL_get_current_expansion := FC_SSL_get_current_expansion;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24270,7 +24271,7 @@ begin
     if SSL_get_current_expansion_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_current_expansion)}
-      SSL_get_current_expansion := @_SSL_get_current_expansion;
+      SSL_get_current_expansion := _SSL_get_current_expansion;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24285,13 +24286,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_get_name_allownil)}
-    SSL_COMP_get_name := @ERR_SSL_COMP_get_name;
+    SSL_COMP_get_name := ERR_SSL_COMP_get_name;
     {$ifend}
     {$if declared(SSL_COMP_get_name_introduced)}
     if LibVersion < SSL_COMP_get_name_introduced then
     begin
       {$if declared(FC_SSL_COMP_get_name)}
-      SSL_COMP_get_name := @FC_SSL_COMP_get_name;
+      SSL_COMP_get_name := FC_SSL_COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24300,7 +24301,7 @@ begin
     if SSL_COMP_get_name_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_get_name)}
-      SSL_COMP_get_name := @_SSL_COMP_get_name;
+      SSL_COMP_get_name := _SSL_COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24315,13 +24316,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_get0_name_allownil)}
-    SSL_COMP_get0_name := @ERR_SSL_COMP_get0_name;
+    SSL_COMP_get0_name := ERR_SSL_COMP_get0_name;
     {$ifend}
     {$if declared(SSL_COMP_get0_name_introduced)}
     if LibVersion < SSL_COMP_get0_name_introduced then
     begin
       {$if declared(FC_SSL_COMP_get0_name)}
-      SSL_COMP_get0_name := @FC_SSL_COMP_get0_name;
+      SSL_COMP_get0_name := FC_SSL_COMP_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24330,7 +24331,7 @@ begin
     if SSL_COMP_get0_name_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_get0_name)}
-      SSL_COMP_get0_name := @_SSL_COMP_get0_name;
+      SSL_COMP_get0_name := _SSL_COMP_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24345,13 +24346,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_get_id_allownil)}
-    SSL_COMP_get_id := @ERR_SSL_COMP_get_id;
+    SSL_COMP_get_id := ERR_SSL_COMP_get_id;
     {$ifend}
     {$if declared(SSL_COMP_get_id_introduced)}
     if LibVersion < SSL_COMP_get_id_introduced then
     begin
       {$if declared(FC_SSL_COMP_get_id)}
-      SSL_COMP_get_id := @FC_SSL_COMP_get_id;
+      SSL_COMP_get_id := FC_SSL_COMP_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24360,7 +24361,7 @@ begin
     if SSL_COMP_get_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_get_id)}
-      SSL_COMP_get_id := @_SSL_COMP_get_id;
+      SSL_COMP_get_id := _SSL_COMP_get_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24376,13 +24377,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_tmp_dh_callback_allownil)}
-    SSL_set_tmp_dh_callback := @ERR_SSL_set_tmp_dh_callback;
+    SSL_set_tmp_dh_callback := ERR_SSL_set_tmp_dh_callback;
     {$ifend}
     {$if declared(SSL_set_tmp_dh_callback_introduced)}
     if LibVersion < SSL_set_tmp_dh_callback_introduced then
     begin
       {$if declared(FC_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @FC_SSL_set_tmp_dh_callback;
+      SSL_set_tmp_dh_callback := FC_SSL_set_tmp_dh_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24391,7 +24392,7 @@ begin
     if SSL_set_tmp_dh_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_tmp_dh_callback)}
-      SSL_set_tmp_dh_callback := @_SSL_set_tmp_dh_callback;
+      SSL_set_tmp_dh_callback := _SSL_set_tmp_dh_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24407,13 +24408,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_set0_compression_methods_allownil)}
-    SSL_COMP_set0_compression_methods := @ERR_SSL_COMP_set0_compression_methods;
+    SSL_COMP_set0_compression_methods := ERR_SSL_COMP_set0_compression_methods;
     {$ifend}
     {$if declared(SSL_COMP_set0_compression_methods_introduced)}
     if LibVersion < SSL_COMP_set0_compression_methods_introduced then
     begin
       {$if declared(FC_SSL_COMP_set0_compression_methods)}
-      SSL_COMP_set0_compression_methods := @FC_SSL_COMP_set0_compression_methods;
+      SSL_COMP_set0_compression_methods := FC_SSL_COMP_set0_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24422,7 +24423,7 @@ begin
     if SSL_COMP_set0_compression_methods_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_set0_compression_methods)}
-      SSL_COMP_set0_compression_methods := @_SSL_COMP_set0_compression_methods;
+      SSL_COMP_set0_compression_methods := _SSL_COMP_set0_compression_methods;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24437,13 +24438,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_COMP_add_compression_method_allownil)}
-    SSL_COMP_add_compression_method := @ERR_SSL_COMP_add_compression_method;
+    SSL_COMP_add_compression_method := ERR_SSL_COMP_add_compression_method;
     {$ifend}
     {$if declared(SSL_COMP_add_compression_method_introduced)}
     if LibVersion < SSL_COMP_add_compression_method_introduced then
     begin
       {$if declared(FC_SSL_COMP_add_compression_method)}
-      SSL_COMP_add_compression_method := @FC_SSL_COMP_add_compression_method;
+      SSL_COMP_add_compression_method := FC_SSL_COMP_add_compression_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24452,7 +24453,7 @@ begin
     if SSL_COMP_add_compression_method_removed <= LibVersion then
     begin
       {$if declared(_SSL_COMP_add_compression_method)}
-      SSL_COMP_add_compression_method := @_SSL_COMP_add_compression_method;
+      SSL_COMP_add_compression_method := _SSL_COMP_add_compression_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24468,13 +24469,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_find_allownil)}
-    SSL_CIPHER_find := @ERR_SSL_CIPHER_find;
+    SSL_CIPHER_find := ERR_SSL_CIPHER_find;
     {$ifend}
     {$if declared(SSL_CIPHER_find_introduced)}
     if LibVersion < SSL_CIPHER_find_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_find)}
-      SSL_CIPHER_find := @FC_SSL_CIPHER_find;
+      SSL_CIPHER_find := FC_SSL_CIPHER_find;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24483,7 +24484,7 @@ begin
     if SSL_CIPHER_find_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_find)}
-      SSL_CIPHER_find := @_SSL_CIPHER_find;
+      SSL_CIPHER_find := _SSL_CIPHER_find;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24500,13 +24501,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_cipher_nid_allownil)}
-    SSL_CIPHER_get_cipher_nid := @ERR_SSL_CIPHER_get_cipher_nid;
+    SSL_CIPHER_get_cipher_nid := ERR_SSL_CIPHER_get_cipher_nid;
     {$ifend}
     {$if declared(SSL_CIPHER_get_cipher_nid_introduced)}
     if LibVersion < SSL_CIPHER_get_cipher_nid_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_cipher_nid)}
-      SSL_CIPHER_get_cipher_nid := @FC_SSL_CIPHER_get_cipher_nid;
+      SSL_CIPHER_get_cipher_nid := FC_SSL_CIPHER_get_cipher_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24515,7 +24516,7 @@ begin
     if SSL_CIPHER_get_cipher_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_cipher_nid)}
-      SSL_CIPHER_get_cipher_nid := @_SSL_CIPHER_get_cipher_nid;
+      SSL_CIPHER_get_cipher_nid := _SSL_CIPHER_get_cipher_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24532,13 +24533,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CIPHER_get_digest_nid_allownil)}
-    SSL_CIPHER_get_digest_nid := @ERR_SSL_CIPHER_get_digest_nid;
+    SSL_CIPHER_get_digest_nid := ERR_SSL_CIPHER_get_digest_nid;
     {$ifend}
     {$if declared(SSL_CIPHER_get_digest_nid_introduced)}
     if LibVersion < SSL_CIPHER_get_digest_nid_introduced then
     begin
       {$if declared(FC_SSL_CIPHER_get_digest_nid)}
-      SSL_CIPHER_get_digest_nid := @FC_SSL_CIPHER_get_digest_nid;
+      SSL_CIPHER_get_digest_nid := FC_SSL_CIPHER_get_digest_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24547,7 +24548,7 @@ begin
     if SSL_CIPHER_get_digest_nid_removed <= LibVersion then
     begin
       {$if declared(_SSL_CIPHER_get_digest_nid)}
-      SSL_CIPHER_get_digest_nid := @_SSL_CIPHER_get_digest_nid;
+      SSL_CIPHER_get_digest_nid := _SSL_CIPHER_get_digest_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24564,13 +24565,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_session_ticket_ext_allownil)}
-    SSL_set_session_ticket_ext := @ERR_SSL_set_session_ticket_ext;
+    SSL_set_session_ticket_ext := ERR_SSL_set_session_ticket_ext;
     {$ifend}
     {$if declared(SSL_set_session_ticket_ext_introduced)}
     if LibVersion < SSL_set_session_ticket_ext_introduced then
     begin
       {$if declared(FC_SSL_set_session_ticket_ext)}
-      SSL_set_session_ticket_ext := @FC_SSL_set_session_ticket_ext;
+      SSL_set_session_ticket_ext := FC_SSL_set_session_ticket_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24579,7 +24580,7 @@ begin
     if SSL_set_session_ticket_ext_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_session_ticket_ext)}
-      SSL_set_session_ticket_ext := @_SSL_set_session_ticket_ext;
+      SSL_set_session_ticket_ext := _SSL_set_session_ticket_ext;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24596,13 +24597,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_session_ticket_ext_cb_allownil)}
-    SSL_set_session_ticket_ext_cb := @ERR_SSL_set_session_ticket_ext_cb;
+    SSL_set_session_ticket_ext_cb := ERR_SSL_set_session_ticket_ext_cb;
     {$ifend}
     {$if declared(SSL_set_session_ticket_ext_cb_introduced)}
     if LibVersion < SSL_set_session_ticket_ext_cb_introduced then
     begin
       {$if declared(FC_SSL_set_session_ticket_ext_cb)}
-      SSL_set_session_ticket_ext_cb := @FC_SSL_set_session_ticket_ext_cb;
+      SSL_set_session_ticket_ext_cb := FC_SSL_set_session_ticket_ext_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24611,7 +24612,7 @@ begin
     if SSL_set_session_ticket_ext_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_session_ticket_ext_cb)}
-      SSL_set_session_ticket_ext_cb := @_SSL_set_session_ticket_ext_cb;
+      SSL_set_session_ticket_ext_cb := _SSL_set_session_ticket_ext_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24627,13 +24628,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_session_secret_cb_allownil)}
-    SSL_set_session_secret_cb := @ERR_SSL_set_session_secret_cb;
+    SSL_set_session_secret_cb := ERR_SSL_set_session_secret_cb;
     {$ifend}
     {$if declared(SSL_set_session_secret_cb_introduced)}
     if LibVersion < SSL_set_session_secret_cb_introduced then
     begin
       {$if declared(FC_SSL_set_session_secret_cb)}
-      SSL_set_session_secret_cb := @FC_SSL_set_session_secret_cb;
+      SSL_set_session_secret_cb := FC_SSL_set_session_secret_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24642,7 +24643,7 @@ begin
     if SSL_set_session_secret_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_session_secret_cb)}
-      SSL_set_session_secret_cb := @_SSL_set_session_secret_cb;
+      SSL_set_session_secret_cb := _SSL_set_session_secret_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24658,13 +24659,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_not_resumable_session_callback_allownil)}
-    SSL_CTX_set_not_resumable_session_callback := @ERR_SSL_CTX_set_not_resumable_session_callback;
+    SSL_CTX_set_not_resumable_session_callback := ERR_SSL_CTX_set_not_resumable_session_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_not_resumable_session_callback_introduced)}
     if LibVersion < SSL_CTX_set_not_resumable_session_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_not_resumable_session_callback)}
-      SSL_CTX_set_not_resumable_session_callback := @FC_SSL_CTX_set_not_resumable_session_callback;
+      SSL_CTX_set_not_resumable_session_callback := FC_SSL_CTX_set_not_resumable_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24673,7 +24674,7 @@ begin
     if SSL_CTX_set_not_resumable_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_not_resumable_session_callback)}
-      SSL_CTX_set_not_resumable_session_callback := @_SSL_CTX_set_not_resumable_session_callback;
+      SSL_CTX_set_not_resumable_session_callback := _SSL_CTX_set_not_resumable_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24690,13 +24691,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_not_resumable_session_callback_allownil)}
-    SSL_set_not_resumable_session_callback := @ERR_SSL_set_not_resumable_session_callback;
+    SSL_set_not_resumable_session_callback := ERR_SSL_set_not_resumable_session_callback;
     {$ifend}
     {$if declared(SSL_set_not_resumable_session_callback_introduced)}
     if LibVersion < SSL_set_not_resumable_session_callback_introduced then
     begin
       {$if declared(FC_SSL_set_not_resumable_session_callback)}
-      SSL_set_not_resumable_session_callback := @FC_SSL_set_not_resumable_session_callback;
+      SSL_set_not_resumable_session_callback := FC_SSL_set_not_resumable_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24705,7 +24706,7 @@ begin
     if SSL_set_not_resumable_session_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_not_resumable_session_callback)}
-      SSL_set_not_resumable_session_callback := @_SSL_set_not_resumable_session_callback;
+      SSL_set_not_resumable_session_callback := _SSL_set_not_resumable_session_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24722,13 +24723,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_record_padding_callback_allownil)}
-    SSL_CTX_set_record_padding_callback := @ERR_SSL_CTX_set_record_padding_callback;
+    SSL_CTX_set_record_padding_callback := ERR_SSL_CTX_set_record_padding_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_record_padding_callback_introduced)}
     if LibVersion < SSL_CTX_set_record_padding_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_record_padding_callback)}
-      SSL_CTX_set_record_padding_callback := @FC_SSL_CTX_set_record_padding_callback;
+      SSL_CTX_set_record_padding_callback := FC_SSL_CTX_set_record_padding_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24737,7 +24738,7 @@ begin
     if SSL_CTX_set_record_padding_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_record_padding_callback)}
-      SSL_CTX_set_record_padding_callback := @_SSL_CTX_set_record_padding_callback;
+      SSL_CTX_set_record_padding_callback := _SSL_CTX_set_record_padding_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24754,13 +24755,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_record_padding_callback_arg_allownil)}
-    SSL_CTX_set_record_padding_callback_arg := @ERR_SSL_CTX_set_record_padding_callback_arg;
+    SSL_CTX_set_record_padding_callback_arg := ERR_SSL_CTX_set_record_padding_callback_arg;
     {$ifend}
     {$if declared(SSL_CTX_set_record_padding_callback_arg_introduced)}
     if LibVersion < SSL_CTX_set_record_padding_callback_arg_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_record_padding_callback_arg)}
-      SSL_CTX_set_record_padding_callback_arg := @FC_SSL_CTX_set_record_padding_callback_arg;
+      SSL_CTX_set_record_padding_callback_arg := FC_SSL_CTX_set_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24769,7 +24770,7 @@ begin
     if SSL_CTX_set_record_padding_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_record_padding_callback_arg)}
-      SSL_CTX_set_record_padding_callback_arg := @_SSL_CTX_set_record_padding_callback_arg;
+      SSL_CTX_set_record_padding_callback_arg := _SSL_CTX_set_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24786,13 +24787,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_record_padding_callback_arg_allownil)}
-    SSL_CTX_get_record_padding_callback_arg := @ERR_SSL_CTX_get_record_padding_callback_arg;
+    SSL_CTX_get_record_padding_callback_arg := ERR_SSL_CTX_get_record_padding_callback_arg;
     {$ifend}
     {$if declared(SSL_CTX_get_record_padding_callback_arg_introduced)}
     if LibVersion < SSL_CTX_get_record_padding_callback_arg_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_record_padding_callback_arg)}
-      SSL_CTX_get_record_padding_callback_arg := @FC_SSL_CTX_get_record_padding_callback_arg;
+      SSL_CTX_get_record_padding_callback_arg := FC_SSL_CTX_get_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24801,7 +24802,7 @@ begin
     if SSL_CTX_get_record_padding_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_record_padding_callback_arg)}
-      SSL_CTX_get_record_padding_callback_arg := @_SSL_CTX_get_record_padding_callback_arg;
+      SSL_CTX_get_record_padding_callback_arg := _SSL_CTX_get_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24818,13 +24819,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_block_padding_allownil)}
-    SSL_CTX_set_block_padding := @ERR_SSL_CTX_set_block_padding;
+    SSL_CTX_set_block_padding := ERR_SSL_CTX_set_block_padding;
     {$ifend}
     {$if declared(SSL_CTX_set_block_padding_introduced)}
     if LibVersion < SSL_CTX_set_block_padding_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_block_padding)}
-      SSL_CTX_set_block_padding := @FC_SSL_CTX_set_block_padding;
+      SSL_CTX_set_block_padding := FC_SSL_CTX_set_block_padding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24833,7 +24834,7 @@ begin
     if SSL_CTX_set_block_padding_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_block_padding)}
-      SSL_CTX_set_block_padding := @_SSL_CTX_set_block_padding;
+      SSL_CTX_set_block_padding := _SSL_CTX_set_block_padding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24850,13 +24851,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_record_padding_callback_allownil)}
-    SSL_set_record_padding_callback := @ERR_SSL_set_record_padding_callback;
+    SSL_set_record_padding_callback := ERR_SSL_set_record_padding_callback;
     {$ifend}
     {$if declared(SSL_set_record_padding_callback_introduced)}
     if LibVersion < SSL_set_record_padding_callback_introduced then
     begin
       {$if declared(FC_SSL_set_record_padding_callback)}
-      SSL_set_record_padding_callback := @FC_SSL_set_record_padding_callback;
+      SSL_set_record_padding_callback := FC_SSL_set_record_padding_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24865,7 +24866,7 @@ begin
     if SSL_set_record_padding_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_record_padding_callback)}
-      SSL_set_record_padding_callback := @_SSL_set_record_padding_callback;
+      SSL_set_record_padding_callback := _SSL_set_record_padding_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24882,13 +24883,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_record_padding_callback_arg_allownil)}
-    SSL_set_record_padding_callback_arg := @ERR_SSL_set_record_padding_callback_arg;
+    SSL_set_record_padding_callback_arg := ERR_SSL_set_record_padding_callback_arg;
     {$ifend}
     {$if declared(SSL_set_record_padding_callback_arg_introduced)}
     if LibVersion < SSL_set_record_padding_callback_arg_introduced then
     begin
       {$if declared(FC_SSL_set_record_padding_callback_arg)}
-      SSL_set_record_padding_callback_arg := @FC_SSL_set_record_padding_callback_arg;
+      SSL_set_record_padding_callback_arg := FC_SSL_set_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24897,7 +24898,7 @@ begin
     if SSL_set_record_padding_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_record_padding_callback_arg)}
-      SSL_set_record_padding_callback_arg := @_SSL_set_record_padding_callback_arg;
+      SSL_set_record_padding_callback_arg := _SSL_set_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24914,13 +24915,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_record_padding_callback_arg_allownil)}
-    SSL_get_record_padding_callback_arg := @ERR_SSL_get_record_padding_callback_arg;
+    SSL_get_record_padding_callback_arg := ERR_SSL_get_record_padding_callback_arg;
     {$ifend}
     {$if declared(SSL_get_record_padding_callback_arg_introduced)}
     if LibVersion < SSL_get_record_padding_callback_arg_introduced then
     begin
       {$if declared(FC_SSL_get_record_padding_callback_arg)}
-      SSL_get_record_padding_callback_arg := @FC_SSL_get_record_padding_callback_arg;
+      SSL_get_record_padding_callback_arg := FC_SSL_get_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24929,7 +24930,7 @@ begin
     if SSL_get_record_padding_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_record_padding_callback_arg)}
-      SSL_get_record_padding_callback_arg := @_SSL_get_record_padding_callback_arg;
+      SSL_get_record_padding_callback_arg := _SSL_get_record_padding_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24946,13 +24947,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_block_padding_allownil)}
-    SSL_set_block_padding := @ERR_SSL_set_block_padding;
+    SSL_set_block_padding := ERR_SSL_set_block_padding;
     {$ifend}
     {$if declared(SSL_set_block_padding_introduced)}
     if LibVersion < SSL_set_block_padding_introduced then
     begin
       {$if declared(FC_SSL_set_block_padding)}
-      SSL_set_block_padding := @FC_SSL_set_block_padding;
+      SSL_set_block_padding := FC_SSL_set_block_padding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24961,7 +24962,7 @@ begin
     if SSL_set_block_padding_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_block_padding)}
-      SSL_set_block_padding := @_SSL_set_block_padding;
+      SSL_set_block_padding := _SSL_set_block_padding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24978,13 +24979,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_num_tickets_allownil)}
-    SSL_set_num_tickets := @ERR_SSL_set_num_tickets;
+    SSL_set_num_tickets := ERR_SSL_set_num_tickets;
     {$ifend}
     {$if declared(SSL_set_num_tickets_introduced)}
     if LibVersion < SSL_set_num_tickets_introduced then
     begin
       {$if declared(FC_SSL_set_num_tickets)}
-      SSL_set_num_tickets := @FC_SSL_set_num_tickets;
+      SSL_set_num_tickets := FC_SSL_set_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -24993,7 +24994,7 @@ begin
     if SSL_set_num_tickets_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_num_tickets)}
-      SSL_set_num_tickets := @_SSL_set_num_tickets;
+      SSL_set_num_tickets := _SSL_set_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25010,13 +25011,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_num_tickets_allownil)}
-    SSL_get_num_tickets := @ERR_SSL_get_num_tickets;
+    SSL_get_num_tickets := ERR_SSL_get_num_tickets;
     {$ifend}
     {$if declared(SSL_get_num_tickets_introduced)}
     if LibVersion < SSL_get_num_tickets_introduced then
     begin
       {$if declared(FC_SSL_get_num_tickets)}
-      SSL_get_num_tickets := @FC_SSL_get_num_tickets;
+      SSL_get_num_tickets := FC_SSL_get_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25025,7 +25026,7 @@ begin
     if SSL_get_num_tickets_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_num_tickets)}
-      SSL_get_num_tickets := @_SSL_get_num_tickets;
+      SSL_get_num_tickets := _SSL_get_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25042,13 +25043,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_num_tickets_allownil)}
-    SSL_CTX_set_num_tickets := @ERR_SSL_CTX_set_num_tickets;
+    SSL_CTX_set_num_tickets := ERR_SSL_CTX_set_num_tickets;
     {$ifend}
     {$if declared(SSL_CTX_set_num_tickets_introduced)}
     if LibVersion < SSL_CTX_set_num_tickets_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_num_tickets)}
-      SSL_CTX_set_num_tickets := @FC_SSL_CTX_set_num_tickets;
+      SSL_CTX_set_num_tickets := FC_SSL_CTX_set_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25057,7 +25058,7 @@ begin
     if SSL_CTX_set_num_tickets_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_num_tickets)}
-      SSL_CTX_set_num_tickets := @_SSL_CTX_set_num_tickets;
+      SSL_CTX_set_num_tickets := _SSL_CTX_set_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25074,13 +25075,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_num_tickets_allownil)}
-    SSL_CTX_get_num_tickets := @ERR_SSL_CTX_get_num_tickets;
+    SSL_CTX_get_num_tickets := ERR_SSL_CTX_get_num_tickets;
     {$ifend}
     {$if declared(SSL_CTX_get_num_tickets_introduced)}
     if LibVersion < SSL_CTX_get_num_tickets_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_num_tickets)}
-      SSL_CTX_get_num_tickets := @FC_SSL_CTX_get_num_tickets;
+      SSL_CTX_get_num_tickets := FC_SSL_CTX_get_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25089,7 +25090,7 @@ begin
     if SSL_CTX_get_num_tickets_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_num_tickets)}
-      SSL_CTX_get_num_tickets := @_SSL_CTX_get_num_tickets;
+      SSL_CTX_get_num_tickets := _SSL_CTX_get_num_tickets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25106,13 +25107,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_handle_events_allownil)}
-    SSL_handle_events := @ERR_SSL_handle_events;
+    SSL_handle_events := ERR_SSL_handle_events;
     {$ifend}
     {$if declared(SSL_handle_events_introduced)}
     if LibVersion < SSL_handle_events_introduced then
     begin
       {$if declared(FC_SSL_handle_events)}
-      SSL_handle_events := @FC_SSL_handle_events;
+      SSL_handle_events := FC_SSL_handle_events;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25121,7 +25122,7 @@ begin
     if SSL_handle_events_removed <= LibVersion then
     begin
       {$if declared(_SSL_handle_events)}
-      SSL_handle_events := @_SSL_handle_events;
+      SSL_handle_events := _SSL_handle_events;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25138,13 +25139,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_event_timeout_allownil)}
-    SSL_get_event_timeout := @ERR_SSL_get_event_timeout;
+    SSL_get_event_timeout := ERR_SSL_get_event_timeout;
     {$ifend}
     {$if declared(SSL_get_event_timeout_introduced)}
     if LibVersion < SSL_get_event_timeout_introduced then
     begin
       {$if declared(FC_SSL_get_event_timeout)}
-      SSL_get_event_timeout := @FC_SSL_get_event_timeout;
+      SSL_get_event_timeout := FC_SSL_get_event_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25153,7 +25154,7 @@ begin
     if SSL_get_event_timeout_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_event_timeout)}
-      SSL_get_event_timeout := @_SSL_get_event_timeout;
+      SSL_get_event_timeout := _SSL_get_event_timeout;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25169,13 +25170,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_rpoll_descriptor_allownil)}
-    SSL_get_rpoll_descriptor := @ERR_SSL_get_rpoll_descriptor;
+    SSL_get_rpoll_descriptor := ERR_SSL_get_rpoll_descriptor;
     {$ifend}
     {$if declared(SSL_get_rpoll_descriptor_introduced)}
     if LibVersion < SSL_get_rpoll_descriptor_introduced then
     begin
       {$if declared(FC_SSL_get_rpoll_descriptor)}
-      SSL_get_rpoll_descriptor := @FC_SSL_get_rpoll_descriptor;
+      SSL_get_rpoll_descriptor := FC_SSL_get_rpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25184,7 +25185,7 @@ begin
     if SSL_get_rpoll_descriptor_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_rpoll_descriptor)}
-      SSL_get_rpoll_descriptor := @_SSL_get_rpoll_descriptor;
+      SSL_get_rpoll_descriptor := _SSL_get_rpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25200,13 +25201,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_wpoll_descriptor_allownil)}
-    SSL_get_wpoll_descriptor := @ERR_SSL_get_wpoll_descriptor;
+    SSL_get_wpoll_descriptor := ERR_SSL_get_wpoll_descriptor;
     {$ifend}
     {$if declared(SSL_get_wpoll_descriptor_introduced)}
     if LibVersion < SSL_get_wpoll_descriptor_introduced then
     begin
       {$if declared(FC_SSL_get_wpoll_descriptor)}
-      SSL_get_wpoll_descriptor := @FC_SSL_get_wpoll_descriptor;
+      SSL_get_wpoll_descriptor := FC_SSL_get_wpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25215,7 +25216,7 @@ begin
     if SSL_get_wpoll_descriptor_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_wpoll_descriptor)}
-      SSL_get_wpoll_descriptor := @_SSL_get_wpoll_descriptor;
+      SSL_get_wpoll_descriptor := _SSL_get_wpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25231,13 +25232,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_net_read_desired_allownil)}
-    SSL_net_read_desired := @ERR_SSL_net_read_desired;
+    SSL_net_read_desired := ERR_SSL_net_read_desired;
     {$ifend}
     {$if declared(SSL_net_read_desired_introduced)}
     if LibVersion < SSL_net_read_desired_introduced then
     begin
       {$if declared(FC_SSL_net_read_desired)}
-      SSL_net_read_desired := @FC_SSL_net_read_desired;
+      SSL_net_read_desired := FC_SSL_net_read_desired;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25246,7 +25247,7 @@ begin
     if SSL_net_read_desired_removed <= LibVersion then
     begin
       {$if declared(_SSL_net_read_desired)}
-      SSL_net_read_desired := @_SSL_net_read_desired;
+      SSL_net_read_desired := _SSL_net_read_desired;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25262,13 +25263,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_net_write_desired_allownil)}
-    SSL_net_write_desired := @ERR_SSL_net_write_desired;
+    SSL_net_write_desired := ERR_SSL_net_write_desired;
     {$ifend}
     {$if declared(SSL_net_write_desired_introduced)}
     if LibVersion < SSL_net_write_desired_introduced then
     begin
       {$if declared(FC_SSL_net_write_desired)}
-      SSL_net_write_desired := @FC_SSL_net_write_desired;
+      SSL_net_write_desired := FC_SSL_net_write_desired;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25277,7 +25278,7 @@ begin
     if SSL_net_write_desired_removed <= LibVersion then
     begin
       {$if declared(_SSL_net_write_desired)}
-      SSL_net_write_desired := @_SSL_net_write_desired;
+      SSL_net_write_desired := _SSL_net_write_desired;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25293,13 +25294,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_blocking_mode_allownil)}
-    SSL_set_blocking_mode := @ERR_SSL_set_blocking_mode;
+    SSL_set_blocking_mode := ERR_SSL_set_blocking_mode;
     {$ifend}
     {$if declared(SSL_set_blocking_mode_introduced)}
     if LibVersion < SSL_set_blocking_mode_introduced then
     begin
       {$if declared(FC_SSL_set_blocking_mode)}
-      SSL_set_blocking_mode := @FC_SSL_set_blocking_mode;
+      SSL_set_blocking_mode := FC_SSL_set_blocking_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25308,7 +25309,7 @@ begin
     if SSL_set_blocking_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_blocking_mode)}
-      SSL_set_blocking_mode := @_SSL_set_blocking_mode;
+      SSL_set_blocking_mode := _SSL_set_blocking_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25325,13 +25326,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_blocking_mode_allownil)}
-    SSL_get_blocking_mode := @ERR_SSL_get_blocking_mode;
+    SSL_get_blocking_mode := ERR_SSL_get_blocking_mode;
     {$ifend}
     {$if declared(SSL_get_blocking_mode_introduced)}
     if LibVersion < SSL_get_blocking_mode_introduced then
     begin
       {$if declared(FC_SSL_get_blocking_mode)}
-      SSL_get_blocking_mode := @FC_SSL_get_blocking_mode;
+      SSL_get_blocking_mode := FC_SSL_get_blocking_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25340,7 +25341,7 @@ begin
     if SSL_get_blocking_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_blocking_mode)}
-      SSL_get_blocking_mode := @_SSL_get_blocking_mode;
+      SSL_get_blocking_mode := _SSL_get_blocking_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25357,13 +25358,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set1_initial_peer_addr_allownil)}
-    SSL_set1_initial_peer_addr := @ERR_SSL_set1_initial_peer_addr;
+    SSL_set1_initial_peer_addr := ERR_SSL_set1_initial_peer_addr;
     {$ifend}
     {$if declared(SSL_set1_initial_peer_addr_introduced)}
     if LibVersion < SSL_set1_initial_peer_addr_introduced then
     begin
       {$if declared(FC_SSL_set1_initial_peer_addr)}
-      SSL_set1_initial_peer_addr := @FC_SSL_set1_initial_peer_addr;
+      SSL_set1_initial_peer_addr := FC_SSL_set1_initial_peer_addr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25372,7 +25373,7 @@ begin
     if SSL_set1_initial_peer_addr_removed <= LibVersion then
     begin
       {$if declared(_SSL_set1_initial_peer_addr)}
-      SSL_set1_initial_peer_addr := @_SSL_set1_initial_peer_addr;
+      SSL_set1_initial_peer_addr := _SSL_set1_initial_peer_addr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25389,13 +25390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_connection_allownil)}
-    SSL_get0_connection := @ERR_SSL_get0_connection;
+    SSL_get0_connection := ERR_SSL_get0_connection;
     {$ifend}
     {$if declared(SSL_get0_connection_introduced)}
     if LibVersion < SSL_get0_connection_introduced then
     begin
       {$if declared(FC_SSL_get0_connection)}
-      SSL_get0_connection := @FC_SSL_get0_connection;
+      SSL_get0_connection := FC_SSL_get0_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25404,7 +25405,7 @@ begin
     if SSL_get0_connection_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_connection)}
-      SSL_get0_connection := @_SSL_get0_connection;
+      SSL_get0_connection := _SSL_get0_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25421,13 +25422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_connection_allownil)}
-    SSL_is_connection := @ERR_SSL_is_connection;
+    SSL_is_connection := ERR_SSL_is_connection;
     {$ifend}
     {$if declared(SSL_is_connection_introduced)}
     if LibVersion < SSL_is_connection_introduced then
     begin
       {$if declared(FC_SSL_is_connection)}
-      SSL_is_connection := @FC_SSL_is_connection;
+      SSL_is_connection := FC_SSL_is_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25436,7 +25437,7 @@ begin
     if SSL_is_connection_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_connection)}
-      SSL_is_connection := @_SSL_is_connection;
+      SSL_is_connection := _SSL_is_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25453,13 +25454,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_listener_allownil)}
-    SSL_is_listener := @ERR_SSL_is_listener;
+    SSL_is_listener := ERR_SSL_is_listener;
     {$ifend}
     {$if declared(SSL_is_listener_introduced)}
     if LibVersion < SSL_is_listener_introduced then
     begin
       {$if declared(FC_SSL_is_listener)}
-      SSL_is_listener := @FC_SSL_is_listener;
+      SSL_is_listener := FC_SSL_is_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25468,7 +25469,7 @@ begin
     if SSL_is_listener_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_listener)}
-      SSL_is_listener := @_SSL_is_listener;
+      SSL_is_listener := _SSL_is_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25485,13 +25486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_listener_allownil)}
-    SSL_get0_listener := @ERR_SSL_get0_listener;
+    SSL_get0_listener := ERR_SSL_get0_listener;
     {$ifend}
     {$if declared(SSL_get0_listener_introduced)}
     if LibVersion < SSL_get0_listener_introduced then
     begin
       {$if declared(FC_SSL_get0_listener)}
-      SSL_get0_listener := @FC_SSL_get0_listener;
+      SSL_get0_listener := FC_SSL_get0_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25500,7 +25501,7 @@ begin
     if SSL_get0_listener_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_listener)}
-      SSL_get0_listener := @_SSL_get0_listener;
+      SSL_get0_listener := _SSL_get0_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25517,13 +25518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_listener_allownil)}
-    SSL_new_listener := @ERR_SSL_new_listener;
+    SSL_new_listener := ERR_SSL_new_listener;
     {$ifend}
     {$if declared(SSL_new_listener_introduced)}
     if LibVersion < SSL_new_listener_introduced then
     begin
       {$if declared(FC_SSL_new_listener)}
-      SSL_new_listener := @FC_SSL_new_listener;
+      SSL_new_listener := FC_SSL_new_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25532,7 +25533,7 @@ begin
     if SSL_new_listener_removed <= LibVersion then
     begin
       {$if declared(_SSL_new_listener)}
-      SSL_new_listener := @_SSL_new_listener;
+      SSL_new_listener := _SSL_new_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25549,13 +25550,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_listener_from_allownil)}
-    SSL_new_listener_from := @ERR_SSL_new_listener_from;
+    SSL_new_listener_from := ERR_SSL_new_listener_from;
     {$ifend}
     {$if declared(SSL_new_listener_from_introduced)}
     if LibVersion < SSL_new_listener_from_introduced then
     begin
       {$if declared(FC_SSL_new_listener_from)}
-      SSL_new_listener_from := @FC_SSL_new_listener_from;
+      SSL_new_listener_from := FC_SSL_new_listener_from;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25564,7 +25565,7 @@ begin
     if SSL_new_listener_from_removed <= LibVersion then
     begin
       {$if declared(_SSL_new_listener_from)}
-      SSL_new_listener_from := @_SSL_new_listener_from;
+      SSL_new_listener_from := _SSL_new_listener_from;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25581,13 +25582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_from_listener_allownil)}
-    SSL_new_from_listener := @ERR_SSL_new_from_listener;
+    SSL_new_from_listener := ERR_SSL_new_from_listener;
     {$ifend}
     {$if declared(SSL_new_from_listener_introduced)}
     if LibVersion < SSL_new_from_listener_introduced then
     begin
       {$if declared(FC_SSL_new_from_listener)}
-      SSL_new_from_listener := @FC_SSL_new_from_listener;
+      SSL_new_from_listener := FC_SSL_new_from_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25596,7 +25597,7 @@ begin
     if SSL_new_from_listener_removed <= LibVersion then
     begin
       {$if declared(_SSL_new_from_listener)}
-      SSL_new_from_listener := @_SSL_new_from_listener;
+      SSL_new_from_listener := _SSL_new_from_listener;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25613,13 +25614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_accept_connection_allownil)}
-    SSL_accept_connection := @ERR_SSL_accept_connection;
+    SSL_accept_connection := ERR_SSL_accept_connection;
     {$ifend}
     {$if declared(SSL_accept_connection_introduced)}
     if LibVersion < SSL_accept_connection_introduced then
     begin
       {$if declared(FC_SSL_accept_connection)}
-      SSL_accept_connection := @FC_SSL_accept_connection;
+      SSL_accept_connection := FC_SSL_accept_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25628,7 +25629,7 @@ begin
     if SSL_accept_connection_removed <= LibVersion then
     begin
       {$if declared(_SSL_accept_connection)}
-      SSL_accept_connection := @_SSL_accept_connection;
+      SSL_accept_connection := _SSL_accept_connection;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25645,13 +25646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_accept_connection_queue_len_allownil)}
-    SSL_get_accept_connection_queue_len := @ERR_SSL_get_accept_connection_queue_len;
+    SSL_get_accept_connection_queue_len := ERR_SSL_get_accept_connection_queue_len;
     {$ifend}
     {$if declared(SSL_get_accept_connection_queue_len_introduced)}
     if LibVersion < SSL_get_accept_connection_queue_len_introduced then
     begin
       {$if declared(FC_SSL_get_accept_connection_queue_len)}
-      SSL_get_accept_connection_queue_len := @FC_SSL_get_accept_connection_queue_len;
+      SSL_get_accept_connection_queue_len := FC_SSL_get_accept_connection_queue_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25660,7 +25661,7 @@ begin
     if SSL_get_accept_connection_queue_len_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_accept_connection_queue_len)}
-      SSL_get_accept_connection_queue_len := @_SSL_get_accept_connection_queue_len;
+      SSL_get_accept_connection_queue_len := _SSL_get_accept_connection_queue_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25677,13 +25678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_listen_allownil)}
-    SSL_listen := @ERR_SSL_listen;
+    SSL_listen := ERR_SSL_listen;
     {$ifend}
     {$if declared(SSL_listen_introduced)}
     if LibVersion < SSL_listen_introduced then
     begin
       {$if declared(FC_SSL_listen)}
-      SSL_listen := @FC_SSL_listen;
+      SSL_listen := FC_SSL_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25692,7 +25693,7 @@ begin
     if SSL_listen_removed <= LibVersion then
     begin
       {$if declared(_SSL_listen)}
-      SSL_listen := @_SSL_listen;
+      SSL_listen := _SSL_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25709,13 +25710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_domain_allownil)}
-    SSL_is_domain := @ERR_SSL_is_domain;
+    SSL_is_domain := ERR_SSL_is_domain;
     {$ifend}
     {$if declared(SSL_is_domain_introduced)}
     if LibVersion < SSL_is_domain_introduced then
     begin
       {$if declared(FC_SSL_is_domain)}
-      SSL_is_domain := @FC_SSL_is_domain;
+      SSL_is_domain := FC_SSL_is_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25724,7 +25725,7 @@ begin
     if SSL_is_domain_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_domain)}
-      SSL_is_domain := @_SSL_is_domain;
+      SSL_is_domain := _SSL_is_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25741,13 +25742,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_domain_allownil)}
-    SSL_get0_domain := @ERR_SSL_get0_domain;
+    SSL_get0_domain := ERR_SSL_get0_domain;
     {$ifend}
     {$if declared(SSL_get0_domain_introduced)}
     if LibVersion < SSL_get0_domain_introduced then
     begin
       {$if declared(FC_SSL_get0_domain)}
-      SSL_get0_domain := @FC_SSL_get0_domain;
+      SSL_get0_domain := FC_SSL_get0_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25756,7 +25757,7 @@ begin
     if SSL_get0_domain_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_domain)}
-      SSL_get0_domain := @_SSL_get0_domain;
+      SSL_get0_domain := _SSL_get0_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25773,13 +25774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_domain_allownil)}
-    SSL_new_domain := @ERR_SSL_new_domain;
+    SSL_new_domain := ERR_SSL_new_domain;
     {$ifend}
     {$if declared(SSL_new_domain_introduced)}
     if LibVersion < SSL_new_domain_introduced then
     begin
       {$if declared(FC_SSL_new_domain)}
-      SSL_new_domain := @FC_SSL_new_domain;
+      SSL_new_domain := FC_SSL_new_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25788,7 +25789,7 @@ begin
     if SSL_new_domain_removed <= LibVersion then
     begin
       {$if declared(_SSL_new_domain)}
-      SSL_new_domain := @_SSL_new_domain;
+      SSL_new_domain := _SSL_new_domain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25805,13 +25806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_domain_flags_allownil)}
-    SSL_CTX_set_domain_flags := @ERR_SSL_CTX_set_domain_flags;
+    SSL_CTX_set_domain_flags := ERR_SSL_CTX_set_domain_flags;
     {$ifend}
     {$if declared(SSL_CTX_set_domain_flags_introduced)}
     if LibVersion < SSL_CTX_set_domain_flags_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_domain_flags)}
-      SSL_CTX_set_domain_flags := @FC_SSL_CTX_set_domain_flags;
+      SSL_CTX_set_domain_flags := FC_SSL_CTX_set_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25820,7 +25821,7 @@ begin
     if SSL_CTX_set_domain_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_domain_flags)}
-      SSL_CTX_set_domain_flags := @_SSL_CTX_set_domain_flags;
+      SSL_CTX_set_domain_flags := _SSL_CTX_set_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25837,13 +25838,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_domain_flags_allownil)}
-    SSL_CTX_get_domain_flags := @ERR_SSL_CTX_get_domain_flags;
+    SSL_CTX_get_domain_flags := ERR_SSL_CTX_get_domain_flags;
     {$ifend}
     {$if declared(SSL_CTX_get_domain_flags_introduced)}
     if LibVersion < SSL_CTX_get_domain_flags_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_domain_flags)}
-      SSL_CTX_get_domain_flags := @FC_SSL_CTX_get_domain_flags;
+      SSL_CTX_get_domain_flags := FC_SSL_CTX_get_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25852,7 +25853,7 @@ begin
     if SSL_CTX_get_domain_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_domain_flags)}
-      SSL_CTX_get_domain_flags := @_SSL_CTX_get_domain_flags;
+      SSL_CTX_get_domain_flags := _SSL_CTX_get_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25869,13 +25870,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_domain_flags_allownil)}
-    SSL_get_domain_flags := @ERR_SSL_get_domain_flags;
+    SSL_get_domain_flags := ERR_SSL_get_domain_flags;
     {$ifend}
     {$if declared(SSL_get_domain_flags_introduced)}
     if LibVersion < SSL_get_domain_flags_introduced then
     begin
       {$if declared(FC_SSL_get_domain_flags)}
-      SSL_get_domain_flags := @FC_SSL_get_domain_flags;
+      SSL_get_domain_flags := FC_SSL_get_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25884,7 +25885,7 @@ begin
     if SSL_get_domain_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_domain_flags)}
-      SSL_get_domain_flags := @_SSL_get_domain_flags;
+      SSL_get_domain_flags := _SSL_get_domain_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25901,13 +25902,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_type_allownil)}
-    SSL_get_stream_type := @ERR_SSL_get_stream_type;
+    SSL_get_stream_type := ERR_SSL_get_stream_type;
     {$ifend}
     {$if declared(SSL_get_stream_type_introduced)}
     if LibVersion < SSL_get_stream_type_introduced then
     begin
       {$if declared(FC_SSL_get_stream_type)}
-      SSL_get_stream_type := @FC_SSL_get_stream_type;
+      SSL_get_stream_type := FC_SSL_get_stream_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25916,7 +25917,7 @@ begin
     if SSL_get_stream_type_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_type)}
-      SSL_get_stream_type := @_SSL_get_stream_type;
+      SSL_get_stream_type := _SSL_get_stream_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25933,13 +25934,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_stream_id_allownil)}
-    SSL_get_stream_id := @ERR_SSL_get_stream_id;
+    SSL_get_stream_id := ERR_SSL_get_stream_id;
     {$ifend}
     {$if declared(SSL_get_stream_id_introduced)}
     if LibVersion < SSL_get_stream_id_introduced then
     begin
       {$if declared(FC_SSL_get_stream_id)}
-      SSL_get_stream_id := @FC_SSL_get_stream_id;
+      SSL_get_stream_id := FC_SSL_get_stream_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25948,7 +25949,7 @@ begin
     if SSL_get_stream_id_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_stream_id)}
-      SSL_get_stream_id := @_SSL_get_stream_id;
+      SSL_get_stream_id := _SSL_get_stream_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25965,13 +25966,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_stream_local_allownil)}
-    SSL_is_stream_local := @ERR_SSL_is_stream_local;
+    SSL_is_stream_local := ERR_SSL_is_stream_local;
     {$ifend}
     {$if declared(SSL_is_stream_local_introduced)}
     if LibVersion < SSL_is_stream_local_introduced then
     begin
       {$if declared(FC_SSL_is_stream_local)}
-      SSL_is_stream_local := @FC_SSL_is_stream_local;
+      SSL_is_stream_local := FC_SSL_is_stream_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25980,7 +25981,7 @@ begin
     if SSL_is_stream_local_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_stream_local)}
-      SSL_is_stream_local := @_SSL_is_stream_local;
+      SSL_is_stream_local := _SSL_is_stream_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -25997,13 +25998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_default_stream_mode_allownil)}
-    SSL_set_default_stream_mode := @ERR_SSL_set_default_stream_mode;
+    SSL_set_default_stream_mode := ERR_SSL_set_default_stream_mode;
     {$ifend}
     {$if declared(SSL_set_default_stream_mode_introduced)}
     if LibVersion < SSL_set_default_stream_mode_introduced then
     begin
       {$if declared(FC_SSL_set_default_stream_mode)}
-      SSL_set_default_stream_mode := @FC_SSL_set_default_stream_mode;
+      SSL_set_default_stream_mode := FC_SSL_set_default_stream_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26012,7 +26013,7 @@ begin
     if SSL_set_default_stream_mode_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_default_stream_mode)}
-      SSL_set_default_stream_mode := @_SSL_set_default_stream_mode;
+      SSL_set_default_stream_mode := _SSL_set_default_stream_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26029,13 +26030,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_new_stream_allownil)}
-    SSL_new_stream := @ERR_SSL_new_stream;
+    SSL_new_stream := ERR_SSL_new_stream;
     {$ifend}
     {$if declared(SSL_new_stream_introduced)}
     if LibVersion < SSL_new_stream_introduced then
     begin
       {$if declared(FC_SSL_new_stream)}
-      SSL_new_stream := @FC_SSL_new_stream;
+      SSL_new_stream := FC_SSL_new_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26044,7 +26045,7 @@ begin
     if SSL_new_stream_removed <= LibVersion then
     begin
       {$if declared(_SSL_new_stream)}
-      SSL_new_stream := @_SSL_new_stream;
+      SSL_new_stream := _SSL_new_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26061,13 +26062,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_incoming_stream_policy_allownil)}
-    SSL_set_incoming_stream_policy := @ERR_SSL_set_incoming_stream_policy;
+    SSL_set_incoming_stream_policy := ERR_SSL_set_incoming_stream_policy;
     {$ifend}
     {$if declared(SSL_set_incoming_stream_policy_introduced)}
     if LibVersion < SSL_set_incoming_stream_policy_introduced then
     begin
       {$if declared(FC_SSL_set_incoming_stream_policy)}
-      SSL_set_incoming_stream_policy := @FC_SSL_set_incoming_stream_policy;
+      SSL_set_incoming_stream_policy := FC_SSL_set_incoming_stream_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26076,7 +26077,7 @@ begin
     if SSL_set_incoming_stream_policy_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_incoming_stream_policy)}
-      SSL_set_incoming_stream_policy := @_SSL_set_incoming_stream_policy;
+      SSL_set_incoming_stream_policy := _SSL_set_incoming_stream_policy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26093,13 +26094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_accept_stream_allownil)}
-    SSL_accept_stream := @ERR_SSL_accept_stream;
+    SSL_accept_stream := ERR_SSL_accept_stream;
     {$ifend}
     {$if declared(SSL_accept_stream_introduced)}
     if LibVersion < SSL_accept_stream_introduced then
     begin
       {$if declared(FC_SSL_accept_stream)}
-      SSL_accept_stream := @FC_SSL_accept_stream;
+      SSL_accept_stream := FC_SSL_accept_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26108,7 +26109,7 @@ begin
     if SSL_accept_stream_removed <= LibVersion then
     begin
       {$if declared(_SSL_accept_stream)}
-      SSL_accept_stream := @_SSL_accept_stream;
+      SSL_accept_stream := _SSL_accept_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26124,13 +26125,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_accept_stream_queue_len_allownil)}
-    SSL_get_accept_stream_queue_len := @ERR_SSL_get_accept_stream_queue_len;
+    SSL_get_accept_stream_queue_len := ERR_SSL_get_accept_stream_queue_len;
     {$ifend}
     {$if declared(SSL_get_accept_stream_queue_len_introduced)}
     if LibVersion < SSL_get_accept_stream_queue_len_introduced then
     begin
       {$if declared(FC_SSL_get_accept_stream_queue_len)}
-      SSL_get_accept_stream_queue_len := @FC_SSL_get_accept_stream_queue_len;
+      SSL_get_accept_stream_queue_len := FC_SSL_get_accept_stream_queue_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26139,7 +26140,7 @@ begin
     if SSL_get_accept_stream_queue_len_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_accept_stream_queue_len)}
-      SSL_get_accept_stream_queue_len := @_SSL_get_accept_stream_queue_len;
+      SSL_get_accept_stream_queue_len := _SSL_get_accept_stream_queue_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26157,13 +26158,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_inject_net_dgram_allownil)}
-    SSL_inject_net_dgram := @ERR_SSL_inject_net_dgram;
+    SSL_inject_net_dgram := ERR_SSL_inject_net_dgram;
     {$ifend}
     {$if declared(SSL_inject_net_dgram_introduced)}
     if LibVersion < SSL_inject_net_dgram_introduced then
     begin
       {$if declared(FC_SSL_inject_net_dgram)}
-      SSL_inject_net_dgram := @FC_SSL_inject_net_dgram;
+      SSL_inject_net_dgram := FC_SSL_inject_net_dgram;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26172,7 +26173,7 @@ begin
     if SSL_inject_net_dgram_removed <= LibVersion then
     begin
       {$if declared(_SSL_inject_net_dgram)}
-      SSL_inject_net_dgram := @_SSL_inject_net_dgram(;
+      SSL_inject_net_dgram := _SSL_inject_net_dgram(;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26190,13 +26191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_session_reused_allownil)}
-    SSL_session_reused := @ERR_SSL_session_reused;
+    SSL_session_reused := ERR_SSL_session_reused;
     {$ifend}
     {$if declared(SSL_session_reused_introduced)}
     if LibVersion < SSL_session_reused_introduced then
     begin
       {$if declared(FC_SSL_session_reused)}
-      SSL_session_reused := @FC_SSL_session_reused;
+      SSL_session_reused := FC_SSL_session_reused;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26205,7 +26206,7 @@ begin
     if SSL_session_reused_removed <= LibVersion then
     begin
       {$if declared(_SSL_session_reused)}
-      SSL_session_reused := @_SSL_session_reused;
+      SSL_session_reused := _SSL_session_reused;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26222,13 +26223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_is_server_allownil)}
-    SSL_is_server := @ERR_SSL_is_server;
+    SSL_is_server := ERR_SSL_is_server;
     {$ifend}
     {$if declared(SSL_is_server_introduced)}
     if LibVersion < SSL_is_server_introduced then
     begin
       {$if declared(FC_SSL_is_server)}
-      SSL_is_server := @FC_SSL_is_server;
+      SSL_is_server := FC_SSL_is_server;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26237,7 +26238,7 @@ begin
     if SSL_is_server_removed <= LibVersion then
     begin
       {$if declared(_SSL_is_server)}
-      SSL_is_server := @_SSL_is_server;
+      SSL_is_server := _SSL_is_server;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26254,13 +26255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_new_allownil)}
-    SSL_CONF_CTX_new := @ERR_SSL_CONF_CTX_new;
+    SSL_CONF_CTX_new := ERR_SSL_CONF_CTX_new;
     {$ifend}
     {$if declared(SSL_CONF_CTX_new_introduced)}
     if LibVersion < SSL_CONF_CTX_new_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_new)}
-      SSL_CONF_CTX_new := @FC_SSL_CONF_CTX_new;
+      SSL_CONF_CTX_new := FC_SSL_CONF_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26269,7 +26270,7 @@ begin
     if SSL_CONF_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_new)}
-      SSL_CONF_CTX_new := @_SSL_CONF_CTX_new;
+      SSL_CONF_CTX_new := _SSL_CONF_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26286,13 +26287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_finish_allownil)}
-    SSL_CONF_CTX_finish := @ERR_SSL_CONF_CTX_finish;
+    SSL_CONF_CTX_finish := ERR_SSL_CONF_CTX_finish;
     {$ifend}
     {$if declared(SSL_CONF_CTX_finish_introduced)}
     if LibVersion < SSL_CONF_CTX_finish_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_finish)}
-      SSL_CONF_CTX_finish := @FC_SSL_CONF_CTX_finish;
+      SSL_CONF_CTX_finish := FC_SSL_CONF_CTX_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26301,7 +26302,7 @@ begin
     if SSL_CONF_CTX_finish_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_finish)}
-      SSL_CONF_CTX_finish := @_SSL_CONF_CTX_finish;
+      SSL_CONF_CTX_finish := _SSL_CONF_CTX_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26318,13 +26319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_free_allownil)}
-    SSL_CONF_CTX_free := @ERR_SSL_CONF_CTX_free;
+    SSL_CONF_CTX_free := ERR_SSL_CONF_CTX_free;
     {$ifend}
     {$if declared(SSL_CONF_CTX_free_introduced)}
     if LibVersion < SSL_CONF_CTX_free_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_free)}
-      SSL_CONF_CTX_free := @FC_SSL_CONF_CTX_free;
+      SSL_CONF_CTX_free := FC_SSL_CONF_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26333,7 +26334,7 @@ begin
     if SSL_CONF_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_free)}
-      SSL_CONF_CTX_free := @_SSL_CONF_CTX_free;
+      SSL_CONF_CTX_free := _SSL_CONF_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26350,13 +26351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_set_flags_allownil)}
-    SSL_CONF_CTX_set_flags := @ERR_SSL_CONF_CTX_set_flags;
+    SSL_CONF_CTX_set_flags := ERR_SSL_CONF_CTX_set_flags;
     {$ifend}
     {$if declared(SSL_CONF_CTX_set_flags_introduced)}
     if LibVersion < SSL_CONF_CTX_set_flags_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_set_flags)}
-      SSL_CONF_CTX_set_flags := @FC_SSL_CONF_CTX_set_flags;
+      SSL_CONF_CTX_set_flags := FC_SSL_CONF_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26365,7 +26366,7 @@ begin
     if SSL_CONF_CTX_set_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_set_flags)}
-      SSL_CONF_CTX_set_flags := @_SSL_CONF_CTX_set_flags;
+      SSL_CONF_CTX_set_flags := _SSL_CONF_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26382,13 +26383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_clear_flags_allownil)}
-    SSL_CONF_CTX_clear_flags := @ERR_SSL_CONF_CTX_clear_flags;
+    SSL_CONF_CTX_clear_flags := ERR_SSL_CONF_CTX_clear_flags;
     {$ifend}
     {$if declared(SSL_CONF_CTX_clear_flags_introduced)}
     if LibVersion < SSL_CONF_CTX_clear_flags_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_clear_flags)}
-      SSL_CONF_CTX_clear_flags := @FC_SSL_CONF_CTX_clear_flags;
+      SSL_CONF_CTX_clear_flags := FC_SSL_CONF_CTX_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26397,7 +26398,7 @@ begin
     if SSL_CONF_CTX_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_clear_flags)}
-      SSL_CONF_CTX_clear_flags := @_SSL_CONF_CTX_clear_flags;
+      SSL_CONF_CTX_clear_flags := _SSL_CONF_CTX_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26414,13 +26415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_set1_prefix_allownil)}
-    SSL_CONF_CTX_set1_prefix := @ERR_SSL_CONF_CTX_set1_prefix;
+    SSL_CONF_CTX_set1_prefix := ERR_SSL_CONF_CTX_set1_prefix;
     {$ifend}
     {$if declared(SSL_CONF_CTX_set1_prefix_introduced)}
     if LibVersion < SSL_CONF_CTX_set1_prefix_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_set1_prefix)}
-      SSL_CONF_CTX_set1_prefix := @FC_SSL_CONF_CTX_set1_prefix;
+      SSL_CONF_CTX_set1_prefix := FC_SSL_CONF_CTX_set1_prefix;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26429,7 +26430,7 @@ begin
     if SSL_CONF_CTX_set1_prefix_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_set1_prefix)}
-      SSL_CONF_CTX_set1_prefix := @_SSL_CONF_CTX_set1_prefix;
+      SSL_CONF_CTX_set1_prefix := _SSL_CONF_CTX_set1_prefix;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26446,13 +26447,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_cmd_allownil)}
-    SSL_CONF_cmd := @ERR_SSL_CONF_cmd;
+    SSL_CONF_cmd := ERR_SSL_CONF_cmd;
     {$ifend}
     {$if declared(SSL_CONF_cmd_introduced)}
     if LibVersion < SSL_CONF_cmd_introduced then
     begin
       {$if declared(FC_SSL_CONF_cmd)}
-      SSL_CONF_cmd := @FC_SSL_CONF_cmd;
+      SSL_CONF_cmd := FC_SSL_CONF_cmd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26461,7 +26462,7 @@ begin
     if SSL_CONF_cmd_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_cmd)}
-      SSL_CONF_cmd := @_SSL_CONF_cmd;
+      SSL_CONF_cmd := _SSL_CONF_cmd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26478,13 +26479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_cmd_argv_allownil)}
-    SSL_CONF_cmd_argv := @ERR_SSL_CONF_cmd_argv;
+    SSL_CONF_cmd_argv := ERR_SSL_CONF_cmd_argv;
     {$ifend}
     {$if declared(SSL_CONF_cmd_argv_introduced)}
     if LibVersion < SSL_CONF_cmd_argv_introduced then
     begin
       {$if declared(FC_SSL_CONF_cmd_argv)}
-      SSL_CONF_cmd_argv := @FC_SSL_CONF_cmd_argv;
+      SSL_CONF_cmd_argv := FC_SSL_CONF_cmd_argv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26493,7 +26494,7 @@ begin
     if SSL_CONF_cmd_argv_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_cmd_argv)}
-      SSL_CONF_cmd_argv := @_SSL_CONF_cmd_argv;
+      SSL_CONF_cmd_argv := _SSL_CONF_cmd_argv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26510,13 +26511,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_cmd_value_type_allownil)}
-    SSL_CONF_cmd_value_type := @ERR_SSL_CONF_cmd_value_type;
+    SSL_CONF_cmd_value_type := ERR_SSL_CONF_cmd_value_type;
     {$ifend}
     {$if declared(SSL_CONF_cmd_value_type_introduced)}
     if LibVersion < SSL_CONF_cmd_value_type_introduced then
     begin
       {$if declared(FC_SSL_CONF_cmd_value_type)}
-      SSL_CONF_cmd_value_type := @FC_SSL_CONF_cmd_value_type;
+      SSL_CONF_cmd_value_type := FC_SSL_CONF_cmd_value_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26525,7 +26526,7 @@ begin
     if SSL_CONF_cmd_value_type_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_cmd_value_type)}
-      SSL_CONF_cmd_value_type := @_SSL_CONF_cmd_value_type;
+      SSL_CONF_cmd_value_type := _SSL_CONF_cmd_value_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26542,13 +26543,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_set_ssl_allownil)}
-    SSL_CONF_CTX_set_ssl := @ERR_SSL_CONF_CTX_set_ssl;
+    SSL_CONF_CTX_set_ssl := ERR_SSL_CONF_CTX_set_ssl;
     {$ifend}
     {$if declared(SSL_CONF_CTX_set_ssl_introduced)}
     if LibVersion < SSL_CONF_CTX_set_ssl_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_set_ssl)}
-      SSL_CONF_CTX_set_ssl := @FC_SSL_CONF_CTX_set_ssl;
+      SSL_CONF_CTX_set_ssl := FC_SSL_CONF_CTX_set_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26557,7 +26558,7 @@ begin
     if SSL_CONF_CTX_set_ssl_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_set_ssl)}
-      SSL_CONF_CTX_set_ssl := @_SSL_CONF_CTX_set_ssl;
+      SSL_CONF_CTX_set_ssl := _SSL_CONF_CTX_set_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26574,13 +26575,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CONF_CTX_set_ssl_ctx_allownil)}
-    SSL_CONF_CTX_set_ssl_ctx := @ERR_SSL_CONF_CTX_set_ssl_ctx;
+    SSL_CONF_CTX_set_ssl_ctx := ERR_SSL_CONF_CTX_set_ssl_ctx;
     {$ifend}
     {$if declared(SSL_CONF_CTX_set_ssl_ctx_introduced)}
     if LibVersion < SSL_CONF_CTX_set_ssl_ctx_introduced then
     begin
       {$if declared(FC_SSL_CONF_CTX_set_ssl_ctx)}
-      SSL_CONF_CTX_set_ssl_ctx := @FC_SSL_CONF_CTX_set_ssl_ctx;
+      SSL_CONF_CTX_set_ssl_ctx := FC_SSL_CONF_CTX_set_ssl_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26589,7 +26590,7 @@ begin
     if SSL_CONF_CTX_set_ssl_ctx_removed <= LibVersion then
     begin
       {$if declared(_SSL_CONF_CTX_set_ssl_ctx)}
-      SSL_CONF_CTX_set_ssl_ctx := @_SSL_CONF_CTX_set_ssl_ctx;
+      SSL_CONF_CTX_set_ssl_ctx := _SSL_CONF_CTX_set_ssl_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26606,13 +26607,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_add_ssl_module_allownil)}
-    SSL_add_ssl_module := @ERR_SSL_add_ssl_module;
+    SSL_add_ssl_module := ERR_SSL_add_ssl_module;
     {$ifend}
     {$if declared(SSL_add_ssl_module_introduced)}
     if LibVersion < SSL_add_ssl_module_introduced then
     begin
       {$if declared(FC_SSL_add_ssl_module)}
-      SSL_add_ssl_module := @FC_SSL_add_ssl_module;
+      SSL_add_ssl_module := FC_SSL_add_ssl_module;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26621,7 +26622,7 @@ begin
     if SSL_add_ssl_module_removed <= LibVersion then
     begin
       {$if declared(_SSL_add_ssl_module)}
-      SSL_add_ssl_module := @_SSL_add_ssl_module;
+      SSL_add_ssl_module := _SSL_add_ssl_module;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26638,13 +26639,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_config_allownil)}
-    SSL_config := @ERR_SSL_config;
+    SSL_config := ERR_SSL_config;
     {$ifend}
     {$if declared(SSL_config_introduced)}
     if LibVersion < SSL_config_introduced then
     begin
       {$if declared(FC_SSL_config)}
-      SSL_config := @FC_SSL_config;
+      SSL_config := FC_SSL_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26653,7 +26654,7 @@ begin
     if SSL_config_removed <= LibVersion then
     begin
       {$if declared(_SSL_config)}
-      SSL_config := @_SSL_config;
+      SSL_config := _SSL_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26670,13 +26671,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_config_allownil)}
-    SSL_CTX_config := @ERR_SSL_CTX_config;
+    SSL_CTX_config := ERR_SSL_CTX_config;
     {$ifend}
     {$if declared(SSL_CTX_config_introduced)}
     if LibVersion < SSL_CTX_config_introduced then
     begin
       {$if declared(FC_SSL_CTX_config)}
-      SSL_CTX_config := @FC_SSL_CTX_config;
+      SSL_CTX_config := FC_SSL_CTX_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26685,7 +26686,7 @@ begin
     if SSL_CTX_config_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_config)}
-      SSL_CTX_config := @_SSL_CTX_config;
+      SSL_CTX_config := _SSL_CTX_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26701,13 +26702,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_ct_validation_callback_allownil)}
-    SSL_set_ct_validation_callback := @ERR_SSL_set_ct_validation_callback;
+    SSL_set_ct_validation_callback := ERR_SSL_set_ct_validation_callback;
     {$ifend}
     {$if declared(SSL_set_ct_validation_callback_introduced)}
     if LibVersion < SSL_set_ct_validation_callback_introduced then
     begin
       {$if declared(FC_SSL_set_ct_validation_callback)}
-      SSL_set_ct_validation_callback := @FC_SSL_set_ct_validation_callback;
+      SSL_set_ct_validation_callback := FC_SSL_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26716,7 +26717,7 @@ begin
     if SSL_set_ct_validation_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_ct_validation_callback)}
-      SSL_set_ct_validation_callback := @_SSL_set_ct_validation_callback;
+      SSL_set_ct_validation_callback := _SSL_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26731,13 +26732,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_ct_validation_callback_allownil)}
-    SSL_CTX_set_ct_validation_callback := @ERR_SSL_CTX_set_ct_validation_callback;
+    SSL_CTX_set_ct_validation_callback := ERR_SSL_CTX_set_ct_validation_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_ct_validation_callback_introduced)}
     if LibVersion < SSL_CTX_set_ct_validation_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_ct_validation_callback)}
-      SSL_CTX_set_ct_validation_callback := @FC_SSL_CTX_set_ct_validation_callback;
+      SSL_CTX_set_ct_validation_callback := FC_SSL_CTX_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26746,7 +26747,7 @@ begin
     if SSL_CTX_set_ct_validation_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_ct_validation_callback)}
-      SSL_CTX_set_ct_validation_callback := @_SSL_CTX_set_ct_validation_callback;
+      SSL_CTX_set_ct_validation_callback := _SSL_CTX_set_ct_validation_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26762,13 +26763,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLSv1_listen_allownil)}
-    DTLSv1_listen := @ERR_DTLSv1_listen;
+    DTLSv1_listen := ERR_DTLSv1_listen;
     {$ifend}
     {$if declared(DTLSv1_listen_introduced)}
     if LibVersion < DTLSv1_listen_introduced then
     begin
       {$if declared(FC_DTLSv1_listen)}
-      DTLSv1_listen := @FC_DTLSv1_listen;
+      DTLSv1_listen := FC_DTLSv1_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26777,7 +26778,7 @@ begin
     if DTLSv1_listen_removed <= LibVersion then
     begin
       {$if declared(_DTLSv1_listen)}
-      DTLSv1_listen := @_DTLSv1_listen;
+      DTLSv1_listen := _DTLSv1_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26794,13 +26795,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_trace_allownil)}
-    SSL_trace := @ERR_SSL_trace;
+    SSL_trace := ERR_SSL_trace;
     {$ifend}
     {$if declared(SSL_trace_introduced)}
     if LibVersion < SSL_trace_introduced then
     begin
       {$if declared(FC_SSL_trace)}
-      SSL_trace := @FC_SSL_trace;
+      SSL_trace := FC_SSL_trace;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26809,7 +26810,7 @@ begin
     if SSL_trace_removed <= LibVersion then
     begin
       {$if declared(_SSL_trace)}
-      SSL_trace := @_SSL_trace;
+      SSL_trace := _SSL_trace;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26826,13 +26827,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_enable_ct_allownil)}
-    SSL_enable_ct := @ERR_SSL_enable_ct;
+    SSL_enable_ct := ERR_SSL_enable_ct;
     {$ifend}
     {$if declared(SSL_enable_ct_introduced)}
     if LibVersion < SSL_enable_ct_introduced then
     begin
       {$if declared(FC_SSL_enable_ct)}
-      SSL_enable_ct := @FC_SSL_enable_ct;
+      SSL_enable_ct := FC_SSL_enable_ct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26841,7 +26842,7 @@ begin
     if SSL_enable_ct_removed <= LibVersion then
     begin
       {$if declared(_SSL_enable_ct)}
-      SSL_enable_ct := @_SSL_enable_ct;
+      SSL_enable_ct := _SSL_enable_ct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26858,13 +26859,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_enable_ct_allownil)}
-    SSL_CTX_enable_ct := @ERR_SSL_CTX_enable_ct;
+    SSL_CTX_enable_ct := ERR_SSL_CTX_enable_ct;
     {$ifend}
     {$if declared(SSL_CTX_enable_ct_introduced)}
     if LibVersion < SSL_CTX_enable_ct_introduced then
     begin
       {$if declared(FC_SSL_CTX_enable_ct)}
-      SSL_CTX_enable_ct := @FC_SSL_CTX_enable_ct;
+      SSL_CTX_enable_ct := FC_SSL_CTX_enable_ct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26873,7 +26874,7 @@ begin
     if SSL_CTX_enable_ct_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_enable_ct)}
-      SSL_CTX_enable_ct := @_SSL_CTX_enable_ct;
+      SSL_CTX_enable_ct := _SSL_CTX_enable_ct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26890,13 +26891,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_ct_is_enabled_allownil)}
-    SSL_ct_is_enabled := @ERR_SSL_ct_is_enabled;
+    SSL_ct_is_enabled := ERR_SSL_ct_is_enabled;
     {$ifend}
     {$if declared(SSL_ct_is_enabled_introduced)}
     if LibVersion < SSL_ct_is_enabled_introduced then
     begin
       {$if declared(FC_SSL_ct_is_enabled)}
-      SSL_ct_is_enabled := @FC_SSL_ct_is_enabled;
+      SSL_ct_is_enabled := FC_SSL_ct_is_enabled;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26905,7 +26906,7 @@ begin
     if SSL_ct_is_enabled_removed <= LibVersion then
     begin
       {$if declared(_SSL_ct_is_enabled)}
-      SSL_ct_is_enabled := @_SSL_ct_is_enabled;
+      SSL_ct_is_enabled := _SSL_ct_is_enabled;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26922,13 +26923,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_ct_is_enabled_allownil)}
-    SSL_CTX_ct_is_enabled := @ERR_SSL_CTX_ct_is_enabled;
+    SSL_CTX_ct_is_enabled := ERR_SSL_CTX_ct_is_enabled;
     {$ifend}
     {$if declared(SSL_CTX_ct_is_enabled_introduced)}
     if LibVersion < SSL_CTX_ct_is_enabled_introduced then
     begin
       {$if declared(FC_SSL_CTX_ct_is_enabled)}
-      SSL_CTX_ct_is_enabled := @FC_SSL_CTX_ct_is_enabled;
+      SSL_CTX_ct_is_enabled := FC_SSL_CTX_ct_is_enabled;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26937,7 +26938,7 @@ begin
     if SSL_CTX_ct_is_enabled_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_ct_is_enabled)}
-      SSL_CTX_ct_is_enabled := @_SSL_CTX_ct_is_enabled;
+      SSL_CTX_ct_is_enabled := _SSL_CTX_ct_is_enabled;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26953,13 +26954,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_peer_scts_allownil)}
-    SSL_get0_peer_scts := @ERR_SSL_get0_peer_scts;
+    SSL_get0_peer_scts := ERR_SSL_get0_peer_scts;
     {$ifend}
     {$if declared(SSL_get0_peer_scts_introduced)}
     if LibVersion < SSL_get0_peer_scts_introduced then
     begin
       {$if declared(FC_SSL_get0_peer_scts)}
-      SSL_get0_peer_scts := @FC_SSL_get0_peer_scts;
+      SSL_get0_peer_scts := FC_SSL_get0_peer_scts;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26968,7 +26969,7 @@ begin
     if SSL_get0_peer_scts_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_peer_scts)}
-      SSL_get0_peer_scts := @_SSL_get0_peer_scts;
+      SSL_get0_peer_scts := _SSL_get0_peer_scts;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -26985,13 +26986,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_default_ctlog_list_file_allownil)}
-    SSL_CTX_set_default_ctlog_list_file := @ERR_SSL_CTX_set_default_ctlog_list_file;
+    SSL_CTX_set_default_ctlog_list_file := ERR_SSL_CTX_set_default_ctlog_list_file;
     {$ifend}
     {$if declared(SSL_CTX_set_default_ctlog_list_file_introduced)}
     if LibVersion < SSL_CTX_set_default_ctlog_list_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_default_ctlog_list_file)}
-      SSL_CTX_set_default_ctlog_list_file := @FC_SSL_CTX_set_default_ctlog_list_file;
+      SSL_CTX_set_default_ctlog_list_file := FC_SSL_CTX_set_default_ctlog_list_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27000,7 +27001,7 @@ begin
     if SSL_CTX_set_default_ctlog_list_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_default_ctlog_list_file)}
-      SSL_CTX_set_default_ctlog_list_file := @_SSL_CTX_set_default_ctlog_list_file;
+      SSL_CTX_set_default_ctlog_list_file := _SSL_CTX_set_default_ctlog_list_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27017,13 +27018,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_ctlog_list_file_allownil)}
-    SSL_CTX_set_ctlog_list_file := @ERR_SSL_CTX_set_ctlog_list_file;
+    SSL_CTX_set_ctlog_list_file := ERR_SSL_CTX_set_ctlog_list_file;
     {$ifend}
     {$if declared(SSL_CTX_set_ctlog_list_file_introduced)}
     if LibVersion < SSL_CTX_set_ctlog_list_file_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_ctlog_list_file)}
-      SSL_CTX_set_ctlog_list_file := @FC_SSL_CTX_set_ctlog_list_file;
+      SSL_CTX_set_ctlog_list_file := FC_SSL_CTX_set_ctlog_list_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27032,7 +27033,7 @@ begin
     if SSL_CTX_set_ctlog_list_file_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_ctlog_list_file)}
-      SSL_CTX_set_ctlog_list_file := @_SSL_CTX_set_ctlog_list_file;
+      SSL_CTX_set_ctlog_list_file := _SSL_CTX_set_ctlog_list_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27050,13 +27051,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_ctlog_store_allownil)}
-    SSL_CTX_set0_ctlog_store := @ERR_SSL_CTX_set0_ctlog_store;
+    SSL_CTX_set0_ctlog_store := ERR_SSL_CTX_set0_ctlog_store;
     {$ifend}
     {$if declared(SSL_CTX_set0_ctlog_store_introduced)}
     if LibVersion < SSL_CTX_set0_ctlog_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_ctlog_store)}
-      SSL_CTX_set0_ctlog_store := @FC_SSL_CTX_set0_ctlog_store;
+      SSL_CTX_set0_ctlog_store := FC_SSL_CTX_set0_ctlog_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27065,7 +27066,7 @@ begin
     if SSL_CTX_set0_ctlog_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_ctlog_store)}
-      SSL_CTX_set0_ctlog_store := @_SSL_CTX_set0_ctlog_store;
+      SSL_CTX_set0_ctlog_store := _SSL_CTX_set0_ctlog_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27081,13 +27082,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_ctlog_store_allownil)}
-    SSL_CTX_get0_ctlog_store := @ERR_SSL_CTX_get0_ctlog_store;
+    SSL_CTX_get0_ctlog_store := ERR_SSL_CTX_get0_ctlog_store;
     {$ifend}
     {$if declared(SSL_CTX_get0_ctlog_store_introduced)}
     if LibVersion < SSL_CTX_get0_ctlog_store_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_ctlog_store)}
-      SSL_CTX_get0_ctlog_store := @FC_SSL_CTX_get0_ctlog_store;
+      SSL_CTX_get0_ctlog_store := FC_SSL_CTX_get0_ctlog_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27096,7 +27097,7 @@ begin
     if SSL_CTX_get0_ctlog_store_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_ctlog_store)}
-      SSL_CTX_get0_ctlog_store := @_SSL_CTX_get0_ctlog_store;
+      SSL_CTX_get0_ctlog_store := _SSL_CTX_get0_ctlog_store;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27113,13 +27114,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_security_level_allownil)}
-    SSL_set_security_level := @ERR_SSL_set_security_level;
+    SSL_set_security_level := ERR_SSL_set_security_level;
     {$ifend}
     {$if declared(SSL_set_security_level_introduced)}
     if LibVersion < SSL_set_security_level_introduced then
     begin
       {$if declared(FC_SSL_set_security_level)}
-      SSL_set_security_level := @FC_SSL_set_security_level;
+      SSL_set_security_level := FC_SSL_set_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27128,7 +27129,7 @@ begin
     if SSL_set_security_level_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_security_level)}
-      SSL_set_security_level := @_SSL_set_security_level;
+      SSL_set_security_level := _SSL_set_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27144,13 +27145,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_security_level_allownil)}
-    SSL_get_security_level := @ERR_SSL_get_security_level;
+    SSL_get_security_level := ERR_SSL_get_security_level;
     {$ifend}
     {$if declared(SSL_get_security_level_introduced)}
     if LibVersion < SSL_get_security_level_introduced then
     begin
       {$if declared(FC_SSL_get_security_level)}
-      SSL_get_security_level := @FC_SSL_get_security_level;
+      SSL_get_security_level := FC_SSL_get_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27159,7 +27160,7 @@ begin
     if SSL_get_security_level_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_security_level)}
-      SSL_get_security_level := @_SSL_get_security_level;
+      SSL_get_security_level := _SSL_get_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27176,13 +27177,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_security_callback_allownil)}
-    SSL_set_security_callback := @ERR_SSL_set_security_callback;
+    SSL_set_security_callback := ERR_SSL_set_security_callback;
     {$ifend}
     {$if declared(SSL_set_security_callback_introduced)}
     if LibVersion < SSL_set_security_callback_introduced then
     begin
       {$if declared(FC_SSL_set_security_callback)}
-      SSL_set_security_callback := @FC_SSL_set_security_callback;
+      SSL_set_security_callback := FC_SSL_set_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27191,7 +27192,7 @@ begin
     if SSL_set_security_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_security_callback)}
-      SSL_set_security_callback := @_SSL_set_security_callback;
+      SSL_set_security_callback := _SSL_set_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27208,13 +27209,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_security_callback_allownil)}
-    SSL_get_security_callback := @ERR_SSL_get_security_callback;
+    SSL_get_security_callback := ERR_SSL_get_security_callback;
     {$ifend}
     {$if declared(SSL_get_security_callback_introduced)}
     if LibVersion < SSL_get_security_callback_introduced then
     begin
       {$if declared(FC_SSL_get_security_callback)}
-      SSL_get_security_callback := @FC_SSL_get_security_callback;
+      SSL_get_security_callback := FC_SSL_get_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27223,7 +27224,7 @@ begin
     if SSL_get_security_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_security_callback)}
-      SSL_get_security_callback := @_SSL_get_security_callback;
+      SSL_get_security_callback := _SSL_get_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27239,13 +27240,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_security_callback_allownil)}
-    SSL_CTX_set_security_callback := @ERR_SSL_CTX_set_security_callback;
+    SSL_CTX_set_security_callback := ERR_SSL_CTX_set_security_callback;
     {$ifend}
     {$if declared(SSL_CTX_set_security_callback_introduced)}
     if LibVersion < SSL_CTX_set_security_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_security_callback)}
-      SSL_CTX_set_security_callback := @FC_SSL_CTX_set_security_callback;
+      SSL_CTX_set_security_callback := FC_SSL_CTX_set_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27254,7 +27255,7 @@ begin
     if SSL_CTX_set_security_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_security_callback)}
-      SSL_CTX_set_security_callback := @_SSL_CTX_set_security_callback;
+      SSL_CTX_set_security_callback := _SSL_CTX_set_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27270,13 +27271,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_security_callback_allownil)}
-    SSL_CTX_get_security_callback := @ERR_SSL_CTX_get_security_callback;
+    SSL_CTX_get_security_callback := ERR_SSL_CTX_get_security_callback;
     {$ifend}
     {$if declared(SSL_CTX_get_security_callback_introduced)}
     if LibVersion < SSL_CTX_get_security_callback_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_security_callback)}
-      SSL_CTX_get_security_callback := @FC_SSL_CTX_get_security_callback;
+      SSL_CTX_get_security_callback := FC_SSL_CTX_get_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27285,7 +27286,7 @@ begin
     if SSL_CTX_get_security_callback_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_security_callback)}
-      SSL_CTX_get_security_callback := @_SSL_CTX_get_security_callback;
+      SSL_CTX_get_security_callback := _SSL_CTX_get_security_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27302,13 +27303,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set0_security_ex_data_allownil)}
-    SSL_set0_security_ex_data := @ERR_SSL_set0_security_ex_data;
+    SSL_set0_security_ex_data := ERR_SSL_set0_security_ex_data;
     {$ifend}
     {$if declared(SSL_set0_security_ex_data_introduced)}
     if LibVersion < SSL_set0_security_ex_data_introduced then
     begin
       {$if declared(FC_SSL_set0_security_ex_data)}
-      SSL_set0_security_ex_data := @FC_SSL_set0_security_ex_data;
+      SSL_set0_security_ex_data := FC_SSL_set0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27317,7 +27318,7 @@ begin
     if SSL_set0_security_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_set0_security_ex_data)}
-      SSL_set0_security_ex_data := @_SSL_set0_security_ex_data;
+      SSL_set0_security_ex_data := _SSL_set0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27334,13 +27335,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_security_ex_data_allownil)}
-    SSL_get0_security_ex_data := @ERR_SSL_get0_security_ex_data;
+    SSL_get0_security_ex_data := ERR_SSL_get0_security_ex_data;
     {$ifend}
     {$if declared(SSL_get0_security_ex_data_introduced)}
     if LibVersion < SSL_get0_security_ex_data_introduced then
     begin
       {$if declared(FC_SSL_get0_security_ex_data)}
-      SSL_get0_security_ex_data := @FC_SSL_get0_security_ex_data;
+      SSL_get0_security_ex_data := FC_SSL_get0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27349,7 +27350,7 @@ begin
     if SSL_get0_security_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_security_ex_data)}
-      SSL_get0_security_ex_data := @_SSL_get0_security_ex_data;
+      SSL_get0_security_ex_data := _SSL_get0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27366,13 +27367,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_security_level_allownil)}
-    SSL_CTX_set_security_level := @ERR_SSL_CTX_set_security_level;
+    SSL_CTX_set_security_level := ERR_SSL_CTX_set_security_level;
     {$ifend}
     {$if declared(SSL_CTX_set_security_level_introduced)}
     if LibVersion < SSL_CTX_set_security_level_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_security_level)}
-      SSL_CTX_set_security_level := @FC_SSL_CTX_set_security_level;
+      SSL_CTX_set_security_level := FC_SSL_CTX_set_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27381,7 +27382,7 @@ begin
     if SSL_CTX_set_security_level_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_security_level)}
-      SSL_CTX_set_security_level := @_SSL_CTX_set_security_level;
+      SSL_CTX_set_security_level := _SSL_CTX_set_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27398,13 +27399,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get_security_level_allownil)}
-    SSL_CTX_get_security_level := @ERR_SSL_CTX_get_security_level;
+    SSL_CTX_get_security_level := ERR_SSL_CTX_get_security_level;
     {$ifend}
     {$if declared(SSL_CTX_get_security_level_introduced)}
     if LibVersion < SSL_CTX_get_security_level_introduced then
     begin
       {$if declared(FC_SSL_CTX_get_security_level)}
-      SSL_CTX_get_security_level := @FC_SSL_CTX_get_security_level;
+      SSL_CTX_get_security_level := FC_SSL_CTX_get_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27413,7 +27414,7 @@ begin
     if SSL_CTX_get_security_level_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get_security_level)}
-      SSL_CTX_get_security_level := @_SSL_CTX_get_security_level;
+      SSL_CTX_get_security_level := _SSL_CTX_get_security_level;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27430,13 +27431,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_get0_security_ex_data_allownil)}
-    SSL_CTX_get0_security_ex_data := @ERR_SSL_CTX_get0_security_ex_data;
+    SSL_CTX_get0_security_ex_data := ERR_SSL_CTX_get0_security_ex_data;
     {$ifend}
     {$if declared(SSL_CTX_get0_security_ex_data_introduced)}
     if LibVersion < SSL_CTX_get0_security_ex_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_get0_security_ex_data)}
-      SSL_CTX_get0_security_ex_data := @FC_SSL_CTX_get0_security_ex_data;
+      SSL_CTX_get0_security_ex_data := FC_SSL_CTX_get0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27445,7 +27446,7 @@ begin
     if SSL_CTX_get0_security_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_get0_security_ex_data)}
-      SSL_CTX_get0_security_ex_data := @_SSL_CTX_get0_security_ex_data;
+      SSL_CTX_get0_security_ex_data := _SSL_CTX_get0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27462,13 +27463,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set0_security_ex_data_allownil)}
-    SSL_CTX_set0_security_ex_data := @ERR_SSL_CTX_set0_security_ex_data;
+    SSL_CTX_set0_security_ex_data := ERR_SSL_CTX_set0_security_ex_data;
     {$ifend}
     {$if declared(SSL_CTX_set0_security_ex_data_introduced)}
     if LibVersion < SSL_CTX_set0_security_ex_data_introduced then
     begin
       {$if declared(FC_SSL_CTX_set0_security_ex_data)}
-      SSL_CTX_set0_security_ex_data := @FC_SSL_CTX_set0_security_ex_data;
+      SSL_CTX_set0_security_ex_data := FC_SSL_CTX_set0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27477,7 +27478,7 @@ begin
     if SSL_CTX_set0_security_ex_data_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set0_security_ex_data)}
-      SSL_CTX_set0_security_ex_data := @_SSL_CTX_set0_security_ex_data;
+      SSL_CTX_set0_security_ex_data := _SSL_CTX_set0_security_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27494,13 +27495,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_init_ssl_allownil)}
-    OPENSSL_init_ssl := @ERR_OPENSSL_init_ssl;
+    OPENSSL_init_ssl := ERR_OPENSSL_init_ssl;
     {$ifend}
     {$if declared(OPENSSL_init_ssl_introduced)}
     if LibVersion < OPENSSL_init_ssl_introduced then
     begin
       {$if declared(FC_OPENSSL_init_ssl)}
-      OPENSSL_init_ssl := @FC_OPENSSL_init_ssl;
+      OPENSSL_init_ssl := FC_OPENSSL_init_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27509,7 +27510,7 @@ begin
     if OPENSSL_init_ssl_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_init_ssl)}
-      OPENSSL_init_ssl := @_OPENSSL_init_ssl;
+      OPENSSL_init_ssl := _OPENSSL_init_ssl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27526,13 +27527,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_free_buffers_allownil)}
-    SSL_free_buffers := @ERR_SSL_free_buffers;
+    SSL_free_buffers := ERR_SSL_free_buffers;
     {$ifend}
     {$if declared(SSL_free_buffers_introduced)}
     if LibVersion < SSL_free_buffers_introduced then
     begin
       {$if declared(FC_SSL_free_buffers)}
-      SSL_free_buffers := @FC_SSL_free_buffers;
+      SSL_free_buffers := FC_SSL_free_buffers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27541,7 +27542,7 @@ begin
     if SSL_free_buffers_removed <= LibVersion then
     begin
       {$if declared(_SSL_free_buffers)}
-      SSL_free_buffers := @_SSL_free_buffers;
+      SSL_free_buffers := _SSL_free_buffers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27558,13 +27559,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_alloc_buffers_allownil)}
-    SSL_alloc_buffers := @ERR_SSL_alloc_buffers;
+    SSL_alloc_buffers := ERR_SSL_alloc_buffers;
     {$ifend}
     {$if declared(SSL_alloc_buffers_introduced)}
     if LibVersion < SSL_alloc_buffers_introduced then
     begin
       {$if declared(FC_SSL_alloc_buffers)}
-      SSL_alloc_buffers := @FC_SSL_alloc_buffers;
+      SSL_alloc_buffers := FC_SSL_alloc_buffers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27573,7 +27574,7 @@ begin
     if SSL_alloc_buffers_removed <= LibVersion then
     begin
       {$if declared(_SSL_alloc_buffers)}
-      SSL_alloc_buffers := @_SSL_alloc_buffers;
+      SSL_alloc_buffers := _SSL_alloc_buffers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27590,13 +27591,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_session_ticket_cb_allownil)}
-    SSL_CTX_set_session_ticket_cb := @ERR_SSL_CTX_set_session_ticket_cb;
+    SSL_CTX_set_session_ticket_cb := ERR_SSL_CTX_set_session_ticket_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_session_ticket_cb_introduced)}
     if LibVersion < SSL_CTX_set_session_ticket_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_session_ticket_cb)}
-      SSL_CTX_set_session_ticket_cb := @FC_SSL_CTX_set_session_ticket_cb;
+      SSL_CTX_set_session_ticket_cb := FC_SSL_CTX_set_session_ticket_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27605,7 +27606,7 @@ begin
     if SSL_CTX_set_session_ticket_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_session_ticket_cb)}
-      SSL_CTX_set_session_ticket_cb := @_SSL_CTX_set_session_ticket_cb;
+      SSL_CTX_set_session_ticket_cb := _SSL_CTX_set_session_ticket_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27622,13 +27623,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_set1_ticket_appdata_allownil)}
-    SSL_SESSION_set1_ticket_appdata := @ERR_SSL_SESSION_set1_ticket_appdata;
+    SSL_SESSION_set1_ticket_appdata := ERR_SSL_SESSION_set1_ticket_appdata;
     {$ifend}
     {$if declared(SSL_SESSION_set1_ticket_appdata_introduced)}
     if LibVersion < SSL_SESSION_set1_ticket_appdata_introduced then
     begin
       {$if declared(FC_SSL_SESSION_set1_ticket_appdata)}
-      SSL_SESSION_set1_ticket_appdata := @FC_SSL_SESSION_set1_ticket_appdata;
+      SSL_SESSION_set1_ticket_appdata := FC_SSL_SESSION_set1_ticket_appdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27637,7 +27638,7 @@ begin
     if SSL_SESSION_set1_ticket_appdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_set1_ticket_appdata)}
-      SSL_SESSION_set1_ticket_appdata := @_SSL_SESSION_set1_ticket_appdata;
+      SSL_SESSION_set1_ticket_appdata := _SSL_SESSION_set1_ticket_appdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27654,13 +27655,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_SESSION_get0_ticket_appdata_allownil)}
-    SSL_SESSION_get0_ticket_appdata := @ERR_SSL_SESSION_get0_ticket_appdata;
+    SSL_SESSION_get0_ticket_appdata := ERR_SSL_SESSION_get0_ticket_appdata;
     {$ifend}
     {$if declared(SSL_SESSION_get0_ticket_appdata_introduced)}
     if LibVersion < SSL_SESSION_get0_ticket_appdata_introduced then
     begin
       {$if declared(FC_SSL_SESSION_get0_ticket_appdata)}
-      SSL_SESSION_get0_ticket_appdata := @FC_SSL_SESSION_get0_ticket_appdata;
+      SSL_SESSION_get0_ticket_appdata := FC_SSL_SESSION_get0_ticket_appdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27669,7 +27670,7 @@ begin
     if SSL_SESSION_get0_ticket_appdata_removed <= LibVersion then
     begin
       {$if declared(_SSL_SESSION_get0_ticket_appdata)}
-      SSL_SESSION_get0_ticket_appdata := @_SSL_SESSION_get0_ticket_appdata;
+      SSL_SESSION_get0_ticket_appdata := _SSL_SESSION_get0_ticket_appdata;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27686,13 +27687,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DTLS_set_timer_cb_allownil)}
-    DTLS_set_timer_cb := @ERR_DTLS_set_timer_cb;
+    DTLS_set_timer_cb := ERR_DTLS_set_timer_cb;
     {$ifend}
     {$if declared(DTLS_set_timer_cb_introduced)}
     if LibVersion < DTLS_set_timer_cb_introduced then
     begin
       {$if declared(FC_DTLS_set_timer_cb)}
-      DTLS_set_timer_cb := @FC_DTLS_set_timer_cb;
+      DTLS_set_timer_cb := FC_DTLS_set_timer_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27701,7 +27702,7 @@ begin
     if DTLS_set_timer_cb_removed <= LibVersion then
     begin
       {$if declared(_DTLS_set_timer_cb)}
-      DTLS_set_timer_cb := @_DTLS_set_timer_cb;
+      DTLS_set_timer_cb := _DTLS_set_timer_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27718,13 +27719,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_allow_early_data_cb_allownil)}
-    SSL_CTX_set_allow_early_data_cb := @ERR_SSL_CTX_set_allow_early_data_cb;
+    SSL_CTX_set_allow_early_data_cb := ERR_SSL_CTX_set_allow_early_data_cb;
     {$ifend}
     {$if declared(SSL_CTX_set_allow_early_data_cb_introduced)}
     if LibVersion < SSL_CTX_set_allow_early_data_cb_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_allow_early_data_cb)}
-      SSL_CTX_set_allow_early_data_cb := @FC_SSL_CTX_set_allow_early_data_cb;
+      SSL_CTX_set_allow_early_data_cb := FC_SSL_CTX_set_allow_early_data_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27733,7 +27734,7 @@ begin
     if SSL_CTX_set_allow_early_data_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_allow_early_data_cb)}
-      SSL_CTX_set_allow_early_data_cb := @_SSL_CTX_set_allow_early_data_cb;
+      SSL_CTX_set_allow_early_data_cb := _SSL_CTX_set_allow_early_data_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27750,13 +27751,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_allow_early_data_cb_allownil)}
-    SSL_set_allow_early_data_cb := @ERR_SSL_set_allow_early_data_cb;
+    SSL_set_allow_early_data_cb := ERR_SSL_set_allow_early_data_cb;
     {$ifend}
     {$if declared(SSL_set_allow_early_data_cb_introduced)}
     if LibVersion < SSL_set_allow_early_data_cb_introduced then
     begin
       {$if declared(FC_SSL_set_allow_early_data_cb)}
-      SSL_set_allow_early_data_cb := @FC_SSL_set_allow_early_data_cb;
+      SSL_set_allow_early_data_cb := FC_SSL_set_allow_early_data_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27765,7 +27766,7 @@ begin
     if SSL_set_allow_early_data_cb_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_allow_early_data_cb)}
-      SSL_set_allow_early_data_cb := @_SSL_set_allow_early_data_cb;
+      SSL_set_allow_early_data_cb := _SSL_set_allow_early_data_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27782,13 +27783,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv2_method_allownil)}
-    SSLv2_method := @ERR_SSLv2_method;
+    SSLv2_method := ERR_SSLv2_method;
     {$ifend}
     {$if declared(SSLv2_method_introduced)}
     if LibVersion < SSLv2_method_introduced then
     begin
       {$if declared(FC_SSLv2_method)}
-      SSLv2_method := @FC_SSLv2_method;
+      SSLv2_method := FC_SSLv2_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27797,7 +27798,7 @@ begin
     if SSLv2_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv2_method)}
-      SSLv2_method := @_SSLv2_method;
+      SSLv2_method := _SSLv2_method;
       {$ifend}
       {$if not defined(SSLv2_method_allownil)}
       FuncLoadError := false;
@@ -27816,13 +27817,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv2_server_method_allownil)}
-    SSLv2_server_method := @ERR_SSLv2_server_method;
+    SSLv2_server_method := ERR_SSLv2_server_method;
     {$ifend}
     {$if declared(SSLv2_server_method_introduced)}
     if LibVersion < SSLv2_server_method_introduced then
     begin
       {$if declared(FC_SSLv2_server_method)}
-      SSLv2_server_method := @FC_SSLv2_server_method;
+      SSLv2_server_method := FC_SSLv2_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27831,7 +27832,7 @@ begin
     if SSLv2_server_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv2_server_method)}
-      SSLv2_server_method := @_SSLv2_server_method;
+      SSLv2_server_method := _SSLv2_server_method;
       {$ifend}
       {$if not defined(SSLv2_server_method_allownil)}
       FuncLoadError := false;
@@ -27850,13 +27851,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv2_client_method_allownil)}
-    SSLv2_client_method := @ERR_SSLv2_client_method;
+    SSLv2_client_method := ERR_SSLv2_client_method;
     {$ifend}
     {$if declared(SSLv2_client_method_introduced)}
     if LibVersion < SSLv2_client_method_introduced then
     begin
       {$if declared(FC_SSLv2_client_method)}
-      SSLv2_client_method := @FC_SSLv2_client_method;
+      SSLv2_client_method := FC_SSLv2_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27865,7 +27866,7 @@ begin
     if SSLv2_client_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv2_client_method)}
-      SSLv2_client_method := @_SSLv2_client_method;
+      SSLv2_client_method := _SSLv2_client_method;
       {$ifend}
        {$if not defined(SSLv2_client_method_allownil)}
       FuncLoadError := false;
@@ -27884,13 +27885,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv3_method_allownil)}
-    SSLv3_method := @ERR_SSLv3_method;
+    SSLv3_method := ERR_SSLv3_method;
     {$ifend}
     {$if declared(SSLv3_method_introduced)}
     if LibVersion < SSLv3_method_introduced then
     begin
       {$if declared(FC_SSLv3_method)}
-      SSLv3_method := @FC_SSLv3_method;
+      SSLv3_method := FC_SSLv3_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27899,7 +27900,7 @@ begin
     if SSLv3_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv3_method)}
-      SSLv3_method := @_SSLv3_method;
+      SSLv3_method := _SSLv3_method;
       {$ifend}
       {$if not defined(SSLv3_method_allownil)}
       FuncLoadError := false;
@@ -27918,13 +27919,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv3_server_method_allownil)}
-    SSLv3_server_method := @ERR_SSLv3_server_method;
+    SSLv3_server_method := ERR_SSLv3_server_method;
     {$ifend}
     {$if declared(SSLv3_server_method_introduced)}
     if LibVersion < SSLv3_server_method_introduced then
     begin
       {$if declared(FC_SSLv3_server_method)}
-      SSLv3_server_method := @FC_SSLv3_server_method;
+      SSLv3_server_method := FC_SSLv3_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27933,7 +27934,7 @@ begin
     if SSLv3_server_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv3_server_method)}
-      SSLv3_server_method := @_SSLv3_server_method;
+      SSLv3_server_method := _SSLv3_server_method;
       {$ifend}
       {$if not defined(SSLv3_server_method_allownil)}
       FuncLoadError := false;
@@ -27952,13 +27953,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv3_client_method_allownil)}
-    SSLv3_client_method := @ERR_SSLv3_client_method;
+    SSLv3_client_method := ERR_SSLv3_client_method;
     {$ifend}
     {$if declared(SSLv3_client_method_introduced)}
     if LibVersion < SSLv3_client_method_introduced then
     begin
       {$if declared(FC_SSLv3_client_method)}
-      SSLv3_client_method := @FC_SSLv3_client_method;
+      SSLv3_client_method := FC_SSLv3_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -27967,7 +27968,7 @@ begin
     if SSLv3_client_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv3_client_method)}
-      SSLv3_client_method := @_SSLv3_client_method;
+      SSLv3_client_method := _SSLv3_client_method;
       {$ifend}
       {$if not defined(SSLv3_client_method_allownil)}
       FuncLoadError := false;
@@ -27986,13 +27987,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv23_method_allownil)}
-    SSLv23_method := @ERR_SSLv23_method;
+    SSLv23_method := ERR_SSLv23_method;
     {$ifend}
     {$if declared(SSLv23_method_introduced)}
     if LibVersion < SSLv23_method_introduced then
     begin
       {$if declared(FC_SSLv23_method)}
-      SSLv23_method := @FC_SSLv23_method;
+      SSLv23_method := FC_SSLv23_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28001,7 +28002,7 @@ begin
     if SSLv23_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv23_method)}
-      SSLv23_method := @_SSLv23_method;
+      SSLv23_method := _SSLv23_method;
       {$ifend}
       {$if not defined(SSLv23_method_allownil)}
       FuncLoadError := false;
@@ -28020,13 +28021,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv23_server_method_allownil)}
-    SSLv23_server_method := @ERR_SSLv23_server_method;
+    SSLv23_server_method := ERR_SSLv23_server_method;
     {$ifend}
     {$if declared(SSLv23_server_method_introduced)}
     if LibVersion < SSLv23_server_method_introduced then
     begin
       {$if declared(FC_SSLv23_server_method)}
-      SSLv23_server_method := @FC_SSLv23_server_method;
+      SSLv23_server_method := FC_SSLv23_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28035,7 +28036,7 @@ begin
     if SSLv23_server_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv23_server_method)}
-      SSLv23_server_method := @_SSLv23_server_method;
+      SSLv23_server_method := _SSLv23_server_method;
       {$ifend}
       {$if not defined(SSLv23_server_method_allownil)}
       FuncLoadError := false;
@@ -28054,13 +28055,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLv23_client_method_allownil)}
-    SSLv23_client_method := @ERR_SSLv23_client_method;
+    SSLv23_client_method := ERR_SSLv23_client_method;
     {$ifend}
     {$if declared(SSLv23_client_method_introduced)}
     if LibVersion < SSLv23_client_method_introduced then
     begin
       {$if declared(FC_SSLv23_client_method)}
-      SSLv23_client_method := @FC_SSLv23_client_method;
+      SSLv23_client_method := FC_SSLv23_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28069,7 +28070,7 @@ begin
     if SSLv23_client_method_removed <= LibVersion then
     begin
       {$if declared(_SSLv23_client_method)}
-      SSLv23_client_method := @_SSLv23_client_method;
+      SSLv23_client_method := _SSLv23_client_method;
       {$ifend}
       {$if not defined(SSLv23_client_method_allownil)}
       FuncLoadError := false;
@@ -28088,13 +28089,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_method_allownil)}
-    TLSv1_method := @ERR_TLSv1_method;
+    TLSv1_method := ERR_TLSv1_method;
     {$ifend}
     {$if declared(TLSv1_method_introduced)}
     if LibVersion < TLSv1_method_introduced then
     begin
       {$if declared(FC_TLSv1_method)}
-      TLSv1_method := @FC_TLSv1_method;
+      TLSv1_method := FC_TLSv1_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28103,7 +28104,7 @@ begin
     if TLSv1_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_method)}
-      TLSv1_method := @_TLSv1_method;
+      TLSv1_method := _TLSv1_method;
       {$ifend}
       {$if not defined(TLSv1_method_allownil)}
       FuncLoadError := false;
@@ -28122,13 +28123,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_server_method_allownil)}
-    TLSv1_server_method := @ERR_TLSv1_server_method;
+    TLSv1_server_method := ERR_TLSv1_server_method;
     {$ifend}
     {$if declared(TLSv1_server_method_introduced)}
     if LibVersion < TLSv1_server_method_introduced then
     begin
       {$if declared(FC_TLSv1_server_method)}
-      TLSv1_server_method := @FC_TLSv1_server_method;
+      TLSv1_server_method := FC_TLSv1_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28137,7 +28138,7 @@ begin
     if TLSv1_server_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_server_method)}
-      TLSv1_server_method := @_TLSv1_server_method;
+      TLSv1_server_method := _TLSv1_server_method;
       {$ifend}
       {$if not defined(TLSv1_server_method_allownil)}
       FuncLoadError := false;
@@ -28156,13 +28157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_client_method_allownil)}
-    TLSv1_client_method := @ERR_TLSv1_client_method;
+    TLSv1_client_method := ERR_TLSv1_client_method;
     {$ifend}
     {$if declared(TLSv1_client_method_introduced)}
     if LibVersion < TLSv1_client_method_introduced then
     begin
       {$if declared(FC_TLSv1_client_method)}
-      TLSv1_client_method := @FC_TLSv1_client_method;
+      TLSv1_client_method := FC_TLSv1_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28171,7 +28172,7 @@ begin
     if TLSv1_client_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_client_method)}
-      TLSv1_client_method := @_TLSv1_client_method;
+      TLSv1_client_method := _TLSv1_client_method;
       {$ifend}
       {$if not defined(TLSv1_client_method_allownil)}
       FuncLoadError := false;
@@ -28190,13 +28191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_1_method_allownil)}
-    TLSv1_1_method := @ERR_TLSv1_1_method;
+    TLSv1_1_method := ERR_TLSv1_1_method;
     {$ifend}
     {$if declared(TLSv1_1_method_introduced)}
     if LibVersion < TLSv1_1_method_introduced then
     begin
       {$if declared(FC_TLSv1_1_method)}
-      TLSv1_1_method := @FC_TLSv1_1_method;
+      TLSv1_1_method := FC_TLSv1_1_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28205,7 +28206,7 @@ begin
     if TLSv1_1_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_1_method)}
-      TLSv1_1_method := @_TLSv1_1_method;
+      TLSv1_1_method := _TLSv1_1_method;
       {$ifend}
       {$if not defined(TLSv1_1_method_allownil)}
       FuncLoadError := false;
@@ -28224,13 +28225,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_1_server_method_allownil)}
-    TLSv1_1_server_method := @ERR_TLSv1_1_server_method;
+    TLSv1_1_server_method := ERR_TLSv1_1_server_method;
     {$ifend}
     {$if declared(TLSv1_1_server_method_introduced)}
     if LibVersion < TLSv1_1_server_method_introduced then
     begin
       {$if declared(FC_TLSv1_1_server_method)}
-      TLSv1_1_server_method := @FC_TLSv1_1_server_method;
+      TLSv1_1_server_method := FC_TLSv1_1_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28239,7 +28240,7 @@ begin
     if TLSv1_1_server_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_1_server_method)}
-      TLSv1_1_server_method := @_TLSv1_1_server_method;
+      TLSv1_1_server_method := _TLSv1_1_server_method;
       {$ifend}
       {$if not defined(TLSv1_1_server_method_allownil)}
       FuncLoadError := false;
@@ -28258,13 +28259,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_1_client_method_allownil)}
-    TLSv1_1_client_method := @ERR_TLSv1_1_client_method;
+    TLSv1_1_client_method := ERR_TLSv1_1_client_method;
     {$ifend}
     {$if declared(TLSv1_1_client_method_introduced)}
     if LibVersion < TLSv1_1_client_method_introduced then
     begin
       {$if declared(FC_TLSv1_1_client_method)}
-      TLSv1_1_client_method := @FC_TLSv1_1_client_method;
+      TLSv1_1_client_method := FC_TLSv1_1_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28273,7 +28274,7 @@ begin
     if TLSv1_1_client_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_1_client_method)}
-      TLSv1_1_client_method := @_TLSv1_1_client_method;
+      TLSv1_1_client_method := _TLSv1_1_client_method;
       {$ifend}
       {$if not defined(TLSv1_1_client_method_allownil)}
       FuncLoadError := false;
@@ -28292,13 +28293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_2_method_allownil)}
-    TLSv1_2_method := @ERR_TLSv1_2_method;
+    TLSv1_2_method := ERR_TLSv1_2_method;
     {$ifend}
     {$if declared(TLSv1_2_method_introduced)}
     if LibVersion < TLSv1_2_method_introduced then
     begin
       {$if declared(FC_TLSv1_2_method)}
-      TLSv1_2_method := @FC_TLSv1_2_method;
+      TLSv1_2_method := FC_TLSv1_2_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28307,7 +28308,7 @@ begin
     if TLSv1_2_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_2_method)}
-      TLSv1_2_method := @_TLSv1_2_method;
+      TLSv1_2_method := _TLSv1_2_method;
       {$ifend}
        {$if not defined(TLSv1_2_method_allownil)}
       FuncLoadError := false;
@@ -28326,13 +28327,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_2_server_method_allownil)}
-    TLSv1_2_server_method := @ERR_TLSv1_2_server_method;
+    TLSv1_2_server_method := ERR_TLSv1_2_server_method;
     {$ifend}
     {$if declared(TLSv1_2_server_method_introduced)}
     if LibVersion < TLSv1_2_server_method_introduced then
     begin
       {$if declared(FC_TLSv1_2_server_method)}
-      TLSv1_2_server_method := @FC_TLSv1_2_server_method;
+      TLSv1_2_server_method := FC_TLSv1_2_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28341,7 +28342,7 @@ begin
     if TLSv1_2_server_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_2_server_method)}
-      TLSv1_2_server_method := @_TLSv1_2_server_method;
+      TLSv1_2_server_method := _TLSv1_2_server_method;
       {$ifend}
       {$if not defined(TLSv1_2_server_method_allownil)}
       FuncLoadError := false;
@@ -28360,13 +28361,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(TLSv1_2_client_method_allownil)}
-    TLSv1_2_client_method := @ERR_TLSv1_2_client_method;
+    TLSv1_2_client_method := ERR_TLSv1_2_client_method;
     {$ifend}
     {$if declared(TLSv1_2_client_method_introduced)}
     if LibVersion < TLSv1_2_client_method_introduced then
     begin
       {$if declared(FC_TLSv1_2_client_method)}
-      TLSv1_2_client_method := @FC_TLSv1_2_client_method;
+      TLSv1_2_client_method := FC_TLSv1_2_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28375,7 +28376,7 @@ begin
     if TLSv1_2_client_method_removed <= LibVersion then
     begin
       {$if declared(_TLSv1_2_client_method)}
-      TLSv1_2_client_method := @_TLSv1_2_client_method;
+      TLSv1_2_client_method := _TLSv1_2_client_method;
       {$ifend}
       {$if not defined(TLSv1_2_client_method_allownil)}
       FuncLoadError := false;
@@ -28394,13 +28395,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get0_peer_certificate_allownil)}
-    SSL_get0_peer_certificate := @ERR_SSL_get0_peer_certificate;
+    SSL_get0_peer_certificate := ERR_SSL_get0_peer_certificate;
     {$ifend}
     {$if declared(SSL_get0_peer_certificate_introduced)}
     if LibVersion < SSL_get0_peer_certificate_introduced then
     begin
       {$if declared(FC_SSL_get0_peer_certificate)}
-      SSL_get0_peer_certificate := @FC_SSL_get0_peer_certificate;
+      SSL_get0_peer_certificate := FC_SSL_get0_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28409,7 +28410,7 @@ begin
     if SSL_get0_peer_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_get0_peer_certificate)}
-      SSL_get0_peer_certificate := @_SSL_get0_peer_certificate;
+      SSL_get0_peer_certificate := _SSL_get0_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28426,13 +28427,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get1_peer_certificate_allownil)}
-    SSL_get1_peer_certificate := @ERR_SSL_get1_peer_certificate;
+    SSL_get1_peer_certificate := ERR_SSL_get1_peer_certificate;
     {$ifend}
     {$if declared(SSL_get1_peer_certificate_introduced)}
     if LibVersion < SSL_get1_peer_certificate_introduced then
     begin
       {$if declared(FC_SSL_get1_peer_certificate)}
-      SSL_get1_peer_certificate := @FC_SSL_get1_peer_certificate;
+      SSL_get1_peer_certificate := FC_SSL_get1_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -28441,7 +28442,7 @@ begin
     if SSL_get1_peer_certificate_removed <= LibVersion then
     begin
       {$if declared(_SSL_get1_peer_certificate)}
-      SSL_get1_peer_certificate := @_SSL_get1_peer_certificate;
+      SSL_get1_peer_certificate := _SSL_get1_peer_certificate;
       {$ifend}
       FuncLoadError := false;
     end;

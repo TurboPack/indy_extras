@@ -62,7 +62,7 @@ var
   SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
   SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
 
-  SSL_get_srtp_profiles : function(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+  SSL_get_srtp_profiles : function(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;  cdecl = nil;
   SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = nil;
 
 {$ELSE}
@@ -94,23 +94,23 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tlsext_use_srtp_procname);
 end;
 
 
-function  ERR_SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
+function  ERR_SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_use_srtp_procname);
 end;
 
-function ERR_SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
+function ERR_SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SSL_get_srtp_profiles_procname);
 end;
 
-function  ERR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE;
+function  ERR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE;   cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSL_get_selected_srtp_profile_procname);
 end;
@@ -128,13 +128,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_CTX_set_tlsext_use_srtp_allownil)}
-    SSL_CTX_set_tlsext_use_srtp := @ERR_SSL_CTX_set_tlsext_use_srtp;
+    SSL_CTX_set_tlsext_use_srtp := ERR_SSL_CTX_set_tlsext_use_srtp;
     {$ifend}
     {$if declared(SSL_CTX_set_tlsext_use_srtp_introduced)}
     if LibVersion < SSL_CTX_set_tlsext_use_srtp_introduced then
     begin
       {$if declared(FC_SSL_CTX_set_tlsext_use_srtp)}
-      SSL_CTX_set_tlsext_use_srtp := @FC_SSL_CTX_set_tlsext_use_srtp;
+      SSL_CTX_set_tlsext_use_srtp := FC_SSL_CTX_set_tlsext_use_srtp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -143,7 +143,7 @@ begin
     if SSL_CTX_set_tlsext_use_srtp_removed <= LibVersion then
     begin
       {$if declared(_SSL_CTX_set_tlsext_use_srtp)}
-      SSL_CTX_set_tlsext_use_srtp := @_SSL_CTX_set_tlsext_use_srtp;
+      SSL_CTX_set_tlsext_use_srtp := _SSL_CTX_set_tlsext_use_srtp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -160,13 +160,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_set_tlsext_use_srtp_allownil)}
-    SSL_set_tlsext_use_srtp := @ERR_SSL_set_tlsext_use_srtp;
+    SSL_set_tlsext_use_srtp := ERR_SSL_set_tlsext_use_srtp;
     {$ifend}
     {$if declared(SSL_set_tlsext_use_srtp_introduced)}
     if LibVersion < SSL_set_tlsext_use_srtp_introduced then
     begin
       {$if declared(FC_SSL_set_tlsext_use_srtp)}
-      SSL_set_tlsext_use_srtp := @FC_SSL_set_tlsext_use_srtp;
+      SSL_set_tlsext_use_srtp := FC_SSL_set_tlsext_use_srtp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -175,7 +175,7 @@ begin
     if SSL_set_tlsext_use_srtp_removed <= LibVersion then
     begin
       {$if declared(_SSL_set_tlsext_use_srtp)}
-      SSL_set_tlsext_use_srtp := @_SSL_set_tlsext_use_srtp;
+      SSL_set_tlsext_use_srtp := _SSL_set_tlsext_use_srtp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -191,13 +191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_srtp_profiles_allownil)}
-    SSL_get_srtp_profiles := @ERR_SSL_get_srtp_profiles;
+    SSL_get_srtp_profiles := ERR_SSL_get_srtp_profiles;
     {$ifend}
     {$if declared(SSL_get_srtp_profiles_introduced)}
     if LibVersion < SSL_get_srtp_profiles_introduced then
     begin
       {$if declared(FC_SSL_get_srtp_profiles)}
-      SSL_get_srtp_profiles := @FC_SSL_get_srtp_profiles;
+      SSL_get_srtp_profiles := FC_SSL_get_srtp_profiles;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -206,7 +206,7 @@ begin
     if SSL_get_srtp_profiles_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_srtp_profiles)}
-      SSL_get_srtp_profiles := @_SSL_get_srtp_profiles;
+      SSL_get_srtp_profiles := _SSL_get_srtp_profiles;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -222,13 +222,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSL_get_selected_srtp_profile_allownil)}
-    SSL_get_selected_srtp_profile := @ERR_SSL_get_selected_srtp_profile;
+    SSL_get_selected_srtp_profile := ERR_SSL_get_selected_srtp_profile;
     {$ifend}
     {$if declared(SSL_get_selected_srtp_profile_introduced)}
     if LibVersion < SSL_get_selected_srtp_profile_introduced then
     begin
       {$if declared(FC_SSL_get_selected_srtp_profile)}
-      SSL_get_selected_srtp_profile := @FC_SSL_get_selected_srtp_profile;
+      SSL_get_selected_srtp_profile := FC_SSL_get_selected_srtp_profile;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -237,7 +237,7 @@ begin
     if SSL_get_selected_srtp_profile_removed <= LibVersion then
     begin
       {$if declared(_SSL_get_selected_srtp_profile)}
-      SSL_get_selected_srtp_profile := @_SSL_get_selected_srtp_profile;
+      SSL_get_selected_srtp_profile := _SSL_get_selected_srtp_profile;
       {$ifend}
       FuncLoadError := false;
     end;

@@ -450,290 +450,291 @@ end;
 
 
   {$I TaurusTLSNoRetValOff.inc}
-function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT;
+
+function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_num_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer;
+function  ERR_OPENSSL_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_value_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer;
+function  ERR_OPENSSL_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_set_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK;
+function  ERR_OPENSSL_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_new_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_new_null:POPENSSL_STACK;
+function  ERR_OPENSSL_sk_new_null:POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_new_null_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK;
+function  ERR_OPENSSL_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_new_reserve_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT;
+function  ERR_OPENSSL_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_reserve_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_OPENSSL_sk_free(_para1:POPENSSL_STACK);
+procedure  ERR_OPENSSL_sk_free(_para1:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_free_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_OPENSSL_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc);
+procedure  ERR_OPENSSL_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_pop_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK;
+function  ERR_OPENSSL_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_deep_copy_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT;
+function  ERR_OPENSSL_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_insert_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer;
+function  ERR_OPENSSL_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_delete_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer;
+function  ERR_OPENSSL_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_delete_ptr_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_OPENSSL_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_find_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_OPENSSL_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_find_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_OPENSSL_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_push_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_OPENSSL_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_unshift_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_shift(st:POPENSSL_STACK):pointer;
+function  ERR_OPENSSL_sk_shift(st:POPENSSL_STACK):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_shift_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_pop(st:POPENSSL_STACK):pointer;
+function  ERR_OPENSSL_sk_pop(st:POPENSSL_STACK):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_pop_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_OPENSSL_sk_zero(st:POPENSSL_STACK);
+procedure  ERR_OPENSSL_sk_zero(st:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_zero_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc;
+function  ERR_OPENSSL_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_set_cmp_func_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK;
+function  ERR_OPENSSL_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_dup_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_OPENSSL_sk_sort(st:POPENSSL_STACK);
+procedure  ERR_OPENSSL_sk_sort(st:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_sort_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
+function  ERR_OPENSSL_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_sk_is_sorted_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_sk_num(_para1:POPENSSL_STACK):TIdC_INT;
+function  ERR_sk_num(_para1:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_num_procname);
 end;
 
 
-function  ERR_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer;
+function  ERR_sk_value(_para1:POPENSSL_STACK; _para2:TIdC_INT):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_value_procname);
 end;
 
 
-function  ERR_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer;
+function  ERR_sk_set(st:POPENSSL_STACK; i:TIdC_INT; data:pointer):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_set_procname);
 end;
 
 
-function  ERR_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK;
+function  ERR_sk_new(cmp:TOPENSSL_sk_compfunc):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_new_procname);
 end;
 
 
-function  ERR_sk_new_null:POPENSSL_STACK;
+function  ERR_sk_new_null:POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_new_null_procname);
 end;
 
 
-function  ERR_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK;
+function  ERR_sk_new_reserve(c:TOPENSSL_sk_compfunc; n:TIdC_INT):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_new_reserve_procname);
 end;
 
 
-function  ERR_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT;
+function  ERR_sk_reserve(st:POPENSSL_STACK; n:TIdC_INT):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_reserve_procname);
 end;
 
 
-procedure  ERR_sk_free(_para1:POPENSSL_STACK);
+procedure  ERR_sk_free(_para1:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_free_procname);
 end;
 
 
-procedure  ERR_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc);
+procedure  ERR_sk_pop_free(st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_pop_free_procname);
 end;
 
 
-function  ERR_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK;
+function  ERR_sk_deep_copy(_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_deep_copy_procname);
 end;
 
 
-function  ERR_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT;
+function  ERR_sk_insert(sk:POPENSSL_STACK; data:pointer; where:TIdC_INT):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_insert_procname);
 end;
 
 
-function  ERR_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer;
+function  ERR_sk_delete(st:POPENSSL_STACK; loc:TIdC_INT):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_delete_procname);
 end;
 
 
-function  ERR_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer;
+function  ERR_sk_delete_ptr(st:POPENSSL_STACK; p:pointer):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_delete_ptr_procname);
 end;
 
 
-function  ERR_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_sk_find(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_find_procname);
 end;
 
 
-function  ERR_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_sk_find_ex(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_find_ex_procname);
 end;
 
 
-function  ERR_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_sk_push(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_push_procname);
 end;
 
 
-function  ERR_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT;
+function  ERR_sk_unshift(st:POPENSSL_STACK; data:pointer):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_unshift_procname);
 end;
 
 
-function  ERR_sk_shift(st:POPENSSL_STACK):pointer;
+function  ERR_sk_shift(st:POPENSSL_STACK):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_shift_procname);
 end;
 
 
-function  ERR_sk_pop(st:POPENSSL_STACK):pointer;
+function  ERR_sk_pop(st:POPENSSL_STACK):pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_pop_procname);
 end;
 
 
-procedure  ERR_sk_zero(st:POPENSSL_STACK);
+procedure  ERR_sk_zero(st:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_zero_procname);
 end;
 
 
-function  ERR_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc;
+function  ERR_sk_set_cmp_func(sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc):TOPENSSL_sk_compfunc; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_set_cmp_func_procname);
 end;
 
 
-function  ERR_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK;
+function  ERR_sk_dup(st:POPENSSL_STACK):POPENSSL_STACK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_dup_procname);
 end;
 
 
-procedure  ERR_sk_sort(st:POPENSSL_STACK);
+procedure  ERR_sk_sort(st:POPENSSL_STACK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_sort_procname);
 end;
 
 
-function  ERR_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
+function  ERR_sk_is_sorted(st:POPENSSL_STACK):TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(sk_is_sorted_procname);
 end;
@@ -756,13 +757,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_num_allownil)}
-      OPENSSL_sk_num := @ERR_OPENSSL_sk_num;
+      OPENSSL_sk_num := ERR_OPENSSL_sk_num;
 {$IFEND}
 {$IF declared(OPENSSL_sk_num_introduced)}
       if LibVersion < OPENSSL_sk_num_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_num)}
-        OPENSSL_sk_num := @FC_OPENSSL_sk_num;
+        OPENSSL_sk_num := FC_OPENSSL_sk_num;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -771,7 +772,7 @@ begin
       if OPENSSL_sk_num_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_num)}
-        OPENSSL_sk_num := @_OPENSSL_sk_num;
+        OPENSSL_sk_num := _OPENSSL_sk_num;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -791,13 +792,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_value_allownil)}
-      OPENSSL_sk_value := @ERR_OPENSSL_sk_value;
+      OPENSSL_sk_value := ERR_OPENSSL_sk_value;
 {$IFEND}
 {$IF declared(OPENSSL_sk_value_introduced)}
       if LibVersion < OPENSSL_sk_value_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_value)}
-        OPENSSL_sk_value := @FC_OPENSSL_sk_value;
+        OPENSSL_sk_value := FC_OPENSSL_sk_value;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -806,7 +807,7 @@ begin
       if OPENSSL_sk_value_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_value)}
-        OPENSSL_sk_value := @_OPENSSL_sk_value;
+        OPENSSL_sk_value := _OPENSSL_sk_value;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -826,13 +827,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_set_allownil)}
-      OPENSSL_sk_set := @ERR_OPENSSL_sk_set;
+      OPENSSL_sk_set := ERR_OPENSSL_sk_set;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_introduced)}
       if LibVersion < OPENSSL_sk_set_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_set)}
-        OPENSSL_sk_set := @FC_OPENSSL_sk_set;
+        OPENSSL_sk_set := FC_OPENSSL_sk_set;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -841,7 +842,7 @@ begin
       if OPENSSL_sk_set_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_set)}
-        OPENSSL_sk_set := @_OPENSSL_sk_set;
+        OPENSSL_sk_set := _OPENSSL_sk_set;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -861,13 +862,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_new_allownil)}
-      OPENSSL_sk_new := @ERR_OPENSSL_sk_new;
+      OPENSSL_sk_new := ERR_OPENSSL_sk_new;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_introduced)}
       if LibVersion < OPENSSL_sk_new_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_new)}
-        OPENSSL_sk_new := @FC_OPENSSL_sk_new;
+        OPENSSL_sk_new := FC_OPENSSL_sk_new;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -876,7 +877,7 @@ begin
       if OPENSSL_sk_new_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_new)}
-        OPENSSL_sk_new := @_OPENSSL_sk_new;
+        OPENSSL_sk_new := _OPENSSL_sk_new;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -897,13 +898,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_new_null_allownil)}
-      OPENSSL_sk_new_null := @ERR_OPENSSL_sk_new_null;
+      OPENSSL_sk_new_null := ERR_OPENSSL_sk_new_null;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_null_introduced)}
       if LibVersion < OPENSSL_sk_new_null_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_new_null)}
-        OPENSSL_sk_new_null := @FC_OPENSSL_sk_new_null;
+        OPENSSL_sk_new_null := FC_OPENSSL_sk_new_null;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -912,7 +913,7 @@ begin
       if OPENSSL_sk_new_null_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_new_null)}
-        OPENSSL_sk_new_null := @_OPENSSL_sk_new_null;
+        OPENSSL_sk_new_null := _OPENSSL_sk_new_null;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -933,13 +934,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_new_reserve_allownil)}
-      OPENSSL_sk_new_reserve := @ERR_OPENSSL_sk_new_reserve;
+      OPENSSL_sk_new_reserve := ERR_OPENSSL_sk_new_reserve;
 {$IFEND}
 {$IF declared(OPENSSL_sk_new_reserve_introduced)}
       if LibVersion < OPENSSL_sk_new_reserve_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_new_reserve)}
-        OPENSSL_sk_new_reserve := @FC_OPENSSL_sk_new_reserve;
+        OPENSSL_sk_new_reserve := FC_OPENSSL_sk_new_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -948,7 +949,7 @@ begin
       if OPENSSL_sk_new_reserve_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_new_reserve)}
-        OPENSSL_sk_new_reserve := @_OPENSSL_sk_new_reserve;
+        OPENSSL_sk_new_reserve := _OPENSSL_sk_new_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -969,13 +970,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_reserve_allownil)}
-      OPENSSL_sk_reserve := @ERR_OPENSSL_sk_reserve;
+      OPENSSL_sk_reserve := ERR_OPENSSL_sk_reserve;
 {$IFEND}
 {$IF declared(OPENSSL_sk_reserve_introduced)}
       if LibVersion < OPENSSL_sk_reserve_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_reserve)}
-        OPENSSL_sk_reserve := @FC_OPENSSL_sk_reserve;
+        OPENSSL_sk_reserve := FC_OPENSSL_sk_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -984,7 +985,7 @@ begin
       if OPENSSL_sk_reserve_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_reserve)}
-        OPENSSL_sk_reserve := @_OPENSSL_sk_reserve;
+        OPENSSL_sk_reserve := _OPENSSL_sk_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1004,13 +1005,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_free_allownil)}
-      OPENSSL_sk_free := @ERR_OPENSSL_sk_free;
+      OPENSSL_sk_free := ERR_OPENSSL_sk_free;
 {$IFEND}
 {$IF declared(OPENSSL_sk_free_introduced)}
       if LibVersion < OPENSSL_sk_free_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_free)}
-        OPENSSL_sk_free := @FC_OPENSSL_sk_free;
+        OPENSSL_sk_free := FC_OPENSSL_sk_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1019,7 +1020,7 @@ begin
       if OPENSSL_sk_free_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_free)}
-        OPENSSL_sk_free := @_OPENSSL_sk_free;
+        OPENSSL_sk_free := _OPENSSL_sk_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1041,13 +1042,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_pop_free_allownil)}
-      OPENSSL_sk_pop_free := @ERR_OPENSSL_sk_pop_free;
+      OPENSSL_sk_pop_free := ERR_OPENSSL_sk_pop_free;
 {$IFEND}
 {$IF declared(OPENSSL_sk_pop_free_introduced)}
       if LibVersion < OPENSSL_sk_pop_free_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_pop_free)}
-        OPENSSL_sk_pop_free := @FC_OPENSSL_sk_pop_free;
+        OPENSSL_sk_pop_free := FC_OPENSSL_sk_pop_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1056,7 +1057,7 @@ begin
       if OPENSSL_sk_pop_free_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_pop_free)}
-        OPENSSL_sk_pop_free := @_OPENSSL_sk_pop_free;
+        OPENSSL_sk_pop_free := _OPENSSL_sk_pop_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1077,13 +1078,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_deep_copy_allownil)}
-      OPENSSL_sk_deep_copy := @ERR_OPENSSL_sk_deep_copy;
+      OPENSSL_sk_deep_copy := ERR_OPENSSL_sk_deep_copy;
 {$IFEND}
 {$IF declared(OPENSSL_sk_deep_copy_introduced)}
       if LibVersion < OPENSSL_sk_deep_copy_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_deep_copy)}
-        OPENSSL_sk_deep_copy := @FC_OPENSSL_sk_deep_copy;
+        OPENSSL_sk_deep_copy := FC_OPENSSL_sk_deep_copy;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1092,7 +1093,7 @@ begin
       if OPENSSL_sk_deep_copy_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_deep_copy)}
-        OPENSSL_sk_deep_copy := @_OPENSSL_sk_deep_copy;
+        OPENSSL_sk_deep_copy := _OPENSSL_sk_deep_copy;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1113,13 +1114,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_insert_allownil)}
-      OPENSSL_sk_insert := @ERR_OPENSSL_sk_insert;
+      OPENSSL_sk_insert := ERR_OPENSSL_sk_insert;
 {$IFEND}
 {$IF declared(OPENSSL_sk_insert_introduced)}
       if LibVersion < OPENSSL_sk_insert_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_insert)}
-        OPENSSL_sk_insert := @FC_OPENSSL_sk_insert;
+        OPENSSL_sk_insert := FC_OPENSSL_sk_insert;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1128,7 +1129,7 @@ begin
       if OPENSSL_sk_insert_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_insert)}
-        OPENSSL_sk_insert := @_OPENSSL_sk_insert;
+        OPENSSL_sk_insert := _OPENSSL_sk_insert;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1149,13 +1150,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_delete_allownil)}
-      OPENSSL_sk_delete := @ERR_OPENSSL_sk_delete;
+      OPENSSL_sk_delete := ERR_OPENSSL_sk_delete;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_introduced)}
       if LibVersion < OPENSSL_sk_delete_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_delete)}
-        OPENSSL_sk_delete := @FC_OPENSSL_sk_delete;
+        OPENSSL_sk_delete := FC_OPENSSL_sk_delete;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1164,7 +1165,7 @@ begin
       if OPENSSL_sk_delete_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_delete)}
-        OPENSSL_sk_delete := @_OPENSSL_sk_delete;
+        OPENSSL_sk_delete := _OPENSSL_sk_delete;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1185,13 +1186,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_delete_ptr_allownil)}
-      OPENSSL_sk_delete_ptr := @ERR_OPENSSL_sk_delete_ptr;
+      OPENSSL_sk_delete_ptr := ERR_OPENSSL_sk_delete_ptr;
 {$IFEND}
 {$IF declared(OPENSSL_sk_delete_ptr_introduced)}
       if LibVersion < OPENSSL_sk_delete_ptr_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_delete_ptr)}
-        OPENSSL_sk_delete_ptr := @FC_OPENSSL_sk_delete_ptr;
+        OPENSSL_sk_delete_ptr := FC_OPENSSL_sk_delete_ptr;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1200,7 +1201,7 @@ begin
       if OPENSSL_sk_delete_ptr_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_delete_ptr)}
-        OPENSSL_sk_delete_ptr := @_OPENSSL_sk_delete_ptr;
+        OPENSSL_sk_delete_ptr := _OPENSSL_sk_delete_ptr;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1220,13 +1221,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_find_allownil)}
-      OPENSSL_sk_find := @ERR_OPENSSL_sk_find;
+      OPENSSL_sk_find := ERR_OPENSSL_sk_find;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_introduced)}
       if LibVersion < OPENSSL_sk_find_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_find)}
-        OPENSSL_sk_find := @FC_OPENSSL_sk_find;
+        OPENSSL_sk_find := FC_OPENSSL_sk_find;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1235,7 +1236,7 @@ begin
       if OPENSSL_sk_find_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_find)}
-        OPENSSL_sk_find := @_OPENSSL_sk_find;
+        OPENSSL_sk_find := _OPENSSL_sk_find;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1256,13 +1257,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_find_ex_allownil)}
-      OPENSSL_sk_find_ex := @ERR_OPENSSL_sk_find_ex;
+      OPENSSL_sk_find_ex := ERR_OPENSSL_sk_find_ex;
 {$IFEND}
 {$IF declared(OPENSSL_sk_find_ex_introduced)}
       if LibVersion < OPENSSL_sk_find_ex_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_find_ex)}
-        OPENSSL_sk_find_ex := @FC_OPENSSL_sk_find_ex;
+        OPENSSL_sk_find_ex := FC_OPENSSL_sk_find_ex;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1271,7 +1272,7 @@ begin
       if OPENSSL_sk_find_ex_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_find_ex)}
-        OPENSSL_sk_find_ex := @_OPENSSL_sk_find_ex;
+        OPENSSL_sk_find_ex := _OPENSSL_sk_find_ex;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1291,13 +1292,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_push_allownil)}
-      OPENSSL_sk_push := @ERR_OPENSSL_sk_push;
+      OPENSSL_sk_push := ERR_OPENSSL_sk_push;
 {$IFEND}
 {$IF declared(OPENSSL_sk_push_introduced)}
       if LibVersion < OPENSSL_sk_push_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_push)}
-        OPENSSL_sk_push := @FC_OPENSSL_sk_push;
+        OPENSSL_sk_push := FC_OPENSSL_sk_push;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1306,7 +1307,7 @@ begin
       if OPENSSL_sk_push_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_push)}
-        OPENSSL_sk_push := @_OPENSSL_sk_push;
+        OPENSSL_sk_push := _OPENSSL_sk_push;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1327,13 +1328,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_unshift_allownil)}
-      OPENSSL_sk_unshift := @ERR_OPENSSL_sk_unshift;
+      OPENSSL_sk_unshift := ERR_OPENSSL_sk_unshift;
 {$IFEND}
 {$IF declared(OPENSSL_sk_unshift_introduced)}
       if LibVersion < OPENSSL_sk_unshift_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_unshift)}
-        OPENSSL_sk_unshift := @FC_OPENSSL_sk_unshift;
+        OPENSSL_sk_unshift := FC_OPENSSL_sk_unshift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1342,7 +1343,7 @@ begin
       if OPENSSL_sk_unshift_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_unshift)}
-        OPENSSL_sk_unshift := @_OPENSSL_sk_unshift;
+        OPENSSL_sk_unshift := _OPENSSL_sk_unshift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1362,13 +1363,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_shift_allownil)}
-      OPENSSL_sk_shift := @ERR_OPENSSL_sk_shift;
+      OPENSSL_sk_shift := ERR_OPENSSL_sk_shift;
 {$IFEND}
 {$IF declared(OPENSSL_sk_shift_introduced)}
       if LibVersion < OPENSSL_sk_shift_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_shift)}
-        OPENSSL_sk_shift := @FC_OPENSSL_sk_shift;
+        OPENSSL_sk_shift := FC_OPENSSL_sk_shift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1377,7 +1378,7 @@ begin
       if OPENSSL_sk_shift_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_shift)}
-        OPENSSL_sk_shift := @_OPENSSL_sk_shift;
+        OPENSSL_sk_shift := _OPENSSL_sk_shift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1397,13 +1398,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_pop_allownil)}
-      OPENSSL_sk_pop := @ERR_OPENSSL_sk_pop;
+      OPENSSL_sk_pop := ERR_OPENSSL_sk_pop;
 {$IFEND}
 {$IF declared(OPENSSL_sk_pop_introduced)}
       if LibVersion < OPENSSL_sk_pop_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_pop)}
-        OPENSSL_sk_pop := @FC_OPENSSL_sk_pop;
+        OPENSSL_sk_pop := FC_OPENSSL_sk_pop;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1412,7 +1413,7 @@ begin
       if OPENSSL_sk_pop_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_pop)}
-        OPENSSL_sk_pop := @_OPENSSL_sk_pop;
+        OPENSSL_sk_pop := _OPENSSL_sk_pop;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1432,13 +1433,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_zero_allownil)}
-      OPENSSL_sk_zero := @ERR_OPENSSL_sk_zero;
+      OPENSSL_sk_zero := ERR_OPENSSL_sk_zero;
 {$IFEND}
 {$IF declared(OPENSSL_sk_zero_introduced)}
       if LibVersion < OPENSSL_sk_zero_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_zero)}
-        OPENSSL_sk_zero := @FC_OPENSSL_sk_zero;
+        OPENSSL_sk_zero := FC_OPENSSL_sk_zero;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1447,7 +1448,7 @@ begin
       if OPENSSL_sk_zero_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_zero)}
-        OPENSSL_sk_zero := @_OPENSSL_sk_zero;
+        OPENSSL_sk_zero := _OPENSSL_sk_zero;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1468,13 +1469,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_set_cmp_func_allownil)}
-      OPENSSL_sk_set_cmp_func := @ERR_OPENSSL_sk_set_cmp_func;
+      OPENSSL_sk_set_cmp_func := ERR_OPENSSL_sk_set_cmp_func;
 {$IFEND}
 {$IF declared(OPENSSL_sk_set_cmp_func_introduced)}
       if LibVersion < OPENSSL_sk_set_cmp_func_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_set_cmp_func)}
-        OPENSSL_sk_set_cmp_func := @FC_OPENSSL_sk_set_cmp_func;
+        OPENSSL_sk_set_cmp_func := FC_OPENSSL_sk_set_cmp_func;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1483,7 +1484,7 @@ begin
       if OPENSSL_sk_set_cmp_func_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_set_cmp_func)}
-        OPENSSL_sk_set_cmp_func := @_OPENSSL_sk_set_cmp_func;
+        OPENSSL_sk_set_cmp_func := _OPENSSL_sk_set_cmp_func;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1503,13 +1504,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_dup_allownil)}
-      OPENSSL_sk_dup := @ERR_OPENSSL_sk_dup;
+      OPENSSL_sk_dup := ERR_OPENSSL_sk_dup;
 {$IFEND}
 {$IF declared(OPENSSL_sk_dup_introduced)}
       if LibVersion < OPENSSL_sk_dup_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_dup)}
-        OPENSSL_sk_dup := @FC_OPENSSL_sk_dup;
+        OPENSSL_sk_dup := FC_OPENSSL_sk_dup;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1518,7 +1519,7 @@ begin
       if OPENSSL_sk_dup_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_dup)}
-        OPENSSL_sk_dup := @_OPENSSL_sk_dup;
+        OPENSSL_sk_dup := _OPENSSL_sk_dup;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1538,13 +1539,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_sort_allownil)}
-      OPENSSL_sk_sort := @ERR_OPENSSL_sk_sort;
+      OPENSSL_sk_sort := ERR_OPENSSL_sk_sort;
 {$IFEND}
 {$IF declared(OPENSSL_sk_sort_introduced)}
       if LibVersion < OPENSSL_sk_sort_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_sort)}
-        OPENSSL_sk_sort := @FC_OPENSSL_sk_sort;
+        OPENSSL_sk_sort := FC_OPENSSL_sk_sort;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1553,7 +1554,7 @@ begin
       if OPENSSL_sk_sort_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_sort)}
-        OPENSSL_sk_sort := @_OPENSSL_sk_sort;
+        OPENSSL_sk_sort := _OPENSSL_sk_sort;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1574,13 +1575,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(OPENSSL_sk_is_sorted_allownil)}
-      OPENSSL_sk_is_sorted := @ERR_OPENSSL_sk_is_sorted;
+      OPENSSL_sk_is_sorted := ERR_OPENSSL_sk_is_sorted;
 {$IFEND}
 {$IF declared(OPENSSL_sk_is_sorted_introduced)}
       if LibVersion < OPENSSL_sk_is_sorted_introduced then
       begin
 {$IF declared(FC_OPENSSL_sk_is_sorted)}
-        OPENSSL_sk_is_sorted := @FC_OPENSSL_sk_is_sorted;
+        OPENSSL_sk_is_sorted := FC_OPENSSL_sk_is_sorted;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1589,7 +1590,7 @@ begin
       if OPENSSL_sk_is_sorted_removed <= LibVersion then
       begin
 {$IF declared(_OPENSSL_sk_is_sorted)}
-        OPENSSL_sk_is_sorted := @_OPENSSL_sk_is_sorted;
+        OPENSSL_sk_is_sorted := _OPENSSL_sk_is_sorted;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1609,13 +1610,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_num_allownil)}
-      sk_num := @ERR_sk_num;
+      sk_num := ERR_sk_num;
 {$IFEND}
 {$IF declared(sk_num_introduced)}
       if LibVersion < sk_num_introduced then
       begin
 {$IF declared(FC_sk_num)}
-        sk_num := @FC_sk_num;
+        sk_num := FC_sk_num;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1624,7 +1625,7 @@ begin
       if sk_num_removed <= LibVersion then
       begin
 {$IF declared(_sk_num)}
-        sk_num := @_sk_num;
+        sk_num := _sk_num;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1643,13 +1644,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_value_allownil)}
-      sk_value := @ERR_sk_value;
+      sk_value := ERR_sk_value;
 {$IFEND}
 {$IF declared(sk_value_introduced)}
       if LibVersion < sk_value_introduced then
       begin
 {$IF declared(FC_sk_value)}
-        sk_value := @FC_sk_value;
+        sk_value := FC_sk_value;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1658,7 +1659,7 @@ begin
       if sk_value_removed <= LibVersion then
       begin
 {$IF declared(_sk_value)}
-        sk_value := @_sk_value;
+        sk_value := _sk_value;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1675,13 +1676,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(sk_set_allownil)}
-    sk_set := @ERR_sk_set;
+    sk_set := ERR_sk_set;
 {$IFEND}
 {$IF declared(sk_set_introduced)}
     if LibVersion < sk_set_introduced then
     begin
 {$IF declared(FC_sk_set)}
-      sk_set := @FC_sk_set;
+      sk_set := FC_sk_set;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1690,7 +1691,7 @@ begin
     if sk_set_removed <= LibVersion then
     begin
 {$IF declared(_sk_set)}
-      sk_set := @_sk_set;
+      sk_set := _sk_set;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1707,13 +1708,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_new_allownil)}
-      sk_new := @ERR_sk_new;
+      sk_new := ERR_sk_new;
 {$IFEND}
 {$IF declared(sk_new_introduced)}
       if LibVersion < sk_new_introduced then
       begin
 {$IF declared(FC_sk_new)}
-        sk_new := @FC_sk_new;
+        sk_new := FC_sk_new;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1722,7 +1723,7 @@ begin
       if sk_new_removed <= LibVersion then
       begin
 {$IF declared(_sk_new)}
-        sk_new := @_sk_new;
+        sk_new := _sk_new;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1741,13 +1742,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_new_null_allownil)}
-      sk_new_null := @ERR_sk_new_null;
+      sk_new_null := ERR_sk_new_null;
 {$IFEND}
 {$IF declared(sk_new_null_introduced)}
       if LibVersion < sk_new_null_introduced then
       begin
 {$IF declared(FC_sk_new_null)}
-        sk_new_null := @FC_sk_new_null;
+        sk_new_null := FC_sk_new_null;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1756,7 +1757,7 @@ begin
       if sk_new_null_removed <= LibVersion then
       begin
 {$IF declared(_sk_new_null)}
-        sk_new_null := @_sk_new_null;
+        sk_new_null := _sk_new_null;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1775,13 +1776,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_new_reserve_allownil)}
-      sk_new_reserve := @ERR_sk_new_reserve;
+      sk_new_reserve := ERR_sk_new_reserve;
 {$IFEND}
 {$IF declared(sk_new_reserve_introduced)}
       if LibVersion < sk_new_reserve_introduced then
       begin
 {$IF declared(FC_sk_new_reserve)}
-        sk_new_reserve := @FC_sk_new_reserve;
+        sk_new_reserve := FC_sk_new_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1790,7 +1791,7 @@ begin
       if sk_new_reserve_removed <= LibVersion then
       begin
 {$IF declared(_sk_new_reserve)}
-        sk_new_reserve := @_sk_new_reserve;
+        sk_new_reserve := _sk_new_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1808,13 +1809,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_reserve_allownil)}
-      sk_reserve := @ERR_sk_reserve;
+      sk_reserve := ERR_sk_reserve;
 {$IFEND}
 {$IF declared(sk_reserve_introduced)}
       if LibVersion < sk_reserve_introduced then
       begin
 {$IF declared(FC_sk_reserve)}
-        sk_reserve := @FC_sk_reserve;
+        sk_reserve := FC_sk_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1823,7 +1824,7 @@ begin
       if sk_reserve_removed <= LibVersion then
       begin
 {$IF declared(_sk_reserve)}
-        sk_reserve := @_sk_reserve;
+        sk_reserve := _sk_reserve;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1841,13 +1842,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_free_allownil)}
-      sk_free := @ERR_sk_free;
+      sk_free := ERR_sk_free;
 {$IFEND}
 {$IF declared(sk_free_introduced)}
       if LibVersion < sk_free_introduced then
       begin
 {$IF declared(FC_sk_free)}
-        sk_free := @FC_sk_free;
+        sk_free := FC_sk_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1856,7 +1857,7 @@ begin
       if sk_free_removed <= LibVersion then
       begin
 {$IF declared(_sk_free)}
-        sk_free := @_sk_free;
+        sk_free := _sk_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1874,13 +1875,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_pop_free_allownil)}
-      sk_pop_free := @ERR_sk_pop_free;
+      sk_pop_free := ERR_sk_pop_free;
 {$IFEND}
 {$IF declared(sk_pop_free_introduced)}
       if LibVersion < sk_pop_free_introduced then
       begin
 {$IF declared(FC_sk_pop_free)}
-        sk_pop_free := @FC_sk_pop_free;
+        sk_pop_free := FC_sk_pop_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1889,7 +1890,7 @@ begin
       if sk_pop_free_removed <= LibVersion then
       begin
 {$IF declared(_sk_pop_free)}
-        sk_pop_free := @_sk_pop_free;
+        sk_pop_free := _sk_pop_free;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1907,13 +1908,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_deep_copy_allownil)}
-      sk_deep_copy := @ERR_sk_deep_copy;
+      sk_deep_copy := ERR_sk_deep_copy;
 {$IFEND}
 {$IF declared(sk_deep_copy_introduced)}
       if LibVersion < sk_deep_copy_introduced then
       begin
 {$IF declared(FC_sk_deep_copy)}
-        sk_deep_copy := @FC_sk_deep_copy;
+        sk_deep_copy := FC_sk_deep_copy;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1922,7 +1923,7 @@ begin
       if sk_deep_copy_removed <= LibVersion then
       begin
 {$IF declared(_sk_deep_copy)}
-        sk_deep_copy := @_sk_deep_copy;
+        sk_deep_copy := _sk_deep_copy;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1940,13 +1941,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_insert_allownil)}
-      sk_insert := @ERR_sk_insert;
+      sk_insert := ERR_sk_insert;
 {$IFEND}
 {$IF declared(sk_insert_introduced)}
       if LibVersion < sk_insert_introduced then
       begin
 {$IF declared(FC_sk_insert)}
-        sk_insert := @FC_sk_insert;
+        sk_insert := FC_sk_insert;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1955,7 +1956,7 @@ begin
       if sk_insert_removed <= LibVersion then
       begin
 {$IF declared(_sk_insert)}
-        sk_insert := @_sk_insert;
+        sk_insert := _sk_insert;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1973,13 +1974,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_delete_allownil)}
-      sk_delete := @ERR_sk_delete;
+      sk_delete := ERR_sk_delete;
 {$IFEND}
 {$IF declared(sk_delete_introduced)}
       if LibVersion < sk_delete_introduced then
       begin
 {$IF declared(FC_sk_delete)}
-        sk_delete := @FC_sk_delete;
+        sk_delete := FC_sk_delete;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -1988,7 +1989,7 @@ begin
       if sk_delete_removed <= LibVersion then
       begin
 {$IF declared(_sk_delete)}
-        sk_delete := @_sk_delete;
+        sk_delete := _sk_delete;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2006,13 +2007,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_delete_ptr_allownil)}
-      sk_delete_ptr := @ERR_sk_delete_ptr;
+      sk_delete_ptr := ERR_sk_delete_ptr;
 {$IFEND}
 {$IF declared(sk_delete_ptr_introduced)}
       if LibVersion < sk_delete_ptr_introduced then
       begin
 {$IF declared(FC_sk_delete_ptr)}
-        sk_delete_ptr := @FC_sk_delete_ptr;
+        sk_delete_ptr := FC_sk_delete_ptr;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2021,7 +2022,7 @@ begin
       if sk_delete_ptr_removed <= LibVersion then
       begin
 {$IF declared(_sk_delete_ptr)}
-        sk_delete_ptr := @_sk_delete_ptr;
+        sk_delete_ptr := _sk_delete_ptr;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2039,13 +2040,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_find_allownil)}
-      sk_find := @ERR_sk_find;
+      sk_find := ERR_sk_find;
 {$IFEND}
 {$IF declared(sk_find_introduced)}
       if LibVersion < sk_find_introduced then
       begin
 {$IF declared(FC_sk_find)}
-        sk_find := @FC_sk_find;
+        sk_find := FC_sk_find;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2054,7 +2055,7 @@ begin
       if sk_find_removed <= LibVersion then
       begin
 {$IF declared(_sk_find)}
-        sk_find := @_sk_find;
+        sk_find := _sk_find;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2072,13 +2073,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_find_ex_allownil)}
-      sk_find_ex := @ERR_sk_find_ex;
+      sk_find_ex := ERR_sk_find_ex;
 {$IFEND}
 {$IF declared(sk_find_ex_introduced)}
       if LibVersion < sk_find_ex_introduced then
       begin
 {$IF declared(FC_sk_find_ex)}
-        sk_find_ex := @FC_sk_find_ex;
+        sk_find_ex := FC_sk_find_ex;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2087,7 +2088,7 @@ begin
       if sk_find_ex_removed <= LibVersion then
       begin
 {$IF declared(_sk_find_ex)}
-        sk_find_ex := @_sk_find_ex;
+        sk_find_ex := _sk_find_ex;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2105,13 +2106,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_push_allownil)}
-      sk_push := @ERR_sk_push;
+      sk_push := ERR_sk_push;
 {$IFEND}
 {$IF declared(sk_push_introduced)}
       if LibVersion < sk_push_introduced then
       begin
 {$IF declared(FC_sk_push)}
-        sk_push := @FC_sk_push;
+        sk_push := FC_sk_push;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2120,7 +2121,7 @@ begin
       if sk_push_removed <= LibVersion then
       begin
 {$IF declared(_sk_push)}
-        sk_push := @_sk_push;
+        sk_push := _sk_push;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2138,13 +2139,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_unshift_allownil)}
-      sk_unshift := @ERR_sk_unshift;
+      sk_unshift := ERR_sk_unshift;
 {$IFEND}
 {$IF declared(sk_unshift_introduced)}
       if LibVersion < sk_unshift_introduced then
       begin
 {$IF declared(FC_sk_unshift)}
-        sk_unshift := @FC_sk_unshift;
+        sk_unshift := FC_sk_unshift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2153,7 +2154,7 @@ begin
       if sk_unshift_removed <= LibVersion then
       begin
 {$IF declared(_sk_unshift)}
-        sk_unshift := @_sk_unshift;
+        sk_unshift := _sk_unshift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2171,13 +2172,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_shift_allownil)}
-      sk_shift := @ERR_sk_shift;
+      sk_shift := ERR_sk_shift;
 {$IFEND}
 {$IF declared(sk_shift_introduced)}
       if LibVersion < sk_shift_introduced then
       begin
 {$IF declared(FC_sk_shift)}
-        sk_shift := @FC_sk_shift;
+        sk_shift := FC_sk_shift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2186,7 +2187,7 @@ begin
       if sk_shift_removed <= LibVersion then
       begin
 {$IF declared(_sk_shift)}
-        sk_shift := @_sk_shift;
+        sk_shift := _sk_shift;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2204,13 +2205,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_pop_allownil)}
-      sk_pop := @ERR_sk_pop;
+      sk_pop := ERR_sk_pop;
 {$IFEND}
 {$IF declared(sk_pop_introduced)}
       if LibVersion < sk_pop_introduced then
       begin
 {$IF declared(FC_sk_pop)}
-        sk_pop := @FC_sk_pop;
+        sk_pop := FC_sk_pop;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2219,7 +2220,7 @@ begin
       if sk_pop_removed <= LibVersion then
       begin
 {$IF declared(_sk_pop)}
-        sk_pop := @_sk_pop;
+        sk_pop := _sk_pop;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2237,13 +2238,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_zero_allownil)}
-      sk_zero := @ERR_sk_zero;
+      sk_zero := ERR_sk_zero;
 {$IFEND}
 {$IF declared(sk_zero_introduced)}
       if LibVersion < sk_zero_introduced then
       begin
 {$IF declared(FC_sk_zero)}
-        sk_zero := @FC_sk_zero;
+        sk_zero := FC_sk_zero;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2252,7 +2253,7 @@ begin
       if sk_zero_removed <= LibVersion then
       begin
 {$IF declared(_sk_zero)}
-        sk_zero := @_sk_zero;
+        sk_zero := _sk_zero;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2270,13 +2271,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_set_cmp_func_allownil)}
-      sk_set_cmp_func := @ERR_sk_set_cmp_func;
+      sk_set_cmp_func := ERR_sk_set_cmp_func;
 {$IFEND}
 {$IF declared(sk_set_cmp_func_introduced)}
       if LibVersion < sk_set_cmp_func_introduced then
       begin
 {$IF declared(FC_sk_set_cmp_func)}
-        sk_set_cmp_func := @FC_sk_set_cmp_func;
+        sk_set_cmp_func := FC_sk_set_cmp_func;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2285,7 +2286,7 @@ begin
       if sk_set_cmp_func_removed <= LibVersion then
       begin
 {$IF declared(_sk_set_cmp_func)}
-        sk_set_cmp_func := @_sk_set_cmp_func;
+        sk_set_cmp_func := _sk_set_cmp_func;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2303,13 +2304,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_dup_allownil)}
-      sk_dup := @ERR_sk_dup;
+      sk_dup := ERR_sk_dup;
 {$IFEND}
 {$IF declared(sk_dup_introduced)}
       if LibVersion < sk_dup_introduced then
       begin
 {$IF declared(FC_sk_dup)}
-        sk_dup := @FC_sk_dup;
+        sk_dup := FC_sk_dup;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2318,7 +2319,7 @@ begin
       if sk_dup_removed <= LibVersion then
       begin
 {$IF declared(_sk_dup)}
-        sk_dup := @_sk_dup;
+        sk_dup := _sk_dup;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2336,13 +2337,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_sort_allownil)}
-      sk_sort := @ERR_sk_sort;
+      sk_sort := ERR_sk_sort;
 {$IFEND}
 {$IF declared(sk_sort_introduced)}
       if LibVersion < sk_sort_introduced then
       begin
 {$IF declared(FC_sk_sort)}
-        sk_sort := @FC_sk_sort;
+        sk_sort := FC_sk_sort;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2351,7 +2352,7 @@ begin
       if sk_sort_removed <= LibVersion then
       begin
 {$IF declared(_sk_sort)}
-        sk_sort := @_sk_sort;
+        sk_sort := _sk_sort;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2369,13 +2370,13 @@ begin
     if FuncLoadError then
     begin
 {$IF not defined(sk_is_sorted_allownil)}
-      sk_is_sorted := @ERR_sk_is_sorted;
+      sk_is_sorted := ERR_sk_is_sorted;
 {$IFEND}
 {$IF declared(sk_is_sorted_introduced)}
       if LibVersion < sk_is_sorted_introduced then
       begin
 {$IF declared(FC_sk_is_sorted)}
-        sk_is_sorted := @FC_sk_is_sorted;
+        sk_is_sorted := FC_sk_is_sorted;
 {$IFEND}
         FuncLoadError := false;
       end;
@@ -2384,7 +2385,7 @@ begin
       if sk_is_sorted_removed <= LibVersion then
       begin
 {$IF declared(_sk_is_sorted)}
-        sk_is_sorted := @_sk_is_sorted;
+        sk_is_sorted := _sk_is_sorted;
 {$IFEND}
         FuncLoadError := false;
       end;
