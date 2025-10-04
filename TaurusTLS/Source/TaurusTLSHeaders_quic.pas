@@ -85,19 +85,19 @@ const
   {$I TaurusTLSNoRetValOff.inc}
 
 {introduced 3.2.0}
-function ERR_OSSL_QUIC_client_method : PSSL_METHOD;
+function ERR_OSSL_QUIC_client_method : PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_QUIC_client_method_procname);
 end;
 
 {introduced 3.2.0}
-function ERR_OSSL_QUIC_client_thread_method : PSSL_METHOD;
+function ERR_OSSL_QUIC_client_thread_method : PSSL_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_QUIC_client_thread_method_procname);
 end;
 
  {introduced 3.5.0}
-function ERR_OSSL_QUIC_server_method : PSSL_METHOD;
+function ERR_OSSL_QUIC_server_method : PSSL_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_QUIC_server_method_procname);
 end;
@@ -113,13 +113,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_QUIC_client_method_allownil)}
-    OSSL_QUIC_client_method := @ERR_OSSL_QUIC_client_method;
+    OSSL_QUIC_client_method := ERR_OSSL_QUIC_client_method;
     {$ifend}
     {$if declared(OSSL_QUIC_client_method_introduced)}
     if LibVersion < OSSL_QUIC_client_method_introduced then
     begin
       {$if declared(FC_OSSL_QUIC_client_method)}
-      OSSL_QUIC_client_method := @FC_OSSL_QUIC_client_method;
+      OSSL_QUIC_client_method := FC_OSSL_QUIC_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -128,7 +128,7 @@ begin
     if OSSL_QUIC_client_method_removed <= LibVersion then
     begin
       {$if declared(_OSSL_QUIC_client_method)}
-      OSSL_QUIC_client_method := @_OSSL_QUIC_client_method;
+      OSSL_QUIC_client_method := _OSSL_QUIC_client_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -144,13 +144,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_QUIC_client_thread_method_allownil)}
-    OSSL_QUIC_client_thread_method := @ERR_OSSL_QUIC_client_thread_method;
+    OSSL_QUIC_client_thread_method := ERR_OSSL_QUIC_client_thread_method;
     {$ifend}
     {$if declared(OSSL_QUIC_client_thread_method_introduced)}
     if LibVersion < OSSL_QUIC_client_thread_method_introduced then
     begin
       {$if declared(FC_OSSL_QUIC_client_thread_method)}
-      OSSL_QUIC_client_thread_method := @FC_OSSL_QUIC_client_thread_method;
+      OSSL_QUIC_client_thread_method := FC_OSSL_QUIC_client_thread_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -159,7 +159,7 @@ begin
     if OSSL_QUIC_client_thread_method_removed <= LibVersion then
     begin
       {$if declared(_OSSL_QUIC_client_thread_method)}
-      OSSL_QUIC_client_thread_method := @_OSSL_QUIC_client_thread_method;
+      OSSL_QUIC_client_thread_method := _OSSL_QUIC_client_thread_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -175,13 +175,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_QUIC_server_method_allownil)}
-    OSSL_QUIC_server_method := @ERR_OSSL_QUIC_server_method;
+    OSSL_QUIC_server_method := ERR_OSSL_QUIC_server_method;
     {$ifend}
     {$if declared(OSSL_QUIC_server_method_introduced)}
     if LibVersion < OSSL_QUIC_server_method_introduced then
     begin
       {$if declared(FC_OSSL_QUIC_server_method)}
-      OSSL_QUIC_server_method := @FC_OSSL_QUIC_server_method;
+      OSSL_QUIC_server_method := FC_OSSL_QUIC_server_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -190,7 +190,7 @@ begin
     if OSSL_QUIC_server_method_removed <= LibVersion then
     begin
       {$if declared(_OSSL_QUIC_server_method)}
-      OSSL_QUIC_server_method := @_OSSL_QUIC_server_method;
+      OSSL_QUIC_server_method := _OSSL_QUIC_server_method;
       {$ifend}
       FuncLoadError := false;
     end;

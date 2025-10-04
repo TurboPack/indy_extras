@@ -918,50 +918,51 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_RSA_new: PRSA; 
+
+function  ERR_RSA_new: PRSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_new_procname);
 end;
 
 
-function  ERR_RSA_new_method(engine: PENGINE): PRSA; 
+function  ERR_RSA_new_method(engine: PENGINE): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_new_method_procname);
 end;
 
 
-function  ERR_RSA_bits(const rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_bits(const rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_bits_procname);
 end;
 
 
-function  ERR_RSA_size(const rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_size(const rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_size_procname);
 end;
 
 
-function  ERR_RSA_security_bits(const rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_security_bits(const rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_security_bits_procname);
 end;
 
 
 
-function  ERR_RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TIdC_INT; 
+function  ERR_RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set0_key_procname);
 end;
 
 
-function  ERR_RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TIdC_INT; 
+function  ERR_RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set0_factors_procname);
 end;
 
 
-function  ERR_RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TIdC_INT; 
+function  ERR_RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set0_crt_params_procname);
 end;
@@ -969,26 +970,26 @@ end;
 
   //function RSA_set0_multi_prime_params(r: PRSA; primes: array of PBIGNUM; exps: array of PBIGNUM; coeffs: array of PBIGNUM; pnum: TIdC_INT): TIdC_INT;
 
-procedure  ERR_RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM); 
+procedure  ERR_RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_key_procname);
 end;
 
 
-procedure  ERR_RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM); 
+procedure  ERR_RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_factors_procname);
 end;
 
 
-function  ERR_RSA_get_multi_prime_extra_count(const r: PRSA): TIdC_INT; 
+function  ERR_RSA_get_multi_prime_extra_count(const r: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get_multi_prime_extra_count_procname);
 end;
 
 
   //function RSA_get0_multi_prime_factors(const r: PRSA; const primes: array of PBIGNUM): TIdC_INT;
-procedure  ERR_RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM); 
+procedure  ERR_RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_crt_params_procname);
 end;
@@ -997,80 +998,80 @@ end;
 
   //function RSA_get0_multi_prime_crt_params(const r: PRSA; const exps: array of PBIGNUM; const coeffs: array of PBIGNUM): TIdC_INT;
 
-function  ERR_RSA_get0_n(const d: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_n(const d: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_n_procname);
 end;
 
 
-function  ERR_RSA_get0_e(const d: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_e(const d: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_e_procname);
 end;
 
 
-function  ERR_RSA_get0_d(const d: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_d(const d: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_d_procname);
 end;
 
 
-function  ERR_RSA_get0_p(const d: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_p(const d: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_p_procname);
 end;
 
 
-function  ERR_RSA_get0_q(const d: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_q(const d: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_q_procname);
 end;
 
 
-function  ERR_RSA_get0_dmp1(const r: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_dmp1(const r: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_dmp1_procname);
 end;
 
 
-function  ERR_RSA_get0_dmq1(const r: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_dmq1(const r: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_dmq1_procname);
 end;
 
 
-function  ERR_RSA_get0_iqmp(const r: PRSA): PBIGNUM; 
+function  ERR_RSA_get0_iqmp(const r: PRSA): PBIGNUM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_iqmp_procname);
 end;
 
 
 
-procedure  ERR_RSA_clear_flags(r: PRSA; flags: TIdC_INT); 
+procedure  ERR_RSA_clear_flags(r: PRSA; flags: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_clear_flags_procname);
 end;
 
 
-function  ERR_RSA_test_flags(const r: PRSA; flags: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_test_flags(const r: PRSA; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_test_flags_procname);
 end;
 
 
-procedure  ERR_RSA_set_flags(r: PRSA; flags: TIdC_INT); 
+procedure  ERR_RSA_set_flags(r: PRSA; flags: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set_flags_procname);
 end;
 
 
-function  ERR_RSA_get_version(r: PRSA): TIdC_INT; 
+function  ERR_RSA_get_version(r: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get_version_procname);
 end;
 
 
-function  ERR_RSA_get0_engine(const r: PRSA): PENGINE; 
+function  ERR_RSA_get0_engine(const r: PRSA): PENGINE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get0_engine_procname);
 end;
@@ -1078,116 +1079,116 @@ end;
 
 
   (* New version *)
-function  ERR_RSA_generate_key_ex(rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_RSA_generate_key_ex(rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_generate_key_ex_procname);
 end;
 
 
   (* Multi-prime version *)
-function  ERR_RSA_generate_multi_prime_key(rsa: PRSA; bits: TIdC_INT; primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_RSA_generate_multi_prime_key(rsa: PRSA; bits: TIdC_INT; primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_generate_multi_prime_key_procname);
 end;
 
 
-function  ERR_RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_X931_derive_ex_procname);
 end;
 
 
-function  ERR_RSA_X931_generate_key_ex(rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_RSA_X931_generate_key_ex(rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_X931_generate_key_ex_procname);
 end;
 
 
 
-function  ERR_RSA_check_key(const v1: PRSA): TIdC_INT; 
+function  ERR_RSA_check_key(const v1: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_check_key_procname);
 end;
 
 
-function  ERR_RSA_check_key_ex(const v1: PRSA; cb: PBN_GENCB): TIdC_INT;
+function  ERR_RSA_check_key_ex(const v1: PRSA; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_check_key_ex_procname);
 end;
 
 
   (* next 4 return -1 on error *)
-function  ERR_RSA_public_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_public_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_public_encrypt_procname);
 end;
 
 
-function  ERR_RSA_private_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_private_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_private_encrypt_procname);
 end;
 
 
-function  ERR_RSA_public_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_public_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_public_decrypt_procname);
 end;
 
 
-function  ERR_RSA_private_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_private_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_private_decrypt_procname);
 end;
 
 
 
-procedure  ERR_RSA_free(r: PRSA); 
+procedure  ERR_RSA_free(r: PRSA);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_free_procname);
 end;
 
 
   (* "up" the RSA object's reference count *)
-function  ERR_RSA_up_ref(r: PRSA): TIdC_INT; 
+function  ERR_RSA_up_ref(r: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_up_ref_procname);
 end;
 
 
 
-function  ERR_RSA_flags(const r: PRSA): TIdC_INT; 
+function  ERR_RSA_flags(const r: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_flags_procname);
 end;
 
 
 
-procedure  ERR_RSA_set_default_method(const meth: PRSA_METHOD); 
+procedure  ERR_RSA_set_default_method(const meth: PRSA_METHOD);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set_default_method_procname);
 end;
 
 
-function  ERR_RSA_get_default_method: PRSA_METHOD; 
+function  ERR_RSA_get_default_method: PRSA_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get_default_method_procname);
 end;
 
 
-function  ERR_RSA_null_method: PRSA_METHOD; 
+function  ERR_RSA_null_method: PRSA_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_null_method_procname);
 end;
 
 
-function  ERR_RSA_get_method(const rsa: PRSA): PRSA_METHOD; 
+function  ERR_RSA_get_method(const rsa: PRSA): PRSA_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get_method_procname);
 end;
 
 
-function  ERR_RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TIdC_INT; 
+function  ERR_RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set_method_procname);
 end;
@@ -1195,21 +1196,21 @@ end;
 
 
   (* these are the actual RSA functions *)
-function  ERR_RSA_PKCS1_OpenSSL: PRSA_METHOD;
+function  ERR_RSA_PKCS1_OpenSSL: PRSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_PKCS1_OpenSSL_procname);
 end;
 
 
 
-function  ERR_RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TIdC_INT; cmd: TIdC_INT; p1: TIdC_INT; p2: Pointer): TIdC_INT; 
+function  ERR_RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TIdC_INT; cmd: TIdC_INT; p1: TIdC_INT; p2: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_pkey_ctx_ctrl_procname);
 end;
 
 
 
-function  ERR_RSA_print(bp: PBIO; const r: PRSA; offset: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_print(bp: PBIO; const r: PRSA; offset: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_print_procname);
 end;
@@ -1220,13 +1221,13 @@ end;
    * The following 2 functions sign and verify a X509_SIG ASN1 object inside
    * PKCS#1 padded RSA encryption
    *)
-function  ERR_RSA_sign(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_sign(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_sign_procname);
 end;
 
 
-function  ERR_RSA_verify(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_verify(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_verify_procname);
 end;
@@ -1237,231 +1238,231 @@ end;
    * The following 2 function sign and verify a ASN1_OCTET_STRING object inside
    * PKCS#1 padded RSA encryption
    *)
-function  ERR_RSA_sign_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_sign_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_sign_ASN1_OCTET_STRING_procname);
 end;
 
 
-function  ERR_RSA_verify_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; 
+function  ERR_RSA_verify_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_verify_ASN1_OCTET_STRING_procname);
 end;
 
 
 
-function  ERR_RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_blinding_on_procname);
 end;
 
 
-procedure  ERR_RSA_blinding_off(rsa: PRSA); 
+procedure  ERR_RSA_blinding_off(rsa: PRSA);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_blinding_off_procname);
 end;
 
 
-function  ERR_RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING; 
+function  ERR_RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_setup_blinding_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_type_1_procname);
 end;
 
 
-function  ERR_RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_type_1_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_type_2_procname);
 end;
 
 
-function  ERR_RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_type_2_procname);
 end;
 
 
-function  ERR_PKCS1_MGF1(mask: PByte; len: TIdC_LONG; const seed: PByte; seedlen: TIdC_LONG; const dgst: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS1_MGF1(mask: PByte; len: TIdC_LONG; const seed: PByte; seedlen: TIdC_LONG; const dgst: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS1_MGF1_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_OAEP_procname);
 end;
 
 
-function  ERR_RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_OAEP_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_OAEP_mgf1_procname);
 end;
 
 
-function  ERR_RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; 
+function  ERR_RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_OAEP_mgf1_procname);
 end;
 
 {
-function  ERR_RSA_padding_add_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT;
+function  ERR_RSA_padding_add_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_SSLv23_procname);
 end;
 }
 {
-function  ERR_RSA_padding_check_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT;
+function  ERR_RSA_padding_check_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_SSLv23_procname);
 end; }
 
 
-function  ERR_RSA_padding_add_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_none_procname);
 end;
 
 
-function  ERR_RSA_padding_check_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_check_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_none_procname);
 end;
 
 
-function  ERR_RSA_padding_add_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_X931_procname);
 end;
 
 
-function  ERR_RSA_padding_check_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_check_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_check_X931_procname);
 end;
 
 
-function  ERR_RSA_X931_hash_id(nid: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_X931_hash_id(nid: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_X931_hash_id_procname);
 end;
 
 
 
-function  ERR_RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_verify_PKCS1_PSS_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_procname);
 end;
 
 
-function  ERR_RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_verify_PKCS1_PSS_mgf1_procname);
 end;
 
 
-function  ERR_RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_mgf1_procname);
 end;
 
-function  ERR_RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function  ERR_RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_set_ex_data_procname);
 end;
 
 
-function  ERR_RSA_get_ex_data(const r: PRSA; idx: TIdC_INT): Pointer; 
+function  ERR_RSA_get_ex_data(const r: PRSA; idx: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_get_ex_data_procname);
 end;
 
 
-function  ERR_RSAPublicKey_dup(rsa: PRSA): PRSA; 
+function  ERR_RSAPublicKey_dup(rsa: PRSA): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSAPublicKey_dup_procname);
 end;
 
 
-function  ERR_RSAPrivateKey_dup(rsa: PRSA): PRSA; 
+function  ERR_RSAPrivateKey_dup(rsa: PRSA): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSAPrivateKey_dup_procname);
 end;
 
 
 
-function  ERR_RSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PRSA_METHOD; 
+function  ERR_RSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PRSA_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_new_procname);
 end;
 
 
-procedure  ERR_RSA_meth_free(meth: PRSA_METHOD); 
+procedure  ERR_RSA_meth_free(meth: PRSA_METHOD);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_free_procname);
 end;
 
 
-function  ERR_RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD; 
+function  ERR_RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_dup_procname);
 end;
 
 
-function  ERR_RSA_meth_get0_name(const meth: PRSA_METHOD): PIdAnsiChar; 
+function  ERR_RSA_meth_get0_name(const meth: PRSA_METHOD): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_get0_name_procname);
 end;
 
 
-function  ERR_RSA_meth_set1_name(meth: PRSA_METHOD; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_RSA_meth_set1_name(meth: PRSA_METHOD; const name: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set1_name_procname);
 end;
 
 
-function  ERR_RSA_meth_get_flags(const meth: PRSA_METHOD): TIdC_INT; 
+function  ERR_RSA_meth_get_flags(const meth: PRSA_METHOD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_get_flags_procname);
 end;
 
 
-function  ERR_RSA_meth_set_flags(meth: PRSA_METHOD; flags: TIdC_INT): TIdC_INT; 
+function  ERR_RSA_meth_set_flags(meth: PRSA_METHOD; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_flags_procname);
 end;
 
 
-function  ERR_RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer; 
+function  ERR_RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_get0_app_data_procname);
 end;
 
 
-function  ERR_RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TIdC_INT; 
+function  ERR_RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set0_app_data_procname);
 end;
@@ -1492,7 +1493,7 @@ end;
   //int (*RSA_meth_get_priv_dec(const RSA_METHOD *meth))
   //    (int flen, const unsigned char *from,
   //     unsigned char *to_, RSA *rsa, int padding);
-function  ERR_RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TIdC_INT; 
+function  ERR_RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_priv_dec_procname);
 end;
@@ -1501,7 +1502,7 @@ end;
 
   //int (*RSA_meth_get_mod_exp(const RSA_METHOD *meth))
   //    (BIGNUM *r0, const BIGNUM *i, RSA *rsa, BN_CTX *ctx);
-function  ERR_RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TIdC_INT; 
+function  ERR_RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_mod_exp_procname);
 end;
@@ -1510,21 +1511,21 @@ end;
   //int (*RSA_meth_get_bn_mod_exp(const RSA_METHOD *meth))
   //    (BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
   //     const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
-function  ERR_RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TIdC_INT; 
+function  ERR_RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_bn_mod_exp_procname);
 end;
 
 
   //int (*RSA_meth_get_init(const RSA_METHOD *meth)) (RSA *rsa);
-function  ERR_RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TIdC_INT; 
+function  ERR_RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_init_procname);
 end;
 
 
   //int (*RSA_meth_get_finish(const RSA_METHOD *meth)) (RSA *rsa);
-function  ERR_RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TIdC_INT; 
+function  ERR_RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_finish_procname);
 end;
@@ -1535,7 +1536,7 @@ end;
   //     const unsigned char *m, unsigned int m_length,
   //     unsigned char *sigret, unsigned int *siglen,
   //     const RSA *rsa);
-function  ERR_RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TIdC_INT; 
+function  ERR_RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_sign_procname);
 end;
@@ -1545,7 +1546,7 @@ end;
   //    (int dtype, const unsigned char *m,
   //     unsigned int m_length, const unsigned char *sigbuf,
   //     unsigned int siglen, const RSA *rsa);
-function  ERR_RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TIdC_INT; 
+function  ERR_RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_verify_procname);
 end;
@@ -1553,7 +1554,7 @@ end;
 
   //int (*RSA_meth_get_keygen(const RSA_METHOD *meth))
   //    (RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);
-function  ERR_RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TIdC_INT; 
+function  ERR_RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_keygen_procname);
 end;
@@ -1561,14 +1562,13 @@ end;
 
   //int (*RSA_meth_get_multi_prime_keygen(const RSA_METHOD *meth))
   //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
-function  ERR_RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT; 
+function  ERR_RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RSA_meth_set_multi_prime_keygen_procname);
 end;
 
 
-
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
   {$I TaurusTLSUnusedParamOff.inc}
 
@@ -1582,13 +1582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_new_allownil)}
-    RSA_new := @ERR_RSA_new;
+    RSA_new := ERR_RSA_new;
     {$ifend}
     {$if declared(RSA_new_introduced)}
     if LibVersion < RSA_new_introduced then
     begin
       {$if declared(FC_RSA_new)}
-      RSA_new := @FC_RSA_new;
+      RSA_new := FC_RSA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1597,7 +1597,7 @@ begin
     if RSA_new_removed <= LibVersion then
     begin
       {$if declared(_RSA_new)}
-      RSA_new := @_RSA_new;
+      RSA_new := _RSA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1614,13 +1614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_new_method_allownil)}
-    RSA_new_method := @ERR_RSA_new_method;
+    RSA_new_method := ERR_RSA_new_method;
     {$ifend}
     {$if declared(RSA_new_method_introduced)}
     if LibVersion < RSA_new_method_introduced then
     begin
       {$if declared(FC_RSA_new_method)}
-      RSA_new_method := @FC_RSA_new_method;
+      RSA_new_method := FC_RSA_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1629,7 +1629,7 @@ begin
     if RSA_new_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_new_method)}
-      RSA_new_method := @_RSA_new_method;
+      RSA_new_method := _RSA_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1646,13 +1646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_bits_allownil)}
-    RSA_bits := @ERR_RSA_bits;
+    RSA_bits := ERR_RSA_bits;
     {$ifend}
     {$if declared(RSA_bits_introduced)}
     if LibVersion < RSA_bits_introduced then
     begin
       {$if declared(FC_RSA_bits)}
-      RSA_bits := @FC_RSA_bits;
+      RSA_bits := FC_RSA_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1661,7 +1661,7 @@ begin
     if RSA_bits_removed <= LibVersion then
     begin
       {$if declared(_RSA_bits)}
-      RSA_bits := @_RSA_bits;
+      RSA_bits := _RSA_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1678,13 +1678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_size_allownil)}
-    RSA_size := @ERR_RSA_size;
+    RSA_size := ERR_RSA_size;
     {$ifend}
     {$if declared(RSA_size_introduced)}
     if LibVersion < RSA_size_introduced then
     begin
       {$if declared(FC_RSA_size)}
-      RSA_size := @FC_RSA_size;
+      RSA_size := FC_RSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1693,7 +1693,7 @@ begin
     if RSA_size_removed <= LibVersion then
     begin
       {$if declared(_RSA_size)}
-      RSA_size := @_RSA_size;
+      RSA_size := _RSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1710,13 +1710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_security_bits_allownil)}
-    RSA_security_bits := @ERR_RSA_security_bits;
+    RSA_security_bits := ERR_RSA_security_bits;
     {$ifend}
     {$if declared(RSA_security_bits_introduced)}
     if LibVersion < RSA_security_bits_introduced then
     begin
       {$if declared(FC_RSA_security_bits)}
-      RSA_security_bits := @FC_RSA_security_bits;
+      RSA_security_bits := FC_RSA_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1725,7 +1725,7 @@ begin
     if RSA_security_bits_removed <= LibVersion then
     begin
       {$if declared(_RSA_security_bits)}
-      RSA_security_bits := @_RSA_security_bits;
+      RSA_security_bits := _RSA_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1742,13 +1742,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set0_key_allownil)}
-    RSA_set0_key := @ERR_RSA_set0_key;
+    RSA_set0_key := ERR_RSA_set0_key;
     {$ifend}
     {$if declared(RSA_set0_key_introduced)}
     if LibVersion < RSA_set0_key_introduced then
     begin
       {$if declared(FC_RSA_set0_key)}
-      RSA_set0_key := @FC_RSA_set0_key;
+      RSA_set0_key := FC_RSA_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1757,7 +1757,7 @@ begin
     if RSA_set0_key_removed <= LibVersion then
     begin
       {$if declared(_RSA_set0_key)}
-      RSA_set0_key := @_RSA_set0_key;
+      RSA_set0_key := _RSA_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1774,13 +1774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set0_factors_allownil)}
-    RSA_set0_factors := @ERR_RSA_set0_factors;
+    RSA_set0_factors := ERR_RSA_set0_factors;
     {$ifend}
     {$if declared(RSA_set0_factors_introduced)}
     if LibVersion < RSA_set0_factors_introduced then
     begin
       {$if declared(FC_RSA_set0_factors)}
-      RSA_set0_factors := @FC_RSA_set0_factors;
+      RSA_set0_factors := FC_RSA_set0_factors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1789,7 +1789,7 @@ begin
     if RSA_set0_factors_removed <= LibVersion then
     begin
       {$if declared(_RSA_set0_factors)}
-      RSA_set0_factors := @_RSA_set0_factors;
+      RSA_set0_factors := _RSA_set0_factors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1806,13 +1806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set0_crt_params_allownil)}
-    RSA_set0_crt_params := @ERR_RSA_set0_crt_params;
+    RSA_set0_crt_params := ERR_RSA_set0_crt_params;
     {$ifend}
     {$if declared(RSA_set0_crt_params_introduced)}
     if LibVersion < RSA_set0_crt_params_introduced then
     begin
       {$if declared(FC_RSA_set0_crt_params)}
-      RSA_set0_crt_params := @FC_RSA_set0_crt_params;
+      RSA_set0_crt_params := FC_RSA_set0_crt_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1821,7 +1821,7 @@ begin
     if RSA_set0_crt_params_removed <= LibVersion then
     begin
       {$if declared(_RSA_set0_crt_params)}
-      RSA_set0_crt_params := @_RSA_set0_crt_params;
+      RSA_set0_crt_params := _RSA_set0_crt_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1838,13 +1838,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_key_allownil)}
-    RSA_get0_key := @ERR_RSA_get0_key;
+    RSA_get0_key := ERR_RSA_get0_key;
     {$ifend}
     {$if declared(RSA_get0_key_introduced)}
     if LibVersion < RSA_get0_key_introduced then
     begin
       {$if declared(FC_RSA_get0_key)}
-      RSA_get0_key := @FC_RSA_get0_key;
+      RSA_get0_key := FC_RSA_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1853,7 +1853,7 @@ begin
     if RSA_get0_key_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_key)}
-      RSA_get0_key := @_RSA_get0_key;
+      RSA_get0_key := _RSA_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1870,13 +1870,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_factors_allownil)}
-    RSA_get0_factors := @ERR_RSA_get0_factors;
+    RSA_get0_factors := ERR_RSA_get0_factors;
     {$ifend}
     {$if declared(RSA_get0_factors_introduced)}
     if LibVersion < RSA_get0_factors_introduced then
     begin
       {$if declared(FC_RSA_get0_factors)}
-      RSA_get0_factors := @FC_RSA_get0_factors;
+      RSA_get0_factors := FC_RSA_get0_factors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1885,7 +1885,7 @@ begin
     if RSA_get0_factors_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_factors)}
-      RSA_get0_factors := @_RSA_get0_factors;
+      RSA_get0_factors := _RSA_get0_factors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1902,13 +1902,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get_multi_prime_extra_count_allownil)}
-    RSA_get_multi_prime_extra_count := @ERR_RSA_get_multi_prime_extra_count;
+    RSA_get_multi_prime_extra_count := ERR_RSA_get_multi_prime_extra_count;
     {$ifend}
     {$if declared(RSA_get_multi_prime_extra_count_introduced)}
     if LibVersion < RSA_get_multi_prime_extra_count_introduced then
     begin
       {$if declared(FC_RSA_get_multi_prime_extra_count)}
-      RSA_get_multi_prime_extra_count := @FC_RSA_get_multi_prime_extra_count;
+      RSA_get_multi_prime_extra_count := FC_RSA_get_multi_prime_extra_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1917,7 +1917,7 @@ begin
     if RSA_get_multi_prime_extra_count_removed <= LibVersion then
     begin
       {$if declared(_RSA_get_multi_prime_extra_count)}
-      RSA_get_multi_prime_extra_count := @_RSA_get_multi_prime_extra_count;
+      RSA_get_multi_prime_extra_count := _RSA_get_multi_prime_extra_count;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1934,13 +1934,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_crt_params_allownil)}
-    RSA_get0_crt_params := @ERR_RSA_get0_crt_params;
+    RSA_get0_crt_params := ERR_RSA_get0_crt_params;
     {$ifend}
     {$if declared(RSA_get0_crt_params_introduced)}
     if LibVersion < RSA_get0_crt_params_introduced then
     begin
       {$if declared(FC_RSA_get0_crt_params)}
-      RSA_get0_crt_params := @FC_RSA_get0_crt_params;
+      RSA_get0_crt_params := FC_RSA_get0_crt_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1949,7 +1949,7 @@ begin
     if RSA_get0_crt_params_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_crt_params)}
-      RSA_get0_crt_params := @_RSA_get0_crt_params;
+      RSA_get0_crt_params := _RSA_get0_crt_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1966,13 +1966,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_n_allownil)}
-    RSA_get0_n := @ERR_RSA_get0_n;
+    RSA_get0_n := ERR_RSA_get0_n;
     {$ifend}
     {$if declared(RSA_get0_n_introduced)}
     if LibVersion < RSA_get0_n_introduced then
     begin
       {$if declared(FC_RSA_get0_n)}
-      RSA_get0_n := @FC_RSA_get0_n;
+      RSA_get0_n := FC_RSA_get0_n;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1981,7 +1981,7 @@ begin
     if RSA_get0_n_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_n)}
-      RSA_get0_n := @_RSA_get0_n;
+      RSA_get0_n := _RSA_get0_n;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1998,13 +1998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_e_allownil)}
-    RSA_get0_e := @ERR_RSA_get0_e;
+    RSA_get0_e := ERR_RSA_get0_e;
     {$ifend}
     {$if declared(RSA_get0_e_introduced)}
     if LibVersion < RSA_get0_e_introduced then
     begin
       {$if declared(FC_RSA_get0_e)}
-      RSA_get0_e := @FC_RSA_get0_e;
+      RSA_get0_e := FC_RSA_get0_e;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2013,7 +2013,7 @@ begin
     if RSA_get0_e_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_e)}
-      RSA_get0_e := @_RSA_get0_e;
+      RSA_get0_e := _RSA_get0_e;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2030,13 +2030,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_d_allownil)}
-    RSA_get0_d := @ERR_RSA_get0_d;
+    RSA_get0_d := ERR_RSA_get0_d;
     {$ifend}
     {$if declared(RSA_get0_d_introduced)}
     if LibVersion < RSA_get0_d_introduced then
     begin
       {$if declared(FC_RSA_get0_d)}
-      RSA_get0_d := @FC_RSA_get0_d;
+      RSA_get0_d := FC_RSA_get0_d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2045,7 +2045,7 @@ begin
     if RSA_get0_d_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_d)}
-      RSA_get0_d := @_RSA_get0_d;
+      RSA_get0_d := _RSA_get0_d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2062,13 +2062,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_p_allownil)}
-    RSA_get0_p := @ERR_RSA_get0_p;
+    RSA_get0_p := ERR_RSA_get0_p;
     {$ifend}
     {$if declared(RSA_get0_p_introduced)}
     if LibVersion < RSA_get0_p_introduced then
     begin
       {$if declared(FC_RSA_get0_p)}
-      RSA_get0_p := @FC_RSA_get0_p;
+      RSA_get0_p := FC_RSA_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2077,7 +2077,7 @@ begin
     if RSA_get0_p_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_p)}
-      RSA_get0_p := @_RSA_get0_p;
+      RSA_get0_p := _RSA_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2094,13 +2094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_q_allownil)}
-    RSA_get0_q := @ERR_RSA_get0_q;
+    RSA_get0_q := ERR_RSA_get0_q;
     {$ifend}
     {$if declared(RSA_get0_q_introduced)}
     if LibVersion < RSA_get0_q_introduced then
     begin
       {$if declared(FC_RSA_get0_q)}
-      RSA_get0_q := @FC_RSA_get0_q;
+      RSA_get0_q := FC_RSA_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2109,7 +2109,7 @@ begin
     if RSA_get0_q_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_q)}
-      RSA_get0_q := @_RSA_get0_q;
+      RSA_get0_q := _RSA_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2126,13 +2126,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_dmp1_allownil)}
-    RSA_get0_dmp1 := @ERR_RSA_get0_dmp1;
+    RSA_get0_dmp1 := ERR_RSA_get0_dmp1;
     {$ifend}
     {$if declared(RSA_get0_dmp1_introduced)}
     if LibVersion < RSA_get0_dmp1_introduced then
     begin
       {$if declared(FC_RSA_get0_dmp1)}
-      RSA_get0_dmp1 := @FC_RSA_get0_dmp1;
+      RSA_get0_dmp1 := FC_RSA_get0_dmp1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2141,7 +2141,7 @@ begin
     if RSA_get0_dmp1_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_dmp1)}
-      RSA_get0_dmp1 := @_RSA_get0_dmp1;
+      RSA_get0_dmp1 := _RSA_get0_dmp1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2158,13 +2158,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_dmq1_allownil)}
-    RSA_get0_dmq1 := @ERR_RSA_get0_dmq1;
+    RSA_get0_dmq1 := ERR_RSA_get0_dmq1;
     {$ifend}
     {$if declared(RSA_get0_dmq1_introduced)}
     if LibVersion < RSA_get0_dmq1_introduced then
     begin
       {$if declared(FC_RSA_get0_dmq1)}
-      RSA_get0_dmq1 := @FC_RSA_get0_dmq1;
+      RSA_get0_dmq1 := FC_RSA_get0_dmq1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2173,7 +2173,7 @@ begin
     if RSA_get0_dmq1_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_dmq1)}
-      RSA_get0_dmq1 := @_RSA_get0_dmq1;
+      RSA_get0_dmq1 := _RSA_get0_dmq1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2190,13 +2190,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_iqmp_allownil)}
-    RSA_get0_iqmp := @ERR_RSA_get0_iqmp;
+    RSA_get0_iqmp := ERR_RSA_get0_iqmp;
     {$ifend}
     {$if declared(RSA_get0_iqmp_introduced)}
     if LibVersion < RSA_get0_iqmp_introduced then
     begin
       {$if declared(FC_RSA_get0_iqmp)}
-      RSA_get0_iqmp := @FC_RSA_get0_iqmp;
+      RSA_get0_iqmp := FC_RSA_get0_iqmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2205,7 +2205,7 @@ begin
     if RSA_get0_iqmp_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_iqmp)}
-      RSA_get0_iqmp := @_RSA_get0_iqmp;
+      RSA_get0_iqmp := _RSA_get0_iqmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2222,13 +2222,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_clear_flags_allownil)}
-    RSA_clear_flags := @ERR_RSA_clear_flags;
+    RSA_clear_flags := ERR_RSA_clear_flags;
     {$ifend}
     {$if declared(RSA_clear_flags_introduced)}
     if LibVersion < RSA_clear_flags_introduced then
     begin
       {$if declared(FC_RSA_clear_flags)}
-      RSA_clear_flags := @FC_RSA_clear_flags;
+      RSA_clear_flags := FC_RSA_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2237,7 +2237,7 @@ begin
     if RSA_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_clear_flags)}
-      RSA_clear_flags := @_RSA_clear_flags;
+      RSA_clear_flags := _RSA_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2254,13 +2254,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_test_flags_allownil)}
-    RSA_test_flags := @ERR_RSA_test_flags;
+    RSA_test_flags := ERR_RSA_test_flags;
     {$ifend}
     {$if declared(RSA_test_flags_introduced)}
     if LibVersion < RSA_test_flags_introduced then
     begin
       {$if declared(FC_RSA_test_flags)}
-      RSA_test_flags := @FC_RSA_test_flags;
+      RSA_test_flags := FC_RSA_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2269,7 +2269,7 @@ begin
     if RSA_test_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_test_flags)}
-      RSA_test_flags := @_RSA_test_flags;
+      RSA_test_flags := _RSA_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2286,13 +2286,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set_flags_allownil)}
-    RSA_set_flags := @ERR_RSA_set_flags;
+    RSA_set_flags := ERR_RSA_set_flags;
     {$ifend}
     {$if declared(RSA_set_flags_introduced)}
     if LibVersion < RSA_set_flags_introduced then
     begin
       {$if declared(FC_RSA_set_flags)}
-      RSA_set_flags := @FC_RSA_set_flags;
+      RSA_set_flags := FC_RSA_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2301,7 +2301,7 @@ begin
     if RSA_set_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_set_flags)}
-      RSA_set_flags := @_RSA_set_flags;
+      RSA_set_flags := _RSA_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2318,13 +2318,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get_version_allownil)}
-    RSA_get_version := @ERR_RSA_get_version;
+    RSA_get_version := ERR_RSA_get_version;
     {$ifend}
     {$if declared(RSA_get_version_introduced)}
     if LibVersion < RSA_get_version_introduced then
     begin
       {$if declared(FC_RSA_get_version)}
-      RSA_get_version := @FC_RSA_get_version;
+      RSA_get_version := FC_RSA_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2333,7 +2333,7 @@ begin
     if RSA_get_version_removed <= LibVersion then
     begin
       {$if declared(_RSA_get_version)}
-      RSA_get_version := @_RSA_get_version;
+      RSA_get_version := _RSA_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2350,13 +2350,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get0_engine_allownil)}
-    RSA_get0_engine := @ERR_RSA_get0_engine;
+    RSA_get0_engine := ERR_RSA_get0_engine;
     {$ifend}
     {$if declared(RSA_get0_engine_introduced)}
     if LibVersion < RSA_get0_engine_introduced then
     begin
       {$if declared(FC_RSA_get0_engine)}
-      RSA_get0_engine := @FC_RSA_get0_engine;
+      RSA_get0_engine := FC_RSA_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2365,7 +2365,7 @@ begin
     if RSA_get0_engine_removed <= LibVersion then
     begin
       {$if declared(_RSA_get0_engine)}
-      RSA_get0_engine := @_RSA_get0_engine;
+      RSA_get0_engine := _RSA_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2382,13 +2382,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_generate_key_ex_allownil)}
-    RSA_generate_key_ex := @ERR_RSA_generate_key_ex;
+    RSA_generate_key_ex := ERR_RSA_generate_key_ex;
     {$ifend}
     {$if declared(RSA_generate_key_ex_introduced)}
     if LibVersion < RSA_generate_key_ex_introduced then
     begin
       {$if declared(FC_RSA_generate_key_ex)}
-      RSA_generate_key_ex := @FC_RSA_generate_key_ex;
+      RSA_generate_key_ex := FC_RSA_generate_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2397,7 +2397,7 @@ begin
     if RSA_generate_key_ex_removed <= LibVersion then
     begin
       {$if declared(_RSA_generate_key_ex)}
-      RSA_generate_key_ex := @_RSA_generate_key_ex;
+      RSA_generate_key_ex := _RSA_generate_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2414,13 +2414,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_generate_multi_prime_key_allownil)}
-    RSA_generate_multi_prime_key := @ERR_RSA_generate_multi_prime_key;
+    RSA_generate_multi_prime_key := ERR_RSA_generate_multi_prime_key;
     {$ifend}
     {$if declared(RSA_generate_multi_prime_key_introduced)}
     if LibVersion < RSA_generate_multi_prime_key_introduced then
     begin
       {$if declared(FC_RSA_generate_multi_prime_key)}
-      RSA_generate_multi_prime_key := @FC_RSA_generate_multi_prime_key;
+      RSA_generate_multi_prime_key := FC_RSA_generate_multi_prime_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2429,7 +2429,7 @@ begin
     if RSA_generate_multi_prime_key_removed <= LibVersion then
     begin
       {$if declared(_RSA_generate_multi_prime_key)}
-      RSA_generate_multi_prime_key := @_RSA_generate_multi_prime_key;
+      RSA_generate_multi_prime_key := _RSA_generate_multi_prime_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2446,13 +2446,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_X931_derive_ex_allownil)}
-    RSA_X931_derive_ex := @ERR_RSA_X931_derive_ex;
+    RSA_X931_derive_ex := ERR_RSA_X931_derive_ex;
     {$ifend}
     {$if declared(RSA_X931_derive_ex_introduced)}
     if LibVersion < RSA_X931_derive_ex_introduced then
     begin
       {$if declared(FC_RSA_X931_derive_ex)}
-      RSA_X931_derive_ex := @FC_RSA_X931_derive_ex;
+      RSA_X931_derive_ex := FC_RSA_X931_derive_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2461,7 +2461,7 @@ begin
     if RSA_X931_derive_ex_removed <= LibVersion then
     begin
       {$if declared(_RSA_X931_derive_ex)}
-      RSA_X931_derive_ex := @_RSA_X931_derive_ex;
+      RSA_X931_derive_ex := _RSA_X931_derive_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2478,13 +2478,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_X931_generate_key_ex_allownil)}
-    RSA_X931_generate_key_ex := @ERR_RSA_X931_generate_key_ex;
+    RSA_X931_generate_key_ex := ERR_RSA_X931_generate_key_ex;
     {$ifend}
     {$if declared(RSA_X931_generate_key_ex_introduced)}
     if LibVersion < RSA_X931_generate_key_ex_introduced then
     begin
       {$if declared(FC_RSA_X931_generate_key_ex)}
-      RSA_X931_generate_key_ex := @FC_RSA_X931_generate_key_ex;
+      RSA_X931_generate_key_ex := FC_RSA_X931_generate_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2493,7 +2493,7 @@ begin
     if RSA_X931_generate_key_ex_removed <= LibVersion then
     begin
       {$if declared(_RSA_X931_generate_key_ex)}
-      RSA_X931_generate_key_ex := @_RSA_X931_generate_key_ex;
+      RSA_X931_generate_key_ex := _RSA_X931_generate_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2510,13 +2510,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_check_key_allownil)}
-    RSA_check_key := @ERR_RSA_check_key;
+    RSA_check_key := ERR_RSA_check_key;
     {$ifend}
     {$if declared(RSA_check_key_introduced)}
     if LibVersion < RSA_check_key_introduced then
     begin
       {$if declared(FC_RSA_check_key)}
-      RSA_check_key := @FC_RSA_check_key;
+      RSA_check_key := FC_RSA_check_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2525,7 +2525,7 @@ begin
     if RSA_check_key_removed <= LibVersion then
     begin
       {$if declared(_RSA_check_key)}
-      RSA_check_key := @_RSA_check_key;
+      RSA_check_key := _RSA_check_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2542,13 +2542,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_check_key_ex_allownil)}
-    RSA_check_key_ex := @ERR_RSA_check_key_ex;
+    RSA_check_key_ex := ERR_RSA_check_key_ex;
     {$ifend}
     {$if declared(RSA_check_key_ex_introduced)}
     if LibVersion < RSA_check_key_ex_introduced then
     begin
       {$if declared(FC_RSA_check_key_ex)}
-      RSA_check_key_ex := @FC_RSA_check_key_ex;
+      RSA_check_key_ex := FC_RSA_check_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2557,7 +2557,7 @@ begin
     if RSA_check_key_ex_removed <= LibVersion then
     begin
       {$if declared(_RSA_check_key_ex)}
-      RSA_check_key_ex := @_RSA_check_key_ex;
+      RSA_check_key_ex := _RSA_check_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2574,13 +2574,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_public_encrypt_allownil)}
-    RSA_public_encrypt := @ERR_RSA_public_encrypt;
+    RSA_public_encrypt := ERR_RSA_public_encrypt;
     {$ifend}
     {$if declared(RSA_public_encrypt_introduced)}
     if LibVersion < RSA_public_encrypt_introduced then
     begin
       {$if declared(FC_RSA_public_encrypt)}
-      RSA_public_encrypt := @FC_RSA_public_encrypt;
+      RSA_public_encrypt := FC_RSA_public_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2589,7 +2589,7 @@ begin
     if RSA_public_encrypt_removed <= LibVersion then
     begin
       {$if declared(_RSA_public_encrypt)}
-      RSA_public_encrypt := @_RSA_public_encrypt;
+      RSA_public_encrypt := _RSA_public_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2606,13 +2606,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_private_encrypt_allownil)}
-    RSA_private_encrypt := @ERR_RSA_private_encrypt;
+    RSA_private_encrypt := ERR_RSA_private_encrypt;
     {$ifend}
     {$if declared(RSA_private_encrypt_introduced)}
     if LibVersion < RSA_private_encrypt_introduced then
     begin
       {$if declared(FC_RSA_private_encrypt)}
-      RSA_private_encrypt := @FC_RSA_private_encrypt;
+      RSA_private_encrypt := FC_RSA_private_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2621,7 +2621,7 @@ begin
     if RSA_private_encrypt_removed <= LibVersion then
     begin
       {$if declared(_RSA_private_encrypt)}
-      RSA_private_encrypt := @_RSA_private_encrypt;
+      RSA_private_encrypt := _RSA_private_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2638,13 +2638,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_public_decrypt_allownil)}
-    RSA_public_decrypt := @ERR_RSA_public_decrypt;
+    RSA_public_decrypt := ERR_RSA_public_decrypt;
     {$ifend}
     {$if declared(RSA_public_decrypt_introduced)}
     if LibVersion < RSA_public_decrypt_introduced then
     begin
       {$if declared(FC_RSA_public_decrypt)}
-      RSA_public_decrypt := @FC_RSA_public_decrypt;
+      RSA_public_decrypt := FC_RSA_public_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2653,7 +2653,7 @@ begin
     if RSA_public_decrypt_removed <= LibVersion then
     begin
       {$if declared(_RSA_public_decrypt)}
-      RSA_public_decrypt := @_RSA_public_decrypt;
+      RSA_public_decrypt := _RSA_public_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2670,13 +2670,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_private_decrypt_allownil)}
-    RSA_private_decrypt := @ERR_RSA_private_decrypt;
+    RSA_private_decrypt := ERR_RSA_private_decrypt;
     {$ifend}
     {$if declared(RSA_private_decrypt_introduced)}
     if LibVersion < RSA_private_decrypt_introduced then
     begin
       {$if declared(FC_RSA_private_decrypt)}
-      RSA_private_decrypt := @FC_RSA_private_decrypt;
+      RSA_private_decrypt := FC_RSA_private_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2685,7 +2685,7 @@ begin
     if RSA_private_decrypt_removed <= LibVersion then
     begin
       {$if declared(_RSA_private_decrypt)}
-      RSA_private_decrypt := @_RSA_private_decrypt;
+      RSA_private_decrypt := _RSA_private_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2702,13 +2702,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_free_allownil)}
-    RSA_free := @ERR_RSA_free;
+    RSA_free := ERR_RSA_free;
     {$ifend}
     {$if declared(RSA_free_introduced)}
     if LibVersion < RSA_free_introduced then
     begin
       {$if declared(FC_RSA_free)}
-      RSA_free := @FC_RSA_free;
+      RSA_free := FC_RSA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2717,7 +2717,7 @@ begin
     if RSA_free_removed <= LibVersion then
     begin
       {$if declared(_RSA_free)}
-      RSA_free := @_RSA_free;
+      RSA_free := _RSA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2734,13 +2734,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_up_ref_allownil)}
-    RSA_up_ref := @ERR_RSA_up_ref;
+    RSA_up_ref := ERR_RSA_up_ref;
     {$ifend}
     {$if declared(RSA_up_ref_introduced)}
     if LibVersion < RSA_up_ref_introduced then
     begin
       {$if declared(FC_RSA_up_ref)}
-      RSA_up_ref := @FC_RSA_up_ref;
+      RSA_up_ref := FC_RSA_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2749,7 +2749,7 @@ begin
     if RSA_up_ref_removed <= LibVersion then
     begin
       {$if declared(_RSA_up_ref)}
-      RSA_up_ref := @_RSA_up_ref;
+      RSA_up_ref := _RSA_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2766,13 +2766,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_flags_allownil)}
-    RSA_flags := @ERR_RSA_flags;
+    RSA_flags := ERR_RSA_flags;
     {$ifend}
     {$if declared(RSA_flags_introduced)}
     if LibVersion < RSA_flags_introduced then
     begin
       {$if declared(FC_RSA_flags)}
-      RSA_flags := @FC_RSA_flags;
+      RSA_flags := FC_RSA_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2781,7 +2781,7 @@ begin
     if RSA_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_flags)}
-      RSA_flags := @_RSA_flags;
+      RSA_flags := _RSA_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2798,13 +2798,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set_default_method_allownil)}
-    RSA_set_default_method := @ERR_RSA_set_default_method;
+    RSA_set_default_method := ERR_RSA_set_default_method;
     {$ifend}
     {$if declared(RSA_set_default_method_introduced)}
     if LibVersion < RSA_set_default_method_introduced then
     begin
       {$if declared(FC_RSA_set_default_method)}
-      RSA_set_default_method := @FC_RSA_set_default_method;
+      RSA_set_default_method := FC_RSA_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2813,7 +2813,7 @@ begin
     if RSA_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_set_default_method)}
-      RSA_set_default_method := @_RSA_set_default_method;
+      RSA_set_default_method := _RSA_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2830,13 +2830,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get_default_method_allownil)}
-    RSA_get_default_method := @ERR_RSA_get_default_method;
+    RSA_get_default_method := ERR_RSA_get_default_method;
     {$ifend}
     {$if declared(RSA_get_default_method_introduced)}
     if LibVersion < RSA_get_default_method_introduced then
     begin
       {$if declared(FC_RSA_get_default_method)}
-      RSA_get_default_method := @FC_RSA_get_default_method;
+      RSA_get_default_method := FC_RSA_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2845,7 +2845,7 @@ begin
     if RSA_get_default_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_get_default_method)}
-      RSA_get_default_method := @_RSA_get_default_method;
+      RSA_get_default_method := _RSA_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2862,13 +2862,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_null_method_allownil)}
-    RSA_null_method := @ERR_RSA_null_method;
+    RSA_null_method := ERR_RSA_null_method;
     {$ifend}
     {$if declared(RSA_null_method_introduced)}
     if LibVersion < RSA_null_method_introduced then
     begin
       {$if declared(FC_RSA_null_method)}
-      RSA_null_method := @FC_RSA_null_method;
+      RSA_null_method := FC_RSA_null_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2877,7 +2877,7 @@ begin
     if RSA_null_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_null_method)}
-      RSA_null_method := @_RSA_null_method;
+      RSA_null_method := _RSA_null_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2894,13 +2894,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get_method_allownil)}
-    RSA_get_method := @ERR_RSA_get_method;
+    RSA_get_method := ERR_RSA_get_method;
     {$ifend}
     {$if declared(RSA_get_method_introduced)}
     if LibVersion < RSA_get_method_introduced then
     begin
       {$if declared(FC_RSA_get_method)}
-      RSA_get_method := @FC_RSA_get_method;
+      RSA_get_method := FC_RSA_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2909,7 +2909,7 @@ begin
     if RSA_get_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_get_method)}
-      RSA_get_method := @_RSA_get_method;
+      RSA_get_method := _RSA_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2926,13 +2926,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set_method_allownil)}
-    RSA_set_method := @ERR_RSA_set_method;
+    RSA_set_method := ERR_RSA_set_method;
     {$ifend}
     {$if declared(RSA_set_method_introduced)}
     if LibVersion < RSA_set_method_introduced then
     begin
       {$if declared(FC_RSA_set_method)}
-      RSA_set_method := @FC_RSA_set_method;
+      RSA_set_method := FC_RSA_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2941,7 +2941,7 @@ begin
     if RSA_set_method_removed <= LibVersion then
     begin
       {$if declared(_RSA_set_method)}
-      RSA_set_method := @_RSA_set_method;
+      RSA_set_method := _RSA_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2958,13 +2958,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_PKCS1_OpenSSL_allownil)}
-    RSA_PKCS1_OpenSSL := @ERR_RSA_PKCS1_OpenSSL;
+    RSA_PKCS1_OpenSSL := ERR_RSA_PKCS1_OpenSSL;
     {$ifend}
     {$if declared(RSA_PKCS1_OpenSSL_introduced)}
     if LibVersion < RSA_PKCS1_OpenSSL_introduced then
     begin
       {$if declared(FC_RSA_PKCS1_OpenSSL)}
-      RSA_PKCS1_OpenSSL := @FC_RSA_PKCS1_OpenSSL;
+      RSA_PKCS1_OpenSSL := FC_RSA_PKCS1_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2973,7 +2973,7 @@ begin
     if RSA_PKCS1_OpenSSL_removed <= LibVersion then
     begin
       {$if declared(_RSA_PKCS1_OpenSSL)}
-      RSA_PKCS1_OpenSSL := @_RSA_PKCS1_OpenSSL;
+      RSA_PKCS1_OpenSSL := _RSA_PKCS1_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2990,13 +2990,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_pkey_ctx_ctrl_allownil)}
-    RSA_pkey_ctx_ctrl := @ERR_RSA_pkey_ctx_ctrl;
+    RSA_pkey_ctx_ctrl := ERR_RSA_pkey_ctx_ctrl;
     {$ifend}
     {$if declared(RSA_pkey_ctx_ctrl_introduced)}
     if LibVersion < RSA_pkey_ctx_ctrl_introduced then
     begin
       {$if declared(FC_RSA_pkey_ctx_ctrl)}
-      RSA_pkey_ctx_ctrl := @FC_RSA_pkey_ctx_ctrl;
+      RSA_pkey_ctx_ctrl := FC_RSA_pkey_ctx_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3005,7 +3005,7 @@ begin
     if RSA_pkey_ctx_ctrl_removed <= LibVersion then
     begin
       {$if declared(_RSA_pkey_ctx_ctrl)}
-      RSA_pkey_ctx_ctrl := @_RSA_pkey_ctx_ctrl;
+      RSA_pkey_ctx_ctrl := _RSA_pkey_ctx_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3022,13 +3022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_print_allownil)}
-    RSA_print := @ERR_RSA_print;
+    RSA_print := ERR_RSA_print;
     {$ifend}
     {$if declared(RSA_print_introduced)}
     if LibVersion < RSA_print_introduced then
     begin
       {$if declared(FC_RSA_print)}
-      RSA_print := @FC_RSA_print;
+      RSA_print := FC_RSA_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3037,7 +3037,7 @@ begin
     if RSA_print_removed <= LibVersion then
     begin
       {$if declared(_RSA_print)}
-      RSA_print := @_RSA_print;
+      RSA_print := _RSA_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3054,13 +3054,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_sign_allownil)}
-    RSA_sign := @ERR_RSA_sign;
+    RSA_sign := ERR_RSA_sign;
     {$ifend}
     {$if declared(RSA_sign_introduced)}
     if LibVersion < RSA_sign_introduced then
     begin
       {$if declared(FC_RSA_sign)}
-      RSA_sign := @FC_RSA_sign;
+      RSA_sign := FC_RSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3069,7 +3069,7 @@ begin
     if RSA_sign_removed <= LibVersion then
     begin
       {$if declared(_RSA_sign)}
-      RSA_sign := @_RSA_sign;
+      RSA_sign := _RSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3086,13 +3086,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_verify_allownil)}
-    RSA_verify := @ERR_RSA_verify;
+    RSA_verify := ERR_RSA_verify;
     {$ifend}
     {$if declared(RSA_verify_introduced)}
     if LibVersion < RSA_verify_introduced then
     begin
       {$if declared(FC_RSA_verify)}
-      RSA_verify := @FC_RSA_verify;
+      RSA_verify := FC_RSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3101,7 +3101,7 @@ begin
     if RSA_verify_removed <= LibVersion then
     begin
       {$if declared(_RSA_verify)}
-      RSA_verify := @_RSA_verify;
+      RSA_verify := _RSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3118,13 +3118,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_sign_ASN1_OCTET_STRING_allownil)}
-    RSA_sign_ASN1_OCTET_STRING := @ERR_RSA_sign_ASN1_OCTET_STRING;
+    RSA_sign_ASN1_OCTET_STRING := ERR_RSA_sign_ASN1_OCTET_STRING;
     {$ifend}
     {$if declared(RSA_sign_ASN1_OCTET_STRING_introduced)}
     if LibVersion < RSA_sign_ASN1_OCTET_STRING_introduced then
     begin
       {$if declared(FC_RSA_sign_ASN1_OCTET_STRING)}
-      RSA_sign_ASN1_OCTET_STRING := @FC_RSA_sign_ASN1_OCTET_STRING;
+      RSA_sign_ASN1_OCTET_STRING := FC_RSA_sign_ASN1_OCTET_STRING;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3133,7 +3133,7 @@ begin
     if RSA_sign_ASN1_OCTET_STRING_removed <= LibVersion then
     begin
       {$if declared(_RSA_sign_ASN1_OCTET_STRING)}
-      RSA_sign_ASN1_OCTET_STRING := @_RSA_sign_ASN1_OCTET_STRING;
+      RSA_sign_ASN1_OCTET_STRING := _RSA_sign_ASN1_OCTET_STRING;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3150,13 +3150,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_verify_ASN1_OCTET_STRING_allownil)}
-    RSA_verify_ASN1_OCTET_STRING := @ERR_RSA_verify_ASN1_OCTET_STRING;
+    RSA_verify_ASN1_OCTET_STRING := ERR_RSA_verify_ASN1_OCTET_STRING;
     {$ifend}
     {$if declared(RSA_verify_ASN1_OCTET_STRING_introduced)}
     if LibVersion < RSA_verify_ASN1_OCTET_STRING_introduced then
     begin
       {$if declared(FC_RSA_verify_ASN1_OCTET_STRING)}
-      RSA_verify_ASN1_OCTET_STRING := @FC_RSA_verify_ASN1_OCTET_STRING;
+      RSA_verify_ASN1_OCTET_STRING := FC_RSA_verify_ASN1_OCTET_STRING;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3165,7 +3165,7 @@ begin
     if RSA_verify_ASN1_OCTET_STRING_removed <= LibVersion then
     begin
       {$if declared(_RSA_verify_ASN1_OCTET_STRING)}
-      RSA_verify_ASN1_OCTET_STRING := @_RSA_verify_ASN1_OCTET_STRING;
+      RSA_verify_ASN1_OCTET_STRING := _RSA_verify_ASN1_OCTET_STRING;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3182,13 +3182,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_blinding_on_allownil)}
-    RSA_blinding_on := @ERR_RSA_blinding_on;
+    RSA_blinding_on := ERR_RSA_blinding_on;
     {$ifend}
     {$if declared(RSA_blinding_on_introduced)}
     if LibVersion < RSA_blinding_on_introduced then
     begin
       {$if declared(FC_RSA_blinding_on)}
-      RSA_blinding_on := @FC_RSA_blinding_on;
+      RSA_blinding_on := FC_RSA_blinding_on;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3197,7 +3197,7 @@ begin
     if RSA_blinding_on_removed <= LibVersion then
     begin
       {$if declared(_RSA_blinding_on)}
-      RSA_blinding_on := @_RSA_blinding_on;
+      RSA_blinding_on := _RSA_blinding_on;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3214,13 +3214,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_blinding_off_allownil)}
-    RSA_blinding_off := @ERR_RSA_blinding_off;
+    RSA_blinding_off := ERR_RSA_blinding_off;
     {$ifend}
     {$if declared(RSA_blinding_off_introduced)}
     if LibVersion < RSA_blinding_off_introduced then
     begin
       {$if declared(FC_RSA_blinding_off)}
-      RSA_blinding_off := @FC_RSA_blinding_off;
+      RSA_blinding_off := FC_RSA_blinding_off;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3229,7 +3229,7 @@ begin
     if RSA_blinding_off_removed <= LibVersion then
     begin
       {$if declared(_RSA_blinding_off)}
-      RSA_blinding_off := @_RSA_blinding_off;
+      RSA_blinding_off := _RSA_blinding_off;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3246,13 +3246,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_setup_blinding_allownil)}
-    RSA_setup_blinding := @ERR_RSA_setup_blinding;
+    RSA_setup_blinding := ERR_RSA_setup_blinding;
     {$ifend}
     {$if declared(RSA_setup_blinding_introduced)}
     if LibVersion < RSA_setup_blinding_introduced then
     begin
       {$if declared(FC_RSA_setup_blinding)}
-      RSA_setup_blinding := @FC_RSA_setup_blinding;
+      RSA_setup_blinding := FC_RSA_setup_blinding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3261,7 +3261,7 @@ begin
     if RSA_setup_blinding_removed <= LibVersion then
     begin
       {$if declared(_RSA_setup_blinding)}
-      RSA_setup_blinding := @_RSA_setup_blinding;
+      RSA_setup_blinding := _RSA_setup_blinding;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3278,13 +3278,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_type_1_allownil)}
-    RSA_padding_add_PKCS1_type_1 := @ERR_RSA_padding_add_PKCS1_type_1;
+    RSA_padding_add_PKCS1_type_1 := ERR_RSA_padding_add_PKCS1_type_1;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_type_1_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_type_1_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_type_1)}
-      RSA_padding_add_PKCS1_type_1 := @FC_RSA_padding_add_PKCS1_type_1;
+      RSA_padding_add_PKCS1_type_1 := FC_RSA_padding_add_PKCS1_type_1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3293,7 +3293,7 @@ begin
     if RSA_padding_add_PKCS1_type_1_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_type_1)}
-      RSA_padding_add_PKCS1_type_1 := @_RSA_padding_add_PKCS1_type_1;
+      RSA_padding_add_PKCS1_type_1 := _RSA_padding_add_PKCS1_type_1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3310,13 +3310,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_PKCS1_type_1_allownil)}
-    RSA_padding_check_PKCS1_type_1 := @ERR_RSA_padding_check_PKCS1_type_1;
+    RSA_padding_check_PKCS1_type_1 := ERR_RSA_padding_check_PKCS1_type_1;
     {$ifend}
     {$if declared(RSA_padding_check_PKCS1_type_1_introduced)}
     if LibVersion < RSA_padding_check_PKCS1_type_1_introduced then
     begin
       {$if declared(FC_RSA_padding_check_PKCS1_type_1)}
-      RSA_padding_check_PKCS1_type_1 := @FC_RSA_padding_check_PKCS1_type_1;
+      RSA_padding_check_PKCS1_type_1 := FC_RSA_padding_check_PKCS1_type_1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3325,7 +3325,7 @@ begin
     if RSA_padding_check_PKCS1_type_1_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_PKCS1_type_1)}
-      RSA_padding_check_PKCS1_type_1 := @_RSA_padding_check_PKCS1_type_1;
+      RSA_padding_check_PKCS1_type_1 := _RSA_padding_check_PKCS1_type_1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3342,13 +3342,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_type_2_allownil)}
-    RSA_padding_add_PKCS1_type_2 := @ERR_RSA_padding_add_PKCS1_type_2;
+    RSA_padding_add_PKCS1_type_2 := ERR_RSA_padding_add_PKCS1_type_2;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_type_2_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_type_2_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_type_2)}
-      RSA_padding_add_PKCS1_type_2 := @FC_RSA_padding_add_PKCS1_type_2;
+      RSA_padding_add_PKCS1_type_2 := FC_RSA_padding_add_PKCS1_type_2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3357,7 +3357,7 @@ begin
     if RSA_padding_add_PKCS1_type_2_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_type_2)}
-      RSA_padding_add_PKCS1_type_2 := @_RSA_padding_add_PKCS1_type_2;
+      RSA_padding_add_PKCS1_type_2 := _RSA_padding_add_PKCS1_type_2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3374,13 +3374,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_PKCS1_type_2_allownil)}
-    RSA_padding_check_PKCS1_type_2 := @ERR_RSA_padding_check_PKCS1_type_2;
+    RSA_padding_check_PKCS1_type_2 := ERR_RSA_padding_check_PKCS1_type_2;
     {$ifend}
     {$if declared(RSA_padding_check_PKCS1_type_2_introduced)}
     if LibVersion < RSA_padding_check_PKCS1_type_2_introduced then
     begin
       {$if declared(FC_RSA_padding_check_PKCS1_type_2)}
-      RSA_padding_check_PKCS1_type_2 := @FC_RSA_padding_check_PKCS1_type_2;
+      RSA_padding_check_PKCS1_type_2 := FC_RSA_padding_check_PKCS1_type_2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3389,7 +3389,7 @@ begin
     if RSA_padding_check_PKCS1_type_2_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_PKCS1_type_2)}
-      RSA_padding_check_PKCS1_type_2 := @_RSA_padding_check_PKCS1_type_2;
+      RSA_padding_check_PKCS1_type_2 := _RSA_padding_check_PKCS1_type_2;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3406,13 +3406,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS1_MGF1_allownil)}
-    PKCS1_MGF1 := @ERR_PKCS1_MGF1;
+    PKCS1_MGF1 := ERR_PKCS1_MGF1;
     {$ifend}
     {$if declared(PKCS1_MGF1_introduced)}
     if LibVersion < PKCS1_MGF1_introduced then
     begin
       {$if declared(FC_PKCS1_MGF1)}
-      PKCS1_MGF1 := @FC_PKCS1_MGF1;
+      PKCS1_MGF1 := FC_PKCS1_MGF1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3421,7 +3421,7 @@ begin
     if PKCS1_MGF1_removed <= LibVersion then
     begin
       {$if declared(_PKCS1_MGF1)}
-      PKCS1_MGF1 := @_PKCS1_MGF1;
+      PKCS1_MGF1 := _PKCS1_MGF1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3438,13 +3438,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_OAEP_allownil)}
-    RSA_padding_add_PKCS1_OAEP := @ERR_RSA_padding_add_PKCS1_OAEP;
+    RSA_padding_add_PKCS1_OAEP := ERR_RSA_padding_add_PKCS1_OAEP;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_OAEP_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_OAEP_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_OAEP)}
-      RSA_padding_add_PKCS1_OAEP := @FC_RSA_padding_add_PKCS1_OAEP;
+      RSA_padding_add_PKCS1_OAEP := FC_RSA_padding_add_PKCS1_OAEP;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3453,7 +3453,7 @@ begin
     if RSA_padding_add_PKCS1_OAEP_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_OAEP)}
-      RSA_padding_add_PKCS1_OAEP := @_RSA_padding_add_PKCS1_OAEP;
+      RSA_padding_add_PKCS1_OAEP := _RSA_padding_add_PKCS1_OAEP;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3470,13 +3470,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_PKCS1_OAEP_allownil)}
-    RSA_padding_check_PKCS1_OAEP := @ERR_RSA_padding_check_PKCS1_OAEP;
+    RSA_padding_check_PKCS1_OAEP := ERR_RSA_padding_check_PKCS1_OAEP;
     {$ifend}
     {$if declared(RSA_padding_check_PKCS1_OAEP_introduced)}
     if LibVersion < RSA_padding_check_PKCS1_OAEP_introduced then
     begin
       {$if declared(FC_RSA_padding_check_PKCS1_OAEP)}
-      RSA_padding_check_PKCS1_OAEP := @FC_RSA_padding_check_PKCS1_OAEP;
+      RSA_padding_check_PKCS1_OAEP := FC_RSA_padding_check_PKCS1_OAEP;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3485,7 +3485,7 @@ begin
     if RSA_padding_check_PKCS1_OAEP_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_PKCS1_OAEP)}
-      RSA_padding_check_PKCS1_OAEP := @_RSA_padding_check_PKCS1_OAEP;
+      RSA_padding_check_PKCS1_OAEP := _RSA_padding_check_PKCS1_OAEP;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3502,13 +3502,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_OAEP_mgf1_allownil)}
-    RSA_padding_add_PKCS1_OAEP_mgf1 := @ERR_RSA_padding_add_PKCS1_OAEP_mgf1;
+    RSA_padding_add_PKCS1_OAEP_mgf1 := ERR_RSA_padding_add_PKCS1_OAEP_mgf1;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_OAEP_mgf1_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_OAEP_mgf1_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_OAEP_mgf1)}
-      RSA_padding_add_PKCS1_OAEP_mgf1 := @FC_RSA_padding_add_PKCS1_OAEP_mgf1;
+      RSA_padding_add_PKCS1_OAEP_mgf1 := FC_RSA_padding_add_PKCS1_OAEP_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3517,7 +3517,7 @@ begin
     if RSA_padding_add_PKCS1_OAEP_mgf1_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_OAEP_mgf1)}
-      RSA_padding_add_PKCS1_OAEP_mgf1 := @_RSA_padding_add_PKCS1_OAEP_mgf1;
+      RSA_padding_add_PKCS1_OAEP_mgf1 := _RSA_padding_add_PKCS1_OAEP_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3534,13 +3534,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_PKCS1_OAEP_mgf1_allownil)}
-    RSA_padding_check_PKCS1_OAEP_mgf1 := @ERR_RSA_padding_check_PKCS1_OAEP_mgf1;
+    RSA_padding_check_PKCS1_OAEP_mgf1 := ERR_RSA_padding_check_PKCS1_OAEP_mgf1;
     {$ifend}
     {$if declared(RSA_padding_check_PKCS1_OAEP_mgf1_introduced)}
     if LibVersion < RSA_padding_check_PKCS1_OAEP_mgf1_introduced then
     begin
       {$if declared(FC_RSA_padding_check_PKCS1_OAEP_mgf1)}
-      RSA_padding_check_PKCS1_OAEP_mgf1 := @FC_RSA_padding_check_PKCS1_OAEP_mgf1;
+      RSA_padding_check_PKCS1_OAEP_mgf1 := FC_RSA_padding_check_PKCS1_OAEP_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3549,7 +3549,7 @@ begin
     if RSA_padding_check_PKCS1_OAEP_mgf1_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_PKCS1_OAEP_mgf1)}
-      RSA_padding_check_PKCS1_OAEP_mgf1 := @_RSA_padding_check_PKCS1_OAEP_mgf1;
+      RSA_padding_check_PKCS1_OAEP_mgf1 := _RSA_padding_check_PKCS1_OAEP_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3566,13 +3566,13 @@ begin
 //  if FuncLoadError then
 //  begin
 //    {$if not defined(RSA_padding_add_SSLv23_allownil)}
-//    RSA_padding_add_SSLv23 := @ERR_RSA_padding_add_SSLv23;
+//    RSA_padding_add_SSLv23 := ERR_RSA_padding_add_SSLv23;
 //    {$ifend}
 //    {$if declared(RSA_padding_add_SSLv23_introduced)}
 //    if LibVersion < RSA_padding_add_SSLv23_introduced then
 //    begin
 //      {$if declared(FC_RSA_padding_add_SSLv23)}
-//      RSA_padding_add_SSLv23 := @FC_RSA_padding_add_SSLv23;
+//      RSA_padding_add_SSLv23 := FC_RSA_padding_add_SSLv23;
 //      {$ifend}
 //      FuncLoadError := false;
 //    end;
@@ -3581,7 +3581,7 @@ begin
 //    if RSA_padding_add_SSLv23_removed <= LibVersion then
 //    begin
 //      {$if declared(_RSA_padding_add_SSLv23)}
-//      RSA_padding_add_SSLv23 := @_RSA_padding_add_SSLv23;
+//      RSA_padding_add_SSLv23 := _RSA_padding_add_SSLv23;
 //      {$ifend}
 //      FuncLoadError := false;
 //    end;
@@ -3598,13 +3598,13 @@ begin
 //  if FuncLoadError then
 //  begin
 //    {$if not defined(RSA_padding_check_SSLv23_allownil)}
-//    RSA_padding_check_SSLv23 := @ERR_RSA_padding_check_SSLv23;
+//    RSA_padding_check_SSLv23 := ERR_RSA_padding_check_SSLv23;
 //    {$ifend}
 //    {$if declared(RSA_padding_check_SSLv23_introduced)}
 //    if LibVersion < RSA_padding_check_SSLv23_introduced then
 //    begin
 //      {$if declared(FC_RSA_padding_check_SSLv23)}
-//      RSA_padding_check_SSLv23 := @FC_RSA_padding_check_SSLv23;
+//      RSA_padding_check_SSLv23 := FC_RSA_padding_check_SSLv23;
 //      {$ifend}
 //      FuncLoadError := false;
 //    end;
@@ -3613,7 +3613,7 @@ begin
 //    if RSA_padding_check_SSLv23_removed <= LibVersion then
 //    begin
 //      {$if declared(_RSA_padding_check_SSLv23)}
-//      RSA_padding_check_SSLv23 := @_RSA_padding_check_SSLv23;
+//      RSA_padding_check_SSLv23 := _RSA_padding_check_SSLv23;
 //      {$ifend}
 //      FuncLoadError := false;
 //    end;
@@ -3630,13 +3630,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_none_allownil)}
-    RSA_padding_add_none := @ERR_RSA_padding_add_none;
+    RSA_padding_add_none := ERR_RSA_padding_add_none;
     {$ifend}
     {$if declared(RSA_padding_add_none_introduced)}
     if LibVersion < RSA_padding_add_none_introduced then
     begin
       {$if declared(FC_RSA_padding_add_none)}
-      RSA_padding_add_none := @FC_RSA_padding_add_none;
+      RSA_padding_add_none := FC_RSA_padding_add_none;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3645,7 +3645,7 @@ begin
     if RSA_padding_add_none_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_none)}
-      RSA_padding_add_none := @_RSA_padding_add_none;
+      RSA_padding_add_none := _RSA_padding_add_none;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3662,13 +3662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_none_allownil)}
-    RSA_padding_check_none := @ERR_RSA_padding_check_none;
+    RSA_padding_check_none := ERR_RSA_padding_check_none;
     {$ifend}
     {$if declared(RSA_padding_check_none_introduced)}
     if LibVersion < RSA_padding_check_none_introduced then
     begin
       {$if declared(FC_RSA_padding_check_none)}
-      RSA_padding_check_none := @FC_RSA_padding_check_none;
+      RSA_padding_check_none := FC_RSA_padding_check_none;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3677,7 +3677,7 @@ begin
     if RSA_padding_check_none_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_none)}
-      RSA_padding_check_none := @_RSA_padding_check_none;
+      RSA_padding_check_none := _RSA_padding_check_none;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3694,13 +3694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_X931_allownil)}
-    RSA_padding_add_X931 := @ERR_RSA_padding_add_X931;
+    RSA_padding_add_X931 := ERR_RSA_padding_add_X931;
     {$ifend}
     {$if declared(RSA_padding_add_X931_introduced)}
     if LibVersion < RSA_padding_add_X931_introduced then
     begin
       {$if declared(FC_RSA_padding_add_X931)}
-      RSA_padding_add_X931 := @FC_RSA_padding_add_X931;
+      RSA_padding_add_X931 := FC_RSA_padding_add_X931;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3709,7 +3709,7 @@ begin
     if RSA_padding_add_X931_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_X931)}
-      RSA_padding_add_X931 := @_RSA_padding_add_X931;
+      RSA_padding_add_X931 := _RSA_padding_add_X931;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3726,13 +3726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_check_X931_allownil)}
-    RSA_padding_check_X931 := @ERR_RSA_padding_check_X931;
+    RSA_padding_check_X931 := ERR_RSA_padding_check_X931;
     {$ifend}
     {$if declared(RSA_padding_check_X931_introduced)}
     if LibVersion < RSA_padding_check_X931_introduced then
     begin
       {$if declared(FC_RSA_padding_check_X931)}
-      RSA_padding_check_X931 := @FC_RSA_padding_check_X931;
+      RSA_padding_check_X931 := FC_RSA_padding_check_X931;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3741,7 +3741,7 @@ begin
     if RSA_padding_check_X931_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_check_X931)}
-      RSA_padding_check_X931 := @_RSA_padding_check_X931;
+      RSA_padding_check_X931 := _RSA_padding_check_X931;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3758,13 +3758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_X931_hash_id_allownil)}
-    RSA_X931_hash_id := @ERR_RSA_X931_hash_id;
+    RSA_X931_hash_id := ERR_RSA_X931_hash_id;
     {$ifend}
     {$if declared(RSA_X931_hash_id_introduced)}
     if LibVersion < RSA_X931_hash_id_introduced then
     begin
       {$if declared(FC_RSA_X931_hash_id)}
-      RSA_X931_hash_id := @FC_RSA_X931_hash_id;
+      RSA_X931_hash_id := FC_RSA_X931_hash_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3773,7 +3773,7 @@ begin
     if RSA_X931_hash_id_removed <= LibVersion then
     begin
       {$if declared(_RSA_X931_hash_id)}
-      RSA_X931_hash_id := @_RSA_X931_hash_id;
+      RSA_X931_hash_id := _RSA_X931_hash_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3790,13 +3790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_verify_PKCS1_PSS_allownil)}
-    RSA_verify_PKCS1_PSS := @ERR_RSA_verify_PKCS1_PSS;
+    RSA_verify_PKCS1_PSS := ERR_RSA_verify_PKCS1_PSS;
     {$ifend}
     {$if declared(RSA_verify_PKCS1_PSS_introduced)}
     if LibVersion < RSA_verify_PKCS1_PSS_introduced then
     begin
       {$if declared(FC_RSA_verify_PKCS1_PSS)}
-      RSA_verify_PKCS1_PSS := @FC_RSA_verify_PKCS1_PSS;
+      RSA_verify_PKCS1_PSS := FC_RSA_verify_PKCS1_PSS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3805,7 +3805,7 @@ begin
     if RSA_verify_PKCS1_PSS_removed <= LibVersion then
     begin
       {$if declared(_RSA_verify_PKCS1_PSS)}
-      RSA_verify_PKCS1_PSS := @_RSA_verify_PKCS1_PSS;
+      RSA_verify_PKCS1_PSS := _RSA_verify_PKCS1_PSS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3822,13 +3822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_PSS_allownil)}
-    RSA_padding_add_PKCS1_PSS := @ERR_RSA_padding_add_PKCS1_PSS;
+    RSA_padding_add_PKCS1_PSS := ERR_RSA_padding_add_PKCS1_PSS;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_PSS_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_PSS_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_PSS)}
-      RSA_padding_add_PKCS1_PSS := @FC_RSA_padding_add_PKCS1_PSS;
+      RSA_padding_add_PKCS1_PSS := FC_RSA_padding_add_PKCS1_PSS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3837,7 +3837,7 @@ begin
     if RSA_padding_add_PKCS1_PSS_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_PSS)}
-      RSA_padding_add_PKCS1_PSS := @_RSA_padding_add_PKCS1_PSS;
+      RSA_padding_add_PKCS1_PSS := _RSA_padding_add_PKCS1_PSS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3854,13 +3854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_verify_PKCS1_PSS_mgf1_allownil)}
-    RSA_verify_PKCS1_PSS_mgf1 := @ERR_RSA_verify_PKCS1_PSS_mgf1;
+    RSA_verify_PKCS1_PSS_mgf1 := ERR_RSA_verify_PKCS1_PSS_mgf1;
     {$ifend}
     {$if declared(RSA_verify_PKCS1_PSS_mgf1_introduced)}
     if LibVersion < RSA_verify_PKCS1_PSS_mgf1_introduced then
     begin
       {$if declared(FC_RSA_verify_PKCS1_PSS_mgf1)}
-      RSA_verify_PKCS1_PSS_mgf1 := @FC_RSA_verify_PKCS1_PSS_mgf1;
+      RSA_verify_PKCS1_PSS_mgf1 := FC_RSA_verify_PKCS1_PSS_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3869,7 +3869,7 @@ begin
     if RSA_verify_PKCS1_PSS_mgf1_removed <= LibVersion then
     begin
       {$if declared(_RSA_verify_PKCS1_PSS_mgf1)}
-      RSA_verify_PKCS1_PSS_mgf1 := @_RSA_verify_PKCS1_PSS_mgf1;
+      RSA_verify_PKCS1_PSS_mgf1 := _RSA_verify_PKCS1_PSS_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3886,13 +3886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_padding_add_PKCS1_PSS_mgf1_allownil)}
-    RSA_padding_add_PKCS1_PSS_mgf1 := @ERR_RSA_padding_add_PKCS1_PSS_mgf1;
+    RSA_padding_add_PKCS1_PSS_mgf1 := ERR_RSA_padding_add_PKCS1_PSS_mgf1;
     {$ifend}
     {$if declared(RSA_padding_add_PKCS1_PSS_mgf1_introduced)}
     if LibVersion < RSA_padding_add_PKCS1_PSS_mgf1_introduced then
     begin
       {$if declared(FC_RSA_padding_add_PKCS1_PSS_mgf1)}
-      RSA_padding_add_PKCS1_PSS_mgf1 := @FC_RSA_padding_add_PKCS1_PSS_mgf1;
+      RSA_padding_add_PKCS1_PSS_mgf1 := FC_RSA_padding_add_PKCS1_PSS_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3901,7 +3901,7 @@ begin
     if RSA_padding_add_PKCS1_PSS_mgf1_removed <= LibVersion then
     begin
       {$if declared(_RSA_padding_add_PKCS1_PSS_mgf1)}
-      RSA_padding_add_PKCS1_PSS_mgf1 := @_RSA_padding_add_PKCS1_PSS_mgf1;
+      RSA_padding_add_PKCS1_PSS_mgf1 := _RSA_padding_add_PKCS1_PSS_mgf1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3918,13 +3918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_set_ex_data_allownil)}
-    RSA_set_ex_data := @ERR_RSA_set_ex_data;
+    RSA_set_ex_data := ERR_RSA_set_ex_data;
     {$ifend}
     {$if declared(RSA_set_ex_data_introduced)}
     if LibVersion < RSA_set_ex_data_introduced then
     begin
       {$if declared(FC_RSA_set_ex_data)}
-      RSA_set_ex_data := @FC_RSA_set_ex_data;
+      RSA_set_ex_data := FC_RSA_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3933,7 +3933,7 @@ begin
     if RSA_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_RSA_set_ex_data)}
-      RSA_set_ex_data := @_RSA_set_ex_data;
+      RSA_set_ex_data := _RSA_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3950,13 +3950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_get_ex_data_allownil)}
-    RSA_get_ex_data := @ERR_RSA_get_ex_data;
+    RSA_get_ex_data := ERR_RSA_get_ex_data;
     {$ifend}
     {$if declared(RSA_get_ex_data_introduced)}
     if LibVersion < RSA_get_ex_data_introduced then
     begin
       {$if declared(FC_RSA_get_ex_data)}
-      RSA_get_ex_data := @FC_RSA_get_ex_data;
+      RSA_get_ex_data := FC_RSA_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3965,7 +3965,7 @@ begin
     if RSA_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_RSA_get_ex_data)}
-      RSA_get_ex_data := @_RSA_get_ex_data;
+      RSA_get_ex_data := _RSA_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3982,13 +3982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSAPublicKey_dup_allownil)}
-    RSAPublicKey_dup := @ERR_RSAPublicKey_dup;
+    RSAPublicKey_dup := ERR_RSAPublicKey_dup;
     {$ifend}
     {$if declared(RSAPublicKey_dup_introduced)}
     if LibVersion < RSAPublicKey_dup_introduced then
     begin
       {$if declared(FC_RSAPublicKey_dup)}
-      RSAPublicKey_dup := @FC_RSAPublicKey_dup;
+      RSAPublicKey_dup := FC_RSAPublicKey_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3997,7 +3997,7 @@ begin
     if RSAPublicKey_dup_removed <= LibVersion then
     begin
       {$if declared(_RSAPublicKey_dup)}
-      RSAPublicKey_dup := @_RSAPublicKey_dup;
+      RSAPublicKey_dup := _RSAPublicKey_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4014,13 +4014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSAPrivateKey_dup_allownil)}
-    RSAPrivateKey_dup := @ERR_RSAPrivateKey_dup;
+    RSAPrivateKey_dup := ERR_RSAPrivateKey_dup;
     {$ifend}
     {$if declared(RSAPrivateKey_dup_introduced)}
     if LibVersion < RSAPrivateKey_dup_introduced then
     begin
       {$if declared(FC_RSAPrivateKey_dup)}
-      RSAPrivateKey_dup := @FC_RSAPrivateKey_dup;
+      RSAPrivateKey_dup := FC_RSAPrivateKey_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4029,7 +4029,7 @@ begin
     if RSAPrivateKey_dup_removed <= LibVersion then
     begin
       {$if declared(_RSAPrivateKey_dup)}
-      RSAPrivateKey_dup := @_RSAPrivateKey_dup;
+      RSAPrivateKey_dup := _RSAPrivateKey_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4046,13 +4046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_new_allownil)}
-    RSA_meth_new := @ERR_RSA_meth_new;
+    RSA_meth_new := ERR_RSA_meth_new;
     {$ifend}
     {$if declared(RSA_meth_new_introduced)}
     if LibVersion < RSA_meth_new_introduced then
     begin
       {$if declared(FC_RSA_meth_new)}
-      RSA_meth_new := @FC_RSA_meth_new;
+      RSA_meth_new := FC_RSA_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4061,7 +4061,7 @@ begin
     if RSA_meth_new_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_new)}
-      RSA_meth_new := @_RSA_meth_new;
+      RSA_meth_new := _RSA_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4078,13 +4078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_free_allownil)}
-    RSA_meth_free := @ERR_RSA_meth_free;
+    RSA_meth_free := ERR_RSA_meth_free;
     {$ifend}
     {$if declared(RSA_meth_free_introduced)}
     if LibVersion < RSA_meth_free_introduced then
     begin
       {$if declared(FC_RSA_meth_free)}
-      RSA_meth_free := @FC_RSA_meth_free;
+      RSA_meth_free := FC_RSA_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4093,7 +4093,7 @@ begin
     if RSA_meth_free_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_free)}
-      RSA_meth_free := @_RSA_meth_free;
+      RSA_meth_free := _RSA_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4110,13 +4110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_dup_allownil)}
-    RSA_meth_dup := @ERR_RSA_meth_dup;
+    RSA_meth_dup := ERR_RSA_meth_dup;
     {$ifend}
     {$if declared(RSA_meth_dup_introduced)}
     if LibVersion < RSA_meth_dup_introduced then
     begin
       {$if declared(FC_RSA_meth_dup)}
-      RSA_meth_dup := @FC_RSA_meth_dup;
+      RSA_meth_dup := FC_RSA_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4125,7 +4125,7 @@ begin
     if RSA_meth_dup_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_dup)}
-      RSA_meth_dup := @_RSA_meth_dup;
+      RSA_meth_dup := _RSA_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4142,13 +4142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_get0_name_allownil)}
-    RSA_meth_get0_name := @ERR_RSA_meth_get0_name;
+    RSA_meth_get0_name := ERR_RSA_meth_get0_name;
     {$ifend}
     {$if declared(RSA_meth_get0_name_introduced)}
     if LibVersion < RSA_meth_get0_name_introduced then
     begin
       {$if declared(FC_RSA_meth_get0_name)}
-      RSA_meth_get0_name := @FC_RSA_meth_get0_name;
+      RSA_meth_get0_name := FC_RSA_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4157,7 +4157,7 @@ begin
     if RSA_meth_get0_name_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_get0_name)}
-      RSA_meth_get0_name := @_RSA_meth_get0_name;
+      RSA_meth_get0_name := _RSA_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4174,13 +4174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set1_name_allownil)}
-    RSA_meth_set1_name := @ERR_RSA_meth_set1_name;
+    RSA_meth_set1_name := ERR_RSA_meth_set1_name;
     {$ifend}
     {$if declared(RSA_meth_set1_name_introduced)}
     if LibVersion < RSA_meth_set1_name_introduced then
     begin
       {$if declared(FC_RSA_meth_set1_name)}
-      RSA_meth_set1_name := @FC_RSA_meth_set1_name;
+      RSA_meth_set1_name := FC_RSA_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4189,7 +4189,7 @@ begin
     if RSA_meth_set1_name_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set1_name)}
-      RSA_meth_set1_name := @_RSA_meth_set1_name;
+      RSA_meth_set1_name := _RSA_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4206,13 +4206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_get_flags_allownil)}
-    RSA_meth_get_flags := @ERR_RSA_meth_get_flags;
+    RSA_meth_get_flags := ERR_RSA_meth_get_flags;
     {$ifend}
     {$if declared(RSA_meth_get_flags_introduced)}
     if LibVersion < RSA_meth_get_flags_introduced then
     begin
       {$if declared(FC_RSA_meth_get_flags)}
-      RSA_meth_get_flags := @FC_RSA_meth_get_flags;
+      RSA_meth_get_flags := FC_RSA_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4221,7 +4221,7 @@ begin
     if RSA_meth_get_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_get_flags)}
-      RSA_meth_get_flags := @_RSA_meth_get_flags;
+      RSA_meth_get_flags := _RSA_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4238,13 +4238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_flags_allownil)}
-    RSA_meth_set_flags := @ERR_RSA_meth_set_flags;
+    RSA_meth_set_flags := ERR_RSA_meth_set_flags;
     {$ifend}
     {$if declared(RSA_meth_set_flags_introduced)}
     if LibVersion < RSA_meth_set_flags_introduced then
     begin
       {$if declared(FC_RSA_meth_set_flags)}
-      RSA_meth_set_flags := @FC_RSA_meth_set_flags;
+      RSA_meth_set_flags := FC_RSA_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4253,7 +4253,7 @@ begin
     if RSA_meth_set_flags_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_flags)}
-      RSA_meth_set_flags := @_RSA_meth_set_flags;
+      RSA_meth_set_flags := _RSA_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4270,13 +4270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_get0_app_data_allownil)}
-    RSA_meth_get0_app_data := @ERR_RSA_meth_get0_app_data;
+    RSA_meth_get0_app_data := ERR_RSA_meth_get0_app_data;
     {$ifend}
     {$if declared(RSA_meth_get0_app_data_introduced)}
     if LibVersion < RSA_meth_get0_app_data_introduced then
     begin
       {$if declared(FC_RSA_meth_get0_app_data)}
-      RSA_meth_get0_app_data := @FC_RSA_meth_get0_app_data;
+      RSA_meth_get0_app_data := FC_RSA_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4285,7 +4285,7 @@ begin
     if RSA_meth_get0_app_data_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_get0_app_data)}
-      RSA_meth_get0_app_data := @_RSA_meth_get0_app_data;
+      RSA_meth_get0_app_data := _RSA_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4302,13 +4302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set0_app_data_allownil)}
-    RSA_meth_set0_app_data := @ERR_RSA_meth_set0_app_data;
+    RSA_meth_set0_app_data := ERR_RSA_meth_set0_app_data;
     {$ifend}
     {$if declared(RSA_meth_set0_app_data_introduced)}
     if LibVersion < RSA_meth_set0_app_data_introduced then
     begin
       {$if declared(FC_RSA_meth_set0_app_data)}
-      RSA_meth_set0_app_data := @FC_RSA_meth_set0_app_data;
+      RSA_meth_set0_app_data := FC_RSA_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4317,7 +4317,7 @@ begin
     if RSA_meth_set0_app_data_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set0_app_data)}
-      RSA_meth_set0_app_data := @_RSA_meth_set0_app_data;
+      RSA_meth_set0_app_data := _RSA_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4334,13 +4334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_priv_dec_allownil)}
-    RSA_meth_set_priv_dec := @ERR_RSA_meth_set_priv_dec;
+    RSA_meth_set_priv_dec := ERR_RSA_meth_set_priv_dec;
     {$ifend}
     {$if declared(RSA_meth_set_priv_dec_introduced)}
     if LibVersion < RSA_meth_set_priv_dec_introduced then
     begin
       {$if declared(FC_RSA_meth_set_priv_dec)}
-      RSA_meth_set_priv_dec := @FC_RSA_meth_set_priv_dec;
+      RSA_meth_set_priv_dec := FC_RSA_meth_set_priv_dec;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4349,7 +4349,7 @@ begin
     if RSA_meth_set_priv_dec_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_priv_dec)}
-      RSA_meth_set_priv_dec := @_RSA_meth_set_priv_dec;
+      RSA_meth_set_priv_dec := _RSA_meth_set_priv_dec;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4366,13 +4366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_mod_exp_allownil)}
-    RSA_meth_set_mod_exp := @ERR_RSA_meth_set_mod_exp;
+    RSA_meth_set_mod_exp := ERR_RSA_meth_set_mod_exp;
     {$ifend}
     {$if declared(RSA_meth_set_mod_exp_introduced)}
     if LibVersion < RSA_meth_set_mod_exp_introduced then
     begin
       {$if declared(FC_RSA_meth_set_mod_exp)}
-      RSA_meth_set_mod_exp := @FC_RSA_meth_set_mod_exp;
+      RSA_meth_set_mod_exp := FC_RSA_meth_set_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4381,7 +4381,7 @@ begin
     if RSA_meth_set_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_mod_exp)}
-      RSA_meth_set_mod_exp := @_RSA_meth_set_mod_exp;
+      RSA_meth_set_mod_exp := _RSA_meth_set_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4398,13 +4398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_bn_mod_exp_allownil)}
-    RSA_meth_set_bn_mod_exp := @ERR_RSA_meth_set_bn_mod_exp;
+    RSA_meth_set_bn_mod_exp := ERR_RSA_meth_set_bn_mod_exp;
     {$ifend}
     {$if declared(RSA_meth_set_bn_mod_exp_introduced)}
     if LibVersion < RSA_meth_set_bn_mod_exp_introduced then
     begin
       {$if declared(FC_RSA_meth_set_bn_mod_exp)}
-      RSA_meth_set_bn_mod_exp := @FC_RSA_meth_set_bn_mod_exp;
+      RSA_meth_set_bn_mod_exp := FC_RSA_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4413,7 +4413,7 @@ begin
     if RSA_meth_set_bn_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_bn_mod_exp)}
-      RSA_meth_set_bn_mod_exp := @_RSA_meth_set_bn_mod_exp;
+      RSA_meth_set_bn_mod_exp := _RSA_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4430,13 +4430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_init_allownil)}
-    RSA_meth_set_init := @ERR_RSA_meth_set_init;
+    RSA_meth_set_init := ERR_RSA_meth_set_init;
     {$ifend}
     {$if declared(RSA_meth_set_init_introduced)}
     if LibVersion < RSA_meth_set_init_introduced then
     begin
       {$if declared(FC_RSA_meth_set_init)}
-      RSA_meth_set_init := @FC_RSA_meth_set_init;
+      RSA_meth_set_init := FC_RSA_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4445,7 +4445,7 @@ begin
     if RSA_meth_set_init_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_init)}
-      RSA_meth_set_init := @_RSA_meth_set_init;
+      RSA_meth_set_init := _RSA_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4462,13 +4462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_finish_allownil)}
-    RSA_meth_set_finish := @ERR_RSA_meth_set_finish;
+    RSA_meth_set_finish := ERR_RSA_meth_set_finish;
     {$ifend}
     {$if declared(RSA_meth_set_finish_introduced)}
     if LibVersion < RSA_meth_set_finish_introduced then
     begin
       {$if declared(FC_RSA_meth_set_finish)}
-      RSA_meth_set_finish := @FC_RSA_meth_set_finish;
+      RSA_meth_set_finish := FC_RSA_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4477,7 +4477,7 @@ begin
     if RSA_meth_set_finish_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_finish)}
-      RSA_meth_set_finish := @_RSA_meth_set_finish;
+      RSA_meth_set_finish := _RSA_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4494,13 +4494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_sign_allownil)}
-    RSA_meth_set_sign := @ERR_RSA_meth_set_sign;
+    RSA_meth_set_sign := ERR_RSA_meth_set_sign;
     {$ifend}
     {$if declared(RSA_meth_set_sign_introduced)}
     if LibVersion < RSA_meth_set_sign_introduced then
     begin
       {$if declared(FC_RSA_meth_set_sign)}
-      RSA_meth_set_sign := @FC_RSA_meth_set_sign;
+      RSA_meth_set_sign := FC_RSA_meth_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4509,7 +4509,7 @@ begin
     if RSA_meth_set_sign_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_sign)}
-      RSA_meth_set_sign := @_RSA_meth_set_sign;
+      RSA_meth_set_sign := _RSA_meth_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4526,13 +4526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_verify_allownil)}
-    RSA_meth_set_verify := @ERR_RSA_meth_set_verify;
+    RSA_meth_set_verify := ERR_RSA_meth_set_verify;
     {$ifend}
     {$if declared(RSA_meth_set_verify_introduced)}
     if LibVersion < RSA_meth_set_verify_introduced then
     begin
       {$if declared(FC_RSA_meth_set_verify)}
-      RSA_meth_set_verify := @FC_RSA_meth_set_verify;
+      RSA_meth_set_verify := FC_RSA_meth_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4541,7 +4541,7 @@ begin
     if RSA_meth_set_verify_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_verify)}
-      RSA_meth_set_verify := @_RSA_meth_set_verify;
+      RSA_meth_set_verify := _RSA_meth_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4558,13 +4558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_keygen_allownil)}
-    RSA_meth_set_keygen := @ERR_RSA_meth_set_keygen;
+    RSA_meth_set_keygen := ERR_RSA_meth_set_keygen;
     {$ifend}
     {$if declared(RSA_meth_set_keygen_introduced)}
     if LibVersion < RSA_meth_set_keygen_introduced then
     begin
       {$if declared(FC_RSA_meth_set_keygen)}
-      RSA_meth_set_keygen := @FC_RSA_meth_set_keygen;
+      RSA_meth_set_keygen := FC_RSA_meth_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4573,7 +4573,7 @@ begin
     if RSA_meth_set_keygen_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_keygen)}
-      RSA_meth_set_keygen := @_RSA_meth_set_keygen;
+      RSA_meth_set_keygen := _RSA_meth_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4590,13 +4590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RSA_meth_set_multi_prime_keygen_allownil)}
-    RSA_meth_set_multi_prime_keygen := @ERR_RSA_meth_set_multi_prime_keygen;
+    RSA_meth_set_multi_prime_keygen := ERR_RSA_meth_set_multi_prime_keygen;
     {$ifend}
     {$if declared(RSA_meth_set_multi_prime_keygen_introduced)}
     if LibVersion < RSA_meth_set_multi_prime_keygen_introduced then
     begin
       {$if declared(FC_RSA_meth_set_multi_prime_keygen)}
-      RSA_meth_set_multi_prime_keygen := @FC_RSA_meth_set_multi_prime_keygen;
+      RSA_meth_set_multi_prime_keygen := FC_RSA_meth_set_multi_prime_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4605,7 +4605,7 @@ begin
     if RSA_meth_set_multi_prime_keygen_removed <= LibVersion then
     begin
       {$if declared(_RSA_meth_set_multi_prime_keygen)}
-      RSA_meth_set_multi_prime_keygen := @_RSA_meth_set_multi_prime_keygen;
+      RSA_meth_set_multi_prime_keygen := _RSA_meth_set_multi_prime_keygen;
       {$ifend}
       FuncLoadError := false;
     end;

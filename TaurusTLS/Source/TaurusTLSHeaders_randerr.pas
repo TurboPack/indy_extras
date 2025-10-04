@@ -138,7 +138,7 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_ERR_load_RAND_strings: TIdC_INT; 
+function  ERR_ERR_load_RAND_strings: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_RAND_strings_procname);
 end;
@@ -157,13 +157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_RAND_strings_allownil)}
-    ERR_load_RAND_strings := @ERR_ERR_load_RAND_strings;
+    ERR_load_RAND_strings := ERR_ERR_load_RAND_strings;
     {$ifend}
     {$if declared(ERR_load_RAND_strings_introduced)}
     if LibVersion < ERR_load_RAND_strings_introduced then
     begin
       {$if declared(FC_ERR_load_RAND_strings)}
-      ERR_load_RAND_strings := @FC_ERR_load_RAND_strings;
+      ERR_load_RAND_strings := FC_ERR_load_RAND_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -172,7 +172,7 @@ begin
     if ERR_load_RAND_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_RAND_strings)}
-      ERR_load_RAND_strings := @_ERR_load_RAND_strings;
+      ERR_load_RAND_strings := _ERR_load_RAND_strings;
       {$ifend}
       FuncLoadError := false;
     end;

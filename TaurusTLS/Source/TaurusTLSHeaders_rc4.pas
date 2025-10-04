@@ -163,25 +163,25 @@ const
 {$DEFINE RC4_allownil} {allow_nil}
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_RC4_options: PIdAnsiChar; 
+function  ERR_RC4_options: PIdAnsiChar;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RC4_options_procname);
 end;
 
  {allow_nil}
-procedure  ERR_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); 
+procedure  ERR_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RC4_set_key_procname);
 end;
 
  {allow_nil}
-procedure  ERR_private_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); 
+procedure  ERR_private_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(private_RC4_set_key_procname);
 end;
 
  {allow_nil}
-procedure  ERR_RC4(key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte); 
+procedure  ERR_RC4(key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(RC4_procname);
 end;
@@ -200,13 +200,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RC4_options_allownil)}
-    RC4_options := @ERR_RC4_options;
+    RC4_options := ERR_RC4_options;
     {$ifend}
     {$if declared(RC4_options_introduced)}
     if LibVersion < RC4_options_introduced then
     begin
       {$if declared(FC_RC4_options)}
-      RC4_options := @FC_RC4_options;
+      RC4_options := FC_RC4_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -215,7 +215,7 @@ begin
     if RC4_options_removed <= LibVersion then
     begin
       {$if declared(_RC4_options)}
-      RC4_options := @_RC4_options;
+      RC4_options := _RC4_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -232,13 +232,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RC4_set_key_allownil)}
-    RC4_set_key := @ERR_RC4_set_key;
+    RC4_set_key := ERR_RC4_set_key;
     {$ifend}
     {$if declared(RC4_set_key_introduced)}
     if LibVersion < RC4_set_key_introduced then
     begin
       {$if declared(FC_RC4_set_key)}
-      RC4_set_key := @FC_RC4_set_key;
+      RC4_set_key := FC_RC4_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -247,7 +247,7 @@ begin
     if RC4_set_key_removed <= LibVersion then
     begin
       {$if declared(_RC4_set_key)}
-      RC4_set_key := @_RC4_set_key;
+      RC4_set_key := _RC4_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -264,13 +264,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(private_RC4_set_key_allownil)}
-    private_RC4_set_key := @ERR_private_RC4_set_key;
+    private_RC4_set_key := ERR_private_RC4_set_key;
     {$ifend}
     {$if declared(private_RC4_set_key_introduced)}
     if LibVersion < private_RC4_set_key_introduced then
     begin
       {$if declared(FC_private_RC4_set_key)}
-      private_RC4_set_key := @FC_private_RC4_set_key;
+      private_RC4_set_key := FC_private_RC4_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -279,7 +279,7 @@ begin
     if private_RC4_set_key_removed <= LibVersion then
     begin
       {$if declared(_private_RC4_set_key)}
-      private_RC4_set_key := @_private_RC4_set_key;
+      private_RC4_set_key := _private_RC4_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -296,13 +296,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(RC4_allownil)}
-    RC4 := @ERR_RC4;
+    RC4 := ERR_RC4;
     {$ifend}
     {$if declared(RC4_introduced)}
     if LibVersion < RC4_introduced then
     begin
       {$if declared(FC_RC4)}
-      RC4 := @FC_RC4;
+      RC4 := FC_RC4;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -311,7 +311,7 @@ begin
     if RC4_removed <= LibVersion then
     begin
       {$if declared(_RC4)}
-      RC4 := @_RC4;
+      RC4 := _RC4;
       {$ifend}
       FuncLoadError := false;
     end;
