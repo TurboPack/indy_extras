@@ -112,65 +112,67 @@ const
   BIO_f_zlib_procname = 'BIO_f_zlib';
 
 
-  {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_COMP_CTX_new(meth: PCOMP_METHOD): PCOMP_CTX; 
+  {$I TaurusTLSNoRetValOff.inc}
+function  ERR_COMP_CTX_new(meth: PCOMP_METHOD): PCOMP_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_new_procname);
 end;
 
 
-function  ERR_COMP_CTX_get_method(const ctx: PCOMP_CTX): PCOMP_METHOD; 
+function  ERR_COMP_CTX_get_method(const ctx: PCOMP_CTX): PCOMP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_get_method_procname);
 end;
 
 
-function  ERR_COMP_CTX_get_type(const _comp: PCOMP_CTX): TIdC_INT;
+function  ERR_COMP_CTX_get_type(const _comp: PCOMP_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_get_type_procname);
 end;
 
 
-function  ERR_COMP_get_type(const meth: PCOMP_METHOD): TIdC_INT; 
+function  ERR_COMP_get_type(const meth: PCOMP_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_get_type_procname);
 end;
 
 
-function  ERR_COMP_get_name(const meth: PCOMP_METHOD): PIdAnsiChar; 
+function  ERR_COMP_get_name(const meth: PCOMP_METHOD): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_get_name_procname);
 end;
 
 
-procedure  ERR_COMP_CTX_free(ctx: PCOMP_CTX); 
+procedure  ERR_COMP_CTX_free(ctx: PCOMP_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_CTX_free_procname);
 end;
 
 
 
-function  ERR_COMP_compress_block(ctx: PCOMP_CTX; out_: PByte; olen: TIdC_INT; in_: PByte; ilen: TIdC_INT): TIdC_INT; 
+function  ERR_COMP_compress_block(ctx: PCOMP_CTX; out_: PByte; olen: TIdC_INT; in_: PByte;
+  ilen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_compress_block_procname);
 end;
 
 
-function  ERR_COMP_expand_block(ctx: PCOMP_CTX; out_: PByte; olen: TIdC_INT; in_: PByte; ilen: TIdC_INT): TIdC_INT; 
+function  ERR_COMP_expand_block(ctx: PCOMP_CTX; out_: PByte; olen: TIdC_INT; in_: PByte;
+  ilen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_expand_block_procname);
 end;
 
 
 
-function  ERR_COMP_zlib: PCOMP_METHOD; 
+function  ERR_COMP_zlib: PCOMP_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(COMP_zlib_procname);
 end;
 
 
 
-function  ERR_BIO_f_zlib: PBIO_METHOD; 
+function  ERR_BIO_f_zlib: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_zlib_procname);
 end;
@@ -189,13 +191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_CTX_new_allownil)}
-    COMP_CTX_new := @ERR_COMP_CTX_new;
+    COMP_CTX_new := ERR_COMP_CTX_new;
     {$ifend}
     {$if declared(COMP_CTX_new_introduced)}
     if LibVersion < COMP_CTX_new_introduced then
     begin
       {$if declared(FC_COMP_CTX_new)}
-      COMP_CTX_new := @FC_COMP_CTX_new;
+      COMP_CTX_new := FC_COMP_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -204,7 +206,7 @@ begin
     if COMP_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_COMP_CTX_new)}
-      COMP_CTX_new := @_COMP_CTX_new;
+      COMP_CTX_new := _COMP_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -221,13 +223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_CTX_get_method_allownil)}
-    COMP_CTX_get_method := @ERR_COMP_CTX_get_method;
+    COMP_CTX_get_method := ERR_COMP_CTX_get_method;
     {$ifend}
     {$if declared(COMP_CTX_get_method_introduced)}
     if LibVersion < COMP_CTX_get_method_introduced then
     begin
       {$if declared(FC_COMP_CTX_get_method)}
-      COMP_CTX_get_method := @FC_COMP_CTX_get_method;
+      COMP_CTX_get_method := FC_COMP_CTX_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -236,7 +238,7 @@ begin
     if COMP_CTX_get_method_removed <= LibVersion then
     begin
       {$if declared(_COMP_CTX_get_method)}
-      COMP_CTX_get_method := @_COMP_CTX_get_method;
+      COMP_CTX_get_method := _COMP_CTX_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -253,13 +255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_CTX_get_type_allownil)}
-    COMP_CTX_get_type := @ERR_COMP_CTX_get_type;
+    COMP_CTX_get_type := ERR_COMP_CTX_get_type;
     {$ifend}
     {$if declared(COMP_CTX_get_type_introduced)}
     if LibVersion < COMP_CTX_get_type_introduced then
     begin
       {$if declared(FC_COMP_CTX_get_type)}
-      COMP_CTX_get_type := @FC_COMP_CTX_get_type;
+      COMP_CTX_get_type := FC_COMP_CTX_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -268,7 +270,7 @@ begin
     if COMP_CTX_get_type_removed <= LibVersion then
     begin
       {$if declared(_COMP_CTX_get_type)}
-      COMP_CTX_get_type := @_COMP_CTX_get_type;
+      COMP_CTX_get_type := _COMP_CTX_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -285,13 +287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_get_type_allownil)}
-    COMP_get_type := @ERR_COMP_get_type;
+    COMP_get_type := ERR_COMP_get_type;
     {$ifend}
     {$if declared(COMP_get_type_introduced)}
     if LibVersion < COMP_get_type_introduced then
     begin
       {$if declared(FC_COMP_get_type)}
-      COMP_get_type := @FC_COMP_get_type;
+      COMP_get_type := FC_COMP_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -300,7 +302,7 @@ begin
     if COMP_get_type_removed <= LibVersion then
     begin
       {$if declared(_COMP_get_type)}
-      COMP_get_type := @_COMP_get_type;
+      COMP_get_type := _COMP_get_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -317,13 +319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_get_name_allownil)}
-    COMP_get_name := @ERR_COMP_get_name;
+    COMP_get_name := ERR_COMP_get_name;
     {$ifend}
     {$if declared(COMP_get_name_introduced)}
     if LibVersion < COMP_get_name_introduced then
     begin
       {$if declared(FC_COMP_get_name)}
-      COMP_get_name := @FC_COMP_get_name;
+      COMP_get_name := FC_COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -332,7 +334,7 @@ begin
     if COMP_get_name_removed <= LibVersion then
     begin
       {$if declared(_COMP_get_name)}
-      COMP_get_name := @_COMP_get_name;
+      COMP_get_name := _COMP_get_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -349,13 +351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_CTX_free_allownil)}
-    COMP_CTX_free := @ERR_COMP_CTX_free;
+    COMP_CTX_free := ERR_COMP_CTX_free;
     {$ifend}
     {$if declared(COMP_CTX_free_introduced)}
     if LibVersion < COMP_CTX_free_introduced then
     begin
       {$if declared(FC_COMP_CTX_free)}
-      COMP_CTX_free := @FC_COMP_CTX_free;
+      COMP_CTX_free := FC_COMP_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -364,7 +366,7 @@ begin
     if COMP_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_COMP_CTX_free)}
-      COMP_CTX_free := @_COMP_CTX_free;
+      COMP_CTX_free := _COMP_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -381,13 +383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_compress_block_allownil)}
-    COMP_compress_block := @ERR_COMP_compress_block;
+    COMP_compress_block := ERR_COMP_compress_block;
     {$ifend}
     {$if declared(COMP_compress_block_introduced)}
     if LibVersion < COMP_compress_block_introduced then
     begin
       {$if declared(FC_COMP_compress_block)}
-      COMP_compress_block := @FC_COMP_compress_block;
+      COMP_compress_block := FC_COMP_compress_block;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -396,7 +398,7 @@ begin
     if COMP_compress_block_removed <= LibVersion then
     begin
       {$if declared(_COMP_compress_block)}
-      COMP_compress_block := @_COMP_compress_block;
+      COMP_compress_block := _COMP_compress_block;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -413,13 +415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_expand_block_allownil)}
-    COMP_expand_block := @ERR_COMP_expand_block;
+    COMP_expand_block := ERR_COMP_expand_block;
     {$ifend}
     {$if declared(COMP_expand_block_introduced)}
     if LibVersion < COMP_expand_block_introduced then
     begin
       {$if declared(FC_COMP_expand_block)}
-      COMP_expand_block := @FC_COMP_expand_block;
+      COMP_expand_block := FC_COMP_expand_block;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -428,7 +430,7 @@ begin
     if COMP_expand_block_removed <= LibVersion then
     begin
       {$if declared(_COMP_expand_block)}
-      COMP_expand_block := @_COMP_expand_block;
+      COMP_expand_block := _COMP_expand_block;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -445,13 +447,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(COMP_zlib_allownil)}
-    COMP_zlib := @ERR_COMP_zlib;
+    COMP_zlib := ERR_COMP_zlib;
     {$ifend}
     {$if declared(COMP_zlib_introduced)}
     if LibVersion < COMP_zlib_introduced then
     begin
       {$if declared(FC_COMP_zlib)}
-      COMP_zlib := @FC_COMP_zlib;
+      COMP_zlib := FC_COMP_zlib;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -460,7 +462,7 @@ begin
     if COMP_zlib_removed <= LibVersion then
     begin
       {$if declared(_COMP_zlib)}
-      COMP_zlib := @_COMP_zlib;
+      COMP_zlib := _COMP_zlib;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -477,13 +479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_zlib_allownil)}
-    BIO_f_zlib := @ERR_BIO_f_zlib;
+    BIO_f_zlib := ERR_BIO_f_zlib;
     {$ifend}
     {$if declared(BIO_f_zlib_introduced)}
     if LibVersion < BIO_f_zlib_introduced then
     begin
       {$if declared(FC_BIO_f_zlib)}
-      BIO_f_zlib := @FC_BIO_f_zlib;
+      BIO_f_zlib := FC_BIO_f_zlib;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -492,7 +494,7 @@ begin
     if BIO_f_zlib_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_zlib)}
-      BIO_f_zlib := @_BIO_f_zlib;
+      BIO_f_zlib := _BIO_f_zlib;
       {$ifend}
       FuncLoadError := false;
     end;

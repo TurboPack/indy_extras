@@ -156,10 +156,10 @@ var
                             len : TIdC_SIZET) : PSTACK_OF_SCT; cdecl = nil;
    i2d_SCT_LIST : function(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
    d2i_SCT_LIST : function(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
-                      len : TIdC_LONG) : PSTACK_OF_SCT;
+                      len : TIdC_LONG) : PSTACK_OF_SCT; cdecl = nil;
    i2o_SCT : function(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT; cdecl = nil;
    o2i_SCT : function(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT; cdecl = nil;
-   CTLOG_new : function(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG;
+   CTLOG_new : function(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG; cdecl = nil;
    CTLOG_new_from_base64 : function(ct_log : PPCTLOG;
                           const pkey_base64, name : PIdAnsiChar) : TIdC_INT; cdecl = nil;
    CTLOG_free : procedure(log : PCTLOG); cdecl = nil;
@@ -171,7 +171,7 @@ var
    CTLOG_STORE_free : procedure(store : PCTLOG_STORE); cdecl = nil;
    CTLOG_STORE_get0_log_by_id : function(const store : PCTLOG_STORE;
                                          const log_id : PIdAnsiChar;
-                                         log_id_len : TIdC_SIZET) : PCTLOG;
+                                         log_id_len : TIdC_SIZET) : PCTLOG; cdecl = nil;
    CTLOG_STORE_load_file : function(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT; cdecl = nil;
    CTLOG_STORE_load_default_file : function(store : PCTLOG_STORE) : TIdC_INT; cdecl = nil;
 
@@ -394,61 +394,60 @@ const
   ERR_load_CT_strings_procname = 'ERR_load_CT_strings';
   {$I TaurusTLSNoRetValOff.inc} 
 
-function ERR_CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX;
+function ERR_CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (CT_POLICY_EVAL_CTX_new_procname);
 end;
 
-procedure ERR_CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX);
+procedure ERR_CT_POLICY_EVAL_CTX_free(ctx: PCT_POLICY_EVAL_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (CT_POLICY_EVAL_CTX_free_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_get0_cert(const ctx : PCT_POLICY_EVAL_CTX)
-  : PX509;
+function ERR_CT_POLICY_EVAL_CTX_get0_cert(const ctx : PCT_POLICY_EVAL_CTX): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_get0_cert_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_set1_cert(ctx : PCT_POLICY_EVAL_CTX; cert : PX509) : TIdC_INT;
+function ERR_CT_POLICY_EVAL_CTX_set1_cert(ctx : PCT_POLICY_EVAL_CTX; cert : PX509) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_set1_cert_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_get0_issuer(const ctx : PCT_POLICY_EVAL_CTX) : PX509;
+function ERR_CT_POLICY_EVAL_CTX_get0_issuer(const ctx : PCT_POLICY_EVAL_CTX) : PX509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_get0_issuer_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_set1_issuer(ctx : PCT_POLICY_EVAL_CTX; issuer : PX509) : TIdC_INT;
+function ERR_CT_POLICY_EVAL_CTX_set1_issuer(ctx : PCT_POLICY_EVAL_CTX; issuer : PX509) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_set1_issuer_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_get0_log_store(const ctx : PCT_POLICY_EVAL_CTX) : PCTLOG_STORE;
+function ERR_CT_POLICY_EVAL_CTX_get0_log_store(const ctx : PCT_POLICY_EVAL_CTX) : PCTLOG_STORE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_get0_log_store_procname);
 end;
 
 procedure ERR_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE(ctx : PCT_POLICY_EVAL_CTX;
-                                                    log_store : PCTLOG_STORE);
+                                                    log_store : PCTLOG_STORE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_procname);
 end;
 
-function ERR_CT_POLICY_EVAL_CTX_get_time(const ctx : PCT_POLICY_EVAL_CTX) : TIdC_UINT64;
+function ERR_CT_POLICY_EVAL_CTX_get_time(const ctx : PCT_POLICY_EVAL_CTX) : TIdC_UINT64; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_get_time_procname);
 end;
 
-procedure ERR_CT_POLICY_EVAL_CTX_set_time(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64);
+procedure ERR_CT_POLICY_EVAL_CTX_set_time(ctx : PCT_POLICY_EVAL_CTX; time_in_ms : TIdC_UINT64); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CT_POLICY_EVAL_CTX_set_time_procname);
 end;
 
-function ERR_SCT_new : PSCT;
+function ERR_SCT_new : PSCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_new_procname);
 end;
@@ -458,247 +457,247 @@ function ERR_SCT_new_from_base64(version : TIdAnsiChar;
                              entry_type : ct_log_entry_type_t;
                              timestamp : TIdC_UINT64;
                              extensions_base64,
-                             signature_base64 : PIdAnsiChar) : PSCT;
+                             signature_base64 : PIdAnsiChar) : PSCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_new_from_base64_procname);
 end;
 
-procedure ERR_SCT_free(sct : PSCT);
+procedure ERR_SCT_free(sct : PSCT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_free_procname);
 end;
 
-procedure ERR_SCT_LIST_free(a : PSTACK_OF_SCT);
+procedure ERR_SCT_LIST_free(a : PSTACK_OF_SCT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_free_procname );
 end;
 
-function ERR_SCT_get_version(const sct : PSCT) : sct_version_t;
+function ERR_SCT_get_version(const sct : PSCT) : sct_version_t; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_version_procname);
 end;
 
-function ERR_SCT_set_version(sct : PSCT; version : sct_version_t) : TIdC_INT;
+function ERR_SCT_set_version(sct : PSCT; version : sct_version_t) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_version_procname);
 end;
 
-function ERR_SCT_get_log_entry_type(const sct : PSCT) : ct_log_entry_type_t;
+function ERR_SCT_get_log_entry_type(const sct : PSCT) : ct_log_entry_type_t; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_log_entry_type_procname);
 end;
 
-function ERR_SCT_set_log_entry_type(sct : PSCT; entry_type : ct_log_entry_type_t) : TIdC_INT;
+function ERR_SCT_set_log_entry_type(sct : PSCT; entry_type : ct_log_entry_type_t) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_log_entry_type_procname);
 end;
 
-function ERR_SCT_get0_log_id(const sct : PSCT; log_id : PPIdAnsiChar) : TIdC_SIZET;
+function ERR_SCT_get0_log_id(const sct : PSCT; log_id : PPIdAnsiChar) : TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get0_log_id_procname);
 end;
 
-function ERR_SCT_set0_log_id(sct : PSCT; log_id : PIdAnsiChar; log_id_len : TIdC_SIZET) : TIdC_INT;
+function ERR_SCT_set0_log_id(sct : PSCT; log_id : PIdAnsiChar; log_id_len : TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set0_log_id_procname);
 end;
 
 function ERR_SCT_set1_log_id(sct : PSCT; const log_id : PIdAnsiChar;
-                         log_id_len : TIdC_SIZET) : TIdC_INT;
+                         log_id_len : TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set1_log_id_procname);
 end;
 
-function ERR_SCT_get_timestamp(const sct : PSCT) : TIdC_UINT64;
+function ERR_SCT_get_timestamp(const sct : PSCT) : TIdC_UINT64; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get_timestamp_procname);
 end;
 
-procedure ERR_SCT_set_timestamp(sct : PSCT; timestamp : TIdC_UINT64);
+procedure ERR_SCT_set_timestamp(sct : PSCT; timestamp : TIdC_UINT64); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set_timestamp_procname);
 end;
 
-function ERR_SCT_get_signature_nid(const sct : PSCT) : TIdC_INT;
+function ERR_SCT_get_signature_nid(const sct : PSCT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get_signature_nid_procname);
 end;
 
-function ERR_SCT_set_signature_nid(sct : PSCT; nid : TIdC_INT) : TIdC_INT;
+function ERR_SCT_set_signature_nid(sct : PSCT; nid : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_signature_nid_procname);
 end;
 
-function ERR_SCT_get0_extensions(const sct : PSCT; ext : PPIdAnsiChar) : TIdC_SIZET;
+function ERR_SCT_get0_extensions(const sct : PSCT; ext : PPIdAnsiChar) : TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get0_extensions_procname);
 end;
 
-procedure ERR_SCT_set0_extensions(sct : PSCT; ext : PIdAnsiChar; ext_len : TIdC_SIZET);
+procedure ERR_SCT_set0_extensions(sct : PSCT; ext : PIdAnsiChar; ext_len : TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set0_extensions_procname);
 end;
 
-function ERR_SCT_set1_extensions(sct : PSCT; const ext : PIdAnsiChar;  ext_len : TIdC_SIZET) : TIdC_INT;
+function ERR_SCT_set1_extensions(sct : PSCT; const ext : PIdAnsiChar;  ext_len : TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set1_extensions_procname);
 end;
 
-function ERR_SCT_get0_signature(const sct : PSCT; sig : PPIdAnsiChar) : TIdC_SIZET;
+function ERR_SCT_get0_signature(const sct : PSCT; sig : PPIdAnsiChar) : TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_get0_signature_procname);
 end;
 
-procedure ERR_SCT_set0_signature(sct : PSCT; sig : PIdAnsiChar; sig_len : TIdC_SIZET);
+procedure ERR_SCT_set0_signature(sct : PSCT; sig : PIdAnsiChar; sig_len : TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set0_signature_procname);
 end;
 
-function ERR_SCT_set1_signature(sct : PSCT; const sig : PIdAnsiChar; sig_len : TIdC_SIZET) : TIdC_INT;
+function ERR_SCT_set1_signature(sct : PSCT; const sig : PIdAnsiChar; sig_len : TIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_set1_signature_procname);
 end;
 
-function ERR_SCT_get_source(const sct : PSCT) : sct_source_t;
+function ERR_SCT_get_source(const sct : PSCT) : sct_source_t; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_source_procname);
 end;
 
-function ERR_SCT_set_source(sct : PSCT;  source : sct_source_t) : TIdC_INT;
+function ERR_SCT_set_source(sct : PSCT;  source : sct_source_t) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_set_source_procname);
 end;
 
-function ERR_SCT_validation_status_string(const sct : PSCT) : PIdAnsiChar;
+function ERR_SCT_validation_status_string(const sct : PSCT) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_validation_status_string_procname);
 end;
 
-procedure ERR_SCT_print(const sct : PSCT; _out : PBIO; indent : TIdC_INT; const logs : PCTLOG_STORE);
+procedure ERR_SCT_print(const sct : PSCT; _out : PBIO; indent : TIdC_INT; const logs : PCTLOG_STORE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_print_procname );
 end;
 
 procedure ERR_SCT_LIST_print(const sct_list : PSTACK_OF_SCT; _out : PBIO; indent : TIdC_INT;
-                         separator : PIdAnsiChar; const logs : PCTLOG_STORE);
+                    const separator : PIdAnsiChar; const logs : PCTLOG_STORE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_LIST_print_procname);
 end;
 
-function ERR_SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t;
+function ERR_SCT_get_validation_status(const sct : PSCT) : sct_validation_status_t; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_get_validation_status_procname);
 end;
 
-function ERR_SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT;
+function ERR_SCT_validate(sct : PSCT; const ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SCT_validate_procname);
 end;
 
-function ERR_SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT;
+function ERR_SCT_LIST_validate(const scts : PSTACK_OF_SCT; ctx : PCT_POLICY_EVAL_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( SCT_LIST_validate_procname);
 end;
 
-function ERR_i2o_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT;
+function ERR_i2o_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2o_SCT_LIST_procname);
 end;
 
 function ERR_o2i_SCT_LIST(a : PSTACK_OF_SCT; const pp : PIdAnsiChar;
-                            len : TIdC_SIZET) : PSTACK_OF_SCT;
+                            len : TIdC_SIZET) : PSTACK_OF_SCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(o2i_SCT_LIST_procname);
 end;
 
-function ERR_i2d_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT;
+function ERR_i2d_SCT_LIST(const a : PSTACK_OF_SCT; pp : PPIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_SCT_LIST_procname);
 end;
 
 function ERR_d2i_SCT_LIST(a : PPSTACK_OF_SCT; const pp : PPIdAnsiChar;
-                      len : TIdC_LONG) : PSTACK_OF_SCT;
+                      len : TIdC_LONG) : PSTACK_OF_SCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_SCT_LIST_procname);
 end;
 
-function ERR_i2o_SCT(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT;
+function ERR_i2o_SCT(const sct : PSCT; _out : PPIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2o_SCT_procname);
 end;
 
-function ERR_o2i_SCT(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT;
+function ERR_o2i_SCT(psct : PPSCT; const _in : PPIdAnsiChar; len : TIdC_SIZET) : PSCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(o2i_SCT_procname);
 end;
 
-function ERR_CTLOG_new(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG;
+function ERR_CTLOG_new(public_key : PEVP_PKEY; const name : PIdAnsiChar) : PCTLOG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_new_procname);
 end;
 
 function ERR_CTLOG_new_from_base64(ct_log : PPCTLOG;
-                          const pkey_base64, name : PIdAnsiChar) : TIdC_INT;
+                          const pkey_base64, name : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_new_from_base64_procname);
 end;
 
-procedure ERR_CTLOG_free(log : PCTLOG);
+procedure ERR_CTLOG_free(log : PCTLOG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_free_procname);
 end;
 
-function ERR_CTLOG_get0_name(const log : PCTLOG) : PIdAnsiChar;
+function ERR_CTLOG_get0_name(const log : PCTLOG) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_get0_name_procname);
 end;
 
-procedure ERR_CTLOG_get0_log_id(const log : PCTLOG; const log_id : PIdAnsiChar;
-                            log_id_len : TIdC_SIZET);
+procedure ERR_CTLOG_get0_log_id(const log : PCTLOG; const log_id : PPIdAnsiChar;
+                            log_id_len : TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_get0_log_id_procname);
 end;
 
-function ERR_CTLOG_get0_public_key(const log : PCTLOG) : PEVP_PKEY;
+function ERR_CTLOG_get0_public_key(const log : PCTLOG) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_get0_public_key_procname);
 end;
 
-function ERR_CTLOG_STORE_new : PCTLOG_STORE;
+function ERR_CTLOG_STORE_new : PCTLOG_STORE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_new_procname);
 end;
 
-procedure ERR_CTLOG_STORE_free(store : PCTLOG_STORE);
+procedure ERR_CTLOG_STORE_free(store : PCTLOG_STORE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_free_procname);
 end;
 
 function ERR_CTLOG_STORE_get0_log_by_id(const store : PCTLOG_STORE;
                                     const log_id : PIdAnsiChar;
-                                    log_id_len : TIdC_SIZET) : PCTLOG;
+                                    log_id_len : TIdC_SIZET) : PCTLOG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_get0_log_by_id_procname);
 end;
 
-function ERR_CTLOG_STORE_load_file(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT;
+function ERR_CTLOG_STORE_load_file(store : PCTLOG_STORE; const _file : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( CTLOG_STORE_load_file_procname);
 end;
 
-function ERR_CTLOG_STORE_load_default_file(store : PCTLOG_STORE) : TIdC_INT;
+function ERR_CTLOG_STORE_load_default_file(store : PCTLOG_STORE) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CTLOG_STORE_load_default_file_procname);
 end;
 
-function ERR_ERR_load_CT_strings : TIdC_INT;
+function ERR_ERR_load_CT_strings : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_CT_strings_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
@@ -713,13 +712,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_new_allownil)}
-    CT_POLICY_EVAL_CTX_new := @ERR_CT_POLICY_EVAL_CTX_new;
+    CT_POLICY_EVAL_CTX_new := ERR_CT_POLICY_EVAL_CTX_new;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_new_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_new_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_new)}
-      CT_POLICY_EVAL_CTX_new := @FC_CT_POLICY_EVAL_CTX_new;
+      CT_POLICY_EVAL_CTX_new := FC_CT_POLICY_EVAL_CTX_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -728,7 +727,7 @@ begin
     if CT_POLICY_EVAL_CTX_new_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_new)}
-      CT_POLICY_EVAL_CTX_new := @_CT_POLICY_EVAL_CTX_new;
+      CT_POLICY_EVAL_CTX_new := _CT_POLICY_EVAL_CTX_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -745,13 +744,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_free_allownil)}
-    CT_POLICY_EVAL_CTX_free := @ERR_CT_POLICY_EVAL_CTX_free;
+    CT_POLICY_EVAL_CTX_free := ERR_CT_POLICY_EVAL_CTX_free;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_free_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_free_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_free)}
-      CT_POLICY_EVAL_CTX_free := @FC_CT_POLICY_EVAL_CTX_free;
+      CT_POLICY_EVAL_CTX_free := FC_CT_POLICY_EVAL_CTX_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -760,7 +759,7 @@ begin
     if CT_POLICY_EVAL_CTX_free_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_free)}
-      CT_POLICY_EVAL_CTX_free := @_CT_POLICY_EVAL_CTX_free;
+      CT_POLICY_EVAL_CTX_free := _CT_POLICY_EVAL_CTX_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -777,13 +776,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_get0_cert_allownil)}
-    CT_POLICY_EVAL_CTX_get0_cert := @ERR_CT_POLICY_EVAL_CTX_get0_cert;
+    CT_POLICY_EVAL_CTX_get0_cert := ERR_CT_POLICY_EVAL_CTX_get0_cert;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_get0_cert_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_get0_cert_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_get0_cert)}
-      CT_POLICY_EVAL_CTX_get0_cert := @FC_CT_POLICY_EVAL_CTX_get0_cert;
+      CT_POLICY_EVAL_CTX_get0_cert := FC_CT_POLICY_EVAL_CTX_get0_cert;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -792,7 +791,7 @@ begin
     if CT_POLICY_EVAL_CTX_get0_cert_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_get0_cert)}
-      CT_POLICY_EVAL_CTX_get0_cert := @_CT_POLICY_EVAL_CTX_get0_cert;
+      CT_POLICY_EVAL_CTX_get0_cert := _CT_POLICY_EVAL_CTX_get0_cert;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -809,13 +808,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_set1_cert_allownil)}
-    CT_POLICY_EVAL_CTX_set1_cert := @ERR_CT_POLICY_EVAL_CTX_set1_cert;
+    CT_POLICY_EVAL_CTX_set1_cert := ERR_CT_POLICY_EVAL_CTX_set1_cert;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_set1_cert_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_set1_cert_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_set1_cert)}
-      CT_POLICY_EVAL_CTX_set1_cert := @FC_CT_POLICY_EVAL_CTX_set1_cert;
+      CT_POLICY_EVAL_CTX_set1_cert := FC_CT_POLICY_EVAL_CTX_set1_cert;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -824,7 +823,7 @@ begin
     if CT_POLICY_EVAL_CTX_set1_cert_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_set1_cert)}
-      CT_POLICY_EVAL_CTX_set1_cert := @_CT_POLICY_EVAL_CTX_set1_cert;
+      CT_POLICY_EVAL_CTX_set1_cert := _CT_POLICY_EVAL_CTX_set1_cert;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -841,13 +840,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_get0_issuer_allownil)}
-    CT_POLICY_EVAL_CTX_get0_issuer := @ERR_CT_POLICY_EVAL_CTX_get0_issuer;
+    CT_POLICY_EVAL_CTX_get0_issuer := ERR_CT_POLICY_EVAL_CTX_get0_issuer;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_get0_issuer_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_get0_issuer_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_get0_issuer)}
-      CT_POLICY_EVAL_CTX_get0_issuer := @FC_CT_POLICY_EVAL_CTX_get0_issuer;
+      CT_POLICY_EVAL_CTX_get0_issuer := FC_CT_POLICY_EVAL_CTX_get0_issuer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -856,7 +855,7 @@ begin
     if CT_POLICY_EVAL_CTX_get0_issuer_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_get0_issuer)}
-      CT_POLICY_EVAL_CTX_get0_issuer := @_CT_POLICY_EVAL_CTX_get0_issuer;
+      CT_POLICY_EVAL_CTX_get0_issuer := _CT_POLICY_EVAL_CTX_get0_issuer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -873,13 +872,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_set1_issuer_allownil)}
-    CT_POLICY_EVAL_CTX_set1_issuer := @ERR_CT_POLICY_EVAL_CTX_set1_issuer;
+    CT_POLICY_EVAL_CTX_set1_issuer := ERR_CT_POLICY_EVAL_CTX_set1_issuer;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_set1_issuer_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_set1_issuer_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_set1_issuer)}
-      CT_POLICY_EVAL_CTX_set1_issuer := @FC_CT_POLICY_EVAL_CTX_set1_issuer;
+      CT_POLICY_EVAL_CTX_set1_issuer := FC_CT_POLICY_EVAL_CTX_set1_issuer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -888,7 +887,7 @@ begin
     if CT_POLICY_EVAL_CTX_set1_issuer_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_set1_issuer)}
-      CT_POLICY_EVAL_CTX_set1_issuer := @_CT_POLICY_EVAL_CTX_set1_issuer;
+      CT_POLICY_EVAL_CTX_set1_issuer := _CT_POLICY_EVAL_CTX_set1_issuer;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -905,13 +904,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_get0_log_store_allownil)}
-    CT_POLICY_EVAL_CTX_get0_log_store := @ERR_CT_POLICY_EVAL_CTX_get0_log_store;
+    CT_POLICY_EVAL_CTX_get0_log_store := ERR_CT_POLICY_EVAL_CTX_get0_log_store;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_get0_log_store_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_get0_log_store_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_get0_log_store)}
-      CT_POLICY_EVAL_CTX_get0_log_store := @FC_CT_POLICY_EVAL_CTX_get0_log_store;
+      CT_POLICY_EVAL_CTX_get0_log_store := FC_CT_POLICY_EVAL_CTX_get0_log_store;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -920,7 +919,7 @@ begin
     if CT_POLICY_EVAL_CTX_get0_log_store_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_get0_log_store)}
-      CT_POLICY_EVAL_CTX_get0_log_store := @_CT_POLICY_EVAL_CTX_get0_log_store;
+      CT_POLICY_EVAL_CTX_get0_log_store := _CT_POLICY_EVAL_CTX_get0_log_store;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -937,13 +936,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_allownil)}
-    CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := @ERR_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
+    CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := ERR_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
 {$IFEND}
 {$IF declared(CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_introduced then
     begin
 {$IF declared(FC_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE)}
-      CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := @FC_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
+      CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := FC_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -952,7 +951,7 @@ begin
     if CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE_removed <= LibVersion then
     begin
 {$IF declared(_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE)}
-      CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := @_CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
+      CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE := _CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -968,13 +967,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CT_POLICY_EVAL_CTX_get_time_allownil)}
-    CT_POLICY_EVAL_CTX_get_time := @ERR_CT_POLICY_EVAL_CTX_get_time;
+    CT_POLICY_EVAL_CTX_get_time := ERR_CT_POLICY_EVAL_CTX_get_time;
     {$ifend}
     {$if declared(CT_POLICY_EVAL_CTX_get_time_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_get_time_introduced then
     begin
       {$if declared(FC_CT_POLICY_EVAL_CTX_get_time)}
-      CT_POLICY_EVAL_CTX_get_time := @FC_CT_POLICY_EVAL_CTX_get_time;
+      CT_POLICY_EVAL_CTX_get_time := FC_CT_POLICY_EVAL_CTX_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -983,7 +982,7 @@ begin
     if CT_POLICY_EVAL_CTX_get_time_removed <= LibVersion then
     begin
       {$if declared(_CT_POLICY_EVAL_CTX_get_time)}
-      CT_POLICY_EVAL_CTX_get_time := @_CT_POLICY_EVAL_CTX_get_time;
+      CT_POLICY_EVAL_CTX_get_time := _CT_POLICY_EVAL_CTX_get_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -999,13 +998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CT_POLICY_EVAL_CTX_set_time_allownil)}
-    CT_POLICY_EVAL_CTX_set_time := @ERR_CT_POLICY_EVAL_CTX_set_time;
+    CT_POLICY_EVAL_CTX_set_time := ERR_CT_POLICY_EVAL_CTX_set_time;
     {$ifend}
     {$if declared(CT_POLICY_EVAL_CTX_set_time_introduced)}
     if LibVersion < CT_POLICY_EVAL_CTX_set_time_introduced then
     begin
       {$if declared(FC_CT_POLICY_EVAL_CTX_set_time)}
-      CT_POLICY_EVAL_CTX_set_time := @FC_CT_POLICY_EVAL_CTX_set_time;
+      CT_POLICY_EVAL_CTX_set_time := FC_CT_POLICY_EVAL_CTX_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1014,7 +1013,7 @@ begin
     if CT_POLICY_EVAL_CTX_set_time_removed <= LibVersion then
     begin
       {$if declared(_CT_POLICY_EVAL_CTX_set_time)}
-      CT_POLICY_EVAL_CTX_set_time := @_CT_POLICY_EVAL_CTX_set_time;
+      CT_POLICY_EVAL_CTX_set_time := _CT_POLICY_EVAL_CTX_set_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1030,13 +1029,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_new_allownil)}
-    SCT_new := @ERR_SCT_new;
+    SCT_new := ERR_SCT_new;
     {$ifend}
     {$if declared(SCT_new_introduced)}
     if LibVersion < SCT_new_introduced then
     begin
       {$if declared(FC_SCT_new)}
-      SCT_new := @FC_SCT_new;
+      SCT_new := FC_SCT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1045,7 +1044,7 @@ begin
     if SCT_new_removed <= LibVersion then
     begin
       {$if declared(_SCT_new)}
-      SCT_new := @_SCT_new;
+      SCT_new := _SCT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1061,13 +1060,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_new_from_base64_allownil)}
-    SCT_new_from_base64 := @ERR_SCT_new_from_base64;
+    SCT_new_from_base64 := ERR_SCT_new_from_base64;
     {$ifend}
     {$if declared(SCT_new_from_base64_introduced)}
     if LibVersion < SCT_new_from_base64_introduced then
     begin
       {$if declared(FC_SCT_new_from_base64)}
-      SCT_new_from_base64 := @FC_SCT_new_from_base64;
+      SCT_new_from_base64 := FC_SCT_new_from_base64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1076,7 +1075,7 @@ begin
     if SCT_new_from_base64_removed <= LibVersion then
     begin
       {$if declared(_SCT_new_from_base64)}
-      SCT_new_from_base64 := @_SCT_new_from_base64;
+      SCT_new_from_base64 := _SCT_new_from_base64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1092,13 +1091,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_free_allownil)}
-    SCT_free := @ERR_SCT_free;
+    SCT_free := ERR_SCT_free;
     {$ifend}
     {$if declared(SCT_free_introduced)}
     if LibVersion < SCT_free_introduced then
     begin
       {$if declared(FC_SCT_free)}
-      SCT_free := @FC_SCT_free;
+      SCT_free := FC_SCT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1107,7 +1106,7 @@ begin
     if SCT_free_removed <= LibVersion then
     begin
       {$if declared(_SCT_free)}
-      SCT_free := @_SCT_free;
+      SCT_free := _SCT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1123,13 +1122,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_LIST_free_allownil)}
-    SCT_LIST_free := @ERR_SCT_LIST_free;
+    SCT_LIST_free := ERR_SCT_LIST_free;
     {$ifend}
     {$if declared(SCT_LIST_free_introduced)}
     if LibVersion < SCT_LIST_free_introduced then
     begin
       {$if declared(FC_SCT_LIST_free)}
-      SCT_LIST_free := @FC_SCT_LIST_free;
+      SCT_LIST_free := FC_SCT_LIST_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1138,7 +1137,7 @@ begin
     if SCT_LIST_free_removed <= LibVersion then
     begin
       {$if declared(_SCT_LIST_free)}
-      SCT_LIST_free := @_SCT_LIST_free;
+      SCT_LIST_free := _SCT_LIST_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1154,13 +1153,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_version_allownil)}
-    SCT_get_version := @ERR_SCT_get_version;
+    SCT_get_version := ERR_SCT_get_version;
     {$ifend}
     {$if declared(SCT_get_version_introduced)}
     if LibVersion < SCT_get_version_introduced then
     begin
       {$if declared(FC_SCT_get_version)}
-      SCT_get_version := @FC_SCT_get_version;
+      SCT_get_version := FC_SCT_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1169,7 +1168,7 @@ begin
     if SCT_get_version_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_version)}
-      SCT_get_version := @_SCT_get_version;
+      SCT_get_version := _SCT_get_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1185,13 +1184,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set_version_allownil)}
-    SCT_set_version := @ERR_SCT_set_version;
+    SCT_set_version := ERR_SCT_set_version;
     {$ifend}
     {$if declared(SCT_set_version_introduced)}
     if LibVersion < SCT_set_version_introduced then
     begin
       {$if declared(FC_SCT_set_version)}
-      SCT_set_version := @FC_SCT_set_version;
+      SCT_set_version := FC_SCT_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1200,7 +1199,7 @@ begin
     if SCT_set_version_removed <= LibVersion then
     begin
       {$if declared(_SCT_set_version)}
-      SCT_set_version := @_SCT_set_version;
+      SCT_set_version := _SCT_set_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1216,13 +1215,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_log_entry_type_allownil)}
-    SCT_get_log_entry_type := @ERR_SCT_get_log_entry_type;
+    SCT_get_log_entry_type := ERR_SCT_get_log_entry_type;
     {$ifend}
     {$if declared(SCT_get_log_entry_type_introduced)}
     if LibVersion < SCT_get_log_entry_type_introduced then
     begin
       {$if declared(FC_SCT_get_log_entry_type)}
-      SCT_get_log_entry_type := @FC_SCT_get_log_entry_type;
+      SCT_get_log_entry_type := FC_SCT_get_log_entry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1231,7 +1230,7 @@ begin
     if SCT_get_log_entry_type_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_log_entry_type)}
-      SCT_get_log_entry_type := @_SCT_get_log_entry_type;
+      SCT_get_log_entry_type := _SCT_get_log_entry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1247,13 +1246,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set_log_entry_type_allownil)}
-    SCT_set_log_entry_type := @ERR_SCT_set_log_entry_type;
+    SCT_set_log_entry_type := ERR_SCT_set_log_entry_type;
     {$ifend}
     {$if declared(SCT_set_log_entry_type_introduced)}
     if LibVersion < SCT_set_log_entry_type_introduced then
     begin
       {$if declared(FC_SCT_set_log_entry_type)}
-      SCT_set_log_entry_type := @FC_SCT_set_log_entry_type;
+      SCT_set_log_entry_type := FC_SCT_set_log_entry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1262,7 +1261,7 @@ begin
     if SCT_set_log_entry_type_removed <= LibVersion then
     begin
       {$if declared(_SCT_set_log_entry_type)}
-      SCT_set_log_entry_type := @_SCT_set_log_entry_type;
+      SCT_set_log_entry_type := _SCT_set_log_entry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1278,13 +1277,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get0_log_id_allownil)}
-    SCT_get0_log_id := @ERR_SCT_get0_log_id;
+    SCT_get0_log_id := ERR_SCT_get0_log_id;
     {$ifend}
     {$if declared(SCT_get0_log_id_introduced)}
     if LibVersion < SCT_get0_log_id_introduced then
     begin
       {$if declared(FC_SCT_get0_log_id)}
-      SCT_get0_log_id := @FC_SCT_get0_log_id;
+      SCT_get0_log_id := FC_SCT_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1293,7 +1292,7 @@ begin
     if SCT_get0_log_id_removed <= LibVersion then
     begin
       {$if declared(_SCT_get0_log_id)}
-      SCT_get0_log_id := @_SCT_get0_log_id;
+      SCT_get0_log_id := _SCT_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1309,13 +1308,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set0_log_id_allownil)}
-    SCT_set0_log_id := @ERR_SCT_set0_log_id;
+    SCT_set0_log_id := ERR_SCT_set0_log_id;
     {$ifend}
     {$if declared(SCT_set0_log_id_introduced)}
     if LibVersion < SCT_set0_log_id_introduced then
     begin
       {$if declared(FC_SCT_set0_log_id)}
-      SCT_set0_log_id := @FC_SCT_set0_log_id;
+      SCT_set0_log_id := FC_SCT_set0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1324,7 +1323,7 @@ begin
     if SCT_set0_log_id_removed <= LibVersion then
     begin
       {$if declared(_SCT_set0_log_id)}
-      SCT_set0_log_id := @_SCT_set0_log_id;
+      SCT_set0_log_id := _SCT_set0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1340,13 +1339,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set1_log_id_allownil)}
-    SCT_set1_log_id := @ERR_SCT_set1_log_id;
+    SCT_set1_log_id := ERR_SCT_set1_log_id;
     {$ifend}
     {$if declared(SCT_set1_log_id_introduced)}
     if LibVersion < SCT_set1_log_id_introduced then
     begin
       {$if declared(FC_SCT_set1_log_id)}
-      SCT_set1_log_id := @FC_SCT_set1_log_id;
+      SCT_set1_log_id := FC_SCT_set1_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1355,7 +1354,7 @@ begin
     if SCT_set1_log_id_removed <= LibVersion then
     begin
       {$if declared(_SCT_set1_log_id)}
-      SCT_set1_log_id := @_SCT_set1_log_id;
+      SCT_set1_log_id := _SCT_set1_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1370,13 +1369,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_timestamp_allownil)}
-    SCT_get_timestamp := @ERR_SCT_get_timestamp;
+    SCT_get_timestamp := ERR_SCT_get_timestamp;
     {$ifend}
     {$if declared(SCT_get_timestamp_introduced)}
     if LibVersion < SCT_get_timestamp_introduced then
     begin
       {$if declared(FC_SCT_get_timestamp)}
-      SCT_get_timestamp := @FC_SCT_get_timestamp;
+      SCT_get_timestamp := FC_SCT_get_timestamp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1385,7 +1384,7 @@ begin
     if SCT_get_timestamp_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_timestamp)}
-      SCT_get_timestamp := @_SCT_get_timestamp;
+      SCT_get_timestamp := _SCT_get_timestamp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1401,13 +1400,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set_timestamp_allownil)}
-    SCT_set_timestamp := @ERR_SCT_set_timestamp;
+    SCT_set_timestamp := ERR_SCT_set_timestamp;
     {$ifend}
     {$if declared(SCT_set_timestamp_introduced)}
     if LibVersion < SCT_set_timestamp_introduced then
     begin
       {$if declared(FC_SCT_set_timestamp)}
-      SCT_set_timestamp := @FC_SCT_set_timestamp;
+      SCT_set_timestamp := FC_SCT_set_timestamp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1416,7 +1415,7 @@ begin
     if SCT_set_timestamp_removed <= LibVersion then
     begin
       {$if declared(_SCT_set_timestamp)}
-      SCT_set_timestamp := @_SCT_set_timestamp;
+      SCT_set_timestamp := _SCT_set_timestamp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1432,13 +1431,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_signature_nid_allownil)}
-    SCT_get_signature_nid := @ERR_SCT_get_signature_nid;
+    SCT_get_signature_nid := ERR_SCT_get_signature_nid;
     {$ifend}
     {$if declared(SCT_get_signature_nid_introduced)}
     if LibVersion < SCT_get_signature_nid_introduced then
     begin
       {$if declared(FC_SCT_get_signature_nid)}
-      SCT_get_signature_nid := @FC_SCT_get_signature_nid;
+      SCT_get_signature_nid := FC_SCT_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1447,7 +1446,7 @@ begin
     if SCT_get_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_signature_nid)}
-      SCT_get_signature_nid := @_SCT_get_signature_nid;
+      SCT_get_signature_nid := _SCT_get_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1463,13 +1462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set_signature_nid_allownil)}
-    SCT_set_signature_nid := @ERR_SCT_set_signature_nid;
+    SCT_set_signature_nid := ERR_SCT_set_signature_nid;
     {$ifend}
     {$if declared(SCT_set_signature_nid_introduced)}
     if LibVersion < SCT_set_signature_nid_introduced then
     begin
       {$if declared(FC_SCT_set_signature_nid)}
-      SCT_set_signature_nid := @FC_SCT_set_signature_nid;
+      SCT_set_signature_nid := FC_SCT_set_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1478,7 +1477,7 @@ begin
     if SCT_set_signature_nid_removed <= LibVersion then
     begin
       {$if declared(_SCT_set_signature_nid)}
-      SCT_set_signature_nid := @_SCT_set_signature_nid;
+      SCT_set_signature_nid := _SCT_set_signature_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1494,13 +1493,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get0_extensions_allownil)}
-    SCT_get0_extensions := @ERR_SCT_get0_extensions;
+    SCT_get0_extensions := ERR_SCT_get0_extensions;
     {$ifend}
     {$if declared(SCT_get0_extensions_introduced)}
     if LibVersion < SCT_get0_extensions_introduced then
     begin
       {$if declared(FC_SCT_get0_extensions)}
-      SCT_get0_extensions := @FC_SCT_get0_extensions;
+      SCT_get0_extensions := FC_SCT_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1509,7 +1508,7 @@ begin
     if SCT_get0_extensions_removed <= LibVersion then
     begin
       {$if declared(_SCT_get0_extensions)}
-      SCT_get0_extensions := @_SCT_get0_extensions;
+      SCT_get0_extensions := _SCT_get0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1524,13 +1523,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set0_extensions_allownil)}
-    SCT_set0_extensions := @ERR_SCT_set0_extensions;
+    SCT_set0_extensions := ERR_SCT_set0_extensions;
     {$ifend}
     {$if declared(SCT_set0_extensions_introduced)}
     if LibVersion < SCT_set0_extensions_introduced then
     begin
       {$if declared(FC_SCT_set0_extensions)}
-      SCT_set0_extensions := @FC_SCT_set0_extensions;
+      SCT_set0_extensions := FC_SCT_set0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1539,7 +1538,7 @@ begin
     if SCT_set0_extensions_removed <= LibVersion then
     begin
       {$if declared(_SCT_set0_extensions)}
-      SCT_set0_extensions := @_SCT_set0_extensions;
+      SCT_set0_extensions := _SCT_set0_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1554,13 +1553,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set1_extensions_allownil)}
-    SCT_set1_extensions := @ERR_SCT_set1_extensions;
+    SCT_set1_extensions := ERR_SCT_set1_extensions;
     {$ifend}
     {$if declared(SCT_set1_extensions_introduced)}
     if LibVersion < SCT_set1_extensions_introduced then
     begin
       {$if declared(FC_SCT_set1_extensions)}
-      SCT_set1_extensions := @FC_SCT_set1_extensions;
+      SCT_set1_extensions := FC_SCT_set1_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1569,7 +1568,7 @@ begin
     if SCT_set1_extensions_removed <= LibVersion then
     begin
       {$if declared(_SCT_set1_extensions)}
-      SCT_set1_extensions := @_SCT_set1_extensions;
+      SCT_set1_extensions := _SCT_set1_extensions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1584,13 +1583,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get0_signature_allownil)}
-    SCT_get0_signature := @ERR_SCT_get0_signature;
+    SCT_get0_signature := ERR_SCT_get0_signature;
     {$ifend}
     {$if declared(SCT_get0_signature_introduced)}
     if LibVersion < SCT_get0_signature_introduced then
     begin
       {$if declared(FC_SCT_get0_signature)}
-      SCT_get0_signature := @FC_SCT_get0_signature;
+      SCT_get0_signature := FC_SCT_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1599,7 +1598,7 @@ begin
     if SCT_get0_signature_removed <= LibVersion then
     begin
       {$if declared(_SCT_get0_signature)}
-      SCT_get0_signature := @_SCT_get0_signature;
+      SCT_get0_signature := _SCT_get0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1614,13 +1613,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set0_signature_allownil)}
-    SCT_set0_signature := @ERR_SCT_set0_signature;
+    SCT_set0_signature := ERR_SCT_set0_signature;
     {$ifend}
     {$if declared(SCT_set0_signature_introduced)}
     if LibVersion < SCT_set0_signature_introduced then
     begin
       {$if declared(FC_SCT_set0_signature)}
-      SCT_set0_signature := @FC_SCT_set0_signature;
+      SCT_set0_signature := FC_SCT_set0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1629,7 +1628,7 @@ begin
     if SCT_set0_signature_removed <= LibVersion then
     begin
       {$if declared(_SCT_set0_signature)}
-      SCT_set0_signature := @_SCT_set0_signature;
+      SCT_set0_signature := _SCT_set0_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1644,13 +1643,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set1_signature_allownil)}
-    SCT_set1_signature := @ERR_SCT_set1_signature;
+    SCT_set1_signature := ERR_SCT_set1_signature;
     {$ifend}
     {$if declared(SCT_set1_signature_introduced)}
     if LibVersion < SCT_set1_signature_introduced then
     begin
       {$if declared(FC_SCT_set1_signature)}
-      SCT_set1_signature := @FC_SCT_set1_signature;
+      SCT_set1_signature := FC_SCT_set1_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1659,7 +1658,7 @@ begin
     if SCT_set1_signature_removed <= LibVersion then
     begin
       {$if declared(_SCT_set1_signature)}
-      SCT_set1_signature := @_SCT_set1_signature;
+      SCT_set1_signature := _SCT_set1_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1675,13 +1674,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_source_allownil)}
-    SCT_get_source := @ERR_SCT_get_source;
+    SCT_get_source := ERR_SCT_get_source;
     {$ifend}
     {$if declared(SCT_get_source_introduced)}
     if LibVersion < SCT_get_source_introduced then
     begin
       {$if declared(FC_SCT_get_source)}
-      SCT_get_source := @FC_SCT_get_source;
+      SCT_get_source := FC_SCT_get_source;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1690,7 +1689,7 @@ begin
     if SCT_get_source_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_source)}
-      SCT_get_source := @_SCT_get_source;
+      SCT_get_source := _SCT_get_source;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1705,13 +1704,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_set_source_allownil)}
-    SCT_set_source := @ERR_SCT_set_source;
+    SCT_set_source := ERR_SCT_set_source;
     {$ifend}
     {$if declared(SCT_set_source_introduced)}
     if LibVersion < SCT_set_source_introduced then
     begin
       {$if declared(FC_SCT_set_source)}
-      SCT_set_source := @FC_SCT_set_source;
+      SCT_set_source := FC_SCT_set_source;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1720,7 +1719,7 @@ begin
     if SCT_set_source_removed <= LibVersion then
     begin
       {$if declared(_SCT_set_source)}
-      SCT_set_source := @_SCT_set_source;
+      SCT_set_source := _SCT_set_source;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1736,13 +1735,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_validation_status_string_allownil)}
-    SCT_validation_status_string := @ERR_SCT_validation_status_string;
+    SCT_validation_status_string := ERR_SCT_validation_status_string;
     {$ifend}
     {$if declared(SCT_validation_status_string_introduced)}
     if LibVersion < SCT_validation_status_string_introduced then
     begin
       {$if declared(FC_SCT_validation_status_string)}
-      SCT_validation_status_string := @FC_SCT_validation_status_string;
+      SCT_validation_status_string := FC_SCT_validation_status_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1751,7 +1750,7 @@ begin
     if SCT_validation_status_string_removed <= LibVersion then
     begin
       {$if declared(_SCT_validation_status_string)}
-      SCT_validation_status_string := @_SCT_validation_status_string;
+      SCT_validation_status_string := _SCT_validation_status_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1766,13 +1765,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_print_allownil)}
-    SCT_print := @ERR_SCT_print;
+    SCT_print := ERR_SCT_print;
     {$ifend}
     {$if declared(SCT_print_introduced)}
     if LibVersion < SCT_print_introduced then
     begin
       {$if declared(FC_SCT_print)}
-      SCT_print := @FC_SCT_print;
+      SCT_print := FC_SCT_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1781,7 +1780,7 @@ begin
     if SCT_print_removed <= LibVersion then
     begin
       {$if declared(_SCT_print)}
-      SCT_print := @_SCT_print;
+      SCT_print := _SCT_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1797,13 +1796,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_LIST_print_allownil)}
-    SCT_LIST_print := @ERR_SCT_LIST_print;
+    SCT_LIST_print := ERR_SCT_LIST_print;
     {$ifend}
     {$if declared(SCT_LIST_print_introduced)}
     if LibVersion < SCT_LIST_print_introduced then
     begin
       {$if declared(FC_SCT_LIST_print)}
-      SCT_LIST_print := @FC_SCT_LIST_print;
+      SCT_LIST_print := FC_SCT_LIST_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1812,7 +1811,7 @@ begin
     if SCT_LIST_print_removed <= LibVersion then
     begin
       {$if declared(_SCT_LIST_print)}
-      SCT_LIST_print := @_SCT_LIST_print;
+      SCT_LIST_print := _SCT_LIST_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1827,13 +1826,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_get_validation_status_allownil)}
-    SCT_get_validation_status := @ERR_SCT_get_validation_status;
+    SCT_get_validation_status := ERR_SCT_get_validation_status;
     {$ifend}
     {$if declared(SCT_get_validation_status_introduced)}
     if LibVersion < SCT_get_validation_status_introduced then
     begin
       {$if declared(FC_SCT_get_validation_status)}
-      SCT_get_validation_status := @FC_SCT_get_validation_status;
+      SCT_get_validation_status := FC_SCT_get_validation_status;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1842,7 +1841,7 @@ begin
     if SCT_get_validation_status_removed <= LibVersion then
     begin
       {$if declared(_SCT_get_validation_status)}
-      SCT_get_validation_status := @_SCT_get_validation_status;
+      SCT_get_validation_status := _SCT_get_validation_status;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1857,13 +1856,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_validate_allownil)}
-    SCT_validate := @ERR_SCT_validate;
+    SCT_validate := ERR_SCT_validate;
     {$ifend}
     {$if declared(SCT_validate_introduced)}
     if LibVersion < SCT_validate_introduced then
     begin
       {$if declared(FC_SCT_validate)}
-      SCT_validate := @FC_SCT_validate;
+      SCT_validate := FC_SCT_validate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1872,7 +1871,7 @@ begin
     if SCT_validate_removed <= LibVersion then
     begin
       {$if declared(_SCT_validate)}
-      SCT_validate := @_SCT_validate;
+      SCT_validate := _SCT_validate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1888,13 +1887,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SCT_LIST_validate_allownil)}
-    SCT_LIST_validate := @ERR_SCT_LIST_validate;
+    SCT_LIST_validate := ERR_SCT_LIST_validate;
     {$ifend}
     {$if declared(SCT_LIST_validate_introduced)}
     if LibVersion < SCT_LIST_validate_introduced then
     begin
       {$if declared(FC_SCT_LIST_validate)}
-      SCT_LIST_validate := @FC_SCT_LIST_validate;
+      SCT_LIST_validate := FC_SCT_LIST_validate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1903,7 +1902,7 @@ begin
     if SCT_LIST_validate_removed <= LibVersion then
     begin
       {$if declared(_SCT_LIST_validate)}
-      SCT_LIST_validate := @_SCT_LIST_validate;
+      SCT_LIST_validate := _SCT_LIST_validate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1919,13 +1918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2o_SCT_LIST_allownil)}
-    i2o_SCT_LIST := @ERR_i2o_SCT_LIST;
+    i2o_SCT_LIST := ERR_i2o_SCT_LIST;
     {$ifend}
     {$if declared(i2o_SCT_LIST_introduced)}
     if LibVersion < i2o_SCT_LIST_introduced then
     begin
       {$if declared(FC_i2o_SCT_LIST)}
-      i2o_SCT_LIST := @FC_i2o_SCT_LIST;
+      i2o_SCT_LIST := FC_i2o_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1934,7 +1933,7 @@ begin
     if i2o_SCT_LIST_removed <= LibVersion then
     begin
       {$if declared(_i2o_SCT_LIST)}
-      i2o_SCT_LIST := @_i2o_SCT_LIST;
+      i2o_SCT_LIST := _i2o_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1949,13 +1948,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(o2i_SCT_LIST_allownil)}
-    o2i_SCT_LIST := @ERR_o2i_SCT_LIST;
+    o2i_SCT_LIST := ERR_o2i_SCT_LIST;
     {$ifend}
     {$if declared(o2i_SCT_LIST_introduced)}
     if LibVersion < o2i_SCT_LIST_introduced then
     begin
       {$if declared(FC_o2i_SCT_LIST)}
-      o2i_SCT_LIST := @FC_o2i_SCT_LIST;
+      o2i_SCT_LIST := FC_o2i_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1964,7 +1963,7 @@ begin
     if o2i_SCT_LIST_removed <= LibVersion then
     begin
       {$if declared(_o2i_SCT_LIST)}
-      o2i_SCT_LIST := @_o2i_SCT_LIST;
+      o2i_SCT_LIST := _o2i_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1979,13 +1978,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_SCT_LIST_allownil)}
-    i2d_SCT_LIST := @ERR_i2d_SCT_LIST;
+    i2d_SCT_LIST := ERR_i2d_SCT_LIST;
     {$ifend}
     {$if declared(i2d_SCT_LIST_introduced)}
     if LibVersion < i2d_SCT_LIST_introduced then
     begin
       {$if declared(FC_i2d_SCT_LIST)}
-      i2d_SCT_LIST := @FC_i2d_SCT_LIST;
+      i2d_SCT_LIST := FC_i2d_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1994,7 +1993,7 @@ begin
     if i2d_SCT_LIST_removed <= LibVersion then
     begin
       {$if declared(_i2d_SCT_LIST)}
-      i2d_SCT_LIST := @_i2d_SCT_LIST;
+      i2d_SCT_LIST := _i2d_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2009,13 +2008,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_SCT_LIST_allownil)}
-    d2i_SCT_LIST := @ERR_d2i_SCT_LIST;
+    d2i_SCT_LIST := ERR_d2i_SCT_LIST;
     {$ifend}
     {$if declared(d2i_SCT_LIST_introduced)}
     if LibVersion < d2i_SCT_LIST_introduced then
     begin
       {$if declared(FC_d2i_SCT_LIST)}
-      d2i_SCT_LIST := @FC_d2i_SCT_LIST;
+      d2i_SCT_LIST := FC_d2i_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2024,7 +2023,7 @@ begin
     if d2i_SCT_LIST_removed <= LibVersion then
     begin
       {$if declared(_d2i_SCT_LIST)}
-      d2i_SCT_LIST := @_d2i_SCT_LIST;
+      d2i_SCT_LIST := _d2i_SCT_LIST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2039,13 +2038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2o_SCT_allownil)}
-    i2o_SCT := @ERR_i2o_SCT;
+    i2o_SCT := ERR_i2o_SCT;
     {$ifend}
     {$if declared(i2o_SCT_introduced)}
     if LibVersion < i2o_SCT_introduced then
     begin
       {$if declared(FC_i2o_SCT)}
-      i2o_SCT := @FC_i2o_SCT;
+      i2o_SCT := FC_i2o_SCT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2054,7 +2053,7 @@ begin
     if i2o_SCT_removed <= LibVersion then
     begin
       {$if declared(_i2o_SCT)}
-      i2o_SCT := @_i2o_SCT;
+      i2o_SCT := _i2o_SCT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2069,13 +2068,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(o2i_SCT_allownil)}
-    o2i_SCT := @ERR_o2i_SCT;
+    o2i_SCT := ERR_o2i_SCT;
     {$ifend}
     {$if declared(o2i_SCT_introduced)}
     if LibVersion < o2i_SCT_introduced then
     begin
       {$if declared(FC_o2i_SCT)}
-      o2i_SCT := @FC_o2i_SCT;
+      o2i_SCT := FC_o2i_SCT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2084,7 +2083,7 @@ begin
     if o2i_SCT_removed <= LibVersion then
     begin
       {$if declared(_o2i_SCT)}
-      o2i_SCT := @_o2i_SCT;
+      o2i_SCT := _o2i_SCT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2100,13 +2099,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_new_allownil)}
-    CTLOG_new := @ERR_CTLOG_new;
+    CTLOG_new := ERR_CTLOG_new;
     {$ifend}
     {$if declared(CTLOG_new_introduced)}
     if LibVersion < CTLOG_new_introduced then
     begin
       {$if declared(FC_CTLOG_new)}
-      CTLOG_new := @FC_CTLOG_new;
+      CTLOG_new := FC_CTLOG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2115,7 +2114,7 @@ begin
     if CTLOG_new_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_new)}
-      CTLOG_new := @_CTLOG_new;
+      CTLOG_new := _CTLOG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2130,13 +2129,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_new_from_base64_allownil)}
-    CTLOG_new_from_base64 := @ERR_CTLOG_new_from_base64;
+    CTLOG_new_from_base64 := ERR_CTLOG_new_from_base64;
     {$ifend}
     {$if declared(CTLOG_new_from_base64_introduced)}
     if LibVersion < CTLOG_new_from_base64_introduced then
     begin
       {$if declared(FC_CTLOG_new_from_base64)}
-      CTLOG_new_from_base64 := @FC_CTLOG_new_from_base64;
+      CTLOG_new_from_base64 := FC_CTLOG_new_from_base64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2145,7 +2144,7 @@ begin
     if CTLOG_new_from_base64_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_new_from_base64)}
-      CTLOG_new_from_base64 := @_CTLOG_new_from_base64;
+      CTLOG_new_from_base64 := _CTLOG_new_from_base64;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2160,13 +2159,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_free_allownil)}
-    CTLOG_free := @ERR_CTLOG_free;
+    CTLOG_free := ERR_CTLOG_free;
     {$ifend}
     {$if declared(CTLOG_free_introduced)}
     if LibVersion < CTLOG_free_introduced then
     begin
       {$if declared(FC_CTLOG_free)}
-      CTLOG_free := @FC_CTLOG_free;
+      CTLOG_free := FC_CTLOG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2175,7 +2174,7 @@ begin
     if CTLOG_free_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_free)}
-      CTLOG_free := @_CTLOG_free;
+      CTLOG_free := _CTLOG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2190,13 +2189,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_get0_name_allownil)}
-    CTLOG_get0_name := @ERR_CTLOG_get0_name;
+    CTLOG_get0_name := ERR_CTLOG_get0_name;
     {$ifend}
     {$if declared(CTLOG_get0_name_introduced)}
     if LibVersion < CTLOG_get0_name_introduced then
     begin
       {$if declared(FC_CTLOG_get0_name)}
-      CTLOG_get0_name := @FC_CTLOG_get0_name;
+      CTLOG_get0_name := FC_CTLOG_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2205,7 +2204,7 @@ begin
     if CTLOG_get0_name_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_get0_name)}
-      CTLOG_get0_name := @_CTLOG_get0_name;
+      CTLOG_get0_name := _CTLOG_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2220,13 +2219,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_get0_log_id_allownil)}
-    CTLOG_get0_log_id := @ERR_CTLOG_get0_log_id;
+    CTLOG_get0_log_id := ERR_CTLOG_get0_log_id;
     {$ifend}
     {$if declared(CTLOG_get0_log_id_introduced)}
     if LibVersion < CTLOG_get0_log_id_introduced then
     begin
       {$if declared(FC_CTLOG_get0_log_id)}
-      CTLOG_get0_log_id := @FC_CTLOG_get0_log_id;
+      CTLOG_get0_log_id := FC_CTLOG_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2235,7 +2234,7 @@ begin
     if CTLOG_get0_log_id_removed <= LibVersion then
     begin
       {$if declared(_get0_log_id)}
-      CTLOG_get0_log_id := @_CTLOG_get0_log_id;
+      CTLOG_get0_log_id := _CTLOG_get0_log_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2250,13 +2249,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_get0_public_key_allownil)}
-    CTLOG_get0_public_key := @ERR_CTLOG_get0_public_key;
+    CTLOG_get0_public_key := ERR_CTLOG_get0_public_key;
     {$ifend}
     {$if declared(CTLOG_get0_public_key_introduced)}
     if LibVersion < CTLOG_get0_public_key_introduced then
     begin
       {$if declared(FC_CTLOG_get0_public_key)}
-      CTLOG_get0_public_key := @FC_CTLOG_get0_public_key;
+      CTLOG_get0_public_key := FC_CTLOG_get0_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2265,7 +2264,7 @@ begin
     if CTLOG_get0_public_key_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_get0_public_key)}
-      CTLOG_get0_public_key := @_CTLOG_get0_public_key;
+      CTLOG_get0_public_key := _CTLOG_get0_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2281,13 +2280,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_STORE_new_allownil)}
-    CTLOG_STORE_new := @ERR_CTLOG_STORE_new;
+    CTLOG_STORE_new := ERR_CTLOG_STORE_new;
     {$ifend}
     {$if declared(CTLOG_STORE_new_introduced)}
     if LibVersion < CTLOG_STORE_new_introduced then
     begin
       {$if declared(FC_CTLOG_STORE_new)}
-      CTLOG_STORE_new := @FC_CTLOG_STORE_new;
+      CTLOG_STORE_new := FC_CTLOG_STORE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2296,7 +2295,7 @@ begin
     if CTLOG_STORE_new_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_STORE_new)}
-      CTLOG_STORE_new := @_CTLOG_STORE_new;
+      CTLOG_STORE_new := _CTLOG_STORE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2311,13 +2310,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_STORE_free_allownil)}
-    CTLOG_STORE_free := @ERR_CTLOG_STORE_free;
+    CTLOG_STORE_free := ERR_CTLOG_STORE_free;
     {$ifend}
     {$if declared(CTLOG_STORE_free_introduced)}
     if LibVersion < CTLOG_STORE_free_introduced then
     begin
       {$if declared(FC_CTLOG_STORE_free)}
-      CTLOG_STORE_free := @FC_CTLOG_STORE_free;
+      CTLOG_STORE_free := FC_CTLOG_STORE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2326,7 +2325,7 @@ begin
     if CTLOG_STORE_free_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_STORE_free)}
-      CTLOG_STORE_free := @_CTLOG_STORE_free;
+      CTLOG_STORE_free := _CTLOG_STORE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2341,13 +2340,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_STORE_get0_log_by_id_allownil)}
-    CTLOG_STORE_get0_log_by_id := @ERR_CTLOG_STORE_get0_log_by_id;
+    CTLOG_STORE_get0_log_by_id := ERR_CTLOG_STORE_get0_log_by_id;
     {$ifend}
     {$if declared(CTLOG_STORE_get0_log_by_id_introduced)}
     if LibVersion < CTLOG_STORE_get0_log_by_id_introduced then
     begin
       {$if declared(FC_CTLOG_STORE_get0_log_by_id)}
-      CTLOG_STORE_get0_log_by_id := @FC_CTLOG_STORE_get0_log_by_id;
+      CTLOG_STORE_get0_log_by_id := FC_CTLOG_STORE_get0_log_by_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2356,7 +2355,7 @@ begin
     if CTLOG_STORE_get0_log_by_id_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_STORE_get0_log_by_id)}
-      CTLOG_STORE_get0_log_by_id := @_CTLOG_STORE_get0_log_by_id;
+      CTLOG_STORE_get0_log_by_id := _CTLOG_STORE_get0_log_by_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2371,13 +2370,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_STORE_load_file_allownil)}
-    CTLOG_STORE_load_file := @ERR_CTLOG_STORE_load_file;
+    CTLOG_STORE_load_file := ERR_CTLOG_STORE_load_file;
     {$ifend}
     {$if declared(CTLOG_STORE_load_file_introduced)}
     if LibVersion < CTLOG_STORE_load_file_introduced then
     begin
       {$if declared(FC_CTLOG_STORE_load_file)}
-      CTLOG_STORE_load_file := @FC_CTLOG_STORE_load_file;
+      CTLOG_STORE_load_file := FC_CTLOG_STORE_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2386,7 +2385,7 @@ begin
     if CTLOG_STORE_load_file_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_STORE_load_file)}
-      CTLOG_STORE_load_file := @_CTLOG_STORE_load_file;
+      CTLOG_STORE_load_file := _CTLOG_STORE_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2401,13 +2400,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CTLOG_STORE_load_default_file_allownil)}
-    CTLOG_STORE_load_default_file := @ERR_CTLOG_STORE_load_default_file;
+    CTLOG_STORE_load_default_file := ERR_CTLOG_STORE_load_default_file;
     {$ifend}
     {$if declared(CTLOG_STORE_load_default_file_introduced)}
     if LibVersion < CTLOG_STORE_load_default_file_introduced then
     begin
       {$if declared(FC_CTLOG_STORE_load_default_file)}
-      CTLOG_STORE_load_default_file := @FC_CTLOG_STORE_load_default_file;
+      CTLOG_STORE_load_default_file := FC_CTLOG_STORE_load_default_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2416,7 +2415,7 @@ begin
     if CTLOG_STORE_load_default_file_removed <= LibVersion then
     begin
       {$if declared(_CTLOG_STORE_load_default_file)}
-      CTLOG_STORE_load_default_file := @_CTLOG_STORE_load_default_file;
+      CTLOG_STORE_load_default_file := _CTLOG_STORE_load_default_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2431,13 +2430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_CT_strings_allownil)}
-    ERR_load_CT_strings := @ERR_ERR_load_CT_strings;
+    ERR_load_CT_strings := ERR_ERR_load_CT_strings;
     {$ifend}
     {$if declared(ERR_load_CT_strings_introduced)}
     if LibVersion < ERR_load_CT_strings_introduced then
     begin
       {$if declared(FC_ERR_load_CT_strings)}
-      ERR_load_CT_strings := @FC_ERR_load_CT_strings;
+      ERR_load_CT_strings := FC_ERR_load_CT_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2446,7 +2445,7 @@ begin
     if ERR_load_CT_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_CT_strings)}
-      ERR_load_CT_strings := @_ERR_load_CT_strings;
+      ERR_load_CT_strings := _ERR_load_CT_strings;
       {$ifend}
       FuncLoadError := false;
     end;

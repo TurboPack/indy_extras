@@ -492,7 +492,7 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_CONF_set_default_method(meth: PCONF_METHOD): TIdC_INT; 
+function  ERR_CONF_set_default_method(meth: PCONF_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_set_default_method_procname);
 end;
@@ -538,44 +538,44 @@ end;
   //    LHASH_OF(CONF_VALUE) *data;
   //  end;
 
-function  ERR_NCONF_new(meth: PCONF_METHOD): PCONF; 
+function  ERR_NCONF_new(meth: PCONF_METHOD): PCONF; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_new_procname);
 end;
 
 
-function  ERR_NCONF_default: PCONF_METHOD; 
+function  ERR_NCONF_default: PCONF_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_default_procname);
 end;
 
 
-function  ERR_NCONF_WIN32: PCONF_METHOD; 
+function  ERR_NCONF_WIN32: PCONF_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_WIN32_procname);
 end;
 
 
-procedure  ERR_NCONF_free(conf: PCONF); 
+procedure  ERR_NCONF_free(conf: PCONF); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_free_procname);
 end;
 
 
-procedure  ERR_NCONF_free_data(conf: PCONF); 
+procedure  ERR_NCONF_free_data(conf: PCONF); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_free_data_procname);
 end;
 
 
 
-function  ERR_NCONF_load(conf: PCONF; const file_: PIdAnsiChar; eline: PIdC_LONG): TIdC_INT;
+function  ERR_NCONF_load(conf: PCONF; const file_: PIdAnsiChar; eline: PIdC_LONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_load_procname);
 end;
 
 
-function  ERR_NCONF_load_bio(conf: PCONF; bp: PBIO; eline: PIdC_LONG): TIdC_INT; 
+function  ERR_NCONF_load_bio(conf: PCONF; bp: PBIO; eline: PIdC_LONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_load_bio_procname);
 end;
@@ -583,19 +583,21 @@ end;
 
   //STACK_OF(CONF_VALUE) *NCONF_get_section(const CONF *conf,
   //                                        const char *section);
-function  ERR_NCONF_get_string(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar;
+function  ERR_NCONF_get_string(const conf: PCONF; const group: PIdAnsiChar;
+  const name: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_get_string_procname);
 end;
 
 
-function  ERR_NCONF_get_number_e(const conf: PCONF; const group: PIdAnsiChar; const name: PIdAnsiChar; _result: PIdC_LONG): TIdC_INT;
+function  ERR_NCONF_get_number_e(const conf: PCONF; const group: PIdAnsiChar;
+  const name: PIdAnsiChar; _result: PIdC_LONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_get_number_e_procname);
 end;
 
 
-function  ERR_NCONF_dump_bio(const conf: PCONf; out_: PBIO): TIdC_INT; 
+function  ERR_NCONF_dump_bio(const conf: PCONf; out_: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(NCONF_dump_bio_procname);
 end;
@@ -606,32 +608,34 @@ end;
 
   //* Module functions */
 
-function  ERR_CONF_modules_load(const cnf: PCONF; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT;
+function  ERR_CONF_modules_load(const cnf: PCONF; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_load_procname);
 end;
 
 
-function  ERR_CONF_modules_load_file(const filename: PIdAnsiChar; const appname: PIdAnsiChar; flags: TIdC_ULONG): TIdC_INT;
+function  ERR_CONF_modules_load_file(const filename: PIdAnsiChar; const appname: PIdAnsiChar;
+  flags: TIdC_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_load_file_procname);
 end;
 
 
 
-procedure  ERR_CONF_modules_unload(all: TIdC_INT); 
+procedure  ERR_CONF_modules_unload(all: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_unload_procname);
 end;
 
 
-procedure  ERR_CONF_modules_finish; 
+procedure  ERR_CONF_modules_finish; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_modules_finish_procname);
 end;
 
 
-function  ERR_CONF_module_add(const name: PIdAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TIdC_INT;
+function  ERR_CONF_module_add(const name: PIdAnsiChar; ifunc: conf_init_func;
+  ffunc: conf_finish_func): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_module_add_procname);
 end;
@@ -640,63 +644,64 @@ end;
 
   //const char *CONF_imodule_get_name(const CONF_IMODULE *md);
   //const char *CONF_imodule_get_value(const CONF_IMODULE *md);
-function  ERR_CONF_imodule_get_usr_data(const md: PCONF_IMODULE): Pointer; 
+function  ERR_CONF_imodule_get_usr_data(const md: PCONF_IMODULE): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_imodule_get_usr_data_procname);
 end;
 
 
-procedure  ERR_CONF_imodule_set_usr_data(md: PCONF_IMODULE; usr_data: Pointer); 
+procedure  ERR_CONF_imodule_set_usr_data(md: PCONF_IMODULE; usr_data: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_imodule_set_usr_data_procname);
 end;
 
 
-function  ERR_CONF_imodule_get_module(const md: PCONF_IMODULE): PCONF_MODULE; 
+function  ERR_CONF_imodule_get_module(const md: PCONF_IMODULE): PCONF_MODULE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_imodule_get_module_procname);
 end;
 
 
-function  ERR_CONF_imodule_get_flags(const md: PCONF_IMODULE): TIdC_ULONG; 
+function  ERR_CONF_imodule_get_flags(const md: PCONF_IMODULE): TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_imodule_get_flags_procname);
 end;
 
 
-procedure  ERR_CONF_imodule_set_flags(md: PCONF_IMODULE; flags: TIdC_ULONG); 
+procedure  ERR_CONF_imodule_set_flags(md: PCONF_IMODULE; flags: TIdC_ULONG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_imodule_set_flags_procname);
 end;
 
 
-function  ERR_CONF_module_get_usr_data(pmod: PCONF_MODULE): Pointer; 
+function  ERR_CONF_module_get_usr_data(pmod: PCONF_MODULE): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_module_get_usr_data_procname);
 end;
 
 
-procedure  ERR_CONF_module_set_usr_data(pmod: PCONF_MODULE; usr_data: Pointer); 
+procedure  ERR_CONF_module_set_usr_data(pmod: PCONF_MODULE; usr_data: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_module_set_usr_data_procname);
 end;
 
 
 
-function  ERR_CONF_get1_default_config_file: PIdAnsiChar;
+function  ERR_CONF_get1_default_config_file: PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_get1_default_config_file_procname);
 end;
 
 
-function  ERR_CONF_parse_list(const list: PIdAnsiChar; sep: TIdC_INT; nospc: TIdC_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT;
+function  ERR_CONF_parse_list(const list: PIdAnsiChar; sep: TIdC_INT; nospc: TIdC_INT;
+  list_cb: CONF_parse_list_list_cb; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CONF_parse_list_procname);
 end;
 
 
 
-procedure  ERR_OPENSSL_load_builtin_modules; 
+procedure  ERR_OPENSSL_load_builtin_modules; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_load_builtin_modules_procname);
 end;
@@ -715,13 +720,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_set_default_method_allownil)}
-    CONF_set_default_method := @ERR_CONF_set_default_method;
+    CONF_set_default_method := ERR_CONF_set_default_method;
     {$ifend}
     {$if declared(CONF_set_default_method_introduced)}
     if LibVersion < CONF_set_default_method_introduced then
     begin
       {$if declared(FC_CONF_set_default_method)}
-      CONF_set_default_method := @FC_CONF_set_default_method;
+      CONF_set_default_method := FC_CONF_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -730,7 +735,7 @@ begin
     if CONF_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_CONF_set_default_method)}
-      CONF_set_default_method := @_CONF_set_default_method;
+      CONF_set_default_method := _CONF_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -747,13 +752,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_new_allownil)}
-    NCONF_new := @ERR_NCONF_new;
+    NCONF_new := ERR_NCONF_new;
     {$ifend}
     {$if declared(NCONF_new_introduced)}
     if LibVersion < NCONF_new_introduced then
     begin
       {$if declared(FC_NCONF_new)}
-      NCONF_new := @FC_NCONF_new;
+      NCONF_new := FC_NCONF_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -762,7 +767,7 @@ begin
     if NCONF_new_removed <= LibVersion then
     begin
       {$if declared(_NCONF_new)}
-      NCONF_new := @_NCONF_new;
+      NCONF_new := _NCONF_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -779,13 +784,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_default_allownil)}
-    NCONF_default := @ERR_NCONF_default;
+    NCONF_default := ERR_NCONF_default;
     {$ifend}
     {$if declared(NCONF_default_introduced)}
     if LibVersion < NCONF_default_introduced then
     begin
       {$if declared(FC_NCONF_default)}
-      NCONF_default := @FC_NCONF_default;
+      NCONF_default := FC_NCONF_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -794,7 +799,7 @@ begin
     if NCONF_default_removed <= LibVersion then
     begin
       {$if declared(_NCONF_default)}
-      NCONF_default := @_NCONF_default;
+      NCONF_default := _NCONF_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -811,13 +816,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_WIN32_allownil)}
-    NCONF_WIN32 := @ERR_NCONF_WIN32;
+    NCONF_WIN32 := ERR_NCONF_WIN32;
     {$ifend}
     {$if declared(NCONF_WIN32_introduced)}
     if LibVersion < NCONF_WIN32_introduced then
     begin
       {$if declared(FC_NCONF_WIN32)}
-      NCONF_WIN32 := @FC_NCONF_WIN32;
+      NCONF_WIN32 := FC_NCONF_WIN32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -826,7 +831,7 @@ begin
     if NCONF_WIN32_removed <= LibVersion then
     begin
       {$if declared(_NCONF_WIN32)}
-      NCONF_WIN32 := @_NCONF_WIN32;
+      NCONF_WIN32 := _NCONF_WIN32;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -843,13 +848,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_free_allownil)}
-    NCONF_free := @ERR_NCONF_free;
+    NCONF_free := ERR_NCONF_free;
     {$ifend}
     {$if declared(NCONF_free_introduced)}
     if LibVersion < NCONF_free_introduced then
     begin
       {$if declared(FC_NCONF_free)}
-      NCONF_free := @FC_NCONF_free;
+      NCONF_free := FC_NCONF_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -858,7 +863,7 @@ begin
     if NCONF_free_removed <= LibVersion then
     begin
       {$if declared(_NCONF_free)}
-      NCONF_free := @_NCONF_free;
+      NCONF_free := _NCONF_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -875,13 +880,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_free_data_allownil)}
-    NCONF_free_data := @ERR_NCONF_free_data;
+    NCONF_free_data := ERR_NCONF_free_data;
     {$ifend}
     {$if declared(NCONF_free_data_introduced)}
     if LibVersion < NCONF_free_data_introduced then
     begin
       {$if declared(FC_NCONF_free_data)}
-      NCONF_free_data := @FC_NCONF_free_data;
+      NCONF_free_data := FC_NCONF_free_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -890,7 +895,7 @@ begin
     if NCONF_free_data_removed <= LibVersion then
     begin
       {$if declared(_NCONF_free_data)}
-      NCONF_free_data := @_NCONF_free_data;
+      NCONF_free_data := _NCONF_free_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -907,13 +912,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_load_allownil)}
-    NCONF_load := @ERR_NCONF_load;
+    NCONF_load := ERR_NCONF_load;
     {$ifend}
     {$if declared(NCONF_load_introduced)}
     if LibVersion < NCONF_load_introduced then
     begin
       {$if declared(FC_NCONF_load)}
-      NCONF_load := @FC_NCONF_load;
+      NCONF_load := FC_NCONF_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -922,7 +927,7 @@ begin
     if NCONF_load_removed <= LibVersion then
     begin
       {$if declared(_NCONF_load)}
-      NCONF_load := @_NCONF_load;
+      NCONF_load := _NCONF_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -939,13 +944,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_load_bio_allownil)}
-    NCONF_load_bio := @ERR_NCONF_load_bio;
+    NCONF_load_bio := ERR_NCONF_load_bio;
     {$ifend}
     {$if declared(NCONF_load_bio_introduced)}
     if LibVersion < NCONF_load_bio_introduced then
     begin
       {$if declared(FC_NCONF_load_bio)}
-      NCONF_load_bio := @FC_NCONF_load_bio;
+      NCONF_load_bio := FC_NCONF_load_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -954,7 +959,7 @@ begin
     if NCONF_load_bio_removed <= LibVersion then
     begin
       {$if declared(_NCONF_load_bio)}
-      NCONF_load_bio := @_NCONF_load_bio;
+      NCONF_load_bio := _NCONF_load_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -971,13 +976,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_get_string_allownil)}
-    NCONF_get_string := @ERR_NCONF_get_string;
+    NCONF_get_string := ERR_NCONF_get_string;
     {$ifend}
     {$if declared(NCONF_get_string_introduced)}
     if LibVersion < NCONF_get_string_introduced then
     begin
       {$if declared(FC_NCONF_get_string)}
-      NCONF_get_string := @FC_NCONF_get_string;
+      NCONF_get_string := FC_NCONF_get_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -986,7 +991,7 @@ begin
     if NCONF_get_string_removed <= LibVersion then
     begin
       {$if declared(_NCONF_get_string)}
-      NCONF_get_string := @_NCONF_get_string;
+      NCONF_get_string := _NCONF_get_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1003,13 +1008,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_get_number_e_allownil)}
-    NCONF_get_number_e := @ERR_NCONF_get_number_e;
+    NCONF_get_number_e := ERR_NCONF_get_number_e;
     {$ifend}
     {$if declared(NCONF_get_number_e_introduced)}
     if LibVersion < NCONF_get_number_e_introduced then
     begin
       {$if declared(FC_NCONF_get_number_e)}
-      NCONF_get_number_e := @FC_NCONF_get_number_e;
+      NCONF_get_number_e := FC_NCONF_get_number_e;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1018,7 +1023,7 @@ begin
     if NCONF_get_number_e_removed <= LibVersion then
     begin
       {$if declared(_NCONF_get_number_e)}
-      NCONF_get_number_e := @_NCONF_get_number_e;
+      NCONF_get_number_e := _NCONF_get_number_e;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1035,13 +1040,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(NCONF_dump_bio_allownil)}
-    NCONF_dump_bio := @ERR_NCONF_dump_bio;
+    NCONF_dump_bio := ERR_NCONF_dump_bio;
     {$ifend}
     {$if declared(NCONF_dump_bio_introduced)}
     if LibVersion < NCONF_dump_bio_introduced then
     begin
       {$if declared(FC_NCONF_dump_bio)}
-      NCONF_dump_bio := @FC_NCONF_dump_bio;
+      NCONF_dump_bio := FC_NCONF_dump_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1050,7 +1055,7 @@ begin
     if NCONF_dump_bio_removed <= LibVersion then
     begin
       {$if declared(_NCONF_dump_bio)}
-      NCONF_dump_bio := @_NCONF_dump_bio;
+      NCONF_dump_bio := _NCONF_dump_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1067,13 +1072,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_modules_load_allownil)}
-    CONF_modules_load := @ERR_CONF_modules_load;
+    CONF_modules_load := ERR_CONF_modules_load;
     {$ifend}
     {$if declared(CONF_modules_load_introduced)}
     if LibVersion < CONF_modules_load_introduced then
     begin
       {$if declared(FC_CONF_modules_load)}
-      CONF_modules_load := @FC_CONF_modules_load;
+      CONF_modules_load := FC_CONF_modules_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1082,7 +1087,7 @@ begin
     if CONF_modules_load_removed <= LibVersion then
     begin
       {$if declared(_CONF_modules_load)}
-      CONF_modules_load := @_CONF_modules_load;
+      CONF_modules_load := _CONF_modules_load;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1099,13 +1104,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_modules_load_file_allownil)}
-    CONF_modules_load_file := @ERR_CONF_modules_load_file;
+    CONF_modules_load_file := ERR_CONF_modules_load_file;
     {$ifend}
     {$if declared(CONF_modules_load_file_introduced)}
     if LibVersion < CONF_modules_load_file_introduced then
     begin
       {$if declared(FC_CONF_modules_load_file)}
-      CONF_modules_load_file := @FC_CONF_modules_load_file;
+      CONF_modules_load_file := FC_CONF_modules_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1114,7 +1119,7 @@ begin
     if CONF_modules_load_file_removed <= LibVersion then
     begin
       {$if declared(_CONF_modules_load_file)}
-      CONF_modules_load_file := @_CONF_modules_load_file;
+      CONF_modules_load_file := _CONF_modules_load_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1131,13 +1136,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_modules_unload_allownil)}
-    CONF_modules_unload := @ERR_CONF_modules_unload;
+    CONF_modules_unload := ERR_CONF_modules_unload;
     {$ifend}
     {$if declared(CONF_modules_unload_introduced)}
     if LibVersion < CONF_modules_unload_introduced then
     begin
       {$if declared(FC_CONF_modules_unload)}
-      CONF_modules_unload := @FC_CONF_modules_unload;
+      CONF_modules_unload := FC_CONF_modules_unload;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1146,7 +1151,7 @@ begin
     if CONF_modules_unload_removed <= LibVersion then
     begin
       {$if declared(_CONF_modules_unload)}
-      CONF_modules_unload := @_CONF_modules_unload;
+      CONF_modules_unload := _CONF_modules_unload;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1163,13 +1168,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_modules_finish_allownil)}
-    CONF_modules_finish := @ERR_CONF_modules_finish;
+    CONF_modules_finish := ERR_CONF_modules_finish;
     {$ifend}
     {$if declared(CONF_modules_finish_introduced)}
     if LibVersion < CONF_modules_finish_introduced then
     begin
       {$if declared(FC_CONF_modules_finish)}
-      CONF_modules_finish := @FC_CONF_modules_finish;
+      CONF_modules_finish := FC_CONF_modules_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1178,7 +1183,7 @@ begin
     if CONF_modules_finish_removed <= LibVersion then
     begin
       {$if declared(_CONF_modules_finish)}
-      CONF_modules_finish := @_CONF_modules_finish;
+      CONF_modules_finish := _CONF_modules_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1195,13 +1200,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_module_add_allownil)}
-    CONF_module_add := @ERR_CONF_module_add;
+    CONF_module_add := ERR_CONF_module_add;
     {$ifend}
     {$if declared(CONF_module_add_introduced)}
     if LibVersion < CONF_module_add_introduced then
     begin
       {$if declared(FC_CONF_module_add)}
-      CONF_module_add := @FC_CONF_module_add;
+      CONF_module_add := FC_CONF_module_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1210,7 +1215,7 @@ begin
     if CONF_module_add_removed <= LibVersion then
     begin
       {$if declared(_CONF_module_add)}
-      CONF_module_add := @_CONF_module_add;
+      CONF_module_add := _CONF_module_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1227,13 +1232,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_imodule_get_usr_data_allownil)}
-    CONF_imodule_get_usr_data := @ERR_CONF_imodule_get_usr_data;
+    CONF_imodule_get_usr_data := ERR_CONF_imodule_get_usr_data;
     {$ifend}
     {$if declared(CONF_imodule_get_usr_data_introduced)}
     if LibVersion < CONF_imodule_get_usr_data_introduced then
     begin
       {$if declared(FC_CONF_imodule_get_usr_data)}
-      CONF_imodule_get_usr_data := @FC_CONF_imodule_get_usr_data;
+      CONF_imodule_get_usr_data := FC_CONF_imodule_get_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1242,7 +1247,7 @@ begin
     if CONF_imodule_get_usr_data_removed <= LibVersion then
     begin
       {$if declared(_CONF_imodule_get_usr_data)}
-      CONF_imodule_get_usr_data := @_CONF_imodule_get_usr_data;
+      CONF_imodule_get_usr_data := _CONF_imodule_get_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1259,13 +1264,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_imodule_set_usr_data_allownil)}
-    CONF_imodule_set_usr_data := @ERR_CONF_imodule_set_usr_data;
+    CONF_imodule_set_usr_data := ERR_CONF_imodule_set_usr_data;
     {$ifend}
     {$if declared(CONF_imodule_set_usr_data_introduced)}
     if LibVersion < CONF_imodule_set_usr_data_introduced then
     begin
       {$if declared(FC_CONF_imodule_set_usr_data)}
-      CONF_imodule_set_usr_data := @FC_CONF_imodule_set_usr_data;
+      CONF_imodule_set_usr_data := FC_CONF_imodule_set_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1274,7 +1279,7 @@ begin
     if CONF_imodule_set_usr_data_removed <= LibVersion then
     begin
       {$if declared(_CONF_imodule_set_usr_data)}
-      CONF_imodule_set_usr_data := @_CONF_imodule_set_usr_data;
+      CONF_imodule_set_usr_data := _CONF_imodule_set_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1291,13 +1296,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_imodule_get_module_allownil)}
-    CONF_imodule_get_module := @ERR_CONF_imodule_get_module;
+    CONF_imodule_get_module := ERR_CONF_imodule_get_module;
     {$ifend}
     {$if declared(CONF_imodule_get_module_introduced)}
     if LibVersion < CONF_imodule_get_module_introduced then
     begin
       {$if declared(FC_CONF_imodule_get_module)}
-      CONF_imodule_get_module := @FC_CONF_imodule_get_module;
+      CONF_imodule_get_module := FC_CONF_imodule_get_module;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1306,7 +1311,7 @@ begin
     if CONF_imodule_get_module_removed <= LibVersion then
     begin
       {$if declared(_CONF_imodule_get_module)}
-      CONF_imodule_get_module := @_CONF_imodule_get_module;
+      CONF_imodule_get_module := _CONF_imodule_get_module;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1323,13 +1328,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_imodule_get_flags_allownil)}
-    CONF_imodule_get_flags := @ERR_CONF_imodule_get_flags;
+    CONF_imodule_get_flags := ERR_CONF_imodule_get_flags;
     {$ifend}
     {$if declared(CONF_imodule_get_flags_introduced)}
     if LibVersion < CONF_imodule_get_flags_introduced then
     begin
       {$if declared(FC_CONF_imodule_get_flags)}
-      CONF_imodule_get_flags := @FC_CONF_imodule_get_flags;
+      CONF_imodule_get_flags := FC_CONF_imodule_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1338,7 +1343,7 @@ begin
     if CONF_imodule_get_flags_removed <= LibVersion then
     begin
       {$if declared(_CONF_imodule_get_flags)}
-      CONF_imodule_get_flags := @_CONF_imodule_get_flags;
+      CONF_imodule_get_flags := _CONF_imodule_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1355,13 +1360,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_imodule_set_flags_allownil)}
-    CONF_imodule_set_flags := @ERR_CONF_imodule_set_flags;
+    CONF_imodule_set_flags := ERR_CONF_imodule_set_flags;
     {$ifend}
     {$if declared(CONF_imodule_set_flags_introduced)}
     if LibVersion < CONF_imodule_set_flags_introduced then
     begin
       {$if declared(FC_CONF_imodule_set_flags)}
-      CONF_imodule_set_flags := @FC_CONF_imodule_set_flags;
+      CONF_imodule_set_flags := FC_CONF_imodule_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1370,7 +1375,7 @@ begin
     if CONF_imodule_set_flags_removed <= LibVersion then
     begin
       {$if declared(_CONF_imodule_set_flags)}
-      CONF_imodule_set_flags := @_CONF_imodule_set_flags;
+      CONF_imodule_set_flags := _CONF_imodule_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1387,13 +1392,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_module_get_usr_data_allownil)}
-    CONF_module_get_usr_data := @ERR_CONF_module_get_usr_data;
+    CONF_module_get_usr_data := ERR_CONF_module_get_usr_data;
     {$ifend}
     {$if declared(CONF_module_get_usr_data_introduced)}
     if LibVersion < CONF_module_get_usr_data_introduced then
     begin
       {$if declared(FC_CONF_module_get_usr_data)}
-      CONF_module_get_usr_data := @FC_CONF_module_get_usr_data;
+      CONF_module_get_usr_data := FC_CONF_module_get_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1402,7 +1407,7 @@ begin
     if CONF_module_get_usr_data_removed <= LibVersion then
     begin
       {$if declared(_CONF_module_get_usr_data)}
-      CONF_module_get_usr_data := @_CONF_module_get_usr_data;
+      CONF_module_get_usr_data := _CONF_module_get_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1419,13 +1424,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_module_set_usr_data_allownil)}
-    CONF_module_set_usr_data := @ERR_CONF_module_set_usr_data;
+    CONF_module_set_usr_data := ERR_CONF_module_set_usr_data;
     {$ifend}
     {$if declared(CONF_module_set_usr_data_introduced)}
     if LibVersion < CONF_module_set_usr_data_introduced then
     begin
       {$if declared(FC_CONF_module_set_usr_data)}
-      CONF_module_set_usr_data := @FC_CONF_module_set_usr_data;
+      CONF_module_set_usr_data := FC_CONF_module_set_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1434,7 +1439,7 @@ begin
     if CONF_module_set_usr_data_removed <= LibVersion then
     begin
       {$if declared(_CONF_module_set_usr_data)}
-      CONF_module_set_usr_data := @_CONF_module_set_usr_data;
+      CONF_module_set_usr_data := _CONF_module_set_usr_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1451,13 +1456,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_get1_default_config_file_allownil)}
-    CONF_get1_default_config_file := @ERR_CONF_get1_default_config_file;
+    CONF_get1_default_config_file := ERR_CONF_get1_default_config_file;
     {$ifend}
     {$if declared(CONF_get1_default_config_file_introduced)}
     if LibVersion < CONF_get1_default_config_file_introduced then
     begin
       {$if declared(FC_CONF_get1_default_config_file)}
-      CONF_get1_default_config_file := @FC_CONF_get1_default_config_file;
+      CONF_get1_default_config_file := FC_CONF_get1_default_config_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1466,7 +1471,7 @@ begin
     if CONF_get1_default_config_file_removed <= LibVersion then
     begin
       {$if declared(_CONF_get1_default_config_file)}
-      CONF_get1_default_config_file := @_CONF_get1_default_config_file;
+      CONF_get1_default_config_file := _CONF_get1_default_config_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1483,13 +1488,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CONF_parse_list_allownil)}
-    CONF_parse_list := @ERR_CONF_parse_list;
+    CONF_parse_list := ERR_CONF_parse_list;
     {$ifend}
     {$if declared(CONF_parse_list_introduced)}
     if LibVersion < CONF_parse_list_introduced then
     begin
       {$if declared(FC_CONF_parse_list)}
-      CONF_parse_list := @FC_CONF_parse_list;
+      CONF_parse_list := FC_CONF_parse_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1498,7 +1503,7 @@ begin
     if CONF_parse_list_removed <= LibVersion then
     begin
       {$if declared(_CONF_parse_list)}
-      CONF_parse_list := @_CONF_parse_list;
+      CONF_parse_list := _CONF_parse_list;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1515,13 +1520,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_load_builtin_modules_allownil)}
-    OPENSSL_load_builtin_modules := @ERR_OPENSSL_load_builtin_modules;
+    OPENSSL_load_builtin_modules := ERR_OPENSSL_load_builtin_modules;
     {$ifend}
     {$if declared(OPENSSL_load_builtin_modules_introduced)}
     if LibVersion < OPENSSL_load_builtin_modules_introduced then
     begin
       {$if declared(FC_OPENSSL_load_builtin_modules)}
-      OPENSSL_load_builtin_modules := @FC_OPENSSL_load_builtin_modules;
+      OPENSSL_load_builtin_modules := FC_OPENSSL_load_builtin_modules;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1530,7 +1535,7 @@ begin
     if OPENSSL_load_builtin_modules_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_load_builtin_modules)}
-      OPENSSL_load_builtin_modules := @_OPENSSL_load_builtin_modules;
+      OPENSSL_load_builtin_modules := _OPENSSL_load_builtin_modules;
       {$ifend}
       FuncLoadError := false;
     end;

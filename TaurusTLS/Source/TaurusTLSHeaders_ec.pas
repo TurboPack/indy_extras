@@ -1004,1083 +1004,1133 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_EC_GFp_simple_method: PEC_METHOD; 
+function  ERR_EC_GFp_simple_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_simple_method_procname);
 end;
 
 
-function  ERR_EC_GFp_mont_method: PEC_METHOD; 
+function  ERR_EC_GFp_mont_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_mont_method_procname);
 end;
 
 
-function  ERR_EC_GFp_nist_method: PEC_METHOD; 
+function  ERR_EC_GFp_nist_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nist_method_procname);
 end;
 
 
-function  ERR_EC_GFp_nistp224_method: PEC_METHOD; 
+function  ERR_EC_GFp_nistp224_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nistp224_method_procname);
 end;
 
- 
-function  ERR_EC_GFp_nistp256_method: PEC_METHOD; 
+
+function  ERR_EC_GFp_nistp256_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nistp256_method_procname);
 end;
 
- 
-function  ERR_EC_GFp_nistp521_method: PEC_METHOD; 
+
+function  ERR_EC_GFp_nistp521_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nistp521_method_procname);
 end;
 
- 
 
-function  ERR_EC_GF2m_simple_method: PEC_METHOD; 
+
+function  ERR_EC_GF2m_simple_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GF2m_simple_method_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_new(const meth: PEC_METHOD): PEC_GROUP; 
+function  ERR_EC_GROUP_new(const meth: PEC_METHOD): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_procname);
 end;
 
 
-procedure  ERR_EC_GROUP_free(group: PEC_GROUP); 
+procedure  ERR_EC_GROUP_free(group: PEC_GROUP); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_free_procname);
 end;
 
 
-procedure  ERR_EC_GROUP_clear_free(group: PEC_GROUP); 
+procedure  ERR_EC_GROUP_clear_free(group: PEC_GROUP); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_clear_free_procname);
 end;
 
 
-function  ERR_EC_GROUP_copy(dst: PEC_GROUP; const src: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_copy(dst: PEC_GROUP; const src: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_copy_procname);
 end;
 
 
-function  ERR_EC_GROUP_dup(const src: PEC_GROUP): PEC_GROUP; 
+function  ERR_EC_GROUP_dup(const src: PEC_GROUP): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_dup_procname);
 end;
 
 
-function  ERR_EC_GROUP_method_of(const group: PEC_GROUP): PEC_GROUP; 
+function  ERR_EC_GROUP_method_of(const group: PEC_GROUP): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_method_of_procname);
 end;
 
 
-function  ERR_EC_METHOD_get_field_type(const meth: PEC_METHOD): TIdC_INT; 
+function  ERR_EC_METHOD_get_field_type(const meth: PEC_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_METHOD_get_field_type_procname);
 end;
 
 
-function  ERR_EC_GROUP_set_generator(group: PEC_GROUP; const generator: PEC_POINT; const order: PBIGNUM; const cofactor: PBIGNUM): TIdC_INT; 
+function  ERR_EC_GROUP_set_generator(group: PEC_GROUP; const generator: PEC_POINT;
+  const order: PBIGNUM; const cofactor: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_generator_procname);
 end;
 
 
-function  ERR_EC_GROUP_get0_generator(const group: PEC_GROUP): PEC_POINT; 
+function  ERR_EC_GROUP_get0_generator(const group: PEC_GROUP): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get0_generator_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_mont_data(const group: PEC_GROUP): PBN_MONT_CTX; 
+function  ERR_EC_GROUP_get_mont_data(const group: PEC_GROUP): PBN_MONT_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_mont_data_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_order(const group: PEC_GROUP; order: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_get_order(const group: PEC_GROUP; order: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_order_procname);
 end;
 
 
-function  ERR_EC_GROUP_get0_order(const group: PEC_GROUP): PBIGNUM; 
+function  ERR_EC_GROUP_get0_order(const group: PEC_GROUP): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get0_order_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_order_bits(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_order_bits(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_order_bits_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_get_cofactor(const group: PEC_GROUP; cofactor: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_get_cofactor(const group: PEC_GROUP; cofactor: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_cofactor_procname);
 end;
 
 
-function  ERR_EC_GROUP_get0_cofactor(const group: PEC_GROUP): PBIGNUM; 
+function  ERR_EC_GROUP_get0_cofactor(const group: PEC_GROUP): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get0_cofactor_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_GROUP_set_curve_name(group: PEC_GROUP; nid: TIdC_INT); 
+procedure  ERR_EC_GROUP_set_curve_name(group: PEC_GROUP; nid: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_curve_name_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_curve_name(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_get_curve_name(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_curve_name_procname);
 end;
 
 
 
-procedure  ERR_EC_GROUP_set_asn1_flag(group: PEC_GROUP; flag: TIdC_INT); 
+procedure  ERR_EC_GROUP_set_asn1_flag(group: PEC_GROUP; flag: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_asn1_flag_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_asn1_flag(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_get_asn1_flag(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_asn1_flag_procname);
 end;
 
 
 
-procedure  ERR_EC_GROUP_set_point_conversion_form(group: PEC_GROUP; form: point_conversion_form_t); 
+procedure  ERR_EC_GROUP_set_point_conversion_form(group: PEC_GROUP; form: point_conversion_form_t); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_point_conversion_form_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_point_conversion_form(const group: PEC_GROUP): point_conversion_form_t; 
+function  ERR_EC_GROUP_get_point_conversion_form(const group: PEC_GROUP): point_conversion_form_t; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_point_conversion_form_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_get0_seed(const x: PEC_GROUP): PByte; 
+function  ERR_EC_GROUP_get0_seed(const x: PEC_GROUP): PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get0_seed_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_seed_len(const x: PEC_GROUP): TIdC_SIZET; 
+function  ERR_EC_GROUP_get_seed_len(const x: PEC_GROUP): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_seed_len_procname);
 end;
 
 
-function  ERR_EC_GROUP_set_seed(x: PEC_GROUP; const p: PByte; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_EC_GROUP_set_seed(x: PEC_GROUP; const p: PByte; len: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_seed_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_set_curve(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_set_curve(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM;
+  const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_curve_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_get_curve(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_get_curve(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM;
+  b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_curve_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_set_curve_GFp(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_set_curve_GFp(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM;
+  const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_curve_GFp_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_curve_GFp(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_get_curve_GFp(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM;
+  b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_curve_GFp_procname);
 end;
 
 
-function  ERR_EC_GROUP_set_curve_GF2m(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM; const b:PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_set_curve_GF2m(group: PEC_GROUP; const p: PBIGNUM; const a: PBIGNUM;
+  const b:PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_set_curve_GF2m_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_curve_GF2m(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_get_curve_GF2m(const group: PEC_GROUP; p: PBIGNUM; a: PBIGNUM;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_curve_GF2m_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_get_degree(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_get_degree(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_degree_procname);
 end;
 
 
-function  ERR_EC_GROUP_check(const group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_check(const group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_check_procname);
 end;
 
 
-function  ERR_EC_GROUP_check_discriminant(const group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_check_discriminant(const group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_check_discriminant_procname);
 end;
 
 
-function  ERR_EC_GROUP_cmp(const a: PEC_GROUP; const b: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_cmp(const a: PEC_GROUP; const b: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_cmp_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_new_curve_GFp(const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): PEC_GROUP; 
+function  ERR_EC_GROUP_new_curve_GFp(const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM;
+  ctx: PBN_CTX): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_curve_GFp_procname);
 end;
 
 
-function  ERR_EC_GROUP_new_curve_GF2m(const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): PEC_GROUP; 
+function  ERR_EC_GROUP_new_curve_GF2m(const p: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM;
+  ctx: PBN_CTX): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_curve_GF2m_procname);
 end;
 
 
-function  ERR_EC_GROUP_new_by_curve_name(nid: TIdC_INT): PEC_GROUP; 
+function  ERR_EC_GROUP_new_by_curve_name(nid: TIdC_INT): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_by_curve_name_procname);
 end;
 
 
-function  ERR_EC_GROUP_new_from_ecparameters(const params: PECPARAMETERS): PEC_GROUP; 
+function  ERR_EC_GROUP_new_from_ecparameters(const params: PECPARAMETERS): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_from_ecparameters_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_get_ecparameters(const group: PEC_GROUP; params: PECPARAMETERS): PECPARAMETERS; 
+function  ERR_EC_GROUP_get_ecparameters(const group: PEC_GROUP; params: PECPARAMETERS): PECPARAMETERS; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_ecparameters_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_new_from_ecpkparameters(const params: PECPKPARAMETERS): PEC_GROUP; 
+function  ERR_EC_GROUP_new_from_ecpkparameters(const params: PECPKPARAMETERS): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_new_from_ecpkparameters_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_GROUP_get_ecpkparameters(const group: PEC_GROUP; params: PECPKPARAMETERS): PECPKPARAMETERS; 
+function  ERR_EC_GROUP_get_ecpkparameters(const group: PEC_GROUP; params: PECPKPARAMETERS): PECPKPARAMETERS; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_ecpkparameters_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_EC_get_builtin_curves(r: PEC_builtin_curve; nitems: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_EC_get_builtin_curves(r: PEC_builtin_curve; nitems: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_get_builtin_curves_procname);
 end;
 
 
 
-function  ERR_EC_curve_nid2nist(nid: TIdC_INT): PIdAnsiChar; 
+function  ERR_EC_curve_nid2nist(nid: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_curve_nid2nist_procname);
 end;
 
 
-function  ERR_EC_curve_nist2nid(const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_EC_curve_nist2nid(const name: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_curve_nist2nid_procname);
 end;
 
 
 
-function  ERR_EC_POINT_new(const group: PEC_GROUP): PEC_POINT; 
+function  ERR_EC_POINT_new(const group: PEC_GROUP): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_new_procname);
 end;
 
 
-procedure  ERR_EC_POINT_free(point: PEC_POINT); 
+procedure  ERR_EC_POINT_free(point: PEC_POINT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_free_procname);
 end;
 
 
-procedure  ERR_EC_POINT_clear_free(point: PEC_POINT); 
+procedure  ERR_EC_POINT_clear_free(point: PEC_POINT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_clear_free_procname);
 end;
 
 
-function  ERR_EC_POINT_copy(dst: PEC_POINT; const src: PEC_POINT): TIdC_INT; 
+function  ERR_EC_POINT_copy(dst: PEC_POINT; const src: PEC_POINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_copy_procname);
 end;
 
 
-function  ERR_EC_POINT_dup(const src: PEC_POINT; const group: PEC_GROUP): PEC_POINT; 
+function  ERR_EC_POINT_dup(const src: PEC_POINT; const group: PEC_GROUP): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_dup_procname);
 end;
 
 
-function  ERR_EC_POINT_method_of(const point: PEC_POINT): PEC_METHOD; 
+function  ERR_EC_POINT_method_of(const point: PEC_POINT): PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_method_of_procname);
 end;
 
 
-function  ERR_EC_POINT_set_to_infinity(const group: PEC_GROUP; point: PEC_POINT): TIdC_INT; 
+function  ERR_EC_POINT_set_to_infinity(const group: PEC_GROUP; point: PEC_POINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_to_infinity_procname);
 end;
 
 
-function  ERR_EC_POINT_set_Jprojective_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; const z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_Jprojective_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT;
+  const x: PBIGNUM; const y: PBIGNUM; const z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_Jprojective_coordinates_GFp_procname);
 end;
 
 
-function  ERR_EC_POINT_get_Jprojective_coordinates_GFp(const group: PEC_METHOD; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_get_Jprojective_coordinates_GFp(const group: PEC_METHOD;
+  const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; z: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_get_Jprojective_coordinates_GFp_procname);
 end;
 
 
-function  ERR_EC_POINT_set_affine_coordinates(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_affine_coordinates(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM;
+  const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_affine_coordinates_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_POINT_get_affine_coordinates(const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_get_affine_coordinates(const group: PEC_GROUP; const p: PEC_POINT;
+  x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_get_affine_coordinates_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_POINT_set_affine_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_affine_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM;
+  const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_affine_coordinates_GFp_procname);
 end;
 
 
-function  ERR_EC_POINT_get_affine_coordinates_GFp(const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_get_affine_coordinates_GFp(const group: PEC_GROUP; const p: PEC_POINT; x: PBIGNUM;
+  y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_get_affine_coordinates_GFp_procname);
 end;
 
 
-function  ERR_EC_POINT_set_compressed_coordinates(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_compressed_coordinates(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM;
+  y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_compressed_coordinates_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_POINT_set_compressed_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_compressed_coordinates_GFp(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM;
+  y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_compressed_coordinates_GFp_procname);
 end;
 
 
-function  ERR_EC_POINT_set_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM;
+  const y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_affine_coordinates_GF2m_procname);
 end;
 
 
-function  ERR_EC_POINT_get_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM; y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_get_affine_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; x: PBIGNUM;
+  y: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_get_affine_coordinates_GF2m_procname);
 end;
 
 
-function  ERR_EC_POINT_set_compressed_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM; y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_set_compressed_coordinates_GF2m(const group: PEC_GROUP; p: PEC_POINT; const x: PBIGNUM;
+  y_bit: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_set_compressed_coordinates_GF2m_procname);
 end;
 
 
 
-function  ERR_EC_POINT_point2oct(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t; buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_SIZET; 
+function  ERR_EC_POINT_point2oct(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t;
+  buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_point2oct_procname);
 end;
 
 
-function  ERR_EC_POINT_oct2point(const group: PEC_GROUP; p: PEC_POINT; const buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_oct2point(const group: PEC_GROUP; p: PEC_POINT; const buf: PByte; len: TIdC_SIZET;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_oct2point_procname);
 end;
 
 
-function  ERR_EC_POINT_point2buf(const group: PEC_GROUP; const point: PEC_POINT; form: point_conversion_form_t; pbuf: PPByte; ctx: PBN_CTX): TIdC_SIZET; 
+function  ERR_EC_POINT_point2buf(const group: PEC_GROUP; const point: PEC_POINT; form: point_conversion_form_t;
+  pbuf: PPByte; ctx: PBN_CTX): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_point2buf_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_POINT_point2bn(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t; bn: PBIGNUM; ctx: PBN_CTX): PBIGNUM; 
+function  ERR_EC_POINT_point2bn(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t;
+  bn: PBIGNUM; ctx: PBN_CTX): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_point2bn_procname);
 end;
 
 
-function  ERR_EC_POINT_bn2point(const group: PEC_GROUP; const bn: PBIGNUM; p: PEC_POINT; ctx: PBN_CTX): PEC_POINT; 
+function  ERR_EC_POINT_bn2point(const group: PEC_GROUP; const bn: PBIGNUM; p: PEC_POINT;
+  ctx: PBN_CTX): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_bn2point_procname);
 end;
 
 
-function  ERR_EC_POINT_point2hex(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t; ctx: PBN_CTX): PIdAnsiChar; 
+function  ERR_EC_POINT_point2hex(const group: PEC_GROUP; const p: PEC_POINT; form: point_conversion_form_t;
+  ctx: PBN_CTX): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_point2hex_procname);
 end;
 
 
-function  ERR_EC_POINT_hex2point(const group: PEC_GROUP; const buf: PIdAnsiChar; p: PEC_POINT; ctx: PBN_CTX): PEC_POINT; 
+function  ERR_EC_POINT_hex2point(const group: PEC_GROUP; const buf: PIdAnsiChar; p: PEC_POINT;
+  ctx: PBN_CTX): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_hex2point_procname);
 end;
 
 
 
-function  ERR_EC_POINT_add(const group: PEC_GROUP; r: PEC_POINT; const a: PEC_POINT; const b: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_add(const group: PEC_GROUP; r: PEC_POINT; const a: PEC_POINT; const b: PEC_POINT;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_add_procname);
 end;
 
 
-function  ERR_EC_POINT_dbl(const group: PEC_GROUP; r: PEC_POINT; const a: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_dbl(const group: PEC_GROUP; r: PEC_POINT; const a: PEC_POINT;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_dbl_procname);
 end;
 
 
-function  ERR_EC_POINT_invert(const group: PEC_GROUP; a: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_invert(const group: PEC_GROUP; a: PEC_POINT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_invert_procname);
 end;
 
 
-function  ERR_EC_POINT_is_at_infinity(const group: PEC_GROUP; const p: PEC_POINT): TIdC_INT; 
+function  ERR_EC_POINT_is_at_infinity(const group: PEC_GROUP; const p: PEC_POINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_is_at_infinity_procname);
 end;
 
 
-function  ERR_EC_POINT_is_on_curve(const group: PEC_GROUP; const point: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_is_on_curve(const group: PEC_GROUP; const point: PEC_POINT;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_is_on_curve_procname);
 end;
 
 
-function  ERR_EC_POINT_cmp(const group: PEC_GROUP; const a: PEC_POINT; const b: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_cmp(const group: PEC_GROUP; const a: PEC_POINT; const b: PEC_POINT;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_cmp_procname);
 end;
 
 
-function  ERR_EC_POINT_make_affine(const group: PEC_GROUP; point: PEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_make_affine(const group: PEC_GROUP; point: PEC_POINT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_make_affine_procname);
 end;
 
 
-function  ERR_EC_POINTs_make_affine(const group: PEC_METHOD; num: TIdC_SIZET; points: PPEC_POINT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINTs_make_affine(const group: PEC_METHOD; num: TIdC_SIZET; points: PPEC_POINT;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINTs_make_affine_procname);
 end;
 
 
-function  ERR_EC_POINTs_mul(const group: PEC_GROUP; r: PEC_POINT; const n: PBIGNUM; num: TIdC_SIZET; const p: PPEC_POINT; const m: PPBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINTs_mul(const group: PEC_GROUP; r: PEC_POINT; const n: PBIGNUM; num: TIdC_SIZET;
+  const p: PPEC_POINT; const m: PPBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINTs_mul_procname);
 end;
 
 
-function  ERR_EC_POINT_mul(const group: PEC_GROUP; r: PEC_POINT; const n: PBIGNUM; const q: PEC_POINT; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_POINT_mul(const group: PEC_GROUP; r: PEC_POINT; const n: PBIGNUM; const q: PEC_POINT;
+  const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_POINT_mul_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_precompute_mult(group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_GROUP_precompute_mult(group: PEC_GROUP; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_precompute_mult_procname);
 end;
 
 
-function  ERR_EC_GROUP_have_precompute_mult(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_have_precompute_mult(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_have_precompute_mult_procname);
 end;
 
 
 
-function  ERR_ECPKPARAMETERS_it: PASN1_ITEM; 
+function  ERR_ECPKPARAMETERS_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPKPARAMETERS_it_procname);
 end;
 
 
-function  ERR_ECPKPARAMETERS_new: PECPKPARAMETERS; 
+function  ERR_ECPKPARAMETERS_new: PECPKPARAMETERS; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPKPARAMETERS_new_procname);
 end;
 
 
-procedure  ERR_ECPKPARAMETERS_free(a: PECPKPARAMETERS); 
+procedure  ERR_ECPKPARAMETERS_free(a: PECPKPARAMETERS); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPKPARAMETERS_free_procname);
 end;
 
 
 
-function  ERR_ECPARAMETERS_it: PASN1_ITEM; 
+function  ERR_ECPARAMETERS_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPARAMETERS_it_procname);
 end;
 
 
-function  ERR_ECPARAMETERS_new: PECPARAMETERS; 
+function  ERR_ECPARAMETERS_new: PECPARAMETERS; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPARAMETERS_new_procname);
 end;
 
 
-procedure  ERR_ECPARAMETERS_free(a: PECPARAMETERS); 
+procedure  ERR_ECPARAMETERS_free(a: PECPARAMETERS); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPARAMETERS_free_procname);
 end;
 
 
 
-function  ERR_EC_GROUP_get_basis_type(const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_GROUP_get_basis_type(const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_basis_type_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_trinomial_basis(const group: PEC_GROUP; k: PIdC_UINT): TIdC_INT; 
+function  ERR_EC_GROUP_get_trinomial_basis(const group: PEC_GROUP; k: PIdC_UINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_trinomial_basis_procname);
 end;
 
 
-function  ERR_EC_GROUP_get_pentanomial_basis(const group: PEC_GROUP; k1: PIdC_UINT; k2: PIdC_UINT; k3: PIdC_UINT): TIdC_INT; 
+function  ERR_EC_GROUP_get_pentanomial_basis(const group: PEC_GROUP; k1: PIdC_UINT; k2: PIdC_UINT;
+  k3: PIdC_UINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GROUP_get_pentanomial_basis_procname);
 end;
 
 
 
-function  ERR_d2i_ECPKParameters(group: PPEC_GROUP; const in_: PPByte; len: TIdC_LONG): PEC_GROUP; 
+function  ERR_d2i_ECPKParameters(group: PPEC_GROUP; const in_: PPByte; len: TIdC_LONG): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ECPKParameters_procname);
 end;
 
 
-function  ERR_i2d_ECPKParameters(const group: PEC_GROUP; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_ECPKParameters(const group: PEC_GROUP; out_: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ECPKParameters_procname);
 end;
 
 
 
-function  ERR_ECPKParameters_print(bp: PBIO; const x: PEC_GROUP; off: TIdC_INT): TIdC_INT; 
+function  ERR_ECPKParameters_print(bp: PBIO; const x: PEC_GROUP; off: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECPKParameters_print_procname);
 end;
 
 
 
-function  ERR_EC_KEY_new: PEC_KEY; 
+function  ERR_EC_KEY_new: PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_new_procname);
 end;
 
 
-function  ERR_EC_KEY_get_flags(const key: PEC_KEY): TIdC_INT; 
+function  ERR_EC_KEY_get_flags(const key: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_flags_procname);
 end;
 
 
-procedure  ERR_EC_KEY_set_flags(key: PEC_KEY; flags: TIdC_INT); 
+procedure  ERR_EC_KEY_set_flags(key: PEC_KEY; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_flags_procname);
 end;
 
 
-procedure  ERR_EC_KEY_clear_flags(key: PEC_KEY; flags: TIdC_INT); 
+procedure  ERR_EC_KEY_clear_flags(key: PEC_KEY; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_clear_flags_procname);
 end;
 
 
-function  ERR_EC_KEY_new_by_curve_name(nid: TIdC_INT): PEC_KEY; 
+function  ERR_EC_KEY_new_by_curve_name(nid: TIdC_INT): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_new_by_curve_name_procname);
 end;
 
 
-procedure  ERR_EC_KEY_free(key: PEC_KEY); 
+procedure  ERR_EC_KEY_free(key: PEC_KEY); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_free_procname);
 end;
 
 
-function  ERR_EC_KEY_copy(dst: PEC_KEY; const src: PEC_KEY): PEC_KEY; 
+function  ERR_EC_KEY_copy(dst: PEC_KEY; const src: PEC_KEY): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_copy_procname);
 end;
 
 
-function  ERR_EC_KEY_dup(const src: PEC_KEY): PEC_KEY; 
+function  ERR_EC_KEY_dup(const src: PEC_KEY): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_dup_procname);
 end;
 
 
-function  ERR_EC_KEY_up_ref(key: PEC_KEY): TIdC_INT; 
+function  ERR_EC_KEY_up_ref(key: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_up_ref_procname);
 end;
 
 
-function  ERR_EC_KEY_get0_engine(const eckey: PEC_KEY): PENGINE; 
+function  ERR_EC_KEY_get0_engine(const eckey: PEC_KEY): PENGINE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get0_engine_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_get0_group(const key: PEC_KEY): PEC_GROUP; 
+function  ERR_EC_KEY_get0_group(const key: PEC_KEY): PEC_GROUP; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get0_group_procname);
 end;
 
 
-function  ERR_EC_KEY_set_group(key: PEC_KEY; const group: PEC_GROUP): TIdC_INT; 
+function  ERR_EC_KEY_set_group(key: PEC_KEY; const group: PEC_GROUP): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_group_procname);
 end;
 
 
-function  ERR_EC_KEY_get0_private_key(const key: PEC_KEY): PBIGNUM; 
+function  ERR_EC_KEY_get0_private_key(const key: PEC_KEY): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get0_private_key_procname);
 end;
 
 
-function  ERR_EC_KEY_set_private_key(const key: PEC_KEY; const prv: PBIGNUM): TIdC_INT; 
+function  ERR_EC_KEY_set_private_key(const key: PEC_KEY; const prv: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_private_key_procname);
 end;
 
 
-function  ERR_EC_KEY_get0_public_key(const key: PEC_KEY): PEC_POINT; 
+function  ERR_EC_KEY_get0_public_key(const key: PEC_KEY): PEC_POINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get0_public_key_procname);
 end;
 
 
-function  ERR_EC_KEY_set_public_key(key: PEC_KEY; const pub: PEC_POINT): TIdC_INT; 
+function  ERR_EC_KEY_set_public_key(key: PEC_KEY; const pub: PEC_POINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_public_key_procname);
 end;
 
 
-function  ERR_EC_KEY_get_enc_flags(const key: PEC_KEY): TIdC_UINT; 
+function  ERR_EC_KEY_get_enc_flags(const key: PEC_KEY): TIdC_UINT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_enc_flags_procname);
 end;
 
 
-procedure  ERR_EC_KEY_set_enc_flags(eckey: PEC_KEY; flags: TIdC_UINT); 
+procedure  ERR_EC_KEY_set_enc_flags(eckey: PEC_KEY; flags: TIdC_UINT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_enc_flags_procname);
 end;
 
 
-function  ERR_EC_KEY_get_conv_form(const key: PEC_KEY): point_conversion_form_t; 
+function  ERR_EC_KEY_get_conv_form(const key: PEC_KEY): point_conversion_form_t; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_conv_form_procname);
 end;
 
 
-procedure  ERR_EC_KEY_set_conv_form(eckey: PEC_KEY; cform: point_conversion_form_t); 
+procedure  ERR_EC_KEY_set_conv_form(eckey: PEC_KEY; cform: point_conversion_form_t); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_conv_form_procname);
 end;
 
 
-function  ERR_EC_KEY_set_ex_data(key: PEC_KEY; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function  ERR_EC_KEY_set_ex_data(key: PEC_KEY; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_ex_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_get_ex_data(const key: PEC_KEY; idx: TIdC_INT): Pointer; 
+function  ERR_EC_KEY_get_ex_data(const key: PEC_KEY; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_ex_data_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_set_asn1_flag(eckey: PEC_KEY; asn1_flag: TIdC_INT); 
+procedure  ERR_EC_KEY_set_asn1_flag(eckey: PEC_KEY; asn1_flag: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_asn1_flag_procname);
 end;
 
 
-function  ERR_EC_KEY_precompute_mult(key: PEC_KEY; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_KEY_precompute_mult(key: PEC_KEY; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_precompute_mult_procname);
 end;
 
 
-function  ERR_EC_KEY_generate_key(key: PEC_KEY): TIdC_INT; 
+function  ERR_EC_KEY_generate_key(key: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_generate_key_procname);
 end;
 
 
-function  ERR_EC_KEY_check_key(const key: PEC_KEY): TIdC_INT; 
+function  ERR_EC_KEY_check_key(const key: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_check_key_procname);
 end;
 
 
-function  ERR_EC_KEY_can_sign(const eckey: PEC_KEY): TIdC_INT; 
+function  ERR_EC_KEY_can_sign(const eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_can_sign_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_set_public_key_affine_coordinates(key: PEC_KEY; x: PBIGNUM; y: PBIGNUM): TIdC_INT; 
+function  ERR_EC_KEY_set_public_key_affine_coordinates(key: PEC_KEY; x: PBIGNUM; y: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_public_key_affine_coordinates_procname);
 end;
 
 
-function  ERR_EC_KEY_key2buf(const key: PEC_KEY; form: point_conversion_form_t; pbuf: PPByte; ctx: PBN_CTX): TIdC_SIZET; 
+function  ERR_EC_KEY_key2buf(const key: PEC_KEY; form: point_conversion_form_t; pbuf: PPByte;
+  ctx: PBN_CTX): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_key2buf_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_oct2key(key: PEC_KEY; const buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_EC_KEY_oct2key(key: PEC_KEY; const buf: PByte; len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_oct2key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_oct2priv(key: PEC_KEY; const buf: PByte; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_EC_KEY_oct2priv(key: PEC_KEY; const buf: PByte; len: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_oct2priv_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_priv2oct(const key: PEC_KEY; buf: PByte; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_EC_KEY_priv2oct(const key: PEC_KEY; buf: PByte; len: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_priv2oct_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_priv2buf(const eckey: PEC_KEY; buf: PPByte): TIdC_SIZET; 
+function  ERR_EC_KEY_priv2buf(const eckey: PEC_KEY; buf: PPByte): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_priv2buf_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_d2i_ECPrivateKey(key: PPEC_KEY; const in_: PPByte; len: TIdC_LONG): PEC_KEY; 
+function  ERR_d2i_ECPrivateKey(key: PPEC_KEY; const in_: PPByte; len: TIdC_LONG): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ECPrivateKey_procname);
 end;
 
 
-function  ERR_i2d_ECPrivateKey(key: PEC_KEY; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_ECPrivateKey(key: PEC_KEY; out_: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ECPrivateKey_procname);
 end;
 
 
-function  ERR_o2i_ECPublicKey(key: PPEC_KEY; const in_: PPByte; len: TIdC_LONG): PEC_KEY; 
+function  ERR_o2i_ECPublicKey(key: PPEC_KEY; const in_: PPByte; len: TIdC_LONG): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(o2i_ECPublicKey_procname);
 end;
 
 
-function  ERR_i2o_ECPublicKey(const key: PEC_KEY; out_: PPByte): TIdC_INT; 
+function  ERR_i2o_ECPublicKey(const key: PEC_KEY; out_: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2o_ECPublicKey_procname);
 end;
 
 
 
-function  ERR_ECParameters_print(bp: PBIO; const key: PEC_KEY): TIdC_INT; 
+function  ERR_ECParameters_print(bp: PBIO; const key: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECParameters_print_procname);
 end;
 
 
-function  ERR_EC_KEY_print(bp: PBIO; const key: PEC_KEY; off: TIdC_INT): TIdC_INT; 
+function  ERR_EC_KEY_print(bp: PBIO; const key: PEC_KEY; off: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_print_procname);
 end;
 
-function  ERR_EC_KEY_OpenSSL: PEC_KEY_METHOD;
+function  ERR_EC_KEY_OpenSSL: PEC_KEY_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_OpenSSL_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_get_default_method: PEC_KEY_METHOD; 
+function  ERR_EC_KEY_get_default_method: PEC_KEY_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_default_method_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_set_default_method(const meth: PEC_KEY_METHOD); 
+procedure  ERR_EC_KEY_set_default_method(const meth: PEC_KEY_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_default_method_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_get_method(const key: PEC_KEY): PEC_KEY_METHOD; 
+function  ERR_EC_KEY_get_method(const key: PEC_KEY): PEC_KEY_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_get_method_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_set_method(key: PEC_KEY; const meth: PEC_KEY_METHOD): TIdC_INT; 
+function  ERR_EC_KEY_set_method(key: PEC_KEY; const meth: PEC_KEY_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_set_method_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_EC_KEY_new_method(engine: PENGINE): PEC_KEY; 
+function  ERR_EC_KEY_new_method(engine: PENGINE): PEC_KEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_new_method_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_ECDH_KDF_X9_62(out_: PByte; outlen: TIdC_SIZET; const Z: PByte; Zlen: TIdC_SIZET; const sinfo: PByte; sinfolen: TIdC_SIZET; const md: PEVP_MD): TIdC_INT; 
+function  ERR_ECDH_KDF_X9_62(out_: PByte; outlen: TIdC_SIZET; const Z: PByte; Zlen: TIdC_SIZET;
+  const sinfo: PByte; sinfolen: TIdC_SIZET; const md: PEVP_MD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDH_KDF_X9_62_procname);
 end;
 
 
-function  ERR_ECDH_compute_key(out_: Pointer; oulen: TIdC_SIZET; const pub_key: PEC_POINT; const ecdh: PEC_KEY; kdf: ECDH_compute_key_KDF): TIdC_INT; 
+function  ERR_ECDH_compute_key(out_: Pointer; oulen: TIdC_SIZET; const pub_key: PEC_POINT;
+  const ecdh: PEC_KEY; kdf: ECDH_compute_key_KDF): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDH_compute_key_procname);
 end;
 
 
 
-function  ERR_ECDSA_SIG_new: PECDSA_SIG; 
+function  ERR_ECDSA_SIG_new: PECDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_new_procname);
 end;
 
 
-procedure  ERR_ECDSA_SIG_free(sig: PECDSA_SIG); 
+procedure  ERR_ECDSA_SIG_free(sig: PECDSA_SIG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_free_procname);
 end;
 
 
-function  ERR_i2d_ECDSA_SIG(const sig: PECDSA_SIG; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_ECDSA_SIG(const sig: PECDSA_SIG; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_ECDSA_SIG_procname);
 end;
 
 
-function  ERR_d2i_ECDSA_SIG(sig: PPECDSA_SIG; const pp: PPByte; len: TIdC_LONG): PECDSA_SIG; 
+function  ERR_d2i_ECDSA_SIG(sig: PPECDSA_SIG; const pp: PPByte; len: TIdC_LONG): PECDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_ECDSA_SIG_procname);
 end;
 
 
-procedure  ERR_ECDSA_SIG_get0(const sig: PECDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM); 
+procedure  ERR_ECDSA_SIG_get0(const sig: PECDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_get0_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ECDSA_SIG_get0_r(const sig: PECDSA_SIG): PBIGNUM; 
+function  ERR_ECDSA_SIG_get0_r(const sig: PECDSA_SIG): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_get0_r_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ECDSA_SIG_get0_s(const sig: PECDSA_SIG): PBIGNUM; 
+function  ERR_ECDSA_SIG_get0_s(const sig: PECDSA_SIG): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_get0_s_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ECDSA_SIG_set0(sig: PECDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT; 
+function  ERR_ECDSA_SIG_set0(sig: PECDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_SIG_set0_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ECDSA_do_sign(const dgst: PByte; dgst_len: TIdC_INT; eckey: PEC_KEY): PECDSA_SIG; 
+function  ERR_ECDSA_do_sign(const dgst: PByte; dgst_len: TIdC_INT; eckey: PEC_KEY): PECDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_do_sign_procname);
 end;
 
 
-function  ERR_ECDSA_do_sign_ex(const dgst: PByte; dgst_len: TIdC_INT; const kinv: PBIGNUM; const rp: PBIGNUM; eckey: PEC_KEY): PECDSA_SIG; 
+function  ERR_ECDSA_do_sign_ex(const dgst: PByte; dgst_len: TIdC_INT; const kinv: PBIGNUM;
+  const rp: PBIGNUM; eckey: PEC_KEY): PECDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_do_sign_ex_procname);
 end;
 
 
-function  ERR_ECDSA_do_verify(const dgst: PByte; dgst_len: TIdC_INT; const sig: PECDSA_SIG; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_ECDSA_do_verify(const dgst: PByte; dgst_len: TIdC_INT; const sig: PECDSA_SIG;
+  eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_do_verify_procname);
 end;
 
 
-function  ERR_ECDSA_sign_setup(eckey: PEC_KEY; ctx: PBN_CTX; kiv: PPBIGNUM; rp: PPBIGNUM): TIdC_INT; 
+function  ERR_ECDSA_sign_setup(eckey: PEC_KEY; ctx: PBN_CTX; kiv: PPBIGNUM; rp: PPBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_sign_setup_procname);
 end;
 
 
-function  ERR_ECDSA_sign(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; sig: PByte; siglen: PIdC_UINT; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_ECDSA_sign(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; sig: PByte;
+  siglen: PIdC_UINT; eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_sign_procname);
 end;
 
 
-function  ERR_ECDSA_sign_ex(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; sig: PByte; siglen: PIdC_UINT; const kinv: PBIGNUM; const rp: PBIGNUM; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_ECDSA_sign_ex(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; sig: PByte;
+  siglen: PIdC_UINT; const kinv: PBIGNUM; const rp: PBIGNUM; eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_sign_ex_procname);
 end;
 
 
-function  ERR_ECDSA_verify(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; const sig: PByte; siglen: TIdC_INT; eckey: PEC_KEY): TIdC_INT; 
+function  ERR_ECDSA_verify(type_: TIdC_INT; const dgst: PByte; dgstlen: TIdC_INT; const sig: PByte;
+  siglen: TIdC_INT; eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_verify_procname);
 end;
 
 
-function  ERR_ECDSA_size(const eckey: PEC_KEY): TIdC_INT; 
+function  ERR_ECDSA_size(const eckey: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ECDSA_size_procname);
 end;
 
 
 
-function  ERR_EC_KEY_METHOD_new(const meth: PEC_KEY_METHOD): PEC_KEY_METHOD; 
+function  ERR_EC_KEY_METHOD_new(const meth: PEC_KEY_METHOD): PEC_KEY_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_new_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_free(meth: PEC_KEY_METHOD); 
+procedure  ERR_EC_KEY_METHOD_free(meth: PEC_KEY_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_free_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; _copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group; set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); 
+procedure  ERR_EC_KEY_METHOD_set_init(meth: PEC_KEY_METHOD; init: EC_KEY_METHOD_init_init; finish: EC_KEY_METHOD_init_finish; _copy: EC_KEY_METHOD_init_copy; set_group: EC_KEY_METHOD_init_set_group;
+  set_private: EC_KEY_METHOD_init_set_private; set_public: EC_KEY_METHOD_init_set_public); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_init_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_keygen(meth: PEC_KEY_METHOD; keygen: EC_KEY_METHOD_keygen_keygen); 
+procedure  ERR_EC_KEY_METHOD_set_keygen(meth: PEC_KEY_METHOD; keygen: EC_KEY_METHOD_keygen_keygen); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_keygen_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_compute_key(meth: PEC_KEY_METHOD; ckey: EC_KEY_METHOD_compute_key_ckey); 
+procedure  ERR_EC_KEY_METHOD_set_compute_key(meth: PEC_KEY_METHOD; ckey: EC_KEY_METHOD_compute_key_ckey); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_compute_key_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_sign(meth: PEC_KEY_METHOD; sign: EC_KEY_METHOD_sign_sign; sign_setup: EC_KEY_METHOD_sign_sign_setup; sign_sig: EC_KEY_METHOD_sign_sign_sig); 
+procedure  ERR_EC_KEY_METHOD_set_sign(meth: PEC_KEY_METHOD; sign: EC_KEY_METHOD_sign_sign;
+  sign_setup: EC_KEY_METHOD_sign_sign_setup; sign_sig: EC_KEY_METHOD_sign_sign_sig); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_sign_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_set_verify(meth: PEC_KEY_METHOD; verify: EC_KEY_METHOD_verify_verify; verify_sig: EC_KEY_METHOD_verify_verify_sig); 
+procedure  ERR_EC_KEY_METHOD_set_verify(meth: PEC_KEY_METHOD; verify: EC_KEY_METHOD_verify_verify;
+  verify_sig: EC_KEY_METHOD_verify_verify_sig); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_set_verify_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init; pfinish: PEC_KEY_METHOD_init_finish; p_copy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group; pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); 
+procedure  ERR_EC_KEY_METHOD_get_init(const meth: PEC_KEY_METHOD; pinit: PEC_KEY_METHOD_init_init;
+  pfinish: PEC_KEY_METHOD_init_finish; p_copy: PEC_KEY_METHOD_init_copy; pset_group: PEC_KEY_METHOD_init_set_group;
+  pset_private: PEC_KEY_METHOD_init_set_private; pset_public: PEC_KEY_METHOD_init_set_public); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_init_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_get_keygen(const meth: PEC_KEY_METHOD; pkeygen: PEC_KEY_METHOD_keygen_keygen); 
+procedure  ERR_EC_KEY_METHOD_get_keygen(const meth: PEC_KEY_METHOD; pkeygen: PEC_KEY_METHOD_keygen_keygen); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_keygen_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_get_compute_key(const meth: PEC_KEY_METHOD; pck: PEC_KEY_METHOD_compute_key_ckey); 
+procedure  ERR_EC_KEY_METHOD_get_compute_key(const meth: PEC_KEY_METHOD; pck: PEC_KEY_METHOD_compute_key_ckey); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_compute_key_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_get_sign(const meth: PEC_KEY_METHOD; psign: PEC_KEY_METHOD_sign_sign; psign_setup: PEC_KEY_METHOD_sign_sign_setup; psign_sig: PEC_KEY_METHOD_sign_sign_sig); 
+procedure  ERR_EC_KEY_METHOD_get_sign(const meth: PEC_KEY_METHOD; psign: PEC_KEY_METHOD_sign_sign;
+  psign_setup: PEC_KEY_METHOD_sign_sign_setup; psign_sig: PEC_KEY_METHOD_sign_sign_sig); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_sign_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_EC_KEY_METHOD_get_verify(const meth: PEC_KEY_METHOD; pverify: PEC_KEY_METHOD_verify_verify; pverify_sig: PEC_KEY_METHOD_verify_verify_sig); 
+procedure  ERR_EC_KEY_METHOD_get_verify(const meth: PEC_KEY_METHOD; pverify: PEC_KEY_METHOD_verify_verify;
+  pverify_sig: PEC_KEY_METHOD_verify_verify_sig); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_KEY_METHOD_get_verify_procname);
 end;
 
  {introduced 1.1.0}
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -2092,13 +2142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_simple_method_allownil)}
-    EC_GFp_simple_method := @ERR_EC_GFp_simple_method;
+    EC_GFp_simple_method := ERR_EC_GFp_simple_method;
     {$ifend}
     {$if declared(EC_GFp_simple_method_introduced)}
     if LibVersion < EC_GFp_simple_method_introduced then
     begin
       {$if declared(FC_EC_GFp_simple_method)}
-      EC_GFp_simple_method := @FC_EC_GFp_simple_method;
+      EC_GFp_simple_method := FC_EC_GFp_simple_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2107,7 +2157,7 @@ begin
     if EC_GFp_simple_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_simple_method)}
-      EC_GFp_simple_method := @_EC_GFp_simple_method;
+      EC_GFp_simple_method := _EC_GFp_simple_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2124,13 +2174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_mont_method_allownil)}
-    EC_GFp_mont_method := @ERR_EC_GFp_mont_method;
+    EC_GFp_mont_method := ERR_EC_GFp_mont_method;
     {$ifend}
     {$if declared(EC_GFp_mont_method_introduced)}
     if LibVersion < EC_GFp_mont_method_introduced then
     begin
       {$if declared(FC_EC_GFp_mont_method)}
-      EC_GFp_mont_method := @FC_EC_GFp_mont_method;
+      EC_GFp_mont_method := FC_EC_GFp_mont_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2139,7 +2189,7 @@ begin
     if EC_GFp_mont_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_mont_method)}
-      EC_GFp_mont_method := @_EC_GFp_mont_method;
+      EC_GFp_mont_method := _EC_GFp_mont_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2156,13 +2206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_nist_method_allownil)}
-    EC_GFp_nist_method := @ERR_EC_GFp_nist_method;
+    EC_GFp_nist_method := ERR_EC_GFp_nist_method;
     {$ifend}
     {$if declared(EC_GFp_nist_method_introduced)}
     if LibVersion < EC_GFp_nist_method_introduced then
     begin
       {$if declared(FC_EC_GFp_nist_method)}
-      EC_GFp_nist_method := @FC_EC_GFp_nist_method;
+      EC_GFp_nist_method := FC_EC_GFp_nist_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2171,7 +2221,7 @@ begin
     if EC_GFp_nist_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_nist_method)}
-      EC_GFp_nist_method := @_EC_GFp_nist_method;
+      EC_GFp_nist_method := _EC_GFp_nist_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2188,13 +2238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_nistp224_method_allownil)}
-    EC_GFp_nistp224_method := @ERR_EC_GFp_nistp224_method;
+    EC_GFp_nistp224_method := ERR_EC_GFp_nistp224_method;
     {$ifend}
     {$if declared(EC_GFp_nistp224_method_introduced)}
     if LibVersion < EC_GFp_nistp224_method_introduced then
     begin
       {$if declared(FC_EC_GFp_nistp224_method)}
-      EC_GFp_nistp224_method := @FC_EC_GFp_nistp224_method;
+      EC_GFp_nistp224_method := FC_EC_GFp_nistp224_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2203,7 +2253,7 @@ begin
     if EC_GFp_nistp224_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_nistp224_method)}
-      EC_GFp_nistp224_method := @_EC_GFp_nistp224_method;
+      EC_GFp_nistp224_method := _EC_GFp_nistp224_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2220,13 +2270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_nistp256_method_allownil)}
-    EC_GFp_nistp256_method := @ERR_EC_GFp_nistp256_method;
+    EC_GFp_nistp256_method := ERR_EC_GFp_nistp256_method;
     {$ifend}
     {$if declared(EC_GFp_nistp256_method_introduced)}
     if LibVersion < EC_GFp_nistp256_method_introduced then
     begin
       {$if declared(FC_EC_GFp_nistp256_method)}
-      EC_GFp_nistp256_method := @FC_EC_GFp_nistp256_method;
+      EC_GFp_nistp256_method := FC_EC_GFp_nistp256_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2235,7 +2285,7 @@ begin
     if EC_GFp_nistp256_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_nistp256_method)}
-      EC_GFp_nistp256_method := @_EC_GFp_nistp256_method;
+      EC_GFp_nistp256_method := _EC_GFp_nistp256_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2252,13 +2302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GFp_nistp521_method_allownil)}
-    EC_GFp_nistp521_method := @ERR_EC_GFp_nistp521_method;
+    EC_GFp_nistp521_method := ERR_EC_GFp_nistp521_method;
     {$ifend}
     {$if declared(EC_GFp_nistp521_method_introduced)}
     if LibVersion < EC_GFp_nistp521_method_introduced then
     begin
       {$if declared(FC_EC_GFp_nistp521_method)}
-      EC_GFp_nistp521_method := @FC_EC_GFp_nistp521_method;
+      EC_GFp_nistp521_method := FC_EC_GFp_nistp521_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2267,7 +2317,7 @@ begin
     if EC_GFp_nistp521_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GFp_nistp521_method)}
-      EC_GFp_nistp521_method := @_EC_GFp_nistp521_method;
+      EC_GFp_nistp521_method := _EC_GFp_nistp521_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2284,13 +2334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GF2m_simple_method_allownil)}
-    EC_GF2m_simple_method := @ERR_EC_GF2m_simple_method;
+    EC_GF2m_simple_method := ERR_EC_GF2m_simple_method;
     {$ifend}
     {$if declared(EC_GF2m_simple_method_introduced)}
     if LibVersion < EC_GF2m_simple_method_introduced then
     begin
       {$if declared(FC_EC_GF2m_simple_method)}
-      EC_GF2m_simple_method := @FC_EC_GF2m_simple_method;
+      EC_GF2m_simple_method := FC_EC_GF2m_simple_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2299,7 +2349,7 @@ begin
     if EC_GF2m_simple_method_removed <= LibVersion then
     begin
       {$if declared(_EC_GF2m_simple_method)}
-      EC_GF2m_simple_method := @_EC_GF2m_simple_method;
+      EC_GF2m_simple_method := _EC_GF2m_simple_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2316,13 +2366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_allownil)}
-    EC_GROUP_new := @ERR_EC_GROUP_new;
+    EC_GROUP_new := ERR_EC_GROUP_new;
     {$ifend}
     {$if declared(EC_GROUP_new_introduced)}
     if LibVersion < EC_GROUP_new_introduced then
     begin
       {$if declared(FC_EC_GROUP_new)}
-      EC_GROUP_new := @FC_EC_GROUP_new;
+      EC_GROUP_new := FC_EC_GROUP_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2331,7 +2381,7 @@ begin
     if EC_GROUP_new_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new)}
-      EC_GROUP_new := @_EC_GROUP_new;
+      EC_GROUP_new := _EC_GROUP_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2348,13 +2398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_free_allownil)}
-    EC_GROUP_free := @ERR_EC_GROUP_free;
+    EC_GROUP_free := ERR_EC_GROUP_free;
     {$ifend}
     {$if declared(EC_GROUP_free_introduced)}
     if LibVersion < EC_GROUP_free_introduced then
     begin
       {$if declared(FC_EC_GROUP_free)}
-      EC_GROUP_free := @FC_EC_GROUP_free;
+      EC_GROUP_free := FC_EC_GROUP_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2363,7 +2413,7 @@ begin
     if EC_GROUP_free_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_free)}
-      EC_GROUP_free := @_EC_GROUP_free;
+      EC_GROUP_free := _EC_GROUP_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2380,13 +2430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_clear_free_allownil)}
-    EC_GROUP_clear_free := @ERR_EC_GROUP_clear_free;
+    EC_GROUP_clear_free := ERR_EC_GROUP_clear_free;
     {$ifend}
     {$if declared(EC_GROUP_clear_free_introduced)}
     if LibVersion < EC_GROUP_clear_free_introduced then
     begin
       {$if declared(FC_EC_GROUP_clear_free)}
-      EC_GROUP_clear_free := @FC_EC_GROUP_clear_free;
+      EC_GROUP_clear_free := FC_EC_GROUP_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2395,7 +2445,7 @@ begin
     if EC_GROUP_clear_free_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_clear_free)}
-      EC_GROUP_clear_free := @_EC_GROUP_clear_free;
+      EC_GROUP_clear_free := _EC_GROUP_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2412,13 +2462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_copy_allownil)}
-    EC_GROUP_copy := @ERR_EC_GROUP_copy;
+    EC_GROUP_copy := ERR_EC_GROUP_copy;
     {$ifend}
     {$if declared(EC_GROUP_copy_introduced)}
     if LibVersion < EC_GROUP_copy_introduced then
     begin
       {$if declared(FC_EC_GROUP_copy)}
-      EC_GROUP_copy := @FC_EC_GROUP_copy;
+      EC_GROUP_copy := FC_EC_GROUP_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2427,7 +2477,7 @@ begin
     if EC_GROUP_copy_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_copy)}
-      EC_GROUP_copy := @_EC_GROUP_copy;
+      EC_GROUP_copy := _EC_GROUP_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2444,13 +2494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_dup_allownil)}
-    EC_GROUP_dup := @ERR_EC_GROUP_dup;
+    EC_GROUP_dup := ERR_EC_GROUP_dup;
     {$ifend}
     {$if declared(EC_GROUP_dup_introduced)}
     if LibVersion < EC_GROUP_dup_introduced then
     begin
       {$if declared(FC_EC_GROUP_dup)}
-      EC_GROUP_dup := @FC_EC_GROUP_dup;
+      EC_GROUP_dup := FC_EC_GROUP_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2459,7 +2509,7 @@ begin
     if EC_GROUP_dup_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_dup)}
-      EC_GROUP_dup := @_EC_GROUP_dup;
+      EC_GROUP_dup := _EC_GROUP_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2476,13 +2526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_method_of_allownil)}
-    EC_GROUP_method_of := @ERR_EC_GROUP_method_of;
+    EC_GROUP_method_of := ERR_EC_GROUP_method_of;
     {$ifend}
     {$if declared(EC_GROUP_method_of_introduced)}
     if LibVersion < EC_GROUP_method_of_introduced then
     begin
       {$if declared(FC_EC_GROUP_method_of)}
-      EC_GROUP_method_of := @FC_EC_GROUP_method_of;
+      EC_GROUP_method_of := FC_EC_GROUP_method_of;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2491,7 +2541,7 @@ begin
     if EC_GROUP_method_of_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_method_of)}
-      EC_GROUP_method_of := @_EC_GROUP_method_of;
+      EC_GROUP_method_of := _EC_GROUP_method_of;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2508,13 +2558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_METHOD_get_field_type_allownil)}
-    EC_METHOD_get_field_type := @ERR_EC_METHOD_get_field_type;
+    EC_METHOD_get_field_type := ERR_EC_METHOD_get_field_type;
     {$ifend}
     {$if declared(EC_METHOD_get_field_type_introduced)}
     if LibVersion < EC_METHOD_get_field_type_introduced then
     begin
       {$if declared(FC_EC_METHOD_get_field_type)}
-      EC_METHOD_get_field_type := @FC_EC_METHOD_get_field_type;
+      EC_METHOD_get_field_type := FC_EC_METHOD_get_field_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2523,7 +2573,7 @@ begin
     if EC_METHOD_get_field_type_removed <= LibVersion then
     begin
       {$if declared(_EC_METHOD_get_field_type)}
-      EC_METHOD_get_field_type := @_EC_METHOD_get_field_type;
+      EC_METHOD_get_field_type := _EC_METHOD_get_field_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2540,13 +2590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_generator_allownil)}
-    EC_GROUP_set_generator := @ERR_EC_GROUP_set_generator;
+    EC_GROUP_set_generator := ERR_EC_GROUP_set_generator;
     {$ifend}
     {$if declared(EC_GROUP_set_generator_introduced)}
     if LibVersion < EC_GROUP_set_generator_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_generator)}
-      EC_GROUP_set_generator := @FC_EC_GROUP_set_generator;
+      EC_GROUP_set_generator := FC_EC_GROUP_set_generator;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2555,7 +2605,7 @@ begin
     if EC_GROUP_set_generator_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_generator)}
-      EC_GROUP_set_generator := @_EC_GROUP_set_generator;
+      EC_GROUP_set_generator := _EC_GROUP_set_generator;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2572,13 +2622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get0_generator_allownil)}
-    EC_GROUP_get0_generator := @ERR_EC_GROUP_get0_generator;
+    EC_GROUP_get0_generator := ERR_EC_GROUP_get0_generator;
     {$ifend}
     {$if declared(EC_GROUP_get0_generator_introduced)}
     if LibVersion < EC_GROUP_get0_generator_introduced then
     begin
       {$if declared(FC_EC_GROUP_get0_generator)}
-      EC_GROUP_get0_generator := @FC_EC_GROUP_get0_generator;
+      EC_GROUP_get0_generator := FC_EC_GROUP_get0_generator;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2587,7 +2637,7 @@ begin
     if EC_GROUP_get0_generator_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get0_generator)}
-      EC_GROUP_get0_generator := @_EC_GROUP_get0_generator;
+      EC_GROUP_get0_generator := _EC_GROUP_get0_generator;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2604,13 +2654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_mont_data_allownil)}
-    EC_GROUP_get_mont_data := @ERR_EC_GROUP_get_mont_data;
+    EC_GROUP_get_mont_data := ERR_EC_GROUP_get_mont_data;
     {$ifend}
     {$if declared(EC_GROUP_get_mont_data_introduced)}
     if LibVersion < EC_GROUP_get_mont_data_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_mont_data)}
-      EC_GROUP_get_mont_data := @FC_EC_GROUP_get_mont_data;
+      EC_GROUP_get_mont_data := FC_EC_GROUP_get_mont_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2619,7 +2669,7 @@ begin
     if EC_GROUP_get_mont_data_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_mont_data)}
-      EC_GROUP_get_mont_data := @_EC_GROUP_get_mont_data;
+      EC_GROUP_get_mont_data := _EC_GROUP_get_mont_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2636,13 +2686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_order_allownil)}
-    EC_GROUP_get_order := @ERR_EC_GROUP_get_order;
+    EC_GROUP_get_order := ERR_EC_GROUP_get_order;
     {$ifend}
     {$if declared(EC_GROUP_get_order_introduced)}
     if LibVersion < EC_GROUP_get_order_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_order)}
-      EC_GROUP_get_order := @FC_EC_GROUP_get_order;
+      EC_GROUP_get_order := FC_EC_GROUP_get_order;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2651,7 +2701,7 @@ begin
     if EC_GROUP_get_order_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_order)}
-      EC_GROUP_get_order := @_EC_GROUP_get_order;
+      EC_GROUP_get_order := _EC_GROUP_get_order;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2668,13 +2718,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get0_order_allownil)}
-    EC_GROUP_get0_order := @ERR_EC_GROUP_get0_order;
+    EC_GROUP_get0_order := ERR_EC_GROUP_get0_order;
     {$ifend}
     {$if declared(EC_GROUP_get0_order_introduced)}
     if LibVersion < EC_GROUP_get0_order_introduced then
     begin
       {$if declared(FC_EC_GROUP_get0_order)}
-      EC_GROUP_get0_order := @FC_EC_GROUP_get0_order;
+      EC_GROUP_get0_order := FC_EC_GROUP_get0_order;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2683,7 +2733,7 @@ begin
     if EC_GROUP_get0_order_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get0_order)}
-      EC_GROUP_get0_order := @_EC_GROUP_get0_order;
+      EC_GROUP_get0_order := _EC_GROUP_get0_order;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2700,13 +2750,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_order_bits_allownil)}
-    EC_GROUP_order_bits := @ERR_EC_GROUP_order_bits;
+    EC_GROUP_order_bits := ERR_EC_GROUP_order_bits;
     {$ifend}
     {$if declared(EC_GROUP_order_bits_introduced)}
     if LibVersion < EC_GROUP_order_bits_introduced then
     begin
       {$if declared(FC_EC_GROUP_order_bits)}
-      EC_GROUP_order_bits := @FC_EC_GROUP_order_bits;
+      EC_GROUP_order_bits := FC_EC_GROUP_order_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2715,7 +2765,7 @@ begin
     if EC_GROUP_order_bits_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_order_bits)}
-      EC_GROUP_order_bits := @_EC_GROUP_order_bits;
+      EC_GROUP_order_bits := _EC_GROUP_order_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2732,13 +2782,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_cofactor_allownil)}
-    EC_GROUP_get_cofactor := @ERR_EC_GROUP_get_cofactor;
+    EC_GROUP_get_cofactor := ERR_EC_GROUP_get_cofactor;
     {$ifend}
     {$if declared(EC_GROUP_get_cofactor_introduced)}
     if LibVersion < EC_GROUP_get_cofactor_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_cofactor)}
-      EC_GROUP_get_cofactor := @FC_EC_GROUP_get_cofactor;
+      EC_GROUP_get_cofactor := FC_EC_GROUP_get_cofactor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2747,7 +2797,7 @@ begin
     if EC_GROUP_get_cofactor_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_cofactor)}
-      EC_GROUP_get_cofactor := @_EC_GROUP_get_cofactor;
+      EC_GROUP_get_cofactor := _EC_GROUP_get_cofactor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2764,13 +2814,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get0_cofactor_allownil)}
-    EC_GROUP_get0_cofactor := @ERR_EC_GROUP_get0_cofactor;
+    EC_GROUP_get0_cofactor := ERR_EC_GROUP_get0_cofactor;
     {$ifend}
     {$if declared(EC_GROUP_get0_cofactor_introduced)}
     if LibVersion < EC_GROUP_get0_cofactor_introduced then
     begin
       {$if declared(FC_EC_GROUP_get0_cofactor)}
-      EC_GROUP_get0_cofactor := @FC_EC_GROUP_get0_cofactor;
+      EC_GROUP_get0_cofactor := FC_EC_GROUP_get0_cofactor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2779,7 +2829,7 @@ begin
     if EC_GROUP_get0_cofactor_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get0_cofactor)}
-      EC_GROUP_get0_cofactor := @_EC_GROUP_get0_cofactor;
+      EC_GROUP_get0_cofactor := _EC_GROUP_get0_cofactor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2796,13 +2846,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_curve_name_allownil)}
-    EC_GROUP_set_curve_name := @ERR_EC_GROUP_set_curve_name;
+    EC_GROUP_set_curve_name := ERR_EC_GROUP_set_curve_name;
     {$ifend}
     {$if declared(EC_GROUP_set_curve_name_introduced)}
     if LibVersion < EC_GROUP_set_curve_name_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_curve_name)}
-      EC_GROUP_set_curve_name := @FC_EC_GROUP_set_curve_name;
+      EC_GROUP_set_curve_name := FC_EC_GROUP_set_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2811,7 +2861,7 @@ begin
     if EC_GROUP_set_curve_name_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_curve_name)}
-      EC_GROUP_set_curve_name := @_EC_GROUP_set_curve_name;
+      EC_GROUP_set_curve_name := _EC_GROUP_set_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2828,13 +2878,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_curve_name_allownil)}
-    EC_GROUP_get_curve_name := @ERR_EC_GROUP_get_curve_name;
+    EC_GROUP_get_curve_name := ERR_EC_GROUP_get_curve_name;
     {$ifend}
     {$if declared(EC_GROUP_get_curve_name_introduced)}
     if LibVersion < EC_GROUP_get_curve_name_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_curve_name)}
-      EC_GROUP_get_curve_name := @FC_EC_GROUP_get_curve_name;
+      EC_GROUP_get_curve_name := FC_EC_GROUP_get_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2843,7 +2893,7 @@ begin
     if EC_GROUP_get_curve_name_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_curve_name)}
-      EC_GROUP_get_curve_name := @_EC_GROUP_get_curve_name;
+      EC_GROUP_get_curve_name := _EC_GROUP_get_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2860,13 +2910,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_asn1_flag_allownil)}
-    EC_GROUP_set_asn1_flag := @ERR_EC_GROUP_set_asn1_flag;
+    EC_GROUP_set_asn1_flag := ERR_EC_GROUP_set_asn1_flag;
     {$ifend}
     {$if declared(EC_GROUP_set_asn1_flag_introduced)}
     if LibVersion < EC_GROUP_set_asn1_flag_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_asn1_flag)}
-      EC_GROUP_set_asn1_flag := @FC_EC_GROUP_set_asn1_flag;
+      EC_GROUP_set_asn1_flag := FC_EC_GROUP_set_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2875,7 +2925,7 @@ begin
     if EC_GROUP_set_asn1_flag_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_asn1_flag)}
-      EC_GROUP_set_asn1_flag := @_EC_GROUP_set_asn1_flag;
+      EC_GROUP_set_asn1_flag := _EC_GROUP_set_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2892,13 +2942,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_asn1_flag_allownil)}
-    EC_GROUP_get_asn1_flag := @ERR_EC_GROUP_get_asn1_flag;
+    EC_GROUP_get_asn1_flag := ERR_EC_GROUP_get_asn1_flag;
     {$ifend}
     {$if declared(EC_GROUP_get_asn1_flag_introduced)}
     if LibVersion < EC_GROUP_get_asn1_flag_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_asn1_flag)}
-      EC_GROUP_get_asn1_flag := @FC_EC_GROUP_get_asn1_flag;
+      EC_GROUP_get_asn1_flag := FC_EC_GROUP_get_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2907,7 +2957,7 @@ begin
     if EC_GROUP_get_asn1_flag_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_asn1_flag)}
-      EC_GROUP_get_asn1_flag := @_EC_GROUP_get_asn1_flag;
+      EC_GROUP_get_asn1_flag := _EC_GROUP_get_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2924,13 +2974,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_point_conversion_form_allownil)}
-    EC_GROUP_set_point_conversion_form := @ERR_EC_GROUP_set_point_conversion_form;
+    EC_GROUP_set_point_conversion_form := ERR_EC_GROUP_set_point_conversion_form;
     {$ifend}
     {$if declared(EC_GROUP_set_point_conversion_form_introduced)}
     if LibVersion < EC_GROUP_set_point_conversion_form_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_point_conversion_form)}
-      EC_GROUP_set_point_conversion_form := @FC_EC_GROUP_set_point_conversion_form;
+      EC_GROUP_set_point_conversion_form := FC_EC_GROUP_set_point_conversion_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2939,7 +2989,7 @@ begin
     if EC_GROUP_set_point_conversion_form_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_point_conversion_form)}
-      EC_GROUP_set_point_conversion_form := @_EC_GROUP_set_point_conversion_form;
+      EC_GROUP_set_point_conversion_form := _EC_GROUP_set_point_conversion_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2956,13 +3006,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_point_conversion_form_allownil)}
-    EC_GROUP_get_point_conversion_form := @ERR_EC_GROUP_get_point_conversion_form;
+    EC_GROUP_get_point_conversion_form := ERR_EC_GROUP_get_point_conversion_form;
     {$ifend}
     {$if declared(EC_GROUP_get_point_conversion_form_introduced)}
     if LibVersion < EC_GROUP_get_point_conversion_form_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_point_conversion_form)}
-      EC_GROUP_get_point_conversion_form := @FC_EC_GROUP_get_point_conversion_form;
+      EC_GROUP_get_point_conversion_form := FC_EC_GROUP_get_point_conversion_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2971,7 +3021,7 @@ begin
     if EC_GROUP_get_point_conversion_form_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_point_conversion_form)}
-      EC_GROUP_get_point_conversion_form := @_EC_GROUP_get_point_conversion_form;
+      EC_GROUP_get_point_conversion_form := _EC_GROUP_get_point_conversion_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2988,13 +3038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get0_seed_allownil)}
-    EC_GROUP_get0_seed := @ERR_EC_GROUP_get0_seed;
+    EC_GROUP_get0_seed := ERR_EC_GROUP_get0_seed;
     {$ifend}
     {$if declared(EC_GROUP_get0_seed_introduced)}
     if LibVersion < EC_GROUP_get0_seed_introduced then
     begin
       {$if declared(FC_EC_GROUP_get0_seed)}
-      EC_GROUP_get0_seed := @FC_EC_GROUP_get0_seed;
+      EC_GROUP_get0_seed := FC_EC_GROUP_get0_seed;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3003,7 +3053,7 @@ begin
     if EC_GROUP_get0_seed_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get0_seed)}
-      EC_GROUP_get0_seed := @_EC_GROUP_get0_seed;
+      EC_GROUP_get0_seed := _EC_GROUP_get0_seed;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3020,13 +3070,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_seed_len_allownil)}
-    EC_GROUP_get_seed_len := @ERR_EC_GROUP_get_seed_len;
+    EC_GROUP_get_seed_len := ERR_EC_GROUP_get_seed_len;
     {$ifend}
     {$if declared(EC_GROUP_get_seed_len_introduced)}
     if LibVersion < EC_GROUP_get_seed_len_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_seed_len)}
-      EC_GROUP_get_seed_len := @FC_EC_GROUP_get_seed_len;
+      EC_GROUP_get_seed_len := FC_EC_GROUP_get_seed_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3035,7 +3085,7 @@ begin
     if EC_GROUP_get_seed_len_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_seed_len)}
-      EC_GROUP_get_seed_len := @_EC_GROUP_get_seed_len;
+      EC_GROUP_get_seed_len := _EC_GROUP_get_seed_len;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3052,13 +3102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_seed_allownil)}
-    EC_GROUP_set_seed := @ERR_EC_GROUP_set_seed;
+    EC_GROUP_set_seed := ERR_EC_GROUP_set_seed;
     {$ifend}
     {$if declared(EC_GROUP_set_seed_introduced)}
     if LibVersion < EC_GROUP_set_seed_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_seed)}
-      EC_GROUP_set_seed := @FC_EC_GROUP_set_seed;
+      EC_GROUP_set_seed := FC_EC_GROUP_set_seed;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3067,7 +3117,7 @@ begin
     if EC_GROUP_set_seed_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_seed)}
-      EC_GROUP_set_seed := @_EC_GROUP_set_seed;
+      EC_GROUP_set_seed := _EC_GROUP_set_seed;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3084,13 +3134,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_curve_allownil)}
-    EC_GROUP_set_curve := @ERR_EC_GROUP_set_curve;
+    EC_GROUP_set_curve := ERR_EC_GROUP_set_curve;
     {$ifend}
     {$if declared(EC_GROUP_set_curve_introduced)}
     if LibVersion < EC_GROUP_set_curve_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_curve)}
-      EC_GROUP_set_curve := @FC_EC_GROUP_set_curve;
+      EC_GROUP_set_curve := FC_EC_GROUP_set_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3099,7 +3149,7 @@ begin
     if EC_GROUP_set_curve_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_curve)}
-      EC_GROUP_set_curve := @_EC_GROUP_set_curve;
+      EC_GROUP_set_curve := _EC_GROUP_set_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3116,13 +3166,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_curve_allownil)}
-    EC_GROUP_get_curve := @ERR_EC_GROUP_get_curve;
+    EC_GROUP_get_curve := ERR_EC_GROUP_get_curve;
     {$ifend}
     {$if declared(EC_GROUP_get_curve_introduced)}
     if LibVersion < EC_GROUP_get_curve_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_curve)}
-      EC_GROUP_get_curve := @FC_EC_GROUP_get_curve;
+      EC_GROUP_get_curve := FC_EC_GROUP_get_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3131,7 +3181,7 @@ begin
     if EC_GROUP_get_curve_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_curve)}
-      EC_GROUP_get_curve := @_EC_GROUP_get_curve;
+      EC_GROUP_get_curve := _EC_GROUP_get_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3148,13 +3198,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_curve_GFp_allownil)}
-    EC_GROUP_set_curve_GFp := @ERR_EC_GROUP_set_curve_GFp;
+    EC_GROUP_set_curve_GFp := ERR_EC_GROUP_set_curve_GFp;
     {$ifend}
     {$if declared(EC_GROUP_set_curve_GFp_introduced)}
     if LibVersion < EC_GROUP_set_curve_GFp_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_curve_GFp)}
-      EC_GROUP_set_curve_GFp := @FC_EC_GROUP_set_curve_GFp;
+      EC_GROUP_set_curve_GFp := FC_EC_GROUP_set_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3163,7 +3213,7 @@ begin
     if EC_GROUP_set_curve_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_curve_GFp)}
-      EC_GROUP_set_curve_GFp := @_EC_GROUP_set_curve_GFp;
+      EC_GROUP_set_curve_GFp := _EC_GROUP_set_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3180,13 +3230,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_curve_GFp_allownil)}
-    EC_GROUP_get_curve_GFp := @ERR_EC_GROUP_get_curve_GFp;
+    EC_GROUP_get_curve_GFp := ERR_EC_GROUP_get_curve_GFp;
     {$ifend}
     {$if declared(EC_GROUP_get_curve_GFp_introduced)}
     if LibVersion < EC_GROUP_get_curve_GFp_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_curve_GFp)}
-      EC_GROUP_get_curve_GFp := @FC_EC_GROUP_get_curve_GFp;
+      EC_GROUP_get_curve_GFp := FC_EC_GROUP_get_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3195,7 +3245,7 @@ begin
     if EC_GROUP_get_curve_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_curve_GFp)}
-      EC_GROUP_get_curve_GFp := @_EC_GROUP_get_curve_GFp;
+      EC_GROUP_get_curve_GFp := _EC_GROUP_get_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3212,13 +3262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_set_curve_GF2m_allownil)}
-    EC_GROUP_set_curve_GF2m := @ERR_EC_GROUP_set_curve_GF2m;
+    EC_GROUP_set_curve_GF2m := ERR_EC_GROUP_set_curve_GF2m;
     {$ifend}
     {$if declared(EC_GROUP_set_curve_GF2m_introduced)}
     if LibVersion < EC_GROUP_set_curve_GF2m_introduced then
     begin
       {$if declared(FC_EC_GROUP_set_curve_GF2m)}
-      EC_GROUP_set_curve_GF2m := @FC_EC_GROUP_set_curve_GF2m;
+      EC_GROUP_set_curve_GF2m := FC_EC_GROUP_set_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3227,7 +3277,7 @@ begin
     if EC_GROUP_set_curve_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_set_curve_GF2m)}
-      EC_GROUP_set_curve_GF2m := @_EC_GROUP_set_curve_GF2m;
+      EC_GROUP_set_curve_GF2m := _EC_GROUP_set_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3244,13 +3294,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_curve_GF2m_allownil)}
-    EC_GROUP_get_curve_GF2m := @ERR_EC_GROUP_get_curve_GF2m;
+    EC_GROUP_get_curve_GF2m := ERR_EC_GROUP_get_curve_GF2m;
     {$ifend}
     {$if declared(EC_GROUP_get_curve_GF2m_introduced)}
     if LibVersion < EC_GROUP_get_curve_GF2m_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_curve_GF2m)}
-      EC_GROUP_get_curve_GF2m := @FC_EC_GROUP_get_curve_GF2m;
+      EC_GROUP_get_curve_GF2m := FC_EC_GROUP_get_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3259,7 +3309,7 @@ begin
     if EC_GROUP_get_curve_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_curve_GF2m)}
-      EC_GROUP_get_curve_GF2m := @_EC_GROUP_get_curve_GF2m;
+      EC_GROUP_get_curve_GF2m := _EC_GROUP_get_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3276,13 +3326,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_degree_allownil)}
-    EC_GROUP_get_degree := @ERR_EC_GROUP_get_degree;
+    EC_GROUP_get_degree := ERR_EC_GROUP_get_degree;
     {$ifend}
     {$if declared(EC_GROUP_get_degree_introduced)}
     if LibVersion < EC_GROUP_get_degree_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_degree)}
-      EC_GROUP_get_degree := @FC_EC_GROUP_get_degree;
+      EC_GROUP_get_degree := FC_EC_GROUP_get_degree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3291,7 +3341,7 @@ begin
     if EC_GROUP_get_degree_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_degree)}
-      EC_GROUP_get_degree := @_EC_GROUP_get_degree;
+      EC_GROUP_get_degree := _EC_GROUP_get_degree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3308,13 +3358,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_check_allownil)}
-    EC_GROUP_check := @ERR_EC_GROUP_check;
+    EC_GROUP_check := ERR_EC_GROUP_check;
     {$ifend}
     {$if declared(EC_GROUP_check_introduced)}
     if LibVersion < EC_GROUP_check_introduced then
     begin
       {$if declared(FC_EC_GROUP_check)}
-      EC_GROUP_check := @FC_EC_GROUP_check;
+      EC_GROUP_check := FC_EC_GROUP_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3323,7 +3373,7 @@ begin
     if EC_GROUP_check_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_check)}
-      EC_GROUP_check := @_EC_GROUP_check;
+      EC_GROUP_check := _EC_GROUP_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3340,13 +3390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_check_discriminant_allownil)}
-    EC_GROUP_check_discriminant := @ERR_EC_GROUP_check_discriminant;
+    EC_GROUP_check_discriminant := ERR_EC_GROUP_check_discriminant;
     {$ifend}
     {$if declared(EC_GROUP_check_discriminant_introduced)}
     if LibVersion < EC_GROUP_check_discriminant_introduced then
     begin
       {$if declared(FC_EC_GROUP_check_discriminant)}
-      EC_GROUP_check_discriminant := @FC_EC_GROUP_check_discriminant;
+      EC_GROUP_check_discriminant := FC_EC_GROUP_check_discriminant;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3355,7 +3405,7 @@ begin
     if EC_GROUP_check_discriminant_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_check_discriminant)}
-      EC_GROUP_check_discriminant := @_EC_GROUP_check_discriminant;
+      EC_GROUP_check_discriminant := _EC_GROUP_check_discriminant;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3372,13 +3422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_cmp_allownil)}
-    EC_GROUP_cmp := @ERR_EC_GROUP_cmp;
+    EC_GROUP_cmp := ERR_EC_GROUP_cmp;
     {$ifend}
     {$if declared(EC_GROUP_cmp_introduced)}
     if LibVersion < EC_GROUP_cmp_introduced then
     begin
       {$if declared(FC_EC_GROUP_cmp)}
-      EC_GROUP_cmp := @FC_EC_GROUP_cmp;
+      EC_GROUP_cmp := FC_EC_GROUP_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3387,7 +3437,7 @@ begin
     if EC_GROUP_cmp_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_cmp)}
-      EC_GROUP_cmp := @_EC_GROUP_cmp;
+      EC_GROUP_cmp := _EC_GROUP_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3404,13 +3454,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_curve_GFp_allownil)}
-    EC_GROUP_new_curve_GFp := @ERR_EC_GROUP_new_curve_GFp;
+    EC_GROUP_new_curve_GFp := ERR_EC_GROUP_new_curve_GFp;
     {$ifend}
     {$if declared(EC_GROUP_new_curve_GFp_introduced)}
     if LibVersion < EC_GROUP_new_curve_GFp_introduced then
     begin
       {$if declared(FC_EC_GROUP_new_curve_GFp)}
-      EC_GROUP_new_curve_GFp := @FC_EC_GROUP_new_curve_GFp;
+      EC_GROUP_new_curve_GFp := FC_EC_GROUP_new_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3419,7 +3469,7 @@ begin
     if EC_GROUP_new_curve_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new_curve_GFp)}
-      EC_GROUP_new_curve_GFp := @_EC_GROUP_new_curve_GFp;
+      EC_GROUP_new_curve_GFp := _EC_GROUP_new_curve_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3436,13 +3486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_curve_GF2m_allownil)}
-    EC_GROUP_new_curve_GF2m := @ERR_EC_GROUP_new_curve_GF2m;
+    EC_GROUP_new_curve_GF2m := ERR_EC_GROUP_new_curve_GF2m;
     {$ifend}
     {$if declared(EC_GROUP_new_curve_GF2m_introduced)}
     if LibVersion < EC_GROUP_new_curve_GF2m_introduced then
     begin
       {$if declared(FC_EC_GROUP_new_curve_GF2m)}
-      EC_GROUP_new_curve_GF2m := @FC_EC_GROUP_new_curve_GF2m;
+      EC_GROUP_new_curve_GF2m := FC_EC_GROUP_new_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3451,7 +3501,7 @@ begin
     if EC_GROUP_new_curve_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new_curve_GF2m)}
-      EC_GROUP_new_curve_GF2m := @_EC_GROUP_new_curve_GF2m;
+      EC_GROUP_new_curve_GF2m := _EC_GROUP_new_curve_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3468,13 +3518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_by_curve_name_allownil)}
-    EC_GROUP_new_by_curve_name := @ERR_EC_GROUP_new_by_curve_name;
+    EC_GROUP_new_by_curve_name := ERR_EC_GROUP_new_by_curve_name;
     {$ifend}
     {$if declared(EC_GROUP_new_by_curve_name_introduced)}
     if LibVersion < EC_GROUP_new_by_curve_name_introduced then
     begin
       {$if declared(FC_EC_GROUP_new_by_curve_name)}
-      EC_GROUP_new_by_curve_name := @FC_EC_GROUP_new_by_curve_name;
+      EC_GROUP_new_by_curve_name := FC_EC_GROUP_new_by_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3483,7 +3533,7 @@ begin
     if EC_GROUP_new_by_curve_name_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new_by_curve_name)}
-      EC_GROUP_new_by_curve_name := @_EC_GROUP_new_by_curve_name;
+      EC_GROUP_new_by_curve_name := _EC_GROUP_new_by_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3500,13 +3550,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_from_ecparameters_allownil)}
-    EC_GROUP_new_from_ecparameters := @ERR_EC_GROUP_new_from_ecparameters;
+    EC_GROUP_new_from_ecparameters := ERR_EC_GROUP_new_from_ecparameters;
     {$ifend}
     {$if declared(EC_GROUP_new_from_ecparameters_introduced)}
     if LibVersion < EC_GROUP_new_from_ecparameters_introduced then
     begin
       {$if declared(FC_EC_GROUP_new_from_ecparameters)}
-      EC_GROUP_new_from_ecparameters := @FC_EC_GROUP_new_from_ecparameters;
+      EC_GROUP_new_from_ecparameters := FC_EC_GROUP_new_from_ecparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3515,7 +3565,7 @@ begin
     if EC_GROUP_new_from_ecparameters_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new_from_ecparameters)}
-      EC_GROUP_new_from_ecparameters := @_EC_GROUP_new_from_ecparameters;
+      EC_GROUP_new_from_ecparameters := _EC_GROUP_new_from_ecparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3532,13 +3582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_ecparameters_allownil)}
-    EC_GROUP_get_ecparameters := @ERR_EC_GROUP_get_ecparameters;
+    EC_GROUP_get_ecparameters := ERR_EC_GROUP_get_ecparameters;
     {$ifend}
     {$if declared(EC_GROUP_get_ecparameters_introduced)}
     if LibVersion < EC_GROUP_get_ecparameters_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_ecparameters)}
-      EC_GROUP_get_ecparameters := @FC_EC_GROUP_get_ecparameters;
+      EC_GROUP_get_ecparameters := FC_EC_GROUP_get_ecparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3547,7 +3597,7 @@ begin
     if EC_GROUP_get_ecparameters_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_ecparameters)}
-      EC_GROUP_get_ecparameters := @_EC_GROUP_get_ecparameters;
+      EC_GROUP_get_ecparameters := _EC_GROUP_get_ecparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3564,13 +3614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_new_from_ecpkparameters_allownil)}
-    EC_GROUP_new_from_ecpkparameters := @ERR_EC_GROUP_new_from_ecpkparameters;
+    EC_GROUP_new_from_ecpkparameters := ERR_EC_GROUP_new_from_ecpkparameters;
     {$ifend}
     {$if declared(EC_GROUP_new_from_ecpkparameters_introduced)}
     if LibVersion < EC_GROUP_new_from_ecpkparameters_introduced then
     begin
       {$if declared(FC_EC_GROUP_new_from_ecpkparameters)}
-      EC_GROUP_new_from_ecpkparameters := @FC_EC_GROUP_new_from_ecpkparameters;
+      EC_GROUP_new_from_ecpkparameters := FC_EC_GROUP_new_from_ecpkparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3579,7 +3629,7 @@ begin
     if EC_GROUP_new_from_ecpkparameters_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_new_from_ecpkparameters)}
-      EC_GROUP_new_from_ecpkparameters := @_EC_GROUP_new_from_ecpkparameters;
+      EC_GROUP_new_from_ecpkparameters := _EC_GROUP_new_from_ecpkparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3596,13 +3646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_ecpkparameters_allownil)}
-    EC_GROUP_get_ecpkparameters := @ERR_EC_GROUP_get_ecpkparameters;
+    EC_GROUP_get_ecpkparameters := ERR_EC_GROUP_get_ecpkparameters;
     {$ifend}
     {$if declared(EC_GROUP_get_ecpkparameters_introduced)}
     if LibVersion < EC_GROUP_get_ecpkparameters_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_ecpkparameters)}
-      EC_GROUP_get_ecpkparameters := @FC_EC_GROUP_get_ecpkparameters;
+      EC_GROUP_get_ecpkparameters := FC_EC_GROUP_get_ecpkparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3611,7 +3661,7 @@ begin
     if EC_GROUP_get_ecpkparameters_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_ecpkparameters)}
-      EC_GROUP_get_ecpkparameters := @_EC_GROUP_get_ecpkparameters;
+      EC_GROUP_get_ecpkparameters := _EC_GROUP_get_ecpkparameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3628,13 +3678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_get_builtin_curves_allownil)}
-    EC_get_builtin_curves := @ERR_EC_get_builtin_curves;
+    EC_get_builtin_curves := ERR_EC_get_builtin_curves;
     {$ifend}
     {$if declared(EC_get_builtin_curves_introduced)}
     if LibVersion < EC_get_builtin_curves_introduced then
     begin
       {$if declared(FC_EC_get_builtin_curves)}
-      EC_get_builtin_curves := @FC_EC_get_builtin_curves;
+      EC_get_builtin_curves := FC_EC_get_builtin_curves;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3643,7 +3693,7 @@ begin
     if EC_get_builtin_curves_removed <= LibVersion then
     begin
       {$if declared(_EC_get_builtin_curves)}
-      EC_get_builtin_curves := @_EC_get_builtin_curves;
+      EC_get_builtin_curves := _EC_get_builtin_curves;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3660,13 +3710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_curve_nid2nist_allownil)}
-    EC_curve_nid2nist := @ERR_EC_curve_nid2nist;
+    EC_curve_nid2nist := ERR_EC_curve_nid2nist;
     {$ifend}
     {$if declared(EC_curve_nid2nist_introduced)}
     if LibVersion < EC_curve_nid2nist_introduced then
     begin
       {$if declared(FC_EC_curve_nid2nist)}
-      EC_curve_nid2nist := @FC_EC_curve_nid2nist;
+      EC_curve_nid2nist := FC_EC_curve_nid2nist;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3675,7 +3725,7 @@ begin
     if EC_curve_nid2nist_removed <= LibVersion then
     begin
       {$if declared(_EC_curve_nid2nist)}
-      EC_curve_nid2nist := @_EC_curve_nid2nist;
+      EC_curve_nid2nist := _EC_curve_nid2nist;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3692,13 +3742,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_curve_nist2nid_allownil)}
-    EC_curve_nist2nid := @ERR_EC_curve_nist2nid;
+    EC_curve_nist2nid := ERR_EC_curve_nist2nid;
     {$ifend}
     {$if declared(EC_curve_nist2nid_introduced)}
     if LibVersion < EC_curve_nist2nid_introduced then
     begin
       {$if declared(FC_EC_curve_nist2nid)}
-      EC_curve_nist2nid := @FC_EC_curve_nist2nid;
+      EC_curve_nist2nid := FC_EC_curve_nist2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3707,7 +3757,7 @@ begin
     if EC_curve_nist2nid_removed <= LibVersion then
     begin
       {$if declared(_EC_curve_nist2nid)}
-      EC_curve_nist2nid := @_EC_curve_nist2nid;
+      EC_curve_nist2nid := _EC_curve_nist2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3724,13 +3774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_new_allownil)}
-    EC_POINT_new := @ERR_EC_POINT_new;
+    EC_POINT_new := ERR_EC_POINT_new;
     {$ifend}
     {$if declared(EC_POINT_new_introduced)}
     if LibVersion < EC_POINT_new_introduced then
     begin
       {$if declared(FC_EC_POINT_new)}
-      EC_POINT_new := @FC_EC_POINT_new;
+      EC_POINT_new := FC_EC_POINT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3739,7 +3789,7 @@ begin
     if EC_POINT_new_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_new)}
-      EC_POINT_new := @_EC_POINT_new;
+      EC_POINT_new := _EC_POINT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3756,13 +3806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_free_allownil)}
-    EC_POINT_free := @ERR_EC_POINT_free;
+    EC_POINT_free := ERR_EC_POINT_free;
     {$ifend}
     {$if declared(EC_POINT_free_introduced)}
     if LibVersion < EC_POINT_free_introduced then
     begin
       {$if declared(FC_EC_POINT_free)}
-      EC_POINT_free := @FC_EC_POINT_free;
+      EC_POINT_free := FC_EC_POINT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3771,7 +3821,7 @@ begin
     if EC_POINT_free_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_free)}
-      EC_POINT_free := @_EC_POINT_free;
+      EC_POINT_free := _EC_POINT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3788,13 +3838,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_clear_free_allownil)}
-    EC_POINT_clear_free := @ERR_EC_POINT_clear_free;
+    EC_POINT_clear_free := ERR_EC_POINT_clear_free;
     {$ifend}
     {$if declared(EC_POINT_clear_free_introduced)}
     if LibVersion < EC_POINT_clear_free_introduced then
     begin
       {$if declared(FC_EC_POINT_clear_free)}
-      EC_POINT_clear_free := @FC_EC_POINT_clear_free;
+      EC_POINT_clear_free := FC_EC_POINT_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3803,7 +3853,7 @@ begin
     if EC_POINT_clear_free_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_clear_free)}
-      EC_POINT_clear_free := @_EC_POINT_clear_free;
+      EC_POINT_clear_free := _EC_POINT_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3820,13 +3870,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_copy_allownil)}
-    EC_POINT_copy := @ERR_EC_POINT_copy;
+    EC_POINT_copy := ERR_EC_POINT_copy;
     {$ifend}
     {$if declared(EC_POINT_copy_introduced)}
     if LibVersion < EC_POINT_copy_introduced then
     begin
       {$if declared(FC_EC_POINT_copy)}
-      EC_POINT_copy := @FC_EC_POINT_copy;
+      EC_POINT_copy := FC_EC_POINT_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3835,7 +3885,7 @@ begin
     if EC_POINT_copy_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_copy)}
-      EC_POINT_copy := @_EC_POINT_copy;
+      EC_POINT_copy := _EC_POINT_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3852,13 +3902,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_dup_allownil)}
-    EC_POINT_dup := @ERR_EC_POINT_dup;
+    EC_POINT_dup := ERR_EC_POINT_dup;
     {$ifend}
     {$if declared(EC_POINT_dup_introduced)}
     if LibVersion < EC_POINT_dup_introduced then
     begin
       {$if declared(FC_EC_POINT_dup)}
-      EC_POINT_dup := @FC_EC_POINT_dup;
+      EC_POINT_dup := FC_EC_POINT_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3867,7 +3917,7 @@ begin
     if EC_POINT_dup_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_dup)}
-      EC_POINT_dup := @_EC_POINT_dup;
+      EC_POINT_dup := _EC_POINT_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3884,13 +3934,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_method_of_allownil)}
-    EC_POINT_method_of := @ERR_EC_POINT_method_of;
+    EC_POINT_method_of := ERR_EC_POINT_method_of;
     {$ifend}
     {$if declared(EC_POINT_method_of_introduced)}
     if LibVersion < EC_POINT_method_of_introduced then
     begin
       {$if declared(FC_EC_POINT_method_of)}
-      EC_POINT_method_of := @FC_EC_POINT_method_of;
+      EC_POINT_method_of := FC_EC_POINT_method_of;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3899,7 +3949,7 @@ begin
     if EC_POINT_method_of_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_method_of)}
-      EC_POINT_method_of := @_EC_POINT_method_of;
+      EC_POINT_method_of := _EC_POINT_method_of;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3916,13 +3966,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_to_infinity_allownil)}
-    EC_POINT_set_to_infinity := @ERR_EC_POINT_set_to_infinity;
+    EC_POINT_set_to_infinity := ERR_EC_POINT_set_to_infinity;
     {$ifend}
     {$if declared(EC_POINT_set_to_infinity_introduced)}
     if LibVersion < EC_POINT_set_to_infinity_introduced then
     begin
       {$if declared(FC_EC_POINT_set_to_infinity)}
-      EC_POINT_set_to_infinity := @FC_EC_POINT_set_to_infinity;
+      EC_POINT_set_to_infinity := FC_EC_POINT_set_to_infinity;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3931,7 +3981,7 @@ begin
     if EC_POINT_set_to_infinity_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_to_infinity)}
-      EC_POINT_set_to_infinity := @_EC_POINT_set_to_infinity;
+      EC_POINT_set_to_infinity := _EC_POINT_set_to_infinity;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3948,13 +3998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_Jprojective_coordinates_GFp_allownil)}
-    EC_POINT_set_Jprojective_coordinates_GFp := @ERR_EC_POINT_set_Jprojective_coordinates_GFp;
+    EC_POINT_set_Jprojective_coordinates_GFp := ERR_EC_POINT_set_Jprojective_coordinates_GFp;
     {$ifend}
     {$if declared(EC_POINT_set_Jprojective_coordinates_GFp_introduced)}
     if LibVersion < EC_POINT_set_Jprojective_coordinates_GFp_introduced then
     begin
       {$if declared(FC_EC_POINT_set_Jprojective_coordinates_GFp)}
-      EC_POINT_set_Jprojective_coordinates_GFp := @FC_EC_POINT_set_Jprojective_coordinates_GFp;
+      EC_POINT_set_Jprojective_coordinates_GFp := FC_EC_POINT_set_Jprojective_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3963,7 +4013,7 @@ begin
     if EC_POINT_set_Jprojective_coordinates_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_Jprojective_coordinates_GFp)}
-      EC_POINT_set_Jprojective_coordinates_GFp := @_EC_POINT_set_Jprojective_coordinates_GFp;
+      EC_POINT_set_Jprojective_coordinates_GFp := _EC_POINT_set_Jprojective_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3980,13 +4030,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_get_Jprojective_coordinates_GFp_allownil)}
-    EC_POINT_get_Jprojective_coordinates_GFp := @ERR_EC_POINT_get_Jprojective_coordinates_GFp;
+    EC_POINT_get_Jprojective_coordinates_GFp := ERR_EC_POINT_get_Jprojective_coordinates_GFp;
     {$ifend}
     {$if declared(EC_POINT_get_Jprojective_coordinates_GFp_introduced)}
     if LibVersion < EC_POINT_get_Jprojective_coordinates_GFp_introduced then
     begin
       {$if declared(FC_EC_POINT_get_Jprojective_coordinates_GFp)}
-      EC_POINT_get_Jprojective_coordinates_GFp := @FC_EC_POINT_get_Jprojective_coordinates_GFp;
+      EC_POINT_get_Jprojective_coordinates_GFp := FC_EC_POINT_get_Jprojective_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3995,7 +4045,7 @@ begin
     if EC_POINT_get_Jprojective_coordinates_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_get_Jprojective_coordinates_GFp)}
-      EC_POINT_get_Jprojective_coordinates_GFp := @_EC_POINT_get_Jprojective_coordinates_GFp;
+      EC_POINT_get_Jprojective_coordinates_GFp := _EC_POINT_get_Jprojective_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4012,13 +4062,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_affine_coordinates_allownil)}
-    EC_POINT_set_affine_coordinates := @ERR_EC_POINT_set_affine_coordinates;
+    EC_POINT_set_affine_coordinates := ERR_EC_POINT_set_affine_coordinates;
     {$ifend}
     {$if declared(EC_POINT_set_affine_coordinates_introduced)}
     if LibVersion < EC_POINT_set_affine_coordinates_introduced then
     begin
       {$if declared(FC_EC_POINT_set_affine_coordinates)}
-      EC_POINT_set_affine_coordinates := @FC_EC_POINT_set_affine_coordinates;
+      EC_POINT_set_affine_coordinates := FC_EC_POINT_set_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4027,7 +4077,7 @@ begin
     if EC_POINT_set_affine_coordinates_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_affine_coordinates)}
-      EC_POINT_set_affine_coordinates := @_EC_POINT_set_affine_coordinates;
+      EC_POINT_set_affine_coordinates := _EC_POINT_set_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4044,13 +4094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_get_affine_coordinates_allownil)}
-    EC_POINT_get_affine_coordinates := @ERR_EC_POINT_get_affine_coordinates;
+    EC_POINT_get_affine_coordinates := ERR_EC_POINT_get_affine_coordinates;
     {$ifend}
     {$if declared(EC_POINT_get_affine_coordinates_introduced)}
     if LibVersion < EC_POINT_get_affine_coordinates_introduced then
     begin
       {$if declared(FC_EC_POINT_get_affine_coordinates)}
-      EC_POINT_get_affine_coordinates := @FC_EC_POINT_get_affine_coordinates;
+      EC_POINT_get_affine_coordinates := FC_EC_POINT_get_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4059,7 +4109,7 @@ begin
     if EC_POINT_get_affine_coordinates_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_get_affine_coordinates)}
-      EC_POINT_get_affine_coordinates := @_EC_POINT_get_affine_coordinates;
+      EC_POINT_get_affine_coordinates := _EC_POINT_get_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4076,13 +4126,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_affine_coordinates_GFp_allownil)}
-    EC_POINT_set_affine_coordinates_GFp := @ERR_EC_POINT_set_affine_coordinates_GFp;
+    EC_POINT_set_affine_coordinates_GFp := ERR_EC_POINT_set_affine_coordinates_GFp;
     {$ifend}
     {$if declared(EC_POINT_set_affine_coordinates_GFp_introduced)}
     if LibVersion < EC_POINT_set_affine_coordinates_GFp_introduced then
     begin
       {$if declared(FC_EC_POINT_set_affine_coordinates_GFp)}
-      EC_POINT_set_affine_coordinates_GFp := @FC_EC_POINT_set_affine_coordinates_GFp;
+      EC_POINT_set_affine_coordinates_GFp := FC_EC_POINT_set_affine_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4091,7 +4141,7 @@ begin
     if EC_POINT_set_affine_coordinates_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_affine_coordinates_GFp)}
-      EC_POINT_set_affine_coordinates_GFp := @_EC_POINT_set_affine_coordinates_GFp;
+      EC_POINT_set_affine_coordinates_GFp := _EC_POINT_set_affine_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4108,13 +4158,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_get_affine_coordinates_GFp_allownil)}
-    EC_POINT_get_affine_coordinates_GFp := @ERR_EC_POINT_get_affine_coordinates_GFp;
+    EC_POINT_get_affine_coordinates_GFp := ERR_EC_POINT_get_affine_coordinates_GFp;
     {$ifend}
     {$if declared(EC_POINT_get_affine_coordinates_GFp_introduced)}
     if LibVersion < EC_POINT_get_affine_coordinates_GFp_introduced then
     begin
       {$if declared(FC_EC_POINT_get_affine_coordinates_GFp)}
-      EC_POINT_get_affine_coordinates_GFp := @FC_EC_POINT_get_affine_coordinates_GFp;
+      EC_POINT_get_affine_coordinates_GFp := FC_EC_POINT_get_affine_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4123,7 +4173,7 @@ begin
     if EC_POINT_get_affine_coordinates_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_get_affine_coordinates_GFp)}
-      EC_POINT_get_affine_coordinates_GFp := @_EC_POINT_get_affine_coordinates_GFp;
+      EC_POINT_get_affine_coordinates_GFp := _EC_POINT_get_affine_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4140,13 +4190,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_compressed_coordinates_allownil)}
-    EC_POINT_set_compressed_coordinates := @ERR_EC_POINT_set_compressed_coordinates;
+    EC_POINT_set_compressed_coordinates := ERR_EC_POINT_set_compressed_coordinates;
     {$ifend}
     {$if declared(EC_POINT_set_compressed_coordinates_introduced)}
     if LibVersion < EC_POINT_set_compressed_coordinates_introduced then
     begin
       {$if declared(FC_EC_POINT_set_compressed_coordinates)}
-      EC_POINT_set_compressed_coordinates := @FC_EC_POINT_set_compressed_coordinates;
+      EC_POINT_set_compressed_coordinates := FC_EC_POINT_set_compressed_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4155,7 +4205,7 @@ begin
     if EC_POINT_set_compressed_coordinates_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_compressed_coordinates)}
-      EC_POINT_set_compressed_coordinates := @_EC_POINT_set_compressed_coordinates;
+      EC_POINT_set_compressed_coordinates := _EC_POINT_set_compressed_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4172,13 +4222,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_compressed_coordinates_GFp_allownil)}
-    EC_POINT_set_compressed_coordinates_GFp := @ERR_EC_POINT_set_compressed_coordinates_GFp;
+    EC_POINT_set_compressed_coordinates_GFp := ERR_EC_POINT_set_compressed_coordinates_GFp;
     {$ifend}
     {$if declared(EC_POINT_set_compressed_coordinates_GFp_introduced)}
     if LibVersion < EC_POINT_set_compressed_coordinates_GFp_introduced then
     begin
       {$if declared(FC_EC_POINT_set_compressed_coordinates_GFp)}
-      EC_POINT_set_compressed_coordinates_GFp := @FC_EC_POINT_set_compressed_coordinates_GFp;
+      EC_POINT_set_compressed_coordinates_GFp := FC_EC_POINT_set_compressed_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4187,7 +4237,7 @@ begin
     if EC_POINT_set_compressed_coordinates_GFp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_compressed_coordinates_GFp)}
-      EC_POINT_set_compressed_coordinates_GFp := @_EC_POINT_set_compressed_coordinates_GFp;
+      EC_POINT_set_compressed_coordinates_GFp := _EC_POINT_set_compressed_coordinates_GFp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4204,13 +4254,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_affine_coordinates_GF2m_allownil)}
-    EC_POINT_set_affine_coordinates_GF2m := @ERR_EC_POINT_set_affine_coordinates_GF2m;
+    EC_POINT_set_affine_coordinates_GF2m := ERR_EC_POINT_set_affine_coordinates_GF2m;
     {$ifend}
     {$if declared(EC_POINT_set_affine_coordinates_GF2m_introduced)}
     if LibVersion < EC_POINT_set_affine_coordinates_GF2m_introduced then
     begin
       {$if declared(FC_EC_POINT_set_affine_coordinates_GF2m)}
-      EC_POINT_set_affine_coordinates_GF2m := @FC_EC_POINT_set_affine_coordinates_GF2m;
+      EC_POINT_set_affine_coordinates_GF2m := FC_EC_POINT_set_affine_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4219,7 +4269,7 @@ begin
     if EC_POINT_set_affine_coordinates_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_affine_coordinates_GF2m)}
-      EC_POINT_set_affine_coordinates_GF2m := @_EC_POINT_set_affine_coordinates_GF2m;
+      EC_POINT_set_affine_coordinates_GF2m := _EC_POINT_set_affine_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4236,13 +4286,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_get_affine_coordinates_GF2m_allownil)}
-    EC_POINT_get_affine_coordinates_GF2m := @ERR_EC_POINT_get_affine_coordinates_GF2m;
+    EC_POINT_get_affine_coordinates_GF2m := ERR_EC_POINT_get_affine_coordinates_GF2m;
     {$ifend}
     {$if declared(EC_POINT_get_affine_coordinates_GF2m_introduced)}
     if LibVersion < EC_POINT_get_affine_coordinates_GF2m_introduced then
     begin
       {$if declared(FC_EC_POINT_get_affine_coordinates_GF2m)}
-      EC_POINT_get_affine_coordinates_GF2m := @FC_EC_POINT_get_affine_coordinates_GF2m;
+      EC_POINT_get_affine_coordinates_GF2m := FC_EC_POINT_get_affine_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4251,7 +4301,7 @@ begin
     if EC_POINT_get_affine_coordinates_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_get_affine_coordinates_GF2m)}
-      EC_POINT_get_affine_coordinates_GF2m := @_EC_POINT_get_affine_coordinates_GF2m;
+      EC_POINT_get_affine_coordinates_GF2m := _EC_POINT_get_affine_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4268,13 +4318,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_set_compressed_coordinates_GF2m_allownil)}
-    EC_POINT_set_compressed_coordinates_GF2m := @ERR_EC_POINT_set_compressed_coordinates_GF2m;
+    EC_POINT_set_compressed_coordinates_GF2m := ERR_EC_POINT_set_compressed_coordinates_GF2m;
     {$ifend}
     {$if declared(EC_POINT_set_compressed_coordinates_GF2m_introduced)}
     if LibVersion < EC_POINT_set_compressed_coordinates_GF2m_introduced then
     begin
       {$if declared(FC_EC_POINT_set_compressed_coordinates_GF2m)}
-      EC_POINT_set_compressed_coordinates_GF2m := @FC_EC_POINT_set_compressed_coordinates_GF2m;
+      EC_POINT_set_compressed_coordinates_GF2m := FC_EC_POINT_set_compressed_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4283,7 +4333,7 @@ begin
     if EC_POINT_set_compressed_coordinates_GF2m_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_set_compressed_coordinates_GF2m)}
-      EC_POINT_set_compressed_coordinates_GF2m := @_EC_POINT_set_compressed_coordinates_GF2m;
+      EC_POINT_set_compressed_coordinates_GF2m := _EC_POINT_set_compressed_coordinates_GF2m;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4300,13 +4350,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_point2oct_allownil)}
-    EC_POINT_point2oct := @ERR_EC_POINT_point2oct;
+    EC_POINT_point2oct := ERR_EC_POINT_point2oct;
     {$ifend}
     {$if declared(EC_POINT_point2oct_introduced)}
     if LibVersion < EC_POINT_point2oct_introduced then
     begin
       {$if declared(FC_EC_POINT_point2oct)}
-      EC_POINT_point2oct := @FC_EC_POINT_point2oct;
+      EC_POINT_point2oct := FC_EC_POINT_point2oct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4315,7 +4365,7 @@ begin
     if EC_POINT_point2oct_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_point2oct)}
-      EC_POINT_point2oct := @_EC_POINT_point2oct;
+      EC_POINT_point2oct := _EC_POINT_point2oct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4332,13 +4382,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_oct2point_allownil)}
-    EC_POINT_oct2point := @ERR_EC_POINT_oct2point;
+    EC_POINT_oct2point := ERR_EC_POINT_oct2point;
     {$ifend}
     {$if declared(EC_POINT_oct2point_introduced)}
     if LibVersion < EC_POINT_oct2point_introduced then
     begin
       {$if declared(FC_EC_POINT_oct2point)}
-      EC_POINT_oct2point := @FC_EC_POINT_oct2point;
+      EC_POINT_oct2point := FC_EC_POINT_oct2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4347,7 +4397,7 @@ begin
     if EC_POINT_oct2point_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_oct2point)}
-      EC_POINT_oct2point := @_EC_POINT_oct2point;
+      EC_POINT_oct2point := _EC_POINT_oct2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4364,13 +4414,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_point2buf_allownil)}
-    EC_POINT_point2buf := @ERR_EC_POINT_point2buf;
+    EC_POINT_point2buf := ERR_EC_POINT_point2buf;
     {$ifend}
     {$if declared(EC_POINT_point2buf_introduced)}
     if LibVersion < EC_POINT_point2buf_introduced then
     begin
       {$if declared(FC_EC_POINT_point2buf)}
-      EC_POINT_point2buf := @FC_EC_POINT_point2buf;
+      EC_POINT_point2buf := FC_EC_POINT_point2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4379,7 +4429,7 @@ begin
     if EC_POINT_point2buf_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_point2buf)}
-      EC_POINT_point2buf := @_EC_POINT_point2buf;
+      EC_POINT_point2buf := _EC_POINT_point2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4396,13 +4446,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_point2bn_allownil)}
-    EC_POINT_point2bn := @ERR_EC_POINT_point2bn;
+    EC_POINT_point2bn := ERR_EC_POINT_point2bn;
     {$ifend}
     {$if declared(EC_POINT_point2bn_introduced)}
     if LibVersion < EC_POINT_point2bn_introduced then
     begin
       {$if declared(FC_EC_POINT_point2bn)}
-      EC_POINT_point2bn := @FC_EC_POINT_point2bn;
+      EC_POINT_point2bn := FC_EC_POINT_point2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4411,7 +4461,7 @@ begin
     if EC_POINT_point2bn_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_point2bn)}
-      EC_POINT_point2bn := @_EC_POINT_point2bn;
+      EC_POINT_point2bn := _EC_POINT_point2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4428,13 +4478,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_bn2point_allownil)}
-    EC_POINT_bn2point := @ERR_EC_POINT_bn2point;
+    EC_POINT_bn2point := ERR_EC_POINT_bn2point;
     {$ifend}
     {$if declared(EC_POINT_bn2point_introduced)}
     if LibVersion < EC_POINT_bn2point_introduced then
     begin
       {$if declared(FC_EC_POINT_bn2point)}
-      EC_POINT_bn2point := @FC_EC_POINT_bn2point;
+      EC_POINT_bn2point := FC_EC_POINT_bn2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4443,7 +4493,7 @@ begin
     if EC_POINT_bn2point_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_bn2point)}
-      EC_POINT_bn2point := @_EC_POINT_bn2point;
+      EC_POINT_bn2point := _EC_POINT_bn2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4460,13 +4510,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_point2hex_allownil)}
-    EC_POINT_point2hex := @ERR_EC_POINT_point2hex;
+    EC_POINT_point2hex := ERR_EC_POINT_point2hex;
     {$ifend}
     {$if declared(EC_POINT_point2hex_introduced)}
     if LibVersion < EC_POINT_point2hex_introduced then
     begin
       {$if declared(FC_EC_POINT_point2hex)}
-      EC_POINT_point2hex := @FC_EC_POINT_point2hex;
+      EC_POINT_point2hex := FC_EC_POINT_point2hex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4475,7 +4525,7 @@ begin
     if EC_POINT_point2hex_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_point2hex)}
-      EC_POINT_point2hex := @_EC_POINT_point2hex;
+      EC_POINT_point2hex := _EC_POINT_point2hex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4492,13 +4542,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_hex2point_allownil)}
-    EC_POINT_hex2point := @ERR_EC_POINT_hex2point;
+    EC_POINT_hex2point := ERR_EC_POINT_hex2point;
     {$ifend}
     {$if declared(EC_POINT_hex2point_introduced)}
     if LibVersion < EC_POINT_hex2point_introduced then
     begin
       {$if declared(FC_EC_POINT_hex2point)}
-      EC_POINT_hex2point := @FC_EC_POINT_hex2point;
+      EC_POINT_hex2point := FC_EC_POINT_hex2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4507,7 +4557,7 @@ begin
     if EC_POINT_hex2point_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_hex2point)}
-      EC_POINT_hex2point := @_EC_POINT_hex2point;
+      EC_POINT_hex2point := _EC_POINT_hex2point;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4524,13 +4574,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_add_allownil)}
-    EC_POINT_add := @ERR_EC_POINT_add;
+    EC_POINT_add := ERR_EC_POINT_add;
     {$ifend}
     {$if declared(EC_POINT_add_introduced)}
     if LibVersion < EC_POINT_add_introduced then
     begin
       {$if declared(FC_EC_POINT_add)}
-      EC_POINT_add := @FC_EC_POINT_add;
+      EC_POINT_add := FC_EC_POINT_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4539,7 +4589,7 @@ begin
     if EC_POINT_add_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_add)}
-      EC_POINT_add := @_EC_POINT_add;
+      EC_POINT_add := _EC_POINT_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4556,13 +4606,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_dbl_allownil)}
-    EC_POINT_dbl := @ERR_EC_POINT_dbl;
+    EC_POINT_dbl := ERR_EC_POINT_dbl;
     {$ifend}
     {$if declared(EC_POINT_dbl_introduced)}
     if LibVersion < EC_POINT_dbl_introduced then
     begin
       {$if declared(FC_EC_POINT_dbl)}
-      EC_POINT_dbl := @FC_EC_POINT_dbl;
+      EC_POINT_dbl := FC_EC_POINT_dbl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4571,7 +4621,7 @@ begin
     if EC_POINT_dbl_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_dbl)}
-      EC_POINT_dbl := @_EC_POINT_dbl;
+      EC_POINT_dbl := _EC_POINT_dbl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4588,13 +4638,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_invert_allownil)}
-    EC_POINT_invert := @ERR_EC_POINT_invert;
+    EC_POINT_invert := ERR_EC_POINT_invert;
     {$ifend}
     {$if declared(EC_POINT_invert_introduced)}
     if LibVersion < EC_POINT_invert_introduced then
     begin
       {$if declared(FC_EC_POINT_invert)}
-      EC_POINT_invert := @FC_EC_POINT_invert;
+      EC_POINT_invert := FC_EC_POINT_invert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4603,7 +4653,7 @@ begin
     if EC_POINT_invert_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_invert)}
-      EC_POINT_invert := @_EC_POINT_invert;
+      EC_POINT_invert := _EC_POINT_invert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4620,13 +4670,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_is_at_infinity_allownil)}
-    EC_POINT_is_at_infinity := @ERR_EC_POINT_is_at_infinity;
+    EC_POINT_is_at_infinity := ERR_EC_POINT_is_at_infinity;
     {$ifend}
     {$if declared(EC_POINT_is_at_infinity_introduced)}
     if LibVersion < EC_POINT_is_at_infinity_introduced then
     begin
       {$if declared(FC_EC_POINT_is_at_infinity)}
-      EC_POINT_is_at_infinity := @FC_EC_POINT_is_at_infinity;
+      EC_POINT_is_at_infinity := FC_EC_POINT_is_at_infinity;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4635,7 +4685,7 @@ begin
     if EC_POINT_is_at_infinity_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_is_at_infinity)}
-      EC_POINT_is_at_infinity := @_EC_POINT_is_at_infinity;
+      EC_POINT_is_at_infinity := _EC_POINT_is_at_infinity;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4652,13 +4702,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_is_on_curve_allownil)}
-    EC_POINT_is_on_curve := @ERR_EC_POINT_is_on_curve;
+    EC_POINT_is_on_curve := ERR_EC_POINT_is_on_curve;
     {$ifend}
     {$if declared(EC_POINT_is_on_curve_introduced)}
     if LibVersion < EC_POINT_is_on_curve_introduced then
     begin
       {$if declared(FC_EC_POINT_is_on_curve)}
-      EC_POINT_is_on_curve := @FC_EC_POINT_is_on_curve;
+      EC_POINT_is_on_curve := FC_EC_POINT_is_on_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4667,7 +4717,7 @@ begin
     if EC_POINT_is_on_curve_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_is_on_curve)}
-      EC_POINT_is_on_curve := @_EC_POINT_is_on_curve;
+      EC_POINT_is_on_curve := _EC_POINT_is_on_curve;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4684,13 +4734,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_cmp_allownil)}
-    EC_POINT_cmp := @ERR_EC_POINT_cmp;
+    EC_POINT_cmp := ERR_EC_POINT_cmp;
     {$ifend}
     {$if declared(EC_POINT_cmp_introduced)}
     if LibVersion < EC_POINT_cmp_introduced then
     begin
       {$if declared(FC_EC_POINT_cmp)}
-      EC_POINT_cmp := @FC_EC_POINT_cmp;
+      EC_POINT_cmp := FC_EC_POINT_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4699,7 +4749,7 @@ begin
     if EC_POINT_cmp_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_cmp)}
-      EC_POINT_cmp := @_EC_POINT_cmp;
+      EC_POINT_cmp := _EC_POINT_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4716,13 +4766,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_make_affine_allownil)}
-    EC_POINT_make_affine := @ERR_EC_POINT_make_affine;
+    EC_POINT_make_affine := ERR_EC_POINT_make_affine;
     {$ifend}
     {$if declared(EC_POINT_make_affine_introduced)}
     if LibVersion < EC_POINT_make_affine_introduced then
     begin
       {$if declared(FC_EC_POINT_make_affine)}
-      EC_POINT_make_affine := @FC_EC_POINT_make_affine;
+      EC_POINT_make_affine := FC_EC_POINT_make_affine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4731,7 +4781,7 @@ begin
     if EC_POINT_make_affine_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_make_affine)}
-      EC_POINT_make_affine := @_EC_POINT_make_affine;
+      EC_POINT_make_affine := _EC_POINT_make_affine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4748,13 +4798,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINTs_make_affine_allownil)}
-    EC_POINTs_make_affine := @ERR_EC_POINTs_make_affine;
+    EC_POINTs_make_affine := ERR_EC_POINTs_make_affine;
     {$ifend}
     {$if declared(EC_POINTs_make_affine_introduced)}
     if LibVersion < EC_POINTs_make_affine_introduced then
     begin
       {$if declared(FC_EC_POINTs_make_affine)}
-      EC_POINTs_make_affine := @FC_EC_POINTs_make_affine;
+      EC_POINTs_make_affine := FC_EC_POINTs_make_affine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4763,7 +4813,7 @@ begin
     if EC_POINTs_make_affine_removed <= LibVersion then
     begin
       {$if declared(_EC_POINTs_make_affine)}
-      EC_POINTs_make_affine := @_EC_POINTs_make_affine;
+      EC_POINTs_make_affine := _EC_POINTs_make_affine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4780,13 +4830,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINTs_mul_allownil)}
-    EC_POINTs_mul := @ERR_EC_POINTs_mul;
+    EC_POINTs_mul := ERR_EC_POINTs_mul;
     {$ifend}
     {$if declared(EC_POINTs_mul_introduced)}
     if LibVersion < EC_POINTs_mul_introduced then
     begin
       {$if declared(FC_EC_POINTs_mul)}
-      EC_POINTs_mul := @FC_EC_POINTs_mul;
+      EC_POINTs_mul := FC_EC_POINTs_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4795,7 +4845,7 @@ begin
     if EC_POINTs_mul_removed <= LibVersion then
     begin
       {$if declared(_EC_POINTs_mul)}
-      EC_POINTs_mul := @_EC_POINTs_mul;
+      EC_POINTs_mul := _EC_POINTs_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4812,13 +4862,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_POINT_mul_allownil)}
-    EC_POINT_mul := @ERR_EC_POINT_mul;
+    EC_POINT_mul := ERR_EC_POINT_mul;
     {$ifend}
     {$if declared(EC_POINT_mul_introduced)}
     if LibVersion < EC_POINT_mul_introduced then
     begin
       {$if declared(FC_EC_POINT_mul)}
-      EC_POINT_mul := @FC_EC_POINT_mul;
+      EC_POINT_mul := FC_EC_POINT_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4827,7 +4877,7 @@ begin
     if EC_POINT_mul_removed <= LibVersion then
     begin
       {$if declared(_EC_POINT_mul)}
-      EC_POINT_mul := @_EC_POINT_mul;
+      EC_POINT_mul := _EC_POINT_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4844,13 +4894,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_precompute_mult_allownil)}
-    EC_GROUP_precompute_mult := @ERR_EC_GROUP_precompute_mult;
+    EC_GROUP_precompute_mult := ERR_EC_GROUP_precompute_mult;
     {$ifend}
     {$if declared(EC_GROUP_precompute_mult_introduced)}
     if LibVersion < EC_GROUP_precompute_mult_introduced then
     begin
       {$if declared(FC_EC_GROUP_precompute_mult)}
-      EC_GROUP_precompute_mult := @FC_EC_GROUP_precompute_mult;
+      EC_GROUP_precompute_mult := FC_EC_GROUP_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4859,7 +4909,7 @@ begin
     if EC_GROUP_precompute_mult_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_precompute_mult)}
-      EC_GROUP_precompute_mult := @_EC_GROUP_precompute_mult;
+      EC_GROUP_precompute_mult := _EC_GROUP_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4876,13 +4926,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_have_precompute_mult_allownil)}
-    EC_GROUP_have_precompute_mult := @ERR_EC_GROUP_have_precompute_mult;
+    EC_GROUP_have_precompute_mult := ERR_EC_GROUP_have_precompute_mult;
     {$ifend}
     {$if declared(EC_GROUP_have_precompute_mult_introduced)}
     if LibVersion < EC_GROUP_have_precompute_mult_introduced then
     begin
       {$if declared(FC_EC_GROUP_have_precompute_mult)}
-      EC_GROUP_have_precompute_mult := @FC_EC_GROUP_have_precompute_mult;
+      EC_GROUP_have_precompute_mult := FC_EC_GROUP_have_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4891,7 +4941,7 @@ begin
     if EC_GROUP_have_precompute_mult_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_have_precompute_mult)}
-      EC_GROUP_have_precompute_mult := @_EC_GROUP_have_precompute_mult;
+      EC_GROUP_have_precompute_mult := _EC_GROUP_have_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4908,13 +4958,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPKPARAMETERS_it_allownil)}
-    ECPKPARAMETERS_it := @ERR_ECPKPARAMETERS_it;
+    ECPKPARAMETERS_it := ERR_ECPKPARAMETERS_it;
     {$ifend}
     {$if declared(ECPKPARAMETERS_it_introduced)}
     if LibVersion < ECPKPARAMETERS_it_introduced then
     begin
       {$if declared(FC_ECPKPARAMETERS_it)}
-      ECPKPARAMETERS_it := @FC_ECPKPARAMETERS_it;
+      ECPKPARAMETERS_it := FC_ECPKPARAMETERS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4923,7 +4973,7 @@ begin
     if ECPKPARAMETERS_it_removed <= LibVersion then
     begin
       {$if declared(_ECPKPARAMETERS_it)}
-      ECPKPARAMETERS_it := @_ECPKPARAMETERS_it;
+      ECPKPARAMETERS_it := _ECPKPARAMETERS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4940,13 +4990,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPKPARAMETERS_new_allownil)}
-    ECPKPARAMETERS_new := @ERR_ECPKPARAMETERS_new;
+    ECPKPARAMETERS_new := ERR_ECPKPARAMETERS_new;
     {$ifend}
     {$if declared(ECPKPARAMETERS_new_introduced)}
     if LibVersion < ECPKPARAMETERS_new_introduced then
     begin
       {$if declared(FC_ECPKPARAMETERS_new)}
-      ECPKPARAMETERS_new := @FC_ECPKPARAMETERS_new;
+      ECPKPARAMETERS_new := FC_ECPKPARAMETERS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4955,7 +5005,7 @@ begin
     if ECPKPARAMETERS_new_removed <= LibVersion then
     begin
       {$if declared(_ECPKPARAMETERS_new)}
-      ECPKPARAMETERS_new := @_ECPKPARAMETERS_new;
+      ECPKPARAMETERS_new := _ECPKPARAMETERS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4972,13 +5022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPKPARAMETERS_free_allownil)}
-    ECPKPARAMETERS_free := @ERR_ECPKPARAMETERS_free;
+    ECPKPARAMETERS_free := ERR_ECPKPARAMETERS_free;
     {$ifend}
     {$if declared(ECPKPARAMETERS_free_introduced)}
     if LibVersion < ECPKPARAMETERS_free_introduced then
     begin
       {$if declared(FC_ECPKPARAMETERS_free)}
-      ECPKPARAMETERS_free := @FC_ECPKPARAMETERS_free;
+      ECPKPARAMETERS_free := FC_ECPKPARAMETERS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4987,7 +5037,7 @@ begin
     if ECPKPARAMETERS_free_removed <= LibVersion then
     begin
       {$if declared(_ECPKPARAMETERS_free)}
-      ECPKPARAMETERS_free := @_ECPKPARAMETERS_free;
+      ECPKPARAMETERS_free := _ECPKPARAMETERS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5004,13 +5054,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPARAMETERS_it_allownil)}
-    ECPARAMETERS_it := @ERR_ECPARAMETERS_it;
+    ECPARAMETERS_it := ERR_ECPARAMETERS_it;
     {$ifend}
     {$if declared(ECPARAMETERS_it_introduced)}
     if LibVersion < ECPARAMETERS_it_introduced then
     begin
       {$if declared(FC_ECPARAMETERS_it)}
-      ECPARAMETERS_it := @FC_ECPARAMETERS_it;
+      ECPARAMETERS_it := FC_ECPARAMETERS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5019,7 +5069,7 @@ begin
     if ECPARAMETERS_it_removed <= LibVersion then
     begin
       {$if declared(_ECPARAMETERS_it)}
-      ECPARAMETERS_it := @_ECPARAMETERS_it;
+      ECPARAMETERS_it := _ECPARAMETERS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5036,13 +5086,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPARAMETERS_new_allownil)}
-    ECPARAMETERS_new := @ERR_ECPARAMETERS_new;
+    ECPARAMETERS_new := ERR_ECPARAMETERS_new;
     {$ifend}
     {$if declared(ECPARAMETERS_new_introduced)}
     if LibVersion < ECPARAMETERS_new_introduced then
     begin
       {$if declared(FC_ECPARAMETERS_new)}
-      ECPARAMETERS_new := @FC_ECPARAMETERS_new;
+      ECPARAMETERS_new := FC_ECPARAMETERS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5051,7 +5101,7 @@ begin
     if ECPARAMETERS_new_removed <= LibVersion then
     begin
       {$if declared(_ECPARAMETERS_new)}
-      ECPARAMETERS_new := @_ECPARAMETERS_new;
+      ECPARAMETERS_new := _ECPARAMETERS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5068,13 +5118,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPARAMETERS_free_allownil)}
-    ECPARAMETERS_free := @ERR_ECPARAMETERS_free;
+    ECPARAMETERS_free := ERR_ECPARAMETERS_free;
     {$ifend}
     {$if declared(ECPARAMETERS_free_introduced)}
     if LibVersion < ECPARAMETERS_free_introduced then
     begin
       {$if declared(FC_ECPARAMETERS_free)}
-      ECPARAMETERS_free := @FC_ECPARAMETERS_free;
+      ECPARAMETERS_free := FC_ECPARAMETERS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5083,7 +5133,7 @@ begin
     if ECPARAMETERS_free_removed <= LibVersion then
     begin
       {$if declared(_ECPARAMETERS_free)}
-      ECPARAMETERS_free := @_ECPARAMETERS_free;
+      ECPARAMETERS_free := _ECPARAMETERS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5100,13 +5150,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_basis_type_allownil)}
-    EC_GROUP_get_basis_type := @ERR_EC_GROUP_get_basis_type;
+    EC_GROUP_get_basis_type := ERR_EC_GROUP_get_basis_type;
     {$ifend}
     {$if declared(EC_GROUP_get_basis_type_introduced)}
     if LibVersion < EC_GROUP_get_basis_type_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_basis_type)}
-      EC_GROUP_get_basis_type := @FC_EC_GROUP_get_basis_type;
+      EC_GROUP_get_basis_type := FC_EC_GROUP_get_basis_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5115,7 +5165,7 @@ begin
     if EC_GROUP_get_basis_type_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_basis_type)}
-      EC_GROUP_get_basis_type := @_EC_GROUP_get_basis_type;
+      EC_GROUP_get_basis_type := _EC_GROUP_get_basis_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5132,13 +5182,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_trinomial_basis_allownil)}
-    EC_GROUP_get_trinomial_basis := @ERR_EC_GROUP_get_trinomial_basis;
+    EC_GROUP_get_trinomial_basis := ERR_EC_GROUP_get_trinomial_basis;
     {$ifend}
     {$if declared(EC_GROUP_get_trinomial_basis_introduced)}
     if LibVersion < EC_GROUP_get_trinomial_basis_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_trinomial_basis)}
-      EC_GROUP_get_trinomial_basis := @FC_EC_GROUP_get_trinomial_basis;
+      EC_GROUP_get_trinomial_basis := FC_EC_GROUP_get_trinomial_basis;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5147,7 +5197,7 @@ begin
     if EC_GROUP_get_trinomial_basis_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_trinomial_basis)}
-      EC_GROUP_get_trinomial_basis := @_EC_GROUP_get_trinomial_basis;
+      EC_GROUP_get_trinomial_basis := _EC_GROUP_get_trinomial_basis;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5164,13 +5214,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_GROUP_get_pentanomial_basis_allownil)}
-    EC_GROUP_get_pentanomial_basis := @ERR_EC_GROUP_get_pentanomial_basis;
+    EC_GROUP_get_pentanomial_basis := ERR_EC_GROUP_get_pentanomial_basis;
     {$ifend}
     {$if declared(EC_GROUP_get_pentanomial_basis_introduced)}
     if LibVersion < EC_GROUP_get_pentanomial_basis_introduced then
     begin
       {$if declared(FC_EC_GROUP_get_pentanomial_basis)}
-      EC_GROUP_get_pentanomial_basis := @FC_EC_GROUP_get_pentanomial_basis;
+      EC_GROUP_get_pentanomial_basis := FC_EC_GROUP_get_pentanomial_basis;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5179,7 +5229,7 @@ begin
     if EC_GROUP_get_pentanomial_basis_removed <= LibVersion then
     begin
       {$if declared(_EC_GROUP_get_pentanomial_basis)}
-      EC_GROUP_get_pentanomial_basis := @_EC_GROUP_get_pentanomial_basis;
+      EC_GROUP_get_pentanomial_basis := _EC_GROUP_get_pentanomial_basis;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5196,13 +5246,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_ECPKParameters_allownil)}
-    d2i_ECPKParameters := @ERR_d2i_ECPKParameters;
+    d2i_ECPKParameters := ERR_d2i_ECPKParameters;
     {$ifend}
     {$if declared(d2i_ECPKParameters_introduced)}
     if LibVersion < d2i_ECPKParameters_introduced then
     begin
       {$if declared(FC_d2i_ECPKParameters)}
-      d2i_ECPKParameters := @FC_d2i_ECPKParameters;
+      d2i_ECPKParameters := FC_d2i_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5211,7 +5261,7 @@ begin
     if d2i_ECPKParameters_removed <= LibVersion then
     begin
       {$if declared(_d2i_ECPKParameters)}
-      d2i_ECPKParameters := @_d2i_ECPKParameters;
+      d2i_ECPKParameters := _d2i_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5228,13 +5278,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_ECPKParameters_allownil)}
-    i2d_ECPKParameters := @ERR_i2d_ECPKParameters;
+    i2d_ECPKParameters := ERR_i2d_ECPKParameters;
     {$ifend}
     {$if declared(i2d_ECPKParameters_introduced)}
     if LibVersion < i2d_ECPKParameters_introduced then
     begin
       {$if declared(FC_i2d_ECPKParameters)}
-      i2d_ECPKParameters := @FC_i2d_ECPKParameters;
+      i2d_ECPKParameters := FC_i2d_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5243,7 +5293,7 @@ begin
     if i2d_ECPKParameters_removed <= LibVersion then
     begin
       {$if declared(_i2d_ECPKParameters)}
-      i2d_ECPKParameters := @_i2d_ECPKParameters;
+      i2d_ECPKParameters := _i2d_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5260,13 +5310,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECPKParameters_print_allownil)}
-    ECPKParameters_print := @ERR_ECPKParameters_print;
+    ECPKParameters_print := ERR_ECPKParameters_print;
     {$ifend}
     {$if declared(ECPKParameters_print_introduced)}
     if LibVersion < ECPKParameters_print_introduced then
     begin
       {$if declared(FC_ECPKParameters_print)}
-      ECPKParameters_print := @FC_ECPKParameters_print;
+      ECPKParameters_print := FC_ECPKParameters_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5275,7 +5325,7 @@ begin
     if ECPKParameters_print_removed <= LibVersion then
     begin
       {$if declared(_ECPKParameters_print)}
-      ECPKParameters_print := @_ECPKParameters_print;
+      ECPKParameters_print := _ECPKParameters_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5292,13 +5342,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_new_allownil)}
-    EC_KEY_new := @ERR_EC_KEY_new;
+    EC_KEY_new := ERR_EC_KEY_new;
     {$ifend}
     {$if declared(EC_KEY_new_introduced)}
     if LibVersion < EC_KEY_new_introduced then
     begin
       {$if declared(FC_EC_KEY_new)}
-      EC_KEY_new := @FC_EC_KEY_new;
+      EC_KEY_new := FC_EC_KEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5307,7 +5357,7 @@ begin
     if EC_KEY_new_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_new)}
-      EC_KEY_new := @_EC_KEY_new;
+      EC_KEY_new := _EC_KEY_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5324,13 +5374,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_flags_allownil)}
-    EC_KEY_get_flags := @ERR_EC_KEY_get_flags;
+    EC_KEY_get_flags := ERR_EC_KEY_get_flags;
     {$ifend}
     {$if declared(EC_KEY_get_flags_introduced)}
     if LibVersion < EC_KEY_get_flags_introduced then
     begin
       {$if declared(FC_EC_KEY_get_flags)}
-      EC_KEY_get_flags := @FC_EC_KEY_get_flags;
+      EC_KEY_get_flags := FC_EC_KEY_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5339,7 +5389,7 @@ begin
     if EC_KEY_get_flags_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_flags)}
-      EC_KEY_get_flags := @_EC_KEY_get_flags;
+      EC_KEY_get_flags := _EC_KEY_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5356,13 +5406,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_flags_allownil)}
-    EC_KEY_set_flags := @ERR_EC_KEY_set_flags;
+    EC_KEY_set_flags := ERR_EC_KEY_set_flags;
     {$ifend}
     {$if declared(EC_KEY_set_flags_introduced)}
     if LibVersion < EC_KEY_set_flags_introduced then
     begin
       {$if declared(FC_EC_KEY_set_flags)}
-      EC_KEY_set_flags := @FC_EC_KEY_set_flags;
+      EC_KEY_set_flags := FC_EC_KEY_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5371,7 +5421,7 @@ begin
     if EC_KEY_set_flags_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_flags)}
-      EC_KEY_set_flags := @_EC_KEY_set_flags;
+      EC_KEY_set_flags := _EC_KEY_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5388,13 +5438,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_clear_flags_allownil)}
-    EC_KEY_clear_flags := @ERR_EC_KEY_clear_flags;
+    EC_KEY_clear_flags := ERR_EC_KEY_clear_flags;
     {$ifend}
     {$if declared(EC_KEY_clear_flags_introduced)}
     if LibVersion < EC_KEY_clear_flags_introduced then
     begin
       {$if declared(FC_EC_KEY_clear_flags)}
-      EC_KEY_clear_flags := @FC_EC_KEY_clear_flags;
+      EC_KEY_clear_flags := FC_EC_KEY_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5403,7 +5453,7 @@ begin
     if EC_KEY_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_clear_flags)}
-      EC_KEY_clear_flags := @_EC_KEY_clear_flags;
+      EC_KEY_clear_flags := _EC_KEY_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5420,13 +5470,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_new_by_curve_name_allownil)}
-    EC_KEY_new_by_curve_name := @ERR_EC_KEY_new_by_curve_name;
+    EC_KEY_new_by_curve_name := ERR_EC_KEY_new_by_curve_name;
     {$ifend}
     {$if declared(EC_KEY_new_by_curve_name_introduced)}
     if LibVersion < EC_KEY_new_by_curve_name_introduced then
     begin
       {$if declared(FC_EC_KEY_new_by_curve_name)}
-      EC_KEY_new_by_curve_name := @FC_EC_KEY_new_by_curve_name;
+      EC_KEY_new_by_curve_name := FC_EC_KEY_new_by_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5435,7 +5485,7 @@ begin
     if EC_KEY_new_by_curve_name_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_new_by_curve_name)}
-      EC_KEY_new_by_curve_name := @_EC_KEY_new_by_curve_name;
+      EC_KEY_new_by_curve_name := _EC_KEY_new_by_curve_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5452,13 +5502,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_free_allownil)}
-    EC_KEY_free := @ERR_EC_KEY_free;
+    EC_KEY_free := ERR_EC_KEY_free;
     {$ifend}
     {$if declared(EC_KEY_free_introduced)}
     if LibVersion < EC_KEY_free_introduced then
     begin
       {$if declared(FC_EC_KEY_free)}
-      EC_KEY_free := @FC_EC_KEY_free;
+      EC_KEY_free := FC_EC_KEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5467,7 +5517,7 @@ begin
     if EC_KEY_free_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_free)}
-      EC_KEY_free := @_EC_KEY_free;
+      EC_KEY_free := _EC_KEY_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5484,13 +5534,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_copy_allownil)}
-    EC_KEY_copy := @ERR_EC_KEY_copy;
+    EC_KEY_copy := ERR_EC_KEY_copy;
     {$ifend}
     {$if declared(EC_KEY_copy_introduced)}
     if LibVersion < EC_KEY_copy_introduced then
     begin
       {$if declared(FC_EC_KEY_copy)}
-      EC_KEY_copy := @FC_EC_KEY_copy;
+      EC_KEY_copy := FC_EC_KEY_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5499,7 +5549,7 @@ begin
     if EC_KEY_copy_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_copy)}
-      EC_KEY_copy := @_EC_KEY_copy;
+      EC_KEY_copy := _EC_KEY_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5516,13 +5566,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_dup_allownil)}
-    EC_KEY_dup := @ERR_EC_KEY_dup;
+    EC_KEY_dup := ERR_EC_KEY_dup;
     {$ifend}
     {$if declared(EC_KEY_dup_introduced)}
     if LibVersion < EC_KEY_dup_introduced then
     begin
       {$if declared(FC_EC_KEY_dup)}
-      EC_KEY_dup := @FC_EC_KEY_dup;
+      EC_KEY_dup := FC_EC_KEY_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5531,7 +5581,7 @@ begin
     if EC_KEY_dup_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_dup)}
-      EC_KEY_dup := @_EC_KEY_dup;
+      EC_KEY_dup := _EC_KEY_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5548,13 +5598,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_up_ref_allownil)}
-    EC_KEY_up_ref := @ERR_EC_KEY_up_ref;
+    EC_KEY_up_ref := ERR_EC_KEY_up_ref;
     {$ifend}
     {$if declared(EC_KEY_up_ref_introduced)}
     if LibVersion < EC_KEY_up_ref_introduced then
     begin
       {$if declared(FC_EC_KEY_up_ref)}
-      EC_KEY_up_ref := @FC_EC_KEY_up_ref;
+      EC_KEY_up_ref := FC_EC_KEY_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5563,7 +5613,7 @@ begin
     if EC_KEY_up_ref_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_up_ref)}
-      EC_KEY_up_ref := @_EC_KEY_up_ref;
+      EC_KEY_up_ref := _EC_KEY_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5580,13 +5630,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get0_engine_allownil)}
-    EC_KEY_get0_engine := @ERR_EC_KEY_get0_engine;
+    EC_KEY_get0_engine := ERR_EC_KEY_get0_engine;
     {$ifend}
     {$if declared(EC_KEY_get0_engine_introduced)}
     if LibVersion < EC_KEY_get0_engine_introduced then
     begin
       {$if declared(FC_EC_KEY_get0_engine)}
-      EC_KEY_get0_engine := @FC_EC_KEY_get0_engine;
+      EC_KEY_get0_engine := FC_EC_KEY_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5595,7 +5645,7 @@ begin
     if EC_KEY_get0_engine_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get0_engine)}
-      EC_KEY_get0_engine := @_EC_KEY_get0_engine;
+      EC_KEY_get0_engine := _EC_KEY_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5612,13 +5662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get0_group_allownil)}
-    EC_KEY_get0_group := @ERR_EC_KEY_get0_group;
+    EC_KEY_get0_group := ERR_EC_KEY_get0_group;
     {$ifend}
     {$if declared(EC_KEY_get0_group_introduced)}
     if LibVersion < EC_KEY_get0_group_introduced then
     begin
       {$if declared(FC_EC_KEY_get0_group)}
-      EC_KEY_get0_group := @FC_EC_KEY_get0_group;
+      EC_KEY_get0_group := FC_EC_KEY_get0_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5627,7 +5677,7 @@ begin
     if EC_KEY_get0_group_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get0_group)}
-      EC_KEY_get0_group := @_EC_KEY_get0_group;
+      EC_KEY_get0_group := _EC_KEY_get0_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5644,13 +5694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_group_allownil)}
-    EC_KEY_set_group := @ERR_EC_KEY_set_group;
+    EC_KEY_set_group := ERR_EC_KEY_set_group;
     {$ifend}
     {$if declared(EC_KEY_set_group_introduced)}
     if LibVersion < EC_KEY_set_group_introduced then
     begin
       {$if declared(FC_EC_KEY_set_group)}
-      EC_KEY_set_group := @FC_EC_KEY_set_group;
+      EC_KEY_set_group := FC_EC_KEY_set_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5659,7 +5709,7 @@ begin
     if EC_KEY_set_group_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_group)}
-      EC_KEY_set_group := @_EC_KEY_set_group;
+      EC_KEY_set_group := _EC_KEY_set_group;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5676,13 +5726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get0_private_key_allownil)}
-    EC_KEY_get0_private_key := @ERR_EC_KEY_get0_private_key;
+    EC_KEY_get0_private_key := ERR_EC_KEY_get0_private_key;
     {$ifend}
     {$if declared(EC_KEY_get0_private_key_introduced)}
     if LibVersion < EC_KEY_get0_private_key_introduced then
     begin
       {$if declared(FC_EC_KEY_get0_private_key)}
-      EC_KEY_get0_private_key := @FC_EC_KEY_get0_private_key;
+      EC_KEY_get0_private_key := FC_EC_KEY_get0_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5691,7 +5741,7 @@ begin
     if EC_KEY_get0_private_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get0_private_key)}
-      EC_KEY_get0_private_key := @_EC_KEY_get0_private_key;
+      EC_KEY_get0_private_key := _EC_KEY_get0_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5708,13 +5758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_private_key_allownil)}
-    EC_KEY_set_private_key := @ERR_EC_KEY_set_private_key;
+    EC_KEY_set_private_key := ERR_EC_KEY_set_private_key;
     {$ifend}
     {$if declared(EC_KEY_set_private_key_introduced)}
     if LibVersion < EC_KEY_set_private_key_introduced then
     begin
       {$if declared(FC_EC_KEY_set_private_key)}
-      EC_KEY_set_private_key := @FC_EC_KEY_set_private_key;
+      EC_KEY_set_private_key := FC_EC_KEY_set_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5723,7 +5773,7 @@ begin
     if EC_KEY_set_private_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_private_key)}
-      EC_KEY_set_private_key := @_EC_KEY_set_private_key;
+      EC_KEY_set_private_key := _EC_KEY_set_private_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5740,13 +5790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get0_public_key_allownil)}
-    EC_KEY_get0_public_key := @ERR_EC_KEY_get0_public_key;
+    EC_KEY_get0_public_key := ERR_EC_KEY_get0_public_key;
     {$ifend}
     {$if declared(EC_KEY_get0_public_key_introduced)}
     if LibVersion < EC_KEY_get0_public_key_introduced then
     begin
       {$if declared(FC_EC_KEY_get0_public_key)}
-      EC_KEY_get0_public_key := @FC_EC_KEY_get0_public_key;
+      EC_KEY_get0_public_key := FC_EC_KEY_get0_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5755,7 +5805,7 @@ begin
     if EC_KEY_get0_public_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get0_public_key)}
-      EC_KEY_get0_public_key := @_EC_KEY_get0_public_key;
+      EC_KEY_get0_public_key := _EC_KEY_get0_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5772,13 +5822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_public_key_allownil)}
-    EC_KEY_set_public_key := @ERR_EC_KEY_set_public_key;
+    EC_KEY_set_public_key := ERR_EC_KEY_set_public_key;
     {$ifend}
     {$if declared(EC_KEY_set_public_key_introduced)}
     if LibVersion < EC_KEY_set_public_key_introduced then
     begin
       {$if declared(FC_EC_KEY_set_public_key)}
-      EC_KEY_set_public_key := @FC_EC_KEY_set_public_key;
+      EC_KEY_set_public_key := FC_EC_KEY_set_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5787,7 +5837,7 @@ begin
     if EC_KEY_set_public_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_public_key)}
-      EC_KEY_set_public_key := @_EC_KEY_set_public_key;
+      EC_KEY_set_public_key := _EC_KEY_set_public_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5804,13 +5854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_enc_flags_allownil)}
-    EC_KEY_get_enc_flags := @ERR_EC_KEY_get_enc_flags;
+    EC_KEY_get_enc_flags := ERR_EC_KEY_get_enc_flags;
     {$ifend}
     {$if declared(EC_KEY_get_enc_flags_introduced)}
     if LibVersion < EC_KEY_get_enc_flags_introduced then
     begin
       {$if declared(FC_EC_KEY_get_enc_flags)}
-      EC_KEY_get_enc_flags := @FC_EC_KEY_get_enc_flags;
+      EC_KEY_get_enc_flags := FC_EC_KEY_get_enc_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5819,7 +5869,7 @@ begin
     if EC_KEY_get_enc_flags_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_enc_flags)}
-      EC_KEY_get_enc_flags := @_EC_KEY_get_enc_flags;
+      EC_KEY_get_enc_flags := _EC_KEY_get_enc_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5836,13 +5886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_enc_flags_allownil)}
-    EC_KEY_set_enc_flags := @ERR_EC_KEY_set_enc_flags;
+    EC_KEY_set_enc_flags := ERR_EC_KEY_set_enc_flags;
     {$ifend}
     {$if declared(EC_KEY_set_enc_flags_introduced)}
     if LibVersion < EC_KEY_set_enc_flags_introduced then
     begin
       {$if declared(FC_EC_KEY_set_enc_flags)}
-      EC_KEY_set_enc_flags := @FC_EC_KEY_set_enc_flags;
+      EC_KEY_set_enc_flags := FC_EC_KEY_set_enc_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5851,7 +5901,7 @@ begin
     if EC_KEY_set_enc_flags_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_enc_flags)}
-      EC_KEY_set_enc_flags := @_EC_KEY_set_enc_flags;
+      EC_KEY_set_enc_flags := _EC_KEY_set_enc_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5868,13 +5918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_conv_form_allownil)}
-    EC_KEY_get_conv_form := @ERR_EC_KEY_get_conv_form;
+    EC_KEY_get_conv_form := ERR_EC_KEY_get_conv_form;
     {$ifend}
     {$if declared(EC_KEY_get_conv_form_introduced)}
     if LibVersion < EC_KEY_get_conv_form_introduced then
     begin
       {$if declared(FC_EC_KEY_get_conv_form)}
-      EC_KEY_get_conv_form := @FC_EC_KEY_get_conv_form;
+      EC_KEY_get_conv_form := FC_EC_KEY_get_conv_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5883,7 +5933,7 @@ begin
     if EC_KEY_get_conv_form_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_conv_form)}
-      EC_KEY_get_conv_form := @_EC_KEY_get_conv_form;
+      EC_KEY_get_conv_form := _EC_KEY_get_conv_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5900,13 +5950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_conv_form_allownil)}
-    EC_KEY_set_conv_form := @ERR_EC_KEY_set_conv_form;
+    EC_KEY_set_conv_form := ERR_EC_KEY_set_conv_form;
     {$ifend}
     {$if declared(EC_KEY_set_conv_form_introduced)}
     if LibVersion < EC_KEY_set_conv_form_introduced then
     begin
       {$if declared(FC_EC_KEY_set_conv_form)}
-      EC_KEY_set_conv_form := @FC_EC_KEY_set_conv_form;
+      EC_KEY_set_conv_form := FC_EC_KEY_set_conv_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5915,7 +5965,7 @@ begin
     if EC_KEY_set_conv_form_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_conv_form)}
-      EC_KEY_set_conv_form := @_EC_KEY_set_conv_form;
+      EC_KEY_set_conv_form := _EC_KEY_set_conv_form;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5932,13 +5982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_ex_data_allownil)}
-    EC_KEY_set_ex_data := @ERR_EC_KEY_set_ex_data;
+    EC_KEY_set_ex_data := ERR_EC_KEY_set_ex_data;
     {$ifend}
     {$if declared(EC_KEY_set_ex_data_introduced)}
     if LibVersion < EC_KEY_set_ex_data_introduced then
     begin
       {$if declared(FC_EC_KEY_set_ex_data)}
-      EC_KEY_set_ex_data := @FC_EC_KEY_set_ex_data;
+      EC_KEY_set_ex_data := FC_EC_KEY_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5947,7 +5997,7 @@ begin
     if EC_KEY_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_ex_data)}
-      EC_KEY_set_ex_data := @_EC_KEY_set_ex_data;
+      EC_KEY_set_ex_data := _EC_KEY_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5964,13 +6014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_ex_data_allownil)}
-    EC_KEY_get_ex_data := @ERR_EC_KEY_get_ex_data;
+    EC_KEY_get_ex_data := ERR_EC_KEY_get_ex_data;
     {$ifend}
     {$if declared(EC_KEY_get_ex_data_introduced)}
     if LibVersion < EC_KEY_get_ex_data_introduced then
     begin
       {$if declared(FC_EC_KEY_get_ex_data)}
-      EC_KEY_get_ex_data := @FC_EC_KEY_get_ex_data;
+      EC_KEY_get_ex_data := FC_EC_KEY_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5979,7 +6029,7 @@ begin
     if EC_KEY_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_ex_data)}
-      EC_KEY_get_ex_data := @_EC_KEY_get_ex_data;
+      EC_KEY_get_ex_data := _EC_KEY_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5996,13 +6046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_asn1_flag_allownil)}
-    EC_KEY_set_asn1_flag := @ERR_EC_KEY_set_asn1_flag;
+    EC_KEY_set_asn1_flag := ERR_EC_KEY_set_asn1_flag;
     {$ifend}
     {$if declared(EC_KEY_set_asn1_flag_introduced)}
     if LibVersion < EC_KEY_set_asn1_flag_introduced then
     begin
       {$if declared(FC_EC_KEY_set_asn1_flag)}
-      EC_KEY_set_asn1_flag := @FC_EC_KEY_set_asn1_flag;
+      EC_KEY_set_asn1_flag := FC_EC_KEY_set_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6011,7 +6061,7 @@ begin
     if EC_KEY_set_asn1_flag_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_asn1_flag)}
-      EC_KEY_set_asn1_flag := @_EC_KEY_set_asn1_flag;
+      EC_KEY_set_asn1_flag := _EC_KEY_set_asn1_flag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6028,13 +6078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_precompute_mult_allownil)}
-    EC_KEY_precompute_mult := @ERR_EC_KEY_precompute_mult;
+    EC_KEY_precompute_mult := ERR_EC_KEY_precompute_mult;
     {$ifend}
     {$if declared(EC_KEY_precompute_mult_introduced)}
     if LibVersion < EC_KEY_precompute_mult_introduced then
     begin
       {$if declared(FC_EC_KEY_precompute_mult)}
-      EC_KEY_precompute_mult := @FC_EC_KEY_precompute_mult;
+      EC_KEY_precompute_mult := FC_EC_KEY_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6043,7 +6093,7 @@ begin
     if EC_KEY_precompute_mult_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_precompute_mult)}
-      EC_KEY_precompute_mult := @_EC_KEY_precompute_mult;
+      EC_KEY_precompute_mult := _EC_KEY_precompute_mult;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6060,13 +6110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_generate_key_allownil)}
-    EC_KEY_generate_key := @ERR_EC_KEY_generate_key;
+    EC_KEY_generate_key := ERR_EC_KEY_generate_key;
     {$ifend}
     {$if declared(EC_KEY_generate_key_introduced)}
     if LibVersion < EC_KEY_generate_key_introduced then
     begin
       {$if declared(FC_EC_KEY_generate_key)}
-      EC_KEY_generate_key := @FC_EC_KEY_generate_key;
+      EC_KEY_generate_key := FC_EC_KEY_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6075,7 +6125,7 @@ begin
     if EC_KEY_generate_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_generate_key)}
-      EC_KEY_generate_key := @_EC_KEY_generate_key;
+      EC_KEY_generate_key := _EC_KEY_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6092,13 +6142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_check_key_allownil)}
-    EC_KEY_check_key := @ERR_EC_KEY_check_key;
+    EC_KEY_check_key := ERR_EC_KEY_check_key;
     {$ifend}
     {$if declared(EC_KEY_check_key_introduced)}
     if LibVersion < EC_KEY_check_key_introduced then
     begin
       {$if declared(FC_EC_KEY_check_key)}
-      EC_KEY_check_key := @FC_EC_KEY_check_key;
+      EC_KEY_check_key := FC_EC_KEY_check_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6107,7 +6157,7 @@ begin
     if EC_KEY_check_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_check_key)}
-      EC_KEY_check_key := @_EC_KEY_check_key;
+      EC_KEY_check_key := _EC_KEY_check_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6124,13 +6174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_can_sign_allownil)}
-    EC_KEY_can_sign := @ERR_EC_KEY_can_sign;
+    EC_KEY_can_sign := ERR_EC_KEY_can_sign;
     {$ifend}
     {$if declared(EC_KEY_can_sign_introduced)}
     if LibVersion < EC_KEY_can_sign_introduced then
     begin
       {$if declared(FC_EC_KEY_can_sign)}
-      EC_KEY_can_sign := @FC_EC_KEY_can_sign;
+      EC_KEY_can_sign := FC_EC_KEY_can_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6139,7 +6189,7 @@ begin
     if EC_KEY_can_sign_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_can_sign)}
-      EC_KEY_can_sign := @_EC_KEY_can_sign;
+      EC_KEY_can_sign := _EC_KEY_can_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6156,13 +6206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_public_key_affine_coordinates_allownil)}
-    EC_KEY_set_public_key_affine_coordinates := @ERR_EC_KEY_set_public_key_affine_coordinates;
+    EC_KEY_set_public_key_affine_coordinates := ERR_EC_KEY_set_public_key_affine_coordinates;
     {$ifend}
     {$if declared(EC_KEY_set_public_key_affine_coordinates_introduced)}
     if LibVersion < EC_KEY_set_public_key_affine_coordinates_introduced then
     begin
       {$if declared(FC_EC_KEY_set_public_key_affine_coordinates)}
-      EC_KEY_set_public_key_affine_coordinates := @FC_EC_KEY_set_public_key_affine_coordinates;
+      EC_KEY_set_public_key_affine_coordinates := FC_EC_KEY_set_public_key_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6171,7 +6221,7 @@ begin
     if EC_KEY_set_public_key_affine_coordinates_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_public_key_affine_coordinates)}
-      EC_KEY_set_public_key_affine_coordinates := @_EC_KEY_set_public_key_affine_coordinates;
+      EC_KEY_set_public_key_affine_coordinates := _EC_KEY_set_public_key_affine_coordinates;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6188,13 +6238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_key2buf_allownil)}
-    EC_KEY_key2buf := @ERR_EC_KEY_key2buf;
+    EC_KEY_key2buf := ERR_EC_KEY_key2buf;
     {$ifend}
     {$if declared(EC_KEY_key2buf_introduced)}
     if LibVersion < EC_KEY_key2buf_introduced then
     begin
       {$if declared(FC_EC_KEY_key2buf)}
-      EC_KEY_key2buf := @FC_EC_KEY_key2buf;
+      EC_KEY_key2buf := FC_EC_KEY_key2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6203,7 +6253,7 @@ begin
     if EC_KEY_key2buf_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_key2buf)}
-      EC_KEY_key2buf := @_EC_KEY_key2buf;
+      EC_KEY_key2buf := _EC_KEY_key2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6220,13 +6270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_oct2key_allownil)}
-    EC_KEY_oct2key := @ERR_EC_KEY_oct2key;
+    EC_KEY_oct2key := ERR_EC_KEY_oct2key;
     {$ifend}
     {$if declared(EC_KEY_oct2key_introduced)}
     if LibVersion < EC_KEY_oct2key_introduced then
     begin
       {$if declared(FC_EC_KEY_oct2key)}
-      EC_KEY_oct2key := @FC_EC_KEY_oct2key;
+      EC_KEY_oct2key := FC_EC_KEY_oct2key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6235,7 +6285,7 @@ begin
     if EC_KEY_oct2key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_oct2key)}
-      EC_KEY_oct2key := @_EC_KEY_oct2key;
+      EC_KEY_oct2key := _EC_KEY_oct2key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6252,13 +6302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_oct2priv_allownil)}
-    EC_KEY_oct2priv := @ERR_EC_KEY_oct2priv;
+    EC_KEY_oct2priv := ERR_EC_KEY_oct2priv;
     {$ifend}
     {$if declared(EC_KEY_oct2priv_introduced)}
     if LibVersion < EC_KEY_oct2priv_introduced then
     begin
       {$if declared(FC_EC_KEY_oct2priv)}
-      EC_KEY_oct2priv := @FC_EC_KEY_oct2priv;
+      EC_KEY_oct2priv := FC_EC_KEY_oct2priv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6267,7 +6317,7 @@ begin
     if EC_KEY_oct2priv_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_oct2priv)}
-      EC_KEY_oct2priv := @_EC_KEY_oct2priv;
+      EC_KEY_oct2priv := _EC_KEY_oct2priv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6284,13 +6334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_priv2oct_allownil)}
-    EC_KEY_priv2oct := @ERR_EC_KEY_priv2oct;
+    EC_KEY_priv2oct := ERR_EC_KEY_priv2oct;
     {$ifend}
     {$if declared(EC_KEY_priv2oct_introduced)}
     if LibVersion < EC_KEY_priv2oct_introduced then
     begin
       {$if declared(FC_EC_KEY_priv2oct)}
-      EC_KEY_priv2oct := @FC_EC_KEY_priv2oct;
+      EC_KEY_priv2oct := FC_EC_KEY_priv2oct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6299,7 +6349,7 @@ begin
     if EC_KEY_priv2oct_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_priv2oct)}
-      EC_KEY_priv2oct := @_EC_KEY_priv2oct;
+      EC_KEY_priv2oct := _EC_KEY_priv2oct;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6316,13 +6366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_priv2buf_allownil)}
-    EC_KEY_priv2buf := @ERR_EC_KEY_priv2buf;
+    EC_KEY_priv2buf := ERR_EC_KEY_priv2buf;
     {$ifend}
     {$if declared(EC_KEY_priv2buf_introduced)}
     if LibVersion < EC_KEY_priv2buf_introduced then
     begin
       {$if declared(FC_EC_KEY_priv2buf)}
-      EC_KEY_priv2buf := @FC_EC_KEY_priv2buf;
+      EC_KEY_priv2buf := FC_EC_KEY_priv2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6331,7 +6381,7 @@ begin
     if EC_KEY_priv2buf_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_priv2buf)}
-      EC_KEY_priv2buf := @_EC_KEY_priv2buf;
+      EC_KEY_priv2buf := _EC_KEY_priv2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6348,13 +6398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_ECPrivateKey_allownil)}
-    d2i_ECPrivateKey := @ERR_d2i_ECPrivateKey;
+    d2i_ECPrivateKey := ERR_d2i_ECPrivateKey;
     {$ifend}
     {$if declared(d2i_ECPrivateKey_introduced)}
     if LibVersion < d2i_ECPrivateKey_introduced then
     begin
       {$if declared(FC_d2i_ECPrivateKey)}
-      d2i_ECPrivateKey := @FC_d2i_ECPrivateKey;
+      d2i_ECPrivateKey := FC_d2i_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6363,7 +6413,7 @@ begin
     if d2i_ECPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_d2i_ECPrivateKey)}
-      d2i_ECPrivateKey := @_d2i_ECPrivateKey;
+      d2i_ECPrivateKey := _d2i_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6380,13 +6430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_ECPrivateKey_allownil)}
-    i2d_ECPrivateKey := @ERR_i2d_ECPrivateKey;
+    i2d_ECPrivateKey := ERR_i2d_ECPrivateKey;
     {$ifend}
     {$if declared(i2d_ECPrivateKey_introduced)}
     if LibVersion < i2d_ECPrivateKey_introduced then
     begin
       {$if declared(FC_i2d_ECPrivateKey)}
-      i2d_ECPrivateKey := @FC_i2d_ECPrivateKey;
+      i2d_ECPrivateKey := FC_i2d_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6395,7 +6445,7 @@ begin
     if i2d_ECPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_i2d_ECPrivateKey)}
-      i2d_ECPrivateKey := @_i2d_ECPrivateKey;
+      i2d_ECPrivateKey := _i2d_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6412,13 +6462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(o2i_ECPublicKey_allownil)}
-    o2i_ECPublicKey := @ERR_o2i_ECPublicKey;
+    o2i_ECPublicKey := ERR_o2i_ECPublicKey;
     {$ifend}
     {$if declared(o2i_ECPublicKey_introduced)}
     if LibVersion < o2i_ECPublicKey_introduced then
     begin
       {$if declared(FC_o2i_ECPublicKey)}
-      o2i_ECPublicKey := @FC_o2i_ECPublicKey;
+      o2i_ECPublicKey := FC_o2i_ECPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6427,7 +6477,7 @@ begin
     if o2i_ECPublicKey_removed <= LibVersion then
     begin
       {$if declared(_o2i_ECPublicKey)}
-      o2i_ECPublicKey := @_o2i_ECPublicKey;
+      o2i_ECPublicKey := _o2i_ECPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6444,13 +6494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2o_ECPublicKey_allownil)}
-    i2o_ECPublicKey := @ERR_i2o_ECPublicKey;
+    i2o_ECPublicKey := ERR_i2o_ECPublicKey;
     {$ifend}
     {$if declared(i2o_ECPublicKey_introduced)}
     if LibVersion < i2o_ECPublicKey_introduced then
     begin
       {$if declared(FC_i2o_ECPublicKey)}
-      i2o_ECPublicKey := @FC_i2o_ECPublicKey;
+      i2o_ECPublicKey := FC_i2o_ECPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6459,7 +6509,7 @@ begin
     if i2o_ECPublicKey_removed <= LibVersion then
     begin
       {$if declared(_i2o_ECPublicKey)}
-      i2o_ECPublicKey := @_i2o_ECPublicKey;
+      i2o_ECPublicKey := _i2o_ECPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6476,13 +6526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECParameters_print_allownil)}
-    ECParameters_print := @ERR_ECParameters_print;
+    ECParameters_print := ERR_ECParameters_print;
     {$ifend}
     {$if declared(ECParameters_print_introduced)}
     if LibVersion < ECParameters_print_introduced then
     begin
       {$if declared(FC_ECParameters_print)}
-      ECParameters_print := @FC_ECParameters_print;
+      ECParameters_print := FC_ECParameters_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6491,7 +6541,7 @@ begin
     if ECParameters_print_removed <= LibVersion then
     begin
       {$if declared(_ECParameters_print)}
-      ECParameters_print := @_ECParameters_print;
+      ECParameters_print := _ECParameters_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6508,13 +6558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_print_allownil)}
-    EC_KEY_print := @ERR_EC_KEY_print;
+    EC_KEY_print := ERR_EC_KEY_print;
     {$ifend}
     {$if declared(EC_KEY_print_introduced)}
     if LibVersion < EC_KEY_print_introduced then
     begin
       {$if declared(FC_EC_KEY_print)}
-      EC_KEY_print := @FC_EC_KEY_print;
+      EC_KEY_print := FC_EC_KEY_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6523,7 +6573,7 @@ begin
     if EC_KEY_print_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_print)}
-      EC_KEY_print := @_EC_KEY_print;
+      EC_KEY_print := _EC_KEY_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6540,13 +6590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_OpenSSL_allownil)}
-    EC_KEY_OpenSSL := @ERR_EC_KEY_OpenSSL;
+    EC_KEY_OpenSSL := ERR_EC_KEY_OpenSSL;
     {$ifend}
     {$if declared(EC_KEY_OpenSSL_introduced)}
     if LibVersion < EC_KEY_OpenSSL_introduced then
     begin
       {$if declared(FC_EC_KEY_OpenSSL)}
-      EC_KEY_OpenSSL := @FC_EC_KEY_OpenSSL;
+      EC_KEY_OpenSSL := FC_EC_KEY_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6555,7 +6605,7 @@ begin
     if EC_KEY_OpenSSL_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_OpenSSL)}
-      EC_KEY_OpenSSL := @_EC_KEY_OpenSSL;
+      EC_KEY_OpenSSL := _EC_KEY_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6572,13 +6622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_default_method_allownil)}
-    EC_KEY_get_default_method := @ERR_EC_KEY_get_default_method;
+    EC_KEY_get_default_method := ERR_EC_KEY_get_default_method;
     {$ifend}
     {$if declared(EC_KEY_get_default_method_introduced)}
     if LibVersion < EC_KEY_get_default_method_introduced then
     begin
       {$if declared(FC_EC_KEY_get_default_method)}
-      EC_KEY_get_default_method := @FC_EC_KEY_get_default_method;
+      EC_KEY_get_default_method := FC_EC_KEY_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6587,7 +6637,7 @@ begin
     if EC_KEY_get_default_method_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_default_method)}
-      EC_KEY_get_default_method := @_EC_KEY_get_default_method;
+      EC_KEY_get_default_method := _EC_KEY_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6604,13 +6654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_default_method_allownil)}
-    EC_KEY_set_default_method := @ERR_EC_KEY_set_default_method;
+    EC_KEY_set_default_method := ERR_EC_KEY_set_default_method;
     {$ifend}
     {$if declared(EC_KEY_set_default_method_introduced)}
     if LibVersion < EC_KEY_set_default_method_introduced then
     begin
       {$if declared(FC_EC_KEY_set_default_method)}
-      EC_KEY_set_default_method := @FC_EC_KEY_set_default_method;
+      EC_KEY_set_default_method := FC_EC_KEY_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6619,7 +6669,7 @@ begin
     if EC_KEY_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_default_method)}
-      EC_KEY_set_default_method := @_EC_KEY_set_default_method;
+      EC_KEY_set_default_method := _EC_KEY_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6636,13 +6686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_get_method_allownil)}
-    EC_KEY_get_method := @ERR_EC_KEY_get_method;
+    EC_KEY_get_method := ERR_EC_KEY_get_method;
     {$ifend}
     {$if declared(EC_KEY_get_method_introduced)}
     if LibVersion < EC_KEY_get_method_introduced then
     begin
       {$if declared(FC_EC_KEY_get_method)}
-      EC_KEY_get_method := @FC_EC_KEY_get_method;
+      EC_KEY_get_method := FC_EC_KEY_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6651,7 +6701,7 @@ begin
     if EC_KEY_get_method_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_get_method)}
-      EC_KEY_get_method := @_EC_KEY_get_method;
+      EC_KEY_get_method := _EC_KEY_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6668,13 +6718,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_set_method_allownil)}
-    EC_KEY_set_method := @ERR_EC_KEY_set_method;
+    EC_KEY_set_method := ERR_EC_KEY_set_method;
     {$ifend}
     {$if declared(EC_KEY_set_method_introduced)}
     if LibVersion < EC_KEY_set_method_introduced then
     begin
       {$if declared(FC_EC_KEY_set_method)}
-      EC_KEY_set_method := @FC_EC_KEY_set_method;
+      EC_KEY_set_method := FC_EC_KEY_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6683,7 +6733,7 @@ begin
     if EC_KEY_set_method_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_set_method)}
-      EC_KEY_set_method := @_EC_KEY_set_method;
+      EC_KEY_set_method := _EC_KEY_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6700,13 +6750,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_new_method_allownil)}
-    EC_KEY_new_method := @ERR_EC_KEY_new_method;
+    EC_KEY_new_method := ERR_EC_KEY_new_method;
     {$ifend}
     {$if declared(EC_KEY_new_method_introduced)}
     if LibVersion < EC_KEY_new_method_introduced then
     begin
       {$if declared(FC_EC_KEY_new_method)}
-      EC_KEY_new_method := @FC_EC_KEY_new_method;
+      EC_KEY_new_method := FC_EC_KEY_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6715,7 +6765,7 @@ begin
     if EC_KEY_new_method_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_new_method)}
-      EC_KEY_new_method := @_EC_KEY_new_method;
+      EC_KEY_new_method := _EC_KEY_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6732,13 +6782,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDH_KDF_X9_62_allownil)}
-    ECDH_KDF_X9_62 := @ERR_ECDH_KDF_X9_62;
+    ECDH_KDF_X9_62 := ERR_ECDH_KDF_X9_62;
     {$ifend}
     {$if declared(ECDH_KDF_X9_62_introduced)}
     if LibVersion < ECDH_KDF_X9_62_introduced then
     begin
       {$if declared(FC_ECDH_KDF_X9_62)}
-      ECDH_KDF_X9_62 := @FC_ECDH_KDF_X9_62;
+      ECDH_KDF_X9_62 := FC_ECDH_KDF_X9_62;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6747,7 +6797,7 @@ begin
     if ECDH_KDF_X9_62_removed <= LibVersion then
     begin
       {$if declared(_ECDH_KDF_X9_62)}
-      ECDH_KDF_X9_62 := @_ECDH_KDF_X9_62;
+      ECDH_KDF_X9_62 := _ECDH_KDF_X9_62;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6764,13 +6814,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDH_compute_key_allownil)}
-    ECDH_compute_key := @ERR_ECDH_compute_key;
+    ECDH_compute_key := ERR_ECDH_compute_key;
     {$ifend}
     {$if declared(ECDH_compute_key_introduced)}
     if LibVersion < ECDH_compute_key_introduced then
     begin
       {$if declared(FC_ECDH_compute_key)}
-      ECDH_compute_key := @FC_ECDH_compute_key;
+      ECDH_compute_key := FC_ECDH_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6779,7 +6829,7 @@ begin
     if ECDH_compute_key_removed <= LibVersion then
     begin
       {$if declared(_ECDH_compute_key)}
-      ECDH_compute_key := @_ECDH_compute_key;
+      ECDH_compute_key := _ECDH_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6796,13 +6846,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_new_allownil)}
-    ECDSA_SIG_new := @ERR_ECDSA_SIG_new;
+    ECDSA_SIG_new := ERR_ECDSA_SIG_new;
     {$ifend}
     {$if declared(ECDSA_SIG_new_introduced)}
     if LibVersion < ECDSA_SIG_new_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_new)}
-      ECDSA_SIG_new := @FC_ECDSA_SIG_new;
+      ECDSA_SIG_new := FC_ECDSA_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6811,7 +6861,7 @@ begin
     if ECDSA_SIG_new_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_new)}
-      ECDSA_SIG_new := @_ECDSA_SIG_new;
+      ECDSA_SIG_new := _ECDSA_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6828,13 +6878,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_free_allownil)}
-    ECDSA_SIG_free := @ERR_ECDSA_SIG_free;
+    ECDSA_SIG_free := ERR_ECDSA_SIG_free;
     {$ifend}
     {$if declared(ECDSA_SIG_free_introduced)}
     if LibVersion < ECDSA_SIG_free_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_free)}
-      ECDSA_SIG_free := @FC_ECDSA_SIG_free;
+      ECDSA_SIG_free := FC_ECDSA_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6843,7 +6893,7 @@ begin
     if ECDSA_SIG_free_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_free)}
-      ECDSA_SIG_free := @_ECDSA_SIG_free;
+      ECDSA_SIG_free := _ECDSA_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6860,13 +6910,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_ECDSA_SIG_allownil)}
-    i2d_ECDSA_SIG := @ERR_i2d_ECDSA_SIG;
+    i2d_ECDSA_SIG := ERR_i2d_ECDSA_SIG;
     {$ifend}
     {$if declared(i2d_ECDSA_SIG_introduced)}
     if LibVersion < i2d_ECDSA_SIG_introduced then
     begin
       {$if declared(FC_i2d_ECDSA_SIG)}
-      i2d_ECDSA_SIG := @FC_i2d_ECDSA_SIG;
+      i2d_ECDSA_SIG := FC_i2d_ECDSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6875,7 +6925,7 @@ begin
     if i2d_ECDSA_SIG_removed <= LibVersion then
     begin
       {$if declared(_i2d_ECDSA_SIG)}
-      i2d_ECDSA_SIG := @_i2d_ECDSA_SIG;
+      i2d_ECDSA_SIG := _i2d_ECDSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6892,13 +6942,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_ECDSA_SIG_allownil)}
-    d2i_ECDSA_SIG := @ERR_d2i_ECDSA_SIG;
+    d2i_ECDSA_SIG := ERR_d2i_ECDSA_SIG;
     {$ifend}
     {$if declared(d2i_ECDSA_SIG_introduced)}
     if LibVersion < d2i_ECDSA_SIG_introduced then
     begin
       {$if declared(FC_d2i_ECDSA_SIG)}
-      d2i_ECDSA_SIG := @FC_d2i_ECDSA_SIG;
+      d2i_ECDSA_SIG := FC_d2i_ECDSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6907,7 +6957,7 @@ begin
     if d2i_ECDSA_SIG_removed <= LibVersion then
     begin
       {$if declared(_d2i_ECDSA_SIG)}
-      d2i_ECDSA_SIG := @_d2i_ECDSA_SIG;
+      d2i_ECDSA_SIG := _d2i_ECDSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6924,13 +6974,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_get0_allownil)}
-    ECDSA_SIG_get0 := @ERR_ECDSA_SIG_get0;
+    ECDSA_SIG_get0 := ERR_ECDSA_SIG_get0;
     {$ifend}
     {$if declared(ECDSA_SIG_get0_introduced)}
     if LibVersion < ECDSA_SIG_get0_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_get0)}
-      ECDSA_SIG_get0 := @FC_ECDSA_SIG_get0;
+      ECDSA_SIG_get0 := FC_ECDSA_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6939,7 +6989,7 @@ begin
     if ECDSA_SIG_get0_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_get0)}
-      ECDSA_SIG_get0 := @_ECDSA_SIG_get0;
+      ECDSA_SIG_get0 := _ECDSA_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6956,13 +7006,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_get0_r_allownil)}
-    ECDSA_SIG_get0_r := @ERR_ECDSA_SIG_get0_r;
+    ECDSA_SIG_get0_r := ERR_ECDSA_SIG_get0_r;
     {$ifend}
     {$if declared(ECDSA_SIG_get0_r_introduced)}
     if LibVersion < ECDSA_SIG_get0_r_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_get0_r)}
-      ECDSA_SIG_get0_r := @FC_ECDSA_SIG_get0_r;
+      ECDSA_SIG_get0_r := FC_ECDSA_SIG_get0_r;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6971,7 +7021,7 @@ begin
     if ECDSA_SIG_get0_r_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_get0_r)}
-      ECDSA_SIG_get0_r := @_ECDSA_SIG_get0_r;
+      ECDSA_SIG_get0_r := _ECDSA_SIG_get0_r;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6988,13 +7038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_get0_s_allownil)}
-    ECDSA_SIG_get0_s := @ERR_ECDSA_SIG_get0_s;
+    ECDSA_SIG_get0_s := ERR_ECDSA_SIG_get0_s;
     {$ifend}
     {$if declared(ECDSA_SIG_get0_s_introduced)}
     if LibVersion < ECDSA_SIG_get0_s_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_get0_s)}
-      ECDSA_SIG_get0_s := @FC_ECDSA_SIG_get0_s;
+      ECDSA_SIG_get0_s := FC_ECDSA_SIG_get0_s;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7003,7 +7053,7 @@ begin
     if ECDSA_SIG_get0_s_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_get0_s)}
-      ECDSA_SIG_get0_s := @_ECDSA_SIG_get0_s;
+      ECDSA_SIG_get0_s := _ECDSA_SIG_get0_s;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7020,13 +7070,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_SIG_set0_allownil)}
-    ECDSA_SIG_set0 := @ERR_ECDSA_SIG_set0;
+    ECDSA_SIG_set0 := ERR_ECDSA_SIG_set0;
     {$ifend}
     {$if declared(ECDSA_SIG_set0_introduced)}
     if LibVersion < ECDSA_SIG_set0_introduced then
     begin
       {$if declared(FC_ECDSA_SIG_set0)}
-      ECDSA_SIG_set0 := @FC_ECDSA_SIG_set0;
+      ECDSA_SIG_set0 := FC_ECDSA_SIG_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7035,7 +7085,7 @@ begin
     if ECDSA_SIG_set0_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_SIG_set0)}
-      ECDSA_SIG_set0 := @_ECDSA_SIG_set0;
+      ECDSA_SIG_set0 := _ECDSA_SIG_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7052,13 +7102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_do_sign_allownil)}
-    ECDSA_do_sign := @ERR_ECDSA_do_sign;
+    ECDSA_do_sign := ERR_ECDSA_do_sign;
     {$ifend}
     {$if declared(ECDSA_do_sign_introduced)}
     if LibVersion < ECDSA_do_sign_introduced then
     begin
       {$if declared(FC_ECDSA_do_sign)}
-      ECDSA_do_sign := @FC_ECDSA_do_sign;
+      ECDSA_do_sign := FC_ECDSA_do_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7067,7 +7117,7 @@ begin
     if ECDSA_do_sign_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_do_sign)}
-      ECDSA_do_sign := @_ECDSA_do_sign;
+      ECDSA_do_sign := _ECDSA_do_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7084,13 +7134,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_do_sign_ex_allownil)}
-    ECDSA_do_sign_ex := @ERR_ECDSA_do_sign_ex;
+    ECDSA_do_sign_ex := ERR_ECDSA_do_sign_ex;
     {$ifend}
     {$if declared(ECDSA_do_sign_ex_introduced)}
     if LibVersion < ECDSA_do_sign_ex_introduced then
     begin
       {$if declared(FC_ECDSA_do_sign_ex)}
-      ECDSA_do_sign_ex := @FC_ECDSA_do_sign_ex;
+      ECDSA_do_sign_ex := FC_ECDSA_do_sign_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7099,7 +7149,7 @@ begin
     if ECDSA_do_sign_ex_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_do_sign_ex)}
-      ECDSA_do_sign_ex := @_ECDSA_do_sign_ex;
+      ECDSA_do_sign_ex := _ECDSA_do_sign_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7116,13 +7166,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_do_verify_allownil)}
-    ECDSA_do_verify := @ERR_ECDSA_do_verify;
+    ECDSA_do_verify := ERR_ECDSA_do_verify;
     {$ifend}
     {$if declared(ECDSA_do_verify_introduced)}
     if LibVersion < ECDSA_do_verify_introduced then
     begin
       {$if declared(FC_ECDSA_do_verify)}
-      ECDSA_do_verify := @FC_ECDSA_do_verify;
+      ECDSA_do_verify := FC_ECDSA_do_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7131,7 +7181,7 @@ begin
     if ECDSA_do_verify_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_do_verify)}
-      ECDSA_do_verify := @_ECDSA_do_verify;
+      ECDSA_do_verify := _ECDSA_do_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7148,13 +7198,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_sign_setup_allownil)}
-    ECDSA_sign_setup := @ERR_ECDSA_sign_setup;
+    ECDSA_sign_setup := ERR_ECDSA_sign_setup;
     {$ifend}
     {$if declared(ECDSA_sign_setup_introduced)}
     if LibVersion < ECDSA_sign_setup_introduced then
     begin
       {$if declared(FC_ECDSA_sign_setup)}
-      ECDSA_sign_setup := @FC_ECDSA_sign_setup;
+      ECDSA_sign_setup := FC_ECDSA_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7163,7 +7213,7 @@ begin
     if ECDSA_sign_setup_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_sign_setup)}
-      ECDSA_sign_setup := @_ECDSA_sign_setup;
+      ECDSA_sign_setup := _ECDSA_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7180,13 +7230,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_sign_allownil)}
-    ECDSA_sign := @ERR_ECDSA_sign;
+    ECDSA_sign := ERR_ECDSA_sign;
     {$ifend}
     {$if declared(ECDSA_sign_introduced)}
     if LibVersion < ECDSA_sign_introduced then
     begin
       {$if declared(FC_ECDSA_sign)}
-      ECDSA_sign := @FC_ECDSA_sign;
+      ECDSA_sign := FC_ECDSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7195,7 +7245,7 @@ begin
     if ECDSA_sign_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_sign)}
-      ECDSA_sign := @_ECDSA_sign;
+      ECDSA_sign := _ECDSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7212,13 +7262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_sign_ex_allownil)}
-    ECDSA_sign_ex := @ERR_ECDSA_sign_ex;
+    ECDSA_sign_ex := ERR_ECDSA_sign_ex;
     {$ifend}
     {$if declared(ECDSA_sign_ex_introduced)}
     if LibVersion < ECDSA_sign_ex_introduced then
     begin
       {$if declared(FC_ECDSA_sign_ex)}
-      ECDSA_sign_ex := @FC_ECDSA_sign_ex;
+      ECDSA_sign_ex := FC_ECDSA_sign_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7227,7 +7277,7 @@ begin
     if ECDSA_sign_ex_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_sign_ex)}
-      ECDSA_sign_ex := @_ECDSA_sign_ex;
+      ECDSA_sign_ex := _ECDSA_sign_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7244,13 +7294,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_verify_allownil)}
-    ECDSA_verify := @ERR_ECDSA_verify;
+    ECDSA_verify := ERR_ECDSA_verify;
     {$ifend}
     {$if declared(ECDSA_verify_introduced)}
     if LibVersion < ECDSA_verify_introduced then
     begin
       {$if declared(FC_ECDSA_verify)}
-      ECDSA_verify := @FC_ECDSA_verify;
+      ECDSA_verify := FC_ECDSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7259,7 +7309,7 @@ begin
     if ECDSA_verify_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_verify)}
-      ECDSA_verify := @_ECDSA_verify;
+      ECDSA_verify := _ECDSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7276,13 +7326,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ECDSA_size_allownil)}
-    ECDSA_size := @ERR_ECDSA_size;
+    ECDSA_size := ERR_ECDSA_size;
     {$ifend}
     {$if declared(ECDSA_size_introduced)}
     if LibVersion < ECDSA_size_introduced then
     begin
       {$if declared(FC_ECDSA_size)}
-      ECDSA_size := @FC_ECDSA_size;
+      ECDSA_size := FC_ECDSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7291,7 +7341,7 @@ begin
     if ECDSA_size_removed <= LibVersion then
     begin
       {$if declared(_ECDSA_size)}
-      ECDSA_size := @_ECDSA_size;
+      ECDSA_size := _ECDSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7308,13 +7358,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_new_allownil)}
-    EC_KEY_METHOD_new := @ERR_EC_KEY_METHOD_new;
+    EC_KEY_METHOD_new := ERR_EC_KEY_METHOD_new;
     {$ifend}
     {$if declared(EC_KEY_METHOD_new_introduced)}
     if LibVersion < EC_KEY_METHOD_new_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_new)}
-      EC_KEY_METHOD_new := @FC_EC_KEY_METHOD_new;
+      EC_KEY_METHOD_new := FC_EC_KEY_METHOD_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7323,7 +7373,7 @@ begin
     if EC_KEY_METHOD_new_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_new)}
-      EC_KEY_METHOD_new := @_EC_KEY_METHOD_new;
+      EC_KEY_METHOD_new := _EC_KEY_METHOD_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7340,13 +7390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_free_allownil)}
-    EC_KEY_METHOD_free := @ERR_EC_KEY_METHOD_free;
+    EC_KEY_METHOD_free := ERR_EC_KEY_METHOD_free;
     {$ifend}
     {$if declared(EC_KEY_METHOD_free_introduced)}
     if LibVersion < EC_KEY_METHOD_free_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_free)}
-      EC_KEY_METHOD_free := @FC_EC_KEY_METHOD_free;
+      EC_KEY_METHOD_free := FC_EC_KEY_METHOD_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7355,7 +7405,7 @@ begin
     if EC_KEY_METHOD_free_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_free)}
-      EC_KEY_METHOD_free := @_EC_KEY_METHOD_free;
+      EC_KEY_METHOD_free := _EC_KEY_METHOD_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7372,13 +7422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_set_init_allownil)}
-    EC_KEY_METHOD_set_init := @ERR_EC_KEY_METHOD_set_init;
+    EC_KEY_METHOD_set_init := ERR_EC_KEY_METHOD_set_init;
     {$ifend}
     {$if declared(EC_KEY_METHOD_set_init_introduced)}
     if LibVersion < EC_KEY_METHOD_set_init_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_set_init)}
-      EC_KEY_METHOD_set_init := @FC_EC_KEY_METHOD_set_init;
+      EC_KEY_METHOD_set_init := FC_EC_KEY_METHOD_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7387,7 +7437,7 @@ begin
     if EC_KEY_METHOD_set_init_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_set_init)}
-      EC_KEY_METHOD_set_init := @_EC_KEY_METHOD_set_init;
+      EC_KEY_METHOD_set_init := _EC_KEY_METHOD_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7404,13 +7454,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_set_keygen_allownil)}
-    EC_KEY_METHOD_set_keygen := @ERR_EC_KEY_METHOD_set_keygen;
+    EC_KEY_METHOD_set_keygen := ERR_EC_KEY_METHOD_set_keygen;
     {$ifend}
     {$if declared(EC_KEY_METHOD_set_keygen_introduced)}
     if LibVersion < EC_KEY_METHOD_set_keygen_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_set_keygen)}
-      EC_KEY_METHOD_set_keygen := @FC_EC_KEY_METHOD_set_keygen;
+      EC_KEY_METHOD_set_keygen := FC_EC_KEY_METHOD_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7419,7 +7469,7 @@ begin
     if EC_KEY_METHOD_set_keygen_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_set_keygen)}
-      EC_KEY_METHOD_set_keygen := @_EC_KEY_METHOD_set_keygen;
+      EC_KEY_METHOD_set_keygen := _EC_KEY_METHOD_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7436,13 +7486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_set_compute_key_allownil)}
-    EC_KEY_METHOD_set_compute_key := @ERR_EC_KEY_METHOD_set_compute_key;
+    EC_KEY_METHOD_set_compute_key := ERR_EC_KEY_METHOD_set_compute_key;
     {$ifend}
     {$if declared(EC_KEY_METHOD_set_compute_key_introduced)}
     if LibVersion < EC_KEY_METHOD_set_compute_key_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_set_compute_key)}
-      EC_KEY_METHOD_set_compute_key := @FC_EC_KEY_METHOD_set_compute_key;
+      EC_KEY_METHOD_set_compute_key := FC_EC_KEY_METHOD_set_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7451,7 +7501,7 @@ begin
     if EC_KEY_METHOD_set_compute_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_set_compute_key)}
-      EC_KEY_METHOD_set_compute_key := @_EC_KEY_METHOD_set_compute_key;
+      EC_KEY_METHOD_set_compute_key := _EC_KEY_METHOD_set_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7468,13 +7518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_set_sign_allownil)}
-    EC_KEY_METHOD_set_sign := @ERR_EC_KEY_METHOD_set_sign;
+    EC_KEY_METHOD_set_sign := ERR_EC_KEY_METHOD_set_sign;
     {$ifend}
     {$if declared(EC_KEY_METHOD_set_sign_introduced)}
     if LibVersion < EC_KEY_METHOD_set_sign_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_set_sign)}
-      EC_KEY_METHOD_set_sign := @FC_EC_KEY_METHOD_set_sign;
+      EC_KEY_METHOD_set_sign := FC_EC_KEY_METHOD_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7483,7 +7533,7 @@ begin
     if EC_KEY_METHOD_set_sign_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_set_sign)}
-      EC_KEY_METHOD_set_sign := @_EC_KEY_METHOD_set_sign;
+      EC_KEY_METHOD_set_sign := _EC_KEY_METHOD_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7500,13 +7550,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_set_verify_allownil)}
-    EC_KEY_METHOD_set_verify := @ERR_EC_KEY_METHOD_set_verify;
+    EC_KEY_METHOD_set_verify := ERR_EC_KEY_METHOD_set_verify;
     {$ifend}
     {$if declared(EC_KEY_METHOD_set_verify_introduced)}
     if LibVersion < EC_KEY_METHOD_set_verify_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_set_verify)}
-      EC_KEY_METHOD_set_verify := @FC_EC_KEY_METHOD_set_verify;
+      EC_KEY_METHOD_set_verify := FC_EC_KEY_METHOD_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7515,7 +7565,7 @@ begin
     if EC_KEY_METHOD_set_verify_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_set_verify)}
-      EC_KEY_METHOD_set_verify := @_EC_KEY_METHOD_set_verify;
+      EC_KEY_METHOD_set_verify := _EC_KEY_METHOD_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7532,13 +7582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_get_init_allownil)}
-    EC_KEY_METHOD_get_init := @ERR_EC_KEY_METHOD_get_init;
+    EC_KEY_METHOD_get_init := ERR_EC_KEY_METHOD_get_init;
     {$ifend}
     {$if declared(EC_KEY_METHOD_get_init_introduced)}
     if LibVersion < EC_KEY_METHOD_get_init_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_get_init)}
-      EC_KEY_METHOD_get_init := @FC_EC_KEY_METHOD_get_init;
+      EC_KEY_METHOD_get_init := FC_EC_KEY_METHOD_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7547,7 +7597,7 @@ begin
     if EC_KEY_METHOD_get_init_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_get_init)}
-      EC_KEY_METHOD_get_init := @_EC_KEY_METHOD_get_init;
+      EC_KEY_METHOD_get_init := _EC_KEY_METHOD_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7564,13 +7614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_get_keygen_allownil)}
-    EC_KEY_METHOD_get_keygen := @ERR_EC_KEY_METHOD_get_keygen;
+    EC_KEY_METHOD_get_keygen := ERR_EC_KEY_METHOD_get_keygen;
     {$ifend}
     {$if declared(EC_KEY_METHOD_get_keygen_introduced)}
     if LibVersion < EC_KEY_METHOD_get_keygen_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_get_keygen)}
-      EC_KEY_METHOD_get_keygen := @FC_EC_KEY_METHOD_get_keygen;
+      EC_KEY_METHOD_get_keygen := FC_EC_KEY_METHOD_get_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7579,7 +7629,7 @@ begin
     if EC_KEY_METHOD_get_keygen_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_get_keygen)}
-      EC_KEY_METHOD_get_keygen := @_EC_KEY_METHOD_get_keygen;
+      EC_KEY_METHOD_get_keygen := _EC_KEY_METHOD_get_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7596,13 +7646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_get_compute_key_allownil)}
-    EC_KEY_METHOD_get_compute_key := @ERR_EC_KEY_METHOD_get_compute_key;
+    EC_KEY_METHOD_get_compute_key := ERR_EC_KEY_METHOD_get_compute_key;
     {$ifend}
     {$if declared(EC_KEY_METHOD_get_compute_key_introduced)}
     if LibVersion < EC_KEY_METHOD_get_compute_key_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_get_compute_key)}
-      EC_KEY_METHOD_get_compute_key := @FC_EC_KEY_METHOD_get_compute_key;
+      EC_KEY_METHOD_get_compute_key := FC_EC_KEY_METHOD_get_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7611,7 +7661,7 @@ begin
     if EC_KEY_METHOD_get_compute_key_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_get_compute_key)}
-      EC_KEY_METHOD_get_compute_key := @_EC_KEY_METHOD_get_compute_key;
+      EC_KEY_METHOD_get_compute_key := _EC_KEY_METHOD_get_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7628,13 +7678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_get_sign_allownil)}
-    EC_KEY_METHOD_get_sign := @ERR_EC_KEY_METHOD_get_sign;
+    EC_KEY_METHOD_get_sign := ERR_EC_KEY_METHOD_get_sign;
     {$ifend}
     {$if declared(EC_KEY_METHOD_get_sign_introduced)}
     if LibVersion < EC_KEY_METHOD_get_sign_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_get_sign)}
-      EC_KEY_METHOD_get_sign := @FC_EC_KEY_METHOD_get_sign;
+      EC_KEY_METHOD_get_sign := FC_EC_KEY_METHOD_get_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7643,7 +7693,7 @@ begin
     if EC_KEY_METHOD_get_sign_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_get_sign)}
-      EC_KEY_METHOD_get_sign := @_EC_KEY_METHOD_get_sign;
+      EC_KEY_METHOD_get_sign := _EC_KEY_METHOD_get_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7660,13 +7710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(EC_KEY_METHOD_get_verify_allownil)}
-    EC_KEY_METHOD_get_verify := @ERR_EC_KEY_METHOD_get_verify;
+    EC_KEY_METHOD_get_verify := ERR_EC_KEY_METHOD_get_verify;
     {$ifend}
     {$if declared(EC_KEY_METHOD_get_verify_introduced)}
     if LibVersion < EC_KEY_METHOD_get_verify_introduced then
     begin
       {$if declared(FC_EC_KEY_METHOD_get_verify)}
-      EC_KEY_METHOD_get_verify := @FC_EC_KEY_METHOD_get_verify;
+      EC_KEY_METHOD_get_verify := FC_EC_KEY_METHOD_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7675,7 +7725,7 @@ begin
     if EC_KEY_METHOD_get_verify_removed <= LibVersion then
     begin
       {$if declared(_EC_KEY_METHOD_get_verify)}
-      EC_KEY_METHOD_get_verify := @_EC_KEY_METHOD_get_verify;
+      EC_KEY_METHOD_get_verify := _EC_KEY_METHOD_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;

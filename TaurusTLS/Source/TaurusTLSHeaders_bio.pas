@@ -1989,106 +1989,106 @@ begin
 end;
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; 
+function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_flags_procname);
 end;
 
- 
-procedure  ERR_BIO_set_retry_special(b: PBIO); 
+
+procedure  ERR_BIO_set_retry_special(b: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_retry_special_procname);
 end;
 
- 
-procedure  ERR_BIO_set_retry_read(b: PBIO); 
+
+procedure  ERR_BIO_set_retry_read(b: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_retry_read_procname);
 end;
 
- 
-procedure  ERR_BIO_set_retry_write(b: PBIO); 
+
+procedure  ERR_BIO_set_retry_write(b: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_retry_write_procname);
 end;
 
- 
+
 
 (* These are normally used internally in BIOs *)
-procedure  ERR_BIO_clear_retry_flags(b: PBIO); 
+procedure  ERR_BIO_clear_retry_flags(b: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_clear_retry_flags_procname);
 end;
 
- 
-function  ERR_BIO_get_retry_flags(b: PBIO): TIdC_INT; 
+
+function  ERR_BIO_get_retry_flags(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_retry_flags_procname);
 end;
 
- 
+
 
 (* These should be used by the application to tell why we should retry *)
-function  ERR_BIO_should_read(b: PBIO): TIdC_INT; 
+function  ERR_BIO_should_read(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_should_read_procname);
 end;
 
- 
-function  ERR_BIO_should_write(b: PBIO): TIdC_INT; 
+
+function  ERR_BIO_should_write(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_should_write_procname);
 end;
 
- 
-function  ERR_BIO_should_io_special(b: PBIO): TIdC_INT; 
+
+function  ERR_BIO_should_io_special(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_should_io_special_procname);
 end;
 
- 
-function  ERR_BIO_retry_type(b: PBIO): TIdC_INT; 
+
+function  ERR_BIO_retry_type(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_retry_type_procname);
 end;
 
  
-function  ERR_BIO_should_retry(b: PBIO): TIdC_INT; 
+function  ERR_BIO_should_retry(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_should_retry_procname);
 end;
 
- 
+
 
 (* BIO_s_accept() and BIO_s_connect() *)
-function  ERR_BIO_do_connect(b: PBIO): TIdC_LONG; 
+function  ERR_BIO_do_connect(b: PBIO): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_do_connect_procname);
 end;
 
- 
-function  ERR_BIO_do_accept(b: PBIO): TIdC_LONG; 
+
+function  ERR_BIO_do_accept(b: PBIO): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_do_accept_procname);
 end;
 
- 
-function  ERR_BIO_do_handshake(b: PBIO): TIdC_LONG; 
+
+function  ERR_BIO_do_handshake(b: PBIO): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_do_handshake_procname);
 end;
 
- 
+
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_data(b: PBIO; pp: Pointer) : TIdC_INT;
-function  ERR_BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT;
+function  ERR_BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_data_procname);
 end;
 
 
-function  ERR_BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT;
+function  ERR_BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_mem_buf_procname);
 end;
@@ -2096,90 +2096,90 @@ end;
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT;
-function  ERR_BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT;
+function  ERR_BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_ptr_procname);
 end;
 
 
-function  ERR_BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT;
+function  ERR_BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_mem_eof_return_procname);
 end;
 
 
 
-function  ERR_BIO_get_new_index: TIdC_INT;
+function  ERR_BIO_get_new_index: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_new_index_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_set_flags(b: PBIO; flags: TIdC_INT); 
+procedure  ERR_BIO_set_flags(b: PBIO; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_flags_procname);
 end;
 
 
-function  ERR_BIO_test_flags(const b: PBIO; flags: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_test_flags(const b: PBIO; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_test_flags_procname);
 end;
 
 
-procedure  ERR_BIO_clear_flags(b: PBIO; flags: TIdC_INT); 
+procedure  ERR_BIO_clear_flags(b: PBIO; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_clear_flags_procname);
 end;
 
 
 
-function  ERR_BIO_get_callback(b: PBIO): BIO_callback_fn; 
+function  ERR_BIO_get_callback(b: PBIO): BIO_callback_fn; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_callback_procname);
 end;
 
 
-procedure  ERR_BIO_set_callback(b: PBIO; callback: BIO_callback_fn); 
+procedure  ERR_BIO_set_callback(b: PBIO; callback: BIO_callback_fn); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_callback_procname);
 end;
 
 
 
-function  ERR_BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex; 
+function  ERR_BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_callback_ex_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex); 
+procedure  ERR_BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_callback_ex_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_get_callback_arg(const b: PBIO): PIdAnsiChar; 
+function  ERR_BIO_get_callback_arg(const b: PBIO): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_callback_arg_procname);
 end;
 
 
-procedure  ERR_BIO_set_callback_arg(var b: PBIO; arg: PIdAnsiChar); 
+procedure  ERR_BIO_set_callback_arg(var b: PBIO; arg: PIdAnsiChar); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_callback_arg_procname);
 end;
 
 
 
-function  ERR_BIO_method_name(const b: PBIO): PIdAnsiChar; 
+function  ERR_BIO_method_name(const b: PBIO): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_method_name_procname);
 end;
 
 
-function  ERR_BIO_method_type(const b: PBIO): TIdC_INT; 
+function  ERR_BIO_method_type(const b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_method_type_procname);
 end;
@@ -2307,13 +2307,13 @@ end;
 //  {$HPPEMIT '# define BIO_pending(b)          (int)BIO_ctrl(b,BIO_CTRL_PENDING,0,NULL)'}
 //  {$HPPEMIT '# define BIO_wpending(b)         (int)BIO_ctrl(b,BIO_CTRL_WPENDING,0,NULL)'}
   (* ...pending macros have inappropriate return type *)
-function  ERR_BIO_ctrl_pending(b: PBIO): TIdC_SIZET; 
+function  ERR_BIO_ctrl_pending(b: PBIO): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_pending_procname);
 end;
 
 
-function  ERR_BIO_ctrl_wpending(b: PBIO): TIdC_SIZET; 
+function  ERR_BIO_ctrl_wpending(b: PBIO): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_wpending_procname);
 end;
@@ -2337,19 +2337,19 @@ end;
 //  (* macros with inappropriate type -- but ...pending macros use int too: *)
 //  {$HPPEMIT '# define BIO_get_write_guarantee(b(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)'}
 //  {$HPPEMIT '# define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)'}
-function  ERR_BIO_ctrl_get_write_guarantee(b: PBIO): TIdC_SIZET; 
+function  ERR_BIO_ctrl_get_write_guarantee(b: PBIO): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_get_write_guarantee_procname);
 end;
 
 
-function  ERR_BIO_ctrl_get_read_request(b: PBIO): TIdC_SIZET; 
+function  ERR_BIO_ctrl_get_read_request(b: PBIO): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_get_read_request_procname);
 end;
 
 
-function  ERR_BIO_ctrl_reset_read_request(b: PBIO): TIdC_INT; 
+function  ERR_BIO_ctrl_reset_read_request(b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_reset_read_request_procname);
 end;
@@ -2375,25 +2375,25 @@ end;
 //#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
 //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
 
-function  ERR_BIO_set_ex_data(bio: PBIO; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function  ERR_BIO_set_ex_data(bio: PBIO; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_ex_data_procname);
 end;
 
 
-function  ERR_BIO_get_ex_data(bio: PBIO; idx: TIdC_INT): Pointer; 
+function  ERR_BIO_get_ex_data(bio: PBIO; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_ex_data_procname);
 end;
 
 
-function  ERR_BIO_number_read(bio: PBIO): TIdC_UINT64; 
+function  ERR_BIO_number_read(bio: PBIO): TIdC_UINT64; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_number_read_procname);
 end;
 
 
-function  ERR_BIO_number_written(bio: PBIO): TIdC_UINT64; 
+function  ERR_BIO_number_written(bio: PBIO): TIdC_UINT64; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_number_written_procname);
 end;
@@ -2406,86 +2406,86 @@ end;
 //  function BIO_asn1_set_suffix(b: PBIO; suffix: ^asn1_ps_func; suffix_free: ^asn1_ps_func): TIdC_INT;
 //  function BIO_asn1_get_suffix(b: PBIO; psuffix: ^asn1_ps_func; psuffix_free: ^^asn1_ps_func): TIdC_INT;
 
-function  ERR_BIO_s_file: PBIO_METHOD; 
+function  ERR_BIO_s_file: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_file_procname);
 end;
 
 
-function  ERR_BIO_new_file(const filename: PIdAnsiChar; const mode: PIdAnsiChar): PBIO; 
+function  ERR_BIO_new_file(const filename: PIdAnsiChar; const mode: PIdAnsiChar): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_file_procname);
 end;
 
 
 //  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
-function  ERR_BIO_new(const cType: PBIO_METHOD): PBIO; 
+function  ERR_BIO_new(const cType: PBIO_METHOD): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_procname);
 end;
 
 
-function  ERR_BIO_free(a: PBIO): TIdC_INT; 
+function  ERR_BIO_free(a: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_free_procname);
 end;
 
 
-procedure  ERR_BIO_set_data(a: PBIO; _ptr: Pointer); 
+procedure  ERR_BIO_set_data(a: PBIO; _ptr: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_get_data(a: PBIO): Pointer; 
+function  ERR_BIO_get_data(a: PBIO): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_data_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_set_init(a: PBIO; init: TIdC_INT); 
+procedure  ERR_BIO_set_init(a: PBIO; init: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_init_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_get_init(a: PBIO): TIdC_INT; 
+function  ERR_BIO_get_init(a: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_init_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_set_shutdown(a: PBIO; shut: TIdC_INT); 
+procedure  ERR_BIO_set_shutdown(a: PBIO; shut: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_shutdown_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_get_shutdown(a: PBIO): TIdC_INT; 
+function  ERR_BIO_get_shutdown(a: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_shutdown_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_vfree(a: PBIO); 
+procedure  ERR_BIO_vfree(a: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_vfree_procname);
 end;
 
 
-function  ERR_BIO_up_ref(a: PBIO): TIdC_INT; 
+function  ERR_BIO_up_ref(a: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_up_ref_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_read(b: PBIO; var data; dlen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_read_procname);
 end;
 
 
-function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT;
+function  ERR_BIO_read_ex(b: PBIO; var data; dlen: TIdC_SIZET; out readbytes: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_read_ex_procname);
 end;
@@ -2493,25 +2493,25 @@ end;
  {introduced 3.2.0}
 function ERR_BIO_recvmmsg(b : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
-    msgs_processed : PIdC_SIZET): TIdC_INT;
+    msgs_processed : PIdC_SIZET): TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_recvmmsg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_gets_procname);
 end;
 
 
-function  ERR_BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_write(b: PBIO; const data; dlen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_write_procname);
 end;
 
 
-function  ERR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
+function  ERR_BIO_write_ex(b: PBIO; const data; dlen: TIdC_SIZET; out written: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_write_ex_procname);
 end;
@@ -2519,250 +2519,251 @@ end;
  {introduced 3.2.0}
 function ERR_BIO_sendmmsg(b0 : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
-    msgs_processed : PIdC_SIZET) : TIdC_INT;
+    msgs_processed : PIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sendmmsg_procname);
 end;
 
-function ERR_BIO_get_rpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR)  : TIdC_INT;
+function ERR_BIO_get_rpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR)  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_rpoll_descriptor_procname);
 end;
 
-function ERR_BIO_get_wpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT;
+function ERR_BIO_get_wpoll_descriptor(b : PBIO; desc : PBIO_POLL_DESCRIPTOR) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_wpoll_descriptor_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; 
+function  ERR_BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_puts_procname);
 end;
 
 
-function  ERR_BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_indent_procname);
 end;
 
 
-function  ERR_BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; 
+function  ERR_BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ctrl_procname);
 end;
 
 
-function  ERR_BIO_callback_ctrl(b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG; 
+function  ERR_BIO_callback_ctrl(b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_callback_ctrl_procname);
 end;
 
 
-function  ERR_BIO_ptr_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer; 
+function  ERR_BIO_ptr_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ptr_ctrl_procname);
 end;
 
 
-function  ERR_BIO_int_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG; 
+function  ERR_BIO_int_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_int_ctrl_procname);
 end;
 
 
-function  ERR_BIO_push(b: PBIO; _append: PBIO): PBIO;
+function  ERR_BIO_push(b: PBIO; _append: PBIO): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_push_procname);
 end;
 
 
-function  ERR_BIO_pop(b: PBIO): PBIO; 
+function  ERR_BIO_pop(b: PBIO): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_pop_procname);
 end;
 
 
-procedure  ERR_BIO_free_all(a: PBIO); 
+procedure  ERR_BIO_free_all(a: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_free_all_procname);
 end;
 
 
-function  ERR_BIO_find_type(b: PBIO; bio_type: TIdC_INT): PBIO; 
+function  ERR_BIO_find_type(b: PBIO; bio_type: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_find_type_procname);
 end;
 
 
-function  ERR_BIO_next(b: PBIO): PBIO; 
+function  ERR_BIO_next(b: PBIO): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_next_procname);
 end;
 
 
-procedure  ERR_BIO_set_next(b: PBIO; next: PBIO); 
+procedure  ERR_BIO_set_next(b: PBIO; next: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_next_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_get_retry_BIO(bio: PBIO; reason: TIdC_INT): PBIO; 
+function  ERR_BIO_get_retry_BIO(bio: PBIO; reason: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_retry_BIO_procname);
 end;
 
 
-function  ERR_BIO_get_retry_reason(bio: PBIO): TIdC_INT; 
+function  ERR_BIO_get_retry_reason(bio: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_retry_reason_procname);
 end;
 
 
-procedure  ERR_BIO_set_retry_reason(bio: PBIO; reason: TIdC_INT); 
+procedure  ERR_BIO_set_retry_reason(bio: PBIO; reason: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_retry_reason_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_dup_chain(in_: PBIO): PBIO; 
+function  ERR_BIO_dup_chain(in_: PBIO): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_dup_chain_procname);
 end;
 
 
 
-function  ERR_BIO_nread0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; 
+function  ERR_BIO_nread0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_nread0_procname);
 end;
 
 
-function  ERR_BIO_nread(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_nread(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_nread_procname);
 end;
 
 
-function  ERR_BIO_nwrite0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; 
+function  ERR_BIO_nwrite0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_nwrite0_procname);
 end;
 
 
-function  ERR_BIO_nwrite(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_nwrite(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_nwrite_procname);
 end;
 
 
 
-function  ERR_BIO_debug_callback(bio: PBIO; cmd: TIdC_INT; const argp: PIdAnsiChar; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG; 
+function  ERR_BIO_debug_callback(bio: PBIO; cmd: TIdC_INT; const argp: PIdAnsiChar;
+  argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_debug_callback_procname);
 end;
 
 
 
-function  ERR_BIO_s_mem: PBIO_METHOD; 
+function  ERR_BIO_s_mem: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_mem_procname);
 end;
 
 
-function  ERR_BIO_s_secmem: PBIO_METHOD; 
+function  ERR_BIO_s_secmem: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_secmem_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_new_mem_buf(const buf: Pointer; len: TIdC_INT): PBIO; 
+function  ERR_BIO_new_mem_buf(const buf; len: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_mem_buf_procname);
 end;
 
 
 
-function  ERR_BIO_s_socket: PBIO_METHOD; 
+function  ERR_BIO_s_socket: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_socket_procname);
 end;
 
 
-function  ERR_BIO_s_connect: PBIO_METHOD; 
+function  ERR_BIO_s_connect: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_connect_procname);
 end;
 
 
-function  ERR_BIO_s_accept: PBIO_METHOD; 
+function  ERR_BIO_s_accept: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_accept_procname);
 end;
 
 
 
-function  ERR_BIO_s_fd: PBIO_METHOD; 
+function  ERR_BIO_s_fd: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_fd_procname);
 end;
 
 
-function  ERR_BIO_s_log: PBIO_METHOD; 
+function  ERR_BIO_s_log: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_log_procname);
 end;
 
 
-function  ERR_BIO_s_bio: PBIO_METHOD; 
+function  ERR_BIO_s_bio: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_bio_procname);
 end;
 
 
-function  ERR_BIO_s_null: PBIO_METHOD; 
+function  ERR_BIO_s_null: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_null_procname);
 end;
 
 
-function  ERR_BIO_f_null: PBIO_METHOD; 
+function  ERR_BIO_f_null: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_null_procname);
 end;
 
 
-function  ERR_BIO_f_buffer: PBIO_METHOD; 
+function  ERR_BIO_f_buffer: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_buffer_procname);
 end;
 
 
-function  ERR_BIO_f_linebuffer: PBIO_METHOD; 
+function  ERR_BIO_f_linebuffer: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_linebuffer_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_f_nbio_test: PBIO_METHOD; 
+function  ERR_BIO_f_nbio_test: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_f_nbio_test_procname);
 end;
 
 
-function  ERR_BIO_s_datagram: PBIO_METHOD; 
+function  ERR_BIO_s_datagram: PBIO_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_s_datagram_procname);
 end;
 
 
-function  ERR_BIO_dgram_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_dgram_non_fatal_error(_error: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_dgram_non_fatal_error_procname);
 end;
 
 
-function  ERR_BIO_new_dgram(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function  ERR_BIO_new_dgram(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_dgram_procname);
 end;
@@ -2778,29 +2779,29 @@ end;
 //  function BIO_dgram_sctp_wait_for_dry(b: PBIO): TIdC_INT;
 //  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
 
-function  ERR_BIO_sock_should_retry(i: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_sock_should_retry(i: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_should_retry_procname);
 end;
 
 
-function  ERR_BIO_sock_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_sock_non_fatal_error(_error: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_non_fatal_error_procname);
 end;
 
-function ERR_BIO_err_is_non_fatal(errcode : TIdC_UINT) : TIdC_INT;
+function ERR_BIO_err_is_non_fatal(errcode : TIdC_UINT) : TIdC_INT; cdecl;
 begin
    ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_err_is_non_fatal_procname);
 end;
 
-function  ERR_BIO_fd_should_retry(i: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_fd_should_retry(i: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_fd_should_retry_procname);
 end;
 
 
-function  ERR_BIO_fd_non_fatal_error(_error: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_fd_non_fatal_error(_error: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_fd_non_fatal_error_procname);
 end;
@@ -2811,13 +2812,13 @@ end;
 //    len: TIdC_SIZET;
 //    function: Pointer): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len): u;
 //  function BIO_dump_indent_cb(TIdC_INT (cb( Pointer data, TIdC_SIZET len, Pointer function ): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len, TIdC_INT indent): u;
-function  ERR_BIO_dump(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_dump(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_dump_procname);
 end;
 
 
-function  ERR_BIO_dump_indent(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT; indent: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_dump_indent(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT; indent: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_dump_indent_procname);
 end;
@@ -2827,233 +2828,239 @@ end;
 //  function BIO_dump_fp(fp: cFile; const s: PByte; len: TIdC_INT): TIdC_INT;
 //  function BIO_dump_indent_fp(fp: cFile; const s: PByte; len: TIdC_INT; indent: TIdC_INT): TIdC_INT;
 
-function  ERR_BIO_hex_string(out_: PBIO; indent: TIdC_INT; width: TIdC_INT; data: PByte; datalen: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_hex_string(out_: PBIO; indent: TIdC_INT; width: TIdC_INT; data: PByte;
+  datalen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_hex_string_procname);
 end;
 
 
 
-function  ERR_BIO_ADDR_new: PBIO_ADDR; 
+function  ERR_BIO_ADDR_new: PBIO_ADDR; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_new_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TIdC_INT; const where: Pointer; wherelen: TIdC_SIZET; port: TIdC_SHORT): TIdC_INT; 
+function  ERR_BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TIdC_INT; const where: Pointer;
+  wherelen: TIdC_SIZET; port: TIdC_SHORT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawmake_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_ADDR_free(a: PBIO_ADDR); 
+procedure  ERR_BIO_ADDR_free(a: PBIO_ADDR); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_free_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_ADDR_clear(ap: PBIO_ADDR); 
+procedure  ERR_BIO_ADDR_clear(ap: PBIO_ADDR); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_clear_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_family(const ap: PBIO_ADDR): TIdC_INT; 
+function  ERR_BIO_ADDR_family(const ap: PBIO_ADDR): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_family_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; 
+function  ERR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; out l: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawaddress_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawport(const ap: PBIO_ADDR): TIdC_SHORT; 
+function  ERR_BIO_ADDR_rawport(const ap: PBIO_ADDR): TIdC_SHORT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawport_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; 
+function  ERR_BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_hostname_string_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; 
+function  ERR_BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_service_string_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_path_string(const ap: PBIO_ADDR): PIdAnsiChar; 
+function  ERR_BIO_ADDR_path_string(const ap: PBIO_ADDR): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_path_string_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; 
+function  ERR_BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_next_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function  ERR_BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_family_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function  ERR_BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_socktype_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function  ERR_BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_protocol_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR; 
+function  ERR_BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_address_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_BIO_ADDRINFO_free(bai: PBIO_ADDRINFO); 
+procedure  ERR_BIO_ADDRINFO_free(bai: PBIO_ADDRINFO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_free_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_parse_hostserv(const hostserv: PIdAnsiChar; var host, service: PIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT;
+function  ERR_BIO_parse_hostserv(const hostserv: PIdAnsiChar; var host, service: PIdAnsiChar;
+  hostserv_prio: BIO_hostserv_priorities): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_parse_hostserv_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_lookup(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; 
+function  ERR_BIO_lookup(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type;
+  family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_lookup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_lookup_ex(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; 
+function  ERR_BIO_lookup_ex(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT;
+  family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_lookup_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_sock_error(sock: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_sock_error(sock: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_error_procname);
 end;
 
 
-function  ERR_BIO_socket_ioctl(fd: TIdC_INT; cType: TIdC_LONG; arg: Pointer): TIdC_INT; 
+function  ERR_BIO_socket_ioctl(fd: TIdC_INT; cType: TIdC_LONG; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_socket_ioctl_procname);
 end;
 
 
-function  ERR_BIO_socket_nbio(fd: TIdC_INT; mode: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_socket_nbio(fd: TIdC_INT; mode: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_socket_nbio_procname);
 end;
 
 
-function  ERR_BIO_sock_init: TIdC_INT; 
+function  ERR_BIO_sock_init: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_init_procname);
 end;
 
 
 
-function  ERR_BIO_set_tcp_ndelay(sock: TIdC_INT; turn_on: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_set_tcp_ndelay(sock: TIdC_INT; turn_on: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_set_tcp_ndelay_procname);
 end;
 
 
 
-function  ERR_BIO_sock_info(sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT; 
+function  ERR_BIO_sock_info(sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_sock_info_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_socket(domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_socket(domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_socket_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_connect(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_connect(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_connect_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_bind(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_bind(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_bind_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_listen(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_listen(sock: TIdC_INT; const address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_listen_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_accept_ex(accept_sock: TIdC_INT; address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_accept_ex(accept_sock: TIdC_INT; address: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_accept_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_closesocket(sock: TIdC_INT): TIdC_INT; 
+function  ERR_BIO_closesocket(sock: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_closesocket_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_BIO_new_socket(sock: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function  ERR_BIO_new_socket(sock: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_socket_procname);
 end;
 
 
-function  ERR_BIO_new_connect(const host_port: PIdAnsiChar): PBIO; 
+function  ERR_BIO_new_connect(const host_port: PIdAnsiChar): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_connect_procname);
 end;
 
 
-function  ERR_BIO_new_accept(const host_port: PIdAnsiChar): PBIO; 
+function  ERR_BIO_new_accept(const host_port: PIdAnsiChar): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_accept_procname);
 end;
 
 
 
-function  ERR_BIO_new_fd(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function  ERR_BIO_new_fd(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_fd_procname);
 end;
 
 
 
-function  ERR_BIO_new_bio_pair(bio1: PPBIO; writebuf1: TIdC_SIZET; bio2: PPBIO; writebuf2: TIdC_SIZET): TIdC_INT; 
+function  ERR_BIO_new_bio_pair(bio1: PPBIO; writebuf1: TIdC_SIZET; bio2: PPBIO;
+  writebuf2: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_bio_pair_procname);
 end;
@@ -3065,7 +3072,7 @@ end;
    * value.
    *)
 
-procedure  ERR_BIO_copy_next_retry(b: PBIO); 
+procedure  ERR_BIO_copy_next_retry(b: PBIO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_copy_next_retry_procname);
 end;
@@ -3106,7 +3113,7 @@ end;
 //                                 long (*callback_ctrl) (BIO *, int,
 //                                                        BIO_info_cb *));
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -3118,13 +3125,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_flags_allownil)}
-    BIO_get_flags := @ERR_BIO_get_flags;
+    BIO_get_flags := ERR_BIO_get_flags;
     {$ifend}
     {$if declared(BIO_get_flags_introduced)}
     if LibVersion < BIO_get_flags_introduced then
     begin
       {$if declared(FC_BIO_get_flags)}
-      BIO_get_flags := @FC_BIO_get_flags;
+      BIO_get_flags := FC_BIO_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3133,7 +3140,7 @@ begin
     if BIO_get_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_flags)}
-      BIO_get_flags := @_BIO_get_flags;
+      BIO_get_flags := _BIO_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3150,13 +3157,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_retry_special_allownil)}
-    BIO_set_retry_special := @ERR_BIO_set_retry_special;
+    BIO_set_retry_special := ERR_BIO_set_retry_special;
     {$ifend}
     {$if declared(BIO_set_retry_special_introduced)}
     if LibVersion < BIO_set_retry_special_introduced then
     begin
       {$if declared(FC_BIO_set_retry_special)}
-      BIO_set_retry_special := @FC_BIO_set_retry_special;
+      BIO_set_retry_special := FC_BIO_set_retry_special;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3165,7 +3172,7 @@ begin
     if BIO_set_retry_special_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_retry_special)}
-      BIO_set_retry_special := @_BIO_set_retry_special;
+      BIO_set_retry_special := _BIO_set_retry_special;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3182,13 +3189,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_retry_read_allownil)}
-    BIO_set_retry_read := @ERR_BIO_set_retry_read;
+    BIO_set_retry_read := ERR_BIO_set_retry_read;
     {$ifend}
     {$if declared(BIO_set_retry_read_introduced)}
     if LibVersion < BIO_set_retry_read_introduced then
     begin
       {$if declared(FC_BIO_set_retry_read)}
-      BIO_set_retry_read := @FC_BIO_set_retry_read;
+      BIO_set_retry_read := FC_BIO_set_retry_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3197,7 +3204,7 @@ begin
     if BIO_set_retry_read_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_retry_read)}
-      BIO_set_retry_read := @_BIO_set_retry_read;
+      BIO_set_retry_read := _BIO_set_retry_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3214,13 +3221,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_retry_write_allownil)}
-    BIO_set_retry_write := @ERR_BIO_set_retry_write;
+    BIO_set_retry_write := ERR_BIO_set_retry_write;
     {$ifend}
     {$if declared(BIO_set_retry_write_introduced)}
     if LibVersion < BIO_set_retry_write_introduced then
     begin
       {$if declared(FC_BIO_set_retry_write)}
-      BIO_set_retry_write := @FC_BIO_set_retry_write;
+      BIO_set_retry_write := FC_BIO_set_retry_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3229,7 +3236,7 @@ begin
     if BIO_set_retry_write_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_retry_write)}
-      BIO_set_retry_write := @_BIO_set_retry_write;
+      BIO_set_retry_write := _BIO_set_retry_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3246,13 +3253,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_clear_retry_flags_allownil)}
-    BIO_clear_retry_flags := @ERR_BIO_clear_retry_flags;
+    BIO_clear_retry_flags := ERR_BIO_clear_retry_flags;
     {$ifend}
     {$if declared(BIO_clear_retry_flags_introduced)}
     if LibVersion < BIO_clear_retry_flags_introduced then
     begin
       {$if declared(FC_BIO_clear_retry_flags)}
-      BIO_clear_retry_flags := @FC_BIO_clear_retry_flags;
+      BIO_clear_retry_flags := FC_BIO_clear_retry_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3261,7 +3268,7 @@ begin
     if BIO_clear_retry_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_clear_retry_flags)}
-      BIO_clear_retry_flags := @_BIO_clear_retry_flags;
+      BIO_clear_retry_flags := _BIO_clear_retry_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3278,13 +3285,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_retry_flags_allownil)}
-    BIO_get_retry_flags := @ERR_BIO_get_retry_flags;
+    BIO_get_retry_flags := ERR_BIO_get_retry_flags;
     {$ifend}
     {$if declared(BIO_get_retry_flags_introduced)}
     if LibVersion < BIO_get_retry_flags_introduced then
     begin
       {$if declared(FC_BIO_get_retry_flags)}
-      BIO_get_retry_flags := @FC_BIO_get_retry_flags;
+      BIO_get_retry_flags := FC_BIO_get_retry_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3293,7 +3300,7 @@ begin
     if BIO_get_retry_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_retry_flags)}
-      BIO_get_retry_flags := @_BIO_get_retry_flags;
+      BIO_get_retry_flags := _BIO_get_retry_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3310,13 +3317,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_should_read_allownil)}
-    BIO_should_read := @ERR_BIO_should_read;
+    BIO_should_read := ERR_BIO_should_read;
     {$ifend}
     {$if declared(BIO_should_read_introduced)}
     if LibVersion < BIO_should_read_introduced then
     begin
       {$if declared(FC_BIO_should_read)}
-      BIO_should_read := @FC_BIO_should_read;
+      BIO_should_read := FC_BIO_should_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3325,7 +3332,7 @@ begin
     if BIO_should_read_removed <= LibVersion then
     begin
       {$if declared(_BIO_should_read)}
-      BIO_should_read := @_BIO_should_read;
+      BIO_should_read := _BIO_should_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3342,13 +3349,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_should_write_allownil)}
-    BIO_should_write := @ERR_BIO_should_write;
+    BIO_should_write := ERR_BIO_should_write;
     {$ifend}
     {$if declared(BIO_should_write_introduced)}
     if LibVersion < BIO_should_write_introduced then
     begin
       {$if declared(FC_BIO_should_write)}
-      BIO_should_write := @FC_BIO_should_write;
+      BIO_should_write := FC_BIO_should_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3357,7 +3364,7 @@ begin
     if BIO_should_write_removed <= LibVersion then
     begin
       {$if declared(_BIO_should_write)}
-      BIO_should_write := @_BIO_should_write;
+      BIO_should_write := _BIO_should_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3374,13 +3381,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_should_io_special_allownil)}
-    BIO_should_io_special := @ERR_BIO_should_io_special;
+    BIO_should_io_special := ERR_BIO_should_io_special;
     {$ifend}
     {$if declared(BIO_should_io_special_introduced)}
     if LibVersion < BIO_should_io_special_introduced then
     begin
       {$if declared(FC_BIO_should_io_special)}
-      BIO_should_io_special := @FC_BIO_should_io_special;
+      BIO_should_io_special := FC_BIO_should_io_special;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3389,7 +3396,7 @@ begin
     if BIO_should_io_special_removed <= LibVersion then
     begin
       {$if declared(_BIO_should_io_special)}
-      BIO_should_io_special := @_BIO_should_io_special;
+      BIO_should_io_special := _BIO_should_io_special;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3406,13 +3413,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_retry_type_allownil)}
-    BIO_retry_type := @ERR_BIO_retry_type;
+    BIO_retry_type := ERR_BIO_retry_type;
     {$ifend}
     {$if declared(BIO_retry_type_introduced)}
     if LibVersion < BIO_retry_type_introduced then
     begin
       {$if declared(FC_BIO_retry_type)}
-      BIO_retry_type := @FC_BIO_retry_type;
+      BIO_retry_type := FC_BIO_retry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3421,7 +3428,7 @@ begin
     if BIO_retry_type_removed <= LibVersion then
     begin
       {$if declared(_BIO_retry_type)}
-      BIO_retry_type := @_BIO_retry_type;
+      BIO_retry_type := _BIO_retry_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3438,13 +3445,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_should_retry_allownil)}
-    BIO_should_retry := @ERR_BIO_should_retry;
+    BIO_should_retry := ERR_BIO_should_retry;
     {$ifend}
     {$if declared(BIO_should_retry_introduced)}
     if LibVersion < BIO_should_retry_introduced then
     begin
       {$if declared(FC_BIO_should_retry)}
-      BIO_should_retry := @FC_BIO_should_retry;
+      BIO_should_retry := FC_BIO_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3453,7 +3460,7 @@ begin
     if BIO_should_retry_removed <= LibVersion then
     begin
       {$if declared(_BIO_should_retry)}
-      BIO_should_retry := @_BIO_should_retry;
+      BIO_should_retry := _BIO_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3470,13 +3477,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_do_connect_allownil)}
-    BIO_do_connect := @ERR_BIO_do_connect;
+    BIO_do_connect := ERR_BIO_do_connect;
     {$ifend}
     {$if declared(BIO_do_connect_introduced)}
     if LibVersion < BIO_do_connect_introduced then
     begin
       {$if declared(FC_BIO_do_connect)}
-      BIO_do_connect := @FC_BIO_do_connect;
+      BIO_do_connect := FC_BIO_do_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3485,7 +3492,7 @@ begin
     if BIO_do_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_do_connect)}
-      BIO_do_connect := @_BIO_do_connect;
+      BIO_do_connect := _BIO_do_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3502,13 +3509,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_do_accept_allownil)}
-    BIO_do_accept := @ERR_BIO_do_accept;
+    BIO_do_accept := ERR_BIO_do_accept;
     {$ifend}
     {$if declared(BIO_do_accept_introduced)}
     if LibVersion < BIO_do_accept_introduced then
     begin
       {$if declared(FC_BIO_do_accept)}
-      BIO_do_accept := @FC_BIO_do_accept;
+      BIO_do_accept := FC_BIO_do_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3517,7 +3524,7 @@ begin
     if BIO_do_accept_removed <= LibVersion then
     begin
       {$if declared(_BIO_do_accept)}
-      BIO_do_accept := @_BIO_do_accept;
+      BIO_do_accept := _BIO_do_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3534,13 +3541,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_do_handshake_allownil)}
-    BIO_do_handshake := @ERR_BIO_do_handshake;
+    BIO_do_handshake := ERR_BIO_do_handshake;
     {$ifend}
     {$if declared(BIO_do_handshake_introduced)}
     if LibVersion < BIO_do_handshake_introduced then
     begin
       {$if declared(FC_BIO_do_handshake)}
-      BIO_do_handshake := @FC_BIO_do_handshake;
+      BIO_do_handshake := FC_BIO_do_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3549,7 +3556,7 @@ begin
     if BIO_do_handshake_removed <= LibVersion then
     begin
       {$if declared(_BIO_do_handshake)}
-      BIO_do_handshake := @_BIO_do_handshake;
+      BIO_do_handshake := _BIO_do_handshake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3566,13 +3573,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_mem_data_allownil)}
-    BIO_get_mem_data := @ERR_BIO_get_mem_data;
+    BIO_get_mem_data := ERR_BIO_get_mem_data;
     {$ifend}
     {$if declared(BIO_get_mem_data_introduced)}
     if LibVersion < BIO_get_mem_data_introduced then
     begin
       {$if declared(FC_BIO_get_mem_data)}
-      BIO_get_mem_data := @FC_BIO_get_mem_data;
+      BIO_get_mem_data := FC_BIO_get_mem_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3581,7 +3588,7 @@ begin
     if BIO_get_mem_data_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_mem_data)}
-      BIO_get_mem_data := @_BIO_get_mem_data;
+      BIO_get_mem_data := _BIO_get_mem_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3598,13 +3605,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_mem_buf_allownil)}
-    BIO_set_mem_buf := @ERR_BIO_set_mem_buf;
+    BIO_set_mem_buf := ERR_BIO_set_mem_buf;
     {$ifend}
     {$if declared(BIO_set_mem_buf_introduced)}
     if LibVersion < BIO_set_mem_buf_introduced then
     begin
       {$if declared(FC_BIO_set_mem_buf)}
-      BIO_set_mem_buf := @FC_BIO_set_mem_buf;
+      BIO_set_mem_buf := FC_BIO_set_mem_buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3613,7 +3620,7 @@ begin
     if BIO_set_mem_buf_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_mem_buf)}
-      BIO_set_mem_buf := @_BIO_set_mem_buf;
+      BIO_set_mem_buf := _BIO_set_mem_buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3630,13 +3637,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_mem_ptr_allownil)}
-    BIO_get_mem_ptr := @ERR_BIO_get_mem_ptr;
+    BIO_get_mem_ptr := ERR_BIO_get_mem_ptr;
     {$ifend}
     {$if declared(BIO_get_mem_ptr_introduced)}
     if LibVersion < BIO_get_mem_ptr_introduced then
     begin
       {$if declared(FC_BIO_get_mem_ptr)}
-      BIO_get_mem_ptr := @FC_BIO_get_mem_ptr;
+      BIO_get_mem_ptr := FC_BIO_get_mem_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3645,7 +3652,7 @@ begin
     if BIO_get_mem_ptr_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_mem_ptr)}
-      BIO_get_mem_ptr := @_BIO_get_mem_ptr;
+      BIO_get_mem_ptr := _BIO_get_mem_ptr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3662,13 +3669,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_mem_eof_return_allownil)}
-    BIO_set_mem_eof_return := @ERR_BIO_set_mem_eof_return;
+    BIO_set_mem_eof_return := ERR_BIO_set_mem_eof_return;
     {$ifend}
     {$if declared(BIO_set_mem_eof_return_introduced)}
     if LibVersion < BIO_set_mem_eof_return_introduced then
     begin
       {$if declared(FC_BIO_set_mem_eof_return)}
-      BIO_set_mem_eof_return := @FC_BIO_set_mem_eof_return;
+      BIO_set_mem_eof_return := FC_BIO_set_mem_eof_return;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3677,7 +3684,7 @@ begin
     if BIO_set_mem_eof_return_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_mem_eof_return)}
-      BIO_set_mem_eof_return := @_BIO_set_mem_eof_return;
+      BIO_set_mem_eof_return := _BIO_set_mem_eof_return;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3694,13 +3701,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_new_index_allownil)}
-    BIO_get_new_index := @ERR_BIO_get_new_index;
+    BIO_get_new_index := ERR_BIO_get_new_index;
     {$ifend}
     {$if declared(BIO_get_new_index_introduced)}
     if LibVersion < BIO_get_new_index_introduced then
     begin
       {$if declared(FC_BIO_get_new_index)}
-      BIO_get_new_index := @FC_BIO_get_new_index;
+      BIO_get_new_index := FC_BIO_get_new_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3709,7 +3716,7 @@ begin
     if BIO_get_new_index_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_new_index)}
-      BIO_get_new_index := @_BIO_get_new_index;
+      BIO_get_new_index := _BIO_get_new_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3726,13 +3733,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_flags_allownil)}
-    BIO_set_flags := @ERR_BIO_set_flags;
+    BIO_set_flags := ERR_BIO_set_flags;
     {$ifend}
     {$if declared(BIO_set_flags_introduced)}
     if LibVersion < BIO_set_flags_introduced then
     begin
       {$if declared(FC_BIO_set_flags)}
-      BIO_set_flags := @FC_BIO_set_flags;
+      BIO_set_flags := FC_BIO_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3741,7 +3748,7 @@ begin
     if BIO_set_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_flags)}
-      BIO_set_flags := @_BIO_set_flags;
+      BIO_set_flags := _BIO_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3758,13 +3765,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_test_flags_allownil)}
-    BIO_test_flags := @ERR_BIO_test_flags;
+    BIO_test_flags := ERR_BIO_test_flags;
     {$ifend}
     {$if declared(BIO_test_flags_introduced)}
     if LibVersion < BIO_test_flags_introduced then
     begin
       {$if declared(FC_BIO_test_flags)}
-      BIO_test_flags := @FC_BIO_test_flags;
+      BIO_test_flags := FC_BIO_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3773,7 +3780,7 @@ begin
     if BIO_test_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_test_flags)}
-      BIO_test_flags := @_BIO_test_flags;
+      BIO_test_flags := _BIO_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3790,13 +3797,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_clear_flags_allownil)}
-    BIO_clear_flags := @ERR_BIO_clear_flags;
+    BIO_clear_flags := ERR_BIO_clear_flags;
     {$ifend}
     {$if declared(BIO_clear_flags_introduced)}
     if LibVersion < BIO_clear_flags_introduced then
     begin
       {$if declared(FC_BIO_clear_flags)}
-      BIO_clear_flags := @FC_BIO_clear_flags;
+      BIO_clear_flags := FC_BIO_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3805,7 +3812,7 @@ begin
     if BIO_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_BIO_clear_flags)}
-      BIO_clear_flags := @_BIO_clear_flags;
+      BIO_clear_flags := _BIO_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3822,13 +3829,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_callback_allownil)}
-    BIO_get_callback := @ERR_BIO_get_callback;
+    BIO_get_callback := ERR_BIO_get_callback;
     {$ifend}
     {$if declared(BIO_get_callback_introduced)}
     if LibVersion < BIO_get_callback_introduced then
     begin
       {$if declared(FC_BIO_get_callback)}
-      BIO_get_callback := @FC_BIO_get_callback;
+      BIO_get_callback := FC_BIO_get_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3837,7 +3844,7 @@ begin
     if BIO_get_callback_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_callback)}
-      BIO_get_callback := @_BIO_get_callback;
+      BIO_get_callback := _BIO_get_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3854,13 +3861,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_callback_allownil)}
-    BIO_set_callback := @ERR_BIO_set_callback;
+    BIO_set_callback := ERR_BIO_set_callback;
     {$ifend}
     {$if declared(BIO_set_callback_introduced)}
     if LibVersion < BIO_set_callback_introduced then
     begin
       {$if declared(FC_BIO_set_callback)}
-      BIO_set_callback := @FC_BIO_set_callback;
+      BIO_set_callback := FC_BIO_set_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3869,7 +3876,7 @@ begin
     if BIO_set_callback_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_callback)}
-      BIO_set_callback := @_BIO_set_callback;
+      BIO_set_callback := _BIO_set_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3886,13 +3893,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_callback_ex_allownil)}
-    BIO_get_callback_ex := @ERR_BIO_get_callback_ex;
+    BIO_get_callback_ex := ERR_BIO_get_callback_ex;
     {$ifend}
     {$if declared(BIO_get_callback_ex_introduced)}
     if LibVersion < BIO_get_callback_ex_introduced then
     begin
       {$if declared(FC_BIO_get_callback_ex)}
-      BIO_get_callback_ex := @FC_BIO_get_callback_ex;
+      BIO_get_callback_ex := FC_BIO_get_callback_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3901,7 +3908,7 @@ begin
     if BIO_get_callback_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_callback_ex)}
-      BIO_get_callback_ex := @_BIO_get_callback_ex;
+      BIO_get_callback_ex := _BIO_get_callback_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3918,13 +3925,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_callback_ex_allownil)}
-    BIO_set_callback_ex := @ERR_BIO_set_callback_ex;
+    BIO_set_callback_ex := ERR_BIO_set_callback_ex;
     {$ifend}
     {$if declared(BIO_set_callback_ex_introduced)}
     if LibVersion < BIO_set_callback_ex_introduced then
     begin
       {$if declared(FC_BIO_set_callback_ex)}
-      BIO_set_callback_ex := @FC_BIO_set_callback_ex;
+      BIO_set_callback_ex := FC_BIO_set_callback_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3933,7 +3940,7 @@ begin
     if BIO_set_callback_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_callback_ex)}
-      BIO_set_callback_ex := @_BIO_set_callback_ex;
+      BIO_set_callback_ex := _BIO_set_callback_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3950,13 +3957,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_callback_arg_allownil)}
-    BIO_get_callback_arg := @ERR_BIO_get_callback_arg;
+    BIO_get_callback_arg := ERR_BIO_get_callback_arg;
     {$ifend}
     {$if declared(BIO_get_callback_arg_introduced)}
     if LibVersion < BIO_get_callback_arg_introduced then
     begin
       {$if declared(FC_BIO_get_callback_arg)}
-      BIO_get_callback_arg := @FC_BIO_get_callback_arg;
+      BIO_get_callback_arg := FC_BIO_get_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3965,7 +3972,7 @@ begin
     if BIO_get_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_callback_arg)}
-      BIO_get_callback_arg := @_BIO_get_callback_arg;
+      BIO_get_callback_arg := _BIO_get_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3982,13 +3989,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_callback_arg_allownil)}
-    BIO_set_callback_arg := @ERR_BIO_set_callback_arg;
+    BIO_set_callback_arg := ERR_BIO_set_callback_arg;
     {$ifend}
     {$if declared(BIO_set_callback_arg_introduced)}
     if LibVersion < BIO_set_callback_arg_introduced then
     begin
       {$if declared(FC_BIO_set_callback_arg)}
-      BIO_set_callback_arg := @FC_BIO_set_callback_arg;
+      BIO_set_callback_arg := FC_BIO_set_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3997,7 +4004,7 @@ begin
     if BIO_set_callback_arg_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_callback_arg)}
-      BIO_set_callback_arg := @_BIO_set_callback_arg;
+      BIO_set_callback_arg := _BIO_set_callback_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4014,13 +4021,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_method_name_allownil)}
-    BIO_method_name := @ERR_BIO_method_name;
+    BIO_method_name := ERR_BIO_method_name;
     {$ifend}
     {$if declared(BIO_method_name_introduced)}
     if LibVersion < BIO_method_name_introduced then
     begin
       {$if declared(FC_BIO_method_name)}
-      BIO_method_name := @FC_BIO_method_name;
+      BIO_method_name := FC_BIO_method_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4029,7 +4036,7 @@ begin
     if BIO_method_name_removed <= LibVersion then
     begin
       {$if declared(_BIO_method_name)}
-      BIO_method_name := @_BIO_method_name;
+      BIO_method_name := _BIO_method_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4046,13 +4053,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_method_type_allownil)}
-    BIO_method_type := @ERR_BIO_method_type;
+    BIO_method_type := ERR_BIO_method_type;
     {$ifend}
     {$if declared(BIO_method_type_introduced)}
     if LibVersion < BIO_method_type_introduced then
     begin
       {$if declared(FC_BIO_method_type)}
-      BIO_method_type := @FC_BIO_method_type;
+      BIO_method_type := FC_BIO_method_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4061,7 +4068,7 @@ begin
     if BIO_method_type_removed <= LibVersion then
     begin
       {$if declared(_BIO_method_type)}
-      BIO_method_type := @_BIO_method_type;
+      BIO_method_type := _BIO_method_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4078,13 +4085,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_pending_allownil)}
-    BIO_ctrl_pending := @ERR_BIO_ctrl_pending;
+    BIO_ctrl_pending := ERR_BIO_ctrl_pending;
     {$ifend}
     {$if declared(BIO_ctrl_pending_introduced)}
     if LibVersion < BIO_ctrl_pending_introduced then
     begin
       {$if declared(FC_BIO_ctrl_pending)}
-      BIO_ctrl_pending := @FC_BIO_ctrl_pending;
+      BIO_ctrl_pending := FC_BIO_ctrl_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4093,7 +4100,7 @@ begin
     if BIO_ctrl_pending_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl_pending)}
-      BIO_ctrl_pending := @_BIO_ctrl_pending;
+      BIO_ctrl_pending := _BIO_ctrl_pending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4110,13 +4117,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_wpending_allownil)}
-    BIO_ctrl_wpending := @ERR_BIO_ctrl_wpending;
+    BIO_ctrl_wpending := ERR_BIO_ctrl_wpending;
     {$ifend}
     {$if declared(BIO_ctrl_wpending_introduced)}
     if LibVersion < BIO_ctrl_wpending_introduced then
     begin
       {$if declared(FC_BIO_ctrl_wpending)}
-      BIO_ctrl_wpending := @FC_BIO_ctrl_wpending;
+      BIO_ctrl_wpending := FC_BIO_ctrl_wpending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4125,7 +4132,7 @@ begin
     if BIO_ctrl_wpending_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl_wpending)}
-      BIO_ctrl_wpending := @_BIO_ctrl_wpending;
+      BIO_ctrl_wpending := _BIO_ctrl_wpending;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4142,13 +4149,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_get_write_guarantee_allownil)}
-    BIO_ctrl_get_write_guarantee := @ERR_BIO_ctrl_get_write_guarantee;
+    BIO_ctrl_get_write_guarantee := ERR_BIO_ctrl_get_write_guarantee;
     {$ifend}
     {$if declared(BIO_ctrl_get_write_guarantee_introduced)}
     if LibVersion < BIO_ctrl_get_write_guarantee_introduced then
     begin
       {$if declared(FC_BIO_ctrl_get_write_guarantee)}
-      BIO_ctrl_get_write_guarantee := @FC_BIO_ctrl_get_write_guarantee;
+      BIO_ctrl_get_write_guarantee := FC_BIO_ctrl_get_write_guarantee;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4157,7 +4164,7 @@ begin
     if BIO_ctrl_get_write_guarantee_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl_get_write_guarantee)}
-      BIO_ctrl_get_write_guarantee := @_BIO_ctrl_get_write_guarantee;
+      BIO_ctrl_get_write_guarantee := _BIO_ctrl_get_write_guarantee;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4174,13 +4181,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_get_read_request_allownil)}
-    BIO_ctrl_get_read_request := @ERR_BIO_ctrl_get_read_request;
+    BIO_ctrl_get_read_request := ERR_BIO_ctrl_get_read_request;
     {$ifend}
     {$if declared(BIO_ctrl_get_read_request_introduced)}
     if LibVersion < BIO_ctrl_get_read_request_introduced then
     begin
       {$if declared(FC_BIO_ctrl_get_read_request)}
-      BIO_ctrl_get_read_request := @FC_BIO_ctrl_get_read_request;
+      BIO_ctrl_get_read_request := FC_BIO_ctrl_get_read_request;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4189,7 +4196,7 @@ begin
     if BIO_ctrl_get_read_request_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl_get_read_request)}
-      BIO_ctrl_get_read_request := @_BIO_ctrl_get_read_request;
+      BIO_ctrl_get_read_request := _BIO_ctrl_get_read_request;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4206,13 +4213,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_reset_read_request_allownil)}
-    BIO_ctrl_reset_read_request := @ERR_BIO_ctrl_reset_read_request;
+    BIO_ctrl_reset_read_request := ERR_BIO_ctrl_reset_read_request;
     {$ifend}
     {$if declared(BIO_ctrl_reset_read_request_introduced)}
     if LibVersion < BIO_ctrl_reset_read_request_introduced then
     begin
       {$if declared(FC_BIO_ctrl_reset_read_request)}
-      BIO_ctrl_reset_read_request := @FC_BIO_ctrl_reset_read_request;
+      BIO_ctrl_reset_read_request := FC_BIO_ctrl_reset_read_request;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4221,7 +4228,7 @@ begin
     if BIO_ctrl_reset_read_request_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl_reset_read_request)}
-      BIO_ctrl_reset_read_request := @_BIO_ctrl_reset_read_request;
+      BIO_ctrl_reset_read_request := _BIO_ctrl_reset_read_request;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4238,13 +4245,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_ex_data_allownil)}
-    BIO_set_ex_data := @ERR_BIO_set_ex_data;
+    BIO_set_ex_data := ERR_BIO_set_ex_data;
     {$ifend}
     {$if declared(BIO_set_ex_data_introduced)}
     if LibVersion < BIO_set_ex_data_introduced then
     begin
       {$if declared(FC_BIO_set_ex_data)}
-      BIO_set_ex_data := @FC_BIO_set_ex_data;
+      BIO_set_ex_data := FC_BIO_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4253,7 +4260,7 @@ begin
     if BIO_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_ex_data)}
-      BIO_set_ex_data := @_BIO_set_ex_data;
+      BIO_set_ex_data := _BIO_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4270,13 +4277,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_ex_data_allownil)}
-    BIO_get_ex_data := @ERR_BIO_get_ex_data;
+    BIO_get_ex_data := ERR_BIO_get_ex_data;
     {$ifend}
     {$if declared(BIO_get_ex_data_introduced)}
     if LibVersion < BIO_get_ex_data_introduced then
     begin
       {$if declared(FC_BIO_get_ex_data)}
-      BIO_get_ex_data := @FC_BIO_get_ex_data;
+      BIO_get_ex_data := FC_BIO_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4285,7 +4292,7 @@ begin
     if BIO_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_ex_data)}
-      BIO_get_ex_data := @_BIO_get_ex_data;
+      BIO_get_ex_data := _BIO_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4302,13 +4309,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_number_read_allownil)}
-    BIO_number_read := @ERR_BIO_number_read;
+    BIO_number_read := ERR_BIO_number_read;
     {$ifend}
     {$if declared(BIO_number_read_introduced)}
     if LibVersion < BIO_number_read_introduced then
     begin
       {$if declared(FC_BIO_number_read)}
-      BIO_number_read := @FC_BIO_number_read;
+      BIO_number_read := FC_BIO_number_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4317,7 +4324,7 @@ begin
     if BIO_number_read_removed <= LibVersion then
     begin
       {$if declared(_BIO_number_read)}
-      BIO_number_read := @_BIO_number_read;
+      BIO_number_read := _BIO_number_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4334,13 +4341,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_number_written_allownil)}
-    BIO_number_written := @ERR_BIO_number_written;
+    BIO_number_written := ERR_BIO_number_written;
     {$ifend}
     {$if declared(BIO_number_written_introduced)}
     if LibVersion < BIO_number_written_introduced then
     begin
       {$if declared(FC_BIO_number_written)}
-      BIO_number_written := @FC_BIO_number_written;
+      BIO_number_written := FC_BIO_number_written;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4349,7 +4356,7 @@ begin
     if BIO_number_written_removed <= LibVersion then
     begin
       {$if declared(_BIO_number_written)}
-      BIO_number_written := @_BIO_number_written;
+      BIO_number_written := _BIO_number_written;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4366,13 +4373,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_file_allownil)}
-    BIO_s_file := @ERR_BIO_s_file;
+    BIO_s_file := ERR_BIO_s_file;
     {$ifend}
     {$if declared(BIO_s_file_introduced)}
     if LibVersion < BIO_s_file_introduced then
     begin
       {$if declared(FC_BIO_s_file)}
-      BIO_s_file := @FC_BIO_s_file;
+      BIO_s_file := FC_BIO_s_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4381,7 +4388,7 @@ begin
     if BIO_s_file_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_file)}
-      BIO_s_file := @_BIO_s_file;
+      BIO_s_file := _BIO_s_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4398,13 +4405,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_file_allownil)}
-    BIO_new_file := @ERR_BIO_new_file;
+    BIO_new_file := ERR_BIO_new_file;
     {$ifend}
     {$if declared(BIO_new_file_introduced)}
     if LibVersion < BIO_new_file_introduced then
     begin
       {$if declared(FC_BIO_new_file)}
-      BIO_new_file := @FC_BIO_new_file;
+      BIO_new_file := FC_BIO_new_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4413,7 +4420,7 @@ begin
     if BIO_new_file_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_file)}
-      BIO_new_file := @_BIO_new_file;
+      BIO_new_file := _BIO_new_file;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4430,13 +4437,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_allownil)}
-    BIO_new := @ERR_BIO_new;
+    BIO_new := ERR_BIO_new;
     {$ifend}
     {$if declared(BIO_new_introduced)}
     if LibVersion < BIO_new_introduced then
     begin
       {$if declared(FC_BIO_new)}
-      BIO_new := @FC_BIO_new;
+      BIO_new := FC_BIO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4445,7 +4452,7 @@ begin
     if BIO_new_removed <= LibVersion then
     begin
       {$if declared(_BIO_new)}
-      BIO_new := @_BIO_new;
+      BIO_new := _BIO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4462,13 +4469,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_free_allownil)}
-    BIO_free := @ERR_BIO_free;
+    BIO_free := ERR_BIO_free;
     {$ifend}
     {$if declared(BIO_free_introduced)}
     if LibVersion < BIO_free_introduced then
     begin
       {$if declared(FC_BIO_free)}
-      BIO_free := @FC_BIO_free;
+      BIO_free := FC_BIO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4477,7 +4484,7 @@ begin
     if BIO_free_removed <= LibVersion then
     begin
       {$if declared(_BIO_free)}
-      BIO_free := @_BIO_free;
+      BIO_free := _BIO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4494,13 +4501,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_data_allownil)}
-    BIO_set_data := @ERR_BIO_set_data;
+    BIO_set_data := ERR_BIO_set_data;
     {$ifend}
     {$if declared(BIO_set_data_introduced)}
     if LibVersion < BIO_set_data_introduced then
     begin
       {$if declared(FC_BIO_set_data)}
-      BIO_set_data := @FC_BIO_set_data;
+      BIO_set_data := FC_BIO_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4509,7 +4516,7 @@ begin
     if BIO_set_data_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_data)}
-      BIO_set_data := @_BIO_set_data;
+      BIO_set_data := _BIO_set_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4526,13 +4533,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_data_allownil)}
-    BIO_get_data := @ERR_BIO_get_data;
+    BIO_get_data := ERR_BIO_get_data;
     {$ifend}
     {$if declared(BIO_get_data_introduced)}
     if LibVersion < BIO_get_data_introduced then
     begin
       {$if declared(FC_BIO_get_data)}
-      BIO_get_data := @FC_BIO_get_data;
+      BIO_get_data := FC_BIO_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4541,7 +4548,7 @@ begin
     if BIO_get_data_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_data)}
-      BIO_get_data := @_BIO_get_data;
+      BIO_get_data := _BIO_get_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4558,13 +4565,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_init_allownil)}
-    BIO_set_init := @ERR_BIO_set_init;
+    BIO_set_init := ERR_BIO_set_init;
     {$ifend}
     {$if declared(BIO_set_init_introduced)}
     if LibVersion < BIO_set_init_introduced then
     begin
       {$if declared(FC_BIO_set_init)}
-      BIO_set_init := @FC_BIO_set_init;
+      BIO_set_init := FC_BIO_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4573,7 +4580,7 @@ begin
     if BIO_set_init_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_init)}
-      BIO_set_init := @_BIO_set_init;
+      BIO_set_init := _BIO_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4590,13 +4597,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_init_allownil)}
-    BIO_get_init := @ERR_BIO_get_init;
+    BIO_get_init := ERR_BIO_get_init;
     {$ifend}
     {$if declared(BIO_get_init_introduced)}
     if LibVersion < BIO_get_init_introduced then
     begin
       {$if declared(FC_BIO_get_init)}
-      BIO_get_init := @FC_BIO_get_init;
+      BIO_get_init := FC_BIO_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4605,7 +4612,7 @@ begin
     if BIO_get_init_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_init)}
-      BIO_get_init := @_BIO_get_init;
+      BIO_get_init := _BIO_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4622,13 +4629,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_shutdown_allownil)}
-    BIO_set_shutdown := @ERR_BIO_set_shutdown;
+    BIO_set_shutdown := ERR_BIO_set_shutdown;
     {$ifend}
     {$if declared(BIO_set_shutdown_introduced)}
     if LibVersion < BIO_set_shutdown_introduced then
     begin
       {$if declared(FC_BIO_set_shutdown)}
-      BIO_set_shutdown := @FC_BIO_set_shutdown;
+      BIO_set_shutdown := FC_BIO_set_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4637,7 +4644,7 @@ begin
     if BIO_set_shutdown_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_shutdown)}
-      BIO_set_shutdown := @_BIO_set_shutdown;
+      BIO_set_shutdown := _BIO_set_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4654,13 +4661,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_shutdown_allownil)}
-    BIO_get_shutdown := @ERR_BIO_get_shutdown;
+    BIO_get_shutdown := ERR_BIO_get_shutdown;
     {$ifend}
     {$if declared(BIO_get_shutdown_introduced)}
     if LibVersion < BIO_get_shutdown_introduced then
     begin
       {$if declared(FC_BIO_get_shutdown)}
-      BIO_get_shutdown := @FC_BIO_get_shutdown;
+      BIO_get_shutdown := FC_BIO_get_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4669,7 +4676,7 @@ begin
     if BIO_get_shutdown_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_shutdown)}
-      BIO_get_shutdown := @_BIO_get_shutdown;
+      BIO_get_shutdown := _BIO_get_shutdown;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4686,13 +4693,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_vfree_allownil)}
-    BIO_vfree := @ERR_BIO_vfree;
+    BIO_vfree := ERR_BIO_vfree;
     {$ifend}
     {$if declared(BIO_vfree_introduced)}
     if LibVersion < BIO_vfree_introduced then
     begin
       {$if declared(FC_BIO_vfree)}
-      BIO_vfree := @FC_BIO_vfree;
+      BIO_vfree := FC_BIO_vfree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4701,7 +4708,7 @@ begin
     if BIO_vfree_removed <= LibVersion then
     begin
       {$if declared(_BIO_vfree)}
-      BIO_vfree := @_BIO_vfree;
+      BIO_vfree := _BIO_vfree;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4718,13 +4725,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_up_ref_allownil)}
-    BIO_up_ref := @ERR_BIO_up_ref;
+    BIO_up_ref := ERR_BIO_up_ref;
     {$ifend}
     {$if declared(BIO_up_ref_introduced)}
     if LibVersion < BIO_up_ref_introduced then
     begin
       {$if declared(FC_BIO_up_ref)}
-      BIO_up_ref := @FC_BIO_up_ref;
+      BIO_up_ref := FC_BIO_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4733,7 +4740,7 @@ begin
     if BIO_up_ref_removed <= LibVersion then
     begin
       {$if declared(_BIO_up_ref)}
-      BIO_up_ref := @_BIO_up_ref;
+      BIO_up_ref := _BIO_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4750,13 +4757,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_read_allownil)}
-    BIO_read := @ERR_BIO_read;
+    BIO_read := ERR_BIO_read;
     {$ifend}
     {$if declared(BIO_read_introduced)}
     if LibVersion < BIO_read_introduced then
     begin
       {$if declared(FC_BIO_read)}
-      BIO_read := @FC_BIO_read;
+      BIO_read := FC_BIO_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4765,7 +4772,7 @@ begin
     if BIO_read_removed <= LibVersion then
     begin
       {$if declared(_BIO_read)}
-      BIO_read := @_BIO_read;
+      BIO_read := _BIO_read;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4782,13 +4789,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_read_ex_allownil)}
-    BIO_read_ex := @ERR_BIO_read_ex;
+    BIO_read_ex := ERR_BIO_read_ex;
     {$ifend}
     {$if declared(BIO_read_ex_introduced)}
     if LibVersion < BIO_read_ex_introduced then
     begin
       {$if declared(FC_BIO_read_ex)}
-      BIO_read_ex := @FC_BIO_read_ex;
+      BIO_read_ex := FC_BIO_read_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4797,7 +4804,7 @@ begin
     if BIO_read_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_read_ex)}
-      BIO_read_ex := @_BIO_read_ex;
+      BIO_read_ex := _BIO_read_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4813,13 +4820,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_recvmmsg_allownil)}
-    BIO_recvmmsg := @ERR_BIO_recvmmsg;
+    BIO_recvmmsg := ERR_BIO_recvmmsg;
     {$ifend}
     {$if declared(BIO_recvmmsg_introduced)}
     if LibVersion < BIO_recvmmsg_introduced then
     begin
       {$if declared(FC_BIO_recvmmsg)}
-      BIO_recvmmsg := @FC_BIO_recvmmsg;
+      BIO_recvmmsg := FC_BIO_recvmmsg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4828,7 +4835,7 @@ begin
     if BIO_recvmmsg_removed <= LibVersion then
     begin
       {$if declared(_BIO_recvmmsg)}
-      BIO_recvmmsg := @_BIO_recvmmsg;
+      BIO_recvmmsg := _BIO_recvmmsg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4845,13 +4852,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_gets_allownil)}
-    BIO_gets := @ERR_BIO_gets;
+    BIO_gets := ERR_BIO_gets;
     {$ifend}
     {$if declared(BIO_gets_introduced)}
     if LibVersion < BIO_gets_introduced then
     begin
       {$if declared(FC_BIO_gets)}
-      BIO_gets := @FC_BIO_gets;
+      BIO_gets := FC_BIO_gets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4860,7 +4867,7 @@ begin
     if BIO_gets_removed <= LibVersion then
     begin
       {$if declared(_BIO_gets)}
-      BIO_gets := @_BIO_gets;
+      BIO_gets := _BIO_gets;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4877,13 +4884,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_write_allownil)}
-    BIO_write := @ERR_BIO_write;
+    BIO_write := ERR_BIO_write;
     {$ifend}
     {$if declared(BIO_write_introduced)}
     if LibVersion < BIO_write_introduced then
     begin
       {$if declared(FC_BIO_write)}
-      BIO_write := @FC_BIO_write;
+      BIO_write := FC_BIO_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4892,7 +4899,7 @@ begin
     if BIO_write_removed <= LibVersion then
     begin
       {$if declared(_BIO_write)}
-      BIO_write := @_BIO_write;
+      BIO_write := _BIO_write;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4909,13 +4916,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_write_ex_allownil)}
-    BIO_write_ex := @ERR_BIO_write_ex;
+    BIO_write_ex := ERR_BIO_write_ex;
     {$ifend}
     {$if declared(BIO_write_ex_introduced)}
     if LibVersion < BIO_write_ex_introduced then
     begin
       {$if declared(FC_BIO_write_ex)}
-      BIO_write_ex := @FC_BIO_write_ex;
+      BIO_write_ex := FC_BIO_write_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4924,7 +4931,7 @@ begin
     if BIO_write_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_write_ex)}
-      BIO_write_ex := @_BIO_write_ex;
+      BIO_write_ex := _BIO_write_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4940,13 +4947,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sendmmsg_allownil)}
-    BIO_sendmmsg := @ERR_BIO_sendmmsg;
+    BIO_sendmmsg := ERR_BIO_sendmmsg;
     {$ifend}
     {$if declared(BIO_sendmmsg_introduced)}
     if LibVersion < BIO_sendmmsg_introduced then
     begin
       {$if declared(FC_BIO_sendmmsg)}
-      BIO_sendmmsg := @FC_BIO_sendmmsg;
+      BIO_sendmmsg := FC_BIO_sendmmsg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4955,7 +4962,7 @@ begin
     if BIO_sendmmsg_removed <= LibVersion then
     begin
       {$if declared(_BIO_sendmmsg)}
-      BIO_sendmmsg := @_BIO_sendmmsg;
+      BIO_sendmmsg := _BIO_sendmmsg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4971,13 +4978,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_rpoll_descriptor_allownil)}
-    BIO_get_rpoll_descriptor := @ERR_BIO_get_rpoll_descriptor;
+    BIO_get_rpoll_descriptor := ERR_BIO_get_rpoll_descriptor;
     {$ifend}
     {$if declared(BIO_get_rpoll_descriptor_introduced)}
     if LibVersion < BIO_get_rpoll_descriptor_introduced then
     begin
       {$if declared(FC_BIO_get_rpoll_descriptor)}
-      BIO_get_rpoll_descriptor := @FC_BIO_get_rpoll_descriptor;
+      BIO_get_rpoll_descriptor := FC_BIO_get_rpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4986,7 +4993,7 @@ begin
     if BIO_get_rpoll_descriptor_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_rpoll_descriptor)}
-      BIO_get_rpoll_descriptor := @_BIO_get_rpoll_descriptor;
+      BIO_get_rpoll_descriptor := _BIO_get_rpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5002,13 +5009,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_wpoll_descriptor_allownil)}
-    BIO_get_wpoll_descriptor := @ERR_BIO_get_wpoll_descriptor;
+    BIO_get_wpoll_descriptor := ERR_BIO_get_wpoll_descriptor;
     {$ifend}
     {$if declared(BIO_get_wpoll_descriptor_introduced)}
     if LibVersion < BIO_get_wpoll_descriptor_introduced then
     begin
       {$if declared(FC_BIO_get_wpoll_descriptor)}
-      BIO_get_wpoll_descriptor := @FC_BIO_get_wpoll_descriptor;
+      BIO_get_wpoll_descriptor := FC_BIO_get_wpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5017,7 +5024,7 @@ begin
     if BIO_get_wpoll_descriptor_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_wpoll_descriptor)}
-      BIO_get_wpoll_descriptor := @_BIO_get_wpoll_descriptor;
+      BIO_get_wpoll_descriptor := _BIO_get_wpoll_descriptor;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5034,13 +5041,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_puts_allownil)}
-    BIO_puts := @ERR_BIO_puts;
+    BIO_puts := ERR_BIO_puts;
     {$ifend}
     {$if declared(BIO_puts_introduced)}
     if LibVersion < BIO_puts_introduced then
     begin
       {$if declared(FC_BIO_puts)}
-      BIO_puts := @FC_BIO_puts;
+      BIO_puts := FC_BIO_puts;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5049,7 +5056,7 @@ begin
     if BIO_puts_removed <= LibVersion then
     begin
       {$if declared(_BIO_puts)}
-      BIO_puts := @_BIO_puts;
+      BIO_puts := _BIO_puts;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5066,13 +5073,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_indent_allownil)}
-    BIO_indent := @ERR_BIO_indent;
+    BIO_indent := ERR_BIO_indent;
     {$ifend}
     {$if declared(BIO_indent_introduced)}
     if LibVersion < BIO_indent_introduced then
     begin
       {$if declared(FC_BIO_indent)}
-      BIO_indent := @FC_BIO_indent;
+      BIO_indent := FC_BIO_indent;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5081,7 +5088,7 @@ begin
     if BIO_indent_removed <= LibVersion then
     begin
       {$if declared(_BIO_indent)}
-      BIO_indent := @_BIO_indent;
+      BIO_indent := _BIO_indent;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5098,13 +5105,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ctrl_allownil)}
-    BIO_ctrl := @ERR_BIO_ctrl;
+    BIO_ctrl := ERR_BIO_ctrl;
     {$ifend}
     {$if declared(BIO_ctrl_introduced)}
     if LibVersion < BIO_ctrl_introduced then
     begin
       {$if declared(FC_BIO_ctrl)}
-      BIO_ctrl := @FC_BIO_ctrl;
+      BIO_ctrl := FC_BIO_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5113,7 +5120,7 @@ begin
     if BIO_ctrl_removed <= LibVersion then
     begin
       {$if declared(_BIO_ctrl)}
-      BIO_ctrl := @_BIO_ctrl;
+      BIO_ctrl := _BIO_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5130,13 +5137,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_callback_ctrl_allownil)}
-    BIO_callback_ctrl := @ERR_BIO_callback_ctrl;
+    BIO_callback_ctrl := ERR_BIO_callback_ctrl;
     {$ifend}
     {$if declared(BIO_callback_ctrl_introduced)}
     if LibVersion < BIO_callback_ctrl_introduced then
     begin
       {$if declared(FC_BIO_callback_ctrl)}
-      BIO_callback_ctrl := @FC_BIO_callback_ctrl;
+      BIO_callback_ctrl := FC_BIO_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5145,7 +5152,7 @@ begin
     if BIO_callback_ctrl_removed <= LibVersion then
     begin
       {$if declared(_BIO_callback_ctrl)}
-      BIO_callback_ctrl := @_BIO_callback_ctrl;
+      BIO_callback_ctrl := _BIO_callback_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5162,13 +5169,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ptr_ctrl_allownil)}
-    BIO_ptr_ctrl := @ERR_BIO_ptr_ctrl;
+    BIO_ptr_ctrl := ERR_BIO_ptr_ctrl;
     {$ifend}
     {$if declared(BIO_ptr_ctrl_introduced)}
     if LibVersion < BIO_ptr_ctrl_introduced then
     begin
       {$if declared(FC_BIO_ptr_ctrl)}
-      BIO_ptr_ctrl := @FC_BIO_ptr_ctrl;
+      BIO_ptr_ctrl := FC_BIO_ptr_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5177,7 +5184,7 @@ begin
     if BIO_ptr_ctrl_removed <= LibVersion then
     begin
       {$if declared(_BIO_ptr_ctrl)}
-      BIO_ptr_ctrl := @_BIO_ptr_ctrl;
+      BIO_ptr_ctrl := _BIO_ptr_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5194,13 +5201,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_int_ctrl_allownil)}
-    BIO_int_ctrl := @ERR_BIO_int_ctrl;
+    BIO_int_ctrl := ERR_BIO_int_ctrl;
     {$ifend}
     {$if declared(BIO_int_ctrl_introduced)}
     if LibVersion < BIO_int_ctrl_introduced then
     begin
       {$if declared(FC_BIO_int_ctrl)}
-      BIO_int_ctrl := @FC_BIO_int_ctrl;
+      BIO_int_ctrl := FC_BIO_int_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5209,7 +5216,7 @@ begin
     if BIO_int_ctrl_removed <= LibVersion then
     begin
       {$if declared(_BIO_int_ctrl)}
-      BIO_int_ctrl := @_BIO_int_ctrl;
+      BIO_int_ctrl := _BIO_int_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5226,13 +5233,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_push_allownil)}
-    BIO_push := @ERR_BIO_push;
+    BIO_push := ERR_BIO_push;
     {$ifend}
     {$if declared(BIO_push_introduced)}
     if LibVersion < BIO_push_introduced then
     begin
       {$if declared(FC_BIO_push)}
-      BIO_push := @FC_BIO_push;
+      BIO_push := FC_BIO_push;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5241,7 +5248,7 @@ begin
     if BIO_push_removed <= LibVersion then
     begin
       {$if declared(_BIO_push)}
-      BIO_push := @_BIO_push;
+      BIO_push := _BIO_push;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5258,13 +5265,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_pop_allownil)}
-    BIO_pop := @ERR_BIO_pop;
+    BIO_pop := ERR_BIO_pop;
     {$ifend}
     {$if declared(BIO_pop_introduced)}
     if LibVersion < BIO_pop_introduced then
     begin
       {$if declared(FC_BIO_pop)}
-      BIO_pop := @FC_BIO_pop;
+      BIO_pop := FC_BIO_pop;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5273,7 +5280,7 @@ begin
     if BIO_pop_removed <= LibVersion then
     begin
       {$if declared(_BIO_pop)}
-      BIO_pop := @_BIO_pop;
+      BIO_pop := _BIO_pop;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5290,13 +5297,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_free_all_allownil)}
-    BIO_free_all := @ERR_BIO_free_all;
+    BIO_free_all := ERR_BIO_free_all;
     {$ifend}
     {$if declared(BIO_free_all_introduced)}
     if LibVersion < BIO_free_all_introduced then
     begin
       {$if declared(FC_BIO_free_all)}
-      BIO_free_all := @FC_BIO_free_all;
+      BIO_free_all := FC_BIO_free_all;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5305,7 +5312,7 @@ begin
     if BIO_free_all_removed <= LibVersion then
     begin
       {$if declared(_BIO_free_all)}
-      BIO_free_all := @_BIO_free_all;
+      BIO_free_all := _BIO_free_all;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5322,13 +5329,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_find_type_allownil)}
-    BIO_find_type := @ERR_BIO_find_type;
+    BIO_find_type := ERR_BIO_find_type;
     {$ifend}
     {$if declared(BIO_find_type_introduced)}
     if LibVersion < BIO_find_type_introduced then
     begin
       {$if declared(FC_BIO_find_type)}
-      BIO_find_type := @FC_BIO_find_type;
+      BIO_find_type := FC_BIO_find_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5337,7 +5344,7 @@ begin
     if BIO_find_type_removed <= LibVersion then
     begin
       {$if declared(_BIO_find_type)}
-      BIO_find_type := @_BIO_find_type;
+      BIO_find_type := _BIO_find_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5354,13 +5361,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_next_allownil)}
-    BIO_next := @ERR_BIO_next;
+    BIO_next := ERR_BIO_next;
     {$ifend}
     {$if declared(BIO_next_introduced)}
     if LibVersion < BIO_next_introduced then
     begin
       {$if declared(FC_BIO_next)}
-      BIO_next := @FC_BIO_next;
+      BIO_next := FC_BIO_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5369,7 +5376,7 @@ begin
     if BIO_next_removed <= LibVersion then
     begin
       {$if declared(_BIO_next)}
-      BIO_next := @_BIO_next;
+      BIO_next := _BIO_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5386,13 +5393,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_next_allownil)}
-    BIO_set_next := @ERR_BIO_set_next;
+    BIO_set_next := ERR_BIO_set_next;
     {$ifend}
     {$if declared(BIO_set_next_introduced)}
     if LibVersion < BIO_set_next_introduced then
     begin
       {$if declared(FC_BIO_set_next)}
-      BIO_set_next := @FC_BIO_set_next;
+      BIO_set_next := FC_BIO_set_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5401,7 +5408,7 @@ begin
     if BIO_set_next_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_next)}
-      BIO_set_next := @_BIO_set_next;
+      BIO_set_next := _BIO_set_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5418,13 +5425,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_retry_BIO_allownil)}
-    BIO_get_retry_BIO := @ERR_BIO_get_retry_BIO;
+    BIO_get_retry_BIO := ERR_BIO_get_retry_BIO;
     {$ifend}
     {$if declared(BIO_get_retry_BIO_introduced)}
     if LibVersion < BIO_get_retry_BIO_introduced then
     begin
       {$if declared(FC_BIO_get_retry_BIO)}
-      BIO_get_retry_BIO := @FC_BIO_get_retry_BIO;
+      BIO_get_retry_BIO := FC_BIO_get_retry_BIO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5433,7 +5440,7 @@ begin
     if BIO_get_retry_BIO_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_retry_BIO)}
-      BIO_get_retry_BIO := @_BIO_get_retry_BIO;
+      BIO_get_retry_BIO := _BIO_get_retry_BIO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5450,13 +5457,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_get_retry_reason_allownil)}
-    BIO_get_retry_reason := @ERR_BIO_get_retry_reason;
+    BIO_get_retry_reason := ERR_BIO_get_retry_reason;
     {$ifend}
     {$if declared(BIO_get_retry_reason_introduced)}
     if LibVersion < BIO_get_retry_reason_introduced then
     begin
       {$if declared(FC_BIO_get_retry_reason)}
-      BIO_get_retry_reason := @FC_BIO_get_retry_reason;
+      BIO_get_retry_reason := FC_BIO_get_retry_reason;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5465,7 +5472,7 @@ begin
     if BIO_get_retry_reason_removed <= LibVersion then
     begin
       {$if declared(_BIO_get_retry_reason)}
-      BIO_get_retry_reason := @_BIO_get_retry_reason;
+      BIO_get_retry_reason := _BIO_get_retry_reason;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5482,13 +5489,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_retry_reason_allownil)}
-    BIO_set_retry_reason := @ERR_BIO_set_retry_reason;
+    BIO_set_retry_reason := ERR_BIO_set_retry_reason;
     {$ifend}
     {$if declared(BIO_set_retry_reason_introduced)}
     if LibVersion < BIO_set_retry_reason_introduced then
     begin
       {$if declared(FC_BIO_set_retry_reason)}
-      BIO_set_retry_reason := @FC_BIO_set_retry_reason;
+      BIO_set_retry_reason := FC_BIO_set_retry_reason;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5497,7 +5504,7 @@ begin
     if BIO_set_retry_reason_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_retry_reason)}
-      BIO_set_retry_reason := @_BIO_set_retry_reason;
+      BIO_set_retry_reason := _BIO_set_retry_reason;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5514,13 +5521,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_dup_chain_allownil)}
-    BIO_dup_chain := @ERR_BIO_dup_chain;
+    BIO_dup_chain := ERR_BIO_dup_chain;
     {$ifend}
     {$if declared(BIO_dup_chain_introduced)}
     if LibVersion < BIO_dup_chain_introduced then
     begin
       {$if declared(FC_BIO_dup_chain)}
-      BIO_dup_chain := @FC_BIO_dup_chain;
+      BIO_dup_chain := FC_BIO_dup_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5529,7 +5536,7 @@ begin
     if BIO_dup_chain_removed <= LibVersion then
     begin
       {$if declared(_BIO_dup_chain)}
-      BIO_dup_chain := @_BIO_dup_chain;
+      BIO_dup_chain := _BIO_dup_chain;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5546,13 +5553,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_nread0_allownil)}
-    BIO_nread0 := @ERR_BIO_nread0;
+    BIO_nread0 := ERR_BIO_nread0;
     {$ifend}
     {$if declared(BIO_nread0_introduced)}
     if LibVersion < BIO_nread0_introduced then
     begin
       {$if declared(FC_BIO_nread0)}
-      BIO_nread0 := @FC_BIO_nread0;
+      BIO_nread0 := FC_BIO_nread0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5561,7 +5568,7 @@ begin
     if BIO_nread0_removed <= LibVersion then
     begin
       {$if declared(_BIO_nread0)}
-      BIO_nread0 := @_BIO_nread0;
+      BIO_nread0 := _BIO_nread0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5578,13 +5585,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_nread_allownil)}
-    BIO_nread := @ERR_BIO_nread;
+    BIO_nread := ERR_BIO_nread;
     {$ifend}
     {$if declared(BIO_nread_introduced)}
     if LibVersion < BIO_nread_introduced then
     begin
       {$if declared(FC_BIO_nread)}
-      BIO_nread := @FC_BIO_nread;
+      BIO_nread := FC_BIO_nread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5593,7 +5600,7 @@ begin
     if BIO_nread_removed <= LibVersion then
     begin
       {$if declared(_BIO_nread)}
-      BIO_nread := @_BIO_nread;
+      BIO_nread := _BIO_nread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5610,13 +5617,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_nwrite0_allownil)}
-    BIO_nwrite0 := @ERR_BIO_nwrite0;
+    BIO_nwrite0 := ERR_BIO_nwrite0;
     {$ifend}
     {$if declared(BIO_nwrite0_introduced)}
     if LibVersion < BIO_nwrite0_introduced then
     begin
       {$if declared(FC_BIO_nwrite0)}
-      BIO_nwrite0 := @FC_BIO_nwrite0;
+      BIO_nwrite0 := FC_BIO_nwrite0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5625,7 +5632,7 @@ begin
     if BIO_nwrite0_removed <= LibVersion then
     begin
       {$if declared(_BIO_nwrite0)}
-      BIO_nwrite0 := @_BIO_nwrite0;
+      BIO_nwrite0 := _BIO_nwrite0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5642,13 +5649,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_nwrite_allownil)}
-    BIO_nwrite := @ERR_BIO_nwrite;
+    BIO_nwrite := ERR_BIO_nwrite;
     {$ifend}
     {$if declared(BIO_nwrite_introduced)}
     if LibVersion < BIO_nwrite_introduced then
     begin
       {$if declared(FC_BIO_nwrite)}
-      BIO_nwrite := @FC_BIO_nwrite;
+      BIO_nwrite := FC_BIO_nwrite;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5657,7 +5664,7 @@ begin
     if BIO_nwrite_removed <= LibVersion then
     begin
       {$if declared(_BIO_nwrite)}
-      BIO_nwrite := @_BIO_nwrite;
+      BIO_nwrite := _BIO_nwrite;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5674,13 +5681,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_debug_callback_allownil)}
-    BIO_debug_callback := @ERR_BIO_debug_callback;
+    BIO_debug_callback := ERR_BIO_debug_callback;
     {$ifend}
     {$if declared(BIO_debug_callback_introduced)}
     if LibVersion < BIO_debug_callback_introduced then
     begin
       {$if declared(FC_BIO_debug_callback)}
-      BIO_debug_callback := @FC_BIO_debug_callback;
+      BIO_debug_callback := FC_BIO_debug_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5689,7 +5696,7 @@ begin
     if BIO_debug_callback_removed <= LibVersion then
     begin
       {$if declared(_BIO_debug_callback)}
-      BIO_debug_callback := @_BIO_debug_callback;
+      BIO_debug_callback := _BIO_debug_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5706,13 +5713,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_mem_allownil)}
-    BIO_s_mem := @ERR_BIO_s_mem;
+    BIO_s_mem := ERR_BIO_s_mem;
     {$ifend}
     {$if declared(BIO_s_mem_introduced)}
     if LibVersion < BIO_s_mem_introduced then
     begin
       {$if declared(FC_BIO_s_mem)}
-      BIO_s_mem := @FC_BIO_s_mem;
+      BIO_s_mem := FC_BIO_s_mem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5721,7 +5728,7 @@ begin
     if BIO_s_mem_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_mem)}
-      BIO_s_mem := @_BIO_s_mem;
+      BIO_s_mem := _BIO_s_mem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5738,13 +5745,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_secmem_allownil)}
-    BIO_s_secmem := @ERR_BIO_s_secmem;
+    BIO_s_secmem := ERR_BIO_s_secmem;
     {$ifend}
     {$if declared(BIO_s_secmem_introduced)}
     if LibVersion < BIO_s_secmem_introduced then
     begin
       {$if declared(FC_BIO_s_secmem)}
-      BIO_s_secmem := @FC_BIO_s_secmem;
+      BIO_s_secmem := FC_BIO_s_secmem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5753,7 +5760,7 @@ begin
     if BIO_s_secmem_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_secmem)}
-      BIO_s_secmem := @_BIO_s_secmem;
+      BIO_s_secmem := _BIO_s_secmem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5770,13 +5777,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_mem_buf_allownil)}
-    BIO_new_mem_buf := @ERR_BIO_new_mem_buf;
+    BIO_new_mem_buf := ERR_BIO_new_mem_buf;
     {$ifend}
     {$if declared(BIO_new_mem_buf_introduced)}
     if LibVersion < BIO_new_mem_buf_introduced then
     begin
       {$if declared(FC_BIO_new_mem_buf)}
-      BIO_new_mem_buf := @FC_BIO_new_mem_buf;
+      BIO_new_mem_buf := FC_BIO_new_mem_buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5785,7 +5792,7 @@ begin
     if BIO_new_mem_buf_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_mem_buf)}
-      BIO_new_mem_buf := @_BIO_new_mem_buf;
+      BIO_new_mem_buf := _BIO_new_mem_buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5802,13 +5809,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_socket_allownil)}
-    BIO_s_socket := @ERR_BIO_s_socket;
+    BIO_s_socket := ERR_BIO_s_socket;
     {$ifend}
     {$if declared(BIO_s_socket_introduced)}
     if LibVersion < BIO_s_socket_introduced then
     begin
       {$if declared(FC_BIO_s_socket)}
-      BIO_s_socket := @FC_BIO_s_socket;
+      BIO_s_socket := FC_BIO_s_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5817,7 +5824,7 @@ begin
     if BIO_s_socket_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_socket)}
-      BIO_s_socket := @_BIO_s_socket;
+      BIO_s_socket := _BIO_s_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5834,13 +5841,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_connect_allownil)}
-    BIO_s_connect := @ERR_BIO_s_connect;
+    BIO_s_connect := ERR_BIO_s_connect;
     {$ifend}
     {$if declared(BIO_s_connect_introduced)}
     if LibVersion < BIO_s_connect_introduced then
     begin
       {$if declared(FC_BIO_s_connect)}
-      BIO_s_connect := @FC_BIO_s_connect;
+      BIO_s_connect := FC_BIO_s_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5849,7 +5856,7 @@ begin
     if BIO_s_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_connect)}
-      BIO_s_connect := @_BIO_s_connect;
+      BIO_s_connect := _BIO_s_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5866,13 +5873,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_accept_allownil)}
-    BIO_s_accept := @ERR_BIO_s_accept;
+    BIO_s_accept := ERR_BIO_s_accept;
     {$ifend}
     {$if declared(BIO_s_accept_introduced)}
     if LibVersion < BIO_s_accept_introduced then
     begin
       {$if declared(FC_BIO_s_accept)}
-      BIO_s_accept := @FC_BIO_s_accept;
+      BIO_s_accept := FC_BIO_s_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5881,7 +5888,7 @@ begin
     if BIO_s_accept_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_accept)}
-      BIO_s_accept := @_BIO_s_accept;
+      BIO_s_accept := _BIO_s_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5898,13 +5905,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_fd_allownil)}
-    BIO_s_fd := @ERR_BIO_s_fd;
+    BIO_s_fd := ERR_BIO_s_fd;
     {$ifend}
     {$if declared(BIO_s_fd_introduced)}
     if LibVersion < BIO_s_fd_introduced then
     begin
       {$if declared(FC_BIO_s_fd)}
-      BIO_s_fd := @FC_BIO_s_fd;
+      BIO_s_fd := FC_BIO_s_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5913,7 +5920,7 @@ begin
     if BIO_s_fd_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_fd)}
-      BIO_s_fd := @_BIO_s_fd;
+      BIO_s_fd := _BIO_s_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5930,13 +5937,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_log_allownil)}
-    BIO_s_log := @ERR_BIO_s_log;
+    BIO_s_log := ERR_BIO_s_log;
     {$ifend}
     {$if declared(BIO_s_log_introduced)}
     if LibVersion < BIO_s_log_introduced then
     begin
       {$if declared(FC_BIO_s_log)}
-      BIO_s_log := @FC_BIO_s_log;
+      BIO_s_log := FC_BIO_s_log;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5945,7 +5952,7 @@ begin
     if BIO_s_log_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_log)}
-      BIO_s_log := @_BIO_s_log;
+      BIO_s_log := _BIO_s_log;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5962,13 +5969,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_bio_allownil)}
-    BIO_s_bio := @ERR_BIO_s_bio;
+    BIO_s_bio := ERR_BIO_s_bio;
     {$ifend}
     {$if declared(BIO_s_bio_introduced)}
     if LibVersion < BIO_s_bio_introduced then
     begin
       {$if declared(FC_BIO_s_bio)}
-      BIO_s_bio := @FC_BIO_s_bio;
+      BIO_s_bio := FC_BIO_s_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5977,7 +5984,7 @@ begin
     if BIO_s_bio_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_bio)}
-      BIO_s_bio := @_BIO_s_bio;
+      BIO_s_bio := _BIO_s_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5994,13 +6001,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_null_allownil)}
-    BIO_s_null := @ERR_BIO_s_null;
+    BIO_s_null := ERR_BIO_s_null;
     {$ifend}
     {$if declared(BIO_s_null_introduced)}
     if LibVersion < BIO_s_null_introduced then
     begin
       {$if declared(FC_BIO_s_null)}
-      BIO_s_null := @FC_BIO_s_null;
+      BIO_s_null := FC_BIO_s_null;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6009,7 +6016,7 @@ begin
     if BIO_s_null_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_null)}
-      BIO_s_null := @_BIO_s_null;
+      BIO_s_null := _BIO_s_null;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6026,13 +6033,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_null_allownil)}
-    BIO_f_null := @ERR_BIO_f_null;
+    BIO_f_null := ERR_BIO_f_null;
     {$ifend}
     {$if declared(BIO_f_null_introduced)}
     if LibVersion < BIO_f_null_introduced then
     begin
       {$if declared(FC_BIO_f_null)}
-      BIO_f_null := @FC_BIO_f_null;
+      BIO_f_null := FC_BIO_f_null;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6041,7 +6048,7 @@ begin
     if BIO_f_null_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_null)}
-      BIO_f_null := @_BIO_f_null;
+      BIO_f_null := _BIO_f_null;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6058,13 +6065,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_buffer_allownil)}
-    BIO_f_buffer := @ERR_BIO_f_buffer;
+    BIO_f_buffer := ERR_BIO_f_buffer;
     {$ifend}
     {$if declared(BIO_f_buffer_introduced)}
     if LibVersion < BIO_f_buffer_introduced then
     begin
       {$if declared(FC_BIO_f_buffer)}
-      BIO_f_buffer := @FC_BIO_f_buffer;
+      BIO_f_buffer := FC_BIO_f_buffer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6073,7 +6080,7 @@ begin
     if BIO_f_buffer_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_buffer)}
-      BIO_f_buffer := @_BIO_f_buffer;
+      BIO_f_buffer := _BIO_f_buffer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6090,13 +6097,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_linebuffer_allownil)}
-    BIO_f_linebuffer := @ERR_BIO_f_linebuffer;
+    BIO_f_linebuffer := ERR_BIO_f_linebuffer;
     {$ifend}
     {$if declared(BIO_f_linebuffer_introduced)}
     if LibVersion < BIO_f_linebuffer_introduced then
     begin
       {$if declared(FC_BIO_f_linebuffer)}
-      BIO_f_linebuffer := @FC_BIO_f_linebuffer;
+      BIO_f_linebuffer := FC_BIO_f_linebuffer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6105,7 +6112,7 @@ begin
     if BIO_f_linebuffer_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_linebuffer)}
-      BIO_f_linebuffer := @_BIO_f_linebuffer;
+      BIO_f_linebuffer := _BIO_f_linebuffer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6122,13 +6129,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_f_nbio_test_allownil)}
-    BIO_f_nbio_test := @ERR_BIO_f_nbio_test;
+    BIO_f_nbio_test := ERR_BIO_f_nbio_test;
     {$ifend}
     {$if declared(BIO_f_nbio_test_introduced)}
     if LibVersion < BIO_f_nbio_test_introduced then
     begin
       {$if declared(FC_BIO_f_nbio_test)}
-      BIO_f_nbio_test := @FC_BIO_f_nbio_test;
+      BIO_f_nbio_test := FC_BIO_f_nbio_test;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6137,7 +6144,7 @@ begin
     if BIO_f_nbio_test_removed <= LibVersion then
     begin
       {$if declared(_BIO_f_nbio_test)}
-      BIO_f_nbio_test := @_BIO_f_nbio_test;
+      BIO_f_nbio_test := _BIO_f_nbio_test;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6154,13 +6161,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_s_datagram_allownil)}
-    BIO_s_datagram := @ERR_BIO_s_datagram;
+    BIO_s_datagram := ERR_BIO_s_datagram;
     {$ifend}
     {$if declared(BIO_s_datagram_introduced)}
     if LibVersion < BIO_s_datagram_introduced then
     begin
       {$if declared(FC_BIO_s_datagram)}
-      BIO_s_datagram := @FC_BIO_s_datagram;
+      BIO_s_datagram := FC_BIO_s_datagram;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6169,7 +6176,7 @@ begin
     if BIO_s_datagram_removed <= LibVersion then
     begin
       {$if declared(_BIO_s_datagram)}
-      BIO_s_datagram := @_BIO_s_datagram;
+      BIO_s_datagram := _BIO_s_datagram;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6186,13 +6193,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_dgram_non_fatal_error_allownil)}
-    BIO_dgram_non_fatal_error := @ERR_BIO_dgram_non_fatal_error;
+    BIO_dgram_non_fatal_error := ERR_BIO_dgram_non_fatal_error;
     {$ifend}
     {$if declared(BIO_dgram_non_fatal_error_introduced)}
     if LibVersion < BIO_dgram_non_fatal_error_introduced then
     begin
       {$if declared(FC_BIO_dgram_non_fatal_error)}
-      BIO_dgram_non_fatal_error := @FC_BIO_dgram_non_fatal_error;
+      BIO_dgram_non_fatal_error := FC_BIO_dgram_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6201,7 +6208,7 @@ begin
     if BIO_dgram_non_fatal_error_removed <= LibVersion then
     begin
       {$if declared(_BIO_dgram_non_fatal_error)}
-      BIO_dgram_non_fatal_error := @_BIO_dgram_non_fatal_error;
+      BIO_dgram_non_fatal_error := _BIO_dgram_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6218,13 +6225,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_dgram_allownil)}
-    BIO_new_dgram := @ERR_BIO_new_dgram;
+    BIO_new_dgram := ERR_BIO_new_dgram;
     {$ifend}
     {$if declared(BIO_new_dgram_introduced)}
     if LibVersion < BIO_new_dgram_introduced then
     begin
       {$if declared(FC_BIO_new_dgram)}
-      BIO_new_dgram := @FC_BIO_new_dgram;
+      BIO_new_dgram := FC_BIO_new_dgram;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6233,7 +6240,7 @@ begin
     if BIO_new_dgram_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_dgram)}
-      BIO_new_dgram := @_BIO_new_dgram;
+      BIO_new_dgram := _BIO_new_dgram;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6250,13 +6257,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sock_should_retry_allownil)}
-    BIO_sock_should_retry := @ERR_BIO_sock_should_retry;
+    BIO_sock_should_retry := ERR_BIO_sock_should_retry;
     {$ifend}
     {$if declared(BIO_sock_should_retry_introduced)}
     if LibVersion < BIO_sock_should_retry_introduced then
     begin
       {$if declared(FC_BIO_sock_should_retry)}
-      BIO_sock_should_retry := @FC_BIO_sock_should_retry;
+      BIO_sock_should_retry := FC_BIO_sock_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6265,7 +6272,7 @@ begin
     if BIO_sock_should_retry_removed <= LibVersion then
     begin
       {$if declared(_BIO_sock_should_retry)}
-      BIO_sock_should_retry := @_BIO_sock_should_retry;
+      BIO_sock_should_retry := _BIO_sock_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6282,13 +6289,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sock_non_fatal_error_allownil)}
-    BIO_sock_non_fatal_error := @ERR_BIO_sock_non_fatal_error;
+    BIO_sock_non_fatal_error := ERR_BIO_sock_non_fatal_error;
     {$ifend}
     {$if declared(BIO_sock_non_fatal_error_introduced)}
     if LibVersion < BIO_sock_non_fatal_error_introduced then
     begin
       {$if declared(FC_BIO_sock_non_fatal_error)}
-      BIO_sock_non_fatal_error := @FC_BIO_sock_non_fatal_error;
+      BIO_sock_non_fatal_error := FC_BIO_sock_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6297,7 +6304,7 @@ begin
     if BIO_sock_non_fatal_error_removed <= LibVersion then
     begin
       {$if declared(_BIO_sock_non_fatal_error)}
-      BIO_sock_non_fatal_error := @_BIO_sock_non_fatal_error;
+      BIO_sock_non_fatal_error := _BIO_sock_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6313,13 +6320,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_err_is_non_fatal_allownil)}
-    BIO_err_is_non_fatal := @ERR_BIO_err_is_non_fatal;
+    BIO_err_is_non_fatal := ERR_BIO_err_is_non_fatal;
     {$ifend}
     {$if declared(BIO_err_is_non_fatal_introduced)}
     if LibVersion < BIO_err_is_non_fatal_introduced then
     begin
       {$if declared(FC_BIO_err_is_non_fatal)}
-      BIO_err_is_non_fatal := @FC_BIO_err_is_non_fatal;
+      BIO_err_is_non_fatal := FC_BIO_err_is_non_fatal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6328,7 +6335,7 @@ begin
     if BIO_err_is_non_fatal_removed <= LibVersion then
     begin
       {$if declared(_BIO_err_is_non_fatal)}
-      BIO_err_is_non_fatal := @_BIO_err_is_non_fatal;
+      BIO_err_is_non_fatal := _BIO_err_is_non_fatal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6344,13 +6351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_fd_should_retry_allownil)}
-    BIO_fd_should_retry := @ERR_BIO_fd_should_retry;
+    BIO_fd_should_retry := ERR_BIO_fd_should_retry;
     {$ifend}
     {$if declared(BIO_fd_should_retry_introduced)}
     if LibVersion < BIO_fd_should_retry_introduced then
     begin
       {$if declared(FC_BIO_fd_should_retry)}
-      BIO_fd_should_retry := @FC_BIO_fd_should_retry;
+      BIO_fd_should_retry := FC_BIO_fd_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6359,7 +6366,7 @@ begin
     if BIO_fd_should_retry_removed <= LibVersion then
     begin
       {$if declared(_BIO_fd_should_retry)}
-      BIO_fd_should_retry := @_BIO_fd_should_retry;
+      BIO_fd_should_retry := _BIO_fd_should_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6376,13 +6383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_fd_non_fatal_error_allownil)}
-    BIO_fd_non_fatal_error := @ERR_BIO_fd_non_fatal_error;
+    BIO_fd_non_fatal_error := ERR_BIO_fd_non_fatal_error;
     {$ifend}
     {$if declared(BIO_fd_non_fatal_error_introduced)}
     if LibVersion < BIO_fd_non_fatal_error_introduced then
     begin
       {$if declared(FC_BIO_fd_non_fatal_error)}
-      BIO_fd_non_fatal_error := @FC_BIO_fd_non_fatal_error;
+      BIO_fd_non_fatal_error := FC_BIO_fd_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6391,7 +6398,7 @@ begin
     if BIO_fd_non_fatal_error_removed <= LibVersion then
     begin
       {$if declared(_BIO_fd_non_fatal_error)}
-      BIO_fd_non_fatal_error := @_BIO_fd_non_fatal_error;
+      BIO_fd_non_fatal_error := _BIO_fd_non_fatal_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6408,13 +6415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_dump_allownil)}
-    BIO_dump := @ERR_BIO_dump;
+    BIO_dump := ERR_BIO_dump;
     {$ifend}
     {$if declared(BIO_dump_introduced)}
     if LibVersion < BIO_dump_introduced then
     begin
       {$if declared(FC_BIO_dump)}
-      BIO_dump := @FC_BIO_dump;
+      BIO_dump := FC_BIO_dump;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6423,7 +6430,7 @@ begin
     if BIO_dump_removed <= LibVersion then
     begin
       {$if declared(_BIO_dump)}
-      BIO_dump := @_BIO_dump;
+      BIO_dump := _BIO_dump;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6440,13 +6447,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_dump_indent_allownil)}
-    BIO_dump_indent := @ERR_BIO_dump_indent;
+    BIO_dump_indent := ERR_BIO_dump_indent;
     {$ifend}
     {$if declared(BIO_dump_indent_introduced)}
     if LibVersion < BIO_dump_indent_introduced then
     begin
       {$if declared(FC_BIO_dump_indent)}
-      BIO_dump_indent := @FC_BIO_dump_indent;
+      BIO_dump_indent := FC_BIO_dump_indent;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6455,7 +6462,7 @@ begin
     if BIO_dump_indent_removed <= LibVersion then
     begin
       {$if declared(_BIO_dump_indent)}
-      BIO_dump_indent := @_BIO_dump_indent;
+      BIO_dump_indent := _BIO_dump_indent;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6472,13 +6479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_hex_string_allownil)}
-    BIO_hex_string := @ERR_BIO_hex_string;
+    BIO_hex_string := ERR_BIO_hex_string;
     {$ifend}
     {$if declared(BIO_hex_string_introduced)}
     if LibVersion < BIO_hex_string_introduced then
     begin
       {$if declared(FC_BIO_hex_string)}
-      BIO_hex_string := @FC_BIO_hex_string;
+      BIO_hex_string := FC_BIO_hex_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6487,7 +6494,7 @@ begin
     if BIO_hex_string_removed <= LibVersion then
     begin
       {$if declared(_BIO_hex_string)}
-      BIO_hex_string := @_BIO_hex_string;
+      BIO_hex_string := _BIO_hex_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6504,13 +6511,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_new_allownil)}
-    BIO_ADDR_new := @ERR_BIO_ADDR_new;
+    BIO_ADDR_new := ERR_BIO_ADDR_new;
     {$ifend}
     {$if declared(BIO_ADDR_new_introduced)}
     if LibVersion < BIO_ADDR_new_introduced then
     begin
       {$if declared(FC_BIO_ADDR_new)}
-      BIO_ADDR_new := @FC_BIO_ADDR_new;
+      BIO_ADDR_new := FC_BIO_ADDR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6519,7 +6526,7 @@ begin
     if BIO_ADDR_new_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_new)}
-      BIO_ADDR_new := @_BIO_ADDR_new;
+      BIO_ADDR_new := _BIO_ADDR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6536,13 +6543,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_rawmake_allownil)}
-    BIO_ADDR_rawmake := @ERR_BIO_ADDR_rawmake;
+    BIO_ADDR_rawmake := ERR_BIO_ADDR_rawmake;
     {$ifend}
     {$if declared(BIO_ADDR_rawmake_introduced)}
     if LibVersion < BIO_ADDR_rawmake_introduced then
     begin
       {$if declared(FC_BIO_ADDR_rawmake)}
-      BIO_ADDR_rawmake := @FC_BIO_ADDR_rawmake;
+      BIO_ADDR_rawmake := FC_BIO_ADDR_rawmake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6551,7 +6558,7 @@ begin
     if BIO_ADDR_rawmake_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_rawmake)}
-      BIO_ADDR_rawmake := @_BIO_ADDR_rawmake;
+      BIO_ADDR_rawmake := _BIO_ADDR_rawmake;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6568,13 +6575,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_free_allownil)}
-    BIO_ADDR_free := @ERR_BIO_ADDR_free;
+    BIO_ADDR_free := ERR_BIO_ADDR_free;
     {$ifend}
     {$if declared(BIO_ADDR_free_introduced)}
     if LibVersion < BIO_ADDR_free_introduced then
     begin
       {$if declared(FC_BIO_ADDR_free)}
-      BIO_ADDR_free := @FC_BIO_ADDR_free;
+      BIO_ADDR_free := FC_BIO_ADDR_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6583,7 +6590,7 @@ begin
     if BIO_ADDR_free_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_free)}
-      BIO_ADDR_free := @_BIO_ADDR_free;
+      BIO_ADDR_free := _BIO_ADDR_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6600,13 +6607,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_clear_allownil)}
-    BIO_ADDR_clear := @ERR_BIO_ADDR_clear;
+    BIO_ADDR_clear := ERR_BIO_ADDR_clear;
     {$ifend}
     {$if declared(BIO_ADDR_clear_introduced)}
     if LibVersion < BIO_ADDR_clear_introduced then
     begin
       {$if declared(FC_BIO_ADDR_clear)}
-      BIO_ADDR_clear := @FC_BIO_ADDR_clear;
+      BIO_ADDR_clear := FC_BIO_ADDR_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6615,7 +6622,7 @@ begin
     if BIO_ADDR_clear_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_clear)}
-      BIO_ADDR_clear := @_BIO_ADDR_clear;
+      BIO_ADDR_clear := _BIO_ADDR_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6632,13 +6639,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_family_allownil)}
-    BIO_ADDR_family := @ERR_BIO_ADDR_family;
+    BIO_ADDR_family := ERR_BIO_ADDR_family;
     {$ifend}
     {$if declared(BIO_ADDR_family_introduced)}
     if LibVersion < BIO_ADDR_family_introduced then
     begin
       {$if declared(FC_BIO_ADDR_family)}
-      BIO_ADDR_family := @FC_BIO_ADDR_family;
+      BIO_ADDR_family := FC_BIO_ADDR_family;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6647,7 +6654,7 @@ begin
     if BIO_ADDR_family_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_family)}
-      BIO_ADDR_family := @_BIO_ADDR_family;
+      BIO_ADDR_family := _BIO_ADDR_family;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6664,13 +6671,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_rawaddress_allownil)}
-    BIO_ADDR_rawaddress := @ERR_BIO_ADDR_rawaddress;
+    BIO_ADDR_rawaddress := ERR_BIO_ADDR_rawaddress;
     {$ifend}
     {$if declared(BIO_ADDR_rawaddress_introduced)}
     if LibVersion < BIO_ADDR_rawaddress_introduced then
     begin
       {$if declared(FC_BIO_ADDR_rawaddress)}
-      BIO_ADDR_rawaddress := @FC_BIO_ADDR_rawaddress;
+      BIO_ADDR_rawaddress := FC_BIO_ADDR_rawaddress;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6679,7 +6686,7 @@ begin
     if BIO_ADDR_rawaddress_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_rawaddress)}
-      BIO_ADDR_rawaddress := @_BIO_ADDR_rawaddress;
+      BIO_ADDR_rawaddress := _BIO_ADDR_rawaddress;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6696,13 +6703,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_rawport_allownil)}
-    BIO_ADDR_rawport := @ERR_BIO_ADDR_rawport;
+    BIO_ADDR_rawport := ERR_BIO_ADDR_rawport;
     {$ifend}
     {$if declared(BIO_ADDR_rawport_introduced)}
     if LibVersion < BIO_ADDR_rawport_introduced then
     begin
       {$if declared(FC_BIO_ADDR_rawport)}
-      BIO_ADDR_rawport := @FC_BIO_ADDR_rawport;
+      BIO_ADDR_rawport := FC_BIO_ADDR_rawport;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6711,7 +6718,7 @@ begin
     if BIO_ADDR_rawport_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_rawport)}
-      BIO_ADDR_rawport := @_BIO_ADDR_rawport;
+      BIO_ADDR_rawport := _BIO_ADDR_rawport;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6728,13 +6735,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_hostname_string_allownil)}
-    BIO_ADDR_hostname_string := @ERR_BIO_ADDR_hostname_string;
+    BIO_ADDR_hostname_string := ERR_BIO_ADDR_hostname_string;
     {$ifend}
     {$if declared(BIO_ADDR_hostname_string_introduced)}
     if LibVersion < BIO_ADDR_hostname_string_introduced then
     begin
       {$if declared(FC_BIO_ADDR_hostname_string)}
-      BIO_ADDR_hostname_string := @FC_BIO_ADDR_hostname_string;
+      BIO_ADDR_hostname_string := FC_BIO_ADDR_hostname_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6743,7 +6750,7 @@ begin
     if BIO_ADDR_hostname_string_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_hostname_string)}
-      BIO_ADDR_hostname_string := @_BIO_ADDR_hostname_string;
+      BIO_ADDR_hostname_string := _BIO_ADDR_hostname_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6760,13 +6767,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_service_string_allownil)}
-    BIO_ADDR_service_string := @ERR_BIO_ADDR_service_string;
+    BIO_ADDR_service_string := ERR_BIO_ADDR_service_string;
     {$ifend}
     {$if declared(BIO_ADDR_service_string_introduced)}
     if LibVersion < BIO_ADDR_service_string_introduced then
     begin
       {$if declared(FC_BIO_ADDR_service_string)}
-      BIO_ADDR_service_string := @FC_BIO_ADDR_service_string;
+      BIO_ADDR_service_string := FC_BIO_ADDR_service_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6775,7 +6782,7 @@ begin
     if BIO_ADDR_service_string_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_service_string)}
-      BIO_ADDR_service_string := @_BIO_ADDR_service_string;
+      BIO_ADDR_service_string := _BIO_ADDR_service_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6792,13 +6799,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDR_path_string_allownil)}
-    BIO_ADDR_path_string := @ERR_BIO_ADDR_path_string;
+    BIO_ADDR_path_string := ERR_BIO_ADDR_path_string;
     {$ifend}
     {$if declared(BIO_ADDR_path_string_introduced)}
     if LibVersion < BIO_ADDR_path_string_introduced then
     begin
       {$if declared(FC_BIO_ADDR_path_string)}
-      BIO_ADDR_path_string := @FC_BIO_ADDR_path_string;
+      BIO_ADDR_path_string := FC_BIO_ADDR_path_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6807,7 +6814,7 @@ begin
     if BIO_ADDR_path_string_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDR_path_string)}
-      BIO_ADDR_path_string := @_BIO_ADDR_path_string;
+      BIO_ADDR_path_string := _BIO_ADDR_path_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6824,13 +6831,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_next_allownil)}
-    BIO_ADDRINFO_next := @ERR_BIO_ADDRINFO_next;
+    BIO_ADDRINFO_next := ERR_BIO_ADDRINFO_next;
     {$ifend}
     {$if declared(BIO_ADDRINFO_next_introduced)}
     if LibVersion < BIO_ADDRINFO_next_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_next)}
-      BIO_ADDRINFO_next := @FC_BIO_ADDRINFO_next;
+      BIO_ADDRINFO_next := FC_BIO_ADDRINFO_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6839,7 +6846,7 @@ begin
     if BIO_ADDRINFO_next_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_next)}
-      BIO_ADDRINFO_next := @_BIO_ADDRINFO_next;
+      BIO_ADDRINFO_next := _BIO_ADDRINFO_next;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6856,13 +6863,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_family_allownil)}
-    BIO_ADDRINFO_family := @ERR_BIO_ADDRINFO_family;
+    BIO_ADDRINFO_family := ERR_BIO_ADDRINFO_family;
     {$ifend}
     {$if declared(BIO_ADDRINFO_family_introduced)}
     if LibVersion < BIO_ADDRINFO_family_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_family)}
-      BIO_ADDRINFO_family := @FC_BIO_ADDRINFO_family;
+      BIO_ADDRINFO_family := FC_BIO_ADDRINFO_family;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6871,7 +6878,7 @@ begin
     if BIO_ADDRINFO_family_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_family)}
-      BIO_ADDRINFO_family := @_BIO_ADDRINFO_family;
+      BIO_ADDRINFO_family := _BIO_ADDRINFO_family;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6888,13 +6895,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_socktype_allownil)}
-    BIO_ADDRINFO_socktype := @ERR_BIO_ADDRINFO_socktype;
+    BIO_ADDRINFO_socktype := ERR_BIO_ADDRINFO_socktype;
     {$ifend}
     {$if declared(BIO_ADDRINFO_socktype_introduced)}
     if LibVersion < BIO_ADDRINFO_socktype_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_socktype)}
-      BIO_ADDRINFO_socktype := @FC_BIO_ADDRINFO_socktype;
+      BIO_ADDRINFO_socktype := FC_BIO_ADDRINFO_socktype;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6903,7 +6910,7 @@ begin
     if BIO_ADDRINFO_socktype_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_socktype)}
-      BIO_ADDRINFO_socktype := @_BIO_ADDRINFO_socktype;
+      BIO_ADDRINFO_socktype := _BIO_ADDRINFO_socktype;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6920,13 +6927,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_protocol_allownil)}
-    BIO_ADDRINFO_protocol := @ERR_BIO_ADDRINFO_protocol;
+    BIO_ADDRINFO_protocol := ERR_BIO_ADDRINFO_protocol;
     {$ifend}
     {$if declared(BIO_ADDRINFO_protocol_introduced)}
     if LibVersion < BIO_ADDRINFO_protocol_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_protocol)}
-      BIO_ADDRINFO_protocol := @FC_BIO_ADDRINFO_protocol;
+      BIO_ADDRINFO_protocol := FC_BIO_ADDRINFO_protocol;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6935,7 +6942,7 @@ begin
     if BIO_ADDRINFO_protocol_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_protocol)}
-      BIO_ADDRINFO_protocol := @_BIO_ADDRINFO_protocol;
+      BIO_ADDRINFO_protocol := _BIO_ADDRINFO_protocol;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6952,13 +6959,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_address_allownil)}
-    BIO_ADDRINFO_address := @ERR_BIO_ADDRINFO_address;
+    BIO_ADDRINFO_address := ERR_BIO_ADDRINFO_address;
     {$ifend}
     {$if declared(BIO_ADDRINFO_address_introduced)}
     if LibVersion < BIO_ADDRINFO_address_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_address)}
-      BIO_ADDRINFO_address := @FC_BIO_ADDRINFO_address;
+      BIO_ADDRINFO_address := FC_BIO_ADDRINFO_address;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6967,7 +6974,7 @@ begin
     if BIO_ADDRINFO_address_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_address)}
-      BIO_ADDRINFO_address := @_BIO_ADDRINFO_address;
+      BIO_ADDRINFO_address := _BIO_ADDRINFO_address;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6984,13 +6991,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_ADDRINFO_free_allownil)}
-    BIO_ADDRINFO_free := @ERR_BIO_ADDRINFO_free;
+    BIO_ADDRINFO_free := ERR_BIO_ADDRINFO_free;
     {$ifend}
     {$if declared(BIO_ADDRINFO_free_introduced)}
     if LibVersion < BIO_ADDRINFO_free_introduced then
     begin
       {$if declared(FC_BIO_ADDRINFO_free)}
-      BIO_ADDRINFO_free := @FC_BIO_ADDRINFO_free;
+      BIO_ADDRINFO_free := FC_BIO_ADDRINFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6999,7 +7006,7 @@ begin
     if BIO_ADDRINFO_free_removed <= LibVersion then
     begin
       {$if declared(_BIO_ADDRINFO_free)}
-      BIO_ADDRINFO_free := @_BIO_ADDRINFO_free;
+      BIO_ADDRINFO_free := _BIO_ADDRINFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7016,13 +7023,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_parse_hostserv_allownil)}
-    BIO_parse_hostserv := @ERR_BIO_parse_hostserv;
+    BIO_parse_hostserv := ERR_BIO_parse_hostserv;
     {$ifend}
     {$if declared(BIO_parse_hostserv_introduced)}
     if LibVersion < BIO_parse_hostserv_introduced then
     begin
       {$if declared(FC_BIO_parse_hostserv)}
-      BIO_parse_hostserv := @FC_BIO_parse_hostserv;
+      BIO_parse_hostserv := FC_BIO_parse_hostserv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7031,7 +7038,7 @@ begin
     if BIO_parse_hostserv_removed <= LibVersion then
     begin
       {$if declared(_BIO_parse_hostserv)}
-      BIO_parse_hostserv := @_BIO_parse_hostserv;
+      BIO_parse_hostserv := _BIO_parse_hostserv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7048,13 +7055,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_lookup_allownil)}
-    BIO_lookup := @ERR_BIO_lookup;
+    BIO_lookup := ERR_BIO_lookup;
     {$ifend}
     {$if declared(BIO_lookup_introduced)}
     if LibVersion < BIO_lookup_introduced then
     begin
       {$if declared(FC_BIO_lookup)}
-      BIO_lookup := @FC_BIO_lookup;
+      BIO_lookup := FC_BIO_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7063,7 +7070,7 @@ begin
     if BIO_lookup_removed <= LibVersion then
     begin
       {$if declared(_BIO_lookup)}
-      BIO_lookup := @_BIO_lookup;
+      BIO_lookup := _BIO_lookup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7080,13 +7087,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_lookup_ex_allownil)}
-    BIO_lookup_ex := @ERR_BIO_lookup_ex;
+    BIO_lookup_ex := ERR_BIO_lookup_ex;
     {$ifend}
     {$if declared(BIO_lookup_ex_introduced)}
     if LibVersion < BIO_lookup_ex_introduced then
     begin
       {$if declared(FC_BIO_lookup_ex)}
-      BIO_lookup_ex := @FC_BIO_lookup_ex;
+      BIO_lookup_ex := FC_BIO_lookup_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7095,7 +7102,7 @@ begin
     if BIO_lookup_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_lookup_ex)}
-      BIO_lookup_ex := @_BIO_lookup_ex;
+      BIO_lookup_ex := _BIO_lookup_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7112,13 +7119,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sock_error_allownil)}
-    BIO_sock_error := @ERR_BIO_sock_error;
+    BIO_sock_error := ERR_BIO_sock_error;
     {$ifend}
     {$if declared(BIO_sock_error_introduced)}
     if LibVersion < BIO_sock_error_introduced then
     begin
       {$if declared(FC_BIO_sock_error)}
-      BIO_sock_error := @FC_BIO_sock_error;
+      BIO_sock_error := FC_BIO_sock_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7127,7 +7134,7 @@ begin
     if BIO_sock_error_removed <= LibVersion then
     begin
       {$if declared(_BIO_sock_error)}
-      BIO_sock_error := @_BIO_sock_error;
+      BIO_sock_error := _BIO_sock_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7144,13 +7151,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_socket_ioctl_allownil)}
-    BIO_socket_ioctl := @ERR_BIO_socket_ioctl;
+    BIO_socket_ioctl := ERR_BIO_socket_ioctl;
     {$ifend}
     {$if declared(BIO_socket_ioctl_introduced)}
     if LibVersion < BIO_socket_ioctl_introduced then
     begin
       {$if declared(FC_BIO_socket_ioctl)}
-      BIO_socket_ioctl := @FC_BIO_socket_ioctl;
+      BIO_socket_ioctl := FC_BIO_socket_ioctl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7159,7 +7166,7 @@ begin
     if BIO_socket_ioctl_removed <= LibVersion then
     begin
       {$if declared(_BIO_socket_ioctl)}
-      BIO_socket_ioctl := @_BIO_socket_ioctl;
+      BIO_socket_ioctl := _BIO_socket_ioctl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7176,13 +7183,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_socket_nbio_allownil)}
-    BIO_socket_nbio := @ERR_BIO_socket_nbio;
+    BIO_socket_nbio := ERR_BIO_socket_nbio;
     {$ifend}
     {$if declared(BIO_socket_nbio_introduced)}
     if LibVersion < BIO_socket_nbio_introduced then
     begin
       {$if declared(FC_BIO_socket_nbio)}
-      BIO_socket_nbio := @FC_BIO_socket_nbio;
+      BIO_socket_nbio := FC_BIO_socket_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7191,7 +7198,7 @@ begin
     if BIO_socket_nbio_removed <= LibVersion then
     begin
       {$if declared(_BIO_socket_nbio)}
-      BIO_socket_nbio := @_BIO_socket_nbio;
+      BIO_socket_nbio := _BIO_socket_nbio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7208,13 +7215,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sock_init_allownil)}
-    BIO_sock_init := @ERR_BIO_sock_init;
+    BIO_sock_init := ERR_BIO_sock_init;
     {$ifend}
     {$if declared(BIO_sock_init_introduced)}
     if LibVersion < BIO_sock_init_introduced then
     begin
       {$if declared(FC_BIO_sock_init)}
-      BIO_sock_init := @FC_BIO_sock_init;
+      BIO_sock_init := FC_BIO_sock_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7223,7 +7230,7 @@ begin
     if BIO_sock_init_removed <= LibVersion then
     begin
       {$if declared(_BIO_sock_init)}
-      BIO_sock_init := @_BIO_sock_init;
+      BIO_sock_init := _BIO_sock_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7240,13 +7247,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_set_tcp_ndelay_allownil)}
-    BIO_set_tcp_ndelay := @ERR_BIO_set_tcp_ndelay;
+    BIO_set_tcp_ndelay := ERR_BIO_set_tcp_ndelay;
     {$ifend}
     {$if declared(BIO_set_tcp_ndelay_introduced)}
     if LibVersion < BIO_set_tcp_ndelay_introduced then
     begin
       {$if declared(FC_BIO_set_tcp_ndelay)}
-      BIO_set_tcp_ndelay := @FC_BIO_set_tcp_ndelay;
+      BIO_set_tcp_ndelay := FC_BIO_set_tcp_ndelay;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7255,7 +7262,7 @@ begin
     if BIO_set_tcp_ndelay_removed <= LibVersion then
     begin
       {$if declared(_BIO_set_tcp_ndelay)}
-      BIO_set_tcp_ndelay := @_BIO_set_tcp_ndelay;
+      BIO_set_tcp_ndelay := _BIO_set_tcp_ndelay;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7272,13 +7279,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_sock_info_allownil)}
-    BIO_sock_info := @ERR_BIO_sock_info;
+    BIO_sock_info := ERR_BIO_sock_info;
     {$ifend}
     {$if declared(BIO_sock_info_introduced)}
     if LibVersion < BIO_sock_info_introduced then
     begin
       {$if declared(FC_BIO_sock_info)}
-      BIO_sock_info := @FC_BIO_sock_info;
+      BIO_sock_info := FC_BIO_sock_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7287,7 +7294,7 @@ begin
     if BIO_sock_info_removed <= LibVersion then
     begin
       {$if declared(_BIO_sock_info)}
-      BIO_sock_info := @_BIO_sock_info;
+      BIO_sock_info := _BIO_sock_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7304,13 +7311,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_socket_allownil)}
-    BIO_socket := @ERR_BIO_socket;
+    BIO_socket := ERR_BIO_socket;
     {$ifend}
     {$if declared(BIO_socket_introduced)}
     if LibVersion < BIO_socket_introduced then
     begin
       {$if declared(FC_BIO_socket)}
-      BIO_socket := @FC_BIO_socket;
+      BIO_socket := FC_BIO_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7319,7 +7326,7 @@ begin
     if BIO_socket_removed <= LibVersion then
     begin
       {$if declared(_BIO_socket)}
-      BIO_socket := @_BIO_socket;
+      BIO_socket := _BIO_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7336,13 +7343,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_connect_allownil)}
-    BIO_connect := @ERR_BIO_connect;
+    BIO_connect := ERR_BIO_connect;
     {$ifend}
     {$if declared(BIO_connect_introduced)}
     if LibVersion < BIO_connect_introduced then
     begin
       {$if declared(FC_BIO_connect)}
-      BIO_connect := @FC_BIO_connect;
+      BIO_connect := FC_BIO_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7351,7 +7358,7 @@ begin
     if BIO_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_connect)}
-      BIO_connect := @_BIO_connect;
+      BIO_connect := _BIO_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7368,13 +7375,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_bind_allownil)}
-    BIO_bind := @ERR_BIO_bind;
+    BIO_bind := ERR_BIO_bind;
     {$ifend}
     {$if declared(BIO_bind_introduced)}
     if LibVersion < BIO_bind_introduced then
     begin
       {$if declared(FC_BIO_bind)}
-      BIO_bind := @FC_BIO_bind;
+      BIO_bind := FC_BIO_bind;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7383,7 +7390,7 @@ begin
     if BIO_bind_removed <= LibVersion then
     begin
       {$if declared(_BIO_bind)}
-      BIO_bind := @_BIO_bind;
+      BIO_bind := _BIO_bind;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7400,13 +7407,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_listen_allownil)}
-    BIO_listen := @ERR_BIO_listen;
+    BIO_listen := ERR_BIO_listen;
     {$ifend}
     {$if declared(BIO_listen_introduced)}
     if LibVersion < BIO_listen_introduced then
     begin
       {$if declared(FC_BIO_listen)}
-      BIO_listen := @FC_BIO_listen;
+      BIO_listen := FC_BIO_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7415,7 +7422,7 @@ begin
     if BIO_listen_removed <= LibVersion then
     begin
       {$if declared(_BIO_listen)}
-      BIO_listen := @_BIO_listen;
+      BIO_listen := _BIO_listen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7432,13 +7439,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_accept_ex_allownil)}
-    BIO_accept_ex := @ERR_BIO_accept_ex;
+    BIO_accept_ex := ERR_BIO_accept_ex;
     {$ifend}
     {$if declared(BIO_accept_ex_introduced)}
     if LibVersion < BIO_accept_ex_introduced then
     begin
       {$if declared(FC_BIO_accept_ex)}
-      BIO_accept_ex := @FC_BIO_accept_ex;
+      BIO_accept_ex := FC_BIO_accept_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7447,7 +7454,7 @@ begin
     if BIO_accept_ex_removed <= LibVersion then
     begin
       {$if declared(_BIO_accept_ex)}
-      BIO_accept_ex := @_BIO_accept_ex;
+      BIO_accept_ex := _BIO_accept_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7464,13 +7471,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_closesocket_allownil)}
-    BIO_closesocket := @ERR_BIO_closesocket;
+    BIO_closesocket := ERR_BIO_closesocket;
     {$ifend}
     {$if declared(BIO_closesocket_introduced)}
     if LibVersion < BIO_closesocket_introduced then
     begin
       {$if declared(FC_BIO_closesocket)}
-      BIO_closesocket := @FC_BIO_closesocket;
+      BIO_closesocket := FC_BIO_closesocket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7479,7 +7486,7 @@ begin
     if BIO_closesocket_removed <= LibVersion then
     begin
       {$if declared(_BIO_closesocket)}
-      BIO_closesocket := @_BIO_closesocket;
+      BIO_closesocket := _BIO_closesocket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7496,13 +7503,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_socket_allownil)}
-    BIO_new_socket := @ERR_BIO_new_socket;
+    BIO_new_socket := ERR_BIO_new_socket;
     {$ifend}
     {$if declared(BIO_new_socket_introduced)}
     if LibVersion < BIO_new_socket_introduced then
     begin
       {$if declared(FC_BIO_new_socket)}
-      BIO_new_socket := @FC_BIO_new_socket;
+      BIO_new_socket := FC_BIO_new_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7511,7 +7518,7 @@ begin
     if BIO_new_socket_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_socket)}
-      BIO_new_socket := @_BIO_new_socket;
+      BIO_new_socket := _BIO_new_socket;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7528,13 +7535,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_connect_allownil)}
-    BIO_new_connect := @ERR_BIO_new_connect;
+    BIO_new_connect := ERR_BIO_new_connect;
     {$ifend}
     {$if declared(BIO_new_connect_introduced)}
     if LibVersion < BIO_new_connect_introduced then
     begin
       {$if declared(FC_BIO_new_connect)}
-      BIO_new_connect := @FC_BIO_new_connect;
+      BIO_new_connect := FC_BIO_new_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7543,7 +7550,7 @@ begin
     if BIO_new_connect_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_connect)}
-      BIO_new_connect := @_BIO_new_connect;
+      BIO_new_connect := _BIO_new_connect;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7560,13 +7567,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_accept_allownil)}
-    BIO_new_accept := @ERR_BIO_new_accept;
+    BIO_new_accept := ERR_BIO_new_accept;
     {$ifend}
     {$if declared(BIO_new_accept_introduced)}
     if LibVersion < BIO_new_accept_introduced then
     begin
       {$if declared(FC_BIO_new_accept)}
-      BIO_new_accept := @FC_BIO_new_accept;
+      BIO_new_accept := FC_BIO_new_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7575,7 +7582,7 @@ begin
     if BIO_new_accept_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_accept)}
-      BIO_new_accept := @_BIO_new_accept;
+      BIO_new_accept := _BIO_new_accept;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7592,13 +7599,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_fd_allownil)}
-    BIO_new_fd := @ERR_BIO_new_fd;
+    BIO_new_fd := ERR_BIO_new_fd;
     {$ifend}
     {$if declared(BIO_new_fd_introduced)}
     if LibVersion < BIO_new_fd_introduced then
     begin
       {$if declared(FC_BIO_new_fd)}
-      BIO_new_fd := @FC_BIO_new_fd;
+      BIO_new_fd := FC_BIO_new_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7607,7 +7614,7 @@ begin
     if BIO_new_fd_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_fd)}
-      BIO_new_fd := @_BIO_new_fd;
+      BIO_new_fd := _BIO_new_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7624,13 +7631,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_bio_pair_allownil)}
-    BIO_new_bio_pair := @ERR_BIO_new_bio_pair;
+    BIO_new_bio_pair := ERR_BIO_new_bio_pair;
     {$ifend}
     {$if declared(BIO_new_bio_pair_introduced)}
     if LibVersion < BIO_new_bio_pair_introduced then
     begin
       {$if declared(FC_BIO_new_bio_pair)}
-      BIO_new_bio_pair := @FC_BIO_new_bio_pair;
+      BIO_new_bio_pair := FC_BIO_new_bio_pair;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7639,7 +7646,7 @@ begin
     if BIO_new_bio_pair_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_bio_pair)}
-      BIO_new_bio_pair := @_BIO_new_bio_pair;
+      BIO_new_bio_pair := _BIO_new_bio_pair;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7656,13 +7663,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_copy_next_retry_allownil)}
-    BIO_copy_next_retry := @ERR_BIO_copy_next_retry;
+    BIO_copy_next_retry := ERR_BIO_copy_next_retry;
     {$ifend}
     {$if declared(BIO_copy_next_retry_introduced)}
     if LibVersion < BIO_copy_next_retry_introduced then
     begin
       {$if declared(FC_BIO_copy_next_retry)}
-      BIO_copy_next_retry := @FC_BIO_copy_next_retry;
+      BIO_copy_next_retry := FC_BIO_copy_next_retry;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7671,7 +7678,7 @@ begin
     if BIO_copy_next_retry_removed <= LibVersion then
     begin
       {$if declared(_BIO_copy_next_retry)}
-      BIO_copy_next_retry := @_BIO_copy_next_retry;
+      BIO_copy_next_retry := _BIO_copy_next_retry;
       {$ifend}
       FuncLoadError := false;
     end;

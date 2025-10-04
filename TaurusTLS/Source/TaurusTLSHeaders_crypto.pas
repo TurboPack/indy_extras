@@ -1108,7 +1108,7 @@ begin
   Result := 0;
 end;
 
-procedure  _CRYPTO_set_locking_callback; cdecl;
+procedure  _CRYPTO_set_locking_callback(func: TIdSslLockingCallback); cdecl;
 begin
 end;
 
@@ -1200,168 +1200,169 @@ begin
 end;
 
 {/forward_compatibility}
-  {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_OPENSSL_malloc(num: TIdC_SIZET): Pointer; 
+  {$I TaurusTLSNoRetValOff.inc}
+function  ERR_OPENSSL_malloc(num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_malloc_procname);
 end;
 
- 
-function  ERR_OPENSSL_zalloc(num: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_zalloc(num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_zalloc_procname);
 end;
 
- 
-function  ERR_OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_realloc(address: Pointer; num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_realloc_procname);
 end;
 
- 
-function  ERR_OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_clear_realloc_procname);
 end;
 
- 
-procedure  ERR_OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET); 
+
+procedure  ERR_OPENSSL_clear_free(address: Pointer; num: TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_clear_free_procname);
 end;
 
- 
-procedure  ERR_OPENSSL_free(address: Pointer); 
+
+procedure  ERR_OPENSSL_free(address: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_free_procname);
 end;
 
- 
-function  ERR_OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_memdup(const _str: Pointer; s: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_memdup_procname);
 end;
 
  
-function  ERR_OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar; 
+function  ERR_OPENSSL_strdup(const _str: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strdup_procname);
 end;
 
- 
-function  ERR_OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; 
+
+function  ERR_OPENSSL_strndup(const _str: PIdAnsiChar; n: TIdC_SIZET): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strndup_procname);
 end;
 
- 
-function  ERR_OPENSSL_secure_malloc(num: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_secure_malloc(num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_malloc_procname);
 end;
 
- 
-function  ERR_OPENSSL_secure_zalloc(num: TIdC_SIZET): Pointer; 
+
+function  ERR_OPENSSL_secure_zalloc(num: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_zalloc_procname);
 end;
 
- 
-procedure  ERR_OPENSSL_secure_free(address: Pointer); 
+
+procedure  ERR_OPENSSL_secure_free(address: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_free_procname);
 end;
 
- 
-procedure  ERR_OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET); 
+
+procedure  ERR_OPENSSL_secure_clear_free(address: Pointer; num: TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_clear_free_procname);
 end;
 
- 
-function  ERR_OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; 
+
+function  ERR_OPENSSL_secure_actual_size(_ptr: Pointer): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_secure_actual_size_procname);
 end;
 
  
 
-function  ERR_CRYPTO_THREAD_lock_new: PCRYPTO_RWLOCK; 
+function  ERR_CRYPTO_THREAD_lock_new: PCRYPTO_RWLOCK; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_lock_new_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_read_lock(lock: PCRYPTO_RWLOCK): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_read_lock(lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_read_lock_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_write_lock(lock: PCRYPTO_RWLOCK): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_write_lock(lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_write_lock_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_unlock(lock: PCRYPTO_RWLOCK): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_unlock(lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_unlock_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_THREAD_lock_free(lock: PCRYPTO_RWLOCK); 
+procedure  ERR_CRYPTO_THREAD_lock_free(lock: PCRYPTO_RWLOCK); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_lock_free_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_atomic_add(_val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT; lock: PCRYPTO_RWLOCK): TIdC_INT; 
+function  ERR_CRYPTO_atomic_add(_val: PIdC_INT; amount: TIdC_INT; ret: PIdC_INT;
+  lock: PCRYPTO_RWLOCK): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_atomic_add_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_mem_ctrl(mode: TIdC_INT): TIdC_INT; 
+function  ERR_CRYPTO_mem_ctrl(mode: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_mem_ctrl_procname);
 end;
 
- 
 
-function  ERR_OPENSSL_strlcpy(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; 
+
+function  ERR_OPENSSL_strlcpy(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strlcpy_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_strlcat(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_OPENSSL_strlcat(dst: PIdAnsiChar; const src: PIdAnsiChar; siz: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strlcat_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_strnlen(const _str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_OPENSSL_strnlen(const _str: PIdAnsiChar; maxlen: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_strnlen_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_buf2hexstr(const buffer: PByte; len: TIdC_LONG): PIdAnsiChar; 
+function  ERR_OPENSSL_buf2hexstr(const buffer: PByte; len: TIdC_LONG): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_buf2hexstr_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_hexstr2buf(const _str: PIdAnsiChar; len: PIdC_LONG): PByte; 
+function  ERR_OPENSSL_hexstr2buf(const _str: PIdAnsiChar; len: PIdC_LONG): PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_hexstr2buf_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_hexchar2int(c: Byte): TIdC_INT; 
+function  ERR_OPENSSL_hexchar2int(c: Byte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_hexchar2int_procname);
 end;
@@ -1370,20 +1371,20 @@ end;
 
   // # define OPENSSL_MALLOC_MAX_NELEMS(type)  (((1U<<(sizeof(int)*8-1))-1)/sizeof(type))
 
-function  ERR_OpenSSL_version_num: TIdC_ULONG;
+function  ERR_OpenSSL_version_num: TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OpenSSL_version_num_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OpenSSL_version(type_: TIdC_INT): PIdAnsiChar;
+function  ERR_OpenSSL_version(type_: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OpenSSL_version_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_OPENSSL_issetugid: TIdC_INT; 
+function  ERR_OPENSSL_issetugid: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_issetugid_procname);
 end;
@@ -1397,20 +1398,21 @@ end;
    * Initialise/duplicate/free CRYPTO_EX_DATA variables corresponding to a
    * given class (invokes whatever per-class callbacks are applicable)
    *)
-function  ERR_CRYPTO_new_ex_data(class_index: TIdC_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TIdC_INT; 
+function  ERR_CRYPTO_new_ex_data(class_index: TIdC_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_new_ex_data_procname);
 end;
 
 
-function  ERR_CRYPTO_dup_ex_data(class_index: TIdC_INT; to_: PCRYPTO_EX_DATA; const from: PCRYPTO_EX_DATA): TIdC_INT; 
+function  ERR_CRYPTO_dup_ex_data(class_index: TIdC_INT; to_: PCRYPTO_EX_DATA;
+  const from: PCRYPTO_EX_DATA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_dup_ex_data_procname);
 end;
 
 
 
-procedure  ERR_CRYPTO_free_ex_data(class_index: TIdC_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); 
+procedure  ERR_CRYPTO_free_ex_data(class_index: TIdC_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_free_ex_data_procname);
 end;
@@ -1421,13 +1423,13 @@ end;
    * Get/set data in a CRYPTO_EX_DATA variable corresponding to a particular
    * index (relative to the class type involved)
    *)
-function  ERR_CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; _val: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_set_ex_data(ad: PCRYPTO_EX_DATA; idx: TIdC_INT; _val: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_ex_data_procname);
 end;
 
 
-function  ERR_CRYPTO_get_ex_data(const ad: PCRYPTO_EX_DATA; idx: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_get_ex_data(const ad: PCRYPTO_EX_DATA; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_get_ex_data_procname);
 end;
@@ -1445,26 +1447,26 @@ end;
   // * the callback management functions can be safely replaced with no-op macros.
   // */
   //#  define CRYPTO_num_locks()            (1)
-function  ERR_CRYPTO_num_locks: TIdC_INT; 
+function  ERR_CRYPTO_num_locks: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_num_locks_procname);
 end;
 
- 
+
   //#  define CRYPTO_set_locking_callback(func)
   //#  define CRYPTO_get_locking_callback()         (NULL)
   //#  define CRYPTO_set_add_lock_callback(func)
   //#  define CRYPTO_get_add_lock_callback()        (NULL)
-procedure  ERR_CRYPTO_set_locking_callback(func: TIdSslLockingCallback); 
+procedure  ERR_CRYPTO_set_locking_callback(func: TIdSslLockingCallback); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_locking_callback_procname);
 end;
 
- 
+
 
   ///* Only use CRYPTO_THREADID_set_[numeric|pointer]() within callbacks */
   //#  define CRYPTO_THREADID_set_numeric(id, val)
-procedure  ERR_CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); 
+procedure  ERR_CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREADID_set_numeric_procname);
 end;
@@ -1472,24 +1474,24 @@ end;
  
   //#  define CRYPTO_THREADID_set_pointer(id, ptr)
   //#  define CRYPTO_THREADID_set_callback(threadid_func)   (0)
-procedure  ERR_CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); 
+procedure  ERR_CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREADID_set_callback_procname);
 end;
 
- 
+
   //#  define CRYPTO_THREADID_get_callback()                (NULL)
   //#  define CRYPTO_THREADID_current(id)
   //#  define CRYPTO_THREADID_cmp(a, b)                     (-1)
   //#  define CRYPTO_THREADID_cpy(dest, src)
   //#  define CRYPTO_THREADID_hash(id)                      (0UL)
 
-procedure  ERR_CRYPTO_set_id_callback(func: TIdSslIdCallback); 
+procedure  ERR_CRYPTO_set_id_callback(func: TIdSslIdCallback); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_id_callback_procname);
 end;
 
- 
+
   //
   //#  define CRYPTO_set_dynlock_create_callback(dyn_create_function)
   //#  define CRYPTO_set_dynlock_lock_callback(dyn_lock_function)
@@ -1499,147 +1501,154 @@ end;
   //#  define CRYPTO_get_dynlock_destroy_callback()         (NULL)
   //# endif /* OPENSSL_API_COMPAT < 0x10100000L */
 
-function  ERR_CRYPTO_set_mem_functions(m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r; f: CRYPTO_set_mem_functions_f): TIdC_INT; 
+function  ERR_CRYPTO_set_mem_functions(m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r;
+  f: CRYPTO_set_mem_functions_f): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_mem_functions_procname);
 end;
 
 
-function  ERR_CRYPTO_set_mem_debug(flag: TIdC_INT): TIdC_INT; 
+function  ERR_CRYPTO_set_mem_debug(flag: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_set_mem_debug_procname);
 end;
 
- 
+
     //void CRYPTO_get_mem_functions(
   //        void *(**m) (TIdC_SIZET, const char *, int),
   //        void *(**r) (void *, TIdC_SIZET, const char *, int),
   //        void (**f) (void *, const char *, int));
 
-function  ERR_CRYPTO_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_malloc_procname);
 end;
 
 
-function  ERR_CRYPTO_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_zalloc_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_memdup(const _str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_memdup(const _str: Pointer; siz: TIdC_SIZET; const file_: PIdAnsiChar;
+  line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_memdup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_strdup(const _str: PIdAnsiChar; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
+function  ERR_CRYPTO_strdup(const _str: PIdAnsiChar; const file_: PIdAnsiChar;
+  line: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_strdup_procname);
 end;
 
 
-function  ERR_CRYPTO_strndup(const _str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): PIdAnsiChar; 
+function  ERR_CRYPTO_strndup(const _str: PIdAnsiChar; s: TIdC_SIZET; const file_: PIdAnsiChar;
+  line: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_strndup_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_free_procname);
 end;
 
 
-procedure  ERR_CRYPTO_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_clear_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_realloc(address: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_realloc(address: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar;
+  line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_realloc_procname);
 end;
 
 
-function  ERR_CRYPTO_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_clear_realloc(address: Pointer; old_num: TIdC_SIZET; num: TIdC_SIZET;
+  const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_clear_realloc_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_secure_malloc_init(sz: TIdC_SIZET; minsize: TIdC_INT): TIdC_INT; 
+function  ERR_CRYPTO_secure_malloc_init(sz: TIdC_SIZET; minsize: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_malloc_init_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_malloc_done: TIdC_INT; 
+function  ERR_CRYPTO_secure_malloc_done: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_malloc_done_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_secure_malloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_malloc_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; 
+function  ERR_CRYPTO_secure_zalloc(num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_zalloc_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_secure_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_secure_free(_ptr: Pointer; const file_: PIdAnsiChar; line: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_free_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_CRYPTO_secure_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_CRYPTO_secure_clear_free(_ptr: Pointer; num: TIdC_SIZET; const file_: PIdAnsiChar;
+  line: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_clear_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_allocated(const _ptr: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_secure_allocated(const _ptr: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_allocated_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_malloc_initialized: TIdC_INT; 
+function  ERR_CRYPTO_secure_malloc_initialized: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_malloc_initialized_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_actual_size(_ptr: Pointer): TIdC_SIZET; 
+function  ERR_CRYPTO_secure_actual_size(_ptr: Pointer): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_actual_size_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_secure_used: TIdC_SIZET; 
+function  ERR_CRYPTO_secure_used: TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_secure_used_procname);
 end;
 
 function ERR_CRYPTO_get_ex_new_index(class_index : TIdC_INT; arg1 : TIdC_LONG; argp : Pointer;
                                  new_func : CRYPTO_EX_new; dup_func : CRYPTO_EX_dup;
-                                 free_func : CRYPTO_EX_FREE) : TIdC_INT;
+                                 free_func : CRYPTO_EX_FREE) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_get_ex_new_index_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_OPENSSL_cleanse(_ptr: Pointer; len: TIdC_SIZET); 
+procedure  ERR_OPENSSL_cleanse(_ptr: Pointer; len: TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_cleanse_procname);
 end;
@@ -1673,27 +1682,27 @@ end;
   //# define OPENSSL_assert(e) \
   //    (void)((e) ? 0 : (OPENSSL_die("assertion failed: " #e, OPENSSL_FILE, OPENSSL_LINE), 1))
 
-function  ERR_OPENSSL_isservice: TIdC_INT; 
+function  ERR_OPENSSL_isservice: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_isservice_procname);
 end;
 
 
 
-function  ERR_FIPS_mode: TIdC_INT; 
+function  ERR_FIPS_mode: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(FIPS_mode_procname);
 end;
 
- 
-function  ERR_FIPS_mode_set(r: TIdC_INT): TIdC_INT; 
+
+function  ERR_FIPS_mode_set(r: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(FIPS_mode_set_procname);
 end;
 
  
 
-procedure  ERR_OPENSSL_init; 
+procedure  ERR_OPENSSL_init; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_init_procname);
 end;
@@ -1712,7 +1721,7 @@ end;
    * into a defined order as the return value when a != b is undefined, other
    * than to be non-zero.
    *)
-function  ERR_CRYPTO_memcmp(const in_a: Pointer; const in_b: Pointer; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_CRYPTO_memcmp(const in_a: Pointer; const in_b: Pointer; len: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_memcmp_procname);
 end;
@@ -1720,20 +1729,20 @@ end;
 
 
   (* Library initialisation functions *)
-procedure  ERR_OPENSSL_cleanup; 
+procedure  ERR_OPENSSL_cleanup; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_cleanup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; 
+function  ERR_OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_init_crypto_procname);
 end;
 
  {introduced 1.1.0}
   // int OPENSSL_atexit(void (*handler)(void));
-procedure  ERR_OPENSSL_thread_stop; 
+procedure  ERR_OPENSSL_thread_stop; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_thread_stop_procname);
 end;
@@ -1741,7 +1750,7 @@ end;
  {introduced 1.1.0}
 
   (* Low-level control of initialization *)
-function  ERR_OPENSSL_INIT_new: POPENSSL_INIT_SETTINGS; 
+function  ERR_OPENSSL_INIT_new: POPENSSL_INIT_SETTINGS; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_INIT_new_procname);
 end;
@@ -1753,14 +1762,14 @@ end;
   //                                        unsigned long flags);
   //int OPENSSL_INIT_set_config_appname(OPENSSL_INIT_SETTINGS *settings,
   //                                    const char *config_appname);
-procedure  ERR_OPENSSL_INIT_free(settings: POPENSSL_INIT_SETTINGS); 
+procedure  ERR_OPENSSL_INIT_free(settings: POPENSSL_INIT_SETTINGS); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_INIT_free_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_THREAD_run_once(once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_run_once(once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_run_once_procname);
 end;
@@ -1771,85 +1780,88 @@ end;
   //  CRYPTO_THREAD_init_local_cleanup = procedure(v1: Pointer);
   //
   //function CRYPTO_THREAD_init_local(key: PCRYPTO_THREAD_LOCAL; cleanup: CRYPTO_THREAD_init_local_cleanup): TIdC_INT;
-function  ERR_CRYPTO_THREAD_get_local(key: PCRYPTO_THREAD_LOCAL): Pointer; 
+function  ERR_CRYPTO_THREAD_get_local(key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_get_local_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; _val: Pointer): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_set_local(key: PCRYPTO_THREAD_LOCAL; _val: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_set_local_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_cleanup_local(key: PCRYPTO_THREAD_LOCAL): TidC_INT; 
+function  ERR_CRYPTO_THREAD_cleanup_local(key: PCRYPTO_THREAD_LOCAL): TidC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_cleanup_local_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_CRYPTO_THREAD_get_current_id: CRYPTO_THREAD_ID; 
+function  ERR_CRYPTO_THREAD_get_current_id: CRYPTO_THREAD_ID; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_get_current_id_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_CRYPTO_THREAD_compare_id(a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TIdC_INT; 
+function  ERR_CRYPTO_THREAD_compare_id(a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CRYPTO_THREAD_compare_id_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_SSLeay_version(type_ : TIdC_INT) : PIdAnsiChar; 
+function  ERR_SSLeay_version(type_ : TIdC_INT) : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLeay_version_procname);
 end;
 
  
-function  ERR_SSLeay: TIdC_ULONG; 
+function  ERR_SSLeay: TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLeay_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_new : POSSL_LIB_CTX;  {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_new : POSSL_LIB_CTX; cdecl;  {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_new_from_dispatch(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_new_from_dispatch(const handle : POSSL_CORE_HANDLE;
+  const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; cdecl; {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_from_dispatch_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_new_child(const handle : POSSL_CORE_HANDLE; const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_new_child(const handle : POSSL_CORE_HANDLE;
+  const _in : POSSL_DISPATCH) : POSSL_LIB_CTX; cdecl; {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_new_child_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_load_config(ctx : POSSL_LIB_CTX; const config_file : PIdAnsiChar) : TIdC_INT;  {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_load_config(ctx : POSSL_LIB_CTX;
+  const config_file : PIdAnsiChar) : TIdC_INT; cdecl;  {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_load_config_procname);
 end;
 
-procedure ERR_OSSL_LIB_CTX_free(ctx : POSSL_LIB_CTX); {introduced 3.0.0}
+procedure ERR_OSSL_LIB_CTX_free(ctx : POSSL_LIB_CTX); cdecl; {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_free_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_get0_global_default : POSSL_LIB_CTX; {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_get0_global_default : POSSL_LIB_CTX; cdecl; {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_get0_global_default_procname);
 end;
 
-function ERR_OSSL_LIB_CTX_set0_default(libctx : POSSL_LIB_CTX) : POSSL_LIB_CTX; {introduced 3.0.0}
+function ERR_OSSL_LIB_CTX_set0_default(libctx : POSSL_LIB_CTX) : POSSL_LIB_CTX; cdecl; {introduced 3.0.0}
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_LIB_CTX_set0_default_procname);
 end;
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -1861,13 +1873,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_malloc_allownil)}
-    OPENSSL_malloc := @ERR_OPENSSL_malloc;
+    OPENSSL_malloc := ERR_OPENSSL_malloc;
     {$ifend}
     {$if declared(OPENSSL_malloc_introduced)}
     if LibVersion < OPENSSL_malloc_introduced then
     begin
       {$if declared(FC_OPENSSL_malloc)}
-      OPENSSL_malloc := @FC_OPENSSL_malloc;
+      OPENSSL_malloc := FC_OPENSSL_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1876,7 +1888,7 @@ begin
     if OPENSSL_malloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_malloc)}
-      OPENSSL_malloc := @_OPENSSL_malloc;
+      OPENSSL_malloc := _OPENSSL_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1893,13 +1905,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_zalloc_allownil)}
-    OPENSSL_zalloc := @ERR_OPENSSL_zalloc;
+    OPENSSL_zalloc := ERR_OPENSSL_zalloc;
     {$ifend}
     {$if declared(OPENSSL_zalloc_introduced)}
     if LibVersion < OPENSSL_zalloc_introduced then
     begin
       {$if declared(FC_OPENSSL_zalloc)}
-      OPENSSL_zalloc := @FC_OPENSSL_zalloc;
+      OPENSSL_zalloc := FC_OPENSSL_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1908,7 +1920,7 @@ begin
     if OPENSSL_zalloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_zalloc)}
-      OPENSSL_zalloc := @_OPENSSL_zalloc;
+      OPENSSL_zalloc := _OPENSSL_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1925,13 +1937,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_realloc_allownil)}
-    OPENSSL_realloc := @ERR_OPENSSL_realloc;
+    OPENSSL_realloc := ERR_OPENSSL_realloc;
     {$ifend}
     {$if declared(OPENSSL_realloc_introduced)}
     if LibVersion < OPENSSL_realloc_introduced then
     begin
       {$if declared(FC_OPENSSL_realloc)}
-      OPENSSL_realloc := @FC_OPENSSL_realloc;
+      OPENSSL_realloc := FC_OPENSSL_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1940,7 +1952,7 @@ begin
     if OPENSSL_realloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_realloc)}
-      OPENSSL_realloc := @_OPENSSL_realloc;
+      OPENSSL_realloc := _OPENSSL_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1957,13 +1969,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_clear_realloc_allownil)}
-    OPENSSL_clear_realloc := @ERR_OPENSSL_clear_realloc;
+    OPENSSL_clear_realloc := ERR_OPENSSL_clear_realloc;
     {$ifend}
     {$if declared(OPENSSL_clear_realloc_introduced)}
     if LibVersion < OPENSSL_clear_realloc_introduced then
     begin
       {$if declared(FC_OPENSSL_clear_realloc)}
-      OPENSSL_clear_realloc := @FC_OPENSSL_clear_realloc;
+      OPENSSL_clear_realloc := FC_OPENSSL_clear_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1972,7 +1984,7 @@ begin
     if OPENSSL_clear_realloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_clear_realloc)}
-      OPENSSL_clear_realloc := @_OPENSSL_clear_realloc;
+      OPENSSL_clear_realloc := _OPENSSL_clear_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1989,13 +2001,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_clear_free_allownil)}
-    OPENSSL_clear_free := @ERR_OPENSSL_clear_free;
+    OPENSSL_clear_free := ERR_OPENSSL_clear_free;
     {$ifend}
     {$if declared(OPENSSL_clear_free_introduced)}
     if LibVersion < OPENSSL_clear_free_introduced then
     begin
       {$if declared(FC_OPENSSL_clear_free)}
-      OPENSSL_clear_free := @FC_OPENSSL_clear_free;
+      OPENSSL_clear_free := FC_OPENSSL_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2004,7 +2016,7 @@ begin
     if OPENSSL_clear_free_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_clear_free)}
-      OPENSSL_clear_free := @_OPENSSL_clear_free;
+      OPENSSL_clear_free := _OPENSSL_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2021,13 +2033,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_free_allownil)}
-    OPENSSL_free := @ERR_OPENSSL_free;
+    OPENSSL_free := ERR_OPENSSL_free;
     {$ifend}
     {$if declared(OPENSSL_free_introduced)}
     if LibVersion < OPENSSL_free_introduced then
     begin
       {$if declared(FC_OPENSSL_free)}
-      OPENSSL_free := @FC_OPENSSL_free;
+      OPENSSL_free := FC_OPENSSL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2036,7 +2048,7 @@ begin
     if OPENSSL_free_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_free)}
-      OPENSSL_free := @_OPENSSL_free;
+      OPENSSL_free := _OPENSSL_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2053,13 +2065,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_memdup_allownil)}
-    OPENSSL_memdup := @ERR_OPENSSL_memdup;
+    OPENSSL_memdup := ERR_OPENSSL_memdup;
     {$ifend}
     {$if declared(OPENSSL_memdup_introduced)}
     if LibVersion < OPENSSL_memdup_introduced then
     begin
       {$if declared(FC_OPENSSL_memdup)}
-      OPENSSL_memdup := @FC_OPENSSL_memdup;
+      OPENSSL_memdup := FC_OPENSSL_memdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2068,7 +2080,7 @@ begin
     if OPENSSL_memdup_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_memdup)}
-      OPENSSL_memdup := @_OPENSSL_memdup;
+      OPENSSL_memdup := _OPENSSL_memdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2085,13 +2097,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_strdup_allownil)}
-    OPENSSL_strdup := @ERR_OPENSSL_strdup;
+    OPENSSL_strdup := ERR_OPENSSL_strdup;
     {$ifend}
     {$if declared(OPENSSL_strdup_introduced)}
     if LibVersion < OPENSSL_strdup_introduced then
     begin
       {$if declared(FC_OPENSSL_strdup)}
-      OPENSSL_strdup := @FC_OPENSSL_strdup;
+      OPENSSL_strdup := FC_OPENSSL_strdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2100,7 +2112,7 @@ begin
     if OPENSSL_strdup_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_strdup)}
-      OPENSSL_strdup := @_OPENSSL_strdup;
+      OPENSSL_strdup := _OPENSSL_strdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2117,13 +2129,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_strndup_allownil)}
-    OPENSSL_strndup := @ERR_OPENSSL_strndup;
+    OPENSSL_strndup := ERR_OPENSSL_strndup;
     {$ifend}
     {$if declared(OPENSSL_strndup_introduced)}
     if LibVersion < OPENSSL_strndup_introduced then
     begin
       {$if declared(FC_OPENSSL_strndup)}
-      OPENSSL_strndup := @FC_OPENSSL_strndup;
+      OPENSSL_strndup := FC_OPENSSL_strndup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2132,7 +2144,7 @@ begin
     if OPENSSL_strndup_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_strndup)}
-      OPENSSL_strndup := @_OPENSSL_strndup;
+      OPENSSL_strndup := _OPENSSL_strndup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2149,13 +2161,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_secure_malloc_allownil)}
-    OPENSSL_secure_malloc := @ERR_OPENSSL_secure_malloc;
+    OPENSSL_secure_malloc := ERR_OPENSSL_secure_malloc;
     {$ifend}
     {$if declared(OPENSSL_secure_malloc_introduced)}
     if LibVersion < OPENSSL_secure_malloc_introduced then
     begin
       {$if declared(FC_OPENSSL_secure_malloc)}
-      OPENSSL_secure_malloc := @FC_OPENSSL_secure_malloc;
+      OPENSSL_secure_malloc := FC_OPENSSL_secure_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2164,7 +2176,7 @@ begin
     if OPENSSL_secure_malloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_secure_malloc)}
-      OPENSSL_secure_malloc := @_OPENSSL_secure_malloc;
+      OPENSSL_secure_malloc := _OPENSSL_secure_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2181,13 +2193,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_secure_zalloc_allownil)}
-    OPENSSL_secure_zalloc := @ERR_OPENSSL_secure_zalloc;
+    OPENSSL_secure_zalloc := ERR_OPENSSL_secure_zalloc;
     {$ifend}
     {$if declared(OPENSSL_secure_zalloc_introduced)}
     if LibVersion < OPENSSL_secure_zalloc_introduced then
     begin
       {$if declared(FC_OPENSSL_secure_zalloc)}
-      OPENSSL_secure_zalloc := @FC_OPENSSL_secure_zalloc;
+      OPENSSL_secure_zalloc := FC_OPENSSL_secure_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2196,7 +2208,7 @@ begin
     if OPENSSL_secure_zalloc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_secure_zalloc)}
-      OPENSSL_secure_zalloc := @_OPENSSL_secure_zalloc;
+      OPENSSL_secure_zalloc := _OPENSSL_secure_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2213,13 +2225,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_secure_free_allownil)}
-    OPENSSL_secure_free := @ERR_OPENSSL_secure_free;
+    OPENSSL_secure_free := ERR_OPENSSL_secure_free;
     {$ifend}
     {$if declared(OPENSSL_secure_free_introduced)}
     if LibVersion < OPENSSL_secure_free_introduced then
     begin
       {$if declared(FC_OPENSSL_secure_free)}
-      OPENSSL_secure_free := @FC_OPENSSL_secure_free;
+      OPENSSL_secure_free := FC_OPENSSL_secure_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2228,7 +2240,7 @@ begin
     if OPENSSL_secure_free_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_secure_free)}
-      OPENSSL_secure_free := @_OPENSSL_secure_free;
+      OPENSSL_secure_free := _OPENSSL_secure_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2245,13 +2257,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_secure_clear_free_allownil)}
-    OPENSSL_secure_clear_free := @ERR_OPENSSL_secure_clear_free;
+    OPENSSL_secure_clear_free := ERR_OPENSSL_secure_clear_free;
     {$ifend}
     {$if declared(OPENSSL_secure_clear_free_introduced)}
     if LibVersion < OPENSSL_secure_clear_free_introduced then
     begin
       {$if declared(FC_OPENSSL_secure_clear_free)}
-      OPENSSL_secure_clear_free := @FC_OPENSSL_secure_clear_free;
+      OPENSSL_secure_clear_free := FC_OPENSSL_secure_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2260,7 +2272,7 @@ begin
     if OPENSSL_secure_clear_free_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_secure_clear_free)}
-      OPENSSL_secure_clear_free := @_OPENSSL_secure_clear_free;
+      OPENSSL_secure_clear_free := _OPENSSL_secure_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2277,13 +2289,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_secure_actual_size_allownil)}
-    OPENSSL_secure_actual_size := @ERR_OPENSSL_secure_actual_size;
+    OPENSSL_secure_actual_size := ERR_OPENSSL_secure_actual_size;
     {$ifend}
     {$if declared(OPENSSL_secure_actual_size_introduced)}
     if LibVersion < OPENSSL_secure_actual_size_introduced then
     begin
       {$if declared(FC_OPENSSL_secure_actual_size)}
-      OPENSSL_secure_actual_size := @FC_OPENSSL_secure_actual_size;
+      OPENSSL_secure_actual_size := FC_OPENSSL_secure_actual_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2292,7 +2304,7 @@ begin
     if OPENSSL_secure_actual_size_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_secure_actual_size)}
-      OPENSSL_secure_actual_size := @_OPENSSL_secure_actual_size;
+      OPENSSL_secure_actual_size := _OPENSSL_secure_actual_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2309,13 +2321,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_lock_new_allownil)}
-    CRYPTO_THREAD_lock_new := @ERR_CRYPTO_THREAD_lock_new;
+    CRYPTO_THREAD_lock_new := ERR_CRYPTO_THREAD_lock_new;
     {$ifend}
     {$if declared(CRYPTO_THREAD_lock_new_introduced)}
     if LibVersion < CRYPTO_THREAD_lock_new_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_lock_new)}
-      CRYPTO_THREAD_lock_new := @FC_CRYPTO_THREAD_lock_new;
+      CRYPTO_THREAD_lock_new := FC_CRYPTO_THREAD_lock_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2324,7 +2336,7 @@ begin
     if CRYPTO_THREAD_lock_new_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_lock_new)}
-      CRYPTO_THREAD_lock_new := @_CRYPTO_THREAD_lock_new;
+      CRYPTO_THREAD_lock_new := _CRYPTO_THREAD_lock_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2341,13 +2353,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_read_lock_allownil)}
-    CRYPTO_THREAD_read_lock := @ERR_CRYPTO_THREAD_read_lock;
+    CRYPTO_THREAD_read_lock := ERR_CRYPTO_THREAD_read_lock;
     {$ifend}
     {$if declared(CRYPTO_THREAD_read_lock_introduced)}
     if LibVersion < CRYPTO_THREAD_read_lock_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_read_lock)}
-      CRYPTO_THREAD_read_lock := @FC_CRYPTO_THREAD_read_lock;
+      CRYPTO_THREAD_read_lock := FC_CRYPTO_THREAD_read_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2356,7 +2368,7 @@ begin
     if CRYPTO_THREAD_read_lock_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_read_lock)}
-      CRYPTO_THREAD_read_lock := @_CRYPTO_THREAD_read_lock;
+      CRYPTO_THREAD_read_lock := _CRYPTO_THREAD_read_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2373,13 +2385,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_write_lock_allownil)}
-    CRYPTO_THREAD_write_lock := @ERR_CRYPTO_THREAD_write_lock;
+    CRYPTO_THREAD_write_lock := ERR_CRYPTO_THREAD_write_lock;
     {$ifend}
     {$if declared(CRYPTO_THREAD_write_lock_introduced)}
     if LibVersion < CRYPTO_THREAD_write_lock_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_write_lock)}
-      CRYPTO_THREAD_write_lock := @FC_CRYPTO_THREAD_write_lock;
+      CRYPTO_THREAD_write_lock := FC_CRYPTO_THREAD_write_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2388,7 +2400,7 @@ begin
     if CRYPTO_THREAD_write_lock_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_write_lock)}
-      CRYPTO_THREAD_write_lock := @_CRYPTO_THREAD_write_lock;
+      CRYPTO_THREAD_write_lock := _CRYPTO_THREAD_write_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2405,13 +2417,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_unlock_allownil)}
-    CRYPTO_THREAD_unlock := @ERR_CRYPTO_THREAD_unlock;
+    CRYPTO_THREAD_unlock := ERR_CRYPTO_THREAD_unlock;
     {$ifend}
     {$if declared(CRYPTO_THREAD_unlock_introduced)}
     if LibVersion < CRYPTO_THREAD_unlock_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_unlock)}
-      CRYPTO_THREAD_unlock := @FC_CRYPTO_THREAD_unlock;
+      CRYPTO_THREAD_unlock := FC_CRYPTO_THREAD_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2420,7 +2432,7 @@ begin
     if CRYPTO_THREAD_unlock_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_unlock)}
-      CRYPTO_THREAD_unlock := @_CRYPTO_THREAD_unlock;
+      CRYPTO_THREAD_unlock := _CRYPTO_THREAD_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2437,13 +2449,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_lock_free_allownil)}
-    CRYPTO_THREAD_lock_free := @ERR_CRYPTO_THREAD_lock_free;
+    CRYPTO_THREAD_lock_free := ERR_CRYPTO_THREAD_lock_free;
     {$ifend}
     {$if declared(CRYPTO_THREAD_lock_free_introduced)}
     if LibVersion < CRYPTO_THREAD_lock_free_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_lock_free)}
-      CRYPTO_THREAD_lock_free := @FC_CRYPTO_THREAD_lock_free;
+      CRYPTO_THREAD_lock_free := FC_CRYPTO_THREAD_lock_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2452,7 +2464,7 @@ begin
     if CRYPTO_THREAD_lock_free_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_lock_free)}
-      CRYPTO_THREAD_lock_free := @_CRYPTO_THREAD_lock_free;
+      CRYPTO_THREAD_lock_free := _CRYPTO_THREAD_lock_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2469,13 +2481,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_atomic_add_allownil)}
-    CRYPTO_atomic_add := @ERR_CRYPTO_atomic_add;
+    CRYPTO_atomic_add := ERR_CRYPTO_atomic_add;
     {$ifend}
     {$if declared(CRYPTO_atomic_add_introduced)}
     if LibVersion < CRYPTO_atomic_add_introduced then
     begin
       {$if declared(FC_CRYPTO_atomic_add)}
-      CRYPTO_atomic_add := @FC_CRYPTO_atomic_add;
+      CRYPTO_atomic_add := FC_CRYPTO_atomic_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2484,7 +2496,7 @@ begin
     if CRYPTO_atomic_add_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_atomic_add)}
-      CRYPTO_atomic_add := @_CRYPTO_atomic_add;
+      CRYPTO_atomic_add := _CRYPTO_atomic_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2501,13 +2513,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_mem_ctrl_allownil)}
-    CRYPTO_mem_ctrl := @ERR_CRYPTO_mem_ctrl;
+    CRYPTO_mem_ctrl := ERR_CRYPTO_mem_ctrl;
     {$ifend}
     {$if declared(CRYPTO_mem_ctrl_introduced)}
     if LibVersion < CRYPTO_mem_ctrl_introduced then
     begin
       {$if declared(FC_CRYPTO_mem_ctrl)}
-      CRYPTO_mem_ctrl := @FC_CRYPTO_mem_ctrl;
+      CRYPTO_mem_ctrl := FC_CRYPTO_mem_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2516,7 +2528,7 @@ begin
     if CRYPTO_mem_ctrl_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_mem_ctrl)}
-      CRYPTO_mem_ctrl := @_CRYPTO_mem_ctrl;
+      CRYPTO_mem_ctrl := _CRYPTO_mem_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2533,13 +2545,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_strlcpy_allownil)}
-    OPENSSL_strlcpy := @ERR_OPENSSL_strlcpy;
+    OPENSSL_strlcpy := ERR_OPENSSL_strlcpy;
     {$ifend}
     {$if declared(OPENSSL_strlcpy_introduced)}
     if LibVersion < OPENSSL_strlcpy_introduced then
     begin
       {$if declared(FC_OPENSSL_strlcpy)}
-      OPENSSL_strlcpy := @FC_OPENSSL_strlcpy;
+      OPENSSL_strlcpy := FC_OPENSSL_strlcpy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2548,7 +2560,7 @@ begin
     if OPENSSL_strlcpy_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_strlcpy)}
-      OPENSSL_strlcpy := @_OPENSSL_strlcpy;
+      OPENSSL_strlcpy := _OPENSSL_strlcpy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2565,13 +2577,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_strlcat_allownil)}
-    OPENSSL_strlcat := @ERR_OPENSSL_strlcat;
+    OPENSSL_strlcat := ERR_OPENSSL_strlcat;
     {$ifend}
     {$if declared(OPENSSL_strlcat_introduced)}
     if LibVersion < OPENSSL_strlcat_introduced then
     begin
       {$if declared(FC_OPENSSL_strlcat)}
-      OPENSSL_strlcat := @FC_OPENSSL_strlcat;
+      OPENSSL_strlcat := FC_OPENSSL_strlcat;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2580,7 +2592,7 @@ begin
     if OPENSSL_strlcat_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_strlcat)}
-      OPENSSL_strlcat := @_OPENSSL_strlcat;
+      OPENSSL_strlcat := _OPENSSL_strlcat;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2597,13 +2609,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_strnlen_allownil)}
-    OPENSSL_strnlen := @ERR_OPENSSL_strnlen;
+    OPENSSL_strnlen := ERR_OPENSSL_strnlen;
     {$ifend}
     {$if declared(OPENSSL_strnlen_introduced)}
     if LibVersion < OPENSSL_strnlen_introduced then
     begin
       {$if declared(FC_OPENSSL_strnlen)}
-      OPENSSL_strnlen := @FC_OPENSSL_strnlen;
+      OPENSSL_strnlen := FC_OPENSSL_strnlen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2612,7 +2624,7 @@ begin
     if OPENSSL_strnlen_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_strnlen)}
-      OPENSSL_strnlen := @_OPENSSL_strnlen;
+      OPENSSL_strnlen := _OPENSSL_strnlen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2629,13 +2641,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_buf2hexstr_allownil)}
-    OPENSSL_buf2hexstr := @ERR_OPENSSL_buf2hexstr;
+    OPENSSL_buf2hexstr := ERR_OPENSSL_buf2hexstr;
     {$ifend}
     {$if declared(OPENSSL_buf2hexstr_introduced)}
     if LibVersion < OPENSSL_buf2hexstr_introduced then
     begin
       {$if declared(FC_OPENSSL_buf2hexstr)}
-      OPENSSL_buf2hexstr := @FC_OPENSSL_buf2hexstr;
+      OPENSSL_buf2hexstr := FC_OPENSSL_buf2hexstr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2644,7 +2656,7 @@ begin
     if OPENSSL_buf2hexstr_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_buf2hexstr)}
-      OPENSSL_buf2hexstr := @_OPENSSL_buf2hexstr;
+      OPENSSL_buf2hexstr := _OPENSSL_buf2hexstr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2661,13 +2673,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_hexstr2buf_allownil)}
-    OPENSSL_hexstr2buf := @ERR_OPENSSL_hexstr2buf;
+    OPENSSL_hexstr2buf := ERR_OPENSSL_hexstr2buf;
     {$ifend}
     {$if declared(OPENSSL_hexstr2buf_introduced)}
     if LibVersion < OPENSSL_hexstr2buf_introduced then
     begin
       {$if declared(FC_OPENSSL_hexstr2buf)}
-      OPENSSL_hexstr2buf := @FC_OPENSSL_hexstr2buf;
+      OPENSSL_hexstr2buf := FC_OPENSSL_hexstr2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2676,7 +2688,7 @@ begin
     if OPENSSL_hexstr2buf_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_hexstr2buf)}
-      OPENSSL_hexstr2buf := @_OPENSSL_hexstr2buf;
+      OPENSSL_hexstr2buf := _OPENSSL_hexstr2buf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2693,13 +2705,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_hexchar2int_allownil)}
-    OPENSSL_hexchar2int := @ERR_OPENSSL_hexchar2int;
+    OPENSSL_hexchar2int := ERR_OPENSSL_hexchar2int;
     {$ifend}
     {$if declared(OPENSSL_hexchar2int_introduced)}
     if LibVersion < OPENSSL_hexchar2int_introduced then
     begin
       {$if declared(FC_OPENSSL_hexchar2int)}
-      OPENSSL_hexchar2int := @FC_OPENSSL_hexchar2int;
+      OPENSSL_hexchar2int := FC_OPENSSL_hexchar2int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2708,7 +2720,7 @@ begin
     if OPENSSL_hexchar2int_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_hexchar2int)}
-      OPENSSL_hexchar2int := @_OPENSSL_hexchar2int;
+      OPENSSL_hexchar2int := _OPENSSL_hexchar2int;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2725,13 +2737,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OpenSSL_version_num_allownil)}
-    OpenSSL_version_num := @ERR_OpenSSL_version_num;
+    OpenSSL_version_num := ERR_OpenSSL_version_num;
     {$ifend}
     {$if declared(OpenSSL_version_num_introduced)}
     if LibVersion < OpenSSL_version_num_introduced then
     begin
       {$if declared(FC_OpenSSL_version_num)}
-      OpenSSL_version_num := @FC_OpenSSL_version_num;
+      OpenSSL_version_num := FC_OpenSSL_version_num;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2740,7 +2752,7 @@ begin
     if OpenSSL_version_num_removed <= LibVersion then
     begin
       {$if declared(_OpenSSL_version_num)}
-      OpenSSL_version_num := @_OpenSSL_version_num;
+      OpenSSL_version_num := _OpenSSL_version_num;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2757,13 +2769,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OpenSSL_version_allownil)}
-    OpenSSL_version := @ERR_OpenSSL_version;
+    OpenSSL_version := ERR_OpenSSL_version;
     {$ifend}
     {$if declared(OpenSSL_version_introduced)}
     if LibVersion < OpenSSL_version_introduced then
     begin
       {$if declared(FC_OpenSSL_version)}
-      OpenSSL_version := @FC_OpenSSL_version;
+      OpenSSL_version := FC_OpenSSL_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2772,7 +2784,7 @@ begin
     if OpenSSL_version_removed <= LibVersion then
     begin
       {$if declared(_OpenSSL_version)}
-      OpenSSL_version := @_OpenSSL_version;
+      OpenSSL_version := _OpenSSL_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2789,13 +2801,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_issetugid_allownil)}
-    OPENSSL_issetugid := @ERR_OPENSSL_issetugid;
+    OPENSSL_issetugid := ERR_OPENSSL_issetugid;
     {$ifend}
     {$if declared(OPENSSL_issetugid_introduced)}
     if LibVersion < OPENSSL_issetugid_introduced then
     begin
       {$if declared(FC_OPENSSL_issetugid)}
-      OPENSSL_issetugid := @FC_OPENSSL_issetugid;
+      OPENSSL_issetugid := FC_OPENSSL_issetugid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2804,7 +2816,7 @@ begin
     if OPENSSL_issetugid_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_issetugid)}
-      OPENSSL_issetugid := @_OPENSSL_issetugid;
+      OPENSSL_issetugid := _OPENSSL_issetugid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2821,13 +2833,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_new_ex_data_allownil)}
-    CRYPTO_new_ex_data := @ERR_CRYPTO_new_ex_data;
+    CRYPTO_new_ex_data := ERR_CRYPTO_new_ex_data;
     {$ifend}
     {$if declared(CRYPTO_new_ex_data_introduced)}
     if LibVersion < CRYPTO_new_ex_data_introduced then
     begin
       {$if declared(FC_CRYPTO_new_ex_data)}
-      CRYPTO_new_ex_data := @FC_CRYPTO_new_ex_data;
+      CRYPTO_new_ex_data := FC_CRYPTO_new_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2836,7 +2848,7 @@ begin
     if CRYPTO_new_ex_data_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_new_ex_data)}
-      CRYPTO_new_ex_data := @_CRYPTO_new_ex_data;
+      CRYPTO_new_ex_data := _CRYPTO_new_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2853,13 +2865,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_dup_ex_data_allownil)}
-    CRYPTO_dup_ex_data := @ERR_CRYPTO_dup_ex_data;
+    CRYPTO_dup_ex_data := ERR_CRYPTO_dup_ex_data;
     {$ifend}
     {$if declared(CRYPTO_dup_ex_data_introduced)}
     if LibVersion < CRYPTO_dup_ex_data_introduced then
     begin
       {$if declared(FC_CRYPTO_dup_ex_data)}
-      CRYPTO_dup_ex_data := @FC_CRYPTO_dup_ex_data;
+      CRYPTO_dup_ex_data := FC_CRYPTO_dup_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2868,7 +2880,7 @@ begin
     if CRYPTO_dup_ex_data_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_dup_ex_data)}
-      CRYPTO_dup_ex_data := @_CRYPTO_dup_ex_data;
+      CRYPTO_dup_ex_data := _CRYPTO_dup_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2885,13 +2897,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_free_ex_data_allownil)}
-    CRYPTO_free_ex_data := @ERR_CRYPTO_free_ex_data;
+    CRYPTO_free_ex_data := ERR_CRYPTO_free_ex_data;
     {$ifend}
     {$if declared(CRYPTO_free_ex_data_introduced)}
     if LibVersion < CRYPTO_free_ex_data_introduced then
     begin
       {$if declared(FC_CRYPTO_free_ex_data)}
-      CRYPTO_free_ex_data := @FC_CRYPTO_free_ex_data;
+      CRYPTO_free_ex_data := FC_CRYPTO_free_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2900,7 +2912,7 @@ begin
     if CRYPTO_free_ex_data_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_free_ex_data)}
-      CRYPTO_free_ex_data := @_CRYPTO_free_ex_data;
+      CRYPTO_free_ex_data := _CRYPTO_free_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2917,13 +2929,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_set_ex_data_allownil)}
-    CRYPTO_set_ex_data := @ERR_CRYPTO_set_ex_data;
+    CRYPTO_set_ex_data := ERR_CRYPTO_set_ex_data;
     {$ifend}
     {$if declared(CRYPTO_set_ex_data_introduced)}
     if LibVersion < CRYPTO_set_ex_data_introduced then
     begin
       {$if declared(FC_CRYPTO_set_ex_data)}
-      CRYPTO_set_ex_data := @FC_CRYPTO_set_ex_data;
+      CRYPTO_set_ex_data := FC_CRYPTO_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2932,7 +2944,7 @@ begin
     if CRYPTO_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_set_ex_data)}
-      CRYPTO_set_ex_data := @_CRYPTO_set_ex_data;
+      CRYPTO_set_ex_data := _CRYPTO_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2949,13 +2961,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_get_ex_data_allownil)}
-    CRYPTO_get_ex_data := @ERR_CRYPTO_get_ex_data;
+    CRYPTO_get_ex_data := ERR_CRYPTO_get_ex_data;
     {$ifend}
     {$if declared(CRYPTO_get_ex_data_introduced)}
     if LibVersion < CRYPTO_get_ex_data_introduced then
     begin
       {$if declared(FC_CRYPTO_get_ex_data)}
-      CRYPTO_get_ex_data := @FC_CRYPTO_get_ex_data;
+      CRYPTO_get_ex_data := FC_CRYPTO_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2964,7 +2976,7 @@ begin
     if CRYPTO_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_get_ex_data)}
-      CRYPTO_get_ex_data := @_CRYPTO_get_ex_data;
+      CRYPTO_get_ex_data := _CRYPTO_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2981,13 +2993,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_num_locks_allownil)}
-    CRYPTO_num_locks := @ERR_CRYPTO_num_locks;
+    CRYPTO_num_locks := ERR_CRYPTO_num_locks;
     {$ifend}
     {$if declared(CRYPTO_num_locks_introduced)}
     if LibVersion < CRYPTO_num_locks_introduced then
     begin
       {$if declared(FC_CRYPTO_num_locks)}
-      CRYPTO_num_locks := @FC_CRYPTO_num_locks;
+      CRYPTO_num_locks := FC_CRYPTO_num_locks;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2996,7 +3008,7 @@ begin
     if CRYPTO_num_locks_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_num_locks)}
-      CRYPTO_num_locks := @_CRYPTO_num_locks;
+      CRYPTO_num_locks := _CRYPTO_num_locks;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3013,13 +3025,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_set_locking_callback_allownil)}
-    CRYPTO_set_locking_callback := @ERR_CRYPTO_set_locking_callback;
+    CRYPTO_set_locking_callback := ERR_CRYPTO_set_locking_callback;
     {$ifend}
     {$if declared(CRYPTO_set_locking_callback_introduced)}
     if LibVersion < CRYPTO_set_locking_callback_introduced then
     begin
       {$if declared(FC_CRYPTO_set_locking_callback)}
-      CRYPTO_set_locking_callback := @FC_CRYPTO_set_locking_callback;
+      CRYPTO_set_locking_callback := FC_CRYPTO_set_locking_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3028,7 +3040,7 @@ begin
     if CRYPTO_set_locking_callback_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_set_locking_callback)}
-      CRYPTO_set_locking_callback := @_CRYPTO_set_locking_callback;
+      CRYPTO_set_locking_callback := _CRYPTO_set_locking_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3045,13 +3057,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREADID_set_numeric_allownil)}
-    CRYPTO_THREADID_set_numeric := @ERR_CRYPTO_THREADID_set_numeric;
+    CRYPTO_THREADID_set_numeric := ERR_CRYPTO_THREADID_set_numeric;
     {$ifend}
     {$if declared(CRYPTO_THREADID_set_numeric_introduced)}
     if LibVersion < CRYPTO_THREADID_set_numeric_introduced then
     begin
       {$if declared(FC_CRYPTO_THREADID_set_numeric)}
-      CRYPTO_THREADID_set_numeric := @FC_CRYPTO_THREADID_set_numeric;
+      CRYPTO_THREADID_set_numeric := FC_CRYPTO_THREADID_set_numeric;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3060,7 +3072,7 @@ begin
     if CRYPTO_THREADID_set_numeric_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREADID_set_numeric)}
-      CRYPTO_THREADID_set_numeric := @_CRYPTO_THREADID_set_numeric;
+      CRYPTO_THREADID_set_numeric := _CRYPTO_THREADID_set_numeric;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3077,13 +3089,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREADID_set_callback_allownil)}
-    CRYPTO_THREADID_set_callback := @ERR_CRYPTO_THREADID_set_callback;
+    CRYPTO_THREADID_set_callback := ERR_CRYPTO_THREADID_set_callback;
     {$ifend}
     {$if declared(CRYPTO_THREADID_set_callback_introduced)}
     if LibVersion < CRYPTO_THREADID_set_callback_introduced then
     begin
       {$if declared(FC_CRYPTO_THREADID_set_callback)}
-      CRYPTO_THREADID_set_callback := @FC_CRYPTO_THREADID_set_callback;
+      CRYPTO_THREADID_set_callback := FC_CRYPTO_THREADID_set_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3092,7 +3104,7 @@ begin
     if CRYPTO_THREADID_set_callback_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREADID_set_callback)}
-      CRYPTO_THREADID_set_callback := @_CRYPTO_THREADID_set_callback;
+      CRYPTO_THREADID_set_callback := _CRYPTO_THREADID_set_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3109,13 +3121,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_set_id_callback_allownil)}
-    CRYPTO_set_id_callback := @ERR_CRYPTO_set_id_callback;
+    CRYPTO_set_id_callback := ERR_CRYPTO_set_id_callback;
     {$ifend}
     {$if declared(CRYPTO_set_id_callback_introduced)}
     if LibVersion < CRYPTO_set_id_callback_introduced then
     begin
       {$if declared(FC_CRYPTO_set_id_callback)}
-      CRYPTO_set_id_callback := @FC_CRYPTO_set_id_callback;
+      CRYPTO_set_id_callback := FC_CRYPTO_set_id_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3124,7 +3136,7 @@ begin
     if CRYPTO_set_id_callback_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_set_id_callback)}
-      CRYPTO_set_id_callback := @_CRYPTO_set_id_callback;
+      CRYPTO_set_id_callback := _CRYPTO_set_id_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3141,13 +3153,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_set_mem_functions_allownil)}
-    CRYPTO_set_mem_functions := @ERR_CRYPTO_set_mem_functions;
+    CRYPTO_set_mem_functions := ERR_CRYPTO_set_mem_functions;
     {$ifend}
     {$if declared(CRYPTO_set_mem_functions_introduced)}
     if LibVersion < CRYPTO_set_mem_functions_introduced then
     begin
       {$if declared(FC_CRYPTO_set_mem_functions)}
-      CRYPTO_set_mem_functions := @FC_CRYPTO_set_mem_functions;
+      CRYPTO_set_mem_functions := FC_CRYPTO_set_mem_functions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3156,7 +3168,7 @@ begin
     if CRYPTO_set_mem_functions_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_set_mem_functions)}
-      CRYPTO_set_mem_functions := @_CRYPTO_set_mem_functions;
+      CRYPTO_set_mem_functions := _CRYPTO_set_mem_functions;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3173,13 +3185,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_set_mem_debug_allownil)}
-    CRYPTO_set_mem_debug := @ERR_CRYPTO_set_mem_debug;
+    CRYPTO_set_mem_debug := ERR_CRYPTO_set_mem_debug;
     {$ifend}
     {$if declared(CRYPTO_set_mem_debug_introduced)}
     if LibVersion < CRYPTO_set_mem_debug_introduced then
     begin
       {$if declared(FC_CRYPTO_set_mem_debug)}
-      CRYPTO_set_mem_debug := @FC_CRYPTO_set_mem_debug;
+      CRYPTO_set_mem_debug := FC_CRYPTO_set_mem_debug;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3188,7 +3200,7 @@ begin
     if CRYPTO_set_mem_debug_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_set_mem_debug)}
-      CRYPTO_set_mem_debug := @_CRYPTO_set_mem_debug;
+      CRYPTO_set_mem_debug := _CRYPTO_set_mem_debug;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3205,13 +3217,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_malloc_allownil)}
-    CRYPTO_malloc := @ERR_CRYPTO_malloc;
+    CRYPTO_malloc := ERR_CRYPTO_malloc;
     {$ifend}
     {$if declared(CRYPTO_malloc_introduced)}
     if LibVersion < CRYPTO_malloc_introduced then
     begin
       {$if declared(FC_CRYPTO_malloc)}
-      CRYPTO_malloc := @FC_CRYPTO_malloc;
+      CRYPTO_malloc := FC_CRYPTO_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3220,7 +3232,7 @@ begin
     if CRYPTO_malloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_malloc)}
-      CRYPTO_malloc := @_CRYPTO_malloc;
+      CRYPTO_malloc := _CRYPTO_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3237,13 +3249,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_zalloc_allownil)}
-    CRYPTO_zalloc := @ERR_CRYPTO_zalloc;
+    CRYPTO_zalloc := ERR_CRYPTO_zalloc;
     {$ifend}
     {$if declared(CRYPTO_zalloc_introduced)}
     if LibVersion < CRYPTO_zalloc_introduced then
     begin
       {$if declared(FC_CRYPTO_zalloc)}
-      CRYPTO_zalloc := @FC_CRYPTO_zalloc;
+      CRYPTO_zalloc := FC_CRYPTO_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3252,7 +3264,7 @@ begin
     if CRYPTO_zalloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_zalloc)}
-      CRYPTO_zalloc := @_CRYPTO_zalloc;
+      CRYPTO_zalloc := _CRYPTO_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3269,13 +3281,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_memdup_allownil)}
-    CRYPTO_memdup := @ERR_CRYPTO_memdup;
+    CRYPTO_memdup := ERR_CRYPTO_memdup;
     {$ifend}
     {$if declared(CRYPTO_memdup_introduced)}
     if LibVersion < CRYPTO_memdup_introduced then
     begin
       {$if declared(FC_CRYPTO_memdup)}
-      CRYPTO_memdup := @FC_CRYPTO_memdup;
+      CRYPTO_memdup := FC_CRYPTO_memdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3284,7 +3296,7 @@ begin
     if CRYPTO_memdup_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_memdup)}
-      CRYPTO_memdup := @_CRYPTO_memdup;
+      CRYPTO_memdup := _CRYPTO_memdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3301,13 +3313,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_strdup_allownil)}
-    CRYPTO_strdup := @ERR_CRYPTO_strdup;
+    CRYPTO_strdup := ERR_CRYPTO_strdup;
     {$ifend}
     {$if declared(CRYPTO_strdup_introduced)}
     if LibVersion < CRYPTO_strdup_introduced then
     begin
       {$if declared(FC_CRYPTO_strdup)}
-      CRYPTO_strdup := @FC_CRYPTO_strdup;
+      CRYPTO_strdup := FC_CRYPTO_strdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3316,7 +3328,7 @@ begin
     if CRYPTO_strdup_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_strdup)}
-      CRYPTO_strdup := @_CRYPTO_strdup;
+      CRYPTO_strdup := _CRYPTO_strdup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3333,13 +3345,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_strndup_allownil)}
-    CRYPTO_strndup := @ERR_CRYPTO_strndup;
+    CRYPTO_strndup := ERR_CRYPTO_strndup;
     {$ifend}
     {$if declared(CRYPTO_strndup_introduced)}
     if LibVersion < CRYPTO_strndup_introduced then
     begin
       {$if declared(FC_CRYPTO_strndup)}
-      CRYPTO_strndup := @FC_CRYPTO_strndup;
+      CRYPTO_strndup := FC_CRYPTO_strndup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3348,7 +3360,7 @@ begin
     if CRYPTO_strndup_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_strndup)}
-      CRYPTO_strndup := @_CRYPTO_strndup;
+      CRYPTO_strndup := _CRYPTO_strndup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3365,13 +3377,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_free_allownil)}
-    CRYPTO_free := @ERR_CRYPTO_free;
+    CRYPTO_free := ERR_CRYPTO_free;
     {$ifend}
     {$if declared(CRYPTO_free_introduced)}
     if LibVersion < CRYPTO_free_introduced then
     begin
       {$if declared(FC_CRYPTO_free)}
-      CRYPTO_free := @FC_CRYPTO_free;
+      CRYPTO_free := FC_CRYPTO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3380,7 +3392,7 @@ begin
     if CRYPTO_free_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_free)}
-      CRYPTO_free := @_CRYPTO_free;
+      CRYPTO_free := _CRYPTO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3397,13 +3409,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_clear_free_allownil)}
-    CRYPTO_clear_free := @ERR_CRYPTO_clear_free;
+    CRYPTO_clear_free := ERR_CRYPTO_clear_free;
     {$ifend}
     {$if declared(CRYPTO_clear_free_introduced)}
     if LibVersion < CRYPTO_clear_free_introduced then
     begin
       {$if declared(FC_CRYPTO_clear_free)}
-      CRYPTO_clear_free := @FC_CRYPTO_clear_free;
+      CRYPTO_clear_free := FC_CRYPTO_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3412,7 +3424,7 @@ begin
     if CRYPTO_clear_free_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_clear_free)}
-      CRYPTO_clear_free := @_CRYPTO_clear_free;
+      CRYPTO_clear_free := _CRYPTO_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3429,13 +3441,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_realloc_allownil)}
-    CRYPTO_realloc := @ERR_CRYPTO_realloc;
+    CRYPTO_realloc := ERR_CRYPTO_realloc;
     {$ifend}
     {$if declared(CRYPTO_realloc_introduced)}
     if LibVersion < CRYPTO_realloc_introduced then
     begin
       {$if declared(FC_CRYPTO_realloc)}
-      CRYPTO_realloc := @FC_CRYPTO_realloc;
+      CRYPTO_realloc := FC_CRYPTO_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3444,7 +3456,7 @@ begin
     if CRYPTO_realloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_realloc)}
-      CRYPTO_realloc := @_CRYPTO_realloc;
+      CRYPTO_realloc := _CRYPTO_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3461,13 +3473,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_clear_realloc_allownil)}
-    CRYPTO_clear_realloc := @ERR_CRYPTO_clear_realloc;
+    CRYPTO_clear_realloc := ERR_CRYPTO_clear_realloc;
     {$ifend}
     {$if declared(CRYPTO_clear_realloc_introduced)}
     if LibVersion < CRYPTO_clear_realloc_introduced then
     begin
       {$if declared(FC_CRYPTO_clear_realloc)}
-      CRYPTO_clear_realloc := @FC_CRYPTO_clear_realloc;
+      CRYPTO_clear_realloc := FC_CRYPTO_clear_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3476,7 +3488,7 @@ begin
     if CRYPTO_clear_realloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_clear_realloc)}
-      CRYPTO_clear_realloc := @_CRYPTO_clear_realloc;
+      CRYPTO_clear_realloc := _CRYPTO_clear_realloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3493,13 +3505,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_malloc_init_allownil)}
-    CRYPTO_secure_malloc_init := @ERR_CRYPTO_secure_malloc_init;
+    CRYPTO_secure_malloc_init := ERR_CRYPTO_secure_malloc_init;
     {$ifend}
     {$if declared(CRYPTO_secure_malloc_init_introduced)}
     if LibVersion < CRYPTO_secure_malloc_init_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_malloc_init)}
-      CRYPTO_secure_malloc_init := @FC_CRYPTO_secure_malloc_init;
+      CRYPTO_secure_malloc_init := FC_CRYPTO_secure_malloc_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3508,7 +3520,7 @@ begin
     if CRYPTO_secure_malloc_init_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_malloc_init)}
-      CRYPTO_secure_malloc_init := @_CRYPTO_secure_malloc_init;
+      CRYPTO_secure_malloc_init := _CRYPTO_secure_malloc_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3525,13 +3537,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_malloc_done_allownil)}
-    CRYPTO_secure_malloc_done := @ERR_CRYPTO_secure_malloc_done;
+    CRYPTO_secure_malloc_done := ERR_CRYPTO_secure_malloc_done;
     {$ifend}
     {$if declared(CRYPTO_secure_malloc_done_introduced)}
     if LibVersion < CRYPTO_secure_malloc_done_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_malloc_done)}
-      CRYPTO_secure_malloc_done := @FC_CRYPTO_secure_malloc_done;
+      CRYPTO_secure_malloc_done := FC_CRYPTO_secure_malloc_done;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3540,7 +3552,7 @@ begin
     if CRYPTO_secure_malloc_done_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_malloc_done)}
-      CRYPTO_secure_malloc_done := @_CRYPTO_secure_malloc_done;
+      CRYPTO_secure_malloc_done := _CRYPTO_secure_malloc_done;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3557,13 +3569,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_malloc_allownil)}
-    CRYPTO_secure_malloc := @ERR_CRYPTO_secure_malloc;
+    CRYPTO_secure_malloc := ERR_CRYPTO_secure_malloc;
     {$ifend}
     {$if declared(CRYPTO_secure_malloc_introduced)}
     if LibVersion < CRYPTO_secure_malloc_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_malloc)}
-      CRYPTO_secure_malloc := @FC_CRYPTO_secure_malloc;
+      CRYPTO_secure_malloc := FC_CRYPTO_secure_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3572,7 +3584,7 @@ begin
     if CRYPTO_secure_malloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_malloc)}
-      CRYPTO_secure_malloc := @_CRYPTO_secure_malloc;
+      CRYPTO_secure_malloc := _CRYPTO_secure_malloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3589,13 +3601,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_zalloc_allownil)}
-    CRYPTO_secure_zalloc := @ERR_CRYPTO_secure_zalloc;
+    CRYPTO_secure_zalloc := ERR_CRYPTO_secure_zalloc;
     {$ifend}
     {$if declared(CRYPTO_secure_zalloc_introduced)}
     if LibVersion < CRYPTO_secure_zalloc_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_zalloc)}
-      CRYPTO_secure_zalloc := @FC_CRYPTO_secure_zalloc;
+      CRYPTO_secure_zalloc := FC_CRYPTO_secure_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3604,7 +3616,7 @@ begin
     if CRYPTO_secure_zalloc_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_zalloc)}
-      CRYPTO_secure_zalloc := @_CRYPTO_secure_zalloc;
+      CRYPTO_secure_zalloc := _CRYPTO_secure_zalloc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3621,13 +3633,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_free_allownil)}
-    CRYPTO_secure_free := @ERR_CRYPTO_secure_free;
+    CRYPTO_secure_free := ERR_CRYPTO_secure_free;
     {$ifend}
     {$if declared(CRYPTO_secure_free_introduced)}
     if LibVersion < CRYPTO_secure_free_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_free)}
-      CRYPTO_secure_free := @FC_CRYPTO_secure_free;
+      CRYPTO_secure_free := FC_CRYPTO_secure_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3636,7 +3648,7 @@ begin
     if CRYPTO_secure_free_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_free)}
-      CRYPTO_secure_free := @_CRYPTO_secure_free;
+      CRYPTO_secure_free := _CRYPTO_secure_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3653,13 +3665,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_clear_free_allownil)}
-    CRYPTO_secure_clear_free := @ERR_CRYPTO_secure_clear_free;
+    CRYPTO_secure_clear_free := ERR_CRYPTO_secure_clear_free;
     {$ifend}
     {$if declared(CRYPTO_secure_clear_free_introduced)}
     if LibVersion < CRYPTO_secure_clear_free_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_clear_free)}
-      CRYPTO_secure_clear_free := @FC_CRYPTO_secure_clear_free;
+      CRYPTO_secure_clear_free := FC_CRYPTO_secure_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3668,7 +3680,7 @@ begin
     if CRYPTO_secure_clear_free_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_clear_free)}
-      CRYPTO_secure_clear_free := @_CRYPTO_secure_clear_free;
+      CRYPTO_secure_clear_free := _CRYPTO_secure_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3685,13 +3697,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_allocated_allownil)}
-    CRYPTO_secure_allocated := @ERR_CRYPTO_secure_allocated;
+    CRYPTO_secure_allocated := ERR_CRYPTO_secure_allocated;
     {$ifend}
     {$if declared(CRYPTO_secure_allocated_introduced)}
     if LibVersion < CRYPTO_secure_allocated_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_allocated)}
-      CRYPTO_secure_allocated := @FC_CRYPTO_secure_allocated;
+      CRYPTO_secure_allocated := FC_CRYPTO_secure_allocated;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3700,7 +3712,7 @@ begin
     if CRYPTO_secure_allocated_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_allocated)}
-      CRYPTO_secure_allocated := @_CRYPTO_secure_allocated;
+      CRYPTO_secure_allocated := _CRYPTO_secure_allocated;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3717,13 +3729,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_malloc_initialized_allownil)}
-    CRYPTO_secure_malloc_initialized := @ERR_CRYPTO_secure_malloc_initialized;
+    CRYPTO_secure_malloc_initialized := ERR_CRYPTO_secure_malloc_initialized;
     {$ifend}
     {$if declared(CRYPTO_secure_malloc_initialized_introduced)}
     if LibVersion < CRYPTO_secure_malloc_initialized_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_malloc_initialized)}
-      CRYPTO_secure_malloc_initialized := @FC_CRYPTO_secure_malloc_initialized;
+      CRYPTO_secure_malloc_initialized := FC_CRYPTO_secure_malloc_initialized;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3732,7 +3744,7 @@ begin
     if CRYPTO_secure_malloc_initialized_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_malloc_initialized)}
-      CRYPTO_secure_malloc_initialized := @_CRYPTO_secure_malloc_initialized;
+      CRYPTO_secure_malloc_initialized := _CRYPTO_secure_malloc_initialized;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3749,13 +3761,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_actual_size_allownil)}
-    CRYPTO_secure_actual_size := @ERR_CRYPTO_secure_actual_size;
+    CRYPTO_secure_actual_size := ERR_CRYPTO_secure_actual_size;
     {$ifend}
     {$if declared(CRYPTO_secure_actual_size_introduced)}
     if LibVersion < CRYPTO_secure_actual_size_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_actual_size)}
-      CRYPTO_secure_actual_size := @FC_CRYPTO_secure_actual_size;
+      CRYPTO_secure_actual_size := FC_CRYPTO_secure_actual_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3764,7 +3776,7 @@ begin
     if CRYPTO_secure_actual_size_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_actual_size)}
-      CRYPTO_secure_actual_size := @_CRYPTO_secure_actual_size;
+      CRYPTO_secure_actual_size := _CRYPTO_secure_actual_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3781,13 +3793,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_secure_used_allownil)}
-    CRYPTO_secure_used := @ERR_CRYPTO_secure_used;
+    CRYPTO_secure_used := ERR_CRYPTO_secure_used;
     {$ifend}
     {$if declared(CRYPTO_secure_used_introduced)}
     if LibVersion < CRYPTO_secure_used_introduced then
     begin
       {$if declared(FC_CRYPTO_secure_used)}
-      CRYPTO_secure_used := @FC_CRYPTO_secure_used;
+      CRYPTO_secure_used := FC_CRYPTO_secure_used;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3796,7 +3808,7 @@ begin
     if CRYPTO_secure_used_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_secure_used)}
-      CRYPTO_secure_used := @_CRYPTO_secure_used;
+      CRYPTO_secure_used := _CRYPTO_secure_used;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3812,13 +3824,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_get_ex_new_index_allownil)}
-    CRYPTO_get_ex_new_index := @ERR_CRYPTO_get_ex_new_index;
+    CRYPTO_get_ex_new_index := ERR_CRYPTO_get_ex_new_index;
     {$ifend}
     {$if declared(CRYPTO_get_ex_new_index_introduced)}
     if LibVersion < CRYPTO_get_ex_new_index_introduced then
     begin
       {$if declared(FC_CRYPTO_get_ex_new_index)}
-      CRYPTO_get_ex_new_index := @FC_CRYPTO_get_ex_new_index;
+      CRYPTO_get_ex_new_index := FC_CRYPTO_get_ex_new_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3827,7 +3839,7 @@ begin
     if CRYPTO_get_ex_new_index_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_get_ex_new_index)}
-      CRYPTO_get_ex_new_index := @_CRYPTO_get_ex_new_index;
+      CRYPTO_get_ex_new_index := _CRYPTO_get_ex_new_index;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3844,13 +3856,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_cleanse_allownil)}
-    OPENSSL_cleanse := @ERR_OPENSSL_cleanse;
+    OPENSSL_cleanse := ERR_OPENSSL_cleanse;
     {$ifend}
     {$if declared(OPENSSL_cleanse_introduced)}
     if LibVersion < OPENSSL_cleanse_introduced then
     begin
       {$if declared(FC_OPENSSL_cleanse)}
-      OPENSSL_cleanse := @FC_OPENSSL_cleanse;
+      OPENSSL_cleanse := FC_OPENSSL_cleanse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3859,7 +3871,7 @@ begin
     if OPENSSL_cleanse_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_cleanse)}
-      OPENSSL_cleanse := @_OPENSSL_cleanse;
+      OPENSSL_cleanse := _OPENSSL_cleanse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3876,13 +3888,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_isservice_allownil)}
-    OPENSSL_isservice := @ERR_OPENSSL_isservice;
+    OPENSSL_isservice := ERR_OPENSSL_isservice;
     {$ifend}
     {$if declared(OPENSSL_isservice_introduced)}
     if LibVersion < OPENSSL_isservice_introduced then
     begin
       {$if declared(FC_OPENSSL_isservice)}
-      OPENSSL_isservice := @FC_OPENSSL_isservice;
+      OPENSSL_isservice := FC_OPENSSL_isservice;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3891,7 +3903,7 @@ begin
     if OPENSSL_isservice_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_isservice)}
-      OPENSSL_isservice := @_OPENSSL_isservice;
+      OPENSSL_isservice := _OPENSSL_isservice;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3908,13 +3920,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(FIPS_mode_allownil)}
-    FIPS_mode := @ERR_FIPS_mode;
+    FIPS_mode := ERR_FIPS_mode;
     {$ifend}
     {$if declared(FIPS_mode_introduced)}
     if LibVersion < FIPS_mode_introduced then
     begin
       {$if declared(FC_FIPS_mode)}
-      FIPS_mode := @FC_FIPS_mode;
+      FIPS_mode := FC_FIPS_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3923,7 +3935,7 @@ begin
     if FIPS_mode_removed <= LibVersion then
     begin
       {$if declared(_FIPS_mode)}
-      FIPS_mode := @_FIPS_mode;
+      FIPS_mode := _FIPS_mode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3940,13 +3952,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(FIPS_mode_set_allownil)}
-    FIPS_mode_set := @ERR_FIPS_mode_set;
+    FIPS_mode_set := ERR_FIPS_mode_set;
     {$ifend}
     {$if declared(FIPS_mode_set_introduced)}
     if LibVersion < FIPS_mode_set_introduced then
     begin
       {$if declared(FC_FIPS_mode_set)}
-      FIPS_mode_set := @FC_FIPS_mode_set;
+      FIPS_mode_set := FC_FIPS_mode_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3955,7 +3967,7 @@ begin
     if FIPS_mode_set_removed <= LibVersion then
     begin
       {$if declared(_FIPS_mode_set)}
-      FIPS_mode_set := @_FIPS_mode_set;
+      FIPS_mode_set := _FIPS_mode_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3972,13 +3984,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_init_allownil)}
-    OPENSSL_init := @ERR_OPENSSL_init;
+    OPENSSL_init := ERR_OPENSSL_init;
     {$ifend}
     {$if declared(OPENSSL_init_introduced)}
     if LibVersion < OPENSSL_init_introduced then
     begin
       {$if declared(FC_OPENSSL_init)}
-      OPENSSL_init := @FC_OPENSSL_init;
+      OPENSSL_init := FC_OPENSSL_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3987,7 +3999,7 @@ begin
     if OPENSSL_init_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_init)}
-      OPENSSL_init := @_OPENSSL_init;
+      OPENSSL_init := _OPENSSL_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4004,13 +4016,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_memcmp_allownil)}
-    CRYPTO_memcmp := @ERR_CRYPTO_memcmp;
+    CRYPTO_memcmp := ERR_CRYPTO_memcmp;
     {$ifend}
     {$if declared(CRYPTO_memcmp_introduced)}
     if LibVersion < CRYPTO_memcmp_introduced then
     begin
       {$if declared(FC_CRYPTO_memcmp)}
-      CRYPTO_memcmp := @FC_CRYPTO_memcmp;
+      CRYPTO_memcmp := FC_CRYPTO_memcmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4019,7 +4031,7 @@ begin
     if CRYPTO_memcmp_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_memcmp)}
-      CRYPTO_memcmp := @_CRYPTO_memcmp;
+      CRYPTO_memcmp := _CRYPTO_memcmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4036,13 +4048,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_cleanup_allownil)}
-    OPENSSL_cleanup := @ERR_OPENSSL_cleanup;
+    OPENSSL_cleanup := ERR_OPENSSL_cleanup;
     {$ifend}
     {$if declared(OPENSSL_cleanup_introduced)}
     if LibVersion < OPENSSL_cleanup_introduced then
     begin
       {$if declared(FC_OPENSSL_cleanup)}
-      OPENSSL_cleanup := @FC_OPENSSL_cleanup;
+      OPENSSL_cleanup := FC_OPENSSL_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4051,7 +4063,7 @@ begin
     if OPENSSL_cleanup_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_cleanup)}
-      OPENSSL_cleanup := @_OPENSSL_cleanup;
+      OPENSSL_cleanup := _OPENSSL_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4068,13 +4080,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_init_crypto_allownil)}
-    OPENSSL_init_crypto := @ERR_OPENSSL_init_crypto;
+    OPENSSL_init_crypto := ERR_OPENSSL_init_crypto;
     {$ifend}
     {$if declared(OPENSSL_init_crypto_introduced)}
     if LibVersion < OPENSSL_init_crypto_introduced then
     begin
       {$if declared(FC_OPENSSL_init_crypto)}
-      OPENSSL_init_crypto := @FC_OPENSSL_init_crypto;
+      OPENSSL_init_crypto := FC_OPENSSL_init_crypto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4083,7 +4095,7 @@ begin
     if OPENSSL_init_crypto_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_init_crypto)}
-      OPENSSL_init_crypto := @_OPENSSL_init_crypto;
+      OPENSSL_init_crypto := _OPENSSL_init_crypto;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4100,13 +4112,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_thread_stop_allownil)}
-    OPENSSL_thread_stop := @ERR_OPENSSL_thread_stop;
+    OPENSSL_thread_stop := ERR_OPENSSL_thread_stop;
     {$ifend}
     {$if declared(OPENSSL_thread_stop_introduced)}
     if LibVersion < OPENSSL_thread_stop_introduced then
     begin
       {$if declared(FC_OPENSSL_thread_stop)}
-      OPENSSL_thread_stop := @FC_OPENSSL_thread_stop;
+      OPENSSL_thread_stop := FC_OPENSSL_thread_stop;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4115,7 +4127,7 @@ begin
     if OPENSSL_thread_stop_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_thread_stop)}
-      OPENSSL_thread_stop := @_OPENSSL_thread_stop;
+      OPENSSL_thread_stop := _OPENSSL_thread_stop;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4132,13 +4144,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_INIT_new_allownil)}
-    OPENSSL_INIT_new := @ERR_OPENSSL_INIT_new;
+    OPENSSL_INIT_new := ERR_OPENSSL_INIT_new;
     {$ifend}
     {$if declared(OPENSSL_INIT_new_introduced)}
     if LibVersion < OPENSSL_INIT_new_introduced then
     begin
       {$if declared(FC_OPENSSL_INIT_new)}
-      OPENSSL_INIT_new := @FC_OPENSSL_INIT_new;
+      OPENSSL_INIT_new := FC_OPENSSL_INIT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4147,7 +4159,7 @@ begin
     if OPENSSL_INIT_new_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_INIT_new)}
-      OPENSSL_INIT_new := @_OPENSSL_INIT_new;
+      OPENSSL_INIT_new := _OPENSSL_INIT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4164,13 +4176,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_INIT_free_allownil)}
-    OPENSSL_INIT_free := @ERR_OPENSSL_INIT_free;
+    OPENSSL_INIT_free := ERR_OPENSSL_INIT_free;
     {$ifend}
     {$if declared(OPENSSL_INIT_free_introduced)}
     if LibVersion < OPENSSL_INIT_free_introduced then
     begin
       {$if declared(FC_OPENSSL_INIT_free)}
-      OPENSSL_INIT_free := @FC_OPENSSL_INIT_free;
+      OPENSSL_INIT_free := FC_OPENSSL_INIT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4179,7 +4191,7 @@ begin
     if OPENSSL_INIT_free_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_INIT_free)}
-      OPENSSL_INIT_free := @_OPENSSL_INIT_free;
+      OPENSSL_INIT_free := _OPENSSL_INIT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4196,13 +4208,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_run_once_allownil)}
-    CRYPTO_THREAD_run_once := @ERR_CRYPTO_THREAD_run_once;
+    CRYPTO_THREAD_run_once := ERR_CRYPTO_THREAD_run_once;
     {$ifend}
     {$if declared(CRYPTO_THREAD_run_once_introduced)}
     if LibVersion < CRYPTO_THREAD_run_once_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_run_once)}
-      CRYPTO_THREAD_run_once := @FC_CRYPTO_THREAD_run_once;
+      CRYPTO_THREAD_run_once := FC_CRYPTO_THREAD_run_once;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4211,7 +4223,7 @@ begin
     if CRYPTO_THREAD_run_once_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_run_once)}
-      CRYPTO_THREAD_run_once := @_CRYPTO_THREAD_run_once;
+      CRYPTO_THREAD_run_once := _CRYPTO_THREAD_run_once;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4228,13 +4240,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_get_local_allownil)}
-    CRYPTO_THREAD_get_local := @ERR_CRYPTO_THREAD_get_local;
+    CRYPTO_THREAD_get_local := ERR_CRYPTO_THREAD_get_local;
     {$ifend}
     {$if declared(CRYPTO_THREAD_get_local_introduced)}
     if LibVersion < CRYPTO_THREAD_get_local_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_get_local)}
-      CRYPTO_THREAD_get_local := @FC_CRYPTO_THREAD_get_local;
+      CRYPTO_THREAD_get_local := FC_CRYPTO_THREAD_get_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4243,7 +4255,7 @@ begin
     if CRYPTO_THREAD_get_local_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_get_local)}
-      CRYPTO_THREAD_get_local := @_CRYPTO_THREAD_get_local;
+      CRYPTO_THREAD_get_local := _CRYPTO_THREAD_get_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4260,13 +4272,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_set_local_allownil)}
-    CRYPTO_THREAD_set_local := @ERR_CRYPTO_THREAD_set_local;
+    CRYPTO_THREAD_set_local := ERR_CRYPTO_THREAD_set_local;
     {$ifend}
     {$if declared(CRYPTO_THREAD_set_local_introduced)}
     if LibVersion < CRYPTO_THREAD_set_local_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_set_local)}
-      CRYPTO_THREAD_set_local := @FC_CRYPTO_THREAD_set_local;
+      CRYPTO_THREAD_set_local := FC_CRYPTO_THREAD_set_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4275,7 +4287,7 @@ begin
     if CRYPTO_THREAD_set_local_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_set_local)}
-      CRYPTO_THREAD_set_local := @_CRYPTO_THREAD_set_local;
+      CRYPTO_THREAD_set_local := _CRYPTO_THREAD_set_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4292,13 +4304,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_cleanup_local_allownil)}
-    CRYPTO_THREAD_cleanup_local := @ERR_CRYPTO_THREAD_cleanup_local;
+    CRYPTO_THREAD_cleanup_local := ERR_CRYPTO_THREAD_cleanup_local;
     {$ifend}
     {$if declared(CRYPTO_THREAD_cleanup_local_introduced)}
     if LibVersion < CRYPTO_THREAD_cleanup_local_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_cleanup_local)}
-      CRYPTO_THREAD_cleanup_local := @FC_CRYPTO_THREAD_cleanup_local;
+      CRYPTO_THREAD_cleanup_local := FC_CRYPTO_THREAD_cleanup_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4307,7 +4319,7 @@ begin
     if CRYPTO_THREAD_cleanup_local_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_cleanup_local)}
-      CRYPTO_THREAD_cleanup_local := @_CRYPTO_THREAD_cleanup_local;
+      CRYPTO_THREAD_cleanup_local := _CRYPTO_THREAD_cleanup_local;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4324,13 +4336,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_get_current_id_allownil)}
-    CRYPTO_THREAD_get_current_id := @ERR_CRYPTO_THREAD_get_current_id;
+    CRYPTO_THREAD_get_current_id := ERR_CRYPTO_THREAD_get_current_id;
     {$ifend}
     {$if declared(CRYPTO_THREAD_get_current_id_introduced)}
     if LibVersion < CRYPTO_THREAD_get_current_id_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_get_current_id)}
-      CRYPTO_THREAD_get_current_id := @FC_CRYPTO_THREAD_get_current_id;
+      CRYPTO_THREAD_get_current_id := FC_CRYPTO_THREAD_get_current_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4339,7 +4351,7 @@ begin
     if CRYPTO_THREAD_get_current_id_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_get_current_id)}
-      CRYPTO_THREAD_get_current_id := @_CRYPTO_THREAD_get_current_id;
+      CRYPTO_THREAD_get_current_id := _CRYPTO_THREAD_get_current_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4356,13 +4368,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CRYPTO_THREAD_compare_id_allownil)}
-    CRYPTO_THREAD_compare_id := @ERR_CRYPTO_THREAD_compare_id;
+    CRYPTO_THREAD_compare_id := ERR_CRYPTO_THREAD_compare_id;
     {$ifend}
     {$if declared(CRYPTO_THREAD_compare_id_introduced)}
     if LibVersion < CRYPTO_THREAD_compare_id_introduced then
     begin
       {$if declared(FC_CRYPTO_THREAD_compare_id)}
-      CRYPTO_THREAD_compare_id := @FC_CRYPTO_THREAD_compare_id;
+      CRYPTO_THREAD_compare_id := FC_CRYPTO_THREAD_compare_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4371,7 +4383,7 @@ begin
     if CRYPTO_THREAD_compare_id_removed <= LibVersion then
     begin
       {$if declared(_CRYPTO_THREAD_compare_id)}
-      CRYPTO_THREAD_compare_id := @_CRYPTO_THREAD_compare_id;
+      CRYPTO_THREAD_compare_id := _CRYPTO_THREAD_compare_id;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4388,13 +4400,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLeay_version_allownil)}
-    SSLeay_version := @ERR_SSLeay_version;
+    SSLeay_version := ERR_SSLeay_version;
     {$ifend}
     {$if declared(SSLeay_version_introduced)}
     if LibVersion < SSLeay_version_introduced then
     begin
       {$if declared(FC_SSLeay_version)}
-      SSLeay_version := @FC_SSLeay_version;
+      SSLeay_version := FC_SSLeay_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4403,7 +4415,7 @@ begin
     if SSLeay_version_removed <= LibVersion then
     begin
       {$if declared(_SSLeay_version)}
-      SSLeay_version := @_SSLeay_version;
+      SSLeay_version := _SSLeay_version;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4420,13 +4432,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLeay_allownil)}
-    SSLeay := @ERR_SSLeay;
+    SSLeay := ERR_SSLeay;
     {$ifend}
     {$if declared(SSLeay_introduced)}
     if LibVersion < SSLeay_introduced then
     begin
       {$if declared(FC_SSLeay)}
-      SSLeay := @FC_SSLeay;
+      SSLeay := FC_SSLeay;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4435,7 +4447,7 @@ begin
     if SSLeay_removed <= LibVersion then
     begin
       {$if declared(_SSLeay)}
-      SSLeay := @_SSLeay;
+      SSLeay := _SSLeay;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4451,13 +4463,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_new_allownil)}
-    OSSL_LIB_CTX_new := @ERR_OSSL_LIB_CTX_new;
+    OSSL_LIB_CTX_new := ERR_OSSL_LIB_CTX_new;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_new_introduced)}
     if LibVersion < OSSL_LIB_CTX_new_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_new)}
-      OSSL_LIB_CTX_new := @FC_OSSL_LIB_CTX_new;
+      OSSL_LIB_CTX_new := FC_OSSL_LIB_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4466,7 +4478,7 @@ begin
     if OSSL_LIB_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_new)}
-      OSSL_LIB_CTX_new := @_OSSL_LIB_CTX_new;
+      OSSL_LIB_CTX_new := _OSSL_LIB_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4482,13 +4494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_new_from_dispatch_allownil)}
-    OSSL_LIB_CTX_new_from_dispatch := @ERR_OSSL_LIB_CTX_new_from_dispatch;
+    OSSL_LIB_CTX_new_from_dispatch := ERR_OSSL_LIB_CTX_new_from_dispatch;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_new_from_dispatch_introduced)}
     if LibVersion < OSSL_LIB_CTX_new_from_dispatch_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_new_from_dispatch)}
-      OSSL_LIB_CTX_new_from_dispatch := @FC_OSSL_LIB_CTX_new_from_dispatch;
+      OSSL_LIB_CTX_new_from_dispatch := FC_OSSL_LIB_CTX_new_from_dispatch;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4497,7 +4509,7 @@ begin
     if OSSL_LIB_CTX_new_from_dispatch_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_new_from_dispatch)}
-      OSSL_LIB_CTX_new_from_dispatch := @_OSSL_LIB_CTX_new_from_dispatch;
+      OSSL_LIB_CTX_new_from_dispatch := _OSSL_LIB_CTX_new_from_dispatch;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4513,13 +4525,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_new_child_allownil)}
-    OSSL_LIB_CTX_new_child := @ERR_OSSL_LIB_CTX_new_child;
+    OSSL_LIB_CTX_new_child := ERR_OSSL_LIB_CTX_new_child;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_new_child_introduced)}
     if LibVersion < OSSL_LIB_CTX_new_child_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_new_child)}
-      OSSL_LIB_CTX_new_child := @FC_OSSL_LIB_CTX_new_child;
+      OSSL_LIB_CTX_new_child := FC_OSSL_LIB_CTX_new_child;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4528,7 +4540,7 @@ begin
     if OSSL_LIB_CTX_new_child_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_new_child)}
-      OSSL_LIB_CTX_new_child := @_OSSL_LIB_CTX_new_child;
+      OSSL_LIB_CTX_new_child := _OSSL_LIB_CTX_new_child;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4544,13 +4556,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_load_config_allownil)}
-    OSSL_LIB_CTX_load_config := @ERR_OSSL_LIB_CTX_load_config;
+    OSSL_LIB_CTX_load_config := ERR_OSSL_LIB_CTX_load_config;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_load_config_introduced)}
     if LibVersion < OSSL_LIB_CTX_load_config_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_load_config)}
-      OSSL_LIB_CTX_load_config := @FC_OSSL_LIB_CTX_load_config;
+      OSSL_LIB_CTX_load_config := FC_OSSL_LIB_CTX_load_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4559,7 +4571,7 @@ begin
     if OSSL_LIB_CTX_load_config_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_load_config)}
-      OSSL_LIB_CTX_load_config := @_OSSL_LIB_CTX_load_config;
+      OSSL_LIB_CTX_load_config := _OSSL_LIB_CTX_load_config;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4575,13 +4587,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_free_allownil)}
-    OSSL_LIB_CTX_free := @ERR_OSSL_LIB_CTX_free;
+    OSSL_LIB_CTX_free := ERR_OSSL_LIB_CTX_free;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_free_introduced)}
     if LibVersion < OSSL_LIB_CTX_free_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_free)}
-      OSSL_LIB_CTX_free := @FC_OSSL_LIB_CTX_free;
+      OSSL_LIB_CTX_free := FC_OSSL_LIB_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4590,7 +4602,7 @@ begin
     if OSSL_LIB_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_free)}
-      OSSL_LIB_CTX_free := @_OSSL_LIB_CTX_free;
+      OSSL_LIB_CTX_free := _OSSL_LIB_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4606,13 +4618,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_get0_global_default_allownil)}
-    OSSL_LIB_CTX_get0_global_default := @ERR_OSSL_LIB_CTX_get0_global_default;
+    OSSL_LIB_CTX_get0_global_default := ERR_OSSL_LIB_CTX_get0_global_default;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_get0_global_default_introduced)}
     if LibVersion < OSSL_LIB_CTX_get0_global_default_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_get0_global_default)}
-      OSSL_LIB_CTX_get0_global_default := @FC_OSSL_LIB_CTX_get0_global_default;
+      OSSL_LIB_CTX_get0_global_default := FC_OSSL_LIB_CTX_get0_global_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4621,7 +4633,7 @@ begin
     if OSSL_LIB_CTX_get0_global_default_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_get0_global_default)}
-      OSSL_LIB_CTX_get0_global_default := @_OSSL_LIB_CTX_get0_global_default;
+      OSSL_LIB_CTX_get0_global_default := _OSSL_LIB_CTX_get0_global_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4637,13 +4649,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OSSL_LIB_CTX_set0_default_allownil)}
-    OSSL_LIB_CTX_set0_default := @ERR_OSSL_LIB_CTX_set0_default;
+    OSSL_LIB_CTX_set0_default := ERR_OSSL_LIB_CTX_set0_default;
     {$ifend}
     {$if declared(OSSL_LIB_CTX_set0_default_introduced)}
     if LibVersion < OSSL_LIB_CTX_set0_default_introduced then
     begin
       {$if declared(FC_OSSL_LIB_CTX_set0_default)}
-      OSSL_LIB_CTX_set0_default := @FC_OSSL_LIB_CTX_set0_default;
+      OSSL_LIB_CTX_set0_default := FC_OSSL_LIB_CTX_set0_default;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4652,7 +4664,7 @@ begin
     if OSSL_LIB_CTX_set0_default_removed <= LibVersion then
     begin
       {$if declared(_OSSL_LIB_CTX_set0_default)}
-      OSSL_LIB_CTX_set0_default := @_OSSL_LIB_CTX_set0_default;
+      OSSL_LIB_CTX_set0_default := _OSSL_LIB_CTX_set0_default;
       {$ifend}
       FuncLoadError := false;
     end;

@@ -112,56 +112,59 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_IDEA_options: PIdAnsiChar; 
+function  ERR_IDEA_options: PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_options_procname);
 end;
 
 
-procedure  ERR_IDEA_ecb_encrypt(const in_: PByte; var out_; ks: PIDEA_KEY_SCHEDULE);
+procedure  ERR_IDEA_ecb_encrypt(const in_: PByte; var out_; ks: PIDEA_KEY_SCHEDULE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_ecb_encrypt_procname);
 end;
 
 
-procedure  ERR_IDEA_set_encrypt_key(const key: PByte; ks: PIDEA_KEY_SCHEDULE); 
+procedure  ERR_IDEA_set_encrypt_key(const key: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_set_encrypt_key_procname);
 end;
 
 
-procedure  ERR_IDEA_set_decrypt_key(ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE); 
+procedure  ERR_IDEA_set_decrypt_key(ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_set_decrypt_key_procname);
 end;
 
 
-procedure  ERR_IDEA_cbc_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; enc: TIdC_INT);
+procedure  ERR_IDEA_cbc_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE;
+  iv: PByte; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_IDEA_cfb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT; enc: TIdC_INT);
+procedure  ERR_IDEA_cfb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE;
+  iv: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_cfb64_encrypt_procname);
 end;
 
 
-procedure  ERR_IDEA_ofb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: PIdC_INT);
+procedure  ERR_IDEA_ofb64_encrypt(const in_: PByte; var out_; _length: TIdC_LONG; ks: PIDEA_KEY_SCHEDULE;
+  iv: PByte; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_ofb64_encrypt_procname);
 end;
 
 
-procedure  ERR_IDEA_encrypt(in_: PIdC_LONG; ks: PIDEA_KEY_SCHEDULE); 
+procedure  ERR_IDEA_encrypt(in_: PIdC_LONG; ks: PIDEA_KEY_SCHEDULE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(IDEA_encrypt_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -173,13 +176,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_options_allownil)}
-    IDEA_options := @ERR_IDEA_options;
+    IDEA_options := ERR_IDEA_options;
     {$ifend}
     {$if declared(IDEA_options_introduced)}
     if LibVersion < IDEA_options_introduced then
     begin
       {$if declared(FC_IDEA_options)}
-      IDEA_options := @FC_IDEA_options;
+      IDEA_options := FC_IDEA_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -188,7 +191,7 @@ begin
     if IDEA_options_removed <= LibVersion then
     begin
       {$if declared(_IDEA_options)}
-      IDEA_options := @_IDEA_options;
+      IDEA_options := _IDEA_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -205,13 +208,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_ecb_encrypt_allownil)}
-    IDEA_ecb_encrypt := @ERR_IDEA_ecb_encrypt;
+    IDEA_ecb_encrypt := ERR_IDEA_ecb_encrypt;
     {$ifend}
     {$if declared(IDEA_ecb_encrypt_introduced)}
     if LibVersion < IDEA_ecb_encrypt_introduced then
     begin
       {$if declared(FC_IDEA_ecb_encrypt)}
-      IDEA_ecb_encrypt := @FC_IDEA_ecb_encrypt;
+      IDEA_ecb_encrypt := FC_IDEA_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -220,7 +223,7 @@ begin
     if IDEA_ecb_encrypt_removed <= LibVersion then
     begin
       {$if declared(_IDEA_ecb_encrypt)}
-      IDEA_ecb_encrypt := @_IDEA_ecb_encrypt;
+      IDEA_ecb_encrypt := _IDEA_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -237,13 +240,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_set_encrypt_key_allownil)}
-    IDEA_set_encrypt_key := @ERR_IDEA_set_encrypt_key;
+    IDEA_set_encrypt_key := ERR_IDEA_set_encrypt_key;
     {$ifend}
     {$if declared(IDEA_set_encrypt_key_introduced)}
     if LibVersion < IDEA_set_encrypt_key_introduced then
     begin
       {$if declared(FC_IDEA_set_encrypt_key)}
-      IDEA_set_encrypt_key := @FC_IDEA_set_encrypt_key;
+      IDEA_set_encrypt_key := FC_IDEA_set_encrypt_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -252,7 +255,7 @@ begin
     if IDEA_set_encrypt_key_removed <= LibVersion then
     begin
       {$if declared(_IDEA_set_encrypt_key)}
-      IDEA_set_encrypt_key := @_IDEA_set_encrypt_key;
+      IDEA_set_encrypt_key := _IDEA_set_encrypt_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -269,13 +272,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_set_decrypt_key_allownil)}
-    IDEA_set_decrypt_key := @ERR_IDEA_set_decrypt_key;
+    IDEA_set_decrypt_key := ERR_IDEA_set_decrypt_key;
     {$ifend}
     {$if declared(IDEA_set_decrypt_key_introduced)}
     if LibVersion < IDEA_set_decrypt_key_introduced then
     begin
       {$if declared(FC_IDEA_set_decrypt_key)}
-      IDEA_set_decrypt_key := @FC_IDEA_set_decrypt_key;
+      IDEA_set_decrypt_key := FC_IDEA_set_decrypt_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -284,7 +287,7 @@ begin
     if IDEA_set_decrypt_key_removed <= LibVersion then
     begin
       {$if declared(_IDEA_set_decrypt_key)}
-      IDEA_set_decrypt_key := @_IDEA_set_decrypt_key;
+      IDEA_set_decrypt_key := _IDEA_set_decrypt_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -301,13 +304,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_cbc_encrypt_allownil)}
-    IDEA_cbc_encrypt := @ERR_IDEA_cbc_encrypt;
+    IDEA_cbc_encrypt := ERR_IDEA_cbc_encrypt;
     {$ifend}
     {$if declared(IDEA_cbc_encrypt_introduced)}
     if LibVersion < IDEA_cbc_encrypt_introduced then
     begin
       {$if declared(FC_IDEA_cbc_encrypt)}
-      IDEA_cbc_encrypt := @FC_IDEA_cbc_encrypt;
+      IDEA_cbc_encrypt := FC_IDEA_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -316,7 +319,7 @@ begin
     if IDEA_cbc_encrypt_removed <= LibVersion then
     begin
       {$if declared(_IDEA_cbc_encrypt)}
-      IDEA_cbc_encrypt := @_IDEA_cbc_encrypt;
+      IDEA_cbc_encrypt := _IDEA_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -333,13 +336,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_cfb64_encrypt_allownil)}
-    IDEA_cfb64_encrypt := @ERR_IDEA_cfb64_encrypt;
+    IDEA_cfb64_encrypt := ERR_IDEA_cfb64_encrypt;
     {$ifend}
     {$if declared(IDEA_cfb64_encrypt_introduced)}
     if LibVersion < IDEA_cfb64_encrypt_introduced then
     begin
       {$if declared(FC_IDEA_cfb64_encrypt)}
-      IDEA_cfb64_encrypt := @FC_IDEA_cfb64_encrypt;
+      IDEA_cfb64_encrypt := FC_IDEA_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -348,7 +351,7 @@ begin
     if IDEA_cfb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_IDEA_cfb64_encrypt)}
-      IDEA_cfb64_encrypt := @_IDEA_cfb64_encrypt;
+      IDEA_cfb64_encrypt := _IDEA_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -365,13 +368,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_ofb64_encrypt_allownil)}
-    IDEA_ofb64_encrypt := @ERR_IDEA_ofb64_encrypt;
+    IDEA_ofb64_encrypt := ERR_IDEA_ofb64_encrypt;
     {$ifend}
     {$if declared(IDEA_ofb64_encrypt_introduced)}
     if LibVersion < IDEA_ofb64_encrypt_introduced then
     begin
       {$if declared(FC_IDEA_ofb64_encrypt)}
-      IDEA_ofb64_encrypt := @FC_IDEA_ofb64_encrypt;
+      IDEA_ofb64_encrypt := FC_IDEA_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -380,7 +383,7 @@ begin
     if IDEA_ofb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_IDEA_ofb64_encrypt)}
-      IDEA_ofb64_encrypt := @_IDEA_ofb64_encrypt;
+      IDEA_ofb64_encrypt := _IDEA_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -397,13 +400,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(IDEA_encrypt_allownil)}
-    IDEA_encrypt := @ERR_IDEA_encrypt;
+    IDEA_encrypt := ERR_IDEA_encrypt;
     {$ifend}
     {$if declared(IDEA_encrypt_introduced)}
     if LibVersion < IDEA_encrypt_introduced then
     begin
       {$if declared(FC_IDEA_encrypt)}
-      IDEA_encrypt := @FC_IDEA_encrypt;
+      IDEA_encrypt := FC_IDEA_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -412,7 +415,7 @@ begin
     if IDEA_encrypt_removed <= LibVersion then
     begin
       {$if declared(_IDEA_encrypt)}
-      IDEA_encrypt := @_IDEA_encrypt;
+      IDEA_encrypt := _IDEA_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;

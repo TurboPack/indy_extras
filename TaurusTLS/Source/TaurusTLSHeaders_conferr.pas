@@ -121,7 +121,7 @@ const
 
   {$I TaurusTLSNoRetValOff.inc} 
 
-function ERR_ERR_load_CONF_strings: TIdC_INT;
+function ERR_ERR_load_CONF_strings: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_CONF_strings_procname);
 end;
@@ -141,13 +141,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ERR_load_CONF_strings_allownil)}
-    ERR_load_CONF_strings := @ERR_ERR_load_CONF_strings;
+    ERR_load_CONF_strings := ERR_ERR_load_CONF_strings;
 {$IFEND}
 {$IF declared(ERR_load_CONF_strings_introduced)}
     if LibVersion < ERR_load_CONF_strings_introduced then
     begin
 {$IF declared(FC_ERR_load_CONF_strings)}
-      ERR_load_CONF_strings := @FC_ERR_load_CONF_strings;
+      ERR_load_CONF_strings := FC_ERR_load_CONF_strings;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -156,7 +156,7 @@ begin
     if ERR_load_CONF_strings_removed <= LibVersion then
     begin
 {$IF declared(_ERR_load_CONF_strings)}
-      ERR_load_CONF_strings := @_ERR_load_CONF_strings;
+      ERR_load_CONF_strings := _ERR_load_CONF_strings;
 {$IFEND}
       FuncLoadError := false;
     end;

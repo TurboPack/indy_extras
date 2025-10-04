@@ -424,7 +424,7 @@ const
 procedure  _SSLErr(func: TIdC_INT; reason: TIdC_INT); cdecl;
 begin
   ERR_put_error(ERR_LIB_SSL,func,reason,'',0);
-end; 
+end;
 
 procedure  _ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); cdecl;
 { From 3.0 onwards, replaced by a macro
@@ -449,12 +449,13 @@ begin
   Result := l and $fff;
 end;
 
-procedure  ERR_ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); 
+procedure  ERR_ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT;
+  file_: PIdAnsiChar; line: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_put_error_procname);
 end;
 
- 
+
 
 { From 3.0 onwards, replaced by a macro
   define ERR_put_error(lib, func, reason, file, line)
@@ -462,20 +463,20 @@ end;
      ERR_set_debug((file), (line), OPENSSL_FUNC),
      ERR_set_error((lib), (reason), NULL))}
 
-procedure  ERR_ERR_new; 
+procedure  ERR_ERR_new; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_new_procname);
 end;
 
  {introduced 3.0.0}
-procedure  ERR_ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar);
+procedure  ERR_ERR_set_debug(const file_: PIdAnsiChar; line: TIdC_INT; const func: PIdAnsiChar); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_debug_procname);
 end;
 
   {introduced 3.0.0}
 //procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar; args: array of const);
-procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar) cdecl;
+procedure  ERR_ERR_set_error(lib: TIdC_INT; reason: TIdC_INT; fmt: PIdAnsiChar); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_error_procname);
 end;
@@ -483,114 +484,117 @@ end;
  {introduced 3.0.0}
 
 
-procedure  ERR_ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT); 
+procedure  ERR_ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_error_data_procname);
 end;
 
 
-  
-function  ERR_ERR_get_error: TIdC_ULONG; 
+
+function  ERR_ERR_get_error: TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_get_error_procname);
 end;
 
 
-function  ERR_ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_get_error_line_procname);
 end;
 
 
-function  ERR_ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar;
+  flags: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_get_error_line_data_procname);
 end;
 
 
 
-function  ERR_ERR_peek_error: TIdC_ULONG; 
+function  ERR_ERR_peek_error: TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_error_procname);
 end;
 
 
-function  ERR_ERR_peek_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_peek_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_error_line_procname);
 end;
 
 
-function  ERR_ERR_peek_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_peek_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar;
+  flags: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_error_line_data_procname);
 end;
 
 
 
-function  ERR_ERR_peek_last_error: TIdC_ULONG; 
+function  ERR_ERR_peek_last_error: TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_procname);
 end;
 
 
-function  ERR_ERR_peek_last_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_peek_last_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_line_procname);
 end;
 
 
-function  ERR_ERR_peek_last_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
+function  ERR_ERR_peek_last_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar;
+  flags: PIdC_INT): TIdC_ULONG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_line_data_procname);
 end;
 
 
 
-procedure  ERR_ERR_clear_error; 
+procedure  ERR_ERR_clear_error;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_clear_error_procname);
 end;
 
 
-function  ERR_ERR_error_string(e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar; 
+function  ERR_ERR_error_string(e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_error_string_procname);
 end;
 
 
-procedure  ERR_ERR_error_string_n(e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET); 
+procedure  ERR_ERR_error_string_n(e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_error_string_n_procname);
 end;
 
 
-function  ERR_ERR_lib_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function  ERR_ERR_lib_error_string(e: TIdC_ULONG): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_lib_error_string_procname);
 end;
 
 
-function  ERR_ERR_func_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function  ERR_ERR_func_error_string(e: TIdC_ULONG): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_func_error_string_procname);
 end;
 
 
-function  ERR_ERR_reason_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function  ERR_ERR_reason_error_string(e: TIdC_ULONG): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_reason_error_string_procname);
 end;
 
 
-procedure  ERR_ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer); 
+procedure  ERR_ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_print_errors_cb_procname);
 end;
 
 
 
-procedure  ERR_ERR_print_errors(bp: PBIO); 
+procedure  ERR_ERR_print_errors(bp: PBIO);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_print_errors_procname);
 end;
@@ -598,80 +602,79 @@ end;
 
   // void ERR_add_error_data(int num, ...);
   // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-function  ERR_ERR_load_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_load_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_strings_procname);
 end;
 
 
-function  ERR_ERR_load_strings_const(_str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_load_strings_const(_str: PERR_STRING_DATA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_strings_const_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ERR_unload_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT; 
+function  ERR_ERR_unload_strings(lib: TIdC_INT; _str: PERR_STRING_DATA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_unload_strings_procname);
 end;
 
 
-function  ERR_ERR_load_ERR_strings: TIdC_INT; 
+function  ERR_ERR_load_ERR_strings: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_ERR_strings_procname);
 end;
 
 
 
-function  ERR_ERR_get_state: PERR_STATE; 
+function  ERR_ERR_get_state: PERR_STATE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_get_state_procname);
 end;
 
 
-function  ERR_ERR_get_next_error_library: TIdC_INT; 
+function  ERR_ERR_get_next_error_library: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_get_next_error_library_procname);
 end;
 
 
-function  ERR_ERR_set_mark: TIdC_INT; 
+function  ERR_ERR_set_mark: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_set_mark_procname);
 end;
 
 
-function  ERR_ERR_pop_to_mark: TIdC_INT; 
+function  ERR_ERR_pop_to_mark: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_pop_to_mark_procname);
 end;
 
 
-function  ERR_ERR_clear_last_mark: TIdC_INT; 
+function  ERR_ERR_clear_last_mark: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_clear_last_mark_procname);
 end;
 
  {introduced 1.1.0}
 
-procedure  ERR_SSLErr(func: TIdC_INT; reason: TIdC_INT); 
+procedure  ERR_SSLErr(func: TIdC_INT; reason: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SSLErr_procname);
 end;
 
- 
-procedure  ERR_X509err(const f,r : TIdC_INT); 
+
+procedure  ERR_X509err(const f,r : TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509err_procname);
 end;
 
- 
-function  ERR_ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT; 
+
+function  ERR_ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_GET_REASON_procname);
 end;
 
- 
 
 {$I TaurusTLSNoRetValOn.inc}
 
@@ -685,13 +688,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_put_error_allownil)}
-    ERR_put_error := @ERR_ERR_put_error;
+    ERR_put_error := ERR_ERR_put_error;
     {$ifend}
     {$if declared(ERR_put_error_introduced)}
     if LibVersion < ERR_put_error_introduced then
     begin
       {$if declared(FC_ERR_put_error)}
-      ERR_put_error := @FC_ERR_put_error;
+      ERR_put_error := FC_ERR_put_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -700,7 +703,7 @@ begin
     if ERR_put_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_put_error)}
-      ERR_put_error := @_ERR_put_error;
+      ERR_put_error := _ERR_put_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -717,13 +720,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_new_allownil)}
-    ERR_new := @ERR_ERR_new;
+    ERR_new := ERR_ERR_new;
     {$ifend}
     {$if declared(ERR_new_introduced)}
     if LibVersion < ERR_new_introduced then
     begin
       {$if declared(FC_ERR_new)}
-      ERR_new := @FC_ERR_new;
+      ERR_new := FC_ERR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -732,7 +735,7 @@ begin
     if ERR_new_removed <= LibVersion then
     begin
       {$if declared(_ERR_new)}
-      ERR_new := @_ERR_new;
+      ERR_new := _ERR_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -749,13 +752,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_set_debug_allownil)}
-    ERR_set_debug := @ERR_ERR_set_debug;
+    ERR_set_debug := ERR_ERR_set_debug;
     {$ifend}
     {$if declared(ERR_set_debug_introduced)}
     if LibVersion < ERR_set_debug_introduced then
     begin
       {$if declared(FC_ERR_set_debug)}
-      ERR_set_debug := @FC_ERR_set_debug;
+      ERR_set_debug := FC_ERR_set_debug;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -764,7 +767,7 @@ begin
     if ERR_set_debug_removed <= LibVersion then
     begin
       {$if declared(_ERR_set_debug)}
-      ERR_set_debug := @_ERR_set_debug;
+      ERR_set_debug := _ERR_set_debug;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -781,13 +784,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_set_error_allownil)}
-    ERR_set_error := @ERR_ERR_set_error;
+    ERR_set_error := ERR_ERR_set_error;
     {$ifend}
     {$if declared(ERR_set_error_introduced)}
     if LibVersion < ERR_set_error_introduced then
     begin
       {$if declared(FC_ERR_set_error)}
-      ERR_set_error := @FC_ERR_set_error;
+      ERR_set_error := FC_ERR_set_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -796,7 +799,7 @@ begin
     if ERR_set_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_set_error)}
-      ERR_set_error := @_ERR_set_error;
+      ERR_set_error := _ERR_set_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -813,13 +816,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_set_error_data_allownil)}
-    ERR_set_error_data := @ERR_ERR_set_error_data;
+    ERR_set_error_data := ERR_ERR_set_error_data;
     {$ifend}
     {$if declared(ERR_set_error_data_introduced)}
     if LibVersion < ERR_set_error_data_introduced then
     begin
       {$if declared(FC_ERR_set_error_data)}
-      ERR_set_error_data := @FC_ERR_set_error_data;
+      ERR_set_error_data := FC_ERR_set_error_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -828,7 +831,7 @@ begin
     if ERR_set_error_data_removed <= LibVersion then
     begin
       {$if declared(_ERR_set_error_data)}
-      ERR_set_error_data := @_ERR_set_error_data;
+      ERR_set_error_data := _ERR_set_error_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -845,13 +848,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_get_error_allownil)}
-    ERR_get_error := @ERR_ERR_get_error;
+    ERR_get_error := ERR_ERR_get_error;
     {$ifend}
     {$if declared(ERR_get_error_introduced)}
     if LibVersion < ERR_get_error_introduced then
     begin
       {$if declared(FC_ERR_get_error)}
-      ERR_get_error := @FC_ERR_get_error;
+      ERR_get_error := FC_ERR_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -860,7 +863,7 @@ begin
     if ERR_get_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_get_error)}
-      ERR_get_error := @_ERR_get_error;
+      ERR_get_error := _ERR_get_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -877,13 +880,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_get_error_line_allownil)}
-    ERR_get_error_line := @ERR_ERR_get_error_line;
+    ERR_get_error_line := ERR_ERR_get_error_line;
     {$ifend}
     {$if declared(ERR_get_error_line_introduced)}
     if LibVersion < ERR_get_error_line_introduced then
     begin
       {$if declared(FC_ERR_get_error_line)}
-      ERR_get_error_line := @FC_ERR_get_error_line;
+      ERR_get_error_line := FC_ERR_get_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -892,7 +895,7 @@ begin
     if ERR_get_error_line_removed <= LibVersion then
     begin
       {$if declared(_ERR_get_error_line)}
-      ERR_get_error_line := @_ERR_get_error_line;
+      ERR_get_error_line := _ERR_get_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -909,13 +912,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_get_error_line_data_allownil)}
-    ERR_get_error_line_data := @ERR_ERR_get_error_line_data;
+    ERR_get_error_line_data := ERR_ERR_get_error_line_data;
     {$ifend}
     {$if declared(ERR_get_error_line_data_introduced)}
     if LibVersion < ERR_get_error_line_data_introduced then
     begin
       {$if declared(FC_ERR_get_error_line_data)}
-      ERR_get_error_line_data := @FC_ERR_get_error_line_data;
+      ERR_get_error_line_data := FC_ERR_get_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -924,7 +927,7 @@ begin
     if ERR_get_error_line_data_removed <= LibVersion then
     begin
       {$if declared(_ERR_get_error_line_data)}
-      ERR_get_error_line_data := @_ERR_get_error_line_data;
+      ERR_get_error_line_data := _ERR_get_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -941,13 +944,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_error_allownil)}
-    ERR_peek_error := @ERR_ERR_peek_error;
+    ERR_peek_error := ERR_ERR_peek_error;
     {$ifend}
     {$if declared(ERR_peek_error_introduced)}
     if LibVersion < ERR_peek_error_introduced then
     begin
       {$if declared(FC_ERR_peek_error)}
-      ERR_peek_error := @FC_ERR_peek_error;
+      ERR_peek_error := FC_ERR_peek_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -956,7 +959,7 @@ begin
     if ERR_peek_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_error)}
-      ERR_peek_error := @_ERR_peek_error;
+      ERR_peek_error := _ERR_peek_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -973,13 +976,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_error_line_allownil)}
-    ERR_peek_error_line := @ERR_ERR_peek_error_line;
+    ERR_peek_error_line := ERR_ERR_peek_error_line;
     {$ifend}
     {$if declared(ERR_peek_error_line_introduced)}
     if LibVersion < ERR_peek_error_line_introduced then
     begin
       {$if declared(FC_ERR_peek_error_line)}
-      ERR_peek_error_line := @FC_ERR_peek_error_line;
+      ERR_peek_error_line := FC_ERR_peek_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -988,7 +991,7 @@ begin
     if ERR_peek_error_line_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_error_line)}
-      ERR_peek_error_line := @_ERR_peek_error_line;
+      ERR_peek_error_line := _ERR_peek_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1005,13 +1008,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_error_line_data_allownil)}
-    ERR_peek_error_line_data := @ERR_ERR_peek_error_line_data;
+    ERR_peek_error_line_data := ERR_ERR_peek_error_line_data;
     {$ifend}
     {$if declared(ERR_peek_error_line_data_introduced)}
     if LibVersion < ERR_peek_error_line_data_introduced then
     begin
       {$if declared(FC_ERR_peek_error_line_data)}
-      ERR_peek_error_line_data := @FC_ERR_peek_error_line_data;
+      ERR_peek_error_line_data := FC_ERR_peek_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1020,7 +1023,7 @@ begin
     if ERR_peek_error_line_data_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_error_line_data)}
-      ERR_peek_error_line_data := @_ERR_peek_error_line_data;
+      ERR_peek_error_line_data := _ERR_peek_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1037,13 +1040,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_last_error_allownil)}
-    ERR_peek_last_error := @ERR_ERR_peek_last_error;
+    ERR_peek_last_error := ERR_ERR_peek_last_error;
     {$ifend}
     {$if declared(ERR_peek_last_error_introduced)}
     if LibVersion < ERR_peek_last_error_introduced then
     begin
       {$if declared(FC_ERR_peek_last_error)}
-      ERR_peek_last_error := @FC_ERR_peek_last_error;
+      ERR_peek_last_error := FC_ERR_peek_last_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1052,7 +1055,7 @@ begin
     if ERR_peek_last_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_last_error)}
-      ERR_peek_last_error := @_ERR_peek_last_error;
+      ERR_peek_last_error := _ERR_peek_last_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1069,13 +1072,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_last_error_line_allownil)}
-    ERR_peek_last_error_line := @ERR_ERR_peek_last_error_line;
+    ERR_peek_last_error_line := ERR_ERR_peek_last_error_line;
     {$ifend}
     {$if declared(ERR_peek_last_error_line_introduced)}
     if LibVersion < ERR_peek_last_error_line_introduced then
     begin
       {$if declared(FC_ERR_peek_last_error_line)}
-      ERR_peek_last_error_line := @FC_ERR_peek_last_error_line;
+      ERR_peek_last_error_line := FC_ERR_peek_last_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1084,7 +1087,7 @@ begin
     if ERR_peek_last_error_line_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_last_error_line)}
-      ERR_peek_last_error_line := @_ERR_peek_last_error_line;
+      ERR_peek_last_error_line := _ERR_peek_last_error_line;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1101,13 +1104,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_peek_last_error_line_data_allownil)}
-    ERR_peek_last_error_line_data := @ERR_ERR_peek_last_error_line_data;
+    ERR_peek_last_error_line_data := ERR_ERR_peek_last_error_line_data;
     {$ifend}
     {$if declared(ERR_peek_last_error_line_data_introduced)}
     if LibVersion < ERR_peek_last_error_line_data_introduced then
     begin
       {$if declared(FC_ERR_peek_last_error_line_data)}
-      ERR_peek_last_error_line_data := @FC_ERR_peek_last_error_line_data;
+      ERR_peek_last_error_line_data := FC_ERR_peek_last_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1116,7 +1119,7 @@ begin
     if ERR_peek_last_error_line_data_removed <= LibVersion then
     begin
       {$if declared(_ERR_peek_last_error_line_data)}
-      ERR_peek_last_error_line_data := @_ERR_peek_last_error_line_data;
+      ERR_peek_last_error_line_data := _ERR_peek_last_error_line_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1133,13 +1136,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_clear_error_allownil)}
-    ERR_clear_error := @ERR_ERR_clear_error;
+    ERR_clear_error := ERR_ERR_clear_error;
     {$ifend}
     {$if declared(ERR_clear_error_introduced)}
     if LibVersion < ERR_clear_error_introduced then
     begin
       {$if declared(FC_ERR_clear_error)}
-      ERR_clear_error := @FC_ERR_clear_error;
+      ERR_clear_error := FC_ERR_clear_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1148,7 +1151,7 @@ begin
     if ERR_clear_error_removed <= LibVersion then
     begin
       {$if declared(_ERR_clear_error)}
-      ERR_clear_error := @_ERR_clear_error;
+      ERR_clear_error := _ERR_clear_error;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1165,13 +1168,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_error_string_allownil)}
-    ERR_error_string := @ERR_ERR_error_string;
+    ERR_error_string := ERR_ERR_error_string;
     {$ifend}
     {$if declared(ERR_error_string_introduced)}
     if LibVersion < ERR_error_string_introduced then
     begin
       {$if declared(FC_ERR_error_string)}
-      ERR_error_string := @FC_ERR_error_string;
+      ERR_error_string := FC_ERR_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1180,7 +1183,7 @@ begin
     if ERR_error_string_removed <= LibVersion then
     begin
       {$if declared(_ERR_error_string)}
-      ERR_error_string := @_ERR_error_string;
+      ERR_error_string := _ERR_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1197,13 +1200,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_error_string_n_allownil)}
-    ERR_error_string_n := @ERR_ERR_error_string_n;
+    ERR_error_string_n := ERR_ERR_error_string_n;
     {$ifend}
     {$if declared(ERR_error_string_n_introduced)}
     if LibVersion < ERR_error_string_n_introduced then
     begin
       {$if declared(FC_ERR_error_string_n)}
-      ERR_error_string_n := @FC_ERR_error_string_n;
+      ERR_error_string_n := FC_ERR_error_string_n;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1212,7 +1215,7 @@ begin
     if ERR_error_string_n_removed <= LibVersion then
     begin
       {$if declared(_ERR_error_string_n)}
-      ERR_error_string_n := @_ERR_error_string_n;
+      ERR_error_string_n := _ERR_error_string_n;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1229,13 +1232,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_lib_error_string_allownil)}
-    ERR_lib_error_string := @ERR_ERR_lib_error_string;
+    ERR_lib_error_string := ERR_ERR_lib_error_string;
     {$ifend}
     {$if declared(ERR_lib_error_string_introduced)}
     if LibVersion < ERR_lib_error_string_introduced then
     begin
       {$if declared(FC_ERR_lib_error_string)}
-      ERR_lib_error_string := @FC_ERR_lib_error_string;
+      ERR_lib_error_string := FC_ERR_lib_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1244,7 +1247,7 @@ begin
     if ERR_lib_error_string_removed <= LibVersion then
     begin
       {$if declared(_ERR_lib_error_string)}
-      ERR_lib_error_string := @_ERR_lib_error_string;
+      ERR_lib_error_string := _ERR_lib_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1261,13 +1264,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_func_error_string_allownil)}
-    ERR_func_error_string := @ERR_ERR_func_error_string;
+    ERR_func_error_string := ERR_ERR_func_error_string;
     {$ifend}
     {$if declared(ERR_func_error_string_introduced)}
     if LibVersion < ERR_func_error_string_introduced then
     begin
       {$if declared(FC_ERR_func_error_string)}
-      ERR_func_error_string := @FC_ERR_func_error_string;
+      ERR_func_error_string := FC_ERR_func_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1276,7 +1279,7 @@ begin
     if ERR_func_error_string_removed <= LibVersion then
     begin
       {$if declared(_ERR_func_error_string)}
-      ERR_func_error_string := @_ERR_func_error_string;
+      ERR_func_error_string := _ERR_func_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1293,13 +1296,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_reason_error_string_allownil)}
-    ERR_reason_error_string := @ERR_ERR_reason_error_string;
+    ERR_reason_error_string := ERR_ERR_reason_error_string;
     {$ifend}
     {$if declared(ERR_reason_error_string_introduced)}
     if LibVersion < ERR_reason_error_string_introduced then
     begin
       {$if declared(FC_ERR_reason_error_string)}
-      ERR_reason_error_string := @FC_ERR_reason_error_string;
+      ERR_reason_error_string := FC_ERR_reason_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1308,7 +1311,7 @@ begin
     if ERR_reason_error_string_removed <= LibVersion then
     begin
       {$if declared(_ERR_reason_error_string)}
-      ERR_reason_error_string := @_ERR_reason_error_string;
+      ERR_reason_error_string := _ERR_reason_error_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1325,13 +1328,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_print_errors_cb_allownil)}
-    ERR_print_errors_cb := @ERR_ERR_print_errors_cb;
+    ERR_print_errors_cb := ERR_ERR_print_errors_cb;
     {$ifend}
     {$if declared(ERR_print_errors_cb_introduced)}
     if LibVersion < ERR_print_errors_cb_introduced then
     begin
       {$if declared(FC_ERR_print_errors_cb)}
-      ERR_print_errors_cb := @FC_ERR_print_errors_cb;
+      ERR_print_errors_cb := FC_ERR_print_errors_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1340,7 +1343,7 @@ begin
     if ERR_print_errors_cb_removed <= LibVersion then
     begin
       {$if declared(_ERR_print_errors_cb)}
-      ERR_print_errors_cb := @_ERR_print_errors_cb;
+      ERR_print_errors_cb := _ERR_print_errors_cb;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1357,13 +1360,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_print_errors_allownil)}
-    ERR_print_errors := @ERR_ERR_print_errors;
+    ERR_print_errors := ERR_ERR_print_errors;
     {$ifend}
     {$if declared(ERR_print_errors_introduced)}
     if LibVersion < ERR_print_errors_introduced then
     begin
       {$if declared(FC_ERR_print_errors)}
-      ERR_print_errors := @FC_ERR_print_errors;
+      ERR_print_errors := FC_ERR_print_errors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1372,7 +1375,7 @@ begin
     if ERR_print_errors_removed <= LibVersion then
     begin
       {$if declared(_ERR_print_errors)}
-      ERR_print_errors := @_ERR_print_errors;
+      ERR_print_errors := _ERR_print_errors;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1389,13 +1392,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_strings_allownil)}
-    ERR_load_strings := @ERR_ERR_load_strings;
+    ERR_load_strings := ERR_ERR_load_strings;
     {$ifend}
     {$if declared(ERR_load_strings_introduced)}
     if LibVersion < ERR_load_strings_introduced then
     begin
       {$if declared(FC_ERR_load_strings)}
-      ERR_load_strings := @FC_ERR_load_strings;
+      ERR_load_strings := FC_ERR_load_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1404,7 +1407,7 @@ begin
     if ERR_load_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_strings)}
-      ERR_load_strings := @_ERR_load_strings;
+      ERR_load_strings := _ERR_load_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1421,13 +1424,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_strings_const_allownil)}
-    ERR_load_strings_const := @ERR_ERR_load_strings_const;
+    ERR_load_strings_const := ERR_ERR_load_strings_const;
     {$ifend}
     {$if declared(ERR_load_strings_const_introduced)}
     if LibVersion < ERR_load_strings_const_introduced then
     begin
       {$if declared(FC_ERR_load_strings_const)}
-      ERR_load_strings_const := @FC_ERR_load_strings_const;
+      ERR_load_strings_const := FC_ERR_load_strings_const;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1436,7 +1439,7 @@ begin
     if ERR_load_strings_const_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_strings_const)}
-      ERR_load_strings_const := @_ERR_load_strings_const;
+      ERR_load_strings_const := _ERR_load_strings_const;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1453,13 +1456,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_unload_strings_allownil)}
-    ERR_unload_strings := @ERR_ERR_unload_strings;
+    ERR_unload_strings := ERR_ERR_unload_strings;
     {$ifend}
     {$if declared(ERR_unload_strings_introduced)}
     if LibVersion < ERR_unload_strings_introduced then
     begin
       {$if declared(FC_ERR_unload_strings)}
-      ERR_unload_strings := @FC_ERR_unload_strings;
+      ERR_unload_strings := FC_ERR_unload_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1468,7 +1471,7 @@ begin
     if ERR_unload_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_unload_strings)}
-      ERR_unload_strings := @_ERR_unload_strings;
+      ERR_unload_strings := _ERR_unload_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1485,13 +1488,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_ERR_strings_allownil)}
-    ERR_load_ERR_strings := @ERR_ERR_load_ERR_strings;
+    ERR_load_ERR_strings := ERR_ERR_load_ERR_strings;
     {$ifend}
     {$if declared(ERR_load_ERR_strings_introduced)}
     if LibVersion < ERR_load_ERR_strings_introduced then
     begin
       {$if declared(FC_ERR_load_ERR_strings)}
-      ERR_load_ERR_strings := @FC_ERR_load_ERR_strings;
+      ERR_load_ERR_strings := FC_ERR_load_ERR_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1500,7 +1503,7 @@ begin
     if ERR_load_ERR_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_ERR_strings)}
-      ERR_load_ERR_strings := @_ERR_load_ERR_strings;
+      ERR_load_ERR_strings := _ERR_load_ERR_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1517,13 +1520,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_get_state_allownil)}
-    ERR_get_state := @ERR_ERR_get_state;
+    ERR_get_state := ERR_ERR_get_state;
     {$ifend}
     {$if declared(ERR_get_state_introduced)}
     if LibVersion < ERR_get_state_introduced then
     begin
       {$if declared(FC_ERR_get_state)}
-      ERR_get_state := @FC_ERR_get_state;
+      ERR_get_state := FC_ERR_get_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1532,7 +1535,7 @@ begin
     if ERR_get_state_removed <= LibVersion then
     begin
       {$if declared(_ERR_get_state)}
-      ERR_get_state := @_ERR_get_state;
+      ERR_get_state := _ERR_get_state;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1549,13 +1552,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_get_next_error_library_allownil)}
-    ERR_get_next_error_library := @ERR_ERR_get_next_error_library;
+    ERR_get_next_error_library := ERR_ERR_get_next_error_library;
     {$ifend}
     {$if declared(ERR_get_next_error_library_introduced)}
     if LibVersion < ERR_get_next_error_library_introduced then
     begin
       {$if declared(FC_ERR_get_next_error_library)}
-      ERR_get_next_error_library := @FC_ERR_get_next_error_library;
+      ERR_get_next_error_library := FC_ERR_get_next_error_library;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1564,7 +1567,7 @@ begin
     if ERR_get_next_error_library_removed <= LibVersion then
     begin
       {$if declared(_ERR_get_next_error_library)}
-      ERR_get_next_error_library := @_ERR_get_next_error_library;
+      ERR_get_next_error_library := _ERR_get_next_error_library;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1581,13 +1584,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_set_mark_allownil)}
-    ERR_set_mark := @ERR_ERR_set_mark;
+    ERR_set_mark := ERR_ERR_set_mark;
     {$ifend}
     {$if declared(ERR_set_mark_introduced)}
     if LibVersion < ERR_set_mark_introduced then
     begin
       {$if declared(FC_ERR_set_mark)}
-      ERR_set_mark := @FC_ERR_set_mark;
+      ERR_set_mark := FC_ERR_set_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1596,7 +1599,7 @@ begin
     if ERR_set_mark_removed <= LibVersion then
     begin
       {$if declared(_ERR_set_mark)}
-      ERR_set_mark := @_ERR_set_mark;
+      ERR_set_mark := _ERR_set_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1613,13 +1616,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_pop_to_mark_allownil)}
-    ERR_pop_to_mark := @ERR_ERR_pop_to_mark;
+    ERR_pop_to_mark := ERR_ERR_pop_to_mark;
     {$ifend}
     {$if declared(ERR_pop_to_mark_introduced)}
     if LibVersion < ERR_pop_to_mark_introduced then
     begin
       {$if declared(FC_ERR_pop_to_mark)}
-      ERR_pop_to_mark := @FC_ERR_pop_to_mark;
+      ERR_pop_to_mark := FC_ERR_pop_to_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1628,7 +1631,7 @@ begin
     if ERR_pop_to_mark_removed <= LibVersion then
     begin
       {$if declared(_ERR_pop_to_mark)}
-      ERR_pop_to_mark := @_ERR_pop_to_mark;
+      ERR_pop_to_mark := _ERR_pop_to_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1645,13 +1648,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_clear_last_mark_allownil)}
-    ERR_clear_last_mark := @ERR_ERR_clear_last_mark;
+    ERR_clear_last_mark := ERR_ERR_clear_last_mark;
     {$ifend}
     {$if declared(ERR_clear_last_mark_introduced)}
     if LibVersion < ERR_clear_last_mark_introduced then
     begin
       {$if declared(FC_ERR_clear_last_mark)}
-      ERR_clear_last_mark := @FC_ERR_clear_last_mark;
+      ERR_clear_last_mark := FC_ERR_clear_last_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1660,7 +1663,7 @@ begin
     if ERR_clear_last_mark_removed <= LibVersion then
     begin
       {$if declared(_ERR_clear_last_mark)}
-      ERR_clear_last_mark := @_ERR_clear_last_mark;
+      ERR_clear_last_mark := _ERR_clear_last_mark;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1677,13 +1680,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SSLErr_allownil)}
-    SSLErr := @ERR_SSLErr;
+    SSLErr := ERR_SSLErr;
     {$ifend}
     {$if declared(SSLErr_introduced)}
     if LibVersion < SSLErr_introduced then
     begin
       {$if declared(FC_SSLErr)}
-      SSLErr := @FC_SSLErr;
+      SSLErr := FC_SSLErr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1692,7 +1695,7 @@ begin
     if SSLErr_removed <= LibVersion then
     begin
       {$if declared(_SSLErr)}
-      SSLErr := @_SSLErr;
+      SSLErr := _SSLErr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1709,13 +1712,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(X509err_allownil)}
-    X509err := @ERR_X509err;
+    X509err := ERR_X509err;
     {$ifend}
     {$if declared(X509err_introduced)}
     if LibVersion < X509err_introduced then
     begin
       {$if declared(FC_X509err)}
-      X509err := @FC_X509err;
+      X509err := FC_X509err;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1724,7 +1727,7 @@ begin
     if X509err_removed <= LibVersion then
     begin
       {$if declared(_X509err)}
-      X509err := @_X509err;
+      X509err := _X509err;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1741,13 +1744,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_GET_REASON_allownil)}
-    ERR_GET_REASON := @ERR_ERR_GET_REASON;
+    ERR_GET_REASON := ERR_ERR_GET_REASON;
     {$ifend}
     {$if declared(ERR_GET_REASON_introduced)}
     if LibVersion < ERR_GET_REASON_introduced then
     begin
       {$if declared(FC_ERR_GET_REASON)}
-      ERR_GET_REASON := @FC_ERR_GET_REASON;
+      ERR_GET_REASON := FC_ERR_GET_REASON;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1756,7 +1759,7 @@ begin
     if ERR_GET_REASON_removed <= LibVersion then
     begin
       {$if declared(_ERR_GET_REASON)}
-      ERR_GET_REASON := @_ERR_GET_REASON;
+      ERR_GET_REASON := _ERR_GET_REASON;
       {$ifend}
       FuncLoadError := false;
     end;

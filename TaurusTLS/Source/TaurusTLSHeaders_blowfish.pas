@@ -124,52 +124,55 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-procedure  ERR_BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte); 
+procedure  ERR_BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_set_key_procname);
 end;
 
 
 
-procedure  ERR_BF_encrypt(data: PBF_LONG; const key: PBF_KEY); 
+procedure  ERR_BF_encrypt(data: PBF_LONG; const key: PBF_KEY); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_decrypt(data: PBF_LONG; const key: PBF_KEY); 
+procedure  ERR_BF_decrypt(data: PBF_LONG; const key: PBF_KEY); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_decrypt_procname);
 end;
 
 
 
-procedure  ERR_BF_ecb_encrypt(const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT); 
+procedure  ERR_BF_ecb_encrypt(const in_: PByte; out_: PByte; key: PBF_KEY; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_ecb_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); 
+procedure  ERR_BF_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG;
+  schedule: PBF_KEY; ivec: PByte; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
+procedure  ERR_BF_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG;
+  schedule: PBF_KEY; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_cfb64_encrypt_procname);
 end;
 
 
-procedure  ERR_BF_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); 
+procedure  ERR_BF_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG;
+  schedule: PBF_KEY; ivec: PByte; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_ofb64_encrypt_procname);
 end;
 
 
 
-function  ERR_BF_options: PIdAnsiChar; 
+function  ERR_BF_options: PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BF_options_procname);
 end;
@@ -188,13 +191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_set_key_allownil)}
-    BF_set_key := @ERR_BF_set_key;
+    BF_set_key := ERR_BF_set_key;
     {$ifend}
     {$if declared(BF_set_key_introduced)}
     if LibVersion < BF_set_key_introduced then
     begin
       {$if declared(FC_BF_set_key)}
-      BF_set_key := @FC_BF_set_key;
+      BF_set_key := FC_BF_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -203,7 +206,7 @@ begin
     if BF_set_key_removed <= LibVersion then
     begin
       {$if declared(_BF_set_key)}
-      BF_set_key := @_BF_set_key;
+      BF_set_key := _BF_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -220,13 +223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_encrypt_allownil)}
-    BF_encrypt := @ERR_BF_encrypt;
+    BF_encrypt := ERR_BF_encrypt;
     {$ifend}
     {$if declared(BF_encrypt_introduced)}
     if LibVersion < BF_encrypt_introduced then
     begin
       {$if declared(FC_BF_encrypt)}
-      BF_encrypt := @FC_BF_encrypt;
+      BF_encrypt := FC_BF_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -235,7 +238,7 @@ begin
     if BF_encrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_encrypt)}
-      BF_encrypt := @_BF_encrypt;
+      BF_encrypt := _BF_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -252,13 +255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_decrypt_allownil)}
-    BF_decrypt := @ERR_BF_decrypt;
+    BF_decrypt := ERR_BF_decrypt;
     {$ifend}
     {$if declared(BF_decrypt_introduced)}
     if LibVersion < BF_decrypt_introduced then
     begin
       {$if declared(FC_BF_decrypt)}
-      BF_decrypt := @FC_BF_decrypt;
+      BF_decrypt := FC_BF_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -267,7 +270,7 @@ begin
     if BF_decrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_decrypt)}
-      BF_decrypt := @_BF_decrypt;
+      BF_decrypt := _BF_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -284,13 +287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_ecb_encrypt_allownil)}
-    BF_ecb_encrypt := @ERR_BF_ecb_encrypt;
+    BF_ecb_encrypt := ERR_BF_ecb_encrypt;
     {$ifend}
     {$if declared(BF_ecb_encrypt_introduced)}
     if LibVersion < BF_ecb_encrypt_introduced then
     begin
       {$if declared(FC_BF_ecb_encrypt)}
-      BF_ecb_encrypt := @FC_BF_ecb_encrypt;
+      BF_ecb_encrypt := FC_BF_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -299,7 +302,7 @@ begin
     if BF_ecb_encrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_ecb_encrypt)}
-      BF_ecb_encrypt := @_BF_ecb_encrypt;
+      BF_ecb_encrypt := _BF_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -316,13 +319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_cbc_encrypt_allownil)}
-    BF_cbc_encrypt := @ERR_BF_cbc_encrypt;
+    BF_cbc_encrypt := ERR_BF_cbc_encrypt;
     {$ifend}
     {$if declared(BF_cbc_encrypt_introduced)}
     if LibVersion < BF_cbc_encrypt_introduced then
     begin
       {$if declared(FC_BF_cbc_encrypt)}
-      BF_cbc_encrypt := @FC_BF_cbc_encrypt;
+      BF_cbc_encrypt := FC_BF_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -331,7 +334,7 @@ begin
     if BF_cbc_encrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_cbc_encrypt)}
-      BF_cbc_encrypt := @_BF_cbc_encrypt;
+      BF_cbc_encrypt := _BF_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -348,13 +351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_cfb64_encrypt_allownil)}
-    BF_cfb64_encrypt := @ERR_BF_cfb64_encrypt;
+    BF_cfb64_encrypt := ERR_BF_cfb64_encrypt;
     {$ifend}
     {$if declared(BF_cfb64_encrypt_introduced)}
     if LibVersion < BF_cfb64_encrypt_introduced then
     begin
       {$if declared(FC_BF_cfb64_encrypt)}
-      BF_cfb64_encrypt := @FC_BF_cfb64_encrypt;
+      BF_cfb64_encrypt := FC_BF_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -363,7 +366,7 @@ begin
     if BF_cfb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_cfb64_encrypt)}
-      BF_cfb64_encrypt := @_BF_cfb64_encrypt;
+      BF_cfb64_encrypt := _BF_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -380,13 +383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_ofb64_encrypt_allownil)}
-    BF_ofb64_encrypt := @ERR_BF_ofb64_encrypt;
+    BF_ofb64_encrypt := ERR_BF_ofb64_encrypt;
     {$ifend}
     {$if declared(BF_ofb64_encrypt_introduced)}
     if LibVersion < BF_ofb64_encrypt_introduced then
     begin
       {$if declared(FC_BF_ofb64_encrypt)}
-      BF_ofb64_encrypt := @FC_BF_ofb64_encrypt;
+      BF_ofb64_encrypt := FC_BF_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -395,7 +398,7 @@ begin
     if BF_ofb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_BF_ofb64_encrypt)}
-      BF_ofb64_encrypt := @_BF_ofb64_encrypt;
+      BF_ofb64_encrypt := _BF_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -412,13 +415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BF_options_allownil)}
-    BF_options := @ERR_BF_options;
+    BF_options := ERR_BF_options;
     {$ifend}
     {$if declared(BF_options_introduced)}
     if LibVersion < BF_options_introduced then
     begin
       {$if declared(FC_BF_options)}
-      BF_options := @FC_BF_options;
+      BF_options := FC_BF_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -427,7 +430,7 @@ begin
     if BF_options_removed <= LibVersion then
     begin
       {$if declared(_BF_options)}
-      BF_options := @_BF_options;
+      BF_options := _BF_options;
       {$ifend}
       FuncLoadError := false;
     end;

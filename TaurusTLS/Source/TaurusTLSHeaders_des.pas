@@ -626,48 +626,48 @@ end;
   {$I TaurusTLSNoRetValOff.inc} 
 
 procedure ERR_DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
-  ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: TIdC_INT);
+  ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ecb2_encrypt_procname);
 end;
 
 procedure ERR_DES_ede2_cbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
-  enc: TIdC_INT);
+  enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede2_cbc_encrypt_procname);
 end;
 
 procedure ERR_DES_ede2_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
-  num: PIdC_INT; enc: TIdC_INT);
+  num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede2_cfb64_encrypt_procname);
 end;
 
 procedure ERR_DES_ede2_ofb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
-  num: PIdC_INT);
+  num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede2_ofb64_encrypt_procname);
 end;
 
 (* Const before type ignored *)
-function ERR_DES_options: PIdAnsiChar;
+function ERR_DES_options: PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_options_procname);
 end;
 
 procedure ERR_DES_ecb3_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ks3: PDES_key_schedule;
-  enc: TIdC_INT);
+  enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ecb3_encrypt_procname);
 end;
 
 (* Const before type ignored *)
 function ERR_DES_cbc_cksum(_input: Pbyte; _output: PDES_cblock; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: Pconst_DES_cblock): DES_LONG;
+  schedule: PDES_key_schedule; ivec: Pconst_DES_cblock): DES_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_cbc_cksum_procname);
 end;
@@ -675,14 +675,14 @@ end;
 { DES_cbc_encrypt does not update the IV!  Use DES_ncbc_encrypt instead. }
 (* Const before type ignored *)
 procedure ERR_DES_cbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT);
+  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_cbc_encrypt_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_ncbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT);
+  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ncbc_encrypt_procname);
 end;
@@ -690,7 +690,7 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_xcbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
   schedule: PDES_key_schedule; ivec: PDES_cblock; inw: Pconst_DES_cblock;
-  outw: Pconst_DES_cblock; enc: TIdC_INT);
+  outw: Pconst_DES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_xcbc_encrypt_procname);
 end;
@@ -698,13 +698,13 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_cfb_encrypt(in_: Pbyte; out_: Pbyte; numbits: TIdC_INT;
   _length: TIdC_LONG; schedule: PDES_key_schedule; ivec: PDES_cblock;
-  enc: TIdC_INT);
+  enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_cfb_encrypt_procname);
 end;
 
 procedure ERR_DES_ecb_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
-  ks: PDES_key_schedule; enc: TIdC_INT);
+  ks: PDES_key_schedule; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ecb_encrypt_procname);
 end;
@@ -720,7 +720,7 @@ end;
   * encryption, zero if decryption.
 }
 procedure ERR_DES_encrypt1(data: PDES_LONG; ks: PDES_key_schedule;
-  enc: TIdC_INT);
+  enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_encrypt1_procname);
 end;
@@ -734,19 +734,19 @@ end;
   * DES_encrypt1() DES_encrypt1() except faster :-).
 }
 procedure ERR_DES_encrypt2(data: PDES_LONG; ks: PDES_key_schedule;
-  enc: TIdC_INT);
+  enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_encrypt2_procname);
 end;
 
 procedure ERR_DES_encrypt3(data: PDES_LONG; ks1: PDES_key_schedule;
-  ks2: PDES_key_schedule; ks3: PDES_key_schedule);
+  ks2: PDES_key_schedule; ks3: PDES_key_schedule); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_encrypt3_procname);
 end;
 
 procedure ERR_DES_decrypt3(data: PDES_LONG; ks1: PDES_key_schedule;
-  ks2: PDES_key_schedule; ks3: PDES_key_schedule);
+  ks2: PDES_key_schedule; ks3: PDES_key_schedule); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_decrypt3_procname);
 end;
@@ -754,7 +754,7 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_ede3_cbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ks3: PDES_key_schedule;
-  ivec: PDES_cblock; enc: TIdC_INT);
+  ivec: PDES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede3_cbc_encrypt_procname);
 end;
@@ -762,7 +762,7 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_ede3_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ks3: PDES_key_schedule;
-  ivec: PDES_cblock; num: PIdC_INT; enc: TIdC_INT);
+  ivec: PDES_cblock; num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede3_cfb64_encrypt_procname);
 end;
@@ -770,7 +770,7 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_ede3_cfb_encrypt(in_: Pbyte; out_: Pbyte; numbits: TIdC_INT;
   _length: TIdC_LONG; ks1: PDES_key_schedule; ks2: PDES_key_schedule;
-  ks3: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT);
+  ks3: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede3_cfb_encrypt_procname);
 end;
@@ -778,7 +778,7 @@ end;
 (* Const before type ignored *)
 procedure ERR_DES_ede3_ofb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ks3: PDES_key_schedule;
-  ivec: PDES_cblock; num: PIdC_INT);
+  ivec: PDES_cblock; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ede3_ofb64_encrypt_procname);
 end;
@@ -786,55 +786,55 @@ end;
 (* Const before type ignored *)
 (* Const before type ignored *)
 function ERR_DES_fcrypt(buf: PIdAnsiChar; salt: PIdAnsiChar; ret: PIdAnsiChar)
-  : PIdAnsiChar;
+  : PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_fcrypt_procname);
 end;
 
 (* Const before type ignored *)
 (* Const before type ignored *)
-function ERR_DES_crypt(buf: PIdAnsiChar; salt: PIdAnsiChar): PIdAnsiChar;
+function ERR_DES_crypt(buf: PIdAnsiChar; salt: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_crypt_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_ofb_encrypt(in_: Pbyte; out_: Pbyte; numbits: TIdC_INT;
-  _length: TIdC_LONG; schedule: PDES_key_schedule; ivec: PDES_cblock);
+  _length: TIdC_LONG; schedule: PDES_key_schedule; ivec: PDES_cblock); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ofb_encrypt_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_pcbc_encrypt(_input: Pbyte; _output: Pbyte; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT);
+  schedule: PDES_key_schedule; ivec: PDES_cblock; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_pcbc_encrypt_procname);
 end;
 
 (* Const before type ignored *)
 function ERR_DES_quad_cksum(_input: Pbyte; _output: PDES_cblock; _length: TIdC_LONG;
-  out_count: TIdC_INT; seed: PDES_cblock): DES_LONG;
+  out_count: TIdC_INT; seed: PDES_cblock): DES_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_quad_cksum_procname);
 end;
 
-function ERR_DES_random_key(ret: PDES_cblock): TIdC_INT;
+function ERR_DES_random_key(ret: PDES_cblock): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_random_key_procname);
 end;
 
-procedure ERR_DES_set_odd_parity(key: PDES_cblock);
+procedure ERR_DES_set_odd_parity(key: PDES_cblock); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_set_odd_parity_procname);
 end;
 
-function ERR_DES_check_key_parity(key: Pconst_DES_cblock): TIdC_INT;
+function ERR_DES_check_key_parity(key: Pconst_DES_cblock): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_check_key_parity_procname);
 end;
 
-function ERR_DES_is_weak_key(key: Pconst_DES_cblock): TIdC_INT;
+function ERR_DES_is_weak_key(key: Pconst_DES_cblock): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_is_weak_key_procname);
 end;
@@ -845,62 +845,62 @@ end;
   * DES_set_key_unchecked otherwise.
 }
 function ERR_DES_set_key(key: Pconst_DES_cblock; var schedule: DES_key_schedule)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_set_key_procname);
 end;
 
 function ERR_DES_key_sched(key: Pconst_DES_cblock; schedule: PDES_key_schedule)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_key_sched_procname);
 end;
 
 function ERR_DES_set_key_checked(key: Pconst_DES_cblock;
-  schedule: PDES_key_schedule): TIdC_INT;
+  schedule: PDES_key_schedule): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_set_key_checked_procname);
 end;
 
 procedure ERR_DES_set_key_unchecked(key: Pconst_DES_cblock;
-  schedule: PDES_key_schedule);
+  schedule: PDES_key_schedule); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_set_key_unchecked_procname);
 end;
 
 (* Const before type ignored *)
-procedure ERR_DES_string_to_key(_str: PIdAnsiChar; key: PDES_cblock);
+procedure ERR_DES_string_to_key(_str: PIdAnsiChar; key: PDES_cblock); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_string_to_key_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_string_to_2keys(_str: PIdAnsiChar; key1: PDES_cblock;
-  key2: PDES_cblock);
+  key2: PDES_cblock); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_string_to_2keys_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: PDES_cblock; num: PIdC_INT; enc: TIdC_INT);
+  schedule: PDES_key_schedule; ivec: PDES_cblock; num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_cfb64_encrypt_procname);
 end;
 
 (* Const before type ignored *)
 procedure ERR_DES_ofb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
-  schedule: PDES_key_schedule; ivec: PDES_cblock; num: PIdC_INT);
+  schedule: PDES_key_schedule; ivec: PDES_cblock; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_ofb64_encrypt_procname);
 end;
 
-procedure ERR_DES_fixup_key_parity(key: PDES_cblock);
+procedure ERR_DES_fixup_key_parity(key: PDES_cblock); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DES_fixup_key_parity_procname);
 end;
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT;
   const AFailed: TStringList);
@@ -914,13 +914,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ecb2_encrypt_allownil)}
-    DES_ecb2_encrypt := @ERR_DES_ecb2_encrypt;
+    DES_ecb2_encrypt := ERR_DES_ecb2_encrypt;
 {$IFEND}
 {$IF declared(DES_ecb2_encrypt_introduced)}
     if LibVersion < DES_ecb2_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ecb2_encrypt)}
-      DES_ecb2_encrypt := @FC_DES_ecb2_encrypt;
+      DES_ecb2_encrypt := FC_DES_ecb2_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -929,7 +929,7 @@ begin
     if DES_ecb2_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ecb2_encrypt)}
-      DES_ecb2_encrypt := @_DES_ecb2_encrypt;
+      DES_ecb2_encrypt := _DES_ecb2_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -946,13 +946,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede2_cbc_encrypt_allownil)}
-    DES_ede2_cbc_encrypt := @ERR_DES_ede2_cbc_encrypt;
+    DES_ede2_cbc_encrypt := ERR_DES_ede2_cbc_encrypt;
 {$IFEND}
 {$IF declared(DES_ede2_cbc_encrypt_introduced)}
     if LibVersion < DES_ede2_cbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede2_cbc_encrypt)}
-      DES_ede2_cbc_encrypt := @FC_DES_ede2_cbc_encrypt;
+      DES_ede2_cbc_encrypt := FC_DES_ede2_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -961,7 +961,7 @@ begin
     if DES_ede2_cbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede2_cbc_encrypt)}
-      DES_ede2_cbc_encrypt := @_DES_ede2_cbc_encrypt;
+      DES_ede2_cbc_encrypt := _DES_ede2_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -978,13 +978,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede2_cfb64_encrypt_allownil)}
-    DES_ede2_cfb64_encrypt := @ERR_DES_ede2_cfb64_encrypt;
+    DES_ede2_cfb64_encrypt := ERR_DES_ede2_cfb64_encrypt;
 {$IFEND}
 {$IF declared(DES_ede2_cfb64_encrypt_introduced)}
     if LibVersion < DES_ede2_cfb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede2_cfb64_encrypt)}
-      DES_ede2_cfb64_encrypt := @FC_DES_ede2_cfb64_encrypt;
+      DES_ede2_cfb64_encrypt := FC_DES_ede2_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -993,7 +993,7 @@ begin
     if DES_ede2_cfb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede2_cfb64_encrypt)}
-      DES_ede2_cfb64_encrypt := @_DES_ede2_cfb64_encrypt;
+      DES_ede2_cfb64_encrypt := _DES_ede2_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1010,13 +1010,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede2_ofb64_encrypt_allownil)}
-    DES_ede2_ofb64_encrypt := @ERR_DES_ede2_ofb64_encrypt;
+    DES_ede2_ofb64_encrypt := ERR_DES_ede2_ofb64_encrypt;
 {$IFEND}
 {$IF declared(DES_ede2_ofb64_encrypt_introduced)}
     if LibVersion < DES_ede2_ofb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede2_ofb64_encrypt)}
-      DES_ede2_ofb64_encrypt := @FC_DES_ede2_ofb64_encrypt;
+      DES_ede2_ofb64_encrypt := FC_DES_ede2_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1025,7 +1025,7 @@ begin
     if DES_ede2_ofb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede2_ofb64_encrypt)}
-      DES_ede2_ofb64_encrypt := @_DES_ede2_ofb64_encrypt;
+      DES_ede2_ofb64_encrypt := _DES_ede2_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1041,13 +1041,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_options_allownil)}
-    DES_options := @ERR_DES_options;
+    DES_options := ERR_DES_options;
 {$IFEND}
 {$IF declared(DES_options_introduced)}
     if LibVersion < DES_options_introduced then
     begin
 {$IF declared(FC_DES_options)}
-      DES_options := @FC_DES_options;
+      DES_options := FC_DES_options;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1056,7 +1056,7 @@ begin
     if DES_options_removed <= LibVersion then
     begin
 {$IF declared(_DES_options)}
-      DES_options := @_DES_options;
+      DES_options := _DES_options;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1072,13 +1072,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ecb3_encrypt_allownil)}
-    DES_ecb3_encrypt := @ERR_DES_ecb3_encrypt;
+    DES_ecb3_encrypt := ERR_DES_ecb3_encrypt;
 {$IFEND}
 {$IF declared(DES_ecb3_encrypt_introduced)}
     if LibVersion < DES_ecb3_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ecb3_encrypt)}
-      DES_ecb3_encrypt := @FC_DES_ecb3_encrypt;
+      DES_ecb3_encrypt := FC_DES_ecb3_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1087,7 +1087,7 @@ begin
     if DES_ecb3_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ecb3_encrypt)}
-      DES_ecb3_encrypt := @_DES_ecb3_encrypt;
+      DES_ecb3_encrypt := _DES_ecb3_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1103,13 +1103,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_cbc_cksum_allownil)}
-    DES_cbc_cksum := @ERR_DES_cbc_cksum;
+    DES_cbc_cksum := ERR_DES_cbc_cksum;
 {$IFEND}
 {$IF declared(DES_cbc_cksum_introduced)}
     if LibVersion < DES_cbc_cksum_introduced then
     begin
 {$IF declared(FC_DES_cbc_cksum)}
-      DES_cbc_cksum := @FC_DES_cbc_cksum;
+      DES_cbc_cksum := FC_DES_cbc_cksum;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1118,7 +1118,7 @@ begin
     if DES_cbc_cksum_removed <= LibVersion then
     begin
 {$IF declared(_DES_cbc_cksum)}
-      DES_cbc_cksum := @_DES_cbc_cksum;
+      DES_cbc_cksum := _DES_cbc_cksum;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1134,13 +1134,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_cbc_encrypt_allownil)}
-    DES_cbc_encrypt := @ERR_DES_cbc_encrypt;
+    DES_cbc_encrypt := ERR_DES_cbc_encrypt;
 {$IFEND}
 {$IF declared(DES_cbc_encrypt_introduced)}
     if LibVersion < DES_cbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_cbc_encrypt)}
-      DES_cbc_encrypt := @FC_DES_cbc_encrypt;
+      DES_cbc_encrypt := FC_DES_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1149,7 +1149,7 @@ begin
     if DES_cbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_cbc_encrypt)}
-      DES_cbc_encrypt := @_DES_cbc_encrypt;
+      DES_cbc_encrypt := _DES_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1165,13 +1165,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ncbc_encrypt_allownil)}
-    DES_ncbc_encrypt := @ERR_DES_ncbc_encrypt;
+    DES_ncbc_encrypt := ERR_DES_ncbc_encrypt;
 {$IFEND}
 {$IF declared(DES_ncbc_encrypt_introduced)}
     if LibVersion < DES_ncbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ncbc_encrypt)}
-      DES_ncbc_encrypt := @FC_DES_ncbc_encrypt;
+      DES_ncbc_encrypt := FC_DES_ncbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1180,7 +1180,7 @@ begin
     if DES_ncbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ncbc_encrypt)}
-      DES_ncbc_encrypt := @_DES_ncbc_encrypt;
+      DES_ncbc_encrypt := _DES_ncbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1196,13 +1196,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_xcbc_encrypt_allownil)}
-    DES_xcbc_encrypt := @ERR_DES_xcbc_encrypt;
+    DES_xcbc_encrypt := ERR_DES_xcbc_encrypt;
 {$IFEND}
 {$IF declared(DES_xcbc_encrypt_introduced)}
     if LibVersion < DES_xcbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_xcbc_encrypt)}
-      DES_xcbc_encrypt := @FC_DES_xcbc_encrypt;
+      DES_xcbc_encrypt := FC_DES_xcbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1211,7 +1211,7 @@ begin
     if DES_xcbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_xcbc_encrypt)}
-      DES_xcbc_encrypt := @_DES_xcbc_encrypt;
+      DES_xcbc_encrypt := _DES_xcbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1227,13 +1227,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_cfb_encrypt_allownil)}
-    DES_cfb_encrypt := @ERR_DES_cfb_encrypt;
+    DES_cfb_encrypt := ERR_DES_cfb_encrypt;
 {$IFEND}
 {$IF declared(DES_cfb_encrypt_introduced)}
     if LibVersion < DES_cfb_encrypt_introduced then
     begin
 {$IF declared(FC_DES_cfb_encrypt)}
-      DES_cfb_encrypt := @FC_DES_cfb_encrypt;
+      DES_cfb_encrypt := FC_DES_cfb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1242,7 +1242,7 @@ begin
     if DES_cfb_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_cfb_encrypt)}
-      DES_cfb_encrypt := @_DES_cfb_encrypt;
+      DES_cfb_encrypt := _DES_cfb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1258,13 +1258,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ecb_encrypt_allownil)}
-    DES_ecb_encrypt := @ERR_DES_ecb_encrypt;
+    DES_ecb_encrypt := ERR_DES_ecb_encrypt;
 {$IFEND}
 {$IF declared(DES_ecb_encrypt_introduced)}
     if LibVersion < DES_ecb_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ecb_encrypt)}
-      DES_ecb_encrypt := @FC_DES_ecb_encrypt;
+      DES_ecb_encrypt := FC_DES_ecb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1273,7 +1273,7 @@ begin
     if DES_ecb_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ecb_encrypt)}
-      DES_ecb_encrypt := @_DES_ecb_encrypt;
+      DES_ecb_encrypt := _DES_ecb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1289,13 +1289,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_encrypt1_allownil)}
-    DES_encrypt1 := @ERR_DES_encrypt1;
+    DES_encrypt1 := ERR_DES_encrypt1;
 {$IFEND}
 {$IF declared(DES_encrypt1_introduced)}
     if LibVersion < DES_encrypt1_introduced then
     begin
 {$IF declared(FC_DES_encrypt1)}
-      DES_encrypt1 := @FC_DES_encrypt1;
+      DES_encrypt1 := FC_DES_encrypt1;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1304,7 +1304,7 @@ begin
     if DES_encrypt1_removed <= LibVersion then
     begin
 {$IF declared(_DES_encrypt1)}
-      DES_encrypt1 := @_DES_encrypt1;
+      DES_encrypt1 := _DES_encrypt1;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1320,13 +1320,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_encrypt2_allownil)}
-    DES_encrypt2 := @ERR_DES_encrypt2;
+    DES_encrypt2 := ERR_DES_encrypt2;
 {$IFEND}
 {$IF declared(DES_encrypt2_introduced)}
     if LibVersion < DES_encrypt2_introduced then
     begin
 {$IF declared(FC_DES_encrypt2)}
-      DES_encrypt2 := @FC_DES_encrypt2;
+      DES_encrypt2 := FC_DES_encrypt2;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1335,7 +1335,7 @@ begin
     if DES_encrypt2_removed <= LibVersion then
     begin
 {$IF declared(_DES_encrypt2)}
-      DES_encrypt2 := @_DES_encrypt2;
+      DES_encrypt2 := _DES_encrypt2;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1351,13 +1351,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_encrypt3_allownil)}
-    DES_encrypt3 := @ERR_DES_encrypt3;
+    DES_encrypt3 := ERR_DES_encrypt3;
 {$IFEND}
 {$IF declared(DES_encrypt3_introduced)}
     if LibVersion < DES_encrypt3_introduced then
     begin
 {$IF declared(FC_DES_encrypt3)}
-      DES_encrypt3 := @FC_DES_encrypt3;
+      DES_encrypt3 := FC_DES_encrypt3;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1366,7 +1366,7 @@ begin
     if DES_encrypt3_removed <= LibVersion then
     begin
 {$IF declared(_DES_encrypt3)}
-      DES_encrypt3 := @_DES_encrypt3;
+      DES_encrypt3 := _DES_encrypt3;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1382,13 +1382,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_decrypt3_allownil)}
-    DES_decrypt3 := @ERR_DES_decrypt3;
+    DES_decrypt3 := ERR_DES_decrypt3;
 {$IFEND}
 {$IF declared(DES_decrypt3_introduced)}
     if LibVersion < DES_decrypt3_introduced then
     begin
 {$IF declared(FC_DES_decrypt3)}
-      DES_decrypt3 := @FC_DES_decrypt3;
+      DES_decrypt3 := FC_DES_decrypt3;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1397,7 +1397,7 @@ begin
     if DES_decrypt3_removed <= LibVersion then
     begin
 {$IF declared(_DES_decrypt3)}
-      DES_decrypt3 := @_DES_decrypt3;
+      DES_decrypt3 := _DES_decrypt3;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1414,13 +1414,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede3_cbc_encrypt_allownil)}
-    DES_ede3_cbc_encrypt := @ERR_DES_ede3_cbc_encrypt;
+    DES_ede3_cbc_encrypt := ERR_DES_ede3_cbc_encrypt;
 {$IFEND}
 {$IF declared(DES_ede3_cbc_encrypt_introduced)}
     if LibVersion < DES_ede3_cbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede3_cbc_encrypt)}
-      DES_ede3_cbc_encrypt := @FC_DES_ede3_cbc_encrypt;
+      DES_ede3_cbc_encrypt := FC_DES_ede3_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1429,7 +1429,7 @@ begin
     if DES_ede3_cbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede3_cbc_encrypt)}
-      DES_ede3_cbc_encrypt := @_DES_ede3_cbc_encrypt;
+      DES_ede3_cbc_encrypt := _DES_ede3_cbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1446,13 +1446,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede3_cfb64_encrypt_allownil)}
-    DES_ede3_cfb64_encrypt := @ERR_DES_ede3_cfb64_encrypt;
+    DES_ede3_cfb64_encrypt := ERR_DES_ede3_cfb64_encrypt;
 {$IFEND}
 {$IF declared(DES_ede3_cfb64_encrypt_introduced)}
     if LibVersion < DES_ede3_cfb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede3_cfb64_encrypt)}
-      DES_ede3_cfb64_encrypt := @FC_DES_ede3_cfb64_encrypt;
+      DES_ede3_cfb64_encrypt := FC_DES_ede3_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1461,7 +1461,7 @@ begin
     if DES_ede3_cfb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede3_cfb64_encrypt)}
-      DES_ede3_cfb64_encrypt := @_DES_ede3_cfb64_encrypt;
+      DES_ede3_cfb64_encrypt := _DES_ede3_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1478,13 +1478,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede3_cfb_encrypt_allownil)}
-    DES_ede3_cfb_encrypt := @ERR_DES_ede3_cfb_encrypt;
+    DES_ede3_cfb_encrypt := ERR_DES_ede3_cfb_encrypt;
 {$IFEND}
 {$IF declared(DES_ede3_cfb_encrypt_introduced)}
     if LibVersion < DES_ede3_cfb_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede3_cfb_encrypt)}
-      DES_ede3_cfb_encrypt := @FC_DES_ede3_cfb_encrypt;
+      DES_ede3_cfb_encrypt := FC_DES_ede3_cfb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1493,7 +1493,7 @@ begin
     if DES_ede3_cfb_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede3_cfb_encrypt)}
-      DES_ede3_cfb_encrypt := @_DES_ede3_cfb_encrypt;
+      DES_ede3_cfb_encrypt := _DES_ede3_cfb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1510,13 +1510,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ede3_ofb64_encrypt_allownil)}
-    DES_ede3_ofb64_encrypt := @ERR_DES_ede3_ofb64_encrypt;
+    DES_ede3_ofb64_encrypt := ERR_DES_ede3_ofb64_encrypt;
 {$IFEND}
 {$IF declared(DES_ede3_ofb64_encrypt_introduced)}
     if LibVersion < DES_ede3_ofb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ede3_ofb64_encrypt)}
-      DES_ede3_ofb64_encrypt := @FC_DES_ede3_ofb64_encrypt;
+      DES_ede3_ofb64_encrypt := FC_DES_ede3_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1525,7 +1525,7 @@ begin
     if DES_ede3_ofb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ede3_ofb64_encrypt)}
-      DES_ede3_ofb64_encrypt := @_DES_ede3_ofb64_encrypt;
+      DES_ede3_ofb64_encrypt := _DES_ede3_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1541,13 +1541,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_fcrypt_allownil)}
-    DES_fcrypt := @ERR_DES_fcrypt;
+    DES_fcrypt := ERR_DES_fcrypt;
 {$IFEND}
 {$IF declared(DES_fcrypt_introduced)}
     if LibVersion < DES_fcrypt_introduced then
     begin
 {$IF declared(FC_DES_fcrypt)}
-      DES_fcrypt := @FC_DES_fcrypt;
+      DES_fcrypt := FC_DES_fcrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1556,7 +1556,7 @@ begin
     if DES_fcrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_fcrypt)}
-      DES_fcrypt := @_DES_fcrypt;
+      DES_fcrypt := _DES_fcrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1572,13 +1572,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_crypt_allownil)}
-    DES_crypt := @ERR_DES_crypt;
+    DES_crypt := ERR_DES_crypt;
 {$IFEND}
 {$IF declared(DES_crypt_introduced)}
     if LibVersion < DES_crypt_introduced then
     begin
 {$IF declared(FC_DES_crypt)}
-      DES_crypt := @FC_DES_crypt;
+      DES_crypt := FC_DES_crypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1587,7 +1587,7 @@ begin
     if DES_crypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_crypt)}
-      DES_crypt := @_DES_crypt;
+      DES_crypt := _DES_crypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1603,13 +1603,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ofb_encrypt_allownil)}
-    DES_ofb_encrypt := @ERR_DES_ofb_encrypt;
+    DES_ofb_encrypt := ERR_DES_ofb_encrypt;
 {$IFEND}
 {$IF declared(DES_ofb_encrypt_introduced)}
     if LibVersion < DES_ofb_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ofb_encrypt)}
-      DES_ofb_encrypt := @FC_DES_ofb_encrypt;
+      DES_ofb_encrypt := FC_DES_ofb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1618,7 +1618,7 @@ begin
     if DES_ofb_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ofb_encrypt)}
-      DES_ofb_encrypt := @_DES_ofb_encrypt;
+      DES_ofb_encrypt := _DES_ofb_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1634,13 +1634,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_pcbc_encrypt_allownil)}
-    DES_pcbc_encrypt := @ERR_DES_pcbc_encrypt;
+    DES_pcbc_encrypt := ERR_DES_pcbc_encrypt;
 {$IFEND}
 {$IF declared(DES_pcbc_encrypt_introduced)}
     if LibVersion < DES_pcbc_encrypt_introduced then
     begin
 {$IF declared(FC_DES_pcbc_encrypt)}
-      DES_pcbc_encrypt := @FC_DES_pcbc_encrypt;
+      DES_pcbc_encrypt := FC_DES_pcbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1649,7 +1649,7 @@ begin
     if DES_pcbc_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_pcbc_encrypt)}
-      DES_pcbc_encrypt := @_DES_pcbc_encrypt;
+      DES_pcbc_encrypt := _DES_pcbc_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1665,13 +1665,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_quad_cksum_allownil)}
-    DES_quad_cksum := @ERR_DES_quad_cksum;
+    DES_quad_cksum := ERR_DES_quad_cksum;
 {$IFEND}
 {$IF declared(DES_quad_cksum_introduced)}
     if LibVersion < DES_quad_cksum_introduced then
     begin
 {$IF declared(FC_DES_quad_cksum)}
-      DES_quad_cksum := @FC_DES_quad_cksum;
+      DES_quad_cksum := FC_DES_quad_cksum;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1680,7 +1680,7 @@ begin
     if DES_quad_cksum_removed <= LibVersion then
     begin
 {$IF declared(_DES_quad_cksum)}
-      DES_quad_cksum := @_DES_quad_cksum;
+      DES_quad_cksum := _DES_quad_cksum;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1696,13 +1696,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_random_key_allownil)}
-    DES_random_key := @ERR_DES_random_key;
+    DES_random_key := ERR_DES_random_key;
 {$IFEND}
 {$IF declared(DES_random_key_introduced)}
     if LibVersion < DES_random_key_introduced then
     begin
 {$IF declared(FC_DES_random_key)}
-      DES_random_key := @FC_DES_random_key;
+      DES_random_key := FC_DES_random_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1711,7 +1711,7 @@ begin
     if DES_random_key_removed <= LibVersion then
     begin
 {$IF declared(_DES_random_key)}
-      DES_random_key := @_DES_random_key;
+      DES_random_key := _DES_random_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1728,13 +1728,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_set_odd_parity_allownil)}
-    DES_set_odd_parity := @ERR_DES_set_odd_parity;
+    DES_set_odd_parity := ERR_DES_set_odd_parity;
 {$IFEND}
 {$IF declared(DES_set_odd_parity_introduced)}
     if LibVersion < DES_set_odd_parity_introduced then
     begin
 {$IF declared(FC_DES_set_odd_parity)}
-      DES_set_odd_parity := @FC_DES_set_odd_parity;
+      DES_set_odd_parity := FC_DES_set_odd_parity;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1743,7 +1743,7 @@ begin
     if DES_set_odd_parity_removed <= LibVersion then
     begin
 {$IF declared(_DES_set_odd_parity)}
-      DES_set_odd_parity := @_DES_set_odd_parity;
+      DES_set_odd_parity := _DES_set_odd_parity;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1760,13 +1760,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_check_key_parity_allownil)}
-    DES_check_key_parity := @ERR_DES_check_key_parity;
+    DES_check_key_parity := ERR_DES_check_key_parity;
 {$IFEND}
 {$IF declared(DES_check_key_parity_introduced)}
     if LibVersion < DES_check_key_parity_introduced then
     begin
 {$IF declared(FC_DES_check_key_parity)}
-      DES_check_key_parity := @FC_DES_check_key_parity;
+      DES_check_key_parity := FC_DES_check_key_parity;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1775,7 +1775,7 @@ begin
     if DES_check_key_parity_removed <= LibVersion then
     begin
 {$IF declared(_DES_check_key_parity)}
-      DES_check_key_parity := @_DES_check_key_parity;
+      DES_check_key_parity := _DES_check_key_parity;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1791,13 +1791,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_is_weak_key_allownil)}
-    DES_is_weak_key := @ERR_DES_is_weak_key;
+    DES_is_weak_key := ERR_DES_is_weak_key;
 {$IFEND}
 {$IF declared(DES_is_weak_key_introduced)}
     if LibVersion < DES_is_weak_key_introduced then
     begin
 {$IF declared(FC_DES_is_weak_key)}
-      DES_is_weak_key := @FC_DES_is_weak_key;
+      DES_is_weak_key := FC_DES_is_weak_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1806,7 +1806,7 @@ begin
     if DES_is_weak_key_removed <= LibVersion then
     begin
 {$IF declared(_DES_is_weak_key)}
-      DES_is_weak_key := @_DES_is_weak_key;
+      DES_is_weak_key := _DES_is_weak_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1822,13 +1822,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_set_key_allownil)}
-    DES_set_key := @ERR_DES_set_key;
+    DES_set_key := ERR_DES_set_key;
 {$IFEND}
 {$IF declared(DES_set_key_introduced)}
     if LibVersion < DES_set_key_introduced then
     begin
 {$IF declared(FC_DES_set_key)}
-      DES_set_key := @FC_DES_set_key;
+      DES_set_key := FC_DES_set_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1837,7 +1837,7 @@ begin
     if DES_set_key_removed <= LibVersion then
     begin
 {$IF declared(_DES_set_key)}
-      DES_set_key := @_DES_set_key;
+      DES_set_key := _DES_set_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1853,13 +1853,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_key_sched_allownil)}
-    DES_key_sched := @ERR_DES_key_sched;
+    DES_key_sched := ERR_DES_key_sched;
 {$IFEND}
 {$IF declared(DES_key_sched_introduced)}
     if LibVersion < DES_key_sched_introduced then
     begin
 {$IF declared(FC_DES_key_sched)}
-      DES_key_sched := @FC_DES_key_sched;
+      DES_key_sched := FC_DES_key_sched;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1868,7 +1868,7 @@ begin
     if DES_key_sched_removed <= LibVersion then
     begin
 {$IF declared(_DES_key_sched)}
-      DES_key_sched := @_DES_key_sched;
+      DES_key_sched := _DES_key_sched;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1885,13 +1885,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_set_key_checked_allownil)}
-    DES_set_key_checked := @ERR_DES_set_key_checked;
+    DES_set_key_checked := ERR_DES_set_key_checked;
 {$IFEND}
 {$IF declared(DES_set_key_checked_introduced)}
     if LibVersion < DES_set_key_checked_introduced then
     begin
 {$IF declared(FC_DES_set_key_checked)}
-      DES_set_key_checked := @FC_DES_set_key_checked;
+      DES_set_key_checked := FC_DES_set_key_checked;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1900,7 +1900,7 @@ begin
     if DES_set_key_checked_removed <= LibVersion then
     begin
 {$IF declared(_DES_set_key_checked)}
-      DES_set_key_checked := @_DES_set_key_checked;
+      DES_set_key_checked := _DES_set_key_checked;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1917,13 +1917,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_set_key_unchecked_allownil)}
-    DES_set_key_unchecked := @ERR_DES_set_key_unchecked;
+    DES_set_key_unchecked := ERR_DES_set_key_unchecked;
 {$IFEND}
 {$IF declared(DES_set_key_unchecked_introduced)}
     if LibVersion < DES_set_key_unchecked_introduced then
     begin
 {$IF declared(FC_DES_set_key_unchecked)}
-      DES_set_key_unchecked := @FC_DES_set_key_unchecked;
+      DES_set_key_unchecked := FC_DES_set_key_unchecked;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1932,7 +1932,7 @@ begin
     if DES_set_key_unchecked_removed <= LibVersion then
     begin
 {$IF declared(_DES_set_key_unchecked)}
-      DES_set_key_unchecked := @_DES_set_key_unchecked;
+      DES_set_key_unchecked := _DES_set_key_unchecked;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1948,13 +1948,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_string_to_key_allownil)}
-    DES_string_to_key := @ERR_DES_string_to_key;
+    DES_string_to_key := ERR_DES_string_to_key;
 {$IFEND}
 {$IF declared(DES_string_to_key_introduced)}
     if LibVersion < DES_string_to_key_introduced then
     begin
 {$IF declared(FC_DES_string_to_key)}
-      DES_string_to_key := @FC_DES_string_to_key;
+      DES_string_to_key := FC_DES_string_to_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1963,7 +1963,7 @@ begin
     if DES_string_to_key_removed <= LibVersion then
     begin
 {$IF declared(_DES_string_to_key)}
-      DES_string_to_key := @_DES_string_to_key;
+      DES_string_to_key := _DES_string_to_key;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1980,13 +1980,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_string_to_2keys_allownil)}
-    DES_string_to_2keys := @ERR_DES_string_to_2keys;
+    DES_string_to_2keys := ERR_DES_string_to_2keys;
 {$IFEND}
 {$IF declared(DES_string_to_2keys_introduced)}
     if LibVersion < DES_string_to_2keys_introduced then
     begin
 {$IF declared(FC_DES_string_to_2keys)}
-      DES_string_to_2keys := @FC_DES_string_to_2keys;
+      DES_string_to_2keys := FC_DES_string_to_2keys;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1995,7 +1995,7 @@ begin
     if DES_string_to_2keys_removed <= LibVersion then
     begin
 {$IF declared(_DES_string_to_2keys)}
-      DES_string_to_2keys := @_DES_string_to_2keys;
+      DES_string_to_2keys := _DES_string_to_2keys;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2011,13 +2011,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_cfb64_encrypt_allownil)}
-    DES_cfb64_encrypt := @ERR_DES_cfb64_encrypt;
+    DES_cfb64_encrypt := ERR_DES_cfb64_encrypt;
 {$IFEND}
 {$IF declared(DES_cfb64_encrypt_introduced)}
     if LibVersion < DES_cfb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_cfb64_encrypt)}
-      DES_cfb64_encrypt := @FC_DES_cfb64_encrypt;
+      DES_cfb64_encrypt := FC_DES_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2026,7 +2026,7 @@ begin
     if DES_cfb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_cfb64_encrypt)}
-      DES_cfb64_encrypt := @_DES_cfb64_encrypt;
+      DES_cfb64_encrypt := _DES_cfb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2042,13 +2042,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_ofb64_encrypt_allownil)}
-    DES_ofb64_encrypt := @ERR_DES_ofb64_encrypt;
+    DES_ofb64_encrypt := ERR_DES_ofb64_encrypt;
 {$IFEND}
 {$IF declared(DES_ofb64_encrypt_introduced)}
     if LibVersion < DES_ofb64_encrypt_introduced then
     begin
 {$IF declared(FC_DES_ofb64_encrypt)}
-      DES_ofb64_encrypt := @FC_DES_ofb64_encrypt;
+      DES_ofb64_encrypt := FC_DES_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2057,7 +2057,7 @@ begin
     if DES_ofb64_encrypt_removed <= LibVersion then
     begin
 {$IF declared(_DES_ofb64_encrypt)}
-      DES_ofb64_encrypt := @_DES_ofb64_encrypt;
+      DES_ofb64_encrypt := _DES_ofb64_encrypt;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2074,13 +2074,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(DES_fixup_key_parity_allownil)}
-    DES_fixup_key_parity := @ERR_DES_fixup_key_parity;
+    DES_fixup_key_parity := ERR_DES_fixup_key_parity;
 {$IFEND}
 {$IF declared(DES_fixup_key_parity_introduced)}
     if LibVersion < DES_fixup_key_parity_introduced then
     begin
 {$IF declared(FC_DES_fixup_key_parity)}
-      DES_fixup_key_parity := @FC_DES_fixup_key_parity;
+      DES_fixup_key_parity := FC_DES_fixup_key_parity;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -2089,7 +2089,7 @@ begin
     if DES_fixup_key_parity_removed <= LibVersion then
     begin
 {$IF declared(_DES_fixup_key_parity)}
-      DES_fixup_key_parity := @_DES_fixup_key_parity;
+      DES_fixup_key_parity := _DES_fixup_key_parity;
 {$IFEND}
       FuncLoadError := false;
     end;

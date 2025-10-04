@@ -1308,13 +1308,13 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-procedure  ERR_BN_set_flags(b: PBIGNUM; n: TIdC_INT); 
+procedure  ERR_BN_set_flags(b: PBIGNUM; n: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_set_flags_procname);
 end;
 
 
-function  ERR_BN_get_flags(b: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_get_flags(b: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_flags_procname);
 end;
@@ -1327,27 +1327,27 @@ end;
    * value |dest| should be a newly allocated BIGNUM obtained via BN_new() that
    * has not been otherwise initialised or used.
    *)
-procedure  ERR_BN_with_flags(dest: PBIGNUM; b: PBIGNUM; flags: TIdC_INT); 
+procedure  ERR_BN_with_flags(dest: PBIGNUM; b: PBIGNUM; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_with_flags_procname);
 end;
 
 
   (* Wrapper function to make using BN_GENCB easier *)
-function  ERR_BN_GENCB_call(cb: PBN_GENCB; a: TIdC_INT; b: TIdC_INT): TIdC_INT; 
+function  ERR_BN_GENCB_call(cb: PBN_GENCB; a: TIdC_INT; b: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_call_procname);
 end;
 
 
 
-function  ERR_BN_GENCB_new: PBN_GENCB; 
+function  ERR_BN_GENCB_new: PBN_GENCB; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_new_procname);
 end;
 
 
-procedure  ERR_BN_GENCB_free(cb: PBN_GENCB); 
+procedure  ERR_BN_GENCB_free(cb: PBN_GENCB);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_free_procname);
 end;
@@ -1355,7 +1355,7 @@ end;
 
 
   (* Populate a PBN_GENCB structure with an "old"-style callback *)
-procedure  ERR_BN_GENCB_set_old(gencb: PBN_GENCB; callback: BN_GENCB_set_old_cb; cb_arg: Pointer); 
+procedure  ERR_BN_GENCB_set_old(gencb: PBN_GENCB; callback: BN_GENCB_set_old_cb; cb_arg: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_set_old_procname);
 end;
@@ -1363,14 +1363,14 @@ end;
 
 
   (* Populate a PBN_GENCB structure with a "new"-style callback *)
-procedure  ERR_BN_GENCB_set(gencb: PBN_GENCB; callback: BN_GENCB_set_cb; cb_arg: Pointer); 
+procedure  ERR_BN_GENCB_set(gencb: PBN_GENCB; callback: BN_GENCB_set_cb; cb_arg: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_set_procname);
 end;
 
 
 
-function  ERR_BN_GENCB_get_arg(cb: PBN_GENCB): Pointer; 
+function  ERR_BN_GENCB_get_arg(cb: PBN_GENCB): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GENCB_get_arg_procname);
 end;
@@ -1451,31 +1451,31 @@ end;
 //
 //  # define BN_num_bytes(a) ((BN_num_bits(a)+7)/8)
 
-function  ERR_BN_abs_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_abs_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_abs_is_word_procname);
 end;
 
 
-function  ERR_BN_is_zero(a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_is_zero(a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_zero_procname);
 end;
 
 
-function  ERR_BN_is_one(a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_is_one(a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_one_procname);
 end;
 
 
-function  ERR_BN_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_is_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_word_procname);
 end;
 
 
-function  ERR_BN_is_odd(a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_is_odd(a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_odd_procname);
 end;
@@ -1484,218 +1484,218 @@ end;
 
 //  # define BN_one(a)       (BN_set_word((a),1))
 
-procedure  ERR_BN_zero_ex(a: PBIGNUM); 
+procedure  ERR_BN_zero_ex(a: PBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_zero_ex_procname);
 end;
 
 
 
-function  ERR_BN_value_one: PBIGNUM; 
+function  ERR_BN_value_one: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_value_one_procname);
 end;
 
 
-function  ERR_BN_options: PIdAnsiChar; 
+function  ERR_BN_options: PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_options_procname);
 end;
 
 
-function  ERR_BN_CTX_new: PBN_CTX; 
+function  ERR_BN_CTX_new: PBN_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_new_procname);
 end;
 
 
-function  ERR_BN_CTX_secure_new: PBN_CTX; 
+function  ERR_BN_CTX_secure_new: PBN_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_secure_new_procname);
 end;
 
 
-procedure  ERR_BN_CTX_free(c: PBN_CTX); 
+procedure  ERR_BN_CTX_free(c: PBN_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_free_procname);
 end;
 
 
-procedure  ERR_BN_CTX_start(ctx: PBN_CTX); 
+procedure  ERR_BN_CTX_start(ctx: PBN_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_start_procname);
 end;
 
 
-function  ERR_BN_CTX_get(ctx: PBN_CTX): PBIGNUM; 
+function  ERR_BN_CTX_get(ctx: PBN_CTX): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_get_procname);
 end;
 
 
-procedure  ERR_BN_CTX_end(ctx: PBN_CTX); 
+procedure  ERR_BN_CTX_end(ctx: PBN_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_CTX_end_procname);
 end;
 
 
-function  ERR_BN_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; 
+function  ERR_BN_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_rand_procname);
 end;
 
 
-function  ERR_BN_priv_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; 
+function  ERR_BN_priv_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_priv_rand_procname);
 end;
 
 
-function  ERR_BN_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; 
+function  ERR_BN_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_rand_range_procname);
 end;
 
 
-function  ERR_BN_priv_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; 
+function  ERR_BN_priv_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_priv_rand_range_procname);
 end;
 
 
-function  ERR_BN_pseudo_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; 
+function  ERR_BN_pseudo_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_pseudo_rand_procname);
 end;
 
 
-function  ERR_BN_pseudo_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; 
+function  ERR_BN_pseudo_rand_range(rnd: PBIGNUM; range: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_pseudo_rand_range_procname);
 end;
 
 
-function  ERR_BN_num_bits(a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_num_bits(a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_num_bits_procname);
 end;
 
 
-function  ERR_BN_num_bits_word(l: BN_ULONG): TIdC_INT; 
+function  ERR_BN_num_bits_word(l: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_num_bits_word_procname);
 end;
 
 
-function  ERR_BN_security_bits(L: TIdC_INT; N: TIdC_INT): TIdC_INT; 
+function  ERR_BN_security_bits(L: TIdC_INT; N: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_security_bits_procname);
 end;
 
 
-function  ERR_BN_new: PBIGNUM; 
+function  ERR_BN_new: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_new_procname);
 end;
 
 
-function  ERR_BN_secure_new: PBIGNUM; 
+function  ERR_BN_secure_new: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_secure_new_procname);
 end;
 
 
-procedure  ERR_BN_clear_free(a: PBIGNUM); 
+procedure  ERR_BN_clear_free(a: PBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_clear_free_procname);
 end;
 
 
-function  ERR_BN_copy(a: PBIGNUM; b: PBIGNUM): PBIGNUM; 
+function  ERR_BN_copy(a: PBIGNUM; b: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_copy_procname);
 end;
 
 
-procedure  ERR_BN_swap(a: PBIGNUM; b: PBIGNUM); 
+procedure  ERR_BN_swap(a: PBIGNUM; b: PBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_swap_procname);
 end;
 
 
-function  ERR_BN_bin2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; 
+function  ERR_BN_bin2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bin2bn_procname);
 end;
 
 
-function  ERR_BN_bn2bin(const a: PBIGNUM; to_: PByte): TIdC_INT; 
+function  ERR_BN_bn2bin(const a: PBIGNUM; to_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2bin_procname);
 end;
 
 
-function  ERR_BN_bn2binpad(const a: PBIGNUM; to_: PByte; tolen: TIdC_INT): TIdC_INT; 
+function  ERR_BN_bn2binpad(const a: PBIGNUM; to_: PByte; tolen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2binpad_procname);
 end;
 
 
-function  ERR_BN_lebin2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; 
+function  ERR_BN_lebin2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_lebin2bn_procname);
 end;
 
 
-function  ERR_BN_bn2lebinpad(a: PBIGNUM; to_: PByte; tolen: TIdC_INT): TIdC_INT; 
+function  ERR_BN_bn2lebinpad(a: PBIGNUM; to_: PByte; tolen: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2lebinpad_procname);
 end;
 
 
-function  ERR_BN_mpi2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; 
+function  ERR_BN_mpi2bn(const s: PByte; len: TIdC_INT; ret: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mpi2bn_procname);
 end;
 
 
-function  ERR_BN_bn2mpi(a: PBIGNUM; to_: PByte): TIdC_INT; 
+function  ERR_BN_bn2mpi(a: PBIGNUM; to_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2mpi_procname);
 end;
 
 
-function  ERR_BN_sub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_sub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_sub_procname);
 end;
 
 
-function  ERR_BN_usub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_usub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_usub_procname);
 end;
 
 
-function  ERR_BN_uadd(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_uadd(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_uadd_procname);
 end;
 
 
-function  ERR_BN_add(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_add(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_add_procname);
 end;
 
 
-function  ERR_BN_mul(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mul(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mul_procname);
 end;
 
 
-function  ERR_BN_sqr(r: PBIGNUM; const a: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_sqr(r: PBIGNUM; const a: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_sqr_procname);
 end;
@@ -1706,7 +1706,7 @@ end;
    * \param  b  pointer to the BIGNUM object
    * \param  n  0 if the BIGNUM b should be positive and a value != 0 otherwise
    *)
-procedure  ERR_BN_set_negative(b: PBIGNUM; n: TIdC_INT); 
+procedure  ERR_BN_set_negative(b: PBIGNUM; n: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_set_negative_procname);
 end;
@@ -1716,400 +1716,414 @@ end;
    * \param  b  pointer to the BIGNUM object
    * \return 1 if a < 0 and 0 otherwise
    *)
-function  ERR_BN_is_negative(b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_is_negative(b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_negative_procname);
 end;
 
 
 
-function  ERR_BN_div(dv: PBIGNUM; rem: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_div(dv: PBIGNUM; rem: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_div_procname);
 end;
 
 
 //  # define BN_mod(rem,m,d,ctx) BN_div(NULL,(rem),(m),(d),(ctx))
-function  ERR_BN_nnmod(r: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nnmod(r: PBIGNUM; const m: PBIGNUM; const d: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nnmod_procname);
 end;
 
 
-function  ERR_BN_mod_add(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_add(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_add_procname);
 end;
 
 
-function  ERR_BN_mod_add_quick(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM): TIdC_INT; 
+function  ERR_BN_mod_add_quick(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_add_quick_procname);
 end;
 
 
-function  ERR_BN_mod_sub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_sub(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM;
+  ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_sub_procname);
 end;
 
 
-function  ERR_BN_mod_sub_quick(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM): TIdC_INT; 
+function  ERR_BN_mod_sub_quick(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM;
+  const m: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_sub_quick_procname);
 end;
 
 
-function  ERR_BN_mod_mul(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_mul(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM;
+  const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_mul_procname);
 end;
 
 
-function  ERR_BN_mod_sqr(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_sqr(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_sqr_procname);
 end;
 
 
-function  ERR_BN_mod_lshift1(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_lshift1(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_lshift1_procname);
 end;
 
 
-function  ERR_BN_mod_lshift1_quick(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM): TIdC_INT; 
+function  ERR_BN_mod_lshift1_quick(r: PBIGNUM; const a: PBIGNUM; const m: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_lshift1_quick_procname);
 end;
 
 
-function  ERR_BN_mod_lshift(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_lshift(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT;
+  const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_lshift_procname);
 end;
 
 
-function  ERR_BN_mod_lshift_quick(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT; const m: PBIGNUM): TIdC_INT; 
+function  ERR_BN_mod_lshift_quick(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT; const m: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_lshift_quick_procname);
 end;
 
 
 
-function  ERR_BN_mod_word(const a: PBIGNUM; w: BN_ULONG): BN_ULONG; 
+function  ERR_BN_mod_word(const a: PBIGNUM; w: BN_ULONG): BN_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_word_procname);
 end;
 
 
-function  ERR_BN_div_word(a: PBIGNUM; w: BN_ULONG): BN_ULONG; 
+function  ERR_BN_div_word(a: PBIGNUM; w: BN_ULONG): BN_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_div_word_procname);
 end;
 
 
-function  ERR_BN_mul_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_mul_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mul_word_procname);
 end;
 
 
-function  ERR_BN_add_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_add_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_add_word_procname);
 end;
 
 
-function  ERR_BN_sub_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_sub_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_sub_word_procname);
 end;
 
 
-function  ERR_BN_set_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; 
+function  ERR_BN_set_word(a: PBIGNUM; w: BN_ULONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_set_word_procname);
 end;
 
 
-function  ERR_BN_get_word(const a: PBIGNUM): BN_ULONG; 
+function  ERR_BN_get_word(const a: PBIGNUM): BN_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_word_procname);
 end;
 
 
 
-function  ERR_BN_cmp(const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_cmp(const a: PBIGNUM; const b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_cmp_procname);
 end;
 
 
-procedure  ERR_BN_free(a: PBIGNUM); 
+procedure  ERR_BN_free(a: PBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_free_procname);
 end;
 
 
-function  ERR_BN_is_bit_set(const a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_is_bit_set(const a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_bit_set_procname);
 end;
 
 
-function  ERR_BN_lshift(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_lshift(r: PBIGNUM; const a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_lshift_procname);
 end;
 
 
-function  ERR_BN_lshift1(r: PBIGNUM; const a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_lshift1(r: PBIGNUM; const a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_lshift1_procname);
 end;
 
 
-function  ERR_BN_exp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_exp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_exp_procname);
 end;
 
 
 
-function  ERR_BN_mod_exp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_procname);
 end;
 
 
-function  ERR_BN_mod_exp_mont(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp_mont(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM;
+  ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_mont_procname);
 end;
 
 
-function  ERR_BN_mod_exp_mont_consttime(rr: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX; in_mont: PBN_MONT_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp_mont_consttime(rr: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM;
+  ctx: PBN_CTX; in_mont: PBN_MONT_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_mont_consttime_procname);
 end;
 
 
-function  ERR_BN_mod_exp_mont_word(r: PBIGNUM; a: BN_ULONG; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp_mont_word(r: PBIGNUM; a: BN_ULONG; p: PBIGNUM; m: PBIGNUM;
+  ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_mont_word_procname);
 end;
 
 
-function  ERR_BN_mod_exp2_mont(r: PBIGNUM; const a1: PBIGNUM; const p1: PBIGNUM; const a2: PBIGNUM; const p2: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp2_mont(r: PBIGNUM; const a1: PBIGNUM; const p1: PBIGNUM;  const a2: PBIGNUM;
+  const p2: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTX; m_ctx: PBN_MONT_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp2_mont_procname);
 end;
 
 
-function  ERR_BN_mod_exp_simple(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp_simple(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_simple_procname);
 end;
 
 
 
-function  ERR_BN_mask_bits(a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_mask_bits(a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mask_bits_procname);
 end;
 
 
-function  ERR_BN_print(bio: PBIO; a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_print(bio: PBIO; a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_print_procname);
 end;
 
 
-function  ERR_BN_reciprocal(r: PBIGNUM; m: PBIGNUM; len: TIdC_INT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_reciprocal(r: PBIGNUM; m: PBIGNUM; len: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_reciprocal_procname);
 end;
 
 
-function  ERR_BN_rshift(r: PBIGNUM; a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_rshift(r: PBIGNUM; a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_rshift_procname);
 end;
 
 
-function  ERR_BN_rshift1(r: PBIGNUM; a: PBIGNUM): TIdC_INT; 
+function  ERR_BN_rshift1(r: PBIGNUM; a: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_rshift1_procname);
 end;
 
 
-procedure  ERR_BN_clear(a: PBIGNUM); 
+procedure  ERR_BN_clear(a: PBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_clear_procname);
 end;
 
 
-function  ERR_BN_dup(const a: PBIGNUM): PBIGNUM; 
+function  ERR_BN_dup(const a: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_dup_procname);
 end;
 
 
-function  ERR_BN_ucmp(a: PBIGNUM; b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_ucmp(a: PBIGNUM; b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_ucmp_procname);
 end;
 
 
-function  ERR_BN_set_bit(a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_set_bit(a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_set_bit_procname);
 end;
 
 
-function  ERR_BN_clear_bit(a: PBIGNUM; n: TIdC_INT): TIdC_INT; 
+function  ERR_BN_clear_bit(a: PBIGNUM; n: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_clear_bit_procname);
 end;
 
 
-function  ERR_BN_bn2hex(a: PBIGNUM): PIdAnsiChar; 
+function  ERR_BN_bn2hex(a: PBIGNUM): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2hex_procname);
 end;
 
 
-function  ERR_BN_bn2dec(a: PBIGNUM): PIdAnsiChar; 
+function  ERR_BN_bn2dec(a: PBIGNUM): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bn2dec_procname);
 end;
 
 
-function  ERR_BN_hex2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_hex2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_hex2bn_procname);
 end;
 
 
-function  ERR_BN_dec2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_dec2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_dec2bn_procname);
 end;
 
 
-function  ERR_BN_asc2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; 
+function  ERR_BN_asc2bn(a: PPBIGNUM; _str: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_asc2bn_procname);
 end;
 
 
-function  ERR_BN_gcd(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_gcd(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_gcd_procname);
 end;
 
 
-function  ERR_BN_kronecker(a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_kronecker(a: PBIGNUM; b: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_kronecker_procname);
 end;
 
 
 
-function  ERR_BN_mod_inverse(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; 
+function  ERR_BN_mod_inverse(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_inverse_procname);
 end;
 
 
-function  ERR_BN_mod_sqrt(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; 
+function  ERR_BN_mod_sqrt(ret: PBIGNUM; a: PBIGNUM; const n: PBIGNUM; ctx: PBN_CTX): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_sqrt_procname);
 end;
 
 
 
-procedure  ERR_BN_consttime_swap(_swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT);
+procedure  ERR_BN_consttime_swap(_swap: BN_ULONG; a: PBIGNUM; b: PBIGNUM; nwords: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_consttime_swap_procname);
 end;
 
 
 
-function  ERR_BN_generate_prime_ex(ret: PBIGNUM; bits: TIdC_INT; safe: TIdC_INT; const add: PBIGNUM; const rem: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_BN_generate_prime_ex(ret: PBIGNUM; bits: TIdC_INT; safe: TIdC_INT;
+  const add: PBIGNUM; const rem: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_generate_prime_ex_procname);
 end;
 
 
-function  ERR_BN_is_prime_ex(const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_BN_is_prime_ex(const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_prime_ex_procname);
 end;
 
 
-function  ERR_BN_is_prime_fasttest_ex(const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX; do_trial_division: TIdC_INT; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_BN_is_prime_fasttest_ex(const p: PBIGNUM; nchecks: TIdC_INT; ctx: PBN_CTX;
+  do_trial_division: TIdC_INT; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_is_prime_fasttest_ex_procname);
 end;
 
 
-function  ERR_BN_X931_generate_Xpq(Xp: PBIGNUM; Xq: PBIGNUM; nbits: TIdC_INT; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_X931_generate_Xpq(Xp: PBIGNUM; Xq: PBIGNUM; nbits: TIdC_INT; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_X931_generate_Xpq_procname);
 end;
 
 
-function  ERR_BN_X931_derive_prime_ex(p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; const Xp: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_BN_X931_derive_prime_ex(p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; const Xp: PBIGNUM;
+  const Xp1: PBIGNUM; const Xp2: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_X931_derive_prime_ex_procname);
 end;
 
 
-function  ERR_BN_X931_generate_prime_ex(p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; Xp1: PBIGNUM; Xp2: PBIGNUM; Xp: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_BN_X931_generate_prime_ex(p: PBIGNUM; p1: PBIGNUM; p2: PBIGNUM; Xp1: PBIGNUM;
+  Xp2: PBIGNUM; Xp: PBIGNUM; const e: PBIGNUM; ctx: PBN_CTX; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_X931_generate_prime_ex_procname);
 end;
 
 
-function  ERR_BN_MONT_CTX_new: PBN_MONT_CTX; 
+function  ERR_BN_MONT_CTX_new: PBN_MONT_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_MONT_CTX_new_procname);
 end;
 
 
-function  ERR_BN_mod_mul_montgomery(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_mul_montgomery(r: PBIGNUM; const a: PBIGNUM; const b: PBIGNUM;
+  mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_mul_montgomery_procname);
 end;
 
 
-function  ERR_BN_to_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_to_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_to_montgomery_procname);
 end;
 
 
-function  ERR_BN_from_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_from_montgomery(r: PBIGNUM; a: PBIGNUM; mont: PBN_MONT_CTX; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_from_montgomery_procname);
 end;
 
 
-procedure  ERR_BN_MONT_CTX_free(mont: PBN_MONT_CTX); 
+procedure  ERR_BN_MONT_CTX_free(mont: PBN_MONT_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_MONT_CTX_free_procname);
 end;
 
 
-function  ERR_BN_MONT_CTX_set(mont: PBN_MONT_CTX; mod_: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_MONT_CTX_set(mont: PBN_MONT_CTX; mod_: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_MONT_CTX_set_procname);
 end;
 
 
-function  ERR_BN_MONT_CTX_copy(to_: PBN_MONT_CTX; from: PBN_MONT_CTX): PBN_MONT_CTX; 
+function  ERR_BN_MONT_CTX_copy(to_: PBN_MONT_CTX; from: PBN_MONT_CTX): PBN_MONT_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_MONT_CTX_copy_procname);
 end;
@@ -2117,81 +2131,81 @@ end;
 
 //  function BN_MONT_CTX_set_locked(pmont: ^PBN_MONT_CTX; lock: CRYPTO_RWLOCK; mod_: PBIGNUM; ctx: PBN_CTX): PBN_MONT_CTX;
 
-function  ERR_BN_BLINDING_new(const A: PBIGNUM; const Ai: PBIGNUM; mod_: PBIGNUM): PBN_BLINDING; 
+function  ERR_BN_BLINDING_new(const A: PBIGNUM; const Ai: PBIGNUM; mod_: PBIGNUM): PBN_BLINDING; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_new_procname);
 end;
 
 
-procedure  ERR_BN_BLINDING_free(b: PBN_BLINDING); 
+procedure  ERR_BN_BLINDING_free(b: PBN_BLINDING); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_free_procname);
 end;
 
 
-function  ERR_BN_BLINDING_update(b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_BLINDING_update(b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_update_procname);
 end;
 
 
-function  ERR_BN_BLINDING_convert(n: PBIGNUM; b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_BLINDING_convert(n: PBIGNUM; b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_convert_procname);
 end;
 
 
-function  ERR_BN_BLINDING_invert(n: PBIGNUM; b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_BLINDING_invert(n: PBIGNUM; b: PBN_BLINDING; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_invert_procname);
 end;
 
 
-function  ERR_BN_BLINDING_convert_ex(n: PBIGNUM; r: PBIGNUM; b: PBN_BLINDING; v4: PBN_CTX): TIdC_INT; 
+function  ERR_BN_BLINDING_convert_ex(n: PBIGNUM; r: PBIGNUM; b: PBN_BLINDING; v4: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_convert_ex_procname);
 end;
 
 
-function  ERR_BN_BLINDING_invert_ex(n: PBIGNUM; r: PBIGNUM; b: PBN_BLINDING; v2: PBN_CTX): TIdC_INT; 
+function  ERR_BN_BLINDING_invert_ex(n: PBIGNUM; r: PBIGNUM; b: PBN_BLINDING; v2: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_invert_ex_procname);
 end;
 
 
 
-function  ERR_BN_BLINDING_is_current_thread(b: PBN_BLINDING): TIdC_INT; 
+function  ERR_BN_BLINDING_is_current_thread(b: PBN_BLINDING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_is_current_thread_procname);
 end;
 
 
-procedure  ERR_BN_BLINDING_set_current_thread(b: PBN_BLINDING); 
+procedure  ERR_BN_BLINDING_set_current_thread(b: PBN_BLINDING); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_set_current_thread_procname);
 end;
 
 
-function  ERR_BN_BLINDING_lock(b: PBN_BLINDING): TIdC_INT; 
+function  ERR_BN_BLINDING_lock(b: PBN_BLINDING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_lock_procname);
 end;
 
 
-function  ERR_BN_BLINDING_unlock(b: PBN_BLINDING): TIdC_INT; 
+function  ERR_BN_BLINDING_unlock(b: PBN_BLINDING): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_unlock_procname);
 end;
 
 
 
-function  ERR_BN_BLINDING_get_flags(v1: PBN_BLINDING): TIdC_ULONG; 
+function  ERR_BN_BLINDING_get_flags(v1: PBN_BLINDING): TIdC_ULONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_get_flags_procname);
 end;
 
 
-procedure  ERR_BN_BLINDING_set_flags(v1: PBN_BLINDING; v2: TIdC_ULONG); 
+procedure  ERR_BN_BLINDING_set_flags(v1: PBN_BLINDING; v2: TIdC_ULONG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_BLINDING_set_flags_procname);
 end;
@@ -2208,31 +2222,32 @@ end;
 //    m_ctx: PBN_MONT_CTX): TIdC_INT,
 //                                        PBN_MONT_CTX *m_ctx): PBN_BLINDING;
 
-procedure  ERR_BN_RECP_CTX_free(recp: PBN_RECP_CTX); 
+procedure  ERR_BN_RECP_CTX_free(recp: PBN_RECP_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_RECP_CTX_free_procname);
 end;
 
 
-function  ERR_BN_RECP_CTX_set(recp: PBN_RECP_CTX; rdiv: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_RECP_CTX_set(recp: PBN_RECP_CTX; rdiv: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_RECP_CTX_set_procname);
 end;
 
 
-function  ERR_BN_mod_mul_reciprocal(r: PBIGNUM; x: PBIGNUM; y: PBIGNUM; recp: PBN_RECP_CTX; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_mul_reciprocal(r: PBIGNUM; x: PBIGNUM; y: PBIGNUM;
+  recp: PBN_RECP_CTX; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_mul_reciprocal_procname);
 end;
 
 
-function  ERR_BN_mod_exp_recp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_mod_exp_recp(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; m: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_mod_exp_recp_procname);
 end;
 
 
-function  ERR_BN_div_recp(dv: PBIGNUM; rem: PBIGNUM; m: PBIGNUM; recp: PBN_RECP_CTX; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_div_recp(dv: PBIGNUM; rem: PBIGNUM; m: PBIGNUM; recp: PBN_RECP_CTX; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_div_recp_procname);
 end;
@@ -2249,7 +2264,7 @@ end;
   (*
    * r = a + b
    *)
-function  ERR_BN_GF2m_add(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM): TIdC_INT; 
+function  ERR_BN_GF2m_add(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_add_procname);
 end;
@@ -2259,56 +2274,56 @@ end;
   (*
    * r=a mod p
    *)
-function  ERR_BN_GF2m_mod(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM): TIdC_INT; 
+function  ERR_BN_GF2m_mod(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_procname);
 end;
 
 
   (* r = (a * b) mod p *)
-function  ERR_BN_GF2m_mod_mul(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_mul(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_mul_procname);
 end;
 
 
   (* r = (a * a) mod p *)
-function  ERR_BN_GF2m_mod_sqr(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_sqr(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_sqr_procname);
 end;
 
 
   (* r = (1 / b) mod p *)
-function  ERR_BN_GF2m_mod_inv(r: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_inv(r: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_inv_procname);
 end;
 
 
   (* r = (a / b) mod p *)
-function  ERR_BN_GF2m_mod_div(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_div(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_div_procname);
 end;
 
 
   (* r = (a ^ b) mod p *)
-function  ERR_BN_GF2m_mod_exp(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_exp(r: PBIGNUM; a: PBIGNUM; b: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_exp_procname);
 end;
 
 
   (* r = sqrt(a) mod p *)
-function  ERR_BN_GF2m_mod_sqrt(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_sqrt(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_sqrt_procname);
 end;
 
 
   (* r^2 + r = a mod p *)
-function  ERR_BN_GF2m_mod_solve_quad(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_GF2m_mod_solve_quad(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_GF2m_mod_solve_quad_procname);
 end;
@@ -2343,62 +2358,62 @@ end;
   (*
    * faster mod functions for the 'NIST primes' 0 <= a < p^2
    *)
-function  ERR_BN_nist_mod_192(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nist_mod_192(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nist_mod_192_procname);
 end;
 
 
-function  ERR_BN_nist_mod_224(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nist_mod_224(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nist_mod_224_procname);
 end;
 
 
-function  ERR_BN_nist_mod_256(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nist_mod_256(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nist_mod_256_procname);
 end;
 
 
-function  ERR_BN_nist_mod_384(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nist_mod_384(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nist_mod_384_procname);
 end;
 
 
-function  ERR_BN_nist_mod_521(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_nist_mod_521(r: PBIGNUM; a: PBIGNUM; p: PBIGNUM; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_nist_mod_521_procname);
 end;
 
 
 
-function  ERR_BN_get0_nist_prime_192: PBIGNUM; 
+function  ERR_BN_get0_nist_prime_192: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get0_nist_prime_192_procname);
 end;
 
 
-function  ERR_BN_get0_nist_prime_224: PBIGNUM; 
+function  ERR_BN_get0_nist_prime_224: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get0_nist_prime_224_procname);
 end;
 
 
-function  ERR_BN_get0_nist_prime_256: PBIGNUM; 
+function  ERR_BN_get0_nist_prime_256: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get0_nist_prime_256_procname);
 end;
 
 
-function  ERR_BN_get0_nist_prime_384: PBIGNUM; 
+function  ERR_BN_get0_nist_prime_384: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get0_nist_prime_384_procname);
 end;
 
 
-function  ERR_BN_get0_nist_prime_521: PBIGNUM; 
+function  ERR_BN_get0_nist_prime_521: PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get0_nist_prime_521_procname);
 end;
@@ -2408,7 +2423,8 @@ end;
 //int (*BN_nist_mod_func(const BIGNUM *p)) (BIGNUM *r, const BIGNUM *a,
 //                                          const BIGNUM *field, BN_CTX *ctx);
 
-function  ERR_BN_generate_dsa_nonce(out_: PBIGNUM; range: PBIGNUM; priv: PBIGNUM; const message_: PByte; message_len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; 
+function  ERR_BN_generate_dsa_nonce(out_: PBIGNUM; range: PBIGNUM; priv: PBIGNUM; const message_: PByte;
+  message_len: TIdC_SIZET; ctx: PBN_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_generate_dsa_nonce_procname);
 end;
@@ -2416,13 +2432,13 @@ end;
 
 
   (* Primes from RFC 2409 *)
-function  ERR_BN_get_rfc2409_prime_768(bn: PBIGNUM ): PBIGNUM; 
+function  ERR_BN_get_rfc2409_prime_768(bn: PBIGNUM ): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc2409_prime_768_procname);
 end;
 
 
-function  ERR_BN_get_rfc2409_prime_1024(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc2409_prime_1024(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc2409_prime_1024_procname);
 end;
@@ -2430,44 +2446,44 @@ end;
 
 
   (* Primes from RFC 3526 *)
-function  ERR_BN_get_rfc3526_prime_1536(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_1536(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_1536_procname);
 end;
 
 
-function  ERR_BN_get_rfc3526_prime_2048(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_2048(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_2048_procname);
 end;
 
 
-function  ERR_BN_get_rfc3526_prime_3072(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_3072(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_3072_procname);
 end;
 
 
-function  ERR_BN_get_rfc3526_prime_4096(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_4096(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_4096_procname);
 end;
 
 
-function  ERR_BN_get_rfc3526_prime_6144(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_6144(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_6144_procname);
 end;
 
 
-function  ERR_BN_get_rfc3526_prime_8192(bn: PBIGNUM): PBIGNUM; 
+function  ERR_BN_get_rfc3526_prime_8192(bn: PBIGNUM): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_get_rfc3526_prime_8192_procname);
 end;
 
 
 
-function  ERR_BN_bntest_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; 
+function  ERR_BN_bntest_rand(rnd: PBIGNUM; bits: TIdC_INT; top: TIdC_INT; bottom: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BN_bntest_rand_procname);
 end;
@@ -2486,13 +2502,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_set_flags_allownil)}
-    BN_set_flags := @ERR_BN_set_flags;
+    BN_set_flags := ERR_BN_set_flags;
     {$ifend}
     {$if declared(BN_set_flags_introduced)}
     if LibVersion < BN_set_flags_introduced then
     begin
       {$if declared(FC_BN_set_flags)}
-      BN_set_flags := @FC_BN_set_flags;
+      BN_set_flags := FC_BN_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2501,7 +2517,7 @@ begin
     if BN_set_flags_removed <= LibVersion then
     begin
       {$if declared(_BN_set_flags)}
-      BN_set_flags := @_BN_set_flags;
+      BN_set_flags := _BN_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2518,13 +2534,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_flags_allownil)}
-    BN_get_flags := @ERR_BN_get_flags;
+    BN_get_flags := ERR_BN_get_flags;
     {$ifend}
     {$if declared(BN_get_flags_introduced)}
     if LibVersion < BN_get_flags_introduced then
     begin
       {$if declared(FC_BN_get_flags)}
-      BN_get_flags := @FC_BN_get_flags;
+      BN_get_flags := FC_BN_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2533,7 +2549,7 @@ begin
     if BN_get_flags_removed <= LibVersion then
     begin
       {$if declared(_BN_get_flags)}
-      BN_get_flags := @_BN_get_flags;
+      BN_get_flags := _BN_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2550,13 +2566,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_with_flags_allownil)}
-    BN_with_flags := @ERR_BN_with_flags;
+    BN_with_flags := ERR_BN_with_flags;
     {$ifend}
     {$if declared(BN_with_flags_introduced)}
     if LibVersion < BN_with_flags_introduced then
     begin
       {$if declared(FC_BN_with_flags)}
-      BN_with_flags := @FC_BN_with_flags;
+      BN_with_flags := FC_BN_with_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2565,7 +2581,7 @@ begin
     if BN_with_flags_removed <= LibVersion then
     begin
       {$if declared(_BN_with_flags)}
-      BN_with_flags := @_BN_with_flags;
+      BN_with_flags := _BN_with_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2582,13 +2598,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_call_allownil)}
-    BN_GENCB_call := @ERR_BN_GENCB_call;
+    BN_GENCB_call := ERR_BN_GENCB_call;
     {$ifend}
     {$if declared(BN_GENCB_call_introduced)}
     if LibVersion < BN_GENCB_call_introduced then
     begin
       {$if declared(FC_BN_GENCB_call)}
-      BN_GENCB_call := @FC_BN_GENCB_call;
+      BN_GENCB_call := FC_BN_GENCB_call;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2597,7 +2613,7 @@ begin
     if BN_GENCB_call_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_call)}
-      BN_GENCB_call := @_BN_GENCB_call;
+      BN_GENCB_call := _BN_GENCB_call;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2614,13 +2630,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_new_allownil)}
-    BN_GENCB_new := @ERR_BN_GENCB_new;
+    BN_GENCB_new := ERR_BN_GENCB_new;
     {$ifend}
     {$if declared(BN_GENCB_new_introduced)}
     if LibVersion < BN_GENCB_new_introduced then
     begin
       {$if declared(FC_BN_GENCB_new)}
-      BN_GENCB_new := @FC_BN_GENCB_new;
+      BN_GENCB_new := FC_BN_GENCB_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2629,7 +2645,7 @@ begin
     if BN_GENCB_new_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_new)}
-      BN_GENCB_new := @_BN_GENCB_new;
+      BN_GENCB_new := _BN_GENCB_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2646,13 +2662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_free_allownil)}
-    BN_GENCB_free := @ERR_BN_GENCB_free;
+    BN_GENCB_free := ERR_BN_GENCB_free;
     {$ifend}
     {$if declared(BN_GENCB_free_introduced)}
     if LibVersion < BN_GENCB_free_introduced then
     begin
       {$if declared(FC_BN_GENCB_free)}
-      BN_GENCB_free := @FC_BN_GENCB_free;
+      BN_GENCB_free := FC_BN_GENCB_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2661,7 +2677,7 @@ begin
     if BN_GENCB_free_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_free)}
-      BN_GENCB_free := @_BN_GENCB_free;
+      BN_GENCB_free := _BN_GENCB_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2678,13 +2694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_set_old_allownil)}
-    BN_GENCB_set_old := @ERR_BN_GENCB_set_old;
+    BN_GENCB_set_old := ERR_BN_GENCB_set_old;
     {$ifend}
     {$if declared(BN_GENCB_set_old_introduced)}
     if LibVersion < BN_GENCB_set_old_introduced then
     begin
       {$if declared(FC_BN_GENCB_set_old)}
-      BN_GENCB_set_old := @FC_BN_GENCB_set_old;
+      BN_GENCB_set_old := FC_BN_GENCB_set_old;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2693,7 +2709,7 @@ begin
     if BN_GENCB_set_old_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_set_old)}
-      BN_GENCB_set_old := @_BN_GENCB_set_old;
+      BN_GENCB_set_old := _BN_GENCB_set_old;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2710,13 +2726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_set_allownil)}
-    BN_GENCB_set := @ERR_BN_GENCB_set;
+    BN_GENCB_set := ERR_BN_GENCB_set;
     {$ifend}
     {$if declared(BN_GENCB_set_introduced)}
     if LibVersion < BN_GENCB_set_introduced then
     begin
       {$if declared(FC_BN_GENCB_set)}
-      BN_GENCB_set := @FC_BN_GENCB_set;
+      BN_GENCB_set := FC_BN_GENCB_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2725,7 +2741,7 @@ begin
     if BN_GENCB_set_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_set)}
-      BN_GENCB_set := @_BN_GENCB_set;
+      BN_GENCB_set := _BN_GENCB_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2742,13 +2758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GENCB_get_arg_allownil)}
-    BN_GENCB_get_arg := @ERR_BN_GENCB_get_arg;
+    BN_GENCB_get_arg := ERR_BN_GENCB_get_arg;
     {$ifend}
     {$if declared(BN_GENCB_get_arg_introduced)}
     if LibVersion < BN_GENCB_get_arg_introduced then
     begin
       {$if declared(FC_BN_GENCB_get_arg)}
-      BN_GENCB_get_arg := @FC_BN_GENCB_get_arg;
+      BN_GENCB_get_arg := FC_BN_GENCB_get_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2757,7 +2773,7 @@ begin
     if BN_GENCB_get_arg_removed <= LibVersion then
     begin
       {$if declared(_BN_GENCB_get_arg)}
-      BN_GENCB_get_arg := @_BN_GENCB_get_arg;
+      BN_GENCB_get_arg := _BN_GENCB_get_arg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2774,13 +2790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_abs_is_word_allownil)}
-    BN_abs_is_word := @ERR_BN_abs_is_word;
+    BN_abs_is_word := ERR_BN_abs_is_word;
     {$ifend}
     {$if declared(BN_abs_is_word_introduced)}
     if LibVersion < BN_abs_is_word_introduced then
     begin
       {$if declared(FC_BN_abs_is_word)}
-      BN_abs_is_word := @FC_BN_abs_is_word;
+      BN_abs_is_word := FC_BN_abs_is_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2789,7 +2805,7 @@ begin
     if BN_abs_is_word_removed <= LibVersion then
     begin
       {$if declared(_BN_abs_is_word)}
-      BN_abs_is_word := @_BN_abs_is_word;
+      BN_abs_is_word := _BN_abs_is_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2806,13 +2822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_zero_allownil)}
-    BN_is_zero := @ERR_BN_is_zero;
+    BN_is_zero := ERR_BN_is_zero;
     {$ifend}
     {$if declared(BN_is_zero_introduced)}
     if LibVersion < BN_is_zero_introduced then
     begin
       {$if declared(FC_BN_is_zero)}
-      BN_is_zero := @FC_BN_is_zero;
+      BN_is_zero := FC_BN_is_zero;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2821,7 +2837,7 @@ begin
     if BN_is_zero_removed <= LibVersion then
     begin
       {$if declared(_BN_is_zero)}
-      BN_is_zero := @_BN_is_zero;
+      BN_is_zero := _BN_is_zero;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2838,13 +2854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_one_allownil)}
-    BN_is_one := @ERR_BN_is_one;
+    BN_is_one := ERR_BN_is_one;
     {$ifend}
     {$if declared(BN_is_one_introduced)}
     if LibVersion < BN_is_one_introduced then
     begin
       {$if declared(FC_BN_is_one)}
-      BN_is_one := @FC_BN_is_one;
+      BN_is_one := FC_BN_is_one;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2853,7 +2869,7 @@ begin
     if BN_is_one_removed <= LibVersion then
     begin
       {$if declared(_BN_is_one)}
-      BN_is_one := @_BN_is_one;
+      BN_is_one := _BN_is_one;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2870,13 +2886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_word_allownil)}
-    BN_is_word := @ERR_BN_is_word;
+    BN_is_word := ERR_BN_is_word;
     {$ifend}
     {$if declared(BN_is_word_introduced)}
     if LibVersion < BN_is_word_introduced then
     begin
       {$if declared(FC_BN_is_word)}
-      BN_is_word := @FC_BN_is_word;
+      BN_is_word := FC_BN_is_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2885,7 +2901,7 @@ begin
     if BN_is_word_removed <= LibVersion then
     begin
       {$if declared(_BN_is_word)}
-      BN_is_word := @_BN_is_word;
+      BN_is_word := _BN_is_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2902,13 +2918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_odd_allownil)}
-    BN_is_odd := @ERR_BN_is_odd;
+    BN_is_odd := ERR_BN_is_odd;
     {$ifend}
     {$if declared(BN_is_odd_introduced)}
     if LibVersion < BN_is_odd_introduced then
     begin
       {$if declared(FC_BN_is_odd)}
-      BN_is_odd := @FC_BN_is_odd;
+      BN_is_odd := FC_BN_is_odd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2917,7 +2933,7 @@ begin
     if BN_is_odd_removed <= LibVersion then
     begin
       {$if declared(_BN_is_odd)}
-      BN_is_odd := @_BN_is_odd;
+      BN_is_odd := _BN_is_odd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2934,13 +2950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_zero_ex_allownil)}
-    BN_zero_ex := @ERR_BN_zero_ex;
+    BN_zero_ex := ERR_BN_zero_ex;
     {$ifend}
     {$if declared(BN_zero_ex_introduced)}
     if LibVersion < BN_zero_ex_introduced then
     begin
       {$if declared(FC_BN_zero_ex)}
-      BN_zero_ex := @FC_BN_zero_ex;
+      BN_zero_ex := FC_BN_zero_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2949,7 +2965,7 @@ begin
     if BN_zero_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_zero_ex)}
-      BN_zero_ex := @_BN_zero_ex;
+      BN_zero_ex := _BN_zero_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2966,13 +2982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_value_one_allownil)}
-    BN_value_one := @ERR_BN_value_one;
+    BN_value_one := ERR_BN_value_one;
     {$ifend}
     {$if declared(BN_value_one_introduced)}
     if LibVersion < BN_value_one_introduced then
     begin
       {$if declared(FC_BN_value_one)}
-      BN_value_one := @FC_BN_value_one;
+      BN_value_one := FC_BN_value_one;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2981,7 +2997,7 @@ begin
     if BN_value_one_removed <= LibVersion then
     begin
       {$if declared(_BN_value_one)}
-      BN_value_one := @_BN_value_one;
+      BN_value_one := _BN_value_one;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2998,13 +3014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_options_allownil)}
-    BN_options := @ERR_BN_options;
+    BN_options := ERR_BN_options;
     {$ifend}
     {$if declared(BN_options_introduced)}
     if LibVersion < BN_options_introduced then
     begin
       {$if declared(FC_BN_options)}
-      BN_options := @FC_BN_options;
+      BN_options := FC_BN_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3013,7 +3029,7 @@ begin
     if BN_options_removed <= LibVersion then
     begin
       {$if declared(_BN_options)}
-      BN_options := @_BN_options;
+      BN_options := _BN_options;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3030,13 +3046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_new_allownil)}
-    BN_CTX_new := @ERR_BN_CTX_new;
+    BN_CTX_new := ERR_BN_CTX_new;
     {$ifend}
     {$if declared(BN_CTX_new_introduced)}
     if LibVersion < BN_CTX_new_introduced then
     begin
       {$if declared(FC_BN_CTX_new)}
-      BN_CTX_new := @FC_BN_CTX_new;
+      BN_CTX_new := FC_BN_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3045,7 +3061,7 @@ begin
     if BN_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_new)}
-      BN_CTX_new := @_BN_CTX_new;
+      BN_CTX_new := _BN_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3062,13 +3078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_secure_new_allownil)}
-    BN_CTX_secure_new := @ERR_BN_CTX_secure_new;
+    BN_CTX_secure_new := ERR_BN_CTX_secure_new;
     {$ifend}
     {$if declared(BN_CTX_secure_new_introduced)}
     if LibVersion < BN_CTX_secure_new_introduced then
     begin
       {$if declared(FC_BN_CTX_secure_new)}
-      BN_CTX_secure_new := @FC_BN_CTX_secure_new;
+      BN_CTX_secure_new := FC_BN_CTX_secure_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3077,7 +3093,7 @@ begin
     if BN_CTX_secure_new_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_secure_new)}
-      BN_CTX_secure_new := @_BN_CTX_secure_new;
+      BN_CTX_secure_new := _BN_CTX_secure_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3094,13 +3110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_free_allownil)}
-    BN_CTX_free := @ERR_BN_CTX_free;
+    BN_CTX_free := ERR_BN_CTX_free;
     {$ifend}
     {$if declared(BN_CTX_free_introduced)}
     if LibVersion < BN_CTX_free_introduced then
     begin
       {$if declared(FC_BN_CTX_free)}
-      BN_CTX_free := @FC_BN_CTX_free;
+      BN_CTX_free := FC_BN_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3109,7 +3125,7 @@ begin
     if BN_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_free)}
-      BN_CTX_free := @_BN_CTX_free;
+      BN_CTX_free := _BN_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3126,13 +3142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_start_allownil)}
-    BN_CTX_start := @ERR_BN_CTX_start;
+    BN_CTX_start := ERR_BN_CTX_start;
     {$ifend}
     {$if declared(BN_CTX_start_introduced)}
     if LibVersion < BN_CTX_start_introduced then
     begin
       {$if declared(FC_BN_CTX_start)}
-      BN_CTX_start := @FC_BN_CTX_start;
+      BN_CTX_start := FC_BN_CTX_start;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3141,7 +3157,7 @@ begin
     if BN_CTX_start_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_start)}
-      BN_CTX_start := @_BN_CTX_start;
+      BN_CTX_start := _BN_CTX_start;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3158,13 +3174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_get_allownil)}
-    BN_CTX_get := @ERR_BN_CTX_get;
+    BN_CTX_get := ERR_BN_CTX_get;
     {$ifend}
     {$if declared(BN_CTX_get_introduced)}
     if LibVersion < BN_CTX_get_introduced then
     begin
       {$if declared(FC_BN_CTX_get)}
-      BN_CTX_get := @FC_BN_CTX_get;
+      BN_CTX_get := FC_BN_CTX_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3173,7 +3189,7 @@ begin
     if BN_CTX_get_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_get)}
-      BN_CTX_get := @_BN_CTX_get;
+      BN_CTX_get := _BN_CTX_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3190,13 +3206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_CTX_end_allownil)}
-    BN_CTX_end := @ERR_BN_CTX_end;
+    BN_CTX_end := ERR_BN_CTX_end;
     {$ifend}
     {$if declared(BN_CTX_end_introduced)}
     if LibVersion < BN_CTX_end_introduced then
     begin
       {$if declared(FC_BN_CTX_end)}
-      BN_CTX_end := @FC_BN_CTX_end;
+      BN_CTX_end := FC_BN_CTX_end;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3205,7 +3221,7 @@ begin
     if BN_CTX_end_removed <= LibVersion then
     begin
       {$if declared(_BN_CTX_end)}
-      BN_CTX_end := @_BN_CTX_end;
+      BN_CTX_end := _BN_CTX_end;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3222,13 +3238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_rand_allownil)}
-    BN_rand := @ERR_BN_rand;
+    BN_rand := ERR_BN_rand;
     {$ifend}
     {$if declared(BN_rand_introduced)}
     if LibVersion < BN_rand_introduced then
     begin
       {$if declared(FC_BN_rand)}
-      BN_rand := @FC_BN_rand;
+      BN_rand := FC_BN_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3237,7 +3253,7 @@ begin
     if BN_rand_removed <= LibVersion then
     begin
       {$if declared(_BN_rand)}
-      BN_rand := @_BN_rand;
+      BN_rand := _BN_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3254,13 +3270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_priv_rand_allownil)}
-    BN_priv_rand := @ERR_BN_priv_rand;
+    BN_priv_rand := ERR_BN_priv_rand;
     {$ifend}
     {$if declared(BN_priv_rand_introduced)}
     if LibVersion < BN_priv_rand_introduced then
     begin
       {$if declared(FC_BN_priv_rand)}
-      BN_priv_rand := @FC_BN_priv_rand;
+      BN_priv_rand := FC_BN_priv_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3269,7 +3285,7 @@ begin
     if BN_priv_rand_removed <= LibVersion then
     begin
       {$if declared(_BN_priv_rand)}
-      BN_priv_rand := @_BN_priv_rand;
+      BN_priv_rand := _BN_priv_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3286,13 +3302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_rand_range_allownil)}
-    BN_rand_range := @ERR_BN_rand_range;
+    BN_rand_range := ERR_BN_rand_range;
     {$ifend}
     {$if declared(BN_rand_range_introduced)}
     if LibVersion < BN_rand_range_introduced then
     begin
       {$if declared(FC_BN_rand_range)}
-      BN_rand_range := @FC_BN_rand_range;
+      BN_rand_range := FC_BN_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3301,7 +3317,7 @@ begin
     if BN_rand_range_removed <= LibVersion then
     begin
       {$if declared(_BN_rand_range)}
-      BN_rand_range := @_BN_rand_range;
+      BN_rand_range := _BN_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3318,13 +3334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_priv_rand_range_allownil)}
-    BN_priv_rand_range := @ERR_BN_priv_rand_range;
+    BN_priv_rand_range := ERR_BN_priv_rand_range;
     {$ifend}
     {$if declared(BN_priv_rand_range_introduced)}
     if LibVersion < BN_priv_rand_range_introduced then
     begin
       {$if declared(FC_BN_priv_rand_range)}
-      BN_priv_rand_range := @FC_BN_priv_rand_range;
+      BN_priv_rand_range := FC_BN_priv_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3333,7 +3349,7 @@ begin
     if BN_priv_rand_range_removed <= LibVersion then
     begin
       {$if declared(_BN_priv_rand_range)}
-      BN_priv_rand_range := @_BN_priv_rand_range;
+      BN_priv_rand_range := _BN_priv_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3350,13 +3366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_pseudo_rand_allownil)}
-    BN_pseudo_rand := @ERR_BN_pseudo_rand;
+    BN_pseudo_rand := ERR_BN_pseudo_rand;
     {$ifend}
     {$if declared(BN_pseudo_rand_introduced)}
     if LibVersion < BN_pseudo_rand_introduced then
     begin
       {$if declared(FC_BN_pseudo_rand)}
-      BN_pseudo_rand := @FC_BN_pseudo_rand;
+      BN_pseudo_rand := FC_BN_pseudo_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3365,7 +3381,7 @@ begin
     if BN_pseudo_rand_removed <= LibVersion then
     begin
       {$if declared(_BN_pseudo_rand)}
-      BN_pseudo_rand := @_BN_pseudo_rand;
+      BN_pseudo_rand := _BN_pseudo_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3382,13 +3398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_pseudo_rand_range_allownil)}
-    BN_pseudo_rand_range := @ERR_BN_pseudo_rand_range;
+    BN_pseudo_rand_range := ERR_BN_pseudo_rand_range;
     {$ifend}
     {$if declared(BN_pseudo_rand_range_introduced)}
     if LibVersion < BN_pseudo_rand_range_introduced then
     begin
       {$if declared(FC_BN_pseudo_rand_range)}
-      BN_pseudo_rand_range := @FC_BN_pseudo_rand_range;
+      BN_pseudo_rand_range := FC_BN_pseudo_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3397,7 +3413,7 @@ begin
     if BN_pseudo_rand_range_removed <= LibVersion then
     begin
       {$if declared(_BN_pseudo_rand_range)}
-      BN_pseudo_rand_range := @_BN_pseudo_rand_range;
+      BN_pseudo_rand_range := _BN_pseudo_rand_range;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3414,13 +3430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_num_bits_allownil)}
-    BN_num_bits := @ERR_BN_num_bits;
+    BN_num_bits := ERR_BN_num_bits;
     {$ifend}
     {$if declared(BN_num_bits_introduced)}
     if LibVersion < BN_num_bits_introduced then
     begin
       {$if declared(FC_BN_num_bits)}
-      BN_num_bits := @FC_BN_num_bits;
+      BN_num_bits := FC_BN_num_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3429,7 +3445,7 @@ begin
     if BN_num_bits_removed <= LibVersion then
     begin
       {$if declared(_BN_num_bits)}
-      BN_num_bits := @_BN_num_bits;
+      BN_num_bits := _BN_num_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3446,13 +3462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_num_bits_word_allownil)}
-    BN_num_bits_word := @ERR_BN_num_bits_word;
+    BN_num_bits_word := ERR_BN_num_bits_word;
     {$ifend}
     {$if declared(BN_num_bits_word_introduced)}
     if LibVersion < BN_num_bits_word_introduced then
     begin
       {$if declared(FC_BN_num_bits_word)}
-      BN_num_bits_word := @FC_BN_num_bits_word;
+      BN_num_bits_word := FC_BN_num_bits_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3461,7 +3477,7 @@ begin
     if BN_num_bits_word_removed <= LibVersion then
     begin
       {$if declared(_BN_num_bits_word)}
-      BN_num_bits_word := @_BN_num_bits_word;
+      BN_num_bits_word := _BN_num_bits_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3478,13 +3494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_security_bits_allownil)}
-    BN_security_bits := @ERR_BN_security_bits;
+    BN_security_bits := ERR_BN_security_bits;
     {$ifend}
     {$if declared(BN_security_bits_introduced)}
     if LibVersion < BN_security_bits_introduced then
     begin
       {$if declared(FC_BN_security_bits)}
-      BN_security_bits := @FC_BN_security_bits;
+      BN_security_bits := FC_BN_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3493,7 +3509,7 @@ begin
     if BN_security_bits_removed <= LibVersion then
     begin
       {$if declared(_BN_security_bits)}
-      BN_security_bits := @_BN_security_bits;
+      BN_security_bits := _BN_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3510,13 +3526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_new_allownil)}
-    BN_new := @ERR_BN_new;
+    BN_new := ERR_BN_new;
     {$ifend}
     {$if declared(BN_new_introduced)}
     if LibVersion < BN_new_introduced then
     begin
       {$if declared(FC_BN_new)}
-      BN_new := @FC_BN_new;
+      BN_new := FC_BN_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3525,7 +3541,7 @@ begin
     if BN_new_removed <= LibVersion then
     begin
       {$if declared(_BN_new)}
-      BN_new := @_BN_new;
+      BN_new := _BN_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3542,13 +3558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_secure_new_allownil)}
-    BN_secure_new := @ERR_BN_secure_new;
+    BN_secure_new := ERR_BN_secure_new;
     {$ifend}
     {$if declared(BN_secure_new_introduced)}
     if LibVersion < BN_secure_new_introduced then
     begin
       {$if declared(FC_BN_secure_new)}
-      BN_secure_new := @FC_BN_secure_new;
+      BN_secure_new := FC_BN_secure_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3557,7 +3573,7 @@ begin
     if BN_secure_new_removed <= LibVersion then
     begin
       {$if declared(_BN_secure_new)}
-      BN_secure_new := @_BN_secure_new;
+      BN_secure_new := _BN_secure_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3574,13 +3590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_clear_free_allownil)}
-    BN_clear_free := @ERR_BN_clear_free;
+    BN_clear_free := ERR_BN_clear_free;
     {$ifend}
     {$if declared(BN_clear_free_introduced)}
     if LibVersion < BN_clear_free_introduced then
     begin
       {$if declared(FC_BN_clear_free)}
-      BN_clear_free := @FC_BN_clear_free;
+      BN_clear_free := FC_BN_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3589,7 +3605,7 @@ begin
     if BN_clear_free_removed <= LibVersion then
     begin
       {$if declared(_BN_clear_free)}
-      BN_clear_free := @_BN_clear_free;
+      BN_clear_free := _BN_clear_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3606,13 +3622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_copy_allownil)}
-    BN_copy := @ERR_BN_copy;
+    BN_copy := ERR_BN_copy;
     {$ifend}
     {$if declared(BN_copy_introduced)}
     if LibVersion < BN_copy_introduced then
     begin
       {$if declared(FC_BN_copy)}
-      BN_copy := @FC_BN_copy;
+      BN_copy := FC_BN_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3621,7 +3637,7 @@ begin
     if BN_copy_removed <= LibVersion then
     begin
       {$if declared(_BN_copy)}
-      BN_copy := @_BN_copy;
+      BN_copy := _BN_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3638,13 +3654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_swap_allownil)}
-    BN_swap := @ERR_BN_swap;
+    BN_swap := ERR_BN_swap;
     {$ifend}
     {$if declared(BN_swap_introduced)}
     if LibVersion < BN_swap_introduced then
     begin
       {$if declared(FC_BN_swap)}
-      BN_swap := @FC_BN_swap;
+      BN_swap := FC_BN_swap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3653,7 +3669,7 @@ begin
     if BN_swap_removed <= LibVersion then
     begin
       {$if declared(_BN_swap)}
-      BN_swap := @_BN_swap;
+      BN_swap := _BN_swap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3670,13 +3686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bin2bn_allownil)}
-    BN_bin2bn := @ERR_BN_bin2bn;
+    BN_bin2bn := ERR_BN_bin2bn;
     {$ifend}
     {$if declared(BN_bin2bn_introduced)}
     if LibVersion < BN_bin2bn_introduced then
     begin
       {$if declared(FC_BN_bin2bn)}
-      BN_bin2bn := @FC_BN_bin2bn;
+      BN_bin2bn := FC_BN_bin2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3685,7 +3701,7 @@ begin
     if BN_bin2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_bin2bn)}
-      BN_bin2bn := @_BN_bin2bn;
+      BN_bin2bn := _BN_bin2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3702,13 +3718,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2bin_allownil)}
-    BN_bn2bin := @ERR_BN_bn2bin;
+    BN_bn2bin := ERR_BN_bn2bin;
     {$ifend}
     {$if declared(BN_bn2bin_introduced)}
     if LibVersion < BN_bn2bin_introduced then
     begin
       {$if declared(FC_BN_bn2bin)}
-      BN_bn2bin := @FC_BN_bn2bin;
+      BN_bn2bin := FC_BN_bn2bin;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3717,7 +3733,7 @@ begin
     if BN_bn2bin_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2bin)}
-      BN_bn2bin := @_BN_bn2bin;
+      BN_bn2bin := _BN_bn2bin;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3734,13 +3750,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2binpad_allownil)}
-    BN_bn2binpad := @ERR_BN_bn2binpad;
+    BN_bn2binpad := ERR_BN_bn2binpad;
     {$ifend}
     {$if declared(BN_bn2binpad_introduced)}
     if LibVersion < BN_bn2binpad_introduced then
     begin
       {$if declared(FC_BN_bn2binpad)}
-      BN_bn2binpad := @FC_BN_bn2binpad;
+      BN_bn2binpad := FC_BN_bn2binpad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3749,7 +3765,7 @@ begin
     if BN_bn2binpad_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2binpad)}
-      BN_bn2binpad := @_BN_bn2binpad;
+      BN_bn2binpad := _BN_bn2binpad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3766,13 +3782,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_lebin2bn_allownil)}
-    BN_lebin2bn := @ERR_BN_lebin2bn;
+    BN_lebin2bn := ERR_BN_lebin2bn;
     {$ifend}
     {$if declared(BN_lebin2bn_introduced)}
     if LibVersion < BN_lebin2bn_introduced then
     begin
       {$if declared(FC_BN_lebin2bn)}
-      BN_lebin2bn := @FC_BN_lebin2bn;
+      BN_lebin2bn := FC_BN_lebin2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3781,7 +3797,7 @@ begin
     if BN_lebin2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_lebin2bn)}
-      BN_lebin2bn := @_BN_lebin2bn;
+      BN_lebin2bn := _BN_lebin2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3798,13 +3814,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2lebinpad_allownil)}
-    BN_bn2lebinpad := @ERR_BN_bn2lebinpad;
+    BN_bn2lebinpad := ERR_BN_bn2lebinpad;
     {$ifend}
     {$if declared(BN_bn2lebinpad_introduced)}
     if LibVersion < BN_bn2lebinpad_introduced then
     begin
       {$if declared(FC_BN_bn2lebinpad)}
-      BN_bn2lebinpad := @FC_BN_bn2lebinpad;
+      BN_bn2lebinpad := FC_BN_bn2lebinpad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3813,7 +3829,7 @@ begin
     if BN_bn2lebinpad_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2lebinpad)}
-      BN_bn2lebinpad := @_BN_bn2lebinpad;
+      BN_bn2lebinpad := _BN_bn2lebinpad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3830,13 +3846,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mpi2bn_allownil)}
-    BN_mpi2bn := @ERR_BN_mpi2bn;
+    BN_mpi2bn := ERR_BN_mpi2bn;
     {$ifend}
     {$if declared(BN_mpi2bn_introduced)}
     if LibVersion < BN_mpi2bn_introduced then
     begin
       {$if declared(FC_BN_mpi2bn)}
-      BN_mpi2bn := @FC_BN_mpi2bn;
+      BN_mpi2bn := FC_BN_mpi2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3845,7 +3861,7 @@ begin
     if BN_mpi2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_mpi2bn)}
-      BN_mpi2bn := @_BN_mpi2bn;
+      BN_mpi2bn := _BN_mpi2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3862,13 +3878,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2mpi_allownil)}
-    BN_bn2mpi := @ERR_BN_bn2mpi;
+    BN_bn2mpi := ERR_BN_bn2mpi;
     {$ifend}
     {$if declared(BN_bn2mpi_introduced)}
     if LibVersion < BN_bn2mpi_introduced then
     begin
       {$if declared(FC_BN_bn2mpi)}
-      BN_bn2mpi := @FC_BN_bn2mpi;
+      BN_bn2mpi := FC_BN_bn2mpi;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3877,7 +3893,7 @@ begin
     if BN_bn2mpi_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2mpi)}
-      BN_bn2mpi := @_BN_bn2mpi;
+      BN_bn2mpi := _BN_bn2mpi;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3894,13 +3910,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_sub_allownil)}
-    BN_sub := @ERR_BN_sub;
+    BN_sub := ERR_BN_sub;
     {$ifend}
     {$if declared(BN_sub_introduced)}
     if LibVersion < BN_sub_introduced then
     begin
       {$if declared(FC_BN_sub)}
-      BN_sub := @FC_BN_sub;
+      BN_sub := FC_BN_sub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3909,7 +3925,7 @@ begin
     if BN_sub_removed <= LibVersion then
     begin
       {$if declared(_BN_sub)}
-      BN_sub := @_BN_sub;
+      BN_sub := _BN_sub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3926,13 +3942,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_usub_allownil)}
-    BN_usub := @ERR_BN_usub;
+    BN_usub := ERR_BN_usub;
     {$ifend}
     {$if declared(BN_usub_introduced)}
     if LibVersion < BN_usub_introduced then
     begin
       {$if declared(FC_BN_usub)}
-      BN_usub := @FC_BN_usub;
+      BN_usub := FC_BN_usub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3941,7 +3957,7 @@ begin
     if BN_usub_removed <= LibVersion then
     begin
       {$if declared(_BN_usub)}
-      BN_usub := @_BN_usub;
+      BN_usub := _BN_usub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3958,13 +3974,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_uadd_allownil)}
-    BN_uadd := @ERR_BN_uadd;
+    BN_uadd := ERR_BN_uadd;
     {$ifend}
     {$if declared(BN_uadd_introduced)}
     if LibVersion < BN_uadd_introduced then
     begin
       {$if declared(FC_BN_uadd)}
-      BN_uadd := @FC_BN_uadd;
+      BN_uadd := FC_BN_uadd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3973,7 +3989,7 @@ begin
     if BN_uadd_removed <= LibVersion then
     begin
       {$if declared(_BN_uadd)}
-      BN_uadd := @_BN_uadd;
+      BN_uadd := _BN_uadd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3990,13 +4006,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_add_allownil)}
-    BN_add := @ERR_BN_add;
+    BN_add := ERR_BN_add;
     {$ifend}
     {$if declared(BN_add_introduced)}
     if LibVersion < BN_add_introduced then
     begin
       {$if declared(FC_BN_add)}
-      BN_add := @FC_BN_add;
+      BN_add := FC_BN_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4005,7 +4021,7 @@ begin
     if BN_add_removed <= LibVersion then
     begin
       {$if declared(_BN_add)}
-      BN_add := @_BN_add;
+      BN_add := _BN_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4022,13 +4038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mul_allownil)}
-    BN_mul := @ERR_BN_mul;
+    BN_mul := ERR_BN_mul;
     {$ifend}
     {$if declared(BN_mul_introduced)}
     if LibVersion < BN_mul_introduced then
     begin
       {$if declared(FC_BN_mul)}
-      BN_mul := @FC_BN_mul;
+      BN_mul := FC_BN_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4037,7 +4053,7 @@ begin
     if BN_mul_removed <= LibVersion then
     begin
       {$if declared(_BN_mul)}
-      BN_mul := @_BN_mul;
+      BN_mul := _BN_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4054,13 +4070,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_sqr_allownil)}
-    BN_sqr := @ERR_BN_sqr;
+    BN_sqr := ERR_BN_sqr;
     {$ifend}
     {$if declared(BN_sqr_introduced)}
     if LibVersion < BN_sqr_introduced then
     begin
       {$if declared(FC_BN_sqr)}
-      BN_sqr := @FC_BN_sqr;
+      BN_sqr := FC_BN_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4069,7 +4085,7 @@ begin
     if BN_sqr_removed <= LibVersion then
     begin
       {$if declared(_BN_sqr)}
-      BN_sqr := @_BN_sqr;
+      BN_sqr := _BN_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4086,13 +4102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_set_negative_allownil)}
-    BN_set_negative := @ERR_BN_set_negative;
+    BN_set_negative := ERR_BN_set_negative;
     {$ifend}
     {$if declared(BN_set_negative_introduced)}
     if LibVersion < BN_set_negative_introduced then
     begin
       {$if declared(FC_BN_set_negative)}
-      BN_set_negative := @FC_BN_set_negative;
+      BN_set_negative := FC_BN_set_negative;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4101,7 +4117,7 @@ begin
     if BN_set_negative_removed <= LibVersion then
     begin
       {$if declared(_BN_set_negative)}
-      BN_set_negative := @_BN_set_negative;
+      BN_set_negative := _BN_set_negative;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4118,13 +4134,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_negative_allownil)}
-    BN_is_negative := @ERR_BN_is_negative;
+    BN_is_negative := ERR_BN_is_negative;
     {$ifend}
     {$if declared(BN_is_negative_introduced)}
     if LibVersion < BN_is_negative_introduced then
     begin
       {$if declared(FC_BN_is_negative)}
-      BN_is_negative := @FC_BN_is_negative;
+      BN_is_negative := FC_BN_is_negative;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4133,7 +4149,7 @@ begin
     if BN_is_negative_removed <= LibVersion then
     begin
       {$if declared(_BN_is_negative)}
-      BN_is_negative := @_BN_is_negative;
+      BN_is_negative := _BN_is_negative;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4150,13 +4166,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_div_allownil)}
-    BN_div := @ERR_BN_div;
+    BN_div := ERR_BN_div;
     {$ifend}
     {$if declared(BN_div_introduced)}
     if LibVersion < BN_div_introduced then
     begin
       {$if declared(FC_BN_div)}
-      BN_div := @FC_BN_div;
+      BN_div := FC_BN_div;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4165,7 +4181,7 @@ begin
     if BN_div_removed <= LibVersion then
     begin
       {$if declared(_BN_div)}
-      BN_div := @_BN_div;
+      BN_div := _BN_div;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4182,13 +4198,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nnmod_allownil)}
-    BN_nnmod := @ERR_BN_nnmod;
+    BN_nnmod := ERR_BN_nnmod;
     {$ifend}
     {$if declared(BN_nnmod_introduced)}
     if LibVersion < BN_nnmod_introduced then
     begin
       {$if declared(FC_BN_nnmod)}
-      BN_nnmod := @FC_BN_nnmod;
+      BN_nnmod := FC_BN_nnmod;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4197,7 +4213,7 @@ begin
     if BN_nnmod_removed <= LibVersion then
     begin
       {$if declared(_BN_nnmod)}
-      BN_nnmod := @_BN_nnmod;
+      BN_nnmod := _BN_nnmod;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4214,13 +4230,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_add_allownil)}
-    BN_mod_add := @ERR_BN_mod_add;
+    BN_mod_add := ERR_BN_mod_add;
     {$ifend}
     {$if declared(BN_mod_add_introduced)}
     if LibVersion < BN_mod_add_introduced then
     begin
       {$if declared(FC_BN_mod_add)}
-      BN_mod_add := @FC_BN_mod_add;
+      BN_mod_add := FC_BN_mod_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4229,7 +4245,7 @@ begin
     if BN_mod_add_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_add)}
-      BN_mod_add := @_BN_mod_add;
+      BN_mod_add := _BN_mod_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4246,13 +4262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_add_quick_allownil)}
-    BN_mod_add_quick := @ERR_BN_mod_add_quick;
+    BN_mod_add_quick := ERR_BN_mod_add_quick;
     {$ifend}
     {$if declared(BN_mod_add_quick_introduced)}
     if LibVersion < BN_mod_add_quick_introduced then
     begin
       {$if declared(FC_BN_mod_add_quick)}
-      BN_mod_add_quick := @FC_BN_mod_add_quick;
+      BN_mod_add_quick := FC_BN_mod_add_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4261,7 +4277,7 @@ begin
     if BN_mod_add_quick_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_add_quick)}
-      BN_mod_add_quick := @_BN_mod_add_quick;
+      BN_mod_add_quick := _BN_mod_add_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4278,13 +4294,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_sub_allownil)}
-    BN_mod_sub := @ERR_BN_mod_sub;
+    BN_mod_sub := ERR_BN_mod_sub;
     {$ifend}
     {$if declared(BN_mod_sub_introduced)}
     if LibVersion < BN_mod_sub_introduced then
     begin
       {$if declared(FC_BN_mod_sub)}
-      BN_mod_sub := @FC_BN_mod_sub;
+      BN_mod_sub := FC_BN_mod_sub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4293,7 +4309,7 @@ begin
     if BN_mod_sub_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_sub)}
-      BN_mod_sub := @_BN_mod_sub;
+      BN_mod_sub := _BN_mod_sub;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4310,13 +4326,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_sub_quick_allownil)}
-    BN_mod_sub_quick := @ERR_BN_mod_sub_quick;
+    BN_mod_sub_quick := ERR_BN_mod_sub_quick;
     {$ifend}
     {$if declared(BN_mod_sub_quick_introduced)}
     if LibVersion < BN_mod_sub_quick_introduced then
     begin
       {$if declared(FC_BN_mod_sub_quick)}
-      BN_mod_sub_quick := @FC_BN_mod_sub_quick;
+      BN_mod_sub_quick := FC_BN_mod_sub_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4325,7 +4341,7 @@ begin
     if BN_mod_sub_quick_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_sub_quick)}
-      BN_mod_sub_quick := @_BN_mod_sub_quick;
+      BN_mod_sub_quick := _BN_mod_sub_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4342,13 +4358,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_mul_allownil)}
-    BN_mod_mul := @ERR_BN_mod_mul;
+    BN_mod_mul := ERR_BN_mod_mul;
     {$ifend}
     {$if declared(BN_mod_mul_introduced)}
     if LibVersion < BN_mod_mul_introduced then
     begin
       {$if declared(FC_BN_mod_mul)}
-      BN_mod_mul := @FC_BN_mod_mul;
+      BN_mod_mul := FC_BN_mod_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4357,7 +4373,7 @@ begin
     if BN_mod_mul_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_mul)}
-      BN_mod_mul := @_BN_mod_mul;
+      BN_mod_mul := _BN_mod_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4374,13 +4390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_sqr_allownil)}
-    BN_mod_sqr := @ERR_BN_mod_sqr;
+    BN_mod_sqr := ERR_BN_mod_sqr;
     {$ifend}
     {$if declared(BN_mod_sqr_introduced)}
     if LibVersion < BN_mod_sqr_introduced then
     begin
       {$if declared(FC_BN_mod_sqr)}
-      BN_mod_sqr := @FC_BN_mod_sqr;
+      BN_mod_sqr := FC_BN_mod_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4389,7 +4405,7 @@ begin
     if BN_mod_sqr_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_sqr)}
-      BN_mod_sqr := @_BN_mod_sqr;
+      BN_mod_sqr := _BN_mod_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4406,13 +4422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_lshift1_allownil)}
-    BN_mod_lshift1 := @ERR_BN_mod_lshift1;
+    BN_mod_lshift1 := ERR_BN_mod_lshift1;
     {$ifend}
     {$if declared(BN_mod_lshift1_introduced)}
     if LibVersion < BN_mod_lshift1_introduced then
     begin
       {$if declared(FC_BN_mod_lshift1)}
-      BN_mod_lshift1 := @FC_BN_mod_lshift1;
+      BN_mod_lshift1 := FC_BN_mod_lshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4421,7 +4437,7 @@ begin
     if BN_mod_lshift1_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_lshift1)}
-      BN_mod_lshift1 := @_BN_mod_lshift1;
+      BN_mod_lshift1 := _BN_mod_lshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4438,13 +4454,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_lshift1_quick_allownil)}
-    BN_mod_lshift1_quick := @ERR_BN_mod_lshift1_quick;
+    BN_mod_lshift1_quick := ERR_BN_mod_lshift1_quick;
     {$ifend}
     {$if declared(BN_mod_lshift1_quick_introduced)}
     if LibVersion < BN_mod_lshift1_quick_introduced then
     begin
       {$if declared(FC_BN_mod_lshift1_quick)}
-      BN_mod_lshift1_quick := @FC_BN_mod_lshift1_quick;
+      BN_mod_lshift1_quick := FC_BN_mod_lshift1_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4453,7 +4469,7 @@ begin
     if BN_mod_lshift1_quick_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_lshift1_quick)}
-      BN_mod_lshift1_quick := @_BN_mod_lshift1_quick;
+      BN_mod_lshift1_quick := _BN_mod_lshift1_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4470,13 +4486,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_lshift_allownil)}
-    BN_mod_lshift := @ERR_BN_mod_lshift;
+    BN_mod_lshift := ERR_BN_mod_lshift;
     {$ifend}
     {$if declared(BN_mod_lshift_introduced)}
     if LibVersion < BN_mod_lshift_introduced then
     begin
       {$if declared(FC_BN_mod_lshift)}
-      BN_mod_lshift := @FC_BN_mod_lshift;
+      BN_mod_lshift := FC_BN_mod_lshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4485,7 +4501,7 @@ begin
     if BN_mod_lshift_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_lshift)}
-      BN_mod_lshift := @_BN_mod_lshift;
+      BN_mod_lshift := _BN_mod_lshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4502,13 +4518,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_lshift_quick_allownil)}
-    BN_mod_lshift_quick := @ERR_BN_mod_lshift_quick;
+    BN_mod_lshift_quick := ERR_BN_mod_lshift_quick;
     {$ifend}
     {$if declared(BN_mod_lshift_quick_introduced)}
     if LibVersion < BN_mod_lshift_quick_introduced then
     begin
       {$if declared(FC_BN_mod_lshift_quick)}
-      BN_mod_lshift_quick := @FC_BN_mod_lshift_quick;
+      BN_mod_lshift_quick := FC_BN_mod_lshift_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4517,7 +4533,7 @@ begin
     if BN_mod_lshift_quick_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_lshift_quick)}
-      BN_mod_lshift_quick := @_BN_mod_lshift_quick;
+      BN_mod_lshift_quick := _BN_mod_lshift_quick;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4534,13 +4550,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_word_allownil)}
-    BN_mod_word := @ERR_BN_mod_word;
+    BN_mod_word := ERR_BN_mod_word;
     {$ifend}
     {$if declared(BN_mod_word_introduced)}
     if LibVersion < BN_mod_word_introduced then
     begin
       {$if declared(FC_BN_mod_word)}
-      BN_mod_word := @FC_BN_mod_word;
+      BN_mod_word := FC_BN_mod_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4549,7 +4565,7 @@ begin
     if BN_mod_word_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_word)}
-      BN_mod_word := @_BN_mod_word;
+      BN_mod_word := _BN_mod_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4566,13 +4582,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_div_word_allownil)}
-    BN_div_word := @ERR_BN_div_word;
+    BN_div_word := ERR_BN_div_word;
     {$ifend}
     {$if declared(BN_div_word_introduced)}
     if LibVersion < BN_div_word_introduced then
     begin
       {$if declared(FC_BN_div_word)}
-      BN_div_word := @FC_BN_div_word;
+      BN_div_word := FC_BN_div_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4581,7 +4597,7 @@ begin
     if BN_div_word_removed <= LibVersion then
     begin
       {$if declared(_BN_div_word)}
-      BN_div_word := @_BN_div_word;
+      BN_div_word := _BN_div_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4598,13 +4614,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mul_word_allownil)}
-    BN_mul_word := @ERR_BN_mul_word;
+    BN_mul_word := ERR_BN_mul_word;
     {$ifend}
     {$if declared(BN_mul_word_introduced)}
     if LibVersion < BN_mul_word_introduced then
     begin
       {$if declared(FC_BN_mul_word)}
-      BN_mul_word := @FC_BN_mul_word;
+      BN_mul_word := FC_BN_mul_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4613,7 +4629,7 @@ begin
     if BN_mul_word_removed <= LibVersion then
     begin
       {$if declared(_BN_mul_word)}
-      BN_mul_word := @_BN_mul_word;
+      BN_mul_word := _BN_mul_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4630,13 +4646,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_add_word_allownil)}
-    BN_add_word := @ERR_BN_add_word;
+    BN_add_word := ERR_BN_add_word;
     {$ifend}
     {$if declared(BN_add_word_introduced)}
     if LibVersion < BN_add_word_introduced then
     begin
       {$if declared(FC_BN_add_word)}
-      BN_add_word := @FC_BN_add_word;
+      BN_add_word := FC_BN_add_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4645,7 +4661,7 @@ begin
     if BN_add_word_removed <= LibVersion then
     begin
       {$if declared(_BN_add_word)}
-      BN_add_word := @_BN_add_word;
+      BN_add_word := _BN_add_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4662,13 +4678,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_sub_word_allownil)}
-    BN_sub_word := @ERR_BN_sub_word;
+    BN_sub_word := ERR_BN_sub_word;
     {$ifend}
     {$if declared(BN_sub_word_introduced)}
     if LibVersion < BN_sub_word_introduced then
     begin
       {$if declared(FC_BN_sub_word)}
-      BN_sub_word := @FC_BN_sub_word;
+      BN_sub_word := FC_BN_sub_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4677,7 +4693,7 @@ begin
     if BN_sub_word_removed <= LibVersion then
     begin
       {$if declared(_BN_sub_word)}
-      BN_sub_word := @_BN_sub_word;
+      BN_sub_word := _BN_sub_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4694,13 +4710,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_set_word_allownil)}
-    BN_set_word := @ERR_BN_set_word;
+    BN_set_word := ERR_BN_set_word;
     {$ifend}
     {$if declared(BN_set_word_introduced)}
     if LibVersion < BN_set_word_introduced then
     begin
       {$if declared(FC_BN_set_word)}
-      BN_set_word := @FC_BN_set_word;
+      BN_set_word := FC_BN_set_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4709,7 +4725,7 @@ begin
     if BN_set_word_removed <= LibVersion then
     begin
       {$if declared(_BN_set_word)}
-      BN_set_word := @_BN_set_word;
+      BN_set_word := _BN_set_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4726,13 +4742,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_word_allownil)}
-    BN_get_word := @ERR_BN_get_word;
+    BN_get_word := ERR_BN_get_word;
     {$ifend}
     {$if declared(BN_get_word_introduced)}
     if LibVersion < BN_get_word_introduced then
     begin
       {$if declared(FC_BN_get_word)}
-      BN_get_word := @FC_BN_get_word;
+      BN_get_word := FC_BN_get_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4741,7 +4757,7 @@ begin
     if BN_get_word_removed <= LibVersion then
     begin
       {$if declared(_BN_get_word)}
-      BN_get_word := @_BN_get_word;
+      BN_get_word := _BN_get_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4758,13 +4774,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_cmp_allownil)}
-    BN_cmp := @ERR_BN_cmp;
+    BN_cmp := ERR_BN_cmp;
     {$ifend}
     {$if declared(BN_cmp_introduced)}
     if LibVersion < BN_cmp_introduced then
     begin
       {$if declared(FC_BN_cmp)}
-      BN_cmp := @FC_BN_cmp;
+      BN_cmp := FC_BN_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4773,7 +4789,7 @@ begin
     if BN_cmp_removed <= LibVersion then
     begin
       {$if declared(_BN_cmp)}
-      BN_cmp := @_BN_cmp;
+      BN_cmp := _BN_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4790,13 +4806,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_free_allownil)}
-    BN_free := @ERR_BN_free;
+    BN_free := ERR_BN_free;
     {$ifend}
     {$if declared(BN_free_introduced)}
     if LibVersion < BN_free_introduced then
     begin
       {$if declared(FC_BN_free)}
-      BN_free := @FC_BN_free;
+      BN_free := FC_BN_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4805,7 +4821,7 @@ begin
     if BN_free_removed <= LibVersion then
     begin
       {$if declared(_BN_free)}
-      BN_free := @_BN_free;
+      BN_free := _BN_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4822,13 +4838,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_bit_set_allownil)}
-    BN_is_bit_set := @ERR_BN_is_bit_set;
+    BN_is_bit_set := ERR_BN_is_bit_set;
     {$ifend}
     {$if declared(BN_is_bit_set_introduced)}
     if LibVersion < BN_is_bit_set_introduced then
     begin
       {$if declared(FC_BN_is_bit_set)}
-      BN_is_bit_set := @FC_BN_is_bit_set;
+      BN_is_bit_set := FC_BN_is_bit_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4837,7 +4853,7 @@ begin
     if BN_is_bit_set_removed <= LibVersion then
     begin
       {$if declared(_BN_is_bit_set)}
-      BN_is_bit_set := @_BN_is_bit_set;
+      BN_is_bit_set := _BN_is_bit_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4854,13 +4870,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_lshift_allownil)}
-    BN_lshift := @ERR_BN_lshift;
+    BN_lshift := ERR_BN_lshift;
     {$ifend}
     {$if declared(BN_lshift_introduced)}
     if LibVersion < BN_lshift_introduced then
     begin
       {$if declared(FC_BN_lshift)}
-      BN_lshift := @FC_BN_lshift;
+      BN_lshift := FC_BN_lshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4869,7 +4885,7 @@ begin
     if BN_lshift_removed <= LibVersion then
     begin
       {$if declared(_BN_lshift)}
-      BN_lshift := @_BN_lshift;
+      BN_lshift := _BN_lshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4886,13 +4902,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_lshift1_allownil)}
-    BN_lshift1 := @ERR_BN_lshift1;
+    BN_lshift1 := ERR_BN_lshift1;
     {$ifend}
     {$if declared(BN_lshift1_introduced)}
     if LibVersion < BN_lshift1_introduced then
     begin
       {$if declared(FC_BN_lshift1)}
-      BN_lshift1 := @FC_BN_lshift1;
+      BN_lshift1 := FC_BN_lshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4901,7 +4917,7 @@ begin
     if BN_lshift1_removed <= LibVersion then
     begin
       {$if declared(_BN_lshift1)}
-      BN_lshift1 := @_BN_lshift1;
+      BN_lshift1 := _BN_lshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4918,13 +4934,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_exp_allownil)}
-    BN_exp := @ERR_BN_exp;
+    BN_exp := ERR_BN_exp;
     {$ifend}
     {$if declared(BN_exp_introduced)}
     if LibVersion < BN_exp_introduced then
     begin
       {$if declared(FC_BN_exp)}
-      BN_exp := @FC_BN_exp;
+      BN_exp := FC_BN_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4933,7 +4949,7 @@ begin
     if BN_exp_removed <= LibVersion then
     begin
       {$if declared(_BN_exp)}
-      BN_exp := @_BN_exp;
+      BN_exp := _BN_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4950,13 +4966,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_allownil)}
-    BN_mod_exp := @ERR_BN_mod_exp;
+    BN_mod_exp := ERR_BN_mod_exp;
     {$ifend}
     {$if declared(BN_mod_exp_introduced)}
     if LibVersion < BN_mod_exp_introduced then
     begin
       {$if declared(FC_BN_mod_exp)}
-      BN_mod_exp := @FC_BN_mod_exp;
+      BN_mod_exp := FC_BN_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4965,7 +4981,7 @@ begin
     if BN_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp)}
-      BN_mod_exp := @_BN_mod_exp;
+      BN_mod_exp := _BN_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4982,13 +4998,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_mont_allownil)}
-    BN_mod_exp_mont := @ERR_BN_mod_exp_mont;
+    BN_mod_exp_mont := ERR_BN_mod_exp_mont;
     {$ifend}
     {$if declared(BN_mod_exp_mont_introduced)}
     if LibVersion < BN_mod_exp_mont_introduced then
     begin
       {$if declared(FC_BN_mod_exp_mont)}
-      BN_mod_exp_mont := @FC_BN_mod_exp_mont;
+      BN_mod_exp_mont := FC_BN_mod_exp_mont;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4997,7 +5013,7 @@ begin
     if BN_mod_exp_mont_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp_mont)}
-      BN_mod_exp_mont := @_BN_mod_exp_mont;
+      BN_mod_exp_mont := _BN_mod_exp_mont;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5014,13 +5030,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_mont_consttime_allownil)}
-    BN_mod_exp_mont_consttime := @ERR_BN_mod_exp_mont_consttime;
+    BN_mod_exp_mont_consttime := ERR_BN_mod_exp_mont_consttime;
     {$ifend}
     {$if declared(BN_mod_exp_mont_consttime_introduced)}
     if LibVersion < BN_mod_exp_mont_consttime_introduced then
     begin
       {$if declared(FC_BN_mod_exp_mont_consttime)}
-      BN_mod_exp_mont_consttime := @FC_BN_mod_exp_mont_consttime;
+      BN_mod_exp_mont_consttime := FC_BN_mod_exp_mont_consttime;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5029,7 +5045,7 @@ begin
     if BN_mod_exp_mont_consttime_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp_mont_consttime)}
-      BN_mod_exp_mont_consttime := @_BN_mod_exp_mont_consttime;
+      BN_mod_exp_mont_consttime := _BN_mod_exp_mont_consttime;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5046,13 +5062,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_mont_word_allownil)}
-    BN_mod_exp_mont_word := @ERR_BN_mod_exp_mont_word;
+    BN_mod_exp_mont_word := ERR_BN_mod_exp_mont_word;
     {$ifend}
     {$if declared(BN_mod_exp_mont_word_introduced)}
     if LibVersion < BN_mod_exp_mont_word_introduced then
     begin
       {$if declared(FC_BN_mod_exp_mont_word)}
-      BN_mod_exp_mont_word := @FC_BN_mod_exp_mont_word;
+      BN_mod_exp_mont_word := FC_BN_mod_exp_mont_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5061,7 +5077,7 @@ begin
     if BN_mod_exp_mont_word_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp_mont_word)}
-      BN_mod_exp_mont_word := @_BN_mod_exp_mont_word;
+      BN_mod_exp_mont_word := _BN_mod_exp_mont_word;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5078,13 +5094,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp2_mont_allownil)}
-    BN_mod_exp2_mont := @ERR_BN_mod_exp2_mont;
+    BN_mod_exp2_mont := ERR_BN_mod_exp2_mont;
     {$ifend}
     {$if declared(BN_mod_exp2_mont_introduced)}
     if LibVersion < BN_mod_exp2_mont_introduced then
     begin
       {$if declared(FC_BN_mod_exp2_mont)}
-      BN_mod_exp2_mont := @FC_BN_mod_exp2_mont;
+      BN_mod_exp2_mont := FC_BN_mod_exp2_mont;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5093,7 +5109,7 @@ begin
     if BN_mod_exp2_mont_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp2_mont)}
-      BN_mod_exp2_mont := @_BN_mod_exp2_mont;
+      BN_mod_exp2_mont := _BN_mod_exp2_mont;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5110,13 +5126,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_simple_allownil)}
-    BN_mod_exp_simple := @ERR_BN_mod_exp_simple;
+    BN_mod_exp_simple := ERR_BN_mod_exp_simple;
     {$ifend}
     {$if declared(BN_mod_exp_simple_introduced)}
     if LibVersion < BN_mod_exp_simple_introduced then
     begin
       {$if declared(FC_BN_mod_exp_simple)}
-      BN_mod_exp_simple := @FC_BN_mod_exp_simple;
+      BN_mod_exp_simple := FC_BN_mod_exp_simple;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5125,7 +5141,7 @@ begin
     if BN_mod_exp_simple_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp_simple)}
-      BN_mod_exp_simple := @_BN_mod_exp_simple;
+      BN_mod_exp_simple := _BN_mod_exp_simple;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5142,13 +5158,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mask_bits_allownil)}
-    BN_mask_bits := @ERR_BN_mask_bits;
+    BN_mask_bits := ERR_BN_mask_bits;
     {$ifend}
     {$if declared(BN_mask_bits_introduced)}
     if LibVersion < BN_mask_bits_introduced then
     begin
       {$if declared(FC_BN_mask_bits)}
-      BN_mask_bits := @FC_BN_mask_bits;
+      BN_mask_bits := FC_BN_mask_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5157,7 +5173,7 @@ begin
     if BN_mask_bits_removed <= LibVersion then
     begin
       {$if declared(_BN_mask_bits)}
-      BN_mask_bits := @_BN_mask_bits;
+      BN_mask_bits := _BN_mask_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5174,13 +5190,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_print_allownil)}
-    BN_print := @ERR_BN_print;
+    BN_print := ERR_BN_print;
     {$ifend}
     {$if declared(BN_print_introduced)}
     if LibVersion < BN_print_introduced then
     begin
       {$if declared(FC_BN_print)}
-      BN_print := @FC_BN_print;
+      BN_print := FC_BN_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5189,7 +5205,7 @@ begin
     if BN_print_removed <= LibVersion then
     begin
       {$if declared(_BN_print)}
-      BN_print := @_BN_print;
+      BN_print := _BN_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5206,13 +5222,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_reciprocal_allownil)}
-    BN_reciprocal := @ERR_BN_reciprocal;
+    BN_reciprocal := ERR_BN_reciprocal;
     {$ifend}
     {$if declared(BN_reciprocal_introduced)}
     if LibVersion < BN_reciprocal_introduced then
     begin
       {$if declared(FC_BN_reciprocal)}
-      BN_reciprocal := @FC_BN_reciprocal;
+      BN_reciprocal := FC_BN_reciprocal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5221,7 +5237,7 @@ begin
     if BN_reciprocal_removed <= LibVersion then
     begin
       {$if declared(_BN_reciprocal)}
-      BN_reciprocal := @_BN_reciprocal;
+      BN_reciprocal := _BN_reciprocal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5238,13 +5254,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_rshift_allownil)}
-    BN_rshift := @ERR_BN_rshift;
+    BN_rshift := ERR_BN_rshift;
     {$ifend}
     {$if declared(BN_rshift_introduced)}
     if LibVersion < BN_rshift_introduced then
     begin
       {$if declared(FC_BN_rshift)}
-      BN_rshift := @FC_BN_rshift;
+      BN_rshift := FC_BN_rshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5253,7 +5269,7 @@ begin
     if BN_rshift_removed <= LibVersion then
     begin
       {$if declared(_BN_rshift)}
-      BN_rshift := @_BN_rshift;
+      BN_rshift := _BN_rshift;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5270,13 +5286,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_rshift1_allownil)}
-    BN_rshift1 := @ERR_BN_rshift1;
+    BN_rshift1 := ERR_BN_rshift1;
     {$ifend}
     {$if declared(BN_rshift1_introduced)}
     if LibVersion < BN_rshift1_introduced then
     begin
       {$if declared(FC_BN_rshift1)}
-      BN_rshift1 := @FC_BN_rshift1;
+      BN_rshift1 := FC_BN_rshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5285,7 +5301,7 @@ begin
     if BN_rshift1_removed <= LibVersion then
     begin
       {$if declared(_BN_rshift1)}
-      BN_rshift1 := @_BN_rshift1;
+      BN_rshift1 := _BN_rshift1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5302,13 +5318,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_clear_allownil)}
-    BN_clear := @ERR_BN_clear;
+    BN_clear := ERR_BN_clear;
     {$ifend}
     {$if declared(BN_clear_introduced)}
     if LibVersion < BN_clear_introduced then
     begin
       {$if declared(FC_BN_clear)}
-      BN_clear := @FC_BN_clear;
+      BN_clear := FC_BN_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5317,7 +5333,7 @@ begin
     if BN_clear_removed <= LibVersion then
     begin
       {$if declared(_BN_clear)}
-      BN_clear := @_BN_clear;
+      BN_clear := _BN_clear;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5334,13 +5350,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_dup_allownil)}
-    BN_dup := @ERR_BN_dup;
+    BN_dup := ERR_BN_dup;
     {$ifend}
     {$if declared(BN_dup_introduced)}
     if LibVersion < BN_dup_introduced then
     begin
       {$if declared(FC_BN_dup)}
-      BN_dup := @FC_BN_dup;
+      BN_dup := FC_BN_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5349,7 +5365,7 @@ begin
     if BN_dup_removed <= LibVersion then
     begin
       {$if declared(_BN_dup)}
-      BN_dup := @_BN_dup;
+      BN_dup := _BN_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5366,13 +5382,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_ucmp_allownil)}
-    BN_ucmp := @ERR_BN_ucmp;
+    BN_ucmp := ERR_BN_ucmp;
     {$ifend}
     {$if declared(BN_ucmp_introduced)}
     if LibVersion < BN_ucmp_introduced then
     begin
       {$if declared(FC_BN_ucmp)}
-      BN_ucmp := @FC_BN_ucmp;
+      BN_ucmp := FC_BN_ucmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5381,7 +5397,7 @@ begin
     if BN_ucmp_removed <= LibVersion then
     begin
       {$if declared(_BN_ucmp)}
-      BN_ucmp := @_BN_ucmp;
+      BN_ucmp := _BN_ucmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5398,13 +5414,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_set_bit_allownil)}
-    BN_set_bit := @ERR_BN_set_bit;
+    BN_set_bit := ERR_BN_set_bit;
     {$ifend}
     {$if declared(BN_set_bit_introduced)}
     if LibVersion < BN_set_bit_introduced then
     begin
       {$if declared(FC_BN_set_bit)}
-      BN_set_bit := @FC_BN_set_bit;
+      BN_set_bit := FC_BN_set_bit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5413,7 +5429,7 @@ begin
     if BN_set_bit_removed <= LibVersion then
     begin
       {$if declared(_BN_set_bit)}
-      BN_set_bit := @_BN_set_bit;
+      BN_set_bit := _BN_set_bit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5430,13 +5446,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_clear_bit_allownil)}
-    BN_clear_bit := @ERR_BN_clear_bit;
+    BN_clear_bit := ERR_BN_clear_bit;
     {$ifend}
     {$if declared(BN_clear_bit_introduced)}
     if LibVersion < BN_clear_bit_introduced then
     begin
       {$if declared(FC_BN_clear_bit)}
-      BN_clear_bit := @FC_BN_clear_bit;
+      BN_clear_bit := FC_BN_clear_bit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5445,7 +5461,7 @@ begin
     if BN_clear_bit_removed <= LibVersion then
     begin
       {$if declared(_BN_clear_bit)}
-      BN_clear_bit := @_BN_clear_bit;
+      BN_clear_bit := _BN_clear_bit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5462,13 +5478,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2hex_allownil)}
-    BN_bn2hex := @ERR_BN_bn2hex;
+    BN_bn2hex := ERR_BN_bn2hex;
     {$ifend}
     {$if declared(BN_bn2hex_introduced)}
     if LibVersion < BN_bn2hex_introduced then
     begin
       {$if declared(FC_BN_bn2hex)}
-      BN_bn2hex := @FC_BN_bn2hex;
+      BN_bn2hex := FC_BN_bn2hex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5477,7 +5493,7 @@ begin
     if BN_bn2hex_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2hex)}
-      BN_bn2hex := @_BN_bn2hex;
+      BN_bn2hex := _BN_bn2hex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5494,13 +5510,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bn2dec_allownil)}
-    BN_bn2dec := @ERR_BN_bn2dec;
+    BN_bn2dec := ERR_BN_bn2dec;
     {$ifend}
     {$if declared(BN_bn2dec_introduced)}
     if LibVersion < BN_bn2dec_introduced then
     begin
       {$if declared(FC_BN_bn2dec)}
-      BN_bn2dec := @FC_BN_bn2dec;
+      BN_bn2dec := FC_BN_bn2dec;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5509,7 +5525,7 @@ begin
     if BN_bn2dec_removed <= LibVersion then
     begin
       {$if declared(_BN_bn2dec)}
-      BN_bn2dec := @_BN_bn2dec;
+      BN_bn2dec := _BN_bn2dec;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5526,13 +5542,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_hex2bn_allownil)}
-    BN_hex2bn := @ERR_BN_hex2bn;
+    BN_hex2bn := ERR_BN_hex2bn;
     {$ifend}
     {$if declared(BN_hex2bn_introduced)}
     if LibVersion < BN_hex2bn_introduced then
     begin
       {$if declared(FC_BN_hex2bn)}
-      BN_hex2bn := @FC_BN_hex2bn;
+      BN_hex2bn := FC_BN_hex2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5541,7 +5557,7 @@ begin
     if BN_hex2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_hex2bn)}
-      BN_hex2bn := @_BN_hex2bn;
+      BN_hex2bn := _BN_hex2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5558,13 +5574,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_dec2bn_allownil)}
-    BN_dec2bn := @ERR_BN_dec2bn;
+    BN_dec2bn := ERR_BN_dec2bn;
     {$ifend}
     {$if declared(BN_dec2bn_introduced)}
     if LibVersion < BN_dec2bn_introduced then
     begin
       {$if declared(FC_BN_dec2bn)}
-      BN_dec2bn := @FC_BN_dec2bn;
+      BN_dec2bn := FC_BN_dec2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5573,7 +5589,7 @@ begin
     if BN_dec2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_dec2bn)}
-      BN_dec2bn := @_BN_dec2bn;
+      BN_dec2bn := _BN_dec2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5590,13 +5606,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_asc2bn_allownil)}
-    BN_asc2bn := @ERR_BN_asc2bn;
+    BN_asc2bn := ERR_BN_asc2bn;
     {$ifend}
     {$if declared(BN_asc2bn_introduced)}
     if LibVersion < BN_asc2bn_introduced then
     begin
       {$if declared(FC_BN_asc2bn)}
-      BN_asc2bn := @FC_BN_asc2bn;
+      BN_asc2bn := FC_BN_asc2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5605,7 +5621,7 @@ begin
     if BN_asc2bn_removed <= LibVersion then
     begin
       {$if declared(_BN_asc2bn)}
-      BN_asc2bn := @_BN_asc2bn;
+      BN_asc2bn := _BN_asc2bn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5622,13 +5638,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_gcd_allownil)}
-    BN_gcd := @ERR_BN_gcd;
+    BN_gcd := ERR_BN_gcd;
     {$ifend}
     {$if declared(BN_gcd_introduced)}
     if LibVersion < BN_gcd_introduced then
     begin
       {$if declared(FC_BN_gcd)}
-      BN_gcd := @FC_BN_gcd;
+      BN_gcd := FC_BN_gcd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5637,7 +5653,7 @@ begin
     if BN_gcd_removed <= LibVersion then
     begin
       {$if declared(_BN_gcd)}
-      BN_gcd := @_BN_gcd;
+      BN_gcd := _BN_gcd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5654,13 +5670,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_kronecker_allownil)}
-    BN_kronecker := @ERR_BN_kronecker;
+    BN_kronecker := ERR_BN_kronecker;
     {$ifend}
     {$if declared(BN_kronecker_introduced)}
     if LibVersion < BN_kronecker_introduced then
     begin
       {$if declared(FC_BN_kronecker)}
-      BN_kronecker := @FC_BN_kronecker;
+      BN_kronecker := FC_BN_kronecker;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5669,7 +5685,7 @@ begin
     if BN_kronecker_removed <= LibVersion then
     begin
       {$if declared(_BN_kronecker)}
-      BN_kronecker := @_BN_kronecker;
+      BN_kronecker := _BN_kronecker;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5686,13 +5702,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_inverse_allownil)}
-    BN_mod_inverse := @ERR_BN_mod_inverse;
+    BN_mod_inverse := ERR_BN_mod_inverse;
     {$ifend}
     {$if declared(BN_mod_inverse_introduced)}
     if LibVersion < BN_mod_inverse_introduced then
     begin
       {$if declared(FC_BN_mod_inverse)}
-      BN_mod_inverse := @FC_BN_mod_inverse;
+      BN_mod_inverse := FC_BN_mod_inverse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5701,7 +5717,7 @@ begin
     if BN_mod_inverse_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_inverse)}
-      BN_mod_inverse := @_BN_mod_inverse;
+      BN_mod_inverse := _BN_mod_inverse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5718,13 +5734,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_sqrt_allownil)}
-    BN_mod_sqrt := @ERR_BN_mod_sqrt;
+    BN_mod_sqrt := ERR_BN_mod_sqrt;
     {$ifend}
     {$if declared(BN_mod_sqrt_introduced)}
     if LibVersion < BN_mod_sqrt_introduced then
     begin
       {$if declared(FC_BN_mod_sqrt)}
-      BN_mod_sqrt := @FC_BN_mod_sqrt;
+      BN_mod_sqrt := FC_BN_mod_sqrt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5733,7 +5749,7 @@ begin
     if BN_mod_sqrt_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_sqrt)}
-      BN_mod_sqrt := @_BN_mod_sqrt;
+      BN_mod_sqrt := _BN_mod_sqrt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5750,13 +5766,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_consttime_swap_allownil)}
-    BN_consttime_swap := @ERR_BN_consttime_swap;
+    BN_consttime_swap := ERR_BN_consttime_swap;
     {$ifend}
     {$if declared(BN_consttime_swap_introduced)}
     if LibVersion < BN_consttime_swap_introduced then
     begin
       {$if declared(FC_BN_consttime_swap)}
-      BN_consttime_swap := @FC_BN_consttime_swap;
+      BN_consttime_swap := FC_BN_consttime_swap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5765,7 +5781,7 @@ begin
     if BN_consttime_swap_removed <= LibVersion then
     begin
       {$if declared(_BN_consttime_swap)}
-      BN_consttime_swap := @_BN_consttime_swap;
+      BN_consttime_swap := _BN_consttime_swap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5782,13 +5798,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_generate_prime_ex_allownil)}
-    BN_generate_prime_ex := @ERR_BN_generate_prime_ex;
+    BN_generate_prime_ex := ERR_BN_generate_prime_ex;
     {$ifend}
     {$if declared(BN_generate_prime_ex_introduced)}
     if LibVersion < BN_generate_prime_ex_introduced then
     begin
       {$if declared(FC_BN_generate_prime_ex)}
-      BN_generate_prime_ex := @FC_BN_generate_prime_ex;
+      BN_generate_prime_ex := FC_BN_generate_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5797,7 +5813,7 @@ begin
     if BN_generate_prime_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_generate_prime_ex)}
-      BN_generate_prime_ex := @_BN_generate_prime_ex;
+      BN_generate_prime_ex := _BN_generate_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5814,13 +5830,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_prime_ex_allownil)}
-    BN_is_prime_ex := @ERR_BN_is_prime_ex;
+    BN_is_prime_ex := ERR_BN_is_prime_ex;
     {$ifend}
     {$if declared(BN_is_prime_ex_introduced)}
     if LibVersion < BN_is_prime_ex_introduced then
     begin
       {$if declared(FC_BN_is_prime_ex)}
-      BN_is_prime_ex := @FC_BN_is_prime_ex;
+      BN_is_prime_ex := FC_BN_is_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5829,7 +5845,7 @@ begin
     if BN_is_prime_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_is_prime_ex)}
-      BN_is_prime_ex := @_BN_is_prime_ex;
+      BN_is_prime_ex := _BN_is_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5846,13 +5862,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_is_prime_fasttest_ex_allownil)}
-    BN_is_prime_fasttest_ex := @ERR_BN_is_prime_fasttest_ex;
+    BN_is_prime_fasttest_ex := ERR_BN_is_prime_fasttest_ex;
     {$ifend}
     {$if declared(BN_is_prime_fasttest_ex_introduced)}
     if LibVersion < BN_is_prime_fasttest_ex_introduced then
     begin
       {$if declared(FC_BN_is_prime_fasttest_ex)}
-      BN_is_prime_fasttest_ex := @FC_BN_is_prime_fasttest_ex;
+      BN_is_prime_fasttest_ex := FC_BN_is_prime_fasttest_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5861,7 +5877,7 @@ begin
     if BN_is_prime_fasttest_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_is_prime_fasttest_ex)}
-      BN_is_prime_fasttest_ex := @_BN_is_prime_fasttest_ex;
+      BN_is_prime_fasttest_ex := _BN_is_prime_fasttest_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5878,13 +5894,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_X931_generate_Xpq_allownil)}
-    BN_X931_generate_Xpq := @ERR_BN_X931_generate_Xpq;
+    BN_X931_generate_Xpq := ERR_BN_X931_generate_Xpq;
     {$ifend}
     {$if declared(BN_X931_generate_Xpq_introduced)}
     if LibVersion < BN_X931_generate_Xpq_introduced then
     begin
       {$if declared(FC_BN_X931_generate_Xpq)}
-      BN_X931_generate_Xpq := @FC_BN_X931_generate_Xpq;
+      BN_X931_generate_Xpq := FC_BN_X931_generate_Xpq;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5893,7 +5909,7 @@ begin
     if BN_X931_generate_Xpq_removed <= LibVersion then
     begin
       {$if declared(_BN_X931_generate_Xpq)}
-      BN_X931_generate_Xpq := @_BN_X931_generate_Xpq;
+      BN_X931_generate_Xpq := _BN_X931_generate_Xpq;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5910,13 +5926,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_X931_derive_prime_ex_allownil)}
-    BN_X931_derive_prime_ex := @ERR_BN_X931_derive_prime_ex;
+    BN_X931_derive_prime_ex := ERR_BN_X931_derive_prime_ex;
     {$ifend}
     {$if declared(BN_X931_derive_prime_ex_introduced)}
     if LibVersion < BN_X931_derive_prime_ex_introduced then
     begin
       {$if declared(FC_BN_X931_derive_prime_ex)}
-      BN_X931_derive_prime_ex := @FC_BN_X931_derive_prime_ex;
+      BN_X931_derive_prime_ex := FC_BN_X931_derive_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5925,7 +5941,7 @@ begin
     if BN_X931_derive_prime_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_X931_derive_prime_ex)}
-      BN_X931_derive_prime_ex := @_BN_X931_derive_prime_ex;
+      BN_X931_derive_prime_ex := _BN_X931_derive_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5942,13 +5958,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_X931_generate_prime_ex_allownil)}
-    BN_X931_generate_prime_ex := @ERR_BN_X931_generate_prime_ex;
+    BN_X931_generate_prime_ex := ERR_BN_X931_generate_prime_ex;
     {$ifend}
     {$if declared(BN_X931_generate_prime_ex_introduced)}
     if LibVersion < BN_X931_generate_prime_ex_introduced then
     begin
       {$if declared(FC_BN_X931_generate_prime_ex)}
-      BN_X931_generate_prime_ex := @FC_BN_X931_generate_prime_ex;
+      BN_X931_generate_prime_ex := FC_BN_X931_generate_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5957,7 +5973,7 @@ begin
     if BN_X931_generate_prime_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_X931_generate_prime_ex)}
-      BN_X931_generate_prime_ex := @_BN_X931_generate_prime_ex;
+      BN_X931_generate_prime_ex := _BN_X931_generate_prime_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5974,13 +5990,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_MONT_CTX_new_allownil)}
-    BN_MONT_CTX_new := @ERR_BN_MONT_CTX_new;
+    BN_MONT_CTX_new := ERR_BN_MONT_CTX_new;
     {$ifend}
     {$if declared(BN_MONT_CTX_new_introduced)}
     if LibVersion < BN_MONT_CTX_new_introduced then
     begin
       {$if declared(FC_BN_MONT_CTX_new)}
-      BN_MONT_CTX_new := @FC_BN_MONT_CTX_new;
+      BN_MONT_CTX_new := FC_BN_MONT_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -5989,7 +6005,7 @@ begin
     if BN_MONT_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_BN_MONT_CTX_new)}
-      BN_MONT_CTX_new := @_BN_MONT_CTX_new;
+      BN_MONT_CTX_new := _BN_MONT_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6006,13 +6022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_mul_montgomery_allownil)}
-    BN_mod_mul_montgomery := @ERR_BN_mod_mul_montgomery;
+    BN_mod_mul_montgomery := ERR_BN_mod_mul_montgomery;
     {$ifend}
     {$if declared(BN_mod_mul_montgomery_introduced)}
     if LibVersion < BN_mod_mul_montgomery_introduced then
     begin
       {$if declared(FC_BN_mod_mul_montgomery)}
-      BN_mod_mul_montgomery := @FC_BN_mod_mul_montgomery;
+      BN_mod_mul_montgomery := FC_BN_mod_mul_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6021,7 +6037,7 @@ begin
     if BN_mod_mul_montgomery_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_mul_montgomery)}
-      BN_mod_mul_montgomery := @_BN_mod_mul_montgomery;
+      BN_mod_mul_montgomery := _BN_mod_mul_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6038,13 +6054,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_to_montgomery_allownil)}
-    BN_to_montgomery := @ERR_BN_to_montgomery;
+    BN_to_montgomery := ERR_BN_to_montgomery;
     {$ifend}
     {$if declared(BN_to_montgomery_introduced)}
     if LibVersion < BN_to_montgomery_introduced then
     begin
       {$if declared(FC_BN_to_montgomery)}
-      BN_to_montgomery := @FC_BN_to_montgomery;
+      BN_to_montgomery := FC_BN_to_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6053,7 +6069,7 @@ begin
     if BN_to_montgomery_removed <= LibVersion then
     begin
       {$if declared(_BN_to_montgomery)}
-      BN_to_montgomery := @_BN_to_montgomery;
+      BN_to_montgomery := _BN_to_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6070,13 +6086,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_from_montgomery_allownil)}
-    BN_from_montgomery := @ERR_BN_from_montgomery;
+    BN_from_montgomery := ERR_BN_from_montgomery;
     {$ifend}
     {$if declared(BN_from_montgomery_introduced)}
     if LibVersion < BN_from_montgomery_introduced then
     begin
       {$if declared(FC_BN_from_montgomery)}
-      BN_from_montgomery := @FC_BN_from_montgomery;
+      BN_from_montgomery := FC_BN_from_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6085,7 +6101,7 @@ begin
     if BN_from_montgomery_removed <= LibVersion then
     begin
       {$if declared(_BN_from_montgomery)}
-      BN_from_montgomery := @_BN_from_montgomery;
+      BN_from_montgomery := _BN_from_montgomery;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6102,13 +6118,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_MONT_CTX_free_allownil)}
-    BN_MONT_CTX_free := @ERR_BN_MONT_CTX_free;
+    BN_MONT_CTX_free := ERR_BN_MONT_CTX_free;
     {$ifend}
     {$if declared(BN_MONT_CTX_free_introduced)}
     if LibVersion < BN_MONT_CTX_free_introduced then
     begin
       {$if declared(FC_BN_MONT_CTX_free)}
-      BN_MONT_CTX_free := @FC_BN_MONT_CTX_free;
+      BN_MONT_CTX_free := FC_BN_MONT_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6117,7 +6133,7 @@ begin
     if BN_MONT_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_BN_MONT_CTX_free)}
-      BN_MONT_CTX_free := @_BN_MONT_CTX_free;
+      BN_MONT_CTX_free := _BN_MONT_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6134,13 +6150,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_MONT_CTX_set_allownil)}
-    BN_MONT_CTX_set := @ERR_BN_MONT_CTX_set;
+    BN_MONT_CTX_set := ERR_BN_MONT_CTX_set;
     {$ifend}
     {$if declared(BN_MONT_CTX_set_introduced)}
     if LibVersion < BN_MONT_CTX_set_introduced then
     begin
       {$if declared(FC_BN_MONT_CTX_set)}
-      BN_MONT_CTX_set := @FC_BN_MONT_CTX_set;
+      BN_MONT_CTX_set := FC_BN_MONT_CTX_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6149,7 +6165,7 @@ begin
     if BN_MONT_CTX_set_removed <= LibVersion then
     begin
       {$if declared(_BN_MONT_CTX_set)}
-      BN_MONT_CTX_set := @_BN_MONT_CTX_set;
+      BN_MONT_CTX_set := _BN_MONT_CTX_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6166,13 +6182,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_MONT_CTX_copy_allownil)}
-    BN_MONT_CTX_copy := @ERR_BN_MONT_CTX_copy;
+    BN_MONT_CTX_copy := ERR_BN_MONT_CTX_copy;
     {$ifend}
     {$if declared(BN_MONT_CTX_copy_introduced)}
     if LibVersion < BN_MONT_CTX_copy_introduced then
     begin
       {$if declared(FC_BN_MONT_CTX_copy)}
-      BN_MONT_CTX_copy := @FC_BN_MONT_CTX_copy;
+      BN_MONT_CTX_copy := FC_BN_MONT_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6181,7 +6197,7 @@ begin
     if BN_MONT_CTX_copy_removed <= LibVersion then
     begin
       {$if declared(_BN_MONT_CTX_copy)}
-      BN_MONT_CTX_copy := @_BN_MONT_CTX_copy;
+      BN_MONT_CTX_copy := _BN_MONT_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6198,13 +6214,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_new_allownil)}
-    BN_BLINDING_new := @ERR_BN_BLINDING_new;
+    BN_BLINDING_new := ERR_BN_BLINDING_new;
     {$ifend}
     {$if declared(BN_BLINDING_new_introduced)}
     if LibVersion < BN_BLINDING_new_introduced then
     begin
       {$if declared(FC_BN_BLINDING_new)}
-      BN_BLINDING_new := @FC_BN_BLINDING_new;
+      BN_BLINDING_new := FC_BN_BLINDING_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6213,7 +6229,7 @@ begin
     if BN_BLINDING_new_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_new)}
-      BN_BLINDING_new := @_BN_BLINDING_new;
+      BN_BLINDING_new := _BN_BLINDING_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6230,13 +6246,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_free_allownil)}
-    BN_BLINDING_free := @ERR_BN_BLINDING_free;
+    BN_BLINDING_free := ERR_BN_BLINDING_free;
     {$ifend}
     {$if declared(BN_BLINDING_free_introduced)}
     if LibVersion < BN_BLINDING_free_introduced then
     begin
       {$if declared(FC_BN_BLINDING_free)}
-      BN_BLINDING_free := @FC_BN_BLINDING_free;
+      BN_BLINDING_free := FC_BN_BLINDING_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6245,7 +6261,7 @@ begin
     if BN_BLINDING_free_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_free)}
-      BN_BLINDING_free := @_BN_BLINDING_free;
+      BN_BLINDING_free := _BN_BLINDING_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6262,13 +6278,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_update_allownil)}
-    BN_BLINDING_update := @ERR_BN_BLINDING_update;
+    BN_BLINDING_update := ERR_BN_BLINDING_update;
     {$ifend}
     {$if declared(BN_BLINDING_update_introduced)}
     if LibVersion < BN_BLINDING_update_introduced then
     begin
       {$if declared(FC_BN_BLINDING_update)}
-      BN_BLINDING_update := @FC_BN_BLINDING_update;
+      BN_BLINDING_update := FC_BN_BLINDING_update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6277,7 +6293,7 @@ begin
     if BN_BLINDING_update_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_update)}
-      BN_BLINDING_update := @_BN_BLINDING_update;
+      BN_BLINDING_update := _BN_BLINDING_update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6294,13 +6310,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_convert_allownil)}
-    BN_BLINDING_convert := @ERR_BN_BLINDING_convert;
+    BN_BLINDING_convert := ERR_BN_BLINDING_convert;
     {$ifend}
     {$if declared(BN_BLINDING_convert_introduced)}
     if LibVersion < BN_BLINDING_convert_introduced then
     begin
       {$if declared(FC_BN_BLINDING_convert)}
-      BN_BLINDING_convert := @FC_BN_BLINDING_convert;
+      BN_BLINDING_convert := FC_BN_BLINDING_convert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6309,7 +6325,7 @@ begin
     if BN_BLINDING_convert_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_convert)}
-      BN_BLINDING_convert := @_BN_BLINDING_convert;
+      BN_BLINDING_convert := _BN_BLINDING_convert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6326,13 +6342,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_invert_allownil)}
-    BN_BLINDING_invert := @ERR_BN_BLINDING_invert;
+    BN_BLINDING_invert := ERR_BN_BLINDING_invert;
     {$ifend}
     {$if declared(BN_BLINDING_invert_introduced)}
     if LibVersion < BN_BLINDING_invert_introduced then
     begin
       {$if declared(FC_BN_BLINDING_invert)}
-      BN_BLINDING_invert := @FC_BN_BLINDING_invert;
+      BN_BLINDING_invert := FC_BN_BLINDING_invert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6341,7 +6357,7 @@ begin
     if BN_BLINDING_invert_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_invert)}
-      BN_BLINDING_invert := @_BN_BLINDING_invert;
+      BN_BLINDING_invert := _BN_BLINDING_invert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6358,13 +6374,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_convert_ex_allownil)}
-    BN_BLINDING_convert_ex := @ERR_BN_BLINDING_convert_ex;
+    BN_BLINDING_convert_ex := ERR_BN_BLINDING_convert_ex;
     {$ifend}
     {$if declared(BN_BLINDING_convert_ex_introduced)}
     if LibVersion < BN_BLINDING_convert_ex_introduced then
     begin
       {$if declared(FC_BN_BLINDING_convert_ex)}
-      BN_BLINDING_convert_ex := @FC_BN_BLINDING_convert_ex;
+      BN_BLINDING_convert_ex := FC_BN_BLINDING_convert_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6373,7 +6389,7 @@ begin
     if BN_BLINDING_convert_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_convert_ex)}
-      BN_BLINDING_convert_ex := @_BN_BLINDING_convert_ex;
+      BN_BLINDING_convert_ex := _BN_BLINDING_convert_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6390,13 +6406,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_invert_ex_allownil)}
-    BN_BLINDING_invert_ex := @ERR_BN_BLINDING_invert_ex;
+    BN_BLINDING_invert_ex := ERR_BN_BLINDING_invert_ex;
     {$ifend}
     {$if declared(BN_BLINDING_invert_ex_introduced)}
     if LibVersion < BN_BLINDING_invert_ex_introduced then
     begin
       {$if declared(FC_BN_BLINDING_invert_ex)}
-      BN_BLINDING_invert_ex := @FC_BN_BLINDING_invert_ex;
+      BN_BLINDING_invert_ex := FC_BN_BLINDING_invert_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6405,7 +6421,7 @@ begin
     if BN_BLINDING_invert_ex_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_invert_ex)}
-      BN_BLINDING_invert_ex := @_BN_BLINDING_invert_ex;
+      BN_BLINDING_invert_ex := _BN_BLINDING_invert_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6422,13 +6438,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_is_current_thread_allownil)}
-    BN_BLINDING_is_current_thread := @ERR_BN_BLINDING_is_current_thread;
+    BN_BLINDING_is_current_thread := ERR_BN_BLINDING_is_current_thread;
     {$ifend}
     {$if declared(BN_BLINDING_is_current_thread_introduced)}
     if LibVersion < BN_BLINDING_is_current_thread_introduced then
     begin
       {$if declared(FC_BN_BLINDING_is_current_thread)}
-      BN_BLINDING_is_current_thread := @FC_BN_BLINDING_is_current_thread;
+      BN_BLINDING_is_current_thread := FC_BN_BLINDING_is_current_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6437,7 +6453,7 @@ begin
     if BN_BLINDING_is_current_thread_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_is_current_thread)}
-      BN_BLINDING_is_current_thread := @_BN_BLINDING_is_current_thread;
+      BN_BLINDING_is_current_thread := _BN_BLINDING_is_current_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6454,13 +6470,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_set_current_thread_allownil)}
-    BN_BLINDING_set_current_thread := @ERR_BN_BLINDING_set_current_thread;
+    BN_BLINDING_set_current_thread := ERR_BN_BLINDING_set_current_thread;
     {$ifend}
     {$if declared(BN_BLINDING_set_current_thread_introduced)}
     if LibVersion < BN_BLINDING_set_current_thread_introduced then
     begin
       {$if declared(FC_BN_BLINDING_set_current_thread)}
-      BN_BLINDING_set_current_thread := @FC_BN_BLINDING_set_current_thread;
+      BN_BLINDING_set_current_thread := FC_BN_BLINDING_set_current_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6469,7 +6485,7 @@ begin
     if BN_BLINDING_set_current_thread_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_set_current_thread)}
-      BN_BLINDING_set_current_thread := @_BN_BLINDING_set_current_thread;
+      BN_BLINDING_set_current_thread := _BN_BLINDING_set_current_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6486,13 +6502,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_lock_allownil)}
-    BN_BLINDING_lock := @ERR_BN_BLINDING_lock;
+    BN_BLINDING_lock := ERR_BN_BLINDING_lock;
     {$ifend}
     {$if declared(BN_BLINDING_lock_introduced)}
     if LibVersion < BN_BLINDING_lock_introduced then
     begin
       {$if declared(FC_BN_BLINDING_lock)}
-      BN_BLINDING_lock := @FC_BN_BLINDING_lock;
+      BN_BLINDING_lock := FC_BN_BLINDING_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6501,7 +6517,7 @@ begin
     if BN_BLINDING_lock_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_lock)}
-      BN_BLINDING_lock := @_BN_BLINDING_lock;
+      BN_BLINDING_lock := _BN_BLINDING_lock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6518,13 +6534,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_unlock_allownil)}
-    BN_BLINDING_unlock := @ERR_BN_BLINDING_unlock;
+    BN_BLINDING_unlock := ERR_BN_BLINDING_unlock;
     {$ifend}
     {$if declared(BN_BLINDING_unlock_introduced)}
     if LibVersion < BN_BLINDING_unlock_introduced then
     begin
       {$if declared(FC_BN_BLINDING_unlock)}
-      BN_BLINDING_unlock := @FC_BN_BLINDING_unlock;
+      BN_BLINDING_unlock := FC_BN_BLINDING_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6533,7 +6549,7 @@ begin
     if BN_BLINDING_unlock_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_unlock)}
-      BN_BLINDING_unlock := @_BN_BLINDING_unlock;
+      BN_BLINDING_unlock := _BN_BLINDING_unlock;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6550,13 +6566,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_get_flags_allownil)}
-    BN_BLINDING_get_flags := @ERR_BN_BLINDING_get_flags;
+    BN_BLINDING_get_flags := ERR_BN_BLINDING_get_flags;
     {$ifend}
     {$if declared(BN_BLINDING_get_flags_introduced)}
     if LibVersion < BN_BLINDING_get_flags_introduced then
     begin
       {$if declared(FC_BN_BLINDING_get_flags)}
-      BN_BLINDING_get_flags := @FC_BN_BLINDING_get_flags;
+      BN_BLINDING_get_flags := FC_BN_BLINDING_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6565,7 +6581,7 @@ begin
     if BN_BLINDING_get_flags_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_get_flags)}
-      BN_BLINDING_get_flags := @_BN_BLINDING_get_flags;
+      BN_BLINDING_get_flags := _BN_BLINDING_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6582,13 +6598,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_BLINDING_set_flags_allownil)}
-    BN_BLINDING_set_flags := @ERR_BN_BLINDING_set_flags;
+    BN_BLINDING_set_flags := ERR_BN_BLINDING_set_flags;
     {$ifend}
     {$if declared(BN_BLINDING_set_flags_introduced)}
     if LibVersion < BN_BLINDING_set_flags_introduced then
     begin
       {$if declared(FC_BN_BLINDING_set_flags)}
-      BN_BLINDING_set_flags := @FC_BN_BLINDING_set_flags;
+      BN_BLINDING_set_flags := FC_BN_BLINDING_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6597,7 +6613,7 @@ begin
     if BN_BLINDING_set_flags_removed <= LibVersion then
     begin
       {$if declared(_BN_BLINDING_set_flags)}
-      BN_BLINDING_set_flags := @_BN_BLINDING_set_flags;
+      BN_BLINDING_set_flags := _BN_BLINDING_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6614,13 +6630,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_RECP_CTX_free_allownil)}
-    BN_RECP_CTX_free := @ERR_BN_RECP_CTX_free;
+    BN_RECP_CTX_free := ERR_BN_RECP_CTX_free;
     {$ifend}
     {$if declared(BN_RECP_CTX_free_introduced)}
     if LibVersion < BN_RECP_CTX_free_introduced then
     begin
       {$if declared(FC_BN_RECP_CTX_free)}
-      BN_RECP_CTX_free := @FC_BN_RECP_CTX_free;
+      BN_RECP_CTX_free := FC_BN_RECP_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6629,7 +6645,7 @@ begin
     if BN_RECP_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_BN_RECP_CTX_free)}
-      BN_RECP_CTX_free := @_BN_RECP_CTX_free;
+      BN_RECP_CTX_free := _BN_RECP_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6646,13 +6662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_RECP_CTX_set_allownil)}
-    BN_RECP_CTX_set := @ERR_BN_RECP_CTX_set;
+    BN_RECP_CTX_set := ERR_BN_RECP_CTX_set;
     {$ifend}
     {$if declared(BN_RECP_CTX_set_introduced)}
     if LibVersion < BN_RECP_CTX_set_introduced then
     begin
       {$if declared(FC_BN_RECP_CTX_set)}
-      BN_RECP_CTX_set := @FC_BN_RECP_CTX_set;
+      BN_RECP_CTX_set := FC_BN_RECP_CTX_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6661,7 +6677,7 @@ begin
     if BN_RECP_CTX_set_removed <= LibVersion then
     begin
       {$if declared(_BN_RECP_CTX_set)}
-      BN_RECP_CTX_set := @_BN_RECP_CTX_set;
+      BN_RECP_CTX_set := _BN_RECP_CTX_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6678,13 +6694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_mul_reciprocal_allownil)}
-    BN_mod_mul_reciprocal := @ERR_BN_mod_mul_reciprocal;
+    BN_mod_mul_reciprocal := ERR_BN_mod_mul_reciprocal;
     {$ifend}
     {$if declared(BN_mod_mul_reciprocal_introduced)}
     if LibVersion < BN_mod_mul_reciprocal_introduced then
     begin
       {$if declared(FC_BN_mod_mul_reciprocal)}
-      BN_mod_mul_reciprocal := @FC_BN_mod_mul_reciprocal;
+      BN_mod_mul_reciprocal := FC_BN_mod_mul_reciprocal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6693,7 +6709,7 @@ begin
     if BN_mod_mul_reciprocal_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_mul_reciprocal)}
-      BN_mod_mul_reciprocal := @_BN_mod_mul_reciprocal;
+      BN_mod_mul_reciprocal := _BN_mod_mul_reciprocal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6710,13 +6726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_mod_exp_recp_allownil)}
-    BN_mod_exp_recp := @ERR_BN_mod_exp_recp;
+    BN_mod_exp_recp := ERR_BN_mod_exp_recp;
     {$ifend}
     {$if declared(BN_mod_exp_recp_introduced)}
     if LibVersion < BN_mod_exp_recp_introduced then
     begin
       {$if declared(FC_BN_mod_exp_recp)}
-      BN_mod_exp_recp := @FC_BN_mod_exp_recp;
+      BN_mod_exp_recp := FC_BN_mod_exp_recp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6725,7 +6741,7 @@ begin
     if BN_mod_exp_recp_removed <= LibVersion then
     begin
       {$if declared(_BN_mod_exp_recp)}
-      BN_mod_exp_recp := @_BN_mod_exp_recp;
+      BN_mod_exp_recp := _BN_mod_exp_recp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6742,13 +6758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_div_recp_allownil)}
-    BN_div_recp := @ERR_BN_div_recp;
+    BN_div_recp := ERR_BN_div_recp;
     {$ifend}
     {$if declared(BN_div_recp_introduced)}
     if LibVersion < BN_div_recp_introduced then
     begin
       {$if declared(FC_BN_div_recp)}
-      BN_div_recp := @FC_BN_div_recp;
+      BN_div_recp := FC_BN_div_recp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6757,7 +6773,7 @@ begin
     if BN_div_recp_removed <= LibVersion then
     begin
       {$if declared(_BN_div_recp)}
-      BN_div_recp := @_BN_div_recp;
+      BN_div_recp := _BN_div_recp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6774,13 +6790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_add_allownil)}
-    BN_GF2m_add := @ERR_BN_GF2m_add;
+    BN_GF2m_add := ERR_BN_GF2m_add;
     {$ifend}
     {$if declared(BN_GF2m_add_introduced)}
     if LibVersion < BN_GF2m_add_introduced then
     begin
       {$if declared(FC_BN_GF2m_add)}
-      BN_GF2m_add := @FC_BN_GF2m_add;
+      BN_GF2m_add := FC_BN_GF2m_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6789,7 +6805,7 @@ begin
     if BN_GF2m_add_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_add)}
-      BN_GF2m_add := @_BN_GF2m_add;
+      BN_GF2m_add := _BN_GF2m_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6806,13 +6822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_allownil)}
-    BN_GF2m_mod := @ERR_BN_GF2m_mod;
+    BN_GF2m_mod := ERR_BN_GF2m_mod;
     {$ifend}
     {$if declared(BN_GF2m_mod_introduced)}
     if LibVersion < BN_GF2m_mod_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod)}
-      BN_GF2m_mod := @FC_BN_GF2m_mod;
+      BN_GF2m_mod := FC_BN_GF2m_mod;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6821,7 +6837,7 @@ begin
     if BN_GF2m_mod_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod)}
-      BN_GF2m_mod := @_BN_GF2m_mod;
+      BN_GF2m_mod := _BN_GF2m_mod;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6838,13 +6854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_mul_allownil)}
-    BN_GF2m_mod_mul := @ERR_BN_GF2m_mod_mul;
+    BN_GF2m_mod_mul := ERR_BN_GF2m_mod_mul;
     {$ifend}
     {$if declared(BN_GF2m_mod_mul_introduced)}
     if LibVersion < BN_GF2m_mod_mul_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_mul)}
-      BN_GF2m_mod_mul := @FC_BN_GF2m_mod_mul;
+      BN_GF2m_mod_mul := FC_BN_GF2m_mod_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6853,7 +6869,7 @@ begin
     if BN_GF2m_mod_mul_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_mul)}
-      BN_GF2m_mod_mul := @_BN_GF2m_mod_mul;
+      BN_GF2m_mod_mul := _BN_GF2m_mod_mul;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6870,13 +6886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_sqr_allownil)}
-    BN_GF2m_mod_sqr := @ERR_BN_GF2m_mod_sqr;
+    BN_GF2m_mod_sqr := ERR_BN_GF2m_mod_sqr;
     {$ifend}
     {$if declared(BN_GF2m_mod_sqr_introduced)}
     if LibVersion < BN_GF2m_mod_sqr_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_sqr)}
-      BN_GF2m_mod_sqr := @FC_BN_GF2m_mod_sqr;
+      BN_GF2m_mod_sqr := FC_BN_GF2m_mod_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6885,7 +6901,7 @@ begin
     if BN_GF2m_mod_sqr_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_sqr)}
-      BN_GF2m_mod_sqr := @_BN_GF2m_mod_sqr;
+      BN_GF2m_mod_sqr := _BN_GF2m_mod_sqr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6902,13 +6918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_inv_allownil)}
-    BN_GF2m_mod_inv := @ERR_BN_GF2m_mod_inv;
+    BN_GF2m_mod_inv := ERR_BN_GF2m_mod_inv;
     {$ifend}
     {$if declared(BN_GF2m_mod_inv_introduced)}
     if LibVersion < BN_GF2m_mod_inv_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_inv)}
-      BN_GF2m_mod_inv := @FC_BN_GF2m_mod_inv;
+      BN_GF2m_mod_inv := FC_BN_GF2m_mod_inv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6917,7 +6933,7 @@ begin
     if BN_GF2m_mod_inv_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_inv)}
-      BN_GF2m_mod_inv := @_BN_GF2m_mod_inv;
+      BN_GF2m_mod_inv := _BN_GF2m_mod_inv;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6934,13 +6950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_div_allownil)}
-    BN_GF2m_mod_div := @ERR_BN_GF2m_mod_div;
+    BN_GF2m_mod_div := ERR_BN_GF2m_mod_div;
     {$ifend}
     {$if declared(BN_GF2m_mod_div_introduced)}
     if LibVersion < BN_GF2m_mod_div_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_div)}
-      BN_GF2m_mod_div := @FC_BN_GF2m_mod_div;
+      BN_GF2m_mod_div := FC_BN_GF2m_mod_div;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6949,7 +6965,7 @@ begin
     if BN_GF2m_mod_div_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_div)}
-      BN_GF2m_mod_div := @_BN_GF2m_mod_div;
+      BN_GF2m_mod_div := _BN_GF2m_mod_div;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6966,13 +6982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_exp_allownil)}
-    BN_GF2m_mod_exp := @ERR_BN_GF2m_mod_exp;
+    BN_GF2m_mod_exp := ERR_BN_GF2m_mod_exp;
     {$ifend}
     {$if declared(BN_GF2m_mod_exp_introduced)}
     if LibVersion < BN_GF2m_mod_exp_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_exp)}
-      BN_GF2m_mod_exp := @FC_BN_GF2m_mod_exp;
+      BN_GF2m_mod_exp := FC_BN_GF2m_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6981,7 +6997,7 @@ begin
     if BN_GF2m_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_exp)}
-      BN_GF2m_mod_exp := @_BN_GF2m_mod_exp;
+      BN_GF2m_mod_exp := _BN_GF2m_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -6998,13 +7014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_sqrt_allownil)}
-    BN_GF2m_mod_sqrt := @ERR_BN_GF2m_mod_sqrt;
+    BN_GF2m_mod_sqrt := ERR_BN_GF2m_mod_sqrt;
     {$ifend}
     {$if declared(BN_GF2m_mod_sqrt_introduced)}
     if LibVersion < BN_GF2m_mod_sqrt_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_sqrt)}
-      BN_GF2m_mod_sqrt := @FC_BN_GF2m_mod_sqrt;
+      BN_GF2m_mod_sqrt := FC_BN_GF2m_mod_sqrt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7013,7 +7029,7 @@ begin
     if BN_GF2m_mod_sqrt_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_sqrt)}
-      BN_GF2m_mod_sqrt := @_BN_GF2m_mod_sqrt;
+      BN_GF2m_mod_sqrt := _BN_GF2m_mod_sqrt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7030,13 +7046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_GF2m_mod_solve_quad_allownil)}
-    BN_GF2m_mod_solve_quad := @ERR_BN_GF2m_mod_solve_quad;
+    BN_GF2m_mod_solve_quad := ERR_BN_GF2m_mod_solve_quad;
     {$ifend}
     {$if declared(BN_GF2m_mod_solve_quad_introduced)}
     if LibVersion < BN_GF2m_mod_solve_quad_introduced then
     begin
       {$if declared(FC_BN_GF2m_mod_solve_quad)}
-      BN_GF2m_mod_solve_quad := @FC_BN_GF2m_mod_solve_quad;
+      BN_GF2m_mod_solve_quad := FC_BN_GF2m_mod_solve_quad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7045,7 +7061,7 @@ begin
     if BN_GF2m_mod_solve_quad_removed <= LibVersion then
     begin
       {$if declared(_BN_GF2m_mod_solve_quad)}
-      BN_GF2m_mod_solve_quad := @_BN_GF2m_mod_solve_quad;
+      BN_GF2m_mod_solve_quad := _BN_GF2m_mod_solve_quad;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7062,13 +7078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nist_mod_192_allownil)}
-    BN_nist_mod_192 := @ERR_BN_nist_mod_192;
+    BN_nist_mod_192 := ERR_BN_nist_mod_192;
     {$ifend}
     {$if declared(BN_nist_mod_192_introduced)}
     if LibVersion < BN_nist_mod_192_introduced then
     begin
       {$if declared(FC_BN_nist_mod_192)}
-      BN_nist_mod_192 := @FC_BN_nist_mod_192;
+      BN_nist_mod_192 := FC_BN_nist_mod_192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7077,7 +7093,7 @@ begin
     if BN_nist_mod_192_removed <= LibVersion then
     begin
       {$if declared(_BN_nist_mod_192)}
-      BN_nist_mod_192 := @_BN_nist_mod_192;
+      BN_nist_mod_192 := _BN_nist_mod_192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7094,13 +7110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nist_mod_224_allownil)}
-    BN_nist_mod_224 := @ERR_BN_nist_mod_224;
+    BN_nist_mod_224 := ERR_BN_nist_mod_224;
     {$ifend}
     {$if declared(BN_nist_mod_224_introduced)}
     if LibVersion < BN_nist_mod_224_introduced then
     begin
       {$if declared(FC_BN_nist_mod_224)}
-      BN_nist_mod_224 := @FC_BN_nist_mod_224;
+      BN_nist_mod_224 := FC_BN_nist_mod_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7109,7 +7125,7 @@ begin
     if BN_nist_mod_224_removed <= LibVersion then
     begin
       {$if declared(_BN_nist_mod_224)}
-      BN_nist_mod_224 := @_BN_nist_mod_224;
+      BN_nist_mod_224 := _BN_nist_mod_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7126,13 +7142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nist_mod_256_allownil)}
-    BN_nist_mod_256 := @ERR_BN_nist_mod_256;
+    BN_nist_mod_256 := ERR_BN_nist_mod_256;
     {$ifend}
     {$if declared(BN_nist_mod_256_introduced)}
     if LibVersion < BN_nist_mod_256_introduced then
     begin
       {$if declared(FC_BN_nist_mod_256)}
-      BN_nist_mod_256 := @FC_BN_nist_mod_256;
+      BN_nist_mod_256 := FC_BN_nist_mod_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7141,7 +7157,7 @@ begin
     if BN_nist_mod_256_removed <= LibVersion then
     begin
       {$if declared(_BN_nist_mod_256)}
-      BN_nist_mod_256 := @_BN_nist_mod_256;
+      BN_nist_mod_256 := _BN_nist_mod_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7158,13 +7174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nist_mod_384_allownil)}
-    BN_nist_mod_384 := @ERR_BN_nist_mod_384;
+    BN_nist_mod_384 := ERR_BN_nist_mod_384;
     {$ifend}
     {$if declared(BN_nist_mod_384_introduced)}
     if LibVersion < BN_nist_mod_384_introduced then
     begin
       {$if declared(FC_BN_nist_mod_384)}
-      BN_nist_mod_384 := @FC_BN_nist_mod_384;
+      BN_nist_mod_384 := FC_BN_nist_mod_384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7173,7 +7189,7 @@ begin
     if BN_nist_mod_384_removed <= LibVersion then
     begin
       {$if declared(_BN_nist_mod_384)}
-      BN_nist_mod_384 := @_BN_nist_mod_384;
+      BN_nist_mod_384 := _BN_nist_mod_384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7190,13 +7206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_nist_mod_521_allownil)}
-    BN_nist_mod_521 := @ERR_BN_nist_mod_521;
+    BN_nist_mod_521 := ERR_BN_nist_mod_521;
     {$ifend}
     {$if declared(BN_nist_mod_521_introduced)}
     if LibVersion < BN_nist_mod_521_introduced then
     begin
       {$if declared(FC_BN_nist_mod_521)}
-      BN_nist_mod_521 := @FC_BN_nist_mod_521;
+      BN_nist_mod_521 := FC_BN_nist_mod_521;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7205,7 +7221,7 @@ begin
     if BN_nist_mod_521_removed <= LibVersion then
     begin
       {$if declared(_BN_nist_mod_521)}
-      BN_nist_mod_521 := @_BN_nist_mod_521;
+      BN_nist_mod_521 := _BN_nist_mod_521;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7222,13 +7238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get0_nist_prime_192_allownil)}
-    BN_get0_nist_prime_192 := @ERR_BN_get0_nist_prime_192;
+    BN_get0_nist_prime_192 := ERR_BN_get0_nist_prime_192;
     {$ifend}
     {$if declared(BN_get0_nist_prime_192_introduced)}
     if LibVersion < BN_get0_nist_prime_192_introduced then
     begin
       {$if declared(FC_BN_get0_nist_prime_192)}
-      BN_get0_nist_prime_192 := @FC_BN_get0_nist_prime_192;
+      BN_get0_nist_prime_192 := FC_BN_get0_nist_prime_192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7237,7 +7253,7 @@ begin
     if BN_get0_nist_prime_192_removed <= LibVersion then
     begin
       {$if declared(_BN_get0_nist_prime_192)}
-      BN_get0_nist_prime_192 := @_BN_get0_nist_prime_192;
+      BN_get0_nist_prime_192 := _BN_get0_nist_prime_192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7254,13 +7270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get0_nist_prime_224_allownil)}
-    BN_get0_nist_prime_224 := @ERR_BN_get0_nist_prime_224;
+    BN_get0_nist_prime_224 := ERR_BN_get0_nist_prime_224;
     {$ifend}
     {$if declared(BN_get0_nist_prime_224_introduced)}
     if LibVersion < BN_get0_nist_prime_224_introduced then
     begin
       {$if declared(FC_BN_get0_nist_prime_224)}
-      BN_get0_nist_prime_224 := @FC_BN_get0_nist_prime_224;
+      BN_get0_nist_prime_224 := FC_BN_get0_nist_prime_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7269,7 +7285,7 @@ begin
     if BN_get0_nist_prime_224_removed <= LibVersion then
     begin
       {$if declared(_BN_get0_nist_prime_224)}
-      BN_get0_nist_prime_224 := @_BN_get0_nist_prime_224;
+      BN_get0_nist_prime_224 := _BN_get0_nist_prime_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7286,13 +7302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get0_nist_prime_256_allownil)}
-    BN_get0_nist_prime_256 := @ERR_BN_get0_nist_prime_256;
+    BN_get0_nist_prime_256 := ERR_BN_get0_nist_prime_256;
     {$ifend}
     {$if declared(BN_get0_nist_prime_256_introduced)}
     if LibVersion < BN_get0_nist_prime_256_introduced then
     begin
       {$if declared(FC_BN_get0_nist_prime_256)}
-      BN_get0_nist_prime_256 := @FC_BN_get0_nist_prime_256;
+      BN_get0_nist_prime_256 := FC_BN_get0_nist_prime_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7301,7 +7317,7 @@ begin
     if BN_get0_nist_prime_256_removed <= LibVersion then
     begin
       {$if declared(_BN_get0_nist_prime_256)}
-      BN_get0_nist_prime_256 := @_BN_get0_nist_prime_256;
+      BN_get0_nist_prime_256 := _BN_get0_nist_prime_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7318,13 +7334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get0_nist_prime_384_allownil)}
-    BN_get0_nist_prime_384 := @ERR_BN_get0_nist_prime_384;
+    BN_get0_nist_prime_384 := ERR_BN_get0_nist_prime_384;
     {$ifend}
     {$if declared(BN_get0_nist_prime_384_introduced)}
     if LibVersion < BN_get0_nist_prime_384_introduced then
     begin
       {$if declared(FC_BN_get0_nist_prime_384)}
-      BN_get0_nist_prime_384 := @FC_BN_get0_nist_prime_384;
+      BN_get0_nist_prime_384 := FC_BN_get0_nist_prime_384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7333,7 +7349,7 @@ begin
     if BN_get0_nist_prime_384_removed <= LibVersion then
     begin
       {$if declared(_BN_get0_nist_prime_384)}
-      BN_get0_nist_prime_384 := @_BN_get0_nist_prime_384;
+      BN_get0_nist_prime_384 := _BN_get0_nist_prime_384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7350,13 +7366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get0_nist_prime_521_allownil)}
-    BN_get0_nist_prime_521 := @ERR_BN_get0_nist_prime_521;
+    BN_get0_nist_prime_521 := ERR_BN_get0_nist_prime_521;
     {$ifend}
     {$if declared(BN_get0_nist_prime_521_introduced)}
     if LibVersion < BN_get0_nist_prime_521_introduced then
     begin
       {$if declared(FC_BN_get0_nist_prime_521)}
-      BN_get0_nist_prime_521 := @FC_BN_get0_nist_prime_521;
+      BN_get0_nist_prime_521 := FC_BN_get0_nist_prime_521;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7365,7 +7381,7 @@ begin
     if BN_get0_nist_prime_521_removed <= LibVersion then
     begin
       {$if declared(_BN_get0_nist_prime_521)}
-      BN_get0_nist_prime_521 := @_BN_get0_nist_prime_521;
+      BN_get0_nist_prime_521 := _BN_get0_nist_prime_521;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7382,13 +7398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_generate_dsa_nonce_allownil)}
-    BN_generate_dsa_nonce := @ERR_BN_generate_dsa_nonce;
+    BN_generate_dsa_nonce := ERR_BN_generate_dsa_nonce;
     {$ifend}
     {$if declared(BN_generate_dsa_nonce_introduced)}
     if LibVersion < BN_generate_dsa_nonce_introduced then
     begin
       {$if declared(FC_BN_generate_dsa_nonce)}
-      BN_generate_dsa_nonce := @FC_BN_generate_dsa_nonce;
+      BN_generate_dsa_nonce := FC_BN_generate_dsa_nonce;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7397,7 +7413,7 @@ begin
     if BN_generate_dsa_nonce_removed <= LibVersion then
     begin
       {$if declared(_BN_generate_dsa_nonce)}
-      BN_generate_dsa_nonce := @_BN_generate_dsa_nonce;
+      BN_generate_dsa_nonce := _BN_generate_dsa_nonce;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7414,13 +7430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc2409_prime_768_allownil)}
-    BN_get_rfc2409_prime_768 := @ERR_BN_get_rfc2409_prime_768;
+    BN_get_rfc2409_prime_768 := ERR_BN_get_rfc2409_prime_768;
     {$ifend}
     {$if declared(BN_get_rfc2409_prime_768_introduced)}
     if LibVersion < BN_get_rfc2409_prime_768_introduced then
     begin
       {$if declared(FC_BN_get_rfc2409_prime_768)}
-      BN_get_rfc2409_prime_768 := @FC_BN_get_rfc2409_prime_768;
+      BN_get_rfc2409_prime_768 := FC_BN_get_rfc2409_prime_768;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7429,7 +7445,7 @@ begin
     if BN_get_rfc2409_prime_768_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc2409_prime_768)}
-      BN_get_rfc2409_prime_768 := @_BN_get_rfc2409_prime_768;
+      BN_get_rfc2409_prime_768 := _BN_get_rfc2409_prime_768;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7446,13 +7462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc2409_prime_1024_allownil)}
-    BN_get_rfc2409_prime_1024 := @ERR_BN_get_rfc2409_prime_1024;
+    BN_get_rfc2409_prime_1024 := ERR_BN_get_rfc2409_prime_1024;
     {$ifend}
     {$if declared(BN_get_rfc2409_prime_1024_introduced)}
     if LibVersion < BN_get_rfc2409_prime_1024_introduced then
     begin
       {$if declared(FC_BN_get_rfc2409_prime_1024)}
-      BN_get_rfc2409_prime_1024 := @FC_BN_get_rfc2409_prime_1024;
+      BN_get_rfc2409_prime_1024 := FC_BN_get_rfc2409_prime_1024;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7461,7 +7477,7 @@ begin
     if BN_get_rfc2409_prime_1024_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc2409_prime_1024)}
-      BN_get_rfc2409_prime_1024 := @_BN_get_rfc2409_prime_1024;
+      BN_get_rfc2409_prime_1024 := _BN_get_rfc2409_prime_1024;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7478,13 +7494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_1536_allownil)}
-    BN_get_rfc3526_prime_1536 := @ERR_BN_get_rfc3526_prime_1536;
+    BN_get_rfc3526_prime_1536 := ERR_BN_get_rfc3526_prime_1536;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_1536_introduced)}
     if LibVersion < BN_get_rfc3526_prime_1536_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_1536)}
-      BN_get_rfc3526_prime_1536 := @FC_BN_get_rfc3526_prime_1536;
+      BN_get_rfc3526_prime_1536 := FC_BN_get_rfc3526_prime_1536;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7493,7 +7509,7 @@ begin
     if BN_get_rfc3526_prime_1536_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_1536)}
-      BN_get_rfc3526_prime_1536 := @_BN_get_rfc3526_prime_1536;
+      BN_get_rfc3526_prime_1536 := _BN_get_rfc3526_prime_1536;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7510,13 +7526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_2048_allownil)}
-    BN_get_rfc3526_prime_2048 := @ERR_BN_get_rfc3526_prime_2048;
+    BN_get_rfc3526_prime_2048 := ERR_BN_get_rfc3526_prime_2048;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_2048_introduced)}
     if LibVersion < BN_get_rfc3526_prime_2048_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_2048)}
-      BN_get_rfc3526_prime_2048 := @FC_BN_get_rfc3526_prime_2048;
+      BN_get_rfc3526_prime_2048 := FC_BN_get_rfc3526_prime_2048;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7525,7 +7541,7 @@ begin
     if BN_get_rfc3526_prime_2048_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_2048)}
-      BN_get_rfc3526_prime_2048 := @_BN_get_rfc3526_prime_2048;
+      BN_get_rfc3526_prime_2048 := _BN_get_rfc3526_prime_2048;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7542,13 +7558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_3072_allownil)}
-    BN_get_rfc3526_prime_3072 := @ERR_BN_get_rfc3526_prime_3072;
+    BN_get_rfc3526_prime_3072 := ERR_BN_get_rfc3526_prime_3072;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_3072_introduced)}
     if LibVersion < BN_get_rfc3526_prime_3072_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_3072)}
-      BN_get_rfc3526_prime_3072 := @FC_BN_get_rfc3526_prime_3072;
+      BN_get_rfc3526_prime_3072 := FC_BN_get_rfc3526_prime_3072;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7557,7 +7573,7 @@ begin
     if BN_get_rfc3526_prime_3072_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_3072)}
-      BN_get_rfc3526_prime_3072 := @_BN_get_rfc3526_prime_3072;
+      BN_get_rfc3526_prime_3072 := _BN_get_rfc3526_prime_3072;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7574,13 +7590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_4096_allownil)}
-    BN_get_rfc3526_prime_4096 := @ERR_BN_get_rfc3526_prime_4096;
+    BN_get_rfc3526_prime_4096 := ERR_BN_get_rfc3526_prime_4096;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_4096_introduced)}
     if LibVersion < BN_get_rfc3526_prime_4096_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_4096)}
-      BN_get_rfc3526_prime_4096 := @FC_BN_get_rfc3526_prime_4096;
+      BN_get_rfc3526_prime_4096 := FC_BN_get_rfc3526_prime_4096;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7589,7 +7605,7 @@ begin
     if BN_get_rfc3526_prime_4096_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_4096)}
-      BN_get_rfc3526_prime_4096 := @_BN_get_rfc3526_prime_4096;
+      BN_get_rfc3526_prime_4096 := _BN_get_rfc3526_prime_4096;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7606,13 +7622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_6144_allownil)}
-    BN_get_rfc3526_prime_6144 := @ERR_BN_get_rfc3526_prime_6144;
+    BN_get_rfc3526_prime_6144 := ERR_BN_get_rfc3526_prime_6144;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_6144_introduced)}
     if LibVersion < BN_get_rfc3526_prime_6144_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_6144)}
-      BN_get_rfc3526_prime_6144 := @FC_BN_get_rfc3526_prime_6144;
+      BN_get_rfc3526_prime_6144 := FC_BN_get_rfc3526_prime_6144;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7621,7 +7637,7 @@ begin
     if BN_get_rfc3526_prime_6144_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_6144)}
-      BN_get_rfc3526_prime_6144 := @_BN_get_rfc3526_prime_6144;
+      BN_get_rfc3526_prime_6144 := _BN_get_rfc3526_prime_6144;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7638,13 +7654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_get_rfc3526_prime_8192_allownil)}
-    BN_get_rfc3526_prime_8192 := @ERR_BN_get_rfc3526_prime_8192;
+    BN_get_rfc3526_prime_8192 := ERR_BN_get_rfc3526_prime_8192;
     {$ifend}
     {$if declared(BN_get_rfc3526_prime_8192_introduced)}
     if LibVersion < BN_get_rfc3526_prime_8192_introduced then
     begin
       {$if declared(FC_BN_get_rfc3526_prime_8192)}
-      BN_get_rfc3526_prime_8192 := @FC_BN_get_rfc3526_prime_8192;
+      BN_get_rfc3526_prime_8192 := FC_BN_get_rfc3526_prime_8192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7653,7 +7669,7 @@ begin
     if BN_get_rfc3526_prime_8192_removed <= LibVersion then
     begin
       {$if declared(_BN_get_rfc3526_prime_8192)}
-      BN_get_rfc3526_prime_8192 := @_BN_get_rfc3526_prime_8192;
+      BN_get_rfc3526_prime_8192 := _BN_get_rfc3526_prime_8192;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7670,13 +7686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BN_bntest_rand_allownil)}
-    BN_bntest_rand := @ERR_BN_bntest_rand;
+    BN_bntest_rand := ERR_BN_bntest_rand;
     {$ifend}
     {$if declared(BN_bntest_rand_introduced)}
     if LibVersion < BN_bntest_rand_introduced then
     begin
       {$if declared(FC_BN_bntest_rand)}
-      BN_bntest_rand := @FC_BN_bntest_rand;
+      BN_bntest_rand := FC_BN_bntest_rand;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -7685,7 +7701,7 @@ begin
     if BN_bntest_rand_removed <= LibVersion then
     begin
       {$if declared(_BN_bntest_rand)}
-      BN_bntest_rand := @_BN_bntest_rand;
+      BN_bntest_rand := _BN_bntest_rand;
       {$ifend}
       FuncLoadError := false;
     end;

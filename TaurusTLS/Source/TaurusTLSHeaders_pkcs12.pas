@@ -507,126 +507,126 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc}
-function  ERR_PKCS12_mac_present(const p12: PPKCS12): TIdC_INT; 
+function  ERR_PKCS12_mac_present(const p12: PPKCS12): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_mac_present_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_PKCS12_get0_mac(const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12); 
+procedure  ERR_PKCS12_get0_mac(const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_get0_mac_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS12_SAFEBAG_get0_attr(const bag: PPKCS12_SAFEBAG; attr_nid: TIdC_INT): PASN1_TYPE; 
+function  ERR_PKCS12_SAFEBAG_get0_attr(const bag: PPKCS12_SAFEBAG; attr_nid: TIdC_INT): PASN1_TYPE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get0_attr_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_get0_type(const bag: PPKCS12_SAFEBAG): PASN1_OBJECT; 
+function  ERR_PKCS12_SAFEBAG_get0_type(const bag: PPKCS12_SAFEBAG): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get0_type_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_get_nid(const bag: PPKCS12_SAFEBAG): TIdC_INT; 
+function  ERR_PKCS12_SAFEBAG_get_nid(const bag: PPKCS12_SAFEBAG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_get_bag_nid(const bag: PPKCS12_SAFEBAG): TIdC_INT; 
+function  ERR_PKCS12_SAFEBAG_get_bag_nid(const bag: PPKCS12_SAFEBAG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get_bag_nid_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS12_SAFEBAG_get1_cert(const bag: PPKCS12_SAFEBAG): PX509; 
+function  ERR_PKCS12_SAFEBAG_get1_cert(const bag: PPKCS12_SAFEBAG): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get1_cert_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_get1_crl(const bag: PPKCS12_SAFEBAG): PX509_CRL; 
+function  ERR_PKCS12_SAFEBAG_get1_crl(const bag: PPKCS12_SAFEBAG): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get1_crl_procname);
 end;
 
  {introduced 1.1.0}
 //  const STACK_OF(PKCS12_SAFEBAG) *PKCS12_SAFEBAG_get0_safes(const PKCS12_SAFEBAG *bag);
-function  ERR_PKCS12_SAFEBAG_get0_p8inf(const bag: PPKCS12_SAFEBAG): PPKCS8_PRIV_KEY_INFO; 
+function  ERR_PKCS12_SAFEBAG_get0_p8inf(const bag: PPKCS12_SAFEBAG): PPKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get0_p8inf_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_get0_pkcs8(const bag: PPKCS12_SAFEBAG): PX509_SIG; 
+function  ERR_PKCS12_SAFEBAG_get0_pkcs8(const bag: PPKCS12_SAFEBAG): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_get0_pkcs8_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS12_SAFEBAG_create_cert(x509: PX509): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_create_cert(x509: PX509): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_create_cert_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_create_crl(crl: PX509_CRL): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_create_crl(crl: PX509_CRL): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_create_crl_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_create0_p8inf(p8: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_create0_p8inf(p8: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_create0_p8inf_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_create0_pkcs8(p8: PX509_SIG): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_create0_pkcs8(p8: PX509_SIG): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_create0_pkcs8_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_SAFEBAG_create_pkcs8_encrypt(pbe_nid: TIdC_INT; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; p8inf: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_create_pkcs8_encrypt(pbe_nid: TIdC_INT; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; p8inf: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_create_pkcs8_encrypt_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS12_item_pack_safebag(obj: Pointer; const it: PASN1_ITEM; nid1: TIdC_INT; nid2: TIdC_INT): PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_item_pack_safebag(obj: Pointer; const it: PASN1_ITEM; nid1: TIdC_INT; nid2: TIdC_INT): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_item_pack_safebag_procname);
 end;
 
 
-function  ERR_PKCS8_decrypt(const p8: PX509_SIG; const pass: PIdAnsiChar; passlen: TIdC_INT): PPKCS8_PRIV_KEY_INFO; 
+function  ERR_PKCS8_decrypt(const p8: PX509_SIG; const pass: PIdAnsiChar; passlen: TIdC_INT): PPKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_decrypt_procname);
 end;
 
 
-function  ERR_PKCS12_decrypt_skey(const bag: PPKCS12_SAFEBAG; const pass: PIdAnsiChar; passlen: TIdC_INT): PPKCS8_PRIV_KEY_INFO; 
+function  ERR_PKCS12_decrypt_skey(const bag: PPKCS12_SAFEBAG; const pass: PIdAnsiChar; passlen: TIdC_INT): PPKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_decrypt_skey_procname);
 end;
 
 
-function  ERR_PKCS8_encrypt(pbe_nid: TIdC_INT; const cipher: PEVP_CIPHER; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; p8: PPKCS8_PRIV_KEY_INFO): PX509_SIG; 
+function  ERR_PKCS8_encrypt(pbe_nid: TIdC_INT; const cipher: PEVP_CIPHER; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; p8: PPKCS8_PRIV_KEY_INFO): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_encrypt_procname);
 end;
 
 
-function  ERR_PKCS8_set0_pbe(const pass: PIdAnsiChar; passlen: TIdC_INT; p8inf: PPKCS8_PRIV_KEY_INFO; pbe: PX509_ALGOR): PX509_SIG; 
+function  ERR_PKCS8_set0_pbe(const pass: PIdAnsiChar; passlen: TIdC_INT; p8inf: PPKCS8_PRIV_KEY_INFO; pbe: PX509_ALGOR): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_set0_pbe_procname);
 end;
@@ -643,284 +643,284 @@ end;
 //  TIdC_INT PKCS12_pack_authsafes(PKCS12 *p12, STACK_OF(PKCS7) *safes);
 //  STACK_OF(PKCS7) *PKCS12_unpack_authsafes(const PKCS12 *p12);
 
-function  ERR_PKCS12_add_localkeyid(bag: PPKCS12_SAFEBAG; name: PByte; namelen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_add_localkeyid(bag: PPKCS12_SAFEBAG; name: PByte; namelen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_add_localkeyid_procname);
 end;
 
 
-function  ERR_PKCS12_add_friendlyname_asc(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_add_friendlyname_asc(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_add_friendlyname_asc_procname);
 end;
 
 
-function  ERR_PKCS12_add_friendlyname_utf8(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_add_friendlyname_utf8(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_add_friendlyname_utf8_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_add_CSPName_asc(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_add_CSPName_asc(bag: PPKCS12_SAFEBAG; const name: PIdAnsiChar; namelen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_add_CSPName_asc_procname);
 end;
 
 
-function  ERR_PKCS12_add_friendlyname_uni(bag: PPKCS12_SAFEBAG; const name: PByte; namelen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_add_friendlyname_uni(bag: PPKCS12_SAFEBAG; const name: PByte; namelen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_add_friendlyname_uni_procname);
 end;
 
 
-function  ERR_PKCS8_add_keyusage(p8: PPKCS8_PRIV_KEY_INFO; usage: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS8_add_keyusage(p8: PPKCS8_PRIV_KEY_INFO; usage: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS8_add_keyusage_procname);
 end;
 
 
 //  function PKCS12_get_attr_gen(const STACK_OF(X509_ATTRIBUTE) *attrs; TIdC_INT attr_nid): PASN1_TYPE;
-function  ERR_PKCS12_get_friendlyname(bag: PPKCS12_SAFEBAG): PIdAnsiChar; 
+function  ERR_PKCS12_get_friendlyname(bag: PPKCS12_SAFEBAG): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_get_friendlyname_procname);
 end;
 
 
 //  const STACK_OF(X509_ATTRIBUTE) *PKCS12_SAFEBAG_get0_attrs(const PKCS12_SAFEBAG *bag);
-function  ERR_PKCS12_pbe_crypt(const algor: PX509_ALGOR; const pass: PIdAnsiChar; passlen: TIdC_INT; const in_: PByte; inlen: TIdC_INT; data: PPByte; datalen: PIdC_INT; en_de: TIdC_INT): PByte; 
+function  ERR_PKCS12_pbe_crypt(const algor: PX509_ALGOR; const pass: PIdAnsiChar; passlen: TIdC_INT; const in_: PByte; inlen: TIdC_INT; data: PPByte; datalen: PIdC_INT; en_de: TIdC_INT): PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_pbe_crypt_procname);
 end;
 
 
-function  ERR_PKCS12_item_decrypt_d2i(const algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PIdAnsiChar; passlen: TIdC_INT; const oct: PASN1_OCTET_STRING; zbuf: TIdC_INT): Pointer; 
+function  ERR_PKCS12_item_decrypt_d2i(const algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PIdAnsiChar; passlen: TIdC_INT; const oct: PASN1_OCTET_STRING; zbuf: TIdC_INT): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_item_decrypt_d2i_procname);
 end;
 
 
-function  ERR_PKCS12_item_i2d_encrypt(algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PIdAnsiChar; passlen: TIdC_INT; obj: Pointer; zbuf: TIdC_INT): PASN1_OCTET_STRING; 
+function  ERR_PKCS12_item_i2d_encrypt(algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PIdAnsiChar; passlen: TIdC_INT; obj: Pointer; zbuf: TIdC_INT): PASN1_OCTET_STRING;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_item_i2d_encrypt_procname);
 end;
 
 
-function  ERR_PKCS12_init(mode: TIdC_INT): PPKCS12; 
+function  ERR_PKCS12_init(mode: TIdC_INT): PPKCS12;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_init_procname);
 end;
 
 
-function  ERR_PKCS12_key_gen_asc(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS12_key_gen_asc(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_key_gen_asc_procname);
 end;
 
 
-function  ERR_PKCS12_key_gen_uni(pass: PByte; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS12_key_gen_uni(pass: PByte; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_key_gen_uni_procname);
 end;
 
 
-function  ERR_PKCS12_key_gen_utf8(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS12_key_gen_utf8(const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; id: TIdC_INT; iter: TIdC_INT; n: TIdC_INT; out_: PByte; const md_type: PEVP_MD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_key_gen_utf8_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PKCS12_PBE_keyivgen(ctx: PEVP_CIPHER_CTX; const pass: PIdAnsiChar; passlen: TIdC_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_PBE_keyivgen(ctx: PEVP_CIPHER_CTX; const pass: PIdAnsiChar; passlen: TIdC_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_PBE_keyivgen_procname);
 end;
 
 
-function  ERR_PKCS12_gen_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; mac: PByte; maclen: PIdC_UINT): TIdC_INT; 
+function  ERR_PKCS12_gen_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; mac: PByte; maclen: PIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_gen_mac_procname);
 end;
 
 
-function  ERR_PKCS12_verify_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS12_verify_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_verify_mac_procname);
 end;
 
 
-function  ERR_PKCS12_set_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; const md_type: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS12_set_mac(p12: PPKCS12; const pass: PIdAnsiChar; passlen: TIdC_INT; salt: PByte; saltlen: TIdC_INT; iter: TIdC_INT; const md_type: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_set_mac_procname);
 end;
 
 
-function  ERR_PKCS12_setup_mac(p12: PPKCS12; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; const md_type: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS12_setup_mac(p12: PPKCS12; iter: TIdC_INT; salt: PByte; saltlen: TIdC_INT; const md_type: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_setup_mac_procname);
 end;
 
 
-function  ERR_OPENSSL_asc2uni(const asc: PIdAnsiChar; asclen: TIdC_INT; uni: PPByte; unilen: PIdC_INT): PByte; 
+function  ERR_OPENSSL_asc2uni(const asc: PIdAnsiChar; asclen: TIdC_INT; uni: PPByte; unilen: PIdC_INT): PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_asc2uni_procname);
 end;
 
 
-function  ERR_OPENSSL_uni2asc(const uni: PByte; unilen: TIdC_INT): PIdAnsiChar; 
+function  ERR_OPENSSL_uni2asc(const uni: PByte; unilen: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_uni2asc_procname);
 end;
 
 
-function  ERR_OPENSSL_utf82uni(const asc: PIdAnsiChar; asclen: TIdC_INT; uni: PPByte; unilen: PIdC_INT): PByte; 
+function  ERR_OPENSSL_utf82uni(const asc: PIdAnsiChar; asclen: TIdC_INT; uni: PPByte; unilen: PIdC_INT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_utf82uni_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OPENSSL_uni2utf8(const uni: PByte; unilen: TIdC_INT): PIdAnsiChar; 
+function  ERR_OPENSSL_uni2utf8(const uni: PByte; unilen: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_uni2utf8_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_PKCS12_new: PPKCS12; 
+function  ERR_PKCS12_new: PPKCS12;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_new_procname);
 end;
 
 
-procedure  ERR_PKCS12_free(a: PPKCS12); 
+procedure  ERR_PKCS12_free(a: PPKCS12);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_free_procname);
 end;
 
 
-function  ERR_d2i_PKCS12(a: PPPKCS12; const in_: PPByte; len: TIdC_LONG): PPKCS12; 
+function  ERR_d2i_PKCS12(a: PPPKCS12; const in_: PPByte; len: TIdC_LONG): PPKCS12;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS12_procname);
 end;
 
 
-function  ERR_i2d_PKCS12(a: PPKCS12; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_PKCS12(a: PPKCS12; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS12_procname);
 end;
 
 
-function  ERR_PKCS12_it: PASN1_ITEM; 
+function  ERR_PKCS12_it: PASN1_ITEM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_it_procname);
 end;
 
 
 
-function  ERR_PKCS12_MAC_DATA_new: PPKCS12_MAC_DATA; 
+function  ERR_PKCS12_MAC_DATA_new: PPKCS12_MAC_DATA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_MAC_DATA_new_procname);
 end;
 
 
-procedure  ERR_PKCS12_MAC_DATA_free(a: PPKCS12_MAC_DATA); 
+procedure  ERR_PKCS12_MAC_DATA_free(a: PPKCS12_MAC_DATA);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_MAC_DATA_free_procname);
 end;
 
 
-function  ERR_d2i_PKCS12_MAC_DATA(a: PPPKCS12_MAC_DATA; const in_: PPByte; len: TIdC_LONG): PPKCS12_MAC_DATA; 
+function  ERR_d2i_PKCS12_MAC_DATA(a: PPPKCS12_MAC_DATA; const in_: PPByte; len: TIdC_LONG): PPKCS12_MAC_DATA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS12_MAC_DATA_procname);
 end;
 
 
-function  ERR_i2d_PKCS12_MAC_DATA(a: PPKCS12_MAC_DATA; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_PKCS12_MAC_DATA(a: PPKCS12_MAC_DATA; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS12_MAC_DATA_procname);
 end;
 
 
-function  ERR_PKCS12_MAC_DATA_it: PASN1_ITEM; 
+function  ERR_PKCS12_MAC_DATA_it: PASN1_ITEM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_MAC_DATA_it_procname);
 end;
 
 
 
-function  ERR_PKCS12_SAFEBAG_new: PPKCS12_SAFEBAG; 
+function  ERR_PKCS12_SAFEBAG_new: PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_new_procname);
 end;
 
 
-procedure  ERR_PKCS12_SAFEBAG_free(a: PPKCS12_SAFEBAG); 
+procedure  ERR_PKCS12_SAFEBAG_free(a: PPKCS12_SAFEBAG);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_free_procname);
 end;
 
 
-function  ERR_d2i_PKCS12_SAFEBAG(a: PPPKCS12_SAFEBAG; const in_: PPByte; len: TIdC_LONG): PPKCS12_SAFEBAG; 
+function  ERR_d2i_PKCS12_SAFEBAG(a: PPPKCS12_SAFEBAG; const in_: PPByte; len: TIdC_LONG): PPKCS12_SAFEBAG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS12_SAFEBAG_procname);
 end;
 
 
-function  ERR_i2d_PKCS12_SAFEBAG(a: PPKCS12_SAFEBAG; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_PKCS12_SAFEBAG(a: PPKCS12_SAFEBAG; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS12_SAFEBAG_procname);
 end;
 
 
-function  ERR_PKCS12_SAFEBAG_it: PASN1_ITEM; 
+function  ERR_PKCS12_SAFEBAG_it: PASN1_ITEM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_SAFEBAG_it_procname);
 end;
 
 
 
-function  ERR_PKCS12_BAGS_new: PPKCS12_BAGS; 
+function  ERR_PKCS12_BAGS_new: PPKCS12_BAGS;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_BAGS_new_procname);
 end;
 
 
-procedure  ERR_PKCS12_BAGS_free(a: PPKCS12_BAGS); 
+procedure  ERR_PKCS12_BAGS_free(a: PPKCS12_BAGS);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_BAGS_free_procname);
 end;
 
 
-function  ERR_d2i_PKCS12_BAGS(a: PPPKCS12_BAGS; const in_: PPByte; len: TIdC_LONG): PPKCS12_BAGS; 
+function  ERR_d2i_PKCS12_BAGS(a: PPPKCS12_BAGS; const in_: PPByte; len: TIdC_LONG): PPKCS12_BAGS;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS12_BAGS_procname);
 end;
 
 
-function  ERR_i2d_PKCS12_BAGS(a: PPKCS12_BAGS; out_: PPByte): TIdC_INT; 
+function  ERR_i2d_PKCS12_BAGS(a: PPKCS12_BAGS; out_: PPByte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS12_BAGS_procname);
 end;
 
 
-function  ERR_PKCS12_BAGS_it: PASN1_ITEM; 
+function  ERR_PKCS12_BAGS_it: PASN1_ITEM;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_BAGS_it_procname);
 end;
 
 
 
-procedure  ERR_PKCS12_PBE_add(v: Pointer); 
+procedure  ERR_PKCS12_PBE_add(v: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_PBE_add_procname);
 end;
 
 
-function  ERR_PKCS12_parse(p12: PPKCS12; const pass: PIdAnsiChar; var pkey: PEVP_PKEY; var cert: PX509; ca: PPStack_Of_X509): TIdC_INT;
+function  ERR_PKCS12_parse(p12: PPKCS12; const pass: PIdAnsiChar; var pkey: PEVP_PKEY; var cert: PX509; ca: PPStack_Of_X509): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_parse_procname);
 end;
 
 
-function  ERR_PKCS12_create(const pass: PIdAnsiChar; const name: PIdAnsiChar; pkey: PEVP_PKEY; cert: PX509; ca: PStack_Of_X509; nid_key: TIdC_INT; nid_cert: TIdC_INT; iter: TIdC_INT; mac_iter: TIdC_INT; keytype: TIdC_INT): PPKCS12; 
+function  ERR_PKCS12_create(const pass: PIdAnsiChar; const name: PIdAnsiChar; pkey: PEVP_PKEY; cert: PX509; ca: PStack_Of_X509; nid_key: TIdC_INT; nid_cert: TIdC_INT; iter: TIdC_INT; mac_iter: TIdC_INT; keytype: TIdC_INT): PPKCS12; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_create_procname);
 end;
@@ -935,19 +935,19 @@ end;
 //                      TIdC_INT safe_nid; iter: TIdC_INT; const pass: PIdAnsiChar);
 //  PKCS12 *PKCS12_add_safes(STACK_OF(PKCS7) *safes; TIdC_INT p7_nid);
 
-function  ERR_i2d_PKCS12_bio(bp: PBIO; p12: PPKCS12): TIdC_INT; 
+function  ERR_i2d_PKCS12_bio(bp: PBIO; p12: PPKCS12): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS12_bio_procname);
 end;
 
 
-function  ERR_d2i_PKCS12_bio(bp: PBIO; p12: PPPKCS12): PPKCS12; 
+function  ERR_d2i_PKCS12_bio(bp: PBIO; p12: PPPKCS12): PPKCS12; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS12_bio_procname);
 end;
 
 
-function  ERR_PKCS12_newpass(p12: PPKCS12; const oldpass: PIdAnsiChar; const newpass: PIdAnsiChar): TIdC_INT; 
+function  ERR_PKCS12_newpass(p12: PPKCS12; const oldpass: PIdAnsiChar; const newpass: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS12_newpass_procname);
 end;
@@ -964,13 +964,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_mac_present_allownil)}
-    PKCS12_mac_present := @ERR_PKCS12_mac_present;
+    PKCS12_mac_present := ERR_PKCS12_mac_present;
     {$ifend}
     {$if declared(PKCS12_mac_present_introduced)}
     if LibVersion < PKCS12_mac_present_introduced then
     begin
       {$if declared(FC_PKCS12_mac_present)}
-      PKCS12_mac_present := @FC_PKCS12_mac_present;
+      PKCS12_mac_present := FC_PKCS12_mac_present;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -979,7 +979,7 @@ begin
     if PKCS12_mac_present_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_mac_present)}
-      PKCS12_mac_present := @_PKCS12_mac_present;
+      PKCS12_mac_present := _PKCS12_mac_present;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -996,13 +996,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_get0_mac_allownil)}
-    PKCS12_get0_mac := @ERR_PKCS12_get0_mac;
+    PKCS12_get0_mac := ERR_PKCS12_get0_mac;
     {$ifend}
     {$if declared(PKCS12_get0_mac_introduced)}
     if LibVersion < PKCS12_get0_mac_introduced then
     begin
       {$if declared(FC_PKCS12_get0_mac)}
-      PKCS12_get0_mac := @FC_PKCS12_get0_mac;
+      PKCS12_get0_mac := FC_PKCS12_get0_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1011,7 +1011,7 @@ begin
     if PKCS12_get0_mac_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_get0_mac)}
-      PKCS12_get0_mac := @_PKCS12_get0_mac;
+      PKCS12_get0_mac := _PKCS12_get0_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1028,13 +1028,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get0_attr_allownil)}
-    PKCS12_SAFEBAG_get0_attr := @ERR_PKCS12_SAFEBAG_get0_attr;
+    PKCS12_SAFEBAG_get0_attr := ERR_PKCS12_SAFEBAG_get0_attr;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get0_attr_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get0_attr_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get0_attr)}
-      PKCS12_SAFEBAG_get0_attr := @FC_PKCS12_SAFEBAG_get0_attr;
+      PKCS12_SAFEBAG_get0_attr := FC_PKCS12_SAFEBAG_get0_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1043,7 +1043,7 @@ begin
     if PKCS12_SAFEBAG_get0_attr_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get0_attr)}
-      PKCS12_SAFEBAG_get0_attr := @_PKCS12_SAFEBAG_get0_attr;
+      PKCS12_SAFEBAG_get0_attr := _PKCS12_SAFEBAG_get0_attr;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1060,13 +1060,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get0_type_allownil)}
-    PKCS12_SAFEBAG_get0_type := @ERR_PKCS12_SAFEBAG_get0_type;
+    PKCS12_SAFEBAG_get0_type := ERR_PKCS12_SAFEBAG_get0_type;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get0_type_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get0_type_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get0_type)}
-      PKCS12_SAFEBAG_get0_type := @FC_PKCS12_SAFEBAG_get0_type;
+      PKCS12_SAFEBAG_get0_type := FC_PKCS12_SAFEBAG_get0_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1075,7 +1075,7 @@ begin
     if PKCS12_SAFEBAG_get0_type_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get0_type)}
-      PKCS12_SAFEBAG_get0_type := @_PKCS12_SAFEBAG_get0_type;
+      PKCS12_SAFEBAG_get0_type := _PKCS12_SAFEBAG_get0_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1092,13 +1092,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get_nid_allownil)}
-    PKCS12_SAFEBAG_get_nid := @ERR_PKCS12_SAFEBAG_get_nid;
+    PKCS12_SAFEBAG_get_nid := ERR_PKCS12_SAFEBAG_get_nid;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get_nid_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get_nid_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get_nid)}
-      PKCS12_SAFEBAG_get_nid := @FC_PKCS12_SAFEBAG_get_nid;
+      PKCS12_SAFEBAG_get_nid := FC_PKCS12_SAFEBAG_get_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1107,7 +1107,7 @@ begin
     if PKCS12_SAFEBAG_get_nid_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get_nid)}
-      PKCS12_SAFEBAG_get_nid := @_PKCS12_SAFEBAG_get_nid;
+      PKCS12_SAFEBAG_get_nid := _PKCS12_SAFEBAG_get_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1124,13 +1124,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get_bag_nid_allownil)}
-    PKCS12_SAFEBAG_get_bag_nid := @ERR_PKCS12_SAFEBAG_get_bag_nid;
+    PKCS12_SAFEBAG_get_bag_nid := ERR_PKCS12_SAFEBAG_get_bag_nid;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get_bag_nid_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get_bag_nid_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get_bag_nid)}
-      PKCS12_SAFEBAG_get_bag_nid := @FC_PKCS12_SAFEBAG_get_bag_nid;
+      PKCS12_SAFEBAG_get_bag_nid := FC_PKCS12_SAFEBAG_get_bag_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1139,7 +1139,7 @@ begin
     if PKCS12_SAFEBAG_get_bag_nid_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get_bag_nid)}
-      PKCS12_SAFEBAG_get_bag_nid := @_PKCS12_SAFEBAG_get_bag_nid;
+      PKCS12_SAFEBAG_get_bag_nid := _PKCS12_SAFEBAG_get_bag_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1156,13 +1156,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get1_cert_allownil)}
-    PKCS12_SAFEBAG_get1_cert := @ERR_PKCS12_SAFEBAG_get1_cert;
+    PKCS12_SAFEBAG_get1_cert := ERR_PKCS12_SAFEBAG_get1_cert;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get1_cert_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get1_cert_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get1_cert)}
-      PKCS12_SAFEBAG_get1_cert := @FC_PKCS12_SAFEBAG_get1_cert;
+      PKCS12_SAFEBAG_get1_cert := FC_PKCS12_SAFEBAG_get1_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1171,7 +1171,7 @@ begin
     if PKCS12_SAFEBAG_get1_cert_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get1_cert)}
-      PKCS12_SAFEBAG_get1_cert := @_PKCS12_SAFEBAG_get1_cert;
+      PKCS12_SAFEBAG_get1_cert := _PKCS12_SAFEBAG_get1_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1188,13 +1188,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get1_crl_allownil)}
-    PKCS12_SAFEBAG_get1_crl := @ERR_PKCS12_SAFEBAG_get1_crl;
+    PKCS12_SAFEBAG_get1_crl := ERR_PKCS12_SAFEBAG_get1_crl;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get1_crl_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get1_crl_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get1_crl)}
-      PKCS12_SAFEBAG_get1_crl := @FC_PKCS12_SAFEBAG_get1_crl;
+      PKCS12_SAFEBAG_get1_crl := FC_PKCS12_SAFEBAG_get1_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1203,7 +1203,7 @@ begin
     if PKCS12_SAFEBAG_get1_crl_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get1_crl)}
-      PKCS12_SAFEBAG_get1_crl := @_PKCS12_SAFEBAG_get1_crl;
+      PKCS12_SAFEBAG_get1_crl := _PKCS12_SAFEBAG_get1_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1220,13 +1220,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get0_p8inf_allownil)}
-    PKCS12_SAFEBAG_get0_p8inf := @ERR_PKCS12_SAFEBAG_get0_p8inf;
+    PKCS12_SAFEBAG_get0_p8inf := ERR_PKCS12_SAFEBAG_get0_p8inf;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get0_p8inf_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get0_p8inf_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get0_p8inf)}
-      PKCS12_SAFEBAG_get0_p8inf := @FC_PKCS12_SAFEBAG_get0_p8inf;
+      PKCS12_SAFEBAG_get0_p8inf := FC_PKCS12_SAFEBAG_get0_p8inf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1235,7 +1235,7 @@ begin
     if PKCS12_SAFEBAG_get0_p8inf_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get0_p8inf)}
-      PKCS12_SAFEBAG_get0_p8inf := @_PKCS12_SAFEBAG_get0_p8inf;
+      PKCS12_SAFEBAG_get0_p8inf := _PKCS12_SAFEBAG_get0_p8inf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1252,13 +1252,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_get0_pkcs8_allownil)}
-    PKCS12_SAFEBAG_get0_pkcs8 := @ERR_PKCS12_SAFEBAG_get0_pkcs8;
+    PKCS12_SAFEBAG_get0_pkcs8 := ERR_PKCS12_SAFEBAG_get0_pkcs8;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_get0_pkcs8_introduced)}
     if LibVersion < PKCS12_SAFEBAG_get0_pkcs8_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_get0_pkcs8)}
-      PKCS12_SAFEBAG_get0_pkcs8 := @FC_PKCS12_SAFEBAG_get0_pkcs8;
+      PKCS12_SAFEBAG_get0_pkcs8 := FC_PKCS12_SAFEBAG_get0_pkcs8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1267,7 +1267,7 @@ begin
     if PKCS12_SAFEBAG_get0_pkcs8_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_get0_pkcs8)}
-      PKCS12_SAFEBAG_get0_pkcs8 := @_PKCS12_SAFEBAG_get0_pkcs8;
+      PKCS12_SAFEBAG_get0_pkcs8 := _PKCS12_SAFEBAG_get0_pkcs8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1284,13 +1284,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_create_cert_allownil)}
-    PKCS12_SAFEBAG_create_cert := @ERR_PKCS12_SAFEBAG_create_cert;
+    PKCS12_SAFEBAG_create_cert := ERR_PKCS12_SAFEBAG_create_cert;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_create_cert_introduced)}
     if LibVersion < PKCS12_SAFEBAG_create_cert_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_create_cert)}
-      PKCS12_SAFEBAG_create_cert := @FC_PKCS12_SAFEBAG_create_cert;
+      PKCS12_SAFEBAG_create_cert := FC_PKCS12_SAFEBAG_create_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1299,7 +1299,7 @@ begin
     if PKCS12_SAFEBAG_create_cert_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_create_cert)}
-      PKCS12_SAFEBAG_create_cert := @_PKCS12_SAFEBAG_create_cert;
+      PKCS12_SAFEBAG_create_cert := _PKCS12_SAFEBAG_create_cert;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1316,13 +1316,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_create_crl_allownil)}
-    PKCS12_SAFEBAG_create_crl := @ERR_PKCS12_SAFEBAG_create_crl;
+    PKCS12_SAFEBAG_create_crl := ERR_PKCS12_SAFEBAG_create_crl;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_create_crl_introduced)}
     if LibVersion < PKCS12_SAFEBAG_create_crl_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_create_crl)}
-      PKCS12_SAFEBAG_create_crl := @FC_PKCS12_SAFEBAG_create_crl;
+      PKCS12_SAFEBAG_create_crl := FC_PKCS12_SAFEBAG_create_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1331,7 +1331,7 @@ begin
     if PKCS12_SAFEBAG_create_crl_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_create_crl)}
-      PKCS12_SAFEBAG_create_crl := @_PKCS12_SAFEBAG_create_crl;
+      PKCS12_SAFEBAG_create_crl := _PKCS12_SAFEBAG_create_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1348,13 +1348,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_create0_p8inf_allownil)}
-    PKCS12_SAFEBAG_create0_p8inf := @ERR_PKCS12_SAFEBAG_create0_p8inf;
+    PKCS12_SAFEBAG_create0_p8inf := ERR_PKCS12_SAFEBAG_create0_p8inf;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_create0_p8inf_introduced)}
     if LibVersion < PKCS12_SAFEBAG_create0_p8inf_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_create0_p8inf)}
-      PKCS12_SAFEBAG_create0_p8inf := @FC_PKCS12_SAFEBAG_create0_p8inf;
+      PKCS12_SAFEBAG_create0_p8inf := FC_PKCS12_SAFEBAG_create0_p8inf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1363,7 +1363,7 @@ begin
     if PKCS12_SAFEBAG_create0_p8inf_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_create0_p8inf)}
-      PKCS12_SAFEBAG_create0_p8inf := @_PKCS12_SAFEBAG_create0_p8inf;
+      PKCS12_SAFEBAG_create0_p8inf := _PKCS12_SAFEBAG_create0_p8inf;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1380,13 +1380,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_create0_pkcs8_allownil)}
-    PKCS12_SAFEBAG_create0_pkcs8 := @ERR_PKCS12_SAFEBAG_create0_pkcs8;
+    PKCS12_SAFEBAG_create0_pkcs8 := ERR_PKCS12_SAFEBAG_create0_pkcs8;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_create0_pkcs8_introduced)}
     if LibVersion < PKCS12_SAFEBAG_create0_pkcs8_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_create0_pkcs8)}
-      PKCS12_SAFEBAG_create0_pkcs8 := @FC_PKCS12_SAFEBAG_create0_pkcs8;
+      PKCS12_SAFEBAG_create0_pkcs8 := FC_PKCS12_SAFEBAG_create0_pkcs8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1395,7 +1395,7 @@ begin
     if PKCS12_SAFEBAG_create0_pkcs8_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_create0_pkcs8)}
-      PKCS12_SAFEBAG_create0_pkcs8 := @_PKCS12_SAFEBAG_create0_pkcs8;
+      PKCS12_SAFEBAG_create0_pkcs8 := _PKCS12_SAFEBAG_create0_pkcs8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1412,13 +1412,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_create_pkcs8_encrypt_allownil)}
-    PKCS12_SAFEBAG_create_pkcs8_encrypt := @ERR_PKCS12_SAFEBAG_create_pkcs8_encrypt;
+    PKCS12_SAFEBAG_create_pkcs8_encrypt := ERR_PKCS12_SAFEBAG_create_pkcs8_encrypt;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_create_pkcs8_encrypt_introduced)}
     if LibVersion < PKCS12_SAFEBAG_create_pkcs8_encrypt_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_create_pkcs8_encrypt)}
-      PKCS12_SAFEBAG_create_pkcs8_encrypt := @FC_PKCS12_SAFEBAG_create_pkcs8_encrypt;
+      PKCS12_SAFEBAG_create_pkcs8_encrypt := FC_PKCS12_SAFEBAG_create_pkcs8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1427,7 +1427,7 @@ begin
     if PKCS12_SAFEBAG_create_pkcs8_encrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_create_pkcs8_encrypt)}
-      PKCS12_SAFEBAG_create_pkcs8_encrypt := @_PKCS12_SAFEBAG_create_pkcs8_encrypt;
+      PKCS12_SAFEBAG_create_pkcs8_encrypt := _PKCS12_SAFEBAG_create_pkcs8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1444,13 +1444,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_item_pack_safebag_allownil)}
-    PKCS12_item_pack_safebag := @ERR_PKCS12_item_pack_safebag;
+    PKCS12_item_pack_safebag := ERR_PKCS12_item_pack_safebag;
     {$ifend}
     {$if declared(PKCS12_item_pack_safebag_introduced)}
     if LibVersion < PKCS12_item_pack_safebag_introduced then
     begin
       {$if declared(FC_PKCS12_item_pack_safebag)}
-      PKCS12_item_pack_safebag := @FC_PKCS12_item_pack_safebag;
+      PKCS12_item_pack_safebag := FC_PKCS12_item_pack_safebag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1459,7 +1459,7 @@ begin
     if PKCS12_item_pack_safebag_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_item_pack_safebag)}
-      PKCS12_item_pack_safebag := @_PKCS12_item_pack_safebag;
+      PKCS12_item_pack_safebag := _PKCS12_item_pack_safebag;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1476,13 +1476,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_decrypt_allownil)}
-    PKCS8_decrypt := @ERR_PKCS8_decrypt;
+    PKCS8_decrypt := ERR_PKCS8_decrypt;
     {$ifend}
     {$if declared(PKCS8_decrypt_introduced)}
     if LibVersion < PKCS8_decrypt_introduced then
     begin
       {$if declared(FC_PKCS8_decrypt)}
-      PKCS8_decrypt := @FC_PKCS8_decrypt;
+      PKCS8_decrypt := FC_PKCS8_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1491,7 +1491,7 @@ begin
     if PKCS8_decrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_decrypt)}
-      PKCS8_decrypt := @_PKCS8_decrypt;
+      PKCS8_decrypt := _PKCS8_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1508,13 +1508,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_decrypt_skey_allownil)}
-    PKCS12_decrypt_skey := @ERR_PKCS12_decrypt_skey;
+    PKCS12_decrypt_skey := ERR_PKCS12_decrypt_skey;
     {$ifend}
     {$if declared(PKCS12_decrypt_skey_introduced)}
     if LibVersion < PKCS12_decrypt_skey_introduced then
     begin
       {$if declared(FC_PKCS12_decrypt_skey)}
-      PKCS12_decrypt_skey := @FC_PKCS12_decrypt_skey;
+      PKCS12_decrypt_skey := FC_PKCS12_decrypt_skey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1523,7 +1523,7 @@ begin
     if PKCS12_decrypt_skey_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_decrypt_skey)}
-      PKCS12_decrypt_skey := @_PKCS12_decrypt_skey;
+      PKCS12_decrypt_skey := _PKCS12_decrypt_skey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1540,13 +1540,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_encrypt_allownil)}
-    PKCS8_encrypt := @ERR_PKCS8_encrypt;
+    PKCS8_encrypt := ERR_PKCS8_encrypt;
     {$ifend}
     {$if declared(PKCS8_encrypt_introduced)}
     if LibVersion < PKCS8_encrypt_introduced then
     begin
       {$if declared(FC_PKCS8_encrypt)}
-      PKCS8_encrypt := @FC_PKCS8_encrypt;
+      PKCS8_encrypt := FC_PKCS8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1555,7 +1555,7 @@ begin
     if PKCS8_encrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_encrypt)}
-      PKCS8_encrypt := @_PKCS8_encrypt;
+      PKCS8_encrypt := _PKCS8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1572,13 +1572,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_set0_pbe_allownil)}
-    PKCS8_set0_pbe := @ERR_PKCS8_set0_pbe;
+    PKCS8_set0_pbe := ERR_PKCS8_set0_pbe;
     {$ifend}
     {$if declared(PKCS8_set0_pbe_introduced)}
     if LibVersion < PKCS8_set0_pbe_introduced then
     begin
       {$if declared(FC_PKCS8_set0_pbe)}
-      PKCS8_set0_pbe := @FC_PKCS8_set0_pbe;
+      PKCS8_set0_pbe := FC_PKCS8_set0_pbe;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1587,7 +1587,7 @@ begin
     if PKCS8_set0_pbe_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_set0_pbe)}
-      PKCS8_set0_pbe := @_PKCS8_set0_pbe;
+      PKCS8_set0_pbe := _PKCS8_set0_pbe;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1604,13 +1604,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_add_localkeyid_allownil)}
-    PKCS12_add_localkeyid := @ERR_PKCS12_add_localkeyid;
+    PKCS12_add_localkeyid := ERR_PKCS12_add_localkeyid;
     {$ifend}
     {$if declared(PKCS12_add_localkeyid_introduced)}
     if LibVersion < PKCS12_add_localkeyid_introduced then
     begin
       {$if declared(FC_PKCS12_add_localkeyid)}
-      PKCS12_add_localkeyid := @FC_PKCS12_add_localkeyid;
+      PKCS12_add_localkeyid := FC_PKCS12_add_localkeyid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1619,7 +1619,7 @@ begin
     if PKCS12_add_localkeyid_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_add_localkeyid)}
-      PKCS12_add_localkeyid := @_PKCS12_add_localkeyid;
+      PKCS12_add_localkeyid := _PKCS12_add_localkeyid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1636,13 +1636,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_add_friendlyname_asc_allownil)}
-    PKCS12_add_friendlyname_asc := @ERR_PKCS12_add_friendlyname_asc;
+    PKCS12_add_friendlyname_asc := ERR_PKCS12_add_friendlyname_asc;
     {$ifend}
     {$if declared(PKCS12_add_friendlyname_asc_introduced)}
     if LibVersion < PKCS12_add_friendlyname_asc_introduced then
     begin
       {$if declared(FC_PKCS12_add_friendlyname_asc)}
-      PKCS12_add_friendlyname_asc := @FC_PKCS12_add_friendlyname_asc;
+      PKCS12_add_friendlyname_asc := FC_PKCS12_add_friendlyname_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1651,7 +1651,7 @@ begin
     if PKCS12_add_friendlyname_asc_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_add_friendlyname_asc)}
-      PKCS12_add_friendlyname_asc := @_PKCS12_add_friendlyname_asc;
+      PKCS12_add_friendlyname_asc := _PKCS12_add_friendlyname_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1668,13 +1668,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_add_friendlyname_utf8_allownil)}
-    PKCS12_add_friendlyname_utf8 := @ERR_PKCS12_add_friendlyname_utf8;
+    PKCS12_add_friendlyname_utf8 := ERR_PKCS12_add_friendlyname_utf8;
     {$ifend}
     {$if declared(PKCS12_add_friendlyname_utf8_introduced)}
     if LibVersion < PKCS12_add_friendlyname_utf8_introduced then
     begin
       {$if declared(FC_PKCS12_add_friendlyname_utf8)}
-      PKCS12_add_friendlyname_utf8 := @FC_PKCS12_add_friendlyname_utf8;
+      PKCS12_add_friendlyname_utf8 := FC_PKCS12_add_friendlyname_utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1683,7 +1683,7 @@ begin
     if PKCS12_add_friendlyname_utf8_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_add_friendlyname_utf8)}
-      PKCS12_add_friendlyname_utf8 := @_PKCS12_add_friendlyname_utf8;
+      PKCS12_add_friendlyname_utf8 := _PKCS12_add_friendlyname_utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1700,13 +1700,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_add_CSPName_asc_allownil)}
-    PKCS12_add_CSPName_asc := @ERR_PKCS12_add_CSPName_asc;
+    PKCS12_add_CSPName_asc := ERR_PKCS12_add_CSPName_asc;
     {$ifend}
     {$if declared(PKCS12_add_CSPName_asc_introduced)}
     if LibVersion < PKCS12_add_CSPName_asc_introduced then
     begin
       {$if declared(FC_PKCS12_add_CSPName_asc)}
-      PKCS12_add_CSPName_asc := @FC_PKCS12_add_CSPName_asc;
+      PKCS12_add_CSPName_asc := FC_PKCS12_add_CSPName_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1715,7 +1715,7 @@ begin
     if PKCS12_add_CSPName_asc_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_add_CSPName_asc)}
-      PKCS12_add_CSPName_asc := @_PKCS12_add_CSPName_asc;
+      PKCS12_add_CSPName_asc := _PKCS12_add_CSPName_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1732,13 +1732,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_add_friendlyname_uni_allownil)}
-    PKCS12_add_friendlyname_uni := @ERR_PKCS12_add_friendlyname_uni;
+    PKCS12_add_friendlyname_uni := ERR_PKCS12_add_friendlyname_uni;
     {$ifend}
     {$if declared(PKCS12_add_friendlyname_uni_introduced)}
     if LibVersion < PKCS12_add_friendlyname_uni_introduced then
     begin
       {$if declared(FC_PKCS12_add_friendlyname_uni)}
-      PKCS12_add_friendlyname_uni := @FC_PKCS12_add_friendlyname_uni;
+      PKCS12_add_friendlyname_uni := FC_PKCS12_add_friendlyname_uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1747,7 +1747,7 @@ begin
     if PKCS12_add_friendlyname_uni_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_add_friendlyname_uni)}
-      PKCS12_add_friendlyname_uni := @_PKCS12_add_friendlyname_uni;
+      PKCS12_add_friendlyname_uni := _PKCS12_add_friendlyname_uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1764,13 +1764,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS8_add_keyusage_allownil)}
-    PKCS8_add_keyusage := @ERR_PKCS8_add_keyusage;
+    PKCS8_add_keyusage := ERR_PKCS8_add_keyusage;
     {$ifend}
     {$if declared(PKCS8_add_keyusage_introduced)}
     if LibVersion < PKCS8_add_keyusage_introduced then
     begin
       {$if declared(FC_PKCS8_add_keyusage)}
-      PKCS8_add_keyusage := @FC_PKCS8_add_keyusage;
+      PKCS8_add_keyusage := FC_PKCS8_add_keyusage;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1779,7 +1779,7 @@ begin
     if PKCS8_add_keyusage_removed <= LibVersion then
     begin
       {$if declared(_PKCS8_add_keyusage)}
-      PKCS8_add_keyusage := @_PKCS8_add_keyusage;
+      PKCS8_add_keyusage := _PKCS8_add_keyusage;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1796,13 +1796,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_get_friendlyname_allownil)}
-    PKCS12_get_friendlyname := @ERR_PKCS12_get_friendlyname;
+    PKCS12_get_friendlyname := ERR_PKCS12_get_friendlyname;
     {$ifend}
     {$if declared(PKCS12_get_friendlyname_introduced)}
     if LibVersion < PKCS12_get_friendlyname_introduced then
     begin
       {$if declared(FC_PKCS12_get_friendlyname)}
-      PKCS12_get_friendlyname := @FC_PKCS12_get_friendlyname;
+      PKCS12_get_friendlyname := FC_PKCS12_get_friendlyname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1811,7 +1811,7 @@ begin
     if PKCS12_get_friendlyname_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_get_friendlyname)}
-      PKCS12_get_friendlyname := @_PKCS12_get_friendlyname;
+      PKCS12_get_friendlyname := _PKCS12_get_friendlyname;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1828,13 +1828,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_pbe_crypt_allownil)}
-    PKCS12_pbe_crypt := @ERR_PKCS12_pbe_crypt;
+    PKCS12_pbe_crypt := ERR_PKCS12_pbe_crypt;
     {$ifend}
     {$if declared(PKCS12_pbe_crypt_introduced)}
     if LibVersion < PKCS12_pbe_crypt_introduced then
     begin
       {$if declared(FC_PKCS12_pbe_crypt)}
-      PKCS12_pbe_crypt := @FC_PKCS12_pbe_crypt;
+      PKCS12_pbe_crypt := FC_PKCS12_pbe_crypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1843,7 +1843,7 @@ begin
     if PKCS12_pbe_crypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_pbe_crypt)}
-      PKCS12_pbe_crypt := @_PKCS12_pbe_crypt;
+      PKCS12_pbe_crypt := _PKCS12_pbe_crypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1860,13 +1860,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_item_decrypt_d2i_allownil)}
-    PKCS12_item_decrypt_d2i := @ERR_PKCS12_item_decrypt_d2i;
+    PKCS12_item_decrypt_d2i := ERR_PKCS12_item_decrypt_d2i;
     {$ifend}
     {$if declared(PKCS12_item_decrypt_d2i_introduced)}
     if LibVersion < PKCS12_item_decrypt_d2i_introduced then
     begin
       {$if declared(FC_PKCS12_item_decrypt_d2i)}
-      PKCS12_item_decrypt_d2i := @FC_PKCS12_item_decrypt_d2i;
+      PKCS12_item_decrypt_d2i := FC_PKCS12_item_decrypt_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1875,7 +1875,7 @@ begin
     if PKCS12_item_decrypt_d2i_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_item_decrypt_d2i)}
-      PKCS12_item_decrypt_d2i := @_PKCS12_item_decrypt_d2i;
+      PKCS12_item_decrypt_d2i := _PKCS12_item_decrypt_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1892,13 +1892,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_item_i2d_encrypt_allownil)}
-    PKCS12_item_i2d_encrypt := @ERR_PKCS12_item_i2d_encrypt;
+    PKCS12_item_i2d_encrypt := ERR_PKCS12_item_i2d_encrypt;
     {$ifend}
     {$if declared(PKCS12_item_i2d_encrypt_introduced)}
     if LibVersion < PKCS12_item_i2d_encrypt_introduced then
     begin
       {$if declared(FC_PKCS12_item_i2d_encrypt)}
-      PKCS12_item_i2d_encrypt := @FC_PKCS12_item_i2d_encrypt;
+      PKCS12_item_i2d_encrypt := FC_PKCS12_item_i2d_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1907,7 +1907,7 @@ begin
     if PKCS12_item_i2d_encrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_item_i2d_encrypt)}
-      PKCS12_item_i2d_encrypt := @_PKCS12_item_i2d_encrypt;
+      PKCS12_item_i2d_encrypt := _PKCS12_item_i2d_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1924,13 +1924,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_init_allownil)}
-    PKCS12_init := @ERR_PKCS12_init;
+    PKCS12_init := ERR_PKCS12_init;
     {$ifend}
     {$if declared(PKCS12_init_introduced)}
     if LibVersion < PKCS12_init_introduced then
     begin
       {$if declared(FC_PKCS12_init)}
-      PKCS12_init := @FC_PKCS12_init;
+      PKCS12_init := FC_PKCS12_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1939,7 +1939,7 @@ begin
     if PKCS12_init_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_init)}
-      PKCS12_init := @_PKCS12_init;
+      PKCS12_init := _PKCS12_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1956,13 +1956,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_key_gen_asc_allownil)}
-    PKCS12_key_gen_asc := @ERR_PKCS12_key_gen_asc;
+    PKCS12_key_gen_asc := ERR_PKCS12_key_gen_asc;
     {$ifend}
     {$if declared(PKCS12_key_gen_asc_introduced)}
     if LibVersion < PKCS12_key_gen_asc_introduced then
     begin
       {$if declared(FC_PKCS12_key_gen_asc)}
-      PKCS12_key_gen_asc := @FC_PKCS12_key_gen_asc;
+      PKCS12_key_gen_asc := FC_PKCS12_key_gen_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1971,7 +1971,7 @@ begin
     if PKCS12_key_gen_asc_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_key_gen_asc)}
-      PKCS12_key_gen_asc := @_PKCS12_key_gen_asc;
+      PKCS12_key_gen_asc := _PKCS12_key_gen_asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1988,13 +1988,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_key_gen_uni_allownil)}
-    PKCS12_key_gen_uni := @ERR_PKCS12_key_gen_uni;
+    PKCS12_key_gen_uni := ERR_PKCS12_key_gen_uni;
     {$ifend}
     {$if declared(PKCS12_key_gen_uni_introduced)}
     if LibVersion < PKCS12_key_gen_uni_introduced then
     begin
       {$if declared(FC_PKCS12_key_gen_uni)}
-      PKCS12_key_gen_uni := @FC_PKCS12_key_gen_uni;
+      PKCS12_key_gen_uni := FC_PKCS12_key_gen_uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2003,7 +2003,7 @@ begin
     if PKCS12_key_gen_uni_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_key_gen_uni)}
-      PKCS12_key_gen_uni := @_PKCS12_key_gen_uni;
+      PKCS12_key_gen_uni := _PKCS12_key_gen_uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2020,13 +2020,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_key_gen_utf8_allownil)}
-    PKCS12_key_gen_utf8 := @ERR_PKCS12_key_gen_utf8;
+    PKCS12_key_gen_utf8 := ERR_PKCS12_key_gen_utf8;
     {$ifend}
     {$if declared(PKCS12_key_gen_utf8_introduced)}
     if LibVersion < PKCS12_key_gen_utf8_introduced then
     begin
       {$if declared(FC_PKCS12_key_gen_utf8)}
-      PKCS12_key_gen_utf8 := @FC_PKCS12_key_gen_utf8;
+      PKCS12_key_gen_utf8 := FC_PKCS12_key_gen_utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2035,7 +2035,7 @@ begin
     if PKCS12_key_gen_utf8_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_key_gen_utf8)}
-      PKCS12_key_gen_utf8 := @_PKCS12_key_gen_utf8;
+      PKCS12_key_gen_utf8 := _PKCS12_key_gen_utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2052,13 +2052,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_PBE_keyivgen_allownil)}
-    PKCS12_PBE_keyivgen := @ERR_PKCS12_PBE_keyivgen;
+    PKCS12_PBE_keyivgen := ERR_PKCS12_PBE_keyivgen;
     {$ifend}
     {$if declared(PKCS12_PBE_keyivgen_introduced)}
     if LibVersion < PKCS12_PBE_keyivgen_introduced then
     begin
       {$if declared(FC_PKCS12_PBE_keyivgen)}
-      PKCS12_PBE_keyivgen := @FC_PKCS12_PBE_keyivgen;
+      PKCS12_PBE_keyivgen := FC_PKCS12_PBE_keyivgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2067,7 +2067,7 @@ begin
     if PKCS12_PBE_keyivgen_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_PBE_keyivgen)}
-      PKCS12_PBE_keyivgen := @_PKCS12_PBE_keyivgen;
+      PKCS12_PBE_keyivgen := _PKCS12_PBE_keyivgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2084,13 +2084,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_gen_mac_allownil)}
-    PKCS12_gen_mac := @ERR_PKCS12_gen_mac;
+    PKCS12_gen_mac := ERR_PKCS12_gen_mac;
     {$ifend}
     {$if declared(PKCS12_gen_mac_introduced)}
     if LibVersion < PKCS12_gen_mac_introduced then
     begin
       {$if declared(FC_PKCS12_gen_mac)}
-      PKCS12_gen_mac := @FC_PKCS12_gen_mac;
+      PKCS12_gen_mac := FC_PKCS12_gen_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2099,7 +2099,7 @@ begin
     if PKCS12_gen_mac_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_gen_mac)}
-      PKCS12_gen_mac := @_PKCS12_gen_mac;
+      PKCS12_gen_mac := _PKCS12_gen_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2116,13 +2116,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_verify_mac_allownil)}
-    PKCS12_verify_mac := @ERR_PKCS12_verify_mac;
+    PKCS12_verify_mac := ERR_PKCS12_verify_mac;
     {$ifend}
     {$if declared(PKCS12_verify_mac_introduced)}
     if LibVersion < PKCS12_verify_mac_introduced then
     begin
       {$if declared(FC_PKCS12_verify_mac)}
-      PKCS12_verify_mac := @FC_PKCS12_verify_mac;
+      PKCS12_verify_mac := FC_PKCS12_verify_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2131,7 +2131,7 @@ begin
     if PKCS12_verify_mac_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_verify_mac)}
-      PKCS12_verify_mac := @_PKCS12_verify_mac;
+      PKCS12_verify_mac := _PKCS12_verify_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2148,13 +2148,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_set_mac_allownil)}
-    PKCS12_set_mac := @ERR_PKCS12_set_mac;
+    PKCS12_set_mac := ERR_PKCS12_set_mac;
     {$ifend}
     {$if declared(PKCS12_set_mac_introduced)}
     if LibVersion < PKCS12_set_mac_introduced then
     begin
       {$if declared(FC_PKCS12_set_mac)}
-      PKCS12_set_mac := @FC_PKCS12_set_mac;
+      PKCS12_set_mac := FC_PKCS12_set_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2163,7 +2163,7 @@ begin
     if PKCS12_set_mac_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_set_mac)}
-      PKCS12_set_mac := @_PKCS12_set_mac;
+      PKCS12_set_mac := _PKCS12_set_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2180,13 +2180,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_setup_mac_allownil)}
-    PKCS12_setup_mac := @ERR_PKCS12_setup_mac;
+    PKCS12_setup_mac := ERR_PKCS12_setup_mac;
     {$ifend}
     {$if declared(PKCS12_setup_mac_introduced)}
     if LibVersion < PKCS12_setup_mac_introduced then
     begin
       {$if declared(FC_PKCS12_setup_mac)}
-      PKCS12_setup_mac := @FC_PKCS12_setup_mac;
+      PKCS12_setup_mac := FC_PKCS12_setup_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2195,7 +2195,7 @@ begin
     if PKCS12_setup_mac_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_setup_mac)}
-      PKCS12_setup_mac := @_PKCS12_setup_mac;
+      PKCS12_setup_mac := _PKCS12_setup_mac;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2212,13 +2212,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_asc2uni_allownil)}
-    OPENSSL_asc2uni := @ERR_OPENSSL_asc2uni;
+    OPENSSL_asc2uni := ERR_OPENSSL_asc2uni;
     {$ifend}
     {$if declared(OPENSSL_asc2uni_introduced)}
     if LibVersion < OPENSSL_asc2uni_introduced then
     begin
       {$if declared(FC_OPENSSL_asc2uni)}
-      OPENSSL_asc2uni := @FC_OPENSSL_asc2uni;
+      OPENSSL_asc2uni := FC_OPENSSL_asc2uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2227,7 +2227,7 @@ begin
     if OPENSSL_asc2uni_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_asc2uni)}
-      OPENSSL_asc2uni := @_OPENSSL_asc2uni;
+      OPENSSL_asc2uni := _OPENSSL_asc2uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2244,13 +2244,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_uni2asc_allownil)}
-    OPENSSL_uni2asc := @ERR_OPENSSL_uni2asc;
+    OPENSSL_uni2asc := ERR_OPENSSL_uni2asc;
     {$ifend}
     {$if declared(OPENSSL_uni2asc_introduced)}
     if LibVersion < OPENSSL_uni2asc_introduced then
     begin
       {$if declared(FC_OPENSSL_uni2asc)}
-      OPENSSL_uni2asc := @FC_OPENSSL_uni2asc;
+      OPENSSL_uni2asc := FC_OPENSSL_uni2asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2259,7 +2259,7 @@ begin
     if OPENSSL_uni2asc_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_uni2asc)}
-      OPENSSL_uni2asc := @_OPENSSL_uni2asc;
+      OPENSSL_uni2asc := _OPENSSL_uni2asc;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2276,13 +2276,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_utf82uni_allownil)}
-    OPENSSL_utf82uni := @ERR_OPENSSL_utf82uni;
+    OPENSSL_utf82uni := ERR_OPENSSL_utf82uni;
     {$ifend}
     {$if declared(OPENSSL_utf82uni_introduced)}
     if LibVersion < OPENSSL_utf82uni_introduced then
     begin
       {$if declared(FC_OPENSSL_utf82uni)}
-      OPENSSL_utf82uni := @FC_OPENSSL_utf82uni;
+      OPENSSL_utf82uni := FC_OPENSSL_utf82uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2291,7 +2291,7 @@ begin
     if OPENSSL_utf82uni_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_utf82uni)}
-      OPENSSL_utf82uni := @_OPENSSL_utf82uni;
+      OPENSSL_utf82uni := _OPENSSL_utf82uni;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2308,13 +2308,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OPENSSL_uni2utf8_allownil)}
-    OPENSSL_uni2utf8 := @ERR_OPENSSL_uni2utf8;
+    OPENSSL_uni2utf8 := ERR_OPENSSL_uni2utf8;
     {$ifend}
     {$if declared(OPENSSL_uni2utf8_introduced)}
     if LibVersion < OPENSSL_uni2utf8_introduced then
     begin
       {$if declared(FC_OPENSSL_uni2utf8)}
-      OPENSSL_uni2utf8 := @FC_OPENSSL_uni2utf8;
+      OPENSSL_uni2utf8 := FC_OPENSSL_uni2utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2323,7 +2323,7 @@ begin
     if OPENSSL_uni2utf8_removed <= LibVersion then
     begin
       {$if declared(_OPENSSL_uni2utf8)}
-      OPENSSL_uni2utf8 := @_OPENSSL_uni2utf8;
+      OPENSSL_uni2utf8 := _OPENSSL_uni2utf8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2340,13 +2340,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_new_allownil)}
-    PKCS12_new := @ERR_PKCS12_new;
+    PKCS12_new := ERR_PKCS12_new;
     {$ifend}
     {$if declared(PKCS12_new_introduced)}
     if LibVersion < PKCS12_new_introduced then
     begin
       {$if declared(FC_PKCS12_new)}
-      PKCS12_new := @FC_PKCS12_new;
+      PKCS12_new := FC_PKCS12_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2355,7 +2355,7 @@ begin
     if PKCS12_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_new)}
-      PKCS12_new := @_PKCS12_new;
+      PKCS12_new := _PKCS12_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2372,13 +2372,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_free_allownil)}
-    PKCS12_free := @ERR_PKCS12_free;
+    PKCS12_free := ERR_PKCS12_free;
     {$ifend}
     {$if declared(PKCS12_free_introduced)}
     if LibVersion < PKCS12_free_introduced then
     begin
       {$if declared(FC_PKCS12_free)}
-      PKCS12_free := @FC_PKCS12_free;
+      PKCS12_free := FC_PKCS12_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2387,7 +2387,7 @@ begin
     if PKCS12_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_free)}
-      PKCS12_free := @_PKCS12_free;
+      PKCS12_free := _PKCS12_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2404,13 +2404,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS12_allownil)}
-    d2i_PKCS12 := @ERR_d2i_PKCS12;
+    d2i_PKCS12 := ERR_d2i_PKCS12;
     {$ifend}
     {$if declared(d2i_PKCS12_introduced)}
     if LibVersion < d2i_PKCS12_introduced then
     begin
       {$if declared(FC_d2i_PKCS12)}
-      d2i_PKCS12 := @FC_d2i_PKCS12;
+      d2i_PKCS12 := FC_d2i_PKCS12;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2419,7 +2419,7 @@ begin
     if d2i_PKCS12_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS12)}
-      d2i_PKCS12 := @_d2i_PKCS12;
+      d2i_PKCS12 := _d2i_PKCS12;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2436,13 +2436,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS12_allownil)}
-    i2d_PKCS12 := @ERR_i2d_PKCS12;
+    i2d_PKCS12 := ERR_i2d_PKCS12;
     {$ifend}
     {$if declared(i2d_PKCS12_introduced)}
     if LibVersion < i2d_PKCS12_introduced then
     begin
       {$if declared(FC_i2d_PKCS12)}
-      i2d_PKCS12 := @FC_i2d_PKCS12;
+      i2d_PKCS12 := FC_i2d_PKCS12;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2451,7 +2451,7 @@ begin
     if i2d_PKCS12_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS12)}
-      i2d_PKCS12 := @_i2d_PKCS12;
+      i2d_PKCS12 := _i2d_PKCS12;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2468,13 +2468,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_it_allownil)}
-    PKCS12_it := @ERR_PKCS12_it;
+    PKCS12_it := ERR_PKCS12_it;
     {$ifend}
     {$if declared(PKCS12_it_introduced)}
     if LibVersion < PKCS12_it_introduced then
     begin
       {$if declared(FC_PKCS12_it)}
-      PKCS12_it := @FC_PKCS12_it;
+      PKCS12_it := FC_PKCS12_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2483,7 +2483,7 @@ begin
     if PKCS12_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_it)}
-      PKCS12_it := @_PKCS12_it;
+      PKCS12_it := _PKCS12_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2500,13 +2500,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_MAC_DATA_new_allownil)}
-    PKCS12_MAC_DATA_new := @ERR_PKCS12_MAC_DATA_new;
+    PKCS12_MAC_DATA_new := ERR_PKCS12_MAC_DATA_new;
     {$ifend}
     {$if declared(PKCS12_MAC_DATA_new_introduced)}
     if LibVersion < PKCS12_MAC_DATA_new_introduced then
     begin
       {$if declared(FC_PKCS12_MAC_DATA_new)}
-      PKCS12_MAC_DATA_new := @FC_PKCS12_MAC_DATA_new;
+      PKCS12_MAC_DATA_new := FC_PKCS12_MAC_DATA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2515,7 +2515,7 @@ begin
     if PKCS12_MAC_DATA_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_MAC_DATA_new)}
-      PKCS12_MAC_DATA_new := @_PKCS12_MAC_DATA_new;
+      PKCS12_MAC_DATA_new := _PKCS12_MAC_DATA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2532,13 +2532,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_MAC_DATA_free_allownil)}
-    PKCS12_MAC_DATA_free := @ERR_PKCS12_MAC_DATA_free;
+    PKCS12_MAC_DATA_free := ERR_PKCS12_MAC_DATA_free;
     {$ifend}
     {$if declared(PKCS12_MAC_DATA_free_introduced)}
     if LibVersion < PKCS12_MAC_DATA_free_introduced then
     begin
       {$if declared(FC_PKCS12_MAC_DATA_free)}
-      PKCS12_MAC_DATA_free := @FC_PKCS12_MAC_DATA_free;
+      PKCS12_MAC_DATA_free := FC_PKCS12_MAC_DATA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2547,7 +2547,7 @@ begin
     if PKCS12_MAC_DATA_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_MAC_DATA_free)}
-      PKCS12_MAC_DATA_free := @_PKCS12_MAC_DATA_free;
+      PKCS12_MAC_DATA_free := _PKCS12_MAC_DATA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2564,13 +2564,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS12_MAC_DATA_allownil)}
-    d2i_PKCS12_MAC_DATA := @ERR_d2i_PKCS12_MAC_DATA;
+    d2i_PKCS12_MAC_DATA := ERR_d2i_PKCS12_MAC_DATA;
     {$ifend}
     {$if declared(d2i_PKCS12_MAC_DATA_introduced)}
     if LibVersion < d2i_PKCS12_MAC_DATA_introduced then
     begin
       {$if declared(FC_d2i_PKCS12_MAC_DATA)}
-      d2i_PKCS12_MAC_DATA := @FC_d2i_PKCS12_MAC_DATA;
+      d2i_PKCS12_MAC_DATA := FC_d2i_PKCS12_MAC_DATA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2579,7 +2579,7 @@ begin
     if d2i_PKCS12_MAC_DATA_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS12_MAC_DATA)}
-      d2i_PKCS12_MAC_DATA := @_d2i_PKCS12_MAC_DATA;
+      d2i_PKCS12_MAC_DATA := _d2i_PKCS12_MAC_DATA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2596,13 +2596,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS12_MAC_DATA_allownil)}
-    i2d_PKCS12_MAC_DATA := @ERR_i2d_PKCS12_MAC_DATA;
+    i2d_PKCS12_MAC_DATA := ERR_i2d_PKCS12_MAC_DATA;
     {$ifend}
     {$if declared(i2d_PKCS12_MAC_DATA_introduced)}
     if LibVersion < i2d_PKCS12_MAC_DATA_introduced then
     begin
       {$if declared(FC_i2d_PKCS12_MAC_DATA)}
-      i2d_PKCS12_MAC_DATA := @FC_i2d_PKCS12_MAC_DATA;
+      i2d_PKCS12_MAC_DATA := FC_i2d_PKCS12_MAC_DATA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2611,7 +2611,7 @@ begin
     if i2d_PKCS12_MAC_DATA_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS12_MAC_DATA)}
-      i2d_PKCS12_MAC_DATA := @_i2d_PKCS12_MAC_DATA;
+      i2d_PKCS12_MAC_DATA := _i2d_PKCS12_MAC_DATA;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2628,13 +2628,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_MAC_DATA_it_allownil)}
-    PKCS12_MAC_DATA_it := @ERR_PKCS12_MAC_DATA_it;
+    PKCS12_MAC_DATA_it := ERR_PKCS12_MAC_DATA_it;
     {$ifend}
     {$if declared(PKCS12_MAC_DATA_it_introduced)}
     if LibVersion < PKCS12_MAC_DATA_it_introduced then
     begin
       {$if declared(FC_PKCS12_MAC_DATA_it)}
-      PKCS12_MAC_DATA_it := @FC_PKCS12_MAC_DATA_it;
+      PKCS12_MAC_DATA_it := FC_PKCS12_MAC_DATA_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2643,7 +2643,7 @@ begin
     if PKCS12_MAC_DATA_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_MAC_DATA_it)}
-      PKCS12_MAC_DATA_it := @_PKCS12_MAC_DATA_it;
+      PKCS12_MAC_DATA_it := _PKCS12_MAC_DATA_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2660,13 +2660,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_new_allownil)}
-    PKCS12_SAFEBAG_new := @ERR_PKCS12_SAFEBAG_new;
+    PKCS12_SAFEBAG_new := ERR_PKCS12_SAFEBAG_new;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_new_introduced)}
     if LibVersion < PKCS12_SAFEBAG_new_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_new)}
-      PKCS12_SAFEBAG_new := @FC_PKCS12_SAFEBAG_new;
+      PKCS12_SAFEBAG_new := FC_PKCS12_SAFEBAG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2675,7 +2675,7 @@ begin
     if PKCS12_SAFEBAG_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_new)}
-      PKCS12_SAFEBAG_new := @_PKCS12_SAFEBAG_new;
+      PKCS12_SAFEBAG_new := _PKCS12_SAFEBAG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2692,13 +2692,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_free_allownil)}
-    PKCS12_SAFEBAG_free := @ERR_PKCS12_SAFEBAG_free;
+    PKCS12_SAFEBAG_free := ERR_PKCS12_SAFEBAG_free;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_free_introduced)}
     if LibVersion < PKCS12_SAFEBAG_free_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_free)}
-      PKCS12_SAFEBAG_free := @FC_PKCS12_SAFEBAG_free;
+      PKCS12_SAFEBAG_free := FC_PKCS12_SAFEBAG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2707,7 +2707,7 @@ begin
     if PKCS12_SAFEBAG_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_free)}
-      PKCS12_SAFEBAG_free := @_PKCS12_SAFEBAG_free;
+      PKCS12_SAFEBAG_free := _PKCS12_SAFEBAG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2724,13 +2724,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS12_SAFEBAG_allownil)}
-    d2i_PKCS12_SAFEBAG := @ERR_d2i_PKCS12_SAFEBAG;
+    d2i_PKCS12_SAFEBAG := ERR_d2i_PKCS12_SAFEBAG;
     {$ifend}
     {$if declared(d2i_PKCS12_SAFEBAG_introduced)}
     if LibVersion < d2i_PKCS12_SAFEBAG_introduced then
     begin
       {$if declared(FC_d2i_PKCS12_SAFEBAG)}
-      d2i_PKCS12_SAFEBAG := @FC_d2i_PKCS12_SAFEBAG;
+      d2i_PKCS12_SAFEBAG := FC_d2i_PKCS12_SAFEBAG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2739,7 +2739,7 @@ begin
     if d2i_PKCS12_SAFEBAG_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS12_SAFEBAG)}
-      d2i_PKCS12_SAFEBAG := @_d2i_PKCS12_SAFEBAG;
+      d2i_PKCS12_SAFEBAG := _d2i_PKCS12_SAFEBAG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2756,13 +2756,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS12_SAFEBAG_allownil)}
-    i2d_PKCS12_SAFEBAG := @ERR_i2d_PKCS12_SAFEBAG;
+    i2d_PKCS12_SAFEBAG := ERR_i2d_PKCS12_SAFEBAG;
     {$ifend}
     {$if declared(i2d_PKCS12_SAFEBAG_introduced)}
     if LibVersion < i2d_PKCS12_SAFEBAG_introduced then
     begin
       {$if declared(FC_i2d_PKCS12_SAFEBAG)}
-      i2d_PKCS12_SAFEBAG := @FC_i2d_PKCS12_SAFEBAG;
+      i2d_PKCS12_SAFEBAG := FC_i2d_PKCS12_SAFEBAG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2771,7 +2771,7 @@ begin
     if i2d_PKCS12_SAFEBAG_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS12_SAFEBAG)}
-      i2d_PKCS12_SAFEBAG := @_i2d_PKCS12_SAFEBAG;
+      i2d_PKCS12_SAFEBAG := _i2d_PKCS12_SAFEBAG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2788,13 +2788,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_SAFEBAG_it_allownil)}
-    PKCS12_SAFEBAG_it := @ERR_PKCS12_SAFEBAG_it;
+    PKCS12_SAFEBAG_it := ERR_PKCS12_SAFEBAG_it;
     {$ifend}
     {$if declared(PKCS12_SAFEBAG_it_introduced)}
     if LibVersion < PKCS12_SAFEBAG_it_introduced then
     begin
       {$if declared(FC_PKCS12_SAFEBAG_it)}
-      PKCS12_SAFEBAG_it := @FC_PKCS12_SAFEBAG_it;
+      PKCS12_SAFEBAG_it := FC_PKCS12_SAFEBAG_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2803,7 +2803,7 @@ begin
     if PKCS12_SAFEBAG_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_SAFEBAG_it)}
-      PKCS12_SAFEBAG_it := @_PKCS12_SAFEBAG_it;
+      PKCS12_SAFEBAG_it := _PKCS12_SAFEBAG_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2820,13 +2820,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_BAGS_new_allownil)}
-    PKCS12_BAGS_new := @ERR_PKCS12_BAGS_new;
+    PKCS12_BAGS_new := ERR_PKCS12_BAGS_new;
     {$ifend}
     {$if declared(PKCS12_BAGS_new_introduced)}
     if LibVersion < PKCS12_BAGS_new_introduced then
     begin
       {$if declared(FC_PKCS12_BAGS_new)}
-      PKCS12_BAGS_new := @FC_PKCS12_BAGS_new;
+      PKCS12_BAGS_new := FC_PKCS12_BAGS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2835,7 +2835,7 @@ begin
     if PKCS12_BAGS_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_BAGS_new)}
-      PKCS12_BAGS_new := @_PKCS12_BAGS_new;
+      PKCS12_BAGS_new := _PKCS12_BAGS_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2852,13 +2852,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_BAGS_free_allownil)}
-    PKCS12_BAGS_free := @ERR_PKCS12_BAGS_free;
+    PKCS12_BAGS_free := ERR_PKCS12_BAGS_free;
     {$ifend}
     {$if declared(PKCS12_BAGS_free_introduced)}
     if LibVersion < PKCS12_BAGS_free_introduced then
     begin
       {$if declared(FC_PKCS12_BAGS_free)}
-      PKCS12_BAGS_free := @FC_PKCS12_BAGS_free;
+      PKCS12_BAGS_free := FC_PKCS12_BAGS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2867,7 +2867,7 @@ begin
     if PKCS12_BAGS_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_BAGS_free)}
-      PKCS12_BAGS_free := @_PKCS12_BAGS_free;
+      PKCS12_BAGS_free := _PKCS12_BAGS_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2884,13 +2884,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS12_BAGS_allownil)}
-    d2i_PKCS12_BAGS := @ERR_d2i_PKCS12_BAGS;
+    d2i_PKCS12_BAGS := ERR_d2i_PKCS12_BAGS;
     {$ifend}
     {$if declared(d2i_PKCS12_BAGS_introduced)}
     if LibVersion < d2i_PKCS12_BAGS_introduced then
     begin
       {$if declared(FC_d2i_PKCS12_BAGS)}
-      d2i_PKCS12_BAGS := @FC_d2i_PKCS12_BAGS;
+      d2i_PKCS12_BAGS := FC_d2i_PKCS12_BAGS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2899,7 +2899,7 @@ begin
     if d2i_PKCS12_BAGS_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS12_BAGS)}
-      d2i_PKCS12_BAGS := @_d2i_PKCS12_BAGS;
+      d2i_PKCS12_BAGS := _d2i_PKCS12_BAGS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2916,13 +2916,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS12_BAGS_allownil)}
-    i2d_PKCS12_BAGS := @ERR_i2d_PKCS12_BAGS;
+    i2d_PKCS12_BAGS := ERR_i2d_PKCS12_BAGS;
     {$ifend}
     {$if declared(i2d_PKCS12_BAGS_introduced)}
     if LibVersion < i2d_PKCS12_BAGS_introduced then
     begin
       {$if declared(FC_i2d_PKCS12_BAGS)}
-      i2d_PKCS12_BAGS := @FC_i2d_PKCS12_BAGS;
+      i2d_PKCS12_BAGS := FC_i2d_PKCS12_BAGS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2931,7 +2931,7 @@ begin
     if i2d_PKCS12_BAGS_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS12_BAGS)}
-      i2d_PKCS12_BAGS := @_i2d_PKCS12_BAGS;
+      i2d_PKCS12_BAGS := _i2d_PKCS12_BAGS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2948,13 +2948,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_BAGS_it_allownil)}
-    PKCS12_BAGS_it := @ERR_PKCS12_BAGS_it;
+    PKCS12_BAGS_it := ERR_PKCS12_BAGS_it;
     {$ifend}
     {$if declared(PKCS12_BAGS_it_introduced)}
     if LibVersion < PKCS12_BAGS_it_introduced then
     begin
       {$if declared(FC_PKCS12_BAGS_it)}
-      PKCS12_BAGS_it := @FC_PKCS12_BAGS_it;
+      PKCS12_BAGS_it := FC_PKCS12_BAGS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2963,7 +2963,7 @@ begin
     if PKCS12_BAGS_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_BAGS_it)}
-      PKCS12_BAGS_it := @_PKCS12_BAGS_it;
+      PKCS12_BAGS_it := _PKCS12_BAGS_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2980,13 +2980,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_PBE_add_allownil)}
-    PKCS12_PBE_add := @ERR_PKCS12_PBE_add;
+    PKCS12_PBE_add := ERR_PKCS12_PBE_add;
     {$ifend}
     {$if declared(PKCS12_PBE_add_introduced)}
     if LibVersion < PKCS12_PBE_add_introduced then
     begin
       {$if declared(FC_PKCS12_PBE_add)}
-      PKCS12_PBE_add := @FC_PKCS12_PBE_add;
+      PKCS12_PBE_add := FC_PKCS12_PBE_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2995,7 +2995,7 @@ begin
     if PKCS12_PBE_add_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_PBE_add)}
-      PKCS12_PBE_add := @_PKCS12_PBE_add;
+      PKCS12_PBE_add := _PKCS12_PBE_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3012,13 +3012,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_parse_allownil)}
-    PKCS12_parse := @ERR_PKCS12_parse;
+    PKCS12_parse := ERR_PKCS12_parse;
     {$ifend}
     {$if declared(PKCS12_parse_introduced)}
     if LibVersion < PKCS12_parse_introduced then
     begin
       {$if declared(FC_PKCS12_parse)}
-      PKCS12_parse := @FC_PKCS12_parse;
+      PKCS12_parse := FC_PKCS12_parse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3027,7 +3027,7 @@ begin
     if PKCS12_parse_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_parse)}
-      PKCS12_parse := @_PKCS12_parse;
+      PKCS12_parse := _PKCS12_parse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3044,13 +3044,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_create_allownil)}
-    PKCS12_create := @ERR_PKCS12_create;
+    PKCS12_create := ERR_PKCS12_create;
     {$ifend}
     {$if declared(PKCS12_create_introduced)}
     if LibVersion < PKCS12_create_introduced then
     begin
       {$if declared(FC_PKCS12_create)}
-      PKCS12_create := @FC_PKCS12_create;
+      PKCS12_create := FC_PKCS12_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3059,7 +3059,7 @@ begin
     if PKCS12_create_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_create)}
-      PKCS12_create := @_PKCS12_create;
+      PKCS12_create := _PKCS12_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3076,13 +3076,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS12_bio_allownil)}
-    i2d_PKCS12_bio := @ERR_i2d_PKCS12_bio;
+    i2d_PKCS12_bio := ERR_i2d_PKCS12_bio;
     {$ifend}
     {$if declared(i2d_PKCS12_bio_introduced)}
     if LibVersion < i2d_PKCS12_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS12_bio)}
-      i2d_PKCS12_bio := @FC_i2d_PKCS12_bio;
+      i2d_PKCS12_bio := FC_i2d_PKCS12_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3091,7 +3091,7 @@ begin
     if i2d_PKCS12_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS12_bio)}
-      i2d_PKCS12_bio := @_i2d_PKCS12_bio;
+      i2d_PKCS12_bio := _i2d_PKCS12_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3108,13 +3108,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS12_bio_allownil)}
-    d2i_PKCS12_bio := @ERR_d2i_PKCS12_bio;
+    d2i_PKCS12_bio := ERR_d2i_PKCS12_bio;
     {$ifend}
     {$if declared(d2i_PKCS12_bio_introduced)}
     if LibVersion < d2i_PKCS12_bio_introduced then
     begin
       {$if declared(FC_d2i_PKCS12_bio)}
-      d2i_PKCS12_bio := @FC_d2i_PKCS12_bio;
+      d2i_PKCS12_bio := FC_d2i_PKCS12_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3123,7 +3123,7 @@ begin
     if d2i_PKCS12_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS12_bio)}
-      d2i_PKCS12_bio := @_d2i_PKCS12_bio;
+      d2i_PKCS12_bio := _d2i_PKCS12_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3140,13 +3140,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS12_newpass_allownil)}
-    PKCS12_newpass := @ERR_PKCS12_newpass;
+    PKCS12_newpass := ERR_PKCS12_newpass;
     {$ifend}
     {$if declared(PKCS12_newpass_introduced)}
     if LibVersion < PKCS12_newpass_introduced then
     begin
       {$if declared(FC_PKCS12_newpass)}
-      PKCS12_newpass := @FC_PKCS12_newpass;
+      PKCS12_newpass := FC_PKCS12_newpass;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3155,7 +3155,7 @@ begin
     if PKCS12_newpass_removed <= LibVersion then
     begin
       {$if declared(_PKCS12_newpass)}
-      PKCS12_newpass := @_PKCS12_newpass;
+      PKCS12_newpass := _PKCS12_newpass;
       {$ifend}
       FuncLoadError := false;
     end;

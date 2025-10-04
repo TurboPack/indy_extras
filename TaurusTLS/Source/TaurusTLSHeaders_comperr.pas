@@ -83,14 +83,14 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_ERR_load_COMP_strings: TIdC_INT; 
+function  ERR_ERR_load_COMP_strings: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_COMP_strings_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -102,13 +102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ERR_load_COMP_strings_allownil)}
-    ERR_load_COMP_strings := @ERR_ERR_load_COMP_strings;
+    ERR_load_COMP_strings := ERR_ERR_load_COMP_strings;
     {$ifend}
     {$if declared(ERR_load_COMP_strings_introduced)}
     if LibVersion < ERR_load_COMP_strings_introduced then
     begin
       {$if declared(FC_ERR_load_COMP_strings)}
-      ERR_load_COMP_strings := @FC_ERR_load_COMP_strings;
+      ERR_load_COMP_strings := FC_ERR_load_COMP_strings;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -117,7 +117,7 @@ begin
     if ERR_load_COMP_strings_removed <= LibVersion then
     begin
       {$if declared(_ERR_load_COMP_strings)}
-      ERR_load_COMP_strings := @_ERR_load_COMP_strings;
+      ERR_load_COMP_strings := _ERR_load_COMP_strings;
       {$ifend}
       FuncLoadError := false;
     end;

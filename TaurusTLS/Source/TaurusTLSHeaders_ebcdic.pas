@@ -77,13 +77,13 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; 
+function  ERR_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ebcdic2ascii_procname);
 end;
 
 
-function  ERR_ascii2ebcdic(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; 
+function  ERR_ascii2ebcdic(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ascii2ebcdic_procname);
 end;
@@ -102,13 +102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ebcdic2ascii_allownil)}
-    ebcdic2ascii := @ERR_ebcdic2ascii;
+    ebcdic2ascii := ERR_ebcdic2ascii;
     {$ifend}
     {$if declared(ebcdic2ascii_introduced)}
     if LibVersion < ebcdic2ascii_introduced then
     begin
       {$if declared(FC_ebcdic2ascii)}
-      ebcdic2ascii := @FC_ebcdic2ascii;
+      ebcdic2ascii := FC_ebcdic2ascii;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -117,7 +117,7 @@ begin
     if ebcdic2ascii_removed <= LibVersion then
     begin
       {$if declared(_ebcdic2ascii)}
-      ebcdic2ascii := @_ebcdic2ascii;
+      ebcdic2ascii := _ebcdic2ascii;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -134,13 +134,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ascii2ebcdic_allownil)}
-    ascii2ebcdic := @ERR_ascii2ebcdic;
+    ascii2ebcdic := ERR_ascii2ebcdic;
     {$ifend}
     {$if declared(ascii2ebcdic_introduced)}
     if LibVersion < ascii2ebcdic_introduced then
     begin
       {$if declared(FC_ascii2ebcdic)}
-      ascii2ebcdic := @FC_ascii2ebcdic;
+      ascii2ebcdic := FC_ascii2ebcdic;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -149,7 +149,7 @@ begin
     if ascii2ebcdic_removed <= LibVersion then
     begin
       {$if declared(_ascii2ebcdic)}
-      ascii2ebcdic := @_ascii2ebcdic;
+      ascii2ebcdic := _ascii2ebcdic;
       {$ifend}
       FuncLoadError := false;
     end;

@@ -618,88 +618,88 @@ begin
 end;
 {$I TaurusTLSUnusedParamOn.inc}
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; 
+function  ERR_PEM_get_EVP_CIPHER_INFO(header: PIdAnsiChar; cipher: PEVP_CIPHER_INFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_get_EVP_CIPHER_INFO_procname);
 end;
 
 
-function  ERR_PEM_do_header(cipher: PEVP_CIPHER_INFO; data: PByte; len: PIdC_LONG; callback: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_do_header(cipher: PEVP_CIPHER_INFO; data: PByte; len: PIdC_LONG; callback: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_do_header_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG): TIdC_INT; 
+function  ERR_PEM_read_bio(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_procname);
 end;
 
 
-function  ERR_PEM_read_bio_ex(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG; flags: TIdC_UINT): TIdC_INT; 
+function  ERR_PEM_read_bio_ex(bp: PBIO; name: PPIdAnsiChar; header: PPIdAnsiChar; data: PPByte; len: PIdC_LONG; flags: TIdC_UINT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PEM_bytes_read_bio_secmem(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_bytes_read_bio_secmem(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_bytes_read_bio_secmem_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PEM_write_bio(bp: PBIO; const name: PIdAnsiChar; const hdr: PIdAnsiChar; const data: PByte; len: TIdC_LONG): TIdC_INT; 
+function  ERR_PEM_write_bio(bp: PBIO; const name: PIdAnsiChar; const hdr: PIdAnsiChar; const data: PByte; len: TIdC_LONG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_procname);
 end;
 
 
-function  ERR_PEM_bytes_read_bio(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_bytes_read_bio(pdata: PPByte; plen: PIdC_LONG; pnm: PPIdAnsiChar; const name: PIdAnsiChar; bp: PBIO; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_bytes_read_bio_procname);
 end;
 
 
-function  ERR_PEM_ASN1_read_bio(d2i: d2i_of_void; const name: PIdAnsiChar; bp: PBIO; x: PPointer; cb: pem_password_cb; u: Pointer): Pointer; 
+function  ERR_PEM_ASN1_read_bio(d2i: d2i_of_void; const name: PIdAnsiChar; bp: PBIO; x: PPointer; cb: pem_password_cb; u: Pointer): Pointer;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_ASN1_read_bio_procname);
 end;
 
 
-function  ERR_PEM_ASN1_write_bio(i2d: i2d_of_void; const name: PIdAnsiChar; bp: PBIO; x: Pointer; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_ASN1_write_bio(i2d: i2d_of_void; const name: PIdAnsiChar; bp: PBIO; x: Pointer; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_ASN1_write_bio_procname);
 end;
 
 
 
-function  ERR_PEM_X509_INFO_read_bio(bp: PBIO; sk: PSTACK_OF_X509_INFO; cb: pem_password_cb; u: Pointer): PSTACK_OF_X509_INFO; 
+function  ERR_PEM_X509_INFO_read_bio(bp: PBIO; sk: PSTACK_OF_X509_INFO; cb: pem_password_cb; u: Pointer): PSTACK_OF_X509_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_X509_INFO_read_bio_procname);
 end;
 
 
-function  ERR_PEM_X509_INFO_write_bio(bp: PBIO; xi: PX509_INFO; enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cd: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_X509_INFO_write_bio(bp: PBIO; xi: PX509_INFO; enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cd: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_X509_INFO_write_bio_procname);
 end;
 
 
 
-function  ERR_PEM_SignInit(ctx: PEVP_MD_CTX; type_: PEVP_MD): TIdC_INT; 
+function  ERR_PEM_SignInit(ctx: PEVP_MD_CTX; type_: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_SignInit_procname);
 end;
 
 
-function  ERR_PEM_SignUpdate(ctx: PEVP_MD_CTX; d: PByte; cnt: Byte): TIdC_INT; 
+function  ERR_PEM_SignUpdate(ctx: PEVP_MD_CTX; d: PByte; cnt: Byte): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_SignUpdate_procname);
 end;
 
 
-function  ERR_PEM_SignFinal(ctx: PEVP_MD_CTX; sigret: PByte; siglen: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT; 
+function  ERR_PEM_SignFinal(ctx: PEVP_MD_CTX; sigret: PByte; siglen: PIdC_UINT; pkey: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_SignFinal_procname);
 end;
@@ -707,91 +707,91 @@ end;
 
 
   (* The default pem_password_cb that's used internally *)
-function  ERR_PEM_def_callback(buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; 
+function  ERR_PEM_def_callback(buf: PIdAnsiChar; num: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_def_callback_procname);
 end;
 
 
-procedure  ERR_PEM_proc_type(buf: PIdAnsiChar; type_: TIdC_INT); 
+procedure  ERR_PEM_proc_type(buf: PIdAnsiChar; type_: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_proc_type_procname);
 end;
 
 
-procedure  ERR_PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar); 
+procedure  ERR_PEM_dek_info(buf: PIdAnsiChar; const type_: PIdAnsiChar; len: TIdC_INT; _str: PIdAnsiChar);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_dek_info_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_X509(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; 
+function  ERR_PEM_read_bio_X509(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_X509_procname);
 end;
 
 
-function  ERR_PEM_write_bio_X509(bp: PBIO; x: PX509): TIdC_INT; 
+function  ERR_PEM_write_bio_X509(bp: PBIO; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_X509_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_X509_AUX(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509; 
+function  ERR_PEM_read_bio_X509_AUX(bp: PBIO; x: PPX509; cb: pem_password_cb; u: Pointer): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_X509_AUX_procname);
 end;
 
 
-function  ERR_PEM_write_bio_X509_AUX(bp: PBIO; x: PX509): TIdC_INT; 
+function  ERR_PEM_write_bio_X509_AUX(bp: PBIO; x: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_X509_AUX_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_X509_REQ(bp: PBIO; x: PPX509_REQ; cb: pem_password_cb; u: Pointer): PX509_REQ; 
+function  ERR_PEM_read_bio_X509_REQ(bp: PBIO; x: PPX509_REQ; cb: pem_password_cb; u: Pointer): PX509_REQ;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_X509_REQ_procname);
 end;
 
 
-function  ERR_PEM_write_bio_X509_REQ(bp: PBIO; x: PX509_REQ): TIdC_INT; 
+function  ERR_PEM_write_bio_X509_REQ(bp: PBIO; x: PX509_REQ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_X509_REQ_procname);
 end;
 
 
 
-function  ERR_PEM_write_bio_X509_REQ_NEW(bp: PBIO; x: PX509_REQ): TIdC_INT; 
+function  ERR_PEM_write_bio_X509_REQ_NEW(bp: PBIO; x: PX509_REQ): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_X509_REQ_NEW_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_X509_CRL(bp: PBIO; x: PPX509_CRL; cb: pem_password_cb; u: Pointer): PX509_CRL; 
+function  ERR_PEM_read_bio_X509_CRL(bp: PBIO; x: PPX509_CRL; cb: pem_password_cb; u: Pointer): PX509_CRL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_X509_CRL_procname);
 end;
 
 
-function  ERR_PEM_write_bio_X509_CRL(bp: PBIO; x: PX509_CRL): TIdC_INT; 
+function  ERR_PEM_write_bio_X509_CRL(bp: PBIO; x: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_X509_CRL_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_PKCS7(bp: PBIO; x: PPPKCS7; cb: pem_password_cb; u: Pointer): PPKCS7; 
+function  ERR_PEM_read_bio_PKCS7(bp: PBIO; x: PPPKCS7; cb: pem_password_cb; u: Pointer): PPKCS7;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PKCS7_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PKCS7(bp: PBIO; x: PPKCS7): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS7(bp: PBIO; x: PPKCS7): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS7_procname);
 end;
@@ -801,26 +801,26 @@ end;
 //  function PEM_read_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PPNETSCAPE_CERT_SEQUENCE; cb: pem_password_cb; u: Pointer): PNETSCAPE_CERT_SEQUENCE;
 //  function PEM_write_bio_NETSCAPE_CERT_SEQUENCE(bp: PBIO; x: PNETSCAPE_CERT_SEQUENCE): TIdC_INT;
 
-function  ERR_PEM_read_bio_PKCS8(bp: PBIO; x: PPX509_SIG; cb: pem_password_cb; u: Pointer): PX509_SIG; 
+function  ERR_PEM_read_bio_PKCS8(bp: PBIO; x: PPX509_SIG; cb: pem_password_cb; u: Pointer): PX509_SIG;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PKCS8_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PKCS8(bp: PBIO; x: PX509_SIG): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS8(bp: PBIO; x: PX509_SIG): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS8_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_PKCS8_PRIV_KEY_INFO(bp: PBIO; x: PPPKCS8_PRIV_KEY_INFO; cb: pem_password_cb; u: Pointer): PPKCS8_PRIV_KEY_INFO; 
+function  ERR_PEM_read_bio_PKCS8_PRIV_KEY_INFO(bp: PBIO; x: PPPKCS8_PRIV_KEY_INFO; cb: pem_password_cb; u: Pointer): PPKCS8_PRIV_KEY_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PKCS8_PRIV_KEY_INFO_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PKCS8_PRIV_KEY_INFO(bp: PBIO; x: PPKCS8_PRIV_KEY_INFO): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS8_PRIV_KEY_INFO(bp: PBIO; x: PPKCS8_PRIV_KEY_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS8_PRIV_KEY_INFO_procname);
 end;
@@ -828,39 +828,39 @@ end;
 
 
   // RSA
-function  ERR_PEM_read_bio_RSAPrivateKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; 
+function  ERR_PEM_read_bio_RSAPrivateKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_RSAPrivateKey_procname);
 end;
 
 
-function  ERR_PEM_write_bio_RSAPrivateKey(bp: PBIO; x: PRSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_RSAPrivateKey(bp: PBIO; x: PRSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_RSAPrivateKey_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_RSAPublicKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; 
+function  ERR_PEM_read_bio_RSAPublicKey(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_RSAPublicKey_procname);
 end;
 
 
-function  ERR_PEM_write_bio_RSAPublicKey(bp: PBIO; const x: PRSA): TIdC_INT; 
+function  ERR_PEM_write_bio_RSAPublicKey(bp: PBIO; const x: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_RSAPublicKey_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_RSA_PUBKEY(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA; 
+function  ERR_PEM_read_bio_RSA_PUBKEY(bp: PBIO; x: PPRSA; cb: pem_password_cb; u: Pointer): PRSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_RSA_PUBKEY_procname);
 end;
 
 
-function  ERR_PEM_write_bio_RSA_PUBKEY(bp: PBIO; x: PRSA): TIdC_INT; 
+function  ERR_PEM_write_bio_RSA_PUBKEY(bp: PBIO; x: PRSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_RSA_PUBKEY_procname);
 end;
@@ -869,39 +869,39 @@ end;
   // ~RSA
 
   // DSA
-function  ERR_PEM_read_bio_DSAPrivateKey(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; 
+function  ERR_PEM_read_bio_DSAPrivateKey(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_DSAPrivateKey_procname);
 end;
 
 
-function  ERR_PEM_write_bio_DSAPrivateKey(bp: PBIO; x: PDSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_DSAPrivateKey(bp: PBIO; x: PDSA; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_DSAPrivateKey_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_DSA_PUBKEY(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; 
+function  ERR_PEM_read_bio_DSA_PUBKEY(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_DSA_PUBKEY_procname);
 end;
 
 
-function  ERR_PEM_write_bio_DSA_PUBKEY(bp: PBIO; x: PDSA): TIdC_INT; 
+function  ERR_PEM_write_bio_DSA_PUBKEY(bp: PBIO; x: PDSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_DSA_PUBKEY_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_DSAparams(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA; 
+function  ERR_PEM_read_bio_DSAparams(bp: PBIO; x: PPDSA; cb: pem_password_cb; u: Pointer): PDSA;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_DSAparams_procname);
 end;
 
 
-function  ERR_PEM_write_bio_DSAparams(bp: PBIO; const x: PDSA): TIdC_INT; 
+function  ERR_PEM_write_bio_DSAparams(bp: PBIO; const x: PDSA): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_DSAparams_procname);
 end;
@@ -910,39 +910,39 @@ end;
   // ~DSA
 
   // EC
-function  ERR_PEM_read_bio_ECPKParameters(bp: PBIO; x: PPEC_GROUP; cb: pem_password_cb; u: Pointer): PEC_GROUP; 
+function  ERR_PEM_read_bio_ECPKParameters(bp: PBIO; x: PPEC_GROUP; cb: pem_password_cb; u: Pointer): PEC_GROUP;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_ECPKParameters_procname);
 end;
 
 
-function  ERR_PEM_write_bio_ECPKParameters(bp: PBIO; const x: PEC_GROUP): TIdC_INT; 
+function  ERR_PEM_write_bio_ECPKParameters(bp: PBIO; const x: PEC_GROUP): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_ECPKParameters_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_ECPrivateKey(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY; 
+function  ERR_PEM_read_bio_ECPrivateKey(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_ECPrivateKey_procname);
 end;
 
 
-function  ERR_PEM_write_bio_ECPrivateKey(bp: PBIO; x: PEC_KEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_ECPrivateKey(bp: PBIO; x: PEC_KEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_ECPrivateKey_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_EC_PUBKEY(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY; 
+function  ERR_PEM_read_bio_EC_PUBKEY(bp: PBIO; x: PPEC_KEY; cb: pem_password_cb; u: Pointer): PEC_KEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_EC_PUBKEY_procname);
 end;
 
 
-function  ERR_PEM_write_bio_EC_PUBKEY(bp: PBIO; x: PEC_KEY): TIdC_INT; 
+function  ERR_PEM_write_bio_EC_PUBKEY(bp: PBIO; x: PEC_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_EC_PUBKEY_procname);
 end;
@@ -951,20 +951,20 @@ end;
   // ~EC
 
   // DH
-function  ERR_PEM_read_bio_DHparams(bp: PBIO; x: PPDH; cb: pem_password_cb; u: Pointer): PDH; 
+function  ERR_PEM_read_bio_DHparams(bp: PBIO; x: PPDH; cb: pem_password_cb; u: Pointer): PDH;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_DHparams_procname);
 end;
 
 
-function  ERR_PEM_write_bio_DHparams(bp: PBIO; const x: PDH): TIdC_INT; 
+function  ERR_PEM_write_bio_DHparams(bp: PBIO; const x: PDH): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_DHparams_procname);
 end;
 
 
 
-function  ERR_PEM_write_bio_DHxparams(bp: PBIO; const x: PDH): TIdC_INT; 
+function  ERR_PEM_write_bio_DHxparams(bp: PBIO; const x: PDH): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_DHxparams_procname);
 end;
@@ -972,151 +972,151 @@ end;
 
   // ~DH
 
-function  ERR_PEM_read_bio_PrivateKey(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; 
+function  ERR_PEM_read_bio_PrivateKey(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PrivateKey_procname);
 end;
 
 function ERR_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PrivateKey_ex_procname);
 end;
 
-function  ERR_PEM_write_bio_PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_PrivateKey(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PrivateKey_procname);
 end;
 
 function ERR_PEM_write_bio_PrivateKey_ex(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PrivateKey_ex_procname);
 end;
 
 
-function  ERR_PEM_read_bio_PUBKEY(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY; 
+function  ERR_PEM_read_bio_PUBKEY(bp: PBIO; x: PPEVP_PKEY; cb: pem_password_cb; u: Pointer): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PUBKEY_procname);
 end;
 
 function ERR_PEM_read_bio_PUBKEY_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u : Pointer;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_PUBKEY_ex_procname);
 end;
 
-function  ERR_PEM_write_bio_PUBKEY(bp: PBIO; x: PEVP_PKEY): TIdC_INT; 
+function  ERR_PEM_write_bio_PUBKEY(bp: PBIO; x: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PUBKEY_procname);
 end;
 
 function ERR_PEM_write_bio_PUBKEY_ex(bp : PBIO; x: PEVP_PKEY;
-    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): TIdC_INT;
+    libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PUBKEY_ex_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PrivateKey_traditional(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_PrivateKey_traditional(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER; kstr: PByte; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PrivateKey_traditional_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_PEM_write_bio_PKCS8PrivateKey_nid(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS8PrivateKey_nid(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS8PrivateKey_nid_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PKCS8PrivateKey(bp: PBIO; x: PEVP_PKEY_METHOD; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS8PrivateKey(bp: PBIO; x: PEVP_PKEY_METHOD; const enc: PEVP_CIPHER; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS8PrivateKey_procname);
 end;
 
 
-function  ERR_i2d_PKCS8PrivateKey_bio(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER_CTX; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_i2d_PKCS8PrivateKey_bio(bp: PBIO; x: PEVP_PKEY; const enc: PEVP_CIPHER_CTX; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS8PrivateKey_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS8PrivateKey_nid_bio(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_i2d_PKCS8PrivateKey_nid_bio(bp: PBIO; x: PEVP_PKEY; nid: TIdC_INT; kstr: PIdAnsiChar; klen: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS8PrivateKey_nid_bio_procname);
 end;
 
 
-function  ERR_d2i_PKCS8PrivateKey_bio(bp: PBIO; x: PPEVP_PKEY_CTX; cb: pem_password_cb; u: Pointer): PEVP_PKEY; 
+function  ERR_d2i_PKCS8PrivateKey_bio(bp: PBIO; x: PPEVP_PKEY_CTX; cb: pem_password_cb; u: Pointer): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS8PrivateKey_bio_procname);
 end;
 
 
 
-function  ERR_PEM_read_bio_Parameters(bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY; 
+function  ERR_PEM_read_bio_Parameters(bp: PBIO; x: PPEVP_PKEY): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_Parameters_procname);
 end;
 
 function ERR_PEM_read_bio_Parameters_ex(bp: PBIO; x:PPEVP_PKEY;
-  libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY;
+  libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar): PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_read_bio_Parameters_ex_procname);
 end;
 
 
-function  ERR_PEM_write_bio_Parameters(bp: PBIO; x: PEVP_PKEY): TIdC_INT; 
+function  ERR_PEM_write_bio_Parameters(bp: PBIO; x: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_Parameters_procname);
 end;
 
 
 
-function  ERR_b2i_PrivateKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_b2i_PrivateKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PrivateKey_procname);
 end;
 
 
-function  ERR_b2i_PublicKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY; 
+function  ERR_b2i_PublicKey(const in_: PPByte; _length: TIdC_LONG): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PublicKey_procname);
 end;
 
 
-function  ERR_b2i_PrivateKey_bio(in_: PBIO): PEVP_PKEY; 
+function  ERR_b2i_PrivateKey_bio(in_: PBIO): PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PrivateKey_bio_procname);
 end;
 
 
-function  ERR_b2i_PublicKey_bio(in_: PBIO): PEVP_PKEY; 
+function  ERR_b2i_PublicKey_bio(in_: PBIO): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PublicKey_bio_procname);
 end;
 
 
-function  ERR_i2b_PrivateKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT; 
+function  ERR_i2b_PrivateKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2b_PrivateKey_bio_procname);
 end;
 
 
-function  ERR_i2b_PublicKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT; 
+function  ERR_i2b_PublicKey_bio(out_: PBIO; pk: PEVP_PKEY): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2b_PublicKey_bio_procname);
 end;
 
 
-function  ERR_b2i_PVK_bio(in_: PBIO; cb: pem_password_cb; u: Pointer): PEVP_PKEY; 
+function  ERR_b2i_PVK_bio(in_: PBIO; cb: pem_password_cb; u: Pointer): PEVP_PKEY;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(b2i_PVK_bio_procname);
 end;
 
 
-function  ERR_i2b_PVK_bio(out_: PBIO; pk: PEVP_PKEY; enclevel: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT; 
+function  ERR_i2b_PVK_bio(out_: PBIO; pk: PEVP_PKEY; enclevel: TIdC_INT; cb: pem_password_cb; u: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2b_PVK_bio_procname);
 end;
@@ -1135,13 +1135,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_get_EVP_CIPHER_INFO_allownil)}
-    PEM_get_EVP_CIPHER_INFO := @ERR_PEM_get_EVP_CIPHER_INFO;
+    PEM_get_EVP_CIPHER_INFO := ERR_PEM_get_EVP_CIPHER_INFO;
     {$ifend}
     {$if declared(PEM_get_EVP_CIPHER_INFO_introduced)}
     if LibVersion < PEM_get_EVP_CIPHER_INFO_introduced then
     begin
       {$if declared(FC_PEM_get_EVP_CIPHER_INFO)}
-      PEM_get_EVP_CIPHER_INFO := @FC_PEM_get_EVP_CIPHER_INFO;
+      PEM_get_EVP_CIPHER_INFO := FC_PEM_get_EVP_CIPHER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1150,7 +1150,7 @@ begin
     if PEM_get_EVP_CIPHER_INFO_removed <= LibVersion then
     begin
       {$if declared(_PEM_get_EVP_CIPHER_INFO)}
-      PEM_get_EVP_CIPHER_INFO := @_PEM_get_EVP_CIPHER_INFO;
+      PEM_get_EVP_CIPHER_INFO := _PEM_get_EVP_CIPHER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1167,13 +1167,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_do_header_allownil)}
-    PEM_do_header := @ERR_PEM_do_header;
+    PEM_do_header := ERR_PEM_do_header;
     {$ifend}
     {$if declared(PEM_do_header_introduced)}
     if LibVersion < PEM_do_header_introduced then
     begin
       {$if declared(FC_PEM_do_header)}
-      PEM_do_header := @FC_PEM_do_header;
+      PEM_do_header := FC_PEM_do_header;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1182,7 +1182,7 @@ begin
     if PEM_do_header_removed <= LibVersion then
     begin
       {$if declared(_PEM_do_header)}
-      PEM_do_header := @_PEM_do_header;
+      PEM_do_header := _PEM_do_header;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1199,13 +1199,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_allownil)}
-    PEM_read_bio := @ERR_PEM_read_bio;
+    PEM_read_bio := ERR_PEM_read_bio;
     {$ifend}
     {$if declared(PEM_read_bio_introduced)}
     if LibVersion < PEM_read_bio_introduced then
     begin
       {$if declared(FC_PEM_read_bio)}
-      PEM_read_bio := @FC_PEM_read_bio;
+      PEM_read_bio := FC_PEM_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1214,7 +1214,7 @@ begin
     if PEM_read_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio)}
-      PEM_read_bio := @_PEM_read_bio;
+      PEM_read_bio := _PEM_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1231,13 +1231,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_ex_allownil)}
-    PEM_read_bio_ex := @ERR_PEM_read_bio_ex;
+    PEM_read_bio_ex := ERR_PEM_read_bio_ex;
     {$ifend}
     {$if declared(PEM_read_bio_ex_introduced)}
     if LibVersion < PEM_read_bio_ex_introduced then
     begin
       {$if declared(FC_PEM_read_bio_ex)}
-      PEM_read_bio_ex := @FC_PEM_read_bio_ex;
+      PEM_read_bio_ex := FC_PEM_read_bio_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1246,7 +1246,7 @@ begin
     if PEM_read_bio_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_ex)}
-      PEM_read_bio_ex := @_PEM_read_bio_ex;
+      PEM_read_bio_ex := _PEM_read_bio_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1263,13 +1263,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_bytes_read_bio_secmem_allownil)}
-    PEM_bytes_read_bio_secmem := @ERR_PEM_bytes_read_bio_secmem;
+    PEM_bytes_read_bio_secmem := ERR_PEM_bytes_read_bio_secmem;
     {$ifend}
     {$if declared(PEM_bytes_read_bio_secmem_introduced)}
     if LibVersion < PEM_bytes_read_bio_secmem_introduced then
     begin
       {$if declared(FC_PEM_bytes_read_bio_secmem)}
-      PEM_bytes_read_bio_secmem := @FC_PEM_bytes_read_bio_secmem;
+      PEM_bytes_read_bio_secmem := FC_PEM_bytes_read_bio_secmem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1278,7 +1278,7 @@ begin
     if PEM_bytes_read_bio_secmem_removed <= LibVersion then
     begin
       {$if declared(_PEM_bytes_read_bio_secmem)}
-      PEM_bytes_read_bio_secmem := @_PEM_bytes_read_bio_secmem;
+      PEM_bytes_read_bio_secmem := _PEM_bytes_read_bio_secmem;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1295,13 +1295,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_allownil)}
-    PEM_write_bio := @ERR_PEM_write_bio;
+    PEM_write_bio := ERR_PEM_write_bio;
     {$ifend}
     {$if declared(PEM_write_bio_introduced)}
     if LibVersion < PEM_write_bio_introduced then
     begin
       {$if declared(FC_PEM_write_bio)}
-      PEM_write_bio := @FC_PEM_write_bio;
+      PEM_write_bio := FC_PEM_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1310,7 +1310,7 @@ begin
     if PEM_write_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio)}
-      PEM_write_bio := @_PEM_write_bio;
+      PEM_write_bio := _PEM_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1327,13 +1327,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_bytes_read_bio_allownil)}
-    PEM_bytes_read_bio := @ERR_PEM_bytes_read_bio;
+    PEM_bytes_read_bio := ERR_PEM_bytes_read_bio;
     {$ifend}
     {$if declared(PEM_bytes_read_bio_introduced)}
     if LibVersion < PEM_bytes_read_bio_introduced then
     begin
       {$if declared(FC_PEM_bytes_read_bio)}
-      PEM_bytes_read_bio := @FC_PEM_bytes_read_bio;
+      PEM_bytes_read_bio := FC_PEM_bytes_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1342,7 +1342,7 @@ begin
     if PEM_bytes_read_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_bytes_read_bio)}
-      PEM_bytes_read_bio := @_PEM_bytes_read_bio;
+      PEM_bytes_read_bio := _PEM_bytes_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1359,13 +1359,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_ASN1_read_bio_allownil)}
-    PEM_ASN1_read_bio := @ERR_PEM_ASN1_read_bio;
+    PEM_ASN1_read_bio := ERR_PEM_ASN1_read_bio;
     {$ifend}
     {$if declared(PEM_ASN1_read_bio_introduced)}
     if LibVersion < PEM_ASN1_read_bio_introduced then
     begin
       {$if declared(FC_PEM_ASN1_read_bio)}
-      PEM_ASN1_read_bio := @FC_PEM_ASN1_read_bio;
+      PEM_ASN1_read_bio := FC_PEM_ASN1_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1374,7 +1374,7 @@ begin
     if PEM_ASN1_read_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_ASN1_read_bio)}
-      PEM_ASN1_read_bio := @_PEM_ASN1_read_bio;
+      PEM_ASN1_read_bio := _PEM_ASN1_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1391,13 +1391,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_ASN1_write_bio_allownil)}
-    PEM_ASN1_write_bio := @ERR_PEM_ASN1_write_bio;
+    PEM_ASN1_write_bio := ERR_PEM_ASN1_write_bio;
     {$ifend}
     {$if declared(PEM_ASN1_write_bio_introduced)}
     if LibVersion < PEM_ASN1_write_bio_introduced then
     begin
       {$if declared(FC_PEM_ASN1_write_bio)}
-      PEM_ASN1_write_bio := @FC_PEM_ASN1_write_bio;
+      PEM_ASN1_write_bio := FC_PEM_ASN1_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1406,7 +1406,7 @@ begin
     if PEM_ASN1_write_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_ASN1_write_bio)}
-      PEM_ASN1_write_bio := @_PEM_ASN1_write_bio;
+      PEM_ASN1_write_bio := _PEM_ASN1_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1423,13 +1423,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_X509_INFO_read_bio_allownil)}
-    PEM_X509_INFO_read_bio := @ERR_PEM_X509_INFO_read_bio;
+    PEM_X509_INFO_read_bio := ERR_PEM_X509_INFO_read_bio;
     {$ifend}
     {$if declared(PEM_X509_INFO_read_bio_introduced)}
     if LibVersion < PEM_X509_INFO_read_bio_introduced then
     begin
       {$if declared(FC_PEM_X509_INFO_read_bio)}
-      PEM_X509_INFO_read_bio := @FC_PEM_X509_INFO_read_bio;
+      PEM_X509_INFO_read_bio := FC_PEM_X509_INFO_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1438,7 +1438,7 @@ begin
     if PEM_X509_INFO_read_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_X509_INFO_read_bio)}
-      PEM_X509_INFO_read_bio := @_PEM_X509_INFO_read_bio;
+      PEM_X509_INFO_read_bio := _PEM_X509_INFO_read_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1455,13 +1455,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_X509_INFO_write_bio_allownil)}
-    PEM_X509_INFO_write_bio := @ERR_PEM_X509_INFO_write_bio;
+    PEM_X509_INFO_write_bio := ERR_PEM_X509_INFO_write_bio;
     {$ifend}
     {$if declared(PEM_X509_INFO_write_bio_introduced)}
     if LibVersion < PEM_X509_INFO_write_bio_introduced then
     begin
       {$if declared(FC_PEM_X509_INFO_write_bio)}
-      PEM_X509_INFO_write_bio := @FC_PEM_X509_INFO_write_bio;
+      PEM_X509_INFO_write_bio := FC_PEM_X509_INFO_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1470,7 +1470,7 @@ begin
     if PEM_X509_INFO_write_bio_removed <= LibVersion then
     begin
       {$if declared(_PEM_X509_INFO_write_bio)}
-      PEM_X509_INFO_write_bio := @_PEM_X509_INFO_write_bio;
+      PEM_X509_INFO_write_bio := _PEM_X509_INFO_write_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1487,13 +1487,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_SignInit_allownil)}
-    PEM_SignInit := @ERR_PEM_SignInit;
+    PEM_SignInit := ERR_PEM_SignInit;
     {$ifend}
     {$if declared(PEM_SignInit_introduced)}
     if LibVersion < PEM_SignInit_introduced then
     begin
       {$if declared(FC_PEM_SignInit)}
-      PEM_SignInit := @FC_PEM_SignInit;
+      PEM_SignInit := FC_PEM_SignInit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1502,7 +1502,7 @@ begin
     if PEM_SignInit_removed <= LibVersion then
     begin
       {$if declared(_PEM_SignInit)}
-      PEM_SignInit := @_PEM_SignInit;
+      PEM_SignInit := _PEM_SignInit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1519,13 +1519,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_SignUpdate_allownil)}
-    PEM_SignUpdate := @ERR_PEM_SignUpdate;
+    PEM_SignUpdate := ERR_PEM_SignUpdate;
     {$ifend}
     {$if declared(PEM_SignUpdate_introduced)}
     if LibVersion < PEM_SignUpdate_introduced then
     begin
       {$if declared(FC_PEM_SignUpdate)}
-      PEM_SignUpdate := @FC_PEM_SignUpdate;
+      PEM_SignUpdate := FC_PEM_SignUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1534,7 +1534,7 @@ begin
     if PEM_SignUpdate_removed <= LibVersion then
     begin
       {$if declared(_PEM_SignUpdate)}
-      PEM_SignUpdate := @_PEM_SignUpdate;
+      PEM_SignUpdate := _PEM_SignUpdate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1551,13 +1551,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_SignFinal_allownil)}
-    PEM_SignFinal := @ERR_PEM_SignFinal;
+    PEM_SignFinal := ERR_PEM_SignFinal;
     {$ifend}
     {$if declared(PEM_SignFinal_introduced)}
     if LibVersion < PEM_SignFinal_introduced then
     begin
       {$if declared(FC_PEM_SignFinal)}
-      PEM_SignFinal := @FC_PEM_SignFinal;
+      PEM_SignFinal := FC_PEM_SignFinal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1566,7 +1566,7 @@ begin
     if PEM_SignFinal_removed <= LibVersion then
     begin
       {$if declared(_PEM_SignFinal)}
-      PEM_SignFinal := @_PEM_SignFinal;
+      PEM_SignFinal := _PEM_SignFinal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1583,13 +1583,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_def_callback_allownil)}
-    PEM_def_callback := @ERR_PEM_def_callback;
+    PEM_def_callback := ERR_PEM_def_callback;
     {$ifend}
     {$if declared(PEM_def_callback_introduced)}
     if LibVersion < PEM_def_callback_introduced then
     begin
       {$if declared(FC_PEM_def_callback)}
-      PEM_def_callback := @FC_PEM_def_callback;
+      PEM_def_callback := FC_PEM_def_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1598,7 +1598,7 @@ begin
     if PEM_def_callback_removed <= LibVersion then
     begin
       {$if declared(_PEM_def_callback)}
-      PEM_def_callback := @_PEM_def_callback;
+      PEM_def_callback := _PEM_def_callback;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1615,13 +1615,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_proc_type_allownil)}
-    PEM_proc_type := @ERR_PEM_proc_type;
+    PEM_proc_type := ERR_PEM_proc_type;
     {$ifend}
     {$if declared(PEM_proc_type_introduced)}
     if LibVersion < PEM_proc_type_introduced then
     begin
       {$if declared(FC_PEM_proc_type)}
-      PEM_proc_type := @FC_PEM_proc_type;
+      PEM_proc_type := FC_PEM_proc_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1630,7 +1630,7 @@ begin
     if PEM_proc_type_removed <= LibVersion then
     begin
       {$if declared(_PEM_proc_type)}
-      PEM_proc_type := @_PEM_proc_type;
+      PEM_proc_type := _PEM_proc_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1647,13 +1647,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_dek_info_allownil)}
-    PEM_dek_info := @ERR_PEM_dek_info;
+    PEM_dek_info := ERR_PEM_dek_info;
     {$ifend}
     {$if declared(PEM_dek_info_introduced)}
     if LibVersion < PEM_dek_info_introduced then
     begin
       {$if declared(FC_PEM_dek_info)}
-      PEM_dek_info := @FC_PEM_dek_info;
+      PEM_dek_info := FC_PEM_dek_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1662,7 +1662,7 @@ begin
     if PEM_dek_info_removed <= LibVersion then
     begin
       {$if declared(_PEM_dek_info)}
-      PEM_dek_info := @_PEM_dek_info;
+      PEM_dek_info := _PEM_dek_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1679,13 +1679,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_X509_allownil)}
-    PEM_read_bio_X509 := @ERR_PEM_read_bio_X509;
+    PEM_read_bio_X509 := ERR_PEM_read_bio_X509;
     {$ifend}
     {$if declared(PEM_read_bio_X509_introduced)}
     if LibVersion < PEM_read_bio_X509_introduced then
     begin
       {$if declared(FC_PEM_read_bio_X509)}
-      PEM_read_bio_X509 := @FC_PEM_read_bio_X509;
+      PEM_read_bio_X509 := FC_PEM_read_bio_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1694,7 +1694,7 @@ begin
     if PEM_read_bio_X509_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_X509)}
-      PEM_read_bio_X509 := @_PEM_read_bio_X509;
+      PEM_read_bio_X509 := _PEM_read_bio_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1711,13 +1711,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_X509_allownil)}
-    PEM_write_bio_X509 := @ERR_PEM_write_bio_X509;
+    PEM_write_bio_X509 := ERR_PEM_write_bio_X509;
     {$ifend}
     {$if declared(PEM_write_bio_X509_introduced)}
     if LibVersion < PEM_write_bio_X509_introduced then
     begin
       {$if declared(FC_PEM_write_bio_X509)}
-      PEM_write_bio_X509 := @FC_PEM_write_bio_X509;
+      PEM_write_bio_X509 := FC_PEM_write_bio_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1726,7 +1726,7 @@ begin
     if PEM_write_bio_X509_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_X509)}
-      PEM_write_bio_X509 := @_PEM_write_bio_X509;
+      PEM_write_bio_X509 := _PEM_write_bio_X509;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1743,13 +1743,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_X509_AUX_allownil)}
-    PEM_read_bio_X509_AUX := @ERR_PEM_read_bio_X509_AUX;
+    PEM_read_bio_X509_AUX := ERR_PEM_read_bio_X509_AUX;
     {$ifend}
     {$if declared(PEM_read_bio_X509_AUX_introduced)}
     if LibVersion < PEM_read_bio_X509_AUX_introduced then
     begin
       {$if declared(FC_PEM_read_bio_X509_AUX)}
-      PEM_read_bio_X509_AUX := @FC_PEM_read_bio_X509_AUX;
+      PEM_read_bio_X509_AUX := FC_PEM_read_bio_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1758,7 +1758,7 @@ begin
     if PEM_read_bio_X509_AUX_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_X509_AUX)}
-      PEM_read_bio_X509_AUX := @_PEM_read_bio_X509_AUX;
+      PEM_read_bio_X509_AUX := _PEM_read_bio_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1775,13 +1775,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_X509_AUX_allownil)}
-    PEM_write_bio_X509_AUX := @ERR_PEM_write_bio_X509_AUX;
+    PEM_write_bio_X509_AUX := ERR_PEM_write_bio_X509_AUX;
     {$ifend}
     {$if declared(PEM_write_bio_X509_AUX_introduced)}
     if LibVersion < PEM_write_bio_X509_AUX_introduced then
     begin
       {$if declared(FC_PEM_write_bio_X509_AUX)}
-      PEM_write_bio_X509_AUX := @FC_PEM_write_bio_X509_AUX;
+      PEM_write_bio_X509_AUX := FC_PEM_write_bio_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1790,7 +1790,7 @@ begin
     if PEM_write_bio_X509_AUX_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_X509_AUX)}
-      PEM_write_bio_X509_AUX := @_PEM_write_bio_X509_AUX;
+      PEM_write_bio_X509_AUX := _PEM_write_bio_X509_AUX;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1807,13 +1807,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_X509_REQ_allownil)}
-    PEM_read_bio_X509_REQ := @ERR_PEM_read_bio_X509_REQ;
+    PEM_read_bio_X509_REQ := ERR_PEM_read_bio_X509_REQ;
     {$ifend}
     {$if declared(PEM_read_bio_X509_REQ_introduced)}
     if LibVersion < PEM_read_bio_X509_REQ_introduced then
     begin
       {$if declared(FC_PEM_read_bio_X509_REQ)}
-      PEM_read_bio_X509_REQ := @FC_PEM_read_bio_X509_REQ;
+      PEM_read_bio_X509_REQ := FC_PEM_read_bio_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1822,7 +1822,7 @@ begin
     if PEM_read_bio_X509_REQ_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_X509_REQ)}
-      PEM_read_bio_X509_REQ := @_PEM_read_bio_X509_REQ;
+      PEM_read_bio_X509_REQ := _PEM_read_bio_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1839,13 +1839,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_X509_REQ_allownil)}
-    PEM_write_bio_X509_REQ := @ERR_PEM_write_bio_X509_REQ;
+    PEM_write_bio_X509_REQ := ERR_PEM_write_bio_X509_REQ;
     {$ifend}
     {$if declared(PEM_write_bio_X509_REQ_introduced)}
     if LibVersion < PEM_write_bio_X509_REQ_introduced then
     begin
       {$if declared(FC_PEM_write_bio_X509_REQ)}
-      PEM_write_bio_X509_REQ := @FC_PEM_write_bio_X509_REQ;
+      PEM_write_bio_X509_REQ := FC_PEM_write_bio_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1854,7 +1854,7 @@ begin
     if PEM_write_bio_X509_REQ_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_X509_REQ)}
-      PEM_write_bio_X509_REQ := @_PEM_write_bio_X509_REQ;
+      PEM_write_bio_X509_REQ := _PEM_write_bio_X509_REQ;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1871,13 +1871,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_X509_REQ_NEW_allownil)}
-    PEM_write_bio_X509_REQ_NEW := @ERR_PEM_write_bio_X509_REQ_NEW;
+    PEM_write_bio_X509_REQ_NEW := ERR_PEM_write_bio_X509_REQ_NEW;
     {$ifend}
     {$if declared(PEM_write_bio_X509_REQ_NEW_introduced)}
     if LibVersion < PEM_write_bio_X509_REQ_NEW_introduced then
     begin
       {$if declared(FC_PEM_write_bio_X509_REQ_NEW)}
-      PEM_write_bio_X509_REQ_NEW := @FC_PEM_write_bio_X509_REQ_NEW;
+      PEM_write_bio_X509_REQ_NEW := FC_PEM_write_bio_X509_REQ_NEW;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1886,7 +1886,7 @@ begin
     if PEM_write_bio_X509_REQ_NEW_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_X509_REQ_NEW)}
-      PEM_write_bio_X509_REQ_NEW := @_PEM_write_bio_X509_REQ_NEW;
+      PEM_write_bio_X509_REQ_NEW := _PEM_write_bio_X509_REQ_NEW;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1903,13 +1903,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_X509_CRL_allownil)}
-    PEM_read_bio_X509_CRL := @ERR_PEM_read_bio_X509_CRL;
+    PEM_read_bio_X509_CRL := ERR_PEM_read_bio_X509_CRL;
     {$ifend}
     {$if declared(PEM_read_bio_X509_CRL_introduced)}
     if LibVersion < PEM_read_bio_X509_CRL_introduced then
     begin
       {$if declared(FC_PEM_read_bio_X509_CRL)}
-      PEM_read_bio_X509_CRL := @FC_PEM_read_bio_X509_CRL;
+      PEM_read_bio_X509_CRL := FC_PEM_read_bio_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1918,7 +1918,7 @@ begin
     if PEM_read_bio_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_X509_CRL)}
-      PEM_read_bio_X509_CRL := @_PEM_read_bio_X509_CRL;
+      PEM_read_bio_X509_CRL := _PEM_read_bio_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1935,13 +1935,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_X509_CRL_allownil)}
-    PEM_write_bio_X509_CRL := @ERR_PEM_write_bio_X509_CRL;
+    PEM_write_bio_X509_CRL := ERR_PEM_write_bio_X509_CRL;
     {$ifend}
     {$if declared(PEM_write_bio_X509_CRL_introduced)}
     if LibVersion < PEM_write_bio_X509_CRL_introduced then
     begin
       {$if declared(FC_PEM_write_bio_X509_CRL)}
-      PEM_write_bio_X509_CRL := @FC_PEM_write_bio_X509_CRL;
+      PEM_write_bio_X509_CRL := FC_PEM_write_bio_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1950,7 +1950,7 @@ begin
     if PEM_write_bio_X509_CRL_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_X509_CRL)}
-      PEM_write_bio_X509_CRL := @_PEM_write_bio_X509_CRL;
+      PEM_write_bio_X509_CRL := _PEM_write_bio_X509_CRL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1967,13 +1967,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PKCS7_allownil)}
-    PEM_read_bio_PKCS7 := @ERR_PEM_read_bio_PKCS7;
+    PEM_read_bio_PKCS7 := ERR_PEM_read_bio_PKCS7;
     {$ifend}
     {$if declared(PEM_read_bio_PKCS7_introduced)}
     if LibVersion < PEM_read_bio_PKCS7_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PKCS7)}
-      PEM_read_bio_PKCS7 := @FC_PEM_read_bio_PKCS7;
+      PEM_read_bio_PKCS7 := FC_PEM_read_bio_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1982,7 +1982,7 @@ begin
     if PEM_read_bio_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PKCS7)}
-      PEM_read_bio_PKCS7 := @_PEM_read_bio_PKCS7;
+      PEM_read_bio_PKCS7 := _PEM_read_bio_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1999,13 +1999,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS7_allownil)}
-    PEM_write_bio_PKCS7 := @ERR_PEM_write_bio_PKCS7;
+    PEM_write_bio_PKCS7 := ERR_PEM_write_bio_PKCS7;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS7_introduced)}
     if LibVersion < PEM_write_bio_PKCS7_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS7)}
-      PEM_write_bio_PKCS7 := @FC_PEM_write_bio_PKCS7;
+      PEM_write_bio_PKCS7 := FC_PEM_write_bio_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2014,7 +2014,7 @@ begin
     if PEM_write_bio_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS7)}
-      PEM_write_bio_PKCS7 := @_PEM_write_bio_PKCS7;
+      PEM_write_bio_PKCS7 := _PEM_write_bio_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2031,13 +2031,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PKCS8_allownil)}
-    PEM_read_bio_PKCS8 := @ERR_PEM_read_bio_PKCS8;
+    PEM_read_bio_PKCS8 := ERR_PEM_read_bio_PKCS8;
     {$ifend}
     {$if declared(PEM_read_bio_PKCS8_introduced)}
     if LibVersion < PEM_read_bio_PKCS8_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PKCS8)}
-      PEM_read_bio_PKCS8 := @FC_PEM_read_bio_PKCS8;
+      PEM_read_bio_PKCS8 := FC_PEM_read_bio_PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2046,7 +2046,7 @@ begin
     if PEM_read_bio_PKCS8_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PKCS8)}
-      PEM_read_bio_PKCS8 := @_PEM_read_bio_PKCS8;
+      PEM_read_bio_PKCS8 := _PEM_read_bio_PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2063,13 +2063,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS8_allownil)}
-    PEM_write_bio_PKCS8 := @ERR_PEM_write_bio_PKCS8;
+    PEM_write_bio_PKCS8 := ERR_PEM_write_bio_PKCS8;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS8_introduced)}
     if LibVersion < PEM_write_bio_PKCS8_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS8)}
-      PEM_write_bio_PKCS8 := @FC_PEM_write_bio_PKCS8;
+      PEM_write_bio_PKCS8 := FC_PEM_write_bio_PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2078,7 +2078,7 @@ begin
     if PEM_write_bio_PKCS8_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS8)}
-      PEM_write_bio_PKCS8 := @_PEM_write_bio_PKCS8;
+      PEM_write_bio_PKCS8 := _PEM_write_bio_PKCS8;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2095,13 +2095,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PKCS8_PRIV_KEY_INFO_allownil)}
-    PEM_read_bio_PKCS8_PRIV_KEY_INFO := @ERR_PEM_read_bio_PKCS8_PRIV_KEY_INFO;
+    PEM_read_bio_PKCS8_PRIV_KEY_INFO := ERR_PEM_read_bio_PKCS8_PRIV_KEY_INFO;
     {$ifend}
     {$if declared(PEM_read_bio_PKCS8_PRIV_KEY_INFO_introduced)}
     if LibVersion < PEM_read_bio_PKCS8_PRIV_KEY_INFO_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PKCS8_PRIV_KEY_INFO)}
-      PEM_read_bio_PKCS8_PRIV_KEY_INFO := @FC_PEM_read_bio_PKCS8_PRIV_KEY_INFO;
+      PEM_read_bio_PKCS8_PRIV_KEY_INFO := FC_PEM_read_bio_PKCS8_PRIV_KEY_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2110,7 +2110,7 @@ begin
     if PEM_read_bio_PKCS8_PRIV_KEY_INFO_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PKCS8_PRIV_KEY_INFO)}
-      PEM_read_bio_PKCS8_PRIV_KEY_INFO := @_PEM_read_bio_PKCS8_PRIV_KEY_INFO;
+      PEM_read_bio_PKCS8_PRIV_KEY_INFO := _PEM_read_bio_PKCS8_PRIV_KEY_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2127,13 +2127,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS8_PRIV_KEY_INFO_allownil)}
-    PEM_write_bio_PKCS8_PRIV_KEY_INFO := @ERR_PEM_write_bio_PKCS8_PRIV_KEY_INFO;
+    PEM_write_bio_PKCS8_PRIV_KEY_INFO := ERR_PEM_write_bio_PKCS8_PRIV_KEY_INFO;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS8_PRIV_KEY_INFO_introduced)}
     if LibVersion < PEM_write_bio_PKCS8_PRIV_KEY_INFO_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS8_PRIV_KEY_INFO)}
-      PEM_write_bio_PKCS8_PRIV_KEY_INFO := @FC_PEM_write_bio_PKCS8_PRIV_KEY_INFO;
+      PEM_write_bio_PKCS8_PRIV_KEY_INFO := FC_PEM_write_bio_PKCS8_PRIV_KEY_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2142,7 +2142,7 @@ begin
     if PEM_write_bio_PKCS8_PRIV_KEY_INFO_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS8_PRIV_KEY_INFO)}
-      PEM_write_bio_PKCS8_PRIV_KEY_INFO := @_PEM_write_bio_PKCS8_PRIV_KEY_INFO;
+      PEM_write_bio_PKCS8_PRIV_KEY_INFO := _PEM_write_bio_PKCS8_PRIV_KEY_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2159,13 +2159,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_RSAPrivateKey_allownil)}
-    PEM_read_bio_RSAPrivateKey := @ERR_PEM_read_bio_RSAPrivateKey;
+    PEM_read_bio_RSAPrivateKey := ERR_PEM_read_bio_RSAPrivateKey;
     {$ifend}
     {$if declared(PEM_read_bio_RSAPrivateKey_introduced)}
     if LibVersion < PEM_read_bio_RSAPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_read_bio_RSAPrivateKey)}
-      PEM_read_bio_RSAPrivateKey := @FC_PEM_read_bio_RSAPrivateKey;
+      PEM_read_bio_RSAPrivateKey := FC_PEM_read_bio_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2174,7 +2174,7 @@ begin
     if PEM_read_bio_RSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_RSAPrivateKey)}
-      PEM_read_bio_RSAPrivateKey := @_PEM_read_bio_RSAPrivateKey;
+      PEM_read_bio_RSAPrivateKey := _PEM_read_bio_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2191,13 +2191,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_RSAPrivateKey_allownil)}
-    PEM_write_bio_RSAPrivateKey := @ERR_PEM_write_bio_RSAPrivateKey;
+    PEM_write_bio_RSAPrivateKey := ERR_PEM_write_bio_RSAPrivateKey;
     {$ifend}
     {$if declared(PEM_write_bio_RSAPrivateKey_introduced)}
     if LibVersion < PEM_write_bio_RSAPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_RSAPrivateKey)}
-      PEM_write_bio_RSAPrivateKey := @FC_PEM_write_bio_RSAPrivateKey;
+      PEM_write_bio_RSAPrivateKey := FC_PEM_write_bio_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2206,7 +2206,7 @@ begin
     if PEM_write_bio_RSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_RSAPrivateKey)}
-      PEM_write_bio_RSAPrivateKey := @_PEM_write_bio_RSAPrivateKey;
+      PEM_write_bio_RSAPrivateKey := _PEM_write_bio_RSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2223,13 +2223,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_RSAPublicKey_allownil)}
-    PEM_read_bio_RSAPublicKey := @ERR_PEM_read_bio_RSAPublicKey;
+    PEM_read_bio_RSAPublicKey := ERR_PEM_read_bio_RSAPublicKey;
     {$ifend}
     {$if declared(PEM_read_bio_RSAPublicKey_introduced)}
     if LibVersion < PEM_read_bio_RSAPublicKey_introduced then
     begin
       {$if declared(FC_PEM_read_bio_RSAPublicKey)}
-      PEM_read_bio_RSAPublicKey := @FC_PEM_read_bio_RSAPublicKey;
+      PEM_read_bio_RSAPublicKey := FC_PEM_read_bio_RSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2238,7 +2238,7 @@ begin
     if PEM_read_bio_RSAPublicKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_RSAPublicKey)}
-      PEM_read_bio_RSAPublicKey := @_PEM_read_bio_RSAPublicKey;
+      PEM_read_bio_RSAPublicKey := _PEM_read_bio_RSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2255,13 +2255,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_RSAPublicKey_allownil)}
-    PEM_write_bio_RSAPublicKey := @ERR_PEM_write_bio_RSAPublicKey;
+    PEM_write_bio_RSAPublicKey := ERR_PEM_write_bio_RSAPublicKey;
     {$ifend}
     {$if declared(PEM_write_bio_RSAPublicKey_introduced)}
     if LibVersion < PEM_write_bio_RSAPublicKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_RSAPublicKey)}
-      PEM_write_bio_RSAPublicKey := @FC_PEM_write_bio_RSAPublicKey;
+      PEM_write_bio_RSAPublicKey := FC_PEM_write_bio_RSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2270,7 +2270,7 @@ begin
     if PEM_write_bio_RSAPublicKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_RSAPublicKey)}
-      PEM_write_bio_RSAPublicKey := @_PEM_write_bio_RSAPublicKey;
+      PEM_write_bio_RSAPublicKey := _PEM_write_bio_RSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2287,13 +2287,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_RSA_PUBKEY_allownil)}
-    PEM_read_bio_RSA_PUBKEY := @ERR_PEM_read_bio_RSA_PUBKEY;
+    PEM_read_bio_RSA_PUBKEY := ERR_PEM_read_bio_RSA_PUBKEY;
     {$ifend}
     {$if declared(PEM_read_bio_RSA_PUBKEY_introduced)}
     if LibVersion < PEM_read_bio_RSA_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_read_bio_RSA_PUBKEY)}
-      PEM_read_bio_RSA_PUBKEY := @FC_PEM_read_bio_RSA_PUBKEY;
+      PEM_read_bio_RSA_PUBKEY := FC_PEM_read_bio_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2302,7 +2302,7 @@ begin
     if PEM_read_bio_RSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_RSA_PUBKEY)}
-      PEM_read_bio_RSA_PUBKEY := @_PEM_read_bio_RSA_PUBKEY;
+      PEM_read_bio_RSA_PUBKEY := _PEM_read_bio_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2319,13 +2319,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_RSA_PUBKEY_allownil)}
-    PEM_write_bio_RSA_PUBKEY := @ERR_PEM_write_bio_RSA_PUBKEY;
+    PEM_write_bio_RSA_PUBKEY := ERR_PEM_write_bio_RSA_PUBKEY;
     {$ifend}
     {$if declared(PEM_write_bio_RSA_PUBKEY_introduced)}
     if LibVersion < PEM_write_bio_RSA_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_write_bio_RSA_PUBKEY)}
-      PEM_write_bio_RSA_PUBKEY := @FC_PEM_write_bio_RSA_PUBKEY;
+      PEM_write_bio_RSA_PUBKEY := FC_PEM_write_bio_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2334,7 +2334,7 @@ begin
     if PEM_write_bio_RSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_RSA_PUBKEY)}
-      PEM_write_bio_RSA_PUBKEY := @_PEM_write_bio_RSA_PUBKEY;
+      PEM_write_bio_RSA_PUBKEY := _PEM_write_bio_RSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2351,13 +2351,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_DSAPrivateKey_allownil)}
-    PEM_read_bio_DSAPrivateKey := @ERR_PEM_read_bio_DSAPrivateKey;
+    PEM_read_bio_DSAPrivateKey := ERR_PEM_read_bio_DSAPrivateKey;
     {$ifend}
     {$if declared(PEM_read_bio_DSAPrivateKey_introduced)}
     if LibVersion < PEM_read_bio_DSAPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_read_bio_DSAPrivateKey)}
-      PEM_read_bio_DSAPrivateKey := @FC_PEM_read_bio_DSAPrivateKey;
+      PEM_read_bio_DSAPrivateKey := FC_PEM_read_bio_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2366,7 +2366,7 @@ begin
     if PEM_read_bio_DSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_DSAPrivateKey)}
-      PEM_read_bio_DSAPrivateKey := @_PEM_read_bio_DSAPrivateKey;
+      PEM_read_bio_DSAPrivateKey := _PEM_read_bio_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2383,13 +2383,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_DSAPrivateKey_allownil)}
-    PEM_write_bio_DSAPrivateKey := @ERR_PEM_write_bio_DSAPrivateKey;
+    PEM_write_bio_DSAPrivateKey := ERR_PEM_write_bio_DSAPrivateKey;
     {$ifend}
     {$if declared(PEM_write_bio_DSAPrivateKey_introduced)}
     if LibVersion < PEM_write_bio_DSAPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_DSAPrivateKey)}
-      PEM_write_bio_DSAPrivateKey := @FC_PEM_write_bio_DSAPrivateKey;
+      PEM_write_bio_DSAPrivateKey := FC_PEM_write_bio_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2398,7 +2398,7 @@ begin
     if PEM_write_bio_DSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_DSAPrivateKey)}
-      PEM_write_bio_DSAPrivateKey := @_PEM_write_bio_DSAPrivateKey;
+      PEM_write_bio_DSAPrivateKey := _PEM_write_bio_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2415,13 +2415,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_DSA_PUBKEY_allownil)}
-    PEM_read_bio_DSA_PUBKEY := @ERR_PEM_read_bio_DSA_PUBKEY;
+    PEM_read_bio_DSA_PUBKEY := ERR_PEM_read_bio_DSA_PUBKEY;
     {$ifend}
     {$if declared(PEM_read_bio_DSA_PUBKEY_introduced)}
     if LibVersion < PEM_read_bio_DSA_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_read_bio_DSA_PUBKEY)}
-      PEM_read_bio_DSA_PUBKEY := @FC_PEM_read_bio_DSA_PUBKEY;
+      PEM_read_bio_DSA_PUBKEY := FC_PEM_read_bio_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2430,7 +2430,7 @@ begin
     if PEM_read_bio_DSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_DSA_PUBKEY)}
-      PEM_read_bio_DSA_PUBKEY := @_PEM_read_bio_DSA_PUBKEY;
+      PEM_read_bio_DSA_PUBKEY := _PEM_read_bio_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2447,13 +2447,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_DSA_PUBKEY_allownil)}
-    PEM_write_bio_DSA_PUBKEY := @ERR_PEM_write_bio_DSA_PUBKEY;
+    PEM_write_bio_DSA_PUBKEY := ERR_PEM_write_bio_DSA_PUBKEY;
     {$ifend}
     {$if declared(PEM_write_bio_DSA_PUBKEY_introduced)}
     if LibVersion < PEM_write_bio_DSA_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_write_bio_DSA_PUBKEY)}
-      PEM_write_bio_DSA_PUBKEY := @FC_PEM_write_bio_DSA_PUBKEY;
+      PEM_write_bio_DSA_PUBKEY := FC_PEM_write_bio_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2462,7 +2462,7 @@ begin
     if PEM_write_bio_DSA_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_DSA_PUBKEY)}
-      PEM_write_bio_DSA_PUBKEY := @_PEM_write_bio_DSA_PUBKEY;
+      PEM_write_bio_DSA_PUBKEY := _PEM_write_bio_DSA_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2479,13 +2479,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_DSAparams_allownil)}
-    PEM_read_bio_DSAparams := @ERR_PEM_read_bio_DSAparams;
+    PEM_read_bio_DSAparams := ERR_PEM_read_bio_DSAparams;
     {$ifend}
     {$if declared(PEM_read_bio_DSAparams_introduced)}
     if LibVersion < PEM_read_bio_DSAparams_introduced then
     begin
       {$if declared(FC_PEM_read_bio_DSAparams)}
-      PEM_read_bio_DSAparams := @FC_PEM_read_bio_DSAparams;
+      PEM_read_bio_DSAparams := FC_PEM_read_bio_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2494,7 +2494,7 @@ begin
     if PEM_read_bio_DSAparams_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_DSAparams)}
-      PEM_read_bio_DSAparams := @_PEM_read_bio_DSAparams;
+      PEM_read_bio_DSAparams := _PEM_read_bio_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2511,13 +2511,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_DSAparams_allownil)}
-    PEM_write_bio_DSAparams := @ERR_PEM_write_bio_DSAparams;
+    PEM_write_bio_DSAparams := ERR_PEM_write_bio_DSAparams;
     {$ifend}
     {$if declared(PEM_write_bio_DSAparams_introduced)}
     if LibVersion < PEM_write_bio_DSAparams_introduced then
     begin
       {$if declared(FC_PEM_write_bio_DSAparams)}
-      PEM_write_bio_DSAparams := @FC_PEM_write_bio_DSAparams;
+      PEM_write_bio_DSAparams := FC_PEM_write_bio_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2526,7 +2526,7 @@ begin
     if PEM_write_bio_DSAparams_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_DSAparams)}
-      PEM_write_bio_DSAparams := @_PEM_write_bio_DSAparams;
+      PEM_write_bio_DSAparams := _PEM_write_bio_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2543,13 +2543,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_ECPKParameters_allownil)}
-    PEM_read_bio_ECPKParameters := @ERR_PEM_read_bio_ECPKParameters;
+    PEM_read_bio_ECPKParameters := ERR_PEM_read_bio_ECPKParameters;
     {$ifend}
     {$if declared(PEM_read_bio_ECPKParameters_introduced)}
     if LibVersion < PEM_read_bio_ECPKParameters_introduced then
     begin
       {$if declared(FC_PEM_read_bio_ECPKParameters)}
-      PEM_read_bio_ECPKParameters := @FC_PEM_read_bio_ECPKParameters;
+      PEM_read_bio_ECPKParameters := FC_PEM_read_bio_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2558,7 +2558,7 @@ begin
     if PEM_read_bio_ECPKParameters_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_ECPKParameters)}
-      PEM_read_bio_ECPKParameters := @_PEM_read_bio_ECPKParameters;
+      PEM_read_bio_ECPKParameters := _PEM_read_bio_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2575,13 +2575,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_ECPKParameters_allownil)}
-    PEM_write_bio_ECPKParameters := @ERR_PEM_write_bio_ECPKParameters;
+    PEM_write_bio_ECPKParameters := ERR_PEM_write_bio_ECPKParameters;
     {$ifend}
     {$if declared(PEM_write_bio_ECPKParameters_introduced)}
     if LibVersion < PEM_write_bio_ECPKParameters_introduced then
     begin
       {$if declared(FC_PEM_write_bio_ECPKParameters)}
-      PEM_write_bio_ECPKParameters := @FC_PEM_write_bio_ECPKParameters;
+      PEM_write_bio_ECPKParameters := FC_PEM_write_bio_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2590,7 +2590,7 @@ begin
     if PEM_write_bio_ECPKParameters_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_ECPKParameters)}
-      PEM_write_bio_ECPKParameters := @_PEM_write_bio_ECPKParameters;
+      PEM_write_bio_ECPKParameters := _PEM_write_bio_ECPKParameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2607,13 +2607,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_ECPrivateKey_allownil)}
-    PEM_read_bio_ECPrivateKey := @ERR_PEM_read_bio_ECPrivateKey;
+    PEM_read_bio_ECPrivateKey := ERR_PEM_read_bio_ECPrivateKey;
     {$ifend}
     {$if declared(PEM_read_bio_ECPrivateKey_introduced)}
     if LibVersion < PEM_read_bio_ECPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_read_bio_ECPrivateKey)}
-      PEM_read_bio_ECPrivateKey := @FC_PEM_read_bio_ECPrivateKey;
+      PEM_read_bio_ECPrivateKey := FC_PEM_read_bio_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2622,7 +2622,7 @@ begin
     if PEM_read_bio_ECPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_ECPrivateKey)}
-      PEM_read_bio_ECPrivateKey := @_PEM_read_bio_ECPrivateKey;
+      PEM_read_bio_ECPrivateKey := _PEM_read_bio_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2639,13 +2639,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_ECPrivateKey_allownil)}
-    PEM_write_bio_ECPrivateKey := @ERR_PEM_write_bio_ECPrivateKey;
+    PEM_write_bio_ECPrivateKey := ERR_PEM_write_bio_ECPrivateKey;
     {$ifend}
     {$if declared(PEM_write_bio_ECPrivateKey_introduced)}
     if LibVersion < PEM_write_bio_ECPrivateKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_ECPrivateKey)}
-      PEM_write_bio_ECPrivateKey := @FC_PEM_write_bio_ECPrivateKey;
+      PEM_write_bio_ECPrivateKey := FC_PEM_write_bio_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2654,7 +2654,7 @@ begin
     if PEM_write_bio_ECPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_ECPrivateKey)}
-      PEM_write_bio_ECPrivateKey := @_PEM_write_bio_ECPrivateKey;
+      PEM_write_bio_ECPrivateKey := _PEM_write_bio_ECPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2671,13 +2671,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_EC_PUBKEY_allownil)}
-    PEM_read_bio_EC_PUBKEY := @ERR_PEM_read_bio_EC_PUBKEY;
+    PEM_read_bio_EC_PUBKEY := ERR_PEM_read_bio_EC_PUBKEY;
     {$ifend}
     {$if declared(PEM_read_bio_EC_PUBKEY_introduced)}
     if LibVersion < PEM_read_bio_EC_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_read_bio_EC_PUBKEY)}
-      PEM_read_bio_EC_PUBKEY := @FC_PEM_read_bio_EC_PUBKEY;
+      PEM_read_bio_EC_PUBKEY := FC_PEM_read_bio_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2686,7 +2686,7 @@ begin
     if PEM_read_bio_EC_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_EC_PUBKEY)}
-      PEM_read_bio_EC_PUBKEY := @_PEM_read_bio_EC_PUBKEY;
+      PEM_read_bio_EC_PUBKEY := _PEM_read_bio_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2703,13 +2703,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_EC_PUBKEY_allownil)}
-    PEM_write_bio_EC_PUBKEY := @ERR_PEM_write_bio_EC_PUBKEY;
+    PEM_write_bio_EC_PUBKEY := ERR_PEM_write_bio_EC_PUBKEY;
     {$ifend}
     {$if declared(PEM_write_bio_EC_PUBKEY_introduced)}
     if LibVersion < PEM_write_bio_EC_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_write_bio_EC_PUBKEY)}
-      PEM_write_bio_EC_PUBKEY := @FC_PEM_write_bio_EC_PUBKEY;
+      PEM_write_bio_EC_PUBKEY := FC_PEM_write_bio_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2718,7 +2718,7 @@ begin
     if PEM_write_bio_EC_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_EC_PUBKEY)}
-      PEM_write_bio_EC_PUBKEY := @_PEM_write_bio_EC_PUBKEY;
+      PEM_write_bio_EC_PUBKEY := _PEM_write_bio_EC_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2735,13 +2735,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_DHparams_allownil)}
-    PEM_read_bio_DHparams := @ERR_PEM_read_bio_DHparams;
+    PEM_read_bio_DHparams := ERR_PEM_read_bio_DHparams;
     {$ifend}
     {$if declared(PEM_read_bio_DHparams_introduced)}
     if LibVersion < PEM_read_bio_DHparams_introduced then
     begin
       {$if declared(FC_PEM_read_bio_DHparams)}
-      PEM_read_bio_DHparams := @FC_PEM_read_bio_DHparams;
+      PEM_read_bio_DHparams := FC_PEM_read_bio_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2750,7 +2750,7 @@ begin
     if PEM_read_bio_DHparams_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_DHparams)}
-      PEM_read_bio_DHparams := @_PEM_read_bio_DHparams;
+      PEM_read_bio_DHparams := _PEM_read_bio_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2767,13 +2767,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_DHparams_allownil)}
-    PEM_write_bio_DHparams := @ERR_PEM_write_bio_DHparams;
+    PEM_write_bio_DHparams := ERR_PEM_write_bio_DHparams;
     {$ifend}
     {$if declared(PEM_write_bio_DHparams_introduced)}
     if LibVersion < PEM_write_bio_DHparams_introduced then
     begin
       {$if declared(FC_PEM_write_bio_DHparams)}
-      PEM_write_bio_DHparams := @FC_PEM_write_bio_DHparams;
+      PEM_write_bio_DHparams := FC_PEM_write_bio_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2782,7 +2782,7 @@ begin
     if PEM_write_bio_DHparams_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_DHparams)}
-      PEM_write_bio_DHparams := @_PEM_write_bio_DHparams;
+      PEM_write_bio_DHparams := _PEM_write_bio_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2799,13 +2799,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_DHxparams_allownil)}
-    PEM_write_bio_DHxparams := @ERR_PEM_write_bio_DHxparams;
+    PEM_write_bio_DHxparams := ERR_PEM_write_bio_DHxparams;
     {$ifend}
     {$if declared(PEM_write_bio_DHxparams_introduced)}
     if LibVersion < PEM_write_bio_DHxparams_introduced then
     begin
       {$if declared(FC_PEM_write_bio_DHxparams)}
-      PEM_write_bio_DHxparams := @FC_PEM_write_bio_DHxparams;
+      PEM_write_bio_DHxparams := FC_PEM_write_bio_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2814,7 +2814,7 @@ begin
     if PEM_write_bio_DHxparams_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_DHxparams)}
-      PEM_write_bio_DHxparams := @_PEM_write_bio_DHxparams;
+      PEM_write_bio_DHxparams := _PEM_write_bio_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2831,13 +2831,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PrivateKey_allownil)}
-    PEM_read_bio_PrivateKey := @ERR_PEM_read_bio_PrivateKey;
+    PEM_read_bio_PrivateKey := ERR_PEM_read_bio_PrivateKey;
     {$ifend}
     {$if declared(PEM_read_bio_PrivateKey_introduced)}
     if LibVersion < PEM_read_bio_PrivateKey_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PrivateKey)}
-      PEM_read_bio_PrivateKey := @FC_PEM_read_bio_PrivateKey;
+      PEM_read_bio_PrivateKey := FC_PEM_read_bio_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2846,7 +2846,7 @@ begin
     if PEM_read_bio_PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PrivateKey)}
-      PEM_read_bio_PrivateKey := @_PEM_read_bio_PrivateKey;
+      PEM_read_bio_PrivateKey := _PEM_read_bio_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2862,13 +2862,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PrivateKey_ex_allownil)}
-    PEM_read_bio_PrivateKey_ex := @ERR_PEM_read_bio_PrivateKey_ex;
+    PEM_read_bio_PrivateKey_ex := ERR_PEM_read_bio_PrivateKey_ex;
     {$ifend}
     {$if declared(PEM_read_bio_PrivateKey_ex_introduced)}
     if LibVersion < PEM_read_bio_PrivateKey_ex_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PrivateKey_ex)}
-      PEM_read_bio_PrivateKey_ex := @FC_PEM_read_bio_PrivateKey_ex;
+      PEM_read_bio_PrivateKey_ex := FC_PEM_read_bio_PrivateKey_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2877,7 +2877,7 @@ begin
     if PEM_read_bio_PrivateKey_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PrivateKey_ex)}
-      PEM_read_bio_PrivateKey_ex := @_PEM_read_bio_PrivateKey_ex;
+      PEM_read_bio_PrivateKey_ex := _PEM_read_bio_PrivateKey_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2894,13 +2894,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PrivateKey_allownil)}
-    PEM_write_bio_PrivateKey := @ERR_PEM_write_bio_PrivateKey;
+    PEM_write_bio_PrivateKey := ERR_PEM_write_bio_PrivateKey;
     {$ifend}
     {$if declared(PEM_write_bio_PrivateKey_introduced)}
     if LibVersion < PEM_write_bio_PrivateKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PrivateKey)}
-      PEM_write_bio_PrivateKey := @FC_PEM_write_bio_PrivateKey;
+      PEM_write_bio_PrivateKey := FC_PEM_write_bio_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2909,7 +2909,7 @@ begin
     if PEM_write_bio_PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PrivateKey)}
-      PEM_write_bio_PrivateKey := @_PEM_write_bio_PrivateKey;
+      PEM_write_bio_PrivateKey := _PEM_write_bio_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2925,13 +2925,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PrivateKey_ex_allownil)}
-    PEM_write_bio_PrivateKey_ex := @ERR_PEM_write_bio_PrivateKey_ex;
+    PEM_write_bio_PrivateKey_ex := ERR_PEM_write_bio_PrivateKey_ex;
     {$ifend}
     {$if declared(PEM_write_bio_PrivateKey_ex_introduced)}
     if LibVersion < PEM_write_bio_PrivateKey_ex_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PrivateKey_ex)}
-      PEM_write_bio_PrivateKey_ex := @FC_PEM_write_bio_PrivateKey_ex;
+      PEM_write_bio_PrivateKey_ex := FC_PEM_write_bio_PrivateKey_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2940,7 +2940,7 @@ begin
     if PEM_write_bio_PrivateKey_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PrivateKey_ex)}
-      PEM_write_bio_PrivateKey_ex := @_PEM_write_bio_PrivateKey_ex;
+      PEM_write_bio_PrivateKey_ex := _PEM_write_bio_PrivateKey_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2956,13 +2956,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PUBKEY_allownil)}
-    PEM_read_bio_PUBKEY := @ERR_PEM_read_bio_PUBKEY;
+    PEM_read_bio_PUBKEY := ERR_PEM_read_bio_PUBKEY;
     {$ifend}
     {$if declared(PEM_read_bio_PUBKEY_introduced)}
     if LibVersion < PEM_read_bio_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PUBKEY)}
-      PEM_read_bio_PUBKEY := @FC_PEM_read_bio_PUBKEY;
+      PEM_read_bio_PUBKEY := FC_PEM_read_bio_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2971,7 +2971,7 @@ begin
     if PEM_read_bio_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PUBKEY)}
-      PEM_read_bio_PUBKEY := @_PEM_read_bio_PUBKEY;
+      PEM_read_bio_PUBKEY := _PEM_read_bio_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2987,13 +2987,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_PUBKEY_ex_allownil)}
-    PEM_read_bio_PUBKEY_ex := @ERR_PEM_read_bio_PUBKEY_ex;
+    PEM_read_bio_PUBKEY_ex := ERR_PEM_read_bio_PUBKEY_ex;
     {$ifend}
     {$if declared(PEM_read_bio_PUBKEY_ex_introduced)}
     if LibVersion < PEM_read_bio_PUBKEY_ex_introduced then
     begin
       {$if declared(FC_PEM_read_bio_PUBKEY_ex)}
-      PEM_read_bio_PUBKEY_ex := @FC_PEM_read_bio_PUBKEY_ex;
+      PEM_read_bio_PUBKEY_ex := FC_PEM_read_bio_PUBKEY_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3002,7 +3002,7 @@ begin
     if PEM_read_bio_PUBKEY_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_PUBKEY_ex)}
-      PEM_read_bio_PUBKEY_ex := @_PEM_read_bio_PUBKEY_ex;
+      PEM_read_bio_PUBKEY_ex := _PEM_read_bio_PUBKEY_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3019,13 +3019,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PUBKEY_allownil)}
-    PEM_write_bio_PUBKEY := @ERR_PEM_write_bio_PUBKEY;
+    PEM_write_bio_PUBKEY := ERR_PEM_write_bio_PUBKEY;
     {$ifend}
     {$if declared(PEM_write_bio_PUBKEY_introduced)}
     if LibVersion < PEM_write_bio_PUBKEY_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PUBKEY)}
-      PEM_write_bio_PUBKEY := @FC_PEM_write_bio_PUBKEY;
+      PEM_write_bio_PUBKEY := FC_PEM_write_bio_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3034,7 +3034,7 @@ begin
     if PEM_write_bio_PUBKEY_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PUBKEY)}
-      PEM_write_bio_PUBKEY := @_PEM_write_bio_PUBKEY;
+      PEM_write_bio_PUBKEY := _PEM_write_bio_PUBKEY;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3050,13 +3050,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PUBKEY_ex_allownil)}
-    PEM_write_bio_PUBKEY_ex := @ERR_PEM_write_bio_PUBKEY_ex;
+    PEM_write_bio_PUBKEY_ex := ERR_PEM_write_bio_PUBKEY_ex;
     {$ifend}
     {$if declared(PEM_write_bio_PUBKEY_ex_introduced)}
     if LibVersion < PEM_write_bio_PUBKEY_ex_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PUBKEY_ex)}
-      PEM_write_bio_PUBKEY_ex := @FC_PEM_write_bio_PUBKEY_ex;
+      PEM_write_bio_PUBKEY_ex := FC_PEM_write_bio_PUBKEY_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3065,7 +3065,7 @@ begin
     if PEM_write_bio_PUBKEY_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PUBKEY_ex)}
-      PEM_write_bio_PUBKEY_ex := @_PEM_write_bio_PUBKEY_ex;
+      PEM_write_bio_PUBKEY_ex := _PEM_write_bio_PUBKEY_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3081,13 +3081,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PrivateKey_traditional_allownil)}
-    PEM_write_bio_PrivateKey_traditional := @ERR_PEM_write_bio_PrivateKey_traditional;
+    PEM_write_bio_PrivateKey_traditional := ERR_PEM_write_bio_PrivateKey_traditional;
     {$ifend}
     {$if declared(PEM_write_bio_PrivateKey_traditional_introduced)}
     if LibVersion < PEM_write_bio_PrivateKey_traditional_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PrivateKey_traditional)}
-      PEM_write_bio_PrivateKey_traditional := @FC_PEM_write_bio_PrivateKey_traditional;
+      PEM_write_bio_PrivateKey_traditional := FC_PEM_write_bio_PrivateKey_traditional;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3096,7 +3096,7 @@ begin
     if PEM_write_bio_PrivateKey_traditional_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PrivateKey_traditional)}
-      PEM_write_bio_PrivateKey_traditional := @_PEM_write_bio_PrivateKey_traditional;
+      PEM_write_bio_PrivateKey_traditional := _PEM_write_bio_PrivateKey_traditional;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3113,13 +3113,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS8PrivateKey_nid_allownil)}
-    PEM_write_bio_PKCS8PrivateKey_nid := @ERR_PEM_write_bio_PKCS8PrivateKey_nid;
+    PEM_write_bio_PKCS8PrivateKey_nid := ERR_PEM_write_bio_PKCS8PrivateKey_nid;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS8PrivateKey_nid_introduced)}
     if LibVersion < PEM_write_bio_PKCS8PrivateKey_nid_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS8PrivateKey_nid)}
-      PEM_write_bio_PKCS8PrivateKey_nid := @FC_PEM_write_bio_PKCS8PrivateKey_nid;
+      PEM_write_bio_PKCS8PrivateKey_nid := FC_PEM_write_bio_PKCS8PrivateKey_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3128,7 +3128,7 @@ begin
     if PEM_write_bio_PKCS8PrivateKey_nid_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS8PrivateKey_nid)}
-      PEM_write_bio_PKCS8PrivateKey_nid := @_PEM_write_bio_PKCS8PrivateKey_nid;
+      PEM_write_bio_PKCS8PrivateKey_nid := _PEM_write_bio_PKCS8PrivateKey_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3145,13 +3145,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS8PrivateKey_allownil)}
-    PEM_write_bio_PKCS8PrivateKey := @ERR_PEM_write_bio_PKCS8PrivateKey;
+    PEM_write_bio_PKCS8PrivateKey := ERR_PEM_write_bio_PKCS8PrivateKey;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS8PrivateKey_introduced)}
     if LibVersion < PEM_write_bio_PKCS8PrivateKey_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS8PrivateKey)}
-      PEM_write_bio_PKCS8PrivateKey := @FC_PEM_write_bio_PKCS8PrivateKey;
+      PEM_write_bio_PKCS8PrivateKey := FC_PEM_write_bio_PKCS8PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3160,7 +3160,7 @@ begin
     if PEM_write_bio_PKCS8PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS8PrivateKey)}
-      PEM_write_bio_PKCS8PrivateKey := @_PEM_write_bio_PKCS8PrivateKey;
+      PEM_write_bio_PKCS8PrivateKey := _PEM_write_bio_PKCS8PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3177,13 +3177,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS8PrivateKey_bio_allownil)}
-    i2d_PKCS8PrivateKey_bio := @ERR_i2d_PKCS8PrivateKey_bio;
+    i2d_PKCS8PrivateKey_bio := ERR_i2d_PKCS8PrivateKey_bio;
     {$ifend}
     {$if declared(i2d_PKCS8PrivateKey_bio_introduced)}
     if LibVersion < i2d_PKCS8PrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS8PrivateKey_bio)}
-      i2d_PKCS8PrivateKey_bio := @FC_i2d_PKCS8PrivateKey_bio;
+      i2d_PKCS8PrivateKey_bio := FC_i2d_PKCS8PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3192,7 +3192,7 @@ begin
     if i2d_PKCS8PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS8PrivateKey_bio)}
-      i2d_PKCS8PrivateKey_bio := @_i2d_PKCS8PrivateKey_bio;
+      i2d_PKCS8PrivateKey_bio := _i2d_PKCS8PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3209,13 +3209,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS8PrivateKey_nid_bio_allownil)}
-    i2d_PKCS8PrivateKey_nid_bio := @ERR_i2d_PKCS8PrivateKey_nid_bio;
+    i2d_PKCS8PrivateKey_nid_bio := ERR_i2d_PKCS8PrivateKey_nid_bio;
     {$ifend}
     {$if declared(i2d_PKCS8PrivateKey_nid_bio_introduced)}
     if LibVersion < i2d_PKCS8PrivateKey_nid_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS8PrivateKey_nid_bio)}
-      i2d_PKCS8PrivateKey_nid_bio := @FC_i2d_PKCS8PrivateKey_nid_bio;
+      i2d_PKCS8PrivateKey_nid_bio := FC_i2d_PKCS8PrivateKey_nid_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3224,7 +3224,7 @@ begin
     if i2d_PKCS8PrivateKey_nid_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS8PrivateKey_nid_bio)}
-      i2d_PKCS8PrivateKey_nid_bio := @_i2d_PKCS8PrivateKey_nid_bio;
+      i2d_PKCS8PrivateKey_nid_bio := _i2d_PKCS8PrivateKey_nid_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3241,13 +3241,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS8PrivateKey_bio_allownil)}
-    d2i_PKCS8PrivateKey_bio := @ERR_d2i_PKCS8PrivateKey_bio;
+    d2i_PKCS8PrivateKey_bio := ERR_d2i_PKCS8PrivateKey_bio;
     {$ifend}
     {$if declared(d2i_PKCS8PrivateKey_bio_introduced)}
     if LibVersion < d2i_PKCS8PrivateKey_bio_introduced then
     begin
       {$if declared(FC_d2i_PKCS8PrivateKey_bio)}
-      d2i_PKCS8PrivateKey_bio := @FC_d2i_PKCS8PrivateKey_bio;
+      d2i_PKCS8PrivateKey_bio := FC_d2i_PKCS8PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3256,7 +3256,7 @@ begin
     if d2i_PKCS8PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS8PrivateKey_bio)}
-      d2i_PKCS8PrivateKey_bio := @_d2i_PKCS8PrivateKey_bio;
+      d2i_PKCS8PrivateKey_bio := _d2i_PKCS8PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3273,13 +3273,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_Parameters_allownil)}
-    PEM_read_bio_Parameters := @ERR_PEM_read_bio_Parameters;
+    PEM_read_bio_Parameters := ERR_PEM_read_bio_Parameters;
     {$ifend}
     {$if declared(PEM_read_bio_Parameters_introduced)}
     if LibVersion < PEM_read_bio_Parameters_introduced then
     begin
       {$if declared(FC_PEM_read_bio_Parameters)}
-      PEM_read_bio_Parameters := @FC_PEM_read_bio_Parameters;
+      PEM_read_bio_Parameters := FC_PEM_read_bio_Parameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3288,7 +3288,7 @@ begin
     if PEM_read_bio_Parameters_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_Parameters)}
-      PEM_read_bio_Parameters := @_PEM_read_bio_Parameters;
+      PEM_read_bio_Parameters := _PEM_read_bio_Parameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3304,13 +3304,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_read_bio_Parameters_ex_allownil)}
-    PEM_read_bio_Parameters_ex := @ERR_PEM_read_bio_Parameters_ex;
+    PEM_read_bio_Parameters_ex := ERR_PEM_read_bio_Parameters_ex;
     {$ifend}
     {$if declared(PEM_read_bio_Parameters_ex_introduced)}
     if LibVersion < PEM_read_bio_Parameters_ex_introduced then
     begin
       {$if declared(FC_PEM_read_bio_Parameters_ex)}
-      PEM_read_bio_Parameters_ex := @FC_PEM_read_bio_Parameters_ex;
+      PEM_read_bio_Parameters_ex := FC_PEM_read_bio_Parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3319,7 +3319,7 @@ begin
     if PEM_read_bio_Parameters_ex_removed <= LibVersion then
     begin
       {$if declared(_PEM_read_bio_Parameters_ex)}
-      PEM_read_bio_Parameters_ex := @_PEM_read_bio_Parameters_ex;
+      PEM_read_bio_Parameters_ex := _PEM_read_bio_Parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3335,13 +3335,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_Parameters_allownil)}
-    PEM_write_bio_Parameters := @ERR_PEM_write_bio_Parameters;
+    PEM_write_bio_Parameters := ERR_PEM_write_bio_Parameters;
     {$ifend}
     {$if declared(PEM_write_bio_Parameters_introduced)}
     if LibVersion < PEM_write_bio_Parameters_introduced then
     begin
       {$if declared(FC_PEM_write_bio_Parameters)}
-      PEM_write_bio_Parameters := @FC_PEM_write_bio_Parameters;
+      PEM_write_bio_Parameters := FC_PEM_write_bio_Parameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3350,7 +3350,7 @@ begin
     if PEM_write_bio_Parameters_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_Parameters)}
-      PEM_write_bio_Parameters := @_PEM_write_bio_Parameters;
+      PEM_write_bio_Parameters := _PEM_write_bio_Parameters;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3367,13 +3367,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(b2i_PrivateKey_allownil)}
-    b2i_PrivateKey := @ERR_b2i_PrivateKey;
+    b2i_PrivateKey := ERR_b2i_PrivateKey;
     {$ifend}
     {$if declared(b2i_PrivateKey_introduced)}
     if LibVersion < b2i_PrivateKey_introduced then
     begin
       {$if declared(FC_b2i_PrivateKey)}
-      b2i_PrivateKey := @FC_b2i_PrivateKey;
+      b2i_PrivateKey := FC_b2i_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3382,7 +3382,7 @@ begin
     if b2i_PrivateKey_removed <= LibVersion then
     begin
       {$if declared(_b2i_PrivateKey)}
-      b2i_PrivateKey := @_b2i_PrivateKey;
+      b2i_PrivateKey := _b2i_PrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3399,13 +3399,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(b2i_PublicKey_allownil)}
-    b2i_PublicKey := @ERR_b2i_PublicKey;
+    b2i_PublicKey := ERR_b2i_PublicKey;
     {$ifend}
     {$if declared(b2i_PublicKey_introduced)}
     if LibVersion < b2i_PublicKey_introduced then
     begin
       {$if declared(FC_b2i_PublicKey)}
-      b2i_PublicKey := @FC_b2i_PublicKey;
+      b2i_PublicKey := FC_b2i_PublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3414,7 +3414,7 @@ begin
     if b2i_PublicKey_removed <= LibVersion then
     begin
       {$if declared(_b2i_PublicKey)}
-      b2i_PublicKey := @_b2i_PublicKey;
+      b2i_PublicKey := _b2i_PublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3431,13 +3431,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(b2i_PrivateKey_bio_allownil)}
-    b2i_PrivateKey_bio := @ERR_b2i_PrivateKey_bio;
+    b2i_PrivateKey_bio := ERR_b2i_PrivateKey_bio;
     {$ifend}
     {$if declared(b2i_PrivateKey_bio_introduced)}
     if LibVersion < b2i_PrivateKey_bio_introduced then
     begin
       {$if declared(FC_b2i_PrivateKey_bio)}
-      b2i_PrivateKey_bio := @FC_b2i_PrivateKey_bio;
+      b2i_PrivateKey_bio := FC_b2i_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3446,7 +3446,7 @@ begin
     if b2i_PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_b2i_PrivateKey_bio)}
-      b2i_PrivateKey_bio := @_b2i_PrivateKey_bio;
+      b2i_PrivateKey_bio := _b2i_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3463,13 +3463,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(b2i_PublicKey_bio_allownil)}
-    b2i_PublicKey_bio := @ERR_b2i_PublicKey_bio;
+    b2i_PublicKey_bio := ERR_b2i_PublicKey_bio;
     {$ifend}
     {$if declared(b2i_PublicKey_bio_introduced)}
     if LibVersion < b2i_PublicKey_bio_introduced then
     begin
       {$if declared(FC_b2i_PublicKey_bio)}
-      b2i_PublicKey_bio := @FC_b2i_PublicKey_bio;
+      b2i_PublicKey_bio := FC_b2i_PublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3478,7 +3478,7 @@ begin
     if b2i_PublicKey_bio_removed <= LibVersion then
     begin
       {$if declared(_b2i_PublicKey_bio)}
-      b2i_PublicKey_bio := @_b2i_PublicKey_bio;
+      b2i_PublicKey_bio := _b2i_PublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3495,13 +3495,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2b_PrivateKey_bio_allownil)}
-    i2b_PrivateKey_bio := @ERR_i2b_PrivateKey_bio;
+    i2b_PrivateKey_bio := ERR_i2b_PrivateKey_bio;
     {$ifend}
     {$if declared(i2b_PrivateKey_bio_introduced)}
     if LibVersion < i2b_PrivateKey_bio_introduced then
     begin
       {$if declared(FC_i2b_PrivateKey_bio)}
-      i2b_PrivateKey_bio := @FC_i2b_PrivateKey_bio;
+      i2b_PrivateKey_bio := FC_i2b_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3510,7 +3510,7 @@ begin
     if i2b_PrivateKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2b_PrivateKey_bio)}
-      i2b_PrivateKey_bio := @_i2b_PrivateKey_bio;
+      i2b_PrivateKey_bio := _i2b_PrivateKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3527,13 +3527,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2b_PublicKey_bio_allownil)}
-    i2b_PublicKey_bio := @ERR_i2b_PublicKey_bio;
+    i2b_PublicKey_bio := ERR_i2b_PublicKey_bio;
     {$ifend}
     {$if declared(i2b_PublicKey_bio_introduced)}
     if LibVersion < i2b_PublicKey_bio_introduced then
     begin
       {$if declared(FC_i2b_PublicKey_bio)}
-      i2b_PublicKey_bio := @FC_i2b_PublicKey_bio;
+      i2b_PublicKey_bio := FC_i2b_PublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3542,7 +3542,7 @@ begin
     if i2b_PublicKey_bio_removed <= LibVersion then
     begin
       {$if declared(_i2b_PublicKey_bio)}
-      i2b_PublicKey_bio := @_i2b_PublicKey_bio;
+      i2b_PublicKey_bio := _i2b_PublicKey_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3559,13 +3559,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(b2i_PVK_bio_allownil)}
-    b2i_PVK_bio := @ERR_b2i_PVK_bio;
+    b2i_PVK_bio := ERR_b2i_PVK_bio;
     {$ifend}
     {$if declared(b2i_PVK_bio_introduced)}
     if LibVersion < b2i_PVK_bio_introduced then
     begin
       {$if declared(FC_b2i_PVK_bio)}
-      b2i_PVK_bio := @FC_b2i_PVK_bio;
+      b2i_PVK_bio := FC_b2i_PVK_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3574,7 +3574,7 @@ begin
     if b2i_PVK_bio_removed <= LibVersion then
     begin
       {$if declared(_b2i_PVK_bio)}
-      b2i_PVK_bio := @_b2i_PVK_bio;
+      b2i_PVK_bio := _b2i_PVK_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3591,13 +3591,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2b_PVK_bio_allownil)}
-    i2b_PVK_bio := @ERR_i2b_PVK_bio;
+    i2b_PVK_bio := ERR_i2b_PVK_bio;
     {$ifend}
     {$if declared(i2b_PVK_bio_introduced)}
     if LibVersion < i2b_PVK_bio_introduced then
     begin
       {$if declared(FC_i2b_PVK_bio)}
-      i2b_PVK_bio := @FC_i2b_PVK_bio;
+      i2b_PVK_bio := FC_i2b_PVK_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3606,7 +3606,7 @@ begin
     if i2b_PVK_bio_removed <= LibVersion then
     begin
       {$if declared(_i2b_PVK_bio)}
-      i2b_PVK_bio := @_i2b_PVK_bio;
+      i2b_PVK_bio := _i2b_PVK_bio;
       {$ifend}
       FuncLoadError := false;
     end;

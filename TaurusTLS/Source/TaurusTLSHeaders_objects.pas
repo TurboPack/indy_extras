@@ -473,7 +473,7 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_OBJ_NAME_init: TIdC_INT; 
+function  ERR_OBJ_NAME_init: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_init_procname);
 end;
@@ -482,25 +482,25 @@ end;
   //TIdC_INT OBJ_NAME_new_index(TIdC_ULONG (*hash_func) (const PIdAnsiChar *);
   //                       TIdC_INT (*cmp_func) (const PIdAnsiChar *; const PIdAnsiChar *);
   //                       void (*free_func) (const PIdAnsiChar *; TIdC_INT; const PIdAnsiChar *));
-function  ERR_OBJ_NAME_get(const name: PIdAnsiChar; type_: TIdC_INT): PIdAnsiChar; 
+function  ERR_OBJ_NAME_get(const name: PIdAnsiChar; type_: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_get_procname);
 end;
 
 
-function  ERR_OBJ_NAME_add(const name: PIdAnsiChar; type_: TIdC_INT; const data: PIdAnsiChar): TIdC_INT; 
+function  ERR_OBJ_NAME_add(const name: PIdAnsiChar; type_: TIdC_INT; const data: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_add_procname);
 end;
 
 
-function  ERR_OBJ_NAME_remove(const name: PIdAnsiChar; type_: TIdC_INT): TIdC_INT; 
+function  ERR_OBJ_NAME_remove(const name: PIdAnsiChar; type_: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_remove_procname);
 end;
 
 
-procedure  ERR_OBJ_NAME_cleanup(type_: TIdC_INT); 
+procedure  ERR_OBJ_NAME_cleanup(type_: TIdC_INT);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_NAME_cleanup_procname);
 end;
@@ -512,67 +512,67 @@ end;
 //                              void (*fn) (const OBJ_NAME *; void *arg);
 //                              void *arg);
 
-function  ERR_OBJ_dup(const o: PASN1_OBJECT): PASN1_OBJECT; 
+function  ERR_OBJ_dup(const o: PASN1_OBJECT): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_dup_procname);
 end;
 
 
-function  ERR_OBJ_nid2obj(n: TIdC_INT): PASN1_OBJECT; 
+function  ERR_OBJ_nid2obj(n: TIdC_INT): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_nid2obj_procname);
 end;
 
 
-function  ERR_OBJ_nid2ln(n: TIdC_INT): PIdAnsiChar; 
+function  ERR_OBJ_nid2ln(n: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_nid2ln_procname);
 end;
 
 
-function  ERR_OBJ_nid2sn(n: TIdC_INT): PIdAnsiChar; 
+function  ERR_OBJ_nid2sn(n: TIdC_INT): PIdAnsiChar;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_nid2sn_procname);
 end;
 
 
-function  ERR_OBJ_obj2nid(const o: PASN1_OBJECT): TIdC_INT; 
+function  ERR_OBJ_obj2nid(const o: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_obj2nid_procname);
 end;
 
 
-function  ERR_OBJ_txt2obj(const s: PIdAnsiChar; no_name: TIdC_INT): PASN1_OBJECT; 
+function  ERR_OBJ_txt2obj(const s: PIdAnsiChar; no_name: TIdC_INT): PASN1_OBJECT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_txt2obj_procname);
 end;
 
 
-function  ERR_OBJ_obj2txt(buf: PIdAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT; no_name: TIdC_INT): TIdC_INT; 
+function  ERR_OBJ_obj2txt(buf: PIdAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT; no_name: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_obj2txt_procname);
 end;
 
 
-function  ERR_OBJ_txt2nid(const s: PIdAnsiChar): TIdC_INT; 
+function  ERR_OBJ_txt2nid(const s: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_txt2nid_procname);
 end;
 
 
-function  ERR_OBJ_ln2nid(const s: PIdAnsiChar): TIdC_INT; 
+function  ERR_OBJ_ln2nid(const s: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_ln2nid_procname);
 end;
 
 
-function  ERR_OBJ_sn2nid(const s: PIdAnsiChar): TIdC_INT; 
+function  ERR_OBJ_sn2nid(const s: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_sn2nid_procname);
 end;
 
 
-function  ERR_OBJ_cmp(const a: PASN1_OBJECT; const b: PASN1_OBJECT): TIdC_INT; 
+function  ERR_OBJ_cmp(const a: PASN1_OBJECT; const b: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_cmp_procname);
 end;
@@ -664,63 +664,63 @@ end;
   //                          (void)type_2=CHECKED_PTR_OF(type2;cmp##_type_2); \
   //                          cmp##_BSEARCH_CMP_FN));flags)
 
-function  ERR_OBJ_new_nid(num: TIdC_INT): TIdC_INT; 
+function  ERR_OBJ_new_nid(num: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_new_nid_procname);
 end;
 
 
-function  ERR_OBJ_add_object(const obj: PASN1_OBJECT): TIdC_INT; 
+function  ERR_OBJ_add_object(const obj: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_add_object_procname);
 end;
 
 
-function  ERR_OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT;
+function  ERR_OBJ_create(const oid: PIdAnsiChar; const sn: PIdAnsiChar; const _ln: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_create_procname);
 end;
 
 
-function  ERR_OBJ_create_objects(in_: PBIO): TIdC_INT; 
+function  ERR_OBJ_create_objects(in_: PBIO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_create_objects_procname);
 end;
 
 
 
-function  ERR_OBJ_length(const obj: PASN1_OBJECT): TIdC_SIZET; 
+function  ERR_OBJ_length(const obj: PASN1_OBJECT): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_length_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_OBJ_get0_data(const obj: PASN1_OBJECT): PByte; 
+function  ERR_OBJ_get0_data(const obj: PASN1_OBJECT): PByte;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_get0_data_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_OBJ_find_sigid_algs(signid: TIdC_INT; pdig_nid: PIdC_INT; ppkey_nid: PIdC_INT): TIdC_INT; 
+function  ERR_OBJ_find_sigid_algs(signid: TIdC_INT; pdig_nid: PIdC_INT; ppkey_nid: PIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_find_sigid_algs_procname);
 end;
 
 
-function  ERR_OBJ_find_sigid_by_algs(psignid: PIdC_INT; dig_nid: TIdC_INT; pkey_nid: TIdC_INT): TIdC_INT; 
+function  ERR_OBJ_find_sigid_by_algs(psignid: PIdC_INT; dig_nid: TIdC_INT; pkey_nid: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_find_sigid_by_algs_procname);
 end;
 
 
-function  ERR_OBJ_add_sigid(signid: TIdC_INT; dig_id: TIdC_INT; pkey_id: TIdC_INT): TIdC_INT; 
+function  ERR_OBJ_add_sigid(signid: TIdC_INT; dig_id: TIdC_INT; pkey_id: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_add_sigid_procname);
 end;
 
 
-procedure  ERR_OBJ_sigid_free; 
+procedure  ERR_OBJ_sigid_free;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OBJ_sigid_free_procname);
 end;
@@ -739,13 +739,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_NAME_init_allownil)}
-    OBJ_NAME_init := @ERR_OBJ_NAME_init;
+    OBJ_NAME_init := ERR_OBJ_NAME_init;
     {$ifend}
     {$if declared(OBJ_NAME_init_introduced)}
     if LibVersion < OBJ_NAME_init_introduced then
     begin
       {$if declared(FC_OBJ_NAME_init)}
-      OBJ_NAME_init := @FC_OBJ_NAME_init;
+      OBJ_NAME_init := FC_OBJ_NAME_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -754,7 +754,7 @@ begin
     if OBJ_NAME_init_removed <= LibVersion then
     begin
       {$if declared(_OBJ_NAME_init)}
-      OBJ_NAME_init := @_OBJ_NAME_init;
+      OBJ_NAME_init := _OBJ_NAME_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -771,13 +771,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_NAME_get_allownil)}
-    OBJ_NAME_get := @ERR_OBJ_NAME_get;
+    OBJ_NAME_get := ERR_OBJ_NAME_get;
     {$ifend}
     {$if declared(OBJ_NAME_get_introduced)}
     if LibVersion < OBJ_NAME_get_introduced then
     begin
       {$if declared(FC_OBJ_NAME_get)}
-      OBJ_NAME_get := @FC_OBJ_NAME_get;
+      OBJ_NAME_get := FC_OBJ_NAME_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -786,7 +786,7 @@ begin
     if OBJ_NAME_get_removed <= LibVersion then
     begin
       {$if declared(_OBJ_NAME_get)}
-      OBJ_NAME_get := @_OBJ_NAME_get;
+      OBJ_NAME_get := _OBJ_NAME_get;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -803,13 +803,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_NAME_add_allownil)}
-    OBJ_NAME_add := @ERR_OBJ_NAME_add;
+    OBJ_NAME_add := ERR_OBJ_NAME_add;
     {$ifend}
     {$if declared(OBJ_NAME_add_introduced)}
     if LibVersion < OBJ_NAME_add_introduced then
     begin
       {$if declared(FC_OBJ_NAME_add)}
-      OBJ_NAME_add := @FC_OBJ_NAME_add;
+      OBJ_NAME_add := FC_OBJ_NAME_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -818,7 +818,7 @@ begin
     if OBJ_NAME_add_removed <= LibVersion then
     begin
       {$if declared(_OBJ_NAME_add)}
-      OBJ_NAME_add := @_OBJ_NAME_add;
+      OBJ_NAME_add := _OBJ_NAME_add;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -835,13 +835,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_NAME_remove_allownil)}
-    OBJ_NAME_remove := @ERR_OBJ_NAME_remove;
+    OBJ_NAME_remove := ERR_OBJ_NAME_remove;
     {$ifend}
     {$if declared(OBJ_NAME_remove_introduced)}
     if LibVersion < OBJ_NAME_remove_introduced then
     begin
       {$if declared(FC_OBJ_NAME_remove)}
-      OBJ_NAME_remove := @FC_OBJ_NAME_remove;
+      OBJ_NAME_remove := FC_OBJ_NAME_remove;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -850,7 +850,7 @@ begin
     if OBJ_NAME_remove_removed <= LibVersion then
     begin
       {$if declared(_OBJ_NAME_remove)}
-      OBJ_NAME_remove := @_OBJ_NAME_remove;
+      OBJ_NAME_remove := _OBJ_NAME_remove;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -867,13 +867,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_NAME_cleanup_allownil)}
-    OBJ_NAME_cleanup := @ERR_OBJ_NAME_cleanup;
+    OBJ_NAME_cleanup := ERR_OBJ_NAME_cleanup;
     {$ifend}
     {$if declared(OBJ_NAME_cleanup_introduced)}
     if LibVersion < OBJ_NAME_cleanup_introduced then
     begin
       {$if declared(FC_OBJ_NAME_cleanup)}
-      OBJ_NAME_cleanup := @FC_OBJ_NAME_cleanup;
+      OBJ_NAME_cleanup := FC_OBJ_NAME_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -882,7 +882,7 @@ begin
     if OBJ_NAME_cleanup_removed <= LibVersion then
     begin
       {$if declared(_OBJ_NAME_cleanup)}
-      OBJ_NAME_cleanup := @_OBJ_NAME_cleanup;
+      OBJ_NAME_cleanup := _OBJ_NAME_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -899,13 +899,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_dup_allownil)}
-    OBJ_dup := @ERR_OBJ_dup;
+    OBJ_dup := ERR_OBJ_dup;
     {$ifend}
     {$if declared(OBJ_dup_introduced)}
     if LibVersion < OBJ_dup_introduced then
     begin
       {$if declared(FC_OBJ_dup)}
-      OBJ_dup := @FC_OBJ_dup;
+      OBJ_dup := FC_OBJ_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -914,7 +914,7 @@ begin
     if OBJ_dup_removed <= LibVersion then
     begin
       {$if declared(_OBJ_dup)}
-      OBJ_dup := @_OBJ_dup;
+      OBJ_dup := _OBJ_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -931,13 +931,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_nid2obj_allownil)}
-    OBJ_nid2obj := @ERR_OBJ_nid2obj;
+    OBJ_nid2obj := ERR_OBJ_nid2obj;
     {$ifend}
     {$if declared(OBJ_nid2obj_introduced)}
     if LibVersion < OBJ_nid2obj_introduced then
     begin
       {$if declared(FC_OBJ_nid2obj)}
-      OBJ_nid2obj := @FC_OBJ_nid2obj;
+      OBJ_nid2obj := FC_OBJ_nid2obj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -946,7 +946,7 @@ begin
     if OBJ_nid2obj_removed <= LibVersion then
     begin
       {$if declared(_OBJ_nid2obj)}
-      OBJ_nid2obj := @_OBJ_nid2obj;
+      OBJ_nid2obj := _OBJ_nid2obj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -963,13 +963,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_nid2ln_allownil)}
-    OBJ_nid2ln := @ERR_OBJ_nid2ln;
+    OBJ_nid2ln := ERR_OBJ_nid2ln;
     {$ifend}
     {$if declared(OBJ_nid2ln_introduced)}
     if LibVersion < OBJ_nid2ln_introduced then
     begin
       {$if declared(FC_OBJ_nid2ln)}
-      OBJ_nid2ln := @FC_OBJ_nid2ln;
+      OBJ_nid2ln := FC_OBJ_nid2ln;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -978,7 +978,7 @@ begin
     if OBJ_nid2ln_removed <= LibVersion then
     begin
       {$if declared(_OBJ_nid2ln)}
-      OBJ_nid2ln := @_OBJ_nid2ln;
+      OBJ_nid2ln := _OBJ_nid2ln;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -995,13 +995,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_nid2sn_allownil)}
-    OBJ_nid2sn := @ERR_OBJ_nid2sn;
+    OBJ_nid2sn := ERR_OBJ_nid2sn;
     {$ifend}
     {$if declared(OBJ_nid2sn_introduced)}
     if LibVersion < OBJ_nid2sn_introduced then
     begin
       {$if declared(FC_OBJ_nid2sn)}
-      OBJ_nid2sn := @FC_OBJ_nid2sn;
+      OBJ_nid2sn := FC_OBJ_nid2sn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1010,7 +1010,7 @@ begin
     if OBJ_nid2sn_removed <= LibVersion then
     begin
       {$if declared(_OBJ_nid2sn)}
-      OBJ_nid2sn := @_OBJ_nid2sn;
+      OBJ_nid2sn := _OBJ_nid2sn;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1027,13 +1027,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_obj2nid_allownil)}
-    OBJ_obj2nid := @ERR_OBJ_obj2nid;
+    OBJ_obj2nid := ERR_OBJ_obj2nid;
     {$ifend}
     {$if declared(OBJ_obj2nid_introduced)}
     if LibVersion < OBJ_obj2nid_introduced then
     begin
       {$if declared(FC_OBJ_obj2nid)}
-      OBJ_obj2nid := @FC_OBJ_obj2nid;
+      OBJ_obj2nid := FC_OBJ_obj2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1042,7 +1042,7 @@ begin
     if OBJ_obj2nid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_obj2nid)}
-      OBJ_obj2nid := @_OBJ_obj2nid;
+      OBJ_obj2nid := _OBJ_obj2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1059,13 +1059,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_txt2obj_allownil)}
-    OBJ_txt2obj := @ERR_OBJ_txt2obj;
+    OBJ_txt2obj := ERR_OBJ_txt2obj;
     {$ifend}
     {$if declared(OBJ_txt2obj_introduced)}
     if LibVersion < OBJ_txt2obj_introduced then
     begin
       {$if declared(FC_OBJ_txt2obj)}
-      OBJ_txt2obj := @FC_OBJ_txt2obj;
+      OBJ_txt2obj := FC_OBJ_txt2obj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1074,7 +1074,7 @@ begin
     if OBJ_txt2obj_removed <= LibVersion then
     begin
       {$if declared(_OBJ_txt2obj)}
-      OBJ_txt2obj := @_OBJ_txt2obj;
+      OBJ_txt2obj := _OBJ_txt2obj;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1091,13 +1091,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_obj2txt_allownil)}
-    OBJ_obj2txt := @ERR_OBJ_obj2txt;
+    OBJ_obj2txt := ERR_OBJ_obj2txt;
     {$ifend}
     {$if declared(OBJ_obj2txt_introduced)}
     if LibVersion < OBJ_obj2txt_introduced then
     begin
       {$if declared(FC_OBJ_obj2txt)}
-      OBJ_obj2txt := @FC_OBJ_obj2txt;
+      OBJ_obj2txt := FC_OBJ_obj2txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1106,7 +1106,7 @@ begin
     if OBJ_obj2txt_removed <= LibVersion then
     begin
       {$if declared(_OBJ_obj2txt)}
-      OBJ_obj2txt := @_OBJ_obj2txt;
+      OBJ_obj2txt := _OBJ_obj2txt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1123,13 +1123,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_txt2nid_allownil)}
-    OBJ_txt2nid := @ERR_OBJ_txt2nid;
+    OBJ_txt2nid := ERR_OBJ_txt2nid;
     {$ifend}
     {$if declared(OBJ_txt2nid_introduced)}
     if LibVersion < OBJ_txt2nid_introduced then
     begin
       {$if declared(FC_OBJ_txt2nid)}
-      OBJ_txt2nid := @FC_OBJ_txt2nid;
+      OBJ_txt2nid := FC_OBJ_txt2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1138,7 +1138,7 @@ begin
     if OBJ_txt2nid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_txt2nid)}
-      OBJ_txt2nid := @_OBJ_txt2nid;
+      OBJ_txt2nid := _OBJ_txt2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1155,13 +1155,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_ln2nid_allownil)}
-    OBJ_ln2nid := @ERR_OBJ_ln2nid;
+    OBJ_ln2nid := ERR_OBJ_ln2nid;
     {$ifend}
     {$if declared(OBJ_ln2nid_introduced)}
     if LibVersion < OBJ_ln2nid_introduced then
     begin
       {$if declared(FC_OBJ_ln2nid)}
-      OBJ_ln2nid := @FC_OBJ_ln2nid;
+      OBJ_ln2nid := FC_OBJ_ln2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1170,7 +1170,7 @@ begin
     if OBJ_ln2nid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_ln2nid)}
-      OBJ_ln2nid := @_OBJ_ln2nid;
+      OBJ_ln2nid := _OBJ_ln2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1187,13 +1187,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_sn2nid_allownil)}
-    OBJ_sn2nid := @ERR_OBJ_sn2nid;
+    OBJ_sn2nid := ERR_OBJ_sn2nid;
     {$ifend}
     {$if declared(OBJ_sn2nid_introduced)}
     if LibVersion < OBJ_sn2nid_introduced then
     begin
       {$if declared(FC_OBJ_sn2nid)}
-      OBJ_sn2nid := @FC_OBJ_sn2nid;
+      OBJ_sn2nid := FC_OBJ_sn2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1202,7 +1202,7 @@ begin
     if OBJ_sn2nid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_sn2nid)}
-      OBJ_sn2nid := @_OBJ_sn2nid;
+      OBJ_sn2nid := _OBJ_sn2nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1219,13 +1219,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_cmp_allownil)}
-    OBJ_cmp := @ERR_OBJ_cmp;
+    OBJ_cmp := ERR_OBJ_cmp;
     {$ifend}
     {$if declared(OBJ_cmp_introduced)}
     if LibVersion < OBJ_cmp_introduced then
     begin
       {$if declared(FC_OBJ_cmp)}
-      OBJ_cmp := @FC_OBJ_cmp;
+      OBJ_cmp := FC_OBJ_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1234,7 +1234,7 @@ begin
     if OBJ_cmp_removed <= LibVersion then
     begin
       {$if declared(_OBJ_cmp)}
-      OBJ_cmp := @_OBJ_cmp;
+      OBJ_cmp := _OBJ_cmp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1251,13 +1251,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_new_nid_allownil)}
-    OBJ_new_nid := @ERR_OBJ_new_nid;
+    OBJ_new_nid := ERR_OBJ_new_nid;
     {$ifend}
     {$if declared(OBJ_new_nid_introduced)}
     if LibVersion < OBJ_new_nid_introduced then
     begin
       {$if declared(FC_OBJ_new_nid)}
-      OBJ_new_nid := @FC_OBJ_new_nid;
+      OBJ_new_nid := FC_OBJ_new_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1266,7 +1266,7 @@ begin
     if OBJ_new_nid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_new_nid)}
-      OBJ_new_nid := @_OBJ_new_nid;
+      OBJ_new_nid := _OBJ_new_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1283,13 +1283,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_add_object_allownil)}
-    OBJ_add_object := @ERR_OBJ_add_object;
+    OBJ_add_object := ERR_OBJ_add_object;
     {$ifend}
     {$if declared(OBJ_add_object_introduced)}
     if LibVersion < OBJ_add_object_introduced then
     begin
       {$if declared(FC_OBJ_add_object)}
-      OBJ_add_object := @FC_OBJ_add_object;
+      OBJ_add_object := FC_OBJ_add_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1298,7 +1298,7 @@ begin
     if OBJ_add_object_removed <= LibVersion then
     begin
       {$if declared(_OBJ_add_object)}
-      OBJ_add_object := @_OBJ_add_object;
+      OBJ_add_object := _OBJ_add_object;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1315,13 +1315,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_create_allownil)}
-    OBJ_create := @ERR_OBJ_create;
+    OBJ_create := ERR_OBJ_create;
     {$ifend}
     {$if declared(OBJ_create_introduced)}
     if LibVersion < OBJ_create_introduced then
     begin
       {$if declared(FC_OBJ_create)}
-      OBJ_create := @FC_OBJ_create;
+      OBJ_create := FC_OBJ_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1330,7 +1330,7 @@ begin
     if OBJ_create_removed <= LibVersion then
     begin
       {$if declared(_OBJ_create)}
-      OBJ_create := @_OBJ_create;
+      OBJ_create := _OBJ_create;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1347,13 +1347,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_create_objects_allownil)}
-    OBJ_create_objects := @ERR_OBJ_create_objects;
+    OBJ_create_objects := ERR_OBJ_create_objects;
     {$ifend}
     {$if declared(OBJ_create_objects_introduced)}
     if LibVersion < OBJ_create_objects_introduced then
     begin
       {$if declared(FC_OBJ_create_objects)}
-      OBJ_create_objects := @FC_OBJ_create_objects;
+      OBJ_create_objects := FC_OBJ_create_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1362,7 +1362,7 @@ begin
     if OBJ_create_objects_removed <= LibVersion then
     begin
       {$if declared(_OBJ_create_objects)}
-      OBJ_create_objects := @_OBJ_create_objects;
+      OBJ_create_objects := _OBJ_create_objects;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1379,13 +1379,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_length_allownil)}
-    OBJ_length := @ERR_OBJ_length;
+    OBJ_length := ERR_OBJ_length;
     {$ifend}
     {$if declared(OBJ_length_introduced)}
     if LibVersion < OBJ_length_introduced then
     begin
       {$if declared(FC_OBJ_length)}
-      OBJ_length := @FC_OBJ_length;
+      OBJ_length := FC_OBJ_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1394,7 +1394,7 @@ begin
     if OBJ_length_removed <= LibVersion then
     begin
       {$if declared(_OBJ_length)}
-      OBJ_length := @_OBJ_length;
+      OBJ_length := _OBJ_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1411,13 +1411,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_get0_data_allownil)}
-    OBJ_get0_data := @ERR_OBJ_get0_data;
+    OBJ_get0_data := ERR_OBJ_get0_data;
     {$ifend}
     {$if declared(OBJ_get0_data_introduced)}
     if LibVersion < OBJ_get0_data_introduced then
     begin
       {$if declared(FC_OBJ_get0_data)}
-      OBJ_get0_data := @FC_OBJ_get0_data;
+      OBJ_get0_data := FC_OBJ_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1426,7 +1426,7 @@ begin
     if OBJ_get0_data_removed <= LibVersion then
     begin
       {$if declared(_OBJ_get0_data)}
-      OBJ_get0_data := @_OBJ_get0_data;
+      OBJ_get0_data := _OBJ_get0_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1443,13 +1443,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_find_sigid_algs_allownil)}
-    OBJ_find_sigid_algs := @ERR_OBJ_find_sigid_algs;
+    OBJ_find_sigid_algs := ERR_OBJ_find_sigid_algs;
     {$ifend}
     {$if declared(OBJ_find_sigid_algs_introduced)}
     if LibVersion < OBJ_find_sigid_algs_introduced then
     begin
       {$if declared(FC_OBJ_find_sigid_algs)}
-      OBJ_find_sigid_algs := @FC_OBJ_find_sigid_algs;
+      OBJ_find_sigid_algs := FC_OBJ_find_sigid_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1458,7 +1458,7 @@ begin
     if OBJ_find_sigid_algs_removed <= LibVersion then
     begin
       {$if declared(_OBJ_find_sigid_algs)}
-      OBJ_find_sigid_algs := @_OBJ_find_sigid_algs;
+      OBJ_find_sigid_algs := _OBJ_find_sigid_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1475,13 +1475,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_find_sigid_by_algs_allownil)}
-    OBJ_find_sigid_by_algs := @ERR_OBJ_find_sigid_by_algs;
+    OBJ_find_sigid_by_algs := ERR_OBJ_find_sigid_by_algs;
     {$ifend}
     {$if declared(OBJ_find_sigid_by_algs_introduced)}
     if LibVersion < OBJ_find_sigid_by_algs_introduced then
     begin
       {$if declared(FC_OBJ_find_sigid_by_algs)}
-      OBJ_find_sigid_by_algs := @FC_OBJ_find_sigid_by_algs;
+      OBJ_find_sigid_by_algs := FC_OBJ_find_sigid_by_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1490,7 +1490,7 @@ begin
     if OBJ_find_sigid_by_algs_removed <= LibVersion then
     begin
       {$if declared(_OBJ_find_sigid_by_algs)}
-      OBJ_find_sigid_by_algs := @_OBJ_find_sigid_by_algs;
+      OBJ_find_sigid_by_algs := _OBJ_find_sigid_by_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1507,13 +1507,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_add_sigid_allownil)}
-    OBJ_add_sigid := @ERR_OBJ_add_sigid;
+    OBJ_add_sigid := ERR_OBJ_add_sigid;
     {$ifend}
     {$if declared(OBJ_add_sigid_introduced)}
     if LibVersion < OBJ_add_sigid_introduced then
     begin
       {$if declared(FC_OBJ_add_sigid)}
-      OBJ_add_sigid := @FC_OBJ_add_sigid;
+      OBJ_add_sigid := FC_OBJ_add_sigid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1522,7 +1522,7 @@ begin
     if OBJ_add_sigid_removed <= LibVersion then
     begin
       {$if declared(_OBJ_add_sigid)}
-      OBJ_add_sigid := @_OBJ_add_sigid;
+      OBJ_add_sigid := _OBJ_add_sigid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1539,13 +1539,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(OBJ_sigid_free_allownil)}
-    OBJ_sigid_free := @ERR_OBJ_sigid_free;
+    OBJ_sigid_free := ERR_OBJ_sigid_free;
     {$ifend}
     {$if declared(OBJ_sigid_free_introduced)}
     if LibVersion < OBJ_sigid_free_introduced then
     begin
       {$if declared(FC_OBJ_sigid_free)}
-      OBJ_sigid_free := @FC_OBJ_sigid_free;
+      OBJ_sigid_free := FC_OBJ_sigid_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1554,7 +1554,7 @@ begin
     if OBJ_sigid_free_removed <= LibVersion then
     begin
       {$if declared(_OBJ_sigid_free)}
-      OBJ_sigid_free := @_OBJ_sigid_free;
+      OBJ_sigid_free := _OBJ_sigid_free;
       {$ifend}
       FuncLoadError := false;
     end;

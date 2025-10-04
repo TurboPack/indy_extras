@@ -306,7 +306,7 @@ var
   PKCS7_ENVELOPE_free : procedure(a: PPKCS7_ENVELOPE); cdecl = nil;
   d2i_PKCS7_ENVELOPE : function(a: PPPKCS7_ENVELOPE; const in_: PByte; len: TIdC_LONG): PPKCS7_ENVELOPE; cdecl = nil;
   i2d_PKCS7_ENVELOPE : function(const a: PPKCS7_ENVELOPE; out_: PByte): TIdC_INT; cdecl = nil;
-  PKCS7_ENVELOPE_it : function : PASN1_ITEM;
+  PKCS7_ENVELOPE_it : function : PASN1_ITEM; cdecl = nil;
 
   PKCS7_SIGN_ENVELOPE_new : function : PPKCS7_SIGN_ENVELOPE; cdecl = nil;
   PKCS7_SIGN_ENVELOPE_free : procedure (a: PPKCS7_SIGN_ENVELOPE); cdecl = nil;
@@ -361,7 +361,7 @@ var
   PKCS7_add_signature: function (p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO; cdecl = nil;
   PKCS7_cert_from_signer_info: function (p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509; cdecl = nil;
   PKCS7_set_digest: function (p7: PPKCS7; const md: PEVP_MD): TIdC_INT; cdecl = nil;
-  PKCS7_get_signer_info : function (p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO;
+  PKCS7_get_signer_info : function (p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO; cdecl = nil;
 
   PKCS7_add_recipient: function (p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO; cdecl = nil;
   PKCS7_SIGNER_INFO_get0_algs: procedure (si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR); cdecl = nil;
@@ -753,581 +753,582 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_PKCS7_ISSUER_AND_SERIAL_digest(data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD; md: PByte; len: PIdC_UINT): TIdC_INT; 
+function  ERR_PKCS7_ISSUER_AND_SERIAL_digest(data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD;
+  md: PByte; len: PIdC_UINT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ISSUER_AND_SERIAL_digest_procname);
 end;
 
 
 
-function  ERR_PKCS7_dup(p7: PPKCS7): PPKCS7; 
+function  ERR_PKCS7_dup(p7: PPKCS7): PPKCS7;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_dup_procname);
 end;
 
 
-function  ERR_d2i_PKCS7_bio(bp: PBIO; p7: PPPKCS7): PPKCS7; 
+function  ERR_d2i_PKCS7_bio(bp: PBIO; p7: PPPKCS7): PPKCS7;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS7_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS7_bio(bp: PBIO; p7: PPKCS7): TIdC_INT; 
+function  ERR_i2d_PKCS7_bio(bp: PBIO; p7: PPKCS7): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS7_bio_procname);
 end;
 
 
-function  ERR_i2d_PKCS7_bio_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TIdC_INT): TIdC_INT; 
+function  ERR_i2d_PKCS7_bio_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS7_bio_stream_procname);
 end;
 
 
-function  ERR_PEM_write_bio_PKCS7_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TIdC_INT): TIdC_INT; 
+function  ERR_PEM_write_bio_PKCS7_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PEM_write_bio_PKCS7_stream_procname);
 end;
 
 
-function ERR_PKCS7_SIGNER_INFO_new: PPKCS7_SIGNER_INFO;
+function ERR_PKCS7_SIGNER_INFO_new: PPKCS7_SIGNER_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNER_INFO_new_procname);
 end;
 
-procedure ERR_PKCS7_SIGNER_INFO_free(a: PPKCS7_SIGNER_INFO);
+procedure ERR_PKCS7_SIGNER_INFO_free(a: PPKCS7_SIGNER_INFO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNER_INFO_free_procname);
 end;
 
-function ERR_d2i_PKCS7_SIGNER_INFO(a: PPPKCS7_SIGNER_INFO; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGNER_INFO;
+function ERR_d2i_PKCS7_SIGNER_INFO(a: PPPKCS7_SIGNER_INFO; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGNER_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_SIGNER_INFO_procname);
 end;
 
-function ERR_i2d_PKCS7_SIGNER_INFO(const a: PPKCS7_SIGNER_INFO; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_SIGNER_INFO(const a: PPKCS7_SIGNER_INFO; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_SIGNER_INFO_procname);
 end;
 
-function ERR_PKCS7_SIGNER_INFO_it: PASN1_ITEM;
+function ERR_PKCS7_SIGNER_INFO_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNER_INFO_it_procname);
 end;
 
-function ERR_PKCS7_RECIP_INFO_new: PPKCS7_RECIP_INFO;
+function ERR_PKCS7_RECIP_INFO_new: PPKCS7_RECIP_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_RECIP_INFO_new_procname );
 end;
 
-procedure ERR_PKCS7_RECIP_INFO_free(a: PPKCS7_RECIP_INFO);
+procedure ERR_PKCS7_RECIP_INFO_free(a: PPKCS7_RECIP_INFO); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_RECIP_INFO_free_procname);
 end;
 
-function ERR_d2i_PKCS7_RECIP_INFO(a: PPPKCS7_RECIP_INFO; const in_: PByte; len: TIdC_LONG): PPKCS7_RECIP_INFO;
+function ERR_d2i_PKCS7_RECIP_INFO(a: PPPKCS7_RECIP_INFO; const in_: PByte; len: TIdC_LONG): PPKCS7_RECIP_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_RECIP_INFO_procname );
 end;
 
-function ERR_i2d_PKCS7_RECIP_INFO(const a: PPKCS7_RECIP_INFO; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_RECIP_INFO(const a: PPKCS7_RECIP_INFO; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_RECIP_INFO_procname );
 end;
 
-function ERR_PKCS7_RECIP_INFO_it: PASN1_ITEM;
+function ERR_PKCS7_RECIP_INFO_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_RECIP_INFO_it_procname );
 end;
 
-function ERR_PKCS7_SIGNED_new: PPKCS7_SIGNED;
+function ERR_PKCS7_SIGNED_new: PPKCS7_SIGNED; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNED_new_procname);
 end;
 
-procedure ERR_PKCS7_SIGNED_free(a: PPKCS7_SIGNED);
+procedure ERR_PKCS7_SIGNED_free(a: PPKCS7_SIGNED); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNED_free_procname);
 end;
 
-function ERR_d2i_PKCS7_SIGNED(a: PPPKCS7_SIGNED; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGNED;
+function ERR_d2i_PKCS7_SIGNED(a: PPPKCS7_SIGNED; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGNED; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_SIGNED_procname );
 end;
 
-function ERR_i2d_PKCS7_SIGNED(const a: PPKCS7_SIGNED; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_SIGNED(const a: PPKCS7_SIGNED; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_SIGNED_procname );
 end;
 
-function ERR_PKCS7_SIGNED_it: PASN1_ITEM;
+function ERR_PKCS7_SIGNED_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGNED_it_procname );
 end;
 
-function ERR_PKCS7_ENC_CONTENT_new: PPKCS7_ENC_CONTENT;
+function ERR_PKCS7_ENC_CONTENT_new: PPKCS7_ENC_CONTENT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENC_CONTENT_new_procname );
 end;
 
-procedure ERR_PKCS7_ENC_CONTENT_free(a: PPKCS7_ENC_CONTENT);
+procedure ERR_PKCS7_ENC_CONTENT_free(a: PPKCS7_ENC_CONTENT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENC_CONTENT_free_procname );
 end;
 
-function ERR_d2i_PKCS7_ENC_CONTENT(a: PPPKCS7_ENC_CONTENT; const in_: PByte; len: TIdC_LONG): PPKCS7_ENC_CONTENT;
+function ERR_d2i_PKCS7_ENC_CONTENT(a: PPPKCS7_ENC_CONTENT; const in_: PByte; len: TIdC_LONG): PPKCS7_ENC_CONTENT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_ENC_CONTENT_procname );
 end;
 
-function ERR_i2d_PKCS7_ENC_CONTENT(const a: PPKCS7_ENC_CONTENT; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_ENC_CONTENT(const a: PPKCS7_ENC_CONTENT; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_ENC_CONTENT_procname );
 end;
 
-function ERR_PKCS7_ENC_CONTENT_it: PASN1_ITEM;
+function ERR_PKCS7_ENC_CONTENT_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENC_CONTENT_it_procname );
 end;
 
-function ERR_PKCS7_ENVELOPE_new: PPKCS7_ENVELOPE;
+function ERR_PKCS7_ENVELOPE_new: PPKCS7_ENVELOPE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENVELOPE_new_procname);
 end;
 
-procedure ERR_PKCS7_ENVELOPE_free(a: PPKCS7_ENVELOPE);
+procedure ERR_PKCS7_ENVELOPE_free(a: PPKCS7_ENVELOPE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ENVELOPE_free_procname);
 end;
 
-function ERR_d2i_PKCS7_ENVELOPE(a: PPPKCS7_ENVELOPE; const in_: PByte; len: TIdC_LONG): PPKCS7_ENVELOPE;
+function ERR_d2i_PKCS7_ENVELOPE(a: PPPKCS7_ENVELOPE; const in_: PByte; len: TIdC_LONG): PPKCS7_ENVELOPE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_ENVELOPE_procname);
 end;
 
-function ERR_i2d_PKCS7_ENVELOPE(const a: PPKCS7_ENVELOPE; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_ENVELOPE(const a: PPKCS7_ENVELOPE; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_ENVELOPE_procname);
 end;
 
-function ERR_PKCS7_ENVELOPE_it: PASN1_ITEM;
+function ERR_PKCS7_ENVELOPE_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENVELOPE_it_procname);
 end;
 
-function ERR_PKCS7_SIGN_ENVELOPE_new: PPKCS7_SIGN_ENVELOPE;
+function ERR_PKCS7_SIGN_ENVELOPE_new: PPKCS7_SIGN_ENVELOPE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGN_ENVELOPE_new_procname);
 end;
 
-procedure ERR_PKCS7_SIGN_ENVELOPE_free(a: PPKCS7_SIGN_ENVELOPE);
+procedure ERR_PKCS7_SIGN_ENVELOPE_free(a: PPKCS7_SIGN_ENVELOPE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_SIGN_ENVELOPE_free_procname );
 end;
 
-function ERR_d2i_PKCS7_SIGN_ENVELOPE(a: PPPKCS7_SIGN_ENVELOPE; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGN_ENVELOPE;
+function ERR_d2i_PKCS7_SIGN_ENVELOPE(a: PPPKCS7_SIGN_ENVELOPE; const in_: PByte; len: TIdC_LONG): PPKCS7_SIGN_ENVELOPE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_PKCS7_SIGN_ENVELOPE_procname);
 end;
 
-function ERR_i2d_PKCS7_SIGN_ENVELOPE(const a: PPKCS7_SIGN_ENVELOPE; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_SIGN_ENVELOPE(const a: PPKCS7_SIGN_ENVELOPE; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_SIGN_ENVELOPE_procname );
 end;
 
-function ERR_PKCS7_SIGN_ENVELOPE_it: PASN1_ITEM;
+function ERR_PKCS7_SIGN_ENVELOPE_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_SIGN_ENVELOPE_it_procname);
 end;
 
-function ERR_PKCS7_DIGEST_new: PPKCS7_DIGEST;
+function ERR_PKCS7_DIGEST_new: PPKCS7_DIGEST; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_DIGEST_new_procname);
 end;
 
-procedure ERR_PKCS7_DIGEST_free(a: PPKCS7_DIGEST);
+procedure ERR_PKCS7_DIGEST_free(a: PPKCS7_DIGEST); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_DIGEST_free_procname);
 end;
 
-function ERR_d2i_PKCS7_DIGEST(a: PPPKCS7_DIGEST; const in_: PByte; len: TIdC_LONG): PPKCS7_DIGEST;
+function ERR_d2i_PKCS7_DIGEST(a: PPPKCS7_DIGEST; const in_: PByte; len: TIdC_LONG): PPKCS7_DIGEST; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_DIGEST_procname);
 end;
 
-function ERR_i2d_PKCS7_DIGEST(const a: PPKCS7_DIGEST; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_DIGEST(const a: PPKCS7_DIGEST; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_DIGEST_procname);
 end;
 
-function ERR_PKCS7_DIGEST_it: PASN1_ITEM;
+function ERR_PKCS7_DIGEST_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_DIGEST_it_procname);
 end;
 
-function ERR_PKCS7_ENCRYPT_new: PPKCS7_ENCRYPT_STRUCT;
+function ERR_PKCS7_ENCRYPT_new: PPKCS7_ENCRYPT_STRUCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENCRYPT_new_procname);
 end;
 
-procedure ERR_PKCS7_ENCRYPT_free(a: PPKCS7_ENCRYPT_STRUCT);
+procedure ERR_PKCS7_ENCRYPT_free(a: PPKCS7_ENCRYPT_STRUCT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENCRYPT_free_procname );
 end;
 
-function ERR_d2i_PKCS7_ENCRYPT(a: PPPKCS7_ENCRYPT_STRUCT; const in_: PByte; len: TIdC_LONG): PPKCS7_ENCRYPT_STRUCT;
+function ERR_d2i_PKCS7_ENCRYPT(a: PPPKCS7_ENCRYPT_STRUCT; const in_: PByte; len: TIdC_LONG): PPKCS7_ENCRYPT_STRUCT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_ENCRYPT_procname);
 end;
 
-function ERR_i2d_PKCS7_ENCRYPT(const a: PPKCS7_ENCRYPT_STRUCT; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7_ENCRYPT(const a: PPKCS7_ENCRYPT_STRUCT; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_ENCRYPT_procname);
 end;
 
-function ERR_PKCS7_ENCRYPT_it: PASN1_ITEM;
+function ERR_PKCS7_ENCRYPT_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ENCRYPT_it_procname);
 end;
 
-function ERR_PKCS7_new: PPKCS7;
+function ERR_PKCS7_new: PPKCS7; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_new_procname);
 end;
 
-procedure ERR_PKCS7_free(a: PPKCS7);
+procedure ERR_PKCS7_free(a: PPKCS7); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_free_procname );
 end;
 
-function ERR_d2i_PKCS7(a: PPPKCS7; const in_: PByte; len: TIdC_LONG): PPKCS7;
+function ERR_d2i_PKCS7(a: PPPKCS7; const in_: PByte; len: TIdC_LONG): PPKCS7; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( d2i_PKCS7_procname);
 end;
 
-function ERR_i2d_PKCS7(const a: PPKCS7; out_: PByte): TIdC_INT;
+function ERR_i2d_PKCS7(const a: PPKCS7; out_: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( i2d_PKCS7_procname);
 end;
 
-function ERR_PKCS7_it: PASN1_ITEM;
+function ERR_PKCS7_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_it_procname);
 end;
 
-function ERR_PKCS7_ATTR_SIGN_it: PASN1_ITEM;
+function ERR_PKCS7_ATTR_SIGN_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_ATTR_SIGN_it_procname);
 end;
 
-function ERR_PKCS7_ATTR_VERIFY_it: PASN1_ITEM;
+function ERR_PKCS7_ATTR_VERIFY_it: PASN1_ITEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ATTR_VERIFY_it_procname);
 end;
 
-function ERR_i2d_PKCS7_NDEF(const a: PPKCS7; out_: PPByte): TIdC_INT;
+function ERR_i2d_PKCS7_NDEF(const a: PPKCS7; out_: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_PKCS7_NDEF_procname);
 end;
 
-function ERR_PKCS7_print_ctx(out_: PBIO; const x: PPKCS7; indent: TIdC_INT; const pctx: PASN1_PCTX): TIdC_INT;
+function ERR_PKCS7_print_ctx(out_: PBIO; const x: PPKCS7; indent: TIdC_INT; const pctx: PASN1_PCTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_print_ctx_procname);
 end;
 
-function  ERR_PKCS7_ctrl(p7: PPKCS7; cmd: TIdC_INT; larg: TIdC_LONG; parg: PIdAnsiChar): TIdC_LONG;
+function  ERR_PKCS7_ctrl(p7: PPKCS7; cmd: TIdC_INT; larg: TIdC_LONG; parg: PIdAnsiChar): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_ctrl_procname);
 end;
 
-function ERR_PKCS7_type_is_other(p7 : PPKCS7): TIdC_INT;
+function ERR_PKCS7_type_is_other(p7 : PPKCS7): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_type_is_other_procname);
 end;
 
-function  ERR_PKCS7_set_type(p7: PPKCS7; type_: TIdC_INT): TIdC_INT;
+function  ERR_PKCS7_set_type(p7: PPKCS7; type_: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_type_procname);
 end;
 
-function  ERR_PKCS7_set0_type_other(p7: PPKCS7; type_: TIdC_INT; other: PASN1_TYPE): TIdC_INT;
+function  ERR_PKCS7_set0_type_other(p7: PPKCS7; type_: TIdC_INT; other: PASN1_TYPE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set0_type_other_procname);
 end;
 
 
-function  ERR_PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TIdC_INT;
+function  ERR_PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_content_procname);
 end;
 
 
-function  ERR_PKCS7_SIGNER_INFO_set(p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TIdC_INT;
+function  ERR_PKCS7_SIGNER_INFO_set(p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_SIGNER_INFO_set_procname);
 end;
 
-function  ERR_PKCS7_SIGNER_INFO_sign(si: PPKCS7_SIGNER_INFO): TIdC_INT;
+function  ERR_PKCS7_SIGNER_INFO_sign(si: PPKCS7_SIGNER_INFO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_SIGNER_INFO_sign_procname);
 end;
 
 
-function  ERR_PKCS7_add_signer(p7: PPKCS7; p7i: PPKCS7_SIGNER_INFO): TIdC_INT; 
+function  ERR_PKCS7_add_signer(p7: PPKCS7; p7i: PPKCS7_SIGNER_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_signer_procname);
 end;
 
 
-function  ERR_PKCS7_add_certificate(p7: PPKCS7; x509: PX509): TIdC_INT; 
+function  ERR_PKCS7_add_certificate(p7: PPKCS7; x509: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_certificate_procname);
 end;
 
 
-function  ERR_PKCS7_add_crl(p7: PPKCS7; x509: PX509_CRL): TIdC_INT; 
+function  ERR_PKCS7_add_crl(p7: PPKCS7; x509: PX509_CRL): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_crl_procname);
 end;
 
 
-function  ERR_PKCS7_content_new(p7: PPKCS7; nid: TIdC_INT): TIdC_INT;
+function  ERR_PKCS7_content_new(p7: PPKCS7; nid: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_content_new_procname);
 end;
 
 
-function  ERR_PKCS7_dataVerify(cert_store: PX509_STORE; ctx: PX509_STORE_CTX; bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO): TIdC_INT; 
+function  ERR_PKCS7_dataVerify(cert_store: PX509_STORE; ctx: PX509_STORE_CTX; bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_dataVerify_procname);
 end;
 
 
-function  ERR_PKCS7_signatureVerify(bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO; x509: PX509): TIdC_INT; 
+function  ERR_PKCS7_signatureVerify(bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO; x509: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_signatureVerify_procname);
 end;
 
 
 
-function  ERR_PKCS7_dataInit(p7: PPKCS7; bio: PBIO): PBIO; 
+function  ERR_PKCS7_dataInit(p7: PPKCS7; bio: PBIO): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_dataInit_procname);
 end;
 
 
-function  ERR_PKCS7_dataFinal(p7: PPKCS7; bio: PBIO): TIdC_INT; 
+function  ERR_PKCS7_dataFinal(p7: PPKCS7; bio: PBIO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_dataFinal_procname);
 end;
 
 
-function  ERR_PKCS7_dataDecode(p7: PPKCS7; pkey: PEVP_PKEY; in_bio: PBIO; pcert: PX509): PBIO; 
+function  ERR_PKCS7_dataDecode(p7: PPKCS7; pkey: PEVP_PKEY; in_bio: PBIO; pcert: PX509): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_dataDecode_procname);
 end;
 
 
 
-function  ERR_PKCS7_add_signature(p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO; 
+function  ERR_PKCS7_add_signature(p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_signature_procname);
 end;
 
 
-function  ERR_PKCS7_cert_from_signer_info(p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509; 
+function  ERR_PKCS7_cert_from_signer_info(p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_cert_from_signer_info_procname);
 end;
 
 
-function  ERR_PKCS7_set_digest(p7: PPKCS7; const md: PEVP_MD): TIdC_INT; 
+function  ERR_PKCS7_set_digest(p7: PPKCS7; const md: PEVP_MD): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_digest_procname);
 end;
 
 
-function ERR_PKCS7_get_signer_info(p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO;
+function ERR_PKCS7_get_signer_info(p7: PPKCS7): PSTACK_OF_PKCS7_SIGNER_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_signer_info_procname);
 end;
 
-function  ERR_PKCS7_add_recipient(p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO; 
+function  ERR_PKCS7_add_recipient(p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_recipient_procname);
 end;
 
 
-procedure  ERR_PKCS7_SIGNER_INFO_get0_algs(si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR); 
+procedure  ERR_PKCS7_SIGNER_INFO_get0_algs(si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_SIGNER_INFO_get0_algs_procname);
 end;
 
 
-procedure  ERR_PKCS7_RECIP_INFO_get0_alg(ri: PPKCS7_RECIP_INFO; penc: PPX509_ALGOR); 
+procedure  ERR_PKCS7_RECIP_INFO_get0_alg(ri: PPKCS7_RECIP_INFO; penc: PPX509_ALGOR);  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_RECIP_INFO_get0_alg_procname);
 end;
 
 
-function  ERR_PKCS7_add_recipient_info(p7: PPKCS7; ri: PPKCS7_RECIP_INFO): TIdC_INT; 
+function  ERR_PKCS7_add_recipient_info(p7: PPKCS7; ri: PPKCS7_RECIP_INFO): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_recipient_info_procname);
 end;
 
 
-function  ERR_PKCS7_RECIP_INFO_set(p7i: PPKCS7_RECIP_INFO; x509: PX509): TIdC_INT; 
+function  ERR_PKCS7_RECIP_INFO_set(p7i: PPKCS7_RECIP_INFO; x509: PX509): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_RECIP_INFO_set_procname);
 end;
 
 
-function  ERR_PKCS7_set_cipher(p7: PPKCS7; const cipher: PEVP_CIPHER): TIdC_INT; 
+function  ERR_PKCS7_set_cipher(p7: PPKCS7; const cipher: PEVP_CIPHER): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_cipher_procname);
 end;
 
 
-function  ERR_PKCS7_stream(boundary: PPPByte; p7: PPKCS7): TIdC_INT; 
+function  ERR_PKCS7_stream(boundary: PPPByte; p7: PPKCS7): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_stream_procname);
 end;
 
 
 
-function  ERR_PKCS7_get_issuer_and_serial(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL; 
+function  ERR_PKCS7_get_issuer_and_serial(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_issuer_and_serial_procname);
 end;
 
-function ERR_PKCS7_get_octet_string(p7: PPKCS7; idx: TIdC_INT): PPKCS7_ISSUER_AND_SERIAL;
+function ERR_PKCS7_get_octet_string(p7 : PPKCS7) : PASN1_OCTET_STRING; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_octet_string_procname);
 end;
 
-function ERR_PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING;
+function ERR_PKCS7_digest_from_attributes(sk: PSTACK_OF_X509_ATTRIBUTE): PASN1_OCTET_STRING; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_digest_from_attributes_procname);
 end;
 
-function  ERR_PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT;
+function  ERR_PKCS7_add_signed_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; type_: TIdC_INT; data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_signed_attribute_procname);
 end;
 
 
-function  ERR_PKCS7_add_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT; 
+function  ERR_PKCS7_add_attribute(p7si: PPKCS7_SIGNER_INFO; nid: TIdC_INT; atrtype: TIdC_INT; value: Pointer): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_attribute_procname);
 end;
 
 
-function  ERR_PKCS7_get_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; 
+function  ERR_PKCS7_get_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_attribute_procname);
 end;
 
 
-function  ERR_PKCS7_get_signed_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE; 
+function  ERR_PKCS7_get_signed_attribute(si: PPKCS7_SIGNER_INFO; nid: TIdC_INT): PASN1_TYPE;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_get_signed_attribute_procname);
 end;
 
 
-function ERR_PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT;
+function ERR_PKCS7_set_signed_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_signed_attributes_procname);
 end;
 
-function ERR_PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT;
+function ERR_PKCS7_set_attributes(p7si: PPKCS7_SIGNER_INFO; sk: PSTACK_OF_X509_ATTRIBUTE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_set_attributes_procname);
 end;
 
-function ERR_PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7;
+function ERR_PKCS7_sign(signcert: PX509; pkey: PEVP_PKEY; certs: PSTACK_OF_X509; data: PBIO; flags: TIdC_INT): PPKCS7; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_sign_procname);
 end;
 
-function  ERR_PKCS7_sign_add_signer(p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO;
+function  ERR_PKCS7_sign_add_signer(p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TIdC_INT): PPKCS7_SIGNER_INFO; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_sign_add_signer_procname);
 end;
 
-function  ERR_PKCS7_final(p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS7_final(p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_final_procname);
 end;
 
 
-function ERR_PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT;
+function ERR_PKCS7_verify(p7: PPKCS7; certs: PSTACK_OF_X509; store: PX509_STORE; indata: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_verify_procname);
 end;
 
-function ERR_PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509;
+function ERR_PKCS7_get0_signers(p7: PPKCS7; certs: PSTACK_OF_X509; flags: TIdC_INT): PSTACK_OF_X509; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_get0_signers_procname );
 end;
 
-function ERR_PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7;
+function ERR_PKCS7_encrypt(certs: PSTACK_OF_X509; in_: PBIO; const cipher: PEVP_CIPHER; flags: TIdC_INT): PPKCS7; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_encrypt_procname );
 end;
 
-function  ERR_PKCS7_decrypt(p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT;
+function  ERR_PKCS7_decrypt(p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_decrypt_procname);
 end;
 
-function ERR_PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT;
+function ERR_PKCS7_add_attrib_smimecap(si: PPKCS7_SIGNER_INFO; cap: PSTACK_OF_X509_ALGOR): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_add_attrib_smimecap_procname );
 end;
 
-function ERR_PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR;
+function ERR_PKCS7_get_smimecap(si: PPKCS7_SIGNER_INFO): PSTACK_OF_X509_ALGOR; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_get_smimecap_procname );
 end;
 
-function ERR_PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT;
+function ERR_PKCS7_simple_smimecap(sk: PSTACK_OF_X509_ALGOR; nid: TIdC_INT; arg: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException( PKCS7_simple_smimecap_procname );
 end;
 
-function  ERR_PKCS7_add_attrib_content_type(si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT; 
+function  ERR_PKCS7_add_attrib_content_type(si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add_attrib_content_type_procname);
 end;
 
 
-function  ERR_PKCS7_add0_attrib_signing_time(si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TIdC_INT; 
+function  ERR_PKCS7_add0_attrib_signing_time(si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add0_attrib_signing_time_procname);
 end;
 
 
-function  ERR_PKCS7_add1_attrib_digest(si: PPKCS7_SIGNER_INFO; const md: PByte; mdlen: TIdC_INT): TIdC_INT; 
+function  ERR_PKCS7_add1_attrib_digest(si: PPKCS7_SIGNER_INFO; const md: PByte; mdlen: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(PKCS7_add1_attrib_digest_procname);
 end;
 
 
 
-function  ERR_SMIME_write_PKCS7(bio: PBIO; p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT; 
+function  ERR_SMIME_write_PKCS7(bio: PBIO; p7: PPKCS7; data: PBIO; flags: TIdC_INT): TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SMIME_write_PKCS7_procname);
 end;
 
 
-function  ERR_SMIME_read_PKCS7(bio: PBIO; bcont: PPBIO): PPKCS7; 
+function  ERR_SMIME_read_PKCS7(bio: PBIO; bcont: PPBIO): PPKCS7;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SMIME_read_PKCS7_procname);
 end;
 
 
 
-function  ERR_BIO_new_PKCS7(out_: PBIO; p7: PPKCS7): PBIO; 
+function  ERR_BIO_new_PKCS7(out_: PBIO; p7: PPKCS7): PBIO;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_new_PKCS7_procname);
 end;
@@ -1347,13 +1348,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ISSUER_AND_SERIAL_digest_allownil)}
-    PKCS7_ISSUER_AND_SERIAL_digest := @ERR_PKCS7_ISSUER_AND_SERIAL_digest;
+    PKCS7_ISSUER_AND_SERIAL_digest := ERR_PKCS7_ISSUER_AND_SERIAL_digest;
     {$ifend}
     {$if declared(PKCS7_ISSUER_AND_SERIAL_digest_introduced)}
     if LibVersion < PKCS7_ISSUER_AND_SERIAL_digest_introduced then
     begin
       {$if declared(FC_PKCS7_ISSUER_AND_SERIAL_digest)}
-      PKCS7_ISSUER_AND_SERIAL_digest := @FC_PKCS7_ISSUER_AND_SERIAL_digest;
+      PKCS7_ISSUER_AND_SERIAL_digest := FC_PKCS7_ISSUER_AND_SERIAL_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1362,7 +1363,7 @@ begin
     if PKCS7_ISSUER_AND_SERIAL_digest_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ISSUER_AND_SERIAL_digest)}
-      PKCS7_ISSUER_AND_SERIAL_digest := @_PKCS7_ISSUER_AND_SERIAL_digest;
+      PKCS7_ISSUER_AND_SERIAL_digest := _PKCS7_ISSUER_AND_SERIAL_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1379,13 +1380,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_dup_allownil)}
-    PKCS7_dup := @ERR_PKCS7_dup;
+    PKCS7_dup := ERR_PKCS7_dup;
     {$ifend}
     {$if declared(PKCS7_dup_introduced)}
     if LibVersion < PKCS7_dup_introduced then
     begin
       {$if declared(FC_PKCS7_dup)}
-      PKCS7_dup := @FC_PKCS7_dup;
+      PKCS7_dup := FC_PKCS7_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1394,7 +1395,7 @@ begin
     if PKCS7_dup_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_dup)}
-      PKCS7_dup := @_PKCS7_dup;
+      PKCS7_dup := _PKCS7_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1411,13 +1412,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_bio_allownil)}
-    d2i_PKCS7_bio := @ERR_d2i_PKCS7_bio;
+    d2i_PKCS7_bio := ERR_d2i_PKCS7_bio;
     {$ifend}
     {$if declared(d2i_PKCS7_bio_introduced)}
     if LibVersion < d2i_PKCS7_bio_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_bio)}
-      d2i_PKCS7_bio := @FC_d2i_PKCS7_bio;
+      d2i_PKCS7_bio := FC_d2i_PKCS7_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1426,7 +1427,7 @@ begin
     if d2i_PKCS7_bio_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_bio)}
-      d2i_PKCS7_bio := @_d2i_PKCS7_bio;
+      d2i_PKCS7_bio := _d2i_PKCS7_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1443,13 +1444,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_bio_allownil)}
-    i2d_PKCS7_bio := @ERR_i2d_PKCS7_bio;
+    i2d_PKCS7_bio := ERR_i2d_PKCS7_bio;
     {$ifend}
     {$if declared(i2d_PKCS7_bio_introduced)}
     if LibVersion < i2d_PKCS7_bio_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_bio)}
-      i2d_PKCS7_bio := @FC_i2d_PKCS7_bio;
+      i2d_PKCS7_bio := FC_i2d_PKCS7_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1458,7 +1459,7 @@ begin
     if i2d_PKCS7_bio_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_bio)}
-      i2d_PKCS7_bio := @_i2d_PKCS7_bio;
+      i2d_PKCS7_bio := _i2d_PKCS7_bio;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1475,13 +1476,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_bio_stream_allownil)}
-    i2d_PKCS7_bio_stream := @ERR_i2d_PKCS7_bio_stream;
+    i2d_PKCS7_bio_stream := ERR_i2d_PKCS7_bio_stream;
     {$ifend}
     {$if declared(i2d_PKCS7_bio_stream_introduced)}
     if LibVersion < i2d_PKCS7_bio_stream_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_bio_stream)}
-      i2d_PKCS7_bio_stream := @FC_i2d_PKCS7_bio_stream;
+      i2d_PKCS7_bio_stream := FC_i2d_PKCS7_bio_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1490,7 +1491,7 @@ begin
     if i2d_PKCS7_bio_stream_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_bio_stream)}
-      i2d_PKCS7_bio_stream := @_i2d_PKCS7_bio_stream;
+      i2d_PKCS7_bio_stream := _i2d_PKCS7_bio_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1507,13 +1508,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PEM_write_bio_PKCS7_stream_allownil)}
-    PEM_write_bio_PKCS7_stream := @ERR_PEM_write_bio_PKCS7_stream;
+    PEM_write_bio_PKCS7_stream := ERR_PEM_write_bio_PKCS7_stream;
     {$ifend}
     {$if declared(PEM_write_bio_PKCS7_stream_introduced)}
     if LibVersion < PEM_write_bio_PKCS7_stream_introduced then
     begin
       {$if declared(FC_PEM_write_bio_PKCS7_stream)}
-      PEM_write_bio_PKCS7_stream := @FC_PEM_write_bio_PKCS7_stream;
+      PEM_write_bio_PKCS7_stream := FC_PEM_write_bio_PKCS7_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1522,7 +1523,7 @@ begin
     if PEM_write_bio_PKCS7_stream_removed <= LibVersion then
     begin
       {$if declared(_PEM_write_bio_PKCS7_stream)}
-      PEM_write_bio_PKCS7_stream := @_PEM_write_bio_PKCS7_stream;
+      PEM_write_bio_PKCS7_stream := _PEM_write_bio_PKCS7_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1539,13 +1540,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_new_allownil)}
-    PKCS7_SIGNER_INFO_new := @ERR_PKCS7_SIGNER_INFO_new;
+    PKCS7_SIGNER_INFO_new := ERR_PKCS7_SIGNER_INFO_new;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_new_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_new_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_new)}
-      PKCS7_SIGNER_INFO_new := @FC_PKCS7_SIGNER_INFO_new;
+      PKCS7_SIGNER_INFO_new := FC_PKCS7_SIGNER_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1554,7 +1555,7 @@ begin
     if PKCS7_SIGNER_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_new)}
-      PKCS7_SIGNER_INFO_new := @_PKCS7_SIGNER_INFO_new;
+      PKCS7_SIGNER_INFO_new := _PKCS7_SIGNER_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1571,13 +1572,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_free_allownil)}
-    PKCS7_SIGNER_INFO_free := @ERR_PKCS7_SIGNER_INFO_free;
+    PKCS7_SIGNER_INFO_free := ERR_PKCS7_SIGNER_INFO_free;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_free_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_free_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_free)}
-      PKCS7_SIGNER_INFO_free := @FC_PKCS7_SIGNER_INFO_free;
+      PKCS7_SIGNER_INFO_free := FC_PKCS7_SIGNER_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1586,7 +1587,7 @@ begin
     if PKCS7_SIGNER_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_free)}
-      PKCS7_SIGNER_INFO_free := @_PKCS7_SIGNER_INFO_free;
+      PKCS7_SIGNER_INFO_free := _PKCS7_SIGNER_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1603,13 +1604,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_SIGNER_INFO_allownil)}
-    d2i_PKCS7_SIGNER_INFO := @ERR_d2i_PKCS7_SIGNER_INFO;
+    d2i_PKCS7_SIGNER_INFO := ERR_d2i_PKCS7_SIGNER_INFO;
     {$ifend}
     {$if declared(d2i_PKCS7_SIGNER_INFO_introduced)}
     if LibVersion < d2i_PKCS7_SIGNER_INFO_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_SIGNER_INFO)}
-      d2i_PKCS7_SIGNER_INFO := @FC_d2i_PKCS7_SIGNER_INFO;
+      d2i_PKCS7_SIGNER_INFO := FC_d2i_PKCS7_SIGNER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1618,7 +1619,7 @@ begin
     if d2i_PKCS7_SIGNER_INFO_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_SIGNER_INFO)}
-      d2i_PKCS7_SIGNER_INFO := @_d2i_PKCS7_SIGNER_INFO;
+      d2i_PKCS7_SIGNER_INFO := _d2i_PKCS7_SIGNER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1635,13 +1636,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_SIGNER_INFO_allownil)}
-    i2d_PKCS7_SIGNER_INFO := @ERR_i2d_PKCS7_SIGNER_INFO;
+    i2d_PKCS7_SIGNER_INFO := ERR_i2d_PKCS7_SIGNER_INFO;
     {$ifend}
     {$if declared(i2d_PKCS7_SIGNER_INFO_introduced)}
     if LibVersion < i2d_PKCS7_SIGNER_INFO_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_SIGNER_INFO)}
-      i2d_PKCS7_SIGNER_INFO := @FC_i2d_PKCS7_SIGNER_INFO;
+      i2d_PKCS7_SIGNER_INFO := FC_i2d_PKCS7_SIGNER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1650,7 +1651,7 @@ begin
     if i2d_PKCS7_SIGNER_INFO_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_SIGNER_INFO)}
-      i2d_PKCS7_SIGNER_INFO := @_i2d_PKCS7_SIGNER_INFO;
+      i2d_PKCS7_SIGNER_INFO := _i2d_PKCS7_SIGNER_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1667,13 +1668,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_it_allownil)}
-    PKCS7_SIGNER_INFO_it := @ERR_PKCS7_SIGNER_INFO_it;
+    PKCS7_SIGNER_INFO_it := ERR_PKCS7_SIGNER_INFO_it;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_it_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_it_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_it)}
-      PKCS7_SIGNER_INFO_it := @FC_PKCS7_SIGNER_INFO_it;
+      PKCS7_SIGNER_INFO_it := FC_PKCS7_SIGNER_INFO_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1682,7 +1683,7 @@ begin
     if PKCS7_SIGNER_INFO_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_it)}
-      PKCS7_SIGNER_INFO_it := @_PKCS7_SIGNER_INFO_it;
+      PKCS7_SIGNER_INFO_it := _PKCS7_SIGNER_INFO_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1699,13 +1700,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_RECIP_INFO_new_allownil)}
-    PKCS7_RECIP_INFO_new := @ERR_PKCS7_RECIP_INFO_new;
+    PKCS7_RECIP_INFO_new := ERR_PKCS7_RECIP_INFO_new;
     {$ifend}
     {$if declared(PKCS7_RECIP_INFO_new_introduced)}
     if LibVersion < PKCS7_RECIP_INFO_new_introduced then
     begin
       {$if declared(FC_PKCS7_RECIP_INFO_new)}
-      PKCS7_RECIP_INFO_new := @FC_PKCS7_RECIP_INFO_new;
+      PKCS7_RECIP_INFO_new := FC_PKCS7_RECIP_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1714,7 +1715,7 @@ begin
     if PKCS7_RECIP_INFO_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_RECIP_INFO_new)}
-      PKCS7_RECIP_INFO_new := @_PKCS7_RECIP_INFO_new;
+      PKCS7_RECIP_INFO_new := _PKCS7_RECIP_INFO_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1731,13 +1732,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_RECIP_INFO_free_allownil)}
-    PKCS7_RECIP_INFO_free := @ERR_PKCS7_RECIP_INFO_free;
+    PKCS7_RECIP_INFO_free := ERR_PKCS7_RECIP_INFO_free;
     {$ifend}
     {$if declared(PKCS7_RECIP_INFO_free_introduced)}
     if LibVersion < PKCS7_RECIP_INFO_free_introduced then
     begin
       {$if declared(FC_PKCS7_RECIP_INFO_free)}
-      PKCS7_RECIP_INFO_free := @FC_PKCS7_RECIP_INFO_free;
+      PKCS7_RECIP_INFO_free := FC_PKCS7_RECIP_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1746,7 +1747,7 @@ begin
     if PKCS7_RECIP_INFO_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_RECIP_INFO_free)}
-      PKCS7_RECIP_INFO_free := @_PKCS7_RECIP_INFO_free;
+      PKCS7_RECIP_INFO_free := _PKCS7_RECIP_INFO_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1763,13 +1764,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_RECIP_INFO_allownil)}
-    d2i_PKCS7_RECIP_INFO := @ERR_d2i_PKCS7_RECIP_INFO;
+    d2i_PKCS7_RECIP_INFO := ERR_d2i_PKCS7_RECIP_INFO;
     {$ifend}
     {$if declared(d2i_PKCS7_RECIP_INFO_introduced)}
     if LibVersion < d2i_PKCS7_RECIP_INFO_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_RECIP_INFO)}
-      d2i_PKCS7_RECIP_INFO := @FC_d2i_PKCS7_RECIP_INFO;
+      d2i_PKCS7_RECIP_INFO := FC_d2i_PKCS7_RECIP_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1778,7 +1779,7 @@ begin
     if d2i_PKCS7_RECIP_INFO_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_RECIP_INFO)}
-      d2i_PKCS7_RECIP_INFO := @_d2i_PKCS7_RECIP_INFO;
+      d2i_PKCS7_RECIP_INFO := _d2i_PKCS7_RECIP_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1795,13 +1796,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_RECIP_INFO_allownil)}
-    i2d_PKCS7_RECIP_INFO := @ERR_i2d_PKCS7_RECIP_INFO;
+    i2d_PKCS7_RECIP_INFO := ERR_i2d_PKCS7_RECIP_INFO;
     {$ifend}
     {$if declared(i2d_PKCS7_RECIP_INFO_introduced)}
     if LibVersion < i2d_PKCS7_RECIP_INFO_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_RECIP_INFO)}
-      i2d_PKCS7_RECIP_INFO := @FC_i2d_PKCS7_RECIP_INFO;
+      i2d_PKCS7_RECIP_INFO := FC_i2d_PKCS7_RECIP_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1810,7 +1811,7 @@ begin
     if i2d_PKCS7_RECIP_INFO_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_RECIP_INFO)}
-      i2d_PKCS7_RECIP_INFO := @_i2d_PKCS7_RECIP_INFO;
+      i2d_PKCS7_RECIP_INFO := _i2d_PKCS7_RECIP_INFO;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1827,13 +1828,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_RECIP_INFO_it_allownil)}
-    PKCS7_RECIP_INFO_it := @ERR_PKCS7_RECIP_INFO_it;
+    PKCS7_RECIP_INFO_it := ERR_PKCS7_RECIP_INFO_it;
     {$ifend}
     {$if declared(PKCS7_RECIP_INFO_it_introduced)}
     if LibVersion < PKCS7_RECIP_INFO_it_introduced then
     begin
       {$if declared(FC_PKCS7_RECIP_INFO_it)}
-      PKCS7_RECIP_INFO_it := @FC_PKCS7_RECIP_INFO_it;
+      PKCS7_RECIP_INFO_it := FC_PKCS7_RECIP_INFO_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1842,7 +1843,7 @@ begin
     if PKCS7_RECIP_INFO_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_RECIP_INFO_it)}
-      PKCS7_RECIP_INFO_it := @_PKCS7_RECIP_INFO_it;
+      PKCS7_RECIP_INFO_it := _PKCS7_RECIP_INFO_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1858,13 +1859,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNED_new_allownil)}
-    PKCS7_SIGNED_new := @ERR_PKCS7_SIGNED_new;
+    PKCS7_SIGNED_new := ERR_PKCS7_SIGNED_new;
     {$ifend}
     {$if declared(PKCS7_SIGNED_new_introduced)}
     if LibVersion < PKCS7_SIGNED_new_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNED_new)}
-      PKCS7_SIGNED_new := @FC_PKCS7_SIGNED_new;
+      PKCS7_SIGNED_new := FC_PKCS7_SIGNED_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1873,7 +1874,7 @@ begin
     if PKCS7_SIGNED_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNED_new)}
-      PKCS7_SIGNED_new := @_PKCS7_SIGNED_new;
+      PKCS7_SIGNED_new := _PKCS7_SIGNED_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1890,13 +1891,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNED_free_allownil)}
-    PKCS7_SIGNED_free := @ERR_PKCS7_SIGNED_free;
+    PKCS7_SIGNED_free := ERR_PKCS7_SIGNED_free;
     {$ifend}
     {$if declared(PKCS7_SIGNED_free_introduced)}
     if LibVersion < PKCS7_SIGNED_free_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNED_free)}
-      PKCS7_SIGNED_free := @FC_PKCS7_SIGNED_free;
+      PKCS7_SIGNED_free := FC_PKCS7_SIGNED_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1905,7 +1906,7 @@ begin
     if PKCS7_SIGNED_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNED_free)}
-      PKCS7_SIGNED_free := @_PKCS7_SIGNED_free;
+      PKCS7_SIGNED_free := _PKCS7_SIGNED_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1922,13 +1923,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_SIGNED_allownil)}
-    d2i_PKCS7_SIGNED := @ERR_d2i_PKCS7_SIGNED;
+    d2i_PKCS7_SIGNED := ERR_d2i_PKCS7_SIGNED;
     {$ifend}
     {$if declared(d2i_PKCS7_SIGNED_introduced)}
     if LibVersion < d2i_PKCS7_SIGNED_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_SIGNED)}
-      d2i_PKCS7_SIGNED := @FC_d2i_PKCS7_SIGNED;
+      d2i_PKCS7_SIGNED := FC_d2i_PKCS7_SIGNED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1937,7 +1938,7 @@ begin
     if d2i_PKCS7_SIGNED_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_SIGNED)}
-      d2i_PKCS7_SIGNED := @_d2i_PKCS7_SIGNED;
+      d2i_PKCS7_SIGNED := _d2i_PKCS7_SIGNED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1954,13 +1955,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_SIGNED_allownil)}
-    i2d_PKCS7_SIGNED := @ERR_i2d_PKCS7_SIGNED;
+    i2d_PKCS7_SIGNED := ERR_i2d_PKCS7_SIGNED;
     {$ifend}
     {$if declared(i2d_PKCS7_SIGNED_introduced)}
     if LibVersion < i2d_PKCS7_SIGNED_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_SIGNED)}
-      i2d_PKCS7_SIGNED := @FC_i2d_PKCS7_SIGNED;
+      i2d_PKCS7_SIGNED := FC_i2d_PKCS7_SIGNED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1969,7 +1970,7 @@ begin
     if i2d_PKCS7_SIGNED_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_SIGNED)}
-      i2d_PKCS7_SIGNED := @_i2d_PKCS7_SIGNED;
+      i2d_PKCS7_SIGNED := _i2d_PKCS7_SIGNED;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1986,13 +1987,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNED_it_allownil)}
-    PKCS7_SIGNED_it := @ERR_PKCS7_SIGNED_it;
+    PKCS7_SIGNED_it := ERR_PKCS7_SIGNED_it;
     {$ifend}
     {$if declared(PKCS7_SIGNED_it_introduced)}
     if LibVersion < PKCS7_SIGNED_it_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNED_it)}
-      PKCS7_SIGNED_it := @FC_PKCS7_SIGNED_it;
+      PKCS7_SIGNED_it := FC_PKCS7_SIGNED_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2001,7 +2002,7 @@ begin
     if PKCS7_SIGNED_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNED_it)}
-      PKCS7_SIGNED_it := @_PKCS7_SIGNED_it;
+      PKCS7_SIGNED_it := _PKCS7_SIGNED_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2018,13 +2019,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENC_CONTENT_new_allownil)}
-    PKCS7_ENC_CONTENT_new := @ERR_PKCS7_ENC_CONTENT_new;
+    PKCS7_ENC_CONTENT_new := ERR_PKCS7_ENC_CONTENT_new;
     {$ifend}
     {$if declared(PKCS7_ENC_CONTENT_new_introduced)}
     if LibVersion < PKCS7_ENC_CONTENT_new_introduced then
     begin
       {$if declared(FC_PKCS7_ENC_CONTENT_new)}
-      PKCS7_ENC_CONTENT_new := @FC_PKCS7_ENC_CONTENT_new;
+      PKCS7_ENC_CONTENT_new := FC_PKCS7_ENC_CONTENT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2033,7 +2034,7 @@ begin
     if PKCS7_ENC_CONTENT_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENC_CONTENT_new)}
-      PKCS7_ENC_CONTENT_new := @_PKCS7_ENC_CONTENT_new;
+      PKCS7_ENC_CONTENT_new := _PKCS7_ENC_CONTENT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2050,13 +2051,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENC_CONTENT_free_allownil)}
-    PKCS7_ENC_CONTENT_free := @ERR_PKCS7_ENC_CONTENT_free;
+    PKCS7_ENC_CONTENT_free := ERR_PKCS7_ENC_CONTENT_free;
     {$ifend}
     {$if declared(PKCS7_ENC_CONTENT_free_introduced)}
     if LibVersion < PKCS7_ENC_CONTENT_free_introduced then
     begin
       {$if declared(FC_PKCS7_ENC_CONTENT_free)}
-      PKCS7_ENC_CONTENT_free := @FC_PKCS7_ENC_CONTENT_free;
+      PKCS7_ENC_CONTENT_free := FC_PKCS7_ENC_CONTENT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2065,7 +2066,7 @@ begin
     if PKCS7_ENC_CONTENT_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENC_CONTENT_free)}
-      PKCS7_ENC_CONTENT_free := @_PKCS7_ENC_CONTENT_free;
+      PKCS7_ENC_CONTENT_free := _PKCS7_ENC_CONTENT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2082,13 +2083,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_ENC_CONTENT_allownil)}
-    d2i_PKCS7_ENC_CONTENT := @ERR_d2i_PKCS7_ENC_CONTENT;
+    d2i_PKCS7_ENC_CONTENT := ERR_d2i_PKCS7_ENC_CONTENT;
     {$ifend}
     {$if declared(d2i_PKCS7_ENC_CONTENT_introduced)}
     if LibVersion < d2i_PKCS7_ENC_CONTENT_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_ENC_CONTENT)}
-      d2i_PKCS7_ENC_CONTENT := @FC_d2i_PKCS7_ENC_CONTENT;
+      d2i_PKCS7_ENC_CONTENT := FC_d2i_PKCS7_ENC_CONTENT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2097,7 +2098,7 @@ begin
     if d2i_PKCS7_ENC_CONTENT_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_ENC_CONTENT)}
-      d2i_PKCS7_ENC_CONTENT := @_d2i_PKCS7_ENC_CONTENT;
+      d2i_PKCS7_ENC_CONTENT := _d2i_PKCS7_ENC_CONTENT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2114,13 +2115,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_ENC_CONTENT_allownil)}
-    i2d_PKCS7_ENC_CONTENT := @ERR_i2d_PKCS7_ENC_CONTENT;
+    i2d_PKCS7_ENC_CONTENT := ERR_i2d_PKCS7_ENC_CONTENT;
     {$ifend}
     {$if declared(i2d_PKCS7_ENC_CONTENT_introduced)}
     if LibVersion < i2d_PKCS7_ENC_CONTENT_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_ENC_CONTENT)}
-      i2d_PKCS7_ENC_CONTENT := @FC_i2d_PKCS7_ENC_CONTENT;
+      i2d_PKCS7_ENC_CONTENT := FC_i2d_PKCS7_ENC_CONTENT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2129,7 +2130,7 @@ begin
     if i2d_PKCS7_ENC_CONTENT_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_ENC_CONTENT)}
-      i2d_PKCS7_ENC_CONTENT := @_i2d_PKCS7_ENC_CONTENT;
+      i2d_PKCS7_ENC_CONTENT := _i2d_PKCS7_ENC_CONTENT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2146,13 +2147,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENC_CONTENT_it_allownil)}
-    PKCS7_ENC_CONTENT_it := @ERR_PKCS7_ENC_CONTENT_it;
+    PKCS7_ENC_CONTENT_it := ERR_PKCS7_ENC_CONTENT_it;
     {$ifend}
     {$if declared(PKCS7_ENC_CONTENT_it_introduced)}
     if LibVersion < PKCS7_ENC_CONTENT_it_introduced then
     begin
       {$if declared(FC_PKCS7_ENC_CONTENT_it)}
-      PKCS7_ENC_CONTENT_it := @FC_PKCS7_ENC_CONTENT_it;
+      PKCS7_ENC_CONTENT_it := FC_PKCS7_ENC_CONTENT_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2161,7 +2162,7 @@ begin
     if PKCS7_ENC_CONTENT_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENC_CONTENT_it)}
-      PKCS7_ENC_CONTENT_it := @_PKCS7_ENC_CONTENT_it;
+      PKCS7_ENC_CONTENT_it := _PKCS7_ENC_CONTENT_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2178,13 +2179,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENVELOPE_new_allownil)}
-    PKCS7_ENVELOPE_new := @ERR_PKCS7_ENVELOPE_new;
+    PKCS7_ENVELOPE_new := ERR_PKCS7_ENVELOPE_new;
     {$ifend}
     {$if declared(PKCS7_ENVELOPE_new_introduced)}
     if LibVersion < PKCS7_ENVELOPE_new_introduced then
     begin
       {$if declared(FC_PKCS7_ENVELOPE_new)}
-      PKCS7_ENVELOPE_new := @FC_PKCS7_ENVELOPE_new;
+      PKCS7_ENVELOPE_new := FC_PKCS7_ENVELOPE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2193,7 +2194,7 @@ begin
     if PKCS7_ENVELOPE_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENVELOPE_new)}
-      PKCS7_ENVELOPE_new := @_PKCS7_ENVELOPE_new;
+      PKCS7_ENVELOPE_new := _PKCS7_ENVELOPE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2210,13 +2211,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENVELOPE_free_allownil)}
-    PKCS7_ENVELOPE_free := @ERR_PKCS7_ENVELOPE_free;
+    PKCS7_ENVELOPE_free := ERR_PKCS7_ENVELOPE_free;
     {$ifend}
     {$if declared(PKCS7_ENVELOPE_free_introduced)}
     if LibVersion < PKCS7_ENVELOPE_free_introduced then
     begin
       {$if declared(FC_PKCS7_ENVELOPE_free)}
-      PKCS7_ENVELOPE_free := @FC_PKCS7_ENVELOPE_free;
+      PKCS7_ENVELOPE_free := FC_PKCS7_ENVELOPE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2225,7 +2226,7 @@ begin
     if PKCS7_ENVELOPE_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENVELOPE_free)}
-      PKCS7_ENVELOPE_free := @_PKCS7_ENVELOPE_free;
+      PKCS7_ENVELOPE_free := _PKCS7_ENVELOPE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2242,13 +2243,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_ENVELOPE_allownil)}
-    d2i_PKCS7_ENVELOPE := @ERR_d2i_PKCS7_ENVELOPE;
+    d2i_PKCS7_ENVELOPE := ERR_d2i_PKCS7_ENVELOPE;
     {$ifend}
     {$if declared(d2i_PKCS7_ENVELOPE_introduced)}
     if LibVersion < d2i_PKCS7_ENVELOPE_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_ENVELOPE)}
-      d2i_PKCS7_ENVELOPE := @FC_d2i_PKCS7_ENVELOPE;
+      d2i_PKCS7_ENVELOPE := FC_d2i_PKCS7_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2257,7 +2258,7 @@ begin
     if d2i_PKCS7_ENVELOPE_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_ENVELOPE)}
-      d2i_PKCS7_ENVELOPE := @_d2i_PKCS7_ENVELOPE;
+      d2i_PKCS7_ENVELOPE := _d2i_PKCS7_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2274,13 +2275,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_ENVELOPE_allownil)}
-    i2d_PKCS7_ENVELOPE := @ERR_i2d_PKCS7_ENVELOPE;
+    i2d_PKCS7_ENVELOPE := ERR_i2d_PKCS7_ENVELOPE;
     {$ifend}
     {$if declared(i2d_PKCS7_ENVELOPE_introduced)}
     if LibVersion < i2d_PKCS7_ENVELOPE_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_ENVELOPE)}
-      i2d_PKCS7_ENVELOPE := @FC_i2d_PKCS7_ENVELOPE;
+      i2d_PKCS7_ENVELOPE := FC_i2d_PKCS7_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2289,7 +2290,7 @@ begin
     if i2d_PKCS7_ENVELOPE_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_ENVELOPE)}
-      i2d_PKCS7_ENVELOPE := @_i2d_PKCS7_ENVELOPE;
+      i2d_PKCS7_ENVELOPE := _i2d_PKCS7_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2306,13 +2307,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENVELOPE_it_allownil)}
-    PKCS7_ENVELOPE_it := @ERR_PKCS7_ENVELOPE_it;
+    PKCS7_ENVELOPE_it := ERR_PKCS7_ENVELOPE_it;
     {$ifend}
     {$if declared(PKCS7_ENVELOPE_it_introduced)}
     if LibVersion < PKCS7_ENVELOPE_it_introduced then
     begin
       {$if declared(FC_PKCS7_ENVELOPE_it)}
-      PKCS7_ENVELOPE_it := @FC_PKCS7_ENVELOPE_it;
+      PKCS7_ENVELOPE_it := FC_PKCS7_ENVELOPE_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2321,7 +2322,7 @@ begin
     if PKCS7_ENVELOPE_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENVELOPE_it)}
-      PKCS7_ENVELOPE_it := @_PKCS7_ENVELOPE_it;
+      PKCS7_ENVELOPE_it := _PKCS7_ENVELOPE_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2338,13 +2339,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGN_ENVELOPE_new_allownil)}
-    PKCS7_SIGN_ENVELOPE_new := @ERR_PKCS7_SIGN_ENVELOPE_new;
+    PKCS7_SIGN_ENVELOPE_new := ERR_PKCS7_SIGN_ENVELOPE_new;
     {$ifend}
     {$if declared(PKCS7_SIGN_ENVELOPE_new_introduced)}
     if LibVersion < PKCS7_SIGN_ENVELOPE_new_introduced then
     begin
       {$if declared(FC_PKCS7_SIGN_ENVELOPE_new)}
-      PKCS7_SIGN_ENVELOPE_new := @FC_PKCS7_SIGN_ENVELOPE_new;
+      PKCS7_SIGN_ENVELOPE_new := FC_PKCS7_SIGN_ENVELOPE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2353,7 +2354,7 @@ begin
     if PKCS7_SIGN_ENVELOPE_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGN_ENVELOPE_new)}
-      PKCS7_SIGN_ENVELOPE_new := @_PKCS7_SIGN_ENVELOPE_new;
+      PKCS7_SIGN_ENVELOPE_new := _PKCS7_SIGN_ENVELOPE_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2370,13 +2371,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGN_ENVELOPE_free_allownil)}
-    PKCS7_SIGN_ENVELOPE_free := @ERR_PKCS7_SIGN_ENVELOPE_free;
+    PKCS7_SIGN_ENVELOPE_free := ERR_PKCS7_SIGN_ENVELOPE_free;
     {$ifend}
     {$if declared(PKCS7_SIGN_ENVELOPE_free_introduced)}
     if LibVersion < PKCS7_SIGN_ENVELOPE_free_introduced then
     begin
       {$if declared(FC_PKCS7_SIGN_ENVELOPE_free)}
-      PKCS7_SIGN_ENVELOPE_free := @FC_PKCS7_SIGN_ENVELOPE_free;
+      PKCS7_SIGN_ENVELOPE_free := FC_PKCS7_SIGN_ENVELOPE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2385,7 +2386,7 @@ begin
     if PKCS7_SIGN_ENVELOPE_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGN_ENVELOPE_free)}
-      PKCS7_SIGN_ENVELOPE_free := @_PKCS7_SIGN_ENVELOPE_free;
+      PKCS7_SIGN_ENVELOPE_free := _PKCS7_SIGN_ENVELOPE_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2402,13 +2403,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_SIGN_ENVELOPE_allownil)}
-    d2i_PKCS7_SIGN_ENVELOPE := @ERR_d2i_PKCS7_SIGN_ENVELOPE;
+    d2i_PKCS7_SIGN_ENVELOPE := ERR_d2i_PKCS7_SIGN_ENVELOPE;
     {$ifend}
     {$if declared(d2i_PKCS7_SIGN_ENVELOPE_introduced)}
     if LibVersion < d2i_PKCS7_SIGN_ENVELOPE_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_SIGN_ENVELOPE)}
-      d2i_PKCS7_SIGN_ENVELOPE := @FC_d2i_PKCS7_SIGN_ENVELOPE;
+      d2i_PKCS7_SIGN_ENVELOPE := FC_d2i_PKCS7_SIGN_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2417,7 +2418,7 @@ begin
     if d2i_PKCS7_SIGN_ENVELOPE_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_SIGN_ENVELOPE)}
-      d2i_PKCS7_SIGN_ENVELOPE := @_d2i_PKCS7_SIGN_ENVELOPE;
+      d2i_PKCS7_SIGN_ENVELOPE := _d2i_PKCS7_SIGN_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2434,13 +2435,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_SIGN_ENVELOPE_allownil)}
-    i2d_PKCS7_SIGN_ENVELOPE := @ERR_i2d_PKCS7_SIGN_ENVELOPE;
+    i2d_PKCS7_SIGN_ENVELOPE := ERR_i2d_PKCS7_SIGN_ENVELOPE;
     {$ifend}
     {$if declared(i2d_PKCS7_SIGN_ENVELOPE_introduced)}
     if LibVersion < i2d_PKCS7_SIGN_ENVELOPE_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_SIGN_ENVELOPE)}
-      i2d_PKCS7_SIGN_ENVELOPE := @FC_i2d_PKCS7_SIGN_ENVELOPE;
+      i2d_PKCS7_SIGN_ENVELOPE := FC_i2d_PKCS7_SIGN_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2449,7 +2450,7 @@ begin
     if i2d_PKCS7_SIGN_ENVELOPE_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_SIGN_ENVELOPE)}
-      i2d_PKCS7_SIGN_ENVELOPE := @_i2d_PKCS7_SIGN_ENVELOPE;
+      i2d_PKCS7_SIGN_ENVELOPE := _i2d_PKCS7_SIGN_ENVELOPE;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2466,13 +2467,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGN_ENVELOPE_it_allownil)}
-    PKCS7_SIGN_ENVELOPE_it := @ERR_PKCS7_SIGN_ENVELOPE_it;
+    PKCS7_SIGN_ENVELOPE_it := ERR_PKCS7_SIGN_ENVELOPE_it;
     {$ifend}
     {$if declared(PKCS7_SIGN_ENVELOPE_it_introduced)}
     if LibVersion < PKCS7_SIGN_ENVELOPE_it_introduced then
     begin
       {$if declared(FC_PKCS7_SIGN_ENVELOPE_it)}
-      PKCS7_SIGN_ENVELOPE_it := @FC_PKCS7_SIGN_ENVELOPE_it;
+      PKCS7_SIGN_ENVELOPE_it := FC_PKCS7_SIGN_ENVELOPE_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2481,7 +2482,7 @@ begin
     if PKCS7_SIGN_ENVELOPE_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGN_ENVELOPE_it)}
-      PKCS7_SIGN_ENVELOPE_it := @_PKCS7_SIGN_ENVELOPE_it;
+      PKCS7_SIGN_ENVELOPE_it := _PKCS7_SIGN_ENVELOPE_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2498,13 +2499,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_DIGEST_new_allownil)}
-    PKCS7_DIGEST_new := @ERR_PKCS7_DIGEST_new;
+    PKCS7_DIGEST_new := ERR_PKCS7_DIGEST_new;
     {$ifend}
     {$if declared(PKCS7_DIGEST_new_introduced)}
     if LibVersion < PKCS7_DIGEST_new_introduced then
     begin
       {$if declared(FC_PKCS7_DIGEST_new)}
-      PKCS7_DIGEST_new := @FC_PKCS7_DIGEST_new;
+      PKCS7_DIGEST_new := FC_PKCS7_DIGEST_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2513,7 +2514,7 @@ begin
     if PKCS7_DIGEST_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_DIGEST_new)}
-      PKCS7_DIGEST_new := @_PKCS7_DIGEST_new;
+      PKCS7_DIGEST_new := _PKCS7_DIGEST_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2530,13 +2531,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_DIGEST_free_allownil)}
-    PKCS7_DIGEST_free := @ERR_PKCS7_DIGEST_free;
+    PKCS7_DIGEST_free := ERR_PKCS7_DIGEST_free;
     {$ifend}
     {$if declared(PKCS7_DIGEST_free_introduced)}
     if LibVersion < PKCS7_DIGEST_free_introduced then
     begin
       {$if declared(FC_PKCS7_DIGEST_free)}
-      PKCS7_DIGEST_free := @FC_PKCS7_DIGEST_free;
+      PKCS7_DIGEST_free := FC_PKCS7_DIGEST_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2545,7 +2546,7 @@ begin
     if PKCS7_DIGEST_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_DIGEST_free)}
-      PKCS7_DIGEST_free := @_PKCS7_DIGEST_free;
+      PKCS7_DIGEST_free := _PKCS7_DIGEST_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2562,13 +2563,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_DIGEST_allownil)}
-    d2i_PKCS7_DIGEST := @ERR_d2i_PKCS7_DIGEST;
+    d2i_PKCS7_DIGEST := ERR_d2i_PKCS7_DIGEST;
     {$ifend}
     {$if declared(d2i_PKCS7_DIGEST_introduced)}
     if LibVersion < d2i_PKCS7_DIGEST_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_DIGEST)}
-      d2i_PKCS7_DIGEST := @FC_d2i_PKCS7_DIGEST;
+      d2i_PKCS7_DIGEST := FC_d2i_PKCS7_DIGEST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2577,7 +2578,7 @@ begin
     if d2i_PKCS7_DIGEST_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_DIGEST)}
-      d2i_PKCS7_DIGEST := @_d2i_PKCS7_DIGEST;
+      d2i_PKCS7_DIGEST := _d2i_PKCS7_DIGEST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2594,13 +2595,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_DIGEST_allownil)}
-    i2d_PKCS7_DIGEST := @ERR_i2d_PKCS7_DIGEST;
+    i2d_PKCS7_DIGEST := ERR_i2d_PKCS7_DIGEST;
     {$ifend}
     {$if declared(i2d_PKCS7_DIGEST_introduced)}
     if LibVersion < i2d_PKCS7_DIGEST_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_DIGEST)}
-      i2d_PKCS7_DIGEST := @FC_i2d_PKCS7_DIGEST;
+      i2d_PKCS7_DIGEST := FC_i2d_PKCS7_DIGEST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2609,7 +2610,7 @@ begin
     if i2d_PKCS7_DIGEST_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_DIGEST)}
-      i2d_PKCS7_DIGEST := @_i2d_PKCS7_DIGEST;
+      i2d_PKCS7_DIGEST := _i2d_PKCS7_DIGEST;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2626,13 +2627,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_DIGEST_it_allownil)}
-    PKCS7_DIGEST_it := @ERR_PKCS7_DIGEST_it;
+    PKCS7_DIGEST_it := ERR_PKCS7_DIGEST_it;
     {$ifend}
     {$if declared(PKCS7_DIGEST_it_introduced)}
     if LibVersion < PKCS7_DIGEST_it_introduced then
     begin
       {$if declared(FC_PKCS7_DIGEST_it)}
-      PKCS7_DIGEST_it := @FC_PKCS7_DIGEST_it;
+      PKCS7_DIGEST_it := FC_PKCS7_DIGEST_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2641,7 +2642,7 @@ begin
     if PKCS7_DIGEST_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_DIGEST_it)}
-      PKCS7_DIGEST_it := @_PKCS7_DIGEST_it;
+      PKCS7_DIGEST_it := _PKCS7_DIGEST_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2658,13 +2659,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENCRYPT_new_allownil)}
-    PKCS7_ENCRYPT_new := @ERR_PKCS7_ENCRYPT_new;
+    PKCS7_ENCRYPT_new := ERR_PKCS7_ENCRYPT_new;
     {$ifend}
     {$if declared(PKCS7_ENCRYPT_new_introduced)}
     if LibVersion < PKCS7_ENCRYPT_new_introduced then
     begin
       {$if declared(FC_PKCS7_ENCRYPT_new)}
-      PKCS7_ENCRYPT_new := @FC_PKCS7_ENCRYPT_new;
+      PKCS7_ENCRYPT_new := FC_PKCS7_ENCRYPT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2673,7 +2674,7 @@ begin
     if PKCS7_ENCRYPT_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENCRYPT_new)}
-      PKCS7_ENCRYPT_new := @_PKCS7_ENCRYPT_new;
+      PKCS7_ENCRYPT_new := _PKCS7_ENCRYPT_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2690,13 +2691,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENCRYPT_free_allownil)}
-    PKCS7_ENCRYPT_free := @ERR_PKCS7_ENCRYPT_free;
+    PKCS7_ENCRYPT_free := ERR_PKCS7_ENCRYPT_free;
     {$ifend}
     {$if declared(PKCS7_ENCRYPT_free_introduced)}
     if LibVersion < PKCS7_ENCRYPT_free_introduced then
     begin
       {$if declared(FC_PKCS7_ENCRYPT_free)}
-      PKCS7_ENCRYPT_free := @FC_PKCS7_ENCRYPT_free;
+      PKCS7_ENCRYPT_free := FC_PKCS7_ENCRYPT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2705,7 +2706,7 @@ begin
     if PKCS7_ENCRYPT_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENCRYPT_free)}
-      PKCS7_ENCRYPT_free := @_PKCS7_ENCRYPT_free;
+      PKCS7_ENCRYPT_free := _PKCS7_ENCRYPT_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2722,13 +2723,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_ENCRYPT_allownil)}
-    d2i_PKCS7_ENCRYPT := @ERR_d2i_PKCS7_ENCRYPT;
+    d2i_PKCS7_ENCRYPT := ERR_d2i_PKCS7_ENCRYPT;
     {$ifend}
     {$if declared(d2i_PKCS7_ENCRYPT_introduced)}
     if LibVersion < d2i_PKCS7_ENCRYPT_introduced then
     begin
       {$if declared(FC_d2i_PKCS7_ENCRYPT)}
-      d2i_PKCS7_ENCRYPT := @FC_d2i_PKCS7_ENCRYPT;
+      d2i_PKCS7_ENCRYPT := FC_d2i_PKCS7_ENCRYPT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2737,7 +2738,7 @@ begin
     if d2i_PKCS7_ENCRYPT_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7_ENCRYPT)}
-      d2i_PKCS7_ENCRYPT := @_d2i_PKCS7_ENCRYPT;
+      d2i_PKCS7_ENCRYPT := _d2i_PKCS7_ENCRYPT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2754,13 +2755,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_ENCRYPT_allownil)}
-    i2d_PKCS7_ENCRYPT := @ERR_i2d_PKCS7_ENCRYPT;
+    i2d_PKCS7_ENCRYPT := ERR_i2d_PKCS7_ENCRYPT;
     {$ifend}
     {$if declared(i2d_PKCS7_ENCRYPT_introduced)}
     if LibVersion < i2d_PKCS7_ENCRYPT_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_ENCRYPT)}
-      i2d_PKCS7_ENCRYPT := @FC_i2d_PKCS7_ENCRYPT;
+      i2d_PKCS7_ENCRYPT := FC_i2d_PKCS7_ENCRYPT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2769,7 +2770,7 @@ begin
     if i2d_PKCS7_ENCRYPT_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_ENCRYPT)}
-      i2d_PKCS7_ENCRYPT := @_i2d_PKCS7_ENCRYPT;
+      i2d_PKCS7_ENCRYPT := _i2d_PKCS7_ENCRYPT;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2786,13 +2787,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ENCRYPT_it_allownil)}
-    PKCS7_ENCRYPT_it := @ERR_PKCS7_ENCRYPT_it;
+    PKCS7_ENCRYPT_it := ERR_PKCS7_ENCRYPT_it;
     {$ifend}
     {$if declared(PKCS7_ENCRYPT_it_introduced)}
     if LibVersion < PKCS7_ENCRYPT_it_introduced then
     begin
       {$if declared(FC_PKCS7_ENCRYPT_it)}
-      PKCS7_ENCRYPT_it := @FC_PKCS7_ENCRYPT_it;
+      PKCS7_ENCRYPT_it := FC_PKCS7_ENCRYPT_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2801,7 +2802,7 @@ begin
     if PKCS7_ENCRYPT_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ENCRYPT_it)}
-      PKCS7_ENCRYPT_it := @_PKCS7_ENCRYPT_it;
+      PKCS7_ENCRYPT_it := _PKCS7_ENCRYPT_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2818,13 +2819,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_new_allownil)}
-    PKCS7_new := @ERR_PKCS7_new;
+    PKCS7_new := ERR_PKCS7_new;
     {$ifend}
     {$if declared(PKCS7_new_introduced)}
     if LibVersion < PKCS7_new_introduced then
     begin
       {$if declared(FC_PKCS7_new)}
-      PKCS7_new := @FC_PKCS7_new;
+      PKCS7_new := FC_PKCS7_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2833,7 +2834,7 @@ begin
     if PKCS7_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_new)}
-      PKCS7_new := @_PKCS7_new;
+      PKCS7_new := _PKCS7_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2849,13 +2850,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_free_allownil)}
-    PKCS7_free := @ERR_PKCS7_free;
+    PKCS7_free := ERR_PKCS7_free;
     {$ifend}
     {$if declared(PKCS7_free_introduced)}
     if LibVersion < PKCS7_free_introduced then
     begin
       {$if declared(FC_PKCS7_free)}
-      PKCS7_free := @FC_PKCS7_free;
+      PKCS7_free := FC_PKCS7_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2864,7 +2865,7 @@ begin
     if PKCS7_free_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_free)}
-      PKCS7_free := @_PKCS7_free;
+      PKCS7_free := _PKCS7_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2879,13 +2880,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_PKCS7_allownil)}
-    d2i_PKCS7 := @ERR_d2i_PKCS7;
+    d2i_PKCS7 := ERR_d2i_PKCS7;
     {$ifend}
     {$if declared(d2i_PKCS7_introduced)}
     if LibVersion < d2i_PKCS7_introduced then
     begin
       {$if declared(FC_d2i_PKCS7)}
-      d2i_PKCS7 := @FC_d2i_PKCS7;
+      d2i_PKCS7 := FC_d2i_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2894,7 +2895,7 @@ begin
     if d2i_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_d2i_PKCS7)}
-      d2i_PKCS7 := @_d2i_PKCS7;
+      d2i_PKCS7 := _d2i_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2910,13 +2911,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_allownil)}
-    i2d_PKCS7 := @ERR_i2d_PKCS7;
+    i2d_PKCS7 := ERR_i2d_PKCS7;
     {$ifend}
     {$if declared(i2d_PKCS7_introduced)}
     if LibVersion < i2d_PKCS7_introduced then
     begin
       {$if declared(FC_i2d_PKCS7)}
-      i2d_PKCS7 := @FC_i2d_PKCS7;
+      i2d_PKCS7 := FC_i2d_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2925,7 +2926,7 @@ begin
     if i2d_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7)}
-      i2d_PKCS7 := @_i2d_PKCS7;
+      i2d_PKCS7 := _i2d_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2941,13 +2942,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_it_allownil)}
-    PKCS7_it := @ERR_PKCS7_it;
+    PKCS7_it := ERR_PKCS7_it;
     {$ifend}
     {$if declared(PKCS7_it_introduced)}
     if LibVersion < PKCS7_it_introduced then
     begin
       {$if declared(FC_PKCS7_it)}
-      PKCS7_it := @FC_PKCS7_it;
+      PKCS7_it := FC_PKCS7_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2956,7 +2957,7 @@ begin
     if PKCS7_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_it)}
-      PKCS7_it := @_PKCS7_it;
+      PKCS7_it := _PKCS7_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2973,13 +2974,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ATTR_SIGN_it_allownil)}
-    PKCS7_ATTR_SIGN_it := @ERR_PKCS7_ATTR_SIGN_it;
+    PKCS7_ATTR_SIGN_it := ERR_PKCS7_ATTR_SIGN_it;
     {$ifend}
     {$if declared(PKCS7_ATTR_SIGN_it_introduced)}
     if LibVersion < PKCS7_ATTR_SIGN_it_introduced then
     begin
       {$if declared(FC_PKCS7_ATTR_SIGN_it)}
-      PKCS7_ATTR_SIGN_it := @FC_PKCS7_ATTR_SIGN_it;
+      PKCS7_ATTR_SIGN_it := FC_PKCS7_ATTR_SIGN_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2988,7 +2989,7 @@ begin
     if PKCS7_ATTR_SIGN_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ATTR_SIGN_it)}
-      PKCS7_ATTR_SIGN_it := @_PKCS7_ATTR_SIGN_it;
+      PKCS7_ATTR_SIGN_it := _PKCS7_ATTR_SIGN_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3005,13 +3006,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ATTR_VERIFY_it_allownil)}
-    PKCS7_ATTR_VERIFY_it := @ERR_PKCS7_ATTR_VERIFY_it;
+    PKCS7_ATTR_VERIFY_it := ERR_PKCS7_ATTR_VERIFY_it;
     {$ifend}
     {$if declared(PKCS7_ATTR_VERIFY_it_introduced)}
     if LibVersion < PKCS7_ATTR_VERIFY_it_introduced then
     begin
       {$if declared(FC_PKCS7_ATTR_VERIFY_it)}
-      PKCS7_ATTR_VERIFY_it := @FC_PKCS7_ATTR_VERIFY_it;
+      PKCS7_ATTR_VERIFY_it := FC_PKCS7_ATTR_VERIFY_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3020,7 +3021,7 @@ begin
     if PKCS7_ATTR_VERIFY_it_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ATTR_VERIFY_it)}
-      PKCS7_ATTR_VERIFY_it := @_PKCS7_ATTR_VERIFY_it;
+      PKCS7_ATTR_VERIFY_it := _PKCS7_ATTR_VERIFY_it;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3037,13 +3038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_PKCS7_NDEF_allownil)}
-    i2d_PKCS7_NDEF := @ERR_i2d_PKCS7_NDEF;
+    i2d_PKCS7_NDEF := ERR_i2d_PKCS7_NDEF;
     {$ifend}
     {$if declared(i2d_PKCS7_NDEF_introduced)}
     if LibVersion < i2d_PKCS7_NDEF_introduced then
     begin
       {$if declared(FC_i2d_PKCS7_NDEF)}
-      i2d_PKCS7_NDEF := @FC_i2d_PKCS7_NDEF;
+      i2d_PKCS7_NDEF := FC_i2d_PKCS7_NDEF;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3052,7 +3053,7 @@ begin
     if i2d_PKCS7_NDEF_removed <= LibVersion then
     begin
       {$if declared(_i2d_PKCS7_NDEF)}
-      i2d_PKCS7_NDEF := @_i2d_PKCS7_NDEF;
+      i2d_PKCS7_NDEF := _i2d_PKCS7_NDEF;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3067,13 +3068,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_print_ctx_allownil)}
-    PKCS7_print_ctx := @ERR_PKCS7_print_ctx;
+    PKCS7_print_ctx := ERR_PKCS7_print_ctx;
     {$ifend}
     {$if declared(PKCS7_print_ctx_introduced)}
     if LibVersion < PKCS7_print_ctx_introduced then
     begin
       {$if declared(FC_PKCS7_print_ctx)}
-      PKCS7_print_ctx := @FC_PKCS7_print_ctx;
+      PKCS7_print_ctx := FC_PKCS7_print_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3082,7 +3083,7 @@ begin
     if PKCS7_print_ctx_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_print_ctx)}
-      PKCS7_print_ctx := @_PKCS7_print_ctx;
+      PKCS7_print_ctx := _PKCS7_print_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3099,13 +3100,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_ctrl_allownil)}
-    PKCS7_ctrl := @ERR_PKCS7_ctrl;
+    PKCS7_ctrl := ERR_PKCS7_ctrl;
     {$ifend}
     {$if declared(PKCS7_ctrl_introduced)}
     if LibVersion < PKCS7_ctrl_introduced then
     begin
       {$if declared(FC_PKCS7_ctrl)}
-      PKCS7_ctrl := @FC_PKCS7_ctrl;
+      PKCS7_ctrl := FC_PKCS7_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3114,7 +3115,7 @@ begin
     if PKCS7_ctrl_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_ctrl)}
-      PKCS7_ctrl := @_PKCS7_ctrl;
+      PKCS7_ctrl := _PKCS7_ctrl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3130,13 +3131,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_type_is_other_allownil)}
-    PKCS7_type_is_other := @ERR_PKCS7_type_is_other;
+    PKCS7_type_is_other := ERR_PKCS7_type_is_other;
     {$ifend}
     {$if declared(PKCS7_type_is_other_introduced)}
     if LibVersion < PKCS7_type_is_other_introduced then
     begin
       {$if declared(FC_PKCS7_type_is_other)}
-      PKCS7_type_is_other := @FC_PKCS7_type_is_other;
+      PKCS7_type_is_other := FC_PKCS7_type_is_other;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3145,7 +3146,7 @@ begin
     if PKCS7_type_is_other_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_type_is_other)}
-      PKCS7_type_is_other := @_PKCS7_type_is_other;
+      PKCS7_type_is_other := _PKCS7_type_is_other;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3162,13 +3163,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set_type_allownil)}
-    PKCS7_set_type := @ERR_PKCS7_set_type;
+    PKCS7_set_type := ERR_PKCS7_set_type;
     {$ifend}
     {$if declared(PKCS7_set_type_introduced)}
     if LibVersion < PKCS7_set_type_introduced then
     begin
       {$if declared(FC_PKCS7_set_type)}
-      PKCS7_set_type := @FC_PKCS7_set_type;
+      PKCS7_set_type := FC_PKCS7_set_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3177,7 +3178,7 @@ begin
     if PKCS7_set_type_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set_type)}
-      PKCS7_set_type := @_PKCS7_set_type;
+      PKCS7_set_type := _PKCS7_set_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3194,13 +3195,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set0_type_other_allownil)}
-    PKCS7_set0_type_other := @ERR_PKCS7_set0_type_other;
+    PKCS7_set0_type_other := ERR_PKCS7_set0_type_other;
     {$ifend}
     {$if declared(PKCS7_set0_type_other_introduced)}
     if LibVersion < PKCS7_set0_type_other_introduced then
     begin
       {$if declared(FC_PKCS7_set0_type_other)}
-      PKCS7_set0_type_other := @FC_PKCS7_set0_type_other;
+      PKCS7_set0_type_other := FC_PKCS7_set0_type_other;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3209,7 +3210,7 @@ begin
     if PKCS7_set0_type_other_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set0_type_other)}
-      PKCS7_set0_type_other := @_PKCS7_set0_type_other;
+      PKCS7_set0_type_other := _PKCS7_set0_type_other;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3226,13 +3227,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set_content_allownil)}
-    PKCS7_set_content := @ERR_PKCS7_set_content;
+    PKCS7_set_content := ERR_PKCS7_set_content;
     {$ifend}
     {$if declared(PKCS7_set_content_introduced)}
     if LibVersion < PKCS7_set_content_introduced then
     begin
       {$if declared(FC_PKCS7_set_content)}
-      PKCS7_set_content := @FC_PKCS7_set_content;
+      PKCS7_set_content := FC_PKCS7_set_content;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3241,7 +3242,7 @@ begin
     if PKCS7_set_content_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set_content)}
-      PKCS7_set_content := @_PKCS7_set_content;
+      PKCS7_set_content := _PKCS7_set_content;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3258,13 +3259,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_set_allownil)}
-    PKCS7_SIGNER_INFO_set := @ERR_PKCS7_SIGNER_INFO_set;
+    PKCS7_SIGNER_INFO_set := ERR_PKCS7_SIGNER_INFO_set;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_set_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_set_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_set)}
-      PKCS7_SIGNER_INFO_set := @FC_PKCS7_SIGNER_INFO_set;
+      PKCS7_SIGNER_INFO_set := FC_PKCS7_SIGNER_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3273,7 +3274,7 @@ begin
     if PKCS7_SIGNER_INFO_set_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_set)}
-      PKCS7_SIGNER_INFO_set := @_PKCS7_SIGNER_INFO_set;
+      PKCS7_SIGNER_INFO_set := _PKCS7_SIGNER_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3290,13 +3291,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_sign_allownil)}
-    PKCS7_SIGNER_INFO_sign := @ERR_PKCS7_SIGNER_INFO_sign;
+    PKCS7_SIGNER_INFO_sign := ERR_PKCS7_SIGNER_INFO_sign;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_sign_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_sign_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_sign)}
-      PKCS7_SIGNER_INFO_sign := @FC_PKCS7_SIGNER_INFO_sign;
+      PKCS7_SIGNER_INFO_sign := FC_PKCS7_SIGNER_INFO_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3305,7 +3306,7 @@ begin
     if PKCS7_SIGNER_INFO_sign_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_sign)}
-      PKCS7_SIGNER_INFO_sign := @_PKCS7_SIGNER_INFO_sign;
+      PKCS7_SIGNER_INFO_sign := _PKCS7_SIGNER_INFO_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3322,13 +3323,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_signer_allownil)}
-    PKCS7_add_signer := @ERR_PKCS7_add_signer;
+    PKCS7_add_signer := ERR_PKCS7_add_signer;
     {$ifend}
     {$if declared(PKCS7_add_signer_introduced)}
     if LibVersion < PKCS7_add_signer_introduced then
     begin
       {$if declared(FC_PKCS7_add_signer)}
-      PKCS7_add_signer := @FC_PKCS7_add_signer;
+      PKCS7_add_signer := FC_PKCS7_add_signer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3337,7 +3338,7 @@ begin
     if PKCS7_add_signer_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_signer)}
-      PKCS7_add_signer := @_PKCS7_add_signer;
+      PKCS7_add_signer := _PKCS7_add_signer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3354,13 +3355,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_certificate_allownil)}
-    PKCS7_add_certificate := @ERR_PKCS7_add_certificate;
+    PKCS7_add_certificate := ERR_PKCS7_add_certificate;
     {$ifend}
     {$if declared(PKCS7_add_certificate_introduced)}
     if LibVersion < PKCS7_add_certificate_introduced then
     begin
       {$if declared(FC_PKCS7_add_certificate)}
-      PKCS7_add_certificate := @FC_PKCS7_add_certificate;
+      PKCS7_add_certificate := FC_PKCS7_add_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3369,7 +3370,7 @@ begin
     if PKCS7_add_certificate_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_certificate)}
-      PKCS7_add_certificate := @_PKCS7_add_certificate;
+      PKCS7_add_certificate := _PKCS7_add_certificate;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3386,13 +3387,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_crl_allownil)}
-    PKCS7_add_crl := @ERR_PKCS7_add_crl;
+    PKCS7_add_crl := ERR_PKCS7_add_crl;
     {$ifend}
     {$if declared(PKCS7_add_crl_introduced)}
     if LibVersion < PKCS7_add_crl_introduced then
     begin
       {$if declared(FC_PKCS7_add_crl)}
-      PKCS7_add_crl := @FC_PKCS7_add_crl;
+      PKCS7_add_crl := FC_PKCS7_add_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3401,7 +3402,7 @@ begin
     if PKCS7_add_crl_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_crl)}
-      PKCS7_add_crl := @_PKCS7_add_crl;
+      PKCS7_add_crl := _PKCS7_add_crl;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3418,13 +3419,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_content_new_allownil)}
-    PKCS7_content_new := @ERR_PKCS7_content_new;
+    PKCS7_content_new := ERR_PKCS7_content_new;
     {$ifend}
     {$if declared(PKCS7_content_new_introduced)}
     if LibVersion < PKCS7_content_new_introduced then
     begin
       {$if declared(FC_PKCS7_content_new)}
-      PKCS7_content_new := @FC_PKCS7_content_new;
+      PKCS7_content_new := FC_PKCS7_content_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3433,7 +3434,7 @@ begin
     if PKCS7_content_new_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_content_new)}
-      PKCS7_content_new := @_PKCS7_content_new;
+      PKCS7_content_new := _PKCS7_content_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3450,13 +3451,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_dataVerify_allownil)}
-    PKCS7_dataVerify := @ERR_PKCS7_dataVerify;
+    PKCS7_dataVerify := ERR_PKCS7_dataVerify;
     {$ifend}
     {$if declared(PKCS7_dataVerify_introduced)}
     if LibVersion < PKCS7_dataVerify_introduced then
     begin
       {$if declared(FC_PKCS7_dataVerify)}
-      PKCS7_dataVerify := @FC_PKCS7_dataVerify;
+      PKCS7_dataVerify := FC_PKCS7_dataVerify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3465,7 +3466,7 @@ begin
     if PKCS7_dataVerify_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_dataVerify)}
-      PKCS7_dataVerify := @_PKCS7_dataVerify;
+      PKCS7_dataVerify := _PKCS7_dataVerify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3482,13 +3483,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_signatureVerify_allownil)}
-    PKCS7_signatureVerify := @ERR_PKCS7_signatureVerify;
+    PKCS7_signatureVerify := ERR_PKCS7_signatureVerify;
     {$ifend}
     {$if declared(PKCS7_signatureVerify_introduced)}
     if LibVersion < PKCS7_signatureVerify_introduced then
     begin
       {$if declared(FC_PKCS7_signatureVerify)}
-      PKCS7_signatureVerify := @FC_PKCS7_signatureVerify;
+      PKCS7_signatureVerify := FC_PKCS7_signatureVerify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3497,7 +3498,7 @@ begin
     if PKCS7_signatureVerify_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_signatureVerify)}
-      PKCS7_signatureVerify := @_PKCS7_signatureVerify;
+      PKCS7_signatureVerify := _PKCS7_signatureVerify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3513,13 +3514,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set_signed_attributes_allownil)}
-    PKCS7_set_signed_attributes := @ERR_PKCS7_set_signed_attributes;
+    PKCS7_set_signed_attributes := ERR_PKCS7_set_signed_attributes;
     {$ifend}
     {$if declared(PKCS7_set_signed_attributes_introduced)}
     if LibVersion < PKCS7_set_signed_attributes_introduced then
     begin
       {$if declared(FC_PKCS7_set_signed_attributes)}
-      PKCS7_set_signed_attributes := @FC_PKCS7_set_signed_attributes;
+      PKCS7_set_signed_attributes := FC_PKCS7_set_signed_attributes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3528,7 +3529,7 @@ begin
     if PKCS7_set_signed_attributes_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set_signed_attributes)}
-      PKCS7_set_signed_attributes := @_PKCS7_set_signed_attributes;
+      PKCS7_set_signed_attributes := _PKCS7_set_signed_attributes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3544,13 +3545,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_dataInit_allownil)}
-    PKCS7_dataInit := @ERR_PKCS7_dataInit;
+    PKCS7_dataInit := ERR_PKCS7_dataInit;
     {$ifend}
     {$if declared(PKCS7_dataInit_introduced)}
     if LibVersion < PKCS7_dataInit_introduced then
     begin
       {$if declared(FC_PKCS7_dataInit)}
-      PKCS7_dataInit := @FC_PKCS7_dataInit;
+      PKCS7_dataInit := FC_PKCS7_dataInit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3559,7 +3560,7 @@ begin
     if PKCS7_dataInit_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_dataInit)}
-      PKCS7_dataInit := @_PKCS7_dataInit;
+      PKCS7_dataInit := _PKCS7_dataInit;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3576,13 +3577,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_dataFinal_allownil)}
-    PKCS7_dataFinal := @ERR_PKCS7_dataFinal;
+    PKCS7_dataFinal := ERR_PKCS7_dataFinal;
     {$ifend}
     {$if declared(PKCS7_dataFinal_introduced)}
     if LibVersion < PKCS7_dataFinal_introduced then
     begin
       {$if declared(FC_PKCS7_dataFinal)}
-      PKCS7_dataFinal := @FC_PKCS7_dataFinal;
+      PKCS7_dataFinal := FC_PKCS7_dataFinal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3591,7 +3592,7 @@ begin
     if PKCS7_dataFinal_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_dataFinal)}
-      PKCS7_dataFinal := @_PKCS7_dataFinal;
+      PKCS7_dataFinal := _PKCS7_dataFinal;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3608,13 +3609,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_dataDecode_allownil)}
-    PKCS7_dataDecode := @ERR_PKCS7_dataDecode;
+    PKCS7_dataDecode := ERR_PKCS7_dataDecode;
     {$ifend}
     {$if declared(PKCS7_dataDecode_introduced)}
     if LibVersion < PKCS7_dataDecode_introduced then
     begin
       {$if declared(FC_PKCS7_dataDecode)}
-      PKCS7_dataDecode := @FC_PKCS7_dataDecode;
+      PKCS7_dataDecode := FC_PKCS7_dataDecode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3623,7 +3624,7 @@ begin
     if PKCS7_dataDecode_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_dataDecode)}
-      PKCS7_dataDecode := @_PKCS7_dataDecode;
+      PKCS7_dataDecode := _PKCS7_dataDecode;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3640,13 +3641,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_signature_allownil)}
-    PKCS7_add_signature := @ERR_PKCS7_add_signature;
+    PKCS7_add_signature := ERR_PKCS7_add_signature;
     {$ifend}
     {$if declared(PKCS7_add_signature_introduced)}
     if LibVersion < PKCS7_add_signature_introduced then
     begin
       {$if declared(FC_PKCS7_add_signature)}
-      PKCS7_add_signature := @FC_PKCS7_add_signature;
+      PKCS7_add_signature := FC_PKCS7_add_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3655,7 +3656,7 @@ begin
     if PKCS7_add_signature_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_signature)}
-      PKCS7_add_signature := @_PKCS7_add_signature;
+      PKCS7_add_signature := _PKCS7_add_signature;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3672,13 +3673,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_cert_from_signer_info_allownil)}
-    PKCS7_cert_from_signer_info := @ERR_PKCS7_cert_from_signer_info;
+    PKCS7_cert_from_signer_info := ERR_PKCS7_cert_from_signer_info;
     {$ifend}
     {$if declared(PKCS7_cert_from_signer_info_introduced)}
     if LibVersion < PKCS7_cert_from_signer_info_introduced then
     begin
       {$if declared(FC_PKCS7_cert_from_signer_info)}
-      PKCS7_cert_from_signer_info := @FC_PKCS7_cert_from_signer_info;
+      PKCS7_cert_from_signer_info := FC_PKCS7_cert_from_signer_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3687,7 +3688,7 @@ begin
     if PKCS7_cert_from_signer_info_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_cert_from_signer_info)}
-      PKCS7_cert_from_signer_info := @_PKCS7_cert_from_signer_info;
+      PKCS7_cert_from_signer_info := _PKCS7_cert_from_signer_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3704,13 +3705,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set_digest_allownil)}
-    PKCS7_set_digest := @ERR_PKCS7_set_digest;
+    PKCS7_set_digest := ERR_PKCS7_set_digest;
     {$ifend}
     {$if declared(PKCS7_set_digest_introduced)}
     if LibVersion < PKCS7_set_digest_introduced then
     begin
       {$if declared(FC_PKCS7_set_digest)}
-      PKCS7_set_digest := @FC_PKCS7_set_digest;
+      PKCS7_set_digest := FC_PKCS7_set_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3719,7 +3720,7 @@ begin
     if PKCS7_set_digest_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set_digest)}
-      PKCS7_set_digest := @_PKCS7_set_digest;
+      PKCS7_set_digest := _PKCS7_set_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3735,13 +3736,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_signer_info_allownil)}
-    PKCS7_get_signer_info := @ERR_PKCS7_get_signer_info;
+    PKCS7_get_signer_info := ERR_PKCS7_get_signer_info;
     {$ifend}
     {$if declared(PKCS7_get_signer_info_introduced)}
     if LibVersion < PKCS7_get_signer_info_introduced then
     begin
       {$if declared(FC_PKCS7_get_signer_info)}
-      PKCS7_get_signer_info := @FC_PKCS7_get_signer_info;
+      PKCS7_get_signer_info := FC_PKCS7_get_signer_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3750,7 +3751,7 @@ begin
     if PKCS7_get_signer_info_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_signer_info)}
-      PKCS7_get_signer_info := @_PKCS7_get_signer_info;
+      PKCS7_get_signer_info := _PKCS7_get_signer_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3766,13 +3767,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_recipient_allownil)}
-    PKCS7_add_recipient := @ERR_PKCS7_add_recipient;
+    PKCS7_add_recipient := ERR_PKCS7_add_recipient;
     {$ifend}
     {$if declared(PKCS7_add_recipient_introduced)}
     if LibVersion < PKCS7_add_recipient_introduced then
     begin
       {$if declared(FC_PKCS7_add_recipient)}
-      PKCS7_add_recipient := @FC_PKCS7_add_recipient;
+      PKCS7_add_recipient := FC_PKCS7_add_recipient;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3781,7 +3782,7 @@ begin
     if PKCS7_add_recipient_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_recipient)}
-      PKCS7_add_recipient := @_PKCS7_add_recipient;
+      PKCS7_add_recipient := _PKCS7_add_recipient;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3798,13 +3799,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_SIGNER_INFO_get0_algs_allownil)}
-    PKCS7_SIGNER_INFO_get0_algs := @ERR_PKCS7_SIGNER_INFO_get0_algs;
+    PKCS7_SIGNER_INFO_get0_algs := ERR_PKCS7_SIGNER_INFO_get0_algs;
     {$ifend}
     {$if declared(PKCS7_SIGNER_INFO_get0_algs_introduced)}
     if LibVersion < PKCS7_SIGNER_INFO_get0_algs_introduced then
     begin
       {$if declared(FC_PKCS7_SIGNER_INFO_get0_algs)}
-      PKCS7_SIGNER_INFO_get0_algs := @FC_PKCS7_SIGNER_INFO_get0_algs;
+      PKCS7_SIGNER_INFO_get0_algs := FC_PKCS7_SIGNER_INFO_get0_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3813,7 +3814,7 @@ begin
     if PKCS7_SIGNER_INFO_get0_algs_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_SIGNER_INFO_get0_algs)}
-      PKCS7_SIGNER_INFO_get0_algs := @_PKCS7_SIGNER_INFO_get0_algs;
+      PKCS7_SIGNER_INFO_get0_algs := _PKCS7_SIGNER_INFO_get0_algs;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3830,13 +3831,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_RECIP_INFO_get0_alg_allownil)}
-    PKCS7_RECIP_INFO_get0_alg := @ERR_PKCS7_RECIP_INFO_get0_alg;
+    PKCS7_RECIP_INFO_get0_alg := ERR_PKCS7_RECIP_INFO_get0_alg;
     {$ifend}
     {$if declared(PKCS7_RECIP_INFO_get0_alg_introduced)}
     if LibVersion < PKCS7_RECIP_INFO_get0_alg_introduced then
     begin
       {$if declared(FC_PKCS7_RECIP_INFO_get0_alg)}
-      PKCS7_RECIP_INFO_get0_alg := @FC_PKCS7_RECIP_INFO_get0_alg;
+      PKCS7_RECIP_INFO_get0_alg := FC_PKCS7_RECIP_INFO_get0_alg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3845,7 +3846,7 @@ begin
     if PKCS7_RECIP_INFO_get0_alg_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_RECIP_INFO_get0_alg)}
-      PKCS7_RECIP_INFO_get0_alg := @_PKCS7_RECIP_INFO_get0_alg;
+      PKCS7_RECIP_INFO_get0_alg := _PKCS7_RECIP_INFO_get0_alg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3862,13 +3863,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_recipient_info_allownil)}
-    PKCS7_add_recipient_info := @ERR_PKCS7_add_recipient_info;
+    PKCS7_add_recipient_info := ERR_PKCS7_add_recipient_info;
     {$ifend}
     {$if declared(PKCS7_add_recipient_info_introduced)}
     if LibVersion < PKCS7_add_recipient_info_introduced then
     begin
       {$if declared(FC_PKCS7_add_recipient_info)}
-      PKCS7_add_recipient_info := @FC_PKCS7_add_recipient_info;
+      PKCS7_add_recipient_info := FC_PKCS7_add_recipient_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3877,7 +3878,7 @@ begin
     if PKCS7_add_recipient_info_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_recipient_info)}
-      PKCS7_add_recipient_info := @_PKCS7_add_recipient_info;
+      PKCS7_add_recipient_info := _PKCS7_add_recipient_info;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3894,13 +3895,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_RECIP_INFO_set_allownil)}
-    PKCS7_RECIP_INFO_set := @ERR_PKCS7_RECIP_INFO_set;
+    PKCS7_RECIP_INFO_set := ERR_PKCS7_RECIP_INFO_set;
     {$ifend}
     {$if declared(PKCS7_RECIP_INFO_set_introduced)}
     if LibVersion < PKCS7_RECIP_INFO_set_introduced then
     begin
       {$if declared(FC_PKCS7_RECIP_INFO_set)}
-      PKCS7_RECIP_INFO_set := @FC_PKCS7_RECIP_INFO_set;
+      PKCS7_RECIP_INFO_set := FC_PKCS7_RECIP_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3909,7 +3910,7 @@ begin
     if PKCS7_RECIP_INFO_set_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_RECIP_INFO_set)}
-      PKCS7_RECIP_INFO_set := @_PKCS7_RECIP_INFO_set;
+      PKCS7_RECIP_INFO_set := _PKCS7_RECIP_INFO_set;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3926,13 +3927,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_set_cipher_allownil)}
-    PKCS7_set_cipher := @ERR_PKCS7_set_cipher;
+    PKCS7_set_cipher := ERR_PKCS7_set_cipher;
     {$ifend}
     {$if declared(PKCS7_set_cipher_introduced)}
     if LibVersion < PKCS7_set_cipher_introduced then
     begin
       {$if declared(FC_PKCS7_set_cipher)}
-      PKCS7_set_cipher := @FC_PKCS7_set_cipher;
+      PKCS7_set_cipher := FC_PKCS7_set_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3941,7 +3942,7 @@ begin
     if PKCS7_set_cipher_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_set_cipher)}
-      PKCS7_set_cipher := @_PKCS7_set_cipher;
+      PKCS7_set_cipher := _PKCS7_set_cipher;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3958,13 +3959,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_stream_allownil)}
-    PKCS7_stream := @ERR_PKCS7_stream;
+    PKCS7_stream := ERR_PKCS7_stream;
     {$ifend}
     {$if declared(PKCS7_stream_introduced)}
     if LibVersion < PKCS7_stream_introduced then
     begin
       {$if declared(FC_PKCS7_stream)}
-      PKCS7_stream := @FC_PKCS7_stream;
+      PKCS7_stream := FC_PKCS7_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3973,7 +3974,7 @@ begin
     if PKCS7_stream_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_stream)}
-      PKCS7_stream := @_PKCS7_stream;
+      PKCS7_stream := _PKCS7_stream;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3990,13 +3991,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_issuer_and_serial_allownil)}
-    PKCS7_get_issuer_and_serial := @ERR_PKCS7_get_issuer_and_serial;
+    PKCS7_get_issuer_and_serial := ERR_PKCS7_get_issuer_and_serial;
     {$ifend}
     {$if declared(PKCS7_get_issuer_and_serial_introduced)}
     if LibVersion < PKCS7_get_issuer_and_serial_introduced then
     begin
       {$if declared(FC_PKCS7_get_issuer_and_serial)}
-      PKCS7_get_issuer_and_serial := @FC_PKCS7_get_issuer_and_serial;
+      PKCS7_get_issuer_and_serial := FC_PKCS7_get_issuer_and_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4005,7 +4006,7 @@ begin
     if PKCS7_get_issuer_and_serial_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_issuer_and_serial)}
-      PKCS7_get_issuer_and_serial := @_PKCS7_get_issuer_and_serial;
+      PKCS7_get_issuer_and_serial := _PKCS7_get_issuer_and_serial;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4021,13 +4022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_octet_string_allownil)}
-    PKCS7_get_octet_string := @ERR_PKCS7_get_octet_string;
+    PKCS7_get_octet_string := ERR_PKCS7_get_octet_string;
     {$ifend}
     {$if declared(PKCS7_get_octet_string_introduced)}
     if LibVersion < PKCS7_get_octet_string_introduced then
     begin
       {$if declared(FC_PKCS7_get_octet_string)}
-      PKCS7_get_octet_string := @FC_PKCS7_get_octet_string;
+      PKCS7_get_octet_string := FC_PKCS7_get_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4036,7 +4037,7 @@ begin
     if PKCS7_get_octet_string_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_octet_string)}
-      PKCS7_get_octet_string := @_PKCS7_get_octet_string;
+      PKCS7_get_octet_string := _PKCS7_get_octet_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4052,13 +4053,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_digest_from_attributes_allownil)}
-    PKCS7_digest_from_attributes := @ERR_PKCS7_digest_from_attributes;
+    PKCS7_digest_from_attributes := ERR_PKCS7_digest_from_attributes;
     {$ifend}
     {$if declared(PKCS7_digest_from_attributes_introduced)}
     if LibVersion < PKCS7_digest_from_attributes_introduced then
     begin
       {$if declared(FC_PKCS7_digest_from_attributes)}
-      PKCS7_digest_from_attributes := @FC_PKCS7_digest_from_attributes;
+      PKCS7_digest_from_attributes := FC_PKCS7_digest_from_attributes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4067,7 +4068,7 @@ begin
     if PKCS7_digest_from_attributes_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_digest_from_attributes)}
-      PKCS7_digest_from_attributes := @_PKCS7_digest_from_attributes;
+      PKCS7_digest_from_attributes := _PKCS7_digest_from_attributes;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4083,13 +4084,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_signed_attribute_allownil)}
-    PKCS7_add_signed_attribute := @ERR_PKCS7_add_signed_attribute;
+    PKCS7_add_signed_attribute := ERR_PKCS7_add_signed_attribute;
     {$ifend}
     {$if declared(PKCS7_add_signed_attribute_introduced)}
     if LibVersion < PKCS7_add_signed_attribute_introduced then
     begin
       {$if declared(FC_PKCS7_add_signed_attribute)}
-      PKCS7_add_signed_attribute := @FC_PKCS7_add_signed_attribute;
+      PKCS7_add_signed_attribute := FC_PKCS7_add_signed_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4098,7 +4099,7 @@ begin
     if PKCS7_add_signed_attribute_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_signed_attribute)}
-      PKCS7_add_signed_attribute := @_PKCS7_add_signed_attribute;
+      PKCS7_add_signed_attribute := _PKCS7_add_signed_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4115,13 +4116,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_attribute_allownil)}
-    PKCS7_add_attribute := @ERR_PKCS7_add_attribute;
+    PKCS7_add_attribute := ERR_PKCS7_add_attribute;
     {$ifend}
     {$if declared(PKCS7_add_attribute_introduced)}
     if LibVersion < PKCS7_add_attribute_introduced then
     begin
       {$if declared(FC_PKCS7_add_attribute)}
-      PKCS7_add_attribute := @FC_PKCS7_add_attribute;
+      PKCS7_add_attribute := FC_PKCS7_add_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4130,7 +4131,7 @@ begin
     if PKCS7_add_attribute_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_attribute)}
-      PKCS7_add_attribute := @_PKCS7_add_attribute;
+      PKCS7_add_attribute := _PKCS7_add_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4147,13 +4148,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_attribute_allownil)}
-    PKCS7_get_attribute := @ERR_PKCS7_get_attribute;
+    PKCS7_get_attribute := ERR_PKCS7_get_attribute;
     {$ifend}
     {$if declared(PKCS7_get_attribute_introduced)}
     if LibVersion < PKCS7_get_attribute_introduced then
     begin
       {$if declared(FC_PKCS7_get_attribute)}
-      PKCS7_get_attribute := @FC_PKCS7_get_attribute;
+      PKCS7_get_attribute := FC_PKCS7_get_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4162,7 +4163,7 @@ begin
     if PKCS7_get_attribute_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_attribute)}
-      PKCS7_get_attribute := @_PKCS7_get_attribute;
+      PKCS7_get_attribute := _PKCS7_get_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4179,13 +4180,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_signed_attribute_allownil)}
-    PKCS7_get_signed_attribute := @ERR_PKCS7_get_signed_attribute;
+    PKCS7_get_signed_attribute := ERR_PKCS7_get_signed_attribute;
     {$ifend}
     {$if declared(PKCS7_get_signed_attribute_introduced)}
     if LibVersion < PKCS7_get_signed_attribute_introduced then
     begin
       {$if declared(FC_PKCS7_get_signed_attribute)}
-      PKCS7_get_signed_attribute := @FC_PKCS7_get_signed_attribute;
+      PKCS7_get_signed_attribute := FC_PKCS7_get_signed_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4194,7 +4195,7 @@ begin
     if PKCS7_get_signed_attribute_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_signed_attribute)}
-      PKCS7_get_signed_attribute := @_PKCS7_get_signed_attribute;
+      PKCS7_get_signed_attribute := _PKCS7_get_signed_attribute;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4211,13 +4212,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_sign_add_signer_allownil)}
-    PKCS7_sign_add_signer := @ERR_PKCS7_sign_add_signer;
+    PKCS7_sign_add_signer := ERR_PKCS7_sign_add_signer;
     {$ifend}
     {$if declared(PKCS7_sign_add_signer_introduced)}
     if LibVersion < PKCS7_sign_add_signer_introduced then
     begin
       {$if declared(FC_PKCS7_sign_add_signer)}
-      PKCS7_sign_add_signer := @FC_PKCS7_sign_add_signer;
+      PKCS7_sign_add_signer := FC_PKCS7_sign_add_signer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4226,7 +4227,7 @@ begin
     if PKCS7_sign_add_signer_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_sign_add_signer)}
-      PKCS7_sign_add_signer := @_PKCS7_sign_add_signer;
+      PKCS7_sign_add_signer := _PKCS7_sign_add_signer;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4243,13 +4244,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_final_allownil)}
-    PKCS7_final := @ERR_PKCS7_final;
+    PKCS7_final := ERR_PKCS7_final;
     {$ifend}
     {$if declared(PKCS7_final_introduced)}
     if LibVersion < PKCS7_final_introduced then
     begin
       {$if declared(FC_PKCS7_final)}
-      PKCS7_final := @FC_PKCS7_final;
+      PKCS7_final := FC_PKCS7_final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4258,7 +4259,7 @@ begin
     if PKCS7_final_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_final)}
-      PKCS7_final := @_PKCS7_final;
+      PKCS7_final := _PKCS7_final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4274,13 +4275,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_verify_allownil)}
-    PKCS7_verify := @ERR_PKCS7_verify;
+    PKCS7_verify := ERR_PKCS7_verify;
     {$ifend}
     {$if declared(PKCS7_verify_introduced)}
     if LibVersion < PKCS7_verify_introduced then
     begin
       {$if declared(FC_PKCS7_verify)}
-      PKCS7_verify := @FC_PKCS7_verify;
+      PKCS7_verify := FC_PKCS7_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4289,7 +4290,7 @@ begin
     if PKCS7_verify_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_verify)}
-      PKCS7_verify := @_PKCS7_verify;
+      PKCS7_verify := _PKCS7_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4305,13 +4306,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get0_signers_allownil)}
-    PKCS7_get0_signers := @ERR_PKCS7_get0_signers;
+    PKCS7_get0_signers := ERR_PKCS7_get0_signers;
     {$ifend}
     {$if declared(PKCS7_get0_signers_introduced)}
     if LibVersion < PKCS7_get0_signers_introduced then
     begin
       {$if declared(FC_PKCS7_get0_signers)}
-      PKCS7_get0_signers := @FC_PKCS7_get0_signers;
+      PKCS7_get0_signers := FC_PKCS7_get0_signers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4320,7 +4321,7 @@ begin
     if PKCS7_get0_signers_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get0_signers)}
-      PKCS7_get0_signers := @_PKCS7_get0_signers;
+      PKCS7_get0_signers := _PKCS7_get0_signers;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4337,13 +4338,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_encrypt_allownil)}
-    PKCS7_encrypt := @ERR_PKCS7_encrypt;
+    PKCS7_encrypt := ERR_PKCS7_encrypt;
     {$ifend}
     {$if declared(PKCS7_encrypt_introduced)}
     if LibVersion < PKCS7_encrypt_introduced then
     begin
       {$if declared(FC_PKCS7_encrypt)}
-      PKCS7_encrypt := @FC_PKCS7_encrypt;
+      PKCS7_encrypt := FC_PKCS7_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4352,7 +4353,7 @@ begin
     if PKCS7_encrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_encrypt)}
-      PKCS7_encrypt := @_PKCS7_encrypt;
+      PKCS7_encrypt := _PKCS7_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4368,13 +4369,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_decrypt_allownil)}
-    PKCS7_decrypt := @ERR_PKCS7_decrypt;
+    PKCS7_decrypt := ERR_PKCS7_decrypt;
     {$ifend}
     {$if declared(PKCS7_decrypt_introduced)}
     if LibVersion < PKCS7_decrypt_introduced then
     begin
       {$if declared(FC_PKCS7_decrypt)}
-      PKCS7_decrypt := @FC_PKCS7_decrypt;
+      PKCS7_decrypt := FC_PKCS7_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4383,7 +4384,7 @@ begin
     if PKCS7_decrypt_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_decrypt)}
-      PKCS7_decrypt := @_PKCS7_decrypt;
+      PKCS7_decrypt := _PKCS7_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4399,13 +4400,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_attrib_smimecap_allownil)}
-    PKCS7_add_attrib_smimecap := @ERR_PKCS7_add_attrib_smimecap;
+    PKCS7_add_attrib_smimecap := ERR_PKCS7_add_attrib_smimecap;
     {$ifend}
     {$if declared(PKCS7_add_attrib_smimecap_introduced)}
     if LibVersion < PKCS7_add_attrib_smimecap_introduced then
     begin
       {$if declared(FC_PKCS7_add_attrib_smimecap)}
-      PKCS7_add_attrib_smimecap := @FC_PKCS7_add_attrib_smimecap;
+      PKCS7_add_attrib_smimecap := FC_PKCS7_add_attrib_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4414,7 +4415,7 @@ begin
     if PKCS7_add_attrib_smimecap_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_attrib_smimecap)}
-      PKCS7_add_attrib_smimecap := @_PKCS7_add_attrib_smimecap;
+      PKCS7_add_attrib_smimecap := _PKCS7_add_attrib_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4430,13 +4431,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_get_smimecap_allownil)}
-    PKCS7_get_smimecap := @ERR_PKCS7_get_smimecap;
+    PKCS7_get_smimecap := ERR_PKCS7_get_smimecap;
     {$ifend}
     {$if declared(PKCS7_get_smimecap_introduced)}
     if LibVersion < PKCS7_get_smimecap_introduced then
     begin
       {$if declared(FC_PKCS7_get_smimecap)}
-      PKCS7_get_smimecap := @FC_PKCS7_get_smimecap;
+      PKCS7_get_smimecap := FC_PKCS7_get_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4445,7 +4446,7 @@ begin
     if PKCS7_get_smimecap_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_get_smimecap)}
-      PKCS7_get_smimecap := @_PKCS7_get_smimecap;
+      PKCS7_get_smimecap := _PKCS7_get_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4461,13 +4462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_simple_smimecap_allownil)}
-    PKCS7_simple_smimecap := @ERR_PKCS7_simple_smimecap;
+    PKCS7_simple_smimecap := ERR_PKCS7_simple_smimecap;
     {$ifend}
     {$if declared(PKCS7_simple_smimecap_introduced)}
     if LibVersion < PKCS7_simple_smimecap_introduced then
     begin
       {$if declared(FC_PKCS7_simple_smimecap)}
-      PKCS7_simple_smimecap := @FC_PKCS7_simple_smimecap;
+      PKCS7_simple_smimecap := FC_PKCS7_simple_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4476,7 +4477,7 @@ begin
     if PKCS7_simple_smimecap_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_simple_smimecap)}
-      PKCS7_simple_smimecap := @_PKCS7_simple_smimecap;
+      PKCS7_simple_smimecap := _PKCS7_simple_smimecap;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4492,13 +4493,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add_attrib_content_type_allownil)}
-    PKCS7_add_attrib_content_type := @ERR_PKCS7_add_attrib_content_type;
+    PKCS7_add_attrib_content_type := ERR_PKCS7_add_attrib_content_type;
     {$ifend}
     {$if declared(PKCS7_add_attrib_content_type_introduced)}
     if LibVersion < PKCS7_add_attrib_content_type_introduced then
     begin
       {$if declared(FC_PKCS7_add_attrib_content_type)}
-      PKCS7_add_attrib_content_type := @FC_PKCS7_add_attrib_content_type;
+      PKCS7_add_attrib_content_type := FC_PKCS7_add_attrib_content_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4507,7 +4508,7 @@ begin
     if PKCS7_add_attrib_content_type_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add_attrib_content_type)}
-      PKCS7_add_attrib_content_type := @_PKCS7_add_attrib_content_type;
+      PKCS7_add_attrib_content_type := _PKCS7_add_attrib_content_type;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4524,13 +4525,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add0_attrib_signing_time_allownil)}
-    PKCS7_add0_attrib_signing_time := @ERR_PKCS7_add0_attrib_signing_time;
+    PKCS7_add0_attrib_signing_time := ERR_PKCS7_add0_attrib_signing_time;
     {$ifend}
     {$if declared(PKCS7_add0_attrib_signing_time_introduced)}
     if LibVersion < PKCS7_add0_attrib_signing_time_introduced then
     begin
       {$if declared(FC_PKCS7_add0_attrib_signing_time)}
-      PKCS7_add0_attrib_signing_time := @FC_PKCS7_add0_attrib_signing_time;
+      PKCS7_add0_attrib_signing_time := FC_PKCS7_add0_attrib_signing_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4539,7 +4540,7 @@ begin
     if PKCS7_add0_attrib_signing_time_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add0_attrib_signing_time)}
-      PKCS7_add0_attrib_signing_time := @_PKCS7_add0_attrib_signing_time;
+      PKCS7_add0_attrib_signing_time := _PKCS7_add0_attrib_signing_time;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4556,13 +4557,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(PKCS7_add1_attrib_digest_allownil)}
-    PKCS7_add1_attrib_digest := @ERR_PKCS7_add1_attrib_digest;
+    PKCS7_add1_attrib_digest := ERR_PKCS7_add1_attrib_digest;
     {$ifend}
     {$if declared(PKCS7_add1_attrib_digest_introduced)}
     if LibVersion < PKCS7_add1_attrib_digest_introduced then
     begin
       {$if declared(FC_PKCS7_add1_attrib_digest)}
-      PKCS7_add1_attrib_digest := @FC_PKCS7_add1_attrib_digest;
+      PKCS7_add1_attrib_digest := FC_PKCS7_add1_attrib_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4571,7 +4572,7 @@ begin
     if PKCS7_add1_attrib_digest_removed <= LibVersion then
     begin
       {$if declared(_PKCS7_add1_attrib_digest)}
-      PKCS7_add1_attrib_digest := @_PKCS7_add1_attrib_digest;
+      PKCS7_add1_attrib_digest := _PKCS7_add1_attrib_digest;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4588,13 +4589,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SMIME_write_PKCS7_allownil)}
-    SMIME_write_PKCS7 := @ERR_SMIME_write_PKCS7;
+    SMIME_write_PKCS7 := ERR_SMIME_write_PKCS7;
     {$ifend}
     {$if declared(SMIME_write_PKCS7_introduced)}
     if LibVersion < SMIME_write_PKCS7_introduced then
     begin
       {$if declared(FC_SMIME_write_PKCS7)}
-      SMIME_write_PKCS7 := @FC_SMIME_write_PKCS7;
+      SMIME_write_PKCS7 := FC_SMIME_write_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4603,7 +4604,7 @@ begin
     if SMIME_write_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_SMIME_write_PKCS7)}
-      SMIME_write_PKCS7 := @_SMIME_write_PKCS7;
+      SMIME_write_PKCS7 := _SMIME_write_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4620,13 +4621,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SMIME_read_PKCS7_allownil)}
-    SMIME_read_PKCS7 := @ERR_SMIME_read_PKCS7;
+    SMIME_read_PKCS7 := ERR_SMIME_read_PKCS7;
     {$ifend}
     {$if declared(SMIME_read_PKCS7_introduced)}
     if LibVersion < SMIME_read_PKCS7_introduced then
     begin
       {$if declared(FC_SMIME_read_PKCS7)}
-      SMIME_read_PKCS7 := @FC_SMIME_read_PKCS7;
+      SMIME_read_PKCS7 := FC_SMIME_read_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4635,7 +4636,7 @@ begin
     if SMIME_read_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_SMIME_read_PKCS7)}
-      SMIME_read_PKCS7 := @_SMIME_read_PKCS7;
+      SMIME_read_PKCS7 := _SMIME_read_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4652,13 +4653,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BIO_new_PKCS7_allownil)}
-    BIO_new_PKCS7 := @ERR_BIO_new_PKCS7;
+    BIO_new_PKCS7 := ERR_BIO_new_PKCS7;
     {$ifend}
     {$if declared(BIO_new_PKCS7_introduced)}
     if LibVersion < BIO_new_PKCS7_introduced then
     begin
       {$if declared(FC_BIO_new_PKCS7)}
-      BIO_new_PKCS7 := @FC_BIO_new_PKCS7;
+      BIO_new_PKCS7 := FC_BIO_new_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -4667,7 +4668,7 @@ begin
     if BIO_new_PKCS7_removed <= LibVersion then
     begin
       {$if declared(_BIO_new_PKCS7)}
-      BIO_new_PKCS7 := @_BIO_new_PKCS7;
+      BIO_new_PKCS7 := _BIO_new_PKCS7;
       {$ifend}
       FuncLoadError := false;
     end;

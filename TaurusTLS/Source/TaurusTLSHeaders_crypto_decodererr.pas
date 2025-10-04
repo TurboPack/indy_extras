@@ -55,7 +55,7 @@ const
 
 {$I TaurusTLSNoRetValOff.inc}
 
-function ERR_ossl_err_load_OSSL_DECODER_strings : TIdC_INT;
+function ERR_ossl_err_load_OSSL_DECODER_strings : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_err_load_OSSL_DECODER_strings_procname);
@@ -75,13 +75,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_err_load_OSSL_DECODER_strings_allownil)}
-    ossl_err_load_OSSL_DECODER_strings := @ERR_ossl_err_load_OSSL_DECODER_strings;
+    ossl_err_load_OSSL_DECODER_strings := ERR_ossl_err_load_OSSL_DECODER_strings;
 {$IFEND}
 {$IF declared(ossl_err_load_OSSL_DECODER_strings_introduced)}
     if LibVersion < ossl_err_load_OSSL_DECODER_strings_introduced then
     begin
 {$IF declared(FC_ossl_err_load_OSSL_DECODER_strings)}
-      ossl_err_load_OSSL_DECODER_strings := @FC_ossl_err_load_OSSL_DECODER_strings;
+      ossl_err_load_OSSL_DECODER_strings := FC_ossl_err_load_OSSL_DECODER_strings;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -90,7 +90,7 @@ begin
     if ossl_err_load_OSSL_DECODER_strings_removed <= LibVersion then
     begin
 {$IF declared(_ossl_err_load_OSSL_DECODER_strings)}
-      ossl_err_load_OSSL_DECODER_strings := @_ossl_err_load_OSSL_DECODER_strings;
+      ossl_err_load_OSSL_DECODER_strings := _ossl_err_load_OSSL_DECODER_strings;
 {$IFEND}
       FuncLoadError := false;
     end;

@@ -109,50 +109,53 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-procedure  ERR_CAST_set_key(key: PCast_Key; len: TIdC_INT; const data: PByte); 
+procedure  ERR_CAST_set_key(key: PCast_Key; len: TIdC_INT; const data: PByte); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_set_key_procname);
 end;
 
 
-procedure  ERR_CAST_ecb_encrypt(const in_: PByte; out_: PByte; const key: PCast_Key; enc: TIdC_INT); 
+procedure  ERR_CAST_ecb_encrypt(const in_: PByte; out_: PByte; const key: PCast_Key; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_ecb_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_encrypt(data: PCAST_LONG; const key: PCast_Key); 
+procedure  ERR_CAST_encrypt(data: PCAST_LONG; const key: PCast_Key); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_decrypt(data: PCAST_LONG; const key: PCast_Key); 
+procedure  ERR_CAST_decrypt(data: PCAST_LONG; const key: PCast_Key); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_decrypt_procname);
 end;
 
 
-procedure  ERR_CAST_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const ks: PCast_Key; iv: PByte; enc: TIdC_INT); 
+procedure  ERR_CAST_cbc_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const ks: PCast_Key;
+  iv: PByte; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT; enc: TIdC_INT); 
+procedure  ERR_CAST_cfb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key;
+  ivec: PByte; num: PIdC_INT; enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_cfb64_encrypt_procname);
 end;
 
 
-procedure  ERR_CAST_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key; ivec: PByte; num: PIdC_INT); 
+procedure  ERR_CAST_ofb64_encrypt(const in_: PByte; out_: PByte; _length: TIdC_LONG; const schedule: PCast_Key;
+  ivec: PByte; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CAST_ofb64_encrypt_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -164,13 +167,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_set_key_allownil)}
-    CAST_set_key := @ERR_CAST_set_key;
+    CAST_set_key := ERR_CAST_set_key;
     {$ifend}
     {$if declared(CAST_set_key_introduced)}
     if LibVersion < CAST_set_key_introduced then
     begin
       {$if declared(FC_CAST_set_key)}
-      CAST_set_key := @FC_CAST_set_key;
+      CAST_set_key := FC_CAST_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -179,7 +182,7 @@ begin
     if CAST_set_key_removed <= LibVersion then
     begin
       {$if declared(_CAST_set_key)}
-      CAST_set_key := @_CAST_set_key;
+      CAST_set_key := _CAST_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -196,13 +199,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_ecb_encrypt_allownil)}
-    CAST_ecb_encrypt := @ERR_CAST_ecb_encrypt;
+    CAST_ecb_encrypt := ERR_CAST_ecb_encrypt;
     {$ifend}
     {$if declared(CAST_ecb_encrypt_introduced)}
     if LibVersion < CAST_ecb_encrypt_introduced then
     begin
       {$if declared(FC_CAST_ecb_encrypt)}
-      CAST_ecb_encrypt := @FC_CAST_ecb_encrypt;
+      CAST_ecb_encrypt := FC_CAST_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -211,7 +214,7 @@ begin
     if CAST_ecb_encrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_ecb_encrypt)}
-      CAST_ecb_encrypt := @_CAST_ecb_encrypt;
+      CAST_ecb_encrypt := _CAST_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -228,13 +231,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_encrypt_allownil)}
-    CAST_encrypt := @ERR_CAST_encrypt;
+    CAST_encrypt := ERR_CAST_encrypt;
     {$ifend}
     {$if declared(CAST_encrypt_introduced)}
     if LibVersion < CAST_encrypt_introduced then
     begin
       {$if declared(FC_CAST_encrypt)}
-      CAST_encrypt := @FC_CAST_encrypt;
+      CAST_encrypt := FC_CAST_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -243,7 +246,7 @@ begin
     if CAST_encrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_encrypt)}
-      CAST_encrypt := @_CAST_encrypt;
+      CAST_encrypt := _CAST_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -260,13 +263,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_decrypt_allownil)}
-    CAST_decrypt := @ERR_CAST_decrypt;
+    CAST_decrypt := ERR_CAST_decrypt;
     {$ifend}
     {$if declared(CAST_decrypt_introduced)}
     if LibVersion < CAST_decrypt_introduced then
     begin
       {$if declared(FC_CAST_decrypt)}
-      CAST_decrypt := @FC_CAST_decrypt;
+      CAST_decrypt := FC_CAST_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -275,7 +278,7 @@ begin
     if CAST_decrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_decrypt)}
-      CAST_decrypt := @_CAST_decrypt;
+      CAST_decrypt := _CAST_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -292,13 +295,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_cbc_encrypt_allownil)}
-    CAST_cbc_encrypt := @ERR_CAST_cbc_encrypt;
+    CAST_cbc_encrypt := ERR_CAST_cbc_encrypt;
     {$ifend}
     {$if declared(CAST_cbc_encrypt_introduced)}
     if LibVersion < CAST_cbc_encrypt_introduced then
     begin
       {$if declared(FC_CAST_cbc_encrypt)}
-      CAST_cbc_encrypt := @FC_CAST_cbc_encrypt;
+      CAST_cbc_encrypt := FC_CAST_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -307,7 +310,7 @@ begin
     if CAST_cbc_encrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_cbc_encrypt)}
-      CAST_cbc_encrypt := @_CAST_cbc_encrypt;
+      CAST_cbc_encrypt := _CAST_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -324,13 +327,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_cfb64_encrypt_allownil)}
-    CAST_cfb64_encrypt := @ERR_CAST_cfb64_encrypt;
+    CAST_cfb64_encrypt := ERR_CAST_cfb64_encrypt;
     {$ifend}
     {$if declared(CAST_cfb64_encrypt_introduced)}
     if LibVersion < CAST_cfb64_encrypt_introduced then
     begin
       {$if declared(FC_CAST_cfb64_encrypt)}
-      CAST_cfb64_encrypt := @FC_CAST_cfb64_encrypt;
+      CAST_cfb64_encrypt := FC_CAST_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -339,7 +342,7 @@ begin
     if CAST_cfb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_cfb64_encrypt)}
-      CAST_cfb64_encrypt := @_CAST_cfb64_encrypt;
+      CAST_cfb64_encrypt := _CAST_cfb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -356,13 +359,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CAST_ofb64_encrypt_allownil)}
-    CAST_ofb64_encrypt := @ERR_CAST_ofb64_encrypt;
+    CAST_ofb64_encrypt := ERR_CAST_ofb64_encrypt;
     {$ifend}
     {$if declared(CAST_ofb64_encrypt_introduced)}
     if LibVersion < CAST_ofb64_encrypt_introduced then
     begin
       {$if declared(FC_CAST_ofb64_encrypt)}
-      CAST_ofb64_encrypt := @FC_CAST_ofb64_encrypt;
+      CAST_ofb64_encrypt := FC_CAST_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -371,7 +374,7 @@ begin
     if CAST_ofb64_encrypt_removed <= LibVersion then
     begin
       {$if declared(_CAST_ofb64_encrypt)}
-      CAST_ofb64_encrypt := @_CAST_ofb64_encrypt;
+      CAST_ofb64_encrypt := _CAST_ofb64_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;

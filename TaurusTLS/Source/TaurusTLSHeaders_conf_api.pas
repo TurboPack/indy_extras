@@ -114,14 +114,14 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR__CONF_new_section(conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE;
+function  ERR__CONF_new_section(conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_new_section_procname);
 end;
 
 
   //* Up until TaurusTLS 0.9.5a, this was get_section */
-function  ERR__CONF_get_section(const conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE;
+function  ERR__CONF_get_section(const conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_section_procname);
 end;
@@ -131,32 +131,34 @@ end;
   //STACK_OF(CONF_VALUE) *_CONF_get_section_values(const CONF *conf,
   //                                               const char *section);
 
-function  ERR__CONF_add_string(conf: PCONF; section: PCONF_VALUE; value: PCONF_VALUE): TIdC_INT; 
+function  ERR__CONF_add_string(conf: PCONF; section: PCONF_VALUE; value: PCONF_VALUE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_add_string_procname);
 end;
 
 
-function  ERR__CONF_get_string(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): PIdAnsiChar;
+function  ERR__CONF_get_string(const conf: PCONF; const section: PIdAnsiChar;
+  const name: PIdAnsiChar): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_string_procname);
 end;
 
 
-function  ERR__CONF_get_number(const conf: PCONF; const section: PIdAnsiChar; const name: PIdAnsiChar): TIdC_LONG;
+function  ERR__CONF_get_number(const conf: PCONF; const section: PIdAnsiChar;
+  const name: PIdAnsiChar): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_get_number_procname);
 end;
 
 
 
-function  ERR__CONF_new_data(conf: PCONF): TIdC_INT; 
+function  ERR__CONF_new_data(conf: PCONF): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_new_data_procname);
 end;
 
 
-procedure  ERR__CONF_free_data(conf: PCONF); 
+procedure  ERR__CONF_free_data(conf: PCONF); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(_CONF_free_data_procname);
 end;
@@ -164,7 +166,7 @@ end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -176,13 +178,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_new_section_allownil)}
-    _CONF_new_section := @ERR__CONF_new_section;
+    _CONF_new_section := ERR__CONF_new_section;
     {$ifend}
     {$if declared(_CONF_new_section_introduced)}
     if LibVersion < _CONF_new_section_introduced then
     begin
       {$if declared(FC__CONF_new_section)}
-      _CONF_new_section := @FC__CONF_new_section;
+      _CONF_new_section := FC__CONF_new_section;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -191,7 +193,7 @@ begin
     if _CONF_new_section_removed <= LibVersion then
     begin
       {$if declared(__CONF_new_section)}
-      _CONF_new_section := @__CONF_new_section;
+      _CONF_new_section := __CONF_new_section;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -208,13 +210,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_get_section_allownil)}
-    _CONF_get_section := @ERR__CONF_get_section;
+    _CONF_get_section := ERR__CONF_get_section;
     {$ifend}
     {$if declared(_CONF_get_section_introduced)}
     if LibVersion < _CONF_get_section_introduced then
     begin
       {$if declared(FC__CONF_get_section)}
-      _CONF_get_section := @FC__CONF_get_section;
+      _CONF_get_section := FC__CONF_get_section;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -223,7 +225,7 @@ begin
     if _CONF_get_section_removed <= LibVersion then
     begin
       {$if declared(__CONF_get_section)}
-      _CONF_get_section := @__CONF_get_section;
+      _CONF_get_section := __CONF_get_section;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -240,13 +242,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_add_string_allownil)}
-    _CONF_add_string := @ERR__CONF_add_string;
+    _CONF_add_string := ERR__CONF_add_string;
     {$ifend}
     {$if declared(_CONF_add_string_introduced)}
     if LibVersion < _CONF_add_string_introduced then
     begin
       {$if declared(FC__CONF_add_string)}
-      _CONF_add_string := @FC__CONF_add_string;
+      _CONF_add_string := FC__CONF_add_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -255,7 +257,7 @@ begin
     if _CONF_add_string_removed <= LibVersion then
     begin
       {$if declared(__CONF_add_string)}
-      _CONF_add_string := @__CONF_add_string;
+      _CONF_add_string := __CONF_add_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -272,13 +274,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_get_string_allownil)}
-    _CONF_get_string := @ERR__CONF_get_string;
+    _CONF_get_string := ERR__CONF_get_string;
     {$ifend}
     {$if declared(_CONF_get_string_introduced)}
     if LibVersion < _CONF_get_string_introduced then
     begin
       {$if declared(FC__CONF_get_string)}
-      _CONF_get_string := @FC__CONF_get_string;
+      _CONF_get_string := FC__CONF_get_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -287,7 +289,7 @@ begin
     if _CONF_get_string_removed <= LibVersion then
     begin
       {$if declared(__CONF_get_string)}
-      _CONF_get_string := @__CONF_get_string;
+      _CONF_get_string := __CONF_get_string;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -304,13 +306,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_get_number_allownil)}
-    _CONF_get_number := @ERR__CONF_get_number;
+    _CONF_get_number := ERR__CONF_get_number;
     {$ifend}
     {$if declared(_CONF_get_number_introduced)}
     if LibVersion < _CONF_get_number_introduced then
     begin
       {$if declared(FC__CONF_get_number)}
-      _CONF_get_number := @FC__CONF_get_number;
+      _CONF_get_number := FC__CONF_get_number;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -319,7 +321,7 @@ begin
     if _CONF_get_number_removed <= LibVersion then
     begin
       {$if declared(__CONF_get_number)}
-      _CONF_get_number := @__CONF_get_number;
+      _CONF_get_number := __CONF_get_number;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -336,13 +338,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_new_data_allownil)}
-    _CONF_new_data := @ERR__CONF_new_data;
+    _CONF_new_data := ERR__CONF_new_data;
     {$ifend}
     {$if declared(_CONF_new_data_introduced)}
     if LibVersion < _CONF_new_data_introduced then
     begin
       {$if declared(FC__CONF_new_data)}
-      _CONF_new_data := @FC__CONF_new_data;
+      _CONF_new_data := FC__CONF_new_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -351,7 +353,7 @@ begin
     if _CONF_new_data_removed <= LibVersion then
     begin
       {$if declared(__CONF_new_data)}
-      _CONF_new_data := @__CONF_new_data;
+      _CONF_new_data := __CONF_new_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -368,13 +370,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(_CONF_free_data_allownil)}
-    _CONF_free_data := @ERR__CONF_free_data;
+    _CONF_free_data := ERR__CONF_free_data;
     {$ifend}
     {$if declared(_CONF_free_data_introduced)}
     if LibVersion < _CONF_free_data_introduced then
     begin
       {$if declared(FC__CONF_free_data)}
-      _CONF_free_data := @FC__CONF_free_data;
+      _CONF_free_data := FC__CONF_free_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -383,7 +385,7 @@ begin
     if _CONF_free_data_removed <= LibVersion then
     begin
       {$if declared(__CONF_free_data)}
-      _CONF_free_data := @__CONF_free_data;
+      _CONF_free_data := __CONF_free_data;
       {$ifend}
       FuncLoadError := false;
     end;

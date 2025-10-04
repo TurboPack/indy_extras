@@ -800,441 +800,444 @@ const
 }
 
 {$I TaurusTLSNoRetValOff.inc}
-function  ERR_DHparams_dup(dh: PDH): PDH; 
+function  ERR_DHparams_dup(dh: PDH): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DHparams_dup_procname);
 end;
 
 
-function  ERR_DH_OpenSSL: PDH_Method;
+function  ERR_DH_OpenSSL: PDH_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_OpenSSL_procname);
 end;
 
 
-procedure  ERR_DH_set_default_method(const meth: PDH_Method); 
+procedure  ERR_DH_set_default_method(const meth: PDH_Method); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_default_method_procname);
 end;
 
 
-function  ERR_DH_get_default_method: PDH_Method; 
+function  ERR_DH_get_default_method: PDH_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_default_method_procname);
 end;
 
 
-function  ERR_DH_set_method(dh: PDH; const meth: PDH_Method): TIdC_INT; 
+function  ERR_DH_set_method(dh: PDH; const meth: PDH_Method): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_method_procname);
 end;
 
 
-function  ERR_DH_new_method(engine: PENGINE): PDH; 
+function  ERR_DH_new_method(engine: PENGINE): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_new_method_procname);
 end;
 
 
 
-function  ERR_DH_new: PDH; 
+function  ERR_DH_new: PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_new_procname);
 end;
 
 
-procedure  ERR_DH_free(dh: PDH); 
+procedure  ERR_DH_free(dh: PDH); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_free_procname);
 end;
 
 
-function  ERR_DH_up_ref(dh: PDH): TIdC_INT; 
+function  ERR_DH_up_ref(dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_up_ref_procname);
 end;
 
 
-function  ERR_DH_bits(const dh: PDH): TIdC_INT; 
+function  ERR_DH_bits(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_bits_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_size(const dh: PDH): TIdC_INT; 
+function  ERR_DH_size(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_size_procname);
 end;
 
 
-function  ERR_DH_security_bits(const dh: PDH): TIdC_INT; 
+function  ERR_DH_security_bits(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_security_bits_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_set_ex_data(d: PDH; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function  ERR_DH_set_ex_data(d: PDH; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_ex_data_procname);
 end;
 
 
-function  ERR_DH_get_ex_data(d: PDH; idx: TIdC_INT): Pointer; 
+function  ERR_DH_get_ex_data(d: PDH; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_ex_data_procname);
 end;
 
 
 
-function  ERR_DH_generate_parameters_ex(dh: PDH; prime_len: TIdC_INT; generator: TIdC_INT; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_DH_generate_parameters_ex(dh: PDH; prime_len: TIdC_INT; generator: TIdC_INT;
+  cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_generate_parameters_ex_procname);
 end;
 
 
 
-function  ERR_DH_check_params_ex(const dh: PDH): TIdC_INT; 
+function  ERR_DH_check_params_ex(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_params_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_check_ex(const dh: PDH): TIdC_INT; 
+function  ERR_DH_check_ex(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_check_pub_key_ex(const dh: PDH; const pub_key: PBIGNUM): TIdC_INT; 
+function  ERR_DH_check_pub_key_ex(const dh: PDH; const pub_key: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_pub_key_ex_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_check_params(const dh: PDH; ret: PIdC_INT): TIdC_INT; 
+function  ERR_DH_check_params(const dh: PDH; ret: PIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_params_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_check(const dh: PDH; codes: PIdC_INT): TIdC_INT; 
+function  ERR_DH_check(const dh: PDH; codes: PIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_procname);
 end;
 
 
-function  ERR_DH_check_pub_key(const dh: PDH; const pub_key: PBIGNUM; codes: PIdC_INT): TIdC_INT; 
+function  ERR_DH_check_pub_key(const dh: PDH; const pub_key: PBIGNUM; codes: PIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_check_pub_key_procname);
 end;
 
 
-function  ERR_DH_generate_key(dh: PDH): TIdC_INT; 
+function  ERR_DH_generate_key(dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_generate_key_procname);
 end;
 
 
-function  ERR_DH_compute_key(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; 
+function  ERR_DH_compute_key(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_compute_key_procname);
 end;
 
 
-function  ERR_DH_compute_key_padded(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; 
+function  ERR_DH_compute_key_padded(key: PByte; const pub_key: PBIGNUM; dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_compute_key_padded_procname);
 end;
 
 
-function  ERR_d2i_DHparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; 
+function  ERR_d2i_DHparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DHparams_procname);
 end;
 
 
-function  ERR_i2d_DHparams(const a: PDH; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DHparams(const a: PDH; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DHparams_procname);
 end;
 
 
-function  ERR_d2i_DHxparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; 
+function  ERR_d2i_DHxparams(a: PPDH; const pp: PPByte; _length: TIdC_LONG): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DHxparams_procname);
 end;
 
 
-function  ERR_i2d_DHxparams(const a: PDH; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DHxparams(const a: PDH; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DHxparams_procname);
 end;
 
 
-function  ERR_DHparams_print(bp: PBIO; const x: PDH): TIdC_INT; 
+function  ERR_DHparams_print(bp: PBIO; const x: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DHparams_print_procname);
 end;
 
 
 
-function  ERR_DH_get_1024_160: PDH; 
+function  ERR_DH_get_1024_160: PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_1024_160_procname);
 end;
 
 
-function  ERR_DH_get_2048_224: PDH; 
+function  ERR_DH_get_2048_224: PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_2048_224_procname);
 end;
 
 
-function  ERR_DH_get_2048_256: PDH; 
+function  ERR_DH_get_2048_256: PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_2048_256_procname);
 end;
 
 
 
-function  ERR_DH_new_by_nid(nid: TIdC_INT): PDH; 
+function  ERR_DH_new_by_nid(nid: TIdC_INT): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_new_by_nid_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get_nid(const dh: PDH): TIdC_INT; 
+function  ERR_DH_get_nid(const dh: PDH): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_nid_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_KDF_X9_42( out_: PByte; outlen: TIdC_SIZET; const Z: PByte; Zlen: TIdC_SIZET; key_oid: PASN1_OBJECT; const ukm: PByte; ukmlen: TIdC_SIZET; const md: PEVP_MD): TIdC_INT; 
+function  ERR_DH_KDF_X9_42( out_: PByte; outlen: TIdC_SIZET; const Z: PByte; Zlen: TIdC_SIZET;
+  key_oid: PASN1_OBJECT; const ukm: PByte; ukmlen: TIdC_SIZET; const md: PEVP_MD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_KDF_X9_42_procname);
 end;
 
 
 
-procedure  ERR_DH_get0_pqg(const dh: PDH; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); 
+procedure  ERR_DH_get0_pqg(const dh: PDH; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_pqg_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_set0_pqg(dh: PDH; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TIdC_INT; 
+function  ERR_DH_set0_pqg(dh: PDH; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set0_pqg_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_DH_get0_key(const dh: PDH; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); 
+procedure  ERR_DH_get0_key(const dh: PDH; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_set0_key(dh: PDH; pub_key: PBIGNUM; priv_key: PBIGNUM): TIdC_INT; 
+function  ERR_DH_set0_key(dh: PDH; pub_key: PBIGNUM; priv_key: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set0_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_p(const dh: PDH): PBIGNUM; 
+function  ERR_DH_get0_p(const dh: PDH): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_p_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_q(const dh: PDH): PBIGNUM; 
+function  ERR_DH_get0_q(const dh: PDH): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_q_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_g(const dh: PDH): PBIGNUM; 
+function  ERR_DH_get0_g(const dh: PDH): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_g_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_priv_key(const dh: PDH): PBIGNUM; 
+function  ERR_DH_get0_priv_key(const dh: PDH): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_priv_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_pub_key(const dh: PDH): PBIGNUM; 
+function  ERR_DH_get0_pub_key(const dh: PDH): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_pub_key_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_DH_clear_flags(dh: PDH; flags: TIdC_INT); 
+procedure  ERR_DH_clear_flags(dh: PDH; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_clear_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_test_flags(const dh: PDH; flags: TIdC_INT): TIdC_INT; 
+function  ERR_DH_test_flags(const dh: PDH; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_test_flags_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_DH_set_flags(dh: PDH; flags: TIdC_INT); 
+procedure  ERR_DH_set_flags(dh: PDH; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get0_engine(d: PDH): PENGINE; 
+function  ERR_DH_get0_engine(d: PDH): PENGINE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get0_engine_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_get_length(const dh: PDH): TIdC_LONG; 
+function  ERR_DH_get_length(const dh: PDH): TIdC_LONG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_get_length_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_set_length(dh: PDH; _length: TIdC_LONG): TIdC_INT; 
+function  ERR_DH_set_length(dh: PDH; _length: TIdC_LONG): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_set_length_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method;
+function  ERR_DH_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDH_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_new_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_DH_meth_free(dhm: PDH_Method); 
+procedure  ERR_DH_meth_free(dhm: PDH_Method); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_dup(const dhm: PDH_Method): PDH_Method; 
+function  ERR_DH_meth_dup(const dhm: PDH_Method): PDH_Method; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_dup_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_get0_name(const dhm: PDH_Method): PIdAnsiChar;
+function  ERR_DH_meth_get0_name(const dhm: PDH_Method): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get0_name_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set1_name(dhm: PDH_Method; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_DH_meth_set1_name(dhm: PDH_Method; const name: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set1_name_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_get_flags(const dhm: PDH_Method): TIdC_INT; 
+function  ERR_DH_meth_get_flags(const dhm: PDH_Method): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_flags(const dhm: PDH_Method; flags: TIdC_INT): TIdC_INT;
+function  ERR_DH_meth_set_flags(const dhm: PDH_Method; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_flags_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_get0_app_data(const dhm: PDH_Method): Pointer;
+function  ERR_DH_meth_get0_app_data(const dhm: PDH_Method): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get0_app_data_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set0_app_data(const dhm: PDH_Method; app_data: Pointer): TIdC_INT;
+function  ERR_DH_meth_set0_app_data(const dhm: PDH_Method; app_data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set0_app_data_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_generate_key(const dhm: PDH_Method): DH_meth_generate_key_cb;
+function  ERR_DH_meth_get_generate_key(const dhm: PDH_Method): DH_meth_generate_key_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_generate_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_generate_key(const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TIdC_INT;
+function  ERR_DH_meth_set_generate_key(const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_generate_key_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_compute_key(const dhm: PDH_Method): DH_meth_compute_key_cb;
+function  ERR_DH_meth_get_compute_key(const dhm: PDH_Method): DH_meth_compute_key_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_compute_key_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_compute_key(const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TIdC_INT;
+function  ERR_DH_meth_set_compute_key(const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_compute_key_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_bn_mod_exp(const dhm: PDH_Method): DH_meth_bn_mod_exp_cb;
+function  ERR_DH_meth_get_bn_mod_exp(const dhm: PDH_Method): DH_meth_bn_mod_exp_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_bn_mod_exp_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_bn_mod_exp(const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TIdC_INT;
+function  ERR_DH_meth_set_bn_mod_exp(const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_bn_mod_exp_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_init(const dhm: PDH_Method): DH_meth_init_cb;
+function  ERR_DH_meth_get_init(const dhm: PDH_Method): DH_meth_init_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_init_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_init(const dhm: PDH_Method; init: DH_meth_init_cb): TIdC_INT;
+function  ERR_DH_meth_set_init(const dhm: PDH_Method; init: DH_meth_init_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_init_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_finish(const dhm: PDH_Method): DH_meth_finish_cb;
+function  ERR_DH_meth_get_finish(const dhm: PDH_Method): DH_meth_finish_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_finish_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_finish(const dhm: PDH_Method; finish: DH_meth_finish_cb): TIdC_INT;
+function  ERR_DH_meth_set_finish(const dhm: PDH_Method; finish: DH_meth_finish_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_finish_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_DH_meth_get_generate_params(const dhm: PDH_Method): DH_meth_generate_params_cb;
+function  ERR_DH_meth_get_generate_params(const dhm: PDH_Method): DH_meth_generate_params_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_get_generate_params_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_DH_meth_set_generate_params(const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TIdC_INT;
+function  ERR_DH_meth_set_generate_params(const dhm: PDH_Method;
+  generate_params: DH_meth_generate_params_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DH_meth_set_generate_params_procname);
 end;
@@ -1338,13 +1341,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DHparams_dup_allownil)}
-    DHparams_dup := @ERR_DHparams_dup;
+    DHparams_dup := ERR_DHparams_dup;
     {$ifend}
     {$if declared(DHparams_dup_introduced)}
     if LibVersion < DHparams_dup_introduced then
     begin
       {$if declared(FC_DHparams_dup)}
-      DHparams_dup := @FC_DHparams_dup;
+      DHparams_dup := FC_DHparams_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1353,7 +1356,7 @@ begin
     if DHparams_dup_removed <= LibVersion then
     begin
       {$if declared(_DHparams_dup)}
-      DHparams_dup := @_DHparams_dup;
+      DHparams_dup := _DHparams_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1370,13 +1373,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_OpenSSL_allownil)}
-    DH_OpenSSL := @ERR_DH_OpenSSL;
+    DH_OpenSSL := ERR_DH_OpenSSL;
     {$ifend}
     {$if declared(DH_OpenSSL_introduced)}
     if LibVersion < DH_OpenSSL_introduced then
     begin
       {$if declared(FC_DH_OpenSSL)}
-      DH_OpenSSL := @FC_DH_OpenSSL;
+      DH_OpenSSL := FC_DH_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1385,7 +1388,7 @@ begin
     if DH_OpenSSL_removed <= LibVersion then
     begin
       {$if declared(_DH_OpenSSL)}
-      DH_OpenSSL := @_DH_OpenSSL;
+      DH_OpenSSL := _DH_OpenSSL;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1402,13 +1405,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set_default_method_allownil)}
-    DH_set_default_method := @ERR_DH_set_default_method;
+    DH_set_default_method := ERR_DH_set_default_method;
     {$ifend}
     {$if declared(DH_set_default_method_introduced)}
     if LibVersion < DH_set_default_method_introduced then
     begin
       {$if declared(FC_DH_set_default_method)}
-      DH_set_default_method := @FC_DH_set_default_method;
+      DH_set_default_method := FC_DH_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1417,7 +1420,7 @@ begin
     if DH_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_DH_set_default_method)}
-      DH_set_default_method := @_DH_set_default_method;
+      DH_set_default_method := _DH_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1434,13 +1437,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_default_method_allownil)}
-    DH_get_default_method := @ERR_DH_get_default_method;
+    DH_get_default_method := ERR_DH_get_default_method;
     {$ifend}
     {$if declared(DH_get_default_method_introduced)}
     if LibVersion < DH_get_default_method_introduced then
     begin
       {$if declared(FC_DH_get_default_method)}
-      DH_get_default_method := @FC_DH_get_default_method;
+      DH_get_default_method := FC_DH_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1449,7 +1452,7 @@ begin
     if DH_get_default_method_removed <= LibVersion then
     begin
       {$if declared(_DH_get_default_method)}
-      DH_get_default_method := @_DH_get_default_method;
+      DH_get_default_method := _DH_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1466,13 +1469,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set_method_allownil)}
-    DH_set_method := @ERR_DH_set_method;
+    DH_set_method := ERR_DH_set_method;
     {$ifend}
     {$if declared(DH_set_method_introduced)}
     if LibVersion < DH_set_method_introduced then
     begin
       {$if declared(FC_DH_set_method)}
-      DH_set_method := @FC_DH_set_method;
+      DH_set_method := FC_DH_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1481,7 +1484,7 @@ begin
     if DH_set_method_removed <= LibVersion then
     begin
       {$if declared(_DH_set_method)}
-      DH_set_method := @_DH_set_method;
+      DH_set_method := _DH_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1498,13 +1501,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_new_method_allownil)}
-    DH_new_method := @ERR_DH_new_method;
+    DH_new_method := ERR_DH_new_method;
     {$ifend}
     {$if declared(DH_new_method_introduced)}
     if LibVersion < DH_new_method_introduced then
     begin
       {$if declared(FC_DH_new_method)}
-      DH_new_method := @FC_DH_new_method;
+      DH_new_method := FC_DH_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1513,7 +1516,7 @@ begin
     if DH_new_method_removed <= LibVersion then
     begin
       {$if declared(_DH_new_method)}
-      DH_new_method := @_DH_new_method;
+      DH_new_method := _DH_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1530,13 +1533,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_new_allownil)}
-    DH_new := @ERR_DH_new;
+    DH_new := ERR_DH_new;
     {$ifend}
     {$if declared(DH_new_introduced)}
     if LibVersion < DH_new_introduced then
     begin
       {$if declared(FC_DH_new)}
-      DH_new := @FC_DH_new;
+      DH_new := FC_DH_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1545,7 +1548,7 @@ begin
     if DH_new_removed <= LibVersion then
     begin
       {$if declared(_DH_new)}
-      DH_new := @_DH_new;
+      DH_new := _DH_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1562,13 +1565,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_free_allownil)}
-    DH_free := @ERR_DH_free;
+    DH_free := ERR_DH_free;
     {$ifend}
     {$if declared(DH_free_introduced)}
     if LibVersion < DH_free_introduced then
     begin
       {$if declared(FC_DH_free)}
-      DH_free := @FC_DH_free;
+      DH_free := FC_DH_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1577,7 +1580,7 @@ begin
     if DH_free_removed <= LibVersion then
     begin
       {$if declared(_DH_free)}
-      DH_free := @_DH_free;
+      DH_free := _DH_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1594,13 +1597,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_up_ref_allownil)}
-    DH_up_ref := @ERR_DH_up_ref;
+    DH_up_ref := ERR_DH_up_ref;
     {$ifend}
     {$if declared(DH_up_ref_introduced)}
     if LibVersion < DH_up_ref_introduced then
     begin
       {$if declared(FC_DH_up_ref)}
-      DH_up_ref := @FC_DH_up_ref;
+      DH_up_ref := FC_DH_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1609,7 +1612,7 @@ begin
     if DH_up_ref_removed <= LibVersion then
     begin
       {$if declared(_DH_up_ref)}
-      DH_up_ref := @_DH_up_ref;
+      DH_up_ref := _DH_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1626,13 +1629,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_bits_allownil)}
-    DH_bits := @ERR_DH_bits;
+    DH_bits := ERR_DH_bits;
     {$ifend}
     {$if declared(DH_bits_introduced)}
     if LibVersion < DH_bits_introduced then
     begin
       {$if declared(FC_DH_bits)}
-      DH_bits := @FC_DH_bits;
+      DH_bits := FC_DH_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1641,7 +1644,7 @@ begin
     if DH_bits_removed <= LibVersion then
     begin
       {$if declared(_DH_bits)}
-      DH_bits := @_DH_bits;
+      DH_bits := _DH_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1658,13 +1661,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_size_allownil)}
-    DH_size := @ERR_DH_size;
+    DH_size := ERR_DH_size;
     {$ifend}
     {$if declared(DH_size_introduced)}
     if LibVersion < DH_size_introduced then
     begin
       {$if declared(FC_DH_size)}
-      DH_size := @FC_DH_size;
+      DH_size := FC_DH_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1673,7 +1676,7 @@ begin
     if DH_size_removed <= LibVersion then
     begin
       {$if declared(_DH_size)}
-      DH_size := @_DH_size;
+      DH_size := _DH_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1690,13 +1693,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_security_bits_allownil)}
-    DH_security_bits := @ERR_DH_security_bits;
+    DH_security_bits := ERR_DH_security_bits;
     {$ifend}
     {$if declared(DH_security_bits_introduced)}
     if LibVersion < DH_security_bits_introduced then
     begin
       {$if declared(FC_DH_security_bits)}
-      DH_security_bits := @FC_DH_security_bits;
+      DH_security_bits := FC_DH_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1705,7 +1708,7 @@ begin
     if DH_security_bits_removed <= LibVersion then
     begin
       {$if declared(_DH_security_bits)}
-      DH_security_bits := @_DH_security_bits;
+      DH_security_bits := _DH_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1722,13 +1725,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set_ex_data_allownil)}
-    DH_set_ex_data := @ERR_DH_set_ex_data;
+    DH_set_ex_data := ERR_DH_set_ex_data;
     {$ifend}
     {$if declared(DH_set_ex_data_introduced)}
     if LibVersion < DH_set_ex_data_introduced then
     begin
       {$if declared(FC_DH_set_ex_data)}
-      DH_set_ex_data := @FC_DH_set_ex_data;
+      DH_set_ex_data := FC_DH_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1737,7 +1740,7 @@ begin
     if DH_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_DH_set_ex_data)}
-      DH_set_ex_data := @_DH_set_ex_data;
+      DH_set_ex_data := _DH_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1754,13 +1757,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_ex_data_allownil)}
-    DH_get_ex_data := @ERR_DH_get_ex_data;
+    DH_get_ex_data := ERR_DH_get_ex_data;
     {$ifend}
     {$if declared(DH_get_ex_data_introduced)}
     if LibVersion < DH_get_ex_data_introduced then
     begin
       {$if declared(FC_DH_get_ex_data)}
-      DH_get_ex_data := @FC_DH_get_ex_data;
+      DH_get_ex_data := FC_DH_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1769,7 +1772,7 @@ begin
     if DH_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_DH_get_ex_data)}
-      DH_get_ex_data := @_DH_get_ex_data;
+      DH_get_ex_data := _DH_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1786,13 +1789,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_generate_parameters_ex_allownil)}
-    DH_generate_parameters_ex := @ERR_DH_generate_parameters_ex;
+    DH_generate_parameters_ex := ERR_DH_generate_parameters_ex;
     {$ifend}
     {$if declared(DH_generate_parameters_ex_introduced)}
     if LibVersion < DH_generate_parameters_ex_introduced then
     begin
       {$if declared(FC_DH_generate_parameters_ex)}
-      DH_generate_parameters_ex := @FC_DH_generate_parameters_ex;
+      DH_generate_parameters_ex := FC_DH_generate_parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1801,7 +1804,7 @@ begin
     if DH_generate_parameters_ex_removed <= LibVersion then
     begin
       {$if declared(_DH_generate_parameters_ex)}
-      DH_generate_parameters_ex := @_DH_generate_parameters_ex;
+      DH_generate_parameters_ex := _DH_generate_parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1818,13 +1821,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_params_ex_allownil)}
-    DH_check_params_ex := @ERR_DH_check_params_ex;
+    DH_check_params_ex := ERR_DH_check_params_ex;
     {$ifend}
     {$if declared(DH_check_params_ex_introduced)}
     if LibVersion < DH_check_params_ex_introduced then
     begin
       {$if declared(FC_DH_check_params_ex)}
-      DH_check_params_ex := @FC_DH_check_params_ex;
+      DH_check_params_ex := FC_DH_check_params_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1833,7 +1836,7 @@ begin
     if DH_check_params_ex_removed <= LibVersion then
     begin
       {$if declared(_DH_check_params_ex)}
-      DH_check_params_ex := @_DH_check_params_ex;
+      DH_check_params_ex := _DH_check_params_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1850,13 +1853,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_ex_allownil)}
-    DH_check_ex := @ERR_DH_check_ex;
+    DH_check_ex := ERR_DH_check_ex;
     {$ifend}
     {$if declared(DH_check_ex_introduced)}
     if LibVersion < DH_check_ex_introduced then
     begin
       {$if declared(FC_DH_check_ex)}
-      DH_check_ex := @FC_DH_check_ex;
+      DH_check_ex := FC_DH_check_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1865,7 +1868,7 @@ begin
     if DH_check_ex_removed <= LibVersion then
     begin
       {$if declared(_DH_check_ex)}
-      DH_check_ex := @_DH_check_ex;
+      DH_check_ex := _DH_check_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1882,13 +1885,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_pub_key_ex_allownil)}
-    DH_check_pub_key_ex := @ERR_DH_check_pub_key_ex;
+    DH_check_pub_key_ex := ERR_DH_check_pub_key_ex;
     {$ifend}
     {$if declared(DH_check_pub_key_ex_introduced)}
     if LibVersion < DH_check_pub_key_ex_introduced then
     begin
       {$if declared(FC_DH_check_pub_key_ex)}
-      DH_check_pub_key_ex := @FC_DH_check_pub_key_ex;
+      DH_check_pub_key_ex := FC_DH_check_pub_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1897,7 +1900,7 @@ begin
     if DH_check_pub_key_ex_removed <= LibVersion then
     begin
       {$if declared(_DH_check_pub_key_ex)}
-      DH_check_pub_key_ex := @_DH_check_pub_key_ex;
+      DH_check_pub_key_ex := _DH_check_pub_key_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1914,13 +1917,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_params_allownil)}
-    DH_check_params := @ERR_DH_check_params;
+    DH_check_params := ERR_DH_check_params;
     {$ifend}
     {$if declared(DH_check_params_introduced)}
     if LibVersion < DH_check_params_introduced then
     begin
       {$if declared(FC_DH_check_params)}
-      DH_check_params := @FC_DH_check_params;
+      DH_check_params := FC_DH_check_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1929,7 +1932,7 @@ begin
     if DH_check_params_removed <= LibVersion then
     begin
       {$if declared(_DH_check_params)}
-      DH_check_params := @_DH_check_params;
+      DH_check_params := _DH_check_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1946,13 +1949,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_allownil)}
-    DH_check := @ERR_DH_check;
+    DH_check := ERR_DH_check;
     {$ifend}
     {$if declared(DH_check_introduced)}
     if LibVersion < DH_check_introduced then
     begin
       {$if declared(FC_DH_check)}
-      DH_check := @FC_DH_check;
+      DH_check := FC_DH_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1961,7 +1964,7 @@ begin
     if DH_check_removed <= LibVersion then
     begin
       {$if declared(_DH_check)}
-      DH_check := @_DH_check;
+      DH_check := _DH_check;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1978,13 +1981,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_check_pub_key_allownil)}
-    DH_check_pub_key := @ERR_DH_check_pub_key;
+    DH_check_pub_key := ERR_DH_check_pub_key;
     {$ifend}
     {$if declared(DH_check_pub_key_introduced)}
     if LibVersion < DH_check_pub_key_introduced then
     begin
       {$if declared(FC_DH_check_pub_key)}
-      DH_check_pub_key := @FC_DH_check_pub_key;
+      DH_check_pub_key := FC_DH_check_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1993,7 +1996,7 @@ begin
     if DH_check_pub_key_removed <= LibVersion then
     begin
       {$if declared(_DH_check_pub_key)}
-      DH_check_pub_key := @_DH_check_pub_key;
+      DH_check_pub_key := _DH_check_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2010,13 +2013,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_generate_key_allownil)}
-    DH_generate_key := @ERR_DH_generate_key;
+    DH_generate_key := ERR_DH_generate_key;
     {$ifend}
     {$if declared(DH_generate_key_introduced)}
     if LibVersion < DH_generate_key_introduced then
     begin
       {$if declared(FC_DH_generate_key)}
-      DH_generate_key := @FC_DH_generate_key;
+      DH_generate_key := FC_DH_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2025,7 +2028,7 @@ begin
     if DH_generate_key_removed <= LibVersion then
     begin
       {$if declared(_DH_generate_key)}
-      DH_generate_key := @_DH_generate_key;
+      DH_generate_key := _DH_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2042,13 +2045,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_compute_key_allownil)}
-    DH_compute_key := @ERR_DH_compute_key;
+    DH_compute_key := ERR_DH_compute_key;
     {$ifend}
     {$if declared(DH_compute_key_introduced)}
     if LibVersion < DH_compute_key_introduced then
     begin
       {$if declared(FC_DH_compute_key)}
-      DH_compute_key := @FC_DH_compute_key;
+      DH_compute_key := FC_DH_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2057,7 +2060,7 @@ begin
     if DH_compute_key_removed <= LibVersion then
     begin
       {$if declared(_DH_compute_key)}
-      DH_compute_key := @_DH_compute_key;
+      DH_compute_key := _DH_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2074,13 +2077,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_compute_key_padded_allownil)}
-    DH_compute_key_padded := @ERR_DH_compute_key_padded;
+    DH_compute_key_padded := ERR_DH_compute_key_padded;
     {$ifend}
     {$if declared(DH_compute_key_padded_introduced)}
     if LibVersion < DH_compute_key_padded_introduced then
     begin
       {$if declared(FC_DH_compute_key_padded)}
-      DH_compute_key_padded := @FC_DH_compute_key_padded;
+      DH_compute_key_padded := FC_DH_compute_key_padded;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2089,7 +2092,7 @@ begin
     if DH_compute_key_padded_removed <= LibVersion then
     begin
       {$if declared(_DH_compute_key_padded)}
-      DH_compute_key_padded := @_DH_compute_key_padded;
+      DH_compute_key_padded := _DH_compute_key_padded;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2106,13 +2109,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DHparams_allownil)}
-    d2i_DHparams := @ERR_d2i_DHparams;
+    d2i_DHparams := ERR_d2i_DHparams;
     {$ifend}
     {$if declared(d2i_DHparams_introduced)}
     if LibVersion < d2i_DHparams_introduced then
     begin
       {$if declared(FC_d2i_DHparams)}
-      d2i_DHparams := @FC_d2i_DHparams;
+      d2i_DHparams := FC_d2i_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2121,7 +2124,7 @@ begin
     if d2i_DHparams_removed <= LibVersion then
     begin
       {$if declared(_d2i_DHparams)}
-      d2i_DHparams := @_d2i_DHparams;
+      d2i_DHparams := _d2i_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2138,13 +2141,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DHparams_allownil)}
-    i2d_DHparams := @ERR_i2d_DHparams;
+    i2d_DHparams := ERR_i2d_DHparams;
     {$ifend}
     {$if declared(i2d_DHparams_introduced)}
     if LibVersion < i2d_DHparams_introduced then
     begin
       {$if declared(FC_i2d_DHparams)}
-      i2d_DHparams := @FC_i2d_DHparams;
+      i2d_DHparams := FC_i2d_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2153,7 +2156,7 @@ begin
     if i2d_DHparams_removed <= LibVersion then
     begin
       {$if declared(_i2d_DHparams)}
-      i2d_DHparams := @_i2d_DHparams;
+      i2d_DHparams := _i2d_DHparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2170,13 +2173,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DHxparams_allownil)}
-    d2i_DHxparams := @ERR_d2i_DHxparams;
+    d2i_DHxparams := ERR_d2i_DHxparams;
     {$ifend}
     {$if declared(d2i_DHxparams_introduced)}
     if LibVersion < d2i_DHxparams_introduced then
     begin
       {$if declared(FC_d2i_DHxparams)}
-      d2i_DHxparams := @FC_d2i_DHxparams;
+      d2i_DHxparams := FC_d2i_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2185,7 +2188,7 @@ begin
     if d2i_DHxparams_removed <= LibVersion then
     begin
       {$if declared(_d2i_DHxparams)}
-      d2i_DHxparams := @_d2i_DHxparams;
+      d2i_DHxparams := _d2i_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2202,13 +2205,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DHxparams_allownil)}
-    i2d_DHxparams := @ERR_i2d_DHxparams;
+    i2d_DHxparams := ERR_i2d_DHxparams;
     {$ifend}
     {$if declared(i2d_DHxparams_introduced)}
     if LibVersion < i2d_DHxparams_introduced then
     begin
       {$if declared(FC_i2d_DHxparams)}
-      i2d_DHxparams := @FC_i2d_DHxparams;
+      i2d_DHxparams := FC_i2d_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2217,7 +2220,7 @@ begin
     if i2d_DHxparams_removed <= LibVersion then
     begin
       {$if declared(_i2d_DHxparams)}
-      i2d_DHxparams := @_i2d_DHxparams;
+      i2d_DHxparams := _i2d_DHxparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2234,13 +2237,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DHparams_print_allownil)}
-    DHparams_print := @ERR_DHparams_print;
+    DHparams_print := ERR_DHparams_print;
     {$ifend}
     {$if declared(DHparams_print_introduced)}
     if LibVersion < DHparams_print_introduced then
     begin
       {$if declared(FC_DHparams_print)}
-      DHparams_print := @FC_DHparams_print;
+      DHparams_print := FC_DHparams_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2249,7 +2252,7 @@ begin
     if DHparams_print_removed <= LibVersion then
     begin
       {$if declared(_DHparams_print)}
-      DHparams_print := @_DHparams_print;
+      DHparams_print := _DHparams_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2266,13 +2269,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_1024_160_allownil)}
-    DH_get_1024_160 := @ERR_DH_get_1024_160;
+    DH_get_1024_160 := ERR_DH_get_1024_160;
     {$ifend}
     {$if declared(DH_get_1024_160_introduced)}
     if LibVersion < DH_get_1024_160_introduced then
     begin
       {$if declared(FC_DH_get_1024_160)}
-      DH_get_1024_160 := @FC_DH_get_1024_160;
+      DH_get_1024_160 := FC_DH_get_1024_160;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2281,7 +2284,7 @@ begin
     if DH_get_1024_160_removed <= LibVersion then
     begin
       {$if declared(_DH_get_1024_160)}
-      DH_get_1024_160 := @_DH_get_1024_160;
+      DH_get_1024_160 := _DH_get_1024_160;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2298,13 +2301,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_2048_224_allownil)}
-    DH_get_2048_224 := @ERR_DH_get_2048_224;
+    DH_get_2048_224 := ERR_DH_get_2048_224;
     {$ifend}
     {$if declared(DH_get_2048_224_introduced)}
     if LibVersion < DH_get_2048_224_introduced then
     begin
       {$if declared(FC_DH_get_2048_224)}
-      DH_get_2048_224 := @FC_DH_get_2048_224;
+      DH_get_2048_224 := FC_DH_get_2048_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2313,7 +2316,7 @@ begin
     if DH_get_2048_224_removed <= LibVersion then
     begin
       {$if declared(_DH_get_2048_224)}
-      DH_get_2048_224 := @_DH_get_2048_224;
+      DH_get_2048_224 := _DH_get_2048_224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2330,13 +2333,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_2048_256_allownil)}
-    DH_get_2048_256 := @ERR_DH_get_2048_256;
+    DH_get_2048_256 := ERR_DH_get_2048_256;
     {$ifend}
     {$if declared(DH_get_2048_256_introduced)}
     if LibVersion < DH_get_2048_256_introduced then
     begin
       {$if declared(FC_DH_get_2048_256)}
-      DH_get_2048_256 := @FC_DH_get_2048_256;
+      DH_get_2048_256 := FC_DH_get_2048_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2345,7 +2348,7 @@ begin
     if DH_get_2048_256_removed <= LibVersion then
     begin
       {$if declared(_DH_get_2048_256)}
-      DH_get_2048_256 := @_DH_get_2048_256;
+      DH_get_2048_256 := _DH_get_2048_256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2362,13 +2365,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_new_by_nid_allownil)}
-    DH_new_by_nid := @ERR_DH_new_by_nid;
+    DH_new_by_nid := ERR_DH_new_by_nid;
     {$ifend}
     {$if declared(DH_new_by_nid_introduced)}
     if LibVersion < DH_new_by_nid_introduced then
     begin
       {$if declared(FC_DH_new_by_nid)}
-      DH_new_by_nid := @FC_DH_new_by_nid;
+      DH_new_by_nid := FC_DH_new_by_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2377,7 +2380,7 @@ begin
     if DH_new_by_nid_removed <= LibVersion then
     begin
       {$if declared(_DH_new_by_nid)}
-      DH_new_by_nid := @_DH_new_by_nid;
+      DH_new_by_nid := _DH_new_by_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2394,13 +2397,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_nid_allownil)}
-    DH_get_nid := @ERR_DH_get_nid;
+    DH_get_nid := ERR_DH_get_nid;
     {$ifend}
     {$if declared(DH_get_nid_introduced)}
     if LibVersion < DH_get_nid_introduced then
     begin
       {$if declared(FC_DH_get_nid)}
-      DH_get_nid := @FC_DH_get_nid;
+      DH_get_nid := FC_DH_get_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2409,7 +2412,7 @@ begin
     if DH_get_nid_removed <= LibVersion then
     begin
       {$if declared(_DH_get_nid)}
-      DH_get_nid := @_DH_get_nid;
+      DH_get_nid := _DH_get_nid;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2426,13 +2429,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_KDF_X9_42_allownil)}
-    DH_KDF_X9_42 := @ERR_DH_KDF_X9_42;
+    DH_KDF_X9_42 := ERR_DH_KDF_X9_42;
     {$ifend}
     {$if declared(DH_KDF_X9_42_introduced)}
     if LibVersion < DH_KDF_X9_42_introduced then
     begin
       {$if declared(FC_DH_KDF_X9_42)}
-      DH_KDF_X9_42 := @FC_DH_KDF_X9_42;
+      DH_KDF_X9_42 := FC_DH_KDF_X9_42;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2441,7 +2444,7 @@ begin
     if DH_KDF_X9_42_removed <= LibVersion then
     begin
       {$if declared(_DH_KDF_X9_42)}
-      DH_KDF_X9_42 := @_DH_KDF_X9_42;
+      DH_KDF_X9_42 := _DH_KDF_X9_42;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2458,13 +2461,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_pqg_allownil)}
-    DH_get0_pqg := @ERR_DH_get0_pqg;
+    DH_get0_pqg := ERR_DH_get0_pqg;
     {$ifend}
     {$if declared(DH_get0_pqg_introduced)}
     if LibVersion < DH_get0_pqg_introduced then
     begin
       {$if declared(FC_DH_get0_pqg)}
-      DH_get0_pqg := @FC_DH_get0_pqg;
+      DH_get0_pqg := FC_DH_get0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2473,7 +2476,7 @@ begin
     if DH_get0_pqg_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_pqg)}
-      DH_get0_pqg := @_DH_get0_pqg;
+      DH_get0_pqg := _DH_get0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2490,13 +2493,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set0_pqg_allownil)}
-    DH_set0_pqg := @ERR_DH_set0_pqg;
+    DH_set0_pqg := ERR_DH_set0_pqg;
     {$ifend}
     {$if declared(DH_set0_pqg_introduced)}
     if LibVersion < DH_set0_pqg_introduced then
     begin
       {$if declared(FC_DH_set0_pqg)}
-      DH_set0_pqg := @FC_DH_set0_pqg;
+      DH_set0_pqg := FC_DH_set0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2505,7 +2508,7 @@ begin
     if DH_set0_pqg_removed <= LibVersion then
     begin
       {$if declared(_DH_set0_pqg)}
-      DH_set0_pqg := @_DH_set0_pqg;
+      DH_set0_pqg := _DH_set0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2522,13 +2525,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_key_allownil)}
-    DH_get0_key := @ERR_DH_get0_key;
+    DH_get0_key := ERR_DH_get0_key;
     {$ifend}
     {$if declared(DH_get0_key_introduced)}
     if LibVersion < DH_get0_key_introduced then
     begin
       {$if declared(FC_DH_get0_key)}
-      DH_get0_key := @FC_DH_get0_key;
+      DH_get0_key := FC_DH_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2537,7 +2540,7 @@ begin
     if DH_get0_key_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_key)}
-      DH_get0_key := @_DH_get0_key;
+      DH_get0_key := _DH_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2554,13 +2557,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set0_key_allownil)}
-    DH_set0_key := @ERR_DH_set0_key;
+    DH_set0_key := ERR_DH_set0_key;
     {$ifend}
     {$if declared(DH_set0_key_introduced)}
     if LibVersion < DH_set0_key_introduced then
     begin
       {$if declared(FC_DH_set0_key)}
-      DH_set0_key := @FC_DH_set0_key;
+      DH_set0_key := FC_DH_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2569,7 +2572,7 @@ begin
     if DH_set0_key_removed <= LibVersion then
     begin
       {$if declared(_DH_set0_key)}
-      DH_set0_key := @_DH_set0_key;
+      DH_set0_key := _DH_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2586,13 +2589,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_p_allownil)}
-    DH_get0_p := @ERR_DH_get0_p;
+    DH_get0_p := ERR_DH_get0_p;
     {$ifend}
     {$if declared(DH_get0_p_introduced)}
     if LibVersion < DH_get0_p_introduced then
     begin
       {$if declared(FC_DH_get0_p)}
-      DH_get0_p := @FC_DH_get0_p;
+      DH_get0_p := FC_DH_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2601,7 +2604,7 @@ begin
     if DH_get0_p_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_p)}
-      DH_get0_p := @_DH_get0_p;
+      DH_get0_p := _DH_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2618,13 +2621,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_q_allownil)}
-    DH_get0_q := @ERR_DH_get0_q;
+    DH_get0_q := ERR_DH_get0_q;
     {$ifend}
     {$if declared(DH_get0_q_introduced)}
     if LibVersion < DH_get0_q_introduced then
     begin
       {$if declared(FC_DH_get0_q)}
-      DH_get0_q := @FC_DH_get0_q;
+      DH_get0_q := FC_DH_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2633,7 +2636,7 @@ begin
     if DH_get0_q_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_q)}
-      DH_get0_q := @_DH_get0_q;
+      DH_get0_q := _DH_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2650,13 +2653,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_g_allownil)}
-    DH_get0_g := @ERR_DH_get0_g;
+    DH_get0_g := ERR_DH_get0_g;
     {$ifend}
     {$if declared(DH_get0_g_introduced)}
     if LibVersion < DH_get0_g_introduced then
     begin
       {$if declared(FC_DH_get0_g)}
-      DH_get0_g := @FC_DH_get0_g;
+      DH_get0_g := FC_DH_get0_g;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2665,7 +2668,7 @@ begin
     if DH_get0_g_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_g)}
-      DH_get0_g := @_DH_get0_g;
+      DH_get0_g := _DH_get0_g;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2682,13 +2685,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_priv_key_allownil)}
-    DH_get0_priv_key := @ERR_DH_get0_priv_key;
+    DH_get0_priv_key := ERR_DH_get0_priv_key;
     {$ifend}
     {$if declared(DH_get0_priv_key_introduced)}
     if LibVersion < DH_get0_priv_key_introduced then
     begin
       {$if declared(FC_DH_get0_priv_key)}
-      DH_get0_priv_key := @FC_DH_get0_priv_key;
+      DH_get0_priv_key := FC_DH_get0_priv_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2697,7 +2700,7 @@ begin
     if DH_get0_priv_key_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_priv_key)}
-      DH_get0_priv_key := @_DH_get0_priv_key;
+      DH_get0_priv_key := _DH_get0_priv_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2714,13 +2717,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_pub_key_allownil)}
-    DH_get0_pub_key := @ERR_DH_get0_pub_key;
+    DH_get0_pub_key := ERR_DH_get0_pub_key;
     {$ifend}
     {$if declared(DH_get0_pub_key_introduced)}
     if LibVersion < DH_get0_pub_key_introduced then
     begin
       {$if declared(FC_DH_get0_pub_key)}
-      DH_get0_pub_key := @FC_DH_get0_pub_key;
+      DH_get0_pub_key := FC_DH_get0_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2729,7 +2732,7 @@ begin
     if DH_get0_pub_key_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_pub_key)}
-      DH_get0_pub_key := @_DH_get0_pub_key;
+      DH_get0_pub_key := _DH_get0_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2746,13 +2749,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_clear_flags_allownil)}
-    DH_clear_flags := @ERR_DH_clear_flags;
+    DH_clear_flags := ERR_DH_clear_flags;
     {$ifend}
     {$if declared(DH_clear_flags_introduced)}
     if LibVersion < DH_clear_flags_introduced then
     begin
       {$if declared(FC_DH_clear_flags)}
-      DH_clear_flags := @FC_DH_clear_flags;
+      DH_clear_flags := FC_DH_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2761,7 +2764,7 @@ begin
     if DH_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_DH_clear_flags)}
-      DH_clear_flags := @_DH_clear_flags;
+      DH_clear_flags := _DH_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2778,13 +2781,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_test_flags_allownil)}
-    DH_test_flags := @ERR_DH_test_flags;
+    DH_test_flags := ERR_DH_test_flags;
     {$ifend}
     {$if declared(DH_test_flags_introduced)}
     if LibVersion < DH_test_flags_introduced then
     begin
       {$if declared(FC_DH_test_flags)}
-      DH_test_flags := @FC_DH_test_flags;
+      DH_test_flags := FC_DH_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2793,7 +2796,7 @@ begin
     if DH_test_flags_removed <= LibVersion then
     begin
       {$if declared(_DH_test_flags)}
-      DH_test_flags := @_DH_test_flags;
+      DH_test_flags := _DH_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2810,13 +2813,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set_flags_allownil)}
-    DH_set_flags := @ERR_DH_set_flags;
+    DH_set_flags := ERR_DH_set_flags;
     {$ifend}
     {$if declared(DH_set_flags_introduced)}
     if LibVersion < DH_set_flags_introduced then
     begin
       {$if declared(FC_DH_set_flags)}
-      DH_set_flags := @FC_DH_set_flags;
+      DH_set_flags := FC_DH_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2825,7 +2828,7 @@ begin
     if DH_set_flags_removed <= LibVersion then
     begin
       {$if declared(_DH_set_flags)}
-      DH_set_flags := @_DH_set_flags;
+      DH_set_flags := _DH_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2842,13 +2845,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get0_engine_allownil)}
-    DH_get0_engine := @ERR_DH_get0_engine;
+    DH_get0_engine := ERR_DH_get0_engine;
     {$ifend}
     {$if declared(DH_get0_engine_introduced)}
     if LibVersion < DH_get0_engine_introduced then
     begin
       {$if declared(FC_DH_get0_engine)}
-      DH_get0_engine := @FC_DH_get0_engine;
+      DH_get0_engine := FC_DH_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2857,7 +2860,7 @@ begin
     if DH_get0_engine_removed <= LibVersion then
     begin
       {$if declared(_DH_get0_engine)}
-      DH_get0_engine := @_DH_get0_engine;
+      DH_get0_engine := _DH_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2874,13 +2877,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_get_length_allownil)}
-    DH_get_length := @ERR_DH_get_length;
+    DH_get_length := ERR_DH_get_length;
     {$ifend}
     {$if declared(DH_get_length_introduced)}
     if LibVersion < DH_get_length_introduced then
     begin
       {$if declared(FC_DH_get_length)}
-      DH_get_length := @FC_DH_get_length;
+      DH_get_length := FC_DH_get_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2889,7 +2892,7 @@ begin
     if DH_get_length_removed <= LibVersion then
     begin
       {$if declared(_DH_get_length)}
-      DH_get_length := @_DH_get_length;
+      DH_get_length := _DH_get_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2906,13 +2909,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_set_length_allownil)}
-    DH_set_length := @ERR_DH_set_length;
+    DH_set_length := ERR_DH_set_length;
     {$ifend}
     {$if declared(DH_set_length_introduced)}
     if LibVersion < DH_set_length_introduced then
     begin
       {$if declared(FC_DH_set_length)}
-      DH_set_length := @FC_DH_set_length;
+      DH_set_length := FC_DH_set_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2921,7 +2924,7 @@ begin
     if DH_set_length_removed <= LibVersion then
     begin
       {$if declared(_DH_set_length)}
-      DH_set_length := @_DH_set_length;
+      DH_set_length := _DH_set_length;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2938,13 +2941,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_new_allownil)}
-    DH_meth_new := @ERR_DH_meth_new;
+    DH_meth_new := ERR_DH_meth_new;
     {$ifend}
     {$if declared(DH_meth_new_introduced)}
     if LibVersion < DH_meth_new_introduced then
     begin
       {$if declared(FC_DH_meth_new)}
-      DH_meth_new := @FC_DH_meth_new;
+      DH_meth_new := FC_DH_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2953,7 +2956,7 @@ begin
     if DH_meth_new_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_new)}
-      DH_meth_new := @_DH_meth_new;
+      DH_meth_new := _DH_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2970,13 +2973,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_free_allownil)}
-    DH_meth_free := @ERR_DH_meth_free;
+    DH_meth_free := ERR_DH_meth_free;
     {$ifend}
     {$if declared(DH_meth_free_introduced)}
     if LibVersion < DH_meth_free_introduced then
     begin
       {$if declared(FC_DH_meth_free)}
-      DH_meth_free := @FC_DH_meth_free;
+      DH_meth_free := FC_DH_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2985,7 +2988,7 @@ begin
     if DH_meth_free_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_free)}
-      DH_meth_free := @_DH_meth_free;
+      DH_meth_free := _DH_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3002,13 +3005,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_dup_allownil)}
-    DH_meth_dup := @ERR_DH_meth_dup;
+    DH_meth_dup := ERR_DH_meth_dup;
     {$ifend}
     {$if declared(DH_meth_dup_introduced)}
     if LibVersion < DH_meth_dup_introduced then
     begin
       {$if declared(FC_DH_meth_dup)}
-      DH_meth_dup := @FC_DH_meth_dup;
+      DH_meth_dup := FC_DH_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3017,7 +3020,7 @@ begin
     if DH_meth_dup_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_dup)}
-      DH_meth_dup := @_DH_meth_dup;
+      DH_meth_dup := _DH_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3034,13 +3037,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get0_name_allownil)}
-    DH_meth_get0_name := @ERR_DH_meth_get0_name;
+    DH_meth_get0_name := ERR_DH_meth_get0_name;
     {$ifend}
     {$if declared(DH_meth_get0_name_introduced)}
     if LibVersion < DH_meth_get0_name_introduced then
     begin
       {$if declared(FC_DH_meth_get0_name)}
-      DH_meth_get0_name := @FC_DH_meth_get0_name;
+      DH_meth_get0_name := FC_DH_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3049,7 +3052,7 @@ begin
     if DH_meth_get0_name_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get0_name)}
-      DH_meth_get0_name := @_DH_meth_get0_name;
+      DH_meth_get0_name := _DH_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3066,13 +3069,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set1_name_allownil)}
-    DH_meth_set1_name := @ERR_DH_meth_set1_name;
+    DH_meth_set1_name := ERR_DH_meth_set1_name;
     {$ifend}
     {$if declared(DH_meth_set1_name_introduced)}
     if LibVersion < DH_meth_set1_name_introduced then
     begin
       {$if declared(FC_DH_meth_set1_name)}
-      DH_meth_set1_name := @FC_DH_meth_set1_name;
+      DH_meth_set1_name := FC_DH_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3081,7 +3084,7 @@ begin
     if DH_meth_set1_name_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set1_name)}
-      DH_meth_set1_name := @_DH_meth_set1_name;
+      DH_meth_set1_name := _DH_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3098,13 +3101,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_flags_allownil)}
-    DH_meth_get_flags := @ERR_DH_meth_get_flags;
+    DH_meth_get_flags := ERR_DH_meth_get_flags;
     {$ifend}
     {$if declared(DH_meth_get_flags_introduced)}
     if LibVersion < DH_meth_get_flags_introduced then
     begin
       {$if declared(FC_DH_meth_get_flags)}
-      DH_meth_get_flags := @FC_DH_meth_get_flags;
+      DH_meth_get_flags := FC_DH_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3113,7 +3116,7 @@ begin
     if DH_meth_get_flags_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_flags)}
-      DH_meth_get_flags := @_DH_meth_get_flags;
+      DH_meth_get_flags := _DH_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3130,13 +3133,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_flags_allownil)}
-    DH_meth_set_flags := @ERR_DH_meth_set_flags;
+    DH_meth_set_flags := ERR_DH_meth_set_flags;
     {$ifend}
     {$if declared(DH_meth_set_flags_introduced)}
     if LibVersion < DH_meth_set_flags_introduced then
     begin
       {$if declared(FC_DH_meth_set_flags)}
-      DH_meth_set_flags := @FC_DH_meth_set_flags;
+      DH_meth_set_flags := FC_DH_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3145,7 +3148,7 @@ begin
     if DH_meth_set_flags_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_flags)}
-      DH_meth_set_flags := @_DH_meth_set_flags;
+      DH_meth_set_flags := _DH_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3162,13 +3165,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get0_app_data_allownil)}
-    DH_meth_get0_app_data := @ERR_DH_meth_get0_app_data;
+    DH_meth_get0_app_data := ERR_DH_meth_get0_app_data;
     {$ifend}
     {$if declared(DH_meth_get0_app_data_introduced)}
     if LibVersion < DH_meth_get0_app_data_introduced then
     begin
       {$if declared(FC_DH_meth_get0_app_data)}
-      DH_meth_get0_app_data := @FC_DH_meth_get0_app_data;
+      DH_meth_get0_app_data := FC_DH_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3177,7 +3180,7 @@ begin
     if DH_meth_get0_app_data_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get0_app_data)}
-      DH_meth_get0_app_data := @_DH_meth_get0_app_data;
+      DH_meth_get0_app_data := _DH_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3194,13 +3197,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set0_app_data_allownil)}
-    DH_meth_set0_app_data := @ERR_DH_meth_set0_app_data;
+    DH_meth_set0_app_data := ERR_DH_meth_set0_app_data;
     {$ifend}
     {$if declared(DH_meth_set0_app_data_introduced)}
     if LibVersion < DH_meth_set0_app_data_introduced then
     begin
       {$if declared(FC_DH_meth_set0_app_data)}
-      DH_meth_set0_app_data := @FC_DH_meth_set0_app_data;
+      DH_meth_set0_app_data := FC_DH_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3209,7 +3212,7 @@ begin
     if DH_meth_set0_app_data_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set0_app_data)}
-      DH_meth_set0_app_data := @_DH_meth_set0_app_data;
+      DH_meth_set0_app_data := _DH_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3226,13 +3229,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_generate_key_allownil)}
-    DH_meth_get_generate_key := @ERR_DH_meth_get_generate_key;
+    DH_meth_get_generate_key := ERR_DH_meth_get_generate_key;
     {$ifend}
     {$if declared(DH_meth_get_generate_key_introduced)}
     if LibVersion < DH_meth_get_generate_key_introduced then
     begin
       {$if declared(FC_DH_meth_get_generate_key)}
-      DH_meth_get_generate_key := @FC_DH_meth_get_generate_key;
+      DH_meth_get_generate_key := FC_DH_meth_get_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3241,7 +3244,7 @@ begin
     if DH_meth_get_generate_key_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_generate_key)}
-      DH_meth_get_generate_key := @_DH_meth_get_generate_key;
+      DH_meth_get_generate_key := _DH_meth_get_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3258,13 +3261,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_generate_key_allownil)}
-    DH_meth_set_generate_key := @ERR_DH_meth_set_generate_key;
+    DH_meth_set_generate_key := ERR_DH_meth_set_generate_key;
     {$ifend}
     {$if declared(DH_meth_set_generate_key_introduced)}
     if LibVersion < DH_meth_set_generate_key_introduced then
     begin
       {$if declared(FC_DH_meth_set_generate_key)}
-      DH_meth_set_generate_key := @FC_DH_meth_set_generate_key;
+      DH_meth_set_generate_key := FC_DH_meth_set_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3273,7 +3276,7 @@ begin
     if DH_meth_set_generate_key_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_generate_key)}
-      DH_meth_set_generate_key := @_DH_meth_set_generate_key;
+      DH_meth_set_generate_key := _DH_meth_set_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3290,13 +3293,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_compute_key_allownil)}
-    DH_meth_get_compute_key := @ERR_DH_meth_get_compute_key;
+    DH_meth_get_compute_key := ERR_DH_meth_get_compute_key;
     {$ifend}
     {$if declared(DH_meth_get_compute_key_introduced)}
     if LibVersion < DH_meth_get_compute_key_introduced then
     begin
       {$if declared(FC_DH_meth_get_compute_key)}
-      DH_meth_get_compute_key := @FC_DH_meth_get_compute_key;
+      DH_meth_get_compute_key := FC_DH_meth_get_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3305,7 +3308,7 @@ begin
     if DH_meth_get_compute_key_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_compute_key)}
-      DH_meth_get_compute_key := @_DH_meth_get_compute_key;
+      DH_meth_get_compute_key := _DH_meth_get_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3322,13 +3325,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_compute_key_allownil)}
-    DH_meth_set_compute_key := @ERR_DH_meth_set_compute_key;
+    DH_meth_set_compute_key := ERR_DH_meth_set_compute_key;
     {$ifend}
     {$if declared(DH_meth_set_compute_key_introduced)}
     if LibVersion < DH_meth_set_compute_key_introduced then
     begin
       {$if declared(FC_DH_meth_set_compute_key)}
-      DH_meth_set_compute_key := @FC_DH_meth_set_compute_key;
+      DH_meth_set_compute_key := FC_DH_meth_set_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3337,7 +3340,7 @@ begin
     if DH_meth_set_compute_key_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_compute_key)}
-      DH_meth_set_compute_key := @_DH_meth_set_compute_key;
+      DH_meth_set_compute_key := _DH_meth_set_compute_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3354,13 +3357,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_bn_mod_exp_allownil)}
-    DH_meth_get_bn_mod_exp := @ERR_DH_meth_get_bn_mod_exp;
+    DH_meth_get_bn_mod_exp := ERR_DH_meth_get_bn_mod_exp;
     {$ifend}
     {$if declared(DH_meth_get_bn_mod_exp_introduced)}
     if LibVersion < DH_meth_get_bn_mod_exp_introduced then
     begin
       {$if declared(FC_DH_meth_get_bn_mod_exp)}
-      DH_meth_get_bn_mod_exp := @FC_DH_meth_get_bn_mod_exp;
+      DH_meth_get_bn_mod_exp := FC_DH_meth_get_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3369,7 +3372,7 @@ begin
     if DH_meth_get_bn_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_bn_mod_exp)}
-      DH_meth_get_bn_mod_exp := @_DH_meth_get_bn_mod_exp;
+      DH_meth_get_bn_mod_exp := _DH_meth_get_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3386,13 +3389,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_bn_mod_exp_allownil)}
-    DH_meth_set_bn_mod_exp := @ERR_DH_meth_set_bn_mod_exp;
+    DH_meth_set_bn_mod_exp := ERR_DH_meth_set_bn_mod_exp;
     {$ifend}
     {$if declared(DH_meth_set_bn_mod_exp_introduced)}
     if LibVersion < DH_meth_set_bn_mod_exp_introduced then
     begin
       {$if declared(FC_DH_meth_set_bn_mod_exp)}
-      DH_meth_set_bn_mod_exp := @FC_DH_meth_set_bn_mod_exp;
+      DH_meth_set_bn_mod_exp := FC_DH_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3401,7 +3404,7 @@ begin
     if DH_meth_set_bn_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_bn_mod_exp)}
-      DH_meth_set_bn_mod_exp := @_DH_meth_set_bn_mod_exp;
+      DH_meth_set_bn_mod_exp := _DH_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3418,13 +3421,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_init_allownil)}
-    DH_meth_get_init := @ERR_DH_meth_get_init;
+    DH_meth_get_init := ERR_DH_meth_get_init;
     {$ifend}
     {$if declared(DH_meth_get_init_introduced)}
     if LibVersion < DH_meth_get_init_introduced then
     begin
       {$if declared(FC_DH_meth_get_init)}
-      DH_meth_get_init := @FC_DH_meth_get_init;
+      DH_meth_get_init := FC_DH_meth_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3433,7 +3436,7 @@ begin
     if DH_meth_get_init_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_init)}
-      DH_meth_get_init := @_DH_meth_get_init;
+      DH_meth_get_init := _DH_meth_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3450,13 +3453,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_init_allownil)}
-    DH_meth_set_init := @ERR_DH_meth_set_init;
+    DH_meth_set_init := ERR_DH_meth_set_init;
     {$ifend}
     {$if declared(DH_meth_set_init_introduced)}
     if LibVersion < DH_meth_set_init_introduced then
     begin
       {$if declared(FC_DH_meth_set_init)}
-      DH_meth_set_init := @FC_DH_meth_set_init;
+      DH_meth_set_init := FC_DH_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3465,7 +3468,7 @@ begin
     if DH_meth_set_init_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_init)}
-      DH_meth_set_init := @_DH_meth_set_init;
+      DH_meth_set_init := _DH_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3482,13 +3485,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_finish_allownil)}
-    DH_meth_get_finish := @ERR_DH_meth_get_finish;
+    DH_meth_get_finish := ERR_DH_meth_get_finish;
     {$ifend}
     {$if declared(DH_meth_get_finish_introduced)}
     if LibVersion < DH_meth_get_finish_introduced then
     begin
       {$if declared(FC_DH_meth_get_finish)}
-      DH_meth_get_finish := @FC_DH_meth_get_finish;
+      DH_meth_get_finish := FC_DH_meth_get_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3497,7 +3500,7 @@ begin
     if DH_meth_get_finish_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_finish)}
-      DH_meth_get_finish := @_DH_meth_get_finish;
+      DH_meth_get_finish := _DH_meth_get_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3514,13 +3517,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_finish_allownil)}
-    DH_meth_set_finish := @ERR_DH_meth_set_finish;
+    DH_meth_set_finish := ERR_DH_meth_set_finish;
     {$ifend}
     {$if declared(DH_meth_set_finish_introduced)}
     if LibVersion < DH_meth_set_finish_introduced then
     begin
       {$if declared(FC_DH_meth_set_finish)}
-      DH_meth_set_finish := @FC_DH_meth_set_finish;
+      DH_meth_set_finish := FC_DH_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3529,7 +3532,7 @@ begin
     if DH_meth_set_finish_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_finish)}
-      DH_meth_set_finish := @_DH_meth_set_finish;
+      DH_meth_set_finish := _DH_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3546,13 +3549,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_get_generate_params_allownil)}
-    DH_meth_get_generate_params := @ERR_DH_meth_get_generate_params;
+    DH_meth_get_generate_params := ERR_DH_meth_get_generate_params;
     {$ifend}
     {$if declared(DH_meth_get_generate_params_introduced)}
     if LibVersion < DH_meth_get_generate_params_introduced then
     begin
       {$if declared(FC_DH_meth_get_generate_params)}
-      DH_meth_get_generate_params := @FC_DH_meth_get_generate_params;
+      DH_meth_get_generate_params := FC_DH_meth_get_generate_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3561,7 +3564,7 @@ begin
     if DH_meth_get_generate_params_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_get_generate_params)}
-      DH_meth_get_generate_params := @_DH_meth_get_generate_params;
+      DH_meth_get_generate_params := _DH_meth_get_generate_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3578,13 +3581,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DH_meth_set_generate_params_allownil)}
-    DH_meth_set_generate_params := @ERR_DH_meth_set_generate_params;
+    DH_meth_set_generate_params := ERR_DH_meth_set_generate_params;
     {$ifend}
     {$if declared(DH_meth_set_generate_params_introduced)}
     if LibVersion < DH_meth_set_generate_params_introduced then
     begin
       {$if declared(FC_DH_meth_set_generate_params)}
-      DH_meth_set_generate_params := @FC_DH_meth_set_generate_params;
+      DH_meth_set_generate_params := FC_DH_meth_set_generate_params;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3593,7 +3596,7 @@ begin
     if DH_meth_set_generate_params_removed <= LibVersion then
     begin
       {$if declared(_DH_meth_set_generate_params)}
-      DH_meth_set_generate_params := @_DH_meth_set_generate_params;
+      DH_meth_set_generate_params := _DH_meth_set_generate_params;
       {$ifend}
       FuncLoadError := false;
     end;

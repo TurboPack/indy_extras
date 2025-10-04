@@ -1027,34 +1027,36 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; 
+function  ERR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ex_new_procname);
 end;
 
 
-procedure  ERR_ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM); 
+procedure  ERR_ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ex_free_procname);
 end;
 
 
 
-function  ERR_ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT; 
+function  ERR_ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG;
+  const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ex_d2i_procname);
 end;
 
 
 
-function  ERR_ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT; 
+function  ERR_ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM;
+  tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_item_ex_i2d_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
@@ -1067,13 +1069,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_ex_new_allownil)}
-    ASN1_item_ex_new := @ERR_ASN1_item_ex_new;
+    ASN1_item_ex_new := ERR_ASN1_item_ex_new;
     {$ifend}
     {$if declared(ASN1_item_ex_new_introduced)}
     if LibVersion < ASN1_item_ex_new_introduced then
     begin
       {$if declared(FC_ASN1_item_ex_new)}
-      ASN1_item_ex_new := @FC_ASN1_item_ex_new;
+      ASN1_item_ex_new := FC_ASN1_item_ex_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1082,7 +1084,7 @@ begin
     if ASN1_item_ex_new_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_ex_new)}
-      ASN1_item_ex_new := @_ASN1_item_ex_new;
+      ASN1_item_ex_new := _ASN1_item_ex_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1099,13 +1101,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_ex_free_allownil)}
-    ASN1_item_ex_free := @ERR_ASN1_item_ex_free;
+    ASN1_item_ex_free := ERR_ASN1_item_ex_free;
     {$ifend}
     {$if declared(ASN1_item_ex_free_introduced)}
     if LibVersion < ASN1_item_ex_free_introduced then
     begin
       {$if declared(FC_ASN1_item_ex_free)}
-      ASN1_item_ex_free := @FC_ASN1_item_ex_free;
+      ASN1_item_ex_free := FC_ASN1_item_ex_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1114,7 +1116,7 @@ begin
     if ASN1_item_ex_free_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_ex_free)}
-      ASN1_item_ex_free := @_ASN1_item_ex_free;
+      ASN1_item_ex_free := _ASN1_item_ex_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1131,13 +1133,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_ex_d2i_allownil)}
-    ASN1_item_ex_d2i := @ERR_ASN1_item_ex_d2i;
+    ASN1_item_ex_d2i := ERR_ASN1_item_ex_d2i;
     {$ifend}
     {$if declared(ASN1_item_ex_d2i_introduced)}
     if LibVersion < ASN1_item_ex_d2i_introduced then
     begin
       {$if declared(FC_ASN1_item_ex_d2i)}
-      ASN1_item_ex_d2i := @FC_ASN1_item_ex_d2i;
+      ASN1_item_ex_d2i := FC_ASN1_item_ex_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1146,7 +1148,7 @@ begin
     if ASN1_item_ex_d2i_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_ex_d2i)}
-      ASN1_item_ex_d2i := @_ASN1_item_ex_d2i;
+      ASN1_item_ex_d2i := _ASN1_item_ex_d2i;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1163,13 +1165,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASN1_item_ex_i2d_allownil)}
-    ASN1_item_ex_i2d := @ERR_ASN1_item_ex_i2d;
+    ASN1_item_ex_i2d := ERR_ASN1_item_ex_i2d;
     {$ifend}
     {$if declared(ASN1_item_ex_i2d_introduced)}
     if LibVersion < ASN1_item_ex_i2d_introduced then
     begin
       {$if declared(FC_ASN1_item_ex_i2d)}
-      ASN1_item_ex_i2d := @FC_ASN1_item_ex_i2d;
+      ASN1_item_ex_i2d := FC_ASN1_item_ex_i2d;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1178,7 +1180,7 @@ begin
     if ASN1_item_ex_i2d_removed <= LibVersion then
     begin
       {$if declared(_ASN1_item_ex_i2d)}
-      ASN1_item_ex_i2d := @_ASN1_item_ex_i2d;
+      ASN1_item_ex_i2d := _ASN1_item_ex_i2d;
       {$ifend}
       FuncLoadError := false;
     end;

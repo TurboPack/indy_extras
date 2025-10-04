@@ -181,101 +181,106 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc}
-function  ERR_ASYNC_init_thread(max_size: TIdC_SIZET; init_size: TIdC_SIZET): TIdC_INT; 
+function  ERR_ASYNC_init_thread(max_size: TIdC_SIZET; init_size: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_init_thread_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_ASYNC_cleanup_thread; 
+procedure  ERR_ASYNC_cleanup_thread; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_cleanup_thread_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_ASYNC_WAIT_CTX_new: PASYNC_WAIT_CTX; 
+function  ERR_ASYNC_WAIT_CTX_new: PASYNC_WAIT_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_new_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_ASYNC_WAIT_CTX_free(ctx: PASYNC_WAIT_CTX); 
+procedure  ERR_ASYNC_WAIT_CTX_free(ctx: PASYNC_WAIT_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_free_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_WAIT_CTX_set_wait_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TIdC_INT; 
+function  ERR_ASYNC_WAIT_CTX_set_wait_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer;
+  fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_set_wait_fd_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_WAIT_CTX_get_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TIdC_INT; 
+function  ERR_ASYNC_WAIT_CTX_get_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD;
+  custom_data: PPointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_get_fd_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_WAIT_CTX_get_all_fds(ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: PIdC_SIZET): TIdC_INT; 
+function  ERR_ASYNC_WAIT_CTX_get_all_fds(ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD;
+  numfds: PIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_get_all_fds_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_WAIT_CTX_get_changed_fds(ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT; 
+function  ERR_ASYNC_WAIT_CTX_get_changed_fds(ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD;
+  numaddfds: PIdC_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: PIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_get_changed_fds_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_WAIT_CTX_clear_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer): TIdC_INT; 
+function  ERR_ASYNC_WAIT_CTX_clear_fd(ctx: PASYNC_WAIT_CTX; const key: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_WAIT_CTX_clear_fd_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_ASYNC_is_capable: TIdC_INT; 
+function  ERR_ASYNC_is_capable: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_is_capable_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_ASYNC_start_job(job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: PIdC_INT; func: ASYNC_start_job_cb; args: Pointer; size: TIdC_SIZET): TIdC_INT; 
+function  ERR_ASYNC_start_job(job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: PIdC_INT;
+  func: ASYNC_start_job_cb; args: Pointer; size: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_start_job_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_pause_job: TIdC_INT; 
+function  ERR_ASYNC_pause_job: TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_pause_job_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_ASYNC_get_current_job: PASYNC_JOB; 
+function  ERR_ASYNC_get_current_job: PASYNC_JOB; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_get_current_job_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_ASYNC_get_wait_ctx(job: PASYNC_JOB): PASYNC_WAIT_CTX; 
+function  ERR_ASYNC_get_wait_ctx(job: PASYNC_JOB): PASYNC_WAIT_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_get_wait_ctx_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_ASYNC_block_pause; 
+procedure  ERR_ASYNC_block_pause; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_block_pause_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_ASYNC_unblock_pause; 
+procedure  ERR_ASYNC_unblock_pause; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASYNC_unblock_pause_procname);
 end;
@@ -294,13 +299,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_init_thread_allownil)}
-    ASYNC_init_thread := @ERR_ASYNC_init_thread;
+    ASYNC_init_thread := ERR_ASYNC_init_thread;
     {$ifend}
     {$if declared(ASYNC_init_thread_introduced)}
     if LibVersion < ASYNC_init_thread_introduced then
     begin
       {$if declared(FC_ASYNC_init_thread)}
-      ASYNC_init_thread := @FC_ASYNC_init_thread;
+      ASYNC_init_thread := FC_ASYNC_init_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -309,7 +314,7 @@ begin
     if ASYNC_init_thread_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_init_thread)}
-      ASYNC_init_thread := @_ASYNC_init_thread;
+      ASYNC_init_thread := _ASYNC_init_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -326,13 +331,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_cleanup_thread_allownil)}
-    ASYNC_cleanup_thread := @ERR_ASYNC_cleanup_thread;
+    ASYNC_cleanup_thread := ERR_ASYNC_cleanup_thread;
     {$ifend}
     {$if declared(ASYNC_cleanup_thread_introduced)}
     if LibVersion < ASYNC_cleanup_thread_introduced then
     begin
       {$if declared(FC_ASYNC_cleanup_thread)}
-      ASYNC_cleanup_thread := @FC_ASYNC_cleanup_thread;
+      ASYNC_cleanup_thread := FC_ASYNC_cleanup_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -341,7 +346,7 @@ begin
     if ASYNC_cleanup_thread_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_cleanup_thread)}
-      ASYNC_cleanup_thread := @_ASYNC_cleanup_thread;
+      ASYNC_cleanup_thread := _ASYNC_cleanup_thread;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -358,13 +363,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_new_allownil)}
-    ASYNC_WAIT_CTX_new := @ERR_ASYNC_WAIT_CTX_new;
+    ASYNC_WAIT_CTX_new := ERR_ASYNC_WAIT_CTX_new;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_new_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_new_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_new)}
-      ASYNC_WAIT_CTX_new := @FC_ASYNC_WAIT_CTX_new;
+      ASYNC_WAIT_CTX_new := FC_ASYNC_WAIT_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -373,7 +378,7 @@ begin
     if ASYNC_WAIT_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_new)}
-      ASYNC_WAIT_CTX_new := @_ASYNC_WAIT_CTX_new;
+      ASYNC_WAIT_CTX_new := _ASYNC_WAIT_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -390,13 +395,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_free_allownil)}
-    ASYNC_WAIT_CTX_free := @ERR_ASYNC_WAIT_CTX_free;
+    ASYNC_WAIT_CTX_free := ERR_ASYNC_WAIT_CTX_free;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_free_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_free_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_free)}
-      ASYNC_WAIT_CTX_free := @FC_ASYNC_WAIT_CTX_free;
+      ASYNC_WAIT_CTX_free := FC_ASYNC_WAIT_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -405,7 +410,7 @@ begin
     if ASYNC_WAIT_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_free)}
-      ASYNC_WAIT_CTX_free := @_ASYNC_WAIT_CTX_free;
+      ASYNC_WAIT_CTX_free := _ASYNC_WAIT_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -422,13 +427,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_set_wait_fd_allownil)}
-    ASYNC_WAIT_CTX_set_wait_fd := @ERR_ASYNC_WAIT_CTX_set_wait_fd;
+    ASYNC_WAIT_CTX_set_wait_fd := ERR_ASYNC_WAIT_CTX_set_wait_fd;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_set_wait_fd_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_set_wait_fd_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_set_wait_fd)}
-      ASYNC_WAIT_CTX_set_wait_fd := @FC_ASYNC_WAIT_CTX_set_wait_fd;
+      ASYNC_WAIT_CTX_set_wait_fd := FC_ASYNC_WAIT_CTX_set_wait_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -437,7 +442,7 @@ begin
     if ASYNC_WAIT_CTX_set_wait_fd_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_set_wait_fd)}
-      ASYNC_WAIT_CTX_set_wait_fd := @_ASYNC_WAIT_CTX_set_wait_fd;
+      ASYNC_WAIT_CTX_set_wait_fd := _ASYNC_WAIT_CTX_set_wait_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -454,13 +459,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_get_fd_allownil)}
-    ASYNC_WAIT_CTX_get_fd := @ERR_ASYNC_WAIT_CTX_get_fd;
+    ASYNC_WAIT_CTX_get_fd := ERR_ASYNC_WAIT_CTX_get_fd;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_get_fd_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_get_fd_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_get_fd)}
-      ASYNC_WAIT_CTX_get_fd := @FC_ASYNC_WAIT_CTX_get_fd;
+      ASYNC_WAIT_CTX_get_fd := FC_ASYNC_WAIT_CTX_get_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -469,7 +474,7 @@ begin
     if ASYNC_WAIT_CTX_get_fd_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_get_fd)}
-      ASYNC_WAIT_CTX_get_fd := @_ASYNC_WAIT_CTX_get_fd;
+      ASYNC_WAIT_CTX_get_fd := _ASYNC_WAIT_CTX_get_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -486,13 +491,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_get_all_fds_allownil)}
-    ASYNC_WAIT_CTX_get_all_fds := @ERR_ASYNC_WAIT_CTX_get_all_fds;
+    ASYNC_WAIT_CTX_get_all_fds := ERR_ASYNC_WAIT_CTX_get_all_fds;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_get_all_fds_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_get_all_fds_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_get_all_fds)}
-      ASYNC_WAIT_CTX_get_all_fds := @FC_ASYNC_WAIT_CTX_get_all_fds;
+      ASYNC_WAIT_CTX_get_all_fds := FC_ASYNC_WAIT_CTX_get_all_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -501,7 +506,7 @@ begin
     if ASYNC_WAIT_CTX_get_all_fds_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_get_all_fds)}
-      ASYNC_WAIT_CTX_get_all_fds := @_ASYNC_WAIT_CTX_get_all_fds;
+      ASYNC_WAIT_CTX_get_all_fds := _ASYNC_WAIT_CTX_get_all_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -518,13 +523,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_get_changed_fds_allownil)}
-    ASYNC_WAIT_CTX_get_changed_fds := @ERR_ASYNC_WAIT_CTX_get_changed_fds;
+    ASYNC_WAIT_CTX_get_changed_fds := ERR_ASYNC_WAIT_CTX_get_changed_fds;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_get_changed_fds_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_get_changed_fds_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_get_changed_fds)}
-      ASYNC_WAIT_CTX_get_changed_fds := @FC_ASYNC_WAIT_CTX_get_changed_fds;
+      ASYNC_WAIT_CTX_get_changed_fds := FC_ASYNC_WAIT_CTX_get_changed_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -533,7 +538,7 @@ begin
     if ASYNC_WAIT_CTX_get_changed_fds_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_get_changed_fds)}
-      ASYNC_WAIT_CTX_get_changed_fds := @_ASYNC_WAIT_CTX_get_changed_fds;
+      ASYNC_WAIT_CTX_get_changed_fds := _ASYNC_WAIT_CTX_get_changed_fds;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -550,13 +555,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_WAIT_CTX_clear_fd_allownil)}
-    ASYNC_WAIT_CTX_clear_fd := @ERR_ASYNC_WAIT_CTX_clear_fd;
+    ASYNC_WAIT_CTX_clear_fd := ERR_ASYNC_WAIT_CTX_clear_fd;
     {$ifend}
     {$if declared(ASYNC_WAIT_CTX_clear_fd_introduced)}
     if LibVersion < ASYNC_WAIT_CTX_clear_fd_introduced then
     begin
       {$if declared(FC_ASYNC_WAIT_CTX_clear_fd)}
-      ASYNC_WAIT_CTX_clear_fd := @FC_ASYNC_WAIT_CTX_clear_fd;
+      ASYNC_WAIT_CTX_clear_fd := FC_ASYNC_WAIT_CTX_clear_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -565,7 +570,7 @@ begin
     if ASYNC_WAIT_CTX_clear_fd_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_WAIT_CTX_clear_fd)}
-      ASYNC_WAIT_CTX_clear_fd := @_ASYNC_WAIT_CTX_clear_fd;
+      ASYNC_WAIT_CTX_clear_fd := _ASYNC_WAIT_CTX_clear_fd;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -582,13 +587,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_is_capable_allownil)}
-    ASYNC_is_capable := @ERR_ASYNC_is_capable;
+    ASYNC_is_capable := ERR_ASYNC_is_capable;
     {$ifend}
     {$if declared(ASYNC_is_capable_introduced)}
     if LibVersion < ASYNC_is_capable_introduced then
     begin
       {$if declared(FC_ASYNC_is_capable)}
-      ASYNC_is_capable := @FC_ASYNC_is_capable;
+      ASYNC_is_capable := FC_ASYNC_is_capable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -597,7 +602,7 @@ begin
     if ASYNC_is_capable_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_is_capable)}
-      ASYNC_is_capable := @_ASYNC_is_capable;
+      ASYNC_is_capable := _ASYNC_is_capable;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -614,13 +619,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_start_job_allownil)}
-    ASYNC_start_job := @ERR_ASYNC_start_job;
+    ASYNC_start_job := ERR_ASYNC_start_job;
     {$ifend}
     {$if declared(ASYNC_start_job_introduced)}
     if LibVersion < ASYNC_start_job_introduced then
     begin
       {$if declared(FC_ASYNC_start_job)}
-      ASYNC_start_job := @FC_ASYNC_start_job;
+      ASYNC_start_job := FC_ASYNC_start_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -629,7 +634,7 @@ begin
     if ASYNC_start_job_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_start_job)}
-      ASYNC_start_job := @_ASYNC_start_job;
+      ASYNC_start_job := _ASYNC_start_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -646,13 +651,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_pause_job_allownil)}
-    ASYNC_pause_job := @ERR_ASYNC_pause_job;
+    ASYNC_pause_job := ERR_ASYNC_pause_job;
     {$ifend}
     {$if declared(ASYNC_pause_job_introduced)}
     if LibVersion < ASYNC_pause_job_introduced then
     begin
       {$if declared(FC_ASYNC_pause_job)}
-      ASYNC_pause_job := @FC_ASYNC_pause_job;
+      ASYNC_pause_job := FC_ASYNC_pause_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -661,7 +666,7 @@ begin
     if ASYNC_pause_job_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_pause_job)}
-      ASYNC_pause_job := @_ASYNC_pause_job;
+      ASYNC_pause_job := _ASYNC_pause_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -678,13 +683,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_get_current_job_allownil)}
-    ASYNC_get_current_job := @ERR_ASYNC_get_current_job;
+    ASYNC_get_current_job := ERR_ASYNC_get_current_job;
     {$ifend}
     {$if declared(ASYNC_get_current_job_introduced)}
     if LibVersion < ASYNC_get_current_job_introduced then
     begin
       {$if declared(FC_ASYNC_get_current_job)}
-      ASYNC_get_current_job := @FC_ASYNC_get_current_job;
+      ASYNC_get_current_job := FC_ASYNC_get_current_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -693,7 +698,7 @@ begin
     if ASYNC_get_current_job_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_get_current_job)}
-      ASYNC_get_current_job := @_ASYNC_get_current_job;
+      ASYNC_get_current_job := _ASYNC_get_current_job;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -710,13 +715,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_get_wait_ctx_allownil)}
-    ASYNC_get_wait_ctx := @ERR_ASYNC_get_wait_ctx;
+    ASYNC_get_wait_ctx := ERR_ASYNC_get_wait_ctx;
     {$ifend}
     {$if declared(ASYNC_get_wait_ctx_introduced)}
     if LibVersion < ASYNC_get_wait_ctx_introduced then
     begin
       {$if declared(FC_ASYNC_get_wait_ctx)}
-      ASYNC_get_wait_ctx := @FC_ASYNC_get_wait_ctx;
+      ASYNC_get_wait_ctx := FC_ASYNC_get_wait_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -725,7 +730,7 @@ begin
     if ASYNC_get_wait_ctx_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_get_wait_ctx)}
-      ASYNC_get_wait_ctx := @_ASYNC_get_wait_ctx;
+      ASYNC_get_wait_ctx := _ASYNC_get_wait_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -742,13 +747,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_block_pause_allownil)}
-    ASYNC_block_pause := @ERR_ASYNC_block_pause;
+    ASYNC_block_pause := ERR_ASYNC_block_pause;
     {$ifend}
     {$if declared(ASYNC_block_pause_introduced)}
     if LibVersion < ASYNC_block_pause_introduced then
     begin
       {$if declared(FC_ASYNC_block_pause)}
-      ASYNC_block_pause := @FC_ASYNC_block_pause;
+      ASYNC_block_pause := FC_ASYNC_block_pause;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -757,7 +762,7 @@ begin
     if ASYNC_block_pause_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_block_pause)}
-      ASYNC_block_pause := @_ASYNC_block_pause;
+      ASYNC_block_pause := _ASYNC_block_pause;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -774,13 +779,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(ASYNC_unblock_pause_allownil)}
-    ASYNC_unblock_pause := @ERR_ASYNC_unblock_pause;
+    ASYNC_unblock_pause := ERR_ASYNC_unblock_pause;
     {$ifend}
     {$if declared(ASYNC_unblock_pause_introduced)}
     if LibVersion < ASYNC_unblock_pause_introduced then
     begin
       {$if declared(FC_ASYNC_unblock_pause)}
-      ASYNC_unblock_pause := @FC_ASYNC_unblock_pause;
+      ASYNC_unblock_pause := FC_ASYNC_unblock_pause;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -789,7 +794,7 @@ begin
     if ASYNC_unblock_pause_removed <= LibVersion then
     begin
       {$if declared(_ASYNC_unblock_pause)}
-      ASYNC_unblock_pause := @_ASYNC_unblock_pause;
+      ASYNC_unblock_pause := _ASYNC_unblock_pause;
       {$ifend}
       FuncLoadError := false;
     end;

@@ -146,88 +146,90 @@ const
 
 {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc} 
-procedure  ERR_HMAC_CTX_init(ctx : PHMAC_CTX); 
+procedure  ERR_HMAC_CTX_init(ctx : PHMAC_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_init_procname);
 end;
 
- 
-function  ERR_HMAC_size(const e: PHMAC_CTX): TIdC_SIZET; 
+
+function  ERR_HMAC_size(const e: PHMAC_CTX): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_size_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_HMAC_CTX_new: PHMAC_CTX; 
+function  ERR_HMAC_CTX_new: PHMAC_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_new_procname);
 end;
 
  {introduced 1.1.0}
-function  ERR_HMAC_CTX_reset(ctx: PHMAC_CTX): TIdC_INT; 
+function  ERR_HMAC_CTX_reset(ctx: PHMAC_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_reset_procname);
 end;
 
  {introduced 1.1.0}
-procedure  ERR_HMAC_CTX_cleanup(ctx : PHMAC_CTX); 
+procedure  ERR_HMAC_CTX_cleanup(ctx : PHMAC_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_cleanup_procname);
 end;
 
- 
-procedure  ERR_HMAC_CTX_free(ctx: PHMAC_CTX); 
+
+procedure  ERR_HMAC_CTX_free(ctx: PHMAC_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_free_procname);
 end;
 
  {introduced 1.1.0}
 
-function  ERR_HMAC_Init_ex(ctx: PHMAC_CTX; const key: Pointer; len: TIdC_INT; const md: PEVP_MD; impl: PENGINE): TIdC_INT; 
+function  ERR_HMAC_Init_ex(ctx: PHMAC_CTX; const key: Pointer; len: TIdC_INT;
+  const md: PEVP_MD; impl: PENGINE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_Init_ex_procname);
 end;
 
 
-function  ERR_HMAC_Update(ctx: PHMAC_CTX; const data: PByte; len: TIdC_SIZET): TIdC_INT; 
+function  ERR_HMAC_Update(ctx: PHMAC_CTX; const data: PByte; len: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_Update_procname);
 end;
 
 
-function  ERR_HMAC_Final(ctx: PHMAC_CTX; md: PByte; len: PByte): TIdC_INT; 
+function  ERR_HMAC_Final(ctx: PHMAC_CTX; md: PByte; len: PByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_Final_procname);
 end;
 
 
-function  ERR_HMAC(const evp_md: PEVP_MD; const key: Pointer; key_len: TIdC_INT; const d: PByte; n: TIdC_SIZET; md: PByte; md_len: PIdC_INT): PByte; 
+function  ERR_HMAC(const evp_md: PEVP_MD; const key: Pointer; key_len: TIdC_INT;
+  const d: PByte; n: TIdC_SIZET; md: PByte; md_len: PIdC_INT): PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_procname);
 end;
 
 
-function  ERR_HMAC_CTX_copy(dctx: PHMAC_CTX; sctx: PHMAC_CTX): TIdC_INT; 
+function  ERR_HMAC_CTX_copy(dctx: PHMAC_CTX; sctx: PHMAC_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_copy_procname);
 end;
 
 
 
-procedure  ERR_HMAC_CTX_set_flags(ctx: PHMAC_CTX; flags: TIdC_ULONG); 
+procedure  ERR_HMAC_CTX_set_flags(ctx: PHMAC_CTX; flags: TIdC_ULONG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_set_flags_procname);
 end;
 
 
-function  ERR_HMAC_CTX_get_md(const ctx: PHMAC_CTX): PEVP_MD; 
+function  ERR_HMAC_CTX_get_md(const ctx: PHMAC_CTX): PEVP_MD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(HMAC_CTX_get_md_procname);
 end;
 
  {introduced 1.1.0}
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
 
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -239,13 +241,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_init_allownil)}
-    HMAC_CTX_init := @ERR_HMAC_CTX_init;
+    HMAC_CTX_init := ERR_HMAC_CTX_init;
     {$ifend}
     {$if declared(HMAC_CTX_init_introduced)}
     if LibVersion < HMAC_CTX_init_introduced then
     begin
       {$if declared(FC_HMAC_CTX_init)}
-      HMAC_CTX_init := @FC_HMAC_CTX_init;
+      HMAC_CTX_init := FC_HMAC_CTX_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -254,7 +256,7 @@ begin
     if HMAC_CTX_init_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_init)}
-      HMAC_CTX_init := @_HMAC_CTX_init;
+      HMAC_CTX_init := _HMAC_CTX_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -271,13 +273,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_size_allownil)}
-    HMAC_size := @ERR_HMAC_size;
+    HMAC_size := ERR_HMAC_size;
     {$ifend}
     {$if declared(HMAC_size_introduced)}
     if LibVersion < HMAC_size_introduced then
     begin
       {$if declared(FC_HMAC_size)}
-      HMAC_size := @FC_HMAC_size;
+      HMAC_size := FC_HMAC_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -286,7 +288,7 @@ begin
     if HMAC_size_removed <= LibVersion then
     begin
       {$if declared(_HMAC_size)}
-      HMAC_size := @_HMAC_size;
+      HMAC_size := _HMAC_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -303,13 +305,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_new_allownil)}
-    HMAC_CTX_new := @ERR_HMAC_CTX_new;
+    HMAC_CTX_new := ERR_HMAC_CTX_new;
     {$ifend}
     {$if declared(HMAC_CTX_new_introduced)}
     if LibVersion < HMAC_CTX_new_introduced then
     begin
       {$if declared(FC_HMAC_CTX_new)}
-      HMAC_CTX_new := @FC_HMAC_CTX_new;
+      HMAC_CTX_new := FC_HMAC_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -318,7 +320,7 @@ begin
     if HMAC_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_new)}
-      HMAC_CTX_new := @_HMAC_CTX_new;
+      HMAC_CTX_new := _HMAC_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -335,13 +337,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_reset_allownil)}
-    HMAC_CTX_reset := @ERR_HMAC_CTX_reset;
+    HMAC_CTX_reset := ERR_HMAC_CTX_reset;
     {$ifend}
     {$if declared(HMAC_CTX_reset_introduced)}
     if LibVersion < HMAC_CTX_reset_introduced then
     begin
       {$if declared(FC_HMAC_CTX_reset)}
-      HMAC_CTX_reset := @FC_HMAC_CTX_reset;
+      HMAC_CTX_reset := FC_HMAC_CTX_reset;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -350,7 +352,7 @@ begin
     if HMAC_CTX_reset_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_reset)}
-      HMAC_CTX_reset := @_HMAC_CTX_reset;
+      HMAC_CTX_reset := _HMAC_CTX_reset;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -367,13 +369,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_cleanup_allownil)}
-    HMAC_CTX_cleanup := @ERR_HMAC_CTX_cleanup;
+    HMAC_CTX_cleanup := ERR_HMAC_CTX_cleanup;
     {$ifend}
     {$if declared(HMAC_CTX_cleanup_introduced)}
     if LibVersion < HMAC_CTX_cleanup_introduced then
     begin
       {$if declared(FC_HMAC_CTX_cleanup)}
-      HMAC_CTX_cleanup := @FC_HMAC_CTX_cleanup;
+      HMAC_CTX_cleanup := FC_HMAC_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -382,7 +384,7 @@ begin
     if HMAC_CTX_cleanup_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_cleanup)}
-      HMAC_CTX_cleanup := @_HMAC_CTX_cleanup;
+      HMAC_CTX_cleanup := _HMAC_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -399,13 +401,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_free_allownil)}
-    HMAC_CTX_free := @ERR_HMAC_CTX_free;
+    HMAC_CTX_free := ERR_HMAC_CTX_free;
     {$ifend}
     {$if declared(HMAC_CTX_free_introduced)}
     if LibVersion < HMAC_CTX_free_introduced then
     begin
       {$if declared(FC_HMAC_CTX_free)}
-      HMAC_CTX_free := @FC_HMAC_CTX_free;
+      HMAC_CTX_free := FC_HMAC_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -414,7 +416,7 @@ begin
     if HMAC_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_free)}
-      HMAC_CTX_free := @_HMAC_CTX_free;
+      HMAC_CTX_free := _HMAC_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -431,13 +433,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_Init_ex_allownil)}
-    HMAC_Init_ex := @ERR_HMAC_Init_ex;
+    HMAC_Init_ex := ERR_HMAC_Init_ex;
     {$ifend}
     {$if declared(HMAC_Init_ex_introduced)}
     if LibVersion < HMAC_Init_ex_introduced then
     begin
       {$if declared(FC_HMAC_Init_ex)}
-      HMAC_Init_ex := @FC_HMAC_Init_ex;
+      HMAC_Init_ex := FC_HMAC_Init_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -446,7 +448,7 @@ begin
     if HMAC_Init_ex_removed <= LibVersion then
     begin
       {$if declared(_HMAC_Init_ex)}
-      HMAC_Init_ex := @_HMAC_Init_ex;
+      HMAC_Init_ex := _HMAC_Init_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -463,13 +465,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_Update_allownil)}
-    HMAC_Update := @ERR_HMAC_Update;
+    HMAC_Update := ERR_HMAC_Update;
     {$ifend}
     {$if declared(HMAC_Update_introduced)}
     if LibVersion < HMAC_Update_introduced then
     begin
       {$if declared(FC_HMAC_Update)}
-      HMAC_Update := @FC_HMAC_Update;
+      HMAC_Update := FC_HMAC_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -478,7 +480,7 @@ begin
     if HMAC_Update_removed <= LibVersion then
     begin
       {$if declared(_HMAC_Update)}
-      HMAC_Update := @_HMAC_Update;
+      HMAC_Update := _HMAC_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -495,13 +497,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_Final_allownil)}
-    HMAC_Final := @ERR_HMAC_Final;
+    HMAC_Final := ERR_HMAC_Final;
     {$ifend}
     {$if declared(HMAC_Final_introduced)}
     if LibVersion < HMAC_Final_introduced then
     begin
       {$if declared(FC_HMAC_Final)}
-      HMAC_Final := @FC_HMAC_Final;
+      HMAC_Final := FC_HMAC_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -510,7 +512,7 @@ begin
     if HMAC_Final_removed <= LibVersion then
     begin
       {$if declared(_HMAC_Final)}
-      HMAC_Final := @_HMAC_Final;
+      HMAC_Final := _HMAC_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -527,13 +529,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_allownil)}
-    HMAC := @ERR_HMAC;
+    HMAC := ERR_HMAC;
     {$ifend}
     {$if declared(HMAC_introduced)}
     if LibVersion < HMAC_introduced then
     begin
       {$if declared(FC_HMAC)}
-      HMAC := @FC_HMAC;
+      HMAC := FC_HMAC;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -542,7 +544,7 @@ begin
     if HMAC_removed <= LibVersion then
     begin
       {$if declared(_HMAC)}
-      HMAC := @_HMAC;
+      HMAC := _HMAC;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -559,13 +561,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_copy_allownil)}
-    HMAC_CTX_copy := @ERR_HMAC_CTX_copy;
+    HMAC_CTX_copy := ERR_HMAC_CTX_copy;
     {$ifend}
     {$if declared(HMAC_CTX_copy_introduced)}
     if LibVersion < HMAC_CTX_copy_introduced then
     begin
       {$if declared(FC_HMAC_CTX_copy)}
-      HMAC_CTX_copy := @FC_HMAC_CTX_copy;
+      HMAC_CTX_copy := FC_HMAC_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -574,7 +576,7 @@ begin
     if HMAC_CTX_copy_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_copy)}
-      HMAC_CTX_copy := @_HMAC_CTX_copy;
+      HMAC_CTX_copy := _HMAC_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -591,13 +593,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_set_flags_allownil)}
-    HMAC_CTX_set_flags := @ERR_HMAC_CTX_set_flags;
+    HMAC_CTX_set_flags := ERR_HMAC_CTX_set_flags;
     {$ifend}
     {$if declared(HMAC_CTX_set_flags_introduced)}
     if LibVersion < HMAC_CTX_set_flags_introduced then
     begin
       {$if declared(FC_HMAC_CTX_set_flags)}
-      HMAC_CTX_set_flags := @FC_HMAC_CTX_set_flags;
+      HMAC_CTX_set_flags := FC_HMAC_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -606,7 +608,7 @@ begin
     if HMAC_CTX_set_flags_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_set_flags)}
-      HMAC_CTX_set_flags := @_HMAC_CTX_set_flags;
+      HMAC_CTX_set_flags := _HMAC_CTX_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -623,13 +625,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(HMAC_CTX_get_md_allownil)}
-    HMAC_CTX_get_md := @ERR_HMAC_CTX_get_md;
+    HMAC_CTX_get_md := ERR_HMAC_CTX_get_md;
     {$ifend}
     {$if declared(HMAC_CTX_get_md_introduced)}
     if LibVersion < HMAC_CTX_get_md_introduced then
     begin
       {$if declared(FC_HMAC_CTX_get_md)}
-      HMAC_CTX_get_md := @FC_HMAC_CTX_get_md;
+      HMAC_CTX_get_md := FC_HMAC_CTX_get_md;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -638,7 +640,7 @@ begin
     if HMAC_CTX_get_md_removed <= LibVersion then
     begin
       {$if declared(_HMAC_CTX_get_md)}
-      HMAC_CTX_get_md := @_HMAC_CTX_get_md;
+      HMAC_CTX_get_md := _HMAC_CTX_get_md;
       {$ifend}
       FuncLoadError := false;
     end;

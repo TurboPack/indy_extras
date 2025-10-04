@@ -166,90 +166,90 @@ const
 {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_ossl_decoder_from_algorithm(id: TIdC_INT; algodef: POSSL_ALGORITHM;
-  prov: POSSL_PROVIDER): Pointer;
+  prov: POSSL_PROVIDER): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_from_algorithm_procname);
 end;
 
 function ERR_ossl_decoder_instance_new_forprov(decoder: POSSL_DECODER;
-  provctx: Pointer; input_structure: PIdAnsiChar): POSSL_DECODER_INSTANCE;
+  provctx: Pointer; input_structure: PIdAnsiChar): POSSL_DECODER_INSTANCE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_instance_new_forprov_procname);
 end;
 
 function ERR_ossl_decoder_instance_new(decoder: POSSL_DECODER;
-  decoderctx: Pointer): POSSL_DECODER_INSTANCE;
+  decoderctx: Pointer): POSSL_DECODER_INSTANCE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_instance_new_procname);
 end;
 
-procedure ERR_ossl_decoder_instance_free(decoder_inst: POSSL_DECODER_INSTANCE);
+procedure ERR_ossl_decoder_instance_free(decoder_inst: POSSL_DECODER_INSTANCE); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_instance_free_procname);
 end;
 
-function ERR_ossl_decoder_ctx_get_harderr(ctx: POSSL_DECODER_CTX): TIdC_INT;
+function ERR_ossl_decoder_ctx_get_harderr(ctx: POSSL_DECODER_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_ctx_get_harderr_procname);
 end;
 
-procedure ERR_ossl_decoder_ctx_set_harderr(ctx: POSSL_DECODER_CTX);
+procedure ERR_ossl_decoder_ctx_set_harderr(ctx: POSSL_DECODER_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_ctx_set_harderr_procname);
 end;
 
 function ERR_ossl_decoder_instance_dup(src: POSSL_DECODER_INSTANCE)
-  : POSSL_DECODER_INSTANCE;
+  : POSSL_DECODER_INSTANCE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_instance_dup_procname);
 end;
 
 function ERR_ossl_decoder_ctx_add_decoder_inst(ctx: POSSL_DECODER_CTX;
-  di: POSSL_DECODER_INSTANCE): TIdC_INT;
+  di: POSSL_DECODER_INSTANCE): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_ctx_add_decoder_inst_procname);
 end;
 
-function ERR_ossl_decoder_get_number(encoder: POSSL_DECODER): TIdC_INT;
+function ERR_ossl_decoder_get_number(encoder: POSSL_DECODER): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_get_number_procname);
 end;
 
-function ERR_ossl_decoder_store_cache_flush(libctx: POSSL_LIB_CTX): TIdC_INT;
+function ERR_ossl_decoder_store_cache_flush(libctx: POSSL_LIB_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_store_cache_flush_procname);
 end;
 
 function ERR_ossl_decoder_store_remove_all_provided(prov: POSSL_PROVIDER)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_store_remove_all_provided_procname);
 end;
 
-function ERR_ossl_decoder_cache_new(ctx: POSSL_LIB_CTX): Pointer;
+function ERR_ossl_decoder_cache_new(ctx: POSSL_LIB_CTX): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_cache_new_procname);
 end;
 
-procedure ERR_ossl_decoder_cache_free(vcache: Pointer);
+procedure ERR_ossl_decoder_cache_free(vcache: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_cache_free_procname);
 end;
 
-function ERR_ossl_decoder_cache_flush(libctx: POSSL_LIB_CTX): TIdC_INT;
+function ERR_ossl_decoder_cache_flush(libctx: POSSL_LIB_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_decoder_cache_flush_procname);
@@ -269,13 +269,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_from_algorithm_allownil)}
-    ossl_decoder_from_algorithm := @ERR_ossl_decoder_from_algorithm;
+    ossl_decoder_from_algorithm := ERR_ossl_decoder_from_algorithm;
 {$IFEND}
 {$IF declared(ossl_decoder_from_algorithm_introduced)}
     if LibVersion < ossl_decoder_from_algorithm_introduced then
     begin
 {$IF declared(FC_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := @FC_ossl_decoder_from_algorithm;
+      ossl_decoder_from_algorithm := FC_ossl_decoder_from_algorithm;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -284,7 +284,7 @@ begin
     if ossl_decoder_from_algorithm_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := @_ossl_decoder_from_algorithm;
+      ossl_decoder_from_algorithm := _ossl_decoder_from_algorithm;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -301,13 +301,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_from_algorithm_allownil)}
-    ossl_decoder_from_algorithm := @ERR_ossl_decoder_from_algorithm;
+    ossl_decoder_from_algorithm := ERR_ossl_decoder_from_algorithm;
 {$IFEND}
 {$IF declared(ossl_decoder_from_algorithm_introduced)}
     if LibVersion < ossl_decoder_from_algorithm_introduced then
     begin
 {$IF declared(FC_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := @FC_ossl_decoder_from_algorithm;
+      ossl_decoder_from_algorithm := FC_ossl_decoder_from_algorithm;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -316,7 +316,7 @@ begin
     if ossl_decoder_from_algorithm_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := @_ossl_decoder_from_algorithm;
+      ossl_decoder_from_algorithm := _ossl_decoder_from_algorithm;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -333,13 +333,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_instance_new_forprov_allownil)}
-    ossl_decoder_instance_new_forprov := @ERR_ossl_decoder_instance_new_forprov;
+    ossl_decoder_instance_new_forprov := ERR_ossl_decoder_instance_new_forprov;
 {$IFEND}
 {$IF declared(ossl_decoder_instance_new_forprov_introduced)}
     if LibVersion < ossl_decoder_instance_new_forprov_introduced then
     begin
 {$IF declared(FC_ossl_decoder_instance_new_forprov)}
-      ossl_decoder_instance_new_forprov := @FC_ossl_decoder_instance_new_forprov;
+      ossl_decoder_instance_new_forprov := FC_ossl_decoder_instance_new_forprov;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -348,7 +348,7 @@ begin
     if ossl_decoder_instance_new_forprov_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_instance_new_forprov)}
-      ossl_decoder_instance_new_forprov := @_ossl_decoder_instance_new_forprov;
+      ossl_decoder_instance_new_forprov := _ossl_decoder_instance_new_forprov;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -365,13 +365,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_instance_new_allownil)}
-    ossl_decoder_instance_new := @ERR_ossl_decoder_instance_new;
+    ossl_decoder_instance_new := ERR_ossl_decoder_instance_new;
 {$IFEND}
 {$IF declared(ossl_decoder_instance_new_introduced)}
     if LibVersion < ossl_decoder_instance_new_introduced then
     begin
 {$IF declared(FC_ossl_decoder_instance_new)}
-      ossl_decoder_instance_new := @FC_ossl_decoder_instance_new;
+      ossl_decoder_instance_new := FC_ossl_decoder_instance_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -380,7 +380,7 @@ begin
     if ossl_decoder_instance_new_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_instance_new)}
-      ossl_decoder_instance_new := @_ossl_decoder_instance_new;
+      ossl_decoder_instance_new := _ossl_decoder_instance_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -397,13 +397,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_instance_free_allownil)}
-    ossl_decoder_instance_free := @ERR_ossl_decoder_instance_free;
+    ossl_decoder_instance_free := ERR_ossl_decoder_instance_free;
 {$IFEND}
 {$IF declared(ossl_decoder_instance_free_introduced)}
     if LibVersion < ossl_decoder_instance_free_introduced then
     begin
 {$IF declared(FC_ossl_decoder_instance_free)}
-      ossl_decoder_instance_free := @FC_ossl_decoder_instance_free;
+      ossl_decoder_instance_free := FC_ossl_decoder_instance_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -412,7 +412,7 @@ begin
     if ossl_decoder_instance_free_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_instance_free)}
-      ossl_decoder_instance_free := @_ossl_decoder_instance_free;
+      ossl_decoder_instance_free := _ossl_decoder_instance_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -429,13 +429,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_ctx_get_harderr_allownil)}
-    ossl_decoder_ctx_get_harderr := @ERR_ossl_decoder_ctx_get_harderr;
+    ossl_decoder_ctx_get_harderr := ERR_ossl_decoder_ctx_get_harderr;
 {$IFEND}
 {$IF declared(ossl_decoder_ctx_get_harderr_introduced)}
     if LibVersion < ossl_decoder_ctx_get_harderr_introduced then
     begin
 {$IF declared(FC_ossl_decoder_ctx_get_harderr)}
-      ossl_decoder_ctx_get_harderr := @FC_ossl_decoder_ctx_get_harderr;
+      ossl_decoder_ctx_get_harderr := FC_ossl_decoder_ctx_get_harderr;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -444,7 +444,7 @@ begin
     if ossl_decoder_ctx_get_harderr_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_ctx_get_harderr)}
-      ossl_decoder_ctx_get_harderr := @_ossl_decoder_ctx_get_harderr;
+      ossl_decoder_ctx_get_harderr := _ossl_decoder_ctx_get_harderr;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -461,13 +461,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_ctx_set_harderr_allownil)}
-    ossl_decoder_ctx_set_harderr := @ERR_ossl_decoder_ctx_set_harderr;
+    ossl_decoder_ctx_set_harderr := ERR_ossl_decoder_ctx_set_harderr;
 {$IFEND}
 {$IF declared(ossl_decoder_ctx_set_harderr_introduced)}
     if LibVersion < ossl_decoder_ctx_set_harderr_introduced then
     begin
 {$IF declared(FC_ossl_decoder_ctx_set_harderr)}
-      ossl_decoder_ctx_set_harderr := @FC_ossl_decoder_ctx_set_harderr;
+      ossl_decoder_ctx_set_harderr := FC_ossl_decoder_ctx_set_harderr;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -476,7 +476,7 @@ begin
     if ossl_decoder_ctx_set_harderr_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_ctx_set_harderr)}
-      ossl_decoder_ctx_set_harderr := @_ossl_decoder_ctx_set_harderr;
+      ossl_decoder_ctx_set_harderr := _ossl_decoder_ctx_set_harderr;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -493,13 +493,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_instance_dup_allownil)}
-    ossl_decoder_instance_dup := @ERR_ossl_decoder_instance_dup;
+    ossl_decoder_instance_dup := ERR_ossl_decoder_instance_dup;
 {$IFEND}
 {$IF declared(ossl_decoder_instance_dup_introduced)}
     if LibVersion < ossl_decoder_instance_dup_introduced then
     begin
 {$IF declared(FC_ossl_decoder_instance_dup)}
-      ossl_decoder_instance_dup := @FC_ossl_decoder_instance_dup;
+      ossl_decoder_instance_dup := FC_ossl_decoder_instance_dup;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -508,7 +508,7 @@ begin
     if ossl_decoder_instance_dup_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_instance_dup)}
-      ossl_decoder_instance_dup := @_ossl_decoder_instance_dup;
+      ossl_decoder_instance_dup := _ossl_decoder_instance_dup;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -525,13 +525,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_ctx_add_decoder_inst_allownil)}
-    ossl_decoder_ctx_add_decoder_inst := @ERR_ossl_decoder_ctx_add_decoder_inst;
+    ossl_decoder_ctx_add_decoder_inst := ERR_ossl_decoder_ctx_add_decoder_inst;
 {$IFEND}
 {$IF declared(ossl_decoder_ctx_add_decoder_inst_introduced)}
     if LibVersion < ossl_decoder_ctx_add_decoder_inst_introduced then
     begin
 {$IF declared(FC_ossl_decoder_ctx_add_decoder_inst)}
-      ossl_decoder_ctx_add_decoder_inst := @FC_ossl_decoder_ctx_add_decoder_inst;
+      ossl_decoder_ctx_add_decoder_inst := FC_ossl_decoder_ctx_add_decoder_inst;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -540,7 +540,7 @@ begin
     if ossl_decoder_ctx_add_decoder_inst_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_ctx_add_decoder_inst)}
-      ossl_decoder_ctx_add_decoder_inst := @_ossl_decoder_ctx_add_decoder_inst;
+      ossl_decoder_ctx_add_decoder_inst := _ossl_decoder_ctx_add_decoder_inst;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -557,13 +557,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_get_number_allownil)}
-    ossl_decoder_get_number := @ERR_ossl_decoder_get_number;
+    ossl_decoder_get_number := ERR_ossl_decoder_get_number;
 {$IFEND}
 {$IF declared(ossl_decoder_get_number_introduced)}
     if LibVersion < ossl_decoder_get_number_introduced then
     begin
 {$IF declared(FC_ossl_decoder_get_number)}
-      ossl_decoder_get_number := @FC_ossl_decoder_get_number;
+      ossl_decoder_get_number := FC_ossl_decoder_get_number;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -572,7 +572,7 @@ begin
     if ossl_decoder_get_number_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_get_number)}
-      ossl_decoder_get_number := @_ossl_decoder_get_number;
+      ossl_decoder_get_number := _ossl_decoder_get_number;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -589,13 +589,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_store_cache_flush_allownil)}
-    ossl_decoder_store_cache_flush := @ERR_ossl_decoder_store_cache_flush;
+    ossl_decoder_store_cache_flush := ERR_ossl_decoder_store_cache_flush;
 {$IFEND}
 {$IF declared(ossl_decoder_store_cache_flush_introduced)}
     if LibVersion < ossl_decoder_store_cache_flush_introduced then
     begin
 {$IF declared(FC_ossl_decoder_store_cache_flush)}
-      ossl_decoder_store_cache_flush := @FC_ossl_decoder_store_cache_flush;
+      ossl_decoder_store_cache_flush := FC_ossl_decoder_store_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -604,7 +604,7 @@ begin
     if ossl_decoder_store_cache_flush_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_store_cache_flush)}
-      ossl_decoder_store_cache_flush := @_ossl_decoder_store_cache_flush;
+      ossl_decoder_store_cache_flush := _ossl_decoder_store_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -621,13 +621,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_store_remove_all_provided_allownil)}
-    ossl_decoder_store_remove_all_provided := @ERR_ossl_decoder_store_remove_all_provided;
+    ossl_decoder_store_remove_all_provided := ERR_ossl_decoder_store_remove_all_provided;
 {$IFEND}
 {$IF declared(ossl_decoder_store_remove_all_provided_introduced)}
     if LibVersion < ossl_decoder_store_remove_all_provided_introduced then
     begin
 {$IF declared(FC_ossl_decoder_store_remove_all_provided)}
-      ossl_decoder_store_remove_all_provided := @FC_ossl_decoder_store_remove_all_provided;
+      ossl_decoder_store_remove_all_provided := FC_ossl_decoder_store_remove_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -636,7 +636,7 @@ begin
     if ossl_decoder_store_remove_all_provided_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_store_remove_all_provided)}
-      ossl_decoder_store_remove_all_provided := @_ossl_decoder_store_remove_all_provided;
+      ossl_decoder_store_remove_all_provided := _ossl_decoder_store_remove_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -653,13 +653,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_cache_new_allownil)}
-    ossl_decoder_cache_new := @ERR_ossl_decoder_cache_new;
+    ossl_decoder_cache_new := ERR_ossl_decoder_cache_new;
 {$IFEND}
 {$IF declared(ossl_decoder_cache_new_introduced)}
     if LibVersion < ossl_decoder_cache_new_introduced then
     begin
 {$IF declared(FC_ossl_decoder_cache_new)}
-      ossl_decoder_cache_new := @FC_ossl_decoder_cache_new;
+      ossl_decoder_cache_new := FC_ossl_decoder_cache_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -668,7 +668,7 @@ begin
     if ossl_decoder_cache_new_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_cache_new)}
-      ossl_decoder_cache_new := @_ossl_decoder_cache_new;
+      ossl_decoder_cache_new := _ossl_decoder_cache_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -685,13 +685,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_cache_free_allownil)}
-    ossl_decoder_cache_free := @ERR_ossl_decoder_cache_free;
+    ossl_decoder_cache_free := ERR_ossl_decoder_cache_free;
 {$IFEND}
 {$IF declared(ossl_decoder_cache_free_introduced)}
     if LibVersion < ossl_decoder_cache_free_introduced then
     begin
 {$IF declared(FC_ossl_decoder_cache_free)}
-      ossl_decoder_cache_free := @FC_ossl_decoder_cache_free;
+      ossl_decoder_cache_free := FC_ossl_decoder_cache_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -700,7 +700,7 @@ begin
     if ossl_decoder_cache_free_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_cache_free)}
-      ossl_decoder_cache_free := @_ossl_decoder_cache_free;
+      ossl_decoder_cache_free := _ossl_decoder_cache_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -717,13 +717,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_decoder_cache_flush_allownil)}
-    ossl_decoder_cache_flush := @ERR_ossl_decoder_cache_flush;
+    ossl_decoder_cache_flush := ERR_ossl_decoder_cache_flush;
 {$IFEND}
 {$IF declared(ossl_decoder_cache_flush_introduced)}
     if LibVersion < ossl_decoder_cache_flush_introduced then
     begin
 {$IF declared(FC_ossl_decoder_cache_flush)}
-      ossl_decoder_cache_flush := @FC_ossl_decoder_cache_flush;
+      ossl_decoder_cache_flush := FC_ossl_decoder_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -732,7 +732,7 @@ begin
     if ossl_decoder_cache_flush_removed <= LibVersion then
     begin
 {$IF declared(_ossl_decoder_cache_flush)}
-      ossl_decoder_cache_flush := @_ossl_decoder_cache_flush;
+      ossl_decoder_cache_flush := _ossl_decoder_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;

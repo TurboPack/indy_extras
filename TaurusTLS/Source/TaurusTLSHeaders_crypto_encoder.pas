@@ -72,20 +72,20 @@ const
 
 
 {$I TaurusTLSNoRetValOff.inc}
-function ERR_ossl_encoder_get_number(encoder : POSSL_ENCODER) : TIdC_INT;
+function ERR_ossl_encoder_get_number(encoder : POSSL_ENCODER) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_encoder_get_number_procname);
 end;
 
-function ERR_ossl_encoder_store_cache_flush(libctx : POSSL_LIB_CTX) : TIdC_INT;
+function ERR_ossl_encoder_store_cache_flush(libctx : POSSL_LIB_CTX) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_encoder_store_cache_flush_procname);
 end;
 
 function ERR_ossl_encoder_store_remove_all_provided (prov : POSSL_PROVIDER) :
-  TIdC_INT;
+  TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (ossl_encoder_store_remove_all_provided_procname);
@@ -107,13 +107,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_encoder_get_number_allownil)}
-    ossl_encoder_get_number := @ERR_ossl_encoder_get_number;
+    ossl_encoder_get_number := ERR_ossl_encoder_get_number;
 {$IFEND}
 {$IF declared(ossl_encoder_get_number_introduced)}
     if LibVersion < ossl_encoder_get_number_introduced then
     begin
 {$IF declared(FC_ossl_encoder_get_number)}
-      ossl_encoder_get_number := @FC_ossl_encoder_get_number;
+      ossl_encoder_get_number := FC_ossl_encoder_get_number;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -122,7 +122,7 @@ begin
     if ossl_encoder_get_number_removed <= LibVersion then
     begin
 {$IF declared(_ossl_encoder_get_number)}
-      ossl_encoder_get_number := @_ossl_encoder_get_number;
+      ossl_encoder_get_number := _ossl_encoder_get_number;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -139,13 +139,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_encoder_store_cache_flush_allownil)}
-    ossl_encoder_store_cache_flush := @ERR_ossl_encoder_store_cache_flush;
+    ossl_encoder_store_cache_flush := ERR_ossl_encoder_store_cache_flush;
 {$IFEND}
 {$IF declared(ossl_encoder_store_cache_flush_introduced)}
     if LibVersion < ossl_encoder_store_cache_flush_introduced then
     begin
 {$IF declared(FC_ossl_encoder_store_cache_flush)}
-      ossl_encoder_store_cache_flush := @FC_ossl_encoder_store_cache_flush;
+      ossl_encoder_store_cache_flush := FC_ossl_encoder_store_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -154,7 +154,7 @@ begin
     if ossl_encoder_store_cache_flush_removed <= LibVersion then
     begin
 {$IF declared(_ossl_encoder_store_cache_flush)}
-      ossl_encoder_store_cache_flush := @_ossl_encoder_store_cache_flush;
+      ossl_encoder_store_cache_flush := _ossl_encoder_store_cache_flush;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -170,13 +170,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(ossl_encoder_store_remove_all_provided_allownil)}
-    ossl_encoder_store_remove_all_provided := @ERR_ossl_encoder_store_remove_all_provided;
+    ossl_encoder_store_remove_all_provided := ERR_ossl_encoder_store_remove_all_provided;
 {$IFEND}
 {$IF declared(ossl_encoder_store_remove_all_provided_introduced)}
     if LibVersion < ossl_encoder_store_remove_all_provided_introduced then
     begin
 {$IF declared(FC_ossl_encoder_store_remove_all_provided)}
-      ossl_encoder_store_remove_all_provided := @FC_ossl_encoder_store_remove_all_provided;
+      ossl_encoder_store_remove_all_provided := FC_ossl_encoder_store_remove_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -185,7 +185,7 @@ begin
     if ossl_encoder_store_remove_all_provided_removed <= LibVersion then
     begin
 {$IF declared(_ossl_encoder_store_remove_all_provided)}
-      ossl_encoder_store_remove_all_provided := @_ossl_encoder_store_remove_all_provided;
+      ossl_encoder_store_remove_all_provided := _ossl_encoder_store_remove_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;

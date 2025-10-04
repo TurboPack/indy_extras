@@ -140,64 +140,72 @@ const
   Camellia_ctr128_encrypt_procname = 'Camellia_ctr128_encrypt';
 
 
-  {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; 
+  {$I TaurusTLSNoRetValOff.inc}
+function  ERR_Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_set_key_procname);
 end;
 
 
 
-procedure  ERR_Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); 
+procedure  ERR_Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); 
+procedure  ERR_Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_decrypt_procname);
 end;
 
 
 
-procedure  ERR_Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT); 
+procedure  ERR_Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY;
+  const enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_ecb_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT); 
+procedure  ERR_Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_cbc_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure  ERR_Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_cfb128_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure  ERR_Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_cfb1_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure  ERR_Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_cfb8_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT); 
+procedure  ERR_Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_ofb128_encrypt_procname);
 end;
 
 
-procedure  ERR_Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT); 
+procedure  ERR_Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; _length: TIdC_SIZET;
+  const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf;
+    num: PIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(Camellia_ctr128_encrypt_procname);
 end;
@@ -216,13 +224,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_set_key_allownil)}
-    Camellia_set_key := @ERR_Camellia_set_key;
+    Camellia_set_key := ERR_Camellia_set_key;
     {$ifend}
     {$if declared(Camellia_set_key_introduced)}
     if LibVersion < Camellia_set_key_introduced then
     begin
       {$if declared(FC_Camellia_set_key)}
-      Camellia_set_key := @FC_Camellia_set_key;
+      Camellia_set_key := FC_Camellia_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -231,7 +239,7 @@ begin
     if Camellia_set_key_removed <= LibVersion then
     begin
       {$if declared(_Camellia_set_key)}
-      Camellia_set_key := @_Camellia_set_key;
+      Camellia_set_key := _Camellia_set_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -248,13 +256,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_encrypt_allownil)}
-    Camellia_encrypt := @ERR_Camellia_encrypt;
+    Camellia_encrypt := ERR_Camellia_encrypt;
     {$ifend}
     {$if declared(Camellia_encrypt_introduced)}
     if LibVersion < Camellia_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_encrypt)}
-      Camellia_encrypt := @FC_Camellia_encrypt;
+      Camellia_encrypt := FC_Camellia_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -263,7 +271,7 @@ begin
     if Camellia_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_encrypt)}
-      Camellia_encrypt := @_Camellia_encrypt;
+      Camellia_encrypt := _Camellia_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -280,13 +288,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_decrypt_allownil)}
-    Camellia_decrypt := @ERR_Camellia_decrypt;
+    Camellia_decrypt := ERR_Camellia_decrypt;
     {$ifend}
     {$if declared(Camellia_decrypt_introduced)}
     if LibVersion < Camellia_decrypt_introduced then
     begin
       {$if declared(FC_Camellia_decrypt)}
-      Camellia_decrypt := @FC_Camellia_decrypt;
+      Camellia_decrypt := FC_Camellia_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -295,7 +303,7 @@ begin
     if Camellia_decrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_decrypt)}
-      Camellia_decrypt := @_Camellia_decrypt;
+      Camellia_decrypt := _Camellia_decrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -312,13 +320,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_ecb_encrypt_allownil)}
-    Camellia_ecb_encrypt := @ERR_Camellia_ecb_encrypt;
+    Camellia_ecb_encrypt := ERR_Camellia_ecb_encrypt;
     {$ifend}
     {$if declared(Camellia_ecb_encrypt_introduced)}
     if LibVersion < Camellia_ecb_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_ecb_encrypt)}
-      Camellia_ecb_encrypt := @FC_Camellia_ecb_encrypt;
+      Camellia_ecb_encrypt := FC_Camellia_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -327,7 +335,7 @@ begin
     if Camellia_ecb_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_ecb_encrypt)}
-      Camellia_ecb_encrypt := @_Camellia_ecb_encrypt;
+      Camellia_ecb_encrypt := _Camellia_ecb_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -344,13 +352,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_cbc_encrypt_allownil)}
-    Camellia_cbc_encrypt := @ERR_Camellia_cbc_encrypt;
+    Camellia_cbc_encrypt := ERR_Camellia_cbc_encrypt;
     {$ifend}
     {$if declared(Camellia_cbc_encrypt_introduced)}
     if LibVersion < Camellia_cbc_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_cbc_encrypt)}
-      Camellia_cbc_encrypt := @FC_Camellia_cbc_encrypt;
+      Camellia_cbc_encrypt := FC_Camellia_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -359,7 +367,7 @@ begin
     if Camellia_cbc_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_cbc_encrypt)}
-      Camellia_cbc_encrypt := @_Camellia_cbc_encrypt;
+      Camellia_cbc_encrypt := _Camellia_cbc_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -376,13 +384,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_cfb128_encrypt_allownil)}
-    Camellia_cfb128_encrypt := @ERR_Camellia_cfb128_encrypt;
+    Camellia_cfb128_encrypt := ERR_Camellia_cfb128_encrypt;
     {$ifend}
     {$if declared(Camellia_cfb128_encrypt_introduced)}
     if LibVersion < Camellia_cfb128_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_cfb128_encrypt)}
-      Camellia_cfb128_encrypt := @FC_Camellia_cfb128_encrypt;
+      Camellia_cfb128_encrypt := FC_Camellia_cfb128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -391,7 +399,7 @@ begin
     if Camellia_cfb128_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_cfb128_encrypt)}
-      Camellia_cfb128_encrypt := @_Camellia_cfb128_encrypt;
+      Camellia_cfb128_encrypt := _Camellia_cfb128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -408,13 +416,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_cfb1_encrypt_allownil)}
-    Camellia_cfb1_encrypt := @ERR_Camellia_cfb1_encrypt;
+    Camellia_cfb1_encrypt := ERR_Camellia_cfb1_encrypt;
     {$ifend}
     {$if declared(Camellia_cfb1_encrypt_introduced)}
     if LibVersion < Camellia_cfb1_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_cfb1_encrypt)}
-      Camellia_cfb1_encrypt := @FC_Camellia_cfb1_encrypt;
+      Camellia_cfb1_encrypt := FC_Camellia_cfb1_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -423,7 +431,7 @@ begin
     if Camellia_cfb1_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_cfb1_encrypt)}
-      Camellia_cfb1_encrypt := @_Camellia_cfb1_encrypt;
+      Camellia_cfb1_encrypt := _Camellia_cfb1_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -440,13 +448,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_cfb8_encrypt_allownil)}
-    Camellia_cfb8_encrypt := @ERR_Camellia_cfb8_encrypt;
+    Camellia_cfb8_encrypt := ERR_Camellia_cfb8_encrypt;
     {$ifend}
     {$if declared(Camellia_cfb8_encrypt_introduced)}
     if LibVersion < Camellia_cfb8_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_cfb8_encrypt)}
-      Camellia_cfb8_encrypt := @FC_Camellia_cfb8_encrypt;
+      Camellia_cfb8_encrypt := FC_Camellia_cfb8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -455,7 +463,7 @@ begin
     if Camellia_cfb8_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_cfb8_encrypt)}
-      Camellia_cfb8_encrypt := @_Camellia_cfb8_encrypt;
+      Camellia_cfb8_encrypt := _Camellia_cfb8_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -472,13 +480,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_ofb128_encrypt_allownil)}
-    Camellia_ofb128_encrypt := @ERR_Camellia_ofb128_encrypt;
+    Camellia_ofb128_encrypt := ERR_Camellia_ofb128_encrypt;
     {$ifend}
     {$if declared(Camellia_ofb128_encrypt_introduced)}
     if LibVersion < Camellia_ofb128_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_ofb128_encrypt)}
-      Camellia_ofb128_encrypt := @FC_Camellia_ofb128_encrypt;
+      Camellia_ofb128_encrypt := FC_Camellia_ofb128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -487,7 +495,7 @@ begin
     if Camellia_ofb128_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_ofb128_encrypt)}
-      Camellia_ofb128_encrypt := @_Camellia_ofb128_encrypt;
+      Camellia_ofb128_encrypt := _Camellia_ofb128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -504,13 +512,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(Camellia_ctr128_encrypt_allownil)}
-    Camellia_ctr128_encrypt := @ERR_Camellia_ctr128_encrypt;
+    Camellia_ctr128_encrypt := ERR_Camellia_ctr128_encrypt;
     {$ifend}
     {$if declared(Camellia_ctr128_encrypt_introduced)}
     if LibVersion < Camellia_ctr128_encrypt_introduced then
     begin
       {$if declared(FC_Camellia_ctr128_encrypt)}
-      Camellia_ctr128_encrypt := @FC_Camellia_ctr128_encrypt;
+      Camellia_ctr128_encrypt := FC_Camellia_ctr128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -519,7 +527,7 @@ begin
     if Camellia_ctr128_encrypt_removed <= LibVersion then
     begin
       {$if declared(_Camellia_ctr128_encrypt)}
-      Camellia_ctr128_encrypt := @_Camellia_ctr128_encrypt;
+      Camellia_ctr128_encrypt := _Camellia_ctr128_encrypt;
       {$ifend}
       FuncLoadError := false;
     end;

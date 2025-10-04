@@ -520,219 +520,222 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_DSAparams_dup(x: PDSA): PDSA; 
+function  ERR_DSAparams_dup(x: PDSA): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSAparams_dup_procname);
 end;
 
 
-function  ERR_DSA_SIG_new: PDSA_SIG; 
+function  ERR_DSA_SIG_new: PDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_SIG_new_procname);
 end;
 
 
-procedure  ERR_DSA_SIG_free(a: PDSA_SIG); 
+procedure  ERR_DSA_SIG_free(a: PDSA_SIG); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_SIG_free_procname);
 end;
 
 
-function  ERR_i2d_DSA_SIG(const a: PDSA_SIG; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DSA_SIG(const a: PDSA_SIG; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSA_SIG_procname);
 end;
 
 
-function  ERR_d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; _length: TIdC_LONG): PDSA_SIG; 
+function  ERR_d2i_DSA_SIG(v: PPDSA_SIG; const pp: PPByte; _length: TIdC_LONG): PDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSA_SIG_procname);
 end;
 
 
-procedure  ERR_DSA_SIG_get0(const sig: PDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM); 
+procedure  ERR_DSA_SIG_get0(const sig: PDSA_SIG; const pr: PPBIGNUM; const ps: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_SIG_get0_procname);
 end;
 
 
-function  ERR_DSA_SIG_set0(sig: PDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT; 
+function  ERR_DSA_SIG_set0(sig: PDSA_SIG; r: PBIGNUM; s: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_SIG_set0_procname);
 end;
 
 
-  
-function  ERR_DSA_do_sign(const dgst: PByte; dlen: TIdC_INT; dsa: PDSA): PDSA_SIG; 
+
+function  ERR_DSA_do_sign(const dgst: PByte; dlen: TIdC_INT; dsa: PDSA): PDSA_SIG; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_do_sign_procname);
 end;
 
 
-function  ERR_DSA_do_verify(const dgst: PByte; dgst_len: TIdC_INT; sig: PDSA_SIG; dsa: PDSA): TIdC_INT; 
+function  ERR_DSA_do_verify(const dgst: PByte; dgst_len: TIdC_INT; sig: PDSA_SIG; dsa: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_do_verify_procname);
 end;
 
 
-  
-function  ERR_DSA_TaurusTLS: PDSA_METHOD; 
+
+function  ERR_DSA_TaurusTLS: PDSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_TaurusTLS_procname);
 end;
 
 
-procedure  ERR_DSA_set_default_method(const v1: PDSA_METHOD); 
+procedure  ERR_DSA_set_default_method(const v1: PDSA_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set_default_method_procname);
 end;
 
 
-function  ERR_DSA_get_default_method: PDSA_METHOD; 
+function  ERR_DSA_get_default_method: PDSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get_default_method_procname);
 end;
 
 
-function  ERR_DSA_set_method(dsa: PDSA; const v1: PDSA_METHOD): TIdC_INT; 
+function  ERR_DSA_set_method(dsa: PDSA; const v1: PDSA_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set_method_procname);
 end;
 
 
-function  ERR_DSA_get_method(d: PDSA): PDSA_METHOD; 
+function  ERR_DSA_get_method(d: PDSA): PDSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get_method_procname);
 end;
 
 
 
-function  ERR_DSA_new: PDSA; 
+function  ERR_DSA_new: PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_new_procname);
 end;
 
 
-function  ERR_DSA_new_method(engine: PENGINE): PDSA; 
+function  ERR_DSA_new_method(engine: PENGINE): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_new_method_procname);
 end;
 
 
-procedure  ERR_DSA_free(r: PDSA); 
+procedure  ERR_DSA_free(r: PDSA); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_free_procname);
 end;
 
 
   (* "up" the DSA object's reference count *)
-function  ERR_DSA_up_ref(r: PDSA): TIdC_INT; 
+function  ERR_DSA_up_ref(r: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_up_ref_procname);
 end;
 
 
-function  ERR_DSA_size(const v1: PDSA): TIdC_INT; 
+function  ERR_DSA_size(const v1: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_size_procname);
 end;
 
 
-function  ERR_DSA_bits(const d: PDSA): TIdC_INT; 
+function  ERR_DSA_bits(const d: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_bits_procname);
 end;
 
 
-function  ERR_DSA_security_bits(const d: PDSA): TIdC_INT; 
+function  ERR_DSA_security_bits(const d: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_security_bits_procname);
 end;
 
 
-function  ERR_DSA_sign(type_: TIdC_INT; const dgst: PByte; dlen: TIdC_INT; sig: PByte; siglen: PIdC_UINT; dsa: PDSA): TIdC_INT; 
+function  ERR_DSA_sign(type_: TIdC_INT; const dgst: PByte; dlen: TIdC_INT; sig: PByte;
+  siglen: PIdC_UINT; dsa: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_sign_procname);
 end;
 
 
-function  ERR_DSA_verify(type_: TIdC_INT; const dgst: PByte; dgst_len: TIdC_INT; const sigbuf: PByte; siglen: TIdC_INT; dsa: PDSA): TIdC_INT; 
+function  ERR_DSA_verify(type_: TIdC_INT; const dgst: PByte; dgst_len: TIdC_INT; const sigbuf: PByte;
+  siglen: TIdC_INT; dsa: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_verify_procname);
 end;
 
 
-function  ERR_DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT;
+function  ERR_DSA_set_ex_data(d: PDSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set_ex_data_procname);
 end;
 
 
-function  ERR_DSA_get_ex_data(d: PDSA; idx: TIdC_INT): Pointer; 
+function  ERR_DSA_get_ex_data(d: PDSA; idx: TIdC_INT): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get_ex_data_procname);
 end;
 
 
-  
-function  ERR_d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
+
+function  ERR_d2i_DSAPublicKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPublicKey_procname);
 end;
 
 
-function  ERR_d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSAPrivateKey(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAPrivateKey_procname);
 end;
 
 
-function  ERR_d2i_DSAparams(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; 
+function  ERR_d2i_DSAparams(a: PPDSA; const pp: PPByte; _length: TIdC_LONG): PDSA; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(d2i_DSAparams_procname);
 end;
 
 
 
-function  ERR_DSA_generate_parameters_ex(dsa: PDSA; bits: TIdC_INT; const seed: PByte; seed_len: TIdC_INT; counter_ret: PIdC_INT; h_ret: PIdC_ULONG; cb: PBN_GENCB): TIdC_INT; 
+function  ERR_DSA_generate_parameters_ex(dsa: PDSA; bits: TIdC_INT; const seed: PByte; seed_len: TIdC_INT;
+  counter_ret: PIdC_INT; h_ret: PIdC_ULONG; cb: PBN_GENCB): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_generate_parameters_ex_procname);
 end;
 
 
 
-function  ERR_DSA_generate_key(a: PDSA): TIdC_INT; 
+function  ERR_DSA_generate_key(a: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_generate_key_procname);
 end;
 
 
-function  ERR_i2d_DSAPublicKey(const a: PDSA; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DSAPublicKey(const a: PDSA; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSAPublicKey_procname);
 end;
 
 
-function  ERR_i2d_DSAPrivateKey(const a: PDSA; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DSAPrivateKey(const a: PDSA; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSAPrivateKey_procname);
 end;
 
 
-function  ERR_i2d_DSAparams(const a: PDSA; pp: PPByte): TIdC_INT; 
+function  ERR_i2d_DSAparams(const a: PDSA; pp: PPByte): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(i2d_DSAparams_procname);
 end;
 
 
-  
-function  ERR_DSAparams_print(bp: PBIO; const x: PDSA): TIdC_INT; 
+
+function  ERR_DSAparams_print(bp: PBIO; const x: PDSA): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSAparams_print_procname);
 end;
 
 
-function  ERR_DSA_print(bp: PBIO; const x: PDSA; off: TIdC_INT): TIdC_INT; 
+function  ERR_DSA_print(bp: PBIO; const x: PDSA; off: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_print_procname);
 end;
@@ -748,7 +751,7 @@ end;
    * Convert DSA structure (key or just parameters) into DH structure (be
    * careful to avoid small subgroup attacks when using this!)
    *)
-function  ERR_DSA_dup_DH(const r: PDSA): PDH; 
+function  ERR_DSA_dup_DH(const r: PDSA): PDH; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_dup_DH_procname);
 end;
@@ -765,242 +768,242 @@ end;
   //        EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_DSA, EVP_PKEY_OP_PARAMGEN, \
   //                                EVP_PKEY_CTRL_DSA_PARAMGEN_MD, 0, (void *)(md))
 
-procedure  ERR_DSA_get0_pqg(const d: PDSA; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); 
+procedure  ERR_DSA_get0_pqg(const d: PDSA; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_pqg_procname);
 end;
 
 
-function  ERR_DSA_set0_pqg(d: PDSA; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TIdC_INT; 
+function  ERR_DSA_set0_pqg(d: PDSA; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set0_pqg_procname);
 end;
 
 
-procedure  ERR_DSA_get0_key(const d: PDSA; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); 
+procedure  ERR_DSA_get0_key(const d: PDSA; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_key_procname);
 end;
 
 
-function  ERR_DSA_set0_key(d: PDSA; pub_key: PBIGNUM; priv_key: PBIGNUM): TIdC_INT; 
+function  ERR_DSA_set0_key(d: PDSA; pub_key: PBIGNUM; priv_key: PBIGNUM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set0_key_procname);
 end;
 
 
-function  ERR_DSA_get0_p(const d: PDSA): PBIGNUM; 
+function  ERR_DSA_get0_p(const d: PDSA): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_p_procname);
 end;
 
 
-function  ERR_DSA_get0_q(const d: PDSA): PBIGNUM; 
+function  ERR_DSA_get0_q(const d: PDSA): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_q_procname);
 end;
 
 
-function  ERR_DSA_get0_g(const d: PDSA): PBIGNUM; 
+function  ERR_DSA_get0_g(const d: PDSA): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_g_procname);
 end;
 
 
-function  ERR_DSA_get0_pub_key(const d: PDSA): PBIGNUM; 
+function  ERR_DSA_get0_pub_key(const d: PDSA): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_pub_key_procname);
 end;
 
 
-function  ERR_DSA_get0_priv_key(const d: PDSA): PBIGNUM; 
+function  ERR_DSA_get0_priv_key(const d: PDSA): PBIGNUM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_priv_key_procname);
 end;
 
 
-procedure  ERR_DSA_clear_flags(d: PDSA; flags: TIdC_INT); 
+procedure  ERR_DSA_clear_flags(d: PDSA; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_clear_flags_procname);
 end;
 
 
-function  ERR_DSA_test_flags(const d: PDSA; flags: TIdC_INT): TIdC_INT; 
+function  ERR_DSA_test_flags(const d: PDSA; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_test_flags_procname);
 end;
 
 
-procedure  ERR_DSA_set_flags(d: PDSA; flags: TIdC_INT); 
+procedure  ERR_DSA_set_flags(d: PDSA; flags: TIdC_INT); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_set_flags_procname);
 end;
 
 
-function  ERR_DSA_get0_engine(d: PDSA): PENGINE; 
+function  ERR_DSA_get0_engine(d: PDSA): PENGINE; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_get0_engine_procname);
 end;
 
 
-  
-function  ERR_DSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDSA_METHOD; 
+
+function  ERR_DSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PDSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_new_procname);
 end;
 
 
-procedure  ERR_DSA_meth_free(dsam: PDSA_METHOD); 
+procedure  ERR_DSA_meth_free(dsam: PDSA_METHOD); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_free_procname);
 end;
 
 
-function  ERR_DSA_meth_dup(const dsam: PDSA_METHOD): PDSA_METHOD; 
+function  ERR_DSA_meth_dup(const dsam: PDSA_METHOD): PDSA_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_dup_procname);
 end;
 
 
-function  ERR_DSA_meth_get0_name(const dsam: PDSA_METHOD): PIdAnsiChar; 
+function  ERR_DSA_meth_get0_name(const dsam: PDSA_METHOD): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get0_name_procname);
 end;
 
 
-function  ERR_DSA_meth_set1_name(dsam: PDSA_METHOD; const name: PIdAnsiChar): TIdC_INT; 
+function  ERR_DSA_meth_set1_name(dsam: PDSA_METHOD; const name: PIdAnsiChar): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set1_name_procname);
 end;
 
 
-function  ERR_DSA_meth_get_flags(const dsam: PDSA_METHOD): TIdC_INT; 
+function  ERR_DSA_meth_get_flags(const dsam: PDSA_METHOD): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_flags_procname);
 end;
 
 
-function  ERR_DSA_meth_set_flags(dsam: PDSA_METHOD; flags: TIdC_INT): TIdC_INT; 
+function  ERR_DSA_meth_set_flags(dsam: PDSA_METHOD; flags: TIdC_INT): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_flags_procname);
 end;
 
 
-function  ERR_DSA_meth_get0_app_data(const dsam: PDSA_METHOD): Pointer; 
+function  ERR_DSA_meth_get0_app_data(const dsam: PDSA_METHOD): Pointer; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get0_app_data_procname);
 end;
 
 
-function  ERR_DSA_meth_set0_app_data(dsam: PDSA_METHOD; app_data: Pointer): TIdC_INT; 
+function  ERR_DSA_meth_set0_app_data(dsam: PDSA_METHOD; app_data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set0_app_data_procname);
 end;
 
 
-function  ERR_DSA_meth_get_sign(const dsam: PDSA_METHOD): DSA_meth_sign_cb; 
+function  ERR_DSA_meth_get_sign(const dsam: PDSA_METHOD): DSA_meth_sign_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_sign_procname);
 end;
 
 
-function  ERR_DSA_meth_set_sign(dsam: PDSA_METHOD; sign: DSA_meth_sign_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_sign(dsam: PDSA_METHOD; sign: DSA_meth_sign_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_sign_procname);
 end;
 
 
-function  ERR_DSA_meth_get_sign_setup(const dsam: PDSA_METHOD): DSA_meth_sign_setup_cb; 
+function  ERR_DSA_meth_get_sign_setup(const dsam: PDSA_METHOD): DSA_meth_sign_setup_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_sign_setup_procname);
 end;
 
 
-function  ERR_DSA_meth_set_sign_setup(dsam: PDSA_METHOD; sign_setup: DSA_meth_sign_setup_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_sign_setup(dsam: PDSA_METHOD; sign_setup: DSA_meth_sign_setup_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_sign_setup_procname);
 end;
 
 
-function  ERR_DSA_meth_get_verify(const dsam: PDSA_METHOD): DSA_meth_verify_cb; 
+function  ERR_DSA_meth_get_verify(const dsam: PDSA_METHOD): DSA_meth_verify_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_verify_procname);
 end;
 
 
-function  ERR_DSA_meth_set_verify(dsam: PDSA_METHOD; verify: DSA_meth_verify_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_verify(dsam: PDSA_METHOD; verify: DSA_meth_verify_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_verify_procname);
 end;
 
 
-function  ERR_DSA_meth_get_mod_exp(const dsam: PDSA_METHOD): DSA_meth_mod_exp_cb; 
+function  ERR_DSA_meth_get_mod_exp(const dsam: PDSA_METHOD): DSA_meth_mod_exp_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_mod_exp_procname);
 end;
 
 
-function  ERR_DSA_meth_set_mod_exp(dsam: PDSA_METHOD; mod_exp: DSA_meth_mod_exp_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_mod_exp(dsam: PDSA_METHOD; mod_exp: DSA_meth_mod_exp_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_mod_exp_procname);
 end;
 
 
-function  ERR_DSA_meth_get_bn_mod_exp(const dsam: PDSA_METHOD): DSA_meth_bn_mod_exp_cb; 
+function  ERR_DSA_meth_get_bn_mod_exp(const dsam: PDSA_METHOD): DSA_meth_bn_mod_exp_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_bn_mod_exp_procname);
 end;
 
 
-function  ERR_DSA_meth_set_bn_mod_exp(dsam: PDSA_METHOD; bn_mod_exp: DSA_meth_bn_mod_exp_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_bn_mod_exp(dsam: PDSA_METHOD; bn_mod_exp: DSA_meth_bn_mod_exp_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_bn_mod_exp_procname);
 end;
 
 
-function  ERR_DSA_meth_get_init(const dsam: PDSA_METHOD): DSA_meth_init_cb; 
+function  ERR_DSA_meth_get_init(const dsam: PDSA_METHOD): DSA_meth_init_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_init_procname);
 end;
 
 
-function  ERR_DSA_meth_set_init(dsam: PDSA_METHOD; init: DSA_meth_init_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_init(dsam: PDSA_METHOD; init: DSA_meth_init_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_init_procname);
 end;
 
 
-function  ERR_DSA_meth_get_finish(const dsam: PDSA_METHOD): DSA_meth_finish_cb; 
+function  ERR_DSA_meth_get_finish(const dsam: PDSA_METHOD): DSA_meth_finish_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_finish_procname);
 end;
 
 
-function  ERR_DSA_meth_set_finish(dsam: PDSA_METHOD; finish: DSA_meth_finish_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_finish(dsam: PDSA_METHOD; finish: DSA_meth_finish_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_finish_procname);
 end;
 
 
-function  ERR_DSA_meth_get_paramgen(const dsam: PDSA_METHOD): DSA_meth_paramgen_cb; 
+function  ERR_DSA_meth_get_paramgen(const dsam: PDSA_METHOD): DSA_meth_paramgen_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_paramgen_procname);
 end;
 
 
-function  ERR_DSA_meth_set_paramgen(dsam: PDSA_METHOD; paramgen: DSA_meth_paramgen_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_paramgen(dsam: PDSA_METHOD; paramgen: DSA_meth_paramgen_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_paramgen_procname);
 end;
 
 
-function  ERR_DSA_meth_get_keygen(const dsam: PDSA_METHOD): DSA_meth_keygen_cb; 
+function  ERR_DSA_meth_get_keygen(const dsam: PDSA_METHOD): DSA_meth_keygen_cb; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_get_keygen_procname);
 end;
 
 
-function  ERR_DSA_meth_set_keygen(dsam: PDSA_METHOD; keygen: DSA_meth_keygen_cb): TIdC_INT; 
+function  ERR_DSA_meth_set_keygen(dsam: PDSA_METHOD; keygen: DSA_meth_keygen_cb): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(DSA_meth_set_keygen_procname);
 end;
@@ -1019,13 +1022,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSAparams_dup_allownil)}
-    DSAparams_dup := @ERR_DSAparams_dup;
+    DSAparams_dup := ERR_DSAparams_dup;
     {$ifend}
     {$if declared(DSAparams_dup_introduced)}
     if LibVersion < DSAparams_dup_introduced then
     begin
       {$if declared(FC_DSAparams_dup)}
-      DSAparams_dup := @FC_DSAparams_dup;
+      DSAparams_dup := FC_DSAparams_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1034,7 +1037,7 @@ begin
     if DSAparams_dup_removed <= LibVersion then
     begin
       {$if declared(_DSAparams_dup)}
-      DSAparams_dup := @_DSAparams_dup;
+      DSAparams_dup := _DSAparams_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1051,13 +1054,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_SIG_new_allownil)}
-    DSA_SIG_new := @ERR_DSA_SIG_new;
+    DSA_SIG_new := ERR_DSA_SIG_new;
     {$ifend}
     {$if declared(DSA_SIG_new_introduced)}
     if LibVersion < DSA_SIG_new_introduced then
     begin
       {$if declared(FC_DSA_SIG_new)}
-      DSA_SIG_new := @FC_DSA_SIG_new;
+      DSA_SIG_new := FC_DSA_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1066,7 +1069,7 @@ begin
     if DSA_SIG_new_removed <= LibVersion then
     begin
       {$if declared(_DSA_SIG_new)}
-      DSA_SIG_new := @_DSA_SIG_new;
+      DSA_SIG_new := _DSA_SIG_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1083,13 +1086,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_SIG_free_allownil)}
-    DSA_SIG_free := @ERR_DSA_SIG_free;
+    DSA_SIG_free := ERR_DSA_SIG_free;
     {$ifend}
     {$if declared(DSA_SIG_free_introduced)}
     if LibVersion < DSA_SIG_free_introduced then
     begin
       {$if declared(FC_DSA_SIG_free)}
-      DSA_SIG_free := @FC_DSA_SIG_free;
+      DSA_SIG_free := FC_DSA_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1098,7 +1101,7 @@ begin
     if DSA_SIG_free_removed <= LibVersion then
     begin
       {$if declared(_DSA_SIG_free)}
-      DSA_SIG_free := @_DSA_SIG_free;
+      DSA_SIG_free := _DSA_SIG_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1115,13 +1118,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSA_SIG_allownil)}
-    i2d_DSA_SIG := @ERR_i2d_DSA_SIG;
+    i2d_DSA_SIG := ERR_i2d_DSA_SIG;
     {$ifend}
     {$if declared(i2d_DSA_SIG_introduced)}
     if LibVersion < i2d_DSA_SIG_introduced then
     begin
       {$if declared(FC_i2d_DSA_SIG)}
-      i2d_DSA_SIG := @FC_i2d_DSA_SIG;
+      i2d_DSA_SIG := FC_i2d_DSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1130,7 +1133,7 @@ begin
     if i2d_DSA_SIG_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSA_SIG)}
-      i2d_DSA_SIG := @_i2d_DSA_SIG;
+      i2d_DSA_SIG := _i2d_DSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1147,13 +1150,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSA_SIG_allownil)}
-    d2i_DSA_SIG := @ERR_d2i_DSA_SIG;
+    d2i_DSA_SIG := ERR_d2i_DSA_SIG;
     {$ifend}
     {$if declared(d2i_DSA_SIG_introduced)}
     if LibVersion < d2i_DSA_SIG_introduced then
     begin
       {$if declared(FC_d2i_DSA_SIG)}
-      d2i_DSA_SIG := @FC_d2i_DSA_SIG;
+      d2i_DSA_SIG := FC_d2i_DSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1162,7 +1165,7 @@ begin
     if d2i_DSA_SIG_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSA_SIG)}
-      d2i_DSA_SIG := @_d2i_DSA_SIG;
+      d2i_DSA_SIG := _d2i_DSA_SIG;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1179,13 +1182,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_SIG_get0_allownil)}
-    DSA_SIG_get0 := @ERR_DSA_SIG_get0;
+    DSA_SIG_get0 := ERR_DSA_SIG_get0;
     {$ifend}
     {$if declared(DSA_SIG_get0_introduced)}
     if LibVersion < DSA_SIG_get0_introduced then
     begin
       {$if declared(FC_DSA_SIG_get0)}
-      DSA_SIG_get0 := @FC_DSA_SIG_get0;
+      DSA_SIG_get0 := FC_DSA_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1194,7 +1197,7 @@ begin
     if DSA_SIG_get0_removed <= LibVersion then
     begin
       {$if declared(_DSA_SIG_get0)}
-      DSA_SIG_get0 := @_DSA_SIG_get0;
+      DSA_SIG_get0 := _DSA_SIG_get0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1211,13 +1214,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_SIG_set0_allownil)}
-    DSA_SIG_set0 := @ERR_DSA_SIG_set0;
+    DSA_SIG_set0 := ERR_DSA_SIG_set0;
     {$ifend}
     {$if declared(DSA_SIG_set0_introduced)}
     if LibVersion < DSA_SIG_set0_introduced then
     begin
       {$if declared(FC_DSA_SIG_set0)}
-      DSA_SIG_set0 := @FC_DSA_SIG_set0;
+      DSA_SIG_set0 := FC_DSA_SIG_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1226,7 +1229,7 @@ begin
     if DSA_SIG_set0_removed <= LibVersion then
     begin
       {$if declared(_DSA_SIG_set0)}
-      DSA_SIG_set0 := @_DSA_SIG_set0;
+      DSA_SIG_set0 := _DSA_SIG_set0;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1243,13 +1246,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_do_sign_allownil)}
-    DSA_do_sign := @ERR_DSA_do_sign;
+    DSA_do_sign := ERR_DSA_do_sign;
     {$ifend}
     {$if declared(DSA_do_sign_introduced)}
     if LibVersion < DSA_do_sign_introduced then
     begin
       {$if declared(FC_DSA_do_sign)}
-      DSA_do_sign := @FC_DSA_do_sign;
+      DSA_do_sign := FC_DSA_do_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1258,7 +1261,7 @@ begin
     if DSA_do_sign_removed <= LibVersion then
     begin
       {$if declared(_DSA_do_sign)}
-      DSA_do_sign := @_DSA_do_sign;
+      DSA_do_sign := _DSA_do_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1275,13 +1278,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_do_verify_allownil)}
-    DSA_do_verify := @ERR_DSA_do_verify;
+    DSA_do_verify := ERR_DSA_do_verify;
     {$ifend}
     {$if declared(DSA_do_verify_introduced)}
     if LibVersion < DSA_do_verify_introduced then
     begin
       {$if declared(FC_DSA_do_verify)}
-      DSA_do_verify := @FC_DSA_do_verify;
+      DSA_do_verify := FC_DSA_do_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1290,7 +1293,7 @@ begin
     if DSA_do_verify_removed <= LibVersion then
     begin
       {$if declared(_DSA_do_verify)}
-      DSA_do_verify := @_DSA_do_verify;
+      DSA_do_verify := _DSA_do_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1307,13 +1310,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_TaurusTLS_allownil)}
-    DSA_TaurusTLS := @ERR_DSA_TaurusTLS;
+    DSA_TaurusTLS := ERR_DSA_TaurusTLS;
     {$ifend}
     {$if declared(DSA_TaurusTLS_introduced)}
     if LibVersion < DSA_TaurusTLS_introduced then
     begin
       {$if declared(FC_DSA_TaurusTLS)}
-      DSA_TaurusTLS := @FC_DSA_TaurusTLS;
+      DSA_TaurusTLS := FC_DSA_TaurusTLS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1322,7 +1325,7 @@ begin
     if DSA_TaurusTLS_removed <= LibVersion then
     begin
       {$if declared(_DSA_TaurusTLS)}
-      DSA_TaurusTLS := @_DSA_TaurusTLS;
+      DSA_TaurusTLS := _DSA_TaurusTLS;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1339,13 +1342,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set_default_method_allownil)}
-    DSA_set_default_method := @ERR_DSA_set_default_method;
+    DSA_set_default_method := ERR_DSA_set_default_method;
     {$ifend}
     {$if declared(DSA_set_default_method_introduced)}
     if LibVersion < DSA_set_default_method_introduced then
     begin
       {$if declared(FC_DSA_set_default_method)}
-      DSA_set_default_method := @FC_DSA_set_default_method;
+      DSA_set_default_method := FC_DSA_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1354,7 +1357,7 @@ begin
     if DSA_set_default_method_removed <= LibVersion then
     begin
       {$if declared(_DSA_set_default_method)}
-      DSA_set_default_method := @_DSA_set_default_method;
+      DSA_set_default_method := _DSA_set_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1371,13 +1374,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get_default_method_allownil)}
-    DSA_get_default_method := @ERR_DSA_get_default_method;
+    DSA_get_default_method := ERR_DSA_get_default_method;
     {$ifend}
     {$if declared(DSA_get_default_method_introduced)}
     if LibVersion < DSA_get_default_method_introduced then
     begin
       {$if declared(FC_DSA_get_default_method)}
-      DSA_get_default_method := @FC_DSA_get_default_method;
+      DSA_get_default_method := FC_DSA_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1386,7 +1389,7 @@ begin
     if DSA_get_default_method_removed <= LibVersion then
     begin
       {$if declared(_DSA_get_default_method)}
-      DSA_get_default_method := @_DSA_get_default_method;
+      DSA_get_default_method := _DSA_get_default_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1403,13 +1406,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set_method_allownil)}
-    DSA_set_method := @ERR_DSA_set_method;
+    DSA_set_method := ERR_DSA_set_method;
     {$ifend}
     {$if declared(DSA_set_method_introduced)}
     if LibVersion < DSA_set_method_introduced then
     begin
       {$if declared(FC_DSA_set_method)}
-      DSA_set_method := @FC_DSA_set_method;
+      DSA_set_method := FC_DSA_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1418,7 +1421,7 @@ begin
     if DSA_set_method_removed <= LibVersion then
     begin
       {$if declared(_DSA_set_method)}
-      DSA_set_method := @_DSA_set_method;
+      DSA_set_method := _DSA_set_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1435,13 +1438,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get_method_allownil)}
-    DSA_get_method := @ERR_DSA_get_method;
+    DSA_get_method := ERR_DSA_get_method;
     {$ifend}
     {$if declared(DSA_get_method_introduced)}
     if LibVersion < DSA_get_method_introduced then
     begin
       {$if declared(FC_DSA_get_method)}
-      DSA_get_method := @FC_DSA_get_method;
+      DSA_get_method := FC_DSA_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1450,7 +1453,7 @@ begin
     if DSA_get_method_removed <= LibVersion then
     begin
       {$if declared(_DSA_get_method)}
-      DSA_get_method := @_DSA_get_method;
+      DSA_get_method := _DSA_get_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1467,13 +1470,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_new_allownil)}
-    DSA_new := @ERR_DSA_new;
+    DSA_new := ERR_DSA_new;
     {$ifend}
     {$if declared(DSA_new_introduced)}
     if LibVersion < DSA_new_introduced then
     begin
       {$if declared(FC_DSA_new)}
-      DSA_new := @FC_DSA_new;
+      DSA_new := FC_DSA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1482,7 +1485,7 @@ begin
     if DSA_new_removed <= LibVersion then
     begin
       {$if declared(_DSA_new)}
-      DSA_new := @_DSA_new;
+      DSA_new := _DSA_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1499,13 +1502,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_new_method_allownil)}
-    DSA_new_method := @ERR_DSA_new_method;
+    DSA_new_method := ERR_DSA_new_method;
     {$ifend}
     {$if declared(DSA_new_method_introduced)}
     if LibVersion < DSA_new_method_introduced then
     begin
       {$if declared(FC_DSA_new_method)}
-      DSA_new_method := @FC_DSA_new_method;
+      DSA_new_method := FC_DSA_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1514,7 +1517,7 @@ begin
     if DSA_new_method_removed <= LibVersion then
     begin
       {$if declared(_DSA_new_method)}
-      DSA_new_method := @_DSA_new_method;
+      DSA_new_method := _DSA_new_method;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1531,13 +1534,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_free_allownil)}
-    DSA_free := @ERR_DSA_free;
+    DSA_free := ERR_DSA_free;
     {$ifend}
     {$if declared(DSA_free_introduced)}
     if LibVersion < DSA_free_introduced then
     begin
       {$if declared(FC_DSA_free)}
-      DSA_free := @FC_DSA_free;
+      DSA_free := FC_DSA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1546,7 +1549,7 @@ begin
     if DSA_free_removed <= LibVersion then
     begin
       {$if declared(_DSA_free)}
-      DSA_free := @_DSA_free;
+      DSA_free := _DSA_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1563,13 +1566,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_up_ref_allownil)}
-    DSA_up_ref := @ERR_DSA_up_ref;
+    DSA_up_ref := ERR_DSA_up_ref;
     {$ifend}
     {$if declared(DSA_up_ref_introduced)}
     if LibVersion < DSA_up_ref_introduced then
     begin
       {$if declared(FC_DSA_up_ref)}
-      DSA_up_ref := @FC_DSA_up_ref;
+      DSA_up_ref := FC_DSA_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1578,7 +1581,7 @@ begin
     if DSA_up_ref_removed <= LibVersion then
     begin
       {$if declared(_DSA_up_ref)}
-      DSA_up_ref := @_DSA_up_ref;
+      DSA_up_ref := _DSA_up_ref;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1595,13 +1598,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_size_allownil)}
-    DSA_size := @ERR_DSA_size;
+    DSA_size := ERR_DSA_size;
     {$ifend}
     {$if declared(DSA_size_introduced)}
     if LibVersion < DSA_size_introduced then
     begin
       {$if declared(FC_DSA_size)}
-      DSA_size := @FC_DSA_size;
+      DSA_size := FC_DSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1610,7 +1613,7 @@ begin
     if DSA_size_removed <= LibVersion then
     begin
       {$if declared(_DSA_size)}
-      DSA_size := @_DSA_size;
+      DSA_size := _DSA_size;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1627,13 +1630,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_bits_allownil)}
-    DSA_bits := @ERR_DSA_bits;
+    DSA_bits := ERR_DSA_bits;
     {$ifend}
     {$if declared(DSA_bits_introduced)}
     if LibVersion < DSA_bits_introduced then
     begin
       {$if declared(FC_DSA_bits)}
-      DSA_bits := @FC_DSA_bits;
+      DSA_bits := FC_DSA_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1642,7 +1645,7 @@ begin
     if DSA_bits_removed <= LibVersion then
     begin
       {$if declared(_DSA_bits)}
-      DSA_bits := @_DSA_bits;
+      DSA_bits := _DSA_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1659,13 +1662,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_security_bits_allownil)}
-    DSA_security_bits := @ERR_DSA_security_bits;
+    DSA_security_bits := ERR_DSA_security_bits;
     {$ifend}
     {$if declared(DSA_security_bits_introduced)}
     if LibVersion < DSA_security_bits_introduced then
     begin
       {$if declared(FC_DSA_security_bits)}
-      DSA_security_bits := @FC_DSA_security_bits;
+      DSA_security_bits := FC_DSA_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1674,7 +1677,7 @@ begin
     if DSA_security_bits_removed <= LibVersion then
     begin
       {$if declared(_DSA_security_bits)}
-      DSA_security_bits := @_DSA_security_bits;
+      DSA_security_bits := _DSA_security_bits;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1691,13 +1694,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_sign_allownil)}
-    DSA_sign := @ERR_DSA_sign;
+    DSA_sign := ERR_DSA_sign;
     {$ifend}
     {$if declared(DSA_sign_introduced)}
     if LibVersion < DSA_sign_introduced then
     begin
       {$if declared(FC_DSA_sign)}
-      DSA_sign := @FC_DSA_sign;
+      DSA_sign := FC_DSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1706,7 +1709,7 @@ begin
     if DSA_sign_removed <= LibVersion then
     begin
       {$if declared(_DSA_sign)}
-      DSA_sign := @_DSA_sign;
+      DSA_sign := _DSA_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1723,13 +1726,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_verify_allownil)}
-    DSA_verify := @ERR_DSA_verify;
+    DSA_verify := ERR_DSA_verify;
     {$ifend}
     {$if declared(DSA_verify_introduced)}
     if LibVersion < DSA_verify_introduced then
     begin
       {$if declared(FC_DSA_verify)}
-      DSA_verify := @FC_DSA_verify;
+      DSA_verify := FC_DSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1738,7 +1741,7 @@ begin
     if DSA_verify_removed <= LibVersion then
     begin
       {$if declared(_DSA_verify)}
-      DSA_verify := @_DSA_verify;
+      DSA_verify := _DSA_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1755,13 +1758,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set_ex_data_allownil)}
-    DSA_set_ex_data := @ERR_DSA_set_ex_data;
+    DSA_set_ex_data := ERR_DSA_set_ex_data;
     {$ifend}
     {$if declared(DSA_set_ex_data_introduced)}
     if LibVersion < DSA_set_ex_data_introduced then
     begin
       {$if declared(FC_DSA_set_ex_data)}
-      DSA_set_ex_data := @FC_DSA_set_ex_data;
+      DSA_set_ex_data := FC_DSA_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1770,7 +1773,7 @@ begin
     if DSA_set_ex_data_removed <= LibVersion then
     begin
       {$if declared(_DSA_set_ex_data)}
-      DSA_set_ex_data := @_DSA_set_ex_data;
+      DSA_set_ex_data := _DSA_set_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1787,13 +1790,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get_ex_data_allownil)}
-    DSA_get_ex_data := @ERR_DSA_get_ex_data;
+    DSA_get_ex_data := ERR_DSA_get_ex_data;
     {$ifend}
     {$if declared(DSA_get_ex_data_introduced)}
     if LibVersion < DSA_get_ex_data_introduced then
     begin
       {$if declared(FC_DSA_get_ex_data)}
-      DSA_get_ex_data := @FC_DSA_get_ex_data;
+      DSA_get_ex_data := FC_DSA_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1802,7 +1805,7 @@ begin
     if DSA_get_ex_data_removed <= LibVersion then
     begin
       {$if declared(_DSA_get_ex_data)}
-      DSA_get_ex_data := @_DSA_get_ex_data;
+      DSA_get_ex_data := _DSA_get_ex_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1819,13 +1822,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSAPublicKey_allownil)}
-    d2i_DSAPublicKey := @ERR_d2i_DSAPublicKey;
+    d2i_DSAPublicKey := ERR_d2i_DSAPublicKey;
     {$ifend}
     {$if declared(d2i_DSAPublicKey_introduced)}
     if LibVersion < d2i_DSAPublicKey_introduced then
     begin
       {$if declared(FC_d2i_DSAPublicKey)}
-      d2i_DSAPublicKey := @FC_d2i_DSAPublicKey;
+      d2i_DSAPublicKey := FC_d2i_DSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1834,7 +1837,7 @@ begin
     if d2i_DSAPublicKey_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSAPublicKey)}
-      d2i_DSAPublicKey := @_d2i_DSAPublicKey;
+      d2i_DSAPublicKey := _d2i_DSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1851,13 +1854,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSAPrivateKey_allownil)}
-    d2i_DSAPrivateKey := @ERR_d2i_DSAPrivateKey;
+    d2i_DSAPrivateKey := ERR_d2i_DSAPrivateKey;
     {$ifend}
     {$if declared(d2i_DSAPrivateKey_introduced)}
     if LibVersion < d2i_DSAPrivateKey_introduced then
     begin
       {$if declared(FC_d2i_DSAPrivateKey)}
-      d2i_DSAPrivateKey := @FC_d2i_DSAPrivateKey;
+      d2i_DSAPrivateKey := FC_d2i_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1866,7 +1869,7 @@ begin
     if d2i_DSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSAPrivateKey)}
-      d2i_DSAPrivateKey := @_d2i_DSAPrivateKey;
+      d2i_DSAPrivateKey := _d2i_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1883,13 +1886,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(d2i_DSAparams_allownil)}
-    d2i_DSAparams := @ERR_d2i_DSAparams;
+    d2i_DSAparams := ERR_d2i_DSAparams;
     {$ifend}
     {$if declared(d2i_DSAparams_introduced)}
     if LibVersion < d2i_DSAparams_introduced then
     begin
       {$if declared(FC_d2i_DSAparams)}
-      d2i_DSAparams := @FC_d2i_DSAparams;
+      d2i_DSAparams := FC_d2i_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1898,7 +1901,7 @@ begin
     if d2i_DSAparams_removed <= LibVersion then
     begin
       {$if declared(_d2i_DSAparams)}
-      d2i_DSAparams := @_d2i_DSAparams;
+      d2i_DSAparams := _d2i_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1915,13 +1918,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_generate_parameters_ex_allownil)}
-    DSA_generate_parameters_ex := @ERR_DSA_generate_parameters_ex;
+    DSA_generate_parameters_ex := ERR_DSA_generate_parameters_ex;
     {$ifend}
     {$if declared(DSA_generate_parameters_ex_introduced)}
     if LibVersion < DSA_generate_parameters_ex_introduced then
     begin
       {$if declared(FC_DSA_generate_parameters_ex)}
-      DSA_generate_parameters_ex := @FC_DSA_generate_parameters_ex;
+      DSA_generate_parameters_ex := FC_DSA_generate_parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1930,7 +1933,7 @@ begin
     if DSA_generate_parameters_ex_removed <= LibVersion then
     begin
       {$if declared(_DSA_generate_parameters_ex)}
-      DSA_generate_parameters_ex := @_DSA_generate_parameters_ex;
+      DSA_generate_parameters_ex := _DSA_generate_parameters_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1947,13 +1950,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_generate_key_allownil)}
-    DSA_generate_key := @ERR_DSA_generate_key;
+    DSA_generate_key := ERR_DSA_generate_key;
     {$ifend}
     {$if declared(DSA_generate_key_introduced)}
     if LibVersion < DSA_generate_key_introduced then
     begin
       {$if declared(FC_DSA_generate_key)}
-      DSA_generate_key := @FC_DSA_generate_key;
+      DSA_generate_key := FC_DSA_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1962,7 +1965,7 @@ begin
     if DSA_generate_key_removed <= LibVersion then
     begin
       {$if declared(_DSA_generate_key)}
-      DSA_generate_key := @_DSA_generate_key;
+      DSA_generate_key := _DSA_generate_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1979,13 +1982,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSAPublicKey_allownil)}
-    i2d_DSAPublicKey := @ERR_i2d_DSAPublicKey;
+    i2d_DSAPublicKey := ERR_i2d_DSAPublicKey;
     {$ifend}
     {$if declared(i2d_DSAPublicKey_introduced)}
     if LibVersion < i2d_DSAPublicKey_introduced then
     begin
       {$if declared(FC_i2d_DSAPublicKey)}
-      i2d_DSAPublicKey := @FC_i2d_DSAPublicKey;
+      i2d_DSAPublicKey := FC_i2d_DSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1994,7 +1997,7 @@ begin
     if i2d_DSAPublicKey_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSAPublicKey)}
-      i2d_DSAPublicKey := @_i2d_DSAPublicKey;
+      i2d_DSAPublicKey := _i2d_DSAPublicKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2011,13 +2014,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSAPrivateKey_allownil)}
-    i2d_DSAPrivateKey := @ERR_i2d_DSAPrivateKey;
+    i2d_DSAPrivateKey := ERR_i2d_DSAPrivateKey;
     {$ifend}
     {$if declared(i2d_DSAPrivateKey_introduced)}
     if LibVersion < i2d_DSAPrivateKey_introduced then
     begin
       {$if declared(FC_i2d_DSAPrivateKey)}
-      i2d_DSAPrivateKey := @FC_i2d_DSAPrivateKey;
+      i2d_DSAPrivateKey := FC_i2d_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2026,7 +2029,7 @@ begin
     if i2d_DSAPrivateKey_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSAPrivateKey)}
-      i2d_DSAPrivateKey := @_i2d_DSAPrivateKey;
+      i2d_DSAPrivateKey := _i2d_DSAPrivateKey;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2043,13 +2046,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(i2d_DSAparams_allownil)}
-    i2d_DSAparams := @ERR_i2d_DSAparams;
+    i2d_DSAparams := ERR_i2d_DSAparams;
     {$ifend}
     {$if declared(i2d_DSAparams_introduced)}
     if LibVersion < i2d_DSAparams_introduced then
     begin
       {$if declared(FC_i2d_DSAparams)}
-      i2d_DSAparams := @FC_i2d_DSAparams;
+      i2d_DSAparams := FC_i2d_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2058,7 +2061,7 @@ begin
     if i2d_DSAparams_removed <= LibVersion then
     begin
       {$if declared(_i2d_DSAparams)}
-      i2d_DSAparams := @_i2d_DSAparams;
+      i2d_DSAparams := _i2d_DSAparams;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2075,13 +2078,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSAparams_print_allownil)}
-    DSAparams_print := @ERR_DSAparams_print;
+    DSAparams_print := ERR_DSAparams_print;
     {$ifend}
     {$if declared(DSAparams_print_introduced)}
     if LibVersion < DSAparams_print_introduced then
     begin
       {$if declared(FC_DSAparams_print)}
-      DSAparams_print := @FC_DSAparams_print;
+      DSAparams_print := FC_DSAparams_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2090,7 +2093,7 @@ begin
     if DSAparams_print_removed <= LibVersion then
     begin
       {$if declared(_DSAparams_print)}
-      DSAparams_print := @_DSAparams_print;
+      DSAparams_print := _DSAparams_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2107,13 +2110,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_print_allownil)}
-    DSA_print := @ERR_DSA_print;
+    DSA_print := ERR_DSA_print;
     {$ifend}
     {$if declared(DSA_print_introduced)}
     if LibVersion < DSA_print_introduced then
     begin
       {$if declared(FC_DSA_print)}
-      DSA_print := @FC_DSA_print;
+      DSA_print := FC_DSA_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2122,7 +2125,7 @@ begin
     if DSA_print_removed <= LibVersion then
     begin
       {$if declared(_DSA_print)}
-      DSA_print := @_DSA_print;
+      DSA_print := _DSA_print;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2139,13 +2142,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_dup_DH_allownil)}
-    DSA_dup_DH := @ERR_DSA_dup_DH;
+    DSA_dup_DH := ERR_DSA_dup_DH;
     {$ifend}
     {$if declared(DSA_dup_DH_introduced)}
     if LibVersion < DSA_dup_DH_introduced then
     begin
       {$if declared(FC_DSA_dup_DH)}
-      DSA_dup_DH := @FC_DSA_dup_DH;
+      DSA_dup_DH := FC_DSA_dup_DH;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2154,7 +2157,7 @@ begin
     if DSA_dup_DH_removed <= LibVersion then
     begin
       {$if declared(_DSA_dup_DH)}
-      DSA_dup_DH := @_DSA_dup_DH;
+      DSA_dup_DH := _DSA_dup_DH;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2171,13 +2174,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_pqg_allownil)}
-    DSA_get0_pqg := @ERR_DSA_get0_pqg;
+    DSA_get0_pqg := ERR_DSA_get0_pqg;
     {$ifend}
     {$if declared(DSA_get0_pqg_introduced)}
     if LibVersion < DSA_get0_pqg_introduced then
     begin
       {$if declared(FC_DSA_get0_pqg)}
-      DSA_get0_pqg := @FC_DSA_get0_pqg;
+      DSA_get0_pqg := FC_DSA_get0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2186,7 +2189,7 @@ begin
     if DSA_get0_pqg_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_pqg)}
-      DSA_get0_pqg := @_DSA_get0_pqg;
+      DSA_get0_pqg := _DSA_get0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2203,13 +2206,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set0_pqg_allownil)}
-    DSA_set0_pqg := @ERR_DSA_set0_pqg;
+    DSA_set0_pqg := ERR_DSA_set0_pqg;
     {$ifend}
     {$if declared(DSA_set0_pqg_introduced)}
     if LibVersion < DSA_set0_pqg_introduced then
     begin
       {$if declared(FC_DSA_set0_pqg)}
-      DSA_set0_pqg := @FC_DSA_set0_pqg;
+      DSA_set0_pqg := FC_DSA_set0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2218,7 +2221,7 @@ begin
     if DSA_set0_pqg_removed <= LibVersion then
     begin
       {$if declared(_DSA_set0_pqg)}
-      DSA_set0_pqg := @_DSA_set0_pqg;
+      DSA_set0_pqg := _DSA_set0_pqg;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2235,13 +2238,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_key_allownil)}
-    DSA_get0_key := @ERR_DSA_get0_key;
+    DSA_get0_key := ERR_DSA_get0_key;
     {$ifend}
     {$if declared(DSA_get0_key_introduced)}
     if LibVersion < DSA_get0_key_introduced then
     begin
       {$if declared(FC_DSA_get0_key)}
-      DSA_get0_key := @FC_DSA_get0_key;
+      DSA_get0_key := FC_DSA_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2250,7 +2253,7 @@ begin
     if DSA_get0_key_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_key)}
-      DSA_get0_key := @_DSA_get0_key;
+      DSA_get0_key := _DSA_get0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2267,13 +2270,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set0_key_allownil)}
-    DSA_set0_key := @ERR_DSA_set0_key;
+    DSA_set0_key := ERR_DSA_set0_key;
     {$ifend}
     {$if declared(DSA_set0_key_introduced)}
     if LibVersion < DSA_set0_key_introduced then
     begin
       {$if declared(FC_DSA_set0_key)}
-      DSA_set0_key := @FC_DSA_set0_key;
+      DSA_set0_key := FC_DSA_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2282,7 +2285,7 @@ begin
     if DSA_set0_key_removed <= LibVersion then
     begin
       {$if declared(_DSA_set0_key)}
-      DSA_set0_key := @_DSA_set0_key;
+      DSA_set0_key := _DSA_set0_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2299,13 +2302,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_p_allownil)}
-    DSA_get0_p := @ERR_DSA_get0_p;
+    DSA_get0_p := ERR_DSA_get0_p;
     {$ifend}
     {$if declared(DSA_get0_p_introduced)}
     if LibVersion < DSA_get0_p_introduced then
     begin
       {$if declared(FC_DSA_get0_p)}
-      DSA_get0_p := @FC_DSA_get0_p;
+      DSA_get0_p := FC_DSA_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2314,7 +2317,7 @@ begin
     if DSA_get0_p_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_p)}
-      DSA_get0_p := @_DSA_get0_p;
+      DSA_get0_p := _DSA_get0_p;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2331,13 +2334,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_q_allownil)}
-    DSA_get0_q := @ERR_DSA_get0_q;
+    DSA_get0_q := ERR_DSA_get0_q;
     {$ifend}
     {$if declared(DSA_get0_q_introduced)}
     if LibVersion < DSA_get0_q_introduced then
     begin
       {$if declared(FC_DSA_get0_q)}
-      DSA_get0_q := @FC_DSA_get0_q;
+      DSA_get0_q := FC_DSA_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2346,7 +2349,7 @@ begin
     if DSA_get0_q_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_q)}
-      DSA_get0_q := @_DSA_get0_q;
+      DSA_get0_q := _DSA_get0_q;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2363,13 +2366,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_g_allownil)}
-    DSA_get0_g := @ERR_DSA_get0_g;
+    DSA_get0_g := ERR_DSA_get0_g;
     {$ifend}
     {$if declared(DSA_get0_g_introduced)}
     if LibVersion < DSA_get0_g_introduced then
     begin
       {$if declared(FC_DSA_get0_g)}
-      DSA_get0_g := @FC_DSA_get0_g;
+      DSA_get0_g := FC_DSA_get0_g;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2378,7 +2381,7 @@ begin
     if DSA_get0_g_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_g)}
-      DSA_get0_g := @_DSA_get0_g;
+      DSA_get0_g := _DSA_get0_g;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2395,13 +2398,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_pub_key_allownil)}
-    DSA_get0_pub_key := @ERR_DSA_get0_pub_key;
+    DSA_get0_pub_key := ERR_DSA_get0_pub_key;
     {$ifend}
     {$if declared(DSA_get0_pub_key_introduced)}
     if LibVersion < DSA_get0_pub_key_introduced then
     begin
       {$if declared(FC_DSA_get0_pub_key)}
-      DSA_get0_pub_key := @FC_DSA_get0_pub_key;
+      DSA_get0_pub_key := FC_DSA_get0_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2410,7 +2413,7 @@ begin
     if DSA_get0_pub_key_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_pub_key)}
-      DSA_get0_pub_key := @_DSA_get0_pub_key;
+      DSA_get0_pub_key := _DSA_get0_pub_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2427,13 +2430,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_priv_key_allownil)}
-    DSA_get0_priv_key := @ERR_DSA_get0_priv_key;
+    DSA_get0_priv_key := ERR_DSA_get0_priv_key;
     {$ifend}
     {$if declared(DSA_get0_priv_key_introduced)}
     if LibVersion < DSA_get0_priv_key_introduced then
     begin
       {$if declared(FC_DSA_get0_priv_key)}
-      DSA_get0_priv_key := @FC_DSA_get0_priv_key;
+      DSA_get0_priv_key := FC_DSA_get0_priv_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2442,7 +2445,7 @@ begin
     if DSA_get0_priv_key_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_priv_key)}
-      DSA_get0_priv_key := @_DSA_get0_priv_key;
+      DSA_get0_priv_key := _DSA_get0_priv_key;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2459,13 +2462,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_clear_flags_allownil)}
-    DSA_clear_flags := @ERR_DSA_clear_flags;
+    DSA_clear_flags := ERR_DSA_clear_flags;
     {$ifend}
     {$if declared(DSA_clear_flags_introduced)}
     if LibVersion < DSA_clear_flags_introduced then
     begin
       {$if declared(FC_DSA_clear_flags)}
-      DSA_clear_flags := @FC_DSA_clear_flags;
+      DSA_clear_flags := FC_DSA_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2474,7 +2477,7 @@ begin
     if DSA_clear_flags_removed <= LibVersion then
     begin
       {$if declared(_DSA_clear_flags)}
-      DSA_clear_flags := @_DSA_clear_flags;
+      DSA_clear_flags := _DSA_clear_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2491,13 +2494,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_test_flags_allownil)}
-    DSA_test_flags := @ERR_DSA_test_flags;
+    DSA_test_flags := ERR_DSA_test_flags;
     {$ifend}
     {$if declared(DSA_test_flags_introduced)}
     if LibVersion < DSA_test_flags_introduced then
     begin
       {$if declared(FC_DSA_test_flags)}
-      DSA_test_flags := @FC_DSA_test_flags;
+      DSA_test_flags := FC_DSA_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2506,7 +2509,7 @@ begin
     if DSA_test_flags_removed <= LibVersion then
     begin
       {$if declared(_DSA_test_flags)}
-      DSA_test_flags := @_DSA_test_flags;
+      DSA_test_flags := _DSA_test_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2523,13 +2526,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_set_flags_allownil)}
-    DSA_set_flags := @ERR_DSA_set_flags;
+    DSA_set_flags := ERR_DSA_set_flags;
     {$ifend}
     {$if declared(DSA_set_flags_introduced)}
     if LibVersion < DSA_set_flags_introduced then
     begin
       {$if declared(FC_DSA_set_flags)}
-      DSA_set_flags := @FC_DSA_set_flags;
+      DSA_set_flags := FC_DSA_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2538,7 +2541,7 @@ begin
     if DSA_set_flags_removed <= LibVersion then
     begin
       {$if declared(_DSA_set_flags)}
-      DSA_set_flags := @_DSA_set_flags;
+      DSA_set_flags := _DSA_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2555,13 +2558,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_get0_engine_allownil)}
-    DSA_get0_engine := @ERR_DSA_get0_engine;
+    DSA_get0_engine := ERR_DSA_get0_engine;
     {$ifend}
     {$if declared(DSA_get0_engine_introduced)}
     if LibVersion < DSA_get0_engine_introduced then
     begin
       {$if declared(FC_DSA_get0_engine)}
-      DSA_get0_engine := @FC_DSA_get0_engine;
+      DSA_get0_engine := FC_DSA_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2570,7 +2573,7 @@ begin
     if DSA_get0_engine_removed <= LibVersion then
     begin
       {$if declared(_DSA_get0_engine)}
-      DSA_get0_engine := @_DSA_get0_engine;
+      DSA_get0_engine := _DSA_get0_engine;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2587,13 +2590,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_new_allownil)}
-    DSA_meth_new := @ERR_DSA_meth_new;
+    DSA_meth_new := ERR_DSA_meth_new;
     {$ifend}
     {$if declared(DSA_meth_new_introduced)}
     if LibVersion < DSA_meth_new_introduced then
     begin
       {$if declared(FC_DSA_meth_new)}
-      DSA_meth_new := @FC_DSA_meth_new;
+      DSA_meth_new := FC_DSA_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2602,7 +2605,7 @@ begin
     if DSA_meth_new_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_new)}
-      DSA_meth_new := @_DSA_meth_new;
+      DSA_meth_new := _DSA_meth_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2619,13 +2622,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_free_allownil)}
-    DSA_meth_free := @ERR_DSA_meth_free;
+    DSA_meth_free := ERR_DSA_meth_free;
     {$ifend}
     {$if declared(DSA_meth_free_introduced)}
     if LibVersion < DSA_meth_free_introduced then
     begin
       {$if declared(FC_DSA_meth_free)}
-      DSA_meth_free := @FC_DSA_meth_free;
+      DSA_meth_free := FC_DSA_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2634,7 +2637,7 @@ begin
     if DSA_meth_free_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_free)}
-      DSA_meth_free := @_DSA_meth_free;
+      DSA_meth_free := _DSA_meth_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2651,13 +2654,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_dup_allownil)}
-    DSA_meth_dup := @ERR_DSA_meth_dup;
+    DSA_meth_dup := ERR_DSA_meth_dup;
     {$ifend}
     {$if declared(DSA_meth_dup_introduced)}
     if LibVersion < DSA_meth_dup_introduced then
     begin
       {$if declared(FC_DSA_meth_dup)}
-      DSA_meth_dup := @FC_DSA_meth_dup;
+      DSA_meth_dup := FC_DSA_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2666,7 +2669,7 @@ begin
     if DSA_meth_dup_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_dup)}
-      DSA_meth_dup := @_DSA_meth_dup;
+      DSA_meth_dup := _DSA_meth_dup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2683,13 +2686,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get0_name_allownil)}
-    DSA_meth_get0_name := @ERR_DSA_meth_get0_name;
+    DSA_meth_get0_name := ERR_DSA_meth_get0_name;
     {$ifend}
     {$if declared(DSA_meth_get0_name_introduced)}
     if LibVersion < DSA_meth_get0_name_introduced then
     begin
       {$if declared(FC_DSA_meth_get0_name)}
-      DSA_meth_get0_name := @FC_DSA_meth_get0_name;
+      DSA_meth_get0_name := FC_DSA_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2698,7 +2701,7 @@ begin
     if DSA_meth_get0_name_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get0_name)}
-      DSA_meth_get0_name := @_DSA_meth_get0_name;
+      DSA_meth_get0_name := _DSA_meth_get0_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2715,13 +2718,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set1_name_allownil)}
-    DSA_meth_set1_name := @ERR_DSA_meth_set1_name;
+    DSA_meth_set1_name := ERR_DSA_meth_set1_name;
     {$ifend}
     {$if declared(DSA_meth_set1_name_introduced)}
     if LibVersion < DSA_meth_set1_name_introduced then
     begin
       {$if declared(FC_DSA_meth_set1_name)}
-      DSA_meth_set1_name := @FC_DSA_meth_set1_name;
+      DSA_meth_set1_name := FC_DSA_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2730,7 +2733,7 @@ begin
     if DSA_meth_set1_name_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set1_name)}
-      DSA_meth_set1_name := @_DSA_meth_set1_name;
+      DSA_meth_set1_name := _DSA_meth_set1_name;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2747,13 +2750,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_flags_allownil)}
-    DSA_meth_get_flags := @ERR_DSA_meth_get_flags;
+    DSA_meth_get_flags := ERR_DSA_meth_get_flags;
     {$ifend}
     {$if declared(DSA_meth_get_flags_introduced)}
     if LibVersion < DSA_meth_get_flags_introduced then
     begin
       {$if declared(FC_DSA_meth_get_flags)}
-      DSA_meth_get_flags := @FC_DSA_meth_get_flags;
+      DSA_meth_get_flags := FC_DSA_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2762,7 +2765,7 @@ begin
     if DSA_meth_get_flags_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_flags)}
-      DSA_meth_get_flags := @_DSA_meth_get_flags;
+      DSA_meth_get_flags := _DSA_meth_get_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2779,13 +2782,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_flags_allownil)}
-    DSA_meth_set_flags := @ERR_DSA_meth_set_flags;
+    DSA_meth_set_flags := ERR_DSA_meth_set_flags;
     {$ifend}
     {$if declared(DSA_meth_set_flags_introduced)}
     if LibVersion < DSA_meth_set_flags_introduced then
     begin
       {$if declared(FC_DSA_meth_set_flags)}
-      DSA_meth_set_flags := @FC_DSA_meth_set_flags;
+      DSA_meth_set_flags := FC_DSA_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2794,7 +2797,7 @@ begin
     if DSA_meth_set_flags_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_flags)}
-      DSA_meth_set_flags := @_DSA_meth_set_flags;
+      DSA_meth_set_flags := _DSA_meth_set_flags;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2811,13 +2814,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get0_app_data_allownil)}
-    DSA_meth_get0_app_data := @ERR_DSA_meth_get0_app_data;
+    DSA_meth_get0_app_data := ERR_DSA_meth_get0_app_data;
     {$ifend}
     {$if declared(DSA_meth_get0_app_data_introduced)}
     if LibVersion < DSA_meth_get0_app_data_introduced then
     begin
       {$if declared(FC_DSA_meth_get0_app_data)}
-      DSA_meth_get0_app_data := @FC_DSA_meth_get0_app_data;
+      DSA_meth_get0_app_data := FC_DSA_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2826,7 +2829,7 @@ begin
     if DSA_meth_get0_app_data_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get0_app_data)}
-      DSA_meth_get0_app_data := @_DSA_meth_get0_app_data;
+      DSA_meth_get0_app_data := _DSA_meth_get0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2843,13 +2846,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set0_app_data_allownil)}
-    DSA_meth_set0_app_data := @ERR_DSA_meth_set0_app_data;
+    DSA_meth_set0_app_data := ERR_DSA_meth_set0_app_data;
     {$ifend}
     {$if declared(DSA_meth_set0_app_data_introduced)}
     if LibVersion < DSA_meth_set0_app_data_introduced then
     begin
       {$if declared(FC_DSA_meth_set0_app_data)}
-      DSA_meth_set0_app_data := @FC_DSA_meth_set0_app_data;
+      DSA_meth_set0_app_data := FC_DSA_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2858,7 +2861,7 @@ begin
     if DSA_meth_set0_app_data_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set0_app_data)}
-      DSA_meth_set0_app_data := @_DSA_meth_set0_app_data;
+      DSA_meth_set0_app_data := _DSA_meth_set0_app_data;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2875,13 +2878,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_sign_allownil)}
-    DSA_meth_get_sign := @ERR_DSA_meth_get_sign;
+    DSA_meth_get_sign := ERR_DSA_meth_get_sign;
     {$ifend}
     {$if declared(DSA_meth_get_sign_introduced)}
     if LibVersion < DSA_meth_get_sign_introduced then
     begin
       {$if declared(FC_DSA_meth_get_sign)}
-      DSA_meth_get_sign := @FC_DSA_meth_get_sign;
+      DSA_meth_get_sign := FC_DSA_meth_get_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2890,7 +2893,7 @@ begin
     if DSA_meth_get_sign_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_sign)}
-      DSA_meth_get_sign := @_DSA_meth_get_sign;
+      DSA_meth_get_sign := _DSA_meth_get_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2907,13 +2910,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_sign_allownil)}
-    DSA_meth_set_sign := @ERR_DSA_meth_set_sign;
+    DSA_meth_set_sign := ERR_DSA_meth_set_sign;
     {$ifend}
     {$if declared(DSA_meth_set_sign_introduced)}
     if LibVersion < DSA_meth_set_sign_introduced then
     begin
       {$if declared(FC_DSA_meth_set_sign)}
-      DSA_meth_set_sign := @FC_DSA_meth_set_sign;
+      DSA_meth_set_sign := FC_DSA_meth_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2922,7 +2925,7 @@ begin
     if DSA_meth_set_sign_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_sign)}
-      DSA_meth_set_sign := @_DSA_meth_set_sign;
+      DSA_meth_set_sign := _DSA_meth_set_sign;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2939,13 +2942,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_sign_setup_allownil)}
-    DSA_meth_get_sign_setup := @ERR_DSA_meth_get_sign_setup;
+    DSA_meth_get_sign_setup := ERR_DSA_meth_get_sign_setup;
     {$ifend}
     {$if declared(DSA_meth_get_sign_setup_introduced)}
     if LibVersion < DSA_meth_get_sign_setup_introduced then
     begin
       {$if declared(FC_DSA_meth_get_sign_setup)}
-      DSA_meth_get_sign_setup := @FC_DSA_meth_get_sign_setup;
+      DSA_meth_get_sign_setup := FC_DSA_meth_get_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2954,7 +2957,7 @@ begin
     if DSA_meth_get_sign_setup_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_sign_setup)}
-      DSA_meth_get_sign_setup := @_DSA_meth_get_sign_setup;
+      DSA_meth_get_sign_setup := _DSA_meth_get_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2971,13 +2974,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_sign_setup_allownil)}
-    DSA_meth_set_sign_setup := @ERR_DSA_meth_set_sign_setup;
+    DSA_meth_set_sign_setup := ERR_DSA_meth_set_sign_setup;
     {$ifend}
     {$if declared(DSA_meth_set_sign_setup_introduced)}
     if LibVersion < DSA_meth_set_sign_setup_introduced then
     begin
       {$if declared(FC_DSA_meth_set_sign_setup)}
-      DSA_meth_set_sign_setup := @FC_DSA_meth_set_sign_setup;
+      DSA_meth_set_sign_setup := FC_DSA_meth_set_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -2986,7 +2989,7 @@ begin
     if DSA_meth_set_sign_setup_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_sign_setup)}
-      DSA_meth_set_sign_setup := @_DSA_meth_set_sign_setup;
+      DSA_meth_set_sign_setup := _DSA_meth_set_sign_setup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3003,13 +3006,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_verify_allownil)}
-    DSA_meth_get_verify := @ERR_DSA_meth_get_verify;
+    DSA_meth_get_verify := ERR_DSA_meth_get_verify;
     {$ifend}
     {$if declared(DSA_meth_get_verify_introduced)}
     if LibVersion < DSA_meth_get_verify_introduced then
     begin
       {$if declared(FC_DSA_meth_get_verify)}
-      DSA_meth_get_verify := @FC_DSA_meth_get_verify;
+      DSA_meth_get_verify := FC_DSA_meth_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3018,7 +3021,7 @@ begin
     if DSA_meth_get_verify_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_verify)}
-      DSA_meth_get_verify := @_DSA_meth_get_verify;
+      DSA_meth_get_verify := _DSA_meth_get_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3035,13 +3038,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_verify_allownil)}
-    DSA_meth_set_verify := @ERR_DSA_meth_set_verify;
+    DSA_meth_set_verify := ERR_DSA_meth_set_verify;
     {$ifend}
     {$if declared(DSA_meth_set_verify_introduced)}
     if LibVersion < DSA_meth_set_verify_introduced then
     begin
       {$if declared(FC_DSA_meth_set_verify)}
-      DSA_meth_set_verify := @FC_DSA_meth_set_verify;
+      DSA_meth_set_verify := FC_DSA_meth_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3050,7 +3053,7 @@ begin
     if DSA_meth_set_verify_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_verify)}
-      DSA_meth_set_verify := @_DSA_meth_set_verify;
+      DSA_meth_set_verify := _DSA_meth_set_verify;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3067,13 +3070,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_mod_exp_allownil)}
-    DSA_meth_get_mod_exp := @ERR_DSA_meth_get_mod_exp;
+    DSA_meth_get_mod_exp := ERR_DSA_meth_get_mod_exp;
     {$ifend}
     {$if declared(DSA_meth_get_mod_exp_introduced)}
     if LibVersion < DSA_meth_get_mod_exp_introduced then
     begin
       {$if declared(FC_DSA_meth_get_mod_exp)}
-      DSA_meth_get_mod_exp := @FC_DSA_meth_get_mod_exp;
+      DSA_meth_get_mod_exp := FC_DSA_meth_get_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3082,7 +3085,7 @@ begin
     if DSA_meth_get_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_mod_exp)}
-      DSA_meth_get_mod_exp := @_DSA_meth_get_mod_exp;
+      DSA_meth_get_mod_exp := _DSA_meth_get_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3099,13 +3102,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_mod_exp_allownil)}
-    DSA_meth_set_mod_exp := @ERR_DSA_meth_set_mod_exp;
+    DSA_meth_set_mod_exp := ERR_DSA_meth_set_mod_exp;
     {$ifend}
     {$if declared(DSA_meth_set_mod_exp_introduced)}
     if LibVersion < DSA_meth_set_mod_exp_introduced then
     begin
       {$if declared(FC_DSA_meth_set_mod_exp)}
-      DSA_meth_set_mod_exp := @FC_DSA_meth_set_mod_exp;
+      DSA_meth_set_mod_exp := FC_DSA_meth_set_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3114,7 +3117,7 @@ begin
     if DSA_meth_set_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_mod_exp)}
-      DSA_meth_set_mod_exp := @_DSA_meth_set_mod_exp;
+      DSA_meth_set_mod_exp := _DSA_meth_set_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3131,13 +3134,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_bn_mod_exp_allownil)}
-    DSA_meth_get_bn_mod_exp := @ERR_DSA_meth_get_bn_mod_exp;
+    DSA_meth_get_bn_mod_exp := ERR_DSA_meth_get_bn_mod_exp;
     {$ifend}
     {$if declared(DSA_meth_get_bn_mod_exp_introduced)}
     if LibVersion < DSA_meth_get_bn_mod_exp_introduced then
     begin
       {$if declared(FC_DSA_meth_get_bn_mod_exp)}
-      DSA_meth_get_bn_mod_exp := @FC_DSA_meth_get_bn_mod_exp;
+      DSA_meth_get_bn_mod_exp := FC_DSA_meth_get_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3146,7 +3149,7 @@ begin
     if DSA_meth_get_bn_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_bn_mod_exp)}
-      DSA_meth_get_bn_mod_exp := @_DSA_meth_get_bn_mod_exp;
+      DSA_meth_get_bn_mod_exp := _DSA_meth_get_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3163,13 +3166,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_bn_mod_exp_allownil)}
-    DSA_meth_set_bn_mod_exp := @ERR_DSA_meth_set_bn_mod_exp;
+    DSA_meth_set_bn_mod_exp := ERR_DSA_meth_set_bn_mod_exp;
     {$ifend}
     {$if declared(DSA_meth_set_bn_mod_exp_introduced)}
     if LibVersion < DSA_meth_set_bn_mod_exp_introduced then
     begin
       {$if declared(FC_DSA_meth_set_bn_mod_exp)}
-      DSA_meth_set_bn_mod_exp := @FC_DSA_meth_set_bn_mod_exp;
+      DSA_meth_set_bn_mod_exp := FC_DSA_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3178,7 +3181,7 @@ begin
     if DSA_meth_set_bn_mod_exp_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_bn_mod_exp)}
-      DSA_meth_set_bn_mod_exp := @_DSA_meth_set_bn_mod_exp;
+      DSA_meth_set_bn_mod_exp := _DSA_meth_set_bn_mod_exp;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3195,13 +3198,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_init_allownil)}
-    DSA_meth_get_init := @ERR_DSA_meth_get_init;
+    DSA_meth_get_init := ERR_DSA_meth_get_init;
     {$ifend}
     {$if declared(DSA_meth_get_init_introduced)}
     if LibVersion < DSA_meth_get_init_introduced then
     begin
       {$if declared(FC_DSA_meth_get_init)}
-      DSA_meth_get_init := @FC_DSA_meth_get_init;
+      DSA_meth_get_init := FC_DSA_meth_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3210,7 +3213,7 @@ begin
     if DSA_meth_get_init_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_init)}
-      DSA_meth_get_init := @_DSA_meth_get_init;
+      DSA_meth_get_init := _DSA_meth_get_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3227,13 +3230,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_init_allownil)}
-    DSA_meth_set_init := @ERR_DSA_meth_set_init;
+    DSA_meth_set_init := ERR_DSA_meth_set_init;
     {$ifend}
     {$if declared(DSA_meth_set_init_introduced)}
     if LibVersion < DSA_meth_set_init_introduced then
     begin
       {$if declared(FC_DSA_meth_set_init)}
-      DSA_meth_set_init := @FC_DSA_meth_set_init;
+      DSA_meth_set_init := FC_DSA_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3242,7 +3245,7 @@ begin
     if DSA_meth_set_init_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_init)}
-      DSA_meth_set_init := @_DSA_meth_set_init;
+      DSA_meth_set_init := _DSA_meth_set_init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3259,13 +3262,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_finish_allownil)}
-    DSA_meth_get_finish := @ERR_DSA_meth_get_finish;
+    DSA_meth_get_finish := ERR_DSA_meth_get_finish;
     {$ifend}
     {$if declared(DSA_meth_get_finish_introduced)}
     if LibVersion < DSA_meth_get_finish_introduced then
     begin
       {$if declared(FC_DSA_meth_get_finish)}
-      DSA_meth_get_finish := @FC_DSA_meth_get_finish;
+      DSA_meth_get_finish := FC_DSA_meth_get_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3274,7 +3277,7 @@ begin
     if DSA_meth_get_finish_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_finish)}
-      DSA_meth_get_finish := @_DSA_meth_get_finish;
+      DSA_meth_get_finish := _DSA_meth_get_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3291,13 +3294,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_finish_allownil)}
-    DSA_meth_set_finish := @ERR_DSA_meth_set_finish;
+    DSA_meth_set_finish := ERR_DSA_meth_set_finish;
     {$ifend}
     {$if declared(DSA_meth_set_finish_introduced)}
     if LibVersion < DSA_meth_set_finish_introduced then
     begin
       {$if declared(FC_DSA_meth_set_finish)}
-      DSA_meth_set_finish := @FC_DSA_meth_set_finish;
+      DSA_meth_set_finish := FC_DSA_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3306,7 +3309,7 @@ begin
     if DSA_meth_set_finish_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_finish)}
-      DSA_meth_set_finish := @_DSA_meth_set_finish;
+      DSA_meth_set_finish := _DSA_meth_set_finish;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3323,13 +3326,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_paramgen_allownil)}
-    DSA_meth_get_paramgen := @ERR_DSA_meth_get_paramgen;
+    DSA_meth_get_paramgen := ERR_DSA_meth_get_paramgen;
     {$ifend}
     {$if declared(DSA_meth_get_paramgen_introduced)}
     if LibVersion < DSA_meth_get_paramgen_introduced then
     begin
       {$if declared(FC_DSA_meth_get_paramgen)}
-      DSA_meth_get_paramgen := @FC_DSA_meth_get_paramgen;
+      DSA_meth_get_paramgen := FC_DSA_meth_get_paramgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3338,7 +3341,7 @@ begin
     if DSA_meth_get_paramgen_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_paramgen)}
-      DSA_meth_get_paramgen := @_DSA_meth_get_paramgen;
+      DSA_meth_get_paramgen := _DSA_meth_get_paramgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3355,13 +3358,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_paramgen_allownil)}
-    DSA_meth_set_paramgen := @ERR_DSA_meth_set_paramgen;
+    DSA_meth_set_paramgen := ERR_DSA_meth_set_paramgen;
     {$ifend}
     {$if declared(DSA_meth_set_paramgen_introduced)}
     if LibVersion < DSA_meth_set_paramgen_introduced then
     begin
       {$if declared(FC_DSA_meth_set_paramgen)}
-      DSA_meth_set_paramgen := @FC_DSA_meth_set_paramgen;
+      DSA_meth_set_paramgen := FC_DSA_meth_set_paramgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3370,7 +3373,7 @@ begin
     if DSA_meth_set_paramgen_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_paramgen)}
-      DSA_meth_set_paramgen := @_DSA_meth_set_paramgen;
+      DSA_meth_set_paramgen := _DSA_meth_set_paramgen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3387,13 +3390,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_get_keygen_allownil)}
-    DSA_meth_get_keygen := @ERR_DSA_meth_get_keygen;
+    DSA_meth_get_keygen := ERR_DSA_meth_get_keygen;
     {$ifend}
     {$if declared(DSA_meth_get_keygen_introduced)}
     if LibVersion < DSA_meth_get_keygen_introduced then
     begin
       {$if declared(FC_DSA_meth_get_keygen)}
-      DSA_meth_get_keygen := @FC_DSA_meth_get_keygen;
+      DSA_meth_get_keygen := FC_DSA_meth_get_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3402,7 +3405,7 @@ begin
     if DSA_meth_get_keygen_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_get_keygen)}
-      DSA_meth_get_keygen := @_DSA_meth_get_keygen;
+      DSA_meth_get_keygen := _DSA_meth_get_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3419,13 +3422,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(DSA_meth_set_keygen_allownil)}
-    DSA_meth_set_keygen := @ERR_DSA_meth_set_keygen;
+    DSA_meth_set_keygen := ERR_DSA_meth_set_keygen;
     {$ifend}
     {$if declared(DSA_meth_set_keygen_introduced)}
     if LibVersion < DSA_meth_set_keygen_introduced then
     begin
       {$if declared(FC_DSA_meth_set_keygen)}
-      DSA_meth_set_keygen := @FC_DSA_meth_set_keygen;
+      DSA_meth_set_keygen := FC_DSA_meth_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -3434,7 +3437,7 @@ begin
     if DSA_meth_set_keygen_removed <= LibVersion then
     begin
       {$if declared(_DSA_meth_set_keygen)}
-      DSA_meth_set_keygen := @_DSA_meth_set_keygen;
+      DSA_meth_set_keygen := _DSA_meth_set_keygen;
       {$ifend}
       FuncLoadError := false;
     end;

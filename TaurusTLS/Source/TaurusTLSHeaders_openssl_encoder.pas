@@ -297,113 +297,113 @@ const
 {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_OSSL_ENCODER_fetch(libctx: POSSL_LIB_CTX; name: PIdAnsiChar;
-  properties: PIdAnsiChar): POSSL_ENCODER;
+  properties: PIdAnsiChar): POSSL_ENCODER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_ENCODER_fetch_procname);
 end;
 
-function ERR_OSSL_ENCODER_up_ref(encoder: POSSL_ENCODER): TIdC_INT;
+function ERR_OSSL_ENCODER_up_ref(encoder: POSSL_ENCODER): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_ENCODER_up_ref_procname);
 end;
 
-procedure ERR_OSSL_ENCODER_free(encoder: POSSL_ENCODER);
+procedure ERR_OSSL_ENCODER_free(encoder: POSSL_ENCODER); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_ENCODER_free_procname);
 end;
 
-function ERR_OSSL_ENCODER_get0_provider(encoder: POSSL_ENCODER): POSSL_PROVIDER;
+function ERR_OSSL_ENCODER_get0_provider(encoder: POSSL_ENCODER): POSSL_PROVIDER; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get0_provider_procname);
 end;
 
-function ERR_OSSL_ENCODER_get0_properties(encoder: POSSL_ENCODER): PIdAnsiChar;
+function ERR_OSSL_ENCODER_get0_properties(encoder: POSSL_ENCODER): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get0_properties_procname);
 end;
 
-function ERR_OSSL_ENCODER_get0_name(kdf: POSSL_ENCODER): PIdAnsiChar;
+function ERR_OSSL_ENCODER_get0_name(kdf: POSSL_ENCODER): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get0_name_procname);
 end;
 
-function ERR_OSSL_ENCODER_get0_description(kdf: POSSL_ENCODER): PIdAnsiChar;
+function ERR_OSSL_ENCODER_get0_description(kdf: POSSL_ENCODER): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get0_description_procname);
 end;
 
 function ERR_OSSL_ENCODER_is_a(encoder: POSSL_ENCODER; name: PIdAnsiChar)
-  : TIdC_INT;
+  : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_ENCODER_is_a_procname);
 end;
 
 procedure ERR_OSSL_ENCODER_do_all_provided(libctx: POSSL_LIB_CTX;
-  fn: OSSL_ENCODER_do_all_provided_fn; arg: Pointer);
+  fn: OSSL_ENCODER_do_all_provided_fn; arg: Pointer); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_do_all_provided_procname);
 end;
 
 function ERR_OSSL_ENCODER_names_do_all(encoder: POSSL_ENCODER;
-  fn: OSSL_ENCODER_names_do_all_fn; data: Pointer): TIdC_INT;
+  fn: OSSL_ENCODER_names_do_all_fn; data: Pointer): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_names_do_all_procname);
 end;
 
-function ERR_OSSL_ENCODER_gettable_params(encoder: POSSL_ENCODER): POSSL_PARAM;
+function ERR_OSSL_ENCODER_gettable_params(encoder: POSSL_ENCODER): POSSL_PARAM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_gettable_params_procname);
 end;
 
 function ERR_OSSL_ENCODER_get_params(encoder: POSSL_ENCODER;
-  params: POSSL_PARAM_ARRAY): TIdC_INT;
+  params: POSSL_PARAM_ARRAY): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get_params_procname);
 end;
 
 function ERR_OSSL_ENCODER_settable_ctx_params(encoder : POSSL_ENCODER) :
-  POSSL_PARAM;
+  POSSL_PARAM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get_params_procname);
 end;
 
-function ERR_OSSL_ENCODER_CTX_new : POSSL_ENCODER_CTX;
+function ERR_OSSL_ENCODER_CTX_new : POSSL_ENCODER_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get_params_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_params(ctx : POSSL_ENCODER_CTX;
-  params : POSSL_PARAM_ARRAY) : TIdC_INT;
+  params : POSSL_PARAM_ARRAY) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get_params_procname);
 end;
 
-procedure ERR_OSSL_ENCODER_CTX_free (ctx : POSSL_ENCODER_CTX);
+procedure ERR_OSSL_ENCODER_CTX_free (ctx : POSSL_ENCODER_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_get_params_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_passphrase (ctx : POSSL_ENCODER_CTX;
-  kstr : PIdAnsiChar; klen : TIdC_SizeT) : TIdC_INT;
+  kstr : PIdAnsiChar; klen : TIdC_SizeT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_passphrase_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_pem_password_cb(ctx : POSSL_ENCODER_CTX;
-    cb : pem_password_cb; cbarg : Pointer) : TIdC_INT;
+    cb : pem_password_cb; cbarg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_pem_password_cb_procname);
@@ -411,42 +411,42 @@ end;
 
 function ERR_OSSL_ENCODER_CTX_set_passphrase_cb(ctx : POSSL_ENCODER_CTX;
     cb : OSSL_PASSPHRASE_CALLBACK;
-    cbarg : Pointer) : TIdC_INT;
+    cbarg : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_passphrase_cb_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_passphrase_ui(ctx : POSSL_ENCODER_CTX;
-    ui_method : PUI_METHOD; ui_data : Pointer) : TIdC_INT;
+    ui_method : PUI_METHOD; ui_data : Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_passphrase_ui_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_cipher(ctx : POSSL_ENCODER_CTX;
-    cipher_name : PIdAnsiChar; propquery : PIdAnsiChar) : TIdC_INT;
+    cipher_name : PIdAnsiChar; propquery : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_cipher_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_selection(ctx : POSSL_ENCODER_CTX;
-     selection : TIdC_INT) : TIdC_INT;
+     selection : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_selection_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_output_type(ctx : POSSL_ENCODER_CTX;
-     output_type : PIdAnsiChar) : TIdC_INT;
+     output_type : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_output_type_procname);
 end;
 
 function ERR_OSSL_ENCODER_CTX_set_output_structure(ctx : POSSL_ENCODER_CTX;
-     output_structure : PIdAnsiChar) : TIdC_INT;
+     output_structure : PIdAnsiChar) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_set_output_structure_procname);
@@ -454,7 +454,7 @@ end;
 
   //* Utilities to output the object to encode */
 function ERR_OSSL_ENCODER_to_bio (ctx : POSSL_ENCODER_CTX; _out : PBIO)
-    : TIdC_INT;
+    : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_to_bio_procname);
@@ -465,7 +465,7 @@ end;
 //#endif
 
 function ERR_OSSL_ENCODER_to_data(ctx : POSSL_ENCODER_CTX; pdata : PPIdAnsiChar;
-    pdata_len : PIdC_SIZET) : TIdC_INT;
+    pdata_len : PIdC_SIZET) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_to_data_procname);
@@ -478,7 +478,7 @@ end;
  *}
 function ERR_OSSL_ENCODER_CTX_new_for_pkey(pkey : PEVP_PKEY;
    selection : TIdC_INT; output_type, output_struct, propquery : PIdAnsiChar)
-   : POSSL_ENCODER_CTX;
+   : POSSL_ENCODER_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException
     (OSSL_ENCODER_CTX_new_for_pkey_procname);
@@ -500,13 +500,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_fetch_allownil)}
-    OSSL_ENCODER_fetch := @ERR_OSSL_ENCODER_fetch;
+    OSSL_ENCODER_fetch := ERR_OSSL_ENCODER_fetch;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_fetch_introduced)}
     if LibVersion < OSSL_ENCODER_fetch_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_fetch)}
-      OSSL_ENCODER_fetch := @FC_OSSL_ENCODER_fetch;
+      OSSL_ENCODER_fetch := FC_OSSL_ENCODER_fetch;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -515,7 +515,7 @@ begin
     if OSSL_ENCODER_fetch_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_fetch)}
-      OSSL_ENCODER_fetch := @_OSSL_ENCODER_fetch;
+      OSSL_ENCODER_fetch := _OSSL_ENCODER_fetch;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -532,13 +532,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_up_ref_allownil)}
-    OSSL_ENCODER_up_ref := @ERR_OSSL_ENCODER_up_ref;
+    OSSL_ENCODER_up_ref := ERR_OSSL_ENCODER_up_ref;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_up_ref_introduced)}
     if LibVersion < OSSL_ENCODER_up_ref_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_up_ref)}
-      OSSL_ENCODER_up_ref := @FC_OSSL_ENCODER_up_ref;
+      OSSL_ENCODER_up_ref := FC_OSSL_ENCODER_up_ref;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -547,7 +547,7 @@ begin
     if OSSL_ENCODER_up_ref_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_up_ref)}
-      OSSL_ENCODER_up_ref := @_OSSL_ENCODER_up_ref;
+      OSSL_ENCODER_up_ref := _OSSL_ENCODER_up_ref;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -563,13 +563,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_free_allownil)}
-    OSSL_ENCODER_free := @ERR_OSSL_ENCODER_free;
+    OSSL_ENCODER_free := ERR_OSSL_ENCODER_free;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_free_introduced)}
     if LibVersion < OSSL_ENCODER_free_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_free)}
-      OSSL_ENCODER_free := @FC_OSSL_ENCODER_free;
+      OSSL_ENCODER_free := FC_OSSL_ENCODER_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -578,7 +578,7 @@ begin
     if OSSL_ENCODER_free_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_free)}
-      OSSL_ENCODER_free := @_OSSL_ENCODER_free;
+      OSSL_ENCODER_free := _OSSL_ENCODER_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -595,13 +595,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_get0_provider_allownil)}
-    OSSL_ENCODER_get0_provider := @ERR_OSSL_ENCODER_get0_provider;
+    OSSL_ENCODER_get0_provider := ERR_OSSL_ENCODER_get0_provider;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_get0_provider_introduced)}
     if LibVersion < OSSL_ENCODER_get0_provider_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_get0_provider)}
-      OSSL_ENCODER_get0_provider := @FC_OSSL_ENCODER_get0_provider;
+      OSSL_ENCODER_get0_provider := FC_OSSL_ENCODER_get0_provider;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -610,7 +610,7 @@ begin
     if OSSL_ENCODER_get0_provider_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_get0_provider)}
-      OSSL_ENCODER_get0_provider := @_OSSL_ENCODER_get0_provider;
+      OSSL_ENCODER_get0_provider := _OSSL_ENCODER_get0_provider;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -627,13 +627,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_get0_properties_allownil)}
-    OSSL_ENCODER_get0_properties := @ERR_OSSL_ENCODER_get0_properties;
+    OSSL_ENCODER_get0_properties := ERR_OSSL_ENCODER_get0_properties;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_get0_properties_introduced)}
     if LibVersion < OSSL_ENCODER_get0_properties_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_get0_properties)}
-      OSSL_ENCODER_get0_properties := @FC_OSSL_ENCODER_get0_properties;
+      OSSL_ENCODER_get0_properties := FC_OSSL_ENCODER_get0_properties;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -642,7 +642,7 @@ begin
     if OSSL_ENCODER_get0_properties_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_get0_properties)}
-      OSSL_ENCODER_get0_properties := @_OSSL_ENCODER_get0_properties;
+      OSSL_ENCODER_get0_properties := _OSSL_ENCODER_get0_properties;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -659,13 +659,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_get0_name_allownil)}
-    OSSL_ENCODER_get0_name := @ERR_OSSL_ENCODER_get0_name;
+    OSSL_ENCODER_get0_name := ERR_OSSL_ENCODER_get0_name;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_get0_name_introduced)}
     if LibVersion < OSSL_ENCODER_get0_name_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_get0_name)}
-      OSSL_ENCODER_get0_name := @FC_OSSL_ENCODER_get0_name;
+      OSSL_ENCODER_get0_name := FC_OSSL_ENCODER_get0_name;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -674,7 +674,7 @@ begin
     if OSSL_ENCODER_get0_name_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_get0_name)}
-      OSSL_ENCODER_get0_name := @_OSSL_ENCODER_get0_name;
+      OSSL_ENCODER_get0_name := _OSSL_ENCODER_get0_name;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -691,13 +691,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_get0_description_allownil)}
-    OSSL_ENCODER_get0_description := @ERR_OSSL_ENCODER_get0_description;
+    OSSL_ENCODER_get0_description := ERR_OSSL_ENCODER_get0_description;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_get0_description_introduced)}
     if LibVersion < OSSL_ENCODER_get0_description_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_get0_description)}
-      OSSL_ENCODER_get0_description := @FC_OSSL_ENCODER_get0_description;
+      OSSL_ENCODER_get0_description := FC_OSSL_ENCODER_get0_description;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -706,7 +706,7 @@ begin
     if OSSL_ENCODER_get0_description_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_get0_description)}
-      OSSL_ENCODER_get0_description := @_OSSL_ENCODER_get0_description;
+      OSSL_ENCODER_get0_description := _OSSL_ENCODER_get0_description;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -722,13 +722,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_is_a_allownil)}
-    OSSL_ENCODER_is_a := @ERR_OSSL_ENCODER_is_a;
+    OSSL_ENCODER_is_a := ERR_OSSL_ENCODER_is_a;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_is_a_introduced)}
     if LibVersion < OSSL_ENCODER_is_a_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_is_a)}
-      OSSL_ENCODER_is_a := @FC_OSSL_ENCODER_is_a;
+      OSSL_ENCODER_is_a := FC_OSSL_ENCODER_is_a;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -737,7 +737,7 @@ begin
     if OSSL_ENCODER_is_a_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_is_a)}
-      OSSL_ENCODER_is_a := @_OSSL_ENCODER_is_a;
+      OSSL_ENCODER_is_a := _OSSL_ENCODER_is_a;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -754,13 +754,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_do_all_provided_allownil)}
-    OSSL_ENCODER_do_all_provided := @ERR_OSSL_ENCODER_do_all_provided;
+    OSSL_ENCODER_do_all_provided := ERR_OSSL_ENCODER_do_all_provided;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_do_all_provided_introduced)}
     if LibVersion < OSSL_ENCODER_do_all_provided_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_do_all_provided)}
-      OSSL_ENCODER_do_all_provided := @FC_OSSL_ENCODER_do_all_provided;
+      OSSL_ENCODER_do_all_provided := FC_OSSL_ENCODER_do_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -769,7 +769,7 @@ begin
     if OSSL_ENCODER_do_all_provided_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_do_all_provided)}
-      OSSL_ENCODER_do_all_provided := @_OSSL_ENCODER_do_all_provided;
+      OSSL_ENCODER_do_all_provided := _OSSL_ENCODER_do_all_provided;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -786,13 +786,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_names_do_all_allownil)}
-    OSSL_ENCODER_names_do_all := @ERR_OSSL_ENCODER_names_do_all;
+    OSSL_ENCODER_names_do_all := ERR_OSSL_ENCODER_names_do_all;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_names_do_all_introduced)}
     if LibVersion < OSSL_ENCODER_names_do_all_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_names_do_all)}
-      OSSL_ENCODER_names_do_all := @FC_OSSL_ENCODER_names_do_all;
+      OSSL_ENCODER_names_do_all := FC_OSSL_ENCODER_names_do_all;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -801,7 +801,7 @@ begin
     if OSSL_ENCODER_names_do_all_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_names_do_all)}
-      OSSL_ENCODER_names_do_all := @_OSSL_ENCODER_names_do_all;
+      OSSL_ENCODER_names_do_all := _OSSL_ENCODER_names_do_all;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -818,13 +818,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_gettable_params_allownil)}
-    OSSL_ENCODER_gettable_params := @ERR_OSSL_ENCODER_gettable_params;
+    OSSL_ENCODER_gettable_params := ERR_OSSL_ENCODER_gettable_params;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_gettable_params_introduced)}
     if LibVersion < OSSL_ENCODER_gettable_params_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_gettable_params)}
-      OSSL_ENCODER_gettable_params := @FC_OSSL_ENCODER_gettable_params;
+      OSSL_ENCODER_gettable_params := FC_OSSL_ENCODER_gettable_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -833,7 +833,7 @@ begin
     if OSSL_ENCODER_gettable_params_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_gettable_params)}
-      OSSL_ENCODER_gettable_params := @_OSSL_ENCODER_gettable_params;
+      OSSL_ENCODER_gettable_params := _OSSL_ENCODER_gettable_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -850,13 +850,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_get_params_allownil)}
-    OSSL_ENCODER_get_params := @ERR_OSSL_ENCODER_get_params;
+    OSSL_ENCODER_get_params := ERR_OSSL_ENCODER_get_params;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_get_params_introduced)}
     if LibVersion < OSSL_ENCODER_get_params_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_get_params)}
-      OSSL_ENCODER_get_params := @FC_OSSL_ENCODER_get_params;
+      OSSL_ENCODER_get_params := FC_OSSL_ENCODER_get_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -865,7 +865,7 @@ begin
     if OSSL_ENCODER_get_params_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_get_params)}
-      OSSL_ENCODER_get_params := @_OSSL_ENCODER_get_params;
+      OSSL_ENCODER_get_params := _OSSL_ENCODER_get_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -882,13 +882,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_settable_ctx_params_allownil)}
-    OSSL_ENCODER_settable_ctx_params := @ERR_OSSL_ENCODER_settable_ctx_params;
+    OSSL_ENCODER_settable_ctx_params := ERR_OSSL_ENCODER_settable_ctx_params;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_settable_ctx_params_introduced)}
     if LibVersion < OSSL_ENCODER_settable_ctx_params_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_settable_ctx_params)}
-      OSSL_ENCODER_settable_ctx_params := @FC_OSSL_ENCODER_settable_ctx_params;
+      OSSL_ENCODER_settable_ctx_params := FC_OSSL_ENCODER_settable_ctx_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -897,7 +897,7 @@ begin
     if OSSL_ENCODER_settable_ctx_params_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_settable_ctx_params)}
-      OSSL_ENCODER_settable_ctx_params := @_OSSL_ENCODER_settable_ctx_params;
+      OSSL_ENCODER_settable_ctx_params := _OSSL_ENCODER_settable_ctx_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -914,13 +914,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_new_allownil)}
-    OSSL_ENCODER_CTX_new := @ERR_OSSL_ENCODER_CTX_new;
+    OSSL_ENCODER_CTX_new := ERR_OSSL_ENCODER_CTX_new;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_new_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_new_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_new)}
-      OSSL_ENCODER_CTX_new := @FC_OSSL_ENCODER_CTX_new;
+      OSSL_ENCODER_CTX_new := FC_OSSL_ENCODER_CTX_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -929,7 +929,7 @@ begin
     if OSSL_ENCODER_CTX_new_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_new)}
-      OSSL_ENCODER_CTX_new := @_OSSL_ENCODER_CTX_new;
+      OSSL_ENCODER_CTX_new := _OSSL_ENCODER_CTX_new;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -946,13 +946,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_params_allownil)}
-    OSSL_ENCODER_CTX_set_params := @ERR_OSSL_ENCODER_CTX_set_params;
+    OSSL_ENCODER_CTX_set_params := ERR_OSSL_ENCODER_CTX_set_params;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_params_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_params_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_params)}
-      OSSL_ENCODER_CTX_set_params := @FC_OSSL_ENCODER_CTX_set_params;
+      OSSL_ENCODER_CTX_set_params := FC_OSSL_ENCODER_CTX_set_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -961,7 +961,7 @@ begin
     if OSSL_ENCODER_CTX_set_params_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_params)}
-      OSSL_ENCODER_CTX_set_params := @_OSSL_ENCODER_CTX_set_params;
+      OSSL_ENCODER_CTX_set_params := _OSSL_ENCODER_CTX_set_params;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -978,13 +978,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_free_allownil)}
-    OSSL_ENCODER_CTX_free := @ERR_OSSL_ENCODER_CTX_free;
+    OSSL_ENCODER_CTX_free := ERR_OSSL_ENCODER_CTX_free;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_free_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_free_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_free)}
-      OSSL_ENCODER_CTX_free := @FC_OSSL_ENCODER_CTX_free;
+      OSSL_ENCODER_CTX_free := FC_OSSL_ENCODER_CTX_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -993,7 +993,7 @@ begin
     if OSSL_ENCODER_CTX_free_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_free)}
-      OSSL_ENCODER_CTX_free := @_OSSL_ENCODER_CTX_free;
+      OSSL_ENCODER_CTX_free := _OSSL_ENCODER_CTX_free;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1011,13 +1011,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_passphrase_allownil)}
-    OSSL_ENCODER_CTX_set_passphrase := @ERR_OSSL_ENCODER_CTX_set_passphrase;
+    OSSL_ENCODER_CTX_set_passphrase := ERR_OSSL_ENCODER_CTX_set_passphrase;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_passphrase_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_passphrase_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_passphrase)}
-      OSSL_ENCODER_CTX_set_passphrase := @FC_OSSL_ENCODER_CTX_set_passphrase;
+      OSSL_ENCODER_CTX_set_passphrase := FC_OSSL_ENCODER_CTX_set_passphrase;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1026,7 +1026,7 @@ begin
     if OSSL_ENCODER_CTX_set_passphrase_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_passphrase)}
-      OSSL_ENCODER_CTX_set_passphrase := @_OSSL_ENCODER_CTX_set_passphrase;
+      OSSL_ENCODER_CTX_set_passphrase := _OSSL_ENCODER_CTX_set_passphrase;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1043,13 +1043,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_pem_password_cb_allownil)}
-    OSSL_ENCODER_CTX_set_pem_password_cb := @ERR_OSSL_ENCODER_CTX_set_pem_password_cb;
+    OSSL_ENCODER_CTX_set_pem_password_cb := ERR_OSSL_ENCODER_CTX_set_pem_password_cb;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_pem_password_cb_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_pem_password_cb_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_pem_password_cb)}
-      OSSL_ENCODER_CTX_set_pem_password_cb := @FC_OSSL_ENCODER_CTX_set_pem_password_cb;
+      OSSL_ENCODER_CTX_set_pem_password_cb := FC_OSSL_ENCODER_CTX_set_pem_password_cb;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1058,7 +1058,7 @@ begin
     if OSSL_ENCODER_CTX_set_pem_password_cb_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_pem_password_cb)}
-      OSSL_ENCODER_CTX_set_pem_password_cb := @_OSSL_ENCODER_CTX_set_pem_password_cb;
+      OSSL_ENCODER_CTX_set_pem_password_cb := _OSSL_ENCODER_CTX_set_pem_password_cb;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1075,13 +1075,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_passphrase_cb_allownil)}
-    OSSL_ENCODER_CTX_set_passphrase_cb := @ERR_OSSL_ENCODER_CTX_set_passphrase_cb;
+    OSSL_ENCODER_CTX_set_passphrase_cb := ERR_OSSL_ENCODER_CTX_set_passphrase_cb;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_passphrase_cb_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_passphrase_cb_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_passphrase_cb)}
-      OSSL_ENCODER_CTX_set_passphrase_cb := @FC_OSSL_ENCODER_CTX_set_passphrase_cb;
+      OSSL_ENCODER_CTX_set_passphrase_cb := FC_OSSL_ENCODER_CTX_set_passphrase_cb;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1090,7 +1090,7 @@ begin
     if OSSL_ENCODER_CTX_set_passphrase_cb_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_passphrase_cb)}
-      OSSL_ENCODER_CTX_set_passphrase_cb := @_OSSL_ENCODER_CTX_set_passphrase_cb;
+      OSSL_ENCODER_CTX_set_passphrase_cb := _OSSL_ENCODER_CTX_set_passphrase_cb;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1107,13 +1107,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_passphrase_ui_allownil)}
-    OSSL_ENCODER_CTX_set_passphrase_ui := @ERR_OSSL_ENCODER_CTX_set_passphrase_ui;
+    OSSL_ENCODER_CTX_set_passphrase_ui := ERR_OSSL_ENCODER_CTX_set_passphrase_ui;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_passphrase_ui_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_passphrase_ui_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_passphrase_ui)}
-      OSSL_ENCODER_CTX_set_passphrase_ui := @FC_OSSL_ENCODER_CTX_set_passphrase_ui;
+      OSSL_ENCODER_CTX_set_passphrase_ui := FC_OSSL_ENCODER_CTX_set_passphrase_ui;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1122,7 +1122,7 @@ begin
     if OSSL_ENCODER_CTX_set_passphrase_ui_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_passphrase_ui)}
-      OSSL_ENCODER_CTX_set_passphrase_ui := @_OSSL_ENCODER_CTX_set_passphrase_ui;
+      OSSL_ENCODER_CTX_set_passphrase_ui := _OSSL_ENCODER_CTX_set_passphrase_ui;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1139,13 +1139,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_cipher_allownil)}
-    OSSL_ENCODER_CTX_set_cipher := @ERR_OSSL_ENCODER_CTX_set_cipher;
+    OSSL_ENCODER_CTX_set_cipher := ERR_OSSL_ENCODER_CTX_set_cipher;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_cipher_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_cipher_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_cipher)}
-      OSSL_ENCODER_CTX_set_cipher := @FC_OSSL_ENCODER_CTX_set_cipher;
+      OSSL_ENCODER_CTX_set_cipher := FC_OSSL_ENCODER_CTX_set_cipher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1154,7 +1154,7 @@ begin
     if OSSL_ENCODER_CTX_set_cipher_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_cipher)}
-      OSSL_ENCODER_CTX_set_cipher := @_OSSL_ENCODER_CTX_set_cipher;
+      OSSL_ENCODER_CTX_set_cipher := _OSSL_ENCODER_CTX_set_cipher;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1171,13 +1171,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_selection_allownil)}
-    OSSL_ENCODER_CTX_set_selection := @ERR_OSSL_ENCODER_CTX_set_selection;
+    OSSL_ENCODER_CTX_set_selection := ERR_OSSL_ENCODER_CTX_set_selection;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_selection_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_selection_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_selection)}
-      OSSL_ENCODER_CTX_set_selection := @FC_OSSL_ENCODER_CTX_set_selection;
+      OSSL_ENCODER_CTX_set_selection := FC_OSSL_ENCODER_CTX_set_selection;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1186,7 +1186,7 @@ begin
     if OSSL_ENCODER_CTX_set_selection_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_selection)}
-      OSSL_ENCODER_CTX_set_selection := @_OSSL_ENCODER_CTX_set_selection;
+      OSSL_ENCODER_CTX_set_selection := _OSSL_ENCODER_CTX_set_selection;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1203,13 +1203,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_output_type_allownil)}
-    OSSL_ENCODER_CTX_set_output_type := @ERR_OSSL_ENCODER_CTX_set_output_type;
+    OSSL_ENCODER_CTX_set_output_type := ERR_OSSL_ENCODER_CTX_set_output_type;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_output_type_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_output_type_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_output_type)}
-      OSSL_ENCODER_CTX_set_output_type := @FC_OSSL_ENCODER_CTX_set_output_type;
+      OSSL_ENCODER_CTX_set_output_type := FC_OSSL_ENCODER_CTX_set_output_type;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1218,7 +1218,7 @@ begin
     if OSSL_ENCODER_CTX_set_output_type_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_output_type)}
-      OSSL_ENCODER_CTX_set_output_type := @_OSSL_ENCODER_CTX_set_output_type;
+      OSSL_ENCODER_CTX_set_output_type := _OSSL_ENCODER_CTX_set_output_type;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1235,13 +1235,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_set_output_structure_allownil)}
-    OSSL_ENCODER_CTX_set_output_structure := @ERR_OSSL_ENCODER_CTX_set_output_structure;
+    OSSL_ENCODER_CTX_set_output_structure := ERR_OSSL_ENCODER_CTX_set_output_structure;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_set_output_structure_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_set_output_structure_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_set_output_structure)}
-      OSSL_ENCODER_CTX_set_output_structure := @FC_OSSL_ENCODER_CTX_set_output_structure;
+      OSSL_ENCODER_CTX_set_output_structure := FC_OSSL_ENCODER_CTX_set_output_structure;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1250,7 +1250,7 @@ begin
     if OSSL_ENCODER_CTX_set_output_structure_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_set_output_structure)}
-      OSSL_ENCODER_CTX_set_output_structure := @_OSSL_ENCODER_CTX_set_output_structure;
+      OSSL_ENCODER_CTX_set_output_structure := _OSSL_ENCODER_CTX_set_output_structure;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1267,13 +1267,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_to_bio_allownil)}
-    OSSL_ENCODER_to_bio := @ERR_OSSL_ENCODER_to_bio;
+    OSSL_ENCODER_to_bio := ERR_OSSL_ENCODER_to_bio;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_to_bio_introduced)}
     if LibVersion < OSSL_ENCODER_to_bio_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_to_bio)}
-      OSSL_ENCODER_to_bio := @FC_OSSL_ENCODER_to_bio;
+      OSSL_ENCODER_to_bio := FC_OSSL_ENCODER_to_bio;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1282,7 +1282,7 @@ begin
     if OSSL_ENCODER_to_bio_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_to_bio)}
-      OSSL_ENCODER_to_bio := @_OSSL_ENCODER_to_bio;
+      OSSL_ENCODER_to_bio := _OSSL_ENCODER_to_bio;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1299,13 +1299,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_to_data_allownil)}
-    OSSL_ENCODER_to_data := @ERR_OSSL_ENCODER_to_data;
+    OSSL_ENCODER_to_data := ERR_OSSL_ENCODER_to_data;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_to_data_introduced)}
     if LibVersion < OSSL_ENCODER_to_data_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_to_data)}
-      OSSL_ENCODER_to_data := @FC_OSSL_ENCODER_to_data;
+      OSSL_ENCODER_to_data := FC_OSSL_ENCODER_to_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1314,7 +1314,7 @@ begin
     if OSSL_ENCODER_to_data_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_to_data)}
-      OSSL_ENCODER_to_data := @_OSSL_ENCODER_to_data;
+      OSSL_ENCODER_to_data := _OSSL_ENCODER_to_data;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1331,13 +1331,13 @@ begin
   if FuncLoadError then
   begin
 {$IF not defined(OSSL_ENCODER_CTX_new_for_pkey_allownil)}
-    OSSL_ENCODER_CTX_new_for_pkey := @ERR_OSSL_ENCODER_CTX_new_for_pkey;
+    OSSL_ENCODER_CTX_new_for_pkey := ERR_OSSL_ENCODER_CTX_new_for_pkey;
 {$IFEND}
 {$IF declared(OSSL_ENCODER_CTX_new_for_pkey_introduced)}
     if LibVersion < OSSL_ENCODER_CTX_new_for_pkey_introduced then
     begin
 {$IF declared(FC_OSSL_ENCODER_CTX_new_for_pkey)}
-      OSSL_ENCODER_CTX_new_for_pkey := @FC_OSSL_ENCODER_CTX_new_for_pkey;
+      OSSL_ENCODER_CTX_new_for_pkey := FC_OSSL_ENCODER_CTX_new_for_pkey;
 {$IFEND}
       FuncLoadError := false;
     end;
@@ -1346,7 +1346,7 @@ begin
     if OSSL_ENCODER_CTX_new_for_pkey_removed <= LibVersion then
     begin
 {$IF declared(_OSSL_ENCODER_CTX_new_for_pkey)}
-      OSSL_ENCODER_CTX_new_for_pkey := @_OSSL_ENCODER_CTX_new_for_pkey;
+      OSSL_ENCODER_CTX_new_for_pkey := _OSSL_ENCODER_CTX_new_for_pkey;
 {$IFEND}
       FuncLoadError := false;
     end;

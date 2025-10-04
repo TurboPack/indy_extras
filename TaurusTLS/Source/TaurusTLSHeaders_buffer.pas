@@ -99,44 +99,44 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_BUF_MEM_new: PBUF_MEM; 
+function  ERR_BUF_MEM_new: PBUF_MEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_new_procname);
 end;
 
 
-function  ERR_BUF_MEM_new_ex(flags: TIdC_ULONG): PBUF_MEM; 
+function  ERR_BUF_MEM_new_ex(flags: TIdC_ULONG): PBUF_MEM; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_new_ex_procname);
 end;
 
 
-procedure  ERR_BUF_MEM_free(a: PBUF_MEM); 
+procedure  ERR_BUF_MEM_free(a: PBUF_MEM); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_free_procname);
 end;
 
 
-function  ERR_BUF_MEM_grow(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_BUF_MEM_grow(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_grow_procname);
 end;
 
 
-function  ERR_BUF_MEM_grow_clean(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; 
+function  ERR_BUF_MEM_grow_clean(_str: PBUF_MEM; len: TIdC_SIZET): TIdC_SIZET; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_MEM_grow_clean_procname);
 end;
 
 
-procedure  ERR_BUF_reverse(out_: PByte; const in_: PByte; siz: TIdC_SIZET); 
+procedure  ERR_BUF_reverse(out_: PByte; const in_: PByte; siz: TIdC_SIZET); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BUF_reverse_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -148,13 +148,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_MEM_new_allownil)}
-    BUF_MEM_new := @ERR_BUF_MEM_new;
+    BUF_MEM_new := ERR_BUF_MEM_new;
     {$ifend}
     {$if declared(BUF_MEM_new_introduced)}
     if LibVersion < BUF_MEM_new_introduced then
     begin
       {$if declared(FC_BUF_MEM_new)}
-      BUF_MEM_new := @FC_BUF_MEM_new;
+      BUF_MEM_new := FC_BUF_MEM_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -163,7 +163,7 @@ begin
     if BUF_MEM_new_removed <= LibVersion then
     begin
       {$if declared(_BUF_MEM_new)}
-      BUF_MEM_new := @_BUF_MEM_new;
+      BUF_MEM_new := _BUF_MEM_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -180,13 +180,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_MEM_new_ex_allownil)}
-    BUF_MEM_new_ex := @ERR_BUF_MEM_new_ex;
+    BUF_MEM_new_ex := ERR_BUF_MEM_new_ex;
     {$ifend}
     {$if declared(BUF_MEM_new_ex_introduced)}
     if LibVersion < BUF_MEM_new_ex_introduced then
     begin
       {$if declared(FC_BUF_MEM_new_ex)}
-      BUF_MEM_new_ex := @FC_BUF_MEM_new_ex;
+      BUF_MEM_new_ex := FC_BUF_MEM_new_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -195,7 +195,7 @@ begin
     if BUF_MEM_new_ex_removed <= LibVersion then
     begin
       {$if declared(_BUF_MEM_new_ex)}
-      BUF_MEM_new_ex := @_BUF_MEM_new_ex;
+      BUF_MEM_new_ex := _BUF_MEM_new_ex;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -212,13 +212,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_MEM_free_allownil)}
-    BUF_MEM_free := @ERR_BUF_MEM_free;
+    BUF_MEM_free := ERR_BUF_MEM_free;
     {$ifend}
     {$if declared(BUF_MEM_free_introduced)}
     if LibVersion < BUF_MEM_free_introduced then
     begin
       {$if declared(FC_BUF_MEM_free)}
-      BUF_MEM_free := @FC_BUF_MEM_free;
+      BUF_MEM_free := FC_BUF_MEM_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -227,7 +227,7 @@ begin
     if BUF_MEM_free_removed <= LibVersion then
     begin
       {$if declared(_BUF_MEM_free)}
-      BUF_MEM_free := @_BUF_MEM_free;
+      BUF_MEM_free := _BUF_MEM_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -244,13 +244,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_MEM_grow_allownil)}
-    BUF_MEM_grow := @ERR_BUF_MEM_grow;
+    BUF_MEM_grow := ERR_BUF_MEM_grow;
     {$ifend}
     {$if declared(BUF_MEM_grow_introduced)}
     if LibVersion < BUF_MEM_grow_introduced then
     begin
       {$if declared(FC_BUF_MEM_grow)}
-      BUF_MEM_grow := @FC_BUF_MEM_grow;
+      BUF_MEM_grow := FC_BUF_MEM_grow;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -259,7 +259,7 @@ begin
     if BUF_MEM_grow_removed <= LibVersion then
     begin
       {$if declared(_BUF_MEM_grow)}
-      BUF_MEM_grow := @_BUF_MEM_grow;
+      BUF_MEM_grow := _BUF_MEM_grow;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -276,13 +276,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_MEM_grow_clean_allownil)}
-    BUF_MEM_grow_clean := @ERR_BUF_MEM_grow_clean;
+    BUF_MEM_grow_clean := ERR_BUF_MEM_grow_clean;
     {$ifend}
     {$if declared(BUF_MEM_grow_clean_introduced)}
     if LibVersion < BUF_MEM_grow_clean_introduced then
     begin
       {$if declared(FC_BUF_MEM_grow_clean)}
-      BUF_MEM_grow_clean := @FC_BUF_MEM_grow_clean;
+      BUF_MEM_grow_clean := FC_BUF_MEM_grow_clean;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -291,7 +291,7 @@ begin
     if BUF_MEM_grow_clean_removed <= LibVersion then
     begin
       {$if declared(_BUF_MEM_grow_clean)}
-      BUF_MEM_grow_clean := @_BUF_MEM_grow_clean;
+      BUF_MEM_grow_clean := _BUF_MEM_grow_clean;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -308,13 +308,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(BUF_reverse_allownil)}
-    BUF_reverse := @ERR_BUF_reverse;
+    BUF_reverse := ERR_BUF_reverse;
     {$ifend}
     {$if declared(BUF_reverse_introduced)}
     if LibVersion < BUF_reverse_introduced then
     begin
       {$if declared(FC_BUF_reverse)}
-      BUF_reverse := @FC_BUF_reverse;
+      BUF_reverse := FC_BUF_reverse;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -323,7 +323,7 @@ begin
     if BUF_reverse_removed <= LibVersion then
     begin
       {$if declared(_BUF_reverse)}
-      BUF_reverse := @_BUF_reverse;
+      BUF_reverse := _BUF_reverse;
       {$ifend}
       FuncLoadError := false;
     end;

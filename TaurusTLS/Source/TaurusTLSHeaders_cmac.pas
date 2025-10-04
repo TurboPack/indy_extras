@@ -107,62 +107,63 @@ const
 
 
   {$I TaurusTLSNoRetValOff.inc} 
-function  ERR_CMAC_CTX_new: PCMAC_CTX; 
+function  ERR_CMAC_CTX_new: PCMAC_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_new_procname);
 end;
 
 
-procedure  ERR_CMAC_CTX_cleanup(ctx: PCMAC_CTX); 
+procedure  ERR_CMAC_CTX_cleanup(ctx: PCMAC_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_cleanup_procname);
 end;
 
 
-procedure  ERR_CMAC_CTX_free(ctx: PCMAC_CTX); 
+procedure  ERR_CMAC_CTX_free(ctx: PCMAC_CTX); cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_free_procname);
 end;
 
 
-function  ERR_CMAC_CTX_get0_cipher_ctx(ctx: PCMAC_CTX): PEVP_CIPHER_CTX; 
+function  ERR_CMAC_CTX_get0_cipher_ctx(ctx: PCMAC_CTX): PEVP_CIPHER_CTX; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_get0_cipher_ctx_procname);
 end;
 
 
-function  ERR_CMAC_CTX_copy(out_: PCMAC_CTX; const in_: PCMAC_CTX): TIdC_INT; 
+function  ERR_CMAC_CTX_copy(out_: PCMAC_CTX; const in_: PCMAC_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_CTX_copy_procname);
 end;
 
 
-function  ERR_CMAC_Init(ctx: PCMAC_CTX; const key: Pointer; keylen: TIdC_SIZET; const cipher: PEVP_Cipher; impl: PENGINe): TIdC_INT; 
+function  ERR_CMAC_Init(ctx: PCMAC_CTX; const key: Pointer; keylen: TIdC_SIZET; const cipher: PEVP_Cipher;
+  impl: PENGINe): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_Init_procname);
 end;
 
 
-function  ERR_CMAC_Update(ctx: PCMAC_CTX; const data: Pointer; dlen: TIdC_SIZET): TIdC_INT; 
+function  ERR_CMAC_Update(ctx: PCMAC_CTX; const data: Pointer; dlen: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_Update_procname);
 end;
 
 
-function  ERR_CMAC_Final(ctx: PCMAC_CTX; out_: PByte; poutlen: PIdC_SIZET): TIdC_INT; 
+function  ERR_CMAC_Final(ctx: PCMAC_CTX; out_: PByte; poutlen: PIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_Final_procname);
 end;
 
 
-function  ERR_CMAC_resume(ctx: PCMAC_CTX): TIdC_INT; 
+function  ERR_CMAC_resume(ctx: PCMAC_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(CMAC_resume_procname);
 end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
   {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -174,13 +175,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_CTX_new_allownil)}
-    CMAC_CTX_new := @ERR_CMAC_CTX_new;
+    CMAC_CTX_new := ERR_CMAC_CTX_new;
     {$ifend}
     {$if declared(CMAC_CTX_new_introduced)}
     if LibVersion < CMAC_CTX_new_introduced then
     begin
       {$if declared(FC_CMAC_CTX_new)}
-      CMAC_CTX_new := @FC_CMAC_CTX_new;
+      CMAC_CTX_new := FC_CMAC_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -189,7 +190,7 @@ begin
     if CMAC_CTX_new_removed <= LibVersion then
     begin
       {$if declared(_CMAC_CTX_new)}
-      CMAC_CTX_new := @_CMAC_CTX_new;
+      CMAC_CTX_new := _CMAC_CTX_new;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -206,13 +207,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_CTX_cleanup_allownil)}
-    CMAC_CTX_cleanup := @ERR_CMAC_CTX_cleanup;
+    CMAC_CTX_cleanup := ERR_CMAC_CTX_cleanup;
     {$ifend}
     {$if declared(CMAC_CTX_cleanup_introduced)}
     if LibVersion < CMAC_CTX_cleanup_introduced then
     begin
       {$if declared(FC_CMAC_CTX_cleanup)}
-      CMAC_CTX_cleanup := @FC_CMAC_CTX_cleanup;
+      CMAC_CTX_cleanup := FC_CMAC_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -221,7 +222,7 @@ begin
     if CMAC_CTX_cleanup_removed <= LibVersion then
     begin
       {$if declared(_CMAC_CTX_cleanup)}
-      CMAC_CTX_cleanup := @_CMAC_CTX_cleanup;
+      CMAC_CTX_cleanup := _CMAC_CTX_cleanup;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -238,13 +239,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_CTX_free_allownil)}
-    CMAC_CTX_free := @ERR_CMAC_CTX_free;
+    CMAC_CTX_free := ERR_CMAC_CTX_free;
     {$ifend}
     {$if declared(CMAC_CTX_free_introduced)}
     if LibVersion < CMAC_CTX_free_introduced then
     begin
       {$if declared(FC_CMAC_CTX_free)}
-      CMAC_CTX_free := @FC_CMAC_CTX_free;
+      CMAC_CTX_free := FC_CMAC_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -253,7 +254,7 @@ begin
     if CMAC_CTX_free_removed <= LibVersion then
     begin
       {$if declared(_CMAC_CTX_free)}
-      CMAC_CTX_free := @_CMAC_CTX_free;
+      CMAC_CTX_free := _CMAC_CTX_free;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -270,13 +271,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_CTX_get0_cipher_ctx_allownil)}
-    CMAC_CTX_get0_cipher_ctx := @ERR_CMAC_CTX_get0_cipher_ctx;
+    CMAC_CTX_get0_cipher_ctx := ERR_CMAC_CTX_get0_cipher_ctx;
     {$ifend}
     {$if declared(CMAC_CTX_get0_cipher_ctx_introduced)}
     if LibVersion < CMAC_CTX_get0_cipher_ctx_introduced then
     begin
       {$if declared(FC_CMAC_CTX_get0_cipher_ctx)}
-      CMAC_CTX_get0_cipher_ctx := @FC_CMAC_CTX_get0_cipher_ctx;
+      CMAC_CTX_get0_cipher_ctx := FC_CMAC_CTX_get0_cipher_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -285,7 +286,7 @@ begin
     if CMAC_CTX_get0_cipher_ctx_removed <= LibVersion then
     begin
       {$if declared(_CMAC_CTX_get0_cipher_ctx)}
-      CMAC_CTX_get0_cipher_ctx := @_CMAC_CTX_get0_cipher_ctx;
+      CMAC_CTX_get0_cipher_ctx := _CMAC_CTX_get0_cipher_ctx;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -302,13 +303,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_CTX_copy_allownil)}
-    CMAC_CTX_copy := @ERR_CMAC_CTX_copy;
+    CMAC_CTX_copy := ERR_CMAC_CTX_copy;
     {$ifend}
     {$if declared(CMAC_CTX_copy_introduced)}
     if LibVersion < CMAC_CTX_copy_introduced then
     begin
       {$if declared(FC_CMAC_CTX_copy)}
-      CMAC_CTX_copy := @FC_CMAC_CTX_copy;
+      CMAC_CTX_copy := FC_CMAC_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -317,7 +318,7 @@ begin
     if CMAC_CTX_copy_removed <= LibVersion then
     begin
       {$if declared(_CMAC_CTX_copy)}
-      CMAC_CTX_copy := @_CMAC_CTX_copy;
+      CMAC_CTX_copy := _CMAC_CTX_copy;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -334,13 +335,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_Init_allownil)}
-    CMAC_Init := @ERR_CMAC_Init;
+    CMAC_Init := ERR_CMAC_Init;
     {$ifend}
     {$if declared(CMAC_Init_introduced)}
     if LibVersion < CMAC_Init_introduced then
     begin
       {$if declared(FC_CMAC_Init)}
-      CMAC_Init := @FC_CMAC_Init;
+      CMAC_Init := FC_CMAC_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -349,7 +350,7 @@ begin
     if CMAC_Init_removed <= LibVersion then
     begin
       {$if declared(_CMAC_Init)}
-      CMAC_Init := @_CMAC_Init;
+      CMAC_Init := _CMAC_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -366,13 +367,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_Update_allownil)}
-    CMAC_Update := @ERR_CMAC_Update;
+    CMAC_Update := ERR_CMAC_Update;
     {$ifend}
     {$if declared(CMAC_Update_introduced)}
     if LibVersion < CMAC_Update_introduced then
     begin
       {$if declared(FC_CMAC_Update)}
-      CMAC_Update := @FC_CMAC_Update;
+      CMAC_Update := FC_CMAC_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -381,7 +382,7 @@ begin
     if CMAC_Update_removed <= LibVersion then
     begin
       {$if declared(_CMAC_Update)}
-      CMAC_Update := @_CMAC_Update;
+      CMAC_Update := _CMAC_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -398,13 +399,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_Final_allownil)}
-    CMAC_Final := @ERR_CMAC_Final;
+    CMAC_Final := ERR_CMAC_Final;
     {$ifend}
     {$if declared(CMAC_Final_introduced)}
     if LibVersion < CMAC_Final_introduced then
     begin
       {$if declared(FC_CMAC_Final)}
-      CMAC_Final := @FC_CMAC_Final;
+      CMAC_Final := FC_CMAC_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -413,7 +414,7 @@ begin
     if CMAC_Final_removed <= LibVersion then
     begin
       {$if declared(_CMAC_Final)}
-      CMAC_Final := @_CMAC_Final;
+      CMAC_Final := _CMAC_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -430,13 +431,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(CMAC_resume_allownil)}
-    CMAC_resume := @ERR_CMAC_resume;
+    CMAC_resume := ERR_CMAC_resume;
     {$ifend}
     {$if declared(CMAC_resume_introduced)}
     if LibVersion < CMAC_resume_introduced then
     begin
       {$if declared(FC_CMAC_resume)}
-      CMAC_resume := @FC_CMAC_resume;
+      CMAC_resume := FC_CMAC_resume;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -445,7 +446,7 @@ begin
     if CMAC_resume_removed <= LibVersion then
     begin
       {$if declared(_CMAC_resume)}
-      CMAC_resume := @_CMAC_resume;
+      CMAC_resume := _CMAC_resume;
       {$ifend}
       FuncLoadError := false;
     end;
