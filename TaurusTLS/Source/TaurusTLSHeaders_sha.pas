@@ -222,7 +222,7 @@ const
 
   {$I TaurusTLSNoRetValOff.inc} 
 
-function  ERR_SHA1_Init(c: PSHA_CTX): TIdC_INT;
+function  ERR_SHA1_Init(c: PSHA_CTX): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(SHA1_Init_procname);
 end;
@@ -375,13 +375,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA1_Init_allownil)}
-    SHA1_Init := @ERR_SHA1_Init;
+    SHA1_Init := ERR_SHA1_Init;
     {$ifend}
     {$if declared(SHA1_Init_introduced)}
     if LibVersion < SHA1_Init_introduced then
     begin
       {$if declared(FC_SHA1_Init)}
-      SHA1_Init := @FC_SHA1_Init;
+      SHA1_Init := FC_SHA1_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -390,7 +390,7 @@ begin
     if SHA1_Init_removed <= LibVersion then
     begin
       {$if declared(_SHA1_Init)}
-      SHA1_Init := @_SHA1_Init;
+      SHA1_Init := _SHA1_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -407,13 +407,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA1_Update_allownil)}
-    SHA1_Update := @ERR_SHA1_Update;
+    SHA1_Update := ERR_SHA1_Update;
     {$ifend}
     {$if declared(SHA1_Update_introduced)}
     if LibVersion < SHA1_Update_introduced then
     begin
       {$if declared(FC_SHA1_Update)}
-      SHA1_Update := @FC_SHA1_Update;
+      SHA1_Update := FC_SHA1_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -422,7 +422,7 @@ begin
     if SHA1_Update_removed <= LibVersion then
     begin
       {$if declared(_SHA1_Update)}
-      SHA1_Update := @_SHA1_Update;
+      SHA1_Update := _SHA1_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -439,13 +439,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA1_Final_allownil)}
-    SHA1_Final := @ERR_SHA1_Final;
+    SHA1_Final := ERR_SHA1_Final;
     {$ifend}
     {$if declared(SHA1_Final_introduced)}
     if LibVersion < SHA1_Final_introduced then
     begin
       {$if declared(FC_SHA1_Final)}
-      SHA1_Final := @FC_SHA1_Final;
+      SHA1_Final := FC_SHA1_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -454,7 +454,7 @@ begin
     if SHA1_Final_removed <= LibVersion then
     begin
       {$if declared(_SHA1_Final)}
-      SHA1_Final := @_SHA1_Final;
+      SHA1_Final := _SHA1_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -471,13 +471,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA1_allownil)}
-    SHA1 := @ERR_SHA1;
+    SHA1 := ERR_SHA1;
     {$ifend}
     {$if declared(SHA1_introduced)}
     if LibVersion < SHA1_introduced then
     begin
       {$if declared(FC_SHA1)}
-      SHA1 := @FC_SHA1;
+      SHA1 := FC_SHA1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -486,7 +486,7 @@ begin
     if SHA1_removed <= LibVersion then
     begin
       {$if declared(_SHA1)}
-      SHA1 := @_SHA1;
+      SHA1 := _SHA1;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -503,13 +503,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA1_Transform_allownil)}
-    SHA1_Transform := @ERR_SHA1_Transform;
+    SHA1_Transform := ERR_SHA1_Transform;
     {$ifend}
     {$if declared(SHA1_Transform_introduced)}
     if LibVersion < SHA1_Transform_introduced then
     begin
       {$if declared(FC_SHA1_Transform)}
-      SHA1_Transform := @FC_SHA1_Transform;
+      SHA1_Transform := FC_SHA1_Transform;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -518,7 +518,7 @@ begin
     if SHA1_Transform_removed <= LibVersion then
     begin
       {$if declared(_SHA1_Transform)}
-      SHA1_Transform := @_SHA1_Transform;
+      SHA1_Transform := _SHA1_Transform;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -535,13 +535,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA224_Init_allownil)}
-    SHA224_Init := @ERR_SHA224_Init;
+    SHA224_Init := ERR_SHA224_Init;
     {$ifend}
     {$if declared(SHA224_Init_introduced)}
     if LibVersion < SHA224_Init_introduced then
     begin
       {$if declared(FC_SHA224_Init)}
-      SHA224_Init := @FC_SHA224_Init;
+      SHA224_Init := FC_SHA224_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -550,7 +550,7 @@ begin
     if SHA224_Init_removed <= LibVersion then
     begin
       {$if declared(_SHA224_Init)}
-      SHA224_Init := @_SHA224_Init;
+      SHA224_Init := _SHA224_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -567,13 +567,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA224_Update_allownil)}
-    SHA224_Update := @ERR_SHA224_Update;
+    SHA224_Update := ERR_SHA224_Update;
     {$ifend}
     {$if declared(SHA224_Update_introduced)}
     if LibVersion < SHA224_Update_introduced then
     begin
       {$if declared(FC_SHA224_Update)}
-      SHA224_Update := @FC_SHA224_Update;
+      SHA224_Update := FC_SHA224_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -582,7 +582,7 @@ begin
     if SHA224_Update_removed <= LibVersion then
     begin
       {$if declared(_SHA224_Update)}
-      SHA224_Update := @_SHA224_Update;
+      SHA224_Update := _SHA224_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -599,13 +599,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA224_Final_allownil)}
-    SHA224_Final := @ERR_SHA224_Final;
+    SHA224_Final := ERR_SHA224_Final;
     {$ifend}
     {$if declared(SHA224_Final_introduced)}
     if LibVersion < SHA224_Final_introduced then
     begin
       {$if declared(FC_SHA224_Final)}
-      SHA224_Final := @FC_SHA224_Final;
+      SHA224_Final := FC_SHA224_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -614,7 +614,7 @@ begin
     if SHA224_Final_removed <= LibVersion then
     begin
       {$if declared(_SHA224_Final)}
-      SHA224_Final := @_SHA224_Final;
+      SHA224_Final := _SHA224_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -631,13 +631,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA224_allownil)}
-    SHA224 := @ERR_SHA224;
+    SHA224 := ERR_SHA224;
     {$ifend}
     {$if declared(SHA224_introduced)}
     if LibVersion < SHA224_introduced then
     begin
       {$if declared(FC_SHA224)}
-      SHA224 := @FC_SHA224;
+      SHA224 := FC_SHA224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -646,7 +646,7 @@ begin
     if SHA224_removed <= LibVersion then
     begin
       {$if declared(_SHA224)}
-      SHA224 := @_SHA224;
+      SHA224 := _SHA224;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -663,13 +663,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA256_Init_allownil)}
-    SHA256_Init := @ERR_SHA256_Init;
+    SHA256_Init := ERR_SHA256_Init;
     {$ifend}
     {$if declared(SHA256_Init_introduced)}
     if LibVersion < SHA256_Init_introduced then
     begin
       {$if declared(FC_SHA256_Init)}
-      SHA256_Init := @FC_SHA256_Init;
+      SHA256_Init := FC_SHA256_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -678,7 +678,7 @@ begin
     if SHA256_Init_removed <= LibVersion then
     begin
       {$if declared(_SHA256_Init)}
-      SHA256_Init := @_SHA256_Init;
+      SHA256_Init := _SHA256_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -695,13 +695,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA256_Update_allownil)}
-    SHA256_Update := @ERR_SHA256_Update;
+    SHA256_Update := ERR_SHA256_Update;
     {$ifend}
     {$if declared(SHA256_Update_introduced)}
     if LibVersion < SHA256_Update_introduced then
     begin
       {$if declared(FC_SHA256_Update)}
-      SHA256_Update := @FC_SHA256_Update;
+      SHA256_Update := FC_SHA256_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -710,7 +710,7 @@ begin
     if SHA256_Update_removed <= LibVersion then
     begin
       {$if declared(_SHA256_Update)}
-      SHA256_Update := @_SHA256_Update;
+      SHA256_Update := _SHA256_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -727,13 +727,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA256_Final_allownil)}
-    SHA256_Final := @ERR_SHA256_Final;
+    SHA256_Final := ERR_SHA256_Final;
     {$ifend}
     {$if declared(SHA256_Final_introduced)}
     if LibVersion < SHA256_Final_introduced then
     begin
       {$if declared(FC_SHA256_Final)}
-      SHA256_Final := @FC_SHA256_Final;
+      SHA256_Final := FC_SHA256_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -742,7 +742,7 @@ begin
     if SHA256_Final_removed <= LibVersion then
     begin
       {$if declared(_SHA256_Final)}
-      SHA256_Final := @_SHA256_Final;
+      SHA256_Final := _SHA256_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -759,13 +759,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA256_allownil)}
-    SHA256 := @ERR_SHA256;
+    SHA256 := ERR_SHA256;
     {$ifend}
     {$if declared(SHA256_introduced)}
     if LibVersion < SHA256_introduced then
     begin
       {$if declared(FC_SHA256)}
-      SHA256 := @FC_SHA256;
+      SHA256 := FC_SHA256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -774,7 +774,7 @@ begin
     if SHA256_removed <= LibVersion then
     begin
       {$if declared(_SHA256)}
-      SHA256 := @_SHA256;
+      SHA256 := _SHA256;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -791,13 +791,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA256_Transform_allownil)}
-    SHA256_Transform := @ERR_SHA256_Transform;
+    SHA256_Transform := ERR_SHA256_Transform;
     {$ifend}
     {$if declared(SHA256_Transform_introduced)}
     if LibVersion < SHA256_Transform_introduced then
     begin
       {$if declared(FC_SHA256_Transform)}
-      SHA256_Transform := @FC_SHA256_Transform;
+      SHA256_Transform := FC_SHA256_Transform;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -806,7 +806,7 @@ begin
     if SHA256_Transform_removed <= LibVersion then
     begin
       {$if declared(_SHA256_Transform)}
-      SHA256_Transform := @_SHA256_Transform;
+      SHA256_Transform := _SHA256_Transform;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -823,13 +823,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA384_Init_allownil)}
-    SHA384_Init := @ERR_SHA384_Init;
+    SHA384_Init := ERR_SHA384_Init;
     {$ifend}
     {$if declared(SHA384_Init_introduced)}
     if LibVersion < SHA384_Init_introduced then
     begin
       {$if declared(FC_SHA384_Init)}
-      SHA384_Init := @FC_SHA384_Init;
+      SHA384_Init := FC_SHA384_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -838,7 +838,7 @@ begin
     if SHA384_Init_removed <= LibVersion then
     begin
       {$if declared(_SHA384_Init)}
-      SHA384_Init := @_SHA384_Init;
+      SHA384_Init := _SHA384_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -855,13 +855,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA384_Update_allownil)}
-    SHA384_Update := @ERR_SHA384_Update;
+    SHA384_Update := ERR_SHA384_Update;
     {$ifend}
     {$if declared(SHA384_Update_introduced)}
     if LibVersion < SHA384_Update_introduced then
     begin
       {$if declared(FC_SHA384_Update)}
-      SHA384_Update := @FC_SHA384_Update;
+      SHA384_Update := FC_SHA384_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -870,7 +870,7 @@ begin
     if SHA384_Update_removed <= LibVersion then
     begin
       {$if declared(_SHA384_Update)}
-      SHA384_Update := @_SHA384_Update;
+      SHA384_Update := _SHA384_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -887,13 +887,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA384_Final_allownil)}
-    SHA384_Final := @ERR_SHA384_Final;
+    SHA384_Final := ERR_SHA384_Final;
     {$ifend}
     {$if declared(SHA384_Final_introduced)}
     if LibVersion < SHA384_Final_introduced then
     begin
       {$if declared(FC_SHA384_Final)}
-      SHA384_Final := @FC_SHA384_Final;
+      SHA384_Final := FC_SHA384_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -902,7 +902,7 @@ begin
     if SHA384_Final_removed <= LibVersion then
     begin
       {$if declared(_SHA384_Final)}
-      SHA384_Final := @_SHA384_Final;
+      SHA384_Final := _SHA384_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -919,13 +919,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA384_allownil)}
-    SHA384 := @ERR_SHA384;
+    SHA384 := ERR_SHA384;
     {$ifend}
     {$if declared(SHA384_introduced)}
     if LibVersion < SHA384_introduced then
     begin
       {$if declared(FC_SHA384)}
-      SHA384 := @FC_SHA384;
+      SHA384 := FC_SHA384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -934,7 +934,7 @@ begin
     if SHA384_removed <= LibVersion then
     begin
       {$if declared(_SHA384)}
-      SHA384 := @_SHA384;
+      SHA384 := _SHA384;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -951,13 +951,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA512_Init_allownil)}
-    SHA512_Init := @ERR_SHA512_Init;
+    SHA512_Init := ERR_SHA512_Init;
     {$ifend}
     {$if declared(SHA512_Init_introduced)}
     if LibVersion < SHA512_Init_introduced then
     begin
       {$if declared(FC_SHA512_Init)}
-      SHA512_Init := @FC_SHA512_Init;
+      SHA512_Init := FC_SHA512_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -966,7 +966,7 @@ begin
     if SHA512_Init_removed <= LibVersion then
     begin
       {$if declared(_SHA512_Init)}
-      SHA512_Init := @_SHA512_Init;
+      SHA512_Init := _SHA512_Init;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -983,13 +983,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA512_Update_allownil)}
-    SHA512_Update := @ERR_SHA512_Update;
+    SHA512_Update := ERR_SHA512_Update;
     {$ifend}
     {$if declared(SHA512_Update_introduced)}
     if LibVersion < SHA512_Update_introduced then
     begin
       {$if declared(FC_SHA512_Update)}
-      SHA512_Update := @FC_SHA512_Update;
+      SHA512_Update := FC_SHA512_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -998,7 +998,7 @@ begin
     if SHA512_Update_removed <= LibVersion then
     begin
       {$if declared(_SHA512_Update)}
-      SHA512_Update := @_SHA512_Update;
+      SHA512_Update := _SHA512_Update;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1015,13 +1015,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA512_Final_allownil)}
-    SHA512_Final := @ERR_SHA512_Final;
+    SHA512_Final := ERR_SHA512_Final;
     {$ifend}
     {$if declared(SHA512_Final_introduced)}
     if LibVersion < SHA512_Final_introduced then
     begin
       {$if declared(FC_SHA512_Final)}
-      SHA512_Final := @FC_SHA512_Final;
+      SHA512_Final := FC_SHA512_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1030,7 +1030,7 @@ begin
     if SHA512_Final_removed <= LibVersion then
     begin
       {$if declared(_SHA512_Final)}
-      SHA512_Final := @_SHA512_Final;
+      SHA512_Final := _SHA512_Final;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1047,13 +1047,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA512_allownil)}
-    SHA512 := @ERR_SHA512;
+    SHA512 := ERR_SHA512;
     {$ifend}
     {$if declared(SHA512_introduced)}
     if LibVersion < SHA512_introduced then
     begin
       {$if declared(FC_SHA512)}
-      SHA512 := @FC_SHA512;
+      SHA512 := FC_SHA512;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1062,7 +1062,7 @@ begin
     if SHA512_removed <= LibVersion then
     begin
       {$if declared(_SHA512)}
-      SHA512 := @_SHA512;
+      SHA512 := _SHA512;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1079,13 +1079,13 @@ begin
   if FuncLoadError then
   begin
     {$if not defined(SHA512_Transform_allownil)}
-    SHA512_Transform := @ERR_SHA512_Transform;
+    SHA512_Transform := ERR_SHA512_Transform;
     {$ifend}
     {$if declared(SHA512_Transform_introduced)}
     if LibVersion < SHA512_Transform_introduced then
     begin
       {$if declared(FC_SHA512_Transform)}
-      SHA512_Transform := @FC_SHA512_Transform;
+      SHA512_Transform := FC_SHA512_Transform;
       {$ifend}
       FuncLoadError := false;
     end;
@@ -1094,7 +1094,7 @@ begin
     if SHA512_Transform_removed <= LibVersion then
     begin
       {$if declared(_SHA512_Transform)}
-      SHA512_Transform := @_SHA512_Transform;
+      SHA512_Transform := _SHA512_Transform;
       {$ifend}
       FuncLoadError := false;
     end;

@@ -210,7 +210,7 @@ begin
 end;
 
 initialization
-  Register_SSLLoader(@Load,'LibSSL');
-  Register_SSLUnloader(@Unload);
+  Register_SSLLoader(Load,'LibSSL');
+  Register_SSLUnloader(Unload);
 {$ENDIF}
 end.

@@ -2072,8 +2072,8 @@ end;
 
 initialization
 
-Register_SSLLoader(@Load, 'LibCrypto');
-Register_SSLUnloader(@Unload);
+Register_SSLLoader(Load, 'LibCrypto');
+Register_SSLUnloader(Unload);
 {$ENDIF}
 
 end.
