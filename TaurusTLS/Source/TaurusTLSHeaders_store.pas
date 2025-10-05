@@ -48,7 +48,7 @@ type
   OSSL_STORE_post_process_info_fn = function(arg1 : POSSL_STORE_INFO;
       arg2 : Pointer): POSSL_STORE_INFO cdecl;
   OSSL_STORE_LOADER_do_all_provided_fn = procedure(loader: POSSL_STORE_LOADER; arg: Pointer); cdecl;
-  OSSL_STORE_LOADER_names_do_all_fn = procedure(const name: PAnsiChar; data: Pointer); cdecl;
+  OSSL_STORE_LOADER_names_do_all_fn = procedure(const name: PIdAnsiChar; data: Pointer); cdecl;
 
 const
 
