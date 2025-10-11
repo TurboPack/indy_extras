@@ -1,4 +1,4 @@
-package TaurusTLS_DTForIndy300;
+package TaurusTLS_DTForIndy370;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
