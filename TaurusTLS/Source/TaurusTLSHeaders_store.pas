@@ -163,7 +163,7 @@ var
   OSSL_STORE_SEARCH_get_type : function(const criterion : POSSL_STORE_SEARCH) : TIdC_INT  cdecl = nil;
   OSSL_STORE_SEARCH_get0_name : function(const criterion : POSSL_STORE_SEARCH) : PX509_NAME  cdecl = nil;
   OSSL_STORE_SEARCH_get0_serial : function(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl = nil;
-  OSSL_STORE_SEARCH_get0_bytes : function(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte  cdecl = nil;
+  OSSL_STORE_SEARCH_get0_bytes : function(const criterion : POSSL_STORE_SEARCH; var length_ : TIdC_SIZET) : PByte  cdecl = nil;
   OSSL_STORE_SEARCH_get0_string : function(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl = nil;
   OSSL_STORE_SEARCH_get0_digest : function(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD  cdecl = nil;
 
@@ -290,7 +290,7 @@ var
   function OSSL_STORE_SEARCH_get_type(const criterion : POSSL_STORE_SEARCH) : TIdC_INT   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_name(const criterion : POSSL_STORE_SEARCH) : PX509_NAME   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_serial(const criterion : POSSL_STORE_SEARCH) : PASN1_INTEGER  cdecl; external CLibCrypto;
-  function OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte   cdecl; external CLibCrypto;
+  function OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length_ : TIdC_SIZET) : PByte   cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_string(const  criterion : POSSL_STORE_SEARCH) : PIdAnsiChar  cdecl; external CLibCrypto;
   function OSSL_STORE_SEARCH_get0_digest(const  criterion : POSSL_STORE_SEARCH) : PEVP_MD   cdecl; external CLibCrypto;
 
@@ -687,7 +687,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_serial_procname);
 end;
 
-function ERR_OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length : TIdC_SIZET) : PByte; cdecl;
+function ERR_OSSL_STORE_SEARCH_get0_bytes(const criterion : POSSL_STORE_SEARCH; var length_ : TIdC_SIZET) : PByte; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_SEARCH_get0_bytes_procname);
 end;
@@ -1636,34 +1636,34 @@ begin
     {$ifend}
   end;
 
-  OSSL_STORE_INFO_get0_CERT := LoadLibFunction(ADllHandle, OSSL_STORE_attach_procname);
-  FuncLoadError := not assigned(OSSL_STORE_attach);
+  OSSL_STORE_INFO_get0_CERT := LoadLibFunction(ADllHandle, OSSL_STORE_INFO_get0_CERT_procname);
+  FuncLoadError := not assigned(OSSL_STORE_INFO_get0_CERT);
   if FuncLoadError then
   begin
-    {$if not defined(OSSL_STORE_attach_allownil)}
-    OSSL_STORE_attach := ERR_OSSL_STORE_attach;
+    {$if not defined(OSSL_STORE_INFO_get0_CERT_allownil)}
+    OSSL_STORE_INFO_get0_CERT := ERR_OSSL_STORE_INFO_get0_CERT;
     {$ifend}
-    {$if declared(OSSL_STORE_attach_introduced)}
-    if LibVersion < OSSL_STORE_attach_introduced then
+    {$if declared(OSSL_STORE_INFO_get0_CERT_introduced)}
+    if LibVersion < OSSL_STORE_INFO_get0_CERT_introduced then
     begin
-      {$if declared(FC_OSSL_STORE_attach)}
-      OSSL_STORE_attach := FC_OSSL_STORE_attach;
+      {$if declared(FC_OSSL_STORE_INFO_get0_CERT)}
+      OSSL_STORE_INFO_get0_CERT := FC_OSSL_STORE_INFO_get0_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if declared(OSSL_STORE_attach_removed)}
-    if OSSL_STORE_attach_removed <= LibVersion then
+    {$if declared(OSSL_STORE_INFO_get0_CERT_removed)}
+    if OSSL_STORE_INFO_get0_CERT_removed <= LibVersion then
     begin
-      {$if declared(_OSSL_STORE_attach)}
-      OSSL_STORE_attach := _OSSL_STORE_attach;
+      {$if declared(_OSSL_STORE_INFO_get0_CERT)}
+      OSSL_STORE_INFO_get0_CERT := _OSSL_STORE_INFO_get0_CERT;
       {$ifend}
       FuncLoadError := false;
     end;
     {$ifend}
-    {$if not defined(OSSL_STORE_attach_allownil)}
+    {$if not defined(OSSL_STORE_INFO_get0_CERT_allownil)}
     if FuncLoadError then
-      AFailed.Add('OSSL_STORE_attach');
+      AFailed.Add('OSSL_STORE_INFO_get0_CERT');
     {$ifend}
   end;
 
@@ -1728,7 +1728,7 @@ begin
       AFailed.Add('OSSL_STORE_INFO_get0_CRL');
     {$ifend}
   end;
-    OSSL_STORE_INFO_get1_CRL := LoadLibFunction(ADllHandle, OSSL_STORE_attach_procname);
+    OSSL_STORE_INFO_get1_CRL := LoadLibFunction(ADllHandle, OSSL_STORE_INFO_get1_CRL_procname);
   FuncLoadError := not assigned(OSSL_STORE_INFO_get1_CRL);
   if FuncLoadError then
   begin
@@ -2350,7 +2350,7 @@ begin
     {$ifend}
   end;
 
-  OSSL_STORE_LOADER_get0_provider := LoadLibFunction(ADllHandle, OSSL_STORE_find_procname);
+  OSSL_STORE_LOADER_get0_provider := LoadLibFunction(ADllHandle, OSSL_STORE_LOADER_get0_provider_procname);
   FuncLoadError := not assigned(OSSL_STORE_LOADER_get0_provider);
   if FuncLoadError then
   begin
