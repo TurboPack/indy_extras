@@ -1130,6 +1130,23 @@ type
     property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname;
   end;
 
+  TTaurusTLSReadStatus = (
+    /// <summary>
+    ///   if application data pending, or if it looks like we have disconnected
+    /// </summary>
+    DataAvailable,
+    /// <summary>
+   ///   try again later
+   /// </summary>
+    NoData,
+   /// <summary>
+   ///   if the connection has been shutdown
+   /// </summary>
+   EOF,
+   /// <summary>
+   ///   error state indicated
+   /// </summary>
+   UnrecoverableError);
   { TTaurusTLSSocket }
   /// <summary>
   /// Properties and methods for dealing with a TLS Socket.
@@ -1215,6 +1232,13 @@ type
     /// The number of bytes read.
     /// </returns>
     function Recv(var VBuffer: TIdBytes): TIdC_SIZET;
+    /// <summary>
+    ///   Checks the TLS Connection for data avilablity.
+    /// </summary>
+    /// <returns>
+    ///   Read status of TLS Connection.
+    /// </returns>
+    function Readable: TTaurusTLSReadStatus;
     /// <summary>
     /// The Session ID as a string
     /// </summary>
@@ -3611,14 +3635,19 @@ end;
 
 function TTaurusTLSIOHandlerSocket.Readable
   (AMSec: Integer = IdTimeoutDefault): Boolean;
+//From Tony WHyman - IndySecOpenSSL
 begin
-  if not fPassThrough then
-  begin
-    Result := (fSSLSocket <> nil) and (ssl_pending(fSSLSocket.SSL) > 0);
-    if Result then
+  repeat
+    {Wait for data ready - or timer expiry}
+    Result := inherited Readable(AMSec);
+    {If the inherited Readable returns false then we have a timeout.
+     Otherwise data is present but could be application or non-application data}
+    if not Result then
       Exit;
-  end;
-  Result := inherited Readable(AMSec);
+
+    if not fPassThrough and (fSSLSocket <> nil) then
+      Result := fSSLSocket.Readable in [DataAvailable,UnRecoverableError,EOF];
+  until Result;
 end;
 
 procedure TTaurusTLSIOHandlerSocket.SetPassThrough(const Value: Boolean);
@@ -4712,6 +4741,38 @@ begin
     end;
   finally
     X509_free(Lpeercert);
+  end;
+end;
+
+function TTaurusTLSSocket.Readable: TTaurusTLSReadStatus;
+//From Tony WHyman - IndySecOpenSSL
+var buf : byte;
+    Lr: integer;
+begin
+  Result := NoData;
+  {Confirm that there is application data to be read.}
+  Lr := SSL_peek(fSSL, buf, 1);
+  {Return DataAvailable if application data pending, or if it looks like we have disconnected,
+          UnrecoverableError if error state indicates thus,
+          EOF if the connection has been shutdown, or
+          NoData otherwise => try again later}
+  if Lr > 0 then
+    Result := DataAvailable
+  else
+  begin
+    case SSL_get_error(fSSL,Lr) of
+      SSL_ERROR_SSL, SSL_ERROR_SYSCALL:
+          if SSL_get_shutdown(fSSL) = SSL_RECEIVED_SHUTDOWN then
+            Result := EOF
+          else
+            Result := UnrecoverableError;
+
+      SSL_ERROR_ZERO_RETURN:
+          if SSL_get_shutdown(fSSL) = SSL_RECEIVED_SHUTDOWN then
+            Result := EOF;
+
+      {anything else return the function default - sslNoData (yet)}
+    end;
   end;
 end;
 
