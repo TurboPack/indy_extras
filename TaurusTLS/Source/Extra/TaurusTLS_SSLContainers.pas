@@ -49,10 +49,9 @@ type
     property Bio: PBIO read GetBio;
   end;
 
-  ///  <summary>
-  ///  Interface declares function and property manage the data
-  ///  stored in the <c>containers'</c> memory.
-  ///  </summary>
+  /// ///  <summary>
+  /// ///  Returns size in bytes of internal data storage
+  /// ///  </summary>
   ITaurusTLS_Bytes = interface
   ['{EE497C17-DE0C-4470-80B8-B0EC528B62F7}']
     ///  <summary>
@@ -62,13 +61,21 @@ type
     ///  </summary>
     function NewBio: ITaurusTLS_Bio;
     ///  <summary>
-    ///  Retuns internal data storage in form of System.SysUtils.TBytes
-    ///  <remarks>
-    ///  Be caution, do not modify this memory content any time.
-    ///  </remarks>
+    ///  Returns internal data storage in form of <see cref="TBytes" />
     ///  </summary>
     function GetBytes: TBytes;
+    ///  <summary>
+    ///  Returns internal data storage in form of <see cref="TBytes" />
+    ///  </summary>
     property Bytes: TBytes read GetBytes;
+    ///  <summary>
+    ///  Returns internal data storage size in bytes
+    ///  </summary>
+    function GetSize: TIdC_UInt;
+    ///  <summary>
+    ///  Returns internal data storage size in bytes
+    ///  </summary>
+    property Size: TIdC_UInt read GetSize;
   end;
 
   ///  <summary>
@@ -124,6 +131,13 @@ type
     ///  A reference to the internal <c>array of bytes</c> storage.
     ///  </returns>
     function GetBytes: TBytes; virtual;
+    ///  <summary>
+    ///  Implements the <see cref="ITaurusTLS_Bytes.GetSize" /> method
+    ///  </summary>
+    ///  <returns>
+    ///  A size of the internal <c>array of bytes</c> storage.
+    ///  </returns>
+    function GetSize: TIdC_UInt; virtual;
     ///  <summary>
     ///  Implements the <see cref="ITaurusTLS_Bytes.NewBio" /> method
     ///  Creates a instance of <see cref="TTaurusTLS_Bytes.TBio" /> class,
@@ -228,6 +242,7 @@ type
     [volatile]
 {$ENDIF}
     FPlainBytes: TPlainBytes;
+    FPlainBytesSize: TIdC_SizeT;
     FEncryptedBytes: TBytes;
     FEncryptor: TTaurusTLS_CustomEncryptor;
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
@@ -240,6 +255,16 @@ type
     ///  </remarks>
     ///  </returns>
     function GetBytes: TBytes;
+
+    ///  <summary>
+    ///  Implements the <see cref="ITaurusTLS_Bytes.GetSize" /> method
+    ///  </summary>
+    ///  <returns>
+    ///  A size of the unencrypted data in internal <c>array of bytes</c> storage.
+    ///  <remarks>The content of the <c>array of bytes</c> is encrypted
+    ///  </remarks>
+    ///  </returns>
+    function GetSize: TIdC_UInt;
 
     ///  <summary>
     ///  Implements the <see cref="ITaurusTLS_Bytes.NewBio" /> method.
@@ -499,7 +524,7 @@ type
   ///  provide access to decrypted string only on time when they are needed
   ///  to pass to the <c>OpenSSL</c> functions.
   ///  </summary>
-  ITaurusTLS_PassphraseVault = interface
+  ITaurusTLS_PassphraseVault = interface(ITaurusTLS_Bytes)
   ['{43197D9D-2D60-40DD-B3D5-EE0B7504EDD3}']
     ///  <summary>
     ///  Returns instance of <see cref="ITaurusTLS_Passphrase" /> interface
@@ -707,6 +732,11 @@ begin
   Result:=FBytes;
 end;
 
+function TTaurusTLS_Bytes.GetSize: TIdC_UInt;
+begin
+  Result:=Length(FBytes);
+end;
+
 function TTaurusTLS_Bytes.NewBio: ITaurusTLS_Bio;
 begin
   if Length(FBytes) > 0 then
@@ -811,6 +841,11 @@ begin
   end;
 end;
 
+function TTaurusTLS_BytesVault.GetSize: TIdC_UInt;
+begin
+  Result:=FPlainBytesSize;
+end;
+
 function TTaurusTLS_BytesVault.NewBio: ITaurusTLS_Bio;
 begin
   Result:=(GetPlainBytes as ITaurusTLS_Bytes).NewBio;
@@ -846,6 +881,7 @@ begin
       ETaurusTLSIBytesError.RaiseWithMessage(RIB_Bytes_CanNotChange);
     lBytes := ABytes;
     FEncryptedBytes := EncrypBytes(ABytes);
+    FPlainBytesSize:=Length(ABytes);
   finally
     TWiper.Wipe(lBytes); // force clean-up source data
   end;
