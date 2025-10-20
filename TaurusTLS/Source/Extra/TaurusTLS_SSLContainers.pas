@@ -49,9 +49,9 @@ type
     property Bio: PBIO read GetBio;
   end;
 
-  /// ///  <summary>
-  /// ///  Returns size in bytes of internal data storage
-  /// ///  </summary>
+  ///  <summary>
+  ///  Returns size in bytes of internal data storage
+  ///  </summary>
   ITaurusTLS_Bytes = interface
   ['{EE497C17-DE0C-4470-80B8-B0EC528B62F7}']
     ///  <summary>
