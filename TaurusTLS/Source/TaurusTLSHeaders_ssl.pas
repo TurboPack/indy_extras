@@ -240,20 +240,26 @@ const
   SSL_EXT_TLS1_3_NEW_SESSION_TICKET = $2000;
   SSL_EXT_TLS1_3_CERTIFICATE_REQUEST = $4000;
 
+  SSL_OP_NO_EXTENDED_MASTER_SECRET = TIdC_UINT(1 shl 0);
+  SSL_OP_CLEANSE_PLAINTEXT = TIdC_UINT(1 shl 1);
   (*
-   * Some values are reserved until TaurusTLS 1.2.0 because they were previously
+   * Some values are reserved until OpenSSL 1.2.0 because they were previously
    * included in SSL_OP_ALL in a 1.1.x release.
    *
    * Reserved value (until TaurusTLS 1.2.0)                  $00000001U
    * Reserved value (until TaurusTLS 1.2.0)                  $00000002U
    *)
   (* Allow initial connection to servers that don't support RI *)
-  SSL_OP_LEGACY_SERVER_CONNECT = TIdC_UINT($00000004);
+  SSL_OP_LEGACY_SERVER_CONNECT = TIdC_UINT(1 shl 2);
 
+  SSL_OP_ENABLE_KTLS = TIdC_UINT(1 shl 3);
   (* Reserved value (until TaurusTLS 1.2.0)                  $00000008U *)
-  SSL_OP_TLSEXT_PADDING =      TIdC_UINT($00000010);
+  SSL_OP_TLSEXT_PADDING =      TIdC_UINT(1 shl 4);
   (* Reserved value (until TaurusTLS 1.2.0)                  $00000020U *)
-  SSL_OP_SAFARI_ECDHE_ECDSA_BUG = TIdC_UINT($00000040);
+  SSL_OP_SAFARI_ECDHE_ECDSA_BUG = TIdC_UINT(1 shl 6);
+  SSL_OP_IGNORE_UNEXPECTED_EOF = TIdC_UINT(1 shl 7);
+  SSL_OP_ALLOW_CLIENT_RENEGOTIATION = TIdC_UINT(1 shl 8);
+  SSL_OP_DISABLE_TLSEXT_CA_NAMES = TIdC_UINT(1 shl 9);
   (*
    * Reserved value (until TaurusTLS 1.2.0)                  $00000080U
    * Reserved value (until TaurusTLS 1.2.0)                  $00000100U
