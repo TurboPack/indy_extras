@@ -2956,9 +2956,9 @@ const
   EVP_Q_mac_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_init_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_init_SKEY_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
-  EVP_MAC_update_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
-  EVP_MAC_final_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
-  EVP_MAC_finalXOF_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_update_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_final_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_finalXOF_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_CTX_get_mac_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   EVP_MAC_CTX_get_block_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   EVP_MAC_do_all_provided_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
@@ -3716,7 +3716,7 @@ const
 
   EVP_MAC_update_procname = 'EVP_MAC_update';
   EVP_MAC_final_procname = 'EVP_MAC_final';
-  EVP_MAC_finalXOF_procname = 'ERR_EVP_MAC_finalXOF';
+  EVP_MAC_finalXOF_procname = 'EVP_MAC_finalXOF';
 
   EVP_MAC_do_all_provided_procname = 'EVP_MAC_do_all_provided';
 

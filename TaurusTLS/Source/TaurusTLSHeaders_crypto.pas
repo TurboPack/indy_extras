@@ -1010,7 +1010,7 @@ const
   OSSL_LIB_CTX_new_from_dispatch_procname = 'OSSL_LIB_CTX_new_from_dispatch';
   OSSL_LIB_CTX_new_child_procname = 'OSSL_LIB_CTX_new_child';
   OSSL_LIB_CTX_load_config_procname = 'OSSL_LIB_CTX_load_config';
-  OSSL_LIB_CTX_free_procname = '(OSSL_LIB_CTX_free';
+  OSSL_LIB_CTX_free_procname = 'OSSL_LIB_CTX_free';
   OSSL_LIB_CTX_get0_global_default_procname = 'OSSL_LIB_CTX_get0_global_default';
   OSSL_LIB_CTX_set0_default_procname = 'OSSL_LIB_CTX_set0_default';
 
