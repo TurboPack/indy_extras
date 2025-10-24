@@ -130,9 +130,9 @@ var
   OSSL_STORE_INFO_get0_PARAMS : function(const info : POSSL_STORE_INFO) : PEVP_PKEY cdecl = nil;
   OSSL_STORE_INFO_get1_PARAMS : function(const info  : POSSL_STORE_INFO) : PEVP_PKEY  cdecl = nil;
   OSSL_STORE_INFO_get0_PUBKEY : function(const info : POSSL_STORE_INFO) : PEVP_PKEY  cdecl = nil;
-  OSSL_STORE_INFO_get1_PUBKEY : function(const info  : POSSL_STORE_INFO) : PPEVP_PKEY  cdecl = nil;
-  OSSL_STORE_INFO_get0_PKEY : function(const info  : POSSL_STORE_INFO) : PPEVP_PKEY cdecl = nil;
-  OSSL_STORE_INFO_get1_PKEY : function(const info  : POSSL_STORE_INFO) : PPEVP_PKEY  cdecl = nil;
+  OSSL_STORE_INFO_get1_PUBKEY : function(const info  : POSSL_STORE_INFO) : PEVP_PKEY  cdecl = nil;
+  OSSL_STORE_INFO_get0_PKEY : function(const info  : POSSL_STORE_INFO) : PEVP_PKEY cdecl = nil;
+  OSSL_STORE_INFO_get1_PKEY : function(const info  : POSSL_STORE_INFO) : PEVP_PKEY  cdecl = nil;
   OSSL_STORE_INFO_get0_CERT : function(const info : POSSL_STORE_INFO) : PX509  cdecl = nil;
   OSSL_STORE_INFO_get1_CERT : function(const info : POSSL_STORE_INFO) : PX509  cdecl = nil;
   OSSL_STORE_INFO_get0_CRL : function(const info : POSSL_STORE_INFO) : PX509_CRL  cdecl = nil;
@@ -256,9 +256,9 @@ var
   function OSSL_STORE_INFO_get0_PARAMS(const info : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
   function OSSL_STORE_INFO_get1_PARAMS(const info  : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
   function OSSL_STORE_INFO_get0_PUBKEY(const info : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
-  function OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY cdecl; external CLibCrypto;
-  function OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY cdecl; external CLibCrypto;
-  function OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY cdecl; external CLibCrypto;
+  function OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
+  function OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
+  function OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY cdecl; external CLibCrypto;
   function OSSL_STORE_INFO_get0_CERT(const info : POSSL_STORE_INFO) : PX509 cdecl; external CLibCrypto;
   function OSSL_STORE_INFO_get1_CERT(const info : POSSL_STORE_INFO) : PX509 cdecl; external CLibCrypto;
   function OSSL_STORE_INFO_get0_CRL(const info : POSSL_STORE_INFO) : PX509_CRL cdecl; external CLibCrypto;
@@ -594,17 +594,17 @@ function ERR_OSSL_STORE_INFO_get0_PUBKEY(const info : POSSL_STORE_INFO) : PEVP_P
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_PUBKEY_procname);
 end;
-  function ERR_OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
+  function ERR_OSSL_STORE_INFO_get1_PUBKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_PUBKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
+function ERR_OSSL_STORE_INFO_get0_PKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get0_PKEY_procname);
 end;
 
-function ERR_OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PPEVP_PKEY; cdecl;
+function ERR_OSSL_STORE_INFO_get1_PKEY(const info  : POSSL_STORE_INFO) : PEVP_PKEY; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_STORE_INFO_get1_PKEY_procname);
 end;
