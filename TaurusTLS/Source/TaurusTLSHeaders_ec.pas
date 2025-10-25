@@ -315,15 +315,17 @@ type
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
-  {$EXTERNALSYM EC_GFp_nistp224_method} {introduced 1.1.0 removed 3.0.0}
-  {$EXTERNALSYM EC_GFp_nistp256_method} {introduced 1.1.0 removed 3.0.0}
-  {$EXTERNALSYM EC_GFp_nistp521_method} {introduced 1.1.0 removed 3.0.0}
   EC_GFp_simple_method: function : PEC_METHOD; cdecl = nil;
   EC_GFp_mont_method: function : PEC_METHOD; cdecl = nil;
   EC_GFp_nist_method: function : PEC_METHOD; cdecl = nil;
+  {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
+  {$EXTERNALSYM EC_GFp_nistp224_method} {introduced 1.1.0 removed 3.0.0}
+  {$EXTERNALSYM EC_GFp_nistp256_method} {introduced 1.1.0 removed 3.0.0}
+  {$EXTERNALSYM EC_GFp_nistp521_method} {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp224_method: function : PEC_METHOD; cdecl = nil; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp256_method: function : PEC_METHOD; cdecl = nil; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp521_method: function : PEC_METHOD; cdecl = nil; {introduced 1.1.0 removed 3.0.0}
+  {$ENDIF}
 
   EC_GF2m_simple_method: function : PEC_METHOD; cdecl = nil;
 
@@ -802,9 +804,11 @@ const
   EC_GFp_simple_method_procname = 'EC_GFp_simple_method';
   EC_GFp_mont_method_procname = 'EC_GFp_mont_method';
   EC_GFp_nist_method_procname = 'EC_GFp_nist_method';
+  {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
   EC_GFp_nistp224_method_procname = 'EC_GFp_nistp224_method'; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp256_method_procname = 'EC_GFp_nistp256_method'; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp521_method_procname = 'EC_GFp_nistp521_method'; {introduced 1.1.0 removed 3.0.0}
+  {$ENDIF}
 
   EC_GF2m_simple_method_procname = 'EC_GF2m_simple_method';
 
@@ -1021,7 +1025,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nist_method_procname);
 end;
 
-
+ {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
 function  ERR_EC_GFp_nistp224_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nistp224_method_procname);
@@ -1038,7 +1042,7 @@ function  ERR_EC_GFp_nistp521_method: PEC_METHOD; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(EC_GFp_nistp521_method_procname);
 end;
-
+{$ENDIF}
 
 
 function  ERR_EC_GF2m_simple_method: PEC_METHOD; cdecl;
@@ -2232,7 +2236,7 @@ begin
     {$ifend}
   end;
 
-
+   {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
   EC_GFp_nistp224_method := LoadLibFunction(ADllHandle, EC_GFp_nistp224_method_procname);
   FuncLoadError := not assigned(EC_GFp_nistp224_method);
   if FuncLoadError then
@@ -2327,8 +2331,8 @@ begin
       AFailed.Add('EC_GFp_nistp521_method');
     {$ifend}
   end;
+  {$ENDIF}
 
- 
   EC_GF2m_simple_method := LoadLibFunction(ADllHandle, EC_GF2m_simple_method_procname);
   FuncLoadError := not assigned(EC_GF2m_simple_method);
   if FuncLoadError then
@@ -7744,9 +7748,11 @@ begin
   EC_GFp_simple_method := nil;
   EC_GFp_mont_method := nil;
   EC_GFp_nist_method := nil;
+   {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
   EC_GFp_nistp224_method := nil; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp256_method := nil; {introduced 1.1.0 removed 3.0.0}
   EC_GFp_nistp521_method := nil; {introduced 1.1.0 removed 3.0.0}
+  {$ENDIF}
   EC_GF2m_simple_method := nil;
   EC_GROUP_new := nil;
   EC_GROUP_free := nil;

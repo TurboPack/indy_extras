@@ -4618,6 +4618,7 @@ const
   TLSv1_2_server_method_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);	// TLSv1.2 
   TLSv1_2_client_method_removed = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);	// TLSv1.2
 
+  SSL_trace_introduced =   (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
 //#   define SSL_get_peer_certificate SSL_get1_peer_certificate
 {helper_functions}
 

@@ -1469,7 +1469,7 @@ const
   BIO_set_mem_buf_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
   BIO_get_mem_ptr_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
   BIO_set_mem_eof_return_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-
+  BIO_err_is_non_fatal_introduced = (byte(3) shl 8 or byte(2)) shl 8 or byte(0);
 // # define BIO_get_flags(b) BIO_test_flags(b, ~(0x0))
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
