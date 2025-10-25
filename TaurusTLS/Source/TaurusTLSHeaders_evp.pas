@@ -5,7 +5,7 @@
      Distribution.
    *)
    
-{$I TaurusTLSCompilerDefines.inc} 
+{$I TaurusTLSCompilerDefines.inc}
 {$I TaurusTLSLinkDefines.inc} 
 {$IFNDEF USE_OPENSSL}
   { error Should not compile if USE_OPENSSL is not defined!!!}
@@ -2953,6 +2953,7 @@ const
   EVP_MAC_CTX_free_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_CTX_get_params_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_CTX_set_params_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_get0_mac_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_Q_mac_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_init_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EVP_MAC_init_SKEY_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
@@ -2962,6 +2963,14 @@ const
   EVP_MAC_CTX_get_mac_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   EVP_MAC_CTX_get_block_size_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
   EVP_MAC_do_all_provided_introduced = (byte(3) shl 8 or byte(5)) shl 8 or byte(0);
+  EVP_MAC_get0_description_introduced =  (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_get_params_introduced =  (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  EVP_MAC_CTX_dup_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+
+//# These 2 weren't found in the OpenSSL 1.1.1w binaries.  It's unclear if they
+//were provided in that version of OpenSSL.
+  i2d_KeyParams_bio_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  d2i_KeyParams_bio_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
 
 //#  define EVP_PKEY_assign_RSA(pkey,rsa) EVP_PKEY_assign((pkey),EVP_PKEY_RSA, (char *)(rsa))
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
