@@ -184,7 +184,6 @@ You can also do the following:
 
 This is a fully functional cross-platform console FTP client that can be built with both Delphi and Lazaurus.  It has been tested with the following servers:
 
-- CompleteFTP - <https://enterprisedt.com/products/completeftp/>
 - FileZilla Server - <https://filezilla-project.org/>
 - ProFTPD - <http://www.proftpd.org/>
 - PureFTPD - <https://www.pureftpd.org/>
