@@ -4857,7 +4857,7 @@ begin
   LOffset := AOffset;
   LLength := ALength;
   repeat
-    Lret := SSL_write_ex2(fSSL, ABuffer[LOffset], LLength, 0, LWritten);
+    Lret := SSL_write_ex(fSSL, ABuffer[LOffset], LLength, LWritten);
     if Lret > 0 then
     begin
       Result := Result + LWritten;
