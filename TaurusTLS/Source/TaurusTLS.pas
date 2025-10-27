@@ -2256,17 +2256,33 @@ procedure UnLoadOpenSSLLibrary;
 /// </summary>
 function OpenSSLVersion: string;
 /// <summary>
-/// The OpenSSL directory. This is the directory that was configured when
-/// OpenSSL was built.
+/// The OpenSSL configuration directory.
 /// </summary>
 /// <returns>
-/// The OpenSSL directory. Do <b>NOT</b> assume that this is the directory
+/// The OpenSSL configuration directory. Do <b>NOT</b> assume that this is the directory
 /// where the library is located. The library itslef is loaded based on the
 /// operating system's defaults or the <see
 /// cref="TaurusTLSLoader|GetOpenSSLLoader" />'s <see
 /// cref="TaurusTLSLoader|IOpenSSLLoader.GetOpenSSLPath" /> property.
 /// </returns>
-function OpenSSLDir: string;
+function OpenSSLDir: string;   {$IFDEF USE_INLINE}inline; {$ENDIF}
+
+/// <summary>
+/// The default directory for OpenSSL dynamically loaded modules that are not engines.
+/// </summary>
+///  <returns>
+///  The default directory for OpenSSL dynamically loaded modules that are not engines
+///  or an empty string if this is not supported.
+///  </returns>
+function OpenSSLModulesDir : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+/// <summary>
+/// The default directory for OpenSSL dynamically loaded engine modules.
+/// </summary>
+///  <returns>
+///  he default directory for OpenSSL dynamically loaded engine modules or an
+///  empty string if this is not supported.
+///  </returns>
+function OpenSSLEnginesDir : String; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 implementation
 
@@ -3058,24 +3074,10 @@ begin
 {$ENDIF}
 end;
 
-function OpenSSLDir: string;
-var
-  i: Integer;
+function GetDirFromOpenSSLVerString(const AStr : String) : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+var i: Integer;
 begin
-  Result := '';
-  if LoadOpenSSLLibrary then
-  begin
-    // redundant but here to avoid PAL warning about functions called as procedures.
-    Result := '';
-  end;
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  if Assigned(SSLeay_version) then
-  begin
-{$ENDIF}
-    Result := AnsiStringToString(SSLeay_version(OPENSSL_DIR));
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  end;
-{$ENDIF}
+  Result := AStr;
   { assumed format is 'OPENSSLDIR: "<dir>"' }
   i := Pos('"', Result);
   if i < 0 then
@@ -3088,6 +3090,44 @@ begin
       Result := ''
     else
       Delete(Result, i, Length(Result) - i + 1);
+  end;
+  {$IFDEF WINDOWS}
+  Result := StringReplace(Result,'/','\',[rfReplaceAll]);
+  {$ENDIF}
+end;
+
+function OpenSSLEnginesDir : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := '';
+  if LoadOpenSSLLibrary then
+  begin
+    Result := AnsiStringToString(OPENSSL_info(OPENSSL_INFO_ENGINES_DIR));
+    if Result = '' then
+    begin
+      Result := GetDirFromOpenSSLVerString(AnsiStringToString(SSLeay_version(OPENSSL_ENGINES_DIR)));
+    end;
+  end;
+end;
+
+function OpenSSLModulesDir : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := '';
+  if LoadOpenSSLLibrary then
+  begin
+    Result := AnsiStringToString(OPENSSL_info(OPENSSL_INFO_MODULES_DIR));
+  end;
+end;
+
+function OpenSSLDir: string; {$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := '';
+  if LoadOpenSSLLibrary then
+  begin
+    Result :=  AnsiStringToString(OPENSSL_info(OPENSSL_INFO_CONFIG_DIR));
+    if Result = '' then
+    begin
+      Result := GetDirFromOpenSSLVerString(AnsiStringToString(SSLeay_version(OPENSSL_DIR)));
+    end;
   end;
 end;
 
