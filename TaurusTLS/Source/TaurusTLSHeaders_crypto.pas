@@ -74,6 +74,23 @@ const
   OPENSSL_DIR = 4;
   OPENSSL_ENGINES_DIR = 5;
   SSLEAY_VERSION_CONST = OPENSSL_VERSION_CONST;
+  OPENSSL_VERSION_STRING = 6;
+  OPENSSL_FULL_VERSION_STRING = 7;
+  OPENSSL_MODULES_DIR = 8;
+  OPENSSL_CPU_INFO = 9;
+
+///*
+// * The series starts at 1001 to avoid confusion with the OpenSSL_version
+// * types.
+// */
+  OPENSSL_INFO_CONFIG_DIR               = 1001;
+  OPENSSL_INFO_ENGINES_DIR              = 1002;
+  OPENSSL_INFO_MODULES_DIR              = 1003;
+  OPENSSL_INFO_DSO_EXTENSION            = 1004;
+  OPENSSL_INFO_DIR_FILENAME_SEPARATOR   = 1005;
+  OPENSSL_INFO_LIST_SEPARATOR           = 1006;
+  OPENSSL_INFO_SEED_SOURCE              = 1007;
+  OPENSSL_INFO_CPU_SETTINGS             = 1008;
 
   (*
    * These defines where used in combination with the old locking callbacks,
@@ -287,6 +304,8 @@ var
   OpenSSL_version_num: function : TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
   OpenSSL_version: function (type_: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
 
+  OPENSSL_info: function(type_: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 3.0.0}
+
   OPENSSL_issetugid: function : TIdC_INT; cdecl = nil;
 
   (* No longer use an index. *)
@@ -493,6 +512,7 @@ var
 
   function OpenSSL_version_num: TIdC_ULONG cdecl; external CLibCrypto; {introduced 1.1.0}
   function OpenSSL_version(type_: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_info(type_: TIdC_INT): PIdAnsiChar  cdecl; external CLibCrypto;  {introduced 3.0.0}
 
   function OPENSSL_issetugid: TIdC_INT cdecl; external CLibCrypto;
 
@@ -728,6 +748,7 @@ const
   OPENSSL_hexchar2int_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   OpenSSL_version_num_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   OpenSSL_version_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  OPENSSL_info_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   CRYPTO_set_mem_debug_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   CRYPTO_zalloc_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   CRYPTO_memdup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -833,6 +854,7 @@ const
 
   OpenSSL_version_num_procname = 'OpenSSL_version_num'; {introduced 1.1.0}
   OpenSSL_version_procname = 'OpenSSL_version'; {introduced 1.1.0}
+  OPENSSL_info_procname = 'OPENSSL_info'; {introduced 3.0.0}
 
   OPENSSL_issetugid_procname = 'OPENSSL_issetugid';
 
@@ -1192,6 +1214,12 @@ begin
     OpenSSL_add_all_digests;
   Result := 1;
 end;
+
+function FC_OPENSSL_info(type_: TIdC_INT): PIdAnsiChar; cdecl;
+begin
+  Result := PIdAnsiChar('');
+end;
+
 {$I TaurusTLSUnusedParamOn.inc}
 
 procedure  FC_OPENSSL_cleanup; cdecl;
@@ -1380,6 +1408,11 @@ end;
 function  ERR_OpenSSL_version(type_: TIdC_INT): PIdAnsiChar; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OpenSSL_version_procname);
+end;
+
+function ERR_OPENSSL_info(type_: TIdC_INT): PIdAnsiChar; cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(OPENSSL_info_procname);
 end;
 
  {introduced 1.1.0}
@@ -2792,6 +2825,38 @@ begin
     {$if not defined(OpenSSL_version_allownil)}
     if FuncLoadError then
       AFailed.Add('OpenSSL_version');
+    {$ifend}
+  end;
+
+ {introduced 3.0.0}
+  OPENSSL_info := LoadLibFunction(ADllHandle, OPENSSL_info_procname);
+  FuncLoadError := not assigned(OPENSSL_info);
+  if FuncLoadError then
+  begin
+    {$if not defined(OPENSSL_info_allownil)}
+    OPENSSL_info := ERR_OPENSSL_info;
+    {$ifend}
+    {$if declared(OPENSSL_info_introduced)}
+    if LibVersion < OPENSSL_info_introduced then
+    begin
+      {$if declared(FC_OPENSSL_info)}
+      OPENSSL_info := FC_OPENSSL_info;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(OPENSSL_info_removed)}
+    if OPENSSL_info_removed <= LibVersion then
+    begin
+      {$if declared(_OPENSSL_info)}
+      OPENSSL_info := _OPENSSL_info;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(OPENSSL_info_allownil)}
+    if FuncLoadError then
+      AFailed.Add('OPENSSL_info');
     {$ifend}
   end;
 
@@ -4707,6 +4772,7 @@ begin
   OPENSSL_hexchar2int := nil; {introduced 1.1.0}
   OpenSSL_version_num := nil; {introduced 1.1.0}
   OpenSSL_version := nil; {introduced 1.1.0}
+  OPENSSL_info := nil; {introduced 3.0.0}
   OPENSSL_issetugid := nil;
   CRYPTO_new_ex_data := nil;
   CRYPTO_dup_ex_data := nil;
