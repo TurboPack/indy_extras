@@ -25,6 +25,7 @@ uses
   IdZLibHeaders,
   TaurusTLS,
   TaurusTLS_X509,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_types;
 
 type
@@ -105,6 +106,7 @@ uses
 {$ENDIF}
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_ssl3,
+  TaurusTLS_Utils,
   TaurusTLSLoader;
 
 const
@@ -125,6 +127,16 @@ begin
   else
   begin
     Result := AText;
+  end;
+end;
+
+procedure PrintRightJustifyIfTextNotEmpty(const ALine : String; const ALength : Integer;
+   const ALineText : String);
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  if ALineText <> '' then
+  begin
+    WriteLn(RightJustify(ALine,ALength) + ' '+ALineText);
   end;
 end;
 
@@ -734,6 +746,9 @@ end;
 procedure TFTPApplication.CmdDebugInfo;
 var
   i: Integer;
+{$IFNDEF USE_INLINE_VAR}
+  LVer: string;
+{$ENDIF}
 begin
 {$IFNDEF FPC}
   WriteLn('Operating System: ' + TOSVersion.ToString);
@@ -748,7 +763,31 @@ begin
   WriteLn('      Target CPU: ', {$I %FPCTARGETCPU%});
 {$ENDIF}
   WriteLn('    Indy Version: ' + gsIdVersion);
-  WriteLn(' OpenSSL Version: ' + OpenSSLVersion);
+  {$IFDEF USE_INLINE_VAR}
+  var
+     LVer: string;
+  {$ENDIF}
+  LVer := OpenSSLVersion;
+  begin
+    if LVer <> '' then
+    begin
+
+      WriteLn(' OpenSSL Version: ' + LVer);
+      PrintRightJustifyIfTextNotEmpty('Config Dir:', 20,OpenSSLDir);
+      PrintRightJustifyIfTextNotEmpty('Modules Dir:', 20,OpenSSLModulesDir);
+      PrintRightJustifyIfTextNotEmpty('Engines Dir:', 20,OpenSSLEnginesDir);
+
+      PrintRightJustifyIfTextNotEmpty('DSO Ext:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_DSO_EXTENSION)));
+      PrintRightJustifyIfTextNotEmpty('Filename Separator:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_DIR_FILENAME_SEPARATOR)));
+      PrintRightJustifyIfTextNotEmpty('List Separator:', 20, AnsiStringToString( OPENSSL_info(OPENSSL_INFO_LIST_SEPARATOR)));
+      PrintRightJustifyIfTextNotEmpty('Seed Source:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_SEED_SOURCE)));
+      PrintRightJustifyIfTextNotEmpty('CPU Settings:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_CPU_SETTINGS)));
+    end
+    else
+    begin
+      WriteLn(' OpenSSL Version: OpenSSL NOT loaded.');
+    end;
+  end;
   if GetOpenSSLLoader.GetFailedToLoad.Count > 0 then
   begin
     WriteLn('  Failed To Load: ');
@@ -761,6 +800,10 @@ begin
   if IdZLibHeaders.Load then
   begin
     WriteLn('    ZLib Version: ' + zlibVersion());
+  end
+  else
+  begin
+    WriteLn('    ZLib Version: ZLIB not loaded');
   end;
 end;
 
