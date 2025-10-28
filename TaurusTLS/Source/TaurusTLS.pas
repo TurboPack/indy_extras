@@ -1134,19 +1134,19 @@ type
     /// <summary>
     ///   if application data pending, or if it looks like we have disconnected
     /// </summary>
-    DataAvailable,
+   sslDataAvailable,
     /// <summary>
    ///   try again later
    /// </summary>
-    NoData,
+   sslNoData,
    /// <summary>
    ///   if the connection has been shutdown
    /// </summary>
-   EOF,
+   sslEOF,
    /// <summary>
    ///   error state indicated
    /// </summary>
-   UnrecoverableError);
+   sslUnrecoverableError);
   { TTaurusTLSSocket }
   /// <summary>
   /// Properties and methods for dealing with a TLS Socket.
@@ -3685,8 +3685,8 @@ begin
     if not Result then
       Exit;
 
-    if not fPassThrough and (fSSLSocket <> nil) then
-      Result := fSSLSocket.Readable in [DataAvailable,UnRecoverableError,EOF];
+    if (not fPassThrough) and (fSSLSocket <> nil) then
+      Result := fSSLSocket.Readable in [sslDataAvailable,sslUnRecoverableError,sslEOF];
   until Result;
 end;
 
@@ -4789,7 +4789,7 @@ function TTaurusTLSSocket.Readable: TTaurusTLSReadStatus;
 var buf : byte;
     Lr: integer;
 begin
-  Result := NoData;
+  Result := sslNoData;
   {Confirm that there is application data to be read.}
   Lr := SSL_peek(fSSL, buf, 1);
   {Return DataAvailable if application data pending, or if it looks like we have disconnected,
@@ -4797,19 +4797,19 @@ begin
           EOF if the connection has been shutdown, or
           NoData otherwise => try again later}
   if Lr > 0 then
-    Result := DataAvailable
+    Result := sslDataAvailable
   else
   begin
     case SSL_get_error(fSSL,Lr) of
       SSL_ERROR_SSL, SSL_ERROR_SYSCALL:
           if SSL_get_shutdown(fSSL) = SSL_RECEIVED_SHUTDOWN then
-            Result := EOF
+            Result := sslEOF
           else
-            Result := UnrecoverableError;
+            Result := sslUnrecoverableError;
 
       SSL_ERROR_ZERO_RETURN:
           if SSL_get_shutdown(fSSL) = SSL_RECEIVED_SHUTDOWN then
-            Result := EOF;
+            Result := sslEOF;
 
       {anything else return the function default - sslNoData (yet)}
     end;
