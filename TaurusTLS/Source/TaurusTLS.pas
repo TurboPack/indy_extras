@@ -456,6 +456,15 @@ const
   /// default-callback-behaviour
   /// </seealso>
   DEF_SECURITY_LEVEL = 2;
+
+  /// <summary>
+  ///   The default value for TSSLOptions.VerifyDepth property.
+  /// </summary>
+  /// <seealso
+  /// href="https://docs.openssl.org/1.0.2/man3/SSL_CTX_set_verify/#notes">
+  ///   SSL_CTX_set_verify
+  /// </seealso>
+  DEFAULT_VERIFY_DEPTH = 100;
   /// <summary>
   /// The default value for TSLLOptions.VerifyHostname property.
   /// </summary>
@@ -1121,13 +1130,21 @@ type
     property VerifyMode: TTaurusTLSVerifyModeSet read fVerifyMode
       write fVerifyMode;
     /// <summary>
-    /// The maximum depth for the certificate chain verification allowed.
+    ///   The maximum depth for the certificate chain verification allowed.
     /// </summary>
-    property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth;
+    /// <remarks>
+    ///   This value should be at least 3 since most certificate validity chains
+    ///   are 3 certificates deep. Those certificatse usually are the root
+    ///   certificate for the certificate authority, an intermediate certificate
+    ///   for the certificate authority, and the server or leaf certificate.
+    /// </remarks>
+    property VerifyDepth: Integer read fVerifyDepth write fVerifyDepth
+       default DEFAULT_VERIFY_DEPTH;
     /// <summary>
     /// Peer Certificate must match hostname
     /// </summary>
-    property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname;
+    property VerifyHostname: Boolean read fVerifyHostname write fVerifyHostname
+       default DEF_VERIFY_HOSTNAME;
   end;
 
   TTaurusTLSReadStatus = (
@@ -3220,6 +3237,7 @@ begin
   fMinTLSVersion := DEF_MIN_TLSVERSION;
   fUseSystemRootCACertificateStore := True;
   FSecurityLevel := DEF_SECURITY_LEVEL;
+  fVerifyDepth := DEFAULT_VERIFY_DEPTH;
   fVerifyHostname := DEF_VERIFY_HOSTNAME;
 end;
 
