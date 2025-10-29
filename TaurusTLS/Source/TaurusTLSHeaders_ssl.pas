@@ -6236,12 +6236,12 @@ const
 
 
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
-                        const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0} cdecl;
+                        const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
 begin
   Result := SSL_CTX_new(meth);
 end;
 
-function FC_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0} cdecl;
+function FC_SSL_write_ex2(s: PSSL; const buf; num : TIdC_SIZET; flags : TIdC_UINT64; var written: TIdC_SIZET) : TIdC_INT cdecl; {introduced 3.3.0}
 begin
   Result := SSL_write_ex(s,buf,num,written);
 end;
@@ -6249,7 +6249,7 @@ end;
 //* Note: SSL[_CTX]_set_{options,mode} use |= op on the previous value,
 // * they cannot be used to clear bits. */
 
-function  FC_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_UINT64):TIdC_UINT64; cdecl; cdecl;
+function  FC_SSL_CTX_set_options(ctx: PSSL_CTX; op: TIdC_UINT64):TIdC_UINT64; cdecl;
 begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_OPTIONS, op, nil);
 end;
@@ -6264,12 +6264,12 @@ begin
   Result := SSL_CTX_ctrl(ctx, SSL_CTRL_OPTIONS,0,nil);
 end;
 
-function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl; cdecl;
+function FC_SSL_get_event_timeout(s : PSSL; tv : Ptimeval; is_infinite : TIdC_INT) : TIdC_INT cdecl;
 begin
   Result := DTLSv1_get_timeout(s,tv);
 end;
 
-function FC_SSL_handle_events(s : PSSL) : TIdC_INT cdecl;  {introduced 3.2.0} cdecl;
+function FC_SSL_handle_events(s : PSSL) : TIdC_INT cdecl;  {introduced 3.2.0}
 begin
   Result := DTLSv1_handle_timeout(s);
 end;
@@ -6286,7 +6286,7 @@ type
   {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc}
 
-function  FC_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl; cdecl;
+function  FC_OPENSSL_init_ssl(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT; cdecl;
 begin
   if opts and OPENSSL_INIT_LOAD_SSL_STRINGS <> 0 then
     SSL_load_error_strings;
@@ -6296,7 +6296,7 @@ end;
 
 function FC_SSL_shutdown_ex(ssl : PSSL; flags : TIdC_UINT64;
                            const args : PSSL_SHUTDOWN_EX_ARGS;
-                           args_len : TIdC_SIZET) : TIdC_INT cdecl; cdecl;
+                           args_len : TIdC_SIZET) : TIdC_INT cdecl;
 begin
   Result := SSL_shutdown(ssl);
 end;
