@@ -748,9 +748,11 @@ begin
 end;
 
 const
+ {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
   EC_GFp_nistp224_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_GFp_nistp256_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_GFp_nistp521_method_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  {$ENDIF}
   EC_GROUP_get0_order_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_GROUP_order_bits_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_GROUP_get0_cofactor_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
@@ -795,9 +797,11 @@ const
   EC_KEY_METHOD_get_compute_key_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_KEY_METHOD_get_sign_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_KEY_METHOD_get_verify_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  {$IFDEF OPENSSL_NO_EC_NISTP_64_GCC_128}
   EC_GFp_nistp224_method_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EC_GFp_nistp256_method_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   EC_GFp_nistp521_method_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
