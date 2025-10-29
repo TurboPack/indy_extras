@@ -3300,6 +3300,8 @@ begin
     LContext.Parent := Self;
     LContext.PrivateKey := LCertificate.PrivateKey;
     LContext.PublicKey := LCertificate.PublicKey;
+    LContext.RootPublicKey := LCertificate.RootKey;
+    LContext.DHParamsFile := LCertificate.DHParamsFile;
     LCertificate.Context := LContext;
     LContext.VerifyDepth := SSLOptions.VerifyDepth;
     LContext.VerifyMode := SSLOptions.VerifyMode;
