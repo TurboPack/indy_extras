@@ -3300,6 +3300,8 @@ begin
     LContext.Parent := Self;
     LContext.PrivateKey := LCertificate.PrivateKey;
     LContext.PublicKey := LCertificate.PublicKey;
+    LContext.RootPublicKey := LCertificate.RootKey;
+    LContext.DHParamsFile := LCertificate.DHParamsFile;
     LCertificate.Context := LContext;
     LContext.VerifyDepth := SSLOptions.VerifyDepth;
     LContext.VerifyMode := SSLOptions.VerifyMode;
@@ -4823,6 +4825,9 @@ var
 begin
   Result := 0;
   repeat
+    //The line below isn't needed but I want to avoid PAL warning about
+    //unset variables.
+    LRead := 0;
     Lret := SSL_read_ex(fSSL, VBuffer[0], Length(VBuffer), LRead);
     if Lret > 0 then
     begin
@@ -4857,6 +4862,9 @@ begin
   LOffset := AOffset;
   LLength := ALength;
   repeat
+    //The line below isn't needed but I want to avoid PAL warning about
+    //unset variables.
+    LWritten := 0;
     Lret := SSL_write_ex(fSSL, ABuffer[LOffset], LLength, LWritten);
     if Lret > 0 then
     begin
