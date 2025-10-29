@@ -25,6 +25,7 @@ uses
   IdZLibHeaders,
   TaurusTLS,
   TaurusTLS_X509,
+  TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_types;
 
 type
@@ -106,6 +107,7 @@ uses
 {$ENDIF}
   TaurusTLSHeaders_evp,
   TaurusTLSHeaders_ssl3,
+  TaurusTLS_Utils,
   TaurusTLSLoader;
 
 const

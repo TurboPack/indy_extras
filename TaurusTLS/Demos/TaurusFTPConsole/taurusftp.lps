@@ -7,7 +7,6 @@
       <Unit>
         <Filename Value="taurusftp.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="22" Y="9"/>
         <UsageCount Value="200"/>
@@ -17,137 +16,91 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2667"/>
         <CursorPos X="43" Y="2678"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="19"/>
       </Unit>
       <Unit>
         <Filename Value="taurusftp_unit.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="36"/>
         <CursorPos X="47" Y="40"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="54"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../Users/jpmug/Documents/HelpNDoc/Output/code/TaurusTLS.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="17"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLS_SSLContainers.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="514"/>
-        <CursorPos X="3" Y="525"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/System/IdStreamVCL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="96"/>
-        <CursorPos X="53" Y="118"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/Core/IdThreadComponent.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="123"/>
-        <CursorPos X="27" Y="134"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Indy/Indy-Indy-10.6.3.6/Lib/System/IdStackBSDBase.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="489"/>
-        <CursorPos X="61" Y="505"/>
-        <UsageCount Value="2"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_pem.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="3296"/>
-        <CursorPos X="36" Y="3300"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="13"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSExceptionHandlers.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="117"/>
         <CursorPos X="23" Y="128"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_whrlpool.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="119"/>
         <CursorPos X="75" Y="139"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_x509_vfy.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1517"/>
         <CursorPos X="30" Y="1528"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_ssl.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="6182"/>
         <CursorPos X="14" Y="6193"/>
-        <UsageCount Value="5"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSUnusedParamOff.inc"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLS_Encryptors.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="879"/>
         <CursorPos X="4" Y="890"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_evp.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="3648"/>
-        <CursorPos X="30" Y="3659"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_rand.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="181"/>
-        <CursorPos X="35" Y="192"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLS_NTLM.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="138"/>
-        <CursorPos X="12" Y="149"/>
-        <UsageCount Value="3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../Source/TaurusTLSHeaders_openssl_encoder.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="210"/>
-        <CursorPos X="3" Y="221"/>
-        <UsageCount Value="3"/>
+        <TopLine Value="5000"/>
+        <CursorPos X="59" Y="5011"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../../Source/TaurusTLSHeaders_x509.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="3127"/>
         <CursorPos X="35" Y="3138"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../Users/jpmug/AppData/Local/lazarus/onlinepackagemanager/packages/Indy10/System/IdStreamVCL.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="17"/>
         <CursorPos X="26" Y="28"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_crypto.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1100"/>
+        <CursorPos X="41" Y="1111"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../Source/TaurusTLSHeaders_camellia.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="79"/>
+        <CursorPos X="130" Y="99"/>
+        <UsageCount Value="6"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="-1"/>
