@@ -60,6 +60,7 @@ type
     procedure CmdCdUp;
     procedure CmdPassive(const ACmd: string);
     procedure CmdMLSD(const ACmd: String);
+    procedure CmdVerifyDepth(const ACmd : String);
     procedure CmdGet(const ACmd: string);
     procedure CmdPut(const ACmd: string);
     procedure CmdRename(const ACmd: string);
@@ -114,7 +115,7 @@ const
     'cwd', 'cdup', 'passive', 'put', 'get', 'rename', 'ren', 'delete', 'del',
     'md', 'mkdir', 'rd', 'rmdir', 'lpwd', 'lcd', 'ldir', 'close', 'help', '?',
     'status', 'debug-info', 'about', 'quote', 'debug-trace', 'security-level',
-    'save-config', 'cert-info', 'mlsd'];
+    'save-config', 'cert-info', 'mlsd','verify-depth'];
 
 function RightJustify(const AText: String; ALen: Integer): string;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -605,16 +606,16 @@ begin
     begin
       FFTP.Passive := not FFTP.Passive;
     end;
-    if FFTP.Passive then
-    begin
-      WriteLn('Passive: True');
-    end
-    else
-    begin
-      WriteLn('Passive: False');
-    end;
   finally
     FreeAndNil(LCmdParams);
+  end;
+  if FFTP.Passive then
+  begin
+    WriteLn('Passive: True');
+  end
+  else
+  begin
+    WriteLn('Passive: False');
   end;
 end;
 
@@ -643,18 +644,37 @@ begin
     begin
       FFTP.UseMLIS := not FFTP.UseMLIS;
     end;
-    if FFTP.UseMLIS then
-    begin
-      WriteLn('MLSD: True (use MLSD for directory listing)');
-    end
-    else
-    begin
-      WriteLn('MLSD: False (use DIR for directory listing)');
-    end;
   finally
     FreeAndNil(LCmdParams);
   end;
+  if FFTP.UseMLIS then
+  begin
+     WriteLn('MLSD: True (use MLSD for directory listing)');
+  end
+  else
+  begin
+     WriteLn('MLSD: False (use DIR for directory listing)');
+  end;
+end;
 
+procedure TFTPApplication.CmdVerifyDepth(const ACmd : String);
+var
+  LCmdParams: TStrings;
+begin
+  LCmdParams := TStringList.Create;
+  try
+    ParseArgs(ACmd, LCmdParams);
+    if LCmdParams.Count > 0 then
+    begin
+      if IdGlobal.IsNumeric(LCmdParams[0]) then
+      begin
+        FIO.SSLOptions.VerifyDepth := StrToInt(LCmdParams[0]);
+      end;
+    end
+  finally
+    FreeAndNil(LCmdParams);
+  end;
+  WriteLn('Verify Depth: '+IntToStr(FIO.SSLOptions.VerifyDepth));
 end;
 
 procedure TFTPApplication.CmdGet(const ACmd: string);
@@ -717,6 +737,10 @@ begin
         FFTP.SetModTime(ExtractFileName(LCmdParams[0]), LDateTime);
       end;
 {$ENDIF}
+    end
+    else
+    begin
+      WriteLn('Syntax Error');
     end;
   finally
     FreeAndNil(LCmdParams);
@@ -777,11 +801,6 @@ begin
       PrintRightJustifyIfTextNotEmpty('Modules Dir:', 20,OpenSSLModulesDir);
       PrintRightJustifyIfTextNotEmpty('Engines Dir:', 20,OpenSSLEnginesDir);
 
-      PrintRightJustifyIfTextNotEmpty('DSO Ext:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_DSO_EXTENSION)));
-      PrintRightJustifyIfTextNotEmpty('Filename Separator:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_DIR_FILENAME_SEPARATOR)));
-      PrintRightJustifyIfTextNotEmpty('List Separator:', 20, AnsiStringToString( OPENSSL_info(OPENSSL_INFO_LIST_SEPARATOR)));
-      PrintRightJustifyIfTextNotEmpty('Seed Source:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_SEED_SOURCE)));
-      PrintRightJustifyIfTextNotEmpty('CPU Settings:', 20, AnsiStringToString(OPENSSL_info(OPENSSL_INFO_CPU_SETTINGS)));
     end
     else
     begin
@@ -910,6 +929,7 @@ begin
     LIni.WriteBool('debug', 'trace', Assigned(FIO.OnDebugMessage));
     LIni.WriteInteger('security', 'security_level',
       FIO.SSLOptions.SecurityLevel);
+    LIni.WriteInteger('security','verify_depth',FIO.SSLOptions.VerifyDepth);
     LIni.WriteBool('ftp', 'passive', FFTP.Passive);
     LIni.WriteBool('ftp', 'use_MLSD', FFTP.UseMLIS);
     LIni.WriteString('certificate','public_key',FIO.ClientCert.PublicKey);
@@ -935,23 +955,23 @@ begin
         FIO.SSLOptions.SecurityLevel := StrToInt(LCmdParams[0]);
       end;
     end;
-    Write('Security level is ');
-    case FIO.SSLOptions.SecurityLevel of
-      0:
-        WriteLn('0. Everything is permitted. ');
-      1:
-        WriteLn('1. A minimum of 80 security bits is permitted.');
-      2:
-        WriteLn('2. A minimum of 112 security bits is permitted.');
-      3:
-        WriteLn('3. A minimum of 128 security bits is permitted.');
-      4:
-        WriteLn('4. A minimum of 192 security bits is permitted.');
-      5:
-        WriteLn('5. A minimum of 256 security bits is permitted.');
-    end;
   finally
     FreeAndNil(LCmdParams);
+  end;
+  Write('Security level is ');
+  case FIO.SSLOptions.SecurityLevel of
+    0:
+      WriteLn('0. Everything is permitted. ');
+    1:
+      WriteLn('1. A minimum of 80 security bits is permitted.');
+    2:
+      WriteLn('2. A minimum of 112 security bits is permitted.');
+    3:
+      WriteLn('3. A minimum of 128 security bits is permitted.');
+    4:
+      WriteLn('4. A minimum of 192 security bits is permitted.');
+    5:
+      WriteLn('5. A minimum of 256 security bits is permitted.');
   end;
 end;
 
@@ -1143,6 +1163,7 @@ begin
     PrintCmdHelp(['save-config'], 'Save configuration');
     PrintCmdHelp(['cert-info'], 'Show certificate information');
     PrintCmdHelp(['mlsd'], 'Toggle use of MLSD command');
+    PrintCmdHelp(['verify-depth'],'Show or set certificate chain verify depth');
   end
   else
   begin
@@ -1311,6 +1332,16 @@ begin
           WriteLn('true  - MLSD mode on (use MLSD command for directory listing)');
           WriteLn('false - MLSD mode off (use DIR command for directory listing)');
         end;
+      34:
+        begin
+          PrintCmdHelp(['verify-depth'],'Show or set the acceptable certificate chain verify depth'
+            ,'verify-depth [verify depth]');
+          WriteLn('');
+          WriteLn('The verify depth value may be a valid number');
+          WriteLn('');
+          writeLn('The verify depth value should be at least 3 for most certificate'+sLineBreak +
+            'validity chains on the Internet.');
+        end;
     end;
   end;
 end;
@@ -1416,7 +1447,9 @@ begin
         33:
           // 'mlsd'
           CmdMLSD(LCmd);
-
+        34:
+          //'verify-depth'
+          CmdVerifyDepth(LCmd);
       else
         WriteLn('Bad Command');
       end;
@@ -1498,6 +1531,15 @@ begin
     end;
     FIO.SSLOptions.SecurityLevel := LIni.ReadInteger('security',
       'security_level', FIO.SSLOptions.SecurityLevel);
+{
+IMPORTANT!!!
+
+VerifyDeth should be at least 3 because most validity chains on the Internet
+involve one root Certificate, one intermediate certificate, and the server or
+leaf certificate.  You might want to set this higher for something more elaborate
+but do not make it too lonmg.
+}
+    FIO.SSLOptions.VerifyDepth := LIni.ReadInteger('security','verify_depth',100);
     FFTP.Passive := LIni.ReadBool('ftp', 'passive', FFTP.Passive);
     FFTP.UseMLIS := LIni.ReadBool('ftp', 'use_MLSD', True);
     {$IFDEF USE_INLINE_VAR}
