@@ -420,7 +420,7 @@ begin
       LIni.WriteBool('Server', 'Allow_Anonymous_FTP', false);
       LIni.WriteBool('Server', 'Allow_Compression', True);
       LIni.WriteBool('Server', 'Allow_File_Checksums', True);
-      LIni.WriteBool('Server', 'Requre_TLS', True);
+      LIni.WriteBool('Server', 'Require_TLS', True);
       LIni.WriteBool('Server', 'SupportXAUTH', false);
       LIni.WriteBool('Server', 'Unix_Emulation', True);
       LIni.WriteBool('Server', 'ImplicitSSL', True);
@@ -444,7 +444,7 @@ begin
     FFTPServExplicit := SetupDefaultFTPServer(LIni);
     FIOExplicit := SetupIOHandler(LIni);
     FFTPServExplicit.IOHandler := FIOExplicit;
-    if LIni.ReadBool('Server', 'Requre_TLS', True) then
+    if LIni.ReadBool('Server', 'Require_TLS', True) then
     begin
       FFTPServExplicit.UseTLS := utUseRequireTLS;
     end
