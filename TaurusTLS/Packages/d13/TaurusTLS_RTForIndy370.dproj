@@ -85,7 +85,7 @@
 		<GenPackage>true</GenPackage>
 		<SanitizedProjectName>TaurusTLS_RTForIndy370</SanitizedProjectName>
 		<DCC_Description>TaurusTLS Run-Time package</DCC_Description>
-		<DllSuffix>370</DllSuffix>
+		<DllSuffix></DllSuffix>
 		<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
 		<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
 		<VerInfo_Locale>1033</VerInfo_Locale>
