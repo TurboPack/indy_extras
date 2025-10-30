@@ -90,7 +90,7 @@
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.29;InternalName=TaurusTLS_DTForIndy370.bpl;LegalCopyright=Copyright (c) 2025 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy370.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.29;Comments=</VerInfo_Keys>
 		<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-		<DllSuffix>370</DllSuffix>
+		<DllSuffix></DllSuffix>
 		<DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
