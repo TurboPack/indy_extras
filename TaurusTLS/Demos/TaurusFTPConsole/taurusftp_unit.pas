@@ -208,6 +208,26 @@ begin
   end;
 end;
 
+
+procedure SetHostAndIPVersion(const AHostName : String; AFTP : TIdFTP);
+{$IFDEF USE_INLINE}inline; {$ENDIF}
+{
+We set the FTP host property in a roundabout way here so that we can
+also handle where a hostname is set to an IPv6 address.
+}
+begin
+  AFTP.Host := MakeCanonicalIPv6Address(AHostName);
+  if AFTP.Host = '' then
+  begin
+    AFTP.Host := AHostName;
+    AFTP.IPVersion := Id_IPv4;
+  end
+  else
+  begin
+    AFTP.IPVersion := Id_IPv6;
+  end;
+end;
+
 { TFTPApplication }
 
 procedure TFTPApplication.OnDebugMsg(ASender: TObject; const AWrite: Boolean;
@@ -400,7 +420,7 @@ begin
             FFTP.UseTLS := utNoTLSSupport;
             if LCmdParams.Count > 3 then
             begin
-              FFTP.Host := LCmdParams[1];
+              SetHostAndIPVersion(LCmdParams[1],FFTP);
               FFTP.Username := LCmdParams[2];
               FFTP.Password := LCmdParams[3];
               Open;
@@ -416,7 +436,7 @@ begin
             FFTP.DataPortProtection := ftpdpsPrivate;
             if LCmdParams.Count > 3 then
             begin
-              FFTP.Host := LCmdParams[1];
+              SetHostAndIPVersion(LCmdParams[1],FFTP);
               FFTP.Username := LCmdParams[2];
               FFTP.Password := LCmdParams[3];
               Open;
@@ -432,7 +452,7 @@ begin
             FFTP.DataPortProtection := ftpdpsPrivate;
             if LCmdParams.Count > 3 then
             begin
-              FFTP.Host := LCmdParams[1];
+              SetHostAndIPVersion(LCmdParams[1],FFTP);
               FFTP.Username := LCmdParams[2];
               FFTP.Password := LCmdParams[3];
               Open;
@@ -445,7 +465,7 @@ begin
       else
         begin
           FFTP.UseTLS := utNoTLSSupport;
-          FFTP.Host := LCmdParams[0];
+          SetHostAndIPVersion(LCmdParams[0],FFTP);
           FFTP.Username := LCmdParams[1];
           FFTP.Password := LCmdParams[2];
           Open;
