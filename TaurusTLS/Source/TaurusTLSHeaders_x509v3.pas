@@ -163,9 +163,10 @@ const
   X509_PURPOSE_ANY                = 7;
   X509_PURPOSE_OCSP_HELPER        = 8;
   X509_PURPOSE_TIMESTAMP_SIGN     = 9;
+  X509_PURPOSE_CODE_SIGN          = 10;  // Added in OpenSSL 3.2
 
   X509_PURPOSE_MIN                = 1;
-  X509_PURPOSE_MAX                = 9;
+  X509_PURPOSE_MAX                = 10;
 
   (* Flags for X509V3_EXT_print() *)
 
