@@ -434,6 +434,7 @@ type
   {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_inh_flags} {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_get_inh_flags} {introduced 1.1.0}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get0_host}
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_host}
   {$EXTERNALSYM X509_VERIFY_PARAM_add1_host}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_hostflags}
@@ -698,6 +699,7 @@ var
   X509_VERIFY_PARAM_set_inh_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_VERIFY_PARAM_get_inh_flags: function (const param: PX509_VERIFY_PARAM): TIdC_UINT32; cdecl = nil; {introduced 1.1.0}
 
+  X509_VERIFY_PARAM_get0_host: function (param: PX509_VERIFY_PARAM; num: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 3.0.0}
   X509_VERIFY_PARAM_set1_host: function (param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_add1_host: function (param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set_hostflags: procedure (param: PX509_VERIFY_PARAM; flags: TIdC_UINT); cdecl = nil;
@@ -979,6 +981,7 @@ var
   function X509_VERIFY_PARAM_set_inh_flags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT32): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32 cdecl; external CLibCrypto; {introduced 1.1.0}
 
+  function X509_VERIFY_PARAM_get0_host(param: PX509_VERIFY_PARAM; num: TIdC_INT): PIdAnsiChar; cdecl; external CLibCrypto; {introduced 3.0.0.}
   function X509_VERIFY_PARAM_set1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_add1_host(param: PX509_VERIFY_PARAM; const name: PIdAnsiChar; namelen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_set_hostflags(param: PX509_VERIFY_PARAM; flags: TIdC_UINT) cdecl; external CLibCrypto;
@@ -1242,6 +1245,7 @@ const
   X509_VERIFY_PARAM_get_hostflags_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_VERIFY_PARAM_move_peername_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   X509_VERIFY_PARAM_get_auth_level_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  X509_VERIFY_PARAM_get0_host_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_load_locations_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_load_file_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_STORE_set_default_paths_ex_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
@@ -1489,6 +1493,7 @@ const
   X509_VERIFY_PARAM_set_inh_flags_procname = 'X509_VERIFY_PARAM_set_inh_flags'; {introduced 1.1.0}
   X509_VERIFY_PARAM_get_inh_flags_procname = 'X509_VERIFY_PARAM_get_inh_flags'; {introduced 1.1.0}
 
+  X509_VERIFY_PARAM_get0_host_procname = 'X509_VERIFY_PARAM_get0_host'; {introduced 3.0.0.}
   X509_VERIFY_PARAM_set1_host_procname = 'X509_VERIFY_PARAM_set1_host';
   X509_VERIFY_PARAM_add1_host_procname = 'X509_VERIFY_PARAM_add1_host';
   X509_VERIFY_PARAM_set_hostflags_procname = 'X509_VERIFY_PARAM_set_hostflags';
@@ -2668,6 +2673,12 @@ end;
 function  ERR_X509_VERIFY_PARAM_get_inh_flags(const param: PX509_VERIFY_PARAM): TIdC_UINT32; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get_inh_flags_procname);
+end;
+
+ {introduced 3.0.0}
+function ERR_X509_VERIFY_PARAM_get0_host(param: PX509_VERIFY_PARAM; num: TIdC_INT): PIdAnsiChar; cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_VERIFY_PARAM_get0_host_procname);
 end;
 
  {introduced 1.1.0}
@@ -8214,6 +8225,38 @@ begin
     {$if not defined(X509_VERIFY_PARAM_get_inh_flags_allownil)}
     if FuncLoadError then
       AFailed.Add('X509_VERIFY_PARAM_get_inh_flags');
+    {$ifend}
+  end;
+
+ {introduced 3.0.0}
+  X509_VERIFY_PARAM_get0_host := LoadLibFunction(ADllHandle, X509_VERIFY_PARAM_get0_host_procname);
+  FuncLoadError := not assigned(X509_VERIFY_PARAM_get0_host);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_VERIFY_PARAM_get0_host_allownil)}
+    X509_VERIFY_PARAM_get0_host := ERR_X509_VERIFY_PARAM_get0_host;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_get0_host_introduced)}
+    if LibVersion < X509_VERIFY_PARAM_get0_host_introduced then
+    begin
+      {$if declared(FC_X509_VERIFY_PARAM_get0_host)}
+      X509_VERIFY_PARAM_get0_host := FC_X509_VERIFY_PARAM_get0_host;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_VERIFY_PARAM_get0_host_removed)}
+    if X509_VERIFY_PARAM_get0_host_removed <= LibVersion then
+    begin
+      {$if declared(_X509_VERIFY_PARAM_get0_host)}
+      X509_VERIFY_PARAM_get0_host := _X509_VERIFY_PARAM_get0_host;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_VERIFY_PARAM_get0_host_allownil)}
+    if FuncLoadError then
+      AFailed.Add(X509_VERIFY_PARAM_get0_host_procname);
     {$ifend}
   end;
 
