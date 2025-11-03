@@ -2318,6 +2318,9 @@ uses
   IdStack,
   IdThreadSafe,
   IdCustomTransparentProxy,
+{$IFDEF WINDOWS}
+  IdIDN,
+{$ENDIF}
   IdURI,
   SyncObjs,
   TaurusTLSHeaders_asn1,
@@ -4717,8 +4720,27 @@ begin
       ETaurusTLSSSLCopySessionId.RaiseWithMessage(RSOSSLCopySessionIdError);
     end;
   end;
-
+  {$IFNDEF WINDOWS}
   LHostname := BytesOf(fHostName + #0);
+  {$ELSE}
+  {In Windows 8.1 or later, getaddrinfo will by default, resolve IDN hostnames
+  directly into IP Addresses.  We need to resolve Unicode IDN hostnames into
+  punnycode hostnames.
+  }
+  if Assigned(IdnToAscii) then
+  begin
+    LHostname := BytesOf(IDNToPunnyCode(
+      {$IFDEF STRING_IS_UNICODE}
+      fHostName
+      {$ELSE}
+      TIdUnicodeString(fHostName) // explicit convert to Unicode
+      {$ENDIF}) + #0);
+  end
+  else
+  begin
+    LHostname := BytesOf(fHostName + #0);
+  end;
+  {$ENDIF}
   // RFC 3546 states:
   // Literal IPv4 and IPv6 addresses are not permitted in "HostName".
   if (fHostName <> '') and (not IsValidIP(fHostName)) then
