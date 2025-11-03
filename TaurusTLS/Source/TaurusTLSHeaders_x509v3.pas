@@ -151,9 +151,10 @@ const
   XKU_DVCS                = $80;
   XKU_ANYEKU              = $100;
 
-  X509_PURPOSE_DYNAMIC    = $1;
+  X509_PURPOSE_DYNAMIC            = $1;
   X509_PURPOSE_DYNAMIC_NAME       = $2;
 
+  X509_PURPOSE_DEFAULT_ANY        = 0;
   X509_PURPOSE_SSL_CLIENT         = 1;
   X509_PURPOSE_SSL_SERVER         = 2;
   X509_PURPOSE_NS_SSL_SERVER      = 3;
@@ -1679,7 +1680,7 @@ var
 implementation
 
   uses
-    classes, 
+    classes,
     TaurusTLSExceptionHandlers
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
