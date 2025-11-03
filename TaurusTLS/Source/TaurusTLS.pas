@@ -4770,17 +4770,6 @@ begin
     end;
   end;
 
-  if fSSLContext.VerifyOn then
-  begin
-    LFunc := g_VerifyCallback;
-  end
-  else
-  begin
-    LFunc := nil;
-  end;
-  SSL_set_verify(fSSL, TranslateInternalVerifyToSSL
-    (fSSLContext.VerifyMode), LFunc);
-  SSL_set_verify_depth(fSSL, fSSLContext.VerifyDepth);
 
   LRetCode := SSL_connect(fSSL);
   if LRetCode <= 0 then
