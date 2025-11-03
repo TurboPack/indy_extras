@@ -4264,6 +4264,7 @@ var
   M: TMarshaller;
 {$ENDIF}
   LRes: Boolean;
+  LFunc:  SSL_verify_cb;
 begin
   // Destroy the context first
   DestroyContext;
@@ -4442,17 +4443,17 @@ begin
   if fVerifyMode <> [] then
   begin
     // SSL_CTX_set_default_verify_paths(fContext);
-    { if VerifyOn then
-      begin
-      Func := VerifyCallback;
-      end
-      else
-      begin
-      Func := nil;
-      end; }
+    if VerifyOn then
+    begin
+      LFunc := g_VerifyCallback;
+    end
+    else
+    begin
+      LFunc := nil;
+    end;
 
     SSL_CTX_set_verify(fContext,
-      TranslateInternalVerifyToSSL(fVerifyMode), nil);
+      TranslateInternalVerifyToSSL(fVerifyMode), LFunc);
     SSL_CTX_set_verify_depth(fContext, fVerifyDepth);
   end;
 
