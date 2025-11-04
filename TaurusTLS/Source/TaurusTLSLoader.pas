@@ -200,7 +200,7 @@ uses
   {$ENDIF}
   TaurusTLS_ResourceStrings
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-{$IFDEF WINDOWS}, {$IFDEF DCC}WinAPI.Windows {$ELSE}Windows{$ENDIF}{$ENDIF}
+{$IFDEF WINDOWS},  {$IFDEF VCL_XE2_OR_ABOVE}WinAPI.Windows {$ELSE}Windows{$ENDIF}{$ENDIF}
 {$IFDEF FPC}, dynlibs{$ELSE}
   {$IFDEF VCL_2010_OR_ABOVE}, System.IOUtils
   {$ENDIF}
@@ -273,7 +273,7 @@ end;
 {$IFDEF LOADLIB_UNAVAIL}
 function LoadLibFunction(const ALibHandle: TIdLibHandle; const AProcName: TIdLibFuncName): Pointer;
 begin
-  Result := {$IFDEF WINDOWS}{$IFDEF DCC}WinAPI.{$ENDIF}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
+  Result := {$IFDEF WINDOWS} {$IFDEF VCL_XE2_OR_ABOVE}WinAPI.{$ENDIF}Windows.{$ENDIF}GetProcAddress(ALibHandle, PIdLibFuncNameChar(AProcName));
 end;
 
 {$ENDIF}

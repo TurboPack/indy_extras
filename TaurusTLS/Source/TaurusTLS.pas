@@ -233,11 +233,11 @@ interface
 uses
   // facilitate inlining only.
 {$IFDEF WINDOWS}
-{$IFDEF DCC}
+  {$IFDEF VCL_XE2_OR_ABOVE}
   WinAPI.Windows,
-{$ELSE}
+  {$ELSE}
   Windows,
-{$ENDIF}
+  {$ENDIF}
 {$ENDIF}
   Classes,
   IdCTypes,
