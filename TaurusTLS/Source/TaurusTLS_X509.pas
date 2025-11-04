@@ -798,6 +798,9 @@ implementation
 
 uses
   IdFIPS,
+  {$IFDEF WINDOWS}
+  IdIDN,
+  {$ENDIF}
   TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
@@ -870,7 +873,18 @@ end;
 
 function TTaurusTLSX509Name.GetEMail: String;
 begin
+{$IFDEF WINDOWS}
+  if Assigned(IdnToUnicode) then
+  begin
+    Result := PunnyCodeToIDN(GetStrByNID(NID_pkcs9_emailAddress));
+  end
+  else
+  begin
+    Result := GetStrByNID(NID_pkcs9_emailAddress);
+  end;
+{$ELSE}
   Result := GetStrByNID(NID_pkcs9_emailAddress);
+{$ENDIF}
 end;
 
 function TTaurusTLSX509Name.GetHash: TTaurusTLSULong;
