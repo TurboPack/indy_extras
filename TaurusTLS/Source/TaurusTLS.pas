@@ -2558,8 +2558,8 @@ begin
 end;
 {$I TaurusTLSUnusedParamOn.inc}
 
-function g_PasswordCallback(var buf: PIdAnsiChar; size: TIdC_INT;
-  rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
+function g_PasswordCallback(buf: PIdAnsiChar; size: TIdC_INT; rwflag:
+    TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 {$IFDEF USE_MARSHALLED_PTRS}
 type
   TBytesPtr = ^TBytes;
@@ -4315,7 +4315,7 @@ begin
 
   // assign a password lookup routine
   // if PasswordRoutineOn then begin
-  SSL_CTX_set_default_passwd_cb(fContext, @g_PasswordCallback);
+  SSL_CTX_set_default_passwd_cb(fContext, g_PasswordCallback);
   SSL_CTX_set_default_passwd_cb_userdata(fContext, Self);
   // end;
   if fUseSystemRootCACertificateStore then
@@ -4681,7 +4681,7 @@ var
   Lpeercert: PX509;
   LCertificate: TTaurusTLSX509;
   LHostname: TBytes;
-  LFunc: SSL_verify_cb;
+
 begin
   Assert(fSSL = nil);
   Assert(fSSLContext <> nil);
