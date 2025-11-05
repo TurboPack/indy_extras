@@ -358,7 +358,7 @@ type
   bio_msg_st = record
     data : Pointer;
     data_len : TIdC_SIZET;
-    peer, local : PBIO_ADDR;
+    peer, local_ : PBIO_ADDR;
     flags : TIdC_UINT64;
   end;
   BIO_MSG = bio_msg_st;
