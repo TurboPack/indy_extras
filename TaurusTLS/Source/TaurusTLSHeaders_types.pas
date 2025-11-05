@@ -625,7 +625,7 @@ type
 
 //  d2i_of_void = type Pointer;
 //  Pd2i_of_void = ^d2i_of_void;
-  d2i_of_void = function(data: PPointer; pp: PPIdAnsiChar; length: TIdC_Long): pointer;
+  d2i_of_void = function(data: PPointer; pp: PPIdAnsiChar; length_: TIdC_Long): pointer;
     cdecl;
 
   {OSSL_LIB_CTX is defined in types.h from 3.0.0 onwards}
