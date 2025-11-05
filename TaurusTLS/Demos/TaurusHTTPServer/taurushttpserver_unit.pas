@@ -65,7 +65,6 @@ begin
     begin
       WriteLn(E.Message);
       ReadLn;
-      FreeAndNil(LHTTP);
     end;
   end;
 end;
