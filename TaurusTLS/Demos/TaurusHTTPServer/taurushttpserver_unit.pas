@@ -13,9 +13,6 @@ type
   THTTPServer = class(TObject)
     FHTTP: TIdHTTPServer;
     FIO: TTaurusTLSServerIOHandler;
-  private
-    procedure OnSSLGetPassword(ASender: TObject; var VPassword: String;
-      const AIsWrite: Boolean; var VOk: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -36,7 +33,6 @@ begin
   FIO := TTaurusTLSServerIOHandler.Create(nil);
   FIO.DefaultCert.PublicKey := 'domain.crt';
   FIO.DefaultCert.PrivateKey := 'domain.key';
-//  FIO.OnGetPassword := OnSSLGetPassword;
   FHTTP.IOHandler := FIO;
   FHTTP.DefaultPort := 443;
   FHTTP.Active := True;
@@ -48,13 +44,6 @@ begin
   FreeAndNil(FIO);
   FreeAndNil(FHTTP);
   inherited;
-end;
-
-procedure THTTPServer.OnSSLGetPassword(ASender: TObject; var VPassword: String;
-  const AIsWrite: Boolean; var VOk: Boolean);
-begin
-  VPassword := 'abcd1234';
-  VOk := True;
 end;
 
 procedure RunProgram;
