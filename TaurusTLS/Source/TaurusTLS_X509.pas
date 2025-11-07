@@ -863,7 +863,18 @@ end;
 
 function TTaurusTLSX509Name.GetCommonName: String;
 begin
+  {$IFDEF WINDOWS}
+  if Assigned(IdnToUnicode) then
+  begin
+    Result := PunnyCodeToIDN(GetStrByNID(NID_commonName));
+  end
+  else
+  begin
+    Result := GetStrByNID(NID_commonName);
+  end;
+  {$ELSE}
   Result := GetStrByNID(NID_commonName);
+  {$ENDIF}
 end;
 
 function TTaurusTLSX509Name.GetCountry: String;
