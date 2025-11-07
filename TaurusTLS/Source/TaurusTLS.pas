@@ -3111,9 +3111,6 @@ begin
     else
       Delete(Result, i, Length(Result) - i + 1);
   end;
-  {$IFDEF WINDOWS}
-  Result := StringReplace(Result,'/','\',[rfReplaceAll]);
-  {$ENDIF}
 end;
 
 function OpenSSLEnginesDir : String;  {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -3126,6 +3123,9 @@ begin
     begin
       Result := GetDirFromOpenSSLVerString(AnsiStringToString(SSLeay_version(OPENSSL_ENGINES_DIR)));
     end;
+    {$IFDEF WINDOWS}
+    Result := StringReplace(Result, '/','\',[rfReplaceAll]);
+    {$ENDIF}
   end;
 end;
 
@@ -3135,6 +3135,9 @@ begin
   if LoadOpenSSLLibrary then
   begin
     Result := AnsiStringToString(OPENSSL_info(OPENSSL_INFO_MODULES_DIR));
+    {$IFDEF WINDOWS}
+    Result := StringReplace(Result, '/','\',[rfReplaceAll]);
+    {$ENDIF}
   end;
 end;
 
@@ -3148,6 +3151,9 @@ begin
     begin
       Result := GetDirFromOpenSSLVerString(AnsiStringToString(SSLeay_version(OPENSSL_DIR)));
     end;
+    {$IFDEF WINDOWS}
+    Result := StringReplace(Result, '/','\',[rfReplaceAll]);
+    {$ENDIF}
   end;
 end;
 
