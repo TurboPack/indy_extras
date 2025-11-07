@@ -15,6 +15,13 @@ uses
   CustApp,
 {$ENDIF}
   {you can add units after this}
+  {$IFDEF WINDOWS}
+    {$IFDEF VCL_XE2_OR_ABOVE}
+  WinAPI.Windows,
+    {$ELSE}
+  Windows,
+    {$ENDIF}
+  {$ENDIF}
   IdCTypes,
   IdCompressorZLib,
   IdExplicitTLSClientServerBase,
@@ -102,7 +109,7 @@ implementation
 
 uses
   IniFiles,
-{$IFNDEF FPC}
+{$IFDEF VCL_2010_OR_ABOVE}
   System.IOUtils,
 {$ENDIF}
   TaurusTLSHeaders_evp,
@@ -1098,6 +1105,9 @@ begin
         WriteLn(Format('%10s %10s %20s %s', [TimeToStr(LRec.TimeStamp),
           TimeToStr(LRec.TimeStamp), LSize, LRec.Name]));
       until FindNext(LRec) <> 0;
+      {$IFDEF WINDOWS}
+      SysUtils.
+      {$ENDIF}
       FindClose(LRec);
     end;
   finally
@@ -1667,6 +1677,11 @@ Application.Run;
 try
   if Application.LoadValidConfig then
   begin
+  {$IFDEF WINDOWS}
+    if (SetConsoleCP(CP_UTF8)) then
+    begin
+    end;
+  {$ENDIF}
     Application.DoRun;
   end;
 except
