@@ -428,10 +428,16 @@ type
   {$EXTERNALSYM X509_VERIFY_PARAM_clear_flags}
   {$EXTERNALSYM X509_VERIFY_PARAM_get_flags}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_purpose}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get_purpose}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_trust}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_depth}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get_depth}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_auth_level} {introduced 1.1.0}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get_auth_level} {introduced 1.1.0}
+  {$EXTERNALSYM X509_VERIFY_PARAM_set_time}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get_time}
   {$EXTERNALSYM X509_VERIFY_PARAM_add0_policy}
+  {$EXTERNALSYM X509_VERIFY_PARAM_set1_policies}
   {$EXTERNALSYM X509_VERIFY_PARAM_set_inh_flags} {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_get_inh_flags} {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_get0_host}
@@ -441,11 +447,11 @@ type
   {$EXTERNALSYM X509_VERIFY_PARAM_get_hostflags} {introduced 1.1.0}
   {$EXTERNALSYM X509_VERIFY_PARAM_get0_peername}
   {$EXTERNALSYM X509_VERIFY_PARAM_move_peername} {introduced 1.1.0}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get0_email}
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_email}
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip}
   {$EXTERNALSYM X509_VERIFY_PARAM_set1_ip_asc}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_depth}
-  {$EXTERNALSYM X509_VERIFY_PARAM_get_auth_level} {introduced 1.1.0}
+  {$EXTERNALSYM X509_VERIFY_PARAM_get1_ip_asc}
   {$EXTERNALSYM X509_VERIFY_PARAM_get0_name}
   {$EXTERNALSYM X509_VERIFY_PARAM_add0_table}
   {$EXTERNALSYM X509_VERIFY_PARAM_get_count}
@@ -688,11 +694,14 @@ var
   X509_VERIFY_PARAM_clear_flags: function (param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_get_flags: function (param: PX509_VERIFY_PARAM): TIdC_ULONG; cdecl = nil;
   X509_VERIFY_PARAM_set_purpose: function (param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509_VERIFY_PARAM_get_purpose: function(param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set_trust: function (param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set_depth: procedure (param: PX509_VERIFY_PARAM; depth: TIdC_INT); cdecl = nil;
+  X509_VERIFY_PARAM_get_depth: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set_auth_level: procedure (param: PX509_VERIFY_PARAM; auth_level: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl = nil;
+  X509_VERIFY_PARAM_get_auth_level: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_VERIFY_PARAM_set_time: procedure (param: PX509_VERIFY_PARAM; t: TIdC_TIMET);  cdecl = nil;
+  X509_VERIFY_PARAM_get_time: function(const param: PX509_VERIFY_PARAM): TIdC_TIMET; cdecl = nil;
   X509_VERIFY_PARAM_add0_policy: function (param: PX509_VERIFY_PARAM; policy: PASN1_OBJECT): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set1_policies : function(param : PX509_VERIFY_PARAM; policies : PSTACK_OF_ASN1_OBJECT) : TIdC_INT; cdecl = nil;
 
@@ -707,11 +716,11 @@ var
   X509_VERIFY_PARAM_get0_peername: function (v1: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
   X509_VERIFY_PARAM_move_peername: procedure (v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM); cdecl = nil; {introduced 1.1.0}
   X509_VERIFY_PARAM_set1_email: function (param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT; cdecl = nil;
+  X509_VERIFY_PARAM_get0_email: function(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
   X509_VERIFY_PARAM_set1_ip: function (param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT; cdecl = nil;
   X509_VERIFY_PARAM_set1_ip_asc: function (param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT; cdecl = nil;
+  X509_VERIFY_PARAM_get1_ip_asc: function(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
 
-  X509_VERIFY_PARAM_get_depth: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
-  X509_VERIFY_PARAM_get_auth_level: function (const param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   X509_VERIFY_PARAM_get0_name: function (const param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl = nil;
 
   X509_VERIFY_PARAM_add0_table: function (param: PX509_VERIFY_PARAM): TIdC_INT; cdecl = nil;
@@ -969,6 +978,7 @@ var
   function X509_VERIFY_PARAM_clear_flags(param: PX509_VERIFY_PARAM; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_get_flags(param: PX509_VERIFY_PARAM): TIdC_ULONG cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_set_purpose(param: PX509_VERIFY_PARAM; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
+  function X509_VERIFY_PARAM_get_purpose(param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_set_trust(param: PX509_VERIFY_PARAM; trust: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_set_depth(param: PX509_VERIFY_PARAM; depth: TIdC_INT) cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_set_auth_level(param: PX509_VERIFY_PARAM; auth_level: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -989,8 +999,10 @@ var
   function X509_VERIFY_PARAM_get0_peername(v1: PX509_VERIFY_PARAM): PIdAnsiChar cdecl; external CLibCrypto;
   procedure X509_VERIFY_PARAM_move_peername(v1: PX509_VERIFY_PARAM; v2: PX509_VERIFY_PARAM) cdecl; external CLibCrypto; {introduced 1.1.0}
   function X509_VERIFY_PARAM_set1_email(param: PX509_VERIFY_PARAM; const email: PIdAnsiChar; emaillen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
+  function X509_VERIFY_PARAM_get0_email(param: PX509_VERIFY_PARAM): PIdAnsiChar; cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_set1_ip(param: PX509_VERIFY_PARAM; const ip: PByte; iplen: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_set1_ip_asc(param: PX509_VERIFY_PARAM; const ipasc: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
+  function X509_VERIFY_PARAM_get1_ip_asc(param: PX509_VERIFY_PARAM): PIdAnsiChar cdecl; external CLibCrypto;
 
   function X509_VERIFY_PARAM_get_depth(const param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto;
   function X509_VERIFY_PARAM_get_auth_level(const param: PX509_VERIFY_PARAM): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
