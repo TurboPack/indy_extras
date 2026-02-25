@@ -104,7 +104,7 @@ You should install OpenSSL 3 since those versions have not reached their end-of-
 
 ### Static Libraries (OpenSSL 3 ONLY)
 
-Static libraries (`.a` files) can be used with Android, iOS and macOS. Precompiled versions of the libraries are available at: <https://github.com/TaurusTLS-Developers/OpenSSL-Distribution/releases> and <https://github.com/TurboPack/OpenSSL-Distribution/releases>.
+Static libraries (`.a` files) are used with Android, iOS and macOS meaning that OpenSSL is linked __directly__ into your executable without shared libraries. Precompiled versions of the libraries are available at: <https://github.com/TaurusTLS-Developers/OpenSSL-Distribution/releases> and <https://github.com/TurboPack/OpenSSL-Distribution/releases>.
 
 ### Linux
 
