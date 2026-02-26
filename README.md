@@ -5,7 +5,7 @@ All Rights Reserved
 
 ## General Information
 
-TaurusTLS provides OpenSSL 1.1.1 and 3.x support for Indy - Internet Direct.  It includes headers plus two components for Delphi and C++Builder.  Those components are:
+TaurusTLS provides 3.x support for Indy - Internet Direct.  It includes headers plus two components for Delphi and C++Builder.  Those components are:
 
 - TTaurusTLSIOHandlerSocket - Enables TLS in a TIdTCPClientCustom descendant.
 - TTaurusTLSServerIOHandler - Enables TLS in a TIdCustomTCPServer descendant.
@@ -32,6 +32,7 @@ To make it easier and consistent for JEDI users, we also offer an MPL license v1
 
 TaurusTLS supports the following RAD Studio versions:
 
+- Florence (Delphi 13) - packages in the TaurusTLS\Packages\d13 folder
 - Athens (Delphi 12) - packages in the TaurusTLS\Packages\d12 folder
 - Alexandria (Delphi 11) - package in the TaurusTLS\Packages\d11 folder
 - Sydney (Delphi 10.4) - package in the TaurusTLS\Packages\dsydney folder
@@ -50,10 +51,10 @@ You may make packages for older versions of RAD Studio.
 
 You may install TaurusTLS into the 64-bit Integrated Development Environment (IDE) using the same procedure.
 
-If you have [TMS Smart Setup](https://doc.tmssoftware.com/smartsetup/), you can do the following to install TaurusTLS:
+If you have [TMS Smart Setup 2.0](https://doc.tmssoftware.com/smartsetup/) with **no credentials** required, go to the "TMS Smart Setup Console", and do the following to install TaurusTLS:
 
 ```
-tms repo-register git https://github.com/JPeterMugaas/TaurusTLS.git
+tms configure
 tms install taurustls_developers.taurustls
 ```
 
@@ -99,47 +100,49 @@ The design-time package should depend upon the run-time package and include the 
 
 ## Deploying Your Applications
 
-TaurusTLS requires OpenSSL 1.1.1 or OpenSSL 3.x.
+TaurusTLS relies on OpenSSL 3.x. Depending on the target platform, OpenSSL is either linked dynamically (requiring DLLs) or statically (compiled into your executable).
 
-### Static Libraries (OpenSSL 3.x ONLY)
+You can download the correct binaries for all platforms here:
+**[OpenSSL-Distribution Releases](https://github.com/TaurusTLS-Developers/OpenSSL-Distribution/releases)**
 
-Static libraries (`.a` files) can be used with Android, iOS and macOS. Precompiled versions of the libraries are available at: <https://github.com/JPeterMugaas/OpenSSL-Distribution/tree/main/binaries> and <https://github.com/TurboPack/OpenSSL-Distribution/tree/main/binaries>. There are also instructions for building the libraries at: <https://github.com/TurboPack/OpenSSL-Distribution/tree/main/build-scripts>.
+### Dynamic Linking
+#### Linux
 
-### Linux
+`TaurusTLS` uses **dynamic linking** for the `Linux64` platform. 
+On Linux, OpenSSL is usually installed by default on the OS. We recommend explicitly documenting this dependency for your end-users. If you choose to deploy a specific version, you can download redistributable Linux package from the **[OpenSSL-Distribution Releases](https://github.com/TaurusTLS-Developers/OpenSSL-Distribution/releases)** and resistribute it with your application(s).
 
-On Linux, OpenSSL is usually installed by default.  We recommend that developers document this requirement in case users need to install updated versions of OpenSSL.
+#### Windows
 
-### Windows
+On Windows, TaurusTLS uses **Dynamic Linking**. You **must** redistribute the OpenSSL shared libraries (`.dll`) and the License file alongside your application executable.
 
-On Windows, OpenSSL is not installed by default so you have to redistribute it along with your software by placing the library files in the same directory as your executable.   You can choose to either deploy OpenSSL 1.1.1 (not recommended) or an OpenSSL 3.x version.  As of this writing, the current OpenSSL 3.x versions are 3.0.16, 3.1.8, 3.2.4, 3.3.3, 3.4.1, and 3.5.0.  Pre-compiled .DLL’s for these versions are available at <https://github.com/JPeterMugaas/OpenSSL-Distribution/tree/main/binaries/Windows> and <https://github.com/TurboPack/OpenSSL-Distribution/tree/main/binaries/Windows> .  
+*   **Download:** Look for the standard packages (e.g., `openssl-3.x.x-windows-x64.zip`).
+*   **Redistribution:** You must ship the following files with your application:
 
-For Win32 applications, you need to redistribute the following:
+| Platform | Required Files |
+| :--- | :--- |
+| **Windows 32-bit** | `libcrypto-3.dll`, `libssl-3.dll`, `LICENSE.txt` |
+| **Windows 64-bit** | `libcrypto-3-x64.dll`, `libssl-3-x64.dll`, `LICENSE.txt` |
+| **Windows ARM64EC**| `libcrypto-3-arm64.dll`, `libssl-3-arm64.dll`, `LICENSE.txt` |
 
-OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of life)
+> **Note:** We strongly recommend also redistributing the `openssl.exe` included in the package, as users may need it for certificate management tasks like:
+- Generate keys
+- Create Certificate Signing Requests
+- Create self-signed Certificates
+- Examine certificates
+- convert Certificate
+- etc.
 
-- libcrypto-1_1.dll
-- libssl-1_1.dll
-- openssl.exe
+There's a reference book called the *OpenSSL Cookbook* at <https://www.feistyduck.com/books/openssl-cookbook/>.
 
-OpenSSL 3.x
+### Static Linking (Android, iOS, macOS)
 
-- libcrypto-3.dll
-- libssl-3.dll
-- openssl.exe
+On Mobile and macOS platforms, TaurusTLS uses **Static Linking**. The OpenSSL code is compiled directly into your application binary.
 
-For Win64 applications, you need to redistribute the following:
-
-OpenSSL 1.1.1  (not recommended because OpenSSL 1.1.1 has reached its end of life)
-
-- libcrypto-1_1-x64.dll
-- libssl-1_1-x64.dll
-- openssl.exe
-
-OpenSSL 3.x
-
-- libcrypto-3-x64.dll
-- libssl-3-x64.dll
-- openssl.exe
+*   **Download:** Look for the **Development** packages with the **`-dev`** suffix (e.g., `openssl-3.x.x-android-arm64-dev.zip`).
+*   **Development:** You need the static library files (`.a`) contained in the `static` folder of these archives to compile your project.
+*   **Redistribution:** You do **not** need to ship any separate OpenSSL files (`.dylib`, `.so`, or `.a`). You only need to distribute:
+    1.  Your Application package
+    2.  The `LICENSE.txt` file (to comply with the OpenSSL license).
 
 ## Component Reference
 
@@ -147,7 +150,7 @@ TaurusTLS includes a component reference in "Compiled HTML Help file (.chm)" for
 
 ## Demo Programs
 
-Taurus TLS includes 4 demo programs.  
+Taurus TLS includes 3 demo programs.  
 
 ### TaurusTLS\src\demos\FTPServer\TaurusFTPServer.dproj  
 
@@ -173,24 +176,10 @@ You can also do the following:
 2. Run the makecert.bat to generate a self-signed certificate.  Just answer the prompts and the certificate is generated.
 3. Run the FTP Server .exe and it will create a default server.ini file that points to the certificate files generated in Step 2.
 
-### TaurusTLS\demos\TaurusFTPClient\TaurusFTPClient.dproj  
-
-This is a fully functional Delphi-only FTP client that is multi-threaded using the VCL Framework.  It has been tested with the following servers:
-
-- CompleteFTP - <https://enterprisedt.com/products/completeftp/>
-- FileZilla Server - <https://filezilla-project.org/>
-- ProFTPD - <http://www.proftpd.org/>
-- PureFTPD - <https://www.pureftpd.org/>
-- vsftpd - <https://security.appspot.com/vsftpd.html>
-- Xlight FTP Server - <https://www.xlightftpd.com/>
-
-No special configuration is required, and the program generates its own INI files for storing FTP server information and default settings.  You may need to configure the program if you have a firewall/proxy setup or are behind a NAT and wish to use PORT transfers.
-
 ### TaurusTLS\demos\TaurusFTPConsole\taurusftp.dpr and taurusftp.lpr
 
 This is a fully functional cross-platform console FTP client that can be built with both Delphi and Lazaurus.  It has been tested with the following servers:
 
-- CompleteFTP - <https://enterprisedt.com/products/completeftp/>
 - FileZilla Server - <https://filezilla-project.org/>
 - ProFTPD - <http://www.proftpd.org/>
 - PureFTPD - <https://www.pureftpd.org/>
