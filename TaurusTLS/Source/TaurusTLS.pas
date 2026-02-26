@@ -2413,6 +2413,27 @@ type
   /// </seealso>
   ETaurusTLSSSLCopySessionId = class(ETaurusTLSError);
   /// <summary>
+  ///  Base exception class for ETaurusTLSSSL_CTX_set_tlsext_servername_callback
+  ///  and ETaurusTLSSSL_CTX_set_tlsext_servername_arg.
+  ///  </summary>
+  ETaurusTLSSSL_CTX_set_tlsext_servername = class(ETaurusTLSError);
+  /// <summary>
+  ///  Raised if <c>SSL_CTX_set_tlsext_servername_callback</c> failed.
+  ///  </summary>
+  ///  <seealso href="https://docs.openssl.org/master/man3/SSL_CTX_set_tlsext_servername_callback/">
+  ///  SSL_CTX_set_tlsext_servername_callback
+  ///  </seealso>
+  ETaurusTLSSSL_CTX_set_tlsext_servername_callback = class(
+    ETaurusTLSSSL_CTX_set_tlsext_servername);
+  /// <summary>
+  ///  Raised if <c>SSL_CTX_set_tlsext_servername_arg</c> failed.
+  ///  </summary>
+  ///  <seealso href="https://docs.openssl.org/master/man3/SSL_CTX_set_tlsext_servername_callback/">
+  ///  SSL_CTX_set_tlsext_servername_arg
+  ///  </seealso>
+  ETaurusTLSSSL_CTX_set_tlsext_servername_arg = class(
+    ETaurusTLSSSL_CTX_set_tlsext_servername);
+  /// <summary>
   /// Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
   /// TaurusTLS statically.
   /// </summary>
@@ -3536,9 +3557,15 @@ begin
   // It avs if the Context property is nil.
   if Certificates.Count > 0 then
   begin
-    SSL_CTX_set_tlsext_servername_callback(fSSLContext.Context,
-      g_tlsext_SNI_callback);
-    SSL_CTX_set_tlsext_servername_arg(fSSLContext.Context, Self);
+    if SSL_CTX_set_tlsext_servername_callback(fSSLContext.Context,
+      g_tlsext_SNI_callback) = 0 then
+    begin
+      raise ETaurusTLSSSL_CTX_set_tlsext_servername_callback.Create(RSSSL_CTX_set_tlsext_servername_callback);
+    end;
+    if SSL_CTX_set_tlsext_servername_arg(fSSLContext.Context, Self) = 0 then
+    begin
+       raise ETaurusTLSSSL_CTX_set_tlsext_servername_arg.Create(RSSSL_CTX_set_tlsext_servername_arg);
+    end;
     InitCertContexts;
   end;
 end;

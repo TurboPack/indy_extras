@@ -2700,7 +2700,7 @@ end;
 function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;
  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := (EVP_CIPHER_flags(e) and EVP_CIPH_MODE);
+  Result := EVP_CIPHER_flags(e) and EVP_CIPH_MODE;
 end;
 
 {$ENDIF}
