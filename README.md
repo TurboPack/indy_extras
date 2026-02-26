@@ -139,7 +139,7 @@ There's a reference book called the *OpenSSL Cookbook* at <https://www.feistyduc
 On Mobile and macOS platforms, TaurusTLS uses **Static Linking**. The OpenSSL code is compiled directly into your application binary.
 
 *   **Download:** Look for the **Development** packages with the **`-dev`** suffix (e.g., `openssl-3.x.x-android-arm64-dev.zip`).
-*   **Development:** You need the static library files (`.a`) contained in the `static` folder of these archives to compile your project.
+*   **Development:** You need the static library files (`.a`) contained in the `lib` folder of these archives to compile your project.
 *   **Redistribution:** You do **not** need to ship any separate OpenSSL files (`.dylib`, `.so`, or `.a`). You only need to distribute:
     1.  Your Application package
     2.  The `LICENSE.txt` file (to comply with the OpenSSL license).
