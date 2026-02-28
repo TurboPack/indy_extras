@@ -115,7 +115,7 @@ On Linux, OpenSSL is usually installed by default on the OS. We recommend explic
 
 On Windows, TaurusTLS uses **Dynamic Linking**. You **must** redistribute the OpenSSL shared libraries (`.dll`) and the License file alongside your application executable.
 
-*   **Download:** Look for the standard packages (e.g., `openssl-3.x.x-windows-x64.zip`).
+*   **Download:** Look for the standard packages (e.g., `openssl-3.6.1-Windows-x86.zip`, `openssl-3.6.1-Windows-x64.zip`, `openssl-3.6.1-Windows-arm64ec.zip`).
 *   **Redistribution:** You must ship the following files with your application:
 
 | Platform | Required Files |
@@ -138,8 +138,8 @@ There's a reference book called the *OpenSSL Cookbook* at <https://www.feistyduc
 
 On Mobile and macOS platforms, TaurusTLS uses **Static Linking**. The OpenSSL code is compiled directly into your application binary.
 
-*   **Download:** Look for the **Development** packages with the **`-dev`** suffix (e.g., `openssl-3.x.x-android-arm64-dev.zip`).
-*   **Development:** You need the static library files (`.a`) contained in the `static` folder of these archives to compile your project.
+*   **Download:** Look for the standard packages (e.g., `openssl-3.6.1-Android-arm64.zip`, `openssl-3.6.1-iOS-arm64.zip`, `openssl-3.6.1-macOS-arm64.zip`).
+*   **Development:** You need the static library files (`.a`) contained in the `lib\static` folder of these archives to compile your project.
 *   **Redistribution:** You do **not** need to ship any separate OpenSSL files (`.dylib`, `.so`, or `.a`). You only need to distribute:
     1.  Your Application package
     2.  The `LICENSE.txt` file (to comply with the OpenSSL license).
