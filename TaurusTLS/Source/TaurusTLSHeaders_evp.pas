@@ -25312,7 +25312,7 @@ begin
   FuncLoadError := not assigned(EVP_MAC_CTX_get_block_size);
   if FuncLoadError then
   begin
-    {$if not defined(EVP_MAC_update_allownil)}
+    {$if not defined(EVP_MAC_CTX_get_block_size_allownil)}
     EVP_MAC_CTX_get_block_size := ERR_EVP_MAC_CTX_get_block_size;
     {$ifend}
     {$if declared(EVP_MAC_CTX_get_block_size_introduced)}
@@ -25328,7 +25328,7 @@ begin
     if EVP_MAC_CTX_get_block_size_removed <= LibVersion then
     begin
       {$if declared(_EVP_MAC_CTX_get_block_size)}
-      EVP_MAC_update := _EVP_MAC_CTX_get_block_size;
+      EVP_MAC_CTX_get_block_sizee := _EVP_MAC_CTX_get_block_size;
       {$ifend}
       FuncLoadError := false;
     end;
