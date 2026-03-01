@@ -1028,11 +1028,11 @@ type
     //  and TTaurusTLSIOHandlerSocket.Init after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
 {$IFDEF USE_WINDOWS_CERT_STORE}
-    procedure LoadWindowsCertStore;
+    procedure LoadWindowsCertStore;  //PALOFF
 {$ENDIF}
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
     procedure DestroyContext;
-    function GetSSLMethod: PSSL_METHOD;
+    function GetSSLMethod: PSSL_METHOD; //PALOFF
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
   public
 
@@ -1588,8 +1588,6 @@ type
     // procedure CreateSSLContext(axMode: TTaurusTLSSSLMode);
     //
     procedure SetPassThrough(const Value: Boolean); override;
-    procedure DoVerifyError(Certificate: TTaurusTLSX509;
-      const AError: TIdC_LONG; out VOk: Boolean);
     function RecvEnc(var VBuffer: TIdBytes): Integer; override;
     function SendEnc(const ABuffer: TIdBytes; const AOffset, ALength: Integer)
       : Integer; override;
@@ -1619,8 +1617,8 @@ type
     //Rename to avoid warning about inherited methods.
     //It's probably best to have our own methods because some versions of
     //Indy available do not have these in the base class while others do.
-    function TaurusGetProxyTargetHost: string;
-    function TaurusGetURIHost: string;
+    function TaurusGetProxyTargetHost: string;  //PALOFF
+    function TaurusGetURIHost: string; //PALOFF
     //This needs to be private, not strict private
     //so we can set it in the clone method for FTP data
     //channel SNI.
@@ -1669,7 +1667,7 @@ type
     /// <remarks>
     /// You should not call this directly.
     /// </remarks>
-    procedure Close; override;
+    procedure Close; override;  //PALOFF
     /// <summary>
     /// Called by Indy (Internet Direct) and establishes the cconnection.
     /// </summary>
@@ -1937,7 +1935,6 @@ type
     //
     procedure InitComponent; override;
     procedure SetCertificates(const AValue: TTaurusTLSX509Files);
-    procedure InitCertContexts;
     { ITaurusTLSCallbackHelper }
     procedure DoOnDebugMessage(const AWrite: Boolean; AVersion: TTaurusMsgCBVer;
       AContentType: TIdC_INT; const buf: TIdBytes; SSL: PSSL);
@@ -2645,10 +2642,10 @@ end;
 function g_VerifyCallback(const preverify_ok: TIdC_INT;
   x509_ctx: PX509_STORE_CTX): TIdC_INT cdecl;
 var
-  LErr: Integer;
+  LErr: Integer;  //PALOFF
   LSsl: PSSL;
   LSock: TTaurusTLSSocket;
-  LContinue: Boolean;
+  LContinue: Boolean;   //PALOFF
   LX509_Cert: PX509;
   LCertificate: TTaurusTLSX509;
   LCertErr: TIdC_LONG;
@@ -2706,7 +2703,7 @@ function g_SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX;
   op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer)
   : TIdC_INT; cdecl;
 var
-  LErr: Integer;
+  LErr: Integer;     //PALOFF
   LHelper: ITaurusTLSCallbackHelper;
   LRes: Boolean;
 
@@ -2757,7 +2754,7 @@ var
 {$ELSE}
   LPassword: String;
 {$ENDIF}
-  LErr: Integer;
+  LErr: Integer; //PALOFF
   LOk: Boolean;
   LHelper: ITaurusTLSCallbackHelper;
 begin
@@ -2821,7 +2818,7 @@ end;
 
 procedure g_InfoCallback(const SSLSocket: PSSL; where, ret: TIdC_INT); cdecl;
 var
-  LErr: Integer;
+  LErr: Integer;  //PALOFF
   LHelper: ITaurusTLSCallbackHelper;
 begin
   {
@@ -2854,7 +2851,7 @@ end;
 procedure g_MsgCallback(write_p, Version, content_type: TIdC_INT; const buf;
   len: TIdC_SIZET; SSL: PSSL; arg: Pointer)cdecl;
 var
-  LErr: Integer;
+  LErr: Integer;   //PALOFF
   LHelper: ITaurusTLSCallbackHelper;
 {$IFNDEF USE_INLINE_VAR}
   LBytes: TIdBytes;
@@ -2921,7 +2918,7 @@ end;
 function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer)
   : TIdC_INT; cdecl;
 var
-  LErr: Integer;
+  LErr: Integer;   //PALOFF
   i: Integer;
   LSSLIO: TTaurusTLSServerIOHandler;
   LX509: PX509;
@@ -3060,7 +3057,7 @@ end;
 procedure SslLockingCallback(Mode, n: TIdC_INT; Afile: PIdAnsiChar;
   line: TIdC_INT)cdecl;
 var
-  Lock: TIdCriticalSection;
+  Lock: TIdCriticalSection;   //PALOFF
   LList: TIdCriticalSectionList;
 begin
   Assert(CallbackLockList <> nil);
@@ -3092,7 +3089,7 @@ procedure PrepareTaurusTLSLocking;
 var
   i, cnt: Integer;            //PALOFF
   Lock: TIdCriticalSection;
-  LList: TIdCriticalSectionList;
+  LList: TIdCriticalSectionList;   //PALOFF
 begin
   LList := CallbackLockList.LockList;
   try
@@ -3490,42 +3487,12 @@ begin
   end;
 end;
 
-procedure TTaurusTLSServerIOHandler.InitCertContexts;
+procedure TTaurusTLSServerIOHandler.Init;
+// see also TTaurusTLSIOHandlerSocket.Init
 var
   i: Integer;
   LContext: TTaurusTLSContext;
   LCertificate: TTaurusTLSX509File;
-begin
-  for i := 0 to Certificates.Count - 1 do
-  begin
-    LCertificate := Certificates[i];
-    LContext := TTaurusTLSContext.Create;
-    LContext.Parent := Self;
-    LContext.PrivateKey := LCertificate.PrivateKey;
-    LContext.PublicKey := LCertificate.PublicKey;
-    LContext.RootPublicKey := LCertificate.RootKey;
-    LContext.DHParamsFile := LCertificate.DHParamsFile;
-    LCertificate.Context := LContext;
-    LContext.VerifyDepth := SSLOptions.VerifyDepth;
-    LContext.VerifyMode := SSLOptions.VerifyMode;
-    LContext.UseSystemRootCACertificateStore :=
-      SSLOptions.UseSystemRootCACertificateStore;
-    LContext.VerifyHostname := SSLOptions.VerifyHostname;
-    LContext.CipherList := SSLOptions.CipherList;
-    LContext.VerifyOn := Assigned(fOnVerifyCallback);
-    LContext.StatusInfoOn := Assigned(FOnStatusInfo);
-    LContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
-    LContext.MessageCBOn := Assigned(FOnDebugMessage);
-    LContext.MinTLSVersion := SSLOptions.MinTLSVersion;
-    LContext.Mode := SSLOptions.Mode;
-    LContext.SecurityLevel := SSLOptions.SecurityLevel;
-    LContext.OnContextLoaderCustom:=OnContextLoaderCustom;
-    LContext.InitContext(sslCtxServer);
-  end;
-end;
-
-procedure TTaurusTLSServerIOHandler.Init;
-// see also TTaurusTLSIOHandlerSocket.Init
 begin
   // ensure Init isn't called twice
   Assert(fSSLContext = nil);
@@ -3566,7 +3533,32 @@ begin
     begin
        raise ETaurusTLSSSL_CTX_set_tlsext_servername_arg.Create(RSSSL_CTX_set_tlsext_servername_arg);
     end;
-    InitCertContexts;
+    for i := 0 to Certificates.Count - 1 do
+    begin
+      LCertificate := Certificates[i];
+      LContext := TTaurusTLSContext.Create;
+      LContext.Parent := Self;
+      LContext.PrivateKey := LCertificate.PrivateKey;
+      LContext.PublicKey := LCertificate.PublicKey;
+      LContext.RootPublicKey := LCertificate.RootKey;
+      LContext.DHParamsFile := LCertificate.DHParamsFile;
+      LCertificate.Context := LContext;
+      LContext.VerifyDepth := SSLOptions.VerifyDepth;
+      LContext.VerifyMode := SSLOptions.VerifyMode;
+      LContext.UseSystemRootCACertificateStore :=
+        SSLOptions.UseSystemRootCACertificateStore;
+      LContext.VerifyHostname := SSLOptions.VerifyHostname;
+      LContext.CipherList := SSLOptions.CipherList;
+      LContext.VerifyOn := Assigned(fOnVerifyCallback);
+      LContext.StatusInfoOn := Assigned(FOnStatusInfo);
+      LContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
+      LContext.MessageCBOn := Assigned(FOnDebugMessage);
+      LContext.MinTLSVersion := SSLOptions.MinTLSVersion;
+      LContext.Mode := SSLOptions.Mode;
+      LContext.SecurityLevel := SSLOptions.SecurityLevel;
+      LContext.OnContextLoaderCustom:=OnContextLoaderCustom;
+      LContext.InitContext(sslCtxServer);
+    end;
   end;
 end;
 
@@ -3821,7 +3813,7 @@ end;
 
 procedure TTaurusTLSIOHandlerSocket.ConnectClient;
 var
-  LPassThrough: Boolean;
+  LPassThrough: Boolean;            //PALOFF
 begin
   // RLebeau: initialize TaurusTLS before connecting the socket...
   try
@@ -4042,17 +4034,6 @@ begin
 end;
 // }
 
-procedure TTaurusTLSIOHandlerSocket.DoVerifyError(Certificate: TTaurusTLSX509;
-  const AError: TIdC_LONG; out VOk: Boolean);
-begin
-  VOk := True;
-  if Assigned(fOnVerifyError) then
-  begin
-    fOnVerifyError(Self, Certificate, AError,
-      AnsiStringToString(X509_verify_cert_error_string(AError)),
-      CertErrorToLongDescr(AError), VOk);
-  end;
-end;
 
 procedure TTaurusTLSIOHandlerSocket.OpenEncodedConnection;
 var
@@ -4297,7 +4278,13 @@ end;
 function TTaurusTLSIOHandlerSocket.VerifyError(ACertificate: TTaurusTLSX509;
   const AError: TIdC_LONG): Boolean;
 begin
-  DoVerifyError(ACertificate, AError, Result);
+  Result := True;
+  if Assigned(fOnVerifyError) then
+  begin
+    fOnVerifyError(Self, ACertificate, AError,
+      AnsiStringToString(X509_verify_cert_error_string(AError)),
+      CertErrorToLongDescr(AError), Result);
+  end;
 end;
 
 function TTaurusTLSIOHandlerSocket.GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
