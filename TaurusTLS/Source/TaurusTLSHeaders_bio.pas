@@ -560,13 +560,13 @@ var
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: Pointer" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_data: function (b: PBIO; out pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_data: function (b: PBIO; var pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_buf: function (b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
   // WAS DECLARED AS:
   // original declaration of parameter pp was invalid.
   // correct declaration should be "pp: Pointer" according to OpenSSL documentation}
   // BIO_get_mem_data: function (b: PBIO; pp: Pointer) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_ptr: function (b: PBIO; out pp: PBUF_MEM): TIdC_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_ptr: function (b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl = nil; {removed 1.0.0}
   BIO_set_mem_eof_return: function (b: PBIO; v: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
 
   BIO_get_new_index: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
@@ -779,7 +779,7 @@ var
   BIO_read: function (b: PBIO; var data; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
   // WAS DECLARED AS:
   // BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_read_ex: function (b: PBIO; var data; dlen: TIdC_SIZET; out readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_read_ex: function (b: PBIO; var data; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_recvmmsg: function (b : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
     msgs_processed : PIdC_SIZET): TIdC_INT; cdecl = nil;
@@ -789,7 +789,7 @@ var
   BIO_write: function (b: PBIO; const data; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
   // WAS DECLARED AS:
   // BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_write_ex: function (b: PBIO; const data; dlen: TIdC_SIZET; out written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_write_ex: function (b: PBIO; const data; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_sendmmsg : function (b0 : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
     msgs_processed : PIdC_SIZET) : TIdC_INT; cdecl = nil;
@@ -876,7 +876,7 @@ var
   BIO_ADDR_family: function (const ap: PBIO_ADDR): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   // WAS DECLARED AS:
   // BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; out l: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; var l: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TIdC_SHORT; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
   BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
@@ -1175,13 +1175,13 @@ var
   procedure BIO_vfree(a: PBIO) cdecl; external CLibCrypto;
   function BIO_up_ref(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_recvmmsg(b : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
     msgs_processed : PIdC_SIZET): TIdC_INT;  cdecl; external CLibCrypto; {introduced 3.2.0}
   function BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
 
   function BIO_sendmmsg(b0 : PBIO; msg : PBIO_MSG;
     stride, num_msg : TIdC_SIZET; flags : TIdC_UINT64;
@@ -1267,7 +1267,7 @@ var
   procedure BIO_ADDR_free(a: PBIO_ADDR) cdecl; external CLibCrypto; {introduced 1.1.0}
   procedure BIO_ADDR_clear(ap: PBIO_ADDR) cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_ADDR_family(const ap: PBIO_ADDR): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; var l: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_ADDR_rawport(const ap: PBIO_ADDR): TIdC_SHORT cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
   function BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -1369,7 +1369,7 @@ function BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT; {removed 1.0.0}
-function BIO_get_mem_ptr(b: PBIO; out pp: PBUF_MEM): TIdC_INT; {removed 1.0.0}
+function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; {removed 1.0.0}
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
 {$ENDIF}
 
@@ -1963,7 +1963,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_data(b: PBIO; pp: Pointer) : TIdC_INT; cdecl;
 //# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
-function  _BIO_get_mem_data(b: PBIO; out pp: Pointer) : TIdC_INT; cdecl;
+function  _BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;
 begin
   Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, @pp);
 end;
@@ -1977,7 +1977,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT; cdecl;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function  _BIO_get_mem_ptr(b: PBIO; out pp: PBUF_MEM): TIdC_INT; cdecl;
+function  _BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, @pp);
 end;
@@ -2082,7 +2082,7 @@ end;
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_data(b: PBIO; pp: Pointer) : TIdC_INT;
-function  ERR_BIO_get_mem_data(b: PBIO; out pp: Pointer) : TIdC_INT; cdecl;
+function  ERR_BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_data_procname);
 end;
@@ -2096,7 +2096,7 @@ end;
 
 // WAS DECLARED AS:
 // function  ERR_BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT;
-function  ERR_BIO_get_mem_ptr(b: PBIO; out pp: PBUF_MEM): TIdC_INT; cdecl;
+function  ERR_BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_mem_ptr_procname);
 end;
@@ -2485,7 +2485,7 @@ begin
 end;
 
 
-function  ERR_BIO_read_ex(b: PBIO; var data; dlen: TIdC_SIZET; out readbytes: TIdC_SIZET): TIdC_INT; cdecl;
+function  ERR_BIO_read_ex(b: PBIO; var data; dlen: TIdC_SIZET; var readbytes: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_read_ex_procname);
 end;
@@ -2511,7 +2511,7 @@ begin
 end;
 
 
-function  ERR_BIO_write_ex(b: PBIO; const data; dlen: TIdC_SIZET; out written: TIdC_SIZET): TIdC_INT; cdecl;
+function  ERR_BIO_write_ex(b: PBIO; const data; dlen: TIdC_SIZET; var written: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_write_ex_procname);
 end;
@@ -2867,7 +2867,7 @@ begin
 end;
 
  {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; out l: TIdC_SIZET): TIdC_INT; cdecl;
+function  ERR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; var l: TIdC_SIZET): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawaddress_procname);
 end;
@@ -7943,7 +7943,7 @@ end;
 // WAS DECLARED AS:
 // function BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function BIO_get_mem_ptr(b: PBIO; out pp: PBUF_MEM): TIdC_INT;
+function BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT;
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, pp);
 end;
