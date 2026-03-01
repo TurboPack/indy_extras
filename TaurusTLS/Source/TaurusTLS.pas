@@ -3104,7 +3104,7 @@ begin
 {$ELSE}
     cnt := CRYPTO_num_locks;
 {$ENDIF}
-    for i := 0 to cnt - 1 do
+    for i := 0 to cnt - 1 do //PALOFF
     begin
       Lock := TIdCriticalSection.Create;
       try
@@ -3974,7 +3974,7 @@ function TTaurusTLSIOHandlerSocket.SendEnc(const ABuffer: TIdBytes;
   const AOffset, ALength: Integer): Integer;
 begin
   // This can not be altered because it inherits from Indy.
-  Result := fSSLSocket.Send(ABuffer, AOffset, ALength);
+  Result := fSSLSocket.Send(ABuffer, AOffset, ALength); //PALOFF
 end;
 
 procedure TTaurusTLSIOHandlerSocket.AfterAccept;
@@ -5082,7 +5082,7 @@ begin
     // system exception.
     if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      Result := LRet;
+      Result := LRet;   //PALOFF
     end;
     break;
   until False;
@@ -5125,7 +5125,7 @@ begin
     // system exception.
     if LErr <> SSL_ERROR_ZERO_RETURN then
     begin
-      Result := LRet;
+      Result := LRet;   //PALOFF
     end;
     break;
   until False;
