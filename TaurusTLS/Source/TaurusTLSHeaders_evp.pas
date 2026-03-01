@@ -25308,6 +25308,37 @@ begin
     {$ifend}
   end;
 
+  EVP_MAC_CTX_get_block_size := LoadLibFunction(ADllHandle, EVP_MAC_CTX_get_block_size_procname);
+  FuncLoadError := not assigned(EVP_MAC_CTX_get_block_size);
+  if FuncLoadError then
+  begin
+    {$if not defined(EVP_MAC_update_allownil)}
+    EVP_MAC_CTX_get_block_size := ERR_EVP_MAC_CTX_get_block_size;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_block_size_introduced)}
+    if LibVersion < EVP_MAC_CTX_get_block_size_introduced then
+    begin
+      {$if declared(FC_EVP_MAC_CTX_get_block_size)}
+      EVP_MAC_CTX_get_block_size := FC_EVP_MAC_CTX_get_block_size;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(EVP_MAC_CTX_get_block_size_removed)}
+    if EVP_MAC_CTX_get_block_size_removed <= LibVersion then
+    begin
+      {$if declared(_EVP_MAC_CTX_get_block_size)}
+      EVP_MAC_update := _EVP_MAC_CTX_get_block_size;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(EVP_MAC_CTX_get_block_size_allownil)}
+    if FuncLoadError then
+      AFailed.Add('EVP_MAC_CTX_get_block_size');
+    {$ifend}
+  end;
+
     EVP_MAC_update := LoadLibFunction(ADllHandle, EVP_MAC_update_procname);
   FuncLoadError := not assigned(EVP_MAC_update);
   if FuncLoadError then
