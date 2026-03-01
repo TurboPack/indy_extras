@@ -90,7 +90,7 @@ begin
     RSOSSLEVPDigestExError) then
   begin
 
-  end;
+  end;    //PALOFF
 end;
 
 // **************** HMAC Common Code ***********************
@@ -106,7 +106,7 @@ begin
   if ETaurusTLSHMACInitEx.CheckResult(HMAC_Init_ex(Result, PByte(AKey),
     Length(AKey), AInst, nil), RSOSSLHMACInitExError) then
   begin
-  end;
+  end;      //PALOFF
 end;
 
 // **************** FIPS Support backend *******************
@@ -305,7 +305,7 @@ begin
     Length(AIn)), RSOSSLEVPDigestUpdateError) then
   begin
 
-  end;
+  end;    //PALOFF
 end;
 
 function TaurusTLSFinalHashInst(ACtx: TIdHashIntCtx): TIdBytes;
@@ -478,7 +478,7 @@ begin
     RSOSSLHMACUpdateError) then
   begin
 
-  end;
+  end;   //PALOFF
 end;
 
 function TaurusTLSFinalHMACInst(ACtx: TIdHMACIntCtx): TIdBytes;

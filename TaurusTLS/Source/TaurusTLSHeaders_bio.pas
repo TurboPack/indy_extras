@@ -1963,7 +1963,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_data(b: PBIO; pp: Pointer) : TIdC_INT; cdecl;
 //# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
-function  _BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;
+function  _BIO_get_mem_data(b: PBIO; var pp: Pointer) : TIdC_INT; cdecl;  //PALOFF
 begin
   Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, @pp);
 end;
@@ -1977,7 +1977,7 @@ end;
 // WAS DECLARED AS:
 // function  _BIO_get_mem_ptr(b: PBIO; pp: Pointer): TIdC_INT; cdecl;
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function  _BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;
+function  _BIO_get_mem_ptr(b: PBIO; var pp: PBUF_MEM): TIdC_INT; cdecl;  //PALOFF
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, @pp);
 end;

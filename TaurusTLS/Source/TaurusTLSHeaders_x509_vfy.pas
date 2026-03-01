@@ -1591,7 +1591,7 @@ end;
 procedure  FC_X509_LOOKUP_meth_free(method: PX509_LOOKUP_METHOD); cdecl;
 begin
   //Do nothing
-end;
+end;  //PALOFF
 
 {$I TaurusTLSUnusedParamOn.inc}
 

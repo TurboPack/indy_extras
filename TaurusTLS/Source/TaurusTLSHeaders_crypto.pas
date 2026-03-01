@@ -1132,12 +1132,12 @@ end;
 
 procedure  _CRYPTO_set_locking_callback(func: TIdSslLockingCallback); cdecl;
 begin
-end;
+end;   //PALOFF
 
 {$I TaurusTLSUnusedParamOff.inc}
 procedure  _CRYPTO_set_id_callback(func: TIdSslIdCallback); cdecl;
 begin
-end;
+end;  //PALOFF
 
 function  _SSLeay_version(type_ : TIdC_INT) : PIdAnsiChar; cdecl;
 begin
@@ -1151,11 +1151,11 @@ end;
 
 procedure  _CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); cdecl;
 begin
-end;
+end;   //PALOFF
 
 procedure  _CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); cdecl;
 begin
-end;
+end;    //PALOFF
 
   {$I TaurusTLSUnusedParamOff.inc}
 
@@ -1225,7 +1225,7 @@ end;
 procedure  FC_OPENSSL_cleanup; cdecl;
 begin
  {nothing to do}
-end;
+end;       //PALOFF
 
 {/forward_compatibility}
   {$I TaurusTLSNoRetValOff.inc}

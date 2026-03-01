@@ -3741,7 +3741,7 @@ procedure FC_EVP_CIPHER_free(cipher: PEVP_CIPHER); cdecl;
 begin
   // only needs for compatibility with 1.1.1
   // it does nothing as EVP_get_cipherbyname does not initialize the cipher
-end;
+end;    //PALOFF
 
 function FC_EVP_CIPHER_get_nid(const cipher : PEVP_CIPHER) : TIdC_INT; cdecl;
 begin
@@ -3883,7 +3883,7 @@ end;
 procedure  _EVP_cleanup; cdecl;
 begin
    //Do not remove this empty procedure.  It's used in a procedural pointer.
-end;
+end;   //PALOFF
 
 procedure  _BIO_set_md(v1: PBIO; const md: PEVP_MD); cdecl;
 begin
@@ -13185,7 +13185,7 @@ begin
     if FuncLoadError then
       AFailed.Add('EVP_md2');
     {$ifend}
-  end;
+  end;  //PALOFF
 
  {removed 1.1.0 allow_nil}
   EVP_md4 := LoadLibFunction(ADllHandle, EVP_md4_procname);
@@ -13219,7 +13219,7 @@ begin
     if FuncLoadError then
       AFailed.Add('EVP_md4');
     {$ifend}
-  end;
+  end;    //PALOFF
 
  {removed 1.1.0 allow_nil}
   EVP_md5 := LoadLibFunction(ADllHandle, EVP_md5_procname);
@@ -13253,7 +13253,7 @@ begin
     if FuncLoadError then
       AFailed.Add('EVP_md5');
     {$ifend}
-  end;
+  end;  //PALOFF
 
  {removed 1.1.0 allow_nil}
   EVP_md5_sha1 := LoadLibFunction(ADllHandle, EVP_md5_sha1_procname);
