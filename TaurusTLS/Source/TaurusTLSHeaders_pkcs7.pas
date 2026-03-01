@@ -4681,25 +4681,25 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-  sk_PKCS7_RECIP_INFO_new:= Tsk_PKCS7_RECIP_INFO_new(sk_new);
-  sk_PKCS7_RECIP_INFO_new_null := Tsk_PKCS7_RECIP_INFO_new_null(sk_new_null);
-  sk_PKCS7_RECIP_INFO_free := Tsk_PKCS7_RECIP_INFO_free(sk_free);
-  sk_PKCS7_RECIP_INFO_num := Tsk_PKCS7_RECIP_INFO_num(sk_num);
-  sk_PKCS7_RECIP_INFO_value := Tsk_PKCS7_RECIP_INFO_value(sk_value);
-  sk_PKCS7_RECIP_INFO_push := Tsk_PKCS7_RECIP_INFO_push(sk_push);
-  sk_PKCS7_RECIP_INFO_dup := Tsk_PKCS7_RECIP_INFO_dup(sk_dup);
-  sk_PKCS7_RECIP_INFO_find := Tsk_PKCS7_RECIP_INFO_find(sk_find);
-  sk_PKCS7_RECIP_INFO_pop_free := Tsk_PKCS7_RECIP_INFO_pop_free(sk_pop_free);
+  sk_PKCS7_RECIP_INFO_new:= Tsk_PKCS7_RECIP_INFO_new(sk_new); //PALOFF
+  sk_PKCS7_RECIP_INFO_new_null := Tsk_PKCS7_RECIP_INFO_new_null(sk_new_null);  //PALOFF
+  sk_PKCS7_RECIP_INFO_free := Tsk_PKCS7_RECIP_INFO_free(sk_free); //PALOFF
+  sk_PKCS7_RECIP_INFO_num := Tsk_PKCS7_RECIP_INFO_num(sk_num);  //PALOFF
+  sk_PKCS7_RECIP_INFO_value := Tsk_PKCS7_RECIP_INFO_value(sk_value);  //PALOFF
+  sk_PKCS7_RECIP_INFO_push := Tsk_PKCS7_RECIP_INFO_push(sk_push);  //PALOFF
+  sk_PKCS7_RECIP_INFO_dup := Tsk_PKCS7_RECIP_INFO_dup(sk_dup);  //PALOFF
+  sk_PKCS7_RECIP_INFO_find := Tsk_PKCS7_RECIP_INFO_find(sk_find);  //PALOFF
+  sk_PKCS7_RECIP_INFO_pop_free := Tsk_PKCS7_RECIP_INFO_pop_free(sk_pop_free);  //PALOFF
 
-  sk_PKCS7_SIGNER_INFO_new:= Tsk_PKCS7_SIGNER_INFO_new(sk_new);
-  sk_PKCS7_SIGNER_INFO_new_null := Tsk_PKCS7_SIGNER_INFO_new_null(sk_new_null);
-  sk_PKCS7_SIGNER_INFO_free := Tsk_PKCS7_SIGNER_INFO_free(sk_free);
-  sk_PKCS7_SIGNER_INFO_num := Tsk_PKCS7_SIGNER_INFO_num(sk_num);
-  sk_PKCS7_SIGNER_INFO_value := Tsk_PKCS7_SIGNER_INFO_value(sk_value);
-  sk_PKCS7_SIGNER_INFO_push := Tsk_PKCS7_SIGNER_INFO_push(sk_push);
-  sk_PKCS7_SIGNER_INFO_dup := Tsk_PKCS7_SIGNER_INFO_dup(sk_dup);
-  sk_PKCS7_SIGNER_INFO_find := Tsk_PKCS7_SIGNER_INFO_find(sk_find);
-  sk_PKCS7_SIGNER_INFO_pop_free := Tsk_PKCS7_SIGNER_INFO_pop_free(sk_pop_free);
+  sk_PKCS7_SIGNER_INFO_new:= Tsk_PKCS7_SIGNER_INFO_new(sk_new);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_new_null := Tsk_PKCS7_SIGNER_INFO_new_null(sk_new_null);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_free := Tsk_PKCS7_SIGNER_INFO_free(sk_free);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_num := Tsk_PKCS7_SIGNER_INFO_num(sk_num);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_value := Tsk_PKCS7_SIGNER_INFO_value(sk_value);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_push := Tsk_PKCS7_SIGNER_INFO_push(sk_push);   //PALOFF
+  sk_PKCS7_SIGNER_INFO_dup := Tsk_PKCS7_SIGNER_INFO_dup(sk_dup);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_find := Tsk_PKCS7_SIGNER_INFO_find(sk_find);  //PALOFF
+  sk_PKCS7_SIGNER_INFO_pop_free := Tsk_PKCS7_SIGNER_INFO_pop_free(sk_pop_free); //PALOFF
 
 end;
 

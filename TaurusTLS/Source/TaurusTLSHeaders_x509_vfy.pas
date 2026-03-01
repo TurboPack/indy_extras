@@ -9253,35 +9253,35 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-  sk_X509_OBJECT_new:= Tsk_X509_OBJECT_new(sk_new);
-  sk_X509_OBJECT_new_null := Tsk_X509_OBJECT_new_null(sk_new_null);
-  sk_X509_OBJECT_free := Tsk_X509_OBJECT_free(sk_free);
-  sk_X509_OBJECT_num := Tsk_X509_OBJECT_num(sk_num);
-  sk_X509_OBJECT_value := Tsk_X509_OBJECT_value(sk_value);
-  sk_X509_OBJECT_push := Tsk_X509_OBJECT_push(sk_push);
-  sk_X509_OBJECT_dup := Tsk_X509_OBJECT_dup(sk_dup);
-  sk_X509_OBJECT_find := Tsk_X509_OBJECT_find(sk_find);
-  sk_X509_OBJECT_pop_free :=  Tsk_X509_OBJECT_pop_free(sk_pop_free);
+  sk_X509_OBJECT_new:= Tsk_X509_OBJECT_new(sk_new);  //PALOFF
+  sk_X509_OBJECT_new_null := Tsk_X509_OBJECT_new_null(sk_new_null);  //PALOFF
+  sk_X509_OBJECT_free := Tsk_X509_OBJECT_free(sk_free);  //PALOFF
+  sk_X509_OBJECT_num := Tsk_X509_OBJECT_num(sk_num);  //PALOFF
+  sk_X509_OBJECT_value := Tsk_X509_OBJECT_value(sk_value);  //PALOFF
+  sk_X509_OBJECT_push := Tsk_X509_OBJECT_push(sk_push);  //PALOFF
+  sk_X509_OBJECT_dup := Tsk_X509_OBJECT_dup(sk_dup);   //PALOFF
+  sk_X509_OBJECT_find := Tsk_X509_OBJECT_find(sk_find);  //PALOFF
+  sk_X509_OBJECT_pop_free :=  Tsk_X509_OBJECT_pop_free(sk_pop_free); //PALOFF
 
-  sk_X509_LOOKUP_new:= Tsk_X509_LOOKUP_new(sk_new);
-  sk_X509_LOOKUP_new_null := Tsk_X509_LOOKUP_new_null(sk_new_null);
-  sk_X509_LOOKUP_free := Tsk_X509_LOOKUP_free(sk_free);
-  sk_X509_LOOKUP_num := Tsk_X509_LOOKUP_num(sk_num);
-  sk_X509_LOOKUP_value := Tsk_X509_LOOKUP_value(sk_value);
-  sk_X509_LOOKUP_push := Tsk_X509_LOOKUP_push(sk_push);
-  sk_X509_LOOKUP_dup := Tsk_X509_LOOKUP_dup(sk_dup);
-  sk_X509_LOOKUP_find := Tsk_X509_LOOKUP_find(sk_find);
-  sk_X509_LOOKUP_pop_free :=  Tsk_X509_LOOKUP_pop_free(sk_pop_free);
+  sk_X509_LOOKUP_new:= Tsk_X509_LOOKUP_new(sk_new);  //PALOFF
+  sk_X509_LOOKUP_new_null := Tsk_X509_LOOKUP_new_null(sk_new_null);  //PALOFF
+  sk_X509_LOOKUP_free := Tsk_X509_LOOKUP_free(sk_free);  //PALOFF
+  sk_X509_LOOKUP_num := Tsk_X509_LOOKUP_num(sk_num);  //PALOFF
+  sk_X509_LOOKUP_value := Tsk_X509_LOOKUP_value(sk_value); //PALOFF
+  sk_X509_LOOKUP_push := Tsk_X509_LOOKUP_push(sk_push);  //PALOFF
+  sk_X509_LOOKUP_dup := Tsk_X509_LOOKUP_dup(sk_dup);  //PALOFF
+  sk_X509_LOOKUP_find := Tsk_X509_LOOKUP_find(sk_find);  //PALOFF
+  sk_X509_LOOKUP_pop_free :=  Tsk_X509_LOOKUP_pop_free(sk_pop_free);  //PALOFF
 
-  sk_X509_VERIFY_PARAM_new:= Tsk_X509_VERIFY_PARAM_new(sk_new);
-  sk_X509_VERIFY_PARAM_new_null := Tsk_X509_VERIFY_PARAM_new_null(sk_new_null);
-  sk_X509_VERIFY_PARAM_free := Tsk_X509_VERIFY_PARAM_free(sk_free);
-  sk_X509_VERIFY_PARAM_num := Tsk_X509_VERIFY_PARAM_num(sk_num);
-  sk_X509_VERIFY_PARAM_value := Tsk_X509_VERIFY_PARAM_value(sk_value);
-  sk_X509_VERIFY_PARAM_push := Tsk_X509_VERIFY_PARAM_push(sk_push);
-  sk_X509_VERIFY_PARAM_dup := Tsk_X509_VERIFY_PARAM_dup(sk_dup);
-  sk_X509_VERIFY_PARAM_find := Tsk_X509_VERIFY_PARAM_find(sk_find);
-  sk_X509_VERIFY_PARAM_pop_free :=  Tsk_X509_VERIFY_PARAM_pop_free(sk_pop_free);
+  sk_X509_VERIFY_PARAM_new:= Tsk_X509_VERIFY_PARAM_new(sk_new);  //PALOFF
+  sk_X509_VERIFY_PARAM_new_null := Tsk_X509_VERIFY_PARAM_new_null(sk_new_null); //PALOFF
+  sk_X509_VERIFY_PARAM_free := Tsk_X509_VERIFY_PARAM_free(sk_free);  //PALOFF
+  sk_X509_VERIFY_PARAM_num := Tsk_X509_VERIFY_PARAM_num(sk_num);  //PALOFF
+  sk_X509_VERIFY_PARAM_value := Tsk_X509_VERIFY_PARAM_value(sk_value);  //PALOFF
+  sk_X509_VERIFY_PARAM_push := Tsk_X509_VERIFY_PARAM_push(sk_push);  //PALOFF
+  sk_X509_VERIFY_PARAM_dup := Tsk_X509_VERIFY_PARAM_dup(sk_dup);  //PALOFF
+  sk_X509_VERIFY_PARAM_find := Tsk_X509_VERIFY_PARAM_find(sk_find);  //PALOFF
+  sk_X509_VERIFY_PARAM_pop_free :=  Tsk_X509_VERIFY_PARAM_pop_free(sk_pop_free);  //PALOFF
 
 end;
 

@@ -28463,35 +28463,35 @@ begin
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
 
-  sk_SSL_CIPHER_new:= Tsk_SSL_CIPHER_new(sk_new);
-  sk_SSL_CIPHER_new_null := Tsk_SSL_CIPHER_new_null(sk_new_null);
-  sk_SSL_CIPHER_free := Tsk_SSL_CIPHER_free(sk_free);
-  sk_SSL_CIPHER_num := Tsk_SSL_CIPHER_num(sk_num);
-  sk_SSL_CIPHER_value := Tsk_SSL_CIPHER_value(sk_value);
-  sk_SSL_CIPHER_push := Tsk_SSL_CIPHER_push(sk_push);
-  sk_SSL_CIPHER_dup := Tsk_SSL_CIPHER_dup(sk_dup);
-  sk_SSL_CIPHER_find := Tsk_SSL_CIPHER_find(sk_find);
-  sk_SSL_CIPHER_pop_free :=  Tsk_SSL_CIPHER_pop_free(sk_pop_free);
+  sk_SSL_CIPHER_new:= Tsk_SSL_CIPHER_new(sk_new); //PALOFF
+  sk_SSL_CIPHER_new_null := Tsk_SSL_CIPHER_new_null(sk_new_null);  //PALOFF
+  sk_SSL_CIPHER_free := Tsk_SSL_CIPHER_free(sk_free);  //PALOFF
+  sk_SSL_CIPHER_num := Tsk_SSL_CIPHER_num(sk_num);  //PALOFF
+  sk_SSL_CIPHER_value := Tsk_SSL_CIPHER_value(sk_value);  //PALOFF
+  sk_SSL_CIPHER_push := Tsk_SSL_CIPHER_push(sk_push);  //PALOFF
+  sk_SSL_CIPHER_dup := Tsk_SSL_CIPHER_dup(sk_dup);  //PALOFF
+  sk_SSL_CIPHER_find := Tsk_SSL_CIPHER_find(sk_find);  //PALOFF
+  sk_SSL_CIPHER_pop_free :=  Tsk_SSL_CIPHER_pop_free(sk_pop_free);  //PALOFF
 
-  sk_SSL_COMP_new:= Tsk_SSL_COMP_new(sk_new);
-  sk_SSL_COMP_new_null := Tsk_SSL_COMP_new_null(sk_new_null);
-  sk_SSL_COMP_free := Tsk_SSL_COMP_free(sk_free);
-  sk_SSL_COMP_num := Tsk_SSL_COMP_num(sk_num);
-  sk_SSL_COMP_value := Tsk_SSL_COMP_value(sk_value);
-  sk_SSL_COMP_push := Tsk_SSL_COMP_push(sk_push);
-  sk_SSL_COMP_dup := Tsk_SSL_COMP_dup(sk_dup);
-  sk_SSL_COMP_find := Tsk_SSL_COMP_find(sk_find);
-  sk_SSL_COMP_pop_free :=  Tsk_SSL_COMP_pop_free(sk_pop_free);
+  sk_SSL_COMP_new:= Tsk_SSL_COMP_new(sk_new);  //PALOFF
+  sk_SSL_COMP_new_null := Tsk_SSL_COMP_new_null(sk_new_null); //PALOFF
+  sk_SSL_COMP_free := Tsk_SSL_COMP_free(sk_free);  //PALOFF
+  sk_SSL_COMP_num := Tsk_SSL_COMP_num(sk_num);  //PALOFF
+  sk_SSL_COMP_value := Tsk_SSL_COMP_value(sk_value); //PALOFF
+  sk_SSL_COMP_push := Tsk_SSL_COMP_push(sk_push);  //PALOFF
+  sk_SSL_COMP_dup := Tsk_SSL_COMP_dup(sk_dup);  //PALOFF
+  sk_SSL_COMP_find := Tsk_SSL_COMP_find(sk_find);  //PALOFF
+  sk_SSL_COMP_pop_free :=  Tsk_SSL_COMP_pop_free(sk_pop_free);  //PALOFF
 
-  sk_SRTP_PROTECTION_PROFILE_new:= Tsk_SRTP_PROTECTION_PROFILE_new(sk_new);
-  sk_SRTP_PROTECTION_PROFILE_new_null := Tsk_SRTP_PROTECTION_PROFILE_new_null(sk_new_null);
-  sk_SRTP_PROTECTION_PROFILE_free := Tsk_SRTP_PROTECTION_PROFILE_free(sk_free);
-  sk_SRTP_PROTECTION_PROFILE_num := Tsk_SRTP_PROTECTION_PROFILE_num(sk_num);
-  sk_SRTP_PROTECTION_PROFILE_value := Tsk_SRTP_PROTECTION_PROFILE_value(sk_value);
-  sk_SRTP_PROTECTION_PROFILE_push := Tsk_SRTP_PROTECTION_PROFILE_push(sk_push);
-  sk_SRTP_PROTECTION_PROFILE_dup := Tsk_SRTP_PROTECTION_PROFILE_dup(sk_dup);
-  sk_SRTP_PROTECTION_PROFILE_find := Tsk_SRTP_PROTECTION_PROFILE_find(sk_find);
-  sk_SRTP_PROTECTION_PROFILE_pop_free :=  Tsk_SRTP_PROTECTION_PROFILE_pop_free(sk_pop_free);
+  sk_SRTP_PROTECTION_PROFILE_new:= Tsk_SRTP_PROTECTION_PROFILE_new(sk_new);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_new_null := Tsk_SRTP_PROTECTION_PROFILE_new_null(sk_new_null); //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_free := Tsk_SRTP_PROTECTION_PROFILE_free(sk_free);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_num := Tsk_SRTP_PROTECTION_PROFILE_num(sk_num);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_value := Tsk_SRTP_PROTECTION_PROFILE_value(sk_value);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_push := Tsk_SRTP_PROTECTION_PROFILE_push(sk_push);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_dup := Tsk_SRTP_PROTECTION_PROFILE_dup(sk_dup);  //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_find := Tsk_SRTP_PROTECTION_PROFILE_find(sk_find);   //PALOFF
+  sk_SRTP_PROTECTION_PROFILE_pop_free :=  Tsk_SRTP_PROTECTION_PROFILE_pop_free(sk_pop_free);  //PALOFF
 end;
 
 procedure Unload;
