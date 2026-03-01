@@ -193,13 +193,13 @@ const
 function FC_RAND_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
 begin
-   Result := RAND_bytes(PByte(buf),TIdC_INT(num));
+   Result := RAND_bytes(PByte(buf),TIdC_INT(num));  //PALOFF
 end;
 
 function FC_RAND_priv_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
 begin
-   Result := RAND_priv_bytes(PByte(buf),TIdC_INT(num));
+   Result := RAND_priv_bytes(PByte(buf),TIdC_INT(num)); //PALOFF
 end;
 {$I TaurusTLSUnusedParamOn.inc}
 

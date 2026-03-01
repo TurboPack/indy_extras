@@ -2458,25 +2458,25 @@ begin
 
   // Stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-  sk_SCT_new := Tsk_SCT_new(sk_new);
-  sk_SCT_new_null := Tsk_SCT_new_null(sk_new_null);
-  sk_SCT_free := Tsk_SCT_free(sk_free);
-  sk_SCT_num := Tsk_SCT_num(sk_num);
-  sk_SCT_value := Tsk_SCT_value(sk_value);
-  sk_SCT_push := Tsk_SCT_push(sk_push);
-  sk_SCT_dup := Tsk_SCT_dup(sk_dup);
-  sk_SCT_find := Tsk_SCT_find(sk_find);
-  sk_SCT_pop_free := Tsk_SCT_pop_free(sk_pop_free);
+  sk_SCT_new := Tsk_SCT_new(sk_new);  //PALOFF
+  sk_SCT_new_null := Tsk_SCT_new_null(sk_new_null);  //PALOFF
+  sk_SCT_free := Tsk_SCT_free(sk_free);  //PALOFF
+  sk_SCT_num := Tsk_SCT_num(sk_num);  //PALOFF
+  sk_SCT_value := Tsk_SCT_value(sk_value); //PALOFF
+  sk_SCT_push := Tsk_SCT_push(sk_push);  //PALOFF
+  sk_SCT_dup := Tsk_SCT_dup(sk_dup);  //PALOFF
+  sk_SCT_find := Tsk_SCT_find(sk_find);  //PALOFF
+  sk_SCT_pop_free := Tsk_SCT_pop_free(sk_pop_free); //PALOFF
 
-  sk_CTLOG_new := Tsk_CTLOG_new(sk_new);
-  sk_CTLOG_new_null := Tsk_CTLOG_new_null(sk_new_null);
-  sk_CTLOG_free := Tsk_CTLOG_free(sk_free);
-  sk_CTLOG_num := Tsk_CTLOG_num(sk_num);
-  sk_CTLOG_value := Tsk_CTLOG_value(sk_value);
-  sk_CTLOG_push := Tsk_CTLOG_push(sk_push);
-  sk_CTLOG_dup := Tsk_CTLOG_dup(sk_dup);
-  sk_CTLOG_find := Tsk_CTLOG_find(sk_find);
-  sk_CTLOG_pop_free := Tsk_CTLOG_pop_free(sk_pop_free);
+  sk_CTLOG_new := Tsk_CTLOG_new(sk_new);  //PALOFF
+  sk_CTLOG_new_null := Tsk_CTLOG_new_null(sk_new_null);  //PALOFF
+  sk_CTLOG_free := Tsk_CTLOG_free(sk_free);  //PALOFF
+  sk_CTLOG_num := Tsk_CTLOG_num(sk_num);  //PALOFF
+  sk_CTLOG_value := Tsk_CTLOG_value(sk_value);  //PALOFF
+  sk_CTLOG_push := Tsk_CTLOG_push(sk_push);  //PALOFF
+  sk_CTLOG_dup := Tsk_CTLOG_dup(sk_dup);  //PALOFF
+  sk_CTLOG_find := Tsk_CTLOG_find(sk_find);  //PALOFF
+  sk_CTLOG_pop_free := Tsk_CTLOG_pop_free(sk_pop_free); //PALOFF
 end;
  {$I TaurusTLSUnusedParamOn.inc}
 

@@ -2666,7 +2666,7 @@ begin
       SSL_get_ex_data_X509_STORE_CTX_idx());
     if LSsl <> nil then
     begin
-      LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));
+      LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));  //PALOFF
       if LSock <> nil then
       begin
         LockVerifyCB.Enter;
@@ -2743,7 +2743,7 @@ begin
 end;
 {$I TaurusTLSUnusedParamOn.inc}
 
-function g_PasswordCallback(buf: PIdAnsiChar; size: TIdC_INT; rwflag:
+function g_PasswordCallback(buf: PIdAnsiChar; size: TIdC_INT; rwflag:  //PALOFF
     TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 {$IFDEF USE_MARSHALLED_PTRS}
 type
@@ -2783,7 +2783,7 @@ begin
         begin
 {$IFDEF USE_MARSHALLED_PTRS}
           TMarshal.Copy(TBytesPtr(@LBPassword)^, 0, TPtrWrapper.Create(buf),
-            IndyMin(Length(LBPassword), size));
+            IndyMin(Length(LBPassword), size));  //PALOFF
 {$ELSE}
           Move(LBPassword[0], buf^, IndyMin(Length(LBPassword), size));
 {$ENDIF}
@@ -2837,7 +2837,7 @@ begin
   try
     LockInfoCB.Enter;
     try
-      if Supports(TTaurusTLSSocket(SSL_get_app_data(SSLSocket)).Parent,
+      if Supports(TTaurusTLSSocket(SSL_get_app_data(SSLSocket)).Parent,  //PALOFF
         ITaurusTLSCallbackHelper, LHelper) then
       begin
         LHelper.StatusInfo(SSLSocket, where, ret);
@@ -3090,7 +3090,7 @@ end;
 
 procedure PrepareTaurusTLSLocking;
 var
-  i, cnt: Integer;
+  i, cnt: Integer;            //PALOFF
   Lock: TIdCriticalSection;
   LList: TIdCriticalSectionList;
 begin
