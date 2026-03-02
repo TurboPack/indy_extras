@@ -1622,7 +1622,7 @@ type
     //This needs to be private, not strict private
     //so we can set it in the clone method for FTP data
     //channel SNI.
-{$IFDEF USE_STRICT_PRIVATE_PROTECTED} private fHostname : String;{$ENDIF}
+{$IFDEF USE_STRICT_PRIVATE_PROTECTED} private fHostname : String;{$ENDIF} //PALOFF
   public
 
     /// <summary>
