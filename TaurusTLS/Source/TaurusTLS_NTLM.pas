@@ -159,7 +159,7 @@ function CreateNTPassword(const APassword: String; const ANonce: TIdBytes)
 var
   Lnt_hpw: array [1 .. 21] of Byte;
   Lnt_resp: array [1 .. 24] of Byte;
-  LMD4: TIdHashMessageDigest4;
+  LMD4: TIdHashMessageDigest4;  //PALOFF
 {$IFNDEF STRING_IS_UNICODE}
   i: Integer;
   LPwUnicode: TIdBytes;

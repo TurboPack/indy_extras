@@ -624,19 +624,19 @@ type
   /// </summary>
   TTaurusTLSX509 = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    FErrors: TTaurusTLSX509Errors;
-    FWarnings: TTaurusTLSX509Warnings;
-    FExtensions: TTaurusTLSX509Exts;
-    FFingerprints: TTaurusTLSX509Fingerprints;
-    FSigInfo: TTaurusTLSX509SigInfo;
-    FPublicKey: TTaurusTLSX509PublicKey;
+    FErrors: TTaurusTLSX509Errors;  //PALOFF
+    FWarnings: TTaurusTLSX509Warnings;  //PALOFF
+    FExtensions: TTaurusTLSX509Exts;  //PALOFF
+    FFingerprints: TTaurusTLSX509Fingerprints;  //PALOFF
+    FSigInfo: TTaurusTLSX509SigInfo;   //PALOFF
+    FPublicKey: TTaurusTLSX509PublicKey;  //PALOFF
     FCanFreeX509: Boolean;
     FX509: PX509;
     FSubject: TTaurusTLSX509Name;
     FIssuer: TTaurusTLSX509Name;
-    FDisplayInfo: TStrings;
-    FAuthorityKeyID: TTaurusTLSX509AuthorityKeyID;
-    FAltSubjectNames: TTaurusTLSX509AltSubjectNames;
+    FDisplayInfo: TStrings;  //PALOFF
+    FAuthorityKeyID: TTaurusTLSX509AuthorityKeyID; //PALOFF
+    FAltSubjectNames: TTaurusTLSX509AltSubjectNames;  //PALOFF
     function GetExtensionCount: TIdC_LONG; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetSubject: TTaurusTLSX509Name; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetIssuer: TTaurusTLSX509Name; {$IFDEF USE_INLINE}inline; {$ENDIF}

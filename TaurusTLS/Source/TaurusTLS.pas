@@ -1280,7 +1280,7 @@ type
     fSession: PSSL_SESSION;
 {$IFDEF USE_OBJECT_ARC}[Weak]
 {$ENDIF} FParent: TObject;
-    fPeerCert: TTaurusTLSX509;
+    fPeerCert: TTaurusTLSX509;  //PALOFF
     fSSL: PSSL;
     fSSLCipher: TTaurusTLSCipher;
     fSSLContext: TTaurusTLSContext;
@@ -1566,10 +1566,10 @@ type
     //  TTaurusTLSContext.OnContextLoaderCustom in TTaurusTLSIOHandlerSocket.Init
     //  after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
-    fClientCert: TTaurusTLSX509File;
-    fSSLContext: TTaurusTLSContext;
-    fSSLOptions: TTaurusTLSOptions;
-    fSSLSocket: TTaurusTLSSocket;
+    fClientCert: TTaurusTLSX509File;  //PALOFF
+    fSSLContext: TTaurusTLSContext;  //PALOFF
+    fSSLOptions: TTaurusTLSOptions;  //PALOFF
+    fSSLSocket: TTaurusTLSSocket;  //PALOFF
     // fPeerCert: TTaurusTLSX509;
     FOnDebugMessage: TOnDebugMessageEvent;
     FOnStatusInfo: TOnStatusEvent;
@@ -1918,10 +1918,10 @@ type
     //  TTaurusTLSContext.OnContextLoaderCustom in TTaurusTLSServerIOHandler.Init
     //  and TTaurusTLSIOHandlerSocket.Init after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
-    fCertificates: TTaurusTLSX509Files;
-    fDefaultCert: TTaurusTLSX509File;
-    fSSLOptions: TTaurusTLSOptions;
-    fSSLContext: TTaurusTLSContext;
+    fCertificates: TTaurusTLSX509Files;  //PALOFF
+    fDefaultCert: TTaurusTLSX509File;  //PALOFF
+    fSSLOptions: TTaurusTLSOptions;   //PALOFF
+    fSSLContext: TTaurusTLSContext;   //PALOFF
     FOnSSLNegotiated: TOnIOHandlerNotify;
     FOnStatusInfo: TOnStatusEvent;
     fOnSecurityLevel: TOnSecurityLevelEvent;
@@ -2534,13 +2534,13 @@ type
 {$ENDIF}
 
 var
-  SSLIsLoaded: TIdThreadSafeBoolean = nil;
-  LockInfoCB: TIdCriticalSection = nil;
-  LockLevelCB: TIdCriticalSection = nil;
-  LockPassCB: TIdCriticalSection = nil;
-  LockVerifyCB: TIdCriticalSection = nil;
-  Lock_SNI_CB: TIdCriticalSection = nil;
-  CallbackLockList: TIdCriticalSectionThreadList = nil;
+  SSLIsLoaded: TIdThreadSafeBoolean = nil;  //PALOFF
+  LockInfoCB: TIdCriticalSection = nil;   //PALOFF
+  LockLevelCB: TIdCriticalSection = nil;  //PALOFF
+  LockPassCB: TIdCriticalSection = nil;  //PALOFF
+  LockVerifyCB: TIdCriticalSection = nil; //PALOFF
+  Lock_SNI_CB: TIdCriticalSection = nil;  //PALOFF
+  CallbackLockList: TIdCriticalSectionThreadList = nil;  //PALOFF
 
 procedure GetStateVars(const SSLSocket: PSSL; const AWhere, Aret: TIdC_INT;
   out VTypeStr, VMsg: String);
@@ -2647,7 +2647,7 @@ var
   LSock: TTaurusTLSSocket;
   LContinue: Boolean;   //PALOFF
   LX509_Cert: PX509;
-  LCertificate: TTaurusTLSX509;
+  LCertificate: TTaurusTLSX509;  //PALOFF
   LCertErr: TIdC_LONG;
 {$IFNDEF USE_INLINE_VAR}
   LHelper: ITaurusTLSCallbackHelper;
@@ -3088,7 +3088,7 @@ end;
 procedure PrepareTaurusTLSLocking;
 var
   i, cnt: Integer;            //PALOFF
-  Lock: TIdCriticalSection;
+  Lock: TIdCriticalSection;    //PALOFF
   LList: TIdCriticalSectionList;   //PALOFF
 begin
   LList := CallbackLockList.LockList;
@@ -3491,7 +3491,7 @@ procedure TTaurusTLSServerIOHandler.Init;
 // see also TTaurusTLSIOHandlerSocket.Init
 var
   i: Integer;
-  LContext: TTaurusTLSContext;
+  LContext: TTaurusTLSContext;  //PALOFF
   LCertificate: TTaurusTLSX509File;
   LVerifyDepth : Integer;
   LMode :  TTaurusTLSSSLMode;
@@ -3585,7 +3585,7 @@ function TTaurusTLSServerIOHandler.Accept(ASocket: TIdSocketHandle;
   // This is a thread and not a yarn. Its the listener thread.
   AListenerThread: TIdThread; AYarn: TIdYarn): TIdIOHandler;
 var
-  LIO: TTaurusTLSIOHandlerSocket;
+  LIO: TTaurusTLSIOHandlerSocket;  //PALOFF
 begin
   // using a custom scheduler, AYarn may be nil, so don't assert
   Assert(ASocket <> nil);
@@ -3776,7 +3776,7 @@ end;
 function TTaurusTLSServerIOHandler.MakeClientIOHandler
   : TIdSSLIOHandlerSocketBase;
 var
-  LIO: TTaurusTLSIOHandlerSocket;
+  LIO: TTaurusTLSIOHandlerSocket;   //PALOFF
 begin
   LIO := TTaurusTLSIOHandlerSocket.Create(nil);
   try
@@ -4142,7 +4142,7 @@ end;
 // TODO: add an AOwner parameter
 function TTaurusTLSIOHandlerSocket.Clone: TIdSSLIOHandlerSocketBase;
 var
-  LIO: TTaurusTLSIOHandlerSocket;
+  LIO: TTaurusTLSIOHandlerSocket;  //PALOFF
 begin
   LIO := TTaurusTLSIOHandlerSocket.Create(nil);
   try
@@ -4247,7 +4247,7 @@ end;
 
 function TTaurusTLSIOHandlerSocket.TaurusGetURIHost: string;
 var
-  LURI: TIdURI;
+  LURI: TIdURI;   //PALOFF
 begin
   Result := '';
   if URIToCheck <> '' then
@@ -4889,7 +4889,7 @@ var
   LHelper: ITaurusTLSCallbackHelper;
   LVerifyResult: TIdC_LONG;
   Lpeercert: PX509;
-  LCertificate: TTaurusTLSX509;
+  LCertificate: TTaurusTLSX509;   //PALOFF
   LHostname: TBytes;
 
 begin

@@ -223,9 +223,9 @@ var
   GLibSSLLoadList: TList<TOpenSSLLoadProc> = nil;
   GUnLoadList: TList<TOpenSSLUnloadProc> = nil;
 {$ELSE}
-  GLibCryptoLoadList: TList = nil;
-  GLibSSLLoadList: TList = nil;
-  GUnLoadList: TList = nil;
+  GLibCryptoLoadList: TList = nil;  //PALOFF
+  GLibSSLLoadList: TList = nil; //PALOFF
+  GUnLoadList: TList = nil;  //PALOFF
 {$ENDIF}
 
 function GetOpenSSLLoader: IOpenSSLLoader;
@@ -287,9 +287,9 @@ type
     FLibCrypto: TIdLibHandle;
     FLibSSL: TIdLibHandle;
     FOpenSSLPath: string;
-    FFailed: TStringList;
+    FFailed: TStringList;  //PALOFF
     FSSLLibVersions: string;
-    FLibraryLoaded: TIdThreadSafeBoolean;
+    FLibraryLoaded: TIdThreadSafeBoolean;  //PALOFF
     FFailedToLoad: Boolean;
     function FindLibrary(const LibName, LibVersions: string): TIdLibHandle;
     function GetSSLLibVersions: string;
@@ -383,7 +383,7 @@ end;
 function TOpenSSLLoader.FindLibrary(const LibName, LibVersions: string)
   : TIdLibHandle;
 var
-  LibVersionsList: TStringList;
+  LibVersionsList: TStringList;  //PALOFF
   i: integer;
   {$IFDEF OSX}
   LFileName, LExt: string; // <---- New local vars
