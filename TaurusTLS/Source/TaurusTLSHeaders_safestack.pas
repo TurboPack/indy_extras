@@ -209,7 +209,7 @@ function sk_OPENSSL_STRING_set_cmp_func(sk: PSTACK_OF_OPENSSL_STRING;
   compare: Tsk_OPENSSL_STRING_compfunc): Tsk_OPENSSL_STRING_compfunc;   {$IFDEF USE_INLINE}inline;{$ENDIF}
 begin
   Result := Tsk_OPENSSL_STRING_compfunc
-    (OPENSSL_sk_set_cmp_func(sk, //PALOFF
+    (OPENSSL_sk_set_cmp_func(sk,  //PALOFF - Possible bad pointer usage, Possible bad typecast (for objects: consider using "as")
     TOPENSSL_sk_compfunc(compare)));
 end;
 

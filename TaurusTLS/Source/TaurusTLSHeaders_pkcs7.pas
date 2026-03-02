@@ -4681,6 +4681,7 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  //Disable PAL warnings for Bad Typecast
   sk_PKCS7_RECIP_INFO_new:= Tsk_PKCS7_RECIP_INFO_new(sk_new); //PALOFF
   sk_PKCS7_RECIP_INFO_new_null := Tsk_PKCS7_RECIP_INFO_new_null(sk_new_null);  //PALOFF
   sk_PKCS7_RECIP_INFO_free := Tsk_PKCS7_RECIP_INFO_free(sk_free); //PALOFF

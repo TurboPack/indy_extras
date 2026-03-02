@@ -547,7 +547,7 @@ end;
 function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
-  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));  //PALOFF
+  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));  //PALOFF - Mismatch parameter value (32/64-bits
 end;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}

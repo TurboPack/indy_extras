@@ -4171,7 +4171,7 @@ end;
 // TODO: add an AOwner parameter
 function TTaurusTLSIOHandlerSocket.Clone: TIdSSLIOHandlerSocketBase;
 var
-  LIO: TTaurusTLSIOHandlerSocket;  //PALOFF
+  LIO: TTaurusTLSIOHandlerSocket; //PALOFF - Unbalanced Create/Free,  Created and freed objects
 begin
   LIO := TTaurusTLSIOHandlerSocket.Create(nil);
   try
@@ -4875,7 +4875,7 @@ var
   LHelper: ITaurusTLSCallbackHelper;
   LVerifyResult: TIdC_LONG;
   Lpeercert: PX509;
-  LCertificate: TTaurusTLSX509;   //PALOFF
+  LCertificate: TTaurusTLSX509;   //PALOFF "Created and freed objects"
   LHostname: TBytes;
 
 begin

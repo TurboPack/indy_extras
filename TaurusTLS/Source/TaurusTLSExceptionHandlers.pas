@@ -343,7 +343,7 @@ var
   LMsg: String;
   LErrMsg : String;
   {$ENDIF}
-  LException : ETaurusTLSAPICryptoError;   //PALOFF
+  LException : ETaurusTLSAPICryptoError;   //PALOFF - Created and freed objects
 begin
   {$IFDEF USE_INLINE_VAR}
   var LMsg, LErrMsg : String;
@@ -379,7 +379,7 @@ class procedure ETaurusTLSAPISSLError.RaiseExceptionCode(const AErrCode, ARetCod
     {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 var
   LErrQueue : TIdC_ULONG;
-  LException : ETaurusTLSAPISSLError;  //PALOFF
+  LException : ETaurusTLSAPISSLError;  //PALOFF - Created and freed objects
   {$IFNDEF USE_INLINE_VAR}
   LErrStr : String;
   {$ENDIF}

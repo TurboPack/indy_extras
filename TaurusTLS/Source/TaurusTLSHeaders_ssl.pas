@@ -27816,7 +27816,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv2_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv2
   SSLv2_server_method := LoadLibFunction(ADllHandle, SSLv2_server_method_procname);
@@ -27850,7 +27850,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv2_server_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv2
   SSLv2_client_method := LoadLibFunction(ADllHandle, SSLv2_client_method_procname);
@@ -27884,7 +27884,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv2_client_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv2
   SSLv3_method := LoadLibFunction(ADllHandle, SSLv3_method_procname);
@@ -27918,7 +27918,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv3_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3
   SSLv3_server_method := LoadLibFunction(ADllHandle, SSLv3_server_method_procname);
@@ -27952,7 +27952,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv3_server_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3
   SSLv3_client_method := LoadLibFunction(ADllHandle, SSLv3_client_method_procname);
@@ -27986,7 +27986,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv3_client_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3
   SSLv23_method := LoadLibFunction(ADllHandle, SSLv23_method_procname);
@@ -28020,7 +28020,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv23_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
   SSLv23_server_method := LoadLibFunction(ADllHandle, SSLv23_server_method_procname);
@@ -28054,7 +28054,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv23_server_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
   SSLv23_client_method := LoadLibFunction(ADllHandle, SSLv23_client_method_procname);
@@ -28088,7 +28088,7 @@ begin
     if FuncLoadError then
       AFailed.Add('SSLv23_client_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // SSLv3 but can rollback to v2
   TLSv1_method := LoadLibFunction(ADllHandle, TLSv1_method_procname);
@@ -28122,7 +28122,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // TLSv1.0
   TLSv1_server_method := LoadLibFunction(ADllHandle, TLSv1_server_method_procname);
@@ -28156,7 +28156,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_server_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // TLSv1.0
   TLSv1_client_method := LoadLibFunction(ADllHandle, TLSv1_client_method_procname);
@@ -28190,7 +28190,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_client_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} // TLSv1.0
   TLSv1_1_method := LoadLibFunction(ADllHandle, TLSv1_1_method_procname);
@@ -28224,7 +28224,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_1_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} //TLS1.1
   TLSv1_1_server_method := LoadLibFunction(ADllHandle, TLSv1_1_server_method_procname);
@@ -28258,7 +28258,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_1_server_method');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} //TLS1.1
   TLSv1_1_client_method := LoadLibFunction(ADllHandle, TLSv1_1_client_method_procname);
@@ -28292,7 +28292,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_1_client_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil} //TLS1.1
   TLSv1_2_method := LoadLibFunction(ADllHandle, TLSv1_2_method_procname);
@@ -28326,7 +28326,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_2_method');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil}		// TLSv1.2
   TLSv1_2_server_method := LoadLibFunction(ADllHandle, TLSv1_2_server_method_procname);
@@ -28360,7 +28360,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_2_server_method');
     {$ifend}
-  end;     //PALOFF
+  end;     //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil}	// TLSv1.2 
   TLSv1_2_client_method := LoadLibFunction(ADllHandle, TLSv1_2_client_method_procname);
@@ -28394,7 +28394,7 @@ begin
     if FuncLoadError then
       AFailed.Add('TLSv1_2_client_method');
     {$ifend}
-  end;    //PALOFF
+  end;    //PALOFF Empty begin/end-blocks
 
  {removed 1.1.0 allow_nil}	// TLSv1.2
   SSL_get0_peer_certificate := LoadLibFunction(ADllHandle, SSL_get0_peer_certificate_procname);
