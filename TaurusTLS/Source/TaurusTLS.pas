@@ -2529,13 +2529,13 @@ type
 {$ENDIF}
 
 var
-  SSLIsLoaded: TIdThreadSafeBoolean = nil;  //PALOFF
-  LockInfoCB: TIdCriticalSection = nil;   //PALOFF
-  LockLevelCB: TIdCriticalSection = nil;  //PALOFF
-  LockPassCB: TIdCriticalSection = nil;  //PALOFF
-  LockVerifyCB: TIdCriticalSection = nil; //PALOFF
-  Lock_SNI_CB: TIdCriticalSection = nil;  //PALOFF
-  CallbackLockList: TIdCriticalSectionThreadList = nil;  //PALOFF
+  SSLIsLoaded: TIdThreadSafeBoolean = nil;  //PALOFF - Created and freed objects
+  LockInfoCB: TIdCriticalSection = nil;   //PALOFF - Created and freed objects
+  LockLevelCB: TIdCriticalSection = nil;  //PALOFF - Created and freed objects
+  LockPassCB: TIdCriticalSection = nil;  //PALOFF - Created and freed objects
+  LockVerifyCB: TIdCriticalSection = nil; //PALOFF - Created and freed objects
+  Lock_SNI_CB: TIdCriticalSection = nil;  //PALOFF - Created and freed objects
+  CallbackLockList: TIdCriticalSectionThreadList = nil;  //PALOFF - Created and freed objects
 
 procedure GetStateVars(const SSLSocket: PSSL; const AWhere, Aret: TIdC_INT;
   out VTypeStr, VMsg: String);
@@ -3492,7 +3492,7 @@ procedure TTaurusTLSServerIOHandler.Init;
 // see also TTaurusTLSIOHandlerSocket.Init
 var
   i: Integer;
-  LContext: TTaurusTLSContext;  //PALOFF
+  LContext: TTaurusTLSContext;  //PALOFF - Unbalanced Create/Free, Created and freed objects
   LCertificate: TTaurusTLSX509File;
   LVerifyDepth : Integer;
   LMode :  TTaurusTLSSSLMode;
