@@ -2663,7 +2663,8 @@ begin
       SSL_get_ex_data_X509_STORE_CTX_idx());
     if LSsl <> nil then
     begin
-      LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));  //PALOFF
+      // Surpress PAL Warning about bad pointer typecast
+      LSock := TTaurusTLSSocket(SSL_get_app_data(LSsl));   //PALOFF
       if LSock <> nil then
       begin
         LockVerifyCB.Enter;
@@ -2740,7 +2741,8 @@ begin
 end;
 {$I TaurusTLSUnusedParamOn.inc}
 
-function g_PasswordCallback(buf: PIdAnsiChar; size: TIdC_INT; rwflag:  //PALOFF
+{surpress "Value parameters that are set"}
+function g_PasswordCallback(buf: PIdAnsiChar; size: TIdC_INT; rwflag:
     TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 {$IFDEF USE_MARSHALLED_PTRS}
 type
@@ -2757,14 +2759,18 @@ var
   LErr: Integer; //PALOFF
   LOk: Boolean;
   LHelper: ITaurusTLSCallbackHelper;
+  LBuf: PIdAnsiChar;   //PALOFF
 begin
+  //set a local PIdAnsichar to the buf value so we can modify what it points to
+  //without triggering a warning that has to be surpressed.
+   LBuf:=buf;
   // Preserve last error just in case TaurusTLS is using it and we do something that
   // clobers it.  CYA.
   LErr := GStack.WSGetLastError;
   try
     LockPassCB.Enter;
     try
-      FillChar(buf^, size, 0);
+      FillChar(LBuf^, size, 0);
 {$IFDEF USE_INLINE_VAR}
       var
         LBPassword: TIdBytes;
@@ -2782,7 +2788,7 @@ begin
           TMarshal.Copy(TBytesPtr(@LBPassword)^, 0, TPtrWrapper.Create(buf),
             IndyMin(Length(LBPassword), size));  //PALOFF
 {$ELSE}
-          Move(LBPassword[0], buf^, IndyMin(Length(LBPassword), size));
+          Move(LBPassword[0], LBuf^, IndyMin(Length(LBPassword), size));
 {$ENDIF}
         end;
         Result := Length(LBPassword);
@@ -2793,7 +2799,7 @@ begin
 {$ENDIF}
         LPassword := LHelper.GetPassword(rwflag > 0, LOk);
         LHelper := nil;
-        StrPLCopy(buf, LPassword, size);
+        StrPLCopy(LBuf, LPassword, size);
         Result := Length(LPassword);
 {$ENDIF}
       end
@@ -2802,7 +2808,7 @@ begin
         LOk := False;
         Result := 0;
       end;
-      buf[size - 1] := #0; // RLebeau: truncate the password if needed
+      LBuf[size - 1] := #0; // RLebeau: truncate the password if needed
       if not LOk then
       begin
         // indicate failure

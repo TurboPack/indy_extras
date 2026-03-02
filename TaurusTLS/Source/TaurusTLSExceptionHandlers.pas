@@ -107,6 +107,22 @@ type
     /// </returns>
     class function CheckResult(AResult: TIdC_INT;
       const AMsg : String = ''; ARaiseException: boolean = True): boolean; static;
+
+    /// <summary>
+    ///   Conditionally raise exception if the result of an OpenSSL API call is
+    ///   &lt;&gt; 1 with the message provied by the AMsg parameter.
+    /// </summary>
+    /// <param name="AResult">
+    ///   The result of an OpenSSL function.
+    /// </param>
+    /// <param name="AMsg">
+    ///   The exception that is to be raised.
+    /// </param>
+    /// <remarks>
+    ///   This is just a handy wrapper for the CheckResult class function for
+    ///   use in procedures to prevent warnings from code analysis.
+    /// </remarks>
+    class procedure RaiseIfError(AResult : TIdC_INT; const AMsg : String = ''); static;
     /// <summary>
     ///   Raises the exception class with an error code.
     /// </summary>
@@ -341,6 +357,12 @@ begin
   LException := Create(LMsg);
   LException.FErrorCode := AErrCode;
   raise LException;
+end;
+
+class procedure ETaurusTLSAPICryptoError.RaiseIfError(AResult: TIdC_INT;
+  const AMsg: String);
+begin
+  CheckResult(AResult, AMsg);
 end;
 
 { ETaurusTLSAPISSLError }

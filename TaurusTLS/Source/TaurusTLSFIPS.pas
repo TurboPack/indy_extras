@@ -86,11 +86,8 @@ begin
   begin
     ETaurusTLSEVPMDCTXNew.RaiseException(RSOSSLEVPMDCTXNew);
   end;
-  if ETaurusTLSDigestInitEx.CheckResult(EVP_DigestInit_ex(Result, AInst, nil),
-    RSOSSLEVPDigestExError) then
-  begin
-
-  end;    //PALOFF
+  ETaurusTLSDigestInitEx.RaiseIfError(EVP_DigestInit_ex(Result, AInst, nil),
+    RSOSSLEVPDigestExError);
 end;
 
 // **************** HMAC Common Code ***********************
@@ -103,10 +100,8 @@ begin
   begin
     ETaurusTLSHMACCTXNew.RaiseException(RSOSSLHMACCTXnew);
   end;
-  if ETaurusTLSHMACInitEx.CheckResult(HMAC_Init_ex(Result, PByte(AKey),
-    Length(AKey), AInst, nil), RSOSSLHMACInitExError) then
-  begin
-  end;      //PALOFF
+  ETaurusTLSHMACInitEx.RaiseIfError(HMAC_Init_ex(Result, PByte(AKey),
+    Length(AKey), AInst, nil), RSOSSLHMACInitExError);
 end;
 
 // **************** FIPS Support backend *******************
@@ -301,11 +296,8 @@ end;
 
 procedure TaurusTLSUpdateHashInst(ACtx: TIdHashIntCtx; const AIn: TIdBytes);
 begin
-  if ETaurusTLSDigestUpdate.CheckResult(EVP_DigestUpdate(ACtx, PByte(AIn),
-    Length(AIn)), RSOSSLEVPDigestUpdateError) then
-  begin
-
-  end;    //PALOFF
+  ETaurusTLSDigestUpdate.RaiseIfError(EVP_DigestUpdate(ACtx, PByte(AIn),
+    Length(AIn)), RSOSSLEVPDigestUpdateError);
 end;
 
 function TaurusTLSFinalHashInst(ACtx: TIdHashIntCtx): TIdBytes;
@@ -474,11 +466,8 @@ end;
 
 procedure TaurusTLSUpdateHMACInst(ACtx: TIdHMACIntCtx; const AIn: TIdBytes);
 begin
-  if ETaurusTLSHMACUpdate.CheckResult(HMAC_Update(ACtx, PByte(AIn), Length(AIn)),
-    RSOSSLHMACUpdateError) then
-  begin
-
-  end;   //PALOFF
+  ETaurusTLSHMACUpdate.RaiseIfError(HMAC_Update(ACtx, PByte(AIn), Length(AIn)),
+    RSOSSLHMACUpdateError);
 end;
 
 function TaurusTLSFinalHMACInst(ACtx: TIdHMACIntCtx): TIdBytes;
