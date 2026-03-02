@@ -25060,37 +25060,6 @@ begin
     {$ifend}
   end;
 
-  EVP_MAC_CTX_free := LoadLibFunction(ADllHandle, EVP_MAC_CTX_free_procname);
-  FuncLoadError := not assigned(EVP_MAC_CTX_free);
-  if FuncLoadError then
-  begin
-    {$if not defined(EVP_MAC_CTX_free_allownil)}
-    EVP_MAC_CTX_free := ERR_EVP_MAC_CTX_free;
-    {$ifend}
-    {$if declared(EVP_MAC_CTX_free_introduced)}
-    if LibVersion < EVP_MAC_CTX_free_introduced then
-    begin
-      {$if declared(FC_EVP_MAC_CTX_free)}
-      EVP_MAC_CTX_free := FC_EVP_MAC_CTX_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(EVP_MAC_CTX_free_removed)}
-    if EVP_MAC_CTX_free_removed <= LibVersion then
-    begin
-      {$if declared(_EVP_MAC_CTX_free)}
-      EVP_MAC_CTX_free := _EVP_MAC_CTX_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(EVP_MAC_CTX_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('EVP_MAC_CTX_free');
-    {$ifend}
-  end;
-
   EVP_MAC_CTX_dup := LoadLibFunction(ADllHandle, EVP_MAC_CTX_dup_procname);
   FuncLoadError := not assigned(EVP_MAC_CTX_dup);
   if FuncLoadError then

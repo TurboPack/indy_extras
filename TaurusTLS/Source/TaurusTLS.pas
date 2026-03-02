@@ -3493,6 +3493,14 @@ var
   i: Integer;
   LContext: TTaurusTLSContext;
   LCertificate: TTaurusTLSX509File;
+  LVerifyDepth : Integer;
+  LMode :  TTaurusTLSSSLMode;
+  LVerifyMode : TTaurusTLSVerifyModeSet;
+  LVersion : TTaurusTLSSSLVersion;
+  LUseSystemRootCACertificateStore,
+  LVerifyHostname : Boolean;
+  LCipherList : String;
+  LSecurityLevel : TTaurusTLSSecurityLevel;
 begin
   // ensure Init isn't called twice
   Assert(fSSLContext = nil);
@@ -3502,22 +3510,31 @@ begin
   fSSLContext.PublicKey := DefaultCert.PublicKey;
   fSSLContext.PrivateKey := DefaultCert.PrivateKey;
   fSSLContext.DHParamsFile := DefaultCert.DHParamsFile;
-  fSSLContext.VerifyDepth := SSLOptions.VerifyDepth;
-  fSSLContext.VerifyMode := SSLOptions.VerifyMode;
+  LVerifyDepth := SSLOptions.VerifyDepth;
+  LVersion := SSLOptions.MinTLSVersion;
+  LMode :=  SSLOptions.Mode;
+  LVerifyMode :=  SSLOptions.VerifyMode;
+  LUseSystemRootCACertificateStore := SSLOptions.UseSystemRootCACertificateStore;
+  LVerifyHostname := SSLOptions.VerifyHostname;
+  LCipherList := SSLOptions.CipherList;
+  LSecurityLevel := SSLOptions.SecurityLevel;
+  fSSLContext.VerifyDepth := LVerifyDepth;
+  fSSLContext.VerifyMode := LVerifyMode;
   // fSSLContext.fVerifyFile := SSLOptions.fVerifyFile;
   fSSLContext.UseSystemRootCACertificateStore :=
-    SSLOptions.UseSystemRootCACertificateStore;
+    LUseSystemRootCACertificateStore;
   fSSLContext.VerifyDirs := SSLOptions.VerifyDirs;
-  fSSLContext.VerifyHostname := SSLOptions.VerifyHostname;
-  fSSLContext.CipherList := SSLOptions.CipherList;
+  fSSLContext.VerifyHostname := LVerifyHostname;
+  fSSLContext.CipherList := LCipherList;
   fSSLContext.VerifyOn := Assigned(fOnVerifyCallback);
   fSSLContext.StatusInfoOn := Assigned(FOnStatusInfo);
   fSSLContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
   fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
-  // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
-  fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
-  fSSLContext.Mode := SSLOptions.Mode;
-  fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
+
+  fSSLContext.MinTLSVersion := LVersion;
+
+  fSSLContext.Mode := LMode;
+  fSSLContext.SecurityLevel := LSecurityLevel;
   fSSLContext.OnContextLoaderCustom:=self.OnContextLoaderCustom;
   fSSLContext.InitContext(sslCtxServer);
   // This must be after the Context is initialized so it does not AV.
@@ -3543,19 +3560,19 @@ begin
       LContext.RootPublicKey := LCertificate.RootKey;
       LContext.DHParamsFile := LCertificate.DHParamsFile;
       LCertificate.Context := LContext;
-      LContext.VerifyDepth := SSLOptions.VerifyDepth;
-      LContext.VerifyMode := SSLOptions.VerifyMode;
+      LContext.VerifyDepth := LVerifyDepth;
+      LContext.VerifyMode := LVerifyMode;
       LContext.UseSystemRootCACertificateStore :=
-        SSLOptions.UseSystemRootCACertificateStore;
-      LContext.VerifyHostname := SSLOptions.VerifyHostname;
-      LContext.CipherList := SSLOptions.CipherList;
+        LUseSystemRootCACertificateStore;
+      LContext.VerifyHostname := LVerifyHostname;
+      LContext.CipherList := LCipherList;
       LContext.VerifyOn := Assigned(fOnVerifyCallback);
       LContext.StatusInfoOn := Assigned(FOnStatusInfo);
       LContext.SecurityLevelCBOn := Assigned(fOnSecurityLevel);
       LContext.MessageCBOn := Assigned(FOnDebugMessage);
-      LContext.MinTLSVersion := SSLOptions.MinTLSVersion;
-      LContext.Mode := SSLOptions.Mode;
-      LContext.SecurityLevel := SSLOptions.SecurityLevel;
+      LContext.MinTLSVersion := LVersion;
+      LContext.Mode := LMode;
+      LContext.SecurityLevel := LSecurityLevel;
       LContext.OnContextLoaderCustom:=OnContextLoaderCustom;
       LContext.InitContext(sslCtxServer);
     end;
@@ -4015,7 +4032,7 @@ begin
     fSSLContext.MessageCBOn := Assigned(FOnDebugMessage);
 
     // fSSLContext.PasswordRoutineOn := Assigned(fOnGetPassword);
-    fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;
+    fSSLContext.MinTLSVersion := SSLOptions.MinTLSVersion;;
     fSSLContext.Mode := SSLOptions.Mode;
     fSSLContext.SecurityLevel := SSLOptions.SecurityLevel;
     fSSLContext.OnContextLoaderCustom:=self.OnContextLoaderCustom;
@@ -4941,7 +4958,7 @@ begin
   begin
     { Delphi appears to need the extra AnsiString coerction. Otherwise, only the
       first character to the hostname is passed }
-    LRetCode := SSL_set_tlsext_host_name(fSSL, @LHostname[0]);
+    LRetCode := SSL_set_tlsext_host_name(fSSL, @LHostname[0]); //PALOFF
     if LRetCode <= 0 then
     begin
       ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,
@@ -4954,7 +4971,7 @@ begin
     if fHostName <> '' then
     begin
       SSL_set_hostflags(fSSL, 0);
-      LRetCode := SSL_set1_host(fSSL, @LHostname[0]);
+      LRetCode := SSL_set1_host(fSSL, @LHostname[0]); //PALOFF
       if LRetCode <= 0 then
       begin
         ETaurusTLSSettingTLSHostNameError.RaiseException(fSSL, LRetCode,

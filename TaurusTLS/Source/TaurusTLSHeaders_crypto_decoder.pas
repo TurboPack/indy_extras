@@ -295,38 +295,6 @@ begin
 {$IFEND}
   end;
 
-  ossl_decoder_from_algorithm := LoadLibFunction(ADllHandle,
-    ossl_decoder_from_algorithm_procname);
-  FuncLoadError := not assigned(ossl_decoder_from_algorithm);
-  if FuncLoadError then
-  begin
-{$IF not defined(ossl_decoder_from_algorithm_allownil)}
-    ossl_decoder_from_algorithm := ERR_ossl_decoder_from_algorithm;
-{$IFEND}
-{$IF declared(ossl_decoder_from_algorithm_introduced)}
-    if LibVersion < ossl_decoder_from_algorithm_introduced then
-    begin
-{$IF declared(FC_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := FC_ossl_decoder_from_algorithm;
-{$IFEND}
-      FuncLoadError := false;
-    end;
-{$IFEND}
-{$IF declared(ossl_decoder_from_algorithm_removed)}
-    if ossl_decoder_from_algorithm_removed <= LibVersion then
-    begin
-{$IF declared(_ossl_decoder_from_algorithm)}
-      ossl_decoder_from_algorithm := _ossl_decoder_from_algorithm;
-{$IFEND}
-      FuncLoadError := false;
-    end;
-{$IFEND}
-{$IF not defined(ossl_decoder_from_algorithm_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ossl_decoder_from_algorithm');
-{$IFEND}
-  end;
-
   ossl_decoder_instance_new_forprov := LoadLibFunction(ADllHandle,
     ossl_decoder_instance_new_forprov_procname);
   FuncLoadError := not assigned(ossl_decoder_instance_new_forprov);

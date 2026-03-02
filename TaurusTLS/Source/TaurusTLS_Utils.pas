@@ -789,28 +789,31 @@ end;
 
 function ASN1_ToIPAddress(const a: PASN1_OCTET_STRING): String;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
+type
+  TBa = array of Byte;
+  PTBa = ^TBa;
 var
   LIPv6: TIdIPv6Address;
   i: Integer;
-type
-  TBa = array of Byte;
+  LData : PTBa;
 begin
   Result := '';
+
   if Assigned(a) then
   begin
+    LData := @a.data;
     if a._Length = 4 then
     begin
-      Result := IntToStr(TBa(a.data)[0]) + '.' + IntToStr(TBa(a.data)[1]) + '.'
-        + IntToStr(TBa(a.data)[2]) + '.' + IntToStr(TBa(a.data)[3]);
+      Result := IntToStr(LData^[0]) + '.' + IntToStr(LData^[1]) + '.'
+        + IntToStr(LData^[2]) + '.' + IntToStr(LData^[3]);
     end
     else
     begin
       if a._Length = 16 then
       begin
-
         for i := 0 to 7 do
         begin
-          LIPv6[i] := (TBa(a.data)[i * 2] shl 8) + (TBa(a.data)[(i * 2) + 1]);
+          LIPv6[i] := (LData^[i * 2] shl 8) + (LData^[(i * 2) + 1]);
         end;
         Result := IdGlobal.IPv6AddressToStr(LIPv6);
       end;

@@ -9093,39 +9093,6 @@ begin
     {$ifend}
   end;
 
-
-  X509_policy_level_node_count := LoadLibFunction(ADllHandle, X509_policy_level_node_count_procname);
-  FuncLoadError := not assigned(X509_policy_level_node_count);
-  if FuncLoadError then
-  begin
-    {$if not defined(X509_policy_level_node_count_allownil)}
-    X509_policy_level_node_count := ERR_X509_policy_level_node_count;
-    {$ifend}
-    {$if declared(X509_policy_level_node_count_introduced)}
-    if LibVersion < X509_policy_level_node_count_introduced then
-    begin
-      {$if declared(FC_X509_policy_level_node_count)}
-      X509_policy_level_node_count := FC_X509_policy_level_node_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_policy_level_node_count_removed)}
-    if X509_policy_level_node_count_removed <= LibVersion then
-    begin
-      {$if declared(_X509_policy_level_node_count)}
-      X509_policy_level_node_count := _X509_policy_level_node_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_policy_level_node_count_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_policy_level_node_count');
-    {$ifend}
-  end;
-
-
   X509_policy_level_get0_node := LoadLibFunction(ADllHandle, X509_policy_level_get0_node_procname);
   FuncLoadError := not assigned(X509_policy_level_get0_node);
   if FuncLoadError then
