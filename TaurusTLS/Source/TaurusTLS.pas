@@ -1614,11 +1614,6 @@ type
       const op, bits: TIdC_INT; const ACipherNid: TIdC_INT;
       out VAccepted: Boolean);
     function GetIOHandlerSelf: TTaurusTLSIOHandlerSocket;
-    //Rename to avoid warning about inherited methods.
-    //It's probably best to have our own methods because some versions of
-    //Indy available do not have these in the base class while others do.
-    function TaurusGetProxyTargetHost: string;  //PALOFF
-    function TaurusGetURIHost: string; //PALOFF
     //This needs to be private, not strict private
     //so we can set it in the clone method for FTP data
     //channel SNI.
@@ -3063,7 +3058,7 @@ end;
 procedure SslLockingCallback(Mode, n: TIdC_INT; Afile: PIdAnsiChar;
   line: TIdC_INT)cdecl;
 var
-  Lock: TIdCriticalSection;   //PALOFF
+  Lock: TIdCriticalSection;  //PALOFF "Local identifiers that are set more than once without referencing in-between"
   LList: TIdCriticalSectionList;
 begin
   Assert(CallbackLockList <> nil);
@@ -3094,8 +3089,8 @@ end;
 procedure PrepareTaurusTLSLocking;
 var
   i, cnt: TIdC_INT;
-  Lock: TIdCriticalSection;    //PALOFF
-  LList: TIdCriticalSectionList;   //PALOFF
+  Lock: TIdCriticalSection;    //PALOFF - Unbalanced Create/Free, Created and freed objects
+  LList: TIdCriticalSectionList;  //PALOFF - Local identifiers that are set and referenced once
 begin
   LList := CallbackLockList.LockList;
   try
@@ -3107,7 +3102,7 @@ begin
 {$ELSE}
     cnt := CRYPTO_num_locks;
 {$ENDIF}
-    for i := 0 to cnt - 1 do //PALOFF
+    for i := 0 to cnt - 1 do  //PALOFF - For-loop variables not used in loop
     begin
       Lock := TIdCriticalSection.Create;
       try
@@ -4064,7 +4059,9 @@ var
   LTimeout: Integer;
 {$ENDIF}
   LMode: TTaurusTLSSSLMode;
-
+  LURI: TIdURI;  //PALOFF - Created and freed objects
+  // under ARC, convert a weak reference to a strong reference before working with it
+  LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
 begin
   Assert(Binding <> nil);
   if not Assigned(fSSLSocket) then
@@ -4120,10 +4117,36 @@ begin
   begin
     if fHostname = '' then
     begin
-      fHostname := TaurusGetURIHost;
+      if URIToCheck <> '' then
+      begin
+        LURI := TIdURI.Create(URIToCheck);
+        try
+          fHostname := LURI.Host;
+        finally
+          LURI.Free;
+        end;
+      end;
+
       if fHostname = '' then
       begin
-        fHostname := TaurusGetProxyTargetHost;
+         // RLebeau: not reading from the property as it will create a
+         // default Proxy object if one is not already assigned...
+         LTransparentProxy := FTransparentProxy;
+         if Assigned(LTransparentProxy) then
+         begin
+           if LTransparentProxy.Enabled then
+           begin
+             repeat
+               LNextTransparentProxy := LTransparentProxy.ChainedProxy;
+               if not Assigned(LNextTransparentProxy) then
+                 break;
+               if not LNextTransparentProxy.Enabled then
+                 break;
+              LTransparentProxy := LNextTransparentProxy;
+             until False;
+             fHostname := LTransparentProxy.Host;
+           end;
+        end;
         if fHostname = '' then
         begin
           fHostname := Host;
@@ -4221,49 +4244,6 @@ begin
   if Assigned(fOnGetPassword) then
   begin
     fOnGetPassword(Self, Result, AIsWrite, VOk);
-  end;
-end;
-
-function TTaurusTLSIOHandlerSocket.TaurusGetProxyTargetHost: string;
-var
-  // under ARC, convert a weak reference to a strong reference before working with it
-  LTransparentProxy, LNextTransparentProxy: TIdCustomTransparentProxy;
-begin
-  Result := '';
-  // RLebeau: not reading from the property as it will create a
-  // default Proxy object if one is not already assigned...
-  LTransparentProxy := FTransparentProxy;
-  if Assigned(LTransparentProxy) then
-  begin
-    if LTransparentProxy.Enabled then
-    begin
-      repeat
-        LNextTransparentProxy := LTransparentProxy.ChainedProxy;
-        if not Assigned(LNextTransparentProxy) then
-          break;
-        if not LNextTransparentProxy.Enabled then
-          break;
-        LTransparentProxy := LNextTransparentProxy;
-      until False;
-      Result := LTransparentProxy.Host;
-    end;
-  end;
-
-end;
-
-function TTaurusTLSIOHandlerSocket.TaurusGetURIHost: string;
-var
-  LURI: TIdURI;   //PALOFF
-begin
-  Result := '';
-  if URIToCheck <> '' then
-  begin
-    LURI := TIdURI.Create(URIToCheck);
-    try
-      Result := LURI.Host;
-    finally
-      LURI.Free;
-    end;
   end;
 end;
 
