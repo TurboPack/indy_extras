@@ -9220,6 +9220,7 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  //Disable PAL warnings for Bad Typecast
   sk_X509_OBJECT_new:= Tsk_X509_OBJECT_new(sk_new);  //PALOFF
   sk_X509_OBJECT_new_null := Tsk_X509_OBJECT_new_null(sk_new_null);  //PALOFF
   sk_X509_OBJECT_free := Tsk_X509_OBJECT_free(sk_free);  //PALOFF

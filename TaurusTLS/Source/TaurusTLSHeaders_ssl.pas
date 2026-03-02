@@ -28462,7 +28462,7 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-
+  //Disable PAL warnings for Bad Typecast
   sk_SSL_CIPHER_new:= Tsk_SSL_CIPHER_new(sk_new); //PALOFF
   sk_SSL_CIPHER_new_null := Tsk_SSL_CIPHER_new_null(sk_new_null);  //PALOFF
   sk_SSL_CIPHER_free := Tsk_SSL_CIPHER_free(sk_free);  //PALOFF

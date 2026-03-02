@@ -1028,11 +1028,11 @@ type
     //  and TTaurusTLSIOHandlerSocket.Init after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
 {$IFDEF USE_WINDOWS_CERT_STORE}
-    procedure LoadWindowsCertStore;  //PALOFF
+    procedure LoadWindowsCertStore;  //PALOFF "Methods only called once from other method of the same class"
 {$ENDIF}
     procedure SetSecurityLevel(const AValue: TTaurusTLSSecurityLevel);
     procedure DestroyContext;
-    function GetSSLMethod: PSSL_METHOD; //PALOFF
+    function GetSSLMethod: PSSL_METHOD; //PALOFF "Methods only called once from other method of the same class"
     function GetVerifyMode: TTaurusTLSVerifyModeSet;
   public
 
@@ -1280,7 +1280,7 @@ type
     fSession: PSSL_SESSION;
 {$IFDEF USE_OBJECT_ARC}[Weak]
 {$ENDIF} FParent: TObject;
-    fPeerCert: TTaurusTLSX509;  //PALOFF
+    fPeerCert: TTaurusTLSX509; //PALOFF "Created and freed objects"
     fSSL: PSSL;
     fSSLCipher: TTaurusTLSCipher;
     fSSLContext: TTaurusTLSContext;
@@ -1566,10 +1566,10 @@ type
     //  TTaurusTLSContext.OnContextLoaderCustom in TTaurusTLSIOHandlerSocket.Init
     //  after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
-    fClientCert: TTaurusTLSX509File;  //PALOFF
-    fSSLContext: TTaurusTLSContext;  //PALOFF
-    fSSLOptions: TTaurusTLSOptions;  //PALOFF
-    fSSLSocket: TTaurusTLSSocket;  //PALOFF
+    fClientCert: TTaurusTLSX509File;  //PALOFF "Created and freed objects"
+    fSSLContext: TTaurusTLSContext;  //PALOFF "Created and freed objects"
+    fSSLOptions: TTaurusTLSOptions;  //PALOFF "Created and freed objects"
+    fSSLSocket: TTaurusTLSSocket;  //PALOFF "Created and freed objects"
     // fPeerCert: TTaurusTLSX509;
     FOnDebugMessage: TOnDebugMessageEvent;
     FOnStatusInfo: TOnStatusEvent;
@@ -1918,10 +1918,10 @@ type
     //  TTaurusTLSContext.OnContextLoaderCustom in TTaurusTLSServerIOHandler.Init
     //  and TTaurusTLSIOHandlerSocket.Init after the TTaurusTLSContext instance is created.
     fOnContextLoaderCustom: TTaurusContextLoaderEvent;
-    fCertificates: TTaurusTLSX509Files;  //PALOFF
-    fDefaultCert: TTaurusTLSX509File;  //PALOFF
-    fSSLOptions: TTaurusTLSOptions;   //PALOFF
-    fSSLContext: TTaurusTLSContext;   //PALOFF
+    fCertificates: TTaurusTLSX509Files;  //PALOFF "Created and freed objects"
+    fDefaultCert: TTaurusTLSX509File; //PALOFF "Created and freed objects"
+    fSSLOptions: TTaurusTLSOptions;   //PALOFF "Created and freed objects"
+    fSSLContext: TTaurusTLSContext;   //PALOFF "Created and freed objects"
     FOnSSLNegotiated: TOnIOHandlerNotify;
     FOnStatusInfo: TOnStatusEvent;
     fOnSecurityLevel: TOnSecurityLevelEvent;
@@ -3093,7 +3093,7 @@ end;
 
 procedure PrepareTaurusTLSLocking;
 var
-  i, cnt: Integer;            //PALOFF
+  i, cnt: TIdC_INT;
   Lock: TIdCriticalSection;    //PALOFF
   LList: TIdCriticalSectionList;   //PALOFF
 begin

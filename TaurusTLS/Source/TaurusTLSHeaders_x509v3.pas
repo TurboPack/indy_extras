@@ -5543,7 +5543,7 @@ begin
 
   //stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-
+  //Disable PAL warnings for Bad Typecast
   sk_ASIdOrRange_new:= Tsk_ASIdOrRange_new(sk_new);  //PALOFF
   sk_ASIdOrRange_new_null := Tsk_ASIdOrRange_new_null(sk_new_null);  //PALOFF
   sk_ASIdOrRange_free := Tsk_ASIdOrRange_free(sk_free);  //PALOFF

@@ -17904,7 +17904,7 @@ begin
   //ensure that the stack of functions ALWAYS load before they are assigned
   //through typecast procedureal pointers.
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-
+  //Disable PAL warnings for Bad Typecast
    sk_X509_new:= Tsk_X509_new ( sk_new);  //PALOFF
   sk_X509_new_null := Tsk_X509_new_null(sk_new_null); //PALOFF
   sk_X509_free := Tsk_X509_free( sk_free );  //PALOFF

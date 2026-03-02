@@ -8928,7 +8928,7 @@ begin
   //ensure that the stack of functions ALWAYS load before they are assigned
   //through typecast procedureal pointers.
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
-
+  //Disable PAL warnings for Bad Typecast
   sk_ASN1_OBJECT_new :=  Tsk_ASN1_OBJECT_new(sk_new); //PALOFF
   sk_ASN1_OBJECT_new_null := Tsk_ASN1_OBJECT_new_null(sk_new_null);  //PALOFF
   sk_ASN1_OBJECT_free := Tsk_ASN1_OBJECT_free(sk_free);  //PALOFF
