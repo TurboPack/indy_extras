@@ -954,7 +954,7 @@ begin
   else
   {$endif}
   begin
-    Result.C1 := X509_NAME_hash(fX509Name);
+    Result.C1 := X509_NAME_hash(fX509Name);  //PALOFF - Mismatch parameter value
   end;
 end;
 

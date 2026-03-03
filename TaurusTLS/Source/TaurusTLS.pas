@@ -2672,7 +2672,7 @@ begin
             IInterface(LHelper)) then
           begin
             LX509_Cert := X509_STORE_CTX_get_current_cert(x509_ctx);
-            LCertErr := X509_STORE_CTX_get_error(x509_ctx);
+            LCertErr := X509_STORE_CTX_get_error(x509_ctx);  //PALOFF - Mismatch parameter value
             LCertificate := TTaurusTLSX509.Create(LX509_Cert, False);
             try
               LHelper.VerifyCallback(preverify_ok, LCertificate,
@@ -5199,7 +5199,7 @@ end;
 function TTaurusTLSSocket.GetSessionIDAsString: String;
 var
   LData: TTaurusTLSByteArray;
-  i: TIdC_UINT;
+  i: Integer;
   LDataPtr: PByte;
   pSession: PSSL_SESSION;
 begin
@@ -5222,11 +5222,11 @@ begin
   end;
   if LData._Length > 0 then
   begin
-    for i := 0 to LData._Length - 1 do
+    for i := 0 to Integer(LData._Length) - 1 do
     begin
       // RLebeau: not all Delphi versions support indexed access using PByte
       LDataPtr := LData.Data;
-      Inc(LDataPtr, i);
+      Inc(LDataPtr, i);  //PALOFF - Mismatch parameter value
       Result := Result + IndyFormat('%.2x', [LDataPtr^]); { do not localize }
     end;
   end;
