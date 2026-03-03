@@ -560,7 +560,7 @@ var
 begin
   Result := 0;
   count := 0;
-
+  LInf := nil;
   if _type <> X509_FILETYPE_PEM then
   begin
     Result := TaurusTLS_unicode_X509_load_cert_file(ctx, AFileName, _type);
