@@ -2458,6 +2458,7 @@ begin
 
   // Stack of macros
   LoadStackFunctions(ADllHandle,libVersion,AFailed);
+  //Disable PAL warnings for Bad Typecast
   sk_SCT_new := Tsk_SCT_new(sk_new);  //PALOFF
   sk_SCT_new_null := Tsk_SCT_new_null(sk_new_null);  //PALOFF
   sk_SCT_free := Tsk_SCT_free(sk_free);  //PALOFF

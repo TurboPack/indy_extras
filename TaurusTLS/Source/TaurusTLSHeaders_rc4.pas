@@ -224,7 +224,7 @@ begin
     if FuncLoadError then
       AFailed.Add('RC4_options');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {allow_nil}
   RC4_set_key := LoadLibFunction(ADllHandle, RC4_set_key_procname);
@@ -256,7 +256,7 @@ begin
     if FuncLoadError then
       AFailed.Add('RC4_set_key');
     {$ifend}
-  end;  //PALOFF
+  end;  //PALOFF Empty begin/end-blocks
 
  {allow_nil}
   private_RC4_set_key := LoadLibFunction(ADllHandle, private_RC4_set_key_procname);
@@ -288,7 +288,7 @@ begin
     if FuncLoadError then
       AFailed.Add('private_RC4_set_key');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {allow_nil}
   RC4 := LoadLibFunction(ADllHandle, RC4_procname);
@@ -320,10 +320,10 @@ begin
     if FuncLoadError then
       AFailed.Add('RC4');
     {$ifend}
-  end;   //PALOFF
+  end;   //PALOFF Empty begin/end-blocks
 
  {allow_nil}
-end;   //PALOFF
+end;   //PALOFF Empty begin/end-blocks
  {$I TaurusTLSUnusedParamOn.inc}
 
 procedure Unload;

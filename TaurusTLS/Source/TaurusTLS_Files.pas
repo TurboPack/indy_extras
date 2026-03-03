@@ -189,7 +189,7 @@ uses
 // ** General certificate loading **//
 function LoadCertificate(const AFileName: String): PX509;
 var
-  LM: TMemoryStream;   //PALOFF
+  LM: TMemoryStream;   //PALOFF - Created and freed objects,  Local identifiers that possibly are set more than once without referencing in-between
   LB: PBIO;
 begin
   LB:=nil;
@@ -218,7 +218,7 @@ end;
 function TaurusTLS_SSL_CTX_use_PrivateKey_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
-  LM: TMemoryStream;  //PALOFF
+  LM: TMemoryStream;   //PALOFF - Created and freed objects
   b: PBIO;
   LKey: PEVP_PKEY;
   LCert: PX509;
@@ -231,7 +231,7 @@ begin
   LPassword := nil;
   LKey := nil;
   LCert := nil;
-  LM := TMemoryStream.Create;   //PALOFF
+  LM := TMemoryStream.Create;    //PALOFF - Created and freed objects
   try
     LM.LoadFromFile(AFileName);
   except
@@ -302,7 +302,7 @@ end;
 function TaurusTLS_SSL_CTX_use_certificate_file_PKCS12(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
-  LM: TMemoryStream;  //PALOFF
+  LM: TMemoryStream;   //PALOFF - Created and freed objects
   Lb: PBIO;
   LCert: PX509;
   LP12: PPKCS12;
@@ -460,7 +460,7 @@ end;
 function TaurusTLS_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
   const AFileName: String; _type: TIdC_INT): TIdC_INT;
 var
-  LM: TMemoryStream;  //PALOFF
+  LM: TMemoryStream;  //PALOFF - Created and freed objects
   Lin: PBIO;
   LX: PX509;
   i, count: Integer;
@@ -519,7 +519,7 @@ begin
               end;
               Inc(count);
               X509_free(LX);
-            until False;
+            until False; //PALOFF - Condition evaluates to constant value
             Result := count;
           end;
         X509_FILETYPE_ASN1:
@@ -552,8 +552,8 @@ end;
 function TaurusTLS_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
   const AFileName: String; const _type: TIdC_INT): TIdC_INT;
 var
-  LM: TMemoryStream;         //PALOFF
-  Linf: PSTACK_OF_X509_INFO;
+  LM: TMemoryStream;          //PALOFF - Created and freed objects
+  Linf: PSTACK_OF_X509_INFO;  //PALOFF - Local identifiers that possibly are set more than once without referencing in-between
   Litmp: PX509_INFO;
   Lin: PBIO;
   i, count: Integer;
@@ -632,7 +632,7 @@ end;
 function TaurusTLS_SSL_load_client_CA_file(const AFileName: String)
   : PSTACK_OF_X509_NAME;
 var
-  LM: TMemoryStream;   //PALOFF
+  LM: TMemoryStream;    //PALOFF - Created and freed objects
   LB: PBIO;
   Lsk: PSTACK_OF_X509_NAME;
   LX: PX509;
@@ -706,7 +706,7 @@ begin
                 end;
                 X509_free(LX);
                 LX := nil;
-              until False;
+              until False;  //PALOFF - Condition evaluates to constant value
             finally
               if Assigned(LX) then
               begin
@@ -746,7 +746,7 @@ end;
 function TaurusTLS_SSL_CTX_use_PrivateKey_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
-  LM: TMemoryStream;     //PALOFF
+  LM: TMemoryStream;     //PALOFF - Created and freed objects
   b: PBIO;
   LKey: PEVP_PKEY;
   j: TIdC_INT;
@@ -807,7 +807,7 @@ end;
 function TaurusTLS_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX;
   const AFileName: String): TIdC_INT;
 var
-  LM: TMemoryStream; //PALOFF
+  LM: TMemoryStream;  //PALOFF - Created and freed objects
   b: PBIO;
   LX: PX509;
   ca: PX509;
@@ -841,7 +841,7 @@ begin
     try
       LPasswordCallback := SSL_CTX_get_default_passwd_cb(ctx);
       LUserData := SSL_CTX_get_default_passwd_cb_userdata(ctx);
-      LX := PEM_read_bio_X509_AUX(b, nil, LPasswordCallback, LUserData);   //PALOFF
+      LX := PEM_read_bio_X509_AUX(b, nil, LPasswordCallback, LUserData);
       if LX = nil then
       begin
         SSLerr(SSL_F_SSL_CTX_USE_CERTIFICATE_CHAIN_FILE, ERR_R_PEM_LIB);
@@ -858,7 +858,7 @@ begin
         begin
           SSL_CTX_clear_chain_certs(ctx);
           repeat
-            ca := PEM_read_bio_X509(b, nil, LPasswordCallback, LUserData);  //PALOFF
+            ca := PEM_read_bio_X509(b, nil, LPasswordCallback, LUserData); //PALOFF - Common subexpression, consider elimination
             if ca = nil then
             begin
               Break;
@@ -876,7 +876,7 @@ begin
             // * the chain (while we must free the main certificate, since its
             // * reference count is increased by SSL_CTX_use_certificate).
             // */
-          until False;
+          until False;  //PALOFF - Condition evaluates to constant value
           if ca <> nil then
           begin
             // * When the while loop ends, it's usually just EOF. */
@@ -960,7 +960,7 @@ end;
 function TaurusTLS_SSL_CTX_use_DHparams_file(ctx: PSSL_CTX; const AFileName: String;
   AType: Integer): TIdC_INT;
 var
-  LM: TMemoryStream;  //PALOFF
+  LM: TMemoryStream;   //PALOFF - Created and freed objects
   b: PBIO;
   LDH: PDH;
   j: Integer;
@@ -1035,7 +1035,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     );
 end;
@@ -1052,7 +1052,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     , AType);
 end;
@@ -1069,7 +1069,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF});
 end;
 
@@ -1111,8 +1111,8 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     AsUtf8OrNil(M, AFileName), AsUtf8OrNil(M, APathName)
 {$ELSE}
-    PAnsiChar(Pointer(UTF8String(AFileName))),
-    PAnsiChar(Pointer(UTF8String(APathName)))
+    PAnsiChar(Pointer(UTF8String(AFileName))), //PALOFF - Possible bad typecast - [AFileName : UnicodeString cast to PAnsiChar]
+    PAnsiChar(Pointer(UTF8String(APathName)))  //PALOFF - Possible bad typecast - [APathName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     );
 end;
@@ -1154,7 +1154,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     , 'r');
   if Assigned(b) then

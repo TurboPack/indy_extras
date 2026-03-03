@@ -624,19 +624,19 @@ type
   /// </summary>
   TTaurusTLSX509 = class(TObject)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
-    FErrors: TTaurusTLSX509Errors;  //PALOFF
-    FWarnings: TTaurusTLSX509Warnings;  //PALOFF
-    FExtensions: TTaurusTLSX509Exts;  //PALOFF
-    FFingerprints: TTaurusTLSX509Fingerprints;  //PALOFF
-    FSigInfo: TTaurusTLSX509SigInfo;   //PALOFF
-    FPublicKey: TTaurusTLSX509PublicKey;  //PALOFF
+    FErrors: TTaurusTLSX509Errors;  //PALOFF - Created and freed objects
+    FWarnings: TTaurusTLSX509Warnings;  //PALOFF - Created and freed objects
+    FExtensions: TTaurusTLSX509Exts;  //PALOFF - Created and freed objects
+    FFingerprints: TTaurusTLSX509Fingerprints;  //PALOFF - Created and freed objects
+    FSigInfo: TTaurusTLSX509SigInfo;   //PALOFF - Created and freed objects
+    FPublicKey: TTaurusTLSX509PublicKey;  //PALOFF - Created and freed objects
     FCanFreeX509: Boolean;
     FX509: PX509;
     FSubject: TTaurusTLSX509Name;
     FIssuer: TTaurusTLSX509Name;
-    FDisplayInfo: TStrings;  //PALOFF
-    FAuthorityKeyID: TTaurusTLSX509AuthorityKeyID; //PALOFF
-    FAltSubjectNames: TTaurusTLSX509AltSubjectNames;  //PALOFF
+    FDisplayInfo: TStrings;  //PALOFF - Created and freed objects
+    FAuthorityKeyID: TTaurusTLSX509AuthorityKeyID;  //PALOFF - Created and freed objects
+    FAltSubjectNames: TTaurusTLSX509AltSubjectNames;  //PALOFF - Created and freed objects
     function GetExtensionCount: TIdC_LONG; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetSubject: TTaurusTLSX509Name; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetIssuer: TTaurusTLSX509Name; {$IFDEF USE_INLINE}inline; {$ENDIF}

@@ -1132,12 +1132,12 @@ end;
 
 procedure  _CRYPTO_set_locking_callback(func: TIdSslLockingCallback); cdecl;
 begin
-end;   //PALOFF
+end;  //PALOFF - Empty begin/end-blocks
 
 {$I TaurusTLSUnusedParamOff.inc}
 procedure  _CRYPTO_set_id_callback(func: TIdSslIdCallback); cdecl;
 begin
-end;  //PALOFF
+end;  //PALOFF  - Empty begin/end-blocks
 
 function  _SSLeay_version(type_ : TIdC_INT) : PIdAnsiChar; cdecl;
 begin
@@ -1151,11 +1151,11 @@ end;
 
 procedure  _CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG); cdecl;
 begin
-end;   //PALOFF
+end;   //PALOFF Empty begin/end-blocks
 
 procedure  _CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func); cdecl;
 begin
-end;    //PALOFF
+end;    //PALOFF - Empty begin/end-blocks
 
   {$I TaurusTLSUnusedParamOff.inc}
 
@@ -4925,11 +4925,11 @@ end;
 
 procedure CRYPTO_set_locking_callback;
 begin
-end;
+end;  //PALOFF  - Empty begin/end-blocks
 
 procedure CRYPTO_set_id_callback(func: TIdSslIdCallback);
 begin
-end;
+end;  //PALOFF  - Empty begin/end-blocks
 
 function SSLeay_version(type_ : TIdC_INT) : PIdAnsiChar;
 begin
@@ -4943,11 +4943,11 @@ end;
 
 procedure CRYPTO_THREADID_set_numeric(id : PCRYPTO_THREADID; _val: TIdC_ULONG);
 begin
-end;
+end;  //PALOFF  - Empty begin/end-blocks
 
 procedure CRYPTO_THREADID_set_callback(threadid_func: Tthreadid_func);
 begin
-end;
+end;  //PALOFF  - Empty begin/end-blocks
 
 function FIPS_mode: TIdC_INT;
 begin

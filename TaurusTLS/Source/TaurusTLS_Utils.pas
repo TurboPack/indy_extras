@@ -547,7 +547,7 @@ end;
 function BytesToHexString(APtr: Pointer; ALen: TIdC_INT): String;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
-  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));  //PALOFF
+  Result := BytesToHexString(APtr,TIdC_SIZET(ALen));  //PALOFF - Mismatch parameter value (32/64-bits
 end;
 
 {$IFNDEF HAS_RAW_TO_BYTES_64_BIT}
@@ -654,7 +654,7 @@ begin
     FillChar(LBuf, 1024, 0);
     {$endif}
     OBJ_obj2txt(@LBuf[0], 1024, a, 0);
-    Result := AnsiStringToString(PIdAnsiChar(@LBuf));
+    Result := AnsiStringToString(PIdAnsiChar(@LBuf));   //PALOFF - bad pointer usage - [LBuf : TBa cast to PAnsiChar]
   end
   else
   begin
@@ -697,7 +697,7 @@ begin
 {$IFDEF STRING_IS_ANSI}
   SetString(time_str, PAnsiChar(a^.data), a^._Length);
 {$ELSE}
-  SetString(LTemp, PAnsiChar(a.data), a._Length);
+  SetString(LTemp, PAnsiChar(a.data), a._Length);  //PALOFF - Possible bad pointer usage [data : PByte cast to PAnsiChar]
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
   // TODO: do we need to use SetCodePage() here?
   time_str := String(LTemp); // explicit convert to Unicode
