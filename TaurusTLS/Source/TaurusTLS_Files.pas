@@ -519,7 +519,7 @@ begin
               end;
               Inc(count);
               X509_free(LX);
-            until False;
+            until False; //PALOFF - Condition evaluates to constant value
             Result := count;
           end;
         X509_FILETYPE_ASN1:
@@ -706,7 +706,7 @@ begin
                 end;
                 X509_free(LX);
                 LX := nil;
-              until False;
+              until False;  //PALOFF - Condition evaluates to constant value
             finally
               if Assigned(LX) then
               begin
@@ -876,7 +876,7 @@ begin
             // * the chain (while we must free the main certificate, since its
             // * reference count is increased by SSL_CTX_use_certificate).
             // */
-          until False;
+          until False;  //PALOFF - Condition evaluates to constant value
           if ca <> nil then
           begin
             // * When the while loop ends, it's usually just EOF. */
@@ -1035,7 +1035,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     );
 end;
@@ -1052,7 +1052,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     , AType);
 end;
@@ -1069,7 +1069,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF});
 end;
 
@@ -1111,8 +1111,8 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     AsUtf8OrNil(M, AFileName), AsUtf8OrNil(M, APathName)
 {$ELSE}
-    PAnsiChar(Pointer(UTF8String(AFileName))),
-    PAnsiChar(Pointer(UTF8String(APathName)))
+    PAnsiChar(Pointer(UTF8String(AFileName))), //PALOFF - Possible bad typecast - [AFileName : UnicodeString cast to PAnsiChar]
+    PAnsiChar(Pointer(UTF8String(APathName)))  //PALOFF - Possible bad typecast - [APathName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     );
 end;
@@ -1154,7 +1154,7 @@ begin
 {$IFDEF USE_MARSHALLED_PTRS}
     M.AsUtf8(AFileName).ToPointer
 {$ELSE}
-    PAnsiChar(UTF8String(AFileName))
+    PAnsiChar(UTF8String(AFileName))  //PALOFF - Possible bad typecast -  [AFileName : UnicodeString cast to PAnsiChar]
 {$ENDIF}
     , 'r');
   if Assigned(b) then

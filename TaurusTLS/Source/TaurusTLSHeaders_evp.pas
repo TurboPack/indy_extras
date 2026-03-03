@@ -26034,12 +26034,12 @@ end;
 
 procedure EVP_cleanup;
 begin
-end;
+end;  //PALOFF  - Empty begin/end-blocks
 
 procedure BIO_set_md(v1: PBIO; const md: PEVP_MD);
 begin
   {define BIO_set_md(b,md)  BIO_ctrl(b,BIO_C_SET_MD,0,(char *)(md))}
-  BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));
+  BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));  //PALOFF - bad pointer usage [md : PEVP_MD cast to PAnsiChar]
 end;
 
  {$I TaurusTLSNoRetValOff.inc}

@@ -4143,7 +4143,7 @@ begin
                if not LNextTransparentProxy.Enabled then
                  break;
               LTransparentProxy := LNextTransparentProxy;
-             until False;
+             until False;  //PALOFF - Condition evaluates to constant value
              fHostname := LTransparentProxy.Host;
            end;
         end;
@@ -4606,7 +4606,7 @@ begin
 {$IFDEF STRING_IS_ANSI}
       fCipherList
 {$ELSE}
-      AnsiString(fCipherList) // explicit cast to Ansi
+      AnsiString(fCipherList) // explicit cast to Ansi   //PALOFF - Possible bad typecast [fCipherList : UnicodeString cast to PAnsiChar]
 {$ENDIF}
       )
 {$ENDIF}
@@ -5014,7 +5014,7 @@ end;
 
 function TTaurusTLSSocket.Readable: TTaurusTLSReadStatus;
 //From Tony WHyman - IndySecOpenSSL
-var buf : byte;
+var buf : byte;   //PALOFF - Variables that are set, but never referenced
     Lr: integer;
 begin
   Result := sslNoData;
@@ -5075,7 +5075,7 @@ begin
       Result := LRet;   //PALOFF
     end;
     break;
-  until False;
+  until False; //PALOFF - Condition evaluates to constant value
 end;
 
 function TTaurusTLSSocket.Send(const ABuffer: TIdBytes;
@@ -5118,7 +5118,7 @@ begin
       Result := LRet;   //PALOFF
     end;
     break;
-  until False;
+  until False; //PALOFF - Condition evaluates to constant value
 end;
 
 procedure TTaurusTLSSocket.SetVerifyHostName(const Value: Boolean);

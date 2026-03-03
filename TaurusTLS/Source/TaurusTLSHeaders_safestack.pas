@@ -122,19 +122,19 @@ end;
 function sk_OPENSSL_STRING_delete_ptr(sk: PSTACK_OF_OPENSSL_STRING;
   _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := PIdAnsiChar(OPENSSL_sk_delete_ptr(POPENSSL_STACK(sk), pointer(_ptr)));
+  Result := PIdAnsiChar(OPENSSL_sk_delete_ptr(POPENSSL_STACK(sk), pointer(_ptr))); //PALOFF - Possible bad pointer - usage [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_push(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := OPENSSL_sk_push(POPENSSL_STACK(sk), pointer(_ptr));
+  Result := OPENSSL_sk_push(POPENSSL_STACK(sk), pointer(_ptr));  //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_unshift(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := OPENSSL_sk_unshift(POPENSSL_STACK(sk), pointer(_ptr));
+  Result := OPENSSL_sk_unshift(POPENSSL_STACK(sk), pointer(_ptr));  //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_pop(sk: PSTACK_OF_OPENSSL_STRING): PIdAnsiChar;
@@ -158,25 +158,25 @@ end;
 function sk_OPENSSL_STRING_insert(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar;
   idx: TIdC_INT): TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := OPENSSL_sk_insert(POPENSSL_STACK(sk), pointer(_ptr), idx);
+  Result := OPENSSL_sk_insert(POPENSSL_STACK(sk), pointer(_ptr), idx);  //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_set(sk: PSTACK_OF_OPENSSL_STRING; idx: TIdC_INT;
   _ptr: PIdAnsiChar): PIdAnsiChar; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := PIdAnsiChar(OPENSSL_sk_set(POPENSSL_STACK(sk), idx, pointer(_ptr)));
+  Result := PIdAnsiChar(OPENSSL_sk_set(POPENSSL_STACK(sk), idx, pointer(_ptr)));  //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_find(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := OPENSSL_sk_find(POPENSSL_STACK(sk), pointer(_ptr));
+  Result := OPENSSL_sk_find(POPENSSL_STACK(sk), pointer(_ptr));   //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 function sk_OPENSSL_STRING_find_ex(sk: PSTACK_OF_OPENSSL_STRING; _ptr: PIdAnsiChar)
   : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := OPENSSL_sk_find_ex(POPENSSL_STACK(sk), pointer(_ptr));
+  Result := OPENSSL_sk_find_ex(POPENSSL_STACK(sk), pointer(_ptr));   //PALOFF - Possible bad pointer usage - [_ptr : PAnsiChar cast to Pointer]
 end;
 
 procedure sk_OPENSSL_STRING_sort(sk: PSTACK_OF_OPENSSL_STRING);
