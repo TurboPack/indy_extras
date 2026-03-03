@@ -62,7 +62,7 @@ type
     */ }
 procedure setup_des_key(const Akey_56: des_cblock; var Vks: des_key_schedule);
 Var
-  Lkey: des_cblock;
+  Lkey: des_cblock;  //PALOFF - Local variables that are set but not later used
 begin
   Lkey[0] := Akey_56[0];
 
@@ -86,8 +86,8 @@ end;
 procedure calc_resp(Vkeys: PDES_cblock; const ANonce: TIdBytes;
   Vresults: Pdes_key_schedule);
 Var
-  Lks: des_key_schedule;
-  Lnonce: des_cblock;
+  Lks: des_key_schedule;  //PALOFF - Local variables that are set but not later used
+  Lnonce: des_cblock;  //PALOFF - Local variables that are set but not later used
 begin
   FillChar(LKs,SizeOf(LKs),0);
   setup_des_key(Vkeys^, Lks);
@@ -113,7 +113,7 @@ var
   lm_hpw: array [0 .. 20] of Byte;
   lm_pw: array [0 .. 13] of Byte;
   idx, len: Integer;
-  ks: des_key_schedule;
+  ks: des_key_schedule;   //PALOFF - Local variables that are set but not later used
   lm_resp: array [0 .. 23] of Byte;
   lPassword: {$IFDEF STRING_IS_UNICODE}TIdBytes{$ELSE}AnsiString{$ENDIF};
 begin
