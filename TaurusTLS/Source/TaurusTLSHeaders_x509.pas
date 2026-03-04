@@ -1117,7 +1117,7 @@ var
   function sk_X509_value (const sk : PSTACK_OF_X509; i : TIdC_INT): PX509  cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_push (sk : PSTACK_OF_X509; st : PX509 ): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_dup (sk : PSTACK_OF_X509) : PSTACK_OF_X509 cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_find (sk : PSTACK_OF_X509; val : PX509 ) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_find (sk : PSTACK_OF_X509; _val : PX509 ) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_pop_free (sk : PSTACK_OF_X509; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_NAME_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_NAME_new_null : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1126,7 +1126,7 @@ var
   function sk_X509_NAME_value (const sk : PSTACK_OF_X509_NAME; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_NAME_push (sk : PSTACK_OF_X509_NAME; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_NAME_dup (sk : PSTACK_OF_X509_NAME) : PSTACK_OF_X509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_NAME_find (sk : PSTACK_OF_X509_NAME; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_NAME_find (sk : PSTACK_OF_X509_NAME; _val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_NAME_pop_free (sk : PSTACK_OF_X509_NAME; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_TRUST_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_TRUST_new_null : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1135,7 +1135,7 @@ var
   function sk_X509_TRUST_value (const sk : PSTACK_OF_X509_TRUST; i : TIdC_INT): PX509_NAME cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_TRUST_push (sk : PSTACK_OF_X509_TRUST; st : PX509_NAME): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_X509_TRUST_dup (sk : PSTACK_OF_X509_TRUST) : PSTACK_OF_X509_TRUST cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_TRUST_find (sk : PSTACK_OF_X509_TRUST; val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_TRUST_find (sk : PSTACK_OF_X509_TRUST; _val : PX509_NAME) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_TRUST_pop_free (sk : PSTACK_OF_X509_TRUST; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_INFO_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_INFO_new_null : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1144,7 +1144,7 @@ var
   function sk_X509_INFO_value (const sk : PSTACK_OF_X509_INFO; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_INFO_push (sk : PSTACK_OF_X509_INFO; st : PX509_INFO) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_INFO_dup (sk : PSTACK_OF_X509_INFO) : PSTACK_OF_X509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_INFO_find (sk : PSTACK_OF_X509_INFO; val : PX509_INFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_INFO_find (sk : PSTACK_OF_X509_INFO; _val : PX509_INFO) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_INFO_pop_free (sk : PSTACK_OF_X509_INFO; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_EXTENSION_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_EXTENSION_new_null : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1153,7 +1153,7 @@ var
   function sk_X509_EXTENSION_value (const sk : PSTACK_OF_X509_EXTENSION; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_EXTENSION_push (sk : PSTACK_OF_X509_EXTENSION; st : PX509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_EXTENSION_dup (sk : PSTACK_OF_X509_EXTENSION) : PSTACK_OF_X509_EXTENSION cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_EXTENSION_find (sk : PSTACK_OF_X509_EXTENSION; val : PX509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_EXTENSION_find (sk : PSTACK_OF_X509_EXTENSION; _val : PX509_EXTENSION) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_EXTENSION_pop_free (sk : PSTACK_OF_X509_EXTENSION; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_REVOKED_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_REVOKED_new_null : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1162,7 +1162,7 @@ var
   function sk_X509_REVOKED_value (const sk : PSTACK_OF_X509_REVOKED; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_REVOKED_push (sk : PSTACK_OF_X509_REVOKED; st : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_REVOKED_dup (sk : PSTACK_OF_X509_REVOKED) : PSTACK_OF_X509_REVOKED cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_REVOKED_find (sk : PSTACK_OF_X509_REVOKED; val : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_REVOKED_find (sk : PSTACK_OF_X509_REVOKED; _val : PX509_REVOKED) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_REVOKED_pop_free (sk : PSTACK_OF_X509_REVOKED; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_CRL_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_CRL_new_null : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1171,7 +1171,7 @@ var
   function sk_X509_CRL_value (const sk : PSTACK_OF_X509_CRL; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_CRL_push (sk : PSTACK_OF_X509_CRL; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_CRL_dup (sk : PSTACK_OF_X509_CRL) : PSTACK_OF_X509_CRL cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_CRL_find (sk : PSTACK_OF_X509_CRL; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_CRL_find (sk : PSTACK_OF_X509_CRL; _val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_CRL_pop_free (sk : PSTACK_OF_X509_CRL; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_X509_ATTRIBUTE_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_X509_ATTRIBUTE_new_null : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -1180,7 +1180,7 @@ var
   function sk_X509_ATTRIBUTE_value (const sk : PSTACK_OF_X509_ATTRIBUTE; i : TIdC_INT) : PX509_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_X509_ATTRIBUTE_push (sk : PSTACK_OF_X509_ATTRIBUTE; st : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_X509_ATTRIBUTE_dup (sk : PSTACK_OF_X509_ATTRIBUTE) : PSTACK_OF_X509_ATTRIBUTE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_X509_ATTRIBUTE_find (sk : PSTACK_OF_X509_ATTRIBUTE; val : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_X509_ATTRIBUTE_find (sk : PSTACK_OF_X509_ATTRIBUTE; _val : PX509_ATTRIBUTE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_X509_ATTRIBUTE_pop_free (sk : PSTACK_OF_X509_ATTRIBUTE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 {$ENDIF}
 {/helper_functions}

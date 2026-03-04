@@ -651,7 +651,7 @@ var
 
   (* Library initialisation functions *)
   procedure OPENSSL_cleanup cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0} //PALOFF functions called only as procedures
   // int OPENSSL_atexit(void (*handler)(void));
   procedure OPENSSL_thread_stop cdecl; external CLibCrypto; {introduced 1.1.0}
 

@@ -302,7 +302,7 @@ end;
 
 function TaurusTLSFinalHashInst(ACtx: TIdHashIntCtx): TIdBytes;
 var
-  LLen: TIdC_UInt;
+  LLen: TIdC_UInt; //PALOFF - Local identifiers that are set more than once without referencing in-between
 begin
 {$IFDEF fpc}
   Result := nil;

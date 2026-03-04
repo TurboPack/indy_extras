@@ -3098,7 +3098,7 @@ end;
 
 procedure PrepareTaurusTLSLocking;
 var
-  i, cnt: TIdC_INT;
+  i, cnt: TIdC_INT; //PALOFF - Local identifiers that are set and referenced once
   Lock: TIdCriticalSection;    //PALOFF - Unbalanced Create/Free, Created and freed objects
   LList: TIdCriticalSectionList;  //PALOFF - Local identifiers that are set and referenced once
 begin
@@ -3106,13 +3106,13 @@ begin
   try
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     if Assigned(CRYPTO_num_locks) then
-      cnt := CRYPTO_num_locks //PALOFF - Local identifiers that are set and referenced once
+      cnt := CRYPTO_num_locks
     else
-      cnt := 0; //PALOFF - Local identifiers that are set and referenced once
+      cnt := 0;
 {$ELSE}
-    cnt := CRYPTO_num_locks;  //PALOFF - Local identifiers that are set and referenced once
+    cnt := CRYPTO_num_locks;
 {$ENDIF}
-    for i := 0 to cnt - 1 do  //PALOFF - For-loop variables not used in loop
+    for i := 0 to cnt - 1 do
     begin
       Lock := TIdCriticalSection.Create;
       try
@@ -5065,7 +5065,7 @@ end;
 function TTaurusTLSSocket.Recv(var VBuffer: TIdBytes): TIdC_SIZET;
 var
   Lret, LErr: Integer;
-  LRead: TIdC_SIZET;
+  LRead: TIdC_SIZET;  //PALOFF - Local identifiers that are set more than once without referencing in-between
 begin
   Result := 0;
   repeat
@@ -5100,7 +5100,7 @@ function TTaurusTLSSocket.Send(const ABuffer: TIdBytes;
   const AOffset, ALength: TIdC_SIZET): TIdC_SIZET;
 var
   Lret, LErr: Integer;
-  LOffset, LLength, LWritten: TIdC_SIZET;
+  LOffset, LLength, LWritten: TIdC_SIZET; //PALOFF - Local identifiers that are set more than once without referencing in-between
 begin
   Result := 0;
   LOffset := AOffset;

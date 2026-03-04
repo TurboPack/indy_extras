@@ -589,7 +589,7 @@ var
   function sk_PKCS7_RECIP_INFO_value (const sk : PSTACK_OF_PKCS7_RECIP_INFO; i : TIdC_INT) : PPKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_RECIP_INFO_push (sk : PSTACK_OF_PKCS7_RECIP_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_RECIP_INFO_dup (sk : PSTACK_OF_PKCS7_RECIP_INFO) : PSTACK_OF_PKCS7_RECIP_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_PKCS7_RECIP_INFO_find (sk : PSTACK_OF_PKCS7_RECIP_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_PKCS7_RECIP_INFO_find (sk : PSTACK_OF_PKCS7_RECIP_INFO; _val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_PKCS7_RECIP_INFO_pop_free (sk : PSTACK_OF_PKCS7_RECIP_INFO; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
   function sk_PKCS7_SIGNER_INFO_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new';
   function sk_PKCS7_SIGNER_INFO_new_null : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_new_null';
@@ -598,7 +598,7 @@ var
   function sk_PKCS7_SIGNER_INFO_value (const sk : PSTACK_OF_PKCS7_SIGNER_INFO; i : TIdC_INT) : PPKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_PKCS7_SIGNER_INFO_push (sk : PSTACK_OF_PKCS7_SIGNER_INFO; st : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto  name 'OPENSSL_sk_push';
   function sk_PKCS7_SIGNER_INFO_dup (sk : PSTACK_OF_PKCS7_SIGNER_INFO) : PSTACK_OF_PKCS7_SIGNER_INFO cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_PKCS7_SIGNER_INFO_find (sk : PSTACK_OF_PKCS7_SIGNER_INFO; val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_PKCS7_SIGNER_INFO_find (sk : PSTACK_OF_PKCS7_SIGNER_INFO; _val : PX509_CRL) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_PKCS7_SIGNER_INFO_pop_free (sk : PSTACK_OF_PKCS7_SIGNER_INFO; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 {$ENDIF}
 

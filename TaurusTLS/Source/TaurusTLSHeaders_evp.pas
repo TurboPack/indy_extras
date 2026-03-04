@@ -2638,7 +2638,7 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
   function EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
   function EVP_MAC_final(ctx : PEVP_MAC_CTX;
-    out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+    _out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
   function EVP_MAC_finalXOF(ctx : PEVP_MAC_CTX; _out : PIdAnsiChar; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
 
   function EVP_MAC_gettable_params(const mac : PEVP_MAC) : POSSL_PARAM;  cdecl; external CLibCrypto;

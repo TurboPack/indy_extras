@@ -3779,7 +3779,7 @@ var
   function sk_SSL_CIPHER_value (const sk : PSTACK_OF_SSL_CIPHER; i : TIdC_INT): PSSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_SSL_CIPHER_push (sk : PSTACK_OF_SSL_CIPHER; st : PSSL_CIPHER): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_SSL_CIPHER_dup (sk : PSTACK_OF_SSL_CIPHER) : PSTACK_OF_SSL_CIPHER cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_SSL_CIPHER_find (sk : PSTACK_OF_SSL_CIPHER; val : PSSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_SSL_CIPHER_find (sk : PSTACK_OF_SSL_CIPHER; _val : PSSL_CIPHER) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_SSL_CIPHER_pop_free (sk : PSTACK_OF_SSL_CIPHER; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
   function sk_SSL_COMP_new(cmp : TOPENSSL_sk_compfunc) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_new';
@@ -3789,7 +3789,7 @@ var
   function sk_SSL_COMP_value (const sk : PSTACK_OF_SSL_COMP; i : TIdC_INT): PSSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_SSL_COMP_push (sk : PSTACK_OF_SSL_COMP; st : PSSL_COMP): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_SSL_COMP_dup (sk : PSTACK_OF_SSL_COMP) : PSTACK_OF_SSL_COMP cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_SSL_COMP_find (sk : PSTACK_OF_SSL_COMP; val : PSSL_COMP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_SSL_COMP_find (sk : PSTACK_OF_SSL_COMP; _val : PSSL_COMP) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_SSL_COMP_pop_free (sk : PSTACK_OF_SSL_COMP; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 
@@ -3800,7 +3800,7 @@ var
   function sk_SRTP_PROTECTION_PROFILE_value (const sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; i : TIdC_INT): PSRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_value';
   function sk_SRTP_PROTECTION_PROFILE_push (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; st : PSRTP_PROTECTION_PROFILE): TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_push';
   function sk_SRTP_PROTECTION_PROFILE_dup (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE) : PSTACK_OF_SRTP_PROTECTION_PROFILE cdecl; external CLibCrypto name 'OPENSSL_sk_dup';
-  function sk_SRTP_PROTECTION_PROFILE_find (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
+  function sk_SRTP_PROTECTION_PROFILE_find (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; _val : PSRTP_PROTECTION_PROFILE) : TIdC_INT cdecl; external CLibCrypto name 'OPENSSL_sk_find';
   procedure sk_SRTP_PROTECTION_PROFILE_pop_free (sk : PSTACK_OF_SRTP_PROTECTION_PROFILE; func: TOPENSSL_sk_freefunc) cdecl; external CLibCrypto name 'OPENSSL_sk_pop_free';
 
 {$ENDIF}
