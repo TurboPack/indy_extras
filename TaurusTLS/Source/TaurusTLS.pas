@@ -2348,7 +2348,7 @@ type
   /// </seealso>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
-  /// Raised if <c>SSL_CTX_set_session_id_context/c> failed.
+  /// Raised if <c>SSL_CTX_set_session_id_context</c> failed.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.1/man3/SSL_CTX_set_session_id_context/">
   /// SSL_set_app_data
