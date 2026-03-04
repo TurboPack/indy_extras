@@ -3106,11 +3106,11 @@ begin
   try
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     if Assigned(CRYPTO_num_locks) then
-      cnt := CRYPTO_num_locks
+      cnt := CRYPTO_num_locks //PALOFF - Local identifiers that are set and referenced once
     else
-      cnt := 0;
+      cnt := 0; //PALOFF - Local identifiers that are set and referenced once
 {$ELSE}
-    cnt := CRYPTO_num_locks;
+    cnt := CRYPTO_num_locks;  //PALOFF - Local identifiers that are set and referenced once
 {$ENDIF}
     for i := 0 to cnt - 1 do  //PALOFF - For-loop variables not used in loop
     begin
