@@ -3872,12 +3872,12 @@ end;
 
 procedure  _OpenSSL_add_all_ciphers; cdecl;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure  _OpenSSL_add_all_digests; cdecl;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure  _EVP_cleanup; cdecl;
@@ -26024,12 +26024,12 @@ end;
 
 procedure OpenSSL_add_all_ciphers;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure OpenSSL_add_all_digests;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil); //PALOFF - Functions called as procedures
 end;
 
 procedure EVP_cleanup;

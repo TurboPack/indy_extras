@@ -844,6 +844,8 @@ uses
   {$IFDEF WINDOWS}
   IdIDN,
   {$ENDIF}
+  TaurusTLS_ResourceStrings,
+  TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
@@ -1007,11 +1009,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA224: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha224) then
   begin
-    X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1039,11 +1046,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA256: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha256) then
   begin
-    X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1071,11 +1083,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA384: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_SHA384, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha384, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
-  if Assigned(EVP_SHA384) then
+  if Assigned(EVP_sha384) then
   begin
-    X509_digest(FX509, EVP_SHA384, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1103,11 +1120,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA512: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha512) then
   begin
-    X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1354,7 +1376,7 @@ begin
           end;
         end;
       finally
-        BIO_free(LMem);
+        BIO_free(LMem);  //PALOFF - Functions called as procedures
       end;
     end;
 {$ENDIF}
@@ -1527,7 +1549,10 @@ end;
 
 function TTaurusTLSX509.GetFingerprint: TTaurusTLSLEVP_MD;
 begin
-  X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length) = 0 then
+  begin
+    raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+  end;
 end;
 
 function TTaurusTLSX509.GetFingerprintAsString: String;
@@ -1696,8 +1721,10 @@ end;
 
 function TTaurusTLSX509AuthorityKeyID.GetSerial: TIdC_INT64;
 begin
-  Result := 0;
-  ASN1_INTEGER_get_int64(@Result, X509_get0_authority_serial(FX509));
+  if ASN1_INTEGER_get_int64(@Result, X509_get0_authority_serial(FX509)) = 0 then
+  begin
+    Result :=  0;
+  end;
 end;
 
 { TTaurusTLSX509Warnings }

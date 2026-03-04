@@ -26,6 +26,8 @@ implementation
 {$I TaurusTLSLinkDefines.inc}
 uses
   IdGlobal, IdFIPS, IdHashMessageDigest,
+  TaurusTLS_ResourceStrings,
+  TaurusTLSExceptionHandlers,
   TaurusTLSLoader,
   TaurusTLSHeaders_des,
   SysUtils;
@@ -75,7 +77,10 @@ begin
   Lkey[7] := (Akey_56[6] SHL 1) and $FF;
 
   DES_set_odd_parity(@Lkey);
-  DES_set_key(@Lkey, Vks);
+  case DES_set_key(@Lkey, Vks) of
+    -1 : raise ETaurusTLSDesSetKeyWrongParity.Create(RSMsg_DES_set_key_wrong_key_parity);
+    -2 : raise ETaurusTLSDesSetKeyWeakKey.Create(RSMsg_DES_weak_key);
+  end;
 end;
 
 { /*

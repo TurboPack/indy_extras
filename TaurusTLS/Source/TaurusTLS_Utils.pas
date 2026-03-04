@@ -642,6 +642,7 @@ var
   LBuf: TBa;
 {$ENDIF}
 begin
+  Result := '';
   if Assigned(a) then
   begin
 {$IFDEF USE_INLINE_VAR}
@@ -653,12 +654,10 @@ begin
     {$else}
     FillChar(LBuf, 1024, 0);
     {$endif}
-    OBJ_obj2txt(@LBuf[0], 1024, a, 0);
-    Result := AnsiStringToString(PIdAnsiChar(@LBuf));   //PALOFF - bad pointer usage - [LBuf : TBa cast to PAnsiChar]
-  end
-  else
-  begin
-    Result := '';
+    if OBJ_obj2txt(@LBuf[0], 1024, a, 0) > 0 then
+    begin
+      Result := AnsiStringToString(PIdAnsiChar(@LBuf));   //PALOFF - bad pointer usage - [LBuf : TBa cast to PAnsiChar]
+    end;
   end;
 end;
 

@@ -1395,7 +1395,7 @@ end;
 function BIO_dgram_set_local_addr_enable(b : PBIO; enable : TIdC_INT) : TIdC_INT;
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  Result := BIO_ctrl(b, BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE, enable, nil);
+  Result := BIO_ctrl(b, BIO_CTRL_DGRAM_SET_LOCAL_ADDR_ENABLE, TIdC_ULONG(enable), nil);  //PALOFF - Mismatch parameter value
 end;
 
 function BIO_dgram_get_local_addr_cap(b : PBIO) : TIdC_INT;
@@ -7937,7 +7937,7 @@ end;
 //# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
 function BIO_set_mem_buf(b: PBIO; bm: PBUF_MEM; c: TIdC_INT): TIdC_INT;
 begin
-  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
+  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, TIdC_ULONG(c), bm); //PALOFF - Mismatch parameter value
 end;
 
 // WAS DECLARED AS:
@@ -7951,7 +7951,7 @@ end;
 //# define BIO_set_mem_eof_return(b,v) BIO_ctrl(b,BIO_C_SET_BUF_MEM_EOF_RETURN,v,0)
 function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT;
 begin
-  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
+  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, TIdC_ULONG(v), nil); //PALOFF - Mismatch parameter value
 end;
 
 {$ENDIF}

@@ -3908,14 +3908,14 @@ procedure SSL_disable_ct(s : PSSL);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   //        ((void) SSL_set_validation_callback((s), NULL, NULL))
-  SSL_set_ct_validation_callback(s,nil,nil);
+  SSL_set_ct_validation_callback(s,nil,nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure SSL_CTX_disable_ct(ctx : PSSL_CTX);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   //        ((void) SSL_CTX_set_validation_callback((ctx), NULL, NULL))
-  SSL_CTX_set_ct_validation_callback(ctx,nil,nil);
+  SSL_CTX_set_ct_validation_callback(ctx,nil,nil);  //PALOFF - Functions called as procedures
 end;
 
 function SSL_CTX_get_read_ahead(ctx : PSSL_CTX) : TIdC_LONG;
@@ -4007,13 +4007,13 @@ end;
 procedure SSL_CTX_set_msg_callback_arg(ctx : PSSL_CTX; arg : Pointer);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+  SSL_CTX_ctrl(ctx, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);  //PALOFF - Functions called as procedures
 end;
 
 procedure SSL_set_msg_callback_arg(ssl : PSSL; arg : Pointer);
 {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
-  SSL_ctrl(ssl, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);
+  SSL_ctrl(ssl, SSL_CTRL_SET_MSG_CALLBACK_ARG, 0, arg);  //PALOFF - Functions called as procedures
 end;
 
 function SSL_get_extms_support(s : PSSL) : TIdC_LONG;
@@ -29534,7 +29534,7 @@ end;
 
 procedure SSL_load_error_strings; 
 begin
-  OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or OPENSSL_INIT_LOAD_CRYPTO_STRINGS,nil); 
+  OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or OPENSSL_INIT_LOAD_CRYPTO_STRINGS,nil); //PALOFF - Functions called as procedures
 end;
 
 function SSL_library_init: TIdC_INT;

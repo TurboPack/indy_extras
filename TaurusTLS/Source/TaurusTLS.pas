@@ -2348,6 +2348,14 @@ type
   /// </seealso>
   ETaurusTLSDataBindingError = class(ETaurusTLSAPISSLError);
   /// <summary>
+  /// Raised if <c>SSL_CTX_set_session_id_context/c> failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.1/man3/SSL_CTX_set_session_id_context/">
+  /// SSL_set_app_data
+  /// </seealso>
+
+  ETaurusTLSSetSessionIdContext = class(ETaurusTLSAPISSLError);
+  /// <summary>
   /// Raised if <c>SSL_accept</c> fails.
   /// </summary>
   /// <seealso href="https://docs.openssl.org/3.0/man3/SSL_accept/">
@@ -2951,8 +2959,10 @@ begin
               then
               begin
                 // switch certificate we send to the client and indicate success.
-                SSL_set_SSL_CTX(SSL, LSSLIO.Certificates[i].ctx);
-                Result := SSL_TLSEXT_ERR_OK;
+                if SSL_set_SSL_CTX(SSL, LSSLIO.Certificates[i].ctx) <> nil then
+                begin
+                  Result := SSL_TLSEXT_ERR_OK;
+                end;
                 break;
               end;
             end;
@@ -3154,10 +3164,13 @@ begin
     // has to be done before anything that uses memory
     IdSslCryptoMallocInit;
 {$ENDIF}
-    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or
+    if OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or
       OPENSSL_INIT_ADD_ALL_CIPHERS or OPENSSL_INIT_ADD_ALL_DIGESTS or
       OPENSSL_INIT_LOAD_CRYPTO_STRINGS or OPENSSL_INIT_LOAD_CONFIG or
-      OPENSSL_INIT_ASYNC or OPENSSL_INIT_ENGINE_ALL_BUILTIN, nil);
+      OPENSSL_INIT_ASYNC or OPENSSL_INIT_ENGINE_ALL_BUILTIN, nil) < 1 then
+    begin
+      raise ETaurusTLSOpenSSLInitFailed.Create(RSOSSLInitFailed);
+    end;
 
     SSL_load_error_strings;
     // Create locking structures, we need them for callback routines
@@ -3945,7 +3958,7 @@ begin
         // needs to be called again to receive the peer's "close notify" in response...
         if SSL_shutdown(fSSLSocket.SSL) = 0 then
         begin
-          SSL_shutdown(fSSLSocket.SSL);
+          SSL_shutdown(fSSLSocket.SSL);  //PALOFF - Functions called as procedures
         end;
       end;
 {$IFDEF WIN32_OR_WIN64}
@@ -4447,6 +4460,7 @@ var
   M: TMarshaller;
 {$ENDIF}
   LRes: Boolean;
+  LRetCode : TIdC_INT;
   LFunc:  SSL_verify_cb;
   LSkipDefaultLoader: Boolean;
 begin
@@ -4487,7 +4501,7 @@ begin
         (RSOSSLMaxProtocolError);
     end;
   end;
-  SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
+  SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY); //PALOFF - Functions called as procedures
 
   // set security level before loading certificates.
   SSL_CTX_set_security_level(fContext, FSecurityLevel);
@@ -4515,7 +4529,7 @@ begin
 {$IFDEF USE_WINDOWS_CERT_STORE}
       LoadWindowsCertStore;
 {$ELSE}
-      SSL_CTX_set_default_verify_paths(fContext);
+      SSL_CTX_set_default_verify_paths(fContext);   //PALOFF - Functions called as procedures
 {$ENDIF}
     end;
     // load key and certificate files
@@ -4654,8 +4668,12 @@ begin
   if not LSkipDefaultLoader then begin
     if CtxMode = sslCtxServer then
     begin
-      SSL_CTX_set_session_id_context(fContext, PByte(@fSessionId),
+      LRetCode := SSL_CTX_set_session_id_context(fContext, PByte(@fSessionId),
         SizeOf(fSessionId));
+      if LRetCode <= 0 then
+      begin
+         ETaurusTLSDataBindingError.RaiseExceptionCode( ERR_get_error, LRetCode);
+      end;
     end;
     // CA list
     if RootPublicKey <> '' then
@@ -4799,7 +4817,7 @@ begin
       end;
     }
     // SSL_set_shutdown(fSSL, SSL_SENT_SHUTDOWN);
-    SSL_shutdown(fSSL);
+    SSL_shutdown(fSSL);  //PALOFF - Functions called as procedures
     SSL_free(fSSL);
     fSSL := nil;
   end;
@@ -5271,8 +5289,10 @@ end;
 
 function TTaurusTLSCipher.GetBits: TIdC_INT;
 begin
-  Result := 0;
-  SSL_CIPHER_get_bits(GetSSLCipher, Result);
+  if SSL_CIPHER_get_bits(GetSSLCipher, Result) = 0 then
+  begin
+    Result := 0;
+  end;
 end;
 
 function TTaurusTLSCipher.GetVersion: String;
