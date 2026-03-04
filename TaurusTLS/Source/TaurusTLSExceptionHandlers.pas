@@ -366,7 +366,7 @@ class function ETaurusTLSAPICryptoError.CheckResult(AResult: TIdC_INT;
 begin
   Result := AResult = 1;
   if (not Result) and ARaiseException then
-    RaiseException;
+    RaiseException(AMsg);
 end;
 
 class procedure ETaurusTLSAPICryptoError.RaiseException(const AMsg : String = '');
