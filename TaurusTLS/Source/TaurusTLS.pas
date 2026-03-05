@@ -790,7 +790,8 @@ type
     /// <summary>
     /// Individual TTaurus​TLSX509File objects that the collection contains.
     /// </summary>
-    property Items[Index: Integer]: TTaurusTLSX509File read GetX509FilesItem
+    ///  Note that you can not use GetItem or SetIem since that's in an anscestor.
+    property Items[Index: Integer]: TTaurusTLSX509File read GetX509FilesItem  //FI:C110 - getter or setter name is different
       write SetX509FilesItem; default;
 
   end;
@@ -1286,11 +1287,11 @@ type
     fSSLContext: TTaurusTLSContext;
     fHostName: String;
     fVerifyHostname: Boolean;
-    function GetProtocolVersion: TTaurusTLSSSLVersion;
+    function GetSSLProtocolVersion: TTaurusTLSSSLVersion;
     function GetSSLProtocolVersionStr: string;
     function GetPeerCert: TTaurusTLSX509;
 
-    function GetSSLCipher: TTaurusTLSCipher;
+    function GetCipher: TTaurusTLSCipher;
     function GetVerifyHostname: Boolean;
     procedure SetVerifyHostName(const Value: Boolean);
   public
@@ -1390,7 +1391,7 @@ type
     /// <summary>
     /// TLS Cipher information.
     /// </summary>
-    property Cipher: TTaurusTLSCipher read GetSSLCipher;
+    property Cipher: TTaurusTLSCipher read GetCipher;
     /// <summary>
     /// Name of peer you are connected to.
     /// </summary>
@@ -1401,7 +1402,7 @@ type
     /// <summary>
     /// TLS Protocol version in use.
     /// </summary>
-    property SSLProtocolVersion: TTaurusTLSSSLVersion read GetProtocolVersion;
+    property SSLProtocolVersion: TTaurusTLSSSLVersion read GetSSLProtocolVersion;
     /// <summary>
     /// TLS Protocol version in use as a string.
     /// </summary>
@@ -2235,7 +2236,7 @@ type
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED} strict{$ENDIF} private
     fSSLSocket: TTaurusTLSSocket;
     fSSLCipher: PSSL_CIPHER;
-    function GetSSLCipher: PSSL_CIPHER;
+    function GetCipher: PSSL_CIPHER;
     function GetDescription: String;
     function GetName: String;
     function GetBits: Integer;
@@ -2282,7 +2283,7 @@ type
   /// </summary>
   ETaurusTLSModeNotSet = class(ETaurusTLSError);
   /// <summary>
-  /// Raised if the Session in TTaurusTLSSocket.GetProtocolVersion is nil.
+  /// Raised if the Session in TTaurusTLSSocket.GetSSLProtocolVersion is nil.
   /// </summary>
   ETaurusTLSSessionCanNotBeNil = class(ETaurusTLSError);
   /// <summary>
@@ -2642,7 +2643,7 @@ end;
 
 {$I TaurusTLSUnusedParamOff.inc}
 
-function g_VerifyCallback(const preverify_ok: TIdC_INT;
+function g_VerifyCallback(const preverify_ok: TIdC_INT; //FI:C103 surpress too many variables warnings.
   x509_ctx: PX509_STORE_CTX): TIdC_INT cdecl;
 var
   LErr: Integer;  //PALOFF
@@ -2704,7 +2705,7 @@ begin
 end;
 
 function g_SecurityLevelCallback(const s: PSSL; const ctx: PSSL_CTX;
-  op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer)
+  op: TIdC_INT; bits: TIdC_INT; nid: TIdC_INT; other: Pointer; ex: Pointer)  //FI:O804 //surpress method parameter is declared but never used.
   : TIdC_INT; cdecl;
 var
   LErr: Integer;     //PALOFF
@@ -2924,7 +2925,7 @@ begin
   end;
 end;
 
-function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer)
+function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer) //FI:O804 //surpress method parameter is declared but never used.
   : TIdC_INT; cdecl;
 var
   LErr: Integer;   //PALOFF
@@ -3065,8 +3066,8 @@ end;
 {$ENDIF}
 {$I TaurusTLSUnusedParamOff.inc}
 
-procedure SslLockingCallback(Mode, n: TIdC_INT; Afile: PIdAnsiChar;
-  line: TIdC_INT)cdecl;
+procedure SslLockingCallback(Mode, n: TIdC_INT; Afile: PIdAnsiChar; //FI:O804 //surpress method parameter is declared but never used.
+  line: TIdC_INT)cdecl; //FI:O804 //surpress method parameter is declared but never used.
 var
   Lock: TIdCriticalSection;  //PALOFF "Local identifiers that are set more than once without referencing in-between"
   LList: TIdCriticalSectionList;
@@ -3112,7 +3113,7 @@ begin
 {$ELSE}
     cnt := CRYPTO_num_locks;
 {$ENDIF}
-    for i := 0 to cnt - 1 do
+    for i := 0 to cnt - 1 do  //FI:W528
     begin
       Lock := TIdCriticalSection.Create;
       try
@@ -3501,7 +3502,7 @@ begin
   end;
 end;
 
-procedure TTaurusTLSServerIOHandler.Init;
+procedure TTaurusTLSServerIOHandler.Init; //FI:C103 surpress too many variables warnings.
 // see also TTaurusTLSIOHandlerSocket.Init
 var
   i: Integer;
@@ -5144,7 +5145,7 @@ begin
   fVerifyHostname := Value;
 end;
 
-function TTaurusTLSSocket.GetProtocolVersion: TTaurusTLSSSLVersion;
+function TTaurusTLSSocket.GetSSLProtocolVersion: TTaurusTLSSSLVersion;
 begin
   if fSession = nil then
     raise ETaurusTLSSessionCanNotBeNil.Create(RSOSSSessionCanNotBeNul)
@@ -5205,7 +5206,7 @@ begin
   Result := fPeerCert;
 end;
 
-function TTaurusTLSSocket.GetSSLCipher: TTaurusTLSCipher;
+function TTaurusTLSSocket.GetCipher: TTaurusTLSCipher;
 begin
   if (fSSLCipher = nil) and (fSSL <> nil) then
   begin
@@ -5269,16 +5270,16 @@ function TTaurusTLSCipher.GetDescription;
 var
   buf: array [0 .. 1024] of TIdAnsiChar;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_description(GetSSLCipher, @buf[0],
+  Result := AnsiStringToString(SSL_CIPHER_description(GetCipher, @buf[0],
     SizeOf(buf) - 1));
 end;
 
 function TTaurusTLSCipher.GetName: String;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_get_name(GetSSLCipher));
+  Result := AnsiStringToString(SSL_CIPHER_get_name(GetCipher));
 end;
 
-function TTaurusTLSCipher.GetSSLCipher: PSSL_CIPHER;
+function TTaurusTLSCipher.GetCipher: PSSL_CIPHER;
 begin
   if not Assigned(fSSLCipher) then
   begin
@@ -5289,7 +5290,7 @@ end;
 
 function TTaurusTLSCipher.GetBits: TIdC_INT;
 begin
-  if SSL_CIPHER_get_bits(GetSSLCipher, Result) = 0 then
+  if SSL_CIPHER_get_bits(GetCipher, Result) = 0 then
   begin
     Result := 0;
   end;
@@ -5297,7 +5298,7 @@ end;
 
 function TTaurusTLSCipher.GetVersion: String;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_get_version(GetSSLCipher));
+  Result := AnsiStringToString(SSL_CIPHER_get_version(GetCipher));
 end;
 
 {$I TaurusTLSSymbolDeprecatedOff.inc}
