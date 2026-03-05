@@ -69,7 +69,7 @@ type
     /// <param name="AMsg">
     ///   The message to display.
     /// </param>
-    class procedure RaiseExceptionCode(const AErrCode, ARetCode : TIdC_INT; const AMsg : String = '');
+    class procedure RaiseExceptionCode(const AErrCode : TIdC_ULONG; ARetCode : TIdC_INT; const AMsg : String = '');
     /// <summary>
     ///   Error Code returned by the failure.
     /// </summary>
@@ -80,7 +80,16 @@ type
     property RetCode : TIdC_INT read FRetCode;
   end;
 
+  /// <summary>
+  ///   raised if the OPENSSL_init_ssl libSSL API call failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/master/man3/OPENSSL_init_ssl/">
+  ///   OPENSSL_init_ssl
+  /// </seealso>
+  ETaurusTLSOpenSSLInitFailed = class(ETaurusTLSAPISSLError);
+
   ETaurusTLSUnderlyingCryptoError = class;
+
   /// <summary>
   ///   Anscestor of exceptions that are raised when a LibCrypto API call fails.
   /// </summary>
@@ -148,6 +157,37 @@ type
     /// </summary>
     property ErrorCode : TIdC_ULONG read FErrorCode;
   end;
+
+  /// <summary>
+  ///   Raised if the X509_digest function failed.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/3.3/man3/X509_digest/">
+  ///   X509_digest
+  /// </seealso>
+  ETaurusTLSX509DigestFailed = class(ETaurusTLSAPICryptoError);
+  /// <summary>
+  ///   Anscestor of exceptions that are raised when a DES_set_key API call fails.
+  /// </summary>
+  ETaurusTLSDesSetKeyError = class(ETaurusTLSAPICryptoError);
+
+  /// <summary>
+  ///   This is raised if the DES_set_key indicates that the parity of the key
+  ///   is wrong.
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/1.0.2/man3/des/">
+  ///   DES_set_key
+  /// </seealso>
+  ETaurusTLSDesSetKeyWrongParity = class(ETaurusTLSDesSetKeyError);
+  /// <summary>
+  ///   This is raised if the DES_set_key indicates that the key is weal/
+  /// </summary>
+  /// <seealso href="https://docs.openssl.org/1.0.2/man3/des/">
+  ///   DES_set_key
+  /// </seealso>
+  ETaurusTLSDesSetKeyWeakKey = class(ETaurusTLSDesSetKeyError);
+  /// <summary>
+  ///   Anscestor of exceptions that are raised when a LibCrypto API call fails.
+  /// </summary>
   /// <summary>
   ///   Raised when there is an underlying error in the error Queue.
   /// </summary>
@@ -326,7 +366,7 @@ class function ETaurusTLSAPICryptoError.CheckResult(AResult: TIdC_INT;
 begin
   Result := AResult = 1;
   if (not Result) and ARaiseException then
-    RaiseException;
+    RaiseException(AMsg);
 end;
 
 class procedure ETaurusTLSAPICryptoError.RaiseException(const AMsg : String = '');
@@ -362,7 +402,7 @@ end;
 class procedure ETaurusTLSAPICryptoError.RaiseIfError(AResult: TIdC_INT;
   const AMsg: String);
 begin
-  CheckResult(AResult, AMsg);
+  CheckResult(AResult, AMsg);  //PALOFF - Functions called as procedures
 end;
 
 { ETaurusTLSAPISSLError }
@@ -374,7 +414,7 @@ begin
   RaiseExceptionCode(SSL_get_error(ASSL, ARetCode), ARetCode, AMsg);
 end;
 
-class procedure ETaurusTLSAPISSLError.RaiseExceptionCode(const AErrCode, ARetCode: TIdC_INT;
+class procedure ETaurusTLSAPISSLError.RaiseExceptionCode(const AErrCode : TIdC_ULONG; ARetCode: TIdC_INT;
   const AMsg: String);
     {$IFDEF USE_NORETURN}noreturn;{$ENDIF}
 var

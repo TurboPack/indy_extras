@@ -4,7 +4,7 @@
   <Summary>OpenSSL OpenSSL 3.x support for Indy - Internet Direct</Summary>
   <Author>TaurusTLS Developers</Author>
   <Email>taurustls.developers@gmail.com</Email>
-  <Copyright>Copyright (c) 2025 TaurusTLS Developers,  All Rights Reserved</Copyright>
+  <Copyright>Copyright (c) 2026 TaurusTLS Developers,  All Rights Reserved</Copyright>
   <Comment>TaurusTLS provides OpenSSL 3.x support for Indy - Internet Direct.</Comment>
   <Language>1033</Language>
   <Charset>1</Charset>
@@ -15,7 +15,7 @@
 &lt;br /&gt;
 Powered by &lt;a href="https://devjetsoftware.com/products/documentation-insight/" target="_blank"&gt;DocInsight&lt;/a&gt;&lt;/center&gt;</FooterHtml>
   <CustomDefines/>
-  <GlobalSearchPaths>false</GlobalSearchPaths>
+  <GlobalSearchPaths>true</GlobalSearchPaths>
   <ShowImplementationSection>false</ShowImplementationSection>
   <ShowPrivateMembers>false</ShowPrivateMembers>
   <ShowProtectedMembers>false</ShowProtectedMembers>

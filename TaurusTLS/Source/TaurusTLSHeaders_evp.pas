@@ -2638,7 +2638,7 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
   function EVP_MAC_update(ctx : PEVP_MAC_CTX; const data : PIdAnsiChar;
     datalen : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
   function EVP_MAC_final(ctx : PEVP_MAC_CTX;
-    out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
+    _out : PIdAnsiChar; var outl : TIdC_SIZET; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
   function EVP_MAC_finalXOF(ctx : PEVP_MAC_CTX; _out : PIdAnsiChar; outsize : TIdC_SIZET) : TIdC_INT; cdecl; external CLibCrypto;
 
   function EVP_MAC_gettable_params(const mac : PEVP_MAC) : POSSL_PARAM;  cdecl; external CLibCrypto;
@@ -3872,12 +3872,12 @@ end;
 
 procedure  _OpenSSL_add_all_ciphers; cdecl;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure  _OpenSSL_add_all_digests; cdecl;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure  _EVP_cleanup; cdecl;
@@ -26024,12 +26024,12 @@ end;
 
 procedure OpenSSL_add_all_ciphers;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS, nil);  //PALOFF - Functions called as procedures
 end;
 
 procedure OpenSSL_add_all_digests;
 begin
-  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil);
+  OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_DIGESTS, Nil); //PALOFF - Functions called as procedures
 end;
 
 procedure EVP_cleanup;

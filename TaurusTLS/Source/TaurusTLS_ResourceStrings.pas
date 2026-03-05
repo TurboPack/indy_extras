@@ -15,6 +15,7 @@ interface
 
 resourcestring
   { TaurusTLS }
+  RSOSSLInitFailed = 'OPENSSL_init_ssl failed';
   RSOSSFailedToLoad = 'Failed to load %s.';
   RSOSSFailedToLoad_WithErrCode = 'Failed to load %s (error #%d).';
   RSOSSSessionCanNotBeNul = 'Session can not be nul.';
@@ -67,7 +68,7 @@ resourcestring
   RSOSSLHMACInitExError = 'HMAC_Init_ex error';
   RSOSSLHMACUpdateError = 'HMAC_Update error';
   RSOSSLHMACFinalError = 'HMAC_Final error';
-
+  RSOSSLX509DigestFailed = 'X509_digest failed';
   // long desciptions for cert errors.
   RSMSG_X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT = 'the issuer certificate could ' +
     'not be found: this occurs if the issuer certificate of an untrusted ' +
@@ -253,6 +254,9 @@ resourcestring
   RSMSG_UTF8NoMapping = 'Unable to convert character(s) to UTF8.';
   RSMSG_UnicodeNoMapping = 'Unable to convert character(s) to Unicode.';
 
+  //NTLM Messages - DES_set_key
+  RSMsg_DES_set_key_wrong_key_parity = 'DES_set_key: Wrong Key Parity';
+  RSMsg_DES_weak_key = 'DES_set_key: Weak key';
 
 
 implementation

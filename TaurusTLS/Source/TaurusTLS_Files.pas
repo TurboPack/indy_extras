@@ -203,7 +203,7 @@ begin
       Result := PEM_read_bio_X509(LB, nil, nil, nil);
     end;
   finally
-    BIO_free(LB);
+    BIO_free(LB); //PALOFF - Functions called as procedures
     FreeAndNil(LM);
   end;
 end;
@@ -296,7 +296,7 @@ begin
         PKCS12_free(LP12);
       end;
     finally
-      BIO_free(b);
+      BIO_free(b);   //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -378,7 +378,7 @@ begin
         PKCS12_free(LP12);
       end;
     finally
-      BIO_free(Lb);
+      BIO_free(Lb);  //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -546,7 +546,7 @@ begin
         Exit;
       end;
     finally
-      BIO_free(Lin);
+      BIO_free(Lin); //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -558,6 +558,7 @@ function TaurusTLS_unicode_X509_load_cert_crl_file(ctx: PX509_LOOKUP;
 var
   LM: TMemoryStream;          //PALOFF - Created and freed objects
   Linf: PSTACK_OF_X509_INFO;  //PALOFF - Local identifiers that possibly are set more than once without referencing in-between
+
   Litmp: PX509_INFO;
   Lin: PBIO;
   i, count: Integer;
@@ -591,7 +592,7 @@ begin
     try
       Linf := PEM_X509_INFO_read_bio(Lin, nil, nil, nil);
     finally
-      BIO_free(Lin);
+      BIO_free(Lin); //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -722,7 +723,7 @@ begin
               end;
             end;
           finally
-            BIO_free(LB);
+            BIO_free(LB); //PALOFF - Functions called as procedures
           end;
         end
         else
@@ -800,7 +801,7 @@ begin
       Result := SSL_CTX_use_PrivateKey(ctx, LKey);
       EVP_PKEY_free(LKey);
     finally
-      BIO_free(b);
+      BIO_free(b); //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -902,7 +903,7 @@ begin
         end;
       end;
     finally
-      BIO_free(b);
+      BIO_free(b); //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -1016,7 +1017,7 @@ begin
       Result := SSL_CTX_set_tmp_dh(ctx, LDH);
       DH_free(LDH);
     finally
-      BIO_free(b);
+      BIO_free(b); //PALOFF - Functions called as procedures
     end;
   finally
     FreeAndNil(LM);
@@ -1190,7 +1191,7 @@ begin
       Result := SSL_CTX_set_tmp_dh(ctx, LDH);
       DH_free(LDH);
     finally
-      BIO_free(b);
+      BIO_free(b);  //PALOFF - Functions called as procedures
     end;
   end;
 end;
@@ -1288,7 +1289,7 @@ begin
       Result := SSL_CTX_set_tmp_dh(ctx, LDH);
       DH_free(LDH);
     finally
-      BIO_free(b);
+      BIO_free(b); //PALOFF - Functions called as procedures
     end;
   end;
 end;

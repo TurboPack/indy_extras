@@ -651,7 +651,7 @@ var
 
   (* Library initialisation functions *)
   procedure OPENSSL_cleanup cdecl; external CLibCrypto; {introduced 1.1.0}
-  function OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
+  function OPENSSL_init_crypto(opts: TIdC_UINT64; const settings: POPENSSL_INIT_SETTINGS): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0} //PALOFF functions called only as procedures
   // int OPENSSL_atexit(void (*handler)(void));
   procedure OPENSSL_thread_stop cdecl; external CLibCrypto; {introduced 1.1.0}
 
@@ -1173,13 +1173,13 @@ begin
   begin
     if base_provider <> nil then
     begin
-      OSSL_PROVIDER_unload(base_provider);
+      OSSL_PROVIDER_unload(base_provider); //PALOFF - Functions called as procedures
       base_provider := nil;
     end;
 
     if fips_provider <> nil then
     begin
-       OSSL_PROVIDER_unload(fips_provider);
+       OSSL_PROVIDER_unload(fips_provider); //PALOFF - Functions called as procedures
        fips_provider := nil;
     end;
     Result := 1;
@@ -1193,7 +1193,7 @@ begin
      base_provider := OSSL_PROVIDER_load(nil, PAnsiChar(AnsiString('base')));
      if base_provider = nil then
      begin
-       OSSL_PROVIDER_unload(fips_provider);
+       OSSL_PROVIDER_unload(fips_provider);  //PALOFF - Functions called as procedures
        fips_provider := nil;
        Exit;
      end;
@@ -4963,13 +4963,13 @@ begin
   begin
     if base_provider <> nil then
     begin
-      OSSL_PROVIDER_unload(base_provider);
+      OSSL_PROVIDER_unload(base_provider);  //PALOFF - Functions called as procedures
       base_provider := nil;
     end;
 
     if fips_provider <> nil then
     begin
-       OSSL_PROVIDER_unload(fips_provider);
+       OSSL_PROVIDER_unload(fips_provider);  //PALOFF - Functions called as procedures
        fips_provider := nil;
     end;
     Result := 1;
@@ -4983,7 +4983,7 @@ begin
      base_provider := OSSL_PROVIDER_load(nil, PIdAnsiChar('base'));
      if base_provider = nil then
      begin
-       OSSL_PROVIDER_unload(fips_provider);
+       OSSL_PROVIDER_unload(fips_provider);   //PALOFF - Functions called as procedures
        fips_provider := nil;
        Exit;
      end;

@@ -65,8 +65,8 @@ type
     function GetHash: TTaurusTLSULong; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetHashAsString: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetCommonName: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
-    function GetOrginization: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
-    function GetUnit: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
+    function GetOrganization: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
+    function Get_Unit: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetEMail: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetCity: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetCountry: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -106,11 +106,11 @@ type
     /// <summary>
     ///   The name of the organization of the Common Name.
     /// </summary>
-    property Organization: String read GetOrginization;
+    property Organization: String read GetOrganization;
     /// <summary>
     ///   The organizational unit for the Common Name.
     /// </summary>
-    property _Unit: String read GetUnit;
+    property _Unit: String read Get_Unit;
     /// <summary>
     ///   E-Mail address for the Common Name.
     /// </summary>
@@ -263,7 +263,7 @@ type
   TTaurusTLSX509PublicKey = class(TTaurusTLSX509Info)
 {$IFDEF USE_STRICT_PRIVATE_PROTECTED}strict{$ENDIF} protected
     function GetModulus: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
-    function GetExponent: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
+    function GetExponent_: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetAlgorithm: String; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetBits: TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetSize: TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
@@ -308,7 +308,7 @@ type
     /// <remarks>
     ///   This may be empty if the public key is not a RSA key.
     /// </remarks>
-    property Exponent_: String read GetExponent;
+    property Exponent_: String read GetExponent_;
   end;
 
   /// <summary>
@@ -663,13 +663,13 @@ type
     function GetExtensionCritical(const AIndex: TIdC_INT): Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetExtensionValues(const AIndex: TIdC_INT): string; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetKeyUsage: TTaurusTLSX509KeyUsage;
-    function GetExtKeyUsage: TTaurusTLSX509ExtKeyUsage;
+    function GetExtendedKeyUsage: TTaurusTLSX509ExtKeyUsage;
 
     function GetProxyPathLen: TIdC_LONG; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
     class function X509ToTTaurusTLSX509Name(aX509: PX509_NAME): TTaurusTLSX509Name;
       static; {$IFDEF USE_INLINE}inline; {$ENDIF}
-    function GetHasBasicConstaints: Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
+    function GetHasBasicConstraints: Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetCertificateAuthorityPathLen: TIdC_LONG; {$IFDEF USE_INLINE}inline; {$ENDIF}
     function GetHasFreshestCRL: Boolean; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
@@ -807,7 +807,7 @@ type
     /// <summary>
     ///   The certificate has the Basic Constraints extension.
     /// </summary>
-    property HasBasicConstraints: Boolean read GetHasBasicConstaints;
+    property HasBasicConstraints: Boolean read GetHasBasicConstraints;
     /// <summary>
     ///   Authority Key Identifier.
     /// </summary>
@@ -819,7 +819,7 @@ type
     /// <summary>
     ///   Extended Key Usage Exention information.
     /// </summary>
-    property ExtendedKeyUsage: TTaurusTLSX509ExtKeyUsage read GetExtKeyUsage;
+    property ExtendedKeyUsage: TTaurusTLSX509ExtKeyUsage read GetExtendedKeyUsage;
     /// <summary>
     ///   Proxy certificate path length
     /// </summary>
@@ -844,6 +844,8 @@ uses
   {$IFDEF WINDOWS}
   IdIDN,
   {$ENDIF}
+  TaurusTLS_ResourceStrings,
+  TaurusTLSExceptionHandlers,
   TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_asn1,
   TaurusTLSHeaders_bio,
@@ -954,7 +956,7 @@ begin
   else
   {$endif}
   begin
-    Result.C1 := X509_NAME_hash(fX509Name);
+    Result.C1 := X509_NAME_hash(fX509Name);  //PALOFF - Mismatch parameter value
   end;
 end;
 
@@ -963,7 +965,7 @@ begin
   Result := IndyFormat('%.8x', [Hash.L1]); { do not localize }
 end;
 
-function TTaurusTLSX509Name.GetOrginization: String;
+function TTaurusTLSX509Name.GetOrganization: String;
 begin
   Result := GetStrByNID(NID_organizationName);
 end;
@@ -979,7 +981,7 @@ begin
   Result := GetStrByNID(NID_streetAddress);
 end;
 
-function TTaurusTLSX509Name.GetUnit: String;
+function TTaurusTLSX509Name.Get_Unit: String;
 begin
   Result := GetStrByNID(NID_organizationalUnitName);
 end;
@@ -1007,11 +1009,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA224: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha224) then
   begin
-    X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1039,11 +1046,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA256: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha256) then
   begin
-    X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1071,11 +1083,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA384: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_SHA384, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha384, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
-  if Assigned(EVP_SHA384) then
+  if Assigned(EVP_sha384) then
   begin
-    X509_digest(FX509, EVP_SHA384, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1103,11 +1120,16 @@ end;
 function TTaurusTLSX509Fingerprints.GetSHA512: TTaurusTLSLEVP_MD;
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
 {$ELSE}
   if Assigned(EVP_sha512) then
   begin
-    X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length);
+{$ENDIF}
+    if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
+    begin
+      raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+    end;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   end
   else
   begin
@@ -1354,7 +1376,7 @@ begin
           end;
         end;
       finally
-        BIO_free(LMem);
+        BIO_free(LMem);  //PALOFF - Functions called as procedures
       end;
     end;
 {$ENDIF}
@@ -1396,7 +1418,7 @@ begin
   Result:=Extensions.ExtensionValues[AIndex];
 end;
 
-function TTaurusTLSX509.GetExtKeyUsage: TTaurusTLSX509ExtKeyUsage;
+function TTaurusTLSX509.GetExtendedKeyUsage: TTaurusTLSX509ExtKeyUsage;
 var
   LFlags: TIdC_UINT32;
 begin
@@ -1527,7 +1549,10 @@ end;
 
 function TTaurusTLSX509.GetFingerprint: TTaurusTLSLEVP_MD;
 begin
-  X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length);
+  if X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length) = 0 then
+  begin
+    raise ETaurusTLSX509DigestFailed.Create(RSOSSLX509DigestFailed);
+  end;
 end;
 
 function TTaurusTLSX509.GetFingerprintAsString: String;
@@ -1542,7 +1567,7 @@ begin
   Result:=FFingerprints;
 end;
 
-function TTaurusTLSX509.GetHasBasicConstaints: Boolean;
+function TTaurusTLSX509.GetHasBasicConstraints: Boolean;
 begin
   Result := X509_get_extension_flags(Self.FX509) and
     EXFLAG_BCONS = EXFLAG_BCONS;
@@ -1612,7 +1637,7 @@ begin
   end;
 end;
 
-function TTaurusTLSX509PublicKey.GetExponent: String;
+function TTaurusTLSX509PublicKey.GetExponent_: String;
 var
   LKey: PEVP_PKEY;
   LBN: PBIGNUM;
@@ -1696,8 +1721,10 @@ end;
 
 function TTaurusTLSX509AuthorityKeyID.GetSerial: TIdC_INT64;
 begin
-  Result := 0;
-  ASN1_INTEGER_get_int64(@Result, X509_get0_authority_serial(FX509));
+  if ASN1_INTEGER_get_int64(@Result, X509_get0_authority_serial(FX509)) = 0 then
+  begin
+    Result :=  0;
+  end;
 end;
 
 { TTaurusTLSX509Warnings }

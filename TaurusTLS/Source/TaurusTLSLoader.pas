@@ -438,7 +438,7 @@ var
   OpenSSL_version_num: TOpenSSL_version_num;
   SSLVersionNo: TIdC_ULONG;
 
-begin // FI:C101
+begin
   Result := not FFailedToLoad;
   if not Result then
     Exit;
@@ -520,7 +520,7 @@ end;
 procedure TOpenSSLLoader.Unload;
 var
   i: integer;
-begin // FI:C101
+begin
   FLibraryLoaded.Lock();
   try
     if FLibraryLoaded.Value then
