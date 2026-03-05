@@ -254,7 +254,7 @@ end;
 
 type
   TErrMsgRec = record
-    ErrCode : TIdC_ULONG;
+    ErrCode : TIdC_LONG;
     Msg : String;
   end;
 
