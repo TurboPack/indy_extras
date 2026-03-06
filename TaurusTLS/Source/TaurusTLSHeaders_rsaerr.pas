@@ -210,7 +210,7 @@ implementation
 const
   ERR_load_RSA_strings_procname = 'ERR_load_RSA_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_RSA_strings: TIdC_INT; cdecl;
 begin
@@ -265,6 +265,7 @@ begin
   ERR_load_RSA_strings := nil;
 end;
   {$I TaurusTLSUnusedParamOff.inc}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

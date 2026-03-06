@@ -448,7 +448,7 @@ begin
 end;
 
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 
 function  ERR_OPENSSL_sk_num(_para1:POPENSSL_STACK):TIdC_INT; cdecl;
@@ -2454,6 +2454,7 @@ begin
   sk_sort := nil; {removed 1.1.0}
   sk_is_sorted := nil; {removed 1.1.0}
 end;
+  {$ENDIF}
 {$ELSE}
 function sk_num(_para1:POPENSSL_STACK):TIdC_INT;
 begin

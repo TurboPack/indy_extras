@@ -122,7 +122,7 @@ const
 
   BF_options_procname = 'BF_options';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 procedure  ERR_BF_set_key(key: PBF_KEY; len: TIdC_INT; const data: PByte); cdecl;
 begin
@@ -455,11 +455,10 @@ begin
   BF_ofb64_encrypt := nil;
   BF_options := nil;
 end;
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

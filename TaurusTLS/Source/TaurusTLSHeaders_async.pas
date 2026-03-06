@@ -179,7 +179,7 @@ const
   ASYNC_block_pause_procname = 'ASYNC_block_pause'; {introduced 1.1.0}
   ASYNC_unblock_pause_procname = 'ASYNC_unblock_pause'; {introduced 1.1.0}
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 function  ERR_ASYNC_init_thread(max_size: TIdC_SIZET; init_size: TIdC_SIZET): TIdC_INT; cdecl;
 begin
@@ -827,12 +827,10 @@ begin
   ASYNC_block_pause := nil; {introduced 1.1.0}
   ASYNC_unblock_pause := nil; {introduced 1.1.0}
 end;
-{$ELSE}
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

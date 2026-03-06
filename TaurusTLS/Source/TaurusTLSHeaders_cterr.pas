@@ -119,7 +119,7 @@ implementation
 const
   ERR_load_CT_strings_procname = 'ERR_load_CT_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_CT_strings: TIdC_INT; cdecl;
 begin
@@ -171,12 +171,10 @@ procedure Unload;
 begin
   ERR_load_CT_strings := nil;
 end;
-{$ELSE}
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

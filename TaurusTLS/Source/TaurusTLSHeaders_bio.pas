@@ -1988,6 +1988,7 @@ begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
 end;
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; cdecl;
 begin
@@ -7954,11 +7955,10 @@ begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, TIdC_ULONG(v), nil); //PALOFF - Mismatch parameter value
 end;
 
-{$ENDIF}
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+
+  {$ENDIF}
 {$ENDIF}
 end.

@@ -113,7 +113,7 @@ const
   TXT_DB_get_by_index_procname = 'TXT_DB_get_by_index';
   TXT_DB_insert_procname = 'TXT_DB_insert';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_TXT_DB_read(in_: PBIO; num: TIdC_INT): PTXT_DB;  cdecl;
 begin
@@ -323,7 +323,7 @@ begin
   TXT_DB_get_by_index := nil;
   TXT_DB_insert := nil;
 end;
-
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

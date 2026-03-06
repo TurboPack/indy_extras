@@ -111,7 +111,7 @@ const
 
   BIO_f_zlib_procname = 'BIO_f_zlib';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 function  ERR_COMP_CTX_new(meth: PCOMP_METHOD): PCOMP_CTX; cdecl;
 begin
@@ -522,11 +522,10 @@ begin
   COMP_zlib := nil;
   BIO_f_zlib := nil;
 end;
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

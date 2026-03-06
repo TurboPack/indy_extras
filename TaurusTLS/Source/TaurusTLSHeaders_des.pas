@@ -591,6 +591,7 @@ const
 
   DES_fixup_key_parity_procname = 'DES_fixup_key_parity'; { removed 1.0.0 }
 
+  {$IFNDEF _FIXINSIGHT_}
 procedure _DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; enc: TIdC_INT); cdecl;
 begin
@@ -2158,7 +2159,7 @@ begin
   DES_ede3_cbc_encrypt(_input, _output, _length, ks1, ks2, ks1, ivec, enc);
 end;
 
-procedure DES_ede2_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG;
+procedure DES_ede2_cfb64_encrypt(in_: Pbyte; out_: Pbyte; _length: TIdC_LONG; //FI:C102 - Too many parameters
   ks1: PDES_key_schedule; ks2: PDES_key_schedule; ivec: PDES_cblock;
   num: PIdC_INT; enc: TIdC_INT);
 begin
@@ -2177,13 +2178,12 @@ begin
   DES_set_odd_parity(key);
 end;
 
-{$ENDIF}
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 
 end.

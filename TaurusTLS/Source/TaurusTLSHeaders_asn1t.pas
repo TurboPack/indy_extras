@@ -1025,7 +1025,7 @@ const
 
   ASN1_item_ex_i2d_procname = 'ASN1_item_ex_i2d';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; cdecl;
 begin
@@ -1201,12 +1201,10 @@ begin
   ASN1_item_ex_d2i := nil;
   ASN1_item_ex_i2d := nil;
 end;
-{$ELSE}
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

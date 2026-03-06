@@ -103,7 +103,7 @@ const
   WHIRLPOOL_Final_procname = 'WHIRLPOOL_Final';
   WHIRLPOOL_procname = 'WHIRLPOOL';
 
-
+{$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 
 function  ERR_WHIRLPOOL_Init(c: PWHIRLPOOL_CTX): TIdC_INT; cdecl;
@@ -313,6 +313,7 @@ begin
   WHIRLPOOL_Final := nil;
   WHIRLPOOL := nil;
 end;
+{$ENDIF}
 {$ELSE}
 {$ENDIF}
 

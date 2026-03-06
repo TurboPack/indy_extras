@@ -463,10 +463,6 @@ const
   /// </summary>
   DEF_MIN_TLSVERSION = TLSv1_2;
   /// <summary>
-  /// The maximum TLS version supported by this library.
-  /// </summary>
-  MAX_SSLVERSION = TLSv1_3;
-  /// <summary>
   /// The default value for TSLLOptions.SecurityLevel property.
   /// </summary>
   /// <seealso
@@ -4336,7 +4332,7 @@ end;
 {$IFDEF USE_WINDOWS_CERT_STORE}
 
 const
-  wincryptdll = 'crypt32.dll';
+  wincryptdll = 'crypt32.dll'; //FI:O803 - constant declared but never used
   RootStore = 'ROOT';
   CAStore = 'CA';
 

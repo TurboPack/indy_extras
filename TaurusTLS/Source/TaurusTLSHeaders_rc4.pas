@@ -162,6 +162,7 @@ const
 {$DEFINE private_RC4_set_key_allownil} {allow_nil}
 {$DEFINE RC4_allownil} {allow_nil}
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_RC4_options: PIdAnsiChar;
 begin
@@ -333,6 +334,7 @@ begin
   private_RC4_set_key := nil; {allow_nil}
   RC4 := nil; {allow_nil}
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

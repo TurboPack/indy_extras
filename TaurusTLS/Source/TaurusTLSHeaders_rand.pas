@@ -189,6 +189,7 @@ const
 
   RAND_poll_procname = 'RAND_poll';
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_RAND_bytes_ex(ctx : POSSL_LIB_CTX; buf : PIdAnsiChar;
      num : TIdC_SIZET;  strength : TIdC_UINT) : TIdC_INT; cdecl;
@@ -917,6 +918,7 @@ begin
    {$ENDIF}
   RAND_poll := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

@@ -410,7 +410,7 @@ function TaurusTLS_unicode_X509_load_cert_file(ctx: PX509_LOOKUP;
 }
 
 function by_TaurusTLS_unicode_file_ctrl(ctx: PX509_LOOKUP; cmd: TIdC_INT;
-  const argc: PAnsiChar; argl: TIdC_LONG; var ret: PAnsiChar): TIdC_INT; cdecl;
+  const argc: PAnsiChar; argl: TIdC_LONG; var ret: PAnsiChar): TIdC_INT; cdecl; //FI:O804 - method parameter is declared but never used.
 {$IFNDEF USE_INLINE_VAR}
 var
   LFileName: String;

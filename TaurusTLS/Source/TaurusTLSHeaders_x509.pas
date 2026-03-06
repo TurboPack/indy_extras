@@ -3144,7 +3144,7 @@ const
   X509_NAME_hash_ex_procname = 'X509_NAME_hash_ex'; {introduced 3.0.0}
 
 
-
+{$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSUnusedParamOff.inc}
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 function  _X509_NAME_hash(x: PX509_NAME): TIdC_ULONG; cdecl;
@@ -18456,6 +18456,7 @@ begin
   sk_X509_ATTRIBUTE_find := nil;
   sk_X509_ATTRIBUTE_pop_free := nil;
 end;
+{$ENDIF}
 {$ELSE}
 function X509_NAME_hash(x: PX509_NAME): TIdC_ULONG;
 begin

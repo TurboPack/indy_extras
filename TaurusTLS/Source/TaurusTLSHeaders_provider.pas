@@ -197,6 +197,7 @@ const
   OSSL_PROVIDER_try_load_ex_procname = 'OSSL_PROVIDER_try_load_ex'; {introduced 3.2.0}
   OSSL_PROVIDER_load_ex_procname = 'OSSL_PROVIDER_load_ex'; {introduced 3.2.0}
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_OSSL_PROVIDER_set_default_search_path(ctx: POSSL_LIB_CTX; path: PIdAnsiChar): TIdC_INT; cdecl;
 begin
@@ -963,6 +964,7 @@ begin
   OSSL_PROVIDER_try_load_ex := nil; {introduced 3.2.0}
   OSSL_PROVIDER_load_ex := nil; {introduced 3.2.0}
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

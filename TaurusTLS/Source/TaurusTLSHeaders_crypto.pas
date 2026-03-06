@@ -1036,6 +1036,7 @@ const
   OSSL_LIB_CTX_get0_global_default_procname = 'OSSL_LIB_CTX_get0_global_default';
   OSSL_LIB_CTX_set0_default_procname = 'OSSL_LIB_CTX_set0_default';
 
+  {$IFNDEF _FIXINSIGHT_}
 // OPENSSL_FILE = __FILE__ = C preprocessor macro
 // OPENSSL_LINE = __LINE__ = C preprocessor macro
 // FPC hase an equivalent with {$I %FILE%} and {$I %LINENUM%}, see https://www.freepascal.org/docs-html/prog/progsu41.html#x47-460001.1.41
@@ -1200,8 +1201,6 @@ begin
      Result := 1;
   end;
 end;
-
-
 
 {forward_compatibility}
 
@@ -4834,6 +4833,7 @@ begin
   OSSL_LIB_CTX_get0_global_default := nil; {removed 1.1.0}
   OSSL_LIB_CTX_set0_default := nil; {removed 1.1.0}
 end;
+  {$ENDIF}
 {$ELSE}
 function OPENSSL_malloc(num: TIdC_SIZET): Pointer;
 begin
@@ -4991,11 +4991,6 @@ begin
   end;
 end;
 
-
-
-{$ENDIF}
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);

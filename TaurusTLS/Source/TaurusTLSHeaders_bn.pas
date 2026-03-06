@@ -1306,7 +1306,7 @@ const
 
   BN_bntest_rand_procname = 'BN_bntest_rand';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 procedure  ERR_BN_set_flags(b: PBIGNUM; n: TIdC_INT); cdecl;
 begin
@@ -2490,7 +2490,7 @@ end;
 
 
 
-  {$I TaurusTLSNoRetValOn.inc} 
+  {$I TaurusTLSNoRetValOn.inc}
    {$I TaurusTLSUnusedParamOff.inc}
 procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
 
@@ -7882,12 +7882,10 @@ begin
   BN_get_rfc3526_prime_8192 := nil;
   BN_bntest_rand := nil;
 end;
-{$ELSE}
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

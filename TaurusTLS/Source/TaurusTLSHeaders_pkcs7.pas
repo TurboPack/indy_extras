@@ -751,7 +751,7 @@ const
 
   BIO_new_PKCS7_procname = 'BIO_new_PKCS7';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_PKCS7_ISSUER_AND_SERIAL_digest(data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD;
   md: PByte; len: PIdC_UINT): TIdC_INT; cdecl;
@@ -4807,6 +4807,7 @@ begin
   sk_PKCS7_SIGNER_INFO_find := nil;
   sk_PKCS7_SIGNER_INFO_pop_free := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -110,7 +110,7 @@ const
   IDEA_ofb64_encrypt_procname = 'IDEA_ofb64_encrypt';
   IDEA_encrypt_procname = 'IDEA_encrypt';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_IDEA_options: PIdAnsiChar; cdecl;
 begin
@@ -438,6 +438,7 @@ begin
   IDEA_ofb64_encrypt := nil;
   IDEA_encrypt := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

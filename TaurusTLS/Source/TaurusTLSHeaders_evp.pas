@@ -3730,7 +3730,7 @@ const
   EVP_MAC_do_all_provided_procname = 'EVP_MAC_do_all_provided';
 
 {function introduced - compatibility}
-
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
@@ -26033,7 +26033,7 @@ begin
 end;
 
 procedure EVP_cleanup;
-begin
+begin  //FI:W519
 end;  //PALOFF  - Empty begin/end-blocks
 
 procedure BIO_set_md(v1: PBIO; const md: PEVP_MD);
@@ -26042,6 +26042,7 @@ begin
   BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));  //PALOFF - bad pointer usage [md : PEVP_MD cast to PAnsiChar]
 end;
 
+  {$IFNDEF _FIXINSIGHT_}
  {$I TaurusTLSNoRetValOff.inc}
 {$IFNDEF OPENSSL_NO_MD2}
 function EVP_md2: PEVP_MD;
@@ -26064,7 +26065,8 @@ begin
 end;
 {$ENDIF}
  {$I TaurusTLSNoRetValOn.inc}
-
+ {$ENDIF}
+ {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

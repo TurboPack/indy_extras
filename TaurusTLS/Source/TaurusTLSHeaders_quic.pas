@@ -82,6 +82,7 @@ const
   OSSL_QUIC_client_thread_method_procname = 'OSSL_QUIC_client_thread_method(';
   OSSL_QUIC_server_method_procname = 'OSSL_QUIC_server_method';
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 
 {introduced 3.2.0}
@@ -212,5 +213,6 @@ end;
 initialization
   Register_SSLLoader(Load,'LibSSL');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

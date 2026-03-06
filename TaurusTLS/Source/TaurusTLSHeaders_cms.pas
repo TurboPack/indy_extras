@@ -722,7 +722,7 @@ const
   //# define CMS_R_UNKNOWN_DIGEST_ALGORITM CMS_R_UNKNOWN_DIGEST_ALGORITHM
   //# define CMS_R_UNSUPPORTED_RECPIENTINFO_TYPE \ CMS_R_UNSUPPORTED_RECIPIENTINFO_TYPE
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_CMS_get0_type(const cms: PCMS_ContentInfo): PASN1_OBJECT; cdecl;
 begin
@@ -4501,11 +4501,9 @@ begin
   CMS_SharedInfo_encode := nil;
 end;
 
-{$ENDIF}
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

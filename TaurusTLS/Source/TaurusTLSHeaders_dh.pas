@@ -798,7 +798,7 @@ const
                                 EVP_PKEY_OP_DERIVE, \
                                 EVP_PKEY_CTRL_GET_DH_KDF_UKM, 0, (void *)(p))
 }
-
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 function  ERR_DHparams_dup(dh: PDH): PDH; cdecl;
 begin
@@ -3684,12 +3684,10 @@ begin
   DH_meth_get_generate_params := nil; {introduced 1.1.0}
   DH_meth_set_generate_params := nil; {introduced 1.1.0}
 end;
-{$ELSE}
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

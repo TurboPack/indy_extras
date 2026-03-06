@@ -505,7 +505,7 @@ const
   d2i_PKCS12_bio_procname = 'd2i_PKCS12_bio';
   PKCS12_newpass_procname = 'PKCS12_newpass';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 function  ERR_PKCS12_mac_present(const p12: PPKCS12): TIdC_INT; cdecl;
 begin
@@ -3241,6 +3241,7 @@ begin
   d2i_PKCS12_bio := nil;
   PKCS12_newpass := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

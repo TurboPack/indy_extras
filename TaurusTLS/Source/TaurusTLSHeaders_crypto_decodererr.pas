@@ -53,6 +53,7 @@ const
 const
   ossl_err_load_OSSL_DECODER_strings_procname = 'ossl_err_load_OSSL_DECODER_strings';
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_ossl_err_load_OSSL_DECODER_strings : TIdC_INT; cdecl;
@@ -113,6 +114,7 @@ initialization
 
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 
 end.

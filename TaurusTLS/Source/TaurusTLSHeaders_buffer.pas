@@ -97,7 +97,7 @@ const
   BUF_MEM_grow_clean_procname = 'BUF_MEM_grow_clean';
   BUF_reverse_procname = 'BUF_reverse';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_BUF_MEM_new: PBUF_MEM; cdecl;
 begin
@@ -346,11 +346,10 @@ begin
   BUF_MEM_grow_clean := nil;
   BUF_reverse := nil;
 end;
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

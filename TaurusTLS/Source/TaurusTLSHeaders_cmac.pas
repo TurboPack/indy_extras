@@ -105,7 +105,7 @@ const
   CMAC_Final_procname = 'CMAC_Final';
   CMAC_resume_procname = 'CMAC_resume';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_CMAC_CTX_new: PCMAC_CTX; cdecl;
 begin
@@ -473,11 +473,10 @@ begin
   CMAC_Final := nil;
   CMAC_resume := nil;
 end;
-{$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+  {$ENDIF}
 {$ENDIF}
 end.

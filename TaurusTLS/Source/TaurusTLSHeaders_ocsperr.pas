@@ -116,7 +116,7 @@ implementation
 const
   ERR_load_OCSP_strings_procname = 'ERR_load_OCSP_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_OCSP_strings: TIdC_INT; cdecl;
 begin
@@ -168,6 +168,7 @@ procedure Unload;
 begin
   ERR_load_OCSP_strings := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

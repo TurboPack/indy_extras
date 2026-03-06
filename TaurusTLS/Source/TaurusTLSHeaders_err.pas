@@ -419,6 +419,7 @@ const
   X509err_procname = 'X509err'; {removed 1.0.0}
   ERR_GET_REASON_procname = 'ERR_GET_REASON'; {removed 1.0.0}
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 
 procedure  _SSLErr(func: TIdC_INT; reason: TIdC_INT); cdecl;
@@ -1770,7 +1771,7 @@ begin
     {$ifend}
   end;
 
- 
+
 end;
 
 procedure Unload;
@@ -1810,11 +1811,12 @@ begin
   X509err := nil; {removed 1.0.0}
   ERR_GET_REASON := nil; {removed 1.0.0}
 end;
+  {$ENDIF}
 {$ELSE}
 procedure SSLErr(func: TIdC_INT; reason: TIdC_INT);
 begin
   ERR_put_error(ERR_LIB_SSL,func,reason,'',0);
-end; 
+end;
 
 procedure ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT);
 { From 3.0 onwards, replaced by a macro

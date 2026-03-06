@@ -145,6 +145,7 @@ const
 
 
 {/forward_compatibility}
+   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 procedure  ERR_HMAC_CTX_init(ctx : PHMAC_CTX); cdecl;
 begin
@@ -670,6 +671,7 @@ begin
   HMAC_CTX_set_flags := nil;
   HMAC_CTX_get_md := nil; {introduced 1.1.0}
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 
