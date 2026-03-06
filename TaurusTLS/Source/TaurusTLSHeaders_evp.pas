@@ -3828,6 +3828,7 @@ begin
   Result:=EVP_CIPHER_CTX_encrypting(ctx);
 end;
 {$I TaurusTLSUnusedParamOn.inc}
+  {$ENDIF}
 {function removals - compatability}
 
 {$DEFINE EVP_md2_allownil} {removed 1.1.0 allow_nil}
@@ -3881,7 +3882,7 @@ begin
 end;
 
 procedure  _EVP_cleanup; cdecl;
-begin
+begin //FI:W519 - Method is empty
    //Do not remove this empty procedure.  It's used in a procedural pointer.
 end;   //PALOFF - Empty begin/end-blocks
 
@@ -3976,6 +3977,7 @@ begin
   Result := EVP_CIPHER_get_flags(cipher);
 end;
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
     libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl;

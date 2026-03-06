@@ -48,8 +48,8 @@ uses
 
 {$I TaurusTLSUnusedParamOff.inc}
 
-function FIPS_mode_set(onoff: TIdC_INT): TIdC_INT; {$IFDEF USE_INLINE}inline;
-{$ENDIF}
+function FIPS_mode_set(onoff: TIdC_INT): TIdC_INT; //FI:O804 - Method parameter is declared but not used
+  {$IFDEF USE_INLINE}inline; {$ENDIF}
 begin
   Result := 0;
 {$IFDEF OPENSSL_FIPS}
