@@ -521,7 +521,7 @@ type
 implementation
 
 uses
-  TaurusTLSHeaders_evperr, TaurusTLS_ResourceStrings;
+  TaurusTLSHeaders_evperr, TaurusTLS_Extra_ResourceString;
 
 function OsslSucceeded(AResult: TIdC_INT): boolean;
 {$IFDEF USE_INLINE}inline;{$ENDIF}
