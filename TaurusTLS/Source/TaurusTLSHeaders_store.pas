@@ -454,6 +454,7 @@ const
   OSSL_STORE_LOADER_do_all_provided_procname = 'OSSL_STORE_LOADER_do_all_provided';
   OSSL_STORE_LOADER_names_do_all_procname = 'OSSL_STORE_LOADER_names_do_all';
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_OSSL_STORE_open(const uri : PIdAnsiChar; const ui_method : PUI_METHOD;
@@ -2602,7 +2603,7 @@ begin
   OSSL_STORE_LOADER_names_do_all := nil;
 
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -139,7 +139,7 @@ const
   Camellia_ofb128_encrypt_procname = 'Camellia_ofb128_encrypt';
   Camellia_ctr128_encrypt_procname = 'Camellia_ctr128_encrypt';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 function  ERR_Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; cdecl;
 begin
@@ -552,6 +552,7 @@ begin
   Camellia_ofb128_encrypt := nil;
   Camellia_ctr128_encrypt := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

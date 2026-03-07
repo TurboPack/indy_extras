@@ -1878,7 +1878,7 @@ const
   ASN1_ITEM_lookup_procname = 'ASN1_ITEM_lookup'; {introduced 1.1.0}
   ASN1_ITEM_get_procname = 'ASN1_ITEM_get'; {introduced 1.1.0}
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ASN1_TYPE_get(const a: PASN1_TYPE): TIdC_INT; cdecl;
 begin
@@ -9226,6 +9226,7 @@ begin
   sk_X509_ALGOR_find  := nil;
   sk_X509_ALGOR_pop_free  := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

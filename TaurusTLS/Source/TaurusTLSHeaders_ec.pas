@@ -1010,7 +1010,7 @@ const
   EC_KEY_METHOD_get_sign_procname = 'EC_KEY_METHOD_get_sign'; {introduced 1.1.0}
   EC_KEY_METHOD_get_verify_procname = 'EC_KEY_METHOD_get_verify'; {introduced 1.1.0}
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_EC_GFp_simple_method: PEC_METHOD; cdecl;
 begin
@@ -7927,6 +7927,7 @@ begin
   EC_KEY_METHOD_get_sign := nil; {introduced 1.1.0}
   EC_KEY_METHOD_get_verify := nil; {introduced 1.1.0}
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

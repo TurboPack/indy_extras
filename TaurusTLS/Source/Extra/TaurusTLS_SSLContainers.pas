@@ -672,7 +672,7 @@ type
 implementation
 
 uses
-  TaurusTLS_ResourceStrings;
+  TaurusTLS_Extra_ResourceString;
 
 { TTaurusTLS_CustomBytes.TBioIntf }
 

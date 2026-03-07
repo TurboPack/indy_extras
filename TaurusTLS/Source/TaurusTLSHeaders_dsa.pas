@@ -518,7 +518,7 @@ const
   DSA_meth_get_keygen_procname = 'DSA_meth_get_keygen';
   DSA_meth_set_keygen_procname = 'DSA_meth_set_keygen';
 
-
+   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_DSAparams_dup(x: PDSA): PDSA; cdecl;
 begin
@@ -3529,9 +3529,8 @@ begin
   DSA_meth_get_keygen := nil;
   DSA_meth_set_keygen := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
-
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');

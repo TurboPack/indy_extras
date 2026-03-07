@@ -1553,7 +1553,7 @@ const
 
 {forward_compatibility}
 type
- _PX509_LOOKUP_METHOD      = ^_X509_LOOKUP_METHOD;
+ _PX509_LOOKUP_METHOD      = ^_X509_LOOKUP_METHOD; //FI:C106 Pointer type name should start with 'P'.
  _X509_LOOKUP_METHOD = record
     name : PIdAnsiChar;
     new_item : function (ctx : PX509_LOOKUP): TIdC_INT; cdecl;
@@ -1582,6 +1582,7 @@ const
     get_by_alias: nil // * get_by_alias */
     );
 
+   {$IFNDEF _FIXINSIGHT_}
    {$I TaurusTLSUnusedParamOff.inc}
 function  FC_X509_LOOKUP_meth_new(const name: PIdAnsiChar): PX509_LOOKUP_METHOD; cdecl;
 begin
@@ -9474,6 +9475,7 @@ begin
   sk_X509_VERIFY_PARAM_find  := nil;
   sk_X509_VERIFY_PARAM_pop_free  := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

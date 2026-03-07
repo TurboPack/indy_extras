@@ -294,6 +294,7 @@ const
 
   OSSL_ENCODER_CTX_new_for_pkey_procname = 'OSSL_ENCODER_CTX_new_for_pkey';
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_OSSL_ENCODER_fetch(libctx: POSSL_LIB_CTX; name: PIdAnsiChar;
@@ -1390,6 +1391,7 @@ begin
   OSSL_ENCODER_to_bio := nil;
   OSSL_ENCODER_to_data := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 

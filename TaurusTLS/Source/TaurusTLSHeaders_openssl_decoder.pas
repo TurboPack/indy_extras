@@ -436,6 +436,7 @@ const
   OSSL_DECODER_from_data_procname = 'OSSL_DECODER_from_data';
   OSSL_DECODER_CTX_new_for_pkey_procname = 'OSSL_DECODER_CTX_new_for_pkey';
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
   function ERR_OSSL_DECODER_fetch(libctx: POSSL_LIB_CTX; name: PIdAnsiChar;
     properties: PIdAnsiChar): POSSL_DECODER; cdecl;
@@ -2069,7 +2070,9 @@ begin
   OSSL_DECODER_from_data := nil;
   OSSL_DECODER_CTX_new_for_pkey := nil;
 end;
-
+  {$ENDIF}
+{$ENDIF}
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

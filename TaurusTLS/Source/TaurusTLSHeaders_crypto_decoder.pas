@@ -163,6 +163,7 @@ const
    ossl_decoder_cache_free_procname = 'ossl_decoder_cache_free';
    ossl_decoder_cache_flush_procname = 'ossl_decoder_cache_flush_procname';
 
+   {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_ossl_decoder_from_algorithm(id: TIdC_INT; algodef: POSSL_ALGORITHM;
@@ -731,7 +732,10 @@ begin
    ossl_decoder_cache_free := nil;
    ossl_decoder_cache_flush := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

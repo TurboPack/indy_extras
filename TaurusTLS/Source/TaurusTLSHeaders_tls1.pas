@@ -1303,7 +1303,7 @@ var
   //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
   //                (void (*)(void))cb)
 
-function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; {removed 1.0.0}
+function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG  cdecl; external CLibSSL; {removed 1.0.0}
 {$ENDIF}
 
 type
@@ -1456,7 +1456,7 @@ function  _SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));
 end;
-
+   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function  ERR_SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG;  cdecl;
@@ -1991,7 +1991,7 @@ function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG;
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));  // PALOFF - bad pointer usage - [name : PAnsiChar cast to Pointer]
 end;
-
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

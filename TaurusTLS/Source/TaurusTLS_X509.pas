@@ -943,7 +943,7 @@ begin
 {$ENDIF}
 end;
 
-function TTaurusTLSX509Name.GetHash: TTaurusTLSULong;
+function TTaurusTLSX509Name.GetHash: TTaurusTLSULong; //FI:W521 0 syroress return value might be undefined.
 begin
   {$ifdef fpc}
   Initialize(Result);
@@ -1006,7 +1006,7 @@ end;
 
 { TTaurusTLSX509Fingerprints }
 
-function TTaurusTLSX509Fingerprints.GetSHA224: TTaurusTLSLEVP_MD;
+function TTaurusTLSX509Fingerprints.GetSHA224: TTaurusTLSLEVP_MD; //FI:W521 0 syroress return value might be undefined.
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   if X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result._Length) = 0 then
@@ -1043,7 +1043,7 @@ begin
 {$ENDIF}
 end;
 
-function TTaurusTLSX509Fingerprints.GetSHA256: TTaurusTLSLEVP_MD;
+function TTaurusTLSX509Fingerprints.GetSHA256: TTaurusTLSLEVP_MD; //FI:W521 0 syroress return value might be undefined.
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   if X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result._Length) = 0 then
@@ -1080,7 +1080,7 @@ begin
 {$ENDIF}
 end;
 
-function TTaurusTLSX509Fingerprints.GetSHA384: TTaurusTLSLEVP_MD;
+function TTaurusTLSX509Fingerprints.GetSHA384: TTaurusTLSLEVP_MD; //FI:W521 0 syroress return value might be undefined.
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   if X509_digest(FX509, EVP_sha384, PByte(@Result.MD), Result._Length) = 0 then
@@ -1117,7 +1117,7 @@ begin
 {$ENDIF}
 end;
 
-function TTaurusTLSX509Fingerprints.GetSHA512: TTaurusTLSLEVP_MD;
+function TTaurusTLSX509Fingerprints.GetSHA512: TTaurusTLSLEVP_MD;  //FI:W521 0 syroress return value might be undefined.
 begin
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
   if X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result._Length) = 0 then
@@ -1547,7 +1547,7 @@ begin
   Result := FIssuer;
 end;
 
-function TTaurusTLSX509.GetFingerprint: TTaurusTLSLEVP_MD;
+function TTaurusTLSX509.GetFingerprint: TTaurusTLSLEVP_MD; //FI:W521 0 syroress return value might be undefined.
 begin
   if X509_digest(FX509, EVP_md5, PByte(@Result.MD), Result._Length) = 0 then
   begin

@@ -1988,7 +1988,8 @@ begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
 end;
 
-  {$I TaurusTLSNoRetValOff.inc} 
+  {$IFNDEF _FIXINSIGHT_}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(BIO_get_flags_procname);
@@ -3343,7 +3344,7 @@ begin
     {$ifend}
   end;
 
- 
+
   BIO_should_write := LoadLibFunction(ADllHandle, BIO_should_write_procname);
   FuncLoadError := not assigned(BIO_should_write);
   if FuncLoadError then
@@ -3535,7 +3536,7 @@ begin
     {$ifend}
   end;
 
- 
+
   BIO_do_handshake := LoadLibFunction(ADllHandle, BIO_do_handshake_procname);
   FuncLoadError := not assigned(BIO_do_handshake);
   if FuncLoadError then
@@ -7837,6 +7838,7 @@ begin
   BIO_new_bio_pair := nil;
   BIO_copy_next_retry := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 function BIO_get_flags(const b: PBIO): TIdC_INT;
 begin
@@ -7953,12 +7955,12 @@ function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT;
 begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, TIdC_ULONG(v), nil); //PALOFF - Mismatch parameter value
 end;
-
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
+
 {$ENDIF}
 end.

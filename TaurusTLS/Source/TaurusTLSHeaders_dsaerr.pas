@@ -109,6 +109,7 @@ uses
 const
   ERR_load_DSA_strings_procname = 'ERR_load_DSA_strings';
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function ERR_ERR_load_DSA_strings: TIdC_INT; cdecl;
@@ -164,10 +165,9 @@ procedure Unload;
 begin
   ERR_load_DSA_strings := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

@@ -1685,7 +1685,7 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -1937,7 +1937,7 @@ const
   PROFESSION_INFO_set0_registrationNumber_procname = 'PROFESSION_INFO_set0_registrationNumber';
 
   {$I TaurusTLSNoRetValOff.inc}
-
+  {$IFNDEF _FIXINSIGHT_}
 function  ERR_GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(GENERAL_NAME_cmp_procname);
@@ -5874,6 +5874,7 @@ begin
   sk_X509_PURPOSE_find := nil;
   sk_X509_PURPOSE_pop_free := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

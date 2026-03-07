@@ -16,21 +16,13 @@ interface
 resourcestring
   { TaurusTLS }
   RSOSSLInitFailed = 'OPENSSL_init_ssl failed';
-  RSOSSFailedToLoad = 'Failed to load %s.';
-  RSOSSFailedToLoad_WithErrCode = 'Failed to load %s (error #%d).';
   RSOSSSessionCanNotBeNul = 'Session can not be nul.';
   RSOSSInvalidSessionValue = 'Invalid Session Value.';
-  RSOSSMissingExport_WithErrCode = '%s (error #%d)';
   RSOSSUnsupportedVersion = 'Unsupported SSL Library version: %.8x.';
-  RSOSSUnsupportedLibrary = 'Unsupported SSL Library: %s.';
   RSOSSLModeNotSet = 'Mode has not been set.';
-  RSDSSLWriteExFailed = 'SSL_write_ex2 failed';
-  RSDSSLReadExFailed = 'SSL_read_ex failed';
+
   RSOSSLCouldNotLoadSSLLibrary = 'Could not load SSL library.';
-  RSOSSLStatusString = 'SSL status: "%s"';
-  RSOSSLConnectionDropped = 'SSL connection has dropped.';
-  RSOSSLCertificateLookup = 'SSL certificate request error.';
-  RSOSSLInternal = 'SSL library internal error.';
+
   ROSSLCantGetSSLVersionNo = 'Unable to determine SSL Library Version number';
   ROSSLAPIFunctionNotPresent =
     'TaurusTLS API Function/Procedure %s not found in SSL Library';
@@ -41,7 +33,7 @@ resourcestring
   RSOSSLMaxProtocolError = 'SSL_CTX_set_max_proto_version error';
   RSOSSLCopySessionIdError = 'SSL_copy_session_id error';
   ROSUnsupported = 'Not Supported';
-  RSOSSLCertificateDoesNotMatch = 'SSL certificate does not match host name';
+
   RSSSLSettingTLSHostNameError_2 = 'SSL_set1_host failed error.';
   RSSSL_CTX_set_tlsext_servername_callback = 'SSL_CTX_set_tlsext_servername_callback error';
   RSSSL_CTX_set_tlsext_servername_arg = 'ETaurusTLSSSL_CTX_set_tlsext_servername_arg error';
@@ -229,30 +221,8 @@ resourcestring
     'the raw public key, or DNS-based Authentication of Named Entities (DANE) '+
     'was not enabled on the connection.';
 
-  // ITaurusTLS_Bytes Interface errors
-  RIB_Bytes_CanNotChange = 'Unable to set a data to the ITaurusTLS_Bytes '+
-    'instance. It was initialized already.';
 
-  // TTaurusTLS_Cipher errors
-  REVP_Cipher_NoCipherProvided = 'Unable to initializate Cipher instance. '+
-    'No OpenSSL Cipher provided.';
-  REVP_Cipher_ZeroKeyLen = 'Unable to initializate Cipher instance with a '+
-    'zero Key length.';
-  REVP_Cipher_IVKeyLen = 'Unable to initializate Cipher instance with a '+
-    'zero IV length.';
 
-  // TTaurusTLS_CustomEncryptor's descendants errors
-  REVP_Encryptor_CtxInitError = 'Error initialization Encrypt/Decrypt context.';
-  REVP_EncryptDecrypt_InitNoCipher = 'Unable to initializate EncyptDecrypt '+
-    'instance. No OpenSSL Cipher provided.';
-  REVP_Encryptor_Encrypt_Error = 'Error in Encrypting data.';
-  REVP_Encryptor_Decrypt_Error = 'Error in Decrypting data.';
-
-  // TaurusTLS_SSLContainersHelpers messages
-  RSMSG_TMemoryStreamWipeOutOfRange = 'Unable to wipe a stream buffer memory. '+
-    'Start position or Length is out of range.';
-  RSMSG_UTF8NoMapping = 'Unable to convert character(s) to UTF8.';
-  RSMSG_UnicodeNoMapping = 'Unable to convert character(s) to Unicode.';
 
   //NTLM Messages - DES_set_key
   RSMsg_DES_set_key_wrong_key_parity = 'DES_set_key: Wrong Key Parity';

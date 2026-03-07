@@ -122,7 +122,7 @@ implementation
 const
   ERR_load_DH_strings_procname = 'ERR_load_DH_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_DH_strings: TIdC_INT; cdecl;
 begin
@@ -176,7 +176,7 @@ procedure Unload;
 begin
   ERR_load_DH_strings := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

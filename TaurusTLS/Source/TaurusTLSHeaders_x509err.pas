@@ -172,14 +172,12 @@ implementation
 const
   ERR_load_X509_strings_procname = 'ERR_load_X509_strings';
 
-
-  {$I TaurusTLSNoRetValOff.inc} 
+  {$IFNDEF _FIXINSIGHT_}
+  {$I TaurusTLSNoRetValOff.inc}
 function  ERR_ERR_load_X509_strings: TIdC_INT;  cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ERR_load_X509_strings_procname);
 end;
-
-
 
   {$I TaurusTLSNoRetValOn.inc} 
   {$I TaurusTLSUnusedParamOff.inc}
@@ -226,7 +224,7 @@ procedure Unload;
 begin
   ERR_load_X509_strings := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

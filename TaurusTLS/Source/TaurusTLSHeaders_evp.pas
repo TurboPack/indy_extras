@@ -3730,7 +3730,7 @@ const
   EVP_MAC_do_all_provided_procname = 'EVP_MAC_do_all_provided';
 
 {function introduced - compatibility}
-
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_EVP_CIPHER_fetch(ctx: POSSL_LIB_CTX; const algorithm, properties: PIdAnsiChar): PEVP_CIPHER; cdecl;
 begin
@@ -3828,6 +3828,7 @@ begin
   Result:=EVP_CIPHER_CTX_encrypting(ctx);
 end;
 {$I TaurusTLSUnusedParamOn.inc}
+  {$ENDIF}
 {function removals - compatability}
 
 {$DEFINE EVP_md2_allownil} {removed 1.1.0 allow_nil}
@@ -3881,7 +3882,7 @@ begin
 end;
 
 procedure  _EVP_cleanup; cdecl;
-begin
+begin //FI:W519 - Method is empty
    //Do not remove this empty procedure.  It's used in a procedural pointer.
 end;   //PALOFF - Empty begin/end-blocks
 
@@ -3976,6 +3977,7 @@ begin
   Result := EVP_CIPHER_get_flags(cipher);
 end;
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_d2i_AutoPrivateKey_ex(a: PPEVP_PKEY; const pp: PPByte; _length: TIdC_LONG;
     libctx : POSSL_LIB_CTX; propq : PIdAnsiChar): PEVP_PKEY; cdecl;
@@ -25986,6 +25988,7 @@ begin
   EVP_MAC_CTX_get_block_size := nil;
   EVP_MAC_init := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 function EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
 begin
@@ -26033,7 +26036,7 @@ begin
 end;
 
 procedure EVP_cleanup;
-begin
+begin  //FI:W519
 end;  //PALOFF  - Empty begin/end-blocks
 
 procedure BIO_set_md(v1: PBIO; const md: PEVP_MD);
@@ -26042,6 +26045,7 @@ begin
   BIO_ctrl(v1,BIO_C_SET_MD,0,PIdAnsiChar(md));  //PALOFF - bad pointer usage [md : PEVP_MD cast to PAnsiChar]
 end;
 
+  {$IFNDEF _FIXINSIGHT_}
  {$I TaurusTLSNoRetValOff.inc}
 {$IFNDEF OPENSSL_NO_MD2}
 function EVP_md2: PEVP_MD;
@@ -26064,7 +26068,7 @@ begin
 end;
 {$ENDIF}
  {$I TaurusTLSNoRetValOn.inc}
-
+ {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

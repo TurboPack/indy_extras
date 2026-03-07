@@ -84,7 +84,7 @@ implementation
 const
   ERR_load_OBJ_strings_procname = 'ERR_load_OBJ_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_OBJ_strings: TIdC_INT; cdecl;
 begin
@@ -138,6 +138,7 @@ procedure Unload;
 begin
   ERR_load_OBJ_strings := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

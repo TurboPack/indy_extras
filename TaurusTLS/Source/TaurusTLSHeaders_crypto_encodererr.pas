@@ -48,7 +48,7 @@ const
 const
   ossl_err_load_OSSL_ENCODER_strings_procname = 'ossl_err_load_OSSL_ENCODER_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 function  ERR_ossl_err_load_OSSL_ENCODER_strings: TIdC_INT; cdecl;
 begin
@@ -101,8 +101,8 @@ procedure Unload;
 begin
   ossl_err_load_OSSL_ENCODER_strings := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
-
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');

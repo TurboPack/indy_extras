@@ -296,7 +296,7 @@ implementation
 const
   ERR_load_ASN1_strings_procname = 'ERR_load_ASN1_strings';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_ASN1_strings: TIdC_INT; cdecl;
 begin
@@ -349,6 +349,7 @@ procedure Unload;
 begin
   ERR_load_ASN1_strings := nil;
 end;
+ {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

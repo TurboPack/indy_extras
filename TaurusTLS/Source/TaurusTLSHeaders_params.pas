@@ -336,6 +336,7 @@ const
   OSSL_PARAM_merge_procname = 'OSSL_PARAM_merge';
   OSSL_PARAM_free_procname = 'OSSL_PARAM_free';
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc}
 
 //* Search an OSSL_PARAM array for a matching name */
@@ -2520,7 +2521,7 @@ begin
   OSSL_PARAM_free := nil;
 
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

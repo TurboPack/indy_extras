@@ -1519,7 +1519,7 @@ const
   // */
   ENGINE_get_static_state_procname = 'ENGINE_get_static_state';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ENGINE_get_first: PENGINE; cdecl;
 begin
@@ -6351,6 +6351,7 @@ begin
   ENGINE_add_conf_module := nil;
   ENGINE_get_static_state := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

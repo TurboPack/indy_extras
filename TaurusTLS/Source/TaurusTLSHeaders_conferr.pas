@@ -119,6 +119,7 @@ uses
 const
   ERR_load_CONF_strings_procname = 'ERR_load_CONF_strings';
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function ERR_ERR_load_CONF_strings: TIdC_INT; cdecl;
@@ -174,9 +175,10 @@ procedure Unload;
 begin
   ERR_load_CONF_strings := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

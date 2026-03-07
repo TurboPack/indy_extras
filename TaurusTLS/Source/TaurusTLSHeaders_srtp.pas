@@ -92,7 +92,7 @@ const
   SSL_get_srtp_profiles_procname = 'SSL_get_srtp_profiles';
   SSL_get_selected_srtp_profile_procname = 'SSL_get_selected_srtp_profile';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT;  cdecl;
 begin
@@ -259,6 +259,7 @@ begin
   SSL_get_selected_srtp_profile := nil;
 end;
   {$I TaurusTLSUnusedParamOff.inc}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

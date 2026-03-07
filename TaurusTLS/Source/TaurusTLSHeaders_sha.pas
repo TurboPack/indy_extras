@@ -219,7 +219,7 @@ const
   SHA512_procname = 'SHA512';
   SHA512_Transform_procname = 'SHA512_Transform';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function  ERR_SHA1_Init(c: PSHA_CTX): TIdC_INT; cdecl;
@@ -1135,7 +1135,7 @@ begin
   SHA512 := nil;
   SHA512_Transform := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

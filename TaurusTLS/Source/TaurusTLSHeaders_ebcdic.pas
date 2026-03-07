@@ -75,7 +75,7 @@ const
   ebcdic2ascii_procname = 'ebcdic2ascii';
   ascii2ebcdic_procname = 'ascii2ebcdic';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TIdC_SIZET): Pointer; cdecl;
 begin
@@ -166,7 +166,7 @@ begin
   ebcdic2ascii := nil;
   ascii2ebcdic := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

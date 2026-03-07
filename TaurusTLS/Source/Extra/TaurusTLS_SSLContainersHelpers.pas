@@ -563,7 +563,7 @@ uses
 {$IFDEF FPC}
   rtlconsts,
 {$ENDIF}
-  TaurusTLS_ResourceStrings;
+  TaurusTLS_Extra_ResourceString;
 
 type
   TStreamHelper = class helper for TStream

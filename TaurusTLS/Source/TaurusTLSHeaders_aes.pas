@@ -162,7 +162,7 @@ const
   AES_wrap_key_procname = 'AES_wrap_key';
   AES_unwrap_key_procname = 'AES_unwrap_key';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_AES_options: PIdAnsiChar; cdecl;
 begin
@@ -776,7 +776,7 @@ begin
   AES_wrap_key := nil;
   AES_unwrap_key := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

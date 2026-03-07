@@ -392,7 +392,9 @@ const
   CTLOG_STORE_load_default_file_procname = 'CTLOG_STORE_load_default_file';
 
   ERR_load_CT_strings_procname = 'ERR_load_CT_strings';
-  {$I TaurusTLSNoRetValOff.inc} 
+
+  {$IFNDEF _FIXINSIGHT_}
+  {$I TaurusTLSNoRetValOff.inc}
 
 function ERR_CT_POLICY_EVAL_CTX_new(): PCT_POLICY_EVAL_CTX; cdecl;
 begin
@@ -2567,11 +2569,10 @@ begin
   sk_CTLOG_find := nil;
   sk_CTLOG_pop_free := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-
 initialization
-
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
 {$ENDIF}

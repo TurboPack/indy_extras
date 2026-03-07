@@ -1476,7 +1476,7 @@ const
   TS_CONF_set_ess_cert_id_chain_procname = 'TS_CONF_set_ess_cert_id_chain';
   TS_CONF_set_ess_cert_id_digest_procname = 'TS_CONF_set_ess_cert_id_digest';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function  ERR_TS_REQ_new: PTS_REQ;  cdecl;
@@ -9134,7 +9134,7 @@ begin
   TS_CONF_set_ess_cert_id_chain := nil;
   TS_CONF_set_ess_cert_id_digest := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

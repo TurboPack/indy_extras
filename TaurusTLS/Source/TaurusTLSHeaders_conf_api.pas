@@ -112,7 +112,7 @@ const
   _CONF_free_data_procname = '_CONF_free_data';
 
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR__CONF_new_section(conf: PCONF; const section: PIdAnsiChar): PCONF_VALUE; cdecl;
 begin
@@ -411,7 +411,7 @@ begin
   _CONF_new_data := nil;
   _CONF_free_data := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

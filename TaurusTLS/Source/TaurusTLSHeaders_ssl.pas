@@ -6232,8 +6232,8 @@ const
   SSL_CTRL_OPTIONS = 32;
   SSL_CTRL_CLEAR_OPTIONS = 77;
 
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSUnusedParamOff.inc}
-
 
 function FC_SSL_CTX_new_ex(libctx : POSSL_LIB_CTX; const propq : PIdAnsichar;
                         const meth : PSSL_METHOD) : PSSL_CTX cdecl; {introduced 3.0.0}
@@ -29111,6 +29111,7 @@ begin
   sk_SRTP_PROTECTION_PROFILE_find := nil;
   sk_SRTP_PROTECTION_PROFILE_pop_free := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 function SSL_get_peer_certificate(const s: PSSL): PX509;
 begin

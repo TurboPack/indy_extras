@@ -471,7 +471,7 @@ const
   OBJ_add_sigid_procname = 'OBJ_add_sigid';
   OBJ_sigid_free_procname = 'OBJ_sigid_free';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_OBJ_NAME_init: TIdC_INT; cdecl;
 begin
@@ -1597,6 +1597,7 @@ begin
   OBJ_add_sigid := nil;
   OBJ_sigid_free := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

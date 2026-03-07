@@ -916,7 +916,7 @@ const
   //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
   RSA_meth_set_multi_prime_keygen_procname = 'RSA_meth_set_multi_prime_keygen';
 
-
+  {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 
 function  ERR_RSA_new: PRSA; cdecl;
@@ -4718,7 +4718,7 @@ begin
   RSA_meth_set_keygen := nil;
   RSA_meth_set_multi_prime_keygen := nil;
 end;
-{$ELSE}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

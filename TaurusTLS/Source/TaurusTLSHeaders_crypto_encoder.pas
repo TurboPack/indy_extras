@@ -70,7 +70,7 @@ const
   ossl_encoder_store_remove_all_provided_procname =
     'ossl_encoder_store_remove_all_provided';
 
-
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSNoRetValOff.inc}
 function ERR_ossl_encoder_get_number(encoder : POSSL_ENCODER) : TIdC_INT; cdecl;
 begin
@@ -206,9 +206,9 @@ begin
   ossl_encoder_store_cache_flush := nil;
   ossl_encoder_store_remove_all_provided := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

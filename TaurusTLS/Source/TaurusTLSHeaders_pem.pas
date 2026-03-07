@@ -586,6 +586,7 @@ const
   b2i_PVK_bio_procname = 'b2i_PVK_bio';
   i2b_PVK_bio_procname = 'i2b_PVK_bio';
 
+  {$IFNDEF _FIXINSIGHT_}
 {$I TaurusTLSUnusedParamOff.inc}
 function FC_PEM_read_bio_PrivateKey_ex(bp : PBIO; x : PPEVP_PKEY; cb: pem_password_cb; u: Pointer;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : PEVP_PKEY cdecl;
@@ -3701,6 +3702,7 @@ begin
   b2i_PVK_bio := nil;
   i2b_PVK_bio := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 {$ENDIF}
 

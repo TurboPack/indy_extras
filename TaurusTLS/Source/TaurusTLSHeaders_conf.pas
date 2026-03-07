@@ -490,7 +490,7 @@ const
 
   OPENSSL_load_builtin_modules_procname = 'OPENSSL_load_builtin_modules';
 
-
+   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_CONF_set_default_method(meth: PCONF_METHOD): TIdC_INT; cdecl;
 begin
@@ -1643,6 +1643,7 @@ begin
   sk_CONF_IMODULE_find := nil;
   sk_CONF_IMODULE_pop_free :=  nil;
 end;
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

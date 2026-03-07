@@ -107,7 +107,7 @@ const
   CAST_cfb64_encrypt_procname = 'CAST_cfb64_encrypt';
   CAST_ofb64_encrypt_procname = 'CAST_ofb64_encrypt';
 
-
+   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 procedure  ERR_CAST_set_key(key: PCast_Key; len: TIdC_INT; const data: PByte); cdecl;
 begin
@@ -399,8 +399,8 @@ begin
   CAST_cfb64_encrypt := nil;
   CAST_ofb64_encrypt := nil;
 end;
+  {$ENDIF}
 {$ENDIF}
-
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
