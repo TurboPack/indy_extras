@@ -3711,10 +3711,10 @@ begin
   UI_UTIL_wrap_read_pem_callback := nil;
 end;
   {$I TaurusTLSUnusedParamOn.inc}
+  {$ENDIF}
 {$ENDIF}
-{$ENDIF}
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');

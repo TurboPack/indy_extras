@@ -7882,10 +7882,12 @@ begin
   BN_get_rfc3526_prime_8192 := nil;
   BN_bntest_rand := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

@@ -9475,7 +9475,7 @@ begin
   sk_X509_VERIFY_PARAM_find  := nil;
   sk_X509_VERIFY_PARAM_pop_free  := nil;
 end;
-{$ENDIF}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

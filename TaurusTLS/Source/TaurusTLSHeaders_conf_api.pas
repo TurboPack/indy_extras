@@ -411,10 +411,12 @@ begin
   _CONF_new_data := nil;
   _CONF_free_data := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

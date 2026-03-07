@@ -827,10 +827,11 @@ begin
   ASYNC_block_pause := nil; {introduced 1.1.0}
   ASYNC_unblock_pause := nil; {introduced 1.1.0}
 end;
-
+  {$ENDIF}
+{$ENDIF}
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

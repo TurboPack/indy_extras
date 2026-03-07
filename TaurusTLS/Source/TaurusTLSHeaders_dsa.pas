@@ -3529,10 +3529,11 @@ begin
   DSA_meth_get_keygen := nil;
   DSA_meth_set_keygen := nil;
 end;
-
+  {$ENDIF}
+{$ENDIF}
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

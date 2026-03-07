@@ -3684,10 +3684,12 @@ begin
   DH_meth_get_generate_params := nil; {introduced 1.1.0}
   DH_meth_set_generate_params := nil; {introduced 1.1.0}
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

@@ -2575,9 +2575,6 @@ function sk_is_sorted(st:POPENSSL_STACK):TIdC_INT;
 begin
   Result := OPENSSL_sk_is_sorted(st);
 end;
-
-
-
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

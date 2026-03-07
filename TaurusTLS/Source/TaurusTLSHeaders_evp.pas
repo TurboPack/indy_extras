@@ -25988,6 +25988,7 @@ begin
   EVP_MAC_CTX_get_block_size := nil;
   EVP_MAC_init := nil;
 end;
+  {$ENDIF}
 {$ELSE}
 function EVP_PKEY_assign_RSA(pkey: PEVP_PKEY; rsa: Pointer): TIdC_INT;
 begin
@@ -26067,7 +26068,6 @@ begin
 end;
 {$ENDIF}
  {$I TaurusTLSNoRetValOn.inc}
- {$ENDIF}
  {$ENDIF}
 {$ENDIF}
 

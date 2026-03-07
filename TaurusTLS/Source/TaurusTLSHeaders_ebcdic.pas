@@ -167,7 +167,6 @@ begin
   ascii2ebcdic := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

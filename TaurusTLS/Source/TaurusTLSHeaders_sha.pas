@@ -1136,7 +1136,6 @@ begin
   SHA512_Transform := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -2569,12 +2569,12 @@ begin
   sk_CTLOG_find := nil;
   sk_CTLOG_pop_free := nil;
 end;
-
+  {$ENDIF}
+{$ENDIF}
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 
 end.

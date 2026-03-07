@@ -2144,6 +2144,7 @@ begin
   DES_ofb64_encrypt := nil;
   DES_fixup_key_parity := nil; { removed 1.0.0 }
 end;
+  {$ENDIF}
 {$ELSE}
 
 procedure DES_ecb2_encrypt(_input: Pconst_DES_cblock; _output: PDES_cblock;
@@ -2177,13 +2178,13 @@ procedure DES_fixup_key_parity(key: PDES_cblock);
 begin
   DES_set_odd_parity(key);
 end;
+{$ENDIF}
 
-
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 
 end.

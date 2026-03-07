@@ -4719,7 +4719,6 @@ begin
   RSA_meth_set_multi_prime_keygen := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

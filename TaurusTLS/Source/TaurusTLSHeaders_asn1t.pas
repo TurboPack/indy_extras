@@ -1201,10 +1201,12 @@ begin
   ASN1_item_ex_d2i := nil;
   ASN1_item_ex_i2d := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibCrypto');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

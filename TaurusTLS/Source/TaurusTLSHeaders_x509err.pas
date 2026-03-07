@@ -225,7 +225,6 @@ begin
   ERR_load_X509_strings := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

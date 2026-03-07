@@ -209,10 +209,12 @@ begin
   OSSL_QUIC_client_thread_method := nil;
   OSSL_QUIC_server_method := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
   Register_SSLLoader(Load,'LibSSL');
   Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 end.

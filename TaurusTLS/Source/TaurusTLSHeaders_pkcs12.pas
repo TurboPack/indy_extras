@@ -3242,7 +3242,6 @@ begin
   PKCS12_newpass := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

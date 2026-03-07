@@ -9135,7 +9135,6 @@ begin
   TS_CONF_set_ess_cert_id_digest := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

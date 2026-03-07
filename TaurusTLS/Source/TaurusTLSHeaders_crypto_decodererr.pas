@@ -109,12 +109,14 @@ procedure Unload;
 begin
   ossl_err_load_OSSL_DECODER_strings := nil;
 end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
 
 Register_SSLLoader(Load, 'LibCrypto');
 Register_SSLUnloader(Unload);
-  {$ENDIF}
 {$ENDIF}
 
 end.

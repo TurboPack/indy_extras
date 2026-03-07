@@ -867,7 +867,6 @@ begin
   ERR_load_SSL_strings := nil;
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

@@ -965,7 +965,6 @@ begin
   OSSL_PROVIDER_load_ex := nil; {introduced 3.2.0}
 end;
   {$ENDIF}
-{$ELSE}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

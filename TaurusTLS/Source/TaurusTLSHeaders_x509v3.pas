@@ -1685,7 +1685,7 @@ implementation
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
     ,TaurusTLSLoader
   {$ENDIF};
-  
+
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
@@ -5874,7 +5874,7 @@ begin
   sk_X509_PURPOSE_find := nil;
   sk_X509_PURPOSE_pop_free := nil;
 end;
-{$ENDIF}
+  {$ENDIF}
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
