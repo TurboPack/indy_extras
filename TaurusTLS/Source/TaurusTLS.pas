@@ -2639,7 +2639,7 @@ end;
 
 {$I TaurusTLSUnusedParamOff.inc}
 
-function g_VerifyCallback(const preverify_ok: TIdC_INT; //FI:C103 surpress too many variables warnings.
+function g_VerifyCallback(const preverify_ok: TIdC_INT;
   x509_ctx: PX509_STORE_CTX): TIdC_INT cdecl;
 var
   LErr: Integer;  //PALOFF
