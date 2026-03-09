@@ -215,6 +215,11 @@ Analyzes source-code to find various types of potential issues.
 
 <https://peganza.com/products_pal.html>
 
+### TMS FixInsight
+Analyzes source-code to find various types of potential issues.
+
+<https://www.tmssoftware.com/site/fixinsight.asp>
+
 ## Credits
 
 ### Chad Z. Hower (Kudzu) and the Indy Pit Crew
