@@ -1,6 +1,6 @@
 # TaurusTLS
 
-Copyright (c) 2025 TaurusTLS Developers
+Copyright (c) 2026 TaurusTLS Developers
 All Rights Reserved
 
 ## General Information
