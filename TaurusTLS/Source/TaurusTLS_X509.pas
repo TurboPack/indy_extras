@@ -1177,13 +1177,15 @@ begin
 end;
 
 function TTaurusTLSX509SigInfo.GetSignature: String;
+var LSig : PASN1_STRING;
 begin
   if not Assigned(Fsignature) then
   begin
     X509_get0_signature(Fsignature, Fsig_alg, FX509);
   end;
-  Result := BytesToHexString(ASN1_STRING_get0_data(PASN1_STRING(Fsignature)),
-    ASN1_STRING_length(PASN1_STRING(Fsignature)));
+  LSig := PASN1_STRING(Fsignature); //PALOFF - Typecasts that possibly can be omitted
+  Result := BytesToHexString(ASN1_STRING_get0_data(LSig),
+    ASN1_STRING_length(LSig));
 end;
 
 function TTaurusTLSX509SigInfo.GetSigType: TIdC_INT;

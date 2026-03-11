@@ -2926,7 +2926,7 @@ function g_tlsext_SNI_callback(SSL: PSSL; alert: PIdC_INT; arg: Pointer) //FI:O8
 var
   LErr: Integer;   //PALOFF
   i: Integer;
-  LSSLIO: TTaurusTLSServerIOHandler;
+  LSSLIO: TTaurusTLSServerIOHandler;  //PALOFF - Local identifiers that possibly are set more than once without referencing in-between
   LX509: PX509;
   LPHost : PIdAnsiChar;
 
