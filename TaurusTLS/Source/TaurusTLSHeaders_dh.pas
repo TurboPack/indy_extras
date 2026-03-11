@@ -601,6 +601,7 @@ const
   DH_test_flags_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_set_flags_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_get0_engine_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  DH_get0_engine_removed = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
   DH_get_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_set_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   DH_meth_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

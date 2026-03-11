@@ -916,6 +916,7 @@ const
   //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
   RSA_meth_set_multi_prime_keygen_procname = 'RSA_meth_set_multi_prime_keygen';
 
+  RSA_get0_engine_removed = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 

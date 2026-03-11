@@ -767,6 +767,7 @@ const
   EC_POINT_set_compressed_coordinates_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_POINT_point2buf_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_KEY_get0_engine_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  EC_KEY_get0_engine_removed = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
   EC_KEY_set_ex_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_KEY_get_ex_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   EC_KEY_can_sign_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);

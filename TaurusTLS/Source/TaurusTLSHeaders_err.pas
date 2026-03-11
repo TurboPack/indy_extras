@@ -352,6 +352,7 @@ const
   ERR_set_error_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   ERR_load_strings_const_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   ERR_clear_last_mark_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+  ERR_get_state_removed = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
   ERR_put_error_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   SSLErr_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
   X509err_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
