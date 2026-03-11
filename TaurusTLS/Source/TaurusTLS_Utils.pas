@@ -417,9 +417,9 @@ begin
   Result := '';
   if Assigned(a) then
   begin
-    LPtr := a.data;
+    LPtr := ASN1_STRING_get0_data(PASN1_STRING(a));
     //ASN1_STRING_get0_data(PASN1_STRING(a));
-    LLen := a._length;
+    LLen := ASN1_STRING_length(PASN1_STRING(a));
     //ASN1_STRING_length(PASN1_STRING(a));
     Result := BytesToHexString(LPtr, LLen);
   end;
@@ -508,7 +508,7 @@ begin
   tz_hour := 0;
   tz_min := 0;
   Result := False; { default is to return with an error indication }
-  if a^._Length < 12 then
+  if ASN1_STRING_length(PASN1_STRING(a)) < 12 then
   begin
     Exit;
   end;
@@ -519,7 +519,7 @@ begin
 {$IFDEF STRING_IS_ANSI}
   SetString(time_str, PAnsiChar(a^.data), a^._Length);
 {$ELSE}
-  SetString(LTemp, PAnsiChar(a.data), a._Length);  //PALOFF - Possible bad pointer usage [data : PByte cast to PAnsiChar]
+  SetString(LTemp, PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(a))), ASN1_STRING_length(PASN1_STRING(a)));  //PALOFF - Possible bad pointer usage [data : PByte cast to PAnsiChar]
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
   // TODO: do we need to use SetCodePage() here?
   time_str := String(LTemp); // explicit convert to Unicode
@@ -623,15 +623,15 @@ begin
 
   if Assigned(a) then
   begin
-    LData := @a.data;
-    if a._Length = 4 then
+    LData := PTBa(ASN1_STRING_get0_data(PASN1_STRING(a)));
+    if ASN1_STRING_length(PASN1_STRING(a)) = 4 then
     begin
       Result := IntToStr(LData^[0]) + '.' + IntToStr(LData^[1]) + '.'
         + IntToStr(LData^[2]) + '.' + IntToStr(LData^[3]);
     end
     else
     begin
-      if a._Length = 16 then
+      if ASN1_STRING_length(PASN1_STRING(a)) = 16 then
       begin
         for i := 0 to 7 do
         begin
@@ -651,11 +651,11 @@ begin
       Result := 'Other Name';
     GEN_EMAIL:
       begin
-        Result := 'E-Mail: ' + String(PIdAnsiChar(AGN.d.rfc822Name.data));
+        Result := 'E-Mail: ' + String(PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(AGN.d.rfc822Name))));
       end;
     GEN_DNS:
       begin
-        Result := 'DNS: ' + String(PIdAnsiChar(AGN.d.dNSName.data));
+        Result := 'DNS: ' + String(PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(AGN.d.dNSName))));
       end;
     GEN_X400:
       begin
@@ -672,7 +672,7 @@ begin
     GEN_URI:
       begin
         Result := 'URI: ' +
-          String(PIdAnsiChar(AGN.d.uniformResourceIdentifier.data));
+          String(PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(AGN.d.uniformResourceIdentifier))));
       end;
     GEN_IPADD:
       begin

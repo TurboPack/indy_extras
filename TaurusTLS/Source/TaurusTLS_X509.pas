@@ -1182,7 +1182,8 @@ begin
   begin
     X509_get0_signature(Fsignature, Fsig_alg, FX509);
   end;
-  Result := BytesToHexString(Fsignature^.Data, Fsignature^._Length);
+  Result := BytesToHexString(ASN1_STRING_get0_data(PASN1_STRING(Fsignature)),
+    ASN1_STRING_length(PASN1_STRING(Fsignature)));
 end;
 
 function TTaurusTLSX509SigInfo.GetSigType: TIdC_INT;

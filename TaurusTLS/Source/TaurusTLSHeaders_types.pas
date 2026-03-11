@@ -158,8 +158,10 @@ type
   PPIdC_TM = ^PIdC_TM;
   {$IFEND}
 // moved from unit "asn1" to prevent circular references
+//IMPORTANT!!! For OpenSSL 4.0.0, ASN1_STRING has been made opaque.
+//so use the access functions instead of direct record access.
   asn1_string_st = record
-    _length: TIdC_INT;
+{    _length: TIdC_INT;
     type_: TIdC_INT;
     data: PByte;
     (*
@@ -167,8 +169,9 @@ type
      * is mostly being used for BIT_STRING so if the input data has a
      * non-zero 'unused bits' value, it will be handled correctly
      *)
-    flags: TIdC_LONG;
+    flags: TIdC_LONG;  }
   end;
+
 
   // moved from asn1
   ASN1_VALUE    = record end;
