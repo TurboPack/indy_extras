@@ -72,20 +72,20 @@ const
     {$ELSE}
   LibSuffix = '.so';
     {$ENDIF}
-  DefaultLibVersions = '.3:.1.1';
+  DefaultLibVersions = '.4:.3:.1.1';
   {$ENDIF}
   {$IFDEF WINDOWS}
   DirListDelimiter = ';';
   LibSuffix = '';
     {$IFDEF CPU64}
       {$IFDEF CPUARM64}
-    DefaultLibVersions = '-3-arm64;-1_1-arm64;-1-arm64;';
+    DefaultLibVersions = '-4-arm64;-3-arm64;-1_1-arm64;-1-arm64;';
       {$ELSE}
-    DefaultLibVersions = '-3-x64;-1_1-x64;-1-x64;';
+    DefaultLibVersions = '-4-x64;-3-x64;-1_1-x64;-1-x64;';
       {$ENDIF}
     {$ENDIF}
     {$IFDEF CPU32}
-    DefaultLibVersions = '-3;-1_1;-1;';
+    DefaultLibVersions = '-4;-3;-1_1;-1;';
     {$ENDIF}
   {$ENDIF}
 
