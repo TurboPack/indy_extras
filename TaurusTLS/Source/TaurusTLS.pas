@@ -3305,6 +3305,10 @@ begin
     if Result = '' then
     begin
       Result := GetDirFromOpenSSLVerString(AnsiStringToString(SSLeay_version(OPENSSL_ENGINES_DIR)));
+      if Result = 'ENGINESDIR: N/A' then
+      begin
+        Result := '';
+      end;
     end;
     {$IFDEF WINDOWS}
     Result := StringReplace(Result, '/','\',[rfReplaceAll]);
