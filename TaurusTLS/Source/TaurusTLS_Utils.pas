@@ -513,11 +513,11 @@ begin
     Exit;
   end;
 {$IFDEF USE_MARSHALLED_PTRS}
-  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(a^.data),
-    a^._Length);
+  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(ASN1_STRING_get0_data(a)),
+    ASN1_STRING_length(a));
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
-  SetString(time_str, PAnsiChar(a^.data), a^._Length);
+  SetString(time_str, PAnsiChar(ASN1_STRING_get0_data(a), ASN1_STRING_length(a));
 {$ELSE}
   SetString(LTemp, PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(a))), ASN1_STRING_length(PASN1_STRING(a)));  //PALOFF - Possible bad pointer usage [data : PByte cast to PAnsiChar]
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }

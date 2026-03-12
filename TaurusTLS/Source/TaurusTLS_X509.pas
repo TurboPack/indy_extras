@@ -943,7 +943,7 @@ begin
 {$ENDIF}
 end;
 
-function TTaurusTLSX509Name.GetHash: TTaurusTLSULong; //FI:W521 0 syroress return value might be undefined.
+function TTaurusTLSX509Name.GetHash: TTaurusTLSULong; //FI:W521 - Return value of function might be undefined.
 begin
   {$ifdef fpc}
   Initialize(Result);
