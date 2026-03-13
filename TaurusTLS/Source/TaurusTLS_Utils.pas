@@ -513,8 +513,8 @@ begin
     Exit;
   end;
 {$IFDEF USE_MARSHALLED_PTRS}
-  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(ASN1_STRING_get0_data(a)),
-    ASN1_STRING_length(a));
+  time_str := TMarshal.ReadStringAsAnsi(TPtrWrapper.Create(ASN1_STRING_get0_data(PASN1_STRING(a))),
+    ASN1_STRING_length(PASN1_STRING(a)));
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
   SetString(time_str, PAnsiChar(ASN1_STRING_get0_data(a), ASN1_STRING_length(a));
