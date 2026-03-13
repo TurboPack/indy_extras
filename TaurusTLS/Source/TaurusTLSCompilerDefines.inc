@@ -1274,3 +1274,12 @@
 {$IFDEF MSWINDOWS}
 {$DEFINE WINDOWS}
 {$ENDIF}
+
+{$IFDEF NO_ANSI_TYPES}
+  {$UNDEF HAS_AnsiString}
+  {$UNDEF HAS_AnsiChar}
+  {$UNDEF HAS_PAnsiChar}
+  {$UNDEF HAS_PPAnsiChar}
+  {$UNDEF HAS_AnsiStrings_StrPLCopy}
+  {$UNDEF HAS_AnsiStrings_StrLen}
+{$ENDIF}
