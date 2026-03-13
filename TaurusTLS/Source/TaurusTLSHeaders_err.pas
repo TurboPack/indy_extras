@@ -158,14 +158,15 @@ const
  *)
 
 type
+  //This is now opaque in OpenSSL 4.0.0
   err_state_st = record
-    err_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
+{    err_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
     err_buffer: array[0..ERR_NUM_ERRORS -1] of TIdC_ULONG;
     err_data: array[0..ERR_NUM_ERRORS -1] of PIdAnsiChar;
     err_data_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
     err_file: array[0..ERR_NUM_ERRORS -1] of PIdAnsiChar;
     err_line: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
-    top, bottom: TIdC_INT;
+    top, bottom: TIdC_INT;   }
   end;
   ERR_STATE = err_state_st;
   PERR_STATE = ^ERR_STATE;
