@@ -2488,7 +2488,6 @@ uses
 {$IFDEF HAS_UNIT_Generics_Collections}
   System.Generics.Collections,
 {$ENDIF}
- {$IFDEF HAS_AnsiStrings_StrLen} AnsiStrings,{$ENDIF}
 {$IFDEF USE_VCL_POSIX}
   Posix.SysTime,
   Posix.Time,
@@ -3154,6 +3153,8 @@ begin
     Result := GetOpenSSLLoader.Load;
     if not Result then
       Exit;
+{$ELSE}
+    Result := True;
 {$ENDIF}
 {$IFDEF OPENSSL_SET_MEMORY_FUNCS}
     // has to be done before anything that uses memory
@@ -3194,7 +3195,6 @@ begin
 {$ENDIF}
 {$ENDIF}
     SSLIsLoaded.Value := True;
-    Result := True;
   finally
     SSLIsLoaded.Unlock;
   end;
