@@ -2235,8 +2235,13 @@ type
     function GetCipher: PSSL_CIPHER;
     function GetDescription: String;
     function GetName: String;
+    function GetStandardName : String;
     function GetBits: Integer;
+    function GetAEAD : Boolean;
     function GetVersion: String;
+    function GetKeyExchangeMethod : String;
+    function GetAuthenticationMethod : String;
+    function GetMACDigest : String;
   public
     /// <summary>
     /// Creates a new instance of TTaurusTLSCipher.
@@ -2252,21 +2257,46 @@ type
     // These can't be published without a compiler warning.
     // published
     /// <summary>
-    /// Description of cipher.
+    /// Description of the cipher.
     /// </summary>
     property Description: String read GetDescription;
     /// <summary>
-    /// Name of cipher.
+    /// OpenSSL name of the cipher.
     /// </summary>
     property Name: String read GetName;
     /// <summary>
-    /// Number of bits in cipher.
+    ///   RFC name of the cipher
+    /// </summary>
+    property StandardName : String read GetStandardName;
+    /// <summary>
+    /// Number of bits in the cipher.
     /// </summary>
     property bits: Integer read GetBits;
     /// <summary>
-    /// Version of cipher.
+    /// Version of the cipher.
     /// </summary>
     property Version: String read GetVersion;
+    /// <summary>
+    ///   The cipher is an AEAD (Authenticated Encryption with Associated Data) cipher.
+    /// </summary>
+    property AEAD : Boolean read GetAEAD;
+    /// <summary>
+    ///   Cipher Key Exchange method.
+    /// </summary>
+    property KeyExchangeMethod : String read GetKeyExchangeMethod;
+
+    /// <summary>
+    ///   Authentication method for the cipher.
+    /// </summary>
+    property AuthenticationMethod : String read GetAuthenticationMethod;
+
+    /// <summary>
+    ///   MAC Digest algorithm used for the CipherSuite.
+    /// </summary>
+    /// <remarks>
+    ///   This may be empty for AEAD Ciphers.
+    /// </remarks>
+    property MACDigest : String read GetMACDigest;
   end;
 
   /// <summary>
@@ -2517,6 +2547,7 @@ uses
   TaurusTLSHeaders_stack,
   TaurusTLSHeaders_crypto,
   TaurusTLSHeaders_objects,
+  TaurusTLSHeaders_obj_mac,
   TaurusTLSHeaders_x509,
   TaurusTLS_Files,
   TaurusTLSLoader;
@@ -5267,14 +5298,74 @@ end;
 function TTaurusTLSCipher.GetDescription;
 var
   buf: array [0 .. 1024] of TIdAnsiChar;
+  LSSL_Cipher : PSSL_CIPHER;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_description(GetCipher, @buf[0],
-    SizeOf(buf) - 1));
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    Result := AnsiStringToString(SSL_CIPHER_description(LSSL_Cipher, @buf[0],
+      SizeOf(buf) - 1));
+  end;
+end;
+
+function TTaurusTLSCipher.GetKeyExchangeMethod: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
+   LNid : TIdC_INT;
+begin
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    LNid := SSL_CIPHER_get_kx_nid(LSSL_Cipher);
+    if LNid <> NID_undef  then
+    begin
+      Result :=  AnsiStringToString(OBJ_nid2ln(LNid));
+    end;
+  end;
+end;
+
+function TTaurusTLSCipher.GetMACDigest: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
+   LNid : TIdC_INT;
+begin
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    LNid :=  SSL_CIPHER_get_digest_nid(LSSL_Cipher);
+    if LNid <> NID_undef  then
+    begin
+       Result :=  AnsiStringToString(OBJ_nid2ln(LNid));
+    end;
+  end;
+
 end;
 
 function TTaurusTLSCipher.GetName: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_get_name(GetCipher));
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+     Result := AnsiStringToString(SSL_CIPHER_get_name(LSSL_Cipher));
+  end;
+end;
+
+function TTaurusTLSCipher.GetStandardName: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
+begin
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+     Result := AnsiStringToString(SSL_CIPHER_standard_name(LSSL_Cipher));
+  end;
 end;
 
 function TTaurusTLSCipher.GetCipher: PSSL_CIPHER;
@@ -5286,20 +5377,62 @@ begin
   Result := fSSLCipher;
 end;
 
+function TTaurusTLSCipher.GetAEAD: Boolean;
+var
+   LSSL_Cipher : PSSL_CIPHER;
+begin
+  Result := False;
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    Result := SSL_CIPHER_is_aead(LSSL_Cipher) = 1;
+  end;
+end;
+
+function TTaurusTLSCipher.GetAuthenticationMethod: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
+   LNid :  TIdC_INT;
+begin
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    LNid :=  SSL_CIPHER_get_auth_nid(LSSL_Cipher);
+    if LNid <> NID_undef  then
+    begin
+      Result :=  AnsiStringToString(OBJ_nid2ln(LNid));
+    end;
+  end;
+end;
+
 function TTaurusTLSCipher.GetBits: TIdC_INT;
+var
+   LSSL_Cipher : PSSL_CIPHER;
 begin
   Result := 0;
-  //Do things this way to avoid PAL warnings about Reuslt being undefined,
-  //empty blocs, and functions called as procs.
-  if SSL_CIPHER_get_bits(GetCipher, Result) = 0 then
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
   begin
-    Result := 0;
+    //Do things this way to avoid PAL warnings about Reuslt being undefined,
+    //empty blocs, and functions called as procs.
+    if SSL_CIPHER_get_bits(GetCipher, Result) = 0 then
+    begin
+      Result := 0;
+    end;
   end;
 end;
 
 function TTaurusTLSCipher.GetVersion: String;
+var
+   LSSL_Cipher : PSSL_CIPHER;
 begin
-  Result := AnsiStringToString(SSL_CIPHER_get_version(GetCipher));
+  Result := '';
+  LSSL_Cipher := GetCipher;
+  if Assigned(LSSL_Cipher) then
+  begin
+    Result := AnsiStringToString(SSL_CIPHER_get_version(GetCipher));
+  end;
 end;
 
 {$I TaurusTLSSymbolDeprecatedOff.inc}

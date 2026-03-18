@@ -1332,7 +1332,7 @@ var
   X509_cmp_current_time: function (const s: PASN1_TIME): TIdC_INT; cdecl = nil;
   X509_cmp_timeframe: function(const vpm : PX509_VERIFY_PARAM; start, _end : PASN1_TIME ) : TIdC_INT; cdecl = nil;
 
-  X509_check_certificate_times : function(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT; cdecl = nil;
+  X509_check_certificate_times : function(const vpm : PX509_VERIFY_PARAM; X : PX509; _error : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   X509_time_adj: function (s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; cdecl = nil;
   X509_time_adj_ex: function (s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; cdecl = nil;
@@ -1961,7 +1961,7 @@ var
   function X509_cmp_current_time(const s: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
   function X509_cmp_timeframe(const vpm : PX509_VERIFY_PARAM; start, _end : PASN1_TIME ) : TIdC_INT cdecl; external CLibCrypto;
 
-  function X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+  function X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; _error : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
 
   function X509_time_adj(s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME cdecl; external CLibCrypto;
   function X509_time_adj_ex(s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME cdecl; external CLibCrypto;
@@ -3652,7 +3652,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_timeframe_procname);
 end;
 
-function ERR_X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT cdecl;
+function ERR_X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; _error : TIdC_INT) : TIdC_INT cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_check_certificate_times_procname);
 end;
