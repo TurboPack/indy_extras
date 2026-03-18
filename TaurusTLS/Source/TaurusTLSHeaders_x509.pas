@@ -1330,6 +1330,10 @@ var
 
   X509_cmp_time: function (const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT; cdecl = nil;
   X509_cmp_current_time: function (const s: PASN1_TIME): TIdC_INT; cdecl = nil;
+  X509_cmp_timeframe: function(const vpm : PX509_VERIFY_PARAM; start, _end : PASN1_TIME ) : TIdC_INT; cdecl = nil;
+
+  X509_check_certificate_times : function(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT; cdecl = nil;
+
   X509_time_adj: function (s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; cdecl = nil;
   X509_time_adj_ex: function (s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME; cdecl = nil;
   X509_gmtime_adj: function (s: PASN1_TIME; adj: TIdC_LONG): PASN1_TIME; cdecl = nil;
@@ -1955,6 +1959,10 @@ var
 
   function X509_cmp_time(const s: PASN1_TIME; t: PIdC_TIMET): TIdC_INT cdecl; external CLibCrypto;
   function X509_cmp_current_time(const s: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
+  function X509_cmp_timeframe(const vpm : PX509_VERIFY_PARAM; start, _end : PASN1_TIME ) : TIdC_INT cdecl; external CLibCrypto;
+
+  function X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+
   function X509_time_adj(s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME cdecl; external CLibCrypto;
   function X509_time_adj_ex(s: PASN1_TIME; offset_day: TIdC_INT; offset_sec: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME cdecl; external CLibCrypto;
   function X509_gmtime_adj(s: PASN1_TIME; adj: TIdC_LONG): PASN1_TIME cdecl; external CLibCrypto;
@@ -2517,6 +2525,9 @@ const
   X509_CRL_http_nbio_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   X509_NAME_hash_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
   d2i_PrivateKey_ex_bio_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+  X509_cmp_timeframe_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
+
+  X509_check_certificate_times_introduced = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
 
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
@@ -2660,6 +2671,10 @@ const
 
   X509_cmp_time_procname = 'X509_cmp_time';
   X509_cmp_current_time_procname = 'X509_cmp_current_time';
+  X509_cmp_timeframe_procname = 'X509_cmp_timeframe';
+
+  X509_check_certificate_times_procname = 'X509_check_certificate_times';
+
   X509_time_adj_procname = 'X509_time_adj';
   X509_time_adj_ex_procname = 'X509_time_adj_ex';
   X509_gmtime_adj_procname = 'X509_gmtime_adj';
@@ -3632,6 +3647,15 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_current_time_procname);
 end;
 
+function ERR_X509_cmp_timeframe(const vpm : PX509_VERIFY_PARAM; start, _end : PASN1_TIME ) : TIdC_INT cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_cmp_timeframe_procname);
+end;
+
+function ERR_X509_check_certificate_times(const vpm : PX509_VERIFY_PARAM; X : PX509; error : TIdC_INT) : TIdC_INT cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(X509_check_certificate_times_procname);
+end;
 
 function  ERR_X509_time_adj(s: PASN1_TIME; adj: TIdC_LONG; t: PIdC_TIMET): PASN1_TIME;  cdecl;
 begin
@@ -8021,6 +8045,37 @@ begin
   end;
 
 
+  X509_cmp_timeframe := LoadLibFunction(ADllHandle, X509_cmp_timeframe_procname);
+  FuncLoadError := not assigned(X509_cmp_timeframe);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_cmp_timeframe_allownil)}
+    X509_cmp_timeframe := ERR_X509_cmp_timeframe;
+    {$ifend}
+    {$if declared(X509_cmp_timeframe_introduced)}
+    if LibVersion < X509_cmp_timeframe_introduced then
+    begin
+      {$if declared(FC_X509_cmp_timeframe)}
+      X509_cmp_timeframe := FC_X509_cmp_timeframe;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_cmp_timeframe_removed)}
+    if X509_cmp_timeframe_removed <= LibVersion then
+    begin
+      {$if declared(_X509_cmp_timeframe)}
+      X509_cmp_timeframe := _X509_cmp_timeframe;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_cmp_timeframe_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_cmp_timeframe');
+    {$ifend}
+  end;
+
   X509_cmp_current_time := LoadLibFunction(ADllHandle, X509_cmp_current_time_procname);
   FuncLoadError := not assigned(X509_cmp_current_time);
   if FuncLoadError then
@@ -8052,6 +8107,37 @@ begin
     {$ifend}
   end;
 
+
+  X509_check_certificate_times := LoadLibFunction(ADllHandle, X509_check_certificate_times_procname);
+  FuncLoadError := not assigned(X509_check_certificate_times);
+  if FuncLoadError then
+  begin
+    {$if not defined(X509_check_certificate_times_allownil)}
+    X509_check_certificate_times := ERR_X509_check_certificate_times;
+    {$ifend}
+    {$if declared(X509_check_certificate_times_introduced)}
+    if LibVersion < X509_check_certificate_times_introduced then
+    begin
+      {$if declared(FC_X509_check_certificate_times)}
+      X509_check_certificate_times := FC_X509_check_certificate_times;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(X509_check_certificate_times_removed)}
+    if X509_check_certificate_times_removed <= LibVersion then
+    begin
+      {$if declared(_X509_check_certificate_times)}
+      X509_check_certificate_times := _X509_check_certificate_times;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(X509_check_certificate_times_allownil)}
+    if FuncLoadError then
+      AFailed.Add('X509_check_certificate_times');
+    {$ifend}
+  end;
 
   X509_time_adj := LoadLibFunction(ADllHandle, X509_time_adj_procname);
   FuncLoadError := not assigned(X509_time_adj);
@@ -18065,6 +18151,7 @@ begin
   X509_NAME_ENTRY_dup := nil;
   X509_cmp_time := nil;
   X509_cmp_current_time := nil;
+  X509_cmp_timeframe := nil;
   X509_time_adj := nil;
   X509_time_adj_ex := nil;
   X509_gmtime_adj := nil;
