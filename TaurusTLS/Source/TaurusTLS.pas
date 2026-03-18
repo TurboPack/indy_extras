@@ -2927,7 +2927,7 @@ var
   i: Integer;
   LSSLIO: TTaurusTLSServerIOHandler;  //PALOFF - Local identifiers that possibly are set more than once without referencing in-between
   LX509: PX509;
-  LPHost : PIdAnsiChar;
+  LPHost : PIdAnsiChar;  //PALOFF - Local identifiers that possibly are set more than once without referencing in-between
 
 begin
   LErr := GStack.WSGetLastError;
@@ -5288,6 +5288,9 @@ end;
 
 function TTaurusTLSCipher.GetBits: TIdC_INT;
 begin
+  Result := 0;
+  //Do things this way to avoid PAL warnings about Reuslt being undefined,
+  //empty blocs, and functions called as procs.
   if SSL_CIPHER_get_bits(GetCipher, Result) = 0 then
   begin
     Result := 0;
