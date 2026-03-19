@@ -147,7 +147,7 @@ implementation
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
   ERR_load_ENGINE_strings_procname = 'ERR_load_ENGINE_strings';
-
+  ERR_load_ENGINE_strings_removed = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
   {$IFNDEF _FIXINSIGHT_}
   {$I TaurusTLSNoRetValOff.inc} 
 function  ERR_ERR_load_ENGINE_strings: TIdC_INT; cdecl;
