@@ -81,13 +81,16 @@ const
   SMIME_CRLFEOL = $800;
   SMIME_STREAM = $1000;
 
-  ASN1_STRING_FLAG_BITS_LEFT = $08;   (* Set if $07 has bits left value *)
+{
+These are now opaque in OpenSSL 4.0.
+}
+//  ASN1_STRING_FLAG_BITS_LEFT = $08;   (* Set if $07 has bits left value *)
   (*
    * This indicates that the ASN1_STRING is not a real value but just a place
    * holder for the location where indefinite length constructed data should be
    * inserted in the memory buffer
    *)
-  ASN1_STRING_FLAG_NDEF = $010;
+//  ASN1_STRING_FLAG_NDEF = $010;
 
   (*
    * This flag is used by the CMS code to indicate that a string is not
@@ -95,14 +98,14 @@ const
    * The flag will be reset when content has been written to it.
    *)
 
-  ASN1_STRING_FLAG_CONT = $020;
+//  ASN1_STRING_FLAG_CONT = $020;
   (*
    * This flag is used by ASN1 code to indicate an ASN1_STRING is an MSTRING
    * type.
    *)
-  ASN1_STRING_FLAG_MSTRING = $040;
+//  ASN1_STRING_FLAG_MSTRING = $040;
   (* String is embedded and only content should be freed *)
-  ASN1_STRING_FLAG_EMBED = $080;
+//  ASN1_STRING_FLAG_EMBED = $080;
   (* String should be parsed in RFC 5280's time format *)
   ASN1_STRING_FLAG_X509_TIME = $100;
 
@@ -702,6 +705,8 @@ var
   ASN1_BIT_STRING_name_print: function (out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_num_asc: function (const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_set_asc: function (bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
+  ASN1_BIT_STRING_get_length: function(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl = nil;
+  ASN1_BIT_STRING_set1: function(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   ASN1_INTEGER_new: function : PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_free: procedure (a: PASN1_INTEGER); cdecl = nil;
@@ -1033,6 +1038,8 @@ var
   function ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_num_asc(const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_BIT_STRING_get_length(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_BIT_STRING_set1(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_INTEGER_new: PASN1_INTEGER cdecl; external CLibCrypto;
   procedure ASN1_INTEGER_free(a: PASN1_INTEGER) cdecl; external CLibCrypto;
@@ -1594,6 +1601,8 @@ const
   ASN1_BIT_STRING_name_print_procname = 'ASN1_BIT_STRING_name_print';
   ASN1_BIT_STRING_num_asc_procname = 'ASN1_BIT_STRING_num_asc';
   ASN1_BIT_STRING_set_asc_procname = 'ASN1_BIT_STRING_set_asc';
+  ASN1_BIT_STRING_get_length_procname = 'ASN1_BIT_STRING_get_length';
+  ASN1_BIT_STRING_set1_procname = 'ASN1_BIT_STRING_set1';
 
   ASN1_INTEGER_new_procname = 'ASN1_INTEGER_new';
   ASN1_INTEGER_free_procname = 'ASN1_INTEGER_free';
@@ -2086,6 +2095,15 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_asc_procname);
 end;
 
+function ERR_ASN1_BIT_STRING_get_length(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_get_length_procname);
+end;
+
+function ERR_ASN1_BIT_STRING_set1(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl;
+begin
+  ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set1_procname);
+end;
 
 
 function  ERR_ASN1_INTEGER_new: PASN1_INTEGER; cdecl;
@@ -4157,6 +4175,68 @@ begin
     {$ifend}
   end;
 
+  ASN1_BIT_STRING_get_length :=  LoadLibFunction(ADllHandle, ASN1_BIT_STRING_get_length_procname);
+  FuncLoadError := not assigned(ASN1_BIT_STRING_get_length);
+  if FuncLoadError then
+  begin
+    {$if not defined(ASN1_BIT_STRING_get_length_allownil)}
+    ASN1_BIT_STRING_get_length := ERR_ASN1_BIT_STRING_get_length;
+    {$ifend}
+    {$if declared(ASN1_BIT_STRING_get_length_introduced)}
+    if LibVersion < ASN1_BIT_STRING_get_length_introduced then
+    begin
+      {$if declared(FC_ASN1_BIT_STRING_get_length)}
+      ASN1_BIT_STRING_get_length := FC_ASN1_BIT_STRING_get_length;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(ASN1_BIT_STRING_get_length_removed)}
+    if ASN1_BIT_STRING_get_length_removed <= LibVersion then
+    begin
+      {$if declared(_ASN1_BIT_STRING_get_length)}
+      ASN1_BIT_STRING_get_length := _ASN1_BIT_STRING_get_length;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(ASN1_BIT_STRING_get_length_allownil)}
+    if FuncLoadError then
+      AFailed.Add('ASN1_BIT_STRING_get_length');
+    {$ifend}
+  end;
+
+
+  ASN1_BIT_STRING_set1 := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_set1_procname);
+  FuncLoadError := not assigned(ASN1_BIT_STRING_set1);
+  if FuncLoadError then
+  begin
+    {$if not defined(ASN1_BIT_STRING_set1_allownil)}
+    ASN1_BIT_STRING_set1 := ERR_ASN1_BIT_STRING_set1;
+    {$ifend}
+    {$if declared(ASN1_BIT_STRING_set1_introduced)}
+    if LibVersion < ASN1_BIT_STRING_set1_introduced then
+    begin
+      {$if declared(FC_ASN1_BIT_STRING_set1)}
+      ASN1_BIT_STRING_set1 := FC_ASN1_BIT_STRING_set1;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if declared(ASN1_BIT_STRING_set1_removed)}
+    if ASN1_BIT_STRING_set1_removed <= LibVersion then
+    begin
+      {$if declared(_ASN1_BIT_STRING_set1)}
+      ASN1_BIT_STRING_set1 := _ASN1_BIT_STRING_set1;
+      {$ifend}
+      FuncLoadError := false;
+    end;
+    {$ifend}
+    {$if not defined(ASN1_BIT_STRING_set1_allownil)}
+    if FuncLoadError then
+      AFailed.Add('ASN1_BIT_STRING_set1');
+    {$ifend}
+  end;
 
   ASN1_INTEGER_new := LoadLibFunction(ADllHandle, ASN1_INTEGER_new_procname);
   FuncLoadError := not assigned(ASN1_INTEGER_new);
@@ -9021,6 +9101,8 @@ begin
   ASN1_BIT_STRING_name_print := nil;
   ASN1_BIT_STRING_num_asc := nil;
   ASN1_BIT_STRING_set_asc := nil;
+  ASN1_BIT_STRING_get_length := nil;
+  ASN1_BIT_STRING_set1 := nil;
   ASN1_INTEGER_new := nil;
   ASN1_INTEGER_free := nil;
   d2i_ASN1_INTEGER := nil;
