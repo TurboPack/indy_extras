@@ -3137,7 +3137,7 @@ begin
 {$ELSE}
     cnt := CRYPTO_num_locks;
 {$ENDIF}
-    for i := 0 to cnt - 1 do  //FI:W528
+    for i := 0 to cnt - 1 do  //PALOFF - For-loop variables not used in loop FI:W528
     begin
       Lock := TIdCriticalSection.Create;
       try
@@ -5416,7 +5416,7 @@ begin
   begin
     //Do things this way to avoid PAL warnings about Reuslt being undefined,
     //empty blocs, and functions called as procs.
-    if SSL_CIPHER_get_bits(GetCipher, Result) = 0 then
+    if SSL_CIPHER_get_bits(LSSL_Cipher, Result) = 0 then
     begin
       Result := 0;
     end;
@@ -5431,7 +5431,7 @@ begin
   LSSL_Cipher := GetCipher;
   if Assigned(LSSL_Cipher) then
   begin
-    Result := AnsiStringToString(SSL_CIPHER_get_version(GetCipher));
+    Result := AnsiStringToString(SSL_CIPHER_get_version(LSSL_Cipher));
   end;
 end;
 
