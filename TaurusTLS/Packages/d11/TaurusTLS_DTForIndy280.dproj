@@ -66,9 +66,9 @@
 		<DCC_CBuilderOutput>All</DCC_CBuilderOutput>
 		<SanitizedProjectName>TaurusTLS_DTForIndy280</SanitizedProjectName>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-		<VerInfo_Build>41</VerInfo_Build>
+		<VerInfo_Build>42</VerInfo_Build>
 		<VerInfo_Locale>1033</VerInfo_Locale>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.4.41;InternalName=TaurusTLS_DTForIndy280.bpl;LegalCopyright=Copyright (c) 2026 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.4.41;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.4.42;InternalName=TaurusTLS_DTForIndy280.bpl;LegalCopyright=Copyright (c) 2026 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.4.42;Comments=</VerInfo_Keys>
 		<DesignOnlyPackage>true</DesignOnlyPackage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Base_Android)'!=''">
@@ -84,7 +84,7 @@
 		<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 		<BT_BuildType>Debug</BT_BuildType>
 		<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.4.41;InternalName=TaurusTLS_DTForIndy280.bpl;LegalCopyright=Copyright (c) 2026 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.4.41;Comments=</VerInfo_Keys>
+		<VerInfo_Keys>CompanyName=TaurusTLS Developers;FileDescription=$(MSBuildProjectName);FileVersion=1.0.4.42;InternalName=TaurusTLS_DTForIndy280.bpl;LegalCopyright=Copyright (c) 2026 TaurusTLS Developers.  All Rights Reserved.;LegalTrademarks=;OriginalFilename=TaurusTLS_DTForIndy280.bpl;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.4.42;Comments=</VerInfo_Keys>
 		<VerInfo_Locale>1033</VerInfo_Locale>
 		<DCC_UsePackage>rtl;IndyCore280;IndySystem280;IndyProtocols280;TaurusTLS_RTForIndy280;$(DCC_UsePackage)</DCC_UsePackage>
 	</PropertyGroup>
@@ -102,7 +102,7 @@
 		<DCC_RangeChecking>true</DCC_RangeChecking>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-		<VerInfo_Build>41</VerInfo_Build>
+		<VerInfo_Build>42</VerInfo_Build>
 		<DCC_RemoteDebug>false</DCC_RemoteDebug>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -166,12 +166,14 @@
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ebcdic.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ec.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ecerr.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_ech.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_engine.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_engineerr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_err.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_evp.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_evperr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_hmac.pas"/>
+		<DCCReference Include="..\..\Source\TaurusTLSHeaders_hpke.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_idea.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_kdferr.pas"/>
 		<DCCReference Include="..\..\Source\TaurusTLSHeaders_objects.pas"/>
