@@ -2574,7 +2574,6 @@ procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFai
 var FuncLoadError: boolean;
 
 begin
-
   ENGINE_get_first := LoadLibFunction(ADllHandle, ENGINE_get_first_procname);
   FuncLoadError := not assigned(ENGINE_get_first);
   if FuncLoadError then

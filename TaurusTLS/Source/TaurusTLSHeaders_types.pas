@@ -672,6 +672,12 @@ type
 
   pem_password_cb = function(buf: PIdAnsiChar; size: TIdC_INT; rwflag: TIdC_INT; userdata: Pointer): TIdC_INT; cdecl;
 
+//* opaque type for ECH related information */
+  ossl_echstore_st = record end;
+  OSSL_ECHSTORE = ossl_echstore_st;
+  POSSL_ECHSTORE = ^OSSL_ECHSTORE;
+  PPOSSL_ECHSTORE = ^POSSL_ECHSTORE;
+
 implementation
 
 end.
