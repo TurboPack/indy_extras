@@ -1551,8 +1551,11 @@ const
   ASN1_SCTX_get_app_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   ASN1_ITEM_lookup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
   ASN1_ITEM_get_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+    //These two only appear in OpenSSL 4.0.0 even though they are documented
+    //implying they were in earlier versions.
+  ASN1_BIT_STRING_get_length_introduced = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
+  ASN1_BIT_STRING_set1_introduced = (byte(4) shl 8 or byte(0)) shl 8 or byte(0);
+  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 const
   ASN1_TYPE_get_procname = 'ASN1_TYPE_get';
   ASN1_TYPE_set_procname = 'ASN1_TYPE_set';
