@@ -517,7 +517,7 @@ begin
     ASN1_STRING_length(PASN1_STRING(a)));
 {$ELSE}
 {$IFDEF STRING_IS_ANSI}
-  SetString(time_str, PAnsiChar(ASN1_STRING_get0_data(a), ASN1_STRING_length(a));
+  SetString(time_str, PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(a))), ASN1_STRING_length(PASN1_STRING(a)));
 {$ELSE}
   SetString(LTemp, PIdAnsiChar(ASN1_STRING_get0_data(PASN1_STRING(a))), ASN1_STRING_length(PASN1_STRING(a)));  //PALOFF - Possible bad pointer usage [data : PByte cast to PAnsiChar]
   { Note: UTCtime is a type defined by OpenSSL and hence is ansistring and not UCS-2 }
