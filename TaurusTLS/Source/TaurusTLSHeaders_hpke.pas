@@ -168,7 +168,7 @@ var
     enc : PByte; enclen : PIdC_SIZET;
     ct : PByte; ctlen : TIdC_SIZET;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT; cdecl = nil;
-  OSSL_HPKE_str2suite : function(const str : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT; cdecl = nil;
+  OSSL_HPKE_str2suite : function(const str_ : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT; cdecl = nil;
   OSSL_HPKE_get_ciphertext_size : function(suite : OSSL_HPKE_SUITE; clearlen : TIdC_SIZET) : TIdC_SIZET; cdecl = nil;
   OSSL_HPKE_get_public_encap_size : function(suite : OSSL_HPKE_SUITE) : TIdC_SIZET; cdecl = nil;
   OSSL_HPKE_get_recommended_ikmelen : function(suite : OSSL_HPKE_SUITE) : TIdC_SIZET; cdecl = nil;
@@ -224,7 +224,7 @@ var
     enc : PByte; enclen : PIdC_SIZET;
     ct : PByte; ctlen : TIdC_SIZET;
     libctx : POSSL_LIB_CTX; const propq : PIdAnsiChar) : TIdC_INT cdecl; external CLibCrypto;
-  function OSSL_HPKE_str2suite(const str : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT cdecl; external CLibCrypto;
+  function OSSL_HPKE_str2suite(const str_ : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT cdecl; external CLibCrypto;
   function OSSL_HPKE_get_ciphertext_size(suite : OSSL_HPKE_SUITE; clearlen : TIdC_SIZET) : TIdC_SIZET cdecl; external CLibCrypto;
   function OSSL_HPKE_get_public_encap_size(suite : OSSL_HPKE_SUITE) : TIdC_SIZET cdecl; external CLibCrypto;
   function OSSL_HPKE_get_recommended_ikmelen(suite : OSSL_HPKE_SUITE) : TIdC_SIZET cdecl; external CLibCrypto;
@@ -394,7 +394,7 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_HPKE_get_grease_value_procname);
 end;
 
-function ERR_OSSL_HPKE_str2suite(const str : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT cdecl;
+function ERR_OSSL_HPKE_str2suite(const str_ : PIdAnsiChar; suite : POSSL_HPKE_SUITE) : TIdC_INT cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(OSSL_HPKE_str2suite_procname);
 end;

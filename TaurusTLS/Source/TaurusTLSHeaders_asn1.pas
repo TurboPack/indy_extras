@@ -705,8 +705,8 @@ var
   ASN1_BIT_STRING_name_print: function (out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_num_asc: function (const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
   ASN1_BIT_STRING_set_asc: function (bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_get_length: function(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_set1: function(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl = nil;
+  ASN1_BIT_STRING_get_length: function(abs_:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl = nil;
+  ASN1_BIT_STRING_set1: function(abs_:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl = nil;
 
   ASN1_INTEGER_new: function : PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_free: procedure (a: PASN1_INTEGER); cdecl = nil;
@@ -1038,8 +1038,8 @@ var
   function ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_num_asc(const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
   function ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_get_length(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_set1(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_BIT_STRING_get_length(abs_:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
+  function ASN1_BIT_STRING_set1(abs_:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT cdecl; external CLibCrypto;
 
   function ASN1_INTEGER_new: PASN1_INTEGER cdecl; external CLibCrypto;
   procedure ASN1_INTEGER_free(a: PASN1_INTEGER) cdecl; external CLibCrypto;
@@ -2098,12 +2098,12 @@ begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_asc_procname);
 end;
 
-function ERR_ASN1_BIT_STRING_get_length(abs:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl;
+function ERR_ASN1_BIT_STRING_get_length(abs_:  PASN1_BIT_STRING; _length : PIdC_SIZET; unused_bits : PIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_get_length_procname);
 end;
 
-function ERR_ASN1_BIT_STRING_set1(abs:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl;
+function ERR_ASN1_BIT_STRING_set1(abs_:  PASN1_BIT_STRING; data : PByte; _length : TIdC_SIZET; unused_bits : TIdC_INT) : TIdC_INT; cdecl;
 begin
   ETaurusTLSAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set1_procname);
 end;

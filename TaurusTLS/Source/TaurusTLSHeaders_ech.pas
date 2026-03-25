@@ -73,7 +73,7 @@ const
   OSSL_ECH_NO_RETRY = 0;
 
 type
-  SSL_ech_cb_func = function(s : PSSL; const str : PIdAnsiChar) : TIdC_UINT; cdecl;
+  SSL_ech_cb_func = function(s : PSSL; const str_ : PIdAnsiChar) : TIdC_UINT; cdecl;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
