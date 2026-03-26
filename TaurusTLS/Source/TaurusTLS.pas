@@ -4260,7 +4260,7 @@ begin
       Result := inherited CheckForError(Integer(Id_SOCKET_ERROR));
       Exit;
     end;
-    ETaurusTLSAPISSLError.RaiseExceptionCode(Result, ALastResult, '');
+    ETaurusTLSAPISSLError.RaiseExceptionCode(Result, ALastResult);
   end;
 end;
 
@@ -4273,7 +4273,7 @@ begin
   end
   else
   begin
-    ETaurusTLSAPISSLError.RaiseException(fSSLSocket.SSL, AError, '');
+    ETaurusTLSAPISSLError.RaiseException(fSSLSocket.SSL, AError);
   end;
 end;
 
