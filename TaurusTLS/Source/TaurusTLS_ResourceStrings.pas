@@ -33,7 +33,9 @@ resourcestring
   RSOSSLMaxProtocolError = 'SSL_CTX_set_max_proto_version error';
   RSOSSLCopySessionIdError = 'SSL_copy_session_id error';
   ROSUnsupported = 'Not Supported';
-
+  {$IFNDEF USE_WINDOWS_CERT_STORE}
+  RSOSSLCTXSetDefaultVerifyPathFailed = 'SSL_CTX_set_default_verify_paths failed.';
+  {$ENDIF}
   RSSSLSettingTLSHostNameError_2 = 'SSL_set1_host failed error.';
   RSSSL_CTX_set_tlsext_servername_callback = 'SSL_CTX_set_tlsext_servername_callback error';
   RSSSL_CTX_set_tlsext_servername_arg = 'ETaurusTLSSSL_CTX_set_tlsext_servername_arg error';

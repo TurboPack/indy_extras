@@ -223,11 +223,7 @@ unit TaurusTLS;
 interface
 
 {$I TaurusTLSLinkDefines.inc}
-{$IFDEF WINDOWS}
-{$IFNDEF OPENSSL_DONT_USE_WINDOWS_CERT_STORE}
-{$DEFINE USE_WINDOWS_CERT_STORE}
-{$ENDIF}
-{$ENDIF}
+
 {$TYPEDADDRESS OFF}
 
 uses
@@ -2460,6 +2456,20 @@ type
   ///  </seealso>
   ETaurusTLSSSL_CTX_set_tlsext_servername_arg = class(
     ETaurusTLSSSL_CTX_set_tlsext_servername);
+  {$IFNDEF USE_WINDOWS_CERT_STORE}
+  /// <summary>
+  ///   Raised if SSL_CTX_set_default_verify_paths failed.
+  /// </summary>
+  /// <remarks>
+  ///   This exception only appears if the define, USE_WINDOWS_CERT_STORE is not
+  ///   set.
+  /// </remarks>
+  /// <seealso
+  /// href="https://docs.openssl.org/3.2/man3/SSL_CTX_load_verify_locations/#description">
+  ///   SSL_CTX_set_default_verify_paths
+  /// </seealso>
+  ETaurusTLSSetDefaultVerifyPathsError = class(ETaurusTLSError);
+  {$ENDIF}
   /// <summary>
   /// Loads the OpenSSL libraries. This is ignored if OpenSSL is loaded by
   /// TaurusTLS statically.
@@ -4559,7 +4569,10 @@ begin
 {$IFDEF USE_WINDOWS_CERT_STORE}
       LoadWindowsCertStore;
 {$ELSE}
-      SSL_CTX_set_default_verify_paths(fContext);   //PALOFF - Functions called as procedures
+      if SSL_CTX_set_default_verify_paths(fContext) = 0  then
+      begin
+         raise ETaurusTLSSetDefaultVerifyPathsError.Create(RSOSSLCTXSetDefaultVerifyPathFailed);
+      end;
 {$ENDIF}
     end;
     // load key and certificate files
