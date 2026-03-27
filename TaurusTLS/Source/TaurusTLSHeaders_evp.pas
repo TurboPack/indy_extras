@@ -1625,8 +1625,8 @@ var
   EVP_PKEY_set1_tls_encodedpoint: function (pkey: PEVP_PKEY; const pt: PByte; ptlen: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0 removed 3.0.0}
   EVP_PKEY_get1_tls_encodedpoint: function (pkey: PEVP_PKEY; ppt: PPByte): TIdC_SIZET; cdecl = nil; {introduced 1.1.0 removed 3.0.0}
 
-  EVP_CIPHER_type: function (const ctx: PEVP_CIPHER): TIdC_INT; cdecl = nil; {removed 3.0.0}
-  EVP_CIPHER_get_type: function (const ctx: PEVP_CIPHER): TIdC_INT; cdecl = nil; {introduced 3.0.0}
+  EVP_CIPHER_type: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {removed 3.0.0}
+  EVP_CIPHER_get_type: function (const cipher: PEVP_CIPHER): TIdC_INT; cdecl = nil; {introduced 3.0.0}
   (* calls methods *)
   EVP_CIPHER_param_to_asn1: function (c: PEVP_CIPHER_CTX; type_: PASN1_TYPE): TIdC_INT; cdecl = nil;
   EVP_CIPHER_asn1_to_param: function (c: PEVP_CIPHER_CTX; type_: PASN1_TYPE): TIdC_INT; cdecl = nil;
@@ -1926,7 +1926,7 @@ var
 
   function EVP_CIPHER_CTX_cipher(const ctx: PEVP_CIPHER_CTX): PEVP_CIPHER cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_get0_cipher(const ctx: PEVP_CIPHER_CTX): PEVP_CIPHER cdecl; external CLibCrypto; {introduced 3.0.0}
-  function EVP_CIPHER_get_type(const ctx : PEVP_CIPHER_CTX): TIdC_INT cdecl; external CLibCrypto;
+  function EVP_CIPHER_get_type(const cipher: PEVP_CIPHER): TIdC_INT cdecl; external CLibCrypto;
   function EVP_CIPHER_CTX_iv(const ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_CIPHER_CTX_original_iv(const ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
   function EVP_CIPHER_CTX_iv_noconst(ctx: PEVP_CIPHER_CTX): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
@@ -2654,14 +2654,12 @@ function EVP_PKEY_assign_POLY1305(pkey: PEVP_PKEY; polykey: Pointer): TIdC_INT; 
 
  //# define EVP_CIPHER_name(e)              OBJ_nid2sn(EVP_CIPHER_nid(e))
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 function  EVP_CIPHER_CTX_type(c : PEVP_CIPHER_CTX)  : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 function EVP_CIPHER_CTX_get_type(c : PEVP_CIPHER_CTX) : TIdC_INT; {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 function EVP_CIPHER_CTX_get_mode(c: PEVP_CIPHER_CTX) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
 
 function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;  {$IFDEF USE_INLINE}inline; {$ENDIF}
-{$ENDIF}
 
 
 implementation
@@ -2703,6 +2701,29 @@ begin
   Result := EVP_CIPHER_flags(e) and EVP_CIPH_MODE;
 end;
 
+{$ELSE}
+
+function EVP_CIPHER_CTX_get_type(c : PEVP_CIPHER_CTX) : TIdC_INT;
+ {$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := EVP_CIPHER_get_type(EVP_CIPHER_CTX_get0_cipher(c));
+end;
+
+function  EVP_CIPHER_CTX_type(c : PEVP_CIPHER_CTX)  : TIdC_INT;
+ {$IFDEF USE_INLINE}inline; {$ENDIF}
+begin
+  Result := EVP_CIPHER_CTX_get_type(c);
+end;
+
+function EVP_CIPHER_CTX_get_mode(c: PEVP_CIPHER_CTX) : TIdC_INT;
+begin
+  Result := EVP_CIPHER_get_mode(EVP_CIPHER_CTX_get0_cipher(c));
+end;
+
+function EVP_CIPHER_mode(e : PEVP_CIPHER) : TIdC_INT;
+begin
+  Result := EVP_CIPHER_get_mode(e);
+end;
 {$ENDIF}
 
 const
@@ -3935,14 +3956,14 @@ begin
   Result := EVP_CIPHER_CTX_cipher(ctx);
 end;
 
-function FC_EVP_CIPHER_get_type(const ctx: PEVP_CIPHER): TIdC_INT; cdecl;
+function FC_EVP_CIPHER_get_type(const cipher: PEVP_CIPHER): TIdC_INT; cdecl;
 begin
-  Result := EVP_CIPHER_type(ctx);
+  Result := EVP_CIPHER_type(cipher);
 end;
 
-function FC_EVP_CIPHER_get_mode(const ctx: PEVP_CIPHER): TIdC_INT; cdecl;
+function FC_EVP_CIPHER_get_mode(const cipher: PEVP_CIPHER): TIdC_INT; cdecl;
 begin
-  Result :=  EVP_CIPHER_mode(ctx);
+  Result :=  EVP_CIPHER_mode(cipher);
 end;
 
 function FC_EVP_CIPHER_CTX_is_encrypting(const ctx: PEVP_CIPHER_CTX): TIdC_INT; cdecl;
