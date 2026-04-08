@@ -848,9 +848,15 @@ type
     // procedure Assign(ASource: TPersistent); override;
   published
     /// <summary>
-    /// The Minimum TLS version you will accept. The maximum TLS version that
-    /// is accepted is TLS version 1.3.
+    ///   The Minimum TLS version you will accept. The maximum TLS version that
+    ///   is accepted is TLS version 1.3.
     /// </summary>
+    /// <remarks>
+    ///   There is no guarantee that the minimum version you specify will be
+    ///   available because that is partly determined by the Security level and
+    ///   what is supported by the particular version of OpenSSL that is
+    ///   deployed.
+    /// </remarks>
     property MinTLSVersion: TTaurusTLSSSLVersion read fMinTLSVersion
       write fMinTLSVersion default DEF_MIN_TLSVERSION;
     /// <summary>
@@ -4541,7 +4547,7 @@ begin
         (RSOSSLMaxProtocolError);
     end;
   end;
-  SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY); //PALOFF - Functions called as procedures
+  SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);  //PALOFF - Functions called as procedures
 
   // set security level before loading certificates.
   SSL_CTX_set_security_level(fContext, FSecurityLevel);
