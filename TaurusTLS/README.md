@@ -100,7 +100,7 @@ The design-time package should depend upon the run-time package and include the 
 
 ## Deploying Your Applications
 
-TaurusTLS relies on OpenSSL 3.x. Depending on the target platform, OpenSSL is either linked dynamically (requiring DLLs) or statically (compiled into your executable).
+TaurusTLS relies on OpenSSL 3.x or 4.x. Depending on the target platform, OpenSSL is either linked dynamically (requiring DLLs) or statically (compiled into your executable).
 
 You can download the correct binaries for all platforms here:
 **[OpenSSL-Distribution Releases](https://github.com/TaurusTLS-Developers/OpenSSL-Distribution/releases)**
@@ -118,11 +118,11 @@ On Windows, TaurusTLS uses **Dynamic Linking**. You **must** redistribute the Op
 *   **Download:** Look for the standard packages (e.g., `openssl-3.6.1-Windows-x86.zip`, `openssl-3.6.1-Windows-x64.zip`, `openssl-3.6.1-Windows-arm64ec.zip`).
 *   **Redistribution:** You must ship the following files with your application:
 
-| Platform | Required Files |
-| :--- | :--- |
-| **Windows 32-bit** | `libcrypto-3.dll`, `libssl-3.dll`, `LICENSE.txt` |
-| **Windows 64-bit** | `libcrypto-3-x64.dll`, `libssl-3-x64.dll`, `LICENSE.txt` |
-| **Windows ARM64EC**| `libcrypto-3-arm64.dll`, `libssl-3-arm64.dll`, `LICENSE.txt` |
+| Platform | OpenSSL 3.x Required Files | OpenSSL 4.x Required Files |
+| :--- | :--- | :--- |
+| **Windows 32-bit** | `libcrypto-3.dll`, `libssl-3.dll`, `LICENSE.txt` | `libcrypto-4.dll`, `libssl-4.dll`, `LICENSE.txt` |
+| **Windows 64-bit** | `libcrypto-3-x64.dll`, `libssl-3-x64.dll`, `LICENSE.txt` | `libcrypto-4-x64.dll`, `libssl-4-x64.dll`, `LICENSE.txt` |
+| **Windows ARM64EC**| `libcrypto-3-arm64.dll`, `libssl-3-arm64.dll`, `LICENSE.txt` | `libcrypto-4-arm64.dll`, `libssl-4-arm64.dll`, `LICENSE.txt` |
 
 > **Note:** We strongly recommend also redistributing the `openssl.exe` included in the package, as users may need it for certificate management tasks like:
 - Generate keys
