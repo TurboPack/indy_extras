@@ -1167,10 +1167,11 @@
     {/$DEFINE OPENSSL_USE_SHARED_LIBRARY}
 {$ENDIF}
 {$IFDEF IOS}
+   {$DEFINE STATICLOAD_OPENSSL}
   // Support for 64-bit ARM iOS Simulator was added in Delphi 11.2
   // TODO: how to detect iOS Simulator in FPC? Does it support 64-bit ARM?
   {$IFDEF CPUARM}
-      {$DEFINE STATICLOAD_OPENSSL}
+
   {$ENDIF}
 {$ENDIF}
 
