@@ -3,17 +3,17 @@ const
   {$NODEFINE gsTaurusTLSVersionMajor}
   gsTaurusTLSVersionMinor = 0;
   {$NODEFINE gsTaurusTLSVersionMinor}
-  gsTaurusTLSVersionRelease = 6;
+  gsTaurusTLSVersionRelease = 7;
   {$NODEFINE gsTaurusTLSVersionRelease}
-  gsTaurusTLSVersionBuild = 43;
+  gsTaurusTLSVersionBuild = 44;
   {$NODEFINE gsTaurusTLSVersionBuild}
 
   (*$HPPEMIT '#define gsTaurusTLSVersionMajor 1'*)
   (*$HPPEMIT '#define gsTaurusTLSVersionMinor 0'*)
-  (*$HPPEMIT '#define gsTaurusTLSVersionRelease 6'*)
-  (*$HPPEMIT '#define gsTaurusTLSVersionBuild 43'*)
+  (*$HPPEMIT '#define gsTaurusTLSVersionRelease 7'*)
+  (*$HPPEMIT '#define gsTaurusTLSVersionBuild 44'*)
   (*$HPPEMIT ''*)
 
-  gsTaurusTLSVersion = '1.0.6.43'; {do not localize}
+  gsTaurusTLSVersion = '1.0.7.44'; {do not localize}
   gsTaurusTLSProductName = 'TaurusTLS';  {do not localize}
-  gsTaurusTLSProductVersion = '1.0.6.43'; {do not localize}
+  gsTaurusTLSProductVersion = '1.0.7.44'; {do not localize}
