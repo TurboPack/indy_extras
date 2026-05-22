@@ -1,4 +1,4 @@
-unit unicode_log;
+unit TaurusTLS_Unicode_Log;
 
 {$I TaurusTLSCompilerDefines.inc}
 
@@ -9,14 +9,14 @@ uses
   IdIntercept, IdGlobal, IdBaseComponent;
 
 type
-  TIdUnicodeLogStatusEvent = procedure(ASender: TComponent; const AText: string) of object;
-  TIdUnicodeLogDataEvent = procedure(ASender: TComponent; const AData: string) of object;
-  TIdUnicodeLog = class(TIdConnectionIntercept)
+  TTaurusTLSUnicodeLogStatusEvent = procedure(ASender: TComponent; const AText: string) of object;
+  TTaurusTLSUnicodeLogDataEvent = procedure(ASender: TComponent; const AData: string) of object;
+  TTaurusTLSUnicodeLog = class(TIdConnectionIntercept)
   protected
     FActive: Boolean;
-    FOnStatus : TIdUnicodeLogStatusEvent;
-    FOnReceived : TIdUnicodeLogDataEvent;
-    FOnSent :  TIdUnicodeLogDataEvent;
+    FOnStatus : TTaurusTLSUnicodeLogStatusEvent;
+    FOnReceived : TTaurusTLSUnicodeLogDataEvent;
+    FOnSent :  TTaurusTLSUnicodeLogDataEvent;
     procedure InitComponent; override;
     procedure LogStatus(const AData: string);
     procedure LogReceivedData(const AData: string);
@@ -29,9 +29,9 @@ type
     procedure Send(var ABuffer: TIdBytes); override;
   published
     property Active: Boolean read FActive write SetActive default False;
-    property OnReceived : TIdUnicodeLogDataEvent read FOnReceived write FOnReceived;
-    property OnSent :  TIdUnicodeLogDataEvent read FOnSent write FOnSent;
-    property OnStatus : TIdUnicodeLogStatusEvent read FOnStatus write FOnStatus;
+    property OnReceived : TTaurusTLSUnicodeLogDataEvent read FOnReceived write FOnReceived;
+    property OnSent :  TTaurusTLSUnicodeLogDataEvent read FOnSent write FOnSent;
+    property OnStatus : TTaurusTLSUnicodeLogStatusEvent read FOnStatus write FOnStatus;
   end;
 
 implementation
@@ -39,9 +39,9 @@ uses
   IdResourceStringsCore, SysUtils;
 
 
-{ TIdUnicodeLog }
+{ TTaurusTLSUnicodeLog }
 
-procedure TIdUnicodeLog.Connect(AConnection: TComponent);
+procedure TTaurusTLSUnicodeLog.Connect(AConnection: TComponent);
 begin
   inherited Connect(AConnection);
   if FActive then begin
@@ -49,7 +49,7 @@ begin
   end;
 end;
 
-procedure TIdUnicodeLog.Disconnect;
+procedure TTaurusTLSUnicodeLog.Disconnect;
 begin
   if FActive then begin
     LogStatus(RSLogDisconnected);
@@ -57,34 +57,34 @@ begin
   inherited Disconnect;
 end;
 
-procedure TIdUnicodeLog.InitComponent;
+procedure TTaurusTLSUnicodeLog.InitComponent;
 begin
   inherited;
   FActive := False;
 end;
 
-procedure TIdUnicodeLog.LogReceivedData(const AData: string);
+procedure TTaurusTLSUnicodeLog.LogReceivedData(const AData: string);
 begin
   if Assigned(OnReceived) then begin
     OnReceived(Self, AData);
   end;
 end;
 
-procedure TIdUnicodeLog.LogSentData(const AData: string);
+procedure TTaurusTLSUnicodeLog.LogSentData(const AData: string);
 begin
   if Assigned(OnSent) then begin
     OnSent(Self, AData);
   end;
 end;
 
-procedure TIdUnicodeLog.LogStatus(const AData: string);
+procedure TTaurusTLSUnicodeLog.LogStatus(const AData: string);
 begin
   if Assigned(OnStatus) then begin
     OnStatus(Self, AData);
   end;
 end;
 
-procedure TIdUnicodeLog.Receive(var ABuffer: TIdBytes);
+procedure TTaurusTLSUnicodeLog.Receive(var ABuffer: TIdBytes);
 {$IFNDEF USE_INLINE_VAR}
 var s : String;
 {$ENDIF}
@@ -99,7 +99,7 @@ begin
   end;
 end;
 
-procedure TIdUnicodeLog.Send(var ABuffer: TIdBytes);
+procedure TTaurusTLSUnicodeLog.Send(var ABuffer: TIdBytes);
 {$IFNDEF USE_INLINE_VAR}
 var s : String;
 {$ENDIF}
@@ -114,7 +114,7 @@ begin
   end;
 end;
 
-procedure TIdUnicodeLog.SetActive(const Value: Boolean);
+procedure TTaurusTLSUnicodeLog.SetActive(const Value: Boolean);
 begin
   FActive := Value;
 end;
