@@ -235,9 +235,14 @@ uses
   Windows,
   {$ENDIF}
 {$ENDIF}
-{$IF Defined(Linux) or Defined(Android)}
+{$IFDEF SIGPIPE_MASK}
+  {$IFDEF FPC}
+  BaseUnix,
+  pthreads,
+  {$ELSE}
   Posix.Signal,
-{$IFEND}
+  {$ENDIF}
+{$ENDIF}
   Classes,
   IdCTypes,
   IdGlobal,
