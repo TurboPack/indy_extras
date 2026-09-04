@@ -39,6 +39,7 @@ resourcestring
   RSSSLSettingTLSHostNameError_2 = 'SSL_set1_host failed error.';
   RSSSL_CTX_set_tlsext_servername_callback = 'SSL_CTX_set_tlsext_servername_callback error';
   RSSSL_CTX_set_tlsext_servername_arg = 'ETaurusTLSSSL_CTX_set_tlsext_servername_arg error';
+  RSSSLSettingCipherSuitesError = 'SSL_CTX_set_ciphersuites failed.';
   // callback where strings
   RSOSSLAlert = '%s Alert';
   RSOSSLReadAlert = '%s Read Alert';
@@ -66,7 +67,6 @@ resourcestring
   
   RSOSSCouldNotCreateSSLObject = 'Could not create SSL object';
   RSSSLDataBindingError_2 = 'SSL_set_fd failed';
-
   // long desciptions for cert errors.
   RSMSG_X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT = 'the issuer certificate could ' +
     'not be found: this occurs if the issuer certificate of an untrusted ' +
